@@ -245,7 +245,7 @@ const submitFinal = async () => {
 
       <FunnelSidebar step={sidebarStep} />
 
-<div className="flex-1 w-full pl-0 lg:pr-8 lg:pb-32 px-4">
+<div className="flex-1 pt-[100px] md:pt-0 w-full pl-0 lg:pr-8 lg:pb-32 px-4">
 
         
         <div className="mb-[140px] hidden md:block">

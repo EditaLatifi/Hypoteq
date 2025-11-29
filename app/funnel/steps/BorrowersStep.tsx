@@ -24,7 +24,7 @@ const selectType = (type: "nat" | "jur") => {
 
 
   return (
-    <div className="w-full max-w-[1400px] mx-auto px-4 md:px-8 pt-[40px] lg:pt-0 lg:pl-20 lg:pr-48">
+    <div className="w-full max-w-[1400px] mx-auto px-4 md:px-8 pt-[150px] lg:pt-0 lg:pl-20 lg:pr-48">
       <h2 className="text-3xl md:text-4xl lg:text-[48px] font-semibold text-[#132219] mb-6 md:mb-7 lg:mb-8">
         {t("funnel.borrowerType" as any)}
       </h2>
