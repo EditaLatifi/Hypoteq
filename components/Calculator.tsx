@@ -402,7 +402,7 @@ const [openDropdown, setOpenDropdown] = useState(false);
 
 
     {/* === 4 Kosten Boxes Nën Tragbarkeit/Eigenmittel === */}
-<div className="px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[10px] w-full mt-[16px]">
+<div className="px-4 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[10px] w-full mt-[16px]">
 
     {loanType === "refinancing" ? (
       <>
@@ -461,7 +461,7 @@ const [openDropdown, setOpenDropdown] = useState(false);
   className="
     relative flex flex-col justify-start items-start 
     w-full md:w-[629px] 
-    h-[330px]
+    h-[380px]
     p-[24px]
     rounded-[10px] border border-[#000000]
     overflow-hidden

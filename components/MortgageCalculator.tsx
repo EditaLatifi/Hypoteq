@@ -152,7 +152,7 @@ const [openDropdown, setOpenDropdown] = useState(false);
   // -------------- UI --------------
   return (
 <section id="calculator" className="flex flex-col items-center bg-white py-12 px-[116px]mb-[120px] font-sans text-[#132219]">
-<div className="max-w-[1280px] flex flex-col lg:flex-row justify-between items-start w-full mx-auto gap-[60px] lg:gap-[80px] lg:items-stretch">
+<div className="max-w-[1280px] flex flex-col lg:flex-row justify-between items-start w-full mx-auto gap-[10px] lg:gap-[80px] lg:items-stretch">
 
         <div className="flex flex-col w-full px-4 max-w-[536px] gap-[48px]">
 <div className="flex flex-col lg:flex-row items-start justify-between w-full mb-10 mt-6 lg:mb-20 lg:mt-10">
@@ -331,7 +331,7 @@ const [openDropdown, setOpenDropdown] = useState(false);
 
    
         </div>
-<div className="px-4 flex flex-col items-start w-full max-w-[628px] mt-[253px]">
+<div className="px-4 flex flex-col items-start w-full max-w-[628px] lg:mt-[253px] mt-[40px]">
 
   {/* InfoBox → gap 36px */}
   <div className="flex flex-col gap-[36px] w-full">

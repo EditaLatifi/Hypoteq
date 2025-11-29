@@ -1,15 +1,20 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { useTranslation } from "@/hooks/useTranslation";
 
 export default function AboutSection() {
 const [active, setActive] = useState("");
+const pathname = usePathname();
+const pathLocale = (pathname?.split("/")[1] || "de") as "de" | "en" | "fr" | "it";
+const { t } = useTranslation(pathLocale);
 
 
   const buttons = [
-    { id: "dna", label: "Unsere DNA" },
-    { id: "team", label: "Unser Team" },
-    { id: "join", label: "Werde Teil von HYPOTEQ" },
+    { id: "dna", label: t("about.ourDNA") },
+    { id: "team", label: t("about.ourTeam") },
+    { id: "join", label: t("about.joinUs") },
     
   ];
 
@@ -63,13 +68,13 @@ const [active, setActive] = useState("");
                 font-medium tracking-[-0.02em]
               "
             >
-              Über uns
+              {t("about.title")}
             </h2>
 
             <p className="font-sfpro 
               text-[18px] md:text-[21px] lg:text-[24px] 
               font-medium leading-[150%] md:leading-[140%] text-[#fff]">
-              Einfach. Klar. Unabhängig. – Das ist HYPOTEQ.
+              {t("about.subtitle")}
             </p>
           </div>
 
@@ -78,22 +83,12 @@ const [active, setActive] = useState("");
             <p
               className="
                 font-sfpro text-white 
-                text-[16px] md:text-[20px] lg:text-[24px] 
+                text-[15px] md:text-[20px] lg:text-[24px] 
                 font-light leading-[160%] md:leading-[150%] lg:leading-[140%]
-                text-left md:text-left
+                text-left md:text-left max-w-[900px]
               "
             >
-              Wir sind dein Partner für smarte Immobilienfinanzierung in der <br />
-              Schweiz.<br />
-              Mit unserer digitalen Plattform erhältst du Zugang zu einer Vielzahl <br />
-              geprüfter Finanzierungspartner.<br />
-              Wir helfen dir, Hypothekenangebote einfacher zu verstehen und <br />
-              fundierte Entscheidungen zu treffen.<br />
-              Mit strukturierten Prozessen und persönlichem Support begleiten wir<br />
-              dich durch die wichtigsten Schritte deiner Finanzierung.<br />
-              Du behältst den Überblick – wir unterstützen im Hintergrund.<br />
-              Keine versteckten Kosten, keine Verpflichtung – dafür Transparenz <br />
-              und Effizienz.
+              {t("about.description")}
             </p>
           </div>
 
