@@ -115,7 +115,7 @@ const buttons = [
       </section>
 
       {/* ====== SECTION 2–4 ====== */}
-      <section className="max-w-[1579px] mx-auto w-full bg-white flex flex-col items-center py-[80px] md:py-[120px] px-[24px] md:px-[116px] text-[#132219] font-['SF Pro Display']">
+      <section className="max-w-[1579px] mx-auto w-full bg-white flex flex-col items-center py-[60px] md:py-[120px] px-[24px] md:px-[116px] text-[#132219] font-['SF Pro Display']">
 
         {/* Neue Hypothek */}
         <div
@@ -157,7 +157,7 @@ const buttons = [
             justify-between 
             items-center md:items-center
             w-full max-w-[1504px] 
-            mb-[80px] md:mb-[120px] 
+            mb-[60px] md:mb-[120px] 
             gap-[40px]
           "
         >

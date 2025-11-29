@@ -8,7 +8,7 @@ export default function ContactPage() {
   const pathLocale = (pathname.split("/")[1] || "de") as "de" | "en" | "fr" | "it";
   const { t } = useTranslation(pathLocale);
   return (
-    <section className="flex flex-col items-center mb-[200px] bg-white py-[100px] md:py-[140px] px-4 md:px-[116px]text-[#132219] font-['SF Pro Display']">
+    <section className="flex flex-col items-center mb-[200px] bg-white py-[60px] md:py-[120px] px-4 md:px-[116px] text-[#132219] font-['SF Pro Display']">
 
       {/* ===== TITLE ===== */}
       <div className="w-full max-w-[1300px] mx-auto">

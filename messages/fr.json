@@ -412,15 +412,15 @@
     "faqDescription": "Avez-vous des questions sur le financement immobilier ou souhaitez-vous faire partie de notre réseau de partenaires? Dans nos FAQ, vous trouverez les réponses aux questions les plus importantes.",
     "faqButton": "Aller aux FAQ",
     "consultationTitle": "Consultation personnelle",
-    "consultationDescription": "Voulez-vous parler avec un expert? Prenez rendez-vous maintenant pour une consultation gratuite.",
+    "consultationDescription": "Si votre question reste sans réponse: Remplissez simplement le formulaire avec quelques informations sur votre demande. Nous examinerons votre message et vous contacterons avec la prochaine étape appropriée.",
     "email": "E-mail",
     "phone": "Téléphone",
     "message": "Message",
     "submit": "Envoyer"
   },
   "consultation": {
-    "title": "Vous avez encore des questions?",
-    "description": "Nos experts vous expliquent le processus de financement, vous montrent les options appropriées et vous soutiennent dans votre prise de décision - personnellement, clairement et efficacement. Dans une courte conversation, vous obtenez exactement les informations dont vous avez besoin pour progresser en toute confiance.",
+    "title": "Des questions?",
+    "description": "Écrivez-nous directement",
     "buttonText": "Nous contacter",
     "bookConsultation": "Réserver maintenant une consultation gratuite"
   },

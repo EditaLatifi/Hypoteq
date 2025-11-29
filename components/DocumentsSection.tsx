@@ -77,7 +77,7 @@ type SectionProps = {
   };
 
   return (
-<section className="max-w-[1579px] mx-auto w-full bg-white py-[80px] sm:py-[100px] md:py-[120px] px-4 sm:px-6 md:px-[116px] font-sfpro text-[#132219]">
+<section className="max-w-[1579px] mx-auto w-full bg-white py-[60px] md:py-[120px] px-4 sm:px-6 md:px-[116px] font-sfpro text-[#132219]">
       <div className="w-full max-w-[1300px] mx-auto flex flex-col gap-[80px] sm:gap-[100px] md:gap-[120px]">
         {/* ===== TITLE + FILTERS ===== */}
         <div className="flex flex-col gap-[24px] sm:gap-[32px]">

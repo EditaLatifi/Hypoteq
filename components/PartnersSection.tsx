@@ -18,7 +18,7 @@ const PartnersSection: React.FC = () => {
   const { t } = useTranslation(pathLocale);
   
   return (
-    <section className="py-[80px] md:py-[120px] bg-white overflow-hidden w-full">
+    <section className="py-[60px] md:py-[120px] bg-white overflow-hidden w-full">
 
       {/* TITLE — ONLY THIS HAS 116PX */}
       <h2

@@ -56,7 +56,7 @@
     "contact": "Kontaktieren Sie uns",
     "requestMortgage": "Hypothek anfragen",
     "bestOffer": "Bestes Angebot finden",
-    "bookAppointment": "Termin buchen",
+    "bookAppointment": "oder buche einen Call!",
     "sendNewsletter": "Senden",
     "homeEvaluation": "Hausbewertung",
     "sendRequest": "Anfrage senden"
@@ -412,15 +412,15 @@
     "faqDescription": "Hast du Fragen zur Immobilienfinanzierung oder möchtest du Teil unseres Partnernetzwerks werden? In unseren FAQ findest du Antworten zu den wichtigsten Themen.",
     "faqButton": "Zum FAQ",
     "consultationTitle": "Persönliche Beratung",
-    "consultationDescription": "Du möchtest mit einem Experten sprechen? Vereinbare jetzt einen Termin für ein kostenloses Beratungsgespräch.",
+    "consultationDescription": "Falls deine Frage offen bleibt: Füll einfach das Formular mit ein paar Infos zu deinem Anliegen aus. Wir prüfen deine Nachricht und melden uns mit dem nächsten passenden Schritt bei dir.",
     "email": "Email",
     "phone": "Telefon",
     "message": "Nachricht",
     "submit": "Senden"
   },
   "consultation": {
-    "title": "Noch Fragen?",
-    "description": "Unsere Expert:innen erklären dir den Finanzierungsprozess, zeigen dir passende Optionen und begleiten dich in deiner Entscheidungsfindung – persönlich, klar und effizient. In einem kurzen Gespräch erhältst du genau die Informationen, die du brauchst, um sicher weiterzugehen.",
+    "title": "Fragen?",
+    "description": "Schreib uns direkt...",
     "buttonText": "Kontaktieren Sie uns",
     "bookConsultation": "Jetzt kostenloses Infogespräch buchen"
   },

@@ -412,15 +412,15 @@
     "faqDescription": "Hai domande sul finanziamento immobiliare o vuoi far parte della nostra rete di partner? Nelle nostre FAQ troverai le risposte alle domande più importanti.",
     "faqButton": "Vai alle FAQ",
     "consultationTitle": "Consulenza Personale",
-    "consultationDescription": "Vuoi parlare con un esperto? Prenota ora un appuntamento per una consulenza gratuita.",
+    "consultationDescription": "Se la tua domanda rimane senza risposta: Compila semplicemente il modulo con alcune informazioni sulla tua richiesta. Esamineremo il tuo messaggio e ti contatteremo con il prossimo passo appropriato.",
     "email": "Email",
     "phone": "Telefono",
     "message": "Messaggio",
     "submit": "Invia"
   },
   "consultation": {
-    "title": "Hai ancora domande?",
-    "description": "I nostri esperti ti spiegano il processo di finanziamento, ti mostrano le opzioni adatte e ti accompagnano nella tua decisione – personalmente, chiaramente ed efficientemente. In una breve conversazione ottieni esattamente le informazioni di cui hai bisogno per procedere con sicurezza.",
+    "title": "Domande?",
+    "description": "Scrivici direttamente",
     "buttonText": "Contattaci",
     "bookConsultation": "Prenota ora una consulenza gratuita"
   },

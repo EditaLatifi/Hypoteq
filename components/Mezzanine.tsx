@@ -122,7 +122,7 @@ export default function Mezzanine() {
           SECTION 2: DETAILS
       ======================= */}
 <section className="mx-auto w-full bg-white flex flex-col items-center 
-py-[40px] sm:py-[60px] md:py-[120px] 
+py-[60px] md:py-[120px] 
 px-[16px] sm:px-[32px] max-w-[1579px]
  md:px-[116px]
 text-[#132219] font-['SF Pro Display']">

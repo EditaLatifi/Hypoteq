@@ -412,15 +412,15 @@
     "faqDescription": "Do you have questions about real estate financing or want to become part of our partner network? In our FAQ you will find answers to the most important questions.",
     "faqButton": "Go to FAQ",
     "consultationTitle": "Personal Consultation",
-    "consultationDescription": "Would you like to speak with an expert? Schedule an appointment now for a free consultation.",
+    "consultationDescription": "If your question remains unanswered: Simply fill out the form with some information about your request. We'll review your message and get back to you with the next appropriate step.",
     "email": "Email",
     "phone": "Phone",
     "message": "Message",
     "submit": "Submit"
   },
   "consultation": {
-    "title": "Still have questions?",
-    "description": "Our experts explain the financing process, show you suitable options and accompany you in your decision-making – personally, clearly and efficiently. In a short conversation you get exactly the information you need to move forward confidently.",
+    "title": "Questions?",
+    "description": "Write to us directly",
     "buttonText": "Contact us",
     "bookConsultation": "Book free consultation now"
   },
