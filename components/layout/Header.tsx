@@ -42,6 +42,7 @@ export default function Header() {
   };
 
   return (
+    <>
     <header
       className={`fixed top-0 left-0 z-50 w-full font-sfpro transition-all duration-300 ${
         isScrolled ? "backdrop-blur-lg bg-white/60 shadow-sm" : "bg-transparent"
@@ -173,5 +174,6 @@ export default function Header() {
         </div>
       )}
     </header>
+    </>
   );
 }

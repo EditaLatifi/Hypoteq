@@ -1,0 +1,20 @@
+{
+  "skipToContent": "Zum Hauptinhalt springen",
+  "skipToNavigation": "Zur Navigation springen",
+  "openMenu": "Menü öffnen",
+  "closeMenu": "Menü schliessen",
+  "openLanguageMenu": "Sprachmenü öffnen",
+  "closeLanguageMenu": "Sprachmenü schliessen",
+  "currentLanguage": "Aktuelle Sprache",
+  "selectLanguage": "Sprache auswählen",
+  "logoAlt": "HYPOTEQ Logo - Zur Startseite",
+  "loading": "Lädt...",
+  "imageAlt": "Bild",
+  "formError": "Bitte füllen Sie alle erforderlichen Felder aus",
+  "formSuccess": "Formular erfolgreich gesendet",
+  "previousStep": "Vorheriger Schritt",
+  "nextStep": "Nächster Schritt",
+  "closeDialog": "Dialog schliessen",
+  "searchPlaceholder": "Suchen...",
+  "noResults": "Keine Ergebnisse gefunden"
+}
