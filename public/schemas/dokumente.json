@@ -1,0 +1,29 @@
+{
+  "dokumente": {
+    "natuerliche_person": {
+      "checklist": [
+        "HYPOPTEQ-Formular",
+        "Pass / ID / Aufenthaltsbewilligung",
+        "Aktuelle Aufstellung & Nachweis der Eigenmittel",
+        "Aktuelle Steuererklärung",
+        "Aktueller Lohnnachweis",
+        "Pensionskassenausweis",
+        "Rückkaufswerte 3. Säule"
+      ]
+    },
+
+    "juristische_person": {
+      "checklist": [
+        "Handelsregisterauszug",
+        "Jahresabschlüsse der letzten 3 Jahre",
+        "Aktuelle Steuererklärung",
+        "Aktuelle Zwischenbilanz",
+        "Nachweis Eigenmittel"
+      ]
+    },
+
+    "neubau": ["Verkaufsdokumentation", "Bau-/Grundrisspläne", "Baubeschrieb"],
+    "renovation": ["Renovationsvertrag", "Kostenübersicht", "Kubatur m3"],
+    "objektvermietung": ["Aktueller Mieterspiegel", "Mietzinsaufstellung"]
+  }
+}

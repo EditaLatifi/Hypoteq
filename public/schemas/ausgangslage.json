@@ -1,0 +1,37 @@
+{
+  "ausgangslage": {
+    "hypothek": ["Neu (Kauf)", "Ablösung"],
+    "plz_liegenschaft": "",
+    "kreditnehmer_typ": ["Natürliche Person", "Juristische Person"],
+
+    "immobilie": {
+      "art_der_immobilie": ["Bestehende Immobilie", "Neubau", "Bauprojekt"],
+      "art_der_liegenschaft": ["Einfamilienhaus", "Wohnung (Stockwerkeigentum)", "Mehrfamilienhaus", "Mischliegenschaft"],
+      "nutzung": ["Selbstbewohnt", "Rendite-Objekt", "Zweitwohnsitz", "Vermietet & teilweise selbstbewohnt"],
+      "renovationen": {
+        "vorhanden": ["Ja", "Nein"],
+        "betrag": ""
+      },
+      "reserviert": ["Ja", "Nein"]
+    },
+
+    "bestehende_finanzierungsangebote": {
+      "vorhanden": ["Ja", "Nein"],
+      "details": {
+        "banken": "",
+        "konditionen": ""
+      }
+    },
+
+    "kreditnehmer": [
+      {
+        "vorname": "",
+        "name": "",
+        "geburtsdatum": "",
+        "status": ["ledig", "verheiratet", "eingetragene Partnerschaft", "verwitwet", "geschieden"],
+        "angestellt_selbständig_rentner": "",
+        "weitere_info": ""
+      }
+    ]
+  }
+}

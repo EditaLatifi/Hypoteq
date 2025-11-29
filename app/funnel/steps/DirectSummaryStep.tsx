@@ -1,0 +1,223 @@
+"use client";
+
+import { useFunnelStore } from "@/src/store/funnelStore";
+import { useEffect } from "react";
+import { useTranslation } from "@/hooks/useTranslation";
+
+export default function DirectSummaryStep({ back, saveStep }: any) {
+  const { t } = useTranslation();
+  const { project, property, borrowers, financing } = useFunnelStore();
+
+  useEffect(() => {
+    console.log("📌 DirectSummaryStep - project from store:", project);
+  }, [project]);
+
+  /* ================= HELPERS ================= */
+  const format = (v: any) => (v ? v : "—");
+
+  const CHF = (v: any) =>
+    v ? `${parseFloat(v).toLocaleString("de-CH")} CHF` : "—";
+
+  const formatDate = (dateStr: string) => {
+    if (!dateStr) return "—";
+    if (dateStr.includes(".")) return dateStr;
+
+    if (dateStr.includes("-")) {
+      const [y, m, d] = dateStr.split("-");
+      return `${d}.${m}.${y}`;
+    }
+
+    return dateStr;
+  };
+
+  /* ================= CARD COMPONENT ================= */
+  const CardSection = ({ title, children }: any) => (
+    <div className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 lg:p-10 shadow-sm">
+      <h3 className="text-xl md:text-2xl lg:text-[26px] font-semibold tracking-tight mb-6 md:mb-7 lg:mb-8">{title}</h3>
+      <div className="grid grid-cols-1 md:grid-cols-[200px_1fr] lg:grid-cols-[280px_1fr] gap-y-4 md:gap-y-6 lg:gap-y-7 gap-x-8 md:gap-x-12 lg:gap-x-16">
+        {children}
+      </div>
+    </div>
+  );
+
+  // fallback nëse projektArt nuk është zgjedhur
+  const projectLabel =
+    project.projektArt === "kauf"
+      ? t("funnel.newPurchase" as any)
+      : project.projektArt === "abloesung"
+      ? t("funnel.redemption" as any)
+      : t("funnel.notSelected" as any);
+
+  /* ================= FALLBACK BORROWER LABEL ================= */
+  const borrowerLabel =
+    borrowers?.[0]?.type === "jur"
+      ? t("funnel.legalEntity" as any)
+      : borrowers?.[0]?.type === "nat"
+      ? t("funnel.naturalPerson" as any)
+      : "—";
+
+  /* ================= CALCULATE TOTAL EIGENMITTEL ================= */
+  const totalEigenmittel = financing
+    ? Number(financing.eigenmittel_bar || 0) +
+      Number(financing.eigenmittel_saeule3 || 0) +
+      Number(financing.eigenmittel_pk || 0) +
+      Number(financing.eigenmittel_schenkung || 0)
+    : 0;
+/* ================= MAP HYPOTHEKARLAUFZEITEN ================= */
+const laufzeitMap = {
+  saron: "Saron",
+  "1": "1 Jahr",
+  "2": "2 Jahre",
+  "3": "3 Jahre",
+  "4": "4 Jahre",
+  "5": "5 Jahre",
+  "6": "6 Jahre",
+  "7": "7 Jahre",
+  "8": "8 Jahre",
+  "9": "9 Jahre",
+  "10": "10 Jahre",
+  mix: "Mix",
+} as const;
+
+const laufzeitLabel =
+  laufzeitMap[financing?.modell as keyof typeof laufzeitMap] || "—";
+
+ 
+  return (
+<div className="w-full max-w-[1100px] mx-auto text-[#132219] py-12 md:py-16 lg:py-20 px-4 md:px-5 lg:px-6 -mt-10 md:-mt-12 lg:-mt-16">
+
+      {/* ================= HEADER ================= */}
+      <div className="pb-6 md:pb-7 lg:pb-8 border-b border-gray-200">
+        <h2 className="text-3xl md:text-[36px] lg:text-[40px] font-semibold tracking-tight">
+          {t("funnel.summary" as any)}
+        </h2>
+      </div>
+
+      <div className="flex flex-col gap-8 md:gap-10 lg:gap-12 mt-8 md:mt-10 lg:mt-12">
+
+        {/* ================= SECTION: Allgemeines ================= */}
+        <CardSection title={t("funnel.general" as any)}>
+          <label className="text-[18px] font-light opacity-70">
+            {t("funnel.yourProject" as any)}
+          </label>
+          <div className="text-[20px] font-medium">{projectLabel}</div>
+
+          <label className="text-[18px] font-light opacity-70">{t("funnel.kreditnehmer" as any)}</label>
+          <div className="text-[20px] font-medium">{borrowerLabel}</div>
+        </CardSection>
+
+        {/* ================= SECTION: Finanzierung ================= */}
+        <CardSection title={t("funnel.finanzierung" as any)}>
+          <label className="text-[18px] font-light opacity-70">
+            Art der Immobilie
+          </label>
+          <div className="text-[20px] font-medium">{format(property.artImmobilie)}</div>
+
+          <label className="text-[18px] font-light opacity-70">
+            {t("funnel.propertyKind" as any)}
+          </label>
+          <div className="text-[20px] font-medium">{format(property.artLiegenschaft)}</div>
+
+          <label className="text-[18px] font-light opacity-70">{t("funnel.propertyUsage" as any)}</label>
+          <div className="text-[20px] font-medium">{format(property.nutzung)}</div>
+
+          <label className="text-[18px] font-light opacity-70">
+            {t("funnel.renovations" as any)}
+          </label>
+          <div className="text-[20px] font-medium">
+            {property.renovation === "ja"
+              ? `${t("funnel.yes" as any)}, ${CHF(property.renovationsBetrag)}`
+              : t("funnel.no" as any)}
+          </div>
+
+          <label className="text-[18px] font-light opacity-70">
+            Liegenschaft reserviert?
+          </label>
+          <div className="text-[20px] font-medium">
+            {property.reserviert === "ja" ? t("funnel.yes" as any) : t("funnel.no" as any)}
+          </div>
+
+          <label className="text-[18px] font-light opacity-70">
+            Finanzierungsangebote
+          </label>
+          <div className="text-[20px] font-medium leading-snug">
+            {property.finanzierungsangebote === "ja"
+              ? `${t("funnel.yes" as any)}, ${property.bank}, ${property.zins}%, ${property.laufzeit}`
+              : t("funnel.no" as any)}
+          </div>
+
+          <label className="text-[18px] font-light opacity-70">
+            Kreditnehmer Details
+          </label>
+          <div className="text-[20px] font-medium leading-snug">
+            {property.kreditnehmer
+              ?.map((k: any) =>
+                borrowers[0]?.type === "jur"
+                  ? k.firmenname
+                  : `${k.vorname} ${k.name}, ${formatDate(k.geburtsdatum)}`
+              )
+              .join("; ") || "—"}
+          </div>
+        </CardSection>
+
+        {/* ================= SECTION: Kalkulator ================= */}
+        <CardSection title={t("funnel.calculatorOverview" as any)}>
+          <label className="text-[18px] font-light opacity-70">
+            {t("funnel.purchasePrice" as any)}
+          </label>
+          <div className="text-[20px] font-medium">{CHF(financing.kaufpreis)}</div>
+
+          <label className="text-[18px] font-light opacity-70">{t("funnel.totalOwnFunds" as any)}</label>
+          <div className="text-[20px] font-medium">
+            {totalEigenmittel > 0 ? CHF(totalEigenmittel) : "—"}
+          </div>
+
+          <label className="text-[18px] font-light opacity-70">{t("funnel.pkPledge" as any)}</label>
+          <div className="text-[20px] font-medium">{format(financing.pkVorbezug)}</div>
+
+   <label className="text-[18px] font-light opacity-70">
+  {t("funnel.mortgageDuration" as any)}
+</label>
+<div className="text-[20px] font-medium">{laufzeitLabel}</div>
+
+
+          <label className="text-[18px] font-light opacity-70">{t("funnel.incomeDetails" as any)}</label>
+          <div className="text-[20px] font-medium">
+            {CHF(financing.brutto)}
+            {financing.bonus ? ` ${t("funnel.withBonus" as any)}` : ""}
+          </div>
+
+          <label className="text-[18px] font-light opacity-70">
+            {t("funnel.taxOptimization" as any)}
+          </label>
+          <div className="text-[20px] font-medium">{format(financing.steueroptimierung)}</div>
+
+          <label className="text-[18px] font-light opacity-70">
+            {t("funnel.purchaseDate" as any)}
+          </label>
+          <div className="text-[20px] font-medium">{formatDate(financing.kaufdatum)}</div>
+
+          <label className="text-[18px] font-light opacity-70">{t("funnel.comment" as any)}</label>
+          <div className="text-[20px] font-medium">{format(financing.kommentar)}</div>
+        </CardSection>
+      </div>
+
+      {/* ================= BUTTONS ================= */}
+      <div className="flex justify-between pt-16">
+        <button
+          onClick={back}
+          className="px-6 py-2 rounded-full border border-[#132219]"
+        >
+          {t("funnel.back" as any)}
+        </button>
+
+        <button
+          onClick={saveStep}
+          className="px-10 py-2 rounded-full bg-[#CAF476] text-[#132219] font-semibold"
+        >
+          {t("funnel.continue" as any)}
+        </button>
+      </div>
+    </div>
+  );
+}

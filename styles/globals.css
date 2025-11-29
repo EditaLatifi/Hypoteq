@@ -1,0 +1,233 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* -------------------------------
+   Google Font Fallback
+-------------------------------- */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap");
+
+/* -------------------------------
+   SF Pro Display — FULL SET
+   (Vetëm këto 7 mjaftojnë!)
+-------------------------------- */
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("/fonts/SF-Pro-Display-Thin.otf") format("opentype");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("/fonts/SF-Pro-Display-Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("/fonts/SF-Pro-Display-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("/fonts/SF-Pro-Display-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("/fonts/SF-Pro-Display-Semibold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Pro Display";
+  src: url("/fonts/SF-Pro-Display-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* -------------------------------
+   Base Layout
+-------------------------------- */
+html,
+body {
+  height: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+    scroll-behavior: smooth;
+}
+main {
+  overflow: visible;
+}
+
+section {
+  scroll-behavior: smooth;
+}
+
+/* -------------------------------
+   Default Font Setup
+-------------------------------- */
+body {
+  font-family: "SF Pro Display", "Inter", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #132219;
+  font-weight: 400;
+}
+
+p {
+  font-family: "SF Pro Display", "Inter", sans-serif;
+  font-weight: inherit;
+}
+
+.font-sfpro {
+  font-family: "SF Pro Display", sans-serif;
+}
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+input {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  line-height: normal !important;
+}
+
+/* -------------------------------
+   Tailwind Custom Components
+-------------------------------- */
+@layer components {
+  .input-base {
+    @apply w-full rounded-xl border border-gray-300 bg-white px-3 py-2 
+           focus:outline-none focus:ring-2 focus:ring-primary-700 
+           transition-all duration-200;
+  }
+
+  .input-invalid {
+    @apply border-red-500 ring-2 ring-red-500;
+  }
+
+  .btn-primary {
+    @apply rounded-xl bg-primary-700 text-white px-4 py-2 text-sm 
+           hover:bg-primary-800 transition-colors;
+  }
+
+  .btn-secondary {
+    @apply rounded-xl border border-gray-300 bg-white px-4 py-2 text-sm 
+           hover:bg-gray-50;
+  }
+
+  .card {
+    @apply rounded-2xl border bg-white shadow-card;
+  }
+
+  .progress {
+    @apply h-2 w-full rounded-full bg-gray-200 overflow-hidden;
+  }
+
+  .progress-bar {
+    @apply h-full bg-primary-700 transition-all;
+  }
+
+  .label-invalid {
+    @apply text-red-700;
+  }
+
+  .date-wrap {
+    @apply relative;
+  }
+
+  .date-btn {
+    @apply absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded-md 
+           hover:bg-gray-50 border border-gray-200;
+  }
+}
+
+/* -------------------------------
+   Select Styling
+-------------------------------- */
+select option:hover,
+select option:checked,
+select option:focus,
+select option:active {
+  background: linear-gradient(270deg, #caf476 0%, #e3f4bf 100%) !important;
+  color: #132219 !important;
+}
+
+select:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* -------------------------------
+   Range Slider
+-------------------------------- */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  background-color: #d9d9d9;
+  border-radius: 4px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #132219;
+  transition: background 0.2s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  background: #0f1c15;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #132219;
+  cursor: pointer;
+}
+
+/* -------------------------------
+   Funnel Progress Bar
+-------------------------------- */
+@layer components {
+  .progress-wrapper {
+    @apply w-full flex justify-center sticky top-0 bg-white z-50 py-4;
+  }
+
+  .progress-bar {
+    width: 904px;
+    height: 11px;
+    background: #e2e2e2;
+    border-radius: 86px;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: #b7f080;
+    border-radius: 86px;
+    transition: width 0.3s ease-in-out;
+  }
+}

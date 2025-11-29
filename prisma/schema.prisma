@@ -1,0 +1,134 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+model Inquiry {
+  id           String     @id @default(uuid())
+  customerType String
+  createdAt    DateTime   @default(now())
+
+  // Relations
+  client       Client?
+  project      Project?
+  documents Document[]
+  property     Property?
+  financing    Financing?
+  borrowers    Borrower[]
+}
+
+model Client {
+  id           String @id @default(uuid())
+  inquiryId    String @unique
+  firstName    String?
+  lastName     String?
+  email        String?
+  zip          String?
+  partnerEmail String?
+
+  inquiry Inquiry @relation(fields: [inquiryId], references: [id])
+}
+
+model Project {
+  id              String @id @default(uuid())
+  inquiryId       String @unique
+  projektArt      String?
+  kreditnehmerTyp String?
+  liegenschaftZip String?
+
+  inquiry Inquiry @relation(fields: [inquiryId], references: [id])
+}
+model Property {
+  id                  String   @id @default(uuid())
+  inquiryId           String   @unique
+  artLiegenschaft     String?
+  artImmobilie        String?
+  nutzung             String?
+  renovation          String?
+  renovationsBetrag   String?
+  finanzierungsangebote String?
+  reserviert          String?
+  angeboteListe       String[] // Make sure this exists if you are passing an array
+  // Add other relations as needed
+  inquiry             Inquiry @relation(fields: [inquiryId], references: [id])
+
+  firmen              Firma[]
+  kreditnehmer        Kreditnehmer[]
+}
+model Firma {
+  id          String   @id @default(uuid())
+  propertyId  String
+  firmenname  String?
+
+  property    Property @relation(fields: [propertyId], references: [id])
+}
+
+
+model Borrower {
+  id         String @id @default(uuid())
+  inquiryId  String
+  firstName  String?
+  lastName   String?
+  birthdate  String?
+  job        String?
+  type       String?
+  civil      String?
+  firmaName  String?
+  firmaUID   String?
+
+  inquiry Inquiry @relation(fields: [inquiryId], references: [id])
+}
+
+model Financing {
+  id                String   @id @default(uuid())
+  inquiryId         String   @unique
+  kaufpreis         String?
+  eigenmittel_bar   String?
+  eigenmittel_saeule3 String?
+  eigenmittel_pk    String?
+  eigenmittel_schenkung String?
+  pkVorbezug        String?
+  hypoBetrag        String?
+  modell            String?
+  einkommen         String?
+  steueroptimierung String?
+  kaufdatum         String?
+  kommentar         String?
+  abloesung_betrag  String?  // Make sure this line is included
+  erhoehung         String?
+  erhoehung_betrag  String?
+  abloesedatum      String?
+  brutto            String?
+
+  inquiry           Inquiry @relation(fields: [inquiryId], references: [id])
+}
+
+
+model Kreditnehmer {
+  id            String   @id @default(uuid())
+  propertyId    String
+  name          String?
+  vorname       String?
+  status        String?
+  firmenname    String?
+  geburtsdatum  String?
+  property      Property @relation(fields: [propertyId], references: [id])
+}
+model Document {
+  id          String   @id @default(uuid())
+  inquiryId   String
+  fileName    String
+  fileUrl     String
+  uploadedAt  DateTime @default(now())
+
+  inquiry Inquiry @relation(fields: [inquiryId], references: [id])
+}

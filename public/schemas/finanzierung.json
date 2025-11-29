@@ -1,0 +1,30 @@
+{
+  "finanzierung": {
+    "neu_kauf": {
+      "kaufpreis_immobilie": "",
+      "eigenmittel": {
+        "bar": "",
+        "saeule_3a": "",
+        "pk": "",
+        "andere": ""
+      },
+      "hypothekarbetrag": "",
+      "pk_verpfandung": ["Ja", "Nein"],
+      "hypothekaufzeiten": ["Saron", "Fest", "Mix", "Weiss noch nicht"],
+      "einkommen": "",
+      "steueroptimierte_loesung": ["Ja", "Nein"],
+      "finanzierungsloesung": "",
+      "kaufdatum": "",
+      "kommentar": ""
+    },
+
+    "abloesung": {
+      "hypothekarbetrag": "",
+      "erhoehung_der_hypothek": ["Ja", "Nein"],
+      "betrag": "",
+      "steueroptimierte_loesung": ["Ja", "Nein"],
+      "abloesedatum": "",
+      "kommentar": ""
+    }
+  }
+}

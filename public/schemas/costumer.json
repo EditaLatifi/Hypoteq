@@ -1,0 +1,11 @@
+{
+  "customer": {
+    "type": ["Direkter Kunde", "Vertriebspartner"],
+    "fields": {
+      "name": "",
+      "email": "",
+      "aktuelle_plz": "",
+      "vertriebspartner_email": ""
+    }
+  }
+}

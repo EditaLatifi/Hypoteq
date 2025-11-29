@@ -1,0 +1,107 @@
+"use client";
+import React from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useTranslation } from "@/hooks/useTranslation";
+
+const ConsultationBanner: React.FC = () => {
+  const pathname = usePathname();
+  const pathLocale = pathname.split("/")[1] || "de";
+  const { t } = useTranslation(pathLocale as "de" | "en" | "fr" | "it");
+
+  return (
+    <section
+      className="
+        relative w-full max-w-[1273px] h-[278px] rounded-[10px]
+        mt-[120px] md:mt-[120px] mb-[200px] overflow-hidden mx-auto
+        flex justify-start items-start gap-[160px] px-[116px]pt-[40px]
+        max-lg:flex-col max-lg:items-start max-lg:h-auto max-lg:px-[48px] max-lg:py-[60px]
+        max-sm:w-full max-sm:rounded-none max-sm:px-[28px] max-sm:py-[60px]
+        max-sm:flex max-sm:flex-col max-sm:items-center max-sm:justify-center max-sm:text-center
+      "
+      style={{
+        background: "url('/images/cta1.png') center/cover no-repeat",
+      }}
+    >
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black/20" />
+
+      {/* Content */}
+      <div
+        className="
+          relative z-10 flex flex-col items-start justify-start gap-[16px] max-w-[700px]
+          max-sm:items-center max-sm:justify-center max-sm:gap-[18px] md:pl-[40px] md:pt-[30px]
+        "
+      >
+        {/* Title */}
+        <h3
+          className="
+            font-['SF Pro Display']
+            text-[#CAF476]
+            text-[28px] lg:text-[36px]
+            font-[300]
+            leading-[140%]
+            tracking-[-0.3px]
+            max-sm:text-[22px] max-sm:leading-[130%] max-sm:font-[400]
+            max-sm:max-w-[320px]
+          "
+        >
+      {t("consultation.title")}
+        </h3>
+
+        {/* Paragraph */}
+        <p
+          className="
+            font-['SF Pro Display']
+        text-[#CAF476]
+            text-[16px] lg:text-[20px]
+            font-[300]
+            leading-[140%]
+            opacity-90
+            max-w-[650px]
+            mt-5
+            max-sm:text-[14px] max-sm:leading-[140%]
+            max-sm:max-w-[310px] max-sm:opacity-95 max-sm:mt-[4px]
+          "
+        >
+        {t("consultation.description")}
+          <br className="max-sm:hidden" />
+     
+        </p>
+      </div>
+
+      {/* Button */}
+      <div
+        className="
+          relative z-10 flex items-center justify-center h-full
+          max-sm:mt-[26px] max-sm:w-full max-sm:justify-center
+        "
+      >
+<Link href={`/${pathLocale}/contact`}>
+  <button
+    className="
+      bg-[#CAF476]
+      text-[#132219]
+      font-['SF Pro Display']
+      font-[600]
+      text-[18px] lg:text-[20px]
+      leading-normal tracking-[-0.2px]
+      px-[22px] py-[10px]
+      rounded-full border border-[#132219]
+      hover:bg-[#D6FA8A]
+      transition-all duration-300
+      whitespace-nowrap shadow-[0_0_15px_rgba(202,244,118,0.25)]
+      max-sm:text-[15px] max-sm:px-[24px] max-sm:py-[12px]
+      max-sm:w-auto max-sm:shadow-[0_0_20px_rgba(202,244,118,0.3)]
+    "
+  >
+    {t("consultation.bookConsultation")}
+  </button>
+</Link>
+
+      </div>
+    </section>
+  );
+};
+
+export default ConsultationBanner;
