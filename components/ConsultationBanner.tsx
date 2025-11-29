@@ -13,10 +13,10 @@ const ConsultationBanner: React.FC = () => {
     <section
       className="
         relative w-full max-w-[1273px] h-[278px] rounded-[10px]
-        mt-[120px] md:mt-[120px] mb-[200px] overflow-hidden mx-auto
+        mt-[80px] md:mt-[100px] lg:mt-[120px] mb-[120px] md:mb-[160px] lg:mb-[200px] overflow-hidden mx-auto
         flex justify-start items-start gap-[160px] px-[116px]pt-[40px]
         max-lg:flex-col max-lg:items-start max-lg:h-auto max-lg:px-[48px] max-lg:py-[60px]
-        max-sm:w-full max-sm:rounded-none max-sm:px-[28px] max-sm:py-[60px]
+        max-sm:w-full max-sm:rounded-none max-sm:px-[24px] max-sm:py-[50px]
         max-sm:flex max-sm:flex-col max-sm:items-center max-sm:justify-center max-sm:text-center
       "
       style={{
@@ -84,15 +84,15 @@ const ConsultationBanner: React.FC = () => {
       text-[#132219]
       font-['SF Pro Display']
       font-[600]
-      text-[18px] lg:text-[20px]
+      text-[16px] sm:text-[17px] md:text-[18px] lg:text-[20px]
       leading-normal tracking-[-0.2px]
-      px-[22px] py-[10px]
+      px-[28px] py-[12px] sm:px-[24px] sm:py-[11px] md:px-[22px] md:py-[10px]
       rounded-full border border-[#132219]
       hover:bg-[#D6FA8A]
       transition-all duration-300
       whitespace-nowrap shadow-[0_0_15px_rgba(202,244,118,0.25)]
-      max-sm:text-[15px] max-sm:px-[24px] max-sm:py-[12px]
-      max-sm:w-auto max-sm:shadow-[0_0_20px_rgba(202,244,118,0.3)]
+      min-h-[48px] sm:min-h-[44px]
+      max-sm:shadow-[0_0_20px_rgba(202,244,118,0.3)]
     "
   >
     {t("consultation.bookConsultation")}

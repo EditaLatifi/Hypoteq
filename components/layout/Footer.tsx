@@ -35,16 +35,16 @@ export default function Footer() {
           </h2>
 
           {/* INPUT */}
-          <div className="flex flex-col md:flex-row items-center gap-[12px] md:gap-[18px] lg:gap-[22px] w-full md:w-auto">
-            <div className="flex items-center w-full md:w-[280px] lg:w-[356px] h-[44px] md:h-[42px] lg:h-[40px] rounded-[50px] bg-[#2A3B2C] px-[16px]">
+          <div className="flex flex-col sm:flex-row items-center gap-[12px] sm:gap-[14px] md:gap-[18px] lg:gap-[22px] w-full md:w-auto">
+            <div className="flex items-center w-full sm:w-[240px] md:w-[280px] lg:w-[356px] h-[48px] sm:h-[44px] md:h-[42px] lg:h-[40px] rounded-[50px] bg-[#2A3B2C] px-[18px] sm:px-[16px]">
               <input
-                className="flex-1 bg-transparent text-white placeholder-white/70 outline-none text-[14px] md:text-[14.5px] lg:text-[15px]"
+                className="flex-1 bg-transparent text-white placeholder-white/70 outline-none text-[15px] sm:text-[14px] md:text-[14.5px] lg:text-[15px]"
                 placeholder={t("footer.newsletter")}
               />
             </div>
 
-            <button className="w-full md:w-[140px] lg:w-[159px] h-[44px] md:h-[42px] lg:h-[40px] flex items-center justify-center bg-[#CAF476] 
-              rounded-[50px] text-[#132219] font-medium md:font-medium lg:font-medium hover:opacity-90 transition text-[15px] md:text-[14.5px] lg:text-base">
+            <button className="w-full sm:w-[130px] md:w-[140px] lg:w-[159px] h-[48px] sm:h-[44px] md:h-[42px] lg:h-[40px] flex items-center justify-center bg-[#CAF476] 
+              rounded-[50px] text-[#132219] font-semibold sm:font-medium hover:opacity-90 transition text-[16px] sm:text-[15px] md:text-[14.5px] lg:text-base">
               {t("buttons.sendNewsletter")}
             </button>
           </div>

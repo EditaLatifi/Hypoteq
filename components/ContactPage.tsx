@@ -22,12 +22,12 @@ export default function ContactPage() {
 
 
         {/* LEFT BOX – FAQ */}
-        <div className="w-full md:w-[628px] bg-[#D9FF8F] rounded-[10px] border border-[#000] p-[24px] flex flex-col gap-[24px]">
-          <h3 className="text-[36px] font-[500] leading-[140%] tracking-[-0.36px]">
+        <div className="w-full md:w-[628px] bg-[#D9FF8F] rounded-[10px] border border-[#000] p-[20px] sm:p-[24px] flex flex-col gap-[20px] sm:gap-[24px]">
+          <h3 className="text-[28px] sm:text-[32px] md:text-[36px] font-[500] leading-[140%] tracking-[-0.36px]">
             {t("contact.faqSubtitle")}
           </h3>
 
-          <p className="text-[20px] leading-[140%] font-[400]">
+          <p className="text-[17px] sm:text-[18px] md:text-[20px] leading-[140%] font-[400]">
             {t("contact.faqDescription")} {" "}
 <Link
   href={`/${pathLocale}/faq`}
@@ -40,7 +40,7 @@ export default function ContactPage() {
           </p>
 
           <Link href={`/${pathLocale}/faq`} className="w-fit">
-            <button className="bg-[#132219] text-[#CAF476] rounded-full px-[24px] py-[8px] text-[16px] font-[600] hover:opacity-80 transition">
+            <button className="bg-[#132219] text-[#CAF476] rounded-full px-[24px] py-[10px] sm:py-[8px] text-[16px] font-[600] hover:opacity-80 transition min-h-[44px] sm:min-h-auto">
               {t("contact.faqButton")}
             </button>
           </Link>
@@ -149,11 +149,12 @@ export default function ContactPage() {
       </div>
 
       {/* ===== MAP ===== */}
-      <div className="w-full max-w-[1300px] px-[40px] md:px-[10px] mt-[100px] md:mt-[140px] rounded-[10px] overflow-hidden border border-[#132219]/10">
+      <div className="w-full max-w-[1300px] px-[16px] md:px-[10px] mt-[80px] md:mt-[140px] rounded-[10px] overflow-hidden border border-[#132219]/10">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2701.903054835955!2d8.533314476619616!3d47.374810571169505!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47900a05ce8582db%3A0x8227a52e01443909!2sL%C3%B6wenstrasse%2029%2C%208001%20Z%C3%BCrich%2C%20Switzerland!5e0!3m2!1sen!2s!4v1764146163573!5m2!1sen!2s"
           width="100%"
-          height="450"
+          height="300"
+          className="md:h-[450px]"
           style={{ border: 0 }}
           loading="lazy"
         ></iframe>
