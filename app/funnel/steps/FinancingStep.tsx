@@ -88,7 +88,7 @@ const ToggleButton = ({ active, children, onClick }: any) => {
     "px-5 py-2 border border-[#132219] rounded-full text-sm w-full";
 
   return (
-    <div className="w-full max-w-[1400px] mx-auto px-4 md:px-6 lg:pl-20 -mt-10">
+    <div className="pt-[150px] md:pt-0 w-full max-w-[1400px] mx-auto px-4 md:px-6 lg:pl-20 -mt-10">
 
       {/* ====================================================== */}
       {/* NEUKAUF (Direct + Natürliche/Juristische Person) */}

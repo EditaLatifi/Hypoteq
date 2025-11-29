@@ -20,6 +20,13 @@ export default function Header() {
   const whiteMenu =
     (pathname.includes("/hypotheken") || pathname.includes("/about")) && !isScrolled;
 
+  // Sync context locale with URL locale on mount
+  useEffect(() => {
+    if (pathLocale !== locale) {
+      setLocale(pathLocale);
+    }
+  }, [pathLocale, locale, setLocale]);
+
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
@@ -104,7 +111,7 @@ export default function Header() {
               onClick={() => setOpenLang(!openLang)}
               className="px-[8px] sm:px-3 py-[6px] border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-all text-[#132219] font-semibold text-[13px] sm:text-[16px] min-w-[42px] sm:min-w-[60px]"
             >
-              {locale.toUpperCase()}
+              {pathLocale.toUpperCase()}
             </button>
 
             {openLang && (

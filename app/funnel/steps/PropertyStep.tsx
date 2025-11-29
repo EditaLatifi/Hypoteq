@@ -48,7 +48,7 @@ const propertyUseOptions =
 
 
   return (
-    <div className="w-full max-w-[1400px] mx-auto px-4 md:px-6 lg:px-4 lg:pl-28 space-y-6 lg:space-y-[30px] -mt-10">
+    <div className="w-full max-w-[1400px] pt-[150px] md:pt-0 mx-auto px-4 md:px-6 lg:px-4 lg:pl-28 space-y-6 lg:space-y-[30px] -mt-10">
       {/* ========================================================= */}
       {/*  ART DER IMMOBILIE                                        */}
       {/* ========================================================= */}

@@ -50,7 +50,7 @@ if (!clientData.zip)
   const { setEmail } = useFunnelStore();
 
   return (
-    <div className="w-full max-w-[1400px] mx-auto px-4 md:px-8 lg:pl-20 lg:pr-32 -mt-10">
+    <div className="w-full max-w-[1400px] mx-auto px-4 md:px-8 pt-[150px] md:pt-0 lg:pl-20 lg:pr-32 -mt-10">
       {/* === Title === */}
       <h2 className="text-3xl md:text-4xl lg:text-[48px] font-normal text-[#132219] mb-1 font-sfpro">
         {t("funnel.startTitle" as any)}
