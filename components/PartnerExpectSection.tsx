@@ -70,7 +70,7 @@ const PartnerExpectSection: React.FC = () => {
   }, []);
 
   return (
-    <section className="bg-[#E6E6E6] py-[120px] mb-[120px]">
+    <section className="bg-[#E6E6E6] py-[60px] md:py-[120px] mb-[60px] md:mb-[120px]">
      <div
   className="
     max-w-[1379px] mx-auto 
@@ -83,17 +83,17 @@ const PartnerExpectSection: React.FC = () => {
 
         
       {/* LEFT COLUMN — Sticky Title */}
-      <div className="flex-shrink-0 sticky top-[160px] self-start">
+      <div className="flex-shrink-0 lg:sticky lg:top-[160px] self-start w-full lg:w-auto">
         <h2
-          className="text-[#132219] text-[48px] font-[500] leading-[100%] tracking-[-0.48px]
-                     font-['SF Pro Display'] max-md:text-[36px]"
+          className="text-[#132219] text-[32px] sm:text-[40px] md:text-[48px] font-[500] leading-[110%] md:leading-[100%] tracking-[-0.48px]
+                     font-['SF Pro Display'] mb-6 lg:mb-0"
         >
           {t("partnerExpect.title")}
         </h2>
       </div>
 
       {/* RIGHT COLUMN — Animated Cards */}
-      <div className="flex flex-col gap-[48px] max-w-[680px] w-full">
+      <div className="flex flex-col gap-[32px] md:gap-[48px] max-w-[680px] w-full">
         {items.map((item, index) => {
           const isVisible = visibleCards[index];
           const isEven = index % 2 === 0;
@@ -104,7 +104,7 @@ const PartnerExpectSection: React.FC = () => {
               ref={(el: HTMLDivElement | null) => {
                 cardsRef.current[index] = el;
               }}
-              className={`bg-[#132219] rounded-[10px] p-[24px] flex flex-col gap-[24px]
+              className={`bg-[#132219] rounded-[10px] p-[20px] md:p-[24px] flex flex-col gap-[16px] md:gap-[24px]
                 transition-all duration-[1000ms] ease-out
                 ${
                   isVisible
@@ -114,10 +114,10 @@ const PartnerExpectSection: React.FC = () => {
                     : "opacity-0 translate-x-[80px]"
                 }`}
             >
-              <h3 className="text-[#CAF476] text-[36px] font-[500] leading-normal font-['SF Pro Display'] max-md:text-[28px]">
+              <h3 className="text-[#CAF476] text-[24px] sm:text-[28px] md:text-[36px] font-[500] leading-[120%] md:leading-normal font-['SF Pro Display']">
                 {t(item.titleKey as any)}
               </h3>
-              <p className="text-[#CAF476] text-[20px] font-[400] leading-normal font-['SF Pro Display'] max-md:text-[18px]">
+              <p className="text-[#CAF476] text-[16px] sm:text-[18px] md:text-[20px] font-[400] leading-[140%] md:leading-normal font-['SF Pro Display']">
                 {t(item.textKey as any)}
               </p>
             </div>

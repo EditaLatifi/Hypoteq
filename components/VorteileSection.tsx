@@ -54,41 +54,42 @@ export default function VorteileSection() {
 
   return (
     <section
-      className="max-w-[1379px] mx-auto relative w-full flex flex-col items-start gap-[120px]
-      px-[24px] md:px-[116px] mt-[120px] mb-[120px]"
+      className="max-w-[1379px] mx-auto relative w-full flex flex-col items-start gap-[60px] md:gap-[120px]
+      px-[20px] sm:px-[24px] md:px-[116px] mt-[60px] md:mt-[120px] mb-[60px] md:mb-[120px]"
     >
       {/* =================== */}
       {/* Vorteile Section */}
       {/* =================== */}
-      <div className="flex flex-col gap-[48px] w-full">
+      <div className="flex flex-col gap-[32px] md:gap-[48px] w-full">
         <h2
-          className="text-[#132219] text-[48px] font-[500] leading-[100%] tracking-[-0.48px]
+          className="text-[#132219] text-[32px] sm:text-[40px] md:text-[48px] font-[500] leading-[110%] md:leading-[100%] tracking-[-0.48px]
                font-['SF Pro Display']"
         >
           {t("vorteile.title")}
         </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-[26px] gap-y-[48px] w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-[20px] md:gap-x-[26px] gap-y-[32px] md:gap-y-[48px] w-full">
           {cards.map((card, i) => (
             <div
               key={i}
-              className="flex items-start gap-[16px] relative border-l-[5px] border-[#CAF476] pl-[24px] rounded-[2px]"
+              className="flex items-start gap-[12px] md:gap-[16px] relative border-l-[4px] md:border-l-[5px] border-[#CAF476] pl-[16px] md:pl-[24px] rounded-[2px]"
             >
-              <div className="absolute top-[6px] left-[12px]">
+              <div className="absolute top-[4px] md:top-[6px] left-[8px] md:left-[12px]">
                 <Image
                   src="/images/MMMA.svg"
                   alt="Arrow Icon"
-                  width={24}
-                  height={24}
+                  width={20}
+                  height={20}
+                  className="w-[20px] h-[20px] md:w-[24px] md:h-[24px]"
                   priority
                 />
               </div>
 
-              <div className="flex flex-col gap-[8px] mt-[40px]">
-                <h3 className="text-[#132219] text-[34px] mt-[40px] font-[500] leading-normal font-['SF Pro Display']">
+              <div className="flex flex-col gap-[6px] md:gap-[8px] mt-[32px] md:mt-[40px]">
+                <h3 className="text-[#132219] text-[22px] sm:text-[26px] md:text-[30px] mt-[24px] md:mt-[40px] font-[500] leading-[120%] md:leading-normal font-['SF Pro Display']">
                   {t(card.titleKey as any)}
                 </h3>
-                <p className="text-[#132219] text-[20px] font-[400] mt-[32px] leading-[22px] max-w-[300px]">
+                <p className="text-[#132219] text-[16px] sm:text-[18px] md:text-[20px] font-[400] mt-[20px] md:mt-[32px] leading-[140%] md:leading-[22px] max-w-full md:max-w-[300px]">
                   {t(card.textKey as any)}
                 </p>
               </div>
@@ -101,11 +102,11 @@ export default function VorteileSection() {
           className="
       text-[#132219]
       font-['SF Pro Display']
-      text-[24px]
+      text-[18px] sm:text-[20px] md:text-[24px]
       font-[400]
-      leading-[100%]
+      leading-[130%] md:leading-[100%]
       tracking-[-0.24px]
-      mt-[48px]
+      mt-[32px] md:mt-[48px]
     "
         >
           Dann trag dich ein – wir melden uns persönlich bei dir. HYPOTEQ – Dein

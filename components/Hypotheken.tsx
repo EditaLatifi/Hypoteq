@@ -115,7 +115,7 @@ const buttons = [
       </section>
 
       {/* ====== SECTION 2–4 ====== */}
-      <section className="max-w-[1579px] mx-auto w-full bg-white flex flex-col items-center py-[80px] md:py-[120px] px-[24px] md:px-[116px]text-[#132219] font-['SF Pro Display']">
+      <section className="max-w-[1579px] mx-auto w-full bg-white flex flex-col items-center py-[80px] md:py-[120px] px-[24px] md:px-[116px] text-[#132219] font-['SF Pro Display']">
 
         {/* Neue Hypothek */}
         <div
@@ -129,7 +129,7 @@ const buttons = [
             gap-[40px]
           "
         >
-          <div className="max-w-[536px]">
+          <div className="max-w-[536px] w-full">
             <h2 className="text-[28px] md:text-[36px] font-medium leading-[140%] tracking-[-0.36px] mb-[16px] md:mb-[24px]">
              {t("hypotheken.newMortgageTitle")}
             </h2>
@@ -161,7 +161,7 @@ const buttons = [
             gap-[40px]
           "
         >
-          <div className="max-w-[536px] order-2 md:order-1">
+          <div className="max-w-[536px] w-full md:order-1">
             <h2 className="text-[28px] md:text-[36px] font-medium leading-[140%] tracking-[-0.36px] mb-[16px] md:mb-[24px]">
               {t("hypotheken.refinancingTitle")}
             </h2>
@@ -171,7 +171,7 @@ const buttons = [
 
           </div>
 
-          <div className="w-full md:w-[537px] h-[300px] md:h-[443px] rounded-[10px] overflow-hidden flex items-center justify-center bg-[#F8F8F8] order-1 md:order-2">
+          <div className="w-full md:w-[537px] h-[300px] md:h-[443px] rounded-[10px] overflow-hidden flex items-center justify-center bg-[#F8F8F8] md:order-2">
             <img
               src="/images/2023.png"
               alt="Refinance Graph"
@@ -191,7 +191,7 @@ const buttons = [
             gap-[40px] mb-[80px]
           "
         >
-          <div className="max-w-[536px]">
+          <div className="max-w-[536px] w-full">
             <h2 className="text-[28px] md:text-[36px] font-medium leading-[140%] tracking-[-0.36px] mb-[16px] md:mb-[24px]">
               {t("hypotheken.newConstructionTitle")}
             </h2>

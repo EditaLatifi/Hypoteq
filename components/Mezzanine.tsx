@@ -128,8 +128,8 @@ px-[16px] sm:px-[32px] max-w-[1579px]
 text-[#132219] font-['SF Pro Display']">
 
         {/* SECTION 1 */}
-        <div id="neue" className="flex flex-col md:flex-row items-center justify-between w-full max-w-[1504px] gap-[40px] sm:gap-[60px] md:gap-[199px] mb-[40px] md:mb-[120px]">
-          <div className="max-w-full md:max-w-[536px] text-center md:text-left">
+        <div id="neue" className="flex flex-col md:flex-row items-center justify-between w-full max-w-[1504px] gap-[40px] sm:gap-[60px] md:gap-[199px] mb-[60px] md:mb-[120px] pb-[20px]">
+          <div className="max-w-full md:max-w-[536px] text-center md:text-left w-full">
             <h2 className="text-[22px] sm:text-[28px] md:text-[36px] font-[500] mb-[16px]">{t("mezzanine.whatIs")}</h2>
             <p className="text-[16px] sm:text-[18px] md:text-[24px] font-[300] leading-[150%]">
               {t("mezzanine.whatIsDesc")}
@@ -141,8 +141,8 @@ text-[#132219] font-['SF Pro Display']">
         </div>
 
         {/* SECTION 2 */}
-        <div id="refi" className="flex flex-col md:flex-row items-center justify-between w-full max-w-[1504px] gap-[40px] sm:gap-[60px] md:gap-[199px] mb-[40px] md:mb-[120px]">
-          <div className="max-w-full md:max-w-[536px] order-2 md:order-1 text-center md:text-left">
+        <div id="refi" className="flex flex-col md:flex-row items-center justify-between w-full max-w-[1504px] gap-[40px] sm:gap-[60px] md:gap-[199px] mb-[60px] md:mb-[120px] pb-[20px]">
+          <div className="max-w-full md:max-w-[536px] md:order-1 text-center md:text-left w-full">
             <h2 className="text-[22px] sm:text-[28px] md:text-[36px] font-[500] mb-[16px]">{t("mezzanine.whenUseful")}</h2>
             <ul className="text-[16px] sm:text-[18px] md:text-[24px] font-[300] leading-[150%] list-disc pl-[20px]">
               <li>{t("mezzanine.whenUsefulItem1")}</li>
@@ -150,14 +150,14 @@ text-[#132219] font-['SF Pro Display']">
               <li>{t("mezzanine.whenUsefulItem3")}</li>
             </ul>
           </div>
-          <div className="w-full sm:w-[380px] md:w-[538px] flex justify-center order-1 md:order-2">
+          <div className="w-full sm:w-[380px] md:w-[538px] flex justify-center md:order-2">
             <img src="/images/Kalendar.png" alt="Closing Day Kalender" className="w-full max-w-[340px] sm:max-w-[420px] md:max-w-none h-auto object-contain" />
           </div>
         </div>
 
         {/* SECTION 3 */}
-        <div id="neubau" className="flex flex-col md:flex-row items-center justify-between w-full max-w-[1504px] gap-[40px] sm:gap-[60px] md:gap-[199px] mb-[40px] md:mb-[120px]">
-          <div className="max-w-full md:max-w-[536px] text-center md:text-left">
+        <div id="neubau" className="flex flex-col md:flex-row items-center justify-between w-full max-w-[1504px] gap-[40px] sm:gap-[60px] md:gap-[199px] mb-[60px] md:mb-[120px] pb-[20px]">
+          <div className="max-w-full md:max-w-[536px] text-center md:text-left w-full">
             <h2 className="text-[22px] sm:text-[28px] md:text-[36px] font-[500] mb-[16px]">{t("mezzanine.howWorks")}</h2>
             <p className="text-[16px] sm:text-[18px] md:text-[24px] font-[300] leading-[150%] mb-[12px]">{t("mezzanine.howWorksIntro")}</p>
             <ul className="text-[16px] sm:text-[18px] md:text-[24px] font-[300] leading-[150%] list-disc pl-[20px]">
@@ -174,8 +174,8 @@ text-[#132219] font-['SF Pro Display']">
         </div>
 
         {/* SECTION 4 */}
-        <div id="gemeinsam" className="flex flex-col md:flex-row items-center justify-between w-full max-w-[1504px] gap-[40px] sm:gap-[60px] md:gap-[199px]">
-          <div className="max-w-full md:max-w-[536px] text-center md:text-left">
+        <div id="gemeinsam" className="flex flex-col md:flex-row items-center justify-between w-full max-w-[1504px] gap-[40px] sm:gap-[60px] md:gap-[199px] pb-[20px]">
+          <div className="max-w-full md:max-w-[536px] text-center md:text-left w-full">
             <h2 className="text-[22px] sm:text-[28px] md:text-[36px] font-[500] mb-[16px]">{t("mezzanine.makePossible")}</h2>
             <p className="text-[16px] sm:text-[18px] md:text-[24px] font-[300] leading-[150%]">
               {t("mezzanine.makePossibleDesc")}

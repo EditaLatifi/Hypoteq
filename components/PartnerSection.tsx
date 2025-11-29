@@ -66,12 +66,12 @@ const handleClick = (id: string) => {
         <div className="
             relative z-10 w-full h-auto md:h-[957px]
             flex flex-col justify-start
-            px-[20px] sm:px-[116px]
-            pt-[100px] pb-[20px] sm:pt-[110px] md:pt-[110px]
+            px-[20px] sm:px-[40px] md:px-[116px]
+            pt-[100px] pb-[40px] sm:pt-[110px] md:pt-[110px] sm:pb-[60px]
             text-[#132219] max-w-[1579px] mx-auto
           "
         >
-          <h2 className="max-w-[700px] text-[36px] sm:text-[56px] md:text-[100px] font-[500] leading-[110%] tracking-[-1px]">
+          <h2 className="max-w-full sm:max-w-[700px] text-[36px] sm:text-[56px] md:text-[100px] font-[500] leading-[110%] tracking-[-0.5px] sm:tracking-[-1px] break-words">
           
             <span className="block md:inline"> {t("footer.becomePartner")}</span>
           </h2>
