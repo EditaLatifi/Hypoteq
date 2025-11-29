@@ -1,4 +1,24 @@
 {
+  "seo": {
+    "homeTitle": "HYPOTEQ - Mortgages in Switzerland | Best Rates & Advice",
+    "homeDescription": "Compare mortgage offers from over 100 Swiss banks. Free, independent and transparent. Find the best rates for your property financing now.",
+    "hypothekenTitle": "Mortgages Switzerland - Fixed Mortgage, Variable Mortgage & more | HYPOTEQ",
+    "hypothekenDescription": "Overview of all mortgage models: Fixed Mortgage, Variable Mortgage, SARON Mortgage. Compare interest rates and find the right financing.",
+    "calculatorTitle": "Mortgage Calculator Switzerland - Calculate for Free | HYPOTEQ",
+    "calculatorDescription": "Calculate your mortgage online: monthly costs, affordability and equity requirements. Free mortgage calculator for Switzerland.",
+    "faqTitle": "Frequently Asked Questions about Mortgages | HYPOTEQ",
+    "faqDescription": "Answers to the most important questions about mortgages, interest rates, amortization and financing in Switzerland.",
+    "contactTitle": "Contact - HYPOTEQ Mortgage Advice Switzerland",
+    "contactDescription": "Get in touch for personal mortgage advice. Free, non-binding and competent.",
+    "aboutTitle": "About HYPOTEQ - Your Independent Mortgage Broker",
+    "aboutDescription": "HYPOTEQ is your digital partner for mortgages in Switzerland. Independent, transparent and tailored to your needs.",
+    "mezzanineTitle": "Mezzanine Financing Switzerland - Flexible Capital Solutions | HYPOTEQ",
+    "mezzanineDescription": "Mezzanine financing as a flexible alternative between equity and debt. Ideal for real estate projects and businesses.",
+    "partnerTitle": "Become a HYPOTEQ Partner - Attractive Commissions",
+    "partnerDescription": "Become a HYPOTEQ partner and benefit from attractive commissions, professional support and digital tools.",
+    "advisoryTitle": "HYPOTEQ Advisory - Individual Mortgage Consulting",
+    "advisoryDescription": "Customized financing solutions for complex cases. Professional advice from experienced mortgage experts."
+  },
   "common": {
     "language": "English",
     "home": "Home",

@@ -88,7 +88,7 @@ export default function VorteileSection() {
                 <h3 className="text-[#132219] text-[34px] mt-[40px] font-[500] leading-normal font-['SF Pro Display']">
                   {t(card.titleKey as any)}
                 </h3>
-                <p className="text-[#132219] text-[22px] font-[400] mt-[32px] leading-[22px] max-w-[300px]">
+                <p className="text-[#132219] text-[20px] font-[400] mt-[32px] leading-[22px] max-w-[300px]">
                   {t(card.textKey as any)}
                 </p>
               </div>

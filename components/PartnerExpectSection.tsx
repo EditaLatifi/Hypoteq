@@ -71,8 +71,16 @@ const PartnerExpectSection: React.FC = () => {
 
   return (
     <section className="bg-[#E6E6E6] py-[120px] mb-[120px]">
-      <div className="max-w-[1579px] mx-auto px-[116px] flex justify-between items-start gap-[46px]
-                 max-lg:flex-col max-lg:px-[40px] max-md:px-[24px]">
+     <div
+  className="
+    max-w-[1379px] mx-auto 
+    flex flex-col lg:flex-row 
+    justify-between items-start
+    gap-6 lg:gap-[46px]
+    px-4 sm:px-6 lg:px-[116px]
+  "
+>
+
         
       {/* LEFT COLUMN — Sticky Title */}
       <div className="flex-shrink-0 sticky top-[160px] self-start">

@@ -71,8 +71,8 @@ const handleClick = (id: string) => {
             text-[#132219] max-w-[1579px] mx-auto
           "
         >
-          <h2 className="text-[36px] sm:text-[56px] md:text-[100px] font-[500] leading-[110%] tracking-[-1px]">
-            HYPOTEQ <br/> <br className="sm:hidden" />
+          <h2 className="max-w-[700px] text-[36px] sm:text-[56px] md:text-[100px] font-[500] leading-[110%] tracking-[-1px]">
+          
             <span className="block md:inline"> {t("footer.becomePartner")}</span>
           </h2>
 

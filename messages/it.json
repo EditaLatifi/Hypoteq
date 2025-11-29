@@ -1,4 +1,24 @@
 {
+  "seo": {
+    "homeTitle": "HYPOTEQ - Mutui in Svizzera | Migliori Condizioni & Consulenza",
+    "homeDescription": "Confronta le offerte di mutuo di oltre 100 banche svizzere. Gratuito, indipendente e trasparente. Trova le migliori condizioni per il tuo finanziamento immobiliare.",
+    "hypothekenTitle": "Mutui Svizzera - Mutuo fisso, Mutuo variabile & altro | HYPOTEQ",
+    "hypothekenDescription": "Panoramica di tutti i modelli di mutuo: Mutuo fisso, Mutuo variabile, Mutuo SARON. Confronta i tassi di interesse e trova il finanziamento giusto.",
+    "calculatorTitle": "Calcolatore di mutui Svizzera - Calcola gratuitamente | HYPOTEQ",
+    "calculatorDescription": "Calcola il tuo mutuo online: costi mensili, sostenibilità e requisiti di capitale proprio. Calcolatore di mutui gratuito per la Svizzera.",
+    "faqTitle": "Domande frequenti sui mutui | HYPOTEQ",
+    "faqDescription": "Risposte alle domande più importanti su mutui, interessi, ammortamento e finanziamento in Svizzera.",
+    "contactTitle": "Contatti - Consulenza mutui HYPOTEQ Svizzera",
+    "contactDescription": "Mettiti in contatto per una consulenza personalizzata sui mutui. Gratuita, non vincolante e competente.",
+    "aboutTitle": "Chi è HYPOTEQ - Il tuo intermediario di mutui indipendente",
+    "aboutDescription": "HYPOTEQ è il tuo partner digitale per i mutui in Svizzera. Indipendente, trasparente e su misura per le tue esigenze.",
+    "mezzanineTitle": "Finanziamento Mezzanine Svizzera - Soluzioni di capitale flessibili | HYPOTEQ",
+    "mezzanineDescription": "Finanziamento mezzanine come alternativa flessibile tra capitale proprio e debito. Ideale per progetti immobiliari e aziende.",
+    "partnerTitle": "Diventa partner HYPOTEQ - Commissioni attrattive",
+    "partnerDescription": "Diventa partner HYPOTEQ e approfitta di commissioni attrattive, supporto professionale e strumenti digitali.",
+    "advisoryTitle": "HYPOTEQ Advisory - Consulenza mutui individuale",
+    "advisoryDescription": "Soluzioni di finanziamento su misura per casi complessi. Consulenza professionale da esperti di mutui con esperienza."
+  },
   "common": {
     "language": "Italiano",
     "home": "Home",

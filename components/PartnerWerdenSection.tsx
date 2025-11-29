@@ -14,7 +14,17 @@ export default function PartnerWerdenSection() {
     setOpenIndex(openIndex === index ? null : index);
   };
   return (
-    <section className="max-w-[1379px] mx-auto w-full flex flex-col items-start gap-[32px] sm:gap-[40px] md:gap-[48px] px-[16px] sm:px-[24px] md:px-[116px]max-w-[1579px] mx-auto mt-[120px] sm:mt-[100px] md:mt-[120px] mb-[120px] sm:mb-[100px] md:mb-[120px]">
+      <section
+        className="
+          max-w-[1379px] 
+          mx-auto w-full 
+          flex flex-col items-start 
+          gap-8 sm:gap-10 md:gap-12 
+          px-4 sm:px-6 md:px-28 
+          mt-12 sm:mt-20 md:mt-28 
+          mb-12 sm:mb-20 md:mb-28
+        "
+      >
       {/* Title */}
       <h2 className="text-[#132219] text-[32px] sm:text-[40px] md:text-[48px] font-[500] leading-[110%] md:leading-[100%] tracking-[-0.48px] font-['SF Pro Display'] text-center md:text-left">
     {t("partnerWerden.title")}

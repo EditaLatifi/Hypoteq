@@ -1,4 +1,24 @@
 {
+  "seo": {
+    "homeTitle": "HYPOTEQ - Hypothèques en Suisse | Meilleures Conditions & Conseils",
+    "homeDescription": "Comparez les offres hypothécaires de plus de 100 banques suisses. Gratuit, indépendant et transparent. Trouvez les meilleures conditions pour votre financement immobilier.",
+    "hypothekenTitle": "Hypothèques Suisse - Hypothèque fixe, Hypothèque variable & plus | HYPOTEQ",
+    "hypothekenDescription": "Aperçu de tous les modèles hypothécaires: Hypothèque fixe, Hypothèque variable, Hypothèque SARON. Comparez les taux d'intérêt et trouvez le bon financement.",
+    "calculatorTitle": "Calculateur hypothécaire Suisse - Calculer gratuitement | HYPOTEQ",
+    "calculatorDescription": "Calculez votre hypothèque en ligne: coûts mensuels, capacité financière et besoins en fonds propres. Calculateur hypothécaire gratuit pour la Suisse.",
+    "faqTitle": "Questions fréquemment posées sur les hypothèques | HYPOTEQ",
+    "faqDescription": "Réponses aux questions les plus importantes sur les hypothèques, les intérêts, l'amortissement et le financement en Suisse.",
+    "contactTitle": "Contact - Conseil hypothécaire HYPOTEQ Suisse",
+    "contactDescription": "Prenez contact pour un conseil hypothécaire personnalisé. Gratuit, sans engagement et compétent.",
+    "aboutTitle": "À propos de HYPOTEQ - Votre courtier hypothécaire indépendant",
+    "aboutDescription": "HYPOTEQ est votre partenaire numérique pour les hypothèques en Suisse. Indépendant, transparent et adapté à vos besoins.",
+    "mezzanineTitle": "Financement Mezzanine Suisse - Solutions de capital flexibles | HYPOTEQ",
+    "mezzanineDescription": "Financement mezzanine comme alternative flexible entre fonds propres et dette. Idéal pour les projets immobiliers et les entreprises.",
+    "partnerTitle": "Devenir partenaire HYPOTEQ - Commissions attractives",
+    "partnerDescription": "Devenez partenaire HYPOTEQ et profitez de commissions attractives, d'un support professionnel et d'outils numériques.",
+    "advisoryTitle": "HYPOTEQ Advisory - Conseil hypothécaire individuel",
+    "advisoryDescription": "Solutions de financement sur mesure pour les cas complexes. Conseil professionnel par des experts hypothécaires expérimentés."
+  },
   "common": {
     "language": "Français",
     "home": "Accueil",
