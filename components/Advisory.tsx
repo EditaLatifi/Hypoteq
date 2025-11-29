@@ -46,13 +46,17 @@ export default function Advisory() {
           px-[16px] sm:px-[24px] md:px-[116px]lg:px-[116px]xl:px-[116px]2xl:px-[116px]
           text-[#132219]
         "
-        style={{
-          backgroundImage: "url('/images/09.png')",
-          backgroundSize: "cover",
-          backgroundPosition: "center right",
-          backgroundRepeat: "no-repeat",
-        }}
       >
+        <Image
+          src="/images/09.png"
+          alt="Advisory background"
+          fill
+          priority
+          quality={85}
+          sizes="100vw"
+          className="object-cover object-right -z-10"
+        />
+
         <div className="w-full max-w-[1320px] mx-auto flex flex-col justify-center items-start mt-[80px] sm:mt-[100px] py-[60px] sm:py-[116px]">
           <div className="flex flex-col items-start gap-[16px] sm:gap-[24px] max-w-[650px]">
             <h1

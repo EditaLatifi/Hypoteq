@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Image from "next/image";
 
 export default function AboutSection() {
 const [active, setActive] = useState("");
@@ -25,17 +26,16 @@ const [active, setActive] = useState("");
 
   return (
 <section className="relative w-full overflow-x-hidden font-sfpro min-h-[50vh]">
-      {/* Background */}
-      <div
-        className="absolute inset-0 bg-no-repeat bg-cover -z-10"
-  style={{
-  backgroundImage: "url('/images/8329269237.png')",
-  backgroundPosition: "center",
-  backgroundSize: "cover",
-  backgroundRepeat: "no-repeat",
-}}
-
-      ></div>
+      {/* Background with Next.js Image */}
+      <Image
+        src="/images/8329269237.png"
+        alt="About background"
+        fill
+        priority
+        quality={85}
+        sizes="100vw"
+        className="object-cover -z-10"
+      />
 
       {/* Content */}
 <div

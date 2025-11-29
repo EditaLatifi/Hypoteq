@@ -13,15 +13,16 @@ export default function Hero() {
 
   return (
     <section className="relative w-full overflow-hidden font-sfpro min-h-[50vh]">
-      {/* ✅ Background (works for all screens) */}
-      <div
-        className="absolute inset-0 bg-no-repeat bg-cover -z-10"
-        style={{
-          backgroundImage: "url('/images/fotoHeroSection.png')",
-          backgroundPosition: "center",
-          backgroundSize: "cover",
-        }}
-      ></div>
+      {/* ✅ Background with Next.js Image optimization */}
+      <Image
+        src="/images/fotoHeroSection.png"
+        alt="Hero background"
+        fill
+        priority
+        quality={85}
+        sizes="100vw"
+        className="object-cover -z-10"
+      />
 
       {/* ✅ Content */}
       <div

@@ -33,13 +33,16 @@ export default function Mezzanine() {
       {/* =======================
           SECTION 1: HERO
       ======================= */}
-      <section
-        className="relative w-full  px-[16px] sm:px-[32px] md:px-[116px]flex justify-center items-start bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: "url('/images/FOtototo.png')",
-        }}
-      >
-        <div className="absolute inset-0"></div>
+      <section className="relative w-full  px-[16px] sm:px-[32px] md:px-[116px]flex justify-center items-start bg-cover bg-center bg-no-repeat">
+        <Image
+          src="/images/FOtototo.png"
+          alt="Mezzanine background"
+          fill
+          priority
+          quality={85}
+          sizes="100vw"
+          className="object-cover -z-10"
+        />
 
         <div
           className="relative z-10 w-full max-w-[1370px] mx-auto h-[auto] md:h-[957px] flex flex-col justify-start

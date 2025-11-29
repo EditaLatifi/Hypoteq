@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Image from "next/image";
 import PartnerExpectSection from "@/components/PartnerExpectSection";
 import VorteileSection from "./VorteileSection";
 import PartnerWerdenSection from "./PartnerWerdenSection";
@@ -52,9 +53,14 @@ const handleClick = (id: string) => {
     <>
       {/* HERO SECTION */}
       <section className="relative w-full overflow-hidden font-sfpro">
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat -z-10"
-          style={{ backgroundImage: "url('/images/98.png')" }}
+        <Image
+          src="/images/98.png"
+          alt="Partner background"
+          fill
+          priority
+          quality={85}
+          sizes="100vw"
+          className="object-cover -z-10"
         />
 
         <div className="

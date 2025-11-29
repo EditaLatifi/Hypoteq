@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useTranslation } from "@/hooks/useTranslation";
 
@@ -22,12 +23,19 @@ const Banner: React.FC = () => {
         px-[28px] md:px-[50px] lg:px-[116px] 
         py-[40px] md:py-[30px] lg:pt-[40px]
       "
-      style={{
-        background: "url('/images/cta1.png') center/cover no-repeat",
-      }}
     >
+      {/* Background Image */}
+      <Image
+        src="/images/cta1.png"
+        alt="Banner background"
+        fill
+        quality={85}
+        sizes="(max-width: 768px) 95vw, (max-width: 1024px) 90vw, 1273px"
+        className="object-cover -z-10"
+      />
+
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black/20"></div>
+      <div className="absolute inset-0 bg-black/20 z-0"></div>
 
       {/* Content */}
       <div

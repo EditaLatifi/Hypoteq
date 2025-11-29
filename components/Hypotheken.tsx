@@ -3,6 +3,7 @@ import HypoZinsSection from "@/components/HypoZinsSection";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { useTranslation } from "@/hooks/useTranslation";
+import Image from "next/image";
 
 export default function NeueHypotheken() {
   const [active, setActive] = useState("");
@@ -31,13 +32,16 @@ const buttons = [
   return (
     <>
       {/* ====== SECTION 1: Hero ====== */}
-      <section
-        className="relative w-full flex justify-center items-start bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: "url('/images/hypotheneHome.png')",
-        }}
-      >
-        <div className="absolute inset-0"></div>
+      <section className="relative w-full flex justify-center items-start bg-cover bg-center bg-no-repeat">
+        <Image
+          src="/images/hypotheneHome.png"
+          alt="Hypotheken background"
+          fill
+          priority
+          quality={85}
+          sizes="100vw"
+          className="object-cover -z-10"
+        />
 
         <div
           className="
