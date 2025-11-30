@@ -13,8 +13,8 @@ export default function BestChoices() {
 {/* Wrapper që ngjit tekstin tek box-i */}
 <div className="w-full max-w-[1352px] mx-auto px-[24px] sm:px-[32px] md:px-[40px] mt-[120px] -mb-[100px]">
 
-  {/* Teksti i kuq — ndodhet brenda wrapper-it */}
-  <p className="text-[#132219] text-[16px] sm:text-[18px] lg:text-[20px] font-sfpro leading-[150%] text-center lg:text-left">
+  {/* Teksti i kuq — ndodhet brenda wrapper-it - Hidden on mobile */}
+  <p className="hidden lg:block text-[#132219] text-[16px] sm:text-[18px] lg:text-[20px] font-sfpro leading-[150%] text-center lg:text-left">
     {t("bestChoices.disclaimer")}
   </p>
 
@@ -70,10 +70,15 @@ export default function BestChoices() {
           <RateCard title={t("bestChoices.fiveYearsFrom")} value="0.99%" />
           <RateCard title={t("bestChoices.tenYearsFrom")} value="1.38%" />
         </div>
+
+        {/* Info text - shown inside box on mobile only */}
+        <p className="lg:hidden text-white text-[16px] sm:text-[18px] font-sfpro leading-[150%] text-center mt-[24px]">
+          {t("bestChoices.footerText")}
+        </p>
       </section>
 
-      {/* Info text below */}
-      <p className="max-w-[1352px] mx-auto text-[#132219] text-[18px] sm:text-[16px] lg:text-[22px] font-sfpro leading-[150%] px-[24px] sm:px-[32px] md:px-[40px] mb-[120px] text-center lg:text-left">
+      {/* Info text below - shown outside box on desktop only */}
+      <p className="hidden lg:block max-w-[1352px] mx-auto text-[#132219] text-[18px] sm:text-[16px] lg:text-[22px] font-sfpro leading-[150%] px-[24px] sm:px-[32px] md:px-[40px] mb-[120px] text-center lg:text-left">
         {t("bestChoices.footerText")}
       </p>
     </>

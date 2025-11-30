@@ -169,60 +169,53 @@ if (!clientData.zip)
           </div>
 
           {/* Footer */}
-<div className="flex items-center justify-between w-full mt-0">
-            <div
-              onClick={() => setCustomerType("partner")}
-className="group cursor-pointer select-none flex items-center gap-4 lg:px-7 lg:py-4 py-2 px-2"
-
-            >
-              
-              {/* Icon Circle */}
-              <div
-                className="
-      w-10 h-10 flex items-center justify-center
+<div className="flex flex-col lg:flex-row lg:items-center lg:justify-between w-full mt-0 gap-4">
+            <div className="w-full lg:w-auto">
+              <label className="text-[14px] font-medium text-[#132219]">
+                {t("funnel.areYouPartner" as any)}
+              </label>
+              <div className="flex items-center gap-2 mt-1">
+                <div
+                  className="
+      w-10 h-10 lg:flex items-center justify-center
       rounded-full bg-[#CAF476]/20
-      group-hover:bg-[#CAF476]/40
+      hover:bg-[#CAF476]/40
       backdrop-blur-sm
       transition-all duration-300
       shadow-inner
+      hidden
     "
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-5 h-5 text-[#132219]"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2}
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-5 h-5 text-[#132219]"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </div>
+                <button
+                  onClick={() => setCustomerType("partner")}
+                  className="
+                    px-6 py-2
+                    rounded-full
+                    bg-[#CAF476]
+                    border border-[#132219]
+                    text-[14px] font-medium text-[#132219]
+                    hover:bg-[#b8e966]
+                    transition
+                  "
+                >
+                  {t("funnel.clickHere" as any)}
+                </button>
               </div>
-<div className="flex items-center gap-4 mt-3 ">
-  <span className="text-[17px] font-semibold text-[#132219]">
-    {t("funnel.areYouPartner" as any)}
-  </span>
-
-  <button
-    onClick={() => setCustomerType("partner")}
-    className="
-      px-6 py-2
-      rounded-full
-      bg-[#CAF476]
-      border border-[#132219]
-      text-[14px] font-medium text-[#132219]
-      hover:bg-[#b8e966]
-      transition
-    "
-  >
-    {t("funnel.clickHere" as any)}
-  </button>
-</div>
-
             </div>
 
             <button
@@ -231,7 +224,7 @@ className="group cursor-pointer select-none flex items-center gap-4 lg:px-7 lg:p
                 setEmail(clientData.email);
                 saveStep();
               }}
-              className="px-8 py-2 bg-[#CAF476] border border-[#132219] rounded-full text-[14px] font-medium text-[#132219]"
+              className="px-8 py-2 bg-[#CAF476] border border-[#132219] rounded-full text-[14px] font-medium text-[#132219] self-end"
             >
               {t("funnel.continue" as any)}
             </button>

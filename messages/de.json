@@ -57,6 +57,7 @@
     "requestMortgage": "Hypothek anfragen",
     "bestOffer": "Bestes Angebot finden",
     "bookAppointment": "oder buche einen Call!",
+    "bookAppointmentAdvisory": "Termin buchen",
     "sendNewsletter": "Senden",
     "homeEvaluation": "Hausbewertung",
     "sendRequest": "Anfrage senden"
@@ -105,7 +106,7 @@
     "decideAfter": "Dann entscheiden."
   },
   "joinOurTeam": {
-    "header": "Werde Teil <br /> von HYPOTEQ",
+    "header": "Werde Teil von HYPOTEQ",
     "paragraph1": "Finance, Tech, Transparenz und Teamgeist – das ist unser Antrieb.",
     "paragraph2": "Egal ob Sales, Compliance, Capital Market oder Operations: Bei uns zählst du, nicht dein Titel.",
     "paragraph3": "Bewirb dich jetzt und hilf mit, den Hypomarkt neu zu definieren.",
@@ -421,6 +422,8 @@
   "consultation": {
     "title": "Fragen?",
     "description": "Schreib uns direkt...",
+    "bannerTitle": "Noch Fragen?",
+    "bannerDescription": "Unsere Expert:innen erklären dir den Finanzierungsprozess, zeigen dir passende Optionen und begleiten dich in deiner Entscheidungsfindung – persönlich, klar und effizient. In einem kurzen Gespräch erhältst du genau die Informationen, die du brauchst, um sicher weiterzugehen.",
     "buttonText": "Kontaktieren Sie uns",
     "bookConsultation": "Jetzt kostenloses Infogespräch buchen"
   },
@@ -572,7 +575,18 @@
     "title": "Management Team",
     "linkedinDescription": "Besuchen Sie uns auf LinkedIn, um über unsere neuesten Neuigkeiten, Einblicke und Updates auf dem Laufenden zu bleiben.",
     "linkedinButton": "LinkedIn besuchen",
-    "findBestOffer": "Bestes Angebot finden"
+    "findBestOffer": "Bestes Angebot finden",
+    "positions": {
+      "ceo": "CEO",
+      "deputyCeo": "Deputy CEO",
+      "cto": "CTO",
+      "headOfBusinessDevelopment": "Leiter Geschäftsentwicklung",
+      "boardPresident": "Präsident des Verwaltungsrates",
+      "boardMember": "Verwaltungsrat",
+      "initiatorAndAdvisory": "Initiant und Beirat",
+      "advisoryAndSalesCoach": "Beirat & Sales Coach",
+      "consultant": "Consultant"
+    }
   },
   "mortgageGuide": {
     "title": "Dein Hypotheken-Ratgeber",
@@ -593,7 +607,7 @@
   },
   "partnerWerden": {
     "title": "Du möchtest Hypotheken aktiv vermitteln und mit HYPOTEQ zusammenarbeiten?",
-    "subtitle": "Dann freuen wir uns über deine Anfrage!",
+    "subtitle": "Dann trag dich ein – wir melden uns persönlich bei dir. HYPOTEQ – Dein Partner für smarte Immobilienfinanzierung.",
     "requirement": "Um Partner zu werden, solltest du ein registriertes Unternehmen mit gültiger Vermittlungsbewilligung sein, die regulatorischen Vorgaben (z. B. KYC/AML) einhalten und bereits Erfahrung im operativen Geschäft haben – oder unter der Aufsicht einer lizenzierten Organisation stehen.",
     "phoneNumber": "Telefonnummer",
     "faqTitle": "Häufig gestellte Fragen",
@@ -752,5 +766,33 @@
     "a12_p1": "Sie erreichen uns über das Kontaktformular auf der Website, per E-Mail an",
     "a12_email": "info@hypoteq.ch",
     "a12_p2": "oder telefonisch. Gerne vereinbaren wir auch einen Termin – online oder persönlich."
+  },
+  "liveChat": {
+    "greeting": "Hallo! Willkommen bei Hypoteq.",
+    "askName": "Wie ist Ihr Name?",
+    "thankYouName": "Schön, Sie kennenzulernen, {name}!",
+    "askEmail": "Könnten Sie mir Ihre E-Mail-Adresse geben?",
+    "invalidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+    "thankYouEmail": "Vielen Dank, {name}! Ihre Nachricht wurde gespeichert.",
+    "howCanHelp": "Wie kann ich Ihnen weiterhelfen?",
+    "autoReply": "Vielen Dank für Ihre Nachricht. Ein Mitarbeiter wird sich in Kürze bei Ihnen melden. In der Zwischenzeit können Sie unsere FAQ-Seite besuchen.",
+    "title": "HYPOTEQ Support",
+    "subtitle": "Normalerweise antwortet in wenigen Minuten",
+    "placeholder": "Nachricht eingeben...",
+    "privacyNotice": "Wir schützen Ihre Daten gemäss unserer Datenschutzrichtlinie",
+    "send": "Senden",
+    "close": "Schließen",
+    "contactPage": "Kontaktseite",
+    "responses": {
+      "mortgage": "Wir bieten verschiedene Hypothekenarten an: SARON-Hypothek, Festhypothek und Libor-Hypothek. Jede hat ihre Vorteile je nach Ihrer Situation. Welche interessiert Sie am meisten?",
+      "interestRate": "Die aktuellen Zinssätze variieren je nach Hypothekenart und Laufzeit. Die SARON-Hypothek ist flexibel, während die Festhypothek Planungssicherheit bietet. Möchten Sie eine detaillierte Beratung?",
+      "calculator": "Unser Hypothekenrechner hilft Ihnen, die beste Option zu finden. Sie können ihn auf unserer Rechner-Seite verwenden oder direkt mit dem Funnel starten. Welches interessiert Sie?",
+      "documents": "Für eine Hypothek benötigen Sie: Identitätsnachweis, Einkommensnachweise, Steuererklärungen und Informationen zur Immobilie. Auf unserer Dokumentenseite finden Sie eine vollständige Liste.",
+      "process": "Unser Prozess ist einfach: 1) Online-Antrag, 2) Dokumentenprüfung, 3) Beratungsgespräch, 4) Angebotserstellung, 5) Vertragsabschluss. Der gesamte Prozess dauert normalerweise 2-4 Wochen.",
+      "costs": "Unsere Dienstleistungen sind für Sie kostenlos. Wir erhalten eine Provision von den Kreditgebern. Es können jedoch Notarkosten und Grundbuchgebühren anfallen.",
+      "contact": "Sie können uns per E-Mail, Telefon oder über unser Kontaktformular erreichen. Unsere Berater sind von Montag bis Freitag 9-18 Uhr verfügbar.",
+      "default": "Das ist eine gute Frage! Ich empfehle Ihnen, mit einem unserer Experten zu sprechen, um eine detaillierte Antwort zu erhalten.",
+      "furtherHelp": "Für weitere Unterstützung besuchen Sie bitte unsere"
+    }
   }
 }

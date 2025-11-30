@@ -57,6 +57,7 @@
     "requestMortgage": "Demander une hypothèque",
     "bestOffer": "Trouver la meilleure offre",
     "bookAppointment": "Prendre rendez-vous",
+    "bookAppointmentAdvisory": "Prendre Rendez-vous",
     "sendNewsletter": "Envoyer",
     "homeEvaluation": "Évaluation de la maison",
     "sendRequest": "Envoyer une demande"
@@ -105,7 +106,7 @@
     "decideAfter": "Décidez ensuite."
   },
   "joinOurTeam": {
-    "header": "Rejoignez <br /> HYPOTEQ",
+    "header": "Rejoignez HYPOTEQ",
     "paragraph1": "Finance, technologie, transparence et esprit d'équipe – c'est notre moteur.",
     "paragraph2": "Que ce soit en vente, conformité, marché des capitaux ou opérations : Chez nous, c'est vous qui comptez, pas votre titre.",
     "paragraph3": "Postulez maintenant et aidez à redéfinir le marché hypothécaire.",
@@ -421,6 +422,8 @@
   "consultation": {
     "title": "Des questions?",
     "description": "Écrivez-nous directement",
+    "bannerTitle": "Encore des questions?",
+    "bannerDescription": "Nos experts vous expliquent le processus de financement, vous montrent les options appropriées et vous accompagnent dans votre prise de décision – personnellement, clairement et efficacement. Lors d'un bref entretien, vous obtenez exactement les informations dont vous avez besoin pour avancer en toute confiance.",
     "buttonText": "Nous contacter",
     "bookConsultation": "Réserver maintenant une consultation gratuite"
   },
@@ -573,7 +576,18 @@
     "title": "Équipe de direction",
     "linkedinDescription": "Visitez-nous sur LinkedIn pour rester informé de nos dernières actualités, informations et mises à jour.",
     "linkedinButton": "Visiter LinkedIn",
-    "findBestOffer": "Trouver la meilleure offre"
+    "findBestOffer": "Trouver la meilleure offre",
+    "positions": {
+      "ceo": "PDG",
+      "deputyCeo": "PDG adjoint",
+      "cto": "Directeur technique",
+      "headOfBusinessDevelopment": "Responsable du développement commercial",
+      "boardPresident": "Président du conseil d'administration",
+      "boardMember": "Membre du conseil d'administration",
+      "initiatorAndAdvisory": "Initiateur et conseil consultatif",
+      "advisoryAndSalesCoach": "Conseil consultatif & Coach commercial",
+      "consultant": "Consultant"
+    }
   },
   "mortgageGuide": {
     "title": "Votre guide hypothécaire",
@@ -753,5 +767,33 @@
     "a12_p1": "Vous pouvez nous joindre via le formulaire de contact sur le site web, par e-mail à",
     "a12_email": "info@hypoteq.ch",
     "a12_p2": "ou par téléphone. Nous serions également heureux de convenir d'un rendez-vous – en ligne ou en personne."
+  },
+  "liveChat": {
+    "greeting": "Bonjour! Bienvenue chez Hypoteq.",
+    "askName": "Quel est votre nom?",
+    "thankYouName": "Enchanté de vous rencontrer, {name}!",
+    "askEmail": "Pourriez-vous fournir votre adresse e-mail?",
+    "invalidEmail": "Veuillez entrer une adresse e-mail valide.",
+    "thankYouEmail": "Merci, {name}! Votre message a été enregistré.",
+    "howCanHelp": "Comment puis-je vous aider davantage?",
+    "autoReply": "Merci pour votre message. Un membre de l'équipe vous répondra sous peu. En attendant, vous pouvez visiter notre page FAQ.",
+    "title": "Support HYPOTEQ",
+    "subtitle": "Répond généralement en quelques minutes",
+    "placeholder": "Tapez un message...",
+    "privacyNotice": "Nous protégeons vos données selon notre politique de confidentialité",
+    "send": "Envoyer",
+    "close": "Fermer",
+    "contactPage": "page de contact",
+    "responses": {
+      "mortgage": "Nous proposons différents types d'hypothèques: hypothèque SARON, hypothèque à taux fixe et hypothèque Libor. Chacune a ses avantages selon votre situation. Laquelle vous intéresse le plus?",
+      "interestRate": "Les taux d'intérêt actuels varient selon le type d'hypothèque et la durée. Les hypothèques SARON sont flexibles, tandis que les hypothèques à taux fixe offrent une sécurité de planification. Souhaitez-vous des conseils détaillés?",
+      "calculator": "Notre calculateur hypothécaire vous aide à trouver la meilleure option. Vous pouvez l'utiliser sur notre page calculateur ou commencer directement avec l'entonnoir. Lequel vous intéresse?",
+      "documents": "Pour une hypothèque, vous avez besoin de: preuve d'identité, relevés de revenus, déclarations fiscales et informations sur la propriété. Vous trouverez une liste complète sur notre page documents.",
+      "process": "Notre processus est simple: 1) Demande en ligne, 2) Examen des documents, 3) Consultation, 4) Création de l'offre, 5) Signature du contrat. Le processus complet prend généralement 2 à 4 semaines.",
+      "costs": "Nos services sont gratuits pour vous. Nous recevons une commission des prêteurs. Cependant, des frais de notaire et d'enregistrement foncier peuvent s'appliquer.",
+      "contact": "Vous pouvez nous joindre par e-mail, téléphone ou via notre formulaire de contact. Nos conseillers sont disponibles du lundi au vendredi de 9h à 18h.",
+      "default": "C'est une bonne question! Je vous recommande de parler avec l'un de nos experts pour obtenir une réponse détaillée.",
+      "furtherHelp": "Pour plus d'assistance, veuillez visiter notre"
+    }
   }
 }

@@ -73,7 +73,7 @@ export default function RootLayout({
   const organizationSchema = generateOrganizationSchema();
 
   return (
-  <html lang="de" className="font-sf">
+    <html lang="de" className="font-sf">
       <head>
         <StructuredData data={organizationSchema} />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />

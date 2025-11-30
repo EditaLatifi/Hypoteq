@@ -46,7 +46,7 @@ const ConsultationBanner: React.FC = () => {
             max-sm:max-w-[320px]
           "
         >
-      {t("consultation.title")}
+      {t("consultation.bannerTitle")}
         </h3>
 
         {/* Paragraph */}
@@ -64,7 +64,7 @@ const ConsultationBanner: React.FC = () => {
             max-sm:max-w-[310px] max-sm:opacity-95 max-sm:mt-[4px]
           "
         >
-        {t("consultation.description")}
+        {t("consultation.bannerDescription")}
           <br className="max-sm:hidden" />
      
         </p>

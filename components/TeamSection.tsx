@@ -16,7 +16,7 @@ interface TeamMember {
 const teamMembers: TeamMember[] = [
   {
     name: "Marco Circelli",
-    position: "CEO",
+    position: "team.positions.ceo",
     image: "/images/Marco.png",
     linkedin: "https://www.linkedin.com/in/marco-circelli-a1b9172/",
     email: "mailto:marco.circelli@hypoteq.ch",
@@ -24,7 +24,7 @@ const teamMembers: TeamMember[] = [
 
   {
     name: "Davide Iuorno",
-    position: "Deputy CEO",
+    position: "team.positions.deputyCeo",
     image: "/images/Davide.png",
     linkedin: "https://www.linkedin.com/in/davide-iuorno/",
     email: "mailto:davide.iuorno@hypoteq.ch",
@@ -32,7 +32,7 @@ const teamMembers: TeamMember[] = [
 
   {
     name: "Fisnik Salihu",
-    position: "Chief Technology Officer",
+    position: "team.positions.cto",
     image: "/images/Fisnik.png",
     linkedin: "https://www.linkedin.com/in/fisnik-salihu/",
     email: "mailto:fisnik.salihu@hypoteq.ch",
@@ -40,7 +40,7 @@ const teamMembers: TeamMember[] = [
 
   {
     name: "Alexander von Arx",
-    position: "Head of Business Development",
+    position: "team.positions.headOfBusinessDevelopment",
     image: "/images/Alexander.png",
     linkedin: "https://www.linkedin.com/in/alexander-von-arx-66a416326/",
     email: "mailto:alexander.vonarx@hypoteq.ch",
@@ -48,14 +48,14 @@ const teamMembers: TeamMember[] = [
 
   {
     name: "Claudio Schneider",
-    position: "Präsident des Verwaltungsrates",
+    position: "team.positions.boardPresident",
     image: "/images/Claudio.png",
     linkedin: "https://www.linkedin.com/in/schneider-claudio/",
   },
 
   {
     name: "Christian Neff",
-    position: "Verwaltungsrat",
+    position: "team.positions.boardMember",
     image: "/images/Christian.png",
     linkedin: "https://www.linkedin.com/in/christianneff/",
     email: "mailto:christian.neff@hypoteq.ch",
@@ -63,7 +63,7 @@ const teamMembers: TeamMember[] = [
 
   {
     name: "Cyril Kägi",
-    position: "Initiant und Beirat",
+    position: "team.positions.initiatorAndAdvisory",
     image: "/images/Cyril.png",
     linkedin: "https://www.linkedin.com/in/cyril-k%C3%A4gi-273a1965/",
     email: "mailto:cyril.kaegi@hypoteq.ch",
@@ -71,7 +71,7 @@ const teamMembers: TeamMember[] = [
 
   {
     name: "Christian Wyss",
-    position: "Beirat & Sales Coach",
+    position: "team.positions.advisoryAndSalesCoach",
     image: "/images/ChrsitianW.png",
     linkedin: "https://www.linkedin.com/in/wyssch/",
     email: "mailto:christian.wyss@hypoteq.ch",
@@ -79,7 +79,7 @@ const teamMembers: TeamMember[] = [
 
   {
     name: "Markus Abeler",
-    position: "Consultant",
+    position: "team.positions.consultant",
     image: "/images/Markus.png",
     linkedin: "https://www.linkedin.com/in/abelermarkus/",
     email: "mailto:markus.abeler@hypoteq.ch",
@@ -122,7 +122,7 @@ const TeamSection: React.FC = () => {
             >
               {member.bgColor ? (
                 <div
-                  className="flex flex-col justify-between lg:w-[970px] h-[300px] rounded-[10px]"
+                  className="flex flex-col justify-between lg:w-[970px] h-[340px] rounded-[10px]"
                   style={{
                     backgroundColor: "#CAF476",
                     padding: "14px 24px",
@@ -132,26 +132,28 @@ const TeamSection: React.FC = () => {
                     {member.description ? t(member.description as any) : member.description}
                   </p>
 
-                  <a
-                    href="https://www.linkedin.com/company/hypoteq-ag/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="
-                      inline-block
-                      w-fit
-                      border border-[#132219] rounded-[58px] 
-                      bg-[#CAF476] text-[#132219]
-                      transition-all duration-300
-                      hover:bg-[#dffb9b]
-                    "
-                    style={{
-                      fontSize: "20px",
-                      lineHeight: "120%",
-                      padding: "8px 24px",
-                    }}
-                  >
-                    {t("team.findBestOffer")}
-                  </a>
+                  <div className="flex justify-center lg:justify-start pt-[20px]">
+                    <a
+                      href="https://www.linkedin.com/company/hypoteq-ag/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="
+                        inline-block
+                        w-fit
+                        border border-[#132219] rounded-[58px] 
+                        bg-[#CAF476] text-[#132219]
+                        transition-all duration-300
+                        hover:bg-[#dffb9b]
+                      "
+                      style={{
+                        fontSize: "20px",
+                        lineHeight: "120%",
+                        padding: "8px 24px",
+                      }}
+                    >
+                      {t("team.findBestOffer")}
+                    </a>
+                  </div>
                 </div>
               ) : (
                 <div
@@ -217,7 +219,7 @@ const TeamSection: React.FC = () => {
                       className="text-[#132219] text-[16px] font-light leading-[22px] 
                                 border border-black rounded-[42px] px-[12px] py-[4px]"
                     >
-                      {member.position}
+                      {t(member.position as any)}
                     </p>
 
                     {member.email ? (

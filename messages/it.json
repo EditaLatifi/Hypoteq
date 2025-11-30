@@ -57,6 +57,7 @@
     "requestMortgage": "Richiedi un Mutuo",
     "bestOffer": "Trova la Migliore Offerta",
     "bookAppointment": "Prenota Appuntamento",
+    "bookAppointmentAdvisory": "Prenota Appuntamento",
     "sendNewsletter": "Invia",
     "homeEvaluation": "Valutazione Casa",
     "sendRequest": "Invia Richiesta"
@@ -105,7 +106,7 @@
     "decideAfter": "Poi decidi."
   },
   "joinOurTeam": {
-    "header": "Diventa parte <br /> di HYPOTEQ",
+    "header": "Diventa parte di HYPOTEQ",
     "paragraph1": "Finanza, tecnologia, trasparenza e spirito di squadra – questa è la nostra motivazione.",
     "paragraph2": "Che tu sia in vendite, compliance, mercati dei capitali o operazioni: Da noi conti tu, non il tuo titolo.",
     "paragraph3": "Candidati ora e aiuta a ridefinire il mercato dei mutui.",
@@ -421,6 +422,8 @@
   "consultation": {
     "title": "Domande?",
     "description": "Scrivici direttamente",
+    "bannerTitle": "Hai ancora domande?",
+    "bannerDescription": "I nostri esperti ti spiegano il processo di finanziamento, ti mostrano le opzioni adatte e ti guidano nella tua decisione – personalmente, chiaramente ed efficientemente. In una breve conversazione, ottieni esattamente le informazioni di cui hai bisogno per andare avanti con sicurezza.",
     "buttonText": "Contattaci",
     "bookConsultation": "Prenota ora una consulenza gratuita"
   },
@@ -582,7 +585,18 @@
     "title": "Team di gestione",
     "linkedinDescription": "Visitaci su LinkedIn per rimanere aggiornato sulle nostre ultime notizie, approfondimenti e aggiornamenti.",
     "linkedinButton": "Visita LinkedIn",
-    "findBestOffer": "Trova la migliore offerta"
+    "findBestOffer": "Trova la migliore offerta",
+    "positions": {
+      "ceo": "CEO",
+      "deputyCeo": "Vice CEO",
+      "cto": "Direttore tecnico",
+      "headOfBusinessDevelopment": "Responsabile dello sviluppo commerciale",
+      "boardPresident": "Presidente del consiglio di amministrazione",
+      "boardMember": "Membro del consiglio di amministrazione",
+      "initiatorAndAdvisory": "Iniziatore e comitato consultivo",
+      "advisoryAndSalesCoach": "Comitato consultivo & Coach di vendita",
+      "consultant": "Consulente"
+    }
   },
   "mortgageGuide": {
     "title": "La tua guida ipotecaria",
@@ -762,5 +776,33 @@
     "a12_p1": "Puoi raggiungerci tramite il modulo di contatto sul sito web, via e-mail a",
     "a12_email": "info@hypoteq.ch",
     "a12_p2": "o per telefono. Saremo lieti anche di concordare un appuntamento – online o di persona."
+  },
+  "liveChat": {
+    "greeting": "Ciao! Benvenuto a Hypoteq.",
+    "askName": "Come ti chiami?",
+    "thankYouName": "Piacere di conoscerti, {name}!",
+    "askEmail": "Potresti fornire il tuo indirizzo email?",
+    "invalidEmail": "Per favore, inserisci un indirizzo email valido.",
+    "thankYouEmail": "Grazie, {name}! Il tuo messaggio è stato salvato.",
+    "howCanHelp": "Come posso aiutarti ulteriormente?",
+    "autoReply": "Grazie per il tuo messaggio. Un membro del team ti risponderà a breve. Nel frattempo, puoi visitare la nostra pagina FAQ.",
+    "title": "Supporto HYPOTEQ",
+    "subtitle": "Di solito risponde in pochi minuti",
+    "placeholder": "Scrivi un messaggio...",
+    "privacyNotice": "Proteggiamo i tuoi dati secondo la nostra politica sulla privacy",
+    "send": "Invia",
+    "close": "Chiudi",
+    "contactPage": "pagina di contatto",
+    "responses": {
+      "mortgage": "Offriamo diversi tipi di mutui: mutuo SARON, mutuo a tasso fisso e mutuo Libor. Ognuno ha vantaggi a seconda della tua situazione. Quale ti interessa di più?",
+      "interestRate": "I tassi di interesse attuali variano in base al tipo di mutuo e alla durata. I mutui SARON sono flessibili, mentre i mutui a tasso fisso offrono sicurezza di pianificazione. Vorresti una consulenza dettagliata?",
+      "calculator": "Il nostro calcolatore di mutui ti aiuta a trovare l'opzione migliore. Puoi usarlo sulla nostra pagina calcolatore o iniziare direttamente con il funnel. Quale ti interessa?",
+      "documents": "Per un mutuo, hai bisogno di: prova d'identità, estratti conto, dichiarazioni fiscali e informazioni sulla proprietà. Troverai un elenco completo sulla nostra pagina documenti.",
+      "process": "Il nostro processo è semplice: 1) Richiesta online, 2) Revisione documenti, 3) Consulenza, 4) Creazione offerta, 5) Firma contratto. L'intero processo richiede tipicamente 2-4 settimane.",
+      "costs": "I nostri servizi sono gratuiti per te. Riceviamo una commissione dai finanziatori. Tuttavia, possono applicarsi costi notarili e di registro fondiario.",
+      "contact": "Puoi contattarci via email, telefono o tramite il nostro modulo di contatto. I nostri consulenti sono disponibili dal lunedì al venerdì dalle 9 alle 18.",
+      "default": "È una buona domanda! Ti consiglio di parlare con uno dei nostri esperti per ottenere una risposta dettagliata.",
+      "furtherHelp": "Per ulteriore assistenza, visita la nostra"
+    }
   }
 }

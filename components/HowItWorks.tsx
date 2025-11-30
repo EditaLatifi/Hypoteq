@@ -89,7 +89,7 @@ const Step: React.FC<StepProps> = ({ step, title, text, image, highlightBox, pat
 
         </p>
 
-  <Link href={`/${pathLocale}/funnel`} className="w-full">
+  <Link href={`/${pathLocale}/funnel`} className="w-full flex justify-center pt-[20px]">
   <button
     className="flex items-center justify-center gap-[8px] sm:gap-[10px] 
     border border-[#132219] rounded-[50px] px-[20px] sm:px-[24px] py-[8px] sm:py-[10px]

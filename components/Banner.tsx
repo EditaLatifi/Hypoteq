@@ -54,7 +54,7 @@ const Banner: React.FC = () => {
             tracking-[-0.3px]
           "
         >
-         {t("consultation.title")}
+         {t("consultation.bannerTitle")}
         </h3>
 
         {/* Paragraph */}
@@ -70,7 +70,7 @@ const Banner: React.FC = () => {
             mt-[4px] md:mt-[8px] lg:mt-5
           "
         >
-{t("consultation.description")}
+{t("consultation.bannerDescription")}
      
         </p>
       </div>

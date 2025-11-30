@@ -57,6 +57,7 @@
     "requestMortgage": "Request Mortgage",
     "bestOffer": "Find Best Offer",
     "bookAppointment": "Book Appointment",
+    "bookAppointmentAdvisory": "Book Appointment",
     "sendNewsletter": "Send",
     "homeEvaluation": "Home Evaluation",
     "sendRequest": "Send Request"
@@ -105,7 +106,7 @@
     "decideAfter": "Then decide."
   },
   "joinOurTeam": {
-    "header": "Become part <br /> of HYPOTEQ",
+    "header": "Become part of HYPOTEQ",
     "paragraph1": "Finance, tech, transparency and team spirit – that's our drive.",
     "paragraph2": "Whether sales, compliance, capital market or operations: With us, you count, not your title.",
     "paragraph3": "Apply now and help redefine the mortgage market.",
@@ -421,6 +422,8 @@
   "consultation": {
     "title": "Questions?",
     "description": "Write to us directly",
+    "bannerTitle": "Still have questions?",
+    "bannerDescription": "Our experts explain the financing process, show you suitable options and guide you in your decision-making – personally, clearly and efficiently. In a short conversation, you get exactly the information you need to move forward confidently.",
     "buttonText": "Contact us",
     "bookConsultation": "Book free consultation now"
   },
@@ -573,7 +576,18 @@
     "title": "Management Team",
     "linkedinDescription": "Visit us on LinkedIn to stay updated on our latest news, insights and updates.",
     "linkedinButton": "Visit LinkedIn",
-    "findBestOffer": "Find Best Offer"
+    "findBestOffer": "Find Best Offer",
+    "positions": {
+      "ceo": "CEO",
+      "deputyCeo": "Deputy CEO",
+      "cto": "CTO",
+      "headOfBusinessDevelopment": "Head of Business Development",
+      "boardPresident": "President of the Board of Directors",
+      "boardMember": "Board Member",
+      "initiatorAndAdvisory": "Initiator and Advisory Board",
+      "advisoryAndSalesCoach": "Advisory Board & Sales Coach",
+      "consultant": "Consultant"
+    }
   },
   "mortgageGuide": {
     "title": "Your Mortgage Guide",
@@ -753,5 +767,33 @@
     "a12_p1": "You can reach us via the contact form on the website, by email at",
     "a12_email": "info@hypoteq.ch",
     "a12_p2": "or by phone. We're also happy to arrange an appointment – online or in person."
+  },
+  "liveChat": {
+    "greeting": "Hello! Welcome to Hypoteq.",
+    "askName": "What's your name?",
+    "thankYouName": "Nice to meet you, {name}!",
+    "askEmail": "Could you provide your email address?",
+    "invalidEmail": "Please enter a valid email address.",
+    "thankYouEmail": "Thank you, {name}! Your message has been saved.",
+    "howCanHelp": "How can I help you further?",
+    "autoReply": "Thank you for your message. A team member will get back to you shortly. In the meantime, you can visit our FAQ page.",
+    "title": "HYPOTEQ Support",
+    "subtitle": "Usually responds in a few minutes",
+    "placeholder": "Type a message...",
+    "privacyNotice": "We protect your data according to our privacy policy",
+    "send": "Send",
+    "close": "Close",
+    "contactPage": "contact page",
+    "responses": {
+      "mortgage": "We offer different types of mortgages: SARON mortgage, fixed-rate mortgage, and Libor mortgage. Each has advantages depending on your situation. Which one interests you most?",
+      "interestRate": "Current interest rates vary based on mortgage type and duration. SARON mortgages are flexible, while fixed-rate mortgages offer planning security. Would you like detailed advice?",
+      "calculator": "Our mortgage calculator helps you find the best option. You can use it on our calculator page or start directly with the funnel. Which interests you?",
+      "documents": "For a mortgage, you need: proof of identity, income statements, tax returns, and property information. You'll find a complete list on our documents page.",
+      "process": "Our process is simple: 1) Online application, 2) Document review, 3) Consultation, 4) Offer creation, 5) Contract signing. The entire process typically takes 2-4 weeks.",
+      "costs": "Our services are free for you. We receive a commission from lenders. However, notary and land registry fees may apply.",
+      "contact": "You can reach us by email, phone, or through our contact form. Our advisors are available Monday to Friday 9am-6pm.",
+      "default": "That's a good question! I recommend speaking with one of our experts to get a detailed answer.",
+      "furtherHelp": "For further assistance, please visit our"
+    }
   }
 }

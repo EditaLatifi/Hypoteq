@@ -45,6 +45,7 @@ export default function Advisory() {
           font-sfpro 
           px-[16px] sm:px-[24px] md:px-[116px]lg:px-[116px]xl:px-[116px]2xl:px-[116px]
           text-[#132219]
+          bg-[#89dbe2] lg:bg-transparent
         "
       >
         <Image
@@ -54,7 +55,7 @@ export default function Advisory() {
           priority
           quality={85}
           sizes="100vw"
-          className="object-cover object-right -z-10"
+          className="hidden lg:block object-cover object-right -z-10"
         />
 
         <div className="w-full max-w-[1320px] mx-auto flex flex-col justify-center items-start mt-[80px] sm:mt-[100px] py-[60px] sm:py-[116px]">
@@ -204,7 +205,7 @@ export default function Advisory() {
               {box.button && (
           <Link href={`/${pathLocale}/contact`}>
   <button className="mt-[24px] bg-[#132219] text-[#CAF476] px-[16px] py-[6px] rounded-full text-[16px] sm:text-[18px] font-[500] hover:opacity-80 transition-all w-fit">
-    {t("buttons.bookAppointment")}
+    {t("buttons.bookAppointmentAdvisory")}
   </button>
 </Link>
               )}

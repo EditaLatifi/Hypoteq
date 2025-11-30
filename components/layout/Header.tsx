@@ -95,13 +95,13 @@ export default function Header() {
             </svg>
           </Link>
 
-          {/* Hypothek Button */}
+          {/* Hypothek Button - Mobile & Up */}
           <Link
             href={`/${pathLocale}/funnel`}
-            className="hidden sm:flex items-center justify-center gap-[10px] 
-              w-[200px] sm:w-[220px] md:w-[240px] lg:w-[259px] h-[38px] sm:h-[40px]
+            className="flex items-center justify-center gap-[10px] 
+              w-[160px] sm:w-[220px] md:w-[240px] lg:w-[259px] h-[38px] sm:h-[40px]
               rounded-[58px] bg-[#CAF476] text-[#132219]
-              text-[17px] md:text-[18px] lg:text-[20px] font-semibold hover:opacity-90 transition-all"
+              text-[15px] sm:text-[17px] md:text-[18px] lg:text-[20px] font-semibold hover:opacity-90 transition-all"
           >
             {t("navigation.hypothekAnfragen")}
           </Link>
@@ -163,13 +163,6 @@ export default function Header() {
             className="text-[#132219] text-[16px] font-semibold hover:opacity-70 transition max-sm:text-[15px]"
           >
             {t("navigation.partnerWerden")}
-          </Link>
-          <Link
-            href={`/${pathLocale}/funnel`}
-            onClick={() => setMenuOpen(false)}
-            className="text-[#132219] text-[16px] font-semibold hover:opacity-70 transition max-sm:text-[15px]"
-          >
-            {t("navigation.hypothekAnfragen")}
           </Link>
         </div>
       )}

@@ -171,6 +171,16 @@ const [openDropdown, setOpenDropdown] = useState(false);
   </h1>
 </div>
 
+{/* Helper text - shown after heading on mobile only */}
+<div className="lg:hidden -mt-[60px] mb-[40px]">
+  <p
+    className="text-[#132219] text-[22px] font-[300] leading-[150%]"
+    style={{ fontFamily: "'SF Pro Display', sans-serif" }}
+  >
+    {t("calculator.helperText") || "Bewege einfach die Regler für Kaufpreis, Eigenmittel, Zinssatz und Laufzeit – und sieh sofort, wie sich deine monatlichen Kosten, Zinsen und die Gesamtlaufzeit verändern. Smart, transparent und in Sekunden."}
+  </p>
+</div>
+
 {/* INPUT BLOCK — spacing 28px uniform */}
 <div className="flex flex-col gap-[28px] mt-[16px]">
 
@@ -336,7 +346,7 @@ const [openDropdown, setOpenDropdown] = useState(false);
 
 
 
-           <div className="px-4 flex flex-col items-start w-full max-w-[628px] px-4 mt-[70px] gap-[34px]">
+           <div className="hidden lg:flex px-4 flex-col items-start w-full max-w-[628px] px-4 mt-[70px] gap-[34px]">
           <p
             className="text-[#132219] text-[22px] font-[300] leading-[150%] mb-[60px]"
             style={{ fontFamily: "'SF Pro Display', sans-serif" }}
