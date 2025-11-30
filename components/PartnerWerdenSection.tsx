@@ -31,9 +31,25 @@ export default function PartnerWerdenSection() {
       </h2>
 
       {/* Subtitle */}
-      <p className="text-[#132219] text-[16px] sm:text-[18px] md:text-[20px] font-[600] leading-[140%] md:leading-[22px] font-['SF Pro Display'] text-center md:text-left">
+      <p className="hidden md:block text-[#132219] text-[16px] sm:text-[18px] md:text-[20px] font-[600] leading-[140%] md:leading-[22px] font-['SF Pro Display'] text-center md:text-left">
       {t("partnerWerden.subtitle")}
       </p>
+
+          <p
+          className="
+      text-[#132219]
+      font-['SF Pro Display']
+      text-[18px] sm:text-[20px] md:text-[24px]
+      font-[400]
+      leading-[130%] md:leading-[100%]
+      tracking-[-0.24px]
+      mt-[32px] md:mt-[48px]
+      block sm:hidden
+      text-center
+    "
+        >
+          {t("vorteile.partnerFooterText" as any)}
+        </p>
 
       {/* Form */}
       <form className="w-full flex flex-col gap-[16px] sm:gap-[20px] md:gap-[24px]">

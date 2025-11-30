@@ -107,10 +107,10 @@ export default function VorteileSection() {
       leading-[130%] md:leading-[100%]
       tracking-[-0.24px]
       mt-[32px] md:mt-[48px]
+      hidden sm:block
     "
         >
-          Dann trag dich ein – wir melden uns persönlich bei dir. HYPOTEQ – Dein
-          Partner für smarte Immobilienfinanzierung.
+          {t("vorteile.partnerFooterText" as any)}
         </p>
       </div>
 

@@ -540,7 +540,8 @@
       "card5Title": "Support auf Augenhöhe",
       "card5Text": "Persönliche Ansprechperson & Beratung",
       "card6Title": "Kundenbindung stärken",
-      "card6Text": "Du bietest Mehrwert ohne Mehraufwand"
+      "card6Text": "Du bietest Mehrwert ohne Mehraufwand",
+      "partnerFooterText": "Dann trag dich ein – wir melden uns persönlich bei dir. HYPOTEQ – Dein Partner für smarte Immobilienfinanzierung."
     },
     "stats": {
       "title": "Wir helfen dir, die beste Finanzierung zu finden",
@@ -607,7 +608,7 @@
   },
   "partnerWerden": {
     "title": "Du möchtest Hypotheken aktiv vermitteln und mit HYPOTEQ zusammenarbeiten?",
-    "subtitle": "Dann trag dich ein – wir melden uns persönlich bei dir. HYPOTEQ – Dein Partner für smarte Immobilienfinanzierung.",
+    "subtitle": "Dann freuen wir uns über deine Anfrage!",
     "requirement": "Um Partner zu werden, solltest du ein registriertes Unternehmen mit gültiger Vermittlungsbewilligung sein, die regulatorischen Vorgaben (z. B. KYC/AML) einhalten und bereits Erfahrung im operativen Geschäft haben – oder unter der Aufsicht einer lizenzierten Organisation stehen.",
     "phoneNumber": "Telefonnummer",
     "faqTitle": "Häufig gestellte Fragen",
