@@ -169,12 +169,12 @@ if (!clientData.zip)
           </div>
 
           {/* Footer */}
-<div className="flex flex-col lg:flex-row lg:items-center lg:justify-between w-full mt-0 gap-4">
+<div className="flex flex-col-reverse lg:flex-row lg:items-center lg:justify-between w-full mt-0 gap-4">
             <div className="w-full lg:w-auto">
               <label className="text-[14px] font-medium text-[#132219]">
                 {t("funnel.areYouPartner" as any)}
               </label>
-              <div className="flex items-center gap-2 mt-1">
+              <div className="flex items-center gap-2 mt-1 mb-4 lg:mb-0">
                 <div
                   className="
       w-10 h-10 lg:flex items-center justify-center
@@ -224,7 +224,7 @@ if (!clientData.zip)
                 setEmail(clientData.email);
                 saveStep();
               }}
-              className="px-8 py-2 bg-[#CAF476] border border-[#132219] rounded-full text-[14px] font-medium text-[#132219] self-end"
+              className="px-8 py-2 mt-2 lg:mt-0 bg-[#CAF476] border border-[#132219] rounded-full text-[14px] font-medium text-[#132219] self-end"
             >
               {t("funnel.continue" as any)}
             </button>
