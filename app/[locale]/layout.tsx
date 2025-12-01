@@ -23,15 +23,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   const titles = {
-    de: "HYPOTEQ - Hypotheken in der Schweiz | Beste Konditionen & Beratung",
-    en: "HYPOTEQ - Mortgages in Switzerland | Best Conditions & Advice",
-    fr: "HYPOTEQ - Hypothèques en Suisse | Meilleures Conditions & Conseils",
-    it: "HYPOTEQ - Mutui in Svizzera | Migliori Condizioni e Consulenza"
+    de: "Home - HYPOTEQ AG - günstige Hypothek mit Profi-Beratung",
+    en: "Home - HYPOTEQ AG - Affordable Mortgages with Expert Advice",
+    fr: "Accueil - HYPOTEQ AG - Hypothèque Avantageuse avec Conseils d'Experts",
+    it: "Home - HYPOTEQ AG - Mutuo Conveniente con Consulenza Professionale"
+  };
+
+  const descriptions = {
+    de: "HYPOTEQ AG - günstige Hypothek mit Profi-Beratung. Ihr vertrauenswürdiger Partner für Hypotheken in der Schweiz.",
+    en: "HYPOTEQ AG - Affordable mortgages with expert advice. Your trusted partner for mortgages in Switzerland.",
+    fr: "HYPOTEQ AG - Hypothèque avantageuse avec conseils d'experts. Votre partenaire de confiance pour les hypothèques en Suisse.",
+    it: "HYPOTEQ AG - Mutuo conveniente con consulenza professionale. Il vostro partner di fiducia per i mutui in Svizzera."
   };
 
   return generateSEOMetadata(locale, {
     title: titles[locale],
-    description: SITE_CONFIG.description[locale],
+    description: descriptions[locale],
     canonical: "",
   });
 }

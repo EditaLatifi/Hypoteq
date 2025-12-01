@@ -6,45 +6,54 @@ import { generateOrganizationSchema } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: {
-    default: "HYPOTEQ - Hypotheken in der Schweiz | Beste Konditionen & Beratung",
-    template: "%s | HYPOTEQ"
+    default: "Home - HYPOTEQ AG - günstige Hypothek mit Profi-Beratung",
+    template: "%s | HYPOTEQ AG - günstige Hypothek mit Profi-Beratung"
   },
-  description: "HYPOTEQ - Ihr vertrauenswürdiger Partner für Hypotheken in der Schweiz. Beste Konditionen, persönliche Beratung und digitale Lösungen für Ihre Traumimmobilie.",
+  description: "HYPOTEQ AG - günstige Hypothek mit Profi-Beratung. Ihr vertrauenswürdiger Partner für Hypotheken in der Schweiz. Beste Konditionen, persönliche Beratung und digitale Lösungen für Ihre Traumimmobilie.",
   keywords: [
     "Hypothek Schweiz",
+    "günstige Hypothek",
     "Hypothekenrechner",
     "Immobilienfinanzierung",
     "Hypothekenvergleich",
     "Festhypothek",
-    "Mezzanine Finanzierung"
+    "Mezzanine Finanzierung",
+    "Profi-Beratung Hypothek",
+    "HYPOTEQ AG"
   ],
-  authors: [{ name: "HYPOTEQ" }],
-  creator: "HYPOTEQ",
-  publisher: "HYPOTEQ",
-  metadataBase: new URL("https://hypoteq.ch"),
+  authors: [{ name: "HYPOTEQ AG" }],
+  creator: "HYPOTEQ AG",
+  publisher: "HYPOTEQ AG",
+  metadataBase: new URL("https://www.hypoteq.ch"),
   alternates: {
-    canonical: "/",
+    canonical: "https://www.hypoteq.ch/",
+    languages: {
+      'de-CH': 'https://www.hypoteq.ch/de',
+      'en': 'https://www.hypoteq.ch/en',
+      'fr-CH': 'https://www.hypoteq.ch/fr',
+      'it-CH': 'https://www.hypoteq.ch/it',
+    },
   },
   openGraph: {
     type: "website",
-    locale: "de_CH",
-    url: "https://hypoteq.ch",
-    siteName: "HYPOTEQ",
-    title: "HYPOTEQ - Hypotheken in der Schweiz",
-    description: "Ihr vertrauenswürdiger Partner für Hypotheken in der Schweiz. Beste Konditionen, persönliche Beratung und digitale Lösungen.",
+    locale: "de_DE",
+    url: "https://www.hypoteq.ch/",
+    siteName: "HYPOTEQ AG - günstige Hypothek mit Profi-Beratung",
+    title: "Home - HYPOTEQ AG - günstige Hypothek mit Profi-Beratung",
+    description: "HYPOTEQ AG - günstige Hypothek mit Profi-Beratung. Ihr vertrauenswürdiger Partner für Hypotheken in der Schweiz.",
     images: [
       {
         url: "/images/og-image.png",
         width: 1200,
         height: 630,
-        alt: "HYPOTEQ - Hypotheken Schweiz"
+        alt: "HYPOTEQ AG - günstige Hypothek mit Profi-Beratung"
       }
     ]
   },
   twitter: {
     card: "summary_large_image",
-    title: "HYPOTEQ - Hypotheken in der Schweiz",
-    description: "Ihr vertrauenswürdiger Partner für Hypotheken in der Schweiz.",
+    title: "Home - HYPOTEQ AG - günstige Hypothek mit Profi-Beratung",
+    description: "HYPOTEQ AG - günstige Hypothek mit Profi-Beratung. Ihr vertrauenswürdiger Partner für Hypotheken in der Schweiz.",
     images: ["/images/og-image.png"],
   },
   robots: {
@@ -63,6 +72,9 @@ export const metadata: Metadata = {
     apple: "/favicon.ico",
   },
   manifest: "/manifest.json",
+  other: {
+    'article:modified_time': new Date().toISOString(),
+  },
 };
 
 export default function RootLayout({

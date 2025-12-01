@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 
 export const SITE_CONFIG = {
-  name: "HYPOTEQ",
+  name: "HYPOTEQ AG - günstige Hypothek mit Profi-Beratung",
   description: {
-    de: "HYPOTEQ - Ihr vertrauenswürdiger Partner für Hypotheken in der Schweiz. Beste Konditionen, persönliche Beratung und digitale Lösungen für Ihre Traumimmobilie.",
-    en: "HYPOTEQ - Your trusted partner for mortgages in Switzerland. Best conditions, personal advice and digital solutions for your dream property.",
-    fr: "HYPOTEQ - Votre partenaire de confiance pour les hypothèques en Suisse. Meilleures conditions, conseils personnalisés et solutions numériques pour votre propriété de rêve.",
-    it: "HYPOTEQ - Il vostro partner di fiducia per i mutui in Svizzera. Migliori condizioni, consulenza personale e soluzioni digitali per la vostra proprietà dei sogni."
+    de: "HYPOTEQ AG - günstige Hypothek mit Profi-Beratung. Ihr vertrauenswürdiger Partner für Hypotheken in der Schweiz. Beste Konditionen, persönliche Beratung und digitale Lösungen für Ihre Traumimmobilie.",
+    en: "HYPOTEQ AG - Affordable mortgages with expert advice. Your trusted partner for mortgages in Switzerland. Best conditions, personal advice and digital solutions for your dream property.",
+    fr: "HYPOTEQ AG - Hypothèque avantageuse avec conseils d'experts. Votre partenaire de confiance pour les hypothèques en Suisse. Meilleures conditions, conseils personnalisés et solutions numériques.",
+    it: "HYPOTEQ AG - Mutuo conveniente con consulenza professionale. Il vostro partner di fiducia per i mutui in Svizzera. Migliori condizioni, consulenza personale e soluzioni digitali."
   },
-  url: "https://hypoteq.ch",
+  url: "https://www.hypoteq.ch",
   ogImage: "/images/og-image.png",
   keywords: {
     de: [
@@ -99,13 +99,20 @@ export function generateMetadata(
   const canonical = config.canonical || "";
   const fullUrl = `${siteUrl}/${locale}${canonical}`;
 
+  const localeMap = {
+    de: "de_DE",
+    en: "en_US", 
+    fr: "fr_CH",
+    it: "it_CH"
+  };
+
   return {
     title: config.title,
     description: config.description,
     keywords: config.keywords || SITE_CONFIG.keywords[locale],
-    authors: [{ name: "HYPOTEQ" }],
-    creator: "HYPOTEQ",
-    publisher: "HYPOTEQ",
+    authors: [{ name: "HYPOTEQ AG" }],
+    creator: "HYPOTEQ AG",
+    publisher: "HYPOTEQ AG",
     formatDetection: {
       email: false,
       address: false,
@@ -115,10 +122,10 @@ export function generateMetadata(
     alternates: {
       canonical: fullUrl,
       languages: {
-        de: `${siteUrl}/de${canonical}`,
-        en: `${siteUrl}/en${canonical}`,
-        fr: `${siteUrl}/fr${canonical}`,
-        it: `${siteUrl}/it${canonical}`,
+        'de-CH': `${siteUrl}/de${canonical}`,
+        'en': `${siteUrl}/en${canonical}`,
+        'fr-CH': `${siteUrl}/fr${canonical}`,
+        'it-CH': `${siteUrl}/it${canonical}`,
       },
     },
     openGraph: {
@@ -134,7 +141,7 @@ export function generateMetadata(
           alt: config.title,
         },
       ],
-      locale: locale === "de" ? "de_CH" : locale === "en" ? "en_US" : locale === "fr" ? "fr_CH" : "it_CH",
+      locale: localeMap[locale],
       type: "website",
     },
     twitter: {
@@ -142,7 +149,6 @@ export function generateMetadata(
       title: config.title,
       description: config.description,
       images: [config.ogImage || SITE_CONFIG.ogImage],
-      creator: "@hypoteq",
     },
     robots: {
       index: !config.noindex,
