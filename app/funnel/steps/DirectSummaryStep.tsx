@@ -146,7 +146,26 @@ const laufzeitLabel =
           </label>
           <div className="text-[20px] font-medium leading-snug">
             {property.finanzierungsangebote === "ja"
-              ? `${t("funnel.yes" as any)}, ${property.bank}, ${property.zins}%, ${property.laufzeit}`
+              ? (
+                <div className="space-y-2">
+                  <div>{t("funnel.yes" as any)}</div>
+                  {(property.angebote && property.angebote.length > 0) ? (
+                    property.angebote.map((offer: any, idx: number) => (
+                      <div key={idx} className="text-[16px] opacity-80">
+                        {offer.bank || '—'}
+                        {offer.zins ? `, ${offer.zins}%` : ''}
+                        {offer.laufzeit ? `, ${offer.laufzeit}` : ''}
+                      </div>
+                    ))
+                  ) : (
+                    <div className="text-[16px] opacity-80">
+                      {property.bank || '—'}
+                      {property.zins ? `, ${property.zins}%` : ''}
+                      {property.laufzeit ? `, ${property.laufzeit}` : ''}
+                    </div>
+                  )}
+                </div>
+              )
               : t("funnel.no" as any)}
           </div>
 
