@@ -209,28 +209,35 @@ const submitFinal = async () => {
       }),
     });
 
-    const data = await res.json();
-
-    if (!data.success) {
-      console.error("Failed:", data.error);
+    if (!res.ok) {
+      const errorData = await res.json();
+      console.error("Failed:", errorData.error);
       alert("Etwas ist schief gelaufen. Bitte versuchen Sie es erneut.");
       return;
     }
 
+    const data = await res.json();
     console.log("📌 Inquiry created:", data);
 
-    // 2️⃣ Extract inquiryId
-    const inquiryId = data.inquiry.id;
-
-    // 3️⃣ Upload documents to SharePoint
-    for (const doc of uploadedDocs) {
-      if (doc.file) {
-        console.log("⬆ Uploading:", doc.name);
-        await uploadDocToSharepoint(doc.file, inquiryId);
-      }
+    // For direct customers, skip document upload and go straight to thank you
+    if (customerType === "direct") {
+      setStep(7);
+      return;
     }
 
-    console.log("🎉 All docs uploaded!");
+    // 2️⃣ Extract inquiryId for partners
+    const inquiryId = data.inquiry?.id;
+
+    // 3️⃣ Upload documents to SharePoint (partners only)
+    if (uploadedDocs && uploadedDocs.length > 0) {
+      for (const doc of uploadedDocs) {
+        if (doc.file) {
+          console.log("⬆ Uploading:", doc.name);
+          await uploadDocToSharepoint(doc.file, inquiryId);
+        }
+      }
+      console.log("🎉 All docs uploaded!");
+    }
 
     // 4️⃣ Move to success step
     setStep(7);

@@ -41,9 +41,9 @@ const calculateAge = (birthdate: string): number => {
 const hasAge50Plus = (property?.kreditnehmer || []).some((kn: any) => calculateAge(kn.geburtsdatum) >= 50);
 
 // Check employment status
-const hasAngestellt = (property?.kreditnehmer || []).some((kn: any) => kn.erwerbsstatus === "angestellt");
-const hasSelbständig = (property?.kreditnehmer || []).some((kn: any) => kn.erwerbsstatus === "selbständig");
-const hasRentner = (property?.kreditnehmer || []).some((kn: any) => kn.erwerbsstatus === "rentner");
+const hasAngestellt = (property?.kreditnehmer || []).some((kn: any) => kn.erwerb === "angestellt");
+const hasSelbständig = (property?.kreditnehmer || []).some((kn: any) => kn.erwerb === "selbständig");
+const hasRentner = (property?.kreditnehmer || []).some((kn: any) => kn.erwerb === "rentner");
 
 
 

@@ -320,7 +320,7 @@
     "forNewConstruction": "Bei Neubau",
     "forRedemption": "Bei Ablösung",
     "forCondominiumOwnership": "Bei Stockwerkeigentum",
-    "forOtherOwners": "Bei Andere Eigentümer",
+    "forOtherOwners": "Bei Andere Eigenmittel",
     "forConstructionProject": "Bei Bauprojekt, Renovation",
     "companyName": "Firmenname",
     "address": "Adresse",
@@ -476,7 +476,7 @@
     "docSectionInvestmentProperty": "Renditeobjekt",
     "docSectionRedemption": "Ablösung",
     "docSectionCondominium": "Stockwerkeigentum",
-    "docSectionOtherOwners": "Andere Eigentümer",
+    "docSectionOtherOwners": "Andere Eigenmittel",
     "docSectionConstructionRenovation": "Bauprojekt, Bei Renovation",
     "uploadError": "Fehler beim Upload!",
     "backToHomepage": "Zurück zur Homepage",
@@ -489,7 +489,7 @@
     "incomeProperty": "Renditeobjekt",
     "redemptionDocuments": "Ablösung",
     "condominiumOwnership": "Stockwerkeigentum",
-    "otherOwners": "Andere Eigentümer",
+    "otherOwners": "Andere Eigenmittel",
     "constructionRenovation": "Bauprojekt, Bei Renovation"
   },
   "contact": {

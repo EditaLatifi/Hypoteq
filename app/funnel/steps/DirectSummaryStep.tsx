@@ -191,7 +191,7 @@ const laufzeitLabel =
             {financing.bonus ? ` ${t("funnel.withBonus" as any)}` : ""}
           </div>
 
-          {!isJur && !isPartner && (
+          {!isJur && !isPartner && project.projektArt !== "abloesung" && (
             <>
               <label className="text-[18px] font-light opacity-70">
                 {t("funnel.taxOptimization" as any)}
