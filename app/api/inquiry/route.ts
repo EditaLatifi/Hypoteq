@@ -7,6 +7,11 @@ export async function POST(req: Request) {
     const data = await req.json();
     console.log('Received data:', data); // Debugging step to ensure proper structure
 
+    // Convert angebote array to string array for database
+    const angeboteListe = data.property?.angebote?.map((offer: any) => 
+      `${offer.bank || ''} | ${offer.zins || ''}% | ${offer.laufzeit || ''}`
+    ) || [];
+
 const saved = await prisma.inquiry.create({
   data: {
     customerType: data.customerType || null,
@@ -22,7 +27,13 @@ const saved = await prisma.inquiry.create({
             renovationsBetrag: data.property.renovationsBetrag,
             reserviert: data.property.reserviert,
             finanzierungsangebote: data.property.finanzierungsangebote,
-            angeboteListe: data.property.angeboteListe,
+            angeboteListe: angeboteListe,
+            kreditnehmer: data.property.kreditnehmer?.length > 0
+              ? { createMany: { data: data.property.kreditnehmer } }
+              : undefined,
+            firmen: data.property.firmen?.length > 0 && data.property.firmen[0]?.firmenname
+              ? { createMany: { data: data.property.firmen } }
+              : undefined,
           },
         }
       : undefined,
