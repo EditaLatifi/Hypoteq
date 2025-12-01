@@ -88,11 +88,25 @@ export default function RootLayout({
     <html lang="de" className="font-sf">
       <head>
         <StructuredData data={organizationSchema} />
+        
+        {/* Performance optimizations */}
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
         <meta name="theme-color" content="#CAF476" />
-        <link rel="canonical" href="https://hypoteq.ch" />
+        
+        {/* Preconnect to external domains */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        
+        {/* DNS prefetch for faster lookups */}
+        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+        
+        {/* Canonical */}
+        <link rel="canonical" href="https://www.hypoteq.ch" />
+        
+        {/* Favicon */}
         <link rel="icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/favicon.ico" />
       </head>
       <body
         className="font-sfpro bg-white text-[#132219] overflow-visible"
