@@ -23,17 +23,27 @@ function StartStep({
 
   const validateDirectCustomer = () => {
     const newErrors: ErrorFields = {};
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // Swiss ZIP: 4 digits, range 1000-9999
+    const zipRegex = /^[1-9]\d{3}$/;
+
 if (!clientData.firstName)
   newErrors.firstName = t("funnel.errorFirstName" as any);
 
 if (!clientData.lastName)
   newErrors.lastName = t("funnel.errorLastName" as any);
 
-if (!clientData.email)
+if (!clientData.email) {
   newErrors.email = t("funnel.errorEmail" as any);
+} else if (!emailRegex.test(clientData.email)) {
+  newErrors.email = "Bitte geben Sie eine gültige E-Mail-Adresse ein";
+}
 
-if (!clientData.zip)
+if (!clientData.zip) {
   newErrors.zip = t("funnel.errorZip" as any);
+} else if (!zipRegex.test(clientData.zip)) {
+  newErrors.zip = "Bitte geben Sie eine gültige Schweizer PLZ ein (1000-9999)";
+}
 
 
     setErrors(newErrors);
@@ -262,11 +272,24 @@ if (!clientData.zip)
             </div>
           </div>
 
-          <div className="flex justify-end mt-6">
+          <div className="flex justify-between mt-6">
+            <button
+              onClick={() => setCustomerType("direct")}
+              className="px-8 py-2 rounded-full border border-[#132219] text-[#132219] hover:bg-[#F7F7F7]"
+            >
+              Zurück
+            </button>
             <button
         onClick={() => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  
   if (!clientData.partnerEmail) {
     setErrors({ partnerEmail: t("funnel.errorPartnerEmail" as any) });
+    return;
+  }
+  
+  if (!emailRegex.test(clientData.partnerEmail)) {
+    setErrors({ partnerEmail: "Bitte geben Sie eine gültige E-Mail-Adresse ein" });
     return;
   }
 

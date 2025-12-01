@@ -129,28 +129,6 @@ type SectionProps = {
     ]}
   />
 )}
-
-
-        {/* ===== HYPOTEQ INFORMATION MATERIAL ===== */}
-        {(activeCategory === "All" ||
-          activeCategory === "HYPOTEQ information material") && (
-          <Section
-            title={t("documents.section4Title")}
-docs={[
-  { 
-    label: t("documents.section4Doc1"), 
-    file: "/documents/HYPOTEQ-Flyer.pdf",
-    flag: "/images/german.png"
-  },
-  { 
-    label: t("documents.section4Doc2"), 
-    file: "/documents/HYPOTEQ-Broschuere.pdf",
-    flag: "/images/german.png"
-  },
-]}
-
-          />
-        )}
       </div>
     </section>
   );

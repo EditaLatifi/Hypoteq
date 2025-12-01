@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslation } from "@/hooks/useTranslation";
 
@@ -420,7 +421,7 @@ export default function FaqSection() {
       question: t("faqItems.q6"),
       answer: (
         <div className="flex flex-col gap-[12px] text-[16px] leading-[150%]">
-          <p>{t("faqItems.a6_p1")}<br /><strong>{t("faqItems.a6_link")}</strong></p>
+          <p>{t("faqItems.a6_p1")}<br /><strong><Link href={`/${pathLocale}/documents`} className="underline hover:opacity-70 transition cursor-pointer">{t("faqItems.a6_link")}</Link></strong></p>
           <p>{t("faqItems.a6_p2")}</p>
         </div>
       ),

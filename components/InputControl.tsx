@@ -12,29 +12,24 @@ const DateBox = ({
   setValue: (v: any) => void
 }) => {
   return (
-    <div className="date-wrap flex items-center gap-2">
-      <input
-        className="input-base"
-        type="date"
-        value={value ?? ''}
-        onChange={(e) => setValue(e.target.value)}
-      />
-      <button
-        type="button"
-        className="date-btn text-gray-500"
-        onClick={(e) => {
-          const parent = e.currentTarget.parentElement as HTMLElement
-          const input = parent.querySelector('input[type="date"]') as any
-          if (input && typeof input.showPicker === 'function') {
-            input.showPicker()
-          } else {
-            input?.focus()
-          }
-        }}
-      >
-        📅
-      </button>
-    </div>
+    <input
+      className="input-base"
+      type="date"
+      value={value ? (() => {
+        const parts = value.split(".");
+        if (parts.length === 3) {
+          return `${parts[2]}-${parts[1].padStart(2, "0")}-${parts[0].padStart(2, "0")}`;
+        }
+        return value;
+      })() : ''}
+      onChange={(e) => {
+        if (e.target.value) {
+          const [y, m, d] = e.target.value.split("-");
+          const swissDate = `${d}.${m}.${y}`;
+          setValue(swissDate);
+        }
+      }}
+    />
   )
 }
 

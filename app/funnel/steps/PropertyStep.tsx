@@ -2,21 +2,27 @@
 
 import { useTranslation } from "@/hooks/useTranslation";
 
-function PropertyStep({ data, setData, saveStep, borrowers, back, customerType, borrowerType }: any)
+function PropertyStep({ data, setData, saveStep, borrowers, back, customerType, borrowerType, projectData }: any)
  {
   const { t } = useTranslation();
   const update = (key: string, value: any) => {
     setData((prev: any) => ({ ...prev, [key]: value }));
   };
 
-  const ToggleButton = ({ active, children, onClick, showCircle = false }: any) => {
+  // Check if project type is Ablösung (redemption) - Neubau not allowed
+  const isAbloesung = projectData?.projektArt === "abloesung";
+
+  const ToggleButton = ({ active, children, onClick, showCircle = false, disabled = false }: any) => {
     return (
       <button
-        onClick={onClick}
+        onClick={disabled ? undefined : onClick}
+        disabled={disabled}
         className={`
           flex items-center gap-3
           px-6 py-2.5 rounded-full border text-sm transition-all
-          ${active
+          ${disabled
+            ? "bg-gray-100 border-gray-300 text-gray-400 cursor-not-allowed opacity-50"
+            : active
             ? "bg-[#CAF476] border-[#132219] text-[#132219]"
             : "bg-white border-[#C8C8C8] text-[#132219]"}
         `}
@@ -64,11 +70,12 @@ const propertyUseOptions =
           <ToggleButton
             active={data.artImmobilie === "neubau"}
             onClick={() => update("artImmobilie", "neubau")}
+            disabled={isAbloesung}
           >
             {t("funnel.newConstruction" as any)}
           </ToggleButton>
         </div>
-        {data.artImmobilie === "neubau" && (
+        {data.artImmobilie === "neubau" && !isAbloesung && (
           <div className="flex flex-wrap gap-[24px] mt-[16px]">
             <ToggleButton
               active={data.neubauArt === "bereits_erstellt"}
@@ -217,25 +224,69 @@ const propertyUseOptions =
           </ToggleButton>
         </div>
         {data.finanzierungsangebote === "ja" && (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-[24px] mt-[16px]">
-            <input
-              placeholder={t("funnel.whichBank" as any)}
-              className="px-5 py-2 border border-[#C8C8C8] rounded-full text-sm w-full"
-              value={data.bank || ""}
-              onChange={(e) => update("bank", e.target.value)}
-            />
-            <input
-              placeholder={t("funnel.interestRate" as any)}
-              className="px-5 py-2 border border-[#C8C8C8] rounded-full text-sm w-full"
-              value={data.zins || ""}
-              onChange={(e) => update("zins", e.target.value)}
-            />
-            <input
-              placeholder={t("funnel.term" as any)}
-              className="px-5 py-2 border border-[#C8C8C8] rounded-full text-sm w-full"
-              value={data.laufzeit || ""}
-              onChange={(e) => update("laufzeit", e.target.value)}
-            />
+          <div className="space-y-4 mt-[16px]">
+            {(data.angebote || [{ bank: "", zins: "", laufzeit: "" }]).map((offer: any, idx: number) => (
+              <div key={idx} className="flex items-center gap-4">
+                {/* Add Button */}
+                <button
+                  onClick={() => {
+                    const updated = [...(data.angebote || [{ bank: data.bank || "", zins: data.zins || "", laufzeit: data.laufzeit || "" }])];
+                    updated.splice(idx + 1, 0, { bank: "", zins: "", laufzeit: "" });
+                    update("angebote", updated);
+                  }}
+                  className="text-3xl leading-none text-[#132219]"
+                >
+                  +
+                </button>
+
+                {/* Delete Button */}
+                {((data.angebote || []).length > 1 || idx > 0) && (
+                  <button
+                    onClick={() => {
+                      const updated = (data.angebote || []).filter((_: any, i: number) => i !== idx);
+                      update("angebote", updated.length > 0 ? updated : undefined);
+                    }}
+                    className="text-3xl leading-none text-red-600"
+                  >
+                    −
+                  </button>
+                )}
+
+                {/* Offer Fields */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 flex-1">
+                  <input
+                    placeholder={t("funnel.whichBank" as any)}
+                    className="px-5 py-2 border border-[#C8C8C8] rounded-full text-sm w-full"
+                    value={offer.bank || ""}
+                    onChange={(e) => {
+                      const updated = [...(data.angebote || [{ bank: data.bank || "", zins: data.zins || "", laufzeit: data.laufzeit || "" }])];
+                      updated[idx].bank = e.target.value;
+                      update("angebote", updated);
+                    }}
+                  />
+                  <input
+                    placeholder={t("funnel.interestRate" as any)}
+                    className="px-5 py-2 border border-[#C8C8C8] rounded-full text-sm w-full"
+                    value={offer.zins || ""}
+                    onChange={(e) => {
+                      const updated = [...(data.angebote || [{ bank: data.bank || "", zins: data.zins || "", laufzeit: data.laufzeit || "" }])];
+                      updated[idx].zins = e.target.value;
+                      update("angebote", updated);
+                    }}
+                  />
+                  <input
+                    placeholder={t("funnel.term" as any)}
+                    className="px-5 py-2 border border-[#C8C8C8] rounded-full text-sm w-full"
+                    value={offer.laufzeit || ""}
+                    onChange={(e) => {
+                      const updated = [...(data.angebote || [{ bank: data.bank || "", zins: data.zins || "", laufzeit: data.laufzeit || "" }])];
+                      updated[idx].laufzeit = e.target.value;
+                      update("angebote", updated);
+                    }}
+                  />
+                </div>
+              </div>
+            ))}
           </div>
         )}
       </div>
@@ -257,6 +308,7 @@ const propertyUseOptions =
         {/* ADD BUTTON */}
         <button
           onClick={() => {
+            if (data.kreditnehmer.length >= 6) return; // Max 6 borrowers
             const updated = [...data.kreditnehmer];
             updated.splice(
               index + 1,
@@ -274,9 +326,23 @@ const propertyUseOptions =
             update("kreditnehmer", updated);
           }}
           className="text-3xl leading-none text-[#132219] mt-[5px]"
+          disabled={data.kreditnehmer.length >= 6}
         >
           +
         </button>
+
+        {/* DELETE BUTTON */}
+        {data.kreditnehmer.length > 1 && (
+          <button
+            onClick={() => {
+              const updated = data.kreditnehmer.filter((_: any, i: number) => i !== index);
+              update("kreditnehmer", updated);
+            }}
+            className="text-3xl leading-none text-red-600 mt-[5px]"
+          >
+            −
+          </button>
+        )}
 
         {/* ======================== */}
         {/*   JUR / PARTNER VIEW     */}
@@ -356,17 +422,24 @@ const propertyUseOptions =
               <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 w-2 h-2 border-r-2 border-b-2 border-[#132219] rotate-45" />
             </div>
             <input
-              type="text"
-              placeholder={t("funnel.dateOfBirth" as any)}
-              className="px-5 py-2 border border-[#132219] rounded-full text-sm"
-              value={kn.geburtsdatum || ""}
+              type="date"
+              placeholder="DD.MM.YYYY"
+              className="px-5 py-2 border border-[#132219] rounded-full text-sm w-full"
+              value={kn.geburtsdatum ? (() => {
+                const parts = kn.geburtsdatum.split(".");
+                if (parts.length === 3) {
+                  return `${parts[2]}-${parts[1].padStart(2, "0")}-${parts[0].padStart(2, "0")}`;
+                }
+                return kn.geburtsdatum;
+              })() : ""}
               onChange={(e) => {
-                const updated = [...data.kreditnehmer];
-                let val = e.target.value.replace(/\D/g, "");
-                if (val.length >= 5) val = val.replace(/(\d{2})(\d{2})(\d+)/, "$1.$2.$3");
-                else if (val.length >= 3) val = val.replace(/(\d{2})(\d+)/, "$1.$2");
-                updated[index].geburtsdatum = val;
-                update("kreditnehmer", updated);
+                if (e.target.value) {
+                  const [y, m, d] = e.target.value.split("-");
+                  const swissDate = `${d}.${m}.${y}`;
+                  const updated = [...data.kreditnehmer];
+                  updated[index].geburtsdatum = swissDate;
+                  update("kreditnehmer", updated);
+                }
               }}
             />
             <div className="relative w-full">

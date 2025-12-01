@@ -20,6 +20,11 @@ function BorrowersStep({ saveStep , back}: any) {
 const selectType = (type: "nat" | "jur") => {
   const updated = [{ id: borrowers[0]?.id || uuidv4(), type }];
   setBorrowers(updated); // Update store only
+  
+  // Auto-advance after selection
+  setTimeout(() => {
+    saveStep();
+  }, 300);
 };
 
 

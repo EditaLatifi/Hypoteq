@@ -2,11 +2,144 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslation } from "@/hooks/useTranslation";
+import { useEffect, useState } from "react";
 
 export default function ContactPage() {
   const pathname = usePathname();
   const pathLocale = (pathname.split("/")[1] || "de") as "de" | "en" | "fr" | "it";
   const { t } = useTranslation(pathLocale);
+
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    company: "",
+    email: "",
+    phone: "",
+    inquiryType: "",
+    message: ""
+  });
+
+  const [errors, setErrors] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    inquiryType: "",
+    message: ""
+  });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://assets.calendly.com/assets/external/widget.js';
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validatePhone = (phone: string) => {
+    // Swiss phone format: +41 or 0, then 9 digits (allowing spaces/dashes)
+    const phoneRegex = /^(\+41|0)[0-9\s\-]{9,}$/;
+    return phoneRegex.test(phone.replace(/\s/g, ''));
+  };
+
+  const handleInputChange = (field: string, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+    // Clear error when user starts typing
+    if (errors[field as keyof typeof errors]) {
+      setErrors(prev => ({ ...prev, [field]: "" }));
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    const newErrors = {
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      inquiryType: "",
+      message: ""
+    };
+
+    // Validate required fields
+    if (!formData.firstName.trim()) {
+      newErrors.firstName = "Vorname ist erforderlich";
+    }
+    if (!formData.lastName.trim()) {
+      newErrors.lastName = "Nachname ist erforderlich";
+    }
+    if (!formData.email.trim()) {
+      newErrors.email = "E-Mail ist erforderlich";
+    } else if (!validateEmail(formData.email)) {
+      newErrors.email = "Bitte geben Sie eine gültige E-Mail-Adresse ein";
+    }
+    if (!formData.phone.trim()) {
+      newErrors.phone = "Telefonnummer ist erforderlich";
+    } else if (!validatePhone(formData.phone)) {
+      newErrors.phone = "Bitte geben Sie eine gültige Schweizer Telefonnummer ein";
+    }
+    if (!formData.inquiryType) {
+      newErrors.inquiryType = "Bitte wählen Sie eine Anfrageart";
+    }
+    if (!formData.message.trim()) {
+      newErrors.message = "Nachricht ist erforderlich";
+    }
+
+    setErrors(newErrors);
+
+    // Check if there are any errors
+    const hasErrors = Object.values(newErrors).some(error => error !== "");
+    if (hasErrors) {
+      return;
+    }
+
+    // Submit form to API
+    setIsSubmitting(true);
+    
+    fetch("/api/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          alert("✅ Ihre Nachricht wurde erfolgreich gesendet! Wir melden uns in Kürze bei Ihnen.");
+          setFormData({
+            firstName: "",
+            lastName: "",
+            company: "",
+            email: "",
+            phone: "",
+            inquiryType: "",
+            message: ""
+          });
+        } else {
+          alert("❌ Fehler beim Senden: " + (data.error || "Unbekannter Fehler"));
+        }
+      })
+      .catch(error => {
+        console.error("Contact form error:", error);
+        alert("❌ Serverfehler. Bitte versuchen Sie es später erneut.");
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
+  };
+
   return (
     <section className="flex flex-col items-center mb-[200px] bg-white py-[60px] md:py-[120px] px-4 md:px-[116px] text-[#132219] font-['SF Pro Display']">
 
@@ -90,45 +223,104 @@ export default function ContactPage() {
             </h3>
           </div>
 
-          <form className="flex flex-col gap-[16px]">
+          <form className="flex flex-col gap-[16px]" onSubmit={handleSubmit}>
 
-            <input type="text" placeholder={t("contact.email")} // adapt keys if needed
-              className="w-full h-[50px] border border-[#132219] rounded-full px-6 text-[16px] font-medium text-[#132219]/70 placeholder:text-[#132219]/70 outline-none" />
-
-            <input type="text" placeholder="Nachname"
-              className="w-full h-[50px] border border-[#132219] rounded-full px-6 text-[16px] font-medium text-[#132219]/70 placeholder:text-[#132219]/70 outline-none" />
-
-            <input type="text" placeholder="Firmenname (optional)"
-              className="w-full h-[50px] border border-[#132219] rounded-full px-6 text-[16px] font-medium text-[#132219]/70 placeholder:text-[#132219]/70 outline-none" />
-
-            <input type="email" placeholder={t("contact.email")}
-              className="w-full h-[50px] border border-[#132219] rounded-full px-6 text-[16px] font-medium text-[#132219]/70 placeholder:text-[#132219]/70 outline-none" />
-
-            <input type="text" placeholder={t("contact.phone")}
-              className="w-full h-[50px] border border-[#132219] rounded-full px-6 text-[16px] font-medium text-[#132219]/70 placeholder:text-[#132219]/70 outline-none" />
-
-            {/* Inquiry Type */}
-            <div className="relative">
-              <select className="w-full h-[50px] border border-[#132219] rounded-full px-6 text-[16px] font-medium text-[#132219]/70 bg-white outline-none appearance-none">
-                <option>{t("contact.message")}</option>
-                <option>General Inquiry</option>
-                <option>Partnership</option>
-                <option>Financing</option>
-              </select>
-
-              <svg className="absolute right-6 top-1/2 -translate-y-1/2 w-[12px] h-[7px] fill-[#132219]/70 pointer-events-none"
-                viewBox="0 0 12 7">
-                <path d="M6 7L0 0.71875L0.28125 0L6 5.28125L11.7188 0L12 0.71875L6 7Z" />
-              </svg>
+            {/* First Name */}
+            <div className="flex flex-col gap-1">
+              <input 
+                type="text" 
+                placeholder="Vorname *"
+                value={formData.firstName}
+                onChange={(e) => handleInputChange("firstName", e.target.value)}
+                className={`w-full h-[50px] border ${errors.firstName ? 'border-red-500' : 'border-[#132219]'} rounded-full px-6 text-[16px] font-medium text-[#132219]/70 placeholder:text-[#132219]/70 outline-none`} 
+              />
+              {errors.firstName && <span className="text-red-500 text-sm px-6">{errors.firstName}</span>}
             </div>
 
-            <textarea placeholder={t("contact.message")}
-              className="w-full h-[120px] border border-[#132219] rounded-[10px] px-[24px] py-[8px] text-[16px] font-medium text-[#132219]/70 placeholder:text-[#132219]/70 outline-none resize-none" />
+            {/* Last Name */}
+            <div className="flex flex-col gap-1">
+              <input 
+                type="text" 
+                placeholder="Nachname *"
+                value={formData.lastName}
+                onChange={(e) => handleInputChange("lastName", e.target.value)}
+                className={`w-full h-[50px] border ${errors.lastName ? 'border-red-500' : 'border-[#132219]'} rounded-full px-6 text-[16px] font-medium text-[#132219]/70 placeholder:text-[#132219]/70 outline-none`} 
+              />
+              {errors.lastName && <span className="text-red-500 text-sm px-6">{errors.lastName}</span>}
+            </div>
+
+            {/* Company (optional) */}
+            <input 
+              type="text" 
+              placeholder="Firmenname (optional)"
+              value={formData.company}
+              onChange={(e) => handleInputChange("company", e.target.value)}
+              className="w-full h-[50px] border border-[#132219] rounded-full px-6 text-[16px] font-medium text-[#132219]/70 placeholder:text-[#132219]/70 outline-none" 
+            />
+
+            {/* Email */}
+            <div className="flex flex-col gap-1">
+              <input 
+                type="email" 
+                placeholder={`${t("contact.email")} *`}
+                value={formData.email}
+                onChange={(e) => handleInputChange("email", e.target.value)}
+                className={`w-full h-[50px] border ${errors.email ? 'border-red-500' : 'border-[#132219]'} rounded-full px-6 text-[16px] font-medium text-[#132219]/70 placeholder:text-[#132219]/70 outline-none`} 
+              />
+              {errors.email && <span className="text-red-500 text-sm px-6">{errors.email}</span>}
+            </div>
+
+            {/* Phone */}
+            <div className="flex flex-col gap-1">
+              <input 
+                type="text" 
+                placeholder={`${t("contact.phone")} *`}
+                value={formData.phone}
+                onChange={(e) => handleInputChange("phone", e.target.value)}
+                className={`w-full h-[50px] border ${errors.phone ? 'border-red-500' : 'border-[#132219]'} rounded-full px-6 text-[16px] font-medium text-[#132219]/70 placeholder:text-[#132219]/70 outline-none`} 
+              />
+              {errors.phone && <span className="text-red-500 text-sm px-6">{errors.phone}</span>}
+            </div>
+
+            {/* Inquiry Type */}
+            <div className="flex flex-col gap-1">
+              <div className="relative">
+                <select 
+                  value={formData.inquiryType}
+                  onChange={(e) => handleInputChange("inquiryType", e.target.value)}
+                  className={`w-full h-[50px] border ${errors.inquiryType ? 'border-red-500' : 'border-[#132219]'} rounded-full px-6 text-[16px] font-medium text-[#132219]/70 bg-white outline-none appearance-none`}
+                >
+                  <option value="">Anfrageart auswählen *</option>
+                  <option value="general">Allgemeine Anfrage</option>
+                  <option value="partnership">Partnerschaft</option>
+                  <option value="financing">Finanzierung</option>
+                </select>
+
+                <svg className="absolute right-6 top-1/2 -translate-y-1/2 w-[12px] h-[7px] fill-[#132219]/70 pointer-events-none"
+                  viewBox="0 0 12 7">
+                  <path d="M6 7L0 0.71875L0.28125 0L6 5.28125L11.7188 0L12 0.71875L6 7Z" />
+                </svg>
+              </div>
+              {errors.inquiryType && <span className="text-red-500 text-sm px-6">{errors.inquiryType}</span>}
+            </div>
+
+            {/* Message */}
+            <div className="flex flex-col gap-1">
+              <textarea 
+                placeholder={`${t("contact.message")} *`}
+                value={formData.message}
+                onChange={(e) => handleInputChange("message", e.target.value)}
+                className={`w-full h-[120px] border ${errors.message ? 'border-red-500' : 'border-[#132219]'} rounded-[10px] px-[24px] py-[8px] text-[16px] font-medium text-[#132219]/70 placeholder:text-[#132219]/70 outline-none resize-none`} 
+              />
+              {errors.message && <span className="text-red-500 text-sm px-6">{errors.message}</span>}
+            </div>
 
             <div className="flex justify-end">
-              <button type="submit"
-                className="w-[170px] px-[24px] py-[8px] rounded-full border border-[#132219] text-[#132219] text-[16px] font-medium opacity-70 hover:opacity-100 transition">
-                {t("contact.submit")}
+              <button 
+                type="submit"
+                disabled={isSubmitting}
+                className="w-[170px] px-[24px] py-[8px] rounded-full border border-[#132219] text-[#132219] text-[16px] font-medium opacity-70 hover:opacity-100 transition disabled:opacity-40 disabled:cursor-not-allowed">
+                {isSubmitting ? "Senden..." : t("contact.submit")}
               </button>
             </div>
 
@@ -141,8 +333,8 @@ export default function ContactPage() {
             {t("buttons.bookAppointment")}
           </h3>
 
-          <div className="w-full h-[420px] md:h-[480px] border border-[#132219] rounded-[10px] overflow-hidden flex items-center justify-center">
-            <img src="/images/kalendly.png" className="w-full h-full object-contain" alt="Calendly" />
+          <div className="w-full h-[420px] md:h-[530px] border border-[#132219] rounded-[10px] overflow-hidden">
+            <div className="calendly-inline-widget" data-url="https://calendly.com/hypoteq/hypoteq-intro-call" style={{minWidth: '320px', height: '100%'}}></div>
           </div>
         </div>
 

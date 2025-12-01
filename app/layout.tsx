@@ -59,8 +59,8 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/images/logo.png",
-    apple: "/images/logo.png",
+    icon: "/favicon.ico",
+    apple: "/favicon.ico",
   },
   manifest: "/manifest.json",
 };
@@ -79,6 +79,8 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
         <meta name="theme-color" content="#CAF476" />
         <link rel="canonical" href="https://hypoteq.ch" />
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
       </head>
       <body
         className="font-sfpro bg-white text-[#132219] overflow-visible"

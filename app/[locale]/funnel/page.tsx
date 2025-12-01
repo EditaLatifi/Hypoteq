@@ -186,6 +186,7 @@ const submitFinal = async () => {
   try {
     const {
       customerType,
+      email,
       client,
       project,
       property,
@@ -193,12 +194,23 @@ const submitFinal = async () => {
       financing,
     } = useFunnelStore.getState();
 
+    console.log("📌 Submitting final data:", {
+      customerType,
+      email,
+      client,
+      project,
+      property,
+      borrowers,
+      financing,
+    });
+
     // 1️⃣ Create Inquiry
     const res = await fetch("/api/inquiry", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         customerType,
+        email: email || client?.email,
         client,
         project,
         property,
@@ -218,23 +230,34 @@ const submitFinal = async () => {
     console.log("📌 Inquiry created:", data);
 
     // 2️⃣ Extract inquiryId
-    const inquiryId = data.inquiry.id;
+    const inquiryId = data.inquiry?.id;
 
-    // 3️⃣ Upload documents to SharePoint
-    for (const doc of uploadedDocs) {
-      if (doc.file) {
-        console.log("⬆ Uploading:", doc.name);
-        await uploadDocToSharepoint(doc.file, inquiryId);
-      }
+    if (!inquiryId) {
+      console.error("No inquiry ID received");
+      alert("Fehler: Keine Anfrage-ID erhalten.");
+      return;
     }
 
-    console.log("🎉 All docs uploaded!");
+    // 3️⃣ Upload documents to SharePoint (only if uploadedDocs exists)
+    if (uploadedDocs && uploadedDocs.length > 0) {
+      for (const doc of uploadedDocs) {
+        if (doc.file) {
+          console.log("⬆ Uploading:", doc.name);
+          await uploadDocToSharepoint(doc.file, inquiryId);
+        }
+      }
+      console.log("🎉 All docs uploaded!");
+    } else {
+      console.log("📌 No documents to upload (direct customer)");
+    }
 
     // 4️⃣ Move to success step
-    setStep(7);
+    console.log("✅ Moving to thank you page, current step:", step);
+    next();
+    console.log("✅ next() called successfully");
 
   } catch (err: any) {
-    console.error("Error:", err);
+    console.error("❌ Error in submitFinal:", err);
     alert("Serverfehler. Bitte später erneut versuchen.");
   }
 };
@@ -288,9 +311,8 @@ saveStep={next}
   saveStep={saveStep4}
   back={back}
   customerType={customerType}            // direct / partner
-borrowerType={borrowers[0]?.type}
-
-
+  borrowerType={borrowers[0]?.type}
+  projectData={projectData}
 />
 
 )}
@@ -326,23 +348,34 @@ borrowerType={borrowers[0]?.type}
         )}
 
  {step === 7 && (
-  <div className="w-full min-h-screen flex flex-col items-center justify-center -mt-[220px] text-center px-4">
-    <h1 className="text-[48px] font-normal leading-tight">
-      Vielen Dank, dass Sie das<br />Formular ausgefüllt haben.
-    </h1>
+  <div className="w-full min-h-screen flex flex-col items-center justify-center px-4 py-12 md:py-20 lg:-mt-[220px] text-center">
+    <div className="max-w-[700px] mx-auto">
+      {/* Success Icon */}
+      <div className="mb-6 md:mb-8">
+        <svg className="w-16 h-16 md:w-20 md:h-20 mx-auto text-[#CAF476]" fill="currentColor" viewBox="0 0 20 20">
+          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
+        </svg>
+      </div>
 
-    <p className="text-[24px] font-normal mt-4">
-      Wir melden uns in Kürze bei Ihnen!
-    </p>
+      <h1 className="text-[28px] sm:text-[36px] md:text-[48px] lg:text-[52px] font-normal leading-tight mb-4 md:mb-6">
+        Vielen Dank, dass Sie das<br className="hidden sm:block" />
+        <span className="sm:hidden"> </span>Formular ausgefüllt haben.
+      </h1>
 
-    <button
-      onClick={() => (window.location.href = "/de")}
-      className="mt-8 px-6 py-2 h-[32px] flex items-center gap-2 rounded-full 
-                 border border-[#132219] text-[#132219] text-[14px] font-medium"
-      style={{ backgroundColor: "#CAF476" }}
-    >
-      Zurück zur Homepage
-    </button>
+      <p className="text-[18px] sm:text-[20px] md:text-[24px] font-normal text-[#132219]/80">
+        Wir melden uns in Kürze bei Ihnen!
+      </p>
+
+      <button
+        onClick={() => (window.location.href = "/de")}
+        className="mt-8 md:mt-10 px-6 md:px-8 py-3 md:py-3.5 flex items-center justify-center gap-2 rounded-full 
+                   border border-[#132219] text-[#132219] text-[14px] md:text-[16px] font-medium
+                   hover:opacity-90 transition-opacity mx-auto"
+        style={{ backgroundColor: "#CAF476" }}
+      >
+        Zurück zur Homepage
+      </button>
+    </div>
   </div>
 )}
 

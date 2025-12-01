@@ -6,7 +6,7 @@ import { useTranslation } from "@/hooks/useTranslation";
 
 export default function DirectSummaryStep({ back, saveStep }: any) {
   const { t } = useTranslation();
-  const { project, property, borrowers, financing } = useFunnelStore();
+  const { project, property, borrowers, financing, customerType } = useFunnelStore();
 
   useEffect(() => {
     console.log("📌 DirectSummaryStep - project from store:", project);
@@ -29,6 +29,10 @@ export default function DirectSummaryStep({ back, saveStep }: any) {
 
     return dateStr;
   };
+
+  // Check if juristische Person or partner
+  const isJur = borrowers?.[0]?.type === "jur";
+  const isPartner = customerType === "partner";
 
   /* ================= CARD COMPONENT ================= */
   const CardSection = ({ title, children }: any) => (
@@ -109,7 +113,7 @@ const laufzeitLabel =
         {/* ================= SECTION: Finanzierung ================= */}
         <CardSection title={t("funnel.finanzierung" as any)}>
           <label className="text-[18px] font-light opacity-70">
-            Art der Immobilie
+            {t("funnel.propertyType" as any)}
           </label>
           <div className="text-[20px] font-medium">{format(property.artImmobilie)}</div>
 
@@ -131,14 +135,14 @@ const laufzeitLabel =
           </div>
 
           <label className="text-[18px] font-light opacity-70">
-            Liegenschaft reserviert?
+            {t("funnel.propertyReservedQuestion" as any)}
           </label>
           <div className="text-[20px] font-medium">
             {property.reserviert === "ja" ? t("funnel.yes" as any) : t("funnel.no" as any)}
           </div>
 
           <label className="text-[18px] font-light opacity-70">
-            Finanzierungsangebote
+            {t("funnel.financingOffersQuestion" as any)}
           </label>
           <div className="text-[20px] font-medium leading-snug">
             {property.finanzierungsangebote === "ja"
@@ -147,7 +151,7 @@ const laufzeitLabel =
           </div>
 
           <label className="text-[18px] font-light opacity-70">
-            Kreditnehmer Details
+            {t("funnel.borrowerDetails" as any)}
           </label>
           <div className="text-[20px] font-medium leading-snug">
             {property.kreditnehmer
@@ -187,10 +191,14 @@ const laufzeitLabel =
             {financing.bonus ? ` ${t("funnel.withBonus" as any)}` : ""}
           </div>
 
-          <label className="text-[18px] font-light opacity-70">
-            {t("funnel.taxOptimization" as any)}
-          </label>
-          <div className="text-[20px] font-medium">{format(financing.steueroptimierung)}</div>
+          {!isJur && !isPartner && (
+            <>
+              <label className="text-[18px] font-light opacity-70">
+                {t("funnel.taxOptimization" as any)}
+              </label>
+              <div className="text-[20px] font-medium">{format(financing.steueroptimierung)}</div>
+            </>
+          )}
 
           <label className="text-[18px] font-light opacity-70">
             {t("funnel.purchaseDate" as any)}

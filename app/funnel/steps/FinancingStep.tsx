@@ -264,8 +264,8 @@ const ToggleButton = ({ active, children, onClick }: any) => {
 )}
 
 
-    {/* Steueroptimierung – hidden for juristische Personen */}
-{!isJur && (
+    {/* Steueroptimierung – hidden for juristische Personen and Partners */}
+{!isJur && !isPartner && (
   <div>
     <label className="font-medium">
       {t("funnel.taxOptimization" as any)}
@@ -289,23 +289,25 @@ const ToggleButton = ({ active, children, onClick }: any) => {
             {/* Kaufdatum */}
             <div>
               <label className="font-medium">{t("funnel.purchaseDate" as any)}</label>
-         <input
-  type="text"
-  placeholder={t("funnel.datePlaceholder" as any)}
-  className={inputStyle}
-  value={data.kaufdatum || ""}
-  onChange={(e) => {
-    let v = e.target.value.replace(/\D/g, ""); // vetëm numrat
-
-    // 12 → 12.
-    if (v.length >= 3) v = v.replace(/(\d{2})(\d+)/, "$1.$2");
-    // 1212 → 12.12.
-    if (v.length >= 5) v = v.replace(/(\d{2})\.(\d{2})(\d+)/, "$1.$2.$3");
-
-    handleChange("kaufdatum", v);
-  }}
-/>
-
+              <input
+                type="date"
+                placeholder="DD.MM.YYYY"
+                className={inputStyle}
+                value={data.kaufdatum ? (() => {
+                  const parts = data.kaufdatum.split(".");
+                  if (parts.length === 3) {
+                    return `${parts[2]}-${parts[1].padStart(2, "0")}-${parts[0].padStart(2, "0")}`;
+                  }
+                  return data.kaufdatum;
+                })() : ""}
+                onChange={(e) => {
+                  if (e.target.value) {
+                    const [y, m, d] = e.target.value.split("-");
+                    const swissDate = `${d}.${m}.${y}`;
+                    handleChange("kaufdatum", swissDate);
+                  }
+                }}
+              />
             </div>
 
             {/* Kommentar */}
@@ -321,12 +323,14 @@ const ToggleButton = ({ active, children, onClick }: any) => {
           </div>
 
           {/* RIGHT SIDE – Calculator */}
-          <div className="w-full flex justify-center lg:justify-start">
-            <div className="w-[444px] max-w-full">
+          {!isJur && (
+            <div className="w-full flex justify-center lg:justify-start">
+              <div className="w-[444px] max-w-full">
 <FunnelCalc data={data} projectData={projectData} borrowers={borrowers} />
 
             </div>
           </div>
+          )}
         </div>
       )}
 
@@ -390,8 +394,35 @@ const ToggleButton = ({ active, children, onClick }: any) => {
               )}
             </div>
 
-    {/* Steueroptimierung – hidden for juristische Personen */}
+   {/* Einkommen – hide for juristische Personen */}
 {!isJur && (
+  <div>
+    <label className="font-medium">
+      {t("funnel.income" as any)}<br />
+      {t("funnel.incomeDescription" as any)}
+    </label>
+
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
+      <div className="col-span-1 md:col-span-2">
+<input
+  type="text"
+  placeholder={t("funnel.grossIncome" as any)}
+  className={inputStyle}
+  value={data.brutto ? `CHF ${formatCHF(data.brutto)}` : ""}
+  onChange={(e) => {
+    const raw = e.target.value.replace(/CHF\s?|'/g, "");
+    const numeric = raw.replace(/\D/g, ""); 
+    handleChange("brutto", numeric);
+  }}
+/>
+
+      </div>
+    </div>
+  </div>
+)}
+
+    {/* Steueroptimierung – hidden for juristische Personen and Partners */}
+{!isJur && !isPartner && (
   <div>
     <label className="font-medium">
       {t("funnel.taxOptimization" as any)}
@@ -415,21 +446,25 @@ const ToggleButton = ({ active, children, onClick }: any) => {
             {/* Kaufdatum */}
             <div>
               <label className="font-medium">{t("funnel.purchaseDate" as any)}</label>
-       <input
-  type="text"
-  placeholder={t("funnel.datePlaceholder" as any)}
-  className={inputStyle}
-  value={data.abloesedatum || ""}
-  onChange={(e) => {
-    let v = e.target.value.replace(/\D/g, "");
-
-    if (v.length >= 3) v = v.replace(/(\d{2})(\d+)/, "$1.$2");
-    if (v.length >= 5) v = v.replace(/(\d{2})\.(\d{2})(\d+)/, "$1.$2.$3");
-
-    handleChange("abloesedatum", v);
-  }}
-/>
-
+              <input
+                type="date"
+                placeholder="DD.MM.YYYY"
+                className={inputStyle}
+                value={data.abloesedatum ? (() => {
+                  const parts = data.abloesedatum.split(".");
+                  if (parts.length === 3) {
+                    return `${parts[2]}-${parts[1].padStart(2, "0")}-${parts[0].padStart(2, "0")}`;
+                  }
+                  return data.abloesedatum;
+                })() : ""}
+                onChange={(e) => {
+                  if (e.target.value) {
+                    const [y, m, d] = e.target.value.split("-");
+                    const swissDate = `${d}.${m}.${y}`;
+                    handleChange("abloesedatum", swissDate);
+                  }
+                }}
+              />
             </div>
 
             {/* Kommentar */}
@@ -445,10 +480,12 @@ const ToggleButton = ({ active, children, onClick }: any) => {
           </div>
 
           <div className="w-full flex lg:justify-end justify-center">
-            <div className="max-w-[380px] w-full lg:ml-auto">
+            {!isJur && (
+              <div className="max-w-[380px] w-full lg:ml-auto">
 <FunnelCalc data={data} projectData={projectData} borrowers={borrowers} />
 
             </div>
+            )}
           </div>
 
         </div>
