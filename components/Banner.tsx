@@ -26,7 +26,7 @@ const Banner: React.FC = () => {
     >
       {/* Background Image */}
       <Image
-        src="/images/cta1.png"
+        src="/images/HYPOTEQ_home_cta_banner.png"
         alt="Banner background"
         fill
         quality={85}

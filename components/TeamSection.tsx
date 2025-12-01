@@ -17,7 +17,7 @@ const teamMembers: TeamMember[] = [
   {
     name: "Marco Circelli",
     position: "team.positions.ceo",
-    image: "/images/Marco.png",
+    image: "/images/HYPOTEQ_about_team_marco.png",
     linkedin: "https://www.linkedin.com/in/marco-circelli-a1b9172/",
     email: "mailto:marco.circelli@hypoteq.ch",
   },
@@ -25,7 +25,7 @@ const teamMembers: TeamMember[] = [
   {
     name: "Davide Iuorno",
     position: "team.positions.deputyCeo",
-    image: "/images/Davide.png",
+    image: "/images/HYPOTEQ_about_team_davide.png",
     linkedin: "https://www.linkedin.com/in/davide-iuorno/",
     email: "mailto:davide.iuorno@hypoteq.ch",
   },
@@ -33,7 +33,7 @@ const teamMembers: TeamMember[] = [
   {
     name: "Fisnik Salihu",
     position: "team.positions.cto",
-    image: "/images/Fisnik.png",
+    image: "/images/HYPOTEQ_about_team_fisnik.png",
     linkedin: "https://www.linkedin.com/in/fisnik-salihu/",
     email: "mailto:fisnik.salihu@hypoteq.ch",
   },
@@ -41,7 +41,7 @@ const teamMembers: TeamMember[] = [
   {
     name: "Alexander von Arx",
     position: "team.positions.headOfBusinessDevelopment",
-    image: "/images/Alexander.png",
+    image: "/images/HYPOTEQ_about_team_alexander.png",
     linkedin: "https://www.linkedin.com/in/alexander-von-arx-66a416326/",
     email: "mailto:alexander.vonarx@hypoteq.ch",
   },
@@ -49,14 +49,14 @@ const teamMembers: TeamMember[] = [
   {
     name: "Claudio Schneider",
     position: "team.positions.boardPresident",
-    image: "/images/Claudio.png",
+    image: "/images/HYPOTEQ_about_team_claudio.png",
     linkedin: "https://www.linkedin.com/in/schneider-claudio/",
   },
 
   {
     name: "Christian Neff",
     position: "team.positions.boardMember",
-    image: "/images/Christian.png",
+    image: "/images/HYPOTEQ_about_team_christian.png",
     linkedin: "https://www.linkedin.com/in/christianneff/",
     email: "mailto:christian.neff@hypoteq.ch",
   },
@@ -64,7 +64,7 @@ const teamMembers: TeamMember[] = [
   {
     name: "Cyril Kägi",
     position: "team.positions.initiatorAndAdvisory",
-    image: "/images/Cyril.png",
+    image: "/images/HYPOTEQ_about_team_cyril.png",
     linkedin: "https://www.linkedin.com/in/cyril-k%C3%A4gi-273a1965/",
     email: "mailto:cyril.kaegi@hypoteq.ch",
   },
@@ -72,7 +72,7 @@ const teamMembers: TeamMember[] = [
   {
     name: "Christian Wyss",
     position: "team.positions.advisoryAndSalesCoach",
-    image: "/images/ChrsitianW.png",
+    image: "/images/HYPOTEQ_about_team_christianw.png",
     linkedin: "https://www.linkedin.com/in/wyssch/",
     email: "mailto:christian.wyss@hypoteq.ch",
   },
@@ -80,7 +80,7 @@ const teamMembers: TeamMember[] = [
   {
     name: "Markus Abeler",
     position: "team.positions.consultant",
-    image: "/images/Markus.png",
+    image: "/images/HYPOTEQ_about_team_markus.png",
     linkedin: "https://www.linkedin.com/in/abelermarkus/",
     email: "mailto:markus.abeler@hypoteq.ch",
   },
@@ -100,7 +100,7 @@ const TeamSection: React.FC = () => {
   
   return (
     <section className="w-full flex flex-col items-center py-[120px] bg-white font-sfpro">
-      <div className="w-full max-w-[1390px] px-[20px] lg:px-[116px]mx-auto">
+      <div className="w-full max-w-[1490px] px-[20px] lg:px-[116px] mx-auto">
 
         <h2 className="text-[40px] font-medium text-[#132219] mb-[60px]">
           {t("team.title")}
@@ -118,7 +118,7 @@ const TeamSection: React.FC = () => {
           {teamMembers.map((member, index) => (
             <div
               key={index}
-              className="flex flex-col items-start w-[304px] max-lg:w-[260px] max-md:w-full"
+              className="flex flex-col items-start w-full"
             >
               {member.bgColor ? (
                 <div
@@ -157,7 +157,7 @@ const TeamSection: React.FC = () => {
                 </div>
               ) : (
                 <div
-                  className="rounded-[10px] overflow-hidden w-full h-[283px] md:w-[304px]"
+                  className="rounded-[10px] overflow-hidden w-full h-[283px]"
                   style={{
                     backgroundImage: `url(${member.image})`,
                     backgroundSize: "cover",
@@ -191,7 +191,7 @@ const TeamSection: React.FC = () => {
                         "
                       >
                         <img
-                          src="/images/linkedin.svg"
+                          src="/images/HYPOTEQ_about_social_linkedin.svg"
                           alt="LinkedIn"
                           className="w-[18px] h-[18px]"
                         />
@@ -205,7 +205,7 @@ const TeamSection: React.FC = () => {
                         "
                       >
                         <img
-                          src="/images/linkedin.svg"
+                          src="/images/HYPOTEQ_about_social_linkedin.svg"
                           alt="LinkedIn"
                           className="w-[18px] h-[18px]"
                         />
@@ -233,7 +233,7 @@ const TeamSection: React.FC = () => {
                         "
                       >
                         <img
-                          src="/images/email.svg"
+                          src="/images/HYPOTEQ_about_social_email.svg"
                           alt="Email"
                           className="w-[18px] h-[18px]"
                         />
@@ -247,7 +247,7 @@ const TeamSection: React.FC = () => {
                         "
                       >
                         <img
-                          src="/images/email.svg"
+                          src="/images/HYPOTEQ_about_social_email.svg"
                           alt="Email"
                           className="w-[18px] h-[18px]"
                         />

@@ -46,7 +46,7 @@ const selectType = (type: "nat" | "jur") => {
             hover:bg-[#CAF476]
           `}
         >
-          <img src="/images/44.svg" alt={t("funnel.naturalPerson" as any)} className="w-[80px] lg:w-[100px] h-[60px] lg:h-[80px]" />
+          <img src="/images/HYPOTEQ_funnel_natural_person_icon.svg" alt={t("funnel.naturalPerson" as any)} className="w-[80px] lg:w-[100px] h-[60px] lg:h-[80px]" />
           <p className="text-[20px] lg:text-[24px] text-[#132219] font-normal">{t("funnel.naturalPerson" as any)}</p>
         </div>
 
@@ -61,7 +61,7 @@ const selectType = (type: "nat" | "jur") => {
             hover:bg-[#CAF476]
           `}
         >
-          <img src="/images/2345.svg" alt={t("funnel.legalEntity" as any)} className="w-[80px] lg:w-[100px] h-[60px] lg:h-[80px]" />
+          <img src="/images/HYPOTEQ_funnel_legal_entity_icon.svg" alt={t("funnel.legalEntity" as any)} className="w-[80px] lg:w-[100px] h-[60px] lg:h-[80px]" />
           <p className="text-[20px] lg:text-[24px] text-[#132219] font-normal">{t("funnel.legalEntity" as any)}</p>
         </div>
       </div>

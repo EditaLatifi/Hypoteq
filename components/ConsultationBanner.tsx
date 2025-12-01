@@ -20,7 +20,7 @@ const ConsultationBanner: React.FC = () => {
         max-sm:flex max-sm:flex-col max-sm:items-center max-sm:justify-center max-sm:text-center
       "
       style={{
-        background: "url('/images/cta1.png') center/cover no-repeat",
+        background: "url('/images/HYPOTEQ_home_cta_banner.png') center/cover no-repeat",
       }}
     >
       {/* Overlay */}

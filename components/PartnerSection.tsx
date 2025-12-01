@@ -54,7 +54,7 @@ const handleClick = (id: string) => {
       {/* HERO SECTION */}
       <section className="relative w-full overflow-hidden font-sfpro">
         <Image
-          src="/images/98.png"
+          src="/images/HYPOTEQ_partner_main_visual.png"
           alt="Partner background"
           fill
           priority

@@ -54,7 +54,7 @@ export default function Header() {
         <div className="flex items-center gap-[12px] sm:gap-[32px] xl:gap-[48px] flex-shrink-0">
           <Link href={`/${pathLocale}`} className="flex items-center flex-shrink-0">
             <Image
-              src={whiteMenu ? "/images/whitelogo.png" : "/images/logo.png"}
+              src={whiteMenu ? "/images/HYPOTEQ_layout_logo_white.png" : "/images/HYPOTEQ_layout_logo.png"}
               alt="Hypoteq"
               width={168}
               height={42}

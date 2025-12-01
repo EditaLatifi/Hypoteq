@@ -107,8 +107,8 @@ export default function FunnelCalc({ data, projectData, borrowers }: FunnelCalcP
     return (
       <BoxWrapper>
         <TopBox
-          title={isNegative ? "Not eligible" : "Eligibility confirmed."}
-          subtitle="Estimated mortgage need:"
+          title={isNegative ? "Nicht berechtigt" : "Finanzierung möglich."}
+          subtitle="Geschätzter Hypothekbedarf:"
           value={CHF(hypothek)}
           error={isNegative}
         />
@@ -200,8 +200,8 @@ export default function FunnelCalc({ data, projectData, borrowers }: FunnelCalcP
     return (
       <BoxWrapper>
         <TopBox
-          title={isNegative ? "Not eligible" : "Eligibility confirmed."}
-          subtitle="Estimated mortgage need:"
+          title={isNegative ? "Nicht berechtigt" : "Finanzierung möglich."}
+          subtitle="Geschätzter Hypothekbedarf:"
           value={CHF(hypothek)}
           error={isNegative}
         />

@@ -11,7 +11,7 @@ export default function Benefits() {
     <section className="relative w-full h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image with zoom and position */}
       <Image
-        src="/images/benefits1.png"
+        src="/images/HYPOTEQ_home_benefits_main.png"
         alt="benefits background"
         fill
         priority

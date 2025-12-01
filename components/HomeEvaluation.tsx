@@ -15,8 +15,8 @@ export default function HomeEvaluation() {
         py-[48px] md:py-[60px]
         overflow-hidden
 
-        bg-[url('/images/999.png')]
-        md:bg-[url('/images/vV_.png')]
+        bg-[url('/images/HYPOTEQ_evaluation_mobile_bg.png')]
+        md:bg-[url('/images/HYPOTEQ_evaluation_desktop_bg.png')]
         bg-cover bg-center
       "
     >
@@ -82,23 +82,23 @@ export default function HomeEvaluation() {
         "
       >
         <Step
-          icon={<img src="/images/Lokacion.svg" className="w-[35px] h-[68px]" />}
+          icon={<img src="/images/HYPOTEQ_evaluation_location_icon.svg" className="w-[35px] h-[68px]" />}
           title="Address Lookup"
   text={`Type your street and number; we auto-complete and pin your exact property.`}
         />
         <Step
-          icon={<img src="/images/Shpia.svg" className="w-[49px] h-[68px]" />}
+          icon={<img src="/images/HYPOTEQ_evaluation_property_icon.svg" className="w-[49px] h-[68px]" />}
           title="Property match"
             text={`We confirm parcel, unit, and living area      from official records\n and maps.`}
         />
         <Step
-          icon={<img src="/images/ShpiPare.svg" className="w-[54px] h-[68px]" />}
+          icon={<img src="/images/HYPOTEQ_evaluation_comparison_icon.svg" className="w-[54px] h-[68px]" />}
           title="Market comps"
             text={`Recent nearby sales and\n active listings with similar size and features.`}
   
         />
         <Step
-          icon={<img src="/images/Faktura.svg" className="w-[39px] h-[68px]" />}
+          icon={<img src="/images/HYPOTEQ_evaluation_invoice_icon.svg" className="w-[39px] h-[68px]" />}
           title="Instant estimate"
        text={`We combine comps with local trends to calculate today's value range.`}
         />

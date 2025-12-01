@@ -25,14 +25,14 @@ const StartProcessBanner = () => {
 
 
   <Image
-    src="/images/mg-mobile.png"
+    src="/images/HYPOTEQ_home_cta_mobile.png"
     alt="Mobile background"
     fill
     className="object-cover absolute inset-0 md:hidden"
   />
 
   <Image
-    src="/images/FOto6.png"
+    src="/images/HYPOTEQ_home_cta_desktop.png"
     alt="Desktop background"
     fill
     className="object-cover absolute inset-0 hidden md:block"

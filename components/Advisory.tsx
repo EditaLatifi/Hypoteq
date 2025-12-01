@@ -49,7 +49,7 @@ export default function Advisory() {
         "
       >
         <Image
-          src="/images/09.png"
+          src="/images/HYPOTEQ_advisory_main_visual.png"
           alt="Advisory background"
           fill
           priority

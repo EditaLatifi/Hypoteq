@@ -133,19 +133,19 @@ const steps = [
     step: "Schritt 1",
     title: "Angaben eingeben",
     text: t("howItWorksSteps.step1Desc"),
-    image: "/images/Epara.png",
+    image: "/images/HYPOTEQ_home_howitworks_step1.png",
   },
   {
     step: "Schritt 2",
     title: "Dokumente einreichen",
     text: t("howItWorksSteps.step2Desc"),
-    image: "/images/documents.png",
+    image: "/images/HYPOTEQ_home_howitworks_step2.png",
   },
   {
     step: "Schritt 3",
     title: "Angebot erhalten & entscheiden",
     text: t("howItWorksSteps.step3Desc"),
-    image: "/images/486373494.png",
+    image: "/images/HYPOTEQ_home_howitworks_step3.png",
   },
       {
       title: t("howItWorksSteps.step4Title"),

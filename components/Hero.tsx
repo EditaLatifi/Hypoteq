@@ -15,7 +15,7 @@ export default function Hero() {
     <section className="relative w-full overflow-hidden font-sfpro min-h-[50vh]">
       {/* ✅ Background with Next.js Image optimization */}
       <Image
-        src="/images/fotoHeroSection.png"
+        src="/images/HYPOTEQ_home_hero_banner.png"
         alt="Hero background"
         fill
         priority
@@ -88,35 +88,35 @@ export default function Hero() {
     "
   >
     <Image
-      src="/images/UBS-LogoBlack.svg"
+      src="/images/HYPOTEQ_home_bank_ubs.svg"
       alt="UBS"
       width={130}
       height={36}
       className="h-[32px] sm:h-[52px] w-auto shrink-0"
     />
     <Image
-      src="/images/24.png"
+      src="/images/HYPOTEQ_home_bank_zkb.png"
       alt="ZKB"
       width={130}
       height={36}
       className="h-[32px] sm:h-[52px] w-auto shrink-0"
     />
     <Image
-      src="/images/Bank_Cler_logo.png"
+      src="/images/HYPOTEQ_home_bank_cler.png"
       alt="Cler"
       width={140}
       height={32}
       className="h-[32px] sm:h-[44px] w-auto shrink-0"
     />
     <Image
-      src="/images/Raiffeisen_Schweiz_Logo.png"
+      src="/images/HYPOTEQ_home_bank_raiffeisen.png"
       alt="Raiffeisen"
       width={150}
       height={28}
       className="h-[30px] sm:h-[36px] w-auto shrink-0"
     />
     <Image
-      src="/images/67.svg"
+      src="/images/HYPOTEQ_home_bank_postfinance.svg"
       alt="SNB"
       width={140}
       height={28}

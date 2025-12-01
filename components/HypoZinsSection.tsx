@@ -97,7 +97,7 @@ export default function HypoZinsSection() {
 >
           <div className="flex items-center gap-[16px] sm:gap-[24px]">
 <img
-  src="/images/002.svg"
+  src="/images/HYPOTEQ_hypotheken_zins_icon.svg"
   alt="icon"
   className="w-[24px] sm:w-[28px] md:w-[32px] h-auto"
 />
@@ -105,7 +105,7 @@ export default function HypoZinsSection() {
           </div>
           <div className="flex items-center gap-[16px] sm:gap-[24px]">
 <img
-  src="/images/002.svg"
+  src="/images/HYPOTEQ_hypotheken_zins_icon.svg"
   alt="icon"
   className="w-[24px] sm:w-[28px] md:w-[32px] h-auto"
 />
@@ -113,7 +113,7 @@ export default function HypoZinsSection() {
           </div>
           <div className="flex items-center gap-[16px] sm:gap-[24px]">
             <span className="text-[#132219] text-[22px] sm:text-[26px] md:text-[28px] leading-none"><img
-  src="/images/002.svg"
+  src="/images/HYPOTEQ_hypotheken_zins_icon.svg"
   alt="icon"
   className="w-[24px] sm:w-[28px] md:w-[32px] h-auto"
 />

@@ -5,11 +5,11 @@ import { usePathname } from "next/navigation";
 import { useTranslation } from "@/hooks/useTranslation";
 
 const logos = [
-  { name: "UBS", img: "/images/UBS-LogoBlack.svg" },
-  { name: "Zürcher Kantonalbank", img: "/images/24.png" },
-  { name: "Bank Cler", img: "/images/Bank_Cler_logo.png" },
-  { name: "Raiffeisen", img: "/images/Raiffeisen_Schweiz_Logo.png" },
-  { name: "SNB BNS", img: "/images/snb.svg" },
+  { name: "UBS", img: "/images/HYPOTEQ_home_bank_ubs.svg" },
+  { name: "Zürcher Kantonalbank", img: "/images/HYPOTEQ_home_bank_zkb.png" },
+  { name: "Bank Cler", img: "/images/HYPOTEQ_home_bank_cler.png" },
+  { name: "Raiffeisen", img: "/images/HYPOTEQ_home_bank_raiffeisen.png" },
+  { name: "SNB BNS", img: "/images/HYPOTEQ_home_bank_snb.svg" },
 ];
 
 const PartnersSection: React.FC = () => {

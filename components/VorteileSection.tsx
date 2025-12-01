@@ -76,7 +76,7 @@ export default function VorteileSection() {
             >
               <div className="absolute top-[4px] md:top-[6px] left-[8px] md:left-[12px]">
                 <Image
-                  src="/images/MMMA.svg"
+                  src="/images/HYPOTEQ_partner_benefit_icon.svg"
                   alt="Arrow Icon"
                   width={20}
                   height={20}

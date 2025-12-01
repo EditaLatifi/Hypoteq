@@ -84,7 +84,7 @@ const StatsSection: React.FC = () => {
       {/* Image */}
       <div className="w-full max-w-[1579px] px-[20px] md:px-[60px] lg:px-[116px] mx-auto h-[160px] md:h-[220px] lg:h-[278px] rounded-[10px] overflow-hidden">
         <img
-          src="/images/2586.png"
+          src="/images/HYPOTEQ_about_stats_visual.png"
           alt="Modern houses"
           className="w-full h-full object-cover"
         />
@@ -123,22 +123,22 @@ const StatsSection: React.FC = () => {
             {
             [
   {
-    icon: "/images/mission.svg",
+    icon: "/images/HYPOTEQ_about_mission_icon.svg",
     titleKey: "dna.missionTitle",
     descKey: "dna.missionDesc",
   },
   {
-    icon: "/images/32.svg",
+    icon: "/images/HYPOTEQ_about_vision_icon.svg",
     titleKey: "dna.visionTitle",
     descKey: "dna.visionDesc",
   },
   {
-    icon: "/images/Values.svg",
+    icon: "/images/HYPOTEQ_about_values_icon.svg",
     titleKey: "dna.valuesTitle",
     descKey: "dna.valuesDesc",
   },
   {
-    icon: "/images/Group.svg",
+    icon: "/images/HYPOTEQ_about_team_icon.svg",
     titleKey: "dna.driveTitle",
     descKey: "dna.driveDesc",
   },

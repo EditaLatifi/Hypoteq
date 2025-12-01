@@ -7,7 +7,7 @@ import { useTranslation } from "@/hooks/useTranslation";
 
 
 <Image
-  src="/images/123.png"
+  src="/images/HYPOTEQ_calc_calculator_icon.png"
   alt="House background"
   fill
   className="object-cover rounded-[10px]"

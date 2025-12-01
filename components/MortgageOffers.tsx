@@ -11,7 +11,7 @@ const MortgageGuide: React.FC = () => {
     <section
       className="relative w-full h-[384px] flex items-center justify-center max-sm:h-[260px]"
       style={{
-        background: "url('/images/foto12345.png') center/cover no-repeat",
+        background: "url('/images/HYPOTEQ_home_mortgage_guide.png') center/cover no-repeat",
       }}
     >
       {/* Overlay */}

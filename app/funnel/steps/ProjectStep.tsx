@@ -56,7 +56,7 @@ const selectCard = (value: string) => {
             hover:bg-[#CAF476]
           `}
         >
-          <img src="/images/88  (1).svg" className="w-[45px] lg:w-[55px] h-[30px] lg:h-[38px]" />
+          <img src="/images/HYPOTEQ_funnel_project_type1.svg" className="w-[45px] lg:w-[55px] h-[30px] lg:h-[38px]" />
           <div className="flex flex-col w-full items-center">
             <p className="text-[20px] lg:text-[24px] text-[#132219] font-normal">{t("funnel.newMortgageCard" as any)}</p>
             <div className="w-full h-[1px] bg-[#132219] mt-2"></div>
@@ -71,7 +71,7 @@ const selectCard = (value: string) => {
             hover:bg-[#CAF476]
           `}
         >
-          <img src="/images/88  (2).svg" className="w-[45px] lg:w-[55px] h-[30px] lg:h-[38px]" />
+          <img src="/images/HYPOTEQ_funnel_project_type2.svg" className="w-[45px] lg:w-[55px] h-[30px] lg:h-[38px]" />
           <div className="flex flex-col w-full items-center">
             <p className="text-[20px] lg:text-[24px] text-[#132219] font-normal">{t("funnel.redemptionCard" as any)}</p>
             <div className="w-full h-[1px] bg-[#132219] mt-2"></div>

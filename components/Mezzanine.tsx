@@ -35,7 +35,7 @@ export default function Mezzanine() {
       ======================= */}
       <section className="relative w-full  px-[16px] sm:px-[32px] md:px-[116px]flex justify-center items-start bg-cover bg-center bg-no-repeat">
         <Image
-          src="/images/FOtototo.png"
+          src="/images/HYPOTEQ_mezzanine_hero.png"
           alt="Mezzanine background"
           fill
           priority
@@ -136,7 +136,7 @@ text-[#132219] font-['SF Pro Display']">
             </p>
           </div>
           <div className="w-full sm:w-[380px] md:w-[538px] flex justify-center">
-            <img src="/images/109.png" alt={t("mezzanine.whatIs")} className="w-full max-w-[340px] sm:max-w-[420px] md:max-w-none h-auto object-contain" />
+            <img src="/images/HYPOTEQ_mezzanine_what_is.png" alt={t("mezzanine.whatIs")} className="w-full max-w-[340px] sm:max-w-[420px] md:max-w-none h-auto object-contain" />
           </div>
         </div>
 
@@ -151,7 +151,7 @@ text-[#132219] font-['SF Pro Display']">
             </ul>
           </div>
           <div className="w-full sm:w-[380px] md:w-[538px] flex justify-center md:order-2">
-            <img src="/images/Kalendar.png" alt="Closing Day Kalender" className="w-full max-w-[340px] sm:max-w-[420px] md:max-w-none h-auto object-contain" />
+            <img src="/images/HYPOTEQ_mezzanine_calendar.png" alt="Closing Day Kalender" className="w-full max-w-[340px] sm:max-w-[420px] md:max-w-none h-auto object-contain" />
           </div>
         </div>
 
@@ -169,7 +169,7 @@ text-[#132219] font-['SF Pro Display']">
             </ul>
           </div>
           <div className="w-full sm:w-[380px] md:w-[538px] flex justify-center">
-            <img src="/images/7777.png" alt="Projekt Risiko Zeithorizont" className="w-full max-w-[340px] sm:max-w-[420px] md:max-w-none h-auto object-contain" />
+            <img src="/images/HYPOTEQ_mezzanine_risk_timeline.png" alt="Projekt Risiko Zeithorizont" className="w-full max-w-[340px] sm:max-w-[420px] md:max-w-none h-auto object-contain" />
           </div>
         </div>
 
@@ -182,7 +182,7 @@ text-[#132219] font-['SF Pro Display']">
             </p>
           </div>
           <div className="w-full sm:w-[380px] md:w-[538px] flex justify-center">
-            <img src="/images/58965552.png" alt="Features Graph" className="w-full max-w-[340px] sm:max-w-[420px] md:max-w-none h-auto object-contain" />
+            <img src="/images/HYPOTEQ_mezzanine_features_graph.png" alt="Features Graph" className="w-full max-w-[340px] sm:max-w-[420px] md:max-w-none h-auto object-contain" />
           </div>
         </div>
       </section>

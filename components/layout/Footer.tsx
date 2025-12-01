@@ -16,7 +16,7 @@ export default function Footer() {
       {/* LOGO */}
       <div className="w-full flex justify-start">
         <Image
-          src="/images/whitelogo.png"
+          src="/images/HYPOTEQ_layout_logo_white.png"
           width={168}
           height={42}
           alt="Logo"

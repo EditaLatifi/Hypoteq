@@ -24,10 +24,10 @@ type SectionProps = {
 
   const Section = ({ title, docs }: SectionProps) => {
     const flagIcons = [
-      "/images/german.png", // 🇩🇪 German
-      "/images/france.png", // 🇫🇷 French
-      "/images/it.png", // 🇮🇹 Italian
-      "/images/united-kingdom.png", // 🇬🇧 English
+      "/images/HYPOTEQ_documents_flag_german.png", // 🇩🇪 German
+      "/images/HYPOTEQ_documents_flag_french.png", // 🇫🇷 French
+      "/images/HYPOTEQ_documents_flag_italian.png", // 🇮🇹 Italian
+      "/images/HYPOTEQ_documents_flag_english.png", // 🇬🇧 English
     ];
 
     return (
@@ -57,13 +57,13 @@ type SectionProps = {
 
     <div className="flex items-center gap-[16px]">
 <img
-  src={doc.flag || flagIcons[index] || "/images/united-kingdom.png"}
+  src={doc.flag || flagIcons[index] || "/images/HYPOTEQ_documents_flag_english.png"}
   alt="language flag"
   className="w-[20px] h-[20px]"
 />
 
       <img
-        src="/images/documents.svg"
+        src="/images/HYPOTEQ_documents_icon.svg"
         alt="document icon"
         className="w-[18px] sm:w-[20px]"
       />

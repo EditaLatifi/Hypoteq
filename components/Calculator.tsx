@@ -7,7 +7,7 @@ import { useTranslation } from "@/hooks/useTranslation";
 
 
 <Image
-  src="/images/123.png"
+  src="/images/HYPOTEQ_calc_calculator_icon.png"
   alt="House background"
   fill
   className="object-cover rounded-[10px]"
@@ -448,7 +448,7 @@ const [openDropdown, setOpenDropdown] = useState(false);
 <section className="px-4 flex flex-col md:flex-row justify-between items-start gap-[24px] w-full max-w-[1280px] mx-auto mt-[60px] md:mt-[100px] mb-[200px] md:mb-[100px] px-1">
 
   {/* Left Card */}
-  <div className="relative flex flex-col justify-between items-start w-full md:w-[628px] h-[260px] md:h-[293px] p-[20px] md:p-[24px] rounded-[10px] border border-[#132219] overflow-hidden bg-[linear-gradient(90deg,#FFF4DE_0%,#FCEAC5_100%)]">
+  <div className="relative flex flex-col justify-between items-start w-full md:w-[628px] h-[260px] md:h-[380px] p-[20px] md:p-[24px] rounded-[10px] border border-[#132219] overflow-hidden bg-[linear-gradient(90deg,#FFF4DE_0%,#FCEAC5_100%)]">
     <div className="relative z-10 flex flex-col gap-[10px] md:gap-[16px] w-full max-w-[536px]">
       <h3 className="text-[#132219] text-[28px] sm:text-[32px] md:text-[40px] font-[500] leading-[140%] tracking-[-0.4px]">
        {t("calculator.ctaCard1Title") || "Finde deine Hypothek!"}
@@ -463,76 +463,73 @@ const [openDropdown, setOpenDropdown] = useState(false);
   {t("calculator.requestMortgage") || "Hypothek anfragen"}
     </button>
 </Link>
-    <Image src="/images/00.jpg" alt="House background" fill className="object-cover rounded-[10px] z-0" />
+    <Image src="/images/HYPOTEQ_calc_house_background.jpg" alt="House background" fill className="object-cover object-center rounded-[10px] z-0" />
   </div>
 
 {/* Right Card */}
 <div
   className="
-    relative flex flex-col justify-start items-start 
-    w-full md:w-[629px] 
-    h-[380px]
-    p-[24px]
+    relative flex flex-col justify-between items-start 
+    w-full md:w-[628px] 
+    h-[260px] md:h-[380px]
+    p-[20px] md:p-[24px]
     rounded-[10px] border border-[#000000]
     overflow-hidden
   "
-  style={{ background: "url('/images/0101.png') center/cover no-repeat, #132219" }}
+  style={{ background: "url('/images/HYPOTEQ_calc_background_alt.png') center/cover no-repeat, #132219" }}
 >
-  {/* Headline */}
-  <h3
-    className="
-      text-[#CAF476]
-      text-[36px]
-      font-[500]
-      leading-[140%]
-      tracking-[-0.36px]
-      font-sfpro
-      mb-[16px]
-      max-w-[536px]
-    "
-    style={{ fontFamily: '"SF Pro Display", sans-serif' }}
-  >
-    {t("calculator.ctaCard2Title") || "15 Minuten, die Klarheit schaffen"}
-  </h3>
+  <div className="relative z-10 flex flex-col gap-[10px] md:gap-[16px] w-full max-w-[536px]">
+    {/* Headline */}
+    <h3
+      className="
+        text-[#CAF476]
+        text-[28px] sm:text-[32px] md:text-[36px]
+        font-[500]
+        leading-[140%]
+        tracking-[-0.36px]
+        font-sfpro
+      "
+      style={{ fontFamily: '"SF Pro Display", sans-serif' }}
+    >
+      {t("calculator.ctaCard2Title") || "15 Minuten, die Klarheit schaffen"}
+    </h3>
 
-  {/* Subtext */}
-  <p
-    className="
-       text-[#CAF476]
-      text-[20px]
-      font-[300]
-      leading-[140%]
-      tracking-[-0.2px]
-      font-sfpro
-      max-w-[536px]
-      mb-[24px]
-    "
-    style={{ fontFamily: '"SF Pro Display", sans-serif' }}
-  >
-    {t("calculator.ctaCard2Text") || "Unsere Expert:innen erklären dir den Finanzierungsprozess, zeigen dir passende Optionen – und begleiten dich bei der Entscheidungsfindung."}
-  </p>
-< Link href={`/${pathLocale}/contact`} className="w-full">
-  {/* Button */}
-  <button
-    className="
-      flex justify-center items-center 
-      gap-[10px]
-      px-[24px] py-[8px]
-      rounded-[58px]
-      border border-[#000000]
-      bg-[#CAF476]
-      text-[#132219]
-      text-[16px]
-      font-[600]
-      font-sfpro
-      hover:bg-[#D6FA8A]
-      transition
-       mt-[24px]
-    "
-    style={{ fontFamily: '"SF Pro Display", sans-serif' }}
-  >
-{t("calculator.ctaCard2Button") || "Jetzt kostenloses Infogespräch buchen."}
-  </button>
+    {/* Subtext */}
+    <p
+      className="
+        text-[#CAF476]
+        text-[16px] sm:text-[18px] md:text-[20px]
+        font-[300]
+        leading-[140%]
+        tracking-[-0.2px]
+        font-sfpro
+      "
+      style={{ fontFamily: '"SF Pro Display", sans-serif' }}
+    >
+      {t("calculator.ctaCard2Text") || "Unsere Expert:innen erklären dir den Finanzierungsprozess, zeigen dir passende Optionen – und begleiten dich bei der Entscheidungsfindung."}
+    </p>
+  </div>
+
+  < Link href={`/${pathLocale}/contact`} className="w-full">
+    {/* Button */}
+    <button
+      className="
+        relative z-10
+        bg-[#CAF476]
+        border border-[#000000]
+        rounded-full
+        px-[20px] md:px-[24px] 
+        py-[6px] md:py-[8px]
+        text-[14px] sm:text-[16px]
+        font-[600]
+        text-[#132219]
+        hover:scale-[1.03]
+        transition-transform
+      "
+      style={{ fontFamily: '"SF Pro Display", sans-serif' }}
+    >
+      {t("calculator.ctaCard2Button") || "Jetzt kostenloses Infogespräch buchen."}
+    </button>
   </Link>
 </div>
 

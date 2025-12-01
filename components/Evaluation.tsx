@@ -16,7 +16,7 @@ export default function Evaluation() {
       <section
         className="relative bg-no-repeat bg-cover bg-center text-white px-6 md:px-[118px] pt-[200px] pb-[140px] overflow-hidden min-h-[850px] flex flex-col justify-between"
         style={{
-          backgroundImage: "url('/images/vV_.png')",
+          backgroundImage: "url('/images/HYPOTEQ_evaluation_desktop_bg.png')",
         }}
       >
         {/* Overlay (opsionale për kontrast) */}
@@ -40,22 +40,22 @@ export default function Evaluation() {
         {/* Steps */}
         <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[32px] mt-[100px] text-[#132219]">
           <Step
-            icon={<img src="/images/Lokacion.svg" alt="Location" width={49} height={68} />}
+            icon={<img src="/images/HYPOTEQ_evaluation_location_icon.svg" alt="Location" width={49} height={68} />}
             title="Address Lookup"
             text="Type your street and number; we auto-complete and pinpoint your exact property."
           />
           <Step
-            icon={<img src="/images/Shpia.svg" alt="Property Match" width={49} height={68} />}
+            icon={<img src="/images/HYPOTEQ_evaluation_property_icon.svg" alt="Property Match" width={49} height={68} />}
             title="Property match"
             text="We confirm parcel, unit, and living area from official records and maps."
           />
           <Step
-            icon={<img src="/images/ShpiPare.svg" alt="Market Comps" width={54} height={68} />}
+            icon={<img src="/images/HYPOTEQ_evaluation_comparison_icon.svg" alt="Market Comps" width={54} height={68} />}
             title="Market comps"
             text="Recent nearby sales and active listings with similar size and features."
           />
           <Step
-            icon={<img src="/images/Faktura.svg" alt="Instant Estimate" width={39} height={68} />}
+            icon={<img src="/images/HYPOTEQ_evaluation_invoice_icon.svg" alt="Instant Estimate" width={39} height={68} />}
             title="Instant estimate"
             text="We combine comps with local trends to calculate today's value range."
           />
@@ -92,7 +92,7 @@ export default function Evaluation() {
         className="relative w-[1273px] h-[320px] rounded-[12px] mt-[120px] mb-[120px] overflow-hidden mx-auto 
                  flex items-center px-[60px] text-white"
         style={{
-          background: "url('/images/0101.png') center/cover no-repeat, #132219",
+          background: "url('/images/HYPOTEQ_calc_background_alt.png') center/cover no-repeat, #132219",
         }}
       >
         <div className="absolute inset-0 bg-black/15" />

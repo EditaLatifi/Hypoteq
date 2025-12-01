@@ -34,7 +34,7 @@ const buttons = [
       {/* ====== SECTION 1: Hero ====== */}
       <section className="relative w-full flex justify-center items-start bg-cover bg-center bg-no-repeat">
         <Image
-          src="/images/hypotheneHome.png"
+          src="/images/HYPOTEQ_hypotheken_hero.png"
           alt="Hypotheken background"
           fill
           priority
@@ -49,8 +49,7 @@ const buttons = [
             h-auto md:h-[957px]
             flex flex-col justify-start
             px-[16px] sm:px-[24px] md:px-[116px]
- pt-[100px] lg:pt-[40px] md:pt-[110px] pb-[20px]
-
+            pt-[100px] md:pt-[140px] lg:pt-[140px] pb-[20px]
             gap-[10px] text-[#FFF]
           "
         >
@@ -142,7 +141,7 @@ const buttons = [
 
           <div className="w-full md:w-[537px] h-[300px] md:h-[443px] rounded-[10px] overflow-hidden flex items-center justify-center bg-[#F8F8F8]">
             <img
-              src="/images/doraqelsi.png"
+              src="/images/HYPOTEQ_hypotheken_feature1.png"
               alt="New Mortgage"
               className="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105"
             />
@@ -173,7 +172,7 @@ const buttons = [
 
           <div className="w-full md:w-[537px] h-[300px] md:h-[443px] rounded-[10px] overflow-hidden flex items-center justify-center bg-[#F8F8F8] md:order-2">
             <img
-              src="/images/2023.png"
+              src="/images/HYPOTEQ_hypotheken_feature2.png"
               alt="Refinance Graph"
               className="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105"
             />
@@ -203,7 +202,7 @@ const buttons = [
 
           <div className="w-full md:w-[537px] h-[300px] md:h-[443px] rounded-[10px] overflow-hidden flex items-center justify-center bg-[#F8F8F8]">
             <img
-              src="/images/2020.png"
+              src="/images/HYPOTEQ_hypotheken_feature3.png"
               alt="Neubau Graph"
               className="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105"
             />

@@ -33,7 +33,7 @@ const { t } = useTranslation(pathLocale);
 <section className="relative w-full overflow-x-hidden font-sfpro min-h-[50vh]">
       {/* Background with Next.js Image */}
       <Image
-        src="/images/8329269237.png"
+        src="/images/HYPOTEQ_about_main_image.png"
         alt="About background"
         fill
         priority

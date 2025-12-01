@@ -329,7 +329,7 @@ return (
 
     <div className="w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center shadow-md">
   <img 
-    src="/images/upload.svg" 
+    src="/images/HYPOTEQ_funnel_upload_icon.svg" 
     alt="Upload" 
     className="w-8 h-8 md:w-10 md:h-10"
   />
