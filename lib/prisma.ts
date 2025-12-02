@@ -7,11 +7,16 @@ declare global {
 
 // Create PrismaClient instance with proper configuration
 const createPrismaClient = () => {
+  // In production, use connection pooling if available
+  const databaseUrl = process.env.NODE_ENV === "production" 
+    ? (process.env.POSTGRES_PRISMA_URL || process.env.DATABASE_URL)
+    : process.env.DATABASE_URL;
+
   return new PrismaClient({
     log: process.env.NODE_ENV === "production" ? ["error", "warn"] : ["query", "error", "warn"],
     datasources: {
       db: {
-        url: process.env.POSTGRES_PRISMA_URL || process.env.DATABASE_URL,
+        url: databaseUrl,
       },
     },
   });
