@@ -9,9 +9,75 @@ export default function PartnerWerdenSection() {
   const { t } = useTranslation(pathLocale);
   
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: "success" | "error" | null;
+    message: string;
+  }>({ type: null, message: "" });
 
   const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus({ type: null, message: "" });
+
+    try {
+      const response = await fetch("/api/partner-contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        setSubmitStatus({
+          type: "success",
+          message: t("form.successMessage"),
+        });
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          phone: "",
+          message: "",
+        });
+        
+        // Auto-hide success message after 5 seconds
+        setTimeout(() => {
+          setSubmitStatus({ type: null, message: "" });
+        }, 5000);
+      } else {
+        setSubmitStatus({
+          type: "error",
+          message: data.error || t("form.errorMessage"),
+        });
+      }
+    } catch (error) {
+      setSubmitStatus({
+        type: "error",
+        message: t("form.errorMessage"),
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
   return (
       <section
@@ -52,17 +118,27 @@ export default function PartnerWerdenSection() {
         </p>
 
       {/* Form */}
-      <form className="w-full flex flex-col gap-[16px] sm:gap-[20px] md:gap-[24px]">
+      <form className="w-full flex flex-col gap-[16px] sm:gap-[20px] md:gap-[24px]" onSubmit={handleSubmit}>
         {/* Top row */}
         <div className="flex flex-col md:flex-row gap-[12px] sm:gap-[17px] w-full">
           <input
             type="text"
+            name="firstName"
+            value={formData.firstName}
+            onChange={handleInputChange}
             placeholder={t("form.firstName")}
+            required
+            disabled={isSubmitting}
             className="flex-1 border border-[#132219] opacity-70 rounded-[58px] px-[16px] sm:px-[20px] md:px-[24px] py-[8px] text-[#132219] text-[14px] sm:text-[15px] md:text-[16px] font-['SF Pro Display']"
           />
           <input
             type="text"
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleInputChange}
             placeholder={t("form.lastName")}
+            required
+            disabled={isSubmitting}
             className="flex-1 border border-[#132219] opacity-70 rounded-[58px] px-[16px] sm:px-[20px] md:px-[24px] py-[8px] text-[#132219] text-[14px] sm:text-[15px] md:text-[16px] font-['SF Pro Display']"
           />
         </div>
@@ -71,21 +147,49 @@ export default function PartnerWerdenSection() {
         <div className="flex flex-col md:flex-row gap-[12px] sm:gap-[17px] w-full">
           <input
             type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleInputChange}
             placeholder={t("form.email")}
+            required
+            disabled={isSubmitting}
             className="flex-1 border border-[#132219] opacity-70 rounded-[58px] px-[16px] sm:px-[20px] md:px-[24px] py-[8px] text-[#132219] text-[14px] sm:text-[15px] md:text-[16px] font-['SF Pro Display']"
           />
           <input
             type="tel"
+            name="phone"
+            value={formData.phone}
+            onChange={handleInputChange}
             placeholder={t("partnerWerden.phoneNumber")}
+            required
+            disabled={isSubmitting}
             className="flex-1 border border-[#132219] opacity-70 rounded-[58px] px-[16px] sm:px-[20px] md:px-[24px] py-[8px] text-[#132219] text-[14px] sm:text-[15px] md:text-[16px] font-['SF Pro Display']"
           />
         </div>
 
         {/* Message */}
         <textarea
+          name="message"
+          value={formData.message}
+          onChange={handleInputChange}
           placeholder={t("form.message")}
+          required
+          disabled={isSubmitting}
           className="w-full border border-[#132219] opacity-70 rounded-[10px] px-[16px] sm:px-[20px] md:px-[24px] py-[8px] h-[110px] sm:h-[133px] text-[#132219] text-[14px] sm:text-[15px] md:text-[16px] font-['SF Pro Display']"
         ></textarea>
+
+        {/* Status Message */}
+        {submitStatus.type && (
+          <div
+            className={`p-4 rounded-lg text-center font-['SF Pro Display'] text-[14px] sm:text-[15px] md:text-[16px] animate-fadeIn ${
+              submitStatus.type === "success"
+                ? "bg-green-50 text-green-800 border-2 border-green-300"
+                : "bg-red-50 text-red-800 border-2 border-red-300"
+            }`}
+          >
+            {submitStatus.message}
+          </div>
+        )}
 
         {/* Footer info + button */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-[16px] sm:gap-[20px] md:gap-[24px] w-full">
@@ -95,9 +199,10 @@ export default function PartnerWerdenSection() {
 
           <button
             type="submit"
-            className="self-center md:self-auto flex justify-center items-center px-[20px] sm:px-[24px] py-[8px] rounded-[58px] border border-[#132219] bg-[#132219] text-white font-['SF Pro Display'] text-[14px] sm:text-[15px] md:text-[16px] font-[600] hover:opacity-90 transition"
+            disabled={isSubmitting}
+            className="self-center md:self-auto flex justify-center items-center px-[20px] sm:px-[24px] py-[8px] rounded-[58px] border border-[#132219] bg-[#132219] text-white font-['SF Pro Display'] text-[14px] sm:text-[15px] md:text-[16px] font-[600] hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {t("form.submit")}
+            {isSubmitting ? t("form.sending") : t("form.submit")}
           </button>
         </div>
       </form>

@@ -625,7 +625,10 @@
     "mortgageType": "Tipo di ipoteca",
     "message": "Il tuo messaggio",
     "send": "Invia",
-    "submit": "Inviare"
+    "submit": "Inviare",
+    "sending": "Invio in corso...",
+    "successMessage": "Grazie per il tuo messaggio! Ti risponderemo a breve.",
+    "errorMessage": "Si è verificato un errore. Si prega di riprovare più tardi."
   },
   "hypoZins": {
     "title": "Calcola la tua ipoteca?",

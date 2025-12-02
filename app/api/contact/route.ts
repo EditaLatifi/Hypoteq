@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import { Resend } from "resend";
+import { Client } from "@microsoft/microsoft-graph-client";
+import { ClientSecretCredential } from "@azure/identity";
+import "isomorphic-fetch";
 
 export async function POST(req: Request) {
   try {
@@ -24,10 +27,17 @@ export async function POST(req: Request) {
 
     const inquiryTypeLabel = inquiryTypeMap[inquiryType] || inquiryType;
 
-    // Check if Resend is configured (preferred method)
+    // Priority order: Microsoft Graph > Resend > SMTP
+    const useGraph = process.env.USE_GRAPH === "true" && 
+                     process.env.GRAPH_TENANT_ID && 
+                     process.env.GRAPH_CLIENT_ID && 
+                     process.env.GRAPH_CLIENT_SECRET;
+    
     const useResend = process.env.USE_RESEND === "true" && process.env.RESEND_API_KEY;
 
-    if (useResend) {
+    if (useGraph) {
+      return await sendWithGraph(firstName, lastName, company, email, phone, inquiryTypeLabel, message);
+    } else if (useResend) {
       return await sendWithResend(firstName, lastName, company, email, phone, inquiryTypeLabel, message);
     } else {
       return await sendWithSMTP(firstName, lastName, company, email, phone, inquiryTypeLabel, message);
@@ -38,6 +48,99 @@ export async function POST(req: Request) {
       { success: false, error: error.message || "Fehler beim Senden der Nachricht" },
       { status: 500 }
     );
+  }
+}
+
+// Send email using Microsoft Graph API (Best for Microsoft 365)
+async function sendWithGraph(
+  firstName: string, 
+  lastName: string, 
+  company: string, 
+  email: string, 
+  phone: string, 
+  inquiryTypeLabel: string, 
+  message: string
+) {
+  try {
+    console.log("📧 Sending email via Microsoft Graph API");
+
+    // Create Azure AD credential
+    const credential = new ClientSecretCredential(
+      process.env.GRAPH_TENANT_ID!,
+      process.env.GRAPH_CLIENT_ID!,
+      process.env.GRAPH_CLIENT_SECRET!
+    );
+
+    // Initialize Graph client
+    const client = Client.initWithMiddleware({
+      authProvider: {
+        getAccessToken: async () => {
+          const token = await credential.getToken("https://graph.microsoft.com/.default");
+          return token?.token || "";
+        },
+      },
+    });
+
+    const emailHTML = generateEmailHTML(firstName, lastName, company, email, phone, inquiryTypeLabel, message);
+
+    // Plain text version
+    const emailText = `
+Neue Kontaktanfrage - HYPOTEQ
+
+Anfrageart: ${inquiryTypeLabel}
+Name: ${firstName} ${lastName}
+${company ? `Firmenname: ${company}\n` : ''}
+E-Mail: ${email}
+Telefon: ${phone}
+
+Nachricht:
+${message}
+
+---
+Eingegangen am: ${new Date().toLocaleString('de-CH')}
+    `;
+
+    // Send email using Graph API
+    const sendMail = {
+      message: {
+        subject: `Neue Kontaktanfrage: ${inquiryTypeLabel} - ${firstName} ${lastName}`,
+        body: {
+          contentType: "HTML",
+          content: emailHTML,
+        },
+        toRecipients: [
+          {
+            emailAddress: {
+              address: process.env.SMTP_TO || "fisnik.salihu@hypoteq.ch",
+            },
+          },
+        ],
+        replyTo: [
+          {
+            emailAddress: {
+              address: email,
+              name: `${firstName} ${lastName}`,
+            },
+          },
+        ],
+      },
+      saveToSentItems: true,
+    };
+
+    // Send the email from the specified user
+    const sendAsUser = process.env.SMTP_USER || "fisnik.salihu@hypoteq.ch";
+    
+    await client
+      .api(`/users/${sendAsUser}/sendMail`)
+      .post(sendMail);
+
+    console.log("✅ Email sent successfully via Microsoft Graph API");
+    return NextResponse.json({ success: true });
+
+  } catch (error: any) {
+    console.error("❌ Microsoft Graph error:", error);
+    console.error("Error details:", error.message, error.code);
+    throw new Error(`Failed to send email via Microsoft Graph: ${error.message}`);
   }
 }
 
@@ -97,19 +200,18 @@ async function sendWithSMTP(
 
   // Create transporter (configure with your SMTP settings)
   const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST || "smtp-mail.outlook.com",
+    host: process.env.SMTP_HOST || "smtp.office365.com",
     port: parseInt(process.env.SMTP_PORT || "587"),
-    secure: process.env.SMTP_SECURE === "true", // Use TLS
+    secure: false, // false for STARTTLS on port 587
     auth: {
       user: process.env.SMTP_USER,
       pass: process.env.SMTP_PASS,
     },
     tls: {
       ciphers: 'SSLv3',
-      rejectUnauthorized: false,
-      minVersion: 'TLSv1'
+      rejectUnauthorized: false
     },
-    authMethod: 'LOGIN',
+    requireTLS: true, // Force STARTTLS
     debug: true, // Enable debug output
     logger: true // Log to console
   });

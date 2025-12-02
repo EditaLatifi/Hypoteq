@@ -616,7 +616,10 @@
     "mortgageType": "Type d'hypothèque",
     "message": "ton message",
     "send": "Envoyer",
-    "submit": "Soumettre"
+    "submit": "Soumettre",
+    "sending": "Envoi en cours...",
+    "successMessage": "Merci pour votre message ! Nous vous répondrons sous peu.",
+    "errorMessage": "Une erreur s'est produite. Veuillez réessayer plus tard."
   },
   "hypoZins": {
     "title": "Calculer ton hypothèque ?",

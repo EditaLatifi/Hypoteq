@@ -616,7 +616,10 @@
       "mortgageType": "Art der Hypothek",
       "message": "Deine Nachricht",
       "send": "Senden",
-      "submit": "Absenden"
+      "submit": "Absenden",
+      "sending": "Wird gesendet...",
+      "successMessage": "Vielen Dank für Ihre Nachricht! Wir werden uns in Kürze bei Ihnen melden.",
+      "errorMessage": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut."
     },
     "hypoZins": {
       "title": "Deine Hypothek berechnen?",
