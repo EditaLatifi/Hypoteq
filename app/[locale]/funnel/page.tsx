@@ -177,7 +177,15 @@ const saveStep5 = () => {
 
 
   const saveStep6 = async () => {
-    // For partners, save data to database before going to thank you page
+    // For partners: ensure all data is in store, then submit
+    setProject(projectData);
+    setProperty(propertyData);
+    setBorrowers(borrowers);
+    setFinancing(financingData);
+    
+    // Small delay to ensure state is updated
+    await new Promise(resolve => setTimeout(resolve, 100));
+    
     await submitFinal();
   };
 
@@ -186,6 +194,7 @@ const saveStep5 = () => {
   // -------------------------------------
 const submitFinal = async () => {
   try {
+    const storeState = useFunnelStore.getState();
     const {
       customerType,
       email,
@@ -194,8 +203,9 @@ const submitFinal = async () => {
       property,
       borrowers,
       financing,
-    } = useFunnelStore.getState();
+    } = storeState;
 
+    console.log("📊 Full Store State:", storeState);
     console.log("📌 Submitting final data:", {
       customerType,
       email,
