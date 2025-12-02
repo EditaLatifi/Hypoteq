@@ -129,6 +129,7 @@ export default function Advisory() {
                 p-[16px] sm:p-[28px_32px_36px_32px]
                 gap-[16px] sm:gap-[24px] md:gap-[32px]
                 bg-white hover:bg-[#CAF476]/50 transition-all
+                h-full
               "
             >
               <h3

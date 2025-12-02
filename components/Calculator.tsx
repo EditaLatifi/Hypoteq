@@ -476,7 +476,7 @@ const [openDropdown, setOpenDropdown] = useState(false);
     rounded-[10px] border border-[#000000]
     overflow-hidden
   "
-  style={{ background: "url('/images/HYPOTEQ_calc_background_alt.png') center/cover no-repeat, #132219" }}
+  style={{ background: "url('/images/HYPOTEQ_calc_background.png') center/cover no-repeat, #132219" }}
 >
   <div className="relative z-10 flex flex-col gap-[10px] md:gap-[16px] w-full max-w-[536px]">
     {/* Headline */}
