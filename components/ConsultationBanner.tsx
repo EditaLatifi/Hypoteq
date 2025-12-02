@@ -30,7 +30,7 @@ const ConsultationBanner: React.FC = () => {
       <div
         className="
           relative z-10 flex flex-col items-start justify-start gap-[16px] max-w-[700px]
-          max-sm:items-center max-sm:justify-center max-sm:gap-[18px] md:pl-[40px] md:pt-[30px]
+          max-sm:items-center max-sm:justify-center max-sm:gap-[8px] md:pl-[40px] md:pt-[30px]
         "
       >
         {/* Title */}
@@ -74,7 +74,7 @@ const ConsultationBanner: React.FC = () => {
       <div
         className="
           relative z-10 flex items-center justify-center h-full
-          max-sm:mt-[26px] max-sm:w-full max-sm:justify-center
+          max-sm:mt-[-86px] max-sm:w-full max-sm:justify-center
         "
       >
 <Link href={`/${pathLocale}/contact`}>

@@ -13,15 +13,12 @@ const Banner: React.FC = () => {
   return (
     <section
       className="
-        relative w-full max-w-[95%] md:max-w-[90%] lg:max-w-[1273px] 
-        h-auto md:h-[240px] lg:h-[278px] 
-        rounded-[10px] md:rounded-[15px] lg:rounded-[10px]
-        mt-[80px] md:mt-[100px] lg:mt-[120px] 
-        mb-[80px] md:mb-[120px] lg:mb-[200px] 
-        overflow-hidden mx-auto
-        flex flex-col md:flex-row justify-start items-start md:items-center gap-[24px] md:gap-[80px] lg:gap-[160px] 
-        px-[28px] md:px-[50px] lg:px-[116px] 
-        py-[40px] md:py-[30px] lg:pt-[40px]
+        relative w-full max-w-[1273px] h-[278px] rounded-[10px]
+        mt-[80px] md:mt-[100px] lg:mt-[120px] mb-[120px] md:mb-[160px] lg:mb-[200px] overflow-hidden mx-auto
+        flex justify-start items-start gap-[160px] px-[116px] pt-[40px]
+        max-lg:flex-col max-lg:items-start max-lg:h-auto max-lg:px-[48px] max-lg:py-[60px]
+        max-sm:w-full max-sm:rounded-none max-sm:px-[24px] max-sm:py-[50px]
+        max-sm:flex max-sm:flex-col max-sm:items-center max-sm:justify-center max-sm:text-center
       "
     >
       {/* Background Image */}
@@ -40,7 +37,8 @@ const Banner: React.FC = () => {
       {/* Content */}
       <div
         className="
-          relative z-10 flex flex-col items-start justify-center gap-[16px] md:gap-[18px] lg:gap-[16px] max-w-[700px] text-left
+          relative z-10 flex flex-col items-start justify-start gap-[16px] max-w-[700px]
+          max-sm:items-center max-sm:justify-center max-sm:gap-[8px] md:pl-[40px] md:pt-[30px]
         "
       >
         {/* Title */}
@@ -48,10 +46,12 @@ const Banner: React.FC = () => {
           className="
             font-['SF Pro Display']
             text-[#CAF476]
-            text-[22px] md:text-[28px] lg:text-[36px]
-            font-[300] md:font-[300] lg:font-[300]
-            leading-[140%] md:leading-[130%]
+            text-[28px] lg:text-[36px]
+            font-[300]
+            leading-[140%]
             tracking-[-0.3px]
+            max-sm:text-[22px] max-sm:leading-[130%] max-sm:font-[400]
+            max-sm:max-w-[320px]
           "
         >
          {t("consultation.bannerTitle")}
@@ -61,13 +61,15 @@ const Banner: React.FC = () => {
         <p
           className="
             font-['SF Pro Display']
-        text-[#CAF476]
-            text-[14px] md:text-[17px] lg:text-[20px]
+            text-[#CAF476]
+            text-[16px] lg:text-[20px]
             font-[300]
             leading-[140%]
-            opacity-90 md:opacity-90
-            max-w-[310px] md:max-w-[500px] lg:max-w-[650px]
-            mt-[4px] md:mt-[8px] lg:mt-5
+            opacity-90
+            max-w-[650px]
+            mt-5
+            max-sm:text-[14px] max-sm:leading-[140%]
+            max-sm:max-w-[310px] max-sm:opacity-95 max-sm:mt-[4px]
           "
         >
 {t("consultation.bannerDescription")}
@@ -79,7 +81,7 @@ const Banner: React.FC = () => {
       <div
         className="
           relative z-10 flex items-center justify-center h-full
-          mt-[26px] md:mt-0 w-full md:w-auto justify-center md:justify-start
+          max-sm:mt-[-86px] max-sm:w-full max-sm:justify-center
         "
       >
 <Link href={`/${pathLocale}/contact`}>
@@ -89,15 +91,15 @@ const Banner: React.FC = () => {
       text-[#132219]
       font-['SF Pro Display']
       font-[600]
-      text-[15px] md:text-[17px] lg:text-[20px]
+      text-[16px] sm:text-[17px] md:text-[18px] lg:text-[20px]
       leading-normal tracking-[-0.2px]
-      px-[24px] py-[12px] md:px-[26px] md:py-[11px] lg:px-[22px] lg:py-[10px]
+      px-[28px] py-[12px] sm:px-[24px] sm:py-[11px] md:px-[22px] md:py-[10px]
       rounded-full border border-[#132219]
-      hover:bg-[#D6FA8A]
+      hover:bg-[#D6FA8A] 
       transition-all duration-300
-      whitespace-nowrap 
-      shadow-[0_0_20px_rgba(202,244,118,0.3)] md:shadow-[0_0_17px_rgba(202,244,118,0.28)] lg:shadow-[0_0_15px_rgba(202,244,118,0.25)]
-      w-auto
+      whitespace-nowrap shadow-[0_0_15px_rgba(202,244,118,0.25)]
+      min-h-[48px] sm:min-h-[44px]
+      max-sm:shadow-[0_0_20px_rgba(202,244,118,0.3)]
     "
   >
     {t("buttons.bookAppointment")}

@@ -394,7 +394,7 @@ const [openDropdown, setOpenDropdown] = useState(false);
 
 
     {/* === 4 Kosten Boxes Nën Tragbarkeit/Eigenmittel === */}
-<div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[10px] w-full mt-[16px]">
+<div className="grid grid-cols-2 gap-[10px] w-full mt-[16px]">
 
     {loanType === "refinancing" ? (
       <>
@@ -621,7 +621,7 @@ function SmallBox({ title, value, highlight = false }: SmallBoxProps) {
     <div
       className={`
         relative flex flex-col justify-between
-        w-[147px] h-[127px]
+        w-full h-[127px]
         p-[8px_12px]
         rounded-[10px] border border-[#132219]
         bg-white overflow-hidden
