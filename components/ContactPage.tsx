@@ -47,8 +47,8 @@ export default function ContactPage() {
   };
 
   const validatePhone = (phone: string) => {
-    // Swiss phone format: +41 or 0, then 9 digits (allowing spaces/dashes)
-    const phoneRegex = /^(\+41|0)[0-9\s\-]{9,}$/;
+    // International phone format: accepts any country code and phone number
+    const phoneRegex = /^[\+]?[(]?[0-9]{1,4}[)]?[-\s\.]?[(]?[0-9]{1,4}[)]?[-\s\.]?[0-9]{1,9}$/;
     return phoneRegex.test(phone.replace(/\s/g, ''));
   };
 

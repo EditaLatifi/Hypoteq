@@ -3,11 +3,46 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslation } from "@/hooks/useTranslation";
+import { useState } from "react";
 
 export default function Footer() {
   const pathname = usePathname();
   const pathLocale = pathname.split("/")[1] || "de";
   const { t } = useTranslation(pathLocale as "de" | "en" | "fr" | "it");
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const handleSubscribe = async () => {
+    if (!email) {
+      setMessage(pathLocale === "de" ? "Bitte E-Mail eingeben" : "Please enter email");
+      return;
+    }
+
+    setLoading(true);
+    setMessage("");
+
+    try {
+      const response = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setMessage(pathLocale === "de" ? "Erfolgreich angemeldet!" : "Successfully subscribed!");
+        setEmail("");
+      } else {
+        setMessage(data.error || (pathLocale === "de" ? "Fehler beim Anmelden" : "Subscription failed"));
+      }
+    } catch (error) {
+      setMessage(pathLocale === "de" ? "Fehler beim Anmelden" : "Subscription failed");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <footer className="w-full bg-[#0B1C14] text-white font-sfpro">
@@ -35,18 +70,32 @@ export default function Footer() {
           </h2>
 
           {/* INPUT */}
-          <div className="flex flex-col sm:flex-row items-center gap-[12px] sm:gap-[14px] md:gap-[18px] lg:gap-[22px] w-full md:w-auto">
-            <div className="flex items-center w-full sm:w-[240px] md:w-[280px] lg:w-[356px] h-[48px] sm:h-[44px] md:h-[42px] lg:h-[40px] rounded-[50px] bg-[#2A3B2C] px-[18px] sm:px-[16px]">
-              <input
-                className="flex-1 bg-transparent text-white placeholder-white/70 outline-none text-[15px] sm:text-[14px] md:text-[14.5px] lg:text-[15px]"
-                placeholder={t("footer.newsletter")}
-              />
-            </div>
+          <div className="flex flex-col gap-[12px] w-full md:w-auto">
+            <div className="flex flex-col sm:flex-row items-center gap-[12px] sm:gap-[14px] md:gap-[18px] lg:gap-[22px]">
+              <div className="flex items-center w-full sm:w-[240px] md:w-[280px] lg:w-[356px] h-[48px] sm:h-[44px] md:h-[42px] lg:h-[40px] rounded-[50px] bg-[#2A3B2C] px-[18px] sm:px-[16px]">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  onKeyPress={(e) => e.key === "Enter" && handleSubscribe()}
+                  className="flex-1 bg-transparent text-white placeholder-white/70 outline-none text-[15px] sm:text-[14px] md:text-[14.5px] lg:text-[15px]"
+                  placeholder={t("footer.newsletter")}
+                />
+              </div>
 
-            <button className="w-full sm:w-[130px] md:w-[140px] lg:w-[159px] h-[48px] sm:h-[44px] md:h-[42px] lg:h-[40px] flex items-center justify-center bg-[#CAF476] 
-              rounded-[50px] text-[#132219] font-semibold sm:font-medium hover:opacity-90 transition text-[16px] sm:text-[15px] md:text-[14.5px] lg:text-base">
-              {t("buttons.sendNewsletter")}
-            </button>
+              <button 
+                onClick={handleSubscribe}
+                disabled={loading}
+                className="w-full sm:w-[130px] md:w-[140px] lg:w-[159px] h-[48px] sm:h-[44px] md:h-[42px] lg:h-[40px] flex items-center justify-center bg-[#CAF476] 
+                rounded-[50px] text-[#132219] font-semibold sm:font-medium hover:opacity-90 transition text-[16px] sm:text-[15px] md:text-[14.5px] lg:text-base disabled:opacity-50">
+                {loading ? "..." : t("buttons.sendNewsletter")}
+              </button>
+            </div>
+            {message && (
+              <p className={`text-sm ${message.includes("Erfolg") || message.includes("Success") ? "text-[#CAF476]" : "text-red-400"}`}>
+                {message}
+              </p>
+            )}
           </div>
         </div>
 
