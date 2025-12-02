@@ -84,7 +84,7 @@ const Banner: React.FC = () => {
           max-sm:mt-[-86px] max-sm:w-full max-sm:justify-center
         "
       >
-<Link href={`/${pathLocale}/contact`}>
+<Link href="https://calendly.com/hypoteq/hypoteq-intro-call" target="_blank">
   <button
     className="
       bg-[#CAF476]
