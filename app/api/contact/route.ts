@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
+import { Resend } from "resend";
 
 export async function POST(req: Request) {
   try {
@@ -14,23 +15,6 @@ export async function POST(req: Request) {
       );
     }
 
-    // Create transporter (configure with your SMTP settings)
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST || "smtp-mail.outlook.com",
-      port: parseInt(process.env.SMTP_PORT || "587"),
-      secure: false, // Use STARTTLS
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-      tls: {
-        ciphers: 'SSLv3',
-        rejectUnauthorized: false
-      },
-      debug: true, // Enable debug output
-      logger: true // Log to console
-    });
-
     // Map inquiry types to German
     const inquiryTypeMap: { [key: string]: string } = {
       general: "Allgemeine Anfrage",
@@ -40,17 +24,159 @@ export async function POST(req: Request) {
 
     const inquiryTypeLabel = inquiryTypeMap[inquiryType] || inquiryType;
 
-    // Verify transporter configuration
-    try {
-      await transporter.verify();
-      console.log("✅ SMTP connection verified");
-    } catch (verifyError: any) {
-      console.error("❌ SMTP verification failed:", verifyError);
-      throw new Error(`SMTP configuration error: ${verifyError.message}`);
+    // Check if Resend is configured (preferred method)
+    const useResend = process.env.USE_RESEND === "true" && process.env.RESEND_API_KEY;
+
+    if (useResend) {
+      return await sendWithResend(firstName, lastName, company, email, phone, inquiryTypeLabel, message);
+    } else {
+      return await sendWithSMTP(firstName, lastName, company, email, phone, inquiryTypeLabel, message);
+    }
+  } catch (error: any) {
+    console.error("❌ Contact form error:", error);
+    return NextResponse.json(
+      { success: false, error: error.message || "Fehler beim Senden der Nachricht" },
+      { status: 500 }
+    );
+  }
+}
+
+// Send email using Resend (Recommended)
+async function sendWithResend(
+  firstName: string, 
+  lastName: string, 
+  company: string, 
+  email: string, 
+  phone: string, 
+  inquiryTypeLabel: string, 
+  message: string
+) {
+  const resend = new Resend(process.env.RESEND_API_KEY);
+
+  const emailHTML = generateEmailHTML(firstName, lastName, company, email, phone, inquiryTypeLabel, message);
+
+  try {
+    console.log("📧 Sending email via Resend");
+    
+    const { data, error } = await resend.emails.send({
+      from: 'HYPOTEQ Kontaktformular <onboarding@resend.dev>',
+      to: ['edita.latifi@the-eksperts.com'],
+      replyTo: email,
+      subject: `[HYPOTEQ] ${inquiryTypeLabel} - ${firstName} ${lastName}`,
+      html: emailHTML,
+    });
+
+    if (error) {
+      console.error("❌ Resend error:", error);
+      throw new Error(error.message);
     }
 
-    // Create email HTML
-    const emailHTML = `
+    console.log("✅ Email sent successfully via Resend:", data?.id);
+    return NextResponse.json({ success: true });
+  } catch (error: any) {
+    console.error("❌ Resend error:", error);
+    throw error;
+  }
+}
+
+// Send email using SMTP (Fallback)
+async function sendWithSMTP(
+  firstName: string, 
+  lastName: string, 
+  company: string, 
+  email: string, 
+  phone: string, 
+  inquiryTypeLabel: string, 
+  message: string
+) {
+  // Verify SMTP credentials are available
+  if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+    console.error("❌ Missing SMTP credentials");
+    throw new Error("Email service not configured. Please add SMTP credentials or use Resend.");
+  }
+
+  // Create transporter (configure with your SMTP settings)
+  const transporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST || "smtp-mail.outlook.com",
+    port: parseInt(process.env.SMTP_PORT || "587"),
+    secure: process.env.SMTP_SECURE === "true", // Use TLS
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS,
+    },
+    tls: {
+      ciphers: 'SSLv3',
+      rejectUnauthorized: false,
+      minVersion: 'TLSv1'
+    },
+    authMethod: 'LOGIN',
+    debug: true, // Enable debug output
+    logger: true // Log to console
+  });
+
+  // Verify transporter configuration
+  try {
+    await transporter.verify();
+    console.log("✅ SMTP connection verified");
+  } catch (verifyError: any) {
+    console.error("❌ SMTP verification failed:", verifyError);
+    throw new Error(`SMTP configuration error: ${verifyError.message}`);
+  }
+
+  const emailHTML = generateEmailHTML(firstName, lastName, company, email, phone, inquiryTypeLabel, message);
+
+  // Plain text version
+  const emailText = `
+Neue Kontaktanfrage - HYPOTEQ
+
+Anfrageart: ${inquiryTypeLabel}
+Name: ${firstName} ${lastName}
+${company ? `Firmenname: ${company}\n` : ''}
+E-Mail: ${email}
+Telefon: ${phone}
+
+Nachricht:
+${message}
+
+---
+Eingegangen am: ${new Date().toLocaleString('de-CH')}
+  `;
+
+  // Send email
+  try {
+    console.log("📧 Sending email via SMTP to: info@hypoteq.ch");
+    console.log("📧 From:", process.env.SMTP_USER);
+    
+    const info = await transporter.sendMail({
+      from: `"HYPOTEQ Kontaktformular" <${process.env.SMTP_USER}>`,
+      to: "info@hypoteq.ch",
+      replyTo: email,
+      subject: `Neue Kontaktanfrage: ${inquiryTypeLabel} - ${firstName} ${lastName}`,
+      text: emailText,
+      html: emailHTML,
+    });
+
+    console.log("✅ Email sent successfully via SMTP:", info.messageId);
+    console.log("📬 Response:", info.response);
+    
+    return NextResponse.json({ success: true });
+  } catch (error: any) {
+    console.error("❌ SMTP send error:", error);
+    throw error;
+  }
+}
+
+// Generate HTML email template
+function generateEmailHTML(
+  firstName: string, 
+  lastName: string, 
+  company: string, 
+  email: string, 
+  phone: string, 
+  inquiryTypeLabel: string, 
+  message: string
+): string {
+  return `
       <!DOCTYPE html>
       <html>
         <head>
@@ -195,46 +321,4 @@ export async function POST(req: Request) {
         </body>
       </html>
     `;
-
-    // Plain text version
-    const emailText = `
-Neue Kontaktanfrage - HYPOTEQ
-
-Anfrageart: ${inquiryTypeLabel}
-Name: ${firstName} ${lastName}
-${company ? `Firmenname: ${company}\n` : ''}
-E-Mail: ${email}
-Telefon: ${phone}
-
-Nachricht:
-${message}
-
----
-Eingegangen am: ${new Date().toLocaleString('de-CH')}
-    `;
-
-    // Send email
-    console.log("📧 Attempting to send email to:", "info@hypoteq.ch");
-    console.log("📧 From:", process.env.SMTP_USER);
-    
-    const info = await transporter.sendMail({
-      from: `"HYPOTEQ Kontaktformular" <${process.env.SMTP_USER}>`,
-      to: "info@hypoteq.ch",
-      replyTo: email,
-      subject: `Neue Kontaktanfrage: ${inquiryTypeLabel} - ${firstName} ${lastName}`,
-      text: emailText,
-      html: emailHTML,
-    });
-
-    console.log("✅ Email sent successfully:", info.messageId);
-    console.log("📬 Response:", info.response);
-
-    return NextResponse.json({ success: true });
-  } catch (error: any) {
-    console.error("❌ Contact form error:", error);
-    return NextResponse.json(
-      { success: false, error: error.message || "Fehler beim Senden der Nachricht" },
-      { status: 500 }
-    );
-  }
 }

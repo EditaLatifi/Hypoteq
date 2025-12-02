@@ -29,6 +29,7 @@ export default function ContactPage() {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -117,7 +118,7 @@ export default function ContactPage() {
       .then(res => res.json())
       .then(data => {
         if (data.success) {
-          alert("✅ Ihre Nachricht wurde erfolgreich gesendet! Wir melden uns in Kürze bei Ihnen.");
+          setIsSuccess(true);
           setFormData({
             firstName: "",
             lastName: "",
@@ -211,8 +212,23 @@ export default function ContactPage() {
       {/* ===== FORM + CALL ===== */}
       <div className="flex flex-col lg:flex-row justify-center items-start w-full max-w-[1300px] gap-[60px] md:gap-[108px] mx-auto mt-[100px] md:mt-[160px] px-[10px] md:px-[10px]">
 
-        {/* LEFT SIDE – FORM */}
+        {/* LEFT SIDE – FORM OR SUCCESS MESSAGE */}
         <div className="flex flex-col w-full max-w-[700px] gap-[24px]">
+          
+          {isSuccess ? (
+            /* SUCCESS STATE */
+            <div className="bg-[#D9FF8F] rounded-[10px] border border-[#000] p-[48px] md:p-[60px] flex flex-col items-center justify-center text-center min-h-[500px] mt-[76px]">
+              <div className="text-[72px] mb-[24px]">✓</div>
+              <h2 className="text-[36px] md:text-[48px] font-[500] leading-[110%] tracking-[-0.48px] text-[#132219] mb-[16px]">
+                {t("contact.successTitle")}
+              </h2>
+              <p className="text-[18px] md:text-[20px] leading-[140%] font-[400] text-[#132219] max-w-[500px]">
+                {t("contact.successMessage")}
+              </p>
+            </div>
+          ) : (
+            /* FORM STATE */
+            <>
           <div className="relative">
             <span className="block md:absolute md:top-[-84px] left-0 text-[#132219] text-[32px] md:text-[48px] font-[500] leading-[100%] tracking-[-0.48px] mb-2">
               {t("consultation.title")}
@@ -325,6 +341,8 @@ export default function ContactPage() {
             </div>
 
           </form>
+            </>
+          )}
         </div>
 
         {/* RIGHT SIDE – BOOK CALL */}

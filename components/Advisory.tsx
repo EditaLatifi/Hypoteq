@@ -142,7 +142,7 @@ export default function Advisory() {
                 className="text-[#132219] font-[300] text-[16px] sm:text-[20px] md:text-[24px] leading-[140%]"
                 style={{ fontFamily: '"SF Pro Display", sans-serif' }}
               >
-                {card.text}
+                {box.text}
               </p>
             </div>
           ))}

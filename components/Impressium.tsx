@@ -32,7 +32,7 @@ export default function Impressum() {
                     <p className="text-[#132219] font-sfpro
                     text-[16px] md:text-[18px] lg:text-[20px]
                     leading-[26px] md:leading-[30px] lg:leading-[32px]">
-                        HYPOTEQ AG, Landvogt Waser-Str. 658405 Winterthur<br />
+                        HYPOTEQ AG, Löwenstrasse 29, 8001 Zürich<br />
                         Schweiz, info@hypoteq.ch, 044 564 73 70, UID: CHE-249.716.201
                     </p>
                 </div>

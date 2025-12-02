@@ -78,14 +78,6 @@ const teamMembers: TeamMember[] = [
   },
 
   {
-    name: "Markus Abeler",
-    position: "team.positions.consultant",
-    image: "/images/HYPOTEQ_about_team_markus.png",
-    linkedin: "https://www.linkedin.com/in/abelermarkus/",
-    email: "mailto:markus.abeler@hypoteq.ch",
-  },
-
-  {
     name: "HYPOTEQ",
     bgColor: "#CAF476",
     description: "team.linkedinDescription",

@@ -211,7 +211,7 @@
     "interestCosts": "Zinskosen",
     "monthlyCosts": "Monatliche Kosten",
     "ctaCard1Title": "Finde deine Hypothek!",
-    "ctaCard1Text": "In nur 3 Schritte zu deiner optimalen Finanzierung – einfach, digital, transparent.Wir vergleichen Angebote in Echtzeit und zeigen dir sofort, was wirklich passt.",
+    "ctaCard1Text": "In nur 3 Schritte zu deiner optimalen Finanzierung – einfach, digital, transparent. Wir vergleichen Angebote in Echtzeit und zeigen dir sofort, was wirklich passt.",
     "ctaCard1Strong": "Schnell, sicher, ohne Umwege.",
     "ctaCard2Title": "15 Minuten, die Klarheit schaffen",
     "ctaCard2Text": "Unsere Expert:innen erklären dir den Finanzierungsprozess, zeigen dir passende Optionen – und begleiten dich bei der Entscheidungsfindung.",
@@ -304,7 +304,7 @@
     "whichBank": "Welche Bank?",
     "interestRate": "Zinssatz (%)",
     "term": "Laufzeit",
-    "purchasePrice": "Kaufpreis",
+    "purchasePrice": "Kaufpreis / Immobilienwert",
     "amount": "Betrag",
     "ownFunds": "Eigenmittel",
     "cash": "Bar",
@@ -525,7 +525,9 @@
     "email": "Email",
     "phone": "Telefon",
     "message": "Nachricht",
-    "submit": "Senden"
+    "submit": "Senden",
+    "successTitle": "Vielen Dank!",
+    "successMessage": "Wir haben deine Nachricht erhalten und melden uns in Kürze bei dir."
   },
   "consultation": {
     "title": "Fragen?",
@@ -600,7 +602,7 @@
       "expectations": "Was dich bei uns erwartet",
       "benefitsOverview": "Deine Vorteile auf einen Blick:",
       "growWithUs": "Wachse mit HYPOTEQ",
-      "intro1": "Du bist Treuhänder:in, Vermögensverwalter:in, Makler:in oder Broker?",
+      "intro1": "Du bist Treuhänder:in, Vermögensverwalter:in, Makler:in oder Broker:in?",
       "intro2": "Dann kannst du mit HYPOTEQ dein Angebot mit unserer professionellen Hypothekenberatung erweitern – ganz ohne eigenen Bankenvertrag.",
       "intro3": "Wir liefern dir die Tools, das Netzwerk und den Support, damit du deine Kund:innen mit passenden Finanzierungslösungen unterstützen kannst."
     },

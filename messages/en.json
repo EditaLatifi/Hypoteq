@@ -524,7 +524,9 @@
     "email": "Email",
     "phone": "Phone",
     "message": "Message",
-    "submit": "Submit"
+    "submit": "Submit",
+    "successTitle": "Thank you!",
+    "successMessage": "We have received your message and will contact you soon."
   },
   "consultation": {
     "title": "Questions?",
