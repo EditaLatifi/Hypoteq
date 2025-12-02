@@ -122,6 +122,17 @@ const documentsForJur = [
     ],
   }] : []),
 
+  // BESTEHENDE IMMOBILIE documents for Juristische Person (only if it's Kauf + Bestehende Immobilie, NOT for Ablösung)
+  ...(isKauf && isBestand && !isAblösung ? [{
+    title: t("funnel.docSectionExistingProperty" as any),
+    items: [
+      t("funnel.constructionDescriptionPhotos" as any), // Baubeschrieb (inkl. Foto des Innen- und Aussenbereichs)
+      t("funnel.constructionPlansNetArea" as any), // Bau-/Grundrisspläne inkl. Nettowohnfläche, Raumhöhe, Dachform, Bodenbeläge, Baubeschrieb
+      t("funnel.landRegistryNotOlder6Months" as any), // Aktueller Grundbuchauszug (nicht älter als 6 Monate)
+      t("funnel.oldSalesDocuments" as any), // Alte Verkaufdokumente (falls vorhanden)
+    ],
+  }] : []),
+
   // ABLÖSUNG documents for Juristische Person
   ...(isAblösung ? [{
     title: t("funnel.docSectionAbloesung" as any),
@@ -220,6 +231,17 @@ const sections = [
       t("funnel.landRegistryIfAvailable" as any), // Aktueller Grundbuchauszug falls vorhanden
       t("funnel.purchaseContractDraft" as any), // Kaufvertrag (Entwurf/original)
       t("funnel.buildingInsuranceIfAvailable" as any), // Aktuelle Gebäudeversicherungspolice
+    ],
+  }] : []),
+
+  // BESTEHENDE IMMOBILIE documents for Natürliche Person (only show if it's Kauf + Bestehende Immobilie, NOT for Ablösung)
+  ...(isKauf && isBestand && !isAblösung ? [{
+    title: t("funnel.docSectionExistingProperty" as any),
+    items: [
+      t("funnel.constructionDescriptionPhotos" as any), // Baubeschrieb (inkl. Foto des Innen- und Aussenbereichs)
+      t("funnel.constructionPlansNetArea" as any), // Bau-/Grundrisspläne inkl. Nettowohnfläche, Raumhöhe, Dachform, Bodenbeläge, Baubeschrieb
+      t("funnel.landRegistryNotOlder6Months" as any), // Aktueller Grundbuchauszug (nicht älter als 6 Monate)
+      t("funnel.oldSalesDocuments" as any), // Alte Verkaufdokumente (falls vorhanden)
     ],
   }] : []),
 

@@ -85,7 +85,24 @@
 
 ---
 
-#### Test 6: Neubau + Reserviert
+#### Test 6: Bestehende Immobilie (Existing Property) - KAUF ONLY
+**Steps:**
+1. Select "Natürliche Person"
+2. Select Projekt Art: "Kauf"
+3. Select Art Immobilie: "Bestehende Immobilie"
+4. Navigate to Documents step
+
+**Expected Documents:**
+- [ ] Baubeschrieb (inkl. Foto des Innen- und Aussenbereichs)
+- [ ] Bau-/Grundrisspläne inkl. Nettowohnfläche, Raumhöhe, Dachform, Bodenbeläge, Baubeschrieb
+- [ ] Aktueller Grundbuchauszug (nicht älter als 6 Monate)
+- [ ] Alte Verkaufdokumente (falls vorhanden)
+
+**IMPORTANT:** These should NOT appear if "Ablösung" is selected!
+
+---
+
+#### Test 7: Neubau + Reserviert
 **Steps:**
 1. Select "Natürliche Person"
 2. Select Projekt Art: "Kauf"
@@ -99,7 +116,7 @@
 
 ---
 
-#### Test 7: Ablösung (Refinancing)
+#### Test 8: Ablösung (Refinancing)
 **Steps:**
 1. Select "Natürliche Person"
 2. Select Projekt Art: "Ablösung"
@@ -115,7 +132,7 @@
 
 ---
 
-#### Test 8: Stockwerkeigentum (Condominium)
+#### Test 9: Stockwerkeigentum (Condominium)
 **Steps:**
 1. Select "Natürliche Person"
 2. Select Art Liegenschaft: "Stockwerkeigentum"
@@ -128,7 +145,7 @@
 
 ---
 
-#### Test 9: Renditeobjekt (Investment Property)
+#### Test 10: Renditeobjekt (Investment Property)
 **Steps:**
 1. Select "Natürliche Person"
 2. Select Nutzung: "Rendite-Immobilie"
@@ -141,7 +158,7 @@
 
 ### Financing Tests
 
-#### Test 10: Andere Eigenmittel (Other Funds)
+#### Test 11: Andere Eigenmittel (Other Funds)
 **Steps:**
 1. Select "Natürliche Person"
 2. In Financing step, enter value in "Schenkung" field (eigenmittel_schenkung > 0)
@@ -156,7 +173,7 @@
 
 ### Construction/Renovation Tests
 
-#### Test 11: Bauprojekt
+#### Test 12: Bauprojekt
 **Steps:**
 1. Select "Natürliche Person"
 2. Select Projekt Art: "Kauf"
@@ -170,7 +187,7 @@
 
 ---
 
-#### Test 12: Renovation
+#### Test 13: Renovation
 **Steps:**
 1. Select "Natürliche Person"
 2. Select Renovation: "Ja"
@@ -195,7 +212,7 @@
 
 ---
 
-#### Test 13: Juristische Person + Neubau
+#### Test 14: Juristische Person + Neubau
 **Steps:**
 1. Select "Juristische Person"
 2. Select Projekt Art: "Kauf"
@@ -211,7 +228,22 @@
 
 ---
 
-#### Test 14: Juristische Person + Ablösung
+#### Test 15: Juristische Person + Bestehende Immobilie
+**Steps:**
+1. Select "Juristische Person"
+2. Select Projekt Art: "Kauf"
+3. Select Art Immobilie: "Bestehende Immobilie"
+4. Navigate to Documents step
+
+**Expected Documents:**
+- [ ] Baubeschrieb (inkl. Foto des Innen- und Aussenbereichs)
+- [ ] Bau-/Grundrisspläne inkl. Nettowohnfläche, Raumhöhe, Dachform, Bodenbeläge, Baubeschrieb
+- [ ] Aktueller Grundbuchauszug (nicht älter als 6 Monate)
+- [ ] Alte Verkaufdokumente (falls vorhanden)
+
+---
+
+#### Test 16: Juristische Person + Ablösung
 **Steps:**
 1. Select "Juristische Person"
 2. Select Projekt Art: "Ablösung"
@@ -227,7 +259,7 @@
 
 ---
 
-#### Test 15: Juristische Person + Stockwerkeigentum
+#### Test 17: Juristische Person + Stockwerkeigentum
 **Steps:**
 1. Select "Juristische Person"
 2. Select Art Liegenschaft: "Stockwerkeigentum"
@@ -240,7 +272,7 @@
 
 ---
 
-#### Test 16: Juristische Person + Andere Eigenmittel
+#### Test 18: Juristische Person + Andere Eigenmittel
 **Steps:**
 1. Select "Juristische Person"
 2. In Financing step, enter value in "Schenkung" field
@@ -253,7 +285,7 @@
 
 ---
 
-#### Test 17: Juristische Person + Bauprojekt/Renovation
+#### Test 19: Juristische Person + Bauprojekt/Renovation
 **Steps:**
 1. Select "Juristische Person"
 2. Select Bauprojekt OR Renovation: "Ja"
@@ -313,18 +345,20 @@
 | 3 | Rentner | ☐ | |
 | 4 | Age 50+ | ☐ | |
 | 5 | Neubau (Kauf) | ☐ | |
-| 6 | Neubau + Reserviert | ☐ | |
-| 7 | Ablösung | ☐ | |
-| 8 | Stockwerkeigentum | ☐ | |
-| 9 | Renditeobjekt | ☐ | |
-| 10 | Andere Eigenmittel | ☐ | |
-| 11 | Bauprojekt | ☐ | |
-| 12 | Renovation | ☐ | |
-| 13 | Jur + Neubau | ☐ | |
-| 14 | Jur + Ablösung | ☐ | |
-| 15 | Jur + Stockwerk | ☐ | |
-| 16 | Jur + Andere EM | ☐ | |
-| 17 | Jur + Bauprojekt | ☐ | |
+| 6 | Bestehende Immobilie | ☐ | |
+| 7 | Neubau + Reserviert | ☐ | |
+| 8 | Ablösung | ☐ | |
+| 9 | Stockwerkeigentum | ☐ | |
+| 10 | Renditeobjekt | ☐ | |
+| 11 | Andere Eigenmittel | ☐ | |
+| 12 | Bauprojekt | ☐ | |
+| 13 | Renovation | ☐ | |
+| 14 | Jur + Neubau | ☐ | |
+| 15 | Jur + Bestehende | ☐ | |
+| 16 | Jur + Ablösung | ☐ | |
+| 17 | Jur + Stockwerk | ☐ | |
+| 18 | Jur + Andere EM | ☐ | |
+| 19 | Jur + Bauprojekt | ☐ | |
 | NEG 1 | Ablösung no Neubau | ☐ | |
 | NEG 2 | No Bauprojekt | ☐ | |
 | NEG 3 | Renovation Nein | ☐ | |
