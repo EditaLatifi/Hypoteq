@@ -60,6 +60,17 @@ const saved = await prisma.inquiry.create({
       // Don't fail the request if email fails
     }
 
+    // Send auto-response to customer
+    try {
+      if (data.client?.email) {
+        await sendFunnelAutoResponse(data.client.email, data.client.firstName || data.client.vorname || '');
+        console.log("✅ Auto-response sent to customer");
+      }
+    } catch (autoResponseError) {
+      console.error("⚠️ Auto-response failed (continuing):", autoResponseError);
+      // Don't fail the request if auto-response fails
+    }
+
     return NextResponse.json({ success: true, inquiry: saved });
   } catch (err: unknown) {
     // Type assertion to ensure 'err' is treated as an Error
@@ -412,6 +423,231 @@ function generateFunnelEmailHTML(data: any, saved: any): string {
     <p>Diese E-Mail wurde automatisch generiert durch das HYPOTEQ Hypotheken-Formular.</p>
     <p>Anfrage-ID: <strong>${saved.id}</strong> | Eingegangen: ${new Date(saved.createdAt).toLocaleString('de-CH')}</p>
     <p>© ${new Date().getFullYear()} HYPOTEQ - Alle Rechte vorbehalten</p>
+  </div>
+</body>
+</html>
+  `;
+}
+
+// Send auto-response to customer after funnel submission
+async function sendFunnelAutoResponse(customerEmail: string, firstName: string) {
+  try {
+    console.log("📧 Sending funnel auto-response to customer:", customerEmail);
+
+    const useGraph = process.env.USE_GRAPH === "true" && 
+                     process.env.GRAPH_TENANT_ID && 
+                     process.env.GRAPH_CLIENT_ID && 
+                     process.env.GRAPH_CLIENT_SECRET;
+
+    const autoResponseHTML = generateFunnelAutoResponseHTML(firstName);
+    const subject = "Deine Hypothekaranfrage ist eingegangen · Ta demande d'hypothèque a été reçue · La tua richiesta ipotecaria è stata ricevuta · Your mortgage request has been received";
+
+    if (useGraph) {
+      const credential = new ClientSecretCredential(
+        process.env.GRAPH_TENANT_ID!,
+        process.env.GRAPH_CLIENT_ID!,
+        process.env.GRAPH_CLIENT_SECRET!
+      );
+
+      const client = Client.initWithMiddleware({
+        authProvider: {
+          getAccessToken: async () => {
+            const token = await credential.getToken("https://graph.microsoft.com/.default");
+            return token?.token || "";
+          },
+        },
+      });
+
+      const sendMail = {
+        message: {
+          subject: subject,
+          body: {
+            contentType: "HTML",
+            content: autoResponseHTML,
+          },
+          toRecipients: [
+            {
+              emailAddress: {
+                address: customerEmail,
+              },
+            },
+          ],
+        },
+        saveToSentItems: true,
+      };
+
+      const sendAsUser = process.env.SMTP_USER || "fisnik.salihu@hypoteq.ch";
+      await client.api(`/users/${sendAsUser}/sendMail`).post(sendMail);
+    } else {
+      // Fallback to SMTP if Graph API is not configured
+      const nodemailer = require("nodemailer");
+      
+      if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+        console.log("⚠️ SMTP not configured, skipping auto-response");
+        return;
+      }
+
+      const transporter = nodemailer.createTransport({
+        host: process.env.SMTP_HOST || "smtp.office365.com",
+        port: parseInt(process.env.SMTP_PORT || "587"),
+        secure: false,
+        auth: {
+          user: process.env.SMTP_USER,
+          pass: process.env.SMTP_PASS,
+        },
+        tls: {
+          ciphers: 'SSLv3',
+          rejectUnauthorized: false
+        },
+        requireTLS: true,
+      });
+
+      await transporter.sendMail({
+        from: `"HYPOTEQ" <${process.env.SMTP_USER}>`,
+        to: customerEmail,
+        subject: subject,
+        html: autoResponseHTML,
+      });
+    }
+
+    console.log("✅ Funnel auto-response sent successfully to:", customerEmail);
+  } catch (error: any) {
+    console.error("⚠️ Failed to send funnel auto-response (non-critical):", error.message);
+    // Don't throw - auto-response failure shouldn't fail the main request
+  }
+}
+
+// Generate auto-response HTML for funnel submission
+function generateFunnelAutoResponseHTML(firstName: string): string {
+  return `
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+      line-height: 1.8;
+      color: #132219;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    .container {
+      background-color: white;
+      border-radius: 10px;
+      padding: 40px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid #CAF476;
+    }
+    .logo {
+      font-size: 32px;
+      font-weight: 700;
+      color: #132219;
+      margin-bottom: 10px;
+    }
+    .section {
+      margin-bottom: 25px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .section:last-of-type {
+      border-bottom: none;
+    }
+    .greeting {
+      font-size: 18px;
+      font-weight: 600;
+      color: #132219;
+      margin-bottom: 10px;
+    }
+    .text {
+      font-size: 15px;
+      line-height: 1.8;
+      color: #333;
+      margin: 10px 0;
+    }
+    .signature {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 2px solid #CAF476;
+    }
+    .team-name {
+      font-weight: 600;
+      color: #132219;
+      margin-top: 15px;
+    }
+    .footer {
+      margin-top: 30px;
+      padding-top: 20px;
+      text-align: center;
+      font-size: 12px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="logo">HYPOTEQ</div>
+      <div style="color: #666; font-size: 14px;">Deine Hypotheken-Experten</div>
+    </div>
+
+    <!-- German -->
+    <div class="section">
+      <div class="greeting">Hi${firstName ? ' ' + firstName : ''},</div>
+      <div class="text">
+        Danke für deine Anfrage und dein Vertrauen in HYPOTEQ. Wir haben alle Informationen erhalten und melden uns bald (werktags), um die nächsten Schritte zu besprechen.
+      </div>
+    </div>
+
+    <!-- French -->
+    <div class="section">
+      <div class="greeting">Salut${firstName ? ' ' + firstName : ''},</div>
+      <div class="text">
+        Merci pour ta demande et pour ta confiance envers HYPOTEQ. Nous avons bien reçu toutes les informations et te recontactons bientôt (jours ouvrables) pour discuter des prochaines étapes.
+      </div>
+    </div>
+
+    <!-- Italian -->
+    <div class="section">
+      <div class="greeting">Ciao${firstName ? ' ' + firstName : ''},</div>
+      <div class="text">
+        Grazie per la tua richiesta e per la fiducia in HYPOTEQ. Abbiamo ricevuto tutte le informazioni e ti ricontatteremo presto (giorni lavorativi) per discutere i prossimi passi.
+      </div>
+    </div>
+
+    <!-- English -->
+    <div class="section">
+      <div class="greeting">Hi${firstName ? ' ' + firstName : ''},</div>
+      <div class="text">
+        Thanks for your request and your trust in HYPOTEQ. We've received all the information and will get back to you soon (business days) to discuss the next steps.
+      </div>
+    </div>
+
+    <!-- Signature -->
+    <div class="signature">
+      <div class="text">Beste Grüsse / Meilleures salutations / Cordiali saluti / Best regards</div>
+      <div class="team-name">Dein HYPOTEQ Team</div>
+      <div style="margin-top: 20px; font-size: 13px; color: #666;">
+        <div>Marco Circelli</div>
+        <div>HYPOTEQ AG</div>
+        <div style="margin-top: 10px;">
+          📱 +41 79 815 35 65<br>
+          📞 +41 44 554 41 00<br>
+          ✉️ marco.circelli@hypoteq.ch<br>
+          🌐 www.hypoteq.ch
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>© ${new Date().getFullYear()} HYPOTEQ AG - Alle Rechte vorbehalten</p>
   </div>
 </body>
 </html>

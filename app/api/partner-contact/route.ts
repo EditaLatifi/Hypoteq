@@ -27,11 +27,20 @@ export async function POST(req: Request) {
     const useResend = process.env.USE_RESEND === "true" && process.env.RESEND_API_KEY;
 
     if (useGraph) {
-      return await sendWithGraph(firstName, lastName, email, phone, message);
+      const result = await sendWithGraph(firstName, lastName, email, phone, message);
+      // Send auto-response to customer
+      await sendAutoResponse(email, firstName, true, false, false);
+      return result;
     } else if (useResend) {
-      return await sendWithResend(firstName, lastName, email, phone, message);
+      const result = await sendWithResend(firstName, lastName, email, phone, message);
+      // Send auto-response to customer
+      await sendAutoResponse(email, firstName, false, true, false);
+      return result;
     } else {
-      return await sendWithSMTP(firstName, lastName, email, phone, message);
+      const result = await sendWithSMTP(firstName, lastName, email, phone, message);
+      // Send auto-response to customer
+      await sendAutoResponse(email, firstName, false, false, true);
+      return result;
     }
   } catch (error: any) {
     console.error("❌ Partner contact form error:", error);
@@ -246,6 +255,232 @@ Eingegangen am: ${new Date().toLocaleString('de-CH')}
     console.error("❌ SMTP send error:", error);
     throw new Error(`Failed to send email via SMTP: ${error.message}`);
   }
+}
+
+// Send auto-response to customer
+async function sendAutoResponse(
+  customerEmail: string,
+  firstName: string,
+  useGraph: boolean,
+  useResend: boolean,
+  useSMTP: boolean
+) {
+  try {
+    console.log("📧 Sending partner auto-response to customer:", customerEmail);
+
+    const autoResponseHTML = generatePartnerAutoResponseHTML(firstName);
+    const subject = "Vielen Dank für dein Interesse an einer Partnerschaft · Merci pour ton intérêt pour un partenariat · Grazie per il tuo interesse · Thank you for your interest in a partnership";
+
+    if (useGraph) {
+      const credential = new ClientSecretCredential(
+        process.env.GRAPH_TENANT_ID!,
+        process.env.GRAPH_CLIENT_ID!,
+        process.env.GRAPH_CLIENT_SECRET!
+      );
+
+      const client = Client.initWithMiddleware({
+        authProvider: {
+          getAccessToken: async () => {
+            const token = await credential.getToken("https://graph.microsoft.com/.default");
+            return token?.token || "";
+          },
+        },
+      });
+
+      const sendMail = {
+        message: {
+          subject: subject,
+          body: {
+            contentType: "HTML",
+            content: autoResponseHTML,
+          },
+          toRecipients: [
+            {
+              emailAddress: {
+                address: customerEmail,
+              },
+            },
+          ],
+        },
+        saveToSentItems: true,
+      };
+
+      const sendAsUser = process.env.SMTP_USER || "fisnik.salihu@hypoteq.ch";
+      await client.api(`/users/${sendAsUser}/sendMail`).post(sendMail);
+    } else if (useResend) {
+      const resend = new Resend(process.env.RESEND_API_KEY);
+      await resend.emails.send({
+        from: 'HYPOTEQ <onboarding@resend.dev>',
+        to: [customerEmail],
+        subject: subject,
+        html: autoResponseHTML,
+      });
+    } else if (useSMTP) {
+      const transporter = nodemailer.createTransport({
+        host: process.env.SMTP_HOST || "smtp.office365.com",
+        port: parseInt(process.env.SMTP_PORT || "587"),
+        secure: false,
+        auth: {
+          user: process.env.SMTP_USER,
+          pass: process.env.SMTP_PASS,
+        },
+        tls: {
+          ciphers: 'SSLv3',
+          rejectUnauthorized: false
+        },
+        requireTLS: true,
+      });
+
+      await transporter.sendMail({
+        from: `"HYPOTEQ" <${process.env.SMTP_USER}>`,
+        to: customerEmail,
+        subject: subject,
+        html: autoResponseHTML,
+      });
+    }
+
+    console.log("✅ Partner auto-response sent successfully to:", customerEmail);
+  } catch (error: any) {
+    console.error("⚠️ Failed to send partner auto-response (non-critical):", error.message);
+    // Don't throw - auto-response failure shouldn't fail the main request
+  }
+}
+
+// Generate auto-response HTML for partner form
+function generatePartnerAutoResponseHTML(firstName: string): string {
+  return `
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+      line-height: 1.8;
+      color: #132219;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    .container {
+      background-color: white;
+      border-radius: 10px;
+      padding: 40px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid #CAF476;
+    }
+    .logo {
+      font-size: 32px;
+      font-weight: 700;
+      color: #132219;
+      margin-bottom: 10px;
+    }
+    .section {
+      margin-bottom: 25px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .section:last-of-type {
+      border-bottom: none;
+    }
+    .greeting {
+      font-size: 18px;
+      font-weight: 600;
+      color: #132219;
+      margin-bottom: 10px;
+    }
+    .text {
+      font-size: 15px;
+      line-height: 1.8;
+      color: #333;
+      margin: 10px 0;
+    }
+    .signature {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 2px solid #CAF476;
+    }
+    .team-name {
+      font-weight: 600;
+      color: #132219;
+      margin-top: 15px;
+    }
+    .footer {
+      margin-top: 30px;
+      padding-top: 20px;
+      text-align: center;
+      font-size: 12px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="logo">HYPOTEQ</div>
+      <div style="color: #666; font-size: 14px;">Deine Hypotheken-Experten</div>
+    </div>
+
+    <!-- German -->
+    <div class="section">
+      <div class="greeting">Hi${firstName ? ' ' + firstName : ''},</div>
+      <div class="text">
+        Danke für deine Anfrage und dein Interesse an einer Zusammenarbeit mit HYPOTEQ. Wir prüfen deine Angaben und melden uns in der Regel innerhalb eines Arbeitstages bei dir, um die nächsten Schritte zu besprechen.
+      </div>
+    </div>
+
+    <!-- French -->
+    <div class="section">
+      <div class="greeting">Salut${firstName ? ' ' + firstName : ''},</div>
+      <div class="text">
+        Merci pour ta demande et pour ton intérêt à collaborer avec HYPOTEQ. Nous examinons tes informations et te recontactons généralement dans un délai d'un jour ouvrable pour discuter des prochaines étapes.
+      </div>
+    </div>
+
+    <!-- Italian -->
+    <div class="section">
+      <div class="greeting">Ciao${firstName ? ' ' + firstName : ''},</div>
+      <div class="text">
+        Grazie per la tua richiesta e per l'interesse a collaborare con HYPOTEQ. Stiamo verificando i tuoi dati e ti ricontattiamo di solito entro un giorno lavorativo per discutere i prossimi passi.
+      </div>
+    </div>
+
+    <!-- English -->
+    <div class="section">
+      <div class="greeting">Hi${firstName ? ' ' + firstName : ''},</div>
+      <div class="text">
+        Thanks for your request and your interest in partnering with HYPOTEQ. We're reviewing your information and usually get back to you within one business day to discuss the next steps.
+      </div>
+    </div>
+
+    <!-- Signature -->
+    <div class="signature">
+      <div class="text">Beste Grüsse / Meilleures salutations / Cordiali saluti / Best regards</div>
+      <div class="team-name">Dein HYPOTEQ Team</div>
+      <div style="margin-top: 20px; font-size: 13px; color: #666;">
+        <div>Marco Circelli</div>
+        <div>HYPOTEQ AG</div>
+        <div style="margin-top: 10px;">
+          📱 +41 79 815 35 65<br>
+          📞 +41 44 554 41 00<br>
+          ✉️ marco.circelli@hypoteq.ch<br>
+          🌐 www.hypoteq.ch
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>© ${new Date().getFullYear()} HYPOTEQ AG - Alle Rechte vorbehalten</p>
+  </div>
+</body>
+</html>
+  `;
 }
 
 // HTML email template
