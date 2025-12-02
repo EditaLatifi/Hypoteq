@@ -32,7 +32,9 @@ export default function FunnelSidebar({ step }: Props) {
       {/* Mobile Header - Hide on tablet and desktop */}
       <div className="md:hidden fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-50">
         <div className="flex items-center justify-between px-4 py-3">
-          <img src="/images/HYPOTEQ_layout_logo.png" className="h-8" alt="Logo" />
+          <a href="/">
+            <img src="/images/HYPOTEQ_layout_logo.png" className="h-8" alt="Logo" />
+          </a>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="p-2 text-[#132219]"
@@ -100,7 +102,9 @@ export default function FunnelSidebar({ step }: Props) {
       <div className="hidden md:flex w-[200px] lg:w-[250px] min-h-screen bg-[#E2E2E2] flex-col px-4 lg:px-5 py-8 lg:py-10 border-r border-gray-300">
 
       {/* LOGO */}
-      <img src="/images/HYPOTEQ_layout_logo.png" className="w-[120px] lg:w-[140px] h-auto mb-10 lg:mb-14" />
+      <a href="/">
+        <img src="/images/HYPOTEQ_layout_logo.png" className="w-[120px] lg:w-[140px] h-auto mb-10 lg:mb-14" />
+      </a>
 
       {/* STEPS */}
       <div className="flex flex-col gap-6 lg:gap-10">

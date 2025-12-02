@@ -1,23 +1,23 @@
-{
+﻿{
   "seo": {
-    "homeTitle": "HYPOTEQ - Mutui in Svizzera | Migliori Condizioni & Consulenza",
-    "homeDescription": "Confronta le offerte di mutuo di oltre 100 banche svizzere. Gratuito, indipendente e trasparente. Trova le migliori condizioni per il tuo finanziamento immobiliare.",
-    "hypothekenTitle": "Mutui Svizzera - Mutuo fisso, Mutuo variabile & altro | HYPOTEQ",
-    "hypothekenDescription": "Panoramica di tutti i modelli di mutuo: Mutuo fisso, Mutuo variabile, Mutuo SARON. Confronta i tassi di interesse e trova il finanziamento giusto.",
-    "calculatorTitle": "Calcolatore di mutui Svizzera - Calcola gratuitamente | HYPOTEQ",
-    "calculatorDescription": "Calcola il tuo mutuo online: costi mensili, sostenibilità e requisiti di capitale proprio. Calcolatore di mutui gratuito per la Svizzera.",
-    "faqTitle": "Domande frequenti sui mutui | HYPOTEQ",
-    "faqDescription": "Risposte alle domande più importanti su mutui, interessi, ammortamento e finanziamento in Svizzera.",
-    "contactTitle": "Contatti - Consulenza mutui HYPOTEQ Svizzera",
-    "contactDescription": "Mettiti in contatto per una consulenza personalizzata sui mutui. Gratuita, non vincolante e competente.",
-    "aboutTitle": "Chi è HYPOTEQ - Il tuo intermediario di mutui indipendente",
-    "aboutDescription": "HYPOTEQ è il tuo partner digitale per i mutui in Svizzera. Indipendente, trasparente e su misura per le tue esigenze.",
+    "homeTitle": "HYPOTEQ - Ipoteche in Svizzera | Migliori Condizioni & Consulenza",
+    "homeDescription": "Confronta le offerte di ipoteca di oltre 100 banche svizzere. Gratuito, indipendente e trasparente. Trova le migliori condizioni per il tuo finanziamento immobiliare.",
+    "hypothekenTitle": "Ipoteche Svizzera - Ipoteca fissa, Ipoteca variabile & altro | HYPOTEQ",
+    "hypothekenDescription": "Panoramica di tutti i modelli di ipoteca: Ipoteca fissa, Ipoteca variabile, Ipoteca SARON. Confronta i tassi di interesse e trova il finanziamento giusto.",
+    "calculatorTitle": "Calcolatore di Ipoteche Svizzera - Calcola gratuitamente | HYPOTEQ",
+    "calculatorDescription": "Calcola la tua ipoteca online: costi mensili, sostenibilità e requisiti di capitale proprio. Calcolatore di ipoteche gratuito per la Svizzera.",
+    "faqTitle": "Domande frequenti sui Ipoteche | HYPOTEQ",
+    "faqDescription": "Risposte alle domande più importanti su Ipoteche, interessi, ammortamento e finanziamento in Svizzera.",
+    "contactTitle": "Contatti - Consulenza Ipoteche HYPOTEQ Svizzera",
+    "contactDescription": "Mettiti in contatto per una consulenza personalizzata sui Ipoteche. Gratuita, non vincolante e competente.",
+    "aboutTitle": "Chi è HYPOTEQ - Il tuo intermediario di Ipoteche indipendente",
+    "aboutDescription": "HYPOTEQ è il tuo partner digitale per i Ipoteche in Svizzera. Indipendente, trasparente e su misura per le tue esigenze.",
     "mezzanineTitle": "Finanziamento Mezzanine Svizzera - Soluzioni di capitale flessibili | HYPOTEQ",
     "mezzanineDescription": "Finanziamento mezzanine come alternativa flessibile tra capitale proprio e debito. Ideale per progetti immobiliari e aziende.",
     "partnerTitle": "Diventa partner HYPOTEQ - Commissioni attrattive",
     "partnerDescription": "Diventa partner HYPOTEQ e approfitta di commissioni attrattive, supporto professionale e strumenti digitali.",
-    "advisoryTitle": "HYPOTEQ Advisory - Consulenza mutui individuale",
-    "advisoryDescription": "Soluzioni di finanziamento su misura per casi complessi. Consulenza professionale da esperti di mutui con esperienza."
+    "advisoryTitle": "HYPOTEQ Advisory - Consulenza Ipoteche individuale",
+    "advisoryDescription": "Soluzioni di finanziamento su misura per casi complessi. Consulenza professionale da esperti di Ipoteche con esperienza."
   },
   "common": {
     "language": "Italiano",
@@ -31,30 +31,30 @@
     "documents": "Documenti",
     "calculator": "Calcolatore",
     "evaluation": "Valutazione",
-    "hypotheken": "Mutui",
+    "hypotheken": "Ipoteche",
     "advisory": "Consulenza",
     "mezzanine": "Finanziamento Mezzanine"
   },
   "navigation": {
     "partnerWerden": "Diventa Partner",
-    "hypothekAnfragen": "Richiedi un Mutuo",
-    "hypotheken": "Mutui"
+    "hypothekAnfragen": "Richiedi un ipoteca",
+    "hypotheken": "Ipoteche"
   },
   "hero": {
     "title": "In tre passaggi",
     "title2": "verso il tuo",
-    "title3": "Mutuo",
-    "subtitle": "Ottieni la tua offerta di mutuo personale online",
+    "title3": "Ipoteca",
+    "subtitle": "Ottieni la tua offerta di ipoteca personale online",
     "subtitleBold": "veloce, sicuro e trasparente.",
     "description": "Confronta diverse opzioni, calcola i tuoi costi mensili e avvia il tuo processo di finanziamento - il tutto in soli tre passaggi. Confronta prima - poi decidi",
-    "buttonText": "Calcola Mutuo"
+    "buttonText": "Calcola Ipoteca"
   },
   "buttons": {
-    "learnMore": "Scopri di più",
-    "startProcess": "Inizia il processo",
+    "learnMore": "Per saperne di più",
+    "startProcess": "Avvia il processo",
     "getQuote": "Ottieni un preventivo",
     "contact": "Contattaci",
-    "requestMortgage": "Richiedi un Mutuo",
+    "requestMortgage": "Richiedi un'Ipoteca",
     "bestOffer": "Trova la Migliore Offerta",
     "bookAppointment": "Prenota Appuntamento",
     "bookAppointmentAdvisory": "Prenota Appuntamento",
@@ -65,13 +65,13 @@
   "about": {
     "title": "Chi siamo",
     "subtitle": "Semplice. Chiaro. Indipendente. – Questo è HYPOTEQ.",
-    "description": "Siamo il tuo partner per il finanziamento immobiliare intelligente in Svizzera. Con la nostra piattaforma digitale, hai accesso a una varietà di partner di finanziamento verificati. Ti aiutiamo a comprendere più facilmente le offerte di mutui e a prendere decisioni informate. Con processi strutturati e supporto personale, ti guidiamo attraverso i passaggi più importanti del tuo finanziamento. Mantieni il controllo – noi supportiamo dietro le quinte. Nessun costo nascosto, nessun obbligo – solo trasparenza ed efficienza.",
+    "description": "Siamo il tuo partner per il finanziamento immobiliare intelligente in Svizzera. Con la nostra piattaforma digitale, hai accesso a una varietà di partner di finanziamento verificati. Ti aiutiamo a comprendere più facilmente le offerte di Ipoteche e a prendere decisioni informate. Con processi strutturati e supporto personale, ti guidiamo attraverso i passaggi più importanti del tuo finanziamento. Mantieni il controllo – noi supportiamo dietro le quinte. Nessun costo nascosto, nessun obbligo – solo trasparenza ed efficienza.",
     "ourDNA": "Il nostro DNA",
     "ourTeam": "Il nostro Team",
     "joinUs": "Diventa Parte di HYPOTEQ"
   },
   "benefits": {
-    "title": "Vantaggi Mutui HYPOTEQ",
+    "title": "Vantaggi Ipoteche HYPOTEQ",
     "todaysBestOffer": "Miglior offerta oggi:",
     "compareText": "I nostri prestiti rispetto ad altre banche",
     "collaboratingWith": "In collaborazione con:"
@@ -91,13 +91,13 @@
     "company": "HYPOTEQ",
     "followUs": "Seguici",
     "homePage": "Home Page",
-    "hypothekenMade": "Mutui semplificati",
+    "hypothekenMade": "Ipoteche semplificati",
     "partnerships": "Partnership",
     "aboutUs": "Chi siamo",
     "contactUs": "Contattaci",
     "becomePartner": "Diventa Partner HYPOTEQ",
     "impressumData": "Note legali & Privacy",
-    "mortgageCalc": "Calcolatore Mutui",
+    "mortgageCalc": "Calcolatore Ipoteche",
     "faqTitle": "Domande Frequenti",
     "hypoteqAdvisory": "Consulenza HYPOTEQ",
     "news": "Notizie",
@@ -109,7 +109,7 @@
     "header": "Diventa parte di HYPOTEQ",
     "paragraph1": "Finanza, tecnologia, trasparenza e spirito di squadra – questa è la nostra motivazione.",
     "paragraph2": "Che tu sia in vendite, compliance, mercati dei capitali o operazioni: Da noi conti tu, non il tuo titolo.",
-    "paragraph3": "Candidati ora e aiuta a ridefinire il mercato dei mutui.",
+    "paragraph3": "Candidati ora e aiuta a ridefinire il mercato dei Ipoteche.",
     "jobs": [
       {
         "title": "Tirocinio / Studente lavoratore",
@@ -117,14 +117,14 @@
         "description": "Immergiti nel mondo del FinTech, dei progetti e del caos organizzato. Supporti il nostro team, porti struttura nei processi e impari come funziona davvero la digitalizzazione."
       },
       {
-        "title": "Consulente Mutui Junior",
+        "title": "Consulente Ipoteche Junior",
         "subtext": "Tempo pieno, Entry-level\nContatto diretto con i clienti",
-        "description": "Inizia la tua carriera come consulente mutui e aiuta i nostri clienti a finanziare la loro casa."
+        "description": "Inizia la tua carriera come consulente Ipoteche e aiuta i nostri clienti a finanziare la loro casa."
       },
       {
         "title": "Sviluppatore Senior",
         "subtext": "Possibile lavoro da remoto, Orari flessibili\nProgetti innovativi",
-        "description": "Sviluppa con noi la prossima generazione di piattaforme per mutui e porta la tua esperienza nel nostro team."
+        "description": "Sviluppa con noi la prossima generazione di piattaforme per Ipoteche e porta la tua esperienza nel nostro team."
       }
     ],
     "applyButton": "Candidati ora"
@@ -150,7 +150,7 @@
     "section3Doc3": "Lista di controllo per immobili a reddito",
     "section3Doc4": "Checklist for investment properties",
     "section4Title": "Materiale informativo HYPOTEQ",
-    "section4Doc1": "Volantino \"Facile e veloce verso un mutuo conveniente\"",
+    "section4Doc1": "Volantino \"Facile e veloce verso un'ipoteca conveniente\"",
     "section4Doc2": "Brochure \"Il finanziamento perfetto per la tua casa\""
   },
   "evaluation": {
@@ -177,12 +177,12 @@
     "newConstructionDesc": "Per il tuo progetto di costruzione hai bisogno di un finanziamento che ti si addice davvero. Analizziamo il tuo profilo, confrontiamo le migliori offerte e ti spieghiamo tutte le opzioni in modo comprensibile. Così prendi la tua decisione in modo rilassato e sulla base di dati chiari."
   },
   "calculator": {
-    "title": "Calcolatore Mutui",
+    "title": "Calcolatore Ipoteche",
     "description": "In soli 3 passaggi verso il tuo finanziamento ottimale - semplice, digitale, trasparente. Confrontiamo le offerte in tempo reale e ti mostriamo immediatamente ciò che davvero si adatta. Veloce, sicuro, senza giri di parole.",
     "helperText": "Sposta semplicemente i cursori per prezzo d'acquisto, fondi propri, tasso d'interesse e durata – e vedi immediatamente come cambiano i tuoi costi mensili, gli interessi e la durata totale. Intelligente, trasparente e in pochi secondi.",
     "placeholder": "Inserisci il valore",
     "continueMortgage": "Continua il Mio Progetto",
-    "requestMortgage": "Richiedi un Mutuo",
+    "requestMortgage": "Richiedi un ipoteca",
     "purchase": "Acquisto",
     "refinancing": "Rifinanziamento",
     "primaryResidence": "Residenza principale",
@@ -224,7 +224,7 @@
     "kreditnehmerMultiple": "Mutuatari (1-6) (fornire tutti)",
     "kreditnehmerSingle": "Informazioni sul mutuatario",
     "finanzierung": "Finanziamento",
-    "startTitle": "Inizia la tua richiesta di mutuo",
+    "startTitle": "Inizia la tua richiesta di ipoteca",
     "startSubtitle": "Condividi alcune informazioni di base con noi in modo da poter preparare la tua offerta.",
     "firstName": "Nome",
     "lastName": "Cognome",
@@ -512,11 +512,11 @@
     "bookConsultation": "Prenota ora una consulenza gratuita"
   },
   "howItWorks": {
-    "title": "Come funziona - in tre passaggi verso il tuo mutuo",
+    "title": "Come funziona - in tre passaggi verso la tua ipoteca",
     "step1Title": "Confronta le tue opzioni",
-    "step1Text": "Inserisci i dati della tua proprietà, informazioni finanziarie e desideri. HYPOTEQ analizza la tua situazione e ti mostra le opzioni di mutuo disponibili da oltre 30 banche e finanziatori in tempo reale.",
+    "step1Text": "Inserisci i dati della tua proprietà, informazioni finanziarie e desideri. HYPOTEQ analizza la tua situazione e ti mostra le opzioni di ipoteca disponibili da oltre 30 banche e finanziatori in tempo reale.",
     "step2Title": "Calcola i tuoi costi",
-    "step2Text": "Vedi esattamente quanto costa il tuo mutuo - con calcoli dettagliati per diversi scenari. Confronta i tassi di interesse, le commissioni e le condizioni e decidi consapevolmente.",
+    "step2Text": "Vedi esattamente quanto costa la tua ipoteca - con calcoli dettagliati per diversi scenari. Confronta i tassi di interesse, le commissioni e le condizioni e decidi consapevolmente.",
     "step3Title": "Avvia il tuo processo",
     "step3Text": "Inizia ora in soli 3 passaggi - ti guidiam o in sicurezza ad ogni passo.",
     "highlightText": "Inizia ora in soli 3 passaggi - ti guidiamo in sicurezza ad ogni passo."
@@ -700,7 +700,7 @@
     "item5Text": "Hai domande su pratiche, documenti o scenari? Il nostro team è al tuo fianco – via email o telefono. Nessuna hotline, nessun bot."
   },
   "partnerWerden": {
-    "title": "Vuoi intermediare attivamente mutui e collaborare con HYPOTEQ?",
+    "title": "Vuoi intermediare attivamente Ipoteche e collaborare con HYPOTEQ?",
     "subtitle": "Allora attendiamo con piacere la tua richiesta!",
     "requirement": "Per diventare partner, dovresti essere un'azienda registrata con una licenza di intermediazione valida, rispettare i requisiti normativi (ad es. KYC/AML) e avere già esperienza nel business operativo – o essere sotto la supervisione di un'organizzazione autorizzata.",
     "phoneNumber": "Numero di telefono",
@@ -732,7 +732,7 @@
     "valuesTitle": "I nostri Valori",
     "valuesDesc": "Rappresentiamo apertura, affidabilità e partnership alla pari. Agiamo in modo trasparente, pensiamo a lungo termine e ci sviluppiamo ogni giorno – come team e insieme ai nostri clienti.",
     "driveTitle": "La nostra Spinta",
-    "driveDesc": "Mettiamo insieme persone, partner e processi per rendere i mutui più semplici, più equi e più intelligenti. Con soluzioni digitali, supporto personale e un obiettivo chiaro: offrirti il miglior percorso verso un finanziamento adatto."
+    "driveDesc": "Mettiamo insieme persone, partner e processi per rendere i Ipoteche più semplici, più equi e più intelligenti. Con soluzioni digitali, supporto personale e un obiettivo chiaro: offrirti il miglior percorso verso un finanziamento adatto."
   },
   "mezzanine": {
     "title": "Mezzanine",
@@ -765,14 +765,14 @@
     "financing": "Finanziamento",
     "propertyUsage": "Utilizzo della proprietà",
     "propertyType": "Tipo di proprietà",
-    "mortgageAmount": "Importo del mutuo",
+    "mortgageAmount": "Importo del ipoteca",
     "pleaseSelect": "Seleziona…"
   },
   "howItWorksSteps": {
     "step1Desc": "Inserisci le informazioni più importanti sulla tua proprietà, reddito e capitale proprio. Vedrai subito se la sostenibilità e il capitale proprio sono sufficienti per un finanziamento. Veloce, semplice e senza impegno.",
     "step2Desc": "Carica i documenti richiesti (ad es. certificato di stipendio, dichiarazione dei redditi, estratto del registro fondiario). Non appena tutto è completo, avviamo il processo e otteniamo le migliori offerte bancarie per te.",
     "step3Desc": "Entro 48-72 ore dalla ricezione di tutti i documenti, riceverai le tue offerte personali – trasparenti, comparabili e personalizzate sul tuo profilo. Con un clic puoi accettare o rifiutare l'offerta desiderata.",
-    "step4Title": "Congratulazioni – il tuo mutuo è pronto",
+    "step4Title": "Congratulazioni – il tuo ipoteca è pronto",
     "step4Desc": "Dopo la tua selezione, gestiamo il coordinamento con la banca e ti accompagniamo fino alla conclusione."
   },
   "faqItems": {
@@ -878,10 +878,10 @@
     "close": "Chiudi",
     "contactPage": "pagina di contatto",
     "responses": {
-      "mortgage": "Offriamo diversi tipi di mutui: mutuo SARON, mutuo a tasso fisso e mutuo Libor. Ognuno ha vantaggi a seconda della tua situazione. Quale ti interessa di più?",
-      "interestRate": "I tassi di interesse attuali variano in base al tipo di mutuo e alla durata. I mutui SARON sono flessibili, mentre i mutui a tasso fisso offrono sicurezza di pianificazione. Vorresti una consulenza dettagliata?",
-      "calculator": "Il nostro calcolatore di mutui ti aiuta a trovare l'opzione migliore. Puoi usarlo sulla nostra pagina calcolatore o iniziare direttamente con il funnel. Quale ti interessa?",
-      "documents": "Per un mutuo, hai bisogno di: prova d'identità, estratti conto, dichiarazioni fiscali e informazioni sulla proprietà. Troverai un elenco completo sulla nostra pagina documenti.",
+      "mortgage": "Offriamo diversi tipi di ipoteche: ipoteca SARON, ipoteca a tasso fisso e ipoteca Libor. Ognuno ha vantaggi a seconda della tua situazione. Quale ti interessa di più?",
+      "interestRate": "I tassi di interesse attuali variano in base al tipo di ipoteca e alla durata. Le ipoteche SARON sono flessibili, mentre le ipoteche a tasso fisso offrono sicurezza di pianificazione. Vorresti una consulenza dettagliata?",
+      "calculator": "Il nostro calcolatore di ipoteche ti aiuta a trovare l'opzione migliore. Puoi usarlo sulla nostra pagina calcolatore o iniziare direttamente con il funnel. Quale ti interessa?",
+      "documents": "Per un'ipoteca, hai bisogno di: prova d'identità, estratti conto, dichiarazioni fiscali e informazioni sulla proprietà. Troverai un elenco completo sulla nostra pagina documenti.",
       "process": "Il nostro processo è semplice: 1) Richiesta online, 2) Revisione documenti, 3) Consulenza, 4) Creazione offerta, 5) Firma contratto. L'intero processo richiede tipicamente 2-4 settimane.",
       "costs": "I nostri servizi sono gratuiti per te. Riceviamo una commissione dai finanziatori. Tuttavia, possono applicarsi costi notarili e di registro fondiario.",
       "contact": "Puoi contattarci via email, telefono o tramite il nostro modulo di contatto. I nostri consulenti sono disponibili dal lunedì al venerdì dalle 9 alle 18.",
