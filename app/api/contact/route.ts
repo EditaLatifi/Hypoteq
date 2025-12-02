@@ -16,13 +16,19 @@ export async function POST(req: Request) {
 
     // Create transporter (configure with your SMTP settings)
     const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST || "smtp.gmail.com",
+      host: process.env.SMTP_HOST || "smtp-mail.outlook.com",
       port: parseInt(process.env.SMTP_PORT || "587"),
-      secure: process.env.SMTP_SECURE === "true",
+      secure: false, // Use STARTTLS
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
       },
+      tls: {
+        ciphers: 'SSLv3',
+        rejectUnauthorized: false
+      },
+      debug: true, // Enable debug output
+      logger: true // Log to console
     });
 
     // Map inquiry types to German
@@ -33,6 +39,15 @@ export async function POST(req: Request) {
     };
 
     const inquiryTypeLabel = inquiryTypeMap[inquiryType] || inquiryType;
+
+    // Verify transporter configuration
+    try {
+      await transporter.verify();
+      console.log("✅ SMTP connection verified");
+    } catch (verifyError: any) {
+      console.error("❌ SMTP verification failed:", verifyError);
+      throw new Error(`SMTP configuration error: ${verifyError.message}`);
+    }
 
     // Create email HTML
     const emailHTML = `
@@ -199,7 +214,10 @@ Eingegangen am: ${new Date().toLocaleString('de-CH')}
     `;
 
     // Send email
-    await transporter.sendMail({
+    console.log("📧 Attempting to send email to:", "info@hypoteq.ch");
+    console.log("📧 From:", process.env.SMTP_USER);
+    
+    const info = await transporter.sendMail({
       from: `"HYPOTEQ Kontaktformular" <${process.env.SMTP_USER}>`,
       to: "info@hypoteq.ch",
       replyTo: email,
@@ -207,6 +225,9 @@ Eingegangen am: ${new Date().toLocaleString('de-CH')}
       text: emailText,
       html: emailHTML,
     });
+
+    console.log("✅ Email sent successfully:", info.messageId);
+    console.log("📬 Response:", info.response);
 
     return NextResponse.json({ success: true });
   } catch (error: any) {
