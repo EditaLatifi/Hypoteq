@@ -333,6 +333,8 @@
     "mortgageDuration": "Hypothekenlaufzeiten",
     "incomeDetails": "Einkommen",
     "withBonus": "+ Bonus",
+    "redemptionAmount": "Ablösungsbetrag",
+    "increaseAmount": "Erhöhung der Hypothek",
     "finanzierung": "Finanzierung",
     "propertyReservedQuestion": "Liegenschaft reserviert?",
     "financingOffersQuestion": "Finanzierungsangebote",

@@ -7,6 +7,7 @@ function FinancingStep({
   data,
   setData,
   projectData,
+  propertyData,
   customerType,
   saveStep,
     borrowers, 
@@ -16,7 +17,8 @@ function FinancingStep({
   console.log("🔥 FinancingStep Debug:", {
   customerType,
   borrowers,
-  projectArt: projectData?.projektArt
+  projectArt: projectData?.projektArt,
+  nutzung: propertyData?.nutzung
 });
 
   /* ==========================
@@ -30,15 +32,20 @@ const normalizedCustomer = (customerType || "").toLowerCase();
 const isDirect = normalizedCustomer === "direct";
 const isPartner = normalizedCustomer === "partner";
 
-const projectArt = projectData?.projektArt?.toLowerCase();
-const isKauf = projectArt === "kauf";
-const isAblösung = projectArt === "abloesung";
+  const projectArt = projectData?.projektArt?.toLowerCase();
+  const isKauf = projectArt === "kauf";
+  const isAblösung = projectArt === "abloesung";
 
-const borrowerType = borrowers?.[0]?.type || "nat";
-const isJur = borrowerType === "jur";
-const isNat = borrowerType === "nat";
+  const borrowerType = borrowers?.[0]?.type || "nat";
+  const isJur = borrowerType === "jur";
+  const isNat = borrowerType === "nat";
 
-/* ==========================
+  // Check if Rendite object
+  const isRendite = propertyData?.nutzung === "Rendite-Immobilie" || 
+                    propertyData?.nutzung?.toLowerCase()?.includes("rendite") ||
+                    propertyData?.nutzung?.toLowerCase()?.includes("investment");
+                    
+  /* ==========================
    SHFAQJA E SEKSIONEVE
    ========================== */
 
@@ -187,8 +194,8 @@ const ToggleButton = ({ active, children, onClick }: any) => {
 {/* PK-Verpfändung + Hypothekarlaufzeiten */}
 <div className="flex flex-col md:flex-row gap-4 md:gap-[45px]">
 
-{/* PK-Verpfändung – hide for juristische Personen */}
-{!isJur && (
+{/* PK-Verpfändung – hide for juristische Personen and Rendite */}
+{!isJur && !isRendite && (
   <div className="flex-1">
     <label className="font-medium">{t("funnel.pkPledge" as any)}</label>
     <div className="flex gap-4 mt-3">
@@ -326,7 +333,7 @@ const ToggleButton = ({ active, children, onClick }: any) => {
           {!isJur && (
             <div className="w-full flex justify-center lg:justify-start">
               <div className="w-[444px] max-w-full">
-<FunnelCalc data={data} projectData={projectData} borrowers={borrowers} />
+<FunnelCalc data={data} projectData={projectData} propertyData={propertyData} borrowers={borrowers} />
 
             </div>
           </div>
@@ -482,7 +489,7 @@ const ToggleButton = ({ active, children, onClick }: any) => {
           <div className="w-full flex lg:justify-end justify-center">
             {!isJur && (
               <div className="max-w-[380px] w-full lg:ml-auto">
-<FunnelCalc data={data} projectData={projectData} borrowers={borrowers} />
+<FunnelCalc data={data} projectData={projectData} propertyData={propertyData} borrowers={borrowers} />
 
             </div>
             )}

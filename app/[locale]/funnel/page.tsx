@@ -322,6 +322,7 @@ saveStep={next}
     data={financingData}
     setData={setFinancingData}
     projectData={projectData}
+    propertyData={propertyData}
     borrowers={borrowers}      
     customerType={customerType}
     saveStep={saveStep5}

@@ -320,6 +320,7 @@ borrowerType={borrowers[0]?.type}
     data={financingData}
     setData={setFinancingData}
     projectData={projectData}
+    propertyData={propertyData}
     borrowers={borrowers}      
     customerType={customerType}
     saveStep={saveStep5}

@@ -34,6 +34,10 @@ export default function DirectSummaryStep({ back, saveStep }: any) {
   const isJur = borrowers?.[0]?.type === "jur";
   const isPartner = customerType === "partner";
 
+  useEffect(() => {
+    console.log("📌 DirectSummaryStep - isJur:", isJur, "borrowers:", borrowers);
+  }, [isJur, borrowers]);
+
   /* ================= CARD COMPONENT ================= */
   const CardSection = ({ title, children }: any) => (
     <div className="bg-white border border-gray-200 rounded-2xl p-6 md:p-8 lg:p-10 shadow-sm">
@@ -59,6 +63,11 @@ export default function DirectSummaryStep({ back, saveStep }: any) {
       : borrowers?.[0]?.type === "nat"
       ? t("funnel.naturalPerson" as any)
       : "—";
+
+  // Check if it's a Rendite object (investment property)
+  const isRendite = property.nutzung === "Rendite-Immobilie" || 
+                    property.nutzung?.toLowerCase()?.includes("rendite") ||
+                    property.nutzung?.toLowerCase()?.includes("investment");
 
   /* ================= CALCULATE TOTAL EIGENMITTEL ================= */
   const totalEigenmittel = financing
@@ -115,12 +124,16 @@ const laufzeitLabel =
           <label className="text-[18px] font-light opacity-70">
             {t("funnel.propertyType" as any)}
           </label>
-          <div className="text-[20px] font-medium">{format(property.artImmobilie)}</div>
+          <div className="text-[20px] font-medium">
+            {property.artImmobilie ? property.artImmobilie.charAt(0).toUpperCase() + property.artImmobilie.slice(1) : "—"}
+          </div>
 
           <label className="text-[18px] font-light opacity-70">
             {t("funnel.propertyKind" as any)}
           </label>
-          <div className="text-[20px] font-medium">{format(property.artLiegenschaft)}</div>
+          <div className="text-[20px] font-medium">
+            {property.artLiegenschaft ? property.artLiegenschaft.charAt(0).toUpperCase() + property.artLiegenschaft.slice(1) : "—"}
+          </div>
 
           <label className="text-[18px] font-light opacity-70">{t("funnel.propertyUsage" as any)}</label>
           <div className="text-[20px] font-medium">{format(property.nutzung)}</div>
@@ -172,14 +185,16 @@ const laufzeitLabel =
           <label className="text-[18px] font-light opacity-70">
             {t("funnel.borrowerDetails" as any)}
           </label>
-          <div className="text-[20px] font-medium leading-snug">
-            {property.kreditnehmer
-              ?.map((k: any) =>
-                borrowers[0]?.type === "jur"
-                  ? k.firmenname
-                  : `${k.vorname} ${k.name}, ${formatDate(k.geburtsdatum)}`
-              )
-              .join("; ") || "—"}
+          <div className="text-[20px] font-medium leading-snug space-y-2">
+            {property.kreditnehmer && property.kreditnehmer.length > 0 ? (
+              property.kreditnehmer.map((k: any, idx: number) => (
+                <div key={idx}>
+                  {borrowers[0]?.type === "jur"
+                    ? k.firmenname
+                    : `${k.vorname} ${k.name}, ${formatDate(k.geburtsdatum)}`}
+                </div>
+              ))
+            ) : "—"}
           </div>
         </CardSection>
 
@@ -195,8 +210,27 @@ const laufzeitLabel =
             {totalEigenmittel > 0 ? CHF(totalEigenmittel) : "—"}
           </div>
 
-          <label className="text-[18px] font-light opacity-70">{t("funnel.pkPledge" as any)}</label>
-          <div className="text-[20px] font-medium">{format(financing.pkVorbezug)}</div>
+          {/* Show Ablösung and Erhöhung for Ablösung projects */}
+          {project.projektArt === "abloesung" && (
+            <>
+              <label className="text-[18px] font-light opacity-70">{t("funnel.redemptionAmount" as any)}</label>
+              <div className="text-[20px] font-medium">{CHF(financing.abloesung_betrag)}</div>
+
+              {financing.erhoehung === "Ja" && (
+                <>
+                  <label className="text-[18px] font-light opacity-70">{t("funnel.increaseAmount" as any)}</label>
+                  <div className="text-[20px] font-medium">{CHF(financing.erhoehung_betrag)}</div>
+                </>
+              )}
+            </>
+          )}
+
+          {!isJur && !isRendite && (
+            <>
+              <label className="text-[18px] font-light opacity-70">{t("funnel.pkPledge" as any)}</label>
+              <div className="text-[20px] font-medium">{format(financing.pkVorbezug)}</div>
+            </>
+          )}
 
    <label className="text-[18px] font-light opacity-70">
   {t("funnel.mortgageDuration" as any)}
@@ -204,11 +238,15 @@ const laufzeitLabel =
 <div className="text-[20px] font-medium">{laufzeitLabel}</div>
 
 
-          <label className="text-[18px] font-light opacity-70">{t("funnel.incomeDetails" as any)}</label>
-          <div className="text-[20px] font-medium">
-            {CHF(financing.brutto)}
-            {financing.bonus ? ` ${t("funnel.withBonus" as any)}` : ""}
-          </div>
+          {!isJur && (
+            <>
+              <label className="text-[18px] font-light opacity-70">{t("funnel.incomeDetails" as any)}</label>
+              <div className="text-[20px] font-medium">
+                {CHF(financing.brutto)}
+                {financing.bonus ? ` ${t("funnel.withBonus" as any)}` : ""}
+              </div>
+            </>
+          )}
 
           {!isJur && !isPartner && project.projektArt !== "abloesung" && (
             <>

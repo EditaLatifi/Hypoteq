@@ -60,9 +60,9 @@ async function sendWithResend(
     
     const { data, error } = await resend.emails.send({
       from: 'HYPOTEQ Kontaktformular <onboarding@resend.dev>',
-      to: ['edita.latifi@the-eksperts.com'],
+      to: ['fisnik.salihu@hypoteq.ch'],
       replyTo: email,
-      subject: `[HYPOTEQ] ${inquiryTypeLabel} - ${firstName} ${lastName}`,
+      subject: `[HYPOTEQ Web Contact Form] ${inquiryTypeLabel} - ${firstName} ${lastName}`,
       html: emailHTML,
     });
 
@@ -144,12 +144,12 @@ Eingegangen am: ${new Date().toLocaleString('de-CH')}
 
   // Send email
   try {
-    console.log("📧 Sending email via SMTP to: info@hypoteq.ch");
+    console.log("📧 Sending email via SMTP to: fisnik.salihu@hypoteq.ch");
     console.log("📧 From:", process.env.SMTP_USER);
     
     const info = await transporter.sendMail({
       from: `"HYPOTEQ Kontaktformular" <${process.env.SMTP_USER}>`,
-      to: "info@hypoteq.ch",
+      to: "fisnik.salihu@hypoteq.ch",
       replyTo: email,
       subject: `Neue Kontaktanfrage: ${inquiryTypeLabel} - ${firstName} ${lastName}`,
       text: emailText,

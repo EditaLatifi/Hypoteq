@@ -3,6 +3,7 @@
 interface FunnelCalcProps {
   data: any;
   projectData?: any;
+  propertyData?: any;
   borrowers?: any[];
 }
 
@@ -31,11 +32,17 @@ const getRealRate = (modell: string) => {
 
 const STRESS_RATE = 0.05;
 
-export default function FunnelCalc({ data, projectData, borrowers }: FunnelCalcProps) {
+export default function FunnelCalc({ data, projectData, propertyData, borrowers }: FunnelCalcProps) {
   const projektArt = projectData?.projektArt?.toLowerCase();
 
   const borrowerType = borrowers?.[0]?.type;
   const isJur = borrowerType === "jur";
+  
+  // Check if it's a Rendite object - check both data and propertyData
+  const nutzung = propertyData?.nutzung || data.nutzung;
+  const isRendite = nutzung === "Rendite-Immobilie" || 
+                    nutzung?.toLowerCase()?.includes("rendite") ||
+                    nutzung?.toLowerCase()?.includes("investment");
 
   const CHF = (v: number) => "CHF " + Math.round(v).toLocaleString("de-CH");
 
@@ -104,6 +111,27 @@ export default function FunnelCalc({ data, projectData, borrowers }: FunnelCalcP
     /* ------------------------------------------
        NATÜRLICHE PERSON VIEW
     -------------------------------------------*/
+    // For Rendite objects, hide Tragbarkeit
+    if (isRendite) {
+      return (
+        <BoxWrapper>
+          <TopBox
+            title={isNegative ? "Nicht berechtigt" : "Finanzierung möglich."}
+            subtitle="Geschätzter Hypothekbedarf:"
+            value={CHF(hypothek)}
+            error={isNegative}
+          />
+
+          <TwoBoxGrid
+            leftLabel="Eigenmittel"
+            leftValue={`${eigenmittelPct}%`}
+            rightLabel="Hypothek"
+            rightValue={CHF(hypothek)}
+          />
+        </BoxWrapper>
+      );
+    }
+    
     return (
       <BoxWrapper>
         <TopBox
@@ -197,6 +225,38 @@ export default function FunnelCalc({ data, projectData, borrowers }: FunnelCalcP
     /* ------------------------------------------
        NATÜRLICHE PERSON
     -------------------------------------------*/
+    const einkommen = Number(data.brutto || 0) + Number(data.bonus || 0);
+    
+    const zinssatz = getRealRate(data.modell || "saron");
+    const zinsen = hypothek * zinssatz;
+    const unterhalt = kaufpreis ? kaufpreis * 0.008 : 0;
+    const zweiteHypothek = kaufpreis > 0 ? Math.max(hypothek - kaufpreis * 0.8, 0) : 0;
+    const amortisation = zweiteHypothek > 0 ? zweiteHypothek / 15 : 0;
+    const totalJaehrlich = zinsen + unterhalt + amortisation;
+    
+    const tragbarkeitPct = einkommen > 0 ? (totalJaehrlich / einkommen) * 100 : 0;
+
+    // For Rendite objects, hide Tragbarkeit
+    if (isRendite) {
+      return (
+        <BoxWrapper>
+          <TopBox
+            title={isNegative ? "Nicht berechtigt" : "Finanzierung möglich."}
+            subtitle="Geschätzter Hypothekbedarf:"
+            value={CHF(hypothek)}
+            error={isNegative}
+          />
+
+          <TwoBoxGrid
+            leftLabel="Ablösung"
+            leftValue={CHF(betrag)}
+            rightLabel="Erhöhung"
+            rightValue={CHF(erhoehung)}
+          />
+        </BoxWrapper>
+      );
+    }
+
     return (
       <BoxWrapper>
         <TopBox
@@ -210,10 +270,7 @@ export default function FunnelCalc({ data, projectData, borrowers }: FunnelCalcP
           leftLabel="Hypothek"
           leftValue={CHF(hypothek)}
           rightLabel="Tragbarkeit"
-          value={`${(
-            ((Number(data.brutto || 0) === 0 ? 0 : (hypothek * getRealRate(data.modell) + kaufpreis * 0.008) /
-              Number(data.brutto || 0))) * 100
-          ).toFixed(0)}%`}
+          rightValue={`${tragbarkeitPct.toFixed(0)}%`}
         />
       </BoxWrapper>
     );
