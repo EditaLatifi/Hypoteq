@@ -2,11 +2,13 @@
 import { v4 as uuidv4 } from "uuid";
 import { useFunnelStore } from "@/src/store/funnelStore";
 import { useTranslation } from "@/hooks/useTranslation";
+import { useState } from "react";
 
 
 function DocumentsStep({ borrowers, docs, setDocs, addDocument, saveStep, back }: any) {
 const { t } = useTranslation();
 const { project, email, property, financing } = useFunnelStore();
+const [isDragging, setIsDragging] = useState(false);
 
 const isNeubau = property?.artImmobilie === "neubau";
 const isAblösung = project?.projektArt === "abloesung";
@@ -81,7 +83,7 @@ const documentsForJur = [
 
   // NEUBAU documents for Juristische Person
   ...(isNeubau ? [{
-    title: "Neubau",
+    title: t("funnel.docSectionNeubau" as any),
     items: [
       t("funnel.salesDocPhotos" as any),
       t("funnel.constructionPlansNetArea" as any),
@@ -93,7 +95,7 @@ const documentsForJur = [
 
   // ABLÖSUNG documents for Juristische Person
   ...(isAblösung ? [{
-    title: "Ablösung",
+    title: t("funnel.docSectionAbloesung" as any),
     items: [
       t("funnel.constructionDescriptionPhotos" as any),
       t("funnel.constructionPlansNetArea" as any),
@@ -104,7 +106,7 @@ const documentsForJur = [
 
   // STOCKWERKEIGENTUM for Juristische Person
   ...(isStockwerkeigentum ? [{
-    title: "Stockwerkeigentum",
+    title: t("funnel.docSectionStockwerkeigentum" as any),
     items: [
       t("funnel.condominiumActValue" as any),
       t("funnel.usageRegulationsSTWE" as any),
@@ -124,7 +126,7 @@ const documentsForJur = [
 
   // BAUPROJEKT / RENOVATION for Juristische Person
   ...((isBauprojekt || isRenovation) ? [{
-    title: "Bauprojekt / Renovation",
+    title: t("funnel.docSectionBauprojektRenovation" as any),
     items: [
       t("funnel.buildingPermitDoc2" as any),
       t("funnel.projectPlanCostEstimate" as any),
@@ -182,7 +184,7 @@ const sections = [
 
   // NEUBAU documents for Natürliche Person
   ...(isNeubau ? [{
-    title: "Neubau",
+    title: t("funnel.docSectionNeubau" as any),
     items: [
       t("funnel.salesDocPhotos" as any),
       t("funnel.constructionPlansNetArea" as any),
@@ -203,7 +205,7 @@ const sections = [
 
   // Conditional: Show only if Renditeobjekt
   ...((property?.nutzung === t("funnel.investmentProperty" as any)) ? [{
-    title: "Renditeobjekt",
+    title: t("funnel.docSectionRenditeobjekt" as any),
     items: [
       t("funnel.rentalOverviewCurrent" as any),
     ],
@@ -211,7 +213,7 @@ const sections = [
 
   // ABLÖSUNG documents for Natürliche Person
   ...(isAblösung ? [{
-    title: "Ablösung",
+    title: t("funnel.docSectionAbloesung" as any),
     items: [
       t("funnel.constructionDescriptionPhotos" as any),
       t("funnel.constructionPlansNetArea" as any),
@@ -222,7 +224,7 @@ const sections = [
 
   // STOCKWERKEIGENTUM
   ...(isStockwerkeigentum ? [{
-    title: "Stockwerkeigentum",
+    title: t("funnel.docSectionStockwerkeigentum" as any),
     items: [
       t("funnel.condominiumActValue" as any),
       t("funnel.usageRegulationsSTWE" as any),
@@ -242,7 +244,7 @@ const sections = [
 
   // BAUPROJEKT / RENOVATION
   ...((isBauprojekt || isRenovation) ? [{
-    title: "Bauprojekt / Renovation",
+    title: t("funnel.docSectionBauprojektRenovation" as any),
     items: [
       t("funnel.buildingPermitDoc2" as any),
       t("funnel.projectPlanCostEstimate" as any),
@@ -287,6 +289,53 @@ const handleUpload = async (e: any) => {
   }
 };
 
+const handleDragOver = (e: React.DragEvent) => {
+  e.preventDefault();
+  setIsDragging(true);
+};
+
+const handleDragLeave = (e: React.DragEvent) => {
+  e.preventDefault();
+  setIsDragging(false);
+};
+
+const handleDrop = async (e: React.DragEvent) => {
+  e.preventDefault();
+  setIsDragging(false);
+  
+  const files = Array.from(e.dataTransfer.files);
+  if (!files || files.length === 0) return;
+
+  for (const file of files) {
+    const uploadRes = await uploadDocToSharepoint(
+      file,
+      project?.id ?? "no-inquiry-id",
+      email ?? "no-email"
+    );
+
+    if (uploadRes?.error) {
+      console.error("Upload failed:", uploadRes.error);
+      alert(t("funnel.uploadError" as any));
+      continue;
+    }
+
+    const newDoc = {
+      id: uuidv4(),
+      name: file.name,
+      size: file.size,
+      file,
+      sharepointUrl: uploadRes?.data?.webUrl ?? null,
+    };
+
+    setDocs((prev: any[]) => [...prev, newDoc]);
+    addDocument(newDoc);
+  }
+};
+
+const removeUploadedFile = (docId: string) => {
+  setDocs((prev: any[]) => prev.filter((d: any) => d.id !== docId));
+};
+
 
   const toggleDocument = (docName: string) => {
     const exists = docs.find((d: any) => d.name === docName);
@@ -320,11 +369,17 @@ return (
       </div>
 
       {/* UPLOAD CARD */}
-<div className="
-  bg-[#CAF4761A] shadow-md rounded-2xl md:rounded-3xl p-6 sm:p-8 md:p-10 lg:p-12 
-  border border-[#E6E6E6]
-  flex flex-col items-center gap-4 md:gap-5 mb-8 md:mb-12 lg:mb-16
-">
+<div 
+  className={`
+    bg-[#CAF4761A] shadow-md rounded-2xl md:rounded-3xl p-6 sm:p-8 md:p-10 lg:p-12 
+    border-2 transition-all duration-200
+    flex flex-col items-center gap-4 md:gap-5 mb-8 md:mb-12 lg:mb-16
+    ${isDragging ? 'border-[#132219] bg-[#CAF47633]' : 'border-[#E6E6E6]'}
+  `}
+  onDragOver={handleDragOver}
+  onDragLeave={handleDragLeave}
+  onDrop={handleDrop}
+>
 
 
     <div className="w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center shadow-md">
@@ -367,6 +422,39 @@ return (
 </div>
 
       </div>
+
+      {/* UPLOADED FILES PREVIEW */}
+      {docs && docs.length > 0 && docs.some((d: any) => d.file) && (
+        <div className="mb-8 md:mb-12">
+          <h3 className="text-lg font-semibold text-[#132219] mb-4">Uploaded Files ({docs.filter((d: any) => d.file).length})</h3>
+          <div className="space-y-2">
+            {docs.filter((d: any) => d.file).map((doc: any) => (
+              <div
+                key={doc.id}
+                className="flex items-center justify-between bg-white border border-gray-200 rounded-xl px-4 py-3 shadow-sm"
+              >
+                <div className="flex items-center gap-3 flex-1">
+                  <svg className="w-5 h-5 text-[#132219]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium text-[#132219] truncate">{doc.name}</p>
+                    <p className="text-xs text-gray-500">{(doc.size / 1024).toFixed(2)} KB</p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => removeUploadedFile(doc.id)}
+                  className="ml-4 p-1 hover:bg-red-50 rounded-full transition-colors"
+                >
+                  <svg className="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* SECTION LIST */}
       <div className="space-y-8 md:space-y-12 lg:space-y-16">
@@ -450,14 +538,14 @@ const saved = docs.some((d: { name: string }) => d.name === doc);
           onClick={back}
           className="px-6 md:px-8 py-3 rounded-full border border-[#132219] text-[#132219] hover:bg-[#F7F7F7] transition-colors text-sm md:text-base order-2 sm:order-1"
         >
-          Zurück
+          {t("funnel.backButtonText" as any)}
         </button>
 
         <button
           onClick={saveStep}
           className="px-8 md:px-10 py-3 bg-[#CAF476] rounded-full font-medium text-[#132219] shadow hover:bg-[#BCDF6A] transition-colors text-sm md:text-base order-1 sm:order-2"
         >
-          Weiter
+          {t("funnel.continueButton" as any)}
         </button>
 
       </div>

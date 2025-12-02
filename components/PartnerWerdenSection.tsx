@@ -163,7 +163,7 @@ export default function PartnerWerdenSection() {
             <br />
             {t("partnerWerden.faq5A3")}{" "}
             <a
-              href="https://hypoteq.ch/partner"
+              href="https://hypoteq.ch/de/partner-werden"
               target="_blank"
               className="underline"
             >

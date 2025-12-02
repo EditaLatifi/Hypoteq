@@ -36,13 +36,13 @@ if (!clientData.lastName)
 if (!clientData.email) {
   newErrors.email = t("funnel.errorEmail" as any);
 } else if (!emailRegex.test(clientData.email)) {
-  newErrors.email = "Bitte geben Sie eine gültige E-Mail-Adresse ein";
+  newErrors.email = t("funnel.validEmailError" as any);
 }
 
 if (!clientData.zip) {
   newErrors.zip = t("funnel.errorZip" as any);
 } else if (!zipRegex.test(clientData.zip)) {
-  newErrors.zip = "Bitte geben Sie eine gültige Schweizer PLZ ein (1000-9999)";
+  newErrors.zip = t("funnel.validZipError" as any);
 }
 
 
@@ -277,7 +277,7 @@ if (!clientData.zip) {
               onClick={() => setCustomerType("direct")}
               className="px-8 py-2 rounded-full border border-[#132219] text-[#132219] hover:bg-[#F7F7F7]"
             >
-              Zurück
+              {t("funnel.backButtonText" as any)}
             </button>
             <button
         onClick={() => {
@@ -289,7 +289,7 @@ if (!clientData.zip) {
   }
   
   if (!emailRegex.test(clientData.partnerEmail)) {
-    setErrors({ partnerEmail: "Bitte geben Sie eine gültige E-Mail-Adresse ein" });
+    setErrors({ partnerEmail: t("funnel.validEmailError" as any) });
     return;
   }
 

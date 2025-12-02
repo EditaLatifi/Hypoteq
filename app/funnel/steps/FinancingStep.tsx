@@ -312,7 +312,7 @@ const ToggleButton = ({ active, children, onClick }: any) => {
 
             {/* Kommentar */}
             <div>
-              <label className="font-medium">Kommentar</label>
+              <label className="font-medium">{t("funnel.commentLabel" as any)}</label>
               <textarea
                 className="w-full px-5 py-2 border border-[#132219] rounded-2xl text-sm"
                 rows={4}
@@ -363,7 +363,7 @@ const ToggleButton = ({ active, children, onClick }: any) => {
             {/* Erhöhung */}
             <div className="flex flex-col">
               <label className="font-medium mb-4">
-                Erhöhung der Hypothek?
+                {t("funnel.mortgageIncreaseQuestion" as any)}
               </label>
 
               <div className="flex gap-4 mb-[13px]">

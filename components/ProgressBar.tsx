@@ -1,3 +1,5 @@
+"use client";
+
 export default function ProgressBar({ step, className = "" }: any) {
   const percent = ((step - 1) / 6) * 100;
 

@@ -193,11 +193,11 @@ export default function VorteileSection() {
             <br />
             Mehr dazu unter 
             <a
-              href="https://hypoteq.ch/partner"
+              href="https://hypoteq.ch/de/partner-werden"
               target="_blank"
               className="underline"
             >
-              hypoteq.ch/partner
+              hypoteq.ch/de/partner-werden
             </a>
           </>
         ),

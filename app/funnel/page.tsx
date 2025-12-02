@@ -155,6 +155,7 @@ useEffect(() => {
   };
 
 const saveStep2 = () => {
+  setProject(projectData);
   next();
 };
 
@@ -171,7 +172,7 @@ const saveStep4 = () => {
 };
 
 const saveStep5 = () => {
-  setFinancing(financingData); // push local financing state to store
+  setFinancing(financingData);
   next();
 };
 
@@ -195,6 +196,15 @@ const submitFinal = async () => {
       financing,
     } = useFunnelStore.getState();
 
+    console.log("📊 Submitting data to API:", {
+      customerType,
+      client,
+      project,
+      property,
+      borrowers,
+      financing,
+    });
+
     // 1️⃣ Create Inquiry
     const res = await fetch("/api/inquiry", {
       method: "POST",
@@ -211,8 +221,8 @@ const submitFinal = async () => {
 
     if (!res.ok) {
       const errorData = await res.json();
-      console.error("Failed:", errorData.error);
-      alert("Etwas ist schief gelaufen. Bitte versuchen Sie es erneut.");
+      console.error("❌ API Error:", errorData.error);
+      alert(`Fehler: ${errorData.error || "Etwas ist schief gelaufen. Bitte versuchen Sie es erneut."}`);
       return;
     }
 
@@ -338,11 +348,11 @@ borrowerType={borrowers[0]?.type}
  {step === 7 && (
   <div className="w-full min-h-screen flex flex-col items-center justify-center -mt-[220px] text-center px-4">
     <h1 className="text-[48px] font-normal leading-tight">
-      Vielen Dank, dass Sie das<br />Formular ausgefüllt haben.
+      {t("funnel.thankYouTitle" as any)}
     </h1>
 
     <p className="text-[24px] font-normal mt-4">
-      Wir melden uns in Kürze bei Ihnen!
+      {t("funnel.thankYouMessage" as any)}
     </p>
 
     <button

@@ -14,7 +14,7 @@ export default function BestChoices() {
 <div className="w-full max-w-[1352px] mx-auto px-[24px] sm:px-[32px] md:px-[40px] mt-[120px] -mb-[100px]">
 
   {/* Teksti i kuq — ndodhet brenda wrapper-it - Hidden on mobile */}
-  <p className="hidden lg:block text-[#132219] text-[16px] sm:text-[18px] lg:text-[20px] font-sfpro leading-[150%] text-center lg:text-left">
+  <p className="hidden text-[#132219] text-[16px] sm:text-[18px] lg:text-[20px] font-sfpro leading-[150%] text-center lg:text-left">
     {t("bestChoices.disclaimer")}
   </p>
 
@@ -24,7 +24,7 @@ export default function BestChoices() {
 <section
   className="
     flex flex-col lg:flex-row justify-between items-center
-    w-full max-w-[1272px] mx-auto
+    w-full max-w-[1272px] mx-auto lg:mt-[300px] md:mt-0 
     p-[24px] sm:p-[32px] md:p-[40px]
     rounded-[10px]
     border border-[#000]

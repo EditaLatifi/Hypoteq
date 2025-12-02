@@ -2,7 +2,7 @@
 
 import { useFunnelStore } from "@/src/store/funnelStore";
 import { useTranslation } from "@/hooks/useTranslation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface Props {
   step: number;
@@ -12,27 +12,34 @@ export default function FunnelSidebar({ step }: Props) {
   const { t } = useTranslation();
   const { borrowers } = useFunnelStore();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const isJur = borrowers?.[0]?.type === "jur";
 
   const steps = [
-    { id: 1, label: t("funnel.stepGeneral" as any) },
-    { id: 2, label: t("funnel.stepFinancing" as any) },
+    { id: 1, label: mounted ? t("funnel.stepGeneral" as any) : "" },
+    { id: 2, label: mounted ? t("funnel.stepFinancing" as any) : "" },
     {
       id: 3,
-      label: isJur
+      label: mounted ? (isJur
         ? t("funnel.stepCalculatorDocuments" as any)
-        : t("funnel.stepCalculatorSummary" as any),
+        : t("funnel.stepCalculatorSummary" as any)) : "",
     },
-    { id: 4, label: t("funnel.stepCompletion" as any) },
+    { id: 4, label: mounted ? t("funnel.stepCompletion" as any) : "" },
   ];
+
+  if (!mounted) return null;
 
   return (
     <>
       {/* Mobile Header - Hide on tablet and desktop */}
       <div className="md:hidden fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-50">
         <div className="flex items-center justify-between px-4 py-3">
-          <a href="/">
+          <a href="/" className="cursor-pointer">
             <img src="/images/HYPOTEQ_layout_logo.png" className="h-8" alt="Logo" />
           </a>
           <button
@@ -102,8 +109,8 @@ export default function FunnelSidebar({ step }: Props) {
       <div className="hidden md:flex w-[200px] lg:w-[250px] min-h-screen bg-[#E2E2E2] flex-col px-4 lg:px-5 py-8 lg:py-10 border-r border-gray-300">
 
       {/* LOGO */}
-      <a href="/">
-        <img src="/images/HYPOTEQ_layout_logo.png" className="w-[120px] lg:w-[140px] h-auto mb-10 lg:mb-14" />
+      <a href="/" className="cursor-pointer">
+        <img src="/images/HYPOTEQ_layout_logo.png" className="w-[120px] lg:w-[140px] h-auto mb-10 lg:mb-14" alt="HYPOTEQ Logo" />
       </a>
 
       {/* STEPS */}

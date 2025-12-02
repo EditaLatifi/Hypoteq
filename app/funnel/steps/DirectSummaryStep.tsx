@@ -70,16 +70,16 @@ export default function DirectSummaryStep({ back, saveStep }: any) {
 /* ================= MAP HYPOTHEKARLAUFZEITEN ================= */
 const laufzeitMap = {
   saron: "Saron",
-  "1": "1 Jahr",
-  "2": "2 Jahre",
-  "3": "3 Jahre",
-  "4": "4 Jahre",
-  "5": "5 Jahre",
-  "6": "6 Jahre",
-  "7": "7 Jahre",
-  "8": "8 Jahre",
-  "9": "9 Jahre",
-  "10": "10 Jahre",
+  "1": t("funnel.oneYearLabel" as any),
+  "2": t("funnel.twoYearsLabel" as any),
+  "3": t("funnel.threeYearsLabel" as any),
+  "4": t("funnel.fourYearsLabel" as any),
+  "5": t("funnel.fiveYearsLabel" as any),
+  "6": t("funnel.sixYearsLabel" as any),
+  "7": t("funnel.sevenYearsLabel" as any),
+  "8": t("funnel.eightYearsLabel" as any),
+  "9": t("funnel.nineYearsLabel" as any),
+  "10": t("funnel.tenYearsLabel" as any),
   mix: "Mix",
 } as const;
 

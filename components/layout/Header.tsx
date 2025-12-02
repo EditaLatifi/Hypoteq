@@ -18,7 +18,7 @@ export default function Header() {
   const { t } = useTranslation(pathLocale);
 
   const whiteMenu =
-    (pathname.includes("/hypotheken") || pathname.includes("/about")) && !isScrolled;
+    (pathname.includes("/hypotheken") || pathname.includes("/uber-uns")) && !isScrolled;
 
   // Sync context locale with URL locale on mount
   useEffect(() => {
@@ -66,7 +66,7 @@ export default function Header() {
           {/* Desktop Menu */}
           <nav className="hidden md:flex items-center gap-[24px] lg:gap-[32px] xl:gap-[48px]">
             <Link
-              href={`/${pathLocale}/partner`}
+              href={`/${pathLocale}/partner-werden`}
               className={`text-[16px] md:text-[17px] xl:text-[19px] font-semibold hover:opacity-70 transition ${
                 whiteMenu ? "text-white" : "text-[#132219]"
               }`}
@@ -80,7 +80,7 @@ export default function Header() {
         <div className="flex items-center gap-[6px] sm:gap-3 md:gap-5 relative flex-shrink-0">
 
           {/* Phone icon */}
-          <Link href={`/${pathLocale}/contact`} className="hidden md:block">
+          <Link href={`/${pathLocale}/kontaktieren-sie-uns`} className="hidden md:block">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="18"
@@ -158,7 +158,7 @@ export default function Header() {
       {menuOpen && (
         <div className="md:hidden bg-white border-t border-gray-100 shadow-md px-6 py-6 flex flex-col gap-4 animate-fadeIn max-sm:px-[24px] max-sm:py-[18px] max-sm:gap-[14px]">
           <Link
-            href={`/${pathLocale}/partner`}
+            href={`/${pathLocale}/partner-werden`}
             onClick={() => setMenuOpen(false)}
             className="text-[#132219] text-[16px] font-semibold hover:opacity-70 transition max-sm:text-[15px]"
           >

@@ -5,12 +5,14 @@ export async function POST(req: Request) {
   try {
     // Parse the incoming request body (JSON)
     const data = await req.json();
-    console.log('Received data:', data); // Debugging step to ensure proper structure
+    console.log('📥 Received data:', JSON.stringify(data, null, 2)); // Debugging step to ensure proper structure
 
     // Convert angebote array to string array for database
     const angeboteListe = data.property?.angebote?.map((offer: any) => 
       `${offer.bank || ''} | ${offer.zins || ''}% | ${offer.laufzeit || ''}`
     ) || [];
+
+    console.log('📋 Processed angeboteListe:', angeboteListe);
 
 const saved = await prisma.inquiry.create({
   data: {

@@ -203,7 +203,7 @@ export default function Advisory() {
               </p>
 
               {box.button && (
-          <Link href={`/${pathLocale}/contact`}>
+          <Link href={`/${pathLocale}/kontaktieren-sie-uns`}>
   <button className="mt-[24px] bg-[#132219] text-[#CAF476] px-[16px] py-[6px] rounded-full text-[16px] sm:text-[18px] font-[500] hover:opacity-80 transition-all w-fit">
     {t("buttons.bookAppointmentAdvisory")}
   </button>

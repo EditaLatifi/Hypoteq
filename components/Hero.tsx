@@ -56,7 +56,7 @@ export default function Hero() {
 
         {/* ✅ CTA Button */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-[14px] mt-6 md:mt-[18px] lg:mt-[24px] w-full">
-<Link href={`/${pathLocale}/calc`} className="w-full sm:w-auto">
+<Link href={`/${pathLocale}/hypothekenrechner`} className="w-full sm:w-auto">
   <button
     className="flex items-center justify-center 
     w-full sm:w-auto

@@ -36,7 +36,7 @@
       "name": "Hypothekenrechner",
       "short_name": "Rechner",
       "description": "Hypothek berechnen",
-      "url": "/de/calc",
+      "url": "/de/hypothekenrechner",
       "icons": [{ "src": "/images/logo.png", "sizes": "192x192" }]
     },
     {

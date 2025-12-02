@@ -6,17 +6,17 @@ const locales = ["de", "en", "fr", "it"];
 const routes = [
   "",
   "/hypotheken",
-  "/about",
-  "/contact",
+  "/uber-uns",
+  "/kontaktieren-sie-uns",
   "/funnel",
-  "/calc",
+  "/hypothekenrechner",
   "/faq",
   "/documents",
   "/mezzanine",
-  "/partner",
-  "/advisory",
+  "/partner-werden",
+  "/beratung",
   "/impressum",
-  "/advantages",
+  "/vorteile",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

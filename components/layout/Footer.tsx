@@ -50,13 +50,15 @@ export default function Footer() {
 
       {/* LOGO */}
       <div className="w-full flex justify-start">
-        <Image
-          src="/images/HYPOTEQ_layout_logo_white.png"
-          width={168}
-          height={42}
-          alt="Logo"
-          className="object-contain w-[120px] md:w-[140px] lg:w-[168px] h-auto"
-        />
+        <Link href={`/${pathLocale}`} className="cursor-pointer">
+          <Image
+            src="/images/HYPOTEQ_layout_logo_white.png"
+            width={168}
+            height={42}
+            alt="Logo"
+            className="object-contain w-[120px] md:w-[140px] lg:w-[168px] h-auto"
+          />
+        </Link>
       </div>
 
       {/* TOP SECTION */}
@@ -117,20 +119,21 @@ export default function Footer() {
 
         {/* COLUMN 2 */}
         <div className="flex flex-col gap-[16px] md:gap-[18px] lg:gap-[24px] mb-[32px] md:mb-0">
-          <Link href={`/${pathLocale}/about`} className="hover:underline py-1">{t("footer.aboutUs")}</Link>
-          <Link href={`/${pathLocale}/contact`} className="hover:underline py-1">{t("footer.contactUs")}</Link>
-          <Link href={`/${pathLocale}/partner`} className="hover:underline py-1">{t("footer.becomePartner")}</Link>
+          <Link href={`/${pathLocale}/uber-uns`} className="hover:underline py-1">{t("footer.aboutUs")}</Link>
+          <Link href={`/${pathLocale}/kontaktieren-sie-uns`} className="hover:underline py-1">{t("footer.contactUs")}</Link>
+          <Link href={`/${pathLocale}/partner-werden`} className="hover:underline py-1">{t("footer.becomePartner")}</Link>
           <Link href={`/${pathLocale}/impressum`} className="hover:underline py-1">{t("footer.impressumData")}</Link>
         </div>
 
         {/* COLUMN 3 */}
         <div className="flex flex-col gap-[16px] md:gap-[18px] lg:gap-[24px]">
-          <Link href={`/${pathLocale}/calc`} className="hover:underline py-1">{t("footer.mortgageCalc")}</Link>
+          <Link href={`/${pathLocale}/hypothekenrechner`} className="hover:underline py-1">{t("footer.mortgageCalc")}</Link>
           <Link href={`/${pathLocale}/faq`} className="hover:underline py-1">{t("footer.faqTitle")}</Link>
-          <Link href={`/${pathLocale}/advisory`} className="hover:underline py-1">{t("footer.hypoteqAdvisory")}</Link>
+          <Link href={`/${pathLocale}/beratung`} className="hover:underline py-1">{t("footer.hypoteqAdvisory")}</Link>
           <Link
             href="https://www.linkedin.com/company/hypoteq-ag/"
             target="_blank"
+            rel="noopener noreferrer"
             className="hover:underline py-1"
           >
             {t("footer.news")}

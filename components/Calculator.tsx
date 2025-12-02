@@ -510,7 +510,7 @@ const [openDropdown, setOpenDropdown] = useState(false);
     </p>
   </div>
 
-  < Link href={`/${pathLocale}/contact`} className="w-full">
+  < Link href={`/${pathLocale}/kontaktieren-sie-uns`} className="w-full">
     {/* Button */}
     <button
       className="

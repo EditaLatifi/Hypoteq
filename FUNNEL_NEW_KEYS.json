@@ -1,0 +1,7 @@
+{
+  "funnelSteps": {
+    "validEmailError": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+    "validZipError": "Bitte geben Sie eine gültige Schweizer PLZ ein (1000-9999)",
+    "backButton": "Zurück"
+  }
+}
