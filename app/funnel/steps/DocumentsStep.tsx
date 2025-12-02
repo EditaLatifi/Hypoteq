@@ -14,8 +14,8 @@ const isNeubau = property?.artImmobilie === "neubau";
 const isBestand = property?.artImmobilie === "bestehend";
 const isAblösung = project?.projektArt === "abloesung";
 const isKauf = project?.projektArt === "kauf";
-const isStockwerkeigentum = property?.artLiegenschaft === "Stockwerkeigentum";
 const isWohnung = property?.artLiegenschaft === "Wohnung";
+const isStockwerkeigentum = property?.artLiegenschaft === "Stockwerkeigentum" || property?.artLiegenschaft === "Wohnung";
 const isMehrfamilienhaus = property?.artLiegenschaft === "Mehrfamilienhaus";
 const isMultipleEigentuemer = property?.kreditnehmer?.length > 1;
 const isBauprojekt = property?.neubauArt === "bauprojekt";
@@ -56,11 +56,19 @@ const hasRentner = (property?.kreditnehmer || []).some((kn: any) => kn.erwerb ==
 
 // Debug logging for conditions
 console.log("📄 Document Conditions:", {
+  "property.artImmobilie": property?.artImmobilie,
+  "property.artLiegenschaft": property?.artLiegenschaft,
+  "property.nutzung": property?.nutzung,
+  "property.renovation": property?.renovation,
+  "project.projektArt": project?.projektArt,
+  "financing.eigenmittel_schenkung": financing?.eigenmittel_schenkung,
   isNeubau,
   isBestand,
   isAblösung,
   isKauf,
   isStockwerkeigentum,
+  isWohnung,
+  isMehrfamilienhaus,
   isBauprojekt,
   isRenovation,
   isReserviert,
@@ -70,10 +78,11 @@ console.log("📄 Document Conditions:", {
   hasSelbständig,
   hasRentner,
   hasAge50Plus,
-  "Neubau Section Should Show (Nat.)": isKauf && isNeubau && !isAblösung,
-  "Neubau Section Should Show (Jur.)": isKauf && isNeubau && !isAblösung,
-  "Reservation Should Show": isKauf && isNeubau && !isAblösung && isReserviert,
-  "Bauprojekt/Renovation Should Show": isBauprojekt || isRenovation
+  "Ablösung Section Should Show": isAblösung,
+  "Stockwerkeigentum Section Should Show": isStockwerkeigentum,
+  "Rendite Section Should Show": isRenditeobjekt,
+  "Renovation Section Should Show": isBauprojekt || isRenovation,
+  "Andere Eigenmittel Section Should Show": hasAndereEigenmittel
 });
 
 
@@ -98,7 +107,7 @@ async function uploadDocToSharepoint(file: File, inquiryId: string, email: strin
 // ===================================
 const documentsForJur = [
   {
-    title: t("funnel.personalDocuments" as any),
+    title: t("funnel.documentsJur" as any),
     items: [
       t("funnel.commercialRegisterCurrent" as any), // Handelsregisterauszug (aktuell)
       t("funnel.passportAuthorizedPersonJur" as any), // Pass oder Identitätskarte der Zeichnungsberechtigten Person

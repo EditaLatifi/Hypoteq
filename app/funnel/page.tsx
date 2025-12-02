@@ -340,21 +340,15 @@ borrowerType={borrowers[0]?.type}
 )}
 
 
-       {step === 6 && customerType === "direct" && (
-  <DirectSummaryStep back={back} saveStep={submitFinal} />
-)}
-
-
-        {step === 6 && customerType === "partner" && (
+       {step === 6 && (
  <DocumentsStep
   borrowers={borrowers}
   docs={uploadedDocs}
   setDocs={setUploadedDocs}
   addDocument={addDocument}
-  saveStep={saveStep6}
+  saveStep={customerType === "direct" ? submitFinal : saveStep6}
   back={back}
 />
-
         )}
 
  {step === 7 && (
