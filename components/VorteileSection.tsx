@@ -107,7 +107,7 @@ export default function VorteileSection() {
       leading-[130%] md:leading-[100%]
       tracking-[-0.24px]
       mt-[32px] md:mt-[48px]
-      hidden sm:block
+      hidden 
     "
         >
           {t("vorteile.partnerFooterText" as any)}

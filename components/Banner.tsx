@@ -38,7 +38,7 @@ const Banner: React.FC = () => {
       <div
         className="
           relative z-10 flex flex-col items-start justify-start gap-[16px] max-w-[700px]
-          max-sm:items-center max-sm:justify-center max-sm:gap-[8px] md:pl-[40px] md:pt-[30px]
+          max-sm:items-center max-sm:justify-center max-sm:gap-[8px] md:pl-[40px] md:pt-[0px]
         "
       >
         {/* Title */}

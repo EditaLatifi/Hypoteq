@@ -49,7 +49,7 @@ const buttons = [
             h-auto md:h-[957px]
             flex flex-col justify-start
             px-[16px] sm:px-[24px] md:px-[116px]
-            pt-[100px] md:pt-[140px] lg:pt-[140px] pb-[20px]
+            pt-[100px] md:pt-[140px] lg:pt-[110px] pb-[20px]
             gap-[10px] text-[#FFF]
           "
         >

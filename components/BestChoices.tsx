@@ -39,9 +39,10 @@ export default function BestChoices() {
         <div
           className="
             flex flex-col justify-center items-start
-            w-full lg:w-[511px] h-auto lg:h-[249px]
-            gap-[24px] lg:gap-[58px]
+            w-full lg:w-[700px] h-auto lg:h-auto
+            gap-[24px] lg:gap-[32px]
             text-white font-sfpro
+            lg:pr-[40px]
           "
         >
           <div>
@@ -53,9 +54,14 @@ export default function BestChoices() {
             </p>
           </div>
 
-          <p className="text-[18px] sm:text-[20px] lg:text-[22px] font-normal text-white leading-[150%] font-sfpro">
-            {t("bestChoices.description")}
-          </p>
+          <div className="text-[18px] sm:text-[20px] lg:text-[22px] font-normal text-white leading-[150%] font-sfpro">
+            <p className="mb-0">
+              {t("bestChoices.description")}
+            </p>
+            <p className="mt-0 hidden lg:block">
+              {t("bestChoices.footerText")}
+            </p>
+          </div>
         </div>
 
         {/* Right Column */}
@@ -76,11 +82,6 @@ export default function BestChoices() {
           {t("bestChoices.footerText")}
         </p>
       </section>
-
-      {/* Info text below - shown outside box on desktop only */}
-      <p className="hidden lg:block max-w-[1352px] mx-auto text-[#132219] text-[18px] sm:text-[16px] lg:text-[22px] font-sfpro leading-[150%] px-[24px] sm:px-[32px] md:px-[40px] mb-[120px] text-center lg:text-left">
-        {t("bestChoices.footerText")}
-      </p>
     </>
   );
 }
