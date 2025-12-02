@@ -12,6 +12,7 @@ const [isDragging, setIsDragging] = useState(false);
 
 const isNeubau = property?.artImmobilie === "neubau";
 const isAblösung = project?.projektArt === "abloesung";
+const isKauf = project?.projektArt === "kauf";
 const isStockwerkeigentum = property?.artLiegenschaft === "Stockwerkeigentum";
 const isWohnung = property?.artLiegenschaft === "Wohnung";
 const isMehrfamilienhaus = property?.artLiegenschaft === "Mehrfamilienhaus";
@@ -19,7 +20,10 @@ const isMultipleEigentuemer = property?.kreditnehmer?.length > 1;
 const isBauprojekt = property?.neubauArt === "bauprojekt";
 const isRenovation = property?.renovation === "ja";
 const isReserviert = property?.reserviert === "ja";
+const isRenditeobjekt = property?.nutzung === "Rendite-Immobilie";
 const hasSchenkung = financing?.eigenmittel_schenkung && Number(financing.eigenmittel_schenkung) > 0;
+const hasDarlehen = financing?.eigenmittel_pk && Number(financing.eigenmittel_pk) > 0;
+const hasErbschaft = financing?.eigenmittel_saeule3 && Number(financing.eigenmittel_saeule3) > 0;
 
 // Helper function to calculate age from Swiss date format (DD.MM.YYYY)
 const calculateAge = (birthdate: string): number => {
@@ -82,7 +86,7 @@ const documentsForJur = [
   },
 
   // NEUBAU documents for Juristische Person
-  ...(isNeubau ? [{
+  ...(isKauf && isNeubau ? [{
     title: t("funnel.docSectionNeubau" as any),
     items: [
       t("funnel.salesDocPhotos" as any),
@@ -115,7 +119,7 @@ const documentsForJur = [
   }] : []),
 
   // ANDERE EIGENMITTEL for Juristische Person
-  ...(hasSchenkung ? [{
+  ...((hasSchenkung || hasDarlehen || hasErbschaft) ? [{
     title: t("funnel.otherOwnFunds" as any),
     items: [
       t("funnel.giftContract" as any),
@@ -182,8 +186,8 @@ const sections = [
     ],
   }] : []),
 
-  // NEUBAU documents for Natürliche Person
-  ...(isNeubau ? [{
+  // NEUBAU documents for Natürliche Person (only if Kauf + Neubau)
+  ...(isKauf && isNeubau ? [{
     title: t("funnel.docSectionNeubau" as any),
     items: [
       t("funnel.salesDocPhotos" as any),
@@ -194,8 +198,8 @@ const sections = [
     ],
   }] : []),
 
-  // Conditional: Show only if reserviert (for Neubau)
-  ...((isReserviert && isNeubau) ? [{
+  // Conditional: Show only if reserviert (for Neubau + Kauf)
+  ...(isReserviert && isKauf && isNeubau ? [{
     title: t("funnel.reservation" as any),
     items: [
       t("funnel.renovationContract" as any),
@@ -204,7 +208,7 @@ const sections = [
   }] : []),
 
   // Conditional: Show only if Renditeobjekt
-  ...((property?.nutzung === t("funnel.investmentProperty" as any)) ? [{
+  ...(isRenditeobjekt ? [{
     title: t("funnel.docSectionRenditeobjekt" as any),
     items: [
       t("funnel.rentalOverviewCurrent" as any),
@@ -232,8 +236,8 @@ const sections = [
     ],
   }] : []),
 
-  // ANDERE EIGENMITTEL
-  ...(hasSchenkung ? [{
+  // ANDERE EIGENMITTEL (if any other funding sources exist)
+  ...((hasSchenkung || hasDarlehen || hasErbschaft) ? [{
     title: t("funnel.otherOwnFunds" as any),
     items: [
       t("funnel.giftContract" as any),
