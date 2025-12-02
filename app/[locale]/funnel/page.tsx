@@ -153,6 +153,7 @@ useEffect(() => {
   };
 
 const saveStep2 = () => {
+  setProject(projectData);
   next();
 };
 
@@ -175,8 +176,9 @@ const saveStep5 = () => {
 
 
 
-  const saveStep6 = () => {
-    setStep(7);
+  const saveStep6 = async () => {
+    // For partners, save data to database before going to thank you page
+    await submitFinal();
   };
 
   // -------------------------------------
