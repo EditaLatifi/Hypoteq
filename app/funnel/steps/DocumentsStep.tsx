@@ -11,6 +11,7 @@ const { project, email, property, financing } = useFunnelStore();
 const [isDragging, setIsDragging] = useState(false);
 
 const isNeubau = property?.artImmobilie === "neubau";
+const isBestand = property?.artImmobilie === "bestehend";
 const isAblösung = project?.projektArt === "abloesung";
 const isKauf = project?.projektArt === "kauf";
 const isStockwerkeigentum = property?.artLiegenschaft === "Stockwerkeigentum";
@@ -21,9 +22,11 @@ const isBauprojekt = property?.neubauArt === "bauprojekt";
 const isRenovation = property?.renovation === "ja";
 const isReserviert = property?.reserviert === "ja";
 const isRenditeobjekt = property?.nutzung === "Rendite-Immobilie";
-const hasSchenkung = financing?.eigenmittel_schenkung && Number(financing.eigenmittel_schenkung) > 0;
-const hasDarlehen = financing?.eigenmittel_pk && Number(financing.eigenmittel_pk) > 0;
-const hasErbschaft = financing?.eigenmittel_saeule3 && Number(financing.eigenmittel_saeule3) > 0;
+
+// Check for other funding sources (gift/donation, loan, inheritance)
+// Currently only eigenmittel_schenkung exists in the data model
+// When this is filled, user may need to provide gift contract, loan contract, or inheritance documents
+const hasAndereEigenmittel = financing?.eigenmittel_schenkung && Number(financing.eigenmittel_schenkung) > 0;
 
 // Helper function to calculate age from Swiss date format (DD.MM.YYYY)
 const calculateAge = (birthdate: string): number => {
@@ -51,6 +54,28 @@ const hasAngestellt = (property?.kreditnehmer || []).some((kn: any) => kn.erwerb
 const hasSelbständig = (property?.kreditnehmer || []).some((kn: any) => kn.erwerb === "selbständig");
 const hasRentner = (property?.kreditnehmer || []).some((kn: any) => kn.erwerb === "rentner");
 
+// Debug logging for conditions
+console.log("📄 Document Conditions:", {
+  isNeubau,
+  isBestand,
+  isAblösung,
+  isKauf,
+  isStockwerkeigentum,
+  isBauprojekt,
+  isRenovation,
+  isReserviert,
+  isRenditeobjekt,
+  hasAndereEigenmittel,
+  hasAngestellt,
+  hasSelbständig,
+  hasRentner,
+  hasAge50Plus,
+  "Neubau Section Should Show (Nat.)": isKauf && isNeubau && !isAblösung,
+  "Neubau Section Should Show (Jur.)": isKauf && isNeubau && !isAblösung,
+  "Reservation Should Show": isKauf && isNeubau && !isAblösung && isReserviert,
+  "Bauprojekt/Renovation Should Show": isBauprojekt || isRenovation
+});
+
 
 
 async function uploadDocToSharepoint(file: File, inquiryId: string, email: string) {
@@ -75,25 +100,25 @@ const documentsForJur = [
   {
     title: t("funnel.personalDocuments" as any),
     items: [
-      t("funnel.commercialRegisterCurrent" as any),
-      t("funnel.passportAuthorizedPersonJur" as any),
-      t("funnel.annualFinancialStatementsJur" as any),
-      t("funnel.interimBalanceIfAvailable" as any),
-      t("funnel.taxReturnLatestJur" as any),
-      t("funnel.ownFundsProofJur" as any),
-      t("funnel.taxReturnLatestJur" as any),
+      t("funnel.commercialRegisterCurrent" as any), // Handelsregisterauszug (aktuell)
+      t("funnel.passportAuthorizedPersonJur" as any), // Pass oder Identitätskarte der Zeichnungsberechtigten Person
+      t("funnel.annualFinancialStatementsJur" as any), // Jahresabschlüsse (Bilanzen und Erfolgsrechnungen der letzten 3 Jahre)
+      t("funnel.interimBalanceIfAvailable" as any), // Aktuelle Zwischenbilanz (falls vorhanden)
+      t("funnel.taxReturnLatestJur" as any), // Aktuellste Steuererklärung (inkl. Schulden-, Wertschriten, Liegenschatsverzeichnis)
+      t("funnel.ownFundsProofJur" as any), // Aufstellung und Nachweis der Eigenmittel
+      t("funnel.taxReturnLatest" as any), // Aktuellste Steuererklärung (inkl. Schulden-, Wertschriften, Liegenschaftsverzeichnis)
     ],
   },
 
-  // NEUBAU documents for Juristische Person
-  ...(isKauf && isNeubau ? [{
+  // NEUBAU documents for Juristische Person (only if it's Kauf + Neubau, NOT for Ablösung)
+  ...(isKauf && isNeubau && !isAblösung ? [{
     title: t("funnel.docSectionNeubau" as any),
     items: [
-      t("funnel.salesDocPhotos" as any),
-      t("funnel.constructionPlansNetArea" as any),
-      t("funnel.landRegistryIfAvailable" as any),
-      t("funnel.purchaseOrRenovationContract" as any),
-      t("funnel.buildingInsuranceIfAvailable" as any),
+      t("funnel.salesDocPhotos" as any), // Verkaufsdokumentation (inkl. Fotos)
+      t("funnel.constructionPlansNetArea" as any), // Bau-/Grundrisspläne
+      t("funnel.landRegistryIfAvailable" as any), // Aktueller Grundbuchauszug falls vorhanden
+      t("funnel.purchaseOrRenovationContract" as any), // Kaufvertrag (Entwurf/original) oder/und Renovationsvertrag
+      t("funnel.buildingInsuranceIfAvailable" as any), // Aktuelle Gebäudeversicherungspolice (falls bereits vorhanden)
     ],
   }] : []),
 
@@ -101,10 +126,10 @@ const documentsForJur = [
   ...(isAblösung ? [{
     title: t("funnel.docSectionAbloesung" as any),
     items: [
-      t("funnel.constructionDescriptionPhotos" as any),
-      t("funnel.constructionPlansNetArea" as any),
-      t("funnel.landRegistryNotOlder6Months" as any),
-      t("funnel.currentMortgageContract" as any),
+      t("funnel.constructionDescriptionPhotos" as any), // Baubeschrieb (inkl. Foto des Innen- und Aussenbereichs)
+      t("funnel.constructionPlansNetArea" as any), // Bau-/Grundrisspläne
+      t("funnel.landRegistryNotOlder6Months" as any), // Aktueller Grundbuchauszug (nicht älter als 6 Monate)
+      t("funnel.currentMortgageContract" as any), // Aktueller Hypothekenvertrag (bei Ablösung der Hypothek)
     ],
   }] : []),
 
@@ -112,19 +137,19 @@ const documentsForJur = [
   ...(isStockwerkeigentum ? [{
     title: t("funnel.docSectionStockwerkeigentum" as any),
     items: [
-      t("funnel.condominiumActValue" as any),
-      t("funnel.usageRegulationsSTWE" as any),
-      t("funnel.renovationFundInfoCondominium" as any),
+      t("funnel.condominiumActValue" as any), // Stockwerkeigentum-Begründungsakt mit Wertquotenaufteilung
+      t("funnel.usageRegulationsSTWE" as any), // Nutzungs- und Verwaltungsreglement der STWE-Gemeinschaft
+      t("funnel.renovationFundInfoCondominium" as any), // Bei Stockwerkeigentum: Angaben über den Erneuerungsfonds
     ],
   }] : []),
 
   // ANDERE EIGENMITTEL for Juristische Person
-  ...((hasSchenkung || hasDarlehen || hasErbschaft) ? [{
+  ...(hasAndereEigenmittel ? [{
     title: t("funnel.otherOwnFunds" as any),
     items: [
-      t("funnel.giftContract" as any),
-      t("funnel.loanContractGift" as any),
-      t("funnel.inheritanceContract" as any),
+      t("funnel.giftContract" as any), // Schenkungsvertrag
+      t("funnel.loanContractGift" as any), // Darlehensvertag
+      t("funnel.inheritanceContract" as any), // Erbschafttsvertrag
     ],
   }] : []),
 
@@ -132,8 +157,8 @@ const documentsForJur = [
   ...((isBauprojekt || isRenovation) ? [{
     title: t("funnel.docSectionBauprojektRenovation" as any),
     items: [
-      t("funnel.buildingPermitDoc2" as any),
-      t("funnel.projectPlanCostEstimate" as any),
+      t("funnel.buildingPermitDoc2" as any), // Baubewilligung
+      t("funnel.projectPlanCostEstimate" as any), // Projektplan, Baubeschrieb und Bauhandwerkerverzeichnis
     ],
   }] : []),
 ];
@@ -145,9 +170,9 @@ const sections = [
   {
     title: t("funnel.personalDocuments" as any),
     items: [
-      t("funnel.passportIDAllBorrowers" as any),
-      t("funnel.ownFundsProofOfficial" as any),
-      t("funnel.taxReturnLatest" as any),
+      t("funnel.passportIDAllBorrowers" as any), // Pass, Identitätskarte, Aufenthaltsbewilligung (aller Kreditnehmer)
+      t("funnel.ownFundsProofOfficial" as any), // Aktuelle Aufstellung und Nachweis der Eigenmittel (PDF)
+      t("funnel.taxReturnLatest" as any), // Aktuellste Steuererklärung
     ],
   },
 
@@ -155,8 +180,8 @@ const sections = [
   ...(hasAngestellt ? [{
     title: t("funnel.forEmployed" as any),
     items: [
-      t("funnel.salaryStatementBonus" as any),
-      t("funnel.pensionFund3rdPillarBuyback" as any),
+      t("funnel.salaryStatementBonus" as any), // Aktueller Lohnausweis (inkl. Nachweis Bonuszahlungen der letzten 3 Jahre)
+      t("funnel.pensionFund3rdPillarBuyback" as any), // Pensionskassenausweis und Rückkaufswerte von der 3. Säule
     ],
   }] : []),
 
@@ -164,8 +189,8 @@ const sections = [
   ...(hasSelbständig ? [{
     title: t("funnel.forSelfEmployed" as any),
     items: [
-      t("funnel.balanceSheetAudit3Years" as any),
-      t("funnel.pensionFund3rdPillarBuyback" as any),
+      t("funnel.balanceSheetAudit3Years" as any), // Bilanz und Erfolgsrechnung (inkl. Revisionsbericht) der letzten 3 Jahre
+      t("funnel.pensionFund3rdPillarBuyback" as any), // Pensionskassenausweis und Rückkaufswerte von der 3. Säule
     ],
   }] : []),
 
@@ -173,56 +198,56 @@ const sections = [
   ...(hasRentner ? [{
     title: t("funnel.forRetirees" as any),
     items: [
-      t("funnel.pensionCertificatePKAHV" as any),
+      t("funnel.pensionCertificatePKAHV" as any), // Rentenbeschenigung (PK, AHV)
     ],
   }] : []),
 
-  // Conditional: Show only if age 50+
+  // Conditional: Show only if age 50+ years
   ...(hasAge50Plus ? [{
-    title: t("funnel.from50Years" as any),
+    title: t("funnel.from50Years" as any), // "50 Jahre Alter der Kreditnehmer"
     items: [
-      t("funnel.pensionForecastAHV" as any),
-      t("funnel.pensionFund3rdPillarBuyback" as any),
+      t("funnel.pensionForecastAHV" as any), // Rentenvorausberechnung (AHV)
+      t("funnel.pensionFund3rdPillarBuyback" as any), // Pensionskassenausweis und Rückkaufswerte von der 3. Säule
     ],
   }] : []),
 
-  // NEUBAU documents for Natürliche Person (only if Kauf + Neubau)
-  ...(isKauf && isNeubau ? [{
+  // NEUBAU documents for Natürliche Person (only show if it's Kauf + Neubau, NOT for Ablösung)
+  ...(isKauf && isNeubau && !isAblösung ? [{
     title: t("funnel.docSectionNeubau" as any),
     items: [
-      t("funnel.salesDocPhotos" as any),
-      t("funnel.constructionPlansNetArea" as any),
-      t("funnel.landRegistryIfAvailable" as any),
-      t("funnel.purchaseContractDraft" as any),
-      t("funnel.buildingInsuranceIfAvailable" as any),
+      t("funnel.salesDocPhotos" as any), // Verkaufsdokumentation (inkl. Fotos des Innen- und Aussenbereichs)
+      t("funnel.constructionPlansNetArea" as any), // Bau-/Grundrisspläne inkl. Nettowohnfläche
+      t("funnel.landRegistryIfAvailable" as any), // Aktueller Grundbuchauszug falls vorhanden
+      t("funnel.purchaseContractDraft" as any), // Kaufvertrag (Entwurf/original)
+      t("funnel.buildingInsuranceIfAvailable" as any), // Aktuelle Gebäudeversicherungspolice
     ],
   }] : []),
 
-  // Conditional: Show only if reserviert (for Neubau + Kauf)
-  ...(isReserviert && isKauf && isNeubau ? [{
+  // Conditional: Show only if reserviert = "ja" (for Neubau + Kauf, NOT for Ablösung)
+  ...(isKauf && isNeubau && !isAblösung && isReserviert ? [{
     title: t("funnel.reservation" as any),
     items: [
-      t("funnel.renovationContract" as any),
-      t("funnel.bankStatementReservation" as any),
+      t("funnel.renovationContract" as any), // Renovationsvertrag
+      t("funnel.bankStatementReservation" as any), // Bankauszug Reservationszahlung
     ],
   }] : []),
 
-  // Conditional: Show only if Renditeobjekt
+  // Conditional: Show only if Renditeobjekt (investment property)
   ...(isRenditeobjekt ? [{
     title: t("funnel.docSectionRenditeobjekt" as any),
     items: [
-      t("funnel.rentalOverviewCurrent" as any),
+      t("funnel.rentalOverviewCurrent" as any), // Aktueller Mieterspiegel inkl. Mietzinsaufstellung
     ],
   }] : []),
 
-  // ABLÖSUNG documents for Natürliche Person
+  // ABLÖSUNG documents for Natürliche Person (only if Ablösung selected)
   ...(isAblösung ? [{
     title: t("funnel.docSectionAbloesung" as any),
     items: [
-      t("funnel.constructionDescriptionPhotos" as any),
-      t("funnel.constructionPlansNetArea" as any),
-      t("funnel.landRegistryNotOlder6Months" as any),
-      t("funnel.currentMortgageContract" as any),
+      t("funnel.constructionDescriptionPhotos" as any), // Baubeschrieb (inkl. Foto des Innen- und Aussenbereichs)
+      t("funnel.constructionPlansNetArea" as any), // Bau-/Grundrisspläne
+      t("funnel.landRegistryNotOlder6Months" as any), // Aktueller Grundbuchauszug (nicht älter als 6 Monate)
+      t("funnel.currentMortgageContract" as any), // Aktueller Hypothekenvertrag (bei Ablösung der Hypothek)
     ],
   }] : []),
 
@@ -230,19 +255,19 @@ const sections = [
   ...(isStockwerkeigentum ? [{
     title: t("funnel.docSectionStockwerkeigentum" as any),
     items: [
-      t("funnel.condominiumActValue" as any),
-      t("funnel.usageRegulationsSTWE" as any),
-      t("funnel.renovationFundInfoCondominium" as any),
+      t("funnel.condominiumActValue" as any), // Stockwerkeigentum-Begründungsakt mit Wertquotenaufteilung
+      t("funnel.usageRegulationsSTWE" as any), // Nutzungs- und Verwaltungsreglement der STWE-Gemeinschaft
+      t("funnel.renovationFundInfoCondominium" as any), // Bei Stockwerkeigentum: Angaben über den Erneuerungsfonds
     ],
   }] : []),
 
   // ANDERE EIGENMITTEL (if any other funding sources exist)
-  ...((hasSchenkung || hasDarlehen || hasErbschaft) ? [{
+  ...(hasAndereEigenmittel ? [{
     title: t("funnel.otherOwnFunds" as any),
     items: [
-      t("funnel.giftContract" as any),
-      t("funnel.loanContractGift" as any),
-      t("funnel.inheritanceConfirmation" as any),
+      t("funnel.giftContract" as any), // Schenkungsvertrag
+      t("funnel.loanContractGift" as any), // Darlehensvertrag
+      t("funnel.inheritanceConfirmation" as any), // Erbschaftbestätigung
     ],
   }] : []),
 
@@ -250,8 +275,8 @@ const sections = [
   ...((isBauprojekt || isRenovation) ? [{
     title: t("funnel.docSectionBauprojektRenovation" as any),
     items: [
-      t("funnel.buildingPermitDoc2" as any),
-      t("funnel.projectPlanCostEstimate" as any),
+      t("funnel.buildingPermitDoc2" as any), // Baubewilligung
+      t("funnel.projectPlanCostEstimate" as any), // Projektplan, Baubeschrieb und Bauhandwerkerverzeichnis (inkl. Kostenvoranschlag und Kubatur)
     ],
   }] : []),
 ];
