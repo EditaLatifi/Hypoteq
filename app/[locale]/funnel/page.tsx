@@ -253,6 +253,7 @@ const submitFinal = async () => {
 
     // 4️⃣ Move to success step
     console.log("✅ Moving to thank you page, current step:", step);
+    window.scrollTo({ top: 0, behavior: "smooth" });
     next();
     console.log("✅ next() called successfully");
 
