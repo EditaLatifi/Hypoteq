@@ -27,6 +27,7 @@
     "partner": "Partner werden",
     "benefits": "Vorteile",
     "faq": "Häufig gestellte Fragen",
+    "faqSection.title12": "Häufig gestellte Fragen",
     "impressum": "Impressum",
     "documents": "Dokumente",
     "calculator": "Rechner",
@@ -55,7 +56,7 @@
     "getQuote": "Angebot anfordern",
     "contact": "Kontaktieren Sie uns",
     "requestMortgage": "Hypothek anfragen",
-    "bestOffer": "Bestes Angebot finden",
+    "bestOffer": "Auf LinkedIn besuchen",
     "bookAppointment": "oder buche einen Call!",
     "bookAppointmentAdvisory": "Termin buchen",
     "sendNewsletter": "Senden",
@@ -702,7 +703,7 @@
     "title": "Management Team",
     "linkedinDescription": "Besuchen Sie uns auf LinkedIn, um über unsere neuesten Neuigkeiten, Einblicke und Updates auf dem Laufenden zu bleiben.",
     "linkedinButton": "LinkedIn besuchen",
-    "findBestOffer": "Bestes Angebot finden",
+    "findBestOffer": "Auf LinkedIn besuchen",
     "positions": {
       "ceo": "CEO",
       "deputyCeo": "Deputy CEO",
@@ -802,8 +803,14 @@
     "pleaseSelect": "Bitte wählen…"
   },
   "howItWorksSteps": {
+    "step1Label": "Schritt 1",
+    "step1Title": "Angaben eingeben",
     "step1Desc": "Gib die wichtigsten Angaben zu deiner Immobilie, deinem Einkommen und deinen Eigenmitteln ein. Danach siehst du sofort, ob Tragbarkeit und Eigenmittel für eine Finanzierung ausreichen. Schnell einfach und unverbindlich.",
+    "step2Label": "Schritt 2",
+    "step2Title": "Dokumente einreichen",
     "step2Desc": "Lade die benötigten Unterlagen hoch (z. B. Lohnausweis, Steuererklärung, Grundbuchauszug). Sobald alles vollständig ist, starten wir den Prozess und holen die besten Bankenangebote für dich ein.",
+    "step3Label": "Schritt 3",
+    "step3Title": "Angebot erhalten & entscheiden",
     "step3Desc": "Innerhalb von 48–72 Stunden nach Eingang aller Dokumente erhältst du deine persönlichen Offerten – transparent, vergleichbar und persönlich auf dein Profil abgestimmt. Mit einem Klick kannst du das gewünschte Angebot annehmen oder ablehnen.",
     "step4Title": "Gratulation – deine Hypothek ist bereit",
     "step4Desc": "Nach deiner Auswahl übernehmen wir die Koordination mit der Bank und begleiten dich bis zum Abschluss."
