@@ -71,26 +71,28 @@ if (!clientData.zip) {
         {t("funnel.startSubtitle" as any)}
       </p>
 
-      {/* === Partner Question Centered === */}
-      <div className="flex items-center justify-center gap-2 mb-8 md:mb-10 lg:mb-12">
-        <p className="text-lg md:text-xl lg:text-[24px] font-normal font-sfpro text-[#132219]/80">
-          {t("funnel.areYouPartner" as any)}
-        </p>
-        <button
-          onClick={() => setCustomerType("partner")}
-          className="
-            px-8 py-2
-            rounded-full
-            bg-[#CAF476]
-            border border-[#132219]
-            text-[14px] font-medium text-[#132219]
-            hover:bg-[#b8e966]
-            transition
-          "
-        >
-          {t("funnel.clickHere" as any)}
-        </button>
-      </div>
+      {/* === Partner Question Centered (only show if not partner) === */}
+      {customerType !== "partner" && (
+        <div className="flex items-center gap-2 mb-8 md:mb-10 lg:mb-12 border-t border-b border-[#132219] py-4 justify-start">
+          <p className="text-lg md:text-xl lg:text-[24px] font-normal font-sfpro text-[#132219]/80 text-left">
+            {t("funnel.areYouPartner" as any)}
+          </p>
+          <button
+            onClick={() => setCustomerType("partner")}
+            className="
+              px-8 py-2
+              rounded-full
+              bg-[#CAF476]
+              border border-[#132219]
+              text-[14px] font-medium text-[#132219]
+              hover:bg-[#b8e966]
+              transition
+            "
+          >
+            {t("funnel.clickHere" as any)}
+          </button>
+        </div>
+      )}
 
       {/* === DIRECT CUSTOMER FORM === */}
       {customerType === "direct" && (
