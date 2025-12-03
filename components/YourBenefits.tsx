@@ -115,7 +115,7 @@ export default function YourBenefits() {
           {/* Image */}
           <div className="relative w-full h-[789px] rounded-[10px] overflow-hidden">
             <Image
-              src="/images/hypoteq.png"
+              src="/images/HYPOTEQ_layout_logo.png"
               alt="Hypoteq AG"
               fill
               className="object-cover object-top rounded-[10px]"

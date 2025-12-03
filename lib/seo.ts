@@ -177,7 +177,7 @@ export function generateOrganizationSchema() {
     name: SITE_CONFIG.name,
     description: SITE_CONFIG.description.de,
     url: SITE_CONFIG.url,
-    logo: `${SITE_CONFIG.url}/images/logo.png`,
+    logo: `${SITE_CONFIG.url}/images/HYPOTEQ_layout_logo.png`,
     image: `${SITE_CONFIG.url}${SITE_CONFIG.ogImage}`,
     telephone: "+41-XX-XXX-XX-XX", // Add your phone number
     address: {
@@ -192,7 +192,6 @@ export function generateOrganizationSchema() {
       "@type": "Country",
       name: "Switzerland",
     },
-    priceRange: "$$",
     sameAs: [
       "https://www.linkedin.com/company/hypoteq", // Add your social media links
       "https://twitter.com/hypoteq",
