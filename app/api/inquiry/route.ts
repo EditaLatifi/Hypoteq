@@ -10,50 +10,9 @@ export async function POST(req: Request) {
     const data = await req.json();
     console.log('📥 Received data:', JSON.stringify(data, null, 2)); // Debugging step to ensure proper structure
 
-    // Convert angebote array to string array for database
-    const angeboteListe = data.property?.angebote?.map((offer: any) => 
-      `${offer.bank || ''} | ${offer.zins || ''}% | ${offer.laufzeit || ''}`
-    ) || [];
-
-    console.log('📋 Processed angeboteListe:', angeboteListe);
-
-const saved = await prisma.inquiry.create({
-  data: {
-    customerType: data.customerType || null,
-    client: data.client ? { create: data.client } : undefined,
-    project: data.project ? { create: data.project } : undefined,
-    property: data.property
-      ? {
-          create: {
-            artImmobilie: data.property.artImmobilie,
-            artLiegenschaft: data.property.artLiegenschaft,
-            nutzung: data.property.nutzung,
-            renovation: data.property.renovation,
-            renovationsBetrag: data.property.renovationsBetrag,
-            reserviert: data.property.reserviert,
-            finanzierungsangebote: data.property.finanzierungsangebote,
-            angeboteListe: angeboteListe,
-            kreditnehmer: data.property.kreditnehmer?.length > 0
-              ? { createMany: { data: data.property.kreditnehmer } }
-              : undefined,
-            firmen: data.property.firmen?.length > 0 && data.property.firmen[0]?.firmenname
-              ? { createMany: { data: data.property.firmen } }
-              : undefined,
-          },
-        }
-      : undefined,
-    financing: data.financing ? { create: data.financing } : undefined,
-    borrowers: data.borrowers
-      ? { createMany: { data: data.borrowers } }
-      : undefined,
-  },
-});
-
-    console.log("✅ Inquiry saved to database:", saved.id);
-
-    // Send email notification
+    // Only send email notification, do not save to database
     try {
-      await sendFunnelNotificationEmail(data, saved);
+      await sendFunnelNotificationEmail(data, {});
       console.log("✅ Email notification sent successfully");
     } catch (emailError) {
       console.error("⚠️ Email notification failed (continuing):", emailError);
@@ -71,7 +30,7 @@ const saved = await prisma.inquiry.create({
       // Don't fail the request if auto-response fails
     }
 
-    return NextResponse.json({ success: true, inquiry: saved });
+    return NextResponse.json({ success: true });
   } catch (err: unknown) {
     // Type assertion to ensure 'err' is treated as an Error
     if (err instanceof Error) {

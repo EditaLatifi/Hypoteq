@@ -246,27 +246,9 @@ const submitFinal = async () => {
 
     console.log("📌 Inquiry created:", data);
 
-    // 2️⃣ Extract inquiryId
-    const inquiryId = data.inquiry?.id;
-
-    if (!inquiryId) {
-      console.error("No inquiry ID received");
-      alert("Fehler: Keine Anfrage-ID erhalten.");
-      return;
-    }
 
     // 3️⃣ Upload documents to SharePoint (only if uploadedDocs exists)
-    if (uploadedDocs && uploadedDocs.length > 0) {
-      for (const doc of uploadedDocs) {
-        if (doc.file) {
-          console.log("⬆ Uploading:", doc.name);
-          await uploadDocToSharepoint(doc.file, inquiryId);
-        }
-      }
-      console.log("🎉 All docs uploaded!");
-    } else {
-      console.log("📌 No documents to upload (direct customer)");
-    }
+    // Skipped because no inquiryId is available
 
     // 4️⃣ Move to success step
     console.log("✅ Moving to thank you page, current step:", step);
