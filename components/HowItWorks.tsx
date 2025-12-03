@@ -96,7 +96,7 @@ const Step: React.FC<StepProps> = ({ step, title, text, image, highlightBox, pat
     text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] font-[600] 
     text-[#132219] bg-[#CAF476] hover:opacity-90 transition-all"
   >
-    {t("buttons.bestOffer")}
+    {t("buttons.bestOffer12")}
   </button>
 </Link>
       </div>

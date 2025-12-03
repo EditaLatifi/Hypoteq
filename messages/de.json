@@ -58,6 +58,7 @@
     "requestMortgage": "Hypothek anfragen",
     "bestOffer": "Auf LinkedIn besuchen",
     "bookAppointment": "oder buche einen Call!",
+    "bestOffer12": "Bestes Angebot finden",
     "bookAppointmentAdvisory": "Termin buchen",
     "sendNewsletter": "Senden",
     "homeEvaluation": "Hausbewertung",
@@ -80,7 +81,7 @@
   "bestChoices": {
     "title": "HYPOTEQ",
     "subtitle": "Smarte Wahl. Beste Zinsen.",
-    "description": "Unsere Richtzinsen dienen zur Orientierung. Ihr persönlicher Zinssatz kann je nach Situation variieren. Gerne berechnen wir deinen individuellen Zins.",
+    "description": "Unsere Richtzinsen dienen zur Orientierung. Dein persönlicher Zinssatz kann je nach Situation variieren. Gerne berechnen wir deinen individuellen Zins.",
     "disclaimer": "Dein persönlicher Zinssatz kann je nach Situation variieren – wir berechnen gerne deinen individuellen Zins.",
     "saronFrom": "Saron ab",
     "fiveYearsFrom": "5 Jahre ab",
@@ -113,7 +114,7 @@
     "paragraph3": "Bewirb dich jetzt und hilf mit, den Hypomarkt neu zu definieren.",
     "jobs": [
       {
-        "title": "Praktikum / Werkstudent:int",
+        "title": "Praktikum / Werkstudent:in",
         "subtext": "Teilzeit (20–50%), Flexibel\nViel lernen, Keine Langeweile",
         "description": "Tauche ein in die Welt von FinTech, Projekten und Chaos mit System. Du unterstützt unser Team, bringst Struktur in Prozesse und lernst, wie Digitalisierung wirklich funktioniert."
       },
@@ -179,7 +180,7 @@
   },
   "calculator": {
     "title": "Hypothekenrechner",
-    "description": "In nur 3 Schritte zu deiner optimalen Finanzierung – einfach, digital, transparent. Wir vergleichen Angebote in Echtzeit und zeigen dir sofort, was wirklich passt. Schnell, sicher, ohne Umwege.",
+    "description": "In nur 3 Schritten zu deiner optimalen Finanzierung – einfach, digital, transparent. Wir vergleichen Angebote in Echtzeit und zeigen dir sofort, was wirklich passt. Schnell, sicher, ohne Umwege.",
     "helperText": "Bewege einfach die Regler für Kaufpreis, Eigenmittel, Zinssatz und Laufzeit – und sieh sofort, wie sich deine monatlichen Kosten, Zinsen und die Gesamtlaufzeit verändern. Smart, transparent und in Sekunden.",
     "placeholder": "Wert eingeben",
     "continueMortgage": "Mein Projekt fortsetzen",

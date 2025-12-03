@@ -26,6 +26,11 @@ export default function FunnelPage() {
 
   const [step, setStep] = useState(1);
 
+  // Scroll to top on step change
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [step]);
+
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const urlType =

@@ -79,7 +79,7 @@ export default function FunnelCalc({ data, projectData, propertyData, borrowers 
       const einkommen = Number(data.brutto || 0) + Number(data.bonus || 0);
       const tragbarkeitPct =
         einkommen > 0
-          ? Math.round(((hypothek * STRESS_RATE + kaufpreis * 0.008) / einkommen) * 100)
+          ? ((hypothek * STRESS_RATE + kaufpreis * 0.008) / einkommen) * 100
           : 0;
 
       isNegative = hasInputs && (eigenmittelPct < 20 || tragbarkeitPct > 33);
@@ -321,7 +321,12 @@ function SmallBox({ label, value }: any) {
     flex flex-col items-center py-[14px] px-[12px] gap-[12px]">
       <p className="text-[20px] font-medium">{label}</p>
       <div className="border-t border-black w-full" />
-      <p className="text-[32px] font-bold">{value}</p>
+      <p
+        className="text-[32px] font-bold break-words overflow-x-auto w-full text-center sm:text-[28px] md:text-[32px] lg:text-[32px]"
+        style={{ wordBreak: 'break-word' }}
+      >
+        {value}
+      </p>
     </div>
   );
 }

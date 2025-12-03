@@ -313,7 +313,9 @@ const ToggleButton = ({ active, children, onClick }: any) => {
                   if (e.target.value) {
                     const [y, m, d] = e.target.value.split("-");
                     const swissDate = `${d}.${m}.${y}`;
-                    handleChange("kaufdatum", swissDate);
+                    setData((prev: any) => ({ ...prev, kaufdatum: swissDate }));
+                  } else {
+                    setData((prev: any) => ({ ...prev, kaufdatum: "" }));
                   }
                 }}
               />

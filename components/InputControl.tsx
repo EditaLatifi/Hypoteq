@@ -13,7 +13,9 @@ const DateBox = ({
 }) => {
   return (
     <input
-      className="input-base"
+      className="input-base w-full px-4 py-3 rounded-xl text-base border focus:ring-2 focus:ring-green-300 transition-all
+        sm:text-sm sm:py-2 sm:px-3
+        "
       type="date"
       value={value ? (() => {
         const parts = value.split(".");
