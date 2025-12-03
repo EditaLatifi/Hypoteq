@@ -27,6 +27,7 @@
     "partner": "Diventa Partner",
     "benefits": "Vantaggi",
     "faq": "Domande Frequenti",
+    "faqSection.title12": "Domande frequenti",
     "impressum": "Note legali",
     "documents": "Documenti",
     "calculator": "Calcolatore",
@@ -37,7 +38,7 @@
   },
   "navigation": {
     "partnerWerden": "Diventa Partner",
-    "hypothekAnfragen": "Richiedi un ipoteca",
+    "hypothekAnfragen": "Richiedi un‘ipoteca",
     "hypotheken": "Ipoteche"
   },
   "hero": {
@@ -55,7 +56,7 @@
     "getQuote": "Ottieni un preventivo",
     "contact": "Contattaci",
     "requestMortgage": "Richiedi un'Ipoteca",
-    "bestOffer": "Trova la Migliore Offerta",
+    "bestOffer": "Visitaci su LinkedIn",
     "bookAppointment": "Prenota Appuntamento",
     "bookAppointmentAdvisory": "Prenota Appuntamento",
     "sendNewsletter": "Invia",
@@ -97,7 +98,7 @@
     "contactUs": "Contattaci",
     "becomePartner": "Diventa Partner HYPOTEQ",
     "impressumData": "Note legali & Privacy",
-    "mortgageCalc": "Calcolatore Ipoteche",
+    "mortgageCalc": "Calcolatore ipotecario",
     "faqTitle": "Domande Frequenti",
     "hypoteqAdvisory": "Consulenza HYPOTEQ",
     "news": "Notizie",
@@ -177,7 +178,7 @@
     "newConstructionDesc": "Per il tuo progetto di costruzione hai bisogno di un finanziamento che ti si addice davvero. Analizziamo il tuo profilo, confrontiamo le migliori offerte e ti spieghiamo tutte le opzioni in modo comprensibile. Così prendi la tua decisione in modo rilassato e sulla base di dati chiari."
   },
   "calculator": {
-    "title": "Calcolatore Ipoteche",
+    "title": "Calcolatore ipotecario",
     "description": "In soli 3 passaggi verso il tuo finanziamento ottimale - semplice, digitale, trasparente. Confrontiamo le offerte in tempo reale e ti mostriamo immediatamente ciò che davvero si adatta. Veloce, sicuro, senza giri di parole.",
     "helperText": "Sposta semplicemente i cursori per prezzo d'acquisto, fondi propri, tasso d'interesse e durata – e vedi immediatamente come cambiano i tuoi costi mensili, gli interessi e la durata totale. Intelligente, trasparente e in pochi secondi.",
     "placeholder": "Inserisci il valore",
@@ -701,7 +702,7 @@
     "title": "Team di gestione",
     "linkedinDescription": "Visitaci su LinkedIn per rimanere aggiornato sulle nostre ultime notizie, approfondimenti e aggiornamenti.",
     "linkedinButton": "Visita LinkedIn",
-    "findBestOffer": "Trova la migliore offerta",
+    "findBestOffer": "Visitaci su LinkedIn",
     "positions": {
       "ceo": "CEO",
       "deputyCeo": "Vice CEO",
@@ -732,7 +733,7 @@
     "item5Text": "Hai domande su pratiche, documenti o scenari? Il nostro team è al tuo fianco – via email o telefono. Nessuna hotline, nessun bot."
   },
   "partnerWerden": {
-    "title": "Vuoi intermediare attivamente Ipoteche e collaborare con HYPOTEQ?",
+    "title": "Vuoi intermediare attivamente ipoteche e collaborare con HYPOTEQ?",
     "subtitle": "Allora attendiamo con piacere la tua richiesta!",
     "requirement": "Per diventare partner, dovresti essere un'azienda registrata con una licenza di intermediazione valida, rispettare i requisiti normativi (ad es. KYC/AML) e avere già esperienza nel business operativo – o essere sotto la supervisione di un'organizzazione autorizzata.",
     "phoneNumber": "Numero di telefono",
@@ -757,13 +758,13 @@
   "dna": {
     "title": "Il nostro DNA",
     "description": "Semplifichiamo il processo ipotecario in Svizzera – digitale, intelligente e vicino alle persone. Con tecnologia, dati e una solida rete di partner, rendiamo il finanziamento più veloce, più chiaro e più accessibile. Per clienti, mediatori e finanziatori.",
-    "missionTitle": "La nostra Missione",
+    "missionTitle": "la nostra missione",
     "missionDesc": "Rendiamo il percorso verso l'ipoteca giusta semplice, efficiente e comprensibile. Con strumenti intuitivi, un'ampia rete di partner e consulenza personale, ti aiutiamo a confrontare le offerte, trovare soluzioni adatte e prendere decisioni informate.",
-    "visionTitle": "La nostra Visione",
+    "visionTitle": "la nostra visione",
     "visionDesc": "Creiamo una piattaforma dove la tecnologia incontra la fiducia. Chiarezza invece di burocrazia. Efficienza invece di tempi di attesa. Decisioni che fanno una vera differenza per tutti i partecipanti al mercato ipotecario.",
-    "valuesTitle": "I nostri Valori",
+    "valuesTitle": "i nostri valori",
     "valuesDesc": "Rappresentiamo apertura, affidabilità e partnership alla pari. Agiamo in modo trasparente, pensiamo a lungo termine e ci sviluppiamo ogni giorno – come team e insieme ai nostri clienti.",
-    "driveTitle": "La nostra Spinta",
+    "driveTitle": "la nostra spinta",
     "driveDesc": "Mettiamo insieme persone, partner e processi per rendere i Ipoteche più semplici, più equi e più intelligenti. Con soluzioni digitali, supporto personale e un obiettivo chiaro: offrirti il miglior percorso verso un finanziamento adatto."
   },
   "mezzanine": {
@@ -801,11 +802,18 @@
     "pleaseSelect": "Seleziona…"
   },
   "howItWorksSteps": {
+    "step1Label": "Passo 1",
+    "step1Title": "Inserire le informazioni",
     "step1Desc": "Inserisci le informazioni più importanti sulla tua proprietà, reddito e capitale proprio. Vedrai subito se la sostenibilità e il capitale proprio sono sufficienti per un finanziamento. Veloce, semplice e senza impegno.",
+    "step2Label": "Passo 2",
+    "step2Title": "Caricare i documenti",
     "step2Desc": "Carica i documenti richiesti (ad es. certificato di stipendio, dichiarazione dei redditi, estratto del registro fondiario). Non appena tutto è completo, avviamo il processo e otteniamo le migliori offerte bancarie per te.",
+    "step3Label": "Passo 3",
+    "step3Title": "Ricevere l'offerta & decidere",
     "step3Desc": "Entro 48-72 ore dalla ricezione di tutti i documenti, riceverai le tue offerte personali – trasparenti, comparabili e personalizzate sul tuo profilo. Con un clic puoi accettare o rifiutare l'offerta desiderata.",
-    "step4Title": "Congratulazioni – il tuo ipoteca è pronto",
-    "step4Desc": "Dopo la tua selezione, gestiamo il coordinamento con la banca e ti accompagniamo fino alla conclusione."
+    "step4Title": "Congratulazioni – la tua ipoteca è pronta",
+    "step4Desc": "Dopo la tua selezione, gestiamo il coordinamento con la banca e ti accompagniamo fino alla conclusione.",
+    "bestOffer": "Trova la migliore offerta"
   },
   "faqItems": {
     "q1": "Come funziona una richiesta di ipoteca presso HYPOTEQ?",

@@ -97,7 +97,7 @@
     "contactUs": "Contattaci",
     "becomePartner": "Diventa Partner HYPOTEQ",
     "impressumData": "Note legali & Privacy",
-    "mortgageCalc": "Calcolatore Ipoteche",
+    "mortgageCalc": "Calcolatore ipotecario",
     "faqTitle": "Domande Frequenti",
     "hypoteqAdvisory": "Consulenza HYPOTEQ",
     "news": "Notizie",
@@ -177,7 +177,7 @@
     "newConstructionDesc": "Per il tuo progetto di costruzione hai bisogno di un finanziamento che ti si addice davvero. Analizziamo il tuo profilo, confrontiamo le migliori offerte e ti spieghiamo tutte le opzioni in modo comprensibile. Così prendi la tua decisione in modo rilassato e sulla base di dati chiari."
   },
   "calculator": {
-    "title": "Calcolatore Ipoteche",
+    "title": "Calcolatore ipotecario",
     "description": "In soli 3 passaggi verso il tuo finanziamento ottimale - semplice, digitale, trasparente. Confrontiamo le offerte in tempo reale e ti mostriamo immediatamente ciò che davvero si adatta. Veloce, sicuro, senza giri di parole.",
     "helperText": "Sposta semplicemente i cursori per prezzo d'acquisto, fondi propri, tasso d'interesse e durata – e vedi immediatamente come cambiano i tuoi costi mensili, gli interessi e la durata totale. Intelligente, trasparente e in pochi secondi.",
     "placeholder": "Inserisci il valore",
@@ -700,7 +700,7 @@
     "item5Text": "Hai domande su pratiche, documenti o scenari? Il nostro team è al tuo fianco – via email o telefono. Nessuna hotline, nessun bot."
   },
   "partnerWerden": {
-    "title": "Vuoi intermediare attivamente Ipoteche e collaborare con HYPOTEQ?",
+    "title": "Vuoi intermediare attivamente ipoteche e collaborare con HYPOTEQ?",
     "subtitle": "Allora attendiamo con piacere la tua richiesta!",
     "requirement": "Per diventare partner, dovresti essere un'azienda registrata con una licenza di intermediazione valida, rispettare i requisiti normativi (ad es. KYC/AML) e avere già esperienza nel business operativo – o essere sotto la supervisione di un'organizzazione autorizzata.",
     "phoneNumber": "Numero di telefono",

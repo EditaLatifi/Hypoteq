@@ -125,7 +125,7 @@ export default function VorteileSection() {
     className="text-[#132219] text-[32px] sm:text-[48px] font-[500] leading-[110%] tracking-[-0.48px]
                font-['SF Pro Display']"
   >
-    Frequently Asked Questions
+    {t('faq')}
   </h2>
 
   <div className="flex flex-col gap-[20px] sm:gap-[24px] w-full">

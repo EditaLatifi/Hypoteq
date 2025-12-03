@@ -802,8 +802,14 @@
     "pleaseSelect": "Please select…"
   },
   "howItWorksSteps": {
+    "step1Label": "Step 1",
+    "step1Title": "Enter information",
     "step1Desc": "Enter the key details about your property, income, and equity. You'll immediately see if affordability and equity are sufficient for financing. Fast, easy, and non-binding.",
+    "step2Label": "Step 2",
+    "step2Title": "Submit documents",
     "step2Desc": "Upload the required documents (e.g., salary statement, tax return, land register extract). Once everything is complete, we'll start the process and get the best bank offers for you.",
+    "step3Label": "Step 3",
+    "step3Title": "Receive offer & decide",
     "step3Desc": "Within 48–72 hours after receiving all documents, you'll receive your personal offers – transparent, comparable, and tailored to your profile. With one click, you can accept or decline the desired offer.",
     "step4Title": "Congratulations – your mortgage is ready",
     "step4Desc": "After your selection, we take care of coordination with the bank and accompany you until completion."

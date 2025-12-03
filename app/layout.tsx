@@ -84,8 +84,16 @@ export default function RootLayout({
 }) {
   const organizationSchema = generateOrganizationSchema();
 
+  // Detect language from URL path
+  let lang = "de";
+  if (typeof window !== "undefined") {
+    const path = window.location.pathname;
+    if (path.startsWith("/it")) lang = "it";
+    else if (path.startsWith("/fr")) lang = "fr";
+    else if (path.startsWith("/en")) lang = "en";
+  }
   return (
-    <html lang="de" className="font-sf">
+    <html lang={lang} className="font-sf">
       <head>
         <StructuredData data={organizationSchema} />
         

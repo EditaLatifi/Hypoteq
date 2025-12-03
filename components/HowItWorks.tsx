@@ -130,20 +130,20 @@ const { t } = useTranslation(pathLocale as "de" | "en" | "fr" | "it");
 
 const steps = [
   {
-    step: "Schritt 1",
-    title: "Angaben eingeben",
+    step: t("howItWorksSteps.step1Label"),
+    title: t("howItWorksSteps.step1Title"),
     text: t("howItWorksSteps.step1Desc"),
     image: "/images/HYPOTEQ_home_howitworks_step1.png",
   },
   {
-    step: "Schritt 2",
-    title: "Dokumente einreichen",
+    step: t("howItWorksSteps.step2Label"),
+    title: t("howItWorksSteps.step2Title"),
     text: t("howItWorksSteps.step2Desc"),
     image: "/images/HYPOTEQ_home_howitworks_step2.png",
   },
   {
-    step: "Schritt 3",
-    title: "Angebot erhalten & entscheiden",
+    step: t("howItWorksSteps.step3Label"),
+    title: t("howItWorksSteps.step3Title"),
     text: t("howItWorksSteps.step3Desc"),
     image: "/images/HYPOTEQ_home_howitworks_step3.png",
   },

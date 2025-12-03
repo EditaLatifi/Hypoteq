@@ -27,6 +27,7 @@
     "partner": "Devenir partenaire",
     "benefits": "Avantages",
     "faq": "FAQ",
+    "faqSection.title12": "Questions souvent posées",
     "impressum": "Mentions légales",
     "documents": "Documents",
     "calculator": "Calculatrice",
@@ -55,7 +56,7 @@
     "getQuote": "Obtenir un devis",
     "contact": "Nous contacter",
     "requestMortgage": "Demander une hypothèque",
-    "bestOffer": "Trouver la meilleure offre",
+    "bestOffer": "Visiter sur LinkedIn",
     "bookAppointment": "Prendre rendez-vous",
     "bookAppointmentAdvisory": "Prendre Rendez-vous",
     "sendNewsletter": "Envoyer",
@@ -702,7 +703,7 @@
     "title": "Équipe de direction",
     "linkedinDescription": "Visite-nous sur LinkedIn pour rester informé de nos dernières actualités, informations et mises à jour.",
     "linkedinButton": "Visiter LinkedIn",
-    "findBestOffer": "Trouver la meilleure offre",
+    "findBestOffer": "Visiter sur LinkedIn",
     "positions": {
       "ceo": "PDG",
       "deputyCeo": "PDG adjoint",
@@ -758,13 +759,13 @@
   "dna": {
     "title": "Notre ADN",
     "description": "Nous simplifions le processus hypothécaire en Suisse – numérique, intelligent et proche des gens. Avec la technologie, les données et un réseau de partenaires solide, nous rendons le financement plus rapide, plus clair et plus accessible. Pour les clients, les courtiers et les prêteurs.",
-    "missionTitle": "Notre Mission",
+    "missionTitle": "notre mission",
     "missionDesc": "Nous rendons le chemin vers l'hypothèque appropriée simple, efficace et compréhensible. Avec des outils intuitifs, un large réseau de partenaires et des conseils personnels, nous t'aidons à comparer les offres, trouver des solutions adaptées et prendre des décisions éclairées.",
-    "visionTitle": "Notre Vision",
+    "visionTitle": "notre vision",
     "visionDesc": "Nous créons une plateforme où la technologie rencontre la confiance. Clarté au lieu de bureaucratie. Efficacité au lieu de temps d'attente. Des décisions qui font une vraie différence pour tous les participants du marché hypothécaire.",
-    "valuesTitle": "Nos Valeurs",
+    "valuesTitle": "nos valeurs",
     "valuesDesc": "Nous représentons l'ouverture, la fiabilité et le partenariat d'égal à égal. Nous agissons de manière transparente, pensons à long terme et nous développons chaque jour – en équipe et avec nos clients.",
-    "driveTitle": "Notre Moteur",
+    "driveTitle": "notre moteur",
     "driveDesc": "Nous rassemblons les personnes, les partenaires et les processus pour rendre les hypothèques plus simples, plus équitables et plus intelligentes. Avec des solutions numériques, un soutien personnel et un objectif clair: t'offrir le meilleur chemin vers un financement adapté."
   },
   "mezzanine": {
@@ -802,8 +803,14 @@
     "pleaseSelect": "Veuillez sélectionner…"
   },
   "howItWorksSteps": {
+    "step1Label": "Étape 1",
+    "step1Title": "Entrer les informations",
     "step1Desc": "Entre les informations les plus importantes sur ton propriété, tes revenus et tes fonds propres. Tu verras immédiatement si la capacité financière et les fonds propres sont suffisants pour un financement. Rapide, simple et sans engagement.",
+    "step2Label": "Étape 2",
+    "step2Title": "Soumettre les documents",
     "step2Desc": "Téléchargez les documents requis (par ex. certificat de salaire, déclaration d'impôts, extrait du registre foncier). Dès que tout est complet, nous lançons le processus et obtenons les meilleures offres bancaires pour toi.",
+    "step3Label": "Étape 3",
+    "step3Title": "Recevoir l'offre & décider",
     "step3Desc": "Dans les 48 à 72 heures suivant la réception de tous les documents, Tu recevras tes offres personnelles – transparentes, comparables et personnellement adaptées à ton profil. En un clic, Tu peux accepter ou refuser l'offre souhaitée.",
     "step4Title": "Félicitations – ton hypothèque est prête",
     "step4Desc": "Après ton sélection, nous prenons en charge la coordination avec la banque et t'accompagnons jusqu'à la conclusion."

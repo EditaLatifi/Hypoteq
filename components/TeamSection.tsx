@@ -114,7 +114,7 @@ const TeamSection: React.FC = () => {
             >
               {member.bgColor ? (
                 <div
-                  className="flex flex-col justify-between lg:w-[970px] h-[340px] rounded-[10px]"
+                  className="flex flex-col justify-between lg:w-[1258px] h-[280px] rounded-[10px]"
                   style={{
                     backgroundColor: "#CAF476",
                     padding: "14px 24px",

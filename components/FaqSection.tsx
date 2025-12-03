@@ -544,7 +544,7 @@ export default function FaqSection() {
 
         {/* TITLE */}
         <h1 className="text-[48px] md:text-[72px] font-medium leading-[100%] tracking-[-0.72px]">
-          Frequently Asked <br /> Questions
+          Frequently Asked Questions
         </h1>
 
         {/* LIST */}
