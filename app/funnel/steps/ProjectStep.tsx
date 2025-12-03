@@ -2,11 +2,13 @@
 
 import { useFunnelStore } from "@/src/store/funnelStore";
 import { useTranslation } from "@/hooks/useTranslation";
+import { useState } from "react";
 
 function ProjectStep({ data, setData, saveStep, customerType, back }: any) {
   const { t } = useTranslation();
   const project = useFunnelStore((state) => state.project);
   const setProject = useFunnelStore((state) => state.setProject);
+  const [error, setError] = useState("");
 const selectCard = (value: string) => {
   console.log("🔹 selectCard fired, value:", value);
 
@@ -81,11 +83,23 @@ const selectCard = (value: string) => {
          {/* ========================================================= */}
       {/*  BUTTONS                                                  */}
       {/* ========================================================= */}
+      {error && (
+        <p className="text-red-500 text-sm mt-4">{error}</p>
+      )}
       <div className="flex justify-between mt-12 lg:mt-20">
         <button onClick={back} className="px-4 lg:px-6 py-2 border border-[#132219] rounded-full text-sm lg:text-base">
           {t("funnel.back" as any)}
         </button>
-        <button onClick={saveStep} className="px-4 lg:px-6 py-2 bg-[#CAF476] text-[#132219] rounded-full text-sm lg:text-base">
+        <button 
+          onClick={() => {
+            if (!data.projektArt) {
+              setError(t("funnel.pleaseSelectOption" as any) || "Please select a project type");
+              return;
+            }
+            setError("");
+            saveStep();
+          }} 
+          className="px-4 lg:px-6 py-2 bg-[#CAF476] text-[#132219] rounded-full text-sm lg:text-base">
           {t("funnel.continue" as any)}
         </button>
       </div>

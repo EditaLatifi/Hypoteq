@@ -1,10 +1,12 @@
 "use client";
 
 import { useTranslation } from "@/hooks/useTranslation";
+import { useState } from "react";
 
 function PropertyStep({ data, setData, saveStep, borrowers, back, customerType, borrowerType, projectData }: any)
  {
   const { t } = useTranslation();
+  const [errors, setErrors] = useState<string[]>([]);
   const update = (key: string, value: any) => {
     setData((prev: any) => ({ ...prev, [key]: value }));
   };
@@ -471,11 +473,45 @@ const propertyUseOptions =
       {/* ========================================================= */}
       {/*  BUTTONS                                                  */}
       {/* ========================================================= */}
+      {errors.length > 0 && (
+        <div className="text-red-500 text-sm mt-4 space-y-1">
+          {errors.map((err, idx) => <p key={idx}>{err}</p>)}
+        </div>
+      )}
       <div className="flex justify-between mt-6 lg:mt-10">
         <button onClick={back} className="px-4 lg:px-6 py-2 border border-[#132219] rounded-full text-sm lg:text-base">
           {t("funnel.back" as any)}
         </button>
-        <button onClick={saveStep} className="px-4 lg:px-6 py-2 bg-[#CAF476] text-[#132219] rounded-full text-sm lg:text-base">
+        <button 
+          onClick={() => {
+            const newErrors: string[] = [];
+            
+            if (!data.artImmobilie) {
+              newErrors.push(t("funnel.errorPropertyType" as any) || "Please select property type");
+            }
+            if (!data.artLiegenschaft) {
+              newErrors.push(t("funnel.errorPropertyKind" as any) || "Please select property kind");
+            }
+            if (!data.nutzung) {
+              newErrors.push(t("funnel.errorPropertyUsage" as any) || "Please select property usage");
+            }
+            if (!data.renovation) {
+              newErrors.push(t("funnel.errorRenovation" as any) || "Please select renovation option");
+            }
+            if (!data.finanzierungsangebote) {
+              newErrors.push(t("funnel.errorFinancingOffers" as any) || "Please select financing offers option");
+            }
+            
+            if (newErrors.length > 0) {
+              setErrors(newErrors);
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+              return;
+            }
+            
+            setErrors([]);
+            saveStep();
+          }}
+          className="px-4 lg:px-6 py-2 bg-[#CAF476] text-[#132219] rounded-full text-sm lg:text-base">
           {t("funnel.continue" as any)}
         </button>
       </div>

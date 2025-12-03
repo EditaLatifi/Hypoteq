@@ -67,9 +67,30 @@ if (!clientData.zip) {
       </h2>
 
       {/* === Subtitle === */}
-      <p className="text-lg md:text-xl lg:text-[24px] font-normal font-sfpro text-[#132219]/80 mb-8 md:mb-10 lg:mb-12">
+      <p className="text-lg md:text-xl lg:text-[24px] font-normal font-sfpro text-[#132219]/80 mb-6">
         {t("funnel.startSubtitle" as any)}
       </p>
+
+      {/* === Partner Question Centered === */}
+      <div className="flex items-center justify-center gap-2 mb-8 md:mb-10 lg:mb-12">
+        <p className="text-lg md:text-xl lg:text-[24px] font-normal font-sfpro text-[#132219]/80">
+          {t("funnel.areYouPartner" as any)}
+        </p>
+        <button
+          onClick={() => setCustomerType("partner")}
+          className="
+            px-8 py-2
+            rounded-full
+            bg-[#CAF476]
+            border border-[#132219]
+            text-[14px] font-medium text-[#132219]
+            hover:bg-[#b8e966]
+            transition
+          "
+        >
+          {t("funnel.clickHere" as any)}
+        </button>
+      </div>
 
       {/* === DIRECT CUSTOMER FORM === */}
       {customerType === "direct" && (
@@ -179,62 +200,14 @@ if (!clientData.zip) {
           </div>
 
           {/* Footer */}
-<div className="flex flex-col-reverse lg:flex-row lg:items-center lg:justify-between w-full mt-0 gap-4">
-            <div className="w-full lg:w-auto">
-              <label className="text-[14px] font-medium text-[#132219]">
-                {t("funnel.areYouPartner" as any)}
-              </label>
-              <div className="flex items-center gap-2 mt-1 mb-4 lg:mb-0">
-                <div
-                  className="
-      w-10 h-10 lg:flex items-center justify-center
-      rounded-full bg-[#CAF476]/20
-      hover:bg-[#CAF476]/40
-      backdrop-blur-sm
-      transition-all duration-300
-      shadow-inner
-      hidden
-    "
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-5 h-5 text-[#132219]"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
-                </div>
-                <button
-                  onClick={() => setCustomerType("partner")}
-                  className="
-                    px-6 py-2
-                    rounded-full
-                    bg-[#CAF476]
-                    border border-[#132219]
-                    text-[14px] font-medium text-[#132219]
-                    hover:bg-[#b8e966]
-                    transition
-                  "
-                >
-                  {t("funnel.clickHere" as any)}
-                </button>
-              </div>
-            </div>
-
+<div className="flex flex-row items-center justify-end w-full mt-0 gap-4">
             <button
               onClick={() => {
                 if (!validateDirectCustomer()) return; // STOP if invalid
                 setEmail(clientData.email);
                 saveStep();
               }}
-              className="px-8 py-2 mt-2 lg:mt-0 bg-[#CAF476] border border-[#132219] rounded-full text-[14px] font-medium text-[#132219] self-end"
+              className="px-8 py-2 mt-2 lg:mt-0 bg-[#CAF476] border border-[#132219] rounded-full text-[14px] font-medium text-[#132219]"
             >
               {t("funnel.continue" as any)}
             </button>

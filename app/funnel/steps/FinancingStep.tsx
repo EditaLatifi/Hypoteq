@@ -2,6 +2,7 @@
 
 import FunnelCalc from "@/components/funnelCalc";
 import { useTranslation } from "@/hooks/useTranslation";
+import { useState } from "react";
 
 function FinancingStep({
   data,
@@ -14,6 +15,7 @@ function FinancingStep({
   back,
 }: any) {
   const { t } = useTranslation();
+  const [errors, setErrors] = useState<string[]>([]);
   console.log("🔥 FinancingStep Debug:", {
   customerType,
   borrowers,
@@ -499,13 +501,46 @@ const ToggleButton = ({ active, children, onClick }: any) => {
       )}
 
       {/* NAVIGATION */}
+      {errors.length > 0 && (
+        <div className="text-red-500 text-sm mt-4 mb-4 space-y-1 px-4 lg:px-6 md:px-12">
+          {errors.map((err, idx) => <p key={idx}>{err}</p>)}
+        </div>
+      )}
       <div className="flex justify-between mt-8 lg:mt-14 px-4 lg:px-6 md:px-12">
         <button onClick={back} className="px-4 lg:px-6 py-2 border border-[#132219] rounded-full text-sm lg:text-base">
           {t("funnel.back" as any)}
         </button>
 
         <button
-          onClick={saveStep}
+          onClick={() => {
+            const newErrors: string[] = [];
+            const isJur = borrowers?.[0]?.type === "jur";
+            const isKauf = projectData?.projektArt?.toLowerCase() === "kauf";
+            const isRendite = propertyData?.nutzung === "Rendite-Immobilie" || 
+                              propertyData?.nutzung?.toLowerCase()?.includes("rendite") ||
+                              propertyData?.nutzung?.toLowerCase()?.includes("investment");
+            
+            if (isKauf) {
+              if (!data.kaufpreis) {
+                newErrors.push(t("funnel.errorPurchasePrice" as any) || "Please enter purchase price");
+              }
+              if (!data.modell) {
+                newErrors.push(t("funnel.errorHypothekarlaufzeiten" as any) || "Please select mortgage term");
+              }
+              if (!isJur && !isRendite && !data.pkVorbezug) {
+                newErrors.push(t("funnel.errorPkPledge" as any) || "Please select PK pledge option");
+              }
+            }
+            
+            if (newErrors.length > 0) {
+              setErrors(newErrors);
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+              return;
+            }
+            
+            setErrors([]);
+            saveStep();
+          }}
           className="px-4 lg:px-6 py-2 bg-[#CAF476] text-[#132219] rounded-full text-sm lg:text-base"
         >
           {t("funnel.continue" as any)}
