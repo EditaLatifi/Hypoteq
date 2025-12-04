@@ -453,7 +453,7 @@ const propertyUseOptions =
                   updated[index].geburtsdatum = val;
                   update("kreditnehmer", updated);
                 }}
-                className="ml-2"
+                className=""
               />
             <div className="relative w-full">
               <select
