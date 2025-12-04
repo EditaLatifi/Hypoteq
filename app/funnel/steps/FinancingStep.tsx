@@ -1,6 +1,7 @@
 "use client";
 
 import FunnelCalc from "@/components/funnelCalc";
+import SwissDatePicker from "@/components/SwissDatePicker";
 import { useTranslation } from "@/hooks/useTranslation";
 import { useState } from "react";
 
@@ -15,7 +16,11 @@ function FinancingStep({
   back,
 }: any) {
   const { t } = useTranslation();
-  const [errors, setErrors] = useState<string[]>([]);
+  const [errors, setErrors] = useState({
+    kaufpreis: "",
+    modell: "",
+    pkVorbezug: "",
+  });
   console.log("🔥 FinancingStep Debug:", {
   customerType,
   borrowers,
@@ -120,8 +125,12 @@ const ToggleButton = ({ active, children, onClick }: any) => {
     const rawValue = e.target.value.replace(/CHF\s?|'/g, "");
     const numericValue = rawValue.replace(/\D/g, "");
     handleChange("kaufpreis", numericValue);
+    setErrors((prev: any) => ({ ...prev, kaufpreis: "" }));
   }}
 />
+   {errors.kaufpreis && (
+     <p className="text-red-500 text-[12px] mt-1">{errors.kaufpreis}</p>
+   )}
 
 </div>
 
@@ -222,7 +231,10 @@ const ToggleButton = ({ active, children, onClick }: any) => {
   <select
     className={`${inputStyle} mt-3 appearance-none pr-10`}
     value={data.modell || ""}
-    onChange={(e) => handleChange("modell", e.target.value)}
+    onChange={(e) => {
+      handleChange("modell", e.target.value);
+      setErrors((prev: any) => ({ ...prev, modell: "" }));
+    }}
   >
     <option value="">{t("funnel.pleaseSelect" as any)}</option>
 
@@ -240,6 +252,9 @@ const ToggleButton = ({ active, children, onClick }: any) => {
 
     <option value="mix">{t("funnel.mix" as any)}</option>
   </select>
+   {errors.modell && (
+     <p className="text-red-500 text-[12px] mt-1">{errors.modell}</p>
+   )}
 </div>
 
 </div>
@@ -296,28 +311,12 @@ const ToggleButton = ({ active, children, onClick }: any) => {
 
 
             {/* Kaufdatum */}
-            <div>
+            <div className="flex items-center gap-4">
               <label className="font-medium">{t("funnel.purchaseDate" as any)}</label>
-              <input
-                type="date"
-                placeholder="DD.MM.YYYY"
-                className={inputStyle}
-                value={data.kaufdatum ? (() => {
-                  const parts = data.kaufdatum.split(".");
-                  if (parts.length === 3) {
-                    return `${parts[2]}-${parts[1].padStart(2, "0")}-${parts[0].padStart(2, "0")}`;
-                  }
-                  return data.kaufdatum;
-                })() : ""}
-                onChange={(e) => {
-                  if (e.target.value) {
-                    const [y, m, d] = e.target.value.split("-");
-                    const swissDate = `${d}.${m}.${y}`;
-                    setData((prev: any) => ({ ...prev, kaufdatum: swissDate }));
-                  } else {
-                    setData((prev: any) => ({ ...prev, kaufdatum: "" }));
-                  }
-                }}
+              <SwissDatePicker
+                value={data.kaufdatum}
+                onChange={val => setData((prev: any) => ({ ...prev, kaufdatum: val }))}
+                className="w-full"
               />
             </div>
 
@@ -503,11 +502,7 @@ const ToggleButton = ({ active, children, onClick }: any) => {
       )}
 
       {/* NAVIGATION */}
-      {errors.length > 0 && (
-        <div className="text-red-500 text-sm mt-4 mb-4 space-y-1 px-4 lg:px-6 md:px-12">
-          {errors.map((err, idx) => <p key={idx}>{err}</p>)}
-        </div>
-      )}
+      {/* Field-specific errors are shown under each field. */}
       <div className="flex justify-between mt-8 lg:mt-14 px-4 lg:px-6 md:px-12">
         <button onClick={back} className="px-4 lg:px-6 py-2 border border-[#132219] rounded-full text-sm lg:text-base">
           {t("funnel.back" as any)}
@@ -515,7 +510,7 @@ const ToggleButton = ({ active, children, onClick }: any) => {
 
         <button
           onClick={() => {
-            const newErrors: string[] = [];
+            const newErrors: { kaufpreis?: string; modell?: string; pkVorbezug?: string } = {};
             const isJur = borrowers?.[0]?.type === "jur";
             const isKauf = projectData?.projektArt?.toLowerCase() === "kauf";
             const isRendite = propertyData?.nutzung === "Rendite-Immobilie" || 
@@ -524,23 +519,21 @@ const ToggleButton = ({ active, children, onClick }: any) => {
             
             if (isKauf) {
               if (!data.kaufpreis) {
-                newErrors.push(t("funnel.errorPurchasePrice" as any) || "Please enter purchase price");
+                newErrors.kaufpreis = t("funnel.errorPurchasePrice" as any) || "Please enter purchase price";
               }
               if (!data.modell) {
-                newErrors.push(t("funnel.errorHypothekarlaufzeiten" as any) || "Please select mortgage term");
+                newErrors.modell = t("funnel.errorHypothekarlaufzeiten" as any) || "Please select mortgage term";
               }
               if (!isJur && !isRendite && !data.pkVorbezug) {
-                newErrors.push(t("funnel.errorPkPledge" as any) || "Please select PK pledge option");
+                newErrors.pkVorbezug = t("funnel.errorPkPledge" as any) || "Please select PK pledge option";
               }
             }
-            
-            if (newErrors.length > 0) {
-              setErrors(newErrors);
+            if (Object.keys(newErrors).length > 0) {
+              setErrors((prev: any) => ({ ...prev, ...newErrors }));
               window.scrollTo({ top: 0, behavior: 'smooth' });
               return;
             }
-            
-            setErrors([]);
+            setErrors({ kaufpreis: "", modell: "", pkVorbezug: "" });
             saveStep();
           }}
           className="px-4 lg:px-6 py-2 bg-[#CAF476] text-[#132219] rounded-full text-sm lg:text-base"

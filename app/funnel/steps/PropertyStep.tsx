@@ -1,14 +1,22 @@
 "use client";
+import SwissDatePicker from "@/components/SwissDatePicker";
 
 import { useTranslation } from "@/hooks/useTranslation";
+
 import { useState } from "react";
 
-function PropertyStep({ data, setData, saveStep, borrowers, back, customerType, borrowerType, projectData }: any)
- {
+function PropertyStep({ data, setData, saveStep, borrowers, back, customerType, borrowerType, projectData }: any) {
   const { t } = useTranslation();
-  const [errors, setErrors] = useState<string[]>([]);
+  const [errors, setErrors] = useState({
+    artImmobilie: "",
+    artLiegenschaft: "",
+    nutzung: "",
+    renovation: "",
+    finanzierungsangebote: "",
+  });
   const update = (key: string, value: any) => {
     setData((prev: any) => ({ ...prev, [key]: value }));
+    setErrors((prev: any) => ({ ...prev, [key]: "" }));
   };
 
   // Check if project type is Ablösung (redemption) - Neubau not allowed
@@ -77,6 +85,9 @@ const propertyUseOptions =
             {t("funnel.newConstruction" as any)}
           </ToggleButton>
         </div>
+        {errors.artImmobilie && (
+          <p className="text-red-500 text-[12px] mt-1">{errors.artImmobilie}</p>
+        )}
         {data.artImmobilie === "neubau" && !isAbloesung && (
           <div className="flex flex-wrap gap-[24px] mt-[16px]">
             <ToggleButton
@@ -113,6 +124,9 @@ const propertyUseOptions =
             )
           )}
         </div>
+        {errors.artLiegenschaft && (
+          <p className="text-red-500 text-[12px] mt-1">{errors.artLiegenschaft}</p>
+        )}
       </div>
 
       {/* ========================================================= */}
@@ -131,6 +145,9 @@ const propertyUseOptions =
             </ToggleButton>
           ))}
         </div>
+        {errors.nutzung && (
+          <p className="text-red-500 text-[12px] mt-1">{errors.nutzung}</p>
+        )}
       </div>
 
       {/* ========================================================= */}
@@ -159,6 +176,9 @@ const propertyUseOptions =
             {t("funnel.no" as any)}
           </ToggleButton>
         </div>
+        {errors.renovation && (
+          <p className="text-red-500 text-[12px] mt-1">{errors.renovation}</p>
+        )}
 
         {data.renovation === "ja" && (
           <input
@@ -225,6 +245,9 @@ const propertyUseOptions =
             {t("funnel.no" as any)}
           </ToggleButton>
         </div>
+        {errors.finanzierungsangebote && (
+          <p className="text-red-500 text-[12px] mt-1">{errors.finanzierungsangebote}</p>
+        )}
         {data.finanzierungsangebote === "ja" && (
           <div className="space-y-4 mt-[16px]">
             {(data.angebote || [{ bank: "", zins: "", laufzeit: "" }]).map((offer: any, idx: number) => (
@@ -423,27 +446,15 @@ const propertyUseOptions =
               </select>
               <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 w-2 h-2 border-r-2 border-b-2 border-[#132219] rotate-45" />
             </div>
-            <input
-              type="date"
-              placeholder="DD.MM.YYYY"
-              className="px-5 py-2 border border-[#132219] rounded-full text-sm w-full"
-              value={kn.geburtsdatum ? (() => {
-                const parts = kn.geburtsdatum.split(".");
-                if (parts.length === 3) {
-                  return `${parts[2]}-${parts[1].padStart(2, "0")}-${parts[0].padStart(2, "0")}`;
-                }
-                return kn.geburtsdatum;
-              })() : ""}
-              onChange={(e) => {
-                if (e.target.value) {
-                  const [y, m, d] = e.target.value.split("-");
-                  const swissDate = `${d}.${m}.${y}`;
+              <SwissDatePicker
+                value={kn.geburtsdatum}
+                onChange={val => {
                   const updated = [...data.kreditnehmer];
-                  updated[index].geburtsdatum = swissDate;
+                  updated[index].geburtsdatum = val;
                   update("kreditnehmer", updated);
-                }
-              }}
-            />
+                }}
+                className="ml-2"
+              />
             <div className="relative w-full">
               <select
                 className="px-5 py-2 rounded-full text-sm w-full bg-white border border-[#132219] appearance-none pr-10"
@@ -473,42 +484,40 @@ const propertyUseOptions =
       {/* ========================================================= */}
       {/*  BUTTONS                                                  */}
       {/* ========================================================= */}
-      {errors.length > 0 && (
-        <div className="text-red-500 text-sm mt-4 space-y-1">
-          {errors.map((err, idx) => <p key={idx}>{err}</p>)}
-        </div>
-      )}
       <div className="flex justify-between mt-6 lg:mt-10">
         <button onClick={back} className="px-4 lg:px-6 py-2 border border-[#132219] rounded-full text-sm lg:text-base">
           {t("funnel.back" as any)}
         </button>
         <button 
           onClick={() => {
-            const newErrors: string[] = [];
-            
+            const newErrors: any = {};
             if (!data.artImmobilie) {
-              newErrors.push(t("funnel.errorPropertyType" as any) || "Please select property type");
+              newErrors.artImmobilie = t("funnel.errorPropertyType" as any) || "Please select property type";
             }
             if (!data.artLiegenschaft) {
-              newErrors.push(t("funnel.errorPropertyKind" as any) || "Please select property kind");
+              newErrors.artLiegenschaft = t("funnel.errorPropertyKind" as any) || "Please select property kind";
             }
             if (!data.nutzung) {
-              newErrors.push(t("funnel.errorPropertyUsage" as any) || "Please select property usage");
+              newErrors.nutzung = t("funnel.errorPropertyUsage" as any) || "Please select property usage";
             }
             if (!data.renovation) {
-              newErrors.push(t("funnel.errorRenovation" as any) || "Please select renovation option");
+              newErrors.renovation = t("funnel.errorRenovation" as any) || "Please select renovation option";
             }
             if (!data.finanzierungsangebote) {
-              newErrors.push(t("funnel.errorFinancingOffers" as any) || "Please select financing offers option");
+              newErrors.finanzierungsangebote = t("funnel.errorFinancingOffers" as any) || "Please select financing offers option";
             }
-            
-            if (newErrors.length > 0) {
-              setErrors(newErrors);
+            if (Object.keys(newErrors).length > 0) {
+              setErrors((prev: any) => ({ ...prev, ...newErrors }));
               window.scrollTo({ top: 0, behavior: 'smooth' });
               return;
             }
-            
-            setErrors([]);
+            setErrors({
+              artImmobilie: "",
+              artLiegenschaft: "",
+              nutzung: "",
+              renovation: "",
+              finanzierungsangebote: ""
+            });
             saveStep();
           }}
           className="px-4 lg:px-6 py-2 bg-[#CAF476] text-[#132219] rounded-full text-sm lg:text-base">
