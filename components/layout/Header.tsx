@@ -179,18 +179,20 @@ export default function Header() {
       {menuOpen && (
         <div className="absolute left-0 top-full w-full bg-white/80 backdrop-blur-lg shadow-2xl border-t border-[#CAF476] z-40 animate-fadeIn">
           <div className="max-w-5xl mx-auto px-4 py-6 grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4 justify-items-center items-center">
-            <Link href={`/${pathLocale}`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("common.home")}</Link>
-            <Link href={`/${pathLocale}/hypotheken`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("common.hypotheken")}</Link>
+            {/* COLUMN 1 */}
+            <Link href={`/${pathLocale}`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("footer.homePage")}</Link>
+            <Link href={`/${pathLocale}/hypotheken`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("footer.hypothekenMade")}</Link>
             <Link href={`/${pathLocale}/documents`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("common.documents")}</Link>
             <Link href={`/${pathLocale}/mezzanine`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("common.mezzanine")}</Link>
-            <Link href={`/${pathLocale}/about`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("common.about")}</Link>
-            <Link href={`/${pathLocale}/kontaktieren-sie-uns`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("common.contact")}</Link>
-            <Link href={`/${pathLocale}/partner-werden`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("navigation.partnerWerden")}</Link>
-            <Link href={`/${pathLocale}/impressum`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("common.impressum")}</Link>
-            <Link href={`/${pathLocale}/calculator`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("common.calculator")}</Link>
-            <Link href={`/${pathLocale}/faq`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("common.faq")}</Link>
-            <Link href={`/${pathLocale}/advisory`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("common.advisory")}</Link>
-            {/* Replace Neuigkeiten with LinkedIn button */}
+            {/* COLUMN 2 */}
+            <Link href={`/${pathLocale}/uber-uns`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("footer.aboutUs")}</Link>
+            <Link href={`/${pathLocale}/kontaktieren-sie-uns`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("footer.contactUs")}</Link>
+            <Link href={`/${pathLocale}/partner-werden`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("footer.becomePartner")}</Link>
+            <Link href={`/${pathLocale}/impressum`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("footer.impressumData")}</Link>
+            {/* COLUMN 3 */}
+            <Link href={`/${pathLocale}/hypothekenrechner`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("footer.mortgageCalc")}</Link>
+            <Link href={`/${pathLocale}/faq`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("footer.faqTitle")}</Link>
+            <Link href={`/${pathLocale}/beratung`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("footer.hypoteqAdvisory")}</Link>
             <div className="flex items-center justify-center w-full mt-2">
               <span className="text-base font-medium text-[#132219] mr-2">{t("common.followUs")}</span>
               <a href="https://www.linkedin.com/company/hypoteq/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center">
