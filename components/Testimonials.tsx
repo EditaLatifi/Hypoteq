@@ -23,6 +23,8 @@ const Testimonials: React.FC = () => {
     { id: 3, name: "Gregor Reinau", text: t("testimonials.testimonial3") },
     { id: 4, name: "Romain Crausaz", text: t("testimonials.testimonial4") },
     { id: 5, name: "Noli Toplanaj", text: t("testimonials.testimonial5") },
+    { id: 6, name: "Sébastien Dubach", text: t("testimonials.testimonial6") },
+    { id: 7, name: "Luigi Miggiano", text: t("testimonials.testimonial7") },
   ];
 
   const nextSlide = () => {

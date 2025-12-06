@@ -117,7 +117,9 @@ const minIncomeRequired = tragbarkeitCHF > 0 ? tragbarkeitCHF / params.tragbarke
 const tragbarkeitPercent   = income > 0 ? tragbarkeitCHF / income : 0;
 const interestYearEffective = actualMortgage * effectiveRate;
 const monthlyCost = (interestYearEffective + amortizationYear + maintenanceYear) / 12;
-const minOwnFunds = loanType === "purchase" ? propertyPrice * 0.20 : 0; 
+const minOwnFunds = loanType === "purchase"
+  ? propertyPrice * (residenceType === "zweit" ? 0.30 : 0.20)
+  : 0;
 const isBelehnungOK     = belehnung <= params.maxBelehnung; 
 const isTragbarkeitOK = Math.round(tragbarkeitPercent * 1000) <= Math.round(params.tragbarkeitThreshold * 1000);
 
@@ -239,18 +241,50 @@ const [openDropdown, setOpenDropdown] = useState(false);
         min={0}
         max={sliderMaxNew}
       />
+      <div className="flex items-center gap-2 mt-2">
+        <span className="text-sm font-medium">
+          {t("calculator.ownFundsPercent" as any) || "Eigenmittel (%):"}
+        </span>
+        <span
+          className={`px-2 py-1 rounded font-bold bg-yellow-200 text-yellow-800`}
+        >
+          {propertyPrice > 0 ? ((ownFunds / propertyPrice) * 100).toFixed(1).replace('.', ',') + '%' : '0%'}
+        </span>
+        <span className="text-xs text-gray-500 ml-2">
+          {t("calculator.maxBelehnung" as any) || (residenceType === "zweit" ? "(max. 55% Belehnung)" : "(max. 65% Belehnung)")}
+        </span>
+      </div>
     </>
   )}
 
   {loanType === "purchase" && (
-    <SliderInput
-      label={t("calculator.ownFunds") || "Eigenmittel"}
-      value={ownFunds}
-      setValue={setOwnFunds}
-      min={0}
-      max={propertyPrice}
-      minRequired={minOwnFunds}
-    />
+    <div className="flex flex-col gap-2">
+      <SliderInput
+        label={t("calculator.ownFunds") || "Eigenmittel"}
+        value={ownFunds}
+        setValue={setOwnFunds}
+        min={0}
+        max={propertyPrice}
+        minRequired={minOwnFunds}
+      />
+      <div className="flex items-center gap-2 mt-2">
+        <span className="text-sm font-medium">
+          {t("calculator.ownFundsPercent" as any) || "Eigenmittel (%):"}
+        </span>
+        <span
+          className={`px-2 py-1 rounded font-bold ${
+            propertyPrice > 0 && ownFunds / propertyPrice >= (residenceType === "zweit" ? 0.3 : 0.2)
+              ? 'bg-green-200 text-green-800'
+              : 'bg-yellow-200 text-yellow-800'
+          }`}
+        >
+          {propertyPrice > 0 ? ((ownFunds / propertyPrice) * 100).toFixed(1).replace('.', ',') + '%' : '0%'}
+        </span>
+        <span className="text-xs text-gray-500 ml-2">
+          {residenceType === "zweit" ? "(min. 30%)" : "(min. 20%)"}
+        </span>
+      </div>
+    </div>
   )}
 
   <SliderInput
@@ -372,6 +406,8 @@ const [openDropdown, setOpenDropdown] = useState(false);
         current={formatCHF(ownFunds)}
         total={formatCHF(propertyPrice)}
         loanType={loanType}
+        red={propertyPrice > 0 && residenceType === "zweit" ? ownFunds / propertyPrice < 0.3 : ownFunds / propertyPrice < 0.2}
+        thresholdLabel={residenceType === "zweit" ? "(min. 30%)" : "(min. 20%)"}
       />
 
       <ProgressBox
@@ -692,25 +728,27 @@ function InfoBox({ title, value, red = false, loanType }: any) {
 }
 
 
-function ProgressBox({ title, value, current, total, loanType, red = false }: any) {
+function ProgressBox({ title, value, current, total, loanType, red = false, thresholdLabel }: any) {
   return (
     <div
-      className="
+      className={`
       flex-1 h-[185px]
       flex flex-col justify-between 
       rounded-[10px] border border-[#132219] 
       px-[16px] py-[15px]
-      bg-[linear-gradient(270deg,#CAF476_0%,#E3F4BF_100%)]
-      "
+      ${red ? 'bg-[linear-gradient(270deg,#FCA5A5_0%,#FECACA_100%)]' : 'bg-[linear-gradient(270deg,#CAF476_0%,#E3F4BF_100%)]'}
+      `}
     >
       <div className="flex justify-between items-start">
         <h3 className="text-[20px]">{title}</h3>
         <div className="w-[20px] h-[20px] rounded-full border border-[#132219] bg-[#CAF47E] flex items-center justify-center">
-          <CheckIcon />
+          <CheckIcon red={red} loanType={loanType} />
         </div>
       </div>
-
       <h2 className="text-[40px] font-semibold leading-none">{value}</h2>
+      {thresholdLabel && (
+        <div className="text-xs text-gray-500 mt-2">{thresholdLabel}</div>
+      )}
     </div>
   );
 }

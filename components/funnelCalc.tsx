@@ -37,12 +37,17 @@ export default function FunnelCalc({ data, projectData, propertyData, borrowers 
 
   const borrowerType = borrowers?.[0]?.type;
   const isJur = borrowerType === "jur";
-  
+
   // Check if it's a Rendite object - check both data and propertyData
   const nutzung = propertyData?.nutzung || data.nutzung;
   const isRendite = nutzung === "Rendite-Immobilie" || 
                     nutzung?.toLowerCase()?.includes("rendite") ||
                     nutzung?.toLowerCase()?.includes("investment");
+
+  // Detect Zweitwohnsitz (secondary residence)
+  const isZweitwohnsitz = nutzung?.toLowerCase()?.includes("zweit") || nutzung?.toLowerCase()?.includes("ferien") || nutzung?.toLowerCase()?.includes("secondary");
+  // Hauptwohnsitz (main residence)
+  const isHauptwohnsitz = !isZweitwohnsitz;
 
   const CHF = (v: number) => "CHF " + Math.round(v).toLocaleString("de-CH");
 
@@ -59,21 +64,26 @@ export default function FunnelCalc({ data, projectData, propertyData, borrowers 
         Number(data.eigenmittel_pk || 0) +
         Number(data.eigenmittel_schenkung || 0);
 
+    // Set thresholds based on residence type
+    const minEigenmittelPct = isZweitwohnsitz ? 30 : 20;
+    const maxBelehnungPct = isZweitwohnsitz ? 65 : 80;
+    const tragbarkeitThreshold = 35;
+
     const hypothek = Math.max(kaufpreis - eigenmittel, 0);
+    const belehnungPct = kaufpreis > 0 ? Math.round((hypothek / kaufpreis) * 100) : 0;
 
     /* ======================================
        HAS INPUTS → prevents early red color
        ====================================== */
     const hasInputs = kaufpreis > 0 || eigenmittel > 0;
 
-    const eigenmittelPct =
-      kaufpreis > 0 ? Math.round((eigenmittel / kaufpreis) * 100) : 0;
+    const eigenmittelPct = kaufpreis > 0 ? Math.round((eigenmittel / kaufpreis) * 100) : 0;
 
     let isNegative = false;
 
     /* For Juristische Personen */
     if (isJur) {
-      isNegative = hasInputs && eigenmittelPct < 20;
+      isNegative = hasInputs && eigenmittelPct < minEigenmittelPct;
     } else {
       /* NATÜRLICHE PERSON */
       const einkommen = Number(data.brutto || 0) + Number(data.bonus || 0);
@@ -82,7 +92,7 @@ export default function FunnelCalc({ data, projectData, propertyData, borrowers 
           ? ((hypothek * STRESS_RATE + kaufpreis * 0.008) / einkommen) * 100
           : 0;
 
-      isNegative = hasInputs && (eigenmittelPct < 20 || tragbarkeitPct > 33);
+      isNegative = hasInputs && (eigenmittelPct < minEigenmittelPct || belehnungPct > maxBelehnungPct || tragbarkeitPct > tragbarkeitThreshold);
     }
 
     /* ------------------------------------------
@@ -171,13 +181,18 @@ export default function FunnelCalc({ data, projectData, propertyData, borrowers 
 
     let isNegative = false;
 
+    // Set thresholds based on residence type
+    const minEigenmittelPct = isZweitwohnsitz ? 30 : 20;
+    const maxBelehnungPct = isZweitwohnsitz ? 65 : 80;
+    const tragbarkeitThreshold = 35;
+
     if (isJur) {
       const eigenmittelPct =
         kaufpreis > 0
           ? Math.round(((kaufpreis - hypothek) / kaufpreis) * 100)
           : 0;
 
-      isNegative = hasInputs && eigenmittelPct < 20;
+      isNegative = hasInputs && eigenmittelPct < minEigenmittelPct;
     } else {
       const einkommen = Number(data.brutto || 0);
 
@@ -185,18 +200,17 @@ export default function FunnelCalc({ data, projectData, propertyData, borrowers 
       const zinsen = (hypothek * zinssatz) / 12;
       const unterhalt = (kaufpreis ? kaufpreis * 0.008 : 0) / 12;
 
-      const zweiteHypothek =
-        kaufpreis > 0 ? Math.max(hypothek - kaufpreis * 0.8, 0) : 0;
+      // Use correct max Belehnung for Zweitwohnsitz
+      const zweiteHypothek = kaufpreis > 0 ? Math.max(hypothek - kaufpreis * (maxBelehnungPct / 100), 0) : 0;
 
-      const amortisation =
-        zweiteHypothek > 0 ? zweiteHypothek / 15 / 12 : 0;
+      const amortisation = zweiteHypothek > 0 ? zweiteHypothek / 15 / 12 : 0;
 
       const total = zinsen + unterhalt + amortisation;
 
-      const tragbarkeitPct =
-        einkommen > 0 ? Math.round(((total * 12) / einkommen) * 100) : 0;
+      const belehnungPct = kaufpreis > 0 ? Math.round((hypothek / kaufpreis) * 100) : 0;
+      const tragbarkeitPct = einkommen > 0 ? Math.round(((total * 12) / einkommen) * 100) : 0;
 
-      isNegative = hasInputs && tragbarkeitPct > 33;
+      isNegative = hasInputs && (belehnungPct > maxBelehnungPct || tragbarkeitPct > tragbarkeitThreshold);
     }
 
     /* ------------------------------------------

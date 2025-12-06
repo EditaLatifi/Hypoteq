@@ -21,6 +21,7 @@
   },
   "common": {
     "language": "English",
+    "followUs": "Follow us:",
     "home": "Home",
     "about": "About",
     "contact": "Contact",
@@ -572,7 +573,9 @@
     "testimonial2": "I am thrilled with the first-class service from HYPOTEQ AG: friendly, competent and always helpful. My concerns were processed quickly, I felt well-informed and supported – absolutely recommendable!",
     "testimonial3": "Hypoteq guided me through an intensive process in a highly professional, personable and competent manner to achieve a perfect result with top conditions. If you want real professionals by your side, these two are exactly right.",
     "testimonial4": "We were completely satisfied with the services of Hypoteq AG. Our consultant supported us optimally throughout the entire process and was very present for all questions.",
-    "testimonial5": "HYPOTEQ is the gateway to the financing world for me as an intermediary. Where my knowledge ends, HYPOTEQ helps me to advise my clients optimally."
+    "testimonial5": "HYPOTEQ is the gateway to the financing world for me as an intermediary. Where my knowledge ends, HYPOTEQ helps me to advise my clients optimally.",
+    "testimonial6": "Attentive advisors and regular communication enable a targeted approach and the creation of offers tailored to the needs of customers.",
+    "testimonial7": "Not only are customers in good hands with Hypoteq, but also the affiliated partners. For any changes, even with existing customers, we are guided through all processes, which provides security for everyone. Availability by phone or email is guaranteed even after normal office hours. TOP"
   },
   "advisory": {
     "title": "HYPOTEQ Advisory",

@@ -21,6 +21,7 @@
   },
   "common": {
     "language": "Italiano",
+    "followUs": "Seguici:",
     "home": "Home",
     "about": "Chi siamo",
     "contact": "Contatti",
@@ -563,7 +564,9 @@
     "testimonial2": "Sono entusiasta del servizio di prima classe di HYPOTEQ AG: cordiale, competente e sempre disponibile. Le mie richieste sono state elaborate rapidamente, mi sono sentito ben informato e supportato – assolutamente raccomandabile!",
     "testimonial3": "Hypoteq mi ha guidato in modo estremamente professionale, umano e competente attraverso un processo intensivo verso un risultato perfetto con condizioni eccellenti. Chi vuole veri professionisti al proprio fianco, questi due sono proprio quelli giusti.",
     "testimonial4": "Siamo stati completamente soddisfatti dei servizi di Hypoteq AG. Il nostro consulente ci ha accompagnato in modo ottimale durante l'intero processo ed è stato molto presente per tutte le domande.",
-    "testimonial5": "HYPOTEQ è per me come intermediario la porta d'accesso al mondo del finanziamento. Dove finisce la mia conoscenza, HYPOTEQ mi aiuta a consigliare i miei clienti in modo ottimale."
+    "testimonial5": "HYPOTEQ è per me come intermediario la porta d'accesso al mondo del finanziamento. Dove finisce la mia conoscenza, HYPOTEQ mi aiuta a consigliare i miei clienti in modo ottimale.",
+    "testimonial6": "Consulenti attenti e uno scambio regolare consentono un approccio mirato e la creazione di offerte su misura per le esigenze dei clienti.",
+    "testimonial7": "Non solo i clienti sono ben seguiti da Hypoteq, ma anche i partner affiliati. Per qualsiasi modifica, anche con clienti esistenti, siamo accompagnati in tutti i processi, il che dà sicurezza a tutti. Disponibilità telefonica o via mail anche dopo il normale orario d’ufficio. TOP"
   },
   "advisory": {
     "title": "Consulenza HYPOTEQ",

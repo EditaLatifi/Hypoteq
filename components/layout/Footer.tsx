@@ -130,14 +130,20 @@ export default function Footer() {
           <Link href={`/${pathLocale}/hypothekenrechner`} className="hover:underline py-1">{t("footer.mortgageCalc")}</Link>
           <Link href={`/${pathLocale}/faq`} className="hover:underline py-1">{t("footer.faqTitle")}</Link>
           <Link href={`/${pathLocale}/beratung`} className="hover:underline py-1">{t("footer.hypoteqAdvisory")}</Link>
-          <Link
-            href="https://www.linkedin.com/company/hypoteq-ag/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:underline py-1"
-          >
-            {t("footer.news")}
-          </Link>
+          <div className="flex items-center gap-2 py-1">
+            <span className="text-[15px] md:text-[16px] lg:text-[18px]">{t("common.followUs")}</span>
+            <a
+              href="https://www.linkedin.com/company/hypoteq/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center"
+            >
+              {/* Official LinkedIn SVG icon without extra background */}
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.268c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zm13.5 11.268h-3v-5.604c0-1.337-.026-3.063-1.868-3.063-1.868 0-2.156 1.459-2.156 2.967v5.7h-3v-10h2.881v1.367h.041c.401-.761 1.379-1.563 2.838-1.563 3.036 0 3.6 2 3.6 4.594v5.602z" fill="#0A66C2"/>
+              </svg>
+            </a>
+          </div>
         </div>
 
       </div>

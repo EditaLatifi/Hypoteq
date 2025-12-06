@@ -117,7 +117,7 @@ const minIncomeRequired = tragbarkeitCHF > 0 ? tragbarkeitCHF / params.tragbarke
 const tragbarkeitPercent   = income > 0 ? tragbarkeitCHF / income : 0;
 const interestYearEffective = actualMortgage * effectiveRate;
 const monthlyCost = (interestYearEffective + amortizationYear + maintenanceYear) / 12;
-const minOwnFunds = loanType === "purchase" ? propertyPrice * 0.20 : 0; 
+const minOwnFunds = loanType === "purchase" ? propertyPrice * (residenceType === "zweit" ? 0.30 : 0.20) : 0;
 const isBelehnungOK     = belehnung <= params.maxBelehnung; 
 const isTragbarkeitOK = Math.round(tragbarkeitPercent * 1000) <= Math.round(params.tragbarkeitThreshold * 1000);
 
@@ -237,8 +237,15 @@ const [openDropdown, setOpenDropdown] = useState(false);
     <SliderInput
       label={t("calculator.ownFunds")}
       value={ownFunds}
-      setValue={setOwnFunds}
-      min={0}
+      setValue={(v: number) => {
+        // Force minimum for Zweitwohnsitz
+        if (residenceType === "zweit") {
+          setOwnFunds(Math.max(v, propertyPrice * 0.3));
+        } else {
+          setOwnFunds(Math.max(v, propertyPrice * 0.2));
+        }
+      }}
+      min={residenceType === "zweit" ? propertyPrice * 0.3 : propertyPrice * 0.2}
       max={propertyPrice}
       minRequired={minOwnFunds}
     />
@@ -354,6 +361,8 @@ const [openDropdown, setOpenDropdown] = useState(false);
         current={formatCHF(ownFunds)}
         total={formatCHF(propertyPrice)}
         loanType={loanType}
+        red={propertyPrice > 0 && residenceType === "zweit" ? ownFunds / propertyPrice < 0.3 : ownFunds / propertyPrice < 0.2}
+        thresholdLabel={residenceType === "zweit" ? "(min. 30%)" : "(min. 20%)"}
       />
 
       <ProgressBox
