@@ -196,6 +196,20 @@ const saveStep5 = () => {
   // -------------------------------------
 const submitFinal = async () => {
   try {
+    // Always push latest local state to store before submitting
+    if (customerType === "partner") {
+      setClient({ email: clientData.partnerEmail });
+    } else {
+      setClient(clientData);
+    }
+    setProject(projectData);
+    setProperty(propertyData);
+    setFinancing(financingData);
+    setBorrowers(borrowers);
+
+    // Small delay to ensure state is updated
+    await new Promise(resolve => setTimeout(resolve, 100));
+
     const storeState = useFunnelStore.getState();
     const {
       customerType,
