@@ -14,7 +14,7 @@ async function testSMTP() {
     port: 587,
     secure: false, // false for STARTTLS
     auth: {
-      user: 'fisnik.salihu@hypoteq.ch',
+      user: 'info@hypoteq.ch',
       pass: APP_PASSWORD, // App password from Microsoft 365
     },
     tls: {
@@ -42,8 +42,8 @@ async function testSMTP() {
 
     console.log('📧 Sending test email...');
     const info = await transporter.sendMail({
-      from: '"HYPOTEQ Test" <fisnik.salihu@hypoteq.ch>',
-      to: 'fisnik.salihu@hypoteq.ch',
+      from: '"HYPOTEQ Test" <info@hypoteq.ch>',
+      to: 'info@hypoteq.ch',
       subject: 'SMTP Test - ' + new Date().toLocaleString(),
       text: 'This is a test email from the SMTP configuration test.',
       html: '<p>This is a <strong>test email</strong> from the SMTP configuration test.</p>'

@@ -89,8 +89,8 @@ USE_RESEND=false
 SMTP_HOST=smtp.office365.com
 SMTP_PORT=587
 SMTP_SECURE=false
-SMTP_USER=fisnik.salihu@hypoteq.ch
-SMTP_PASS=<your-password>
+SMTP_USER=info@hypoteq.ch
+SMTP_PASS=[?iGQg655W"
 ```
 
 ### Newsletter:

@@ -56,7 +56,7 @@ node test-graph.js
 You should see:
 ```
 ✅ Email sent successfully via Microsoft Graph API!
-📬 Check fisnik.salihu@hypoteq.ch for the test email
+📬 Check info@hypoteq.ch for the test email
 ```
 
 ### 7. Restart Your Application
@@ -81,7 +81,7 @@ SMTP_TO=recipient@domain.com
 1. Contact form is submitted
 2. API checks if `USE_GRAPH=true`
 3. Authenticates with Azure AD using client credentials
-4. Sends email via Microsoft Graph API as `fisnik.salihu@hypoteq.ch`
+4. Sends email via Microsoft Graph API as `info@hypoteq.ch`
 5. Email appears in sent items of the mailbox
 
 ## Fallback Options

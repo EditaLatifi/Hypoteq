@@ -23,7 +23,7 @@ Error: `SmtpClientAuthentication is disabled for the Tenant`
    
    **Option A: Enable for Specific User (Recommended)**
    - Go to: Recipients → Mailboxes
-   - Find and click on: **fisnik.salihu@hypoteq.ch**
+   - Find and click on: **info@hypoteq.ch**
    - Click "Mail flow settings" or "Mailbox features"
    - Find "Authenticated SMTP" and **Enable** it
    - Click "Save"
@@ -32,7 +32,7 @@ Error: `SmtpClientAuthentication is disabled for the Tenant`
    - Go to: Mail flow → Policies → Authentication policies
    - Edit the default policy or create a new one
    - Enable "SMTP AUTH"
-   - Apply to the user: fisnik.salihu@hypoteq.ch
+   - Apply to the user: info@hypoteq.ch
 
 4. **Wait for Changes to Propagate**
    - Changes may take 5-30 minutes to take effect
@@ -46,7 +46,7 @@ If Two-Factor Authentication (2FA) is enabled on the account:
 
 1. **Generate an App Password**
    - Go to: https://myaccount.microsoft.com
-   - Login as: fisnik.salihu@hypoteq.ch
+   - Login as: info@hypoteq.ch
    - Navigate to: Security → App passwords
    - Click "Create a new app password"
    - Name it: "HYPOTEQ Contact Form"
@@ -99,14 +99,14 @@ If SMTP cannot be enabled, we can use Microsoft Graph API to send emails:
    MICROSOFT_TENANT_ID=<your-tenant-id>
    MICROSOFT_CLIENT_ID=<your-client-id>
    MICROSOFT_CLIENT_SECRET=<your-client-secret>
-   MICROSOFT_USER_ID=fisnik.salihu@hypoteq.ch
+   MICROSOFT_USER_ID=info@hypoteq.ch
    ```
 
 ---
 
 ## 📝 Current Configuration
 
-**Email:** fisnik.salihu@hypoteq.ch
+**Email:** info@hypoteq.ch
 **SMTP Server:** smtp.office365.com
 **Port:** 587
 **TLS:** Enabled

@@ -36,7 +36,7 @@ async function testEmail() {
     console.log('📤 Sending test email...');
     const info = await transporter.sendMail({
       from: `"HYPOTEQ Test" <${process.env.SMTP_USER}>`,
-      to: 'fisnik.salihu@hypoteq.ch',
+      to: 'info@hypoteq.ch',
       subject: 'Test Email from HYPOTEQ Contact Form',
       html: `
         <div style="font-family: Arial, sans-serif; padding: 20px;">
@@ -50,7 +50,7 @@ async function testEmail() {
               <li>SMTP Host: ${process.env.SMTP_HOST}</li>
               <li>SMTP Port: ${process.env.SMTP_PORT}</li>
               <li>From: ${process.env.SMTP_USER}</li>
-              <li>To: fisnik.salihu@hypoteq.ch</li>
+              <li>To: info@hypoteq.ch</li>
             </ul>
             <p style="color: #666; font-size: 12px; margin-top: 30px;">
               Sent at: ${new Date().toLocaleString('de-CH')}
@@ -67,7 +67,7 @@ Configuration:
 - SMTP Host: ${process.env.SMTP_HOST}
 - SMTP Port: ${process.env.SMTP_PORT}
 - From: ${process.env.SMTP_USER}
-- To: fisnik.salihu@hypoteq.ch
+- To: info@hypoteq.ch
 
 Sent at: ${new Date().toLocaleString('de-CH')}
       `

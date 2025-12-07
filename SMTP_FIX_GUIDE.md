@@ -11,7 +11,7 @@ Microsoft 365/Outlook accounts require **App Passwords** for SMTP authentication
 
 1. **Go to Microsoft Account Security**
    - Visit: https://account.microsoft.com/security
-   - Sign in with fisnik.salihu@hypoteq.ch
+   - Sign in with info@hypoteq.ch
 
 2. **Enable Two-Factor Authentication (if not already enabled)**
    - You must have 2FA enabled to create app passwords
@@ -58,10 +58,10 @@ After getting the app password, your .env should look like:
 SMTP_HOST=smtp.office365.com
 SMTP_PORT=587
 SMTP_SECURE=false
-SMTP_USER=fisnik.salihu@hypoteq.ch
+SMTP_USER=info@hypoteq.ch
 SMTP_PASS=your-app-password-here
-SMTP_FROM=fisnik.salihu@hypoteq.ch
-SMTP_TO=fisnik.salihu@hypoteq.ch
+SMTP_FROM=info@hypoteq.ch
+SMTP_TO=info@hypoteq.ch
 ```
 
 ## Common Issues

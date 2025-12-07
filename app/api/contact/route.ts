@@ -120,7 +120,7 @@ Eingegangen am: ${new Date().toLocaleString('de-CH')}
         toRecipients: [
           {
             emailAddress: {
-              address: process.env.SMTP_TO || "fisnik.salihu@hypoteq.ch",
+              address: process.env.SMTP_TO || "info@hypoteq.ch",
             },
           },
         ],
@@ -137,7 +137,7 @@ Eingegangen am: ${new Date().toLocaleString('de-CH')}
     };
 
     // Send the email from the specified user
-    const sendAsUser = process.env.SMTP_USER || "fisnik.salihu@hypoteq.ch";
+    const sendAsUser = process.env.SMTP_USER || "info@hypoteq.ch";
     
     await client
       .api(`/users/${sendAsUser}/sendMail`)
@@ -172,7 +172,7 @@ async function sendWithResend(
     
     const { data, error } = await resend.emails.send({
       from: 'HYPOTEQ Kontaktformular <onboarding@resend.dev>',
-      to: ['fisnik.salihu@hypoteq.ch'],
+      to: ['info@hypoteq.ch'],
       replyTo: email,
       subject: `[HYPOTEQ Web Contact Form] ${inquiryTypeLabel} - ${firstName} ${lastName}`,
       html: emailHTML,
@@ -255,12 +255,12 @@ Eingegangen am: ${new Date().toLocaleString('de-CH')}
 
   // Send email
   try {
-    console.log("📧 Sending email via SMTP to: fisnik.salihu@hypoteq.ch");
+    console.log("📧 Sending email via SMTP to: info@hypoteq.ch");
     console.log("📧 From:", process.env.SMTP_USER);
     
     const info = await transporter.sendMail({
       from: `"HYPOTEQ Kontaktformular" <${process.env.SMTP_USER}>`,
-      to: "fisnik.salihu@hypoteq.ch",
+      to: "info@hypoteq.ch",
       replyTo: email,
       subject: `Neue Kontaktanfrage: ${inquiryTypeLabel} - ${firstName} ${lastName}`,
       text: emailText,
@@ -325,7 +325,7 @@ async function sendAutoResponse(
         saveToSentItems: true,
       };
 
-      const sendAsUser = process.env.SMTP_USER || "fisnik.salihu@hypoteq.ch";
+      const sendAsUser = process.env.SMTP_USER || "info@hypoteq.ch";
       await client.api(`/users/${sendAsUser}/sendMail`).post(sendMail);
     } else if (useResend) {
       const resend = new Resend(process.env.RESEND_API_KEY);

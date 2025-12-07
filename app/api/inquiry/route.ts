@@ -85,7 +85,7 @@ async function sendFunnelNotificationEmail(data: any, saved: any) {
       toRecipients: [
         {
           emailAddress: {
-            address: process.env.SMTP_TO || "fisnik.salihu@hypoteq.ch",
+            address: process.env.SMTP_TO || "info@hypoteq.ch",
           },
         },
       ],
@@ -101,7 +101,7 @@ async function sendFunnelNotificationEmail(data: any, saved: any) {
     saveToSentItems: true,
   };
 
-  const sendAsUser = process.env.SMTP_USER || "fisnik.salihu@hypoteq.ch";
+  const sendAsUser = process.env.SMTP_USER || "info@hypoteq.ch";
   await client.api(`/users/${sendAsUser}/sendMail`).post(sendMail);
 }
 
@@ -435,7 +435,7 @@ async function sendFunnelAutoResponse(customerEmail: string, firstName: string) 
         saveToSentItems: true,
       };
 
-      const sendAsUser = process.env.SMTP_USER || "fisnik.salihu@hypoteq.ch";
+      const sendAsUser = process.env.SMTP_USER || "info@hypoteq.ch";
       await client.api(`/users/${sendAsUser}/sendMail`).post(sendMail);
     } else {
       // Fallback to SMTP if Graph API is not configured
