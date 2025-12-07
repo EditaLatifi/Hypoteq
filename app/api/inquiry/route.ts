@@ -12,7 +12,14 @@ export async function POST(req: Request) {
 
     // Only send email notification, do not save to database
     try {
-      await sendFunnelNotificationEmail(data, {});
+      const now = new Date();
+      await sendFunnelNotificationEmail(
+        data,
+        {
+          id: data.id || Math.random().toString(36).substring(2, 10), // fallback if no id
+          createdAt: now.toISOString(),
+        }
+      );
       console.log("✅ Email notification sent successfully");
     } catch (emailError) {
       console.error("⚠️ Email notification failed (continuing):", emailError);
@@ -107,6 +114,42 @@ async function sendFunnelNotificationEmail(data: any, saved: any) {
 
 // Generate HTML email template for funnel submission
 function generateFunnelEmailHTML(data: any, saved: any): string {
+      // Mapping for borrower type
+      const typLabels: Record<string, string> = {
+        nat: 'Natürliche Person',
+        jur: 'Juristische Person',
+        partner: 'Partner',
+      };
+      // Mapping for finanzierungsmodell
+      const finanzierungsmodellLabels: Record<string, string> = {
+        saron: 'SARON',
+        mix: 'Mix',
+        '1': '1 Jahr',
+        '2': '2 Jahre',
+        '3': '3 Jahre',
+        '4': '4 Jahre',
+        '5': '5 Jahre',
+        '6': '6 Jahre',
+        '7': '7 Jahre',
+        '8': '8 Jahre',
+        '9': '9 Jahre',
+        '10': '10 Jahre',
+      };
+    // Mapping for property fields
+    const artImmobilieLabels: Record<string, string> = {
+      neubau: 'Neubau',
+      bestandsobjekt: 'Bestandsobjekt',
+      rendite: 'Rendite-Immobilie',
+      bestehend: 'Bestehende Immobilie',
+      // add more as needed
+    };
+    const neubauArtLabels: Record<string, string> = {
+      bereits_erstellt: 'Bereits erstellt',
+      im_bau: 'Im Bau',
+      geplant: 'Geplant',
+      // add more as needed
+    };
+
   const customerTypeLabel = data.customerType === 'partner' ? 'Partner' : data.customerType === 'direct' ? 'Direktkunde' : 'Unbekannt';
   const projektArtLabel = data.project?.projektArt === 'kauf' ? 'Kauf' : data.project?.projektArt === 'abloesung' ? 'Ablösung' : 'Nicht angegeben';
   
@@ -279,8 +322,8 @@ function generateFunnelEmailHTML(data: any, saved: any): string {
     <div class="section">
       <div class="section-title">🏠 Immobiliendetails</div>
       <table>
-        ${data.property.artImmobilie ? `<tr><td>Art der Immobilie:</td><td><strong>${data.property.artImmobilie}</strong></td></tr>` : ''}
-        ${data.property.neubauArt ? `<tr><td>Neubau Art:</td><td>${data.property.neubauArt}</td></tr>` : ''}
+        ${data.property.artImmobilie ? `<tr><td>Art der Immobilie:</td><td><strong>${artImmobilieLabels[data.property.artImmobilie] || data.property.artImmobilie}</strong></td></tr>` : ''}
+        ${data.property.neubauArt ? `<tr><td>Neubau Art:</td><td>${neubauArtLabels[data.property.neubauArt] || data.property.neubauArt}</td></tr>` : ''}
         ${data.property.artLiegenschaft ? `<tr><td>Art der Liegenschaft:</td><td>${data.property.artLiegenschaft}</td></tr>` : ''}
         ${data.property.nutzung ? `<tr><td>Nutzung:</td><td>${data.property.nutzung}</td></tr>` : ''}
         ${data.property.renovation ? `<tr><td>Renovation:</td><td><strong>${data.property.renovation === 'ja' ? 'Ja' : 'Nein'}</strong></td></tr>` : ''}
@@ -343,7 +386,7 @@ function generateFunnelEmailHTML(data: any, saved: any): string {
         
         ${data.financing.pkVorbezug ? `<tr><td>PK Vorbezug:</td><td>${data.financing.pkVorbezug}</td></tr>` : ''}
         ${data.financing.hypoBetrag ? `<tr><td>Hypothekenbetrag:</td><td><strong>CHF ${Number(data.financing.hypoBetrag).toLocaleString('de-CH')}</strong></td></tr>` : ''}
-        ${data.financing.modell ? `<tr><td>Finanzierungsmodell:</td><td>${data.financing.modell}</td></tr>` : ''}
+        ${data.financing.modell ? `<tr><td>Hypothekarlaufzeiten:</td><td>${finanzierungsmodellLabels[data.financing.modell] || data.financing.modell}</td></tr>` : ''}
         ${data.financing.einkommen ? `<tr><td>Brutto-Jahreseinkommen:</td><td>CHF ${Number(data.financing.einkommen).toLocaleString('de-CH')}</td></tr>` : ''}
         ${data.financing.steueroptimierung ? `<tr><td>Steueroptimierung:</td><td>${data.financing.steueroptimierung}</td></tr>` : ''}
         ${data.financing.kaufdatum ? `<tr><td>Kaufdatum:</td><td>${data.financing.kaufdatum}</td></tr>` : ''}
@@ -371,7 +414,7 @@ function generateFunnelEmailHTML(data: any, saved: any): string {
           ${b.name ? `<tr><td style="padding-left: 20px;">Nachname:</td><td>${b.name}</td></tr>` : ''}
           ${b.geburtsdatum ? `<tr><td style="padding-left: 20px;">Geburtsdatum:</td><td>${b.geburtsdatum}</td></tr>` : ''}
           ${b.erwerb ? `<tr><td style="padding-left: 20px;">Erwerbsstatus:</td><td>${b.erwerb}</td></tr>` : ''}
-          ${b.type ? `<tr><td style="padding-left: 20px;">Typ:</td><td>${b.type}</td></tr>` : ''}
+          ${b.type ? `<tr><td style="padding-left: 20px;">Typ:</td><td>${typLabels[b.type] || b.type}</td></tr>` : ''}
         `).join('')}
       </table>
     </div>

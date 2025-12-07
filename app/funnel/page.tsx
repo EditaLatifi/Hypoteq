@@ -182,7 +182,7 @@ const saveStep5 = () => {
     // For partners: ensure all data is in store, then submit
     setProject(projectData);
     setProperty(propertyData);
-    setBorrowers(borrowers);
+    setBorrowers(useFunnelStore.getState().borrowers);
     setFinancing(financingData);
     
     // Small delay to ensure state is updated
@@ -197,7 +197,8 @@ const saveStep5 = () => {
 const submitFinal = async () => {
   try {
     // Always push latest local state to store before submitting
-    if (customerType === "partner") {
+    const currentType = useFunnelStore.getState().customerType;
+    if (currentType === "partner") {
       setClient({ email: clientData.partnerEmail });
     } else {
       setClient(clientData);
@@ -210,23 +211,24 @@ const submitFinal = async () => {
     // Small delay to ensure state is updated
     await new Promise(resolve => setTimeout(resolve, 100));
 
+
     const storeState = useFunnelStore.getState();
     const {
-      customerType,
+      customerType: latestCustomerType,
       client,
       project,
       property,
-      borrowers,
+      borrowers: latestBorrowers,
       financing,
     } = storeState;
 
     console.log("📊 Full Store State:", storeState);
     console.log("📊 Submitting data to API:", {
-      customerType,
+      customerType: latestCustomerType,
       client,
       project,
       property,
-      borrowers,
+      borrowers: latestBorrowers,
       financing,
     });
 
@@ -235,11 +237,11 @@ const submitFinal = async () => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        customerType,
+        customerType: latestCustomerType,
         client,
         project,
         property,
-        borrowers,
+        borrowers: latestBorrowers,
         financing,
       }),
     });
