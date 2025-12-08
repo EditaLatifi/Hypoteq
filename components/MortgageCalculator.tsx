@@ -1,4 +1,19 @@
 "use client";
+// Helper to get correct minimum income for Hauptwohnsitz and Zweitwohnsitz
+function getMinIncome(residenceType: "haupt" | "zweit", propertyPrice: number, ownFunds: number) {
+  if (residenceType === "haupt") {
+    // Hauptwohnsitz: min income = tragbarkeitCHF / tragbarkeitThreshold
+    // Already handled by minIncomeRequired
+    return 0;
+  } else {
+    // Zweitwohnsitz: min income = (propertyPrice - ownFunds) * 0.05 + propertyPrice * 0.008
+    // This matches the funnelCalc logic
+    if (propertyPrice > 0 && ownFunds > 0) {
+      return ((propertyPrice - ownFunds) * 0.05 + propertyPrice * 0.008) / 0.35;
+    }
+    return 0;
+  }
+}
 import { useState, useMemo, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -37,7 +52,7 @@ const [loanType, setLoanType] = useState<"purchase" | "refinancing" | null>("pur
           stressRate: 0.05, 
           maintenanceRate: 0.008, 
           amortizationYears: 15, 
-          tragbarkeitThreshold: 0.35,
+          tragbarkeitThreshold: 0.329,
         }
       : {
           maxBelehnung: 0.65, 
@@ -45,7 +60,7 @@ const [loanType, setLoanType] = useState<"purchase" | "refinancing" | null>("pur
           stressRate: 0.05,
           maintenanceRate: 0.008,
           amortizationYears: 0,
-          tragbarkeitThreshold: 0.35,
+          tragbarkeitThreshold: 0.326,
         };
 const dynamicMaxMortgage = residenceType
   ? propertyPrice * params.maxBelehnung 
@@ -119,7 +134,9 @@ const interestYearEffective = actualMortgage * effectiveRate;
 const monthlyCost = (interestYearEffective + amortizationYear + maintenanceYear) / 12;
 const minOwnFunds = loanType === "purchase" ? propertyPrice * (residenceType === "zweit" ? 0.35 : 0.20) : 0;
 const isBelehnungOK     = belehnung <= params.maxBelehnung; 
-const isTragbarkeitOK = Math.round(tragbarkeitPercent * 1000) <= Math.round(params.tragbarkeitThreshold * 1000);
+const isTragbarkeitOK = residenceType === "zweit"
+  ? tragbarkeitPercent < params.tragbarkeitThreshold
+  : Math.round(tragbarkeitPercent * 1000) <= Math.round(params.tragbarkeitThreshold * 1000);
 
 const isEquityOK =
   loanType === "purchase"
@@ -207,7 +224,7 @@ const [openDropdown, setOpenDropdown] = useState(false);
 
   {/* Sliders */}
   <SliderInput
-    label={t("calculator.purchasePrice")}
+    label={t("calculator.purchasePrice") + " / Immobilienwert"}
     value={propertyPrice}
     setValue={setPropertyPrice}
     min={0}
@@ -255,7 +272,7 @@ const [openDropdown, setOpenDropdown] = useState(false);
     label={t("calculator.grossIncome")}
     value={income}
     setValue={setIncome}
-    min={0}
+    min={getMinIncome(residenceType, propertyPrice, ownFunds)}
     max={500000}
     minRequired={minIncomeRequired}
   />
