@@ -15,7 +15,7 @@ import { v4 as uuidv4 } from "uuid";
 
 export default function FunnelPage() {
     // Reset all dependent state when project type changes
-    const handleProjectTypeChange = (newType: string) => {
+    const handleProjectTypeChange = (newType: "" | "kauf" | "abloesung") => {
       setProjectData({
         projektArt: newType,
         liegenschaftZip: "",
