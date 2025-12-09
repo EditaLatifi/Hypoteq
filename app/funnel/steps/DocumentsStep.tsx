@@ -2,7 +2,7 @@
 import { v4 as uuidv4 } from "uuid";
 import { useFunnelStore } from "@/src/store/funnelStore";
 import { useTranslation } from "@/hooks/useTranslation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 
 function DocumentsStep({ borrowers, docs, setDocs, addDocument, saveStep, back }: any) {
@@ -317,6 +317,10 @@ const isJur = (borrowers ?? []).some((b: any) => b.type === "jur");
 
 // Select document structure based on borrower type
 let selectedDocuments = isJur ? documentsForJur : sections;
+
+useEffect(() => {
+  selectedDocuments = isJur ? documentsForJur : sections;
+}, [isJur, documentsForJur, sections]);
 
 
 const handleUpload = async (e: any) => {
