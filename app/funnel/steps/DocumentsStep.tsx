@@ -315,12 +315,41 @@ const sections = [
 
 const isJur = (borrowers ?? []).some((b: any) => b.type === "jur");
 
-// Select document structure based on borrower type
-let selectedDocuments = isJur ? documentsForJur : sections;
+
+// State for selectedDocuments to force rerender on relevant changes
+const [selectedDocuments, setSelectedDocuments] = useState(isJur ? documentsForJur : sections);
 
 useEffect(() => {
-  selectedDocuments = isJur ? documentsForJur : sections;
-}, [isJur, documentsForJur, sections]);
+  setSelectedDocuments(isJur ? documentsForJur : sections);
+  // Shto props kryesore si dependency për rifreskim të saktë
+}, [
+  isJur,
+  isKauf,
+  isNeubau,
+  isBestand,
+  isAblösung,
+  isWohnung,
+  isStockwerkeigentum,
+  isMehrfamilienhaus,
+  isMultipleEigentuemer,
+  isBauprojekt,
+  isRenovation,
+  isReserviert,
+  isRenditeobjekt,
+  hasAndereEigenmittel,
+  hasAngestellt,
+  hasSelbständig,
+  hasRentner,
+  hasAge50Plus,
+  JSON.stringify(documentsForJur),
+  JSON.stringify(sections),
+  JSON.stringify(borrowers),
+  JSON.stringify(project),
+  JSON.stringify(property),
+  JSON.stringify(financing)
+]);
+
+
 
 
 const handleUpload = async (e: any) => {

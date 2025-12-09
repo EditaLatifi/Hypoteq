@@ -14,6 +14,54 @@ import FunnelSidebar from "../../funnel/FunnelSidebar";
 import { v4 as uuidv4 } from "uuid";
 
 export default function FunnelPage() {
+    // Reset all dependent state when project type changes
+    const handleProjectTypeChange = (newType: string) => {
+      setProjectData({
+        projektArt: newType,
+        liegenschaftZip: "",
+        kreditnehmerTyp: "",
+      });
+      setPropertyData({
+        artImmobilie: "",
+        artLiegenschaft: "",
+        nutzung: "",
+        renovation: "",
+        renovationsBetrag: "",
+        reserviert: "",
+        finanzierungsangebote: "",
+        angeboteListe: [],
+        kreditnehmer: [
+          {
+            id: uuidv4(),
+            vorname: "",
+            name: "",
+            geburtsdatum: "",
+            status: "Angestellt",
+          },
+        ],
+        firmen: [{ firmenname: "" }],
+      });
+      setFinancingData({
+        kaufpreis: "",
+        eigenmittel_bar: "",
+        eigenmittel_saeule3: "",
+        eigenmittel_pk: "",
+        eigenmittel_schenkung: "",
+        pkVorbezug: "",
+        hypoBetrag: "",
+        modell: "",
+        einkommen: "",
+        steueroptimierung: "",
+        kaufdatum: "",
+        kommentar: "",
+        abloesung_betrag: "",
+        erhoehung: "",
+        erhoehung_betrag: "",
+        abloesedatum: "",
+      });
+      setUploadedDocs([]);
+      setStep(4); // Kthehu direkt te PropertyStep pas zgjedhjes së projektit
+    };
   const {
     customerType,
     setCustomerType,
@@ -292,6 +340,7 @@ const submitFinal = async () => {
             saveStep={saveStep2}
             back={back}
             customerType={customerType}
+            onProjectTypeChange={handleProjectTypeChange}
           />
         )}
 
@@ -336,16 +385,24 @@ saveStep={next}
 )}
 
 
-        {step === 6 && customerType === "partner" && (
- <DocumentsStep
-  borrowers={borrowers}
-  docs={uploadedDocs}
-  setDocs={setUploadedDocs}
-  addDocument={addDocument}
-  saveStep={saveStep6}
-  back={back}
-/>
 
+        {step === 6 && customerType === "partner" && (
+          <DocumentsStep
+            key={
+              JSON.stringify({
+                projectData,
+                propertyData,
+                borrowers,
+                financingData
+              })
+            }
+            borrowers={borrowers}
+            docs={uploadedDocs}
+            setDocs={setUploadedDocs}
+            addDocument={addDocument}
+            saveStep={saveStep6}
+            back={back}
+          />
         )}
 
  {step === 7 && (

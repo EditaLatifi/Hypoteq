@@ -4,7 +4,7 @@ import { useFunnelStore } from "@/src/store/funnelStore";
 import { useTranslation } from "@/hooks/useTranslation";
 import { useState } from "react";
 
-function ProjectStep({ data, setData, saveStep, customerType, back }: any) {
+function ProjectStep({ data, setData, saveStep, customerType, back, onProjectTypeChange }: any) {
   const { t } = useTranslation();
   const project = useFunnelStore((state) => state.project);
   const setProject = useFunnelStore((state) => state.setProject);
@@ -24,7 +24,11 @@ const selectCard = (value: string) => {
     store: useFunnelStore.getState().project
   });
 
-  setTimeout(() => saveStep(), 50);
+  if (onProjectTypeChange) {
+    onProjectTypeChange(value);
+  } else {
+    setTimeout(() => saveStep(), 50);
+  }
 };
 
 
