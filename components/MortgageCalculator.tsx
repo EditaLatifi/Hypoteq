@@ -215,12 +215,12 @@ export default function Calculator() {
   return (
     <section
       id="calculator"
-      className="flex flex-col items-center bg-white py-12 px-[116px] mb-[120px] font-sans text-[#132219]"
+      className="flex flex-col items-center bg-white py-6 px-4 sm:py-12 sm:px-8 md:px-12 lg:px-[116px] mb-[60px] sm:mb-[120px] font-sans text-[#132219]"
     >
-      <div className="max-w-[1280px] flex flex-col lg:flex-row justify-between items-start w-full mx-auto gap-[10px] lg:gap-[80px] lg:items-stretch">
+      <div className="max-w-full lg:max-w-[1280px] flex flex-col lg:flex-row justify-between items-start w-full mx-auto gap-[10px] lg:gap-[80px] lg:items-stretch">
         {/* Linke Seite – Eingaben */}
-        <div className="flex flex-col w-full px-4 max-w-[536px] gap-[48px]">
-          <div className="flex flex-col lg:flex-row items-start justify-between w-full mb-10 mt-6 lg:mb-20 lg:mt-10">
+        <div className="flex flex-col w-full px-2 sm:px-4 max-w-full lg:max-w-[536px] gap-[24px] sm:gap-[48px]">
+          <div className="flex flex-col lg:flex-row items-start justify-between w-full mb-6 sm:mb-10 mt-4 sm:mt-6 lg:mb-20 lg:mt-10">
             <h1
               className="
                 text-[40px] sm:text-[52px] lg:text-[72px]
@@ -238,7 +238,7 @@ export default function Calculator() {
           </div>
 
           {/* Input-Block */}
-          <div className="flex flex-col gap-[10px] mt-[-6px]">
+          <div className="flex flex-col gap-[6px] sm:gap-[10px] mt-[-6px]">
             {/* Toggle Kauf / Refi */}
             <div className="flex gap-[12px]">
               <ToggleButton
@@ -411,7 +411,7 @@ export default function Calculator() {
         </div>
 
         {/* Rechte Seite – Ausgaben */}
-        <div className="px-4 flex flex-col items-start w-full max-w-[628px] lg:mt-[253px] mt-[40px]">
+        <div className="px-2 sm:px-4 flex flex-col items-start w-full max-w-full lg:max-w-[628px] lg:mt-[253px] mt-[20px] sm:mt-[40px]">
           {/* InfoBox */}
           <div className="flex flex-col gap-[36px] w-full">
             <InfoBox
@@ -423,7 +423,7 @@ export default function Calculator() {
           </div>
 
           {/* Progress-Boxen */}
-          <div className="grid grid-cols-2 gap-[10px] w-full mt-[20px] mb-[10px]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-[10px] w-full mt-[10px] sm:mt-[20px] mb-[6px] sm:mb-[10px]">
             {/* Kauf */}
             {loanType === "purchase" && (
               <>
@@ -481,7 +481,7 @@ export default function Calculator() {
           </div>
 
           {/* Kosten-Boxen */}
-          <div className="grid grid-cols-2 gap-[10px] w-full mt-[16px]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-[10px] w-full mt-[8px] sm:mt-[16px]">
             {loanType === "refinancing" ? (
               <>
                 <SmallBox
@@ -719,7 +719,7 @@ function ProgressBox({
       </div>
 
       <h2 className="text-[40px] font-semibold leading-none">{value}</h2>
-      <p className="text-[13px] text-[#4b4b4b]">
+      <p className="hidden text-[13px] text-[#4b4b4b]">
         {current} / {total}
       </p>
     </div>
