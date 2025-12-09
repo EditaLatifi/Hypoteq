@@ -51,6 +51,7 @@ const isPartner = normalizedCustomer === "partner";
   const isRendite = propertyData?.nutzung === "Rendite-Immobilie" || 
                     propertyData?.nutzung?.toLowerCase()?.includes("rendite") ||
                     propertyData?.nutzung?.toLowerCase()?.includes("investment");
+  const isVermietet = propertyData?.nutzung?.toLowerCase()?.includes("vermietet");
                     
   /* ==========================
    SHFAQJA E SEKSIONEVE
@@ -114,7 +115,7 @@ const ToggleButton = ({ active, children, onClick }: any) => {
           <div className="space-y-6 lg:space-y-10">
             <h1 className="text-3xl lg:text-4xl font-semibold">{t("funnel.newPurchase" as any)}</h1>
 
-     {/* Kaufpreis */}
+    {/* Kaufpreis */}
 <div>
 <input
   type="text"
@@ -134,7 +135,7 @@ const ToggleButton = ({ active, children, onClick }: any) => {
 
 </div>
 
-{/* Eigenmittel */}
+  {/* Eigenmittel */}
 <div>
   <label className="font-medium">{t("funnel.ownFunds" as any)}</label>
 
@@ -202,7 +203,7 @@ const ToggleButton = ({ active, children, onClick }: any) => {
 </div>
 
 
-{/* PK-Verpfändung + Hypothekarlaufzeiten */}
+  {/* PK-Verpfändung + Hypothekarlaufzeiten */}
 <div className="flex flex-col md:flex-row gap-4 md:gap-[45px]">
 
 {/* PK-Verpfändung – hide for juristische Personen and Rendite */}
@@ -260,16 +261,70 @@ const ToggleButton = ({ active, children, onClick }: any) => {
 </div>
 
 
-   {/* Einkommen – hide for juristische Personen */}
-{!isJur && (
-  <div>
-    <label className="font-medium">
-      {t("funnel.income" as any)}<br />
-      {t("funnel.incomeDescription" as any)}
-    </label>
 
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
-      <div className="col-span-1 md:col-span-2">
+    {/* Spezialinputs für Rendite/Vermietet */}
+    {/* Jährlicher Netto-Mietertrag für Rendite */}
+    {isRendite && (
+      <div>
+        <label className="font-medium">Jährlicher Netto-Mietertrag</label>
+        <input
+          type="text"
+          placeholder="CHF"
+          className={inputStyle}
+          value={data.netto_mietertrag ? `CHF ${formatCHF(data.netto_mietertrag)}` : ""}
+          onChange={e => {
+            const raw = e.target.value.replace(/CHF\s?|'/g, "");
+            const numeric = raw.replace(/\D/g, "");
+            handleChange("netto_mietertrag", numeric);
+          }}
+        />
+      </div>
+    )}
+
+    {/* Einkommen + Jährlicher Netto-Mietertrag for Vermietet */}
+    {isVermietet && (
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
+        <div>
+          <label className="font-medium">Einkommen</label>
+          <input
+            type="text"
+            placeholder="CHF"
+            className={inputStyle}
+            value={data.einkommen ? `CHF ${formatCHF(data.einkommen)}` : ""}
+            onChange={e => {
+              const raw = e.target.value.replace(/CHF\s?|'/g, "");
+              const numeric = raw.replace(/\D/g, "");
+              handleChange("einkommen", numeric);
+            }}
+          />
+        </div>
+        <div>
+          <label className="font-medium">Jährlicher Netto-Mietertrag</label>
+          <input
+            type="text"
+            placeholder="CHF"
+            className={inputStyle}
+            value={data.netto_mietertrag ? `CHF ${formatCHF(data.netto_mietertrag)}` : ""}
+            onChange={e => {
+              const raw = e.target.value.replace(/CHF\s?|'/g, "");
+              const numeric = raw.replace(/\D/g, "");
+              handleChange("netto_mietertrag", numeric);
+            }}
+          />
+        </div>
+      </div>
+    )}
+
+   {/* Einkommen – hide for juristische Personen, except for Vermietet */}
+   {!isJur && !isVermietet && (
+    <div>
+      <label className="font-medium">
+        {t("funnel.income" as any)}<br />
+        {t("funnel.incomeDescription" as any)}
+      </label>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
+        <div className="col-span-1 md:col-span-2">
 <input
   type="text"
   placeholder={t("funnel.grossIncome" as any)}
@@ -282,10 +337,10 @@ const ToggleButton = ({ active, children, onClick }: any) => {
   }}
 />
 
+        </div>
       </div>
     </div>
-  </div>
-)}
+   )}
 
 
     {/* Steueroptimierung – hidden for juristische Personen and Partners */}

@@ -51,22 +51,13 @@ export default function FunnelCalc({ data, projectData, propertyData, borrowers 
 
   // Neue Hypo & Natürliche Person
   if (!isJur && projektArt === "kauf") {
-    // b. Rendite: vetëm input për mietertrag
+    // b. Rendite: no input here, handled in form
     if (isRendite) {
-      return (
-        <div>
-          <Input label="Jährlicher Netto-Mietertrag" value={data.netto_mietertrag || ""} />
-        </div>
-      );
+      return null;
     }
-    // d. Vermietet: input për Einkommen + mietertrag
+    // d. Vermietet: no input here, handled in form
     if (isVermietet) {
-      return (
-        <div>
-          <Input label="Einkommen" value={data.einkommen || ""} />
-          <Input label="Jährlicher Netto-Mietertrag" value={data.netto_mietertrag || ""} />
-        </div>
-      );
+      return null;
     }
     // a. Selbstbewohnt: kalkulo si Hauptwohnsitz
     if (isSelbstbewohnt) {
