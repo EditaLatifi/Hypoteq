@@ -1,5 +1,10 @@
 "use client";
 
+// Funksion për formatim CHF
+function CHF(v: number) {
+  return "CHF " + Math.round(v).toLocaleString("de-CH");
+}
+
 interface FunnelCalcProps {
   data: any;
   projectData?: any;
@@ -34,22 +39,70 @@ const STRESS_RATE = 0.05;
 
 export default function FunnelCalc({ data, projectData, propertyData, borrowers }: FunnelCalcProps) {
   const projektArt = projectData?.projektArt?.toLowerCase();
-
   const borrowerType = borrowers?.[0]?.type;
   const isJur = borrowerType === "jur";
-
-  // Check if it's a Rendite object - check both data and propertyData
   const nutzung = propertyData?.nutzung || data.nutzung;
   const isRendite = nutzung === "Rendite-Immobilie" || 
                     nutzung?.toLowerCase()?.includes("rendite") ||
                     nutzung?.toLowerCase()?.includes("investment");
-
-  // Detect Zweitwohnsitz (secondary residence)
   const isZweitwohnsitz = nutzung?.toLowerCase()?.includes("zweit") || nutzung?.toLowerCase()?.includes("ferien") || nutzung?.toLowerCase()?.includes("secondary");
-  // Hauptwohnsitz (main residence)
-  const isHauptwohnsitz = !isZweitwohnsitz;
+  const isSelbstbewohnt = nutzung?.toLowerCase()?.includes("selbstbewohnt");
+  const isVermietet = nutzung?.toLowerCase()?.includes("vermietet");
 
-  const CHF = (v: number) => "CHF " + Math.round(v).toLocaleString("de-CH");
+  // Neue Hypo & Natürliche Person
+  if (!isJur && projektArt === "kauf") {
+    // b. Rendite: vetëm input për mietertrag
+    if (isRendite) {
+      return (
+        <div>
+          <Input label="Jährlicher Netto-Mietertrag" value={data.netto_mietertrag || ""} />
+        </div>
+      );
+    }
+    // d. Vermietet: input për Einkommen + mietertrag
+    if (isVermietet) {
+      return (
+        <div>
+          <Input label="Einkommen" value={data.einkommen || ""} />
+          <Input label="Jährlicher Netto-Mietertrag" value={data.netto_mietertrag || ""} />
+        </div>
+      );
+    }
+    // a. Selbstbewohnt: kalkulo si Hauptwohnsitz
+    if (isSelbstbewohnt) {
+      // ...kalkulo si Immobilienkauf Hauptwohnsitz (kodi ekziston më poshtë)...
+    }
+    // c. Zweitwohnsitz: kalkulo si Zweitwohnsitz
+    if (isZweitwohnsitz) {
+      // ...kalkulo si Immobilienkauf Zweitwohnsitz (kodi ekziston më poshtë)...
+    }
+  }
+  // Kontroll për Neue Hypo & Juristische Person (vetëm inputet, pa kalkulator)
+  if (isJur && projektArt === "kauf") {
+    return (
+      <div>
+        {/* Inputet bazë */}
+        <Input label="Eigenmittel" value={data.eigenmittel_bar || ""} />
+        {/* Selbstbewohnt, Zweitwohnsitz, Rendite, Vermietet */}
+        {isSelbstbewohnt && <Input label="Selbstbewohnt" value={nutzung} />}
+        {isZweitwohnsitz && <Input label="Zweitwohnsitz" value={nutzung} />}
+        {/* Rendite: vetëm Jährlicher Netto-Mietertrag */}
+        {isRendite && <Input label="Jährlicher Netto-Mietertrag" value={data.netto_mietertrag || ""} />}
+        {/* Vermietet: Einkomen + Jährlicher Netto-Mietertrag */}
+        {isVermietet && (
+          <>
+            <Input label="Einkommen" value={data.einkommen || ""} />
+            <Input label="Jährlicher Netto-Mietertrag" value={data.netto_mietertrag || ""} />
+          </>
+        )}
+      </div>
+    );
+  }
+  // Kontroll për Juristische Person & Selbstbewohnt, Rendite, Zweitwohnsitz, Vermietet
+  if (isJur && isSelbstbewohnt) return null;
+  if (isJur && isRendite) return null;
+  if (isJur && isZweitwohnsitz) return null;
+  if (isJur && isVermietet) return null;
 
   /* ------------------------------------------
      KAUF
@@ -341,6 +394,16 @@ function SmallBox({ label, value }: any) {
       >
         {value}
       </p>
+    </div>
+  );
+}
+
+// Komponent i thjeshtë për input
+function Input({ label, value }: { label: string; value: string }) {
+  return (
+    <div style={{ marginBottom: 12 }}>
+      <label style={{ fontWeight: "bold" }}>{label}</label>
+      <input type="text" value={value} readOnly style={{ width: "100%", padding: 6, borderRadius: 4, border: "1px solid #ccc" }} />
     </div>
   );
 }
