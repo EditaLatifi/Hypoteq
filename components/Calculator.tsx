@@ -747,7 +747,7 @@ function ProgressBox({ title, value, current, total, loanType, red = false, thre
       </div>
       <h2 className="text-[40px] font-semibold leading-none">{value}</h2>
       {thresholdLabel && (
-        <div className="text-xs text-gray-500 mt-2">{thresholdLabel}</div>
+        <div className="text-xs text-gray-500 mt-2 hidden">{thresholdLabel}</div>
       )}
     </div>
   );
