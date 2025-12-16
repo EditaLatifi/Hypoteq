@@ -1,4 +1,22 @@
-﻿{
+﻿
+{
+    "funnelCalc": {
+    "notEligible": "Non admissible",
+    "financingPossible": "Financement possible.",
+    "calculation": "Calcul",
+    "estimatedFinancingNeed": "Besoins de financement estimés:",
+    "estimatedMortgageNeed": "Besoins hypothécaires estimés:",
+    "ownFunds": "Fonds propres",
+    "mortgage": "Hypothèque",
+    "affordability": "Capacité financière",
+    "increase": "Augmentation",
+    "redemption": "Rachat",
+    "ownerOccupied": "Occupé par le propriétaire",
+    "secondHome": "Résidence secondaire",
+    "netRentalIncome": "Revenu locatif net annuel",
+    "income": "Revenu"
+  },
+  "purchasePriceLabel": "Prix d'achat",
   "seo": {
     "homeTitle": "HYPOTEQ - Hypothèques en Suisse | Meilleures Conditions & Conseils",
     "homeDescription": "Compare les offres hypothécaires de plus de 100 banques suisses. Gratuit, indépendant et transparent. Trouve les meilleures conditions pour ton financement immobilier.",
@@ -88,6 +106,20 @@
     "fiveYearsFrom": "5 ans dès 1.20%",
     "tenYearsFrom": "10 ans dès 1.48%",
     "footerText": "Avec HYPOTEQ, tu sais toujours où tu en es. Pas de taux vitrines, pas de frais cachés – uniquement des offres justes et transparentes."
+  },
+  "contactform": {
+    "firstName": "Prénom",
+    "lastName": "Nom de famille",
+    "company": "Nom de l'entreprise",
+    "optional": "optionnel",
+    "inquiryTypeSelect": "Sélectionner le type de demande",
+    "inquiryTypeGeneral": "Demande générale",
+    "inquiryTypePartnership": "Partenariat",
+    "inquiryTypeFinancing": "Financement",
+    "email": "E-mail",
+    "phone": "Numéro de téléphone",
+    "message": "Message",
+    "submit": "Envoyer"
   },
   "footer": {
     "copyright": "Tous droits réservés",
@@ -232,17 +264,17 @@
     "firstName": "Prénom",
     "lastName": "Nom de famille",
     "email": "Adresse e-mail",
-    "zipCode": "Code postal",
+    "phone": "Téléphone",
     "areYouPartner": "Êtes-vous partenaire?",
     "clickHere": "Cliquez ici",
     "continue": "Continuer",
     "errorFirstName": "Veuillez entrer ton prénom.",
     "errorLastName": "Veuillez entrer ton nom de famille.",
     "errorEmail": "Veuillez entrer une adresse e-mail valide.",
-    "errorZip": "Veuillez entrer ton code postal.",
+    "errorPhone": "Veuillez entrer votre numéro de téléphone.",
     "errorPartnerEmail": "Veuillez entrer ton adresse e-mail.",
     "validEmailError": "Veuillez entrer une adresse e-mail valide",
-    "validZipError": "Veuillez entrer un code postal suisse valide (1000-9999)",
+    "validPhoneError": "Veuillez entrer un numéro de téléphone suisse valide (par ex. +41 79 123 45 67)",
     "pleaseSelectOption": "Veuillez sélectionner une option",
     "errorPropertyType": "Veuillez sélectionner le type de propriété",
     "errorPropertyKind": "Veuillez sélectionner le genre de propriété",
@@ -683,7 +715,7 @@
     "stat2Desc": "De la demande à l'approbation",
     "stat3Title": "2,500+",
     "stat3Desc": "Clients satisfaits qui nous ont déjà fait confiance.",
-    "stat4Title": "5+ Ans",
+    "stat4Title": "35+ Ans",
     "stat4Desc": "Expérience du monde hypothécaire et FinTech."
   },
   "startProcess": {

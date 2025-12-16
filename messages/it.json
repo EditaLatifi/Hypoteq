@@ -1,4 +1,22 @@
-﻿{
+﻿
+{
+    "funnelCalc": {
+    "notEligible": "Non idoneo",
+    "financingPossible": "Finanziamento possibile.",
+    "calculation": "Calcolo",
+    "estimatedFinancingNeed": "Fabbisogno di finanziamento stimato:",
+    "estimatedMortgageNeed": "Fabbisogno ipotecario stimato:",
+    "ownFunds": "Fondi propri",
+    "mortgage": "Ipoteca",
+    "affordability": "Sostenibilità",
+    "increase": "Aumento",
+    "redemption": "Riscatto",
+    "ownerOccupied": "Abitazione principale",
+    "secondHome": "Seconda casa",
+    "netRentalIncome": "Reddito netto da locazione",
+    "income": "Reddito"
+  },
+  "purchasePriceLabel": "Prezzo d'acquisto",
   "seo": {
     "homeTitle": "HYPOTEQ - Ipoteche in Svizzera | Migliori Condizioni & Consulenza",
     "homeDescription": "Confronta le offerte di ipoteca di oltre 100 banche svizzere. Gratuito, indipendente e trasparente. Trova le migliori condizioni per il tuo finanziamento immobiliare.",
@@ -88,6 +106,20 @@
     "fiveYearsFrom": "5 anni da 1.20%",
     "tenYearsFrom": "10 anni da 1.48%",
     "footerText": "Con HYPOTEQ sai sempre dove ti trovi. Nessun tasso vetrina, nessuna commissione nascosta – solo offerte eque e trasparenti."
+  },
+  "contactform": {
+    "firstName": "Nome",
+    "lastName": "Cognome",
+    "company": "Nome azienda",
+    "optional": "opzionale",
+    "inquiryTypeSelect": "Seleziona tipo di richiesta",
+    "inquiryTypeGeneral": "Richiesta generale",
+    "inquiryTypePartnership": "Partnership",
+    "inquiryTypeFinancing": "Finanziamento",
+    "email": "E-mail",
+    "phone": "Numero di telefono",
+    "message": "Messaggio",
+    "submit": "Invia"
   },
   "footer": {
     "copyright": "Tutti i diritti riservati",
@@ -232,17 +264,17 @@
     "firstName": "Nome",
     "lastName": "Cognome",
     "email": "Indirizzo email",
-    "zipCode": "Codice postale",
+    "phone": "Telefono",
     "areYouPartner": "Sei un partner?",
     "clickHere": "Clicca qui",
     "continue": "Continua",
     "errorFirstName": "Si prega di inserire il proprio nome.",
     "errorLastName": "Si prega di inserire il proprio cognome.",
     "errorEmail": "Si prega di inserire un indirizzo email valido.",
-    "errorZip": "Si prega di inserire il proprio codice postale.",
+    "errorPhone": "Si prega di inserire il proprio numero di telefono.",
     "errorPartnerEmail": "Si prega di inserire il proprio indirizzo email.",
     "validEmailError": "Si prega di inserire un indirizzo email valido",
-    "validZipError": "Si prega di inserire un codice postale svizzero valido (1000-9999)",
+    "validPhoneError": "Si prega di inserire un numero di telefono svizzero valido (es. +41 79 123 45 67)",
     "backButtonText": "Indietro",
     "commentLabel": "Commento",
     "mortgageIncreaseQuestion": "Aumento dell'ipoteca?",
@@ -682,7 +714,7 @@
     "stat2Desc": "Dalla richiesta all'approvazione",
     "stat3Title": "2,500+",
     "stat3Desc": "Clienti soddisfatti che ci hanno già dato fiducia.",
-    "stat4Title": "5+ Anni",
+    "stat4Title": "35+ Anni",
     "stat4Desc": "Esperienza dal mondo ipotecario e FinTech."
   },
   "startProcess": {

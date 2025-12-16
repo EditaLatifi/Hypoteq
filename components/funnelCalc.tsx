@@ -1,5 +1,7 @@
 "use client";
 
+
+import { useTranslation } from "@/hooks/useTranslation";
 // Funksion për formatim CHF
 function CHF(v: number) {
   return "CHF " + Math.round(v).toLocaleString("de-CH");
@@ -38,6 +40,7 @@ const getRealRate = (modell: string) => {
 const STRESS_RATE = 0.05;
 
 export default function FunnelCalc({ data, projectData, propertyData, borrowers }: FunnelCalcProps) {
+  const { t } = useTranslation();
   const projektArt = projectData?.projektArt?.toLowerCase();
   const borrowerType = borrowers?.[0]?.type;
   const isJur = borrowerType === "jur";
@@ -73,17 +76,17 @@ export default function FunnelCalc({ data, projectData, propertyData, borrowers 
     return (
       <div>
         {/* Inputet bazë */}
-        <Input label="Eigenmittel" value={data.eigenmittel_bar || ""} />
+        <Input label={t("funnelCalc.ownFunds")} value={data.eigenmittel_bar || ""} />
         {/* Selbstbewohnt, Zweitwohnsitz, Rendite, Vermietet */}
-        {isSelbstbewohnt && <Input label="Selbstbewohnt" value={nutzung} />}
-        {isZweitwohnsitz && <Input label="Zweitwohnsitz" value={nutzung} />}
+        {isSelbstbewohnt && <Input label={t("funnelCalc.ownerOccupied")} value={nutzung} />}
+        {isZweitwohnsitz && <Input label={t("funnelCalc.secondHome")} value={nutzung} />}
         {/* Rendite: vetëm Jährlicher Netto-Mietertrag */}
-        {isRendite && <Input label="Jährlicher Netto-Mietertrag" value={data.netto_mietertrag || ""} />}
+        {isRendite && <Input label={t("funnelCalc.netRentalIncome")} value={data.netto_mietertrag || ""} />}
         {/* Vermietet: Einkomen + Jährlicher Netto-Mietertrag */}
         {isVermietet && (
           <>
-            <Input label="Einkommen" value={data.einkommen || ""} />
-            <Input label="Jährlicher Netto-Mietertrag" value={data.netto_mietertrag || ""} />
+            <Input label={t("funnelCalc.income")} value={data.einkommen || ""} />
+            <Input label={t("funnelCalc.netRentalIncome")} value={data.netto_mietertrag || ""} />
           </>
         )}
       </div>
@@ -146,16 +149,16 @@ export default function FunnelCalc({ data, projectData, propertyData, borrowers 
       return (
         <BoxWrapper>
           <TopBox
-            title={isNegative ? "Not eligible" : "Berechnung"}
-            subtitle="Geschätzter Finanzierungsbedarf:"
+            title={isNegative ? t("funnelCalc.notEligible") : t("funnelCalc.calculation")}
+            subtitle={t("funnelCalc.estimatedFinancingNeed")}
             value={CHF(hypothek)}
             error={isNegative}
           />
 
           <TwoBoxGrid
-            leftLabel="Eigenmittel"
+            leftLabel={t("funnelCalc.ownFunds")}
             leftValue={CHF(eigenmittel)}
-            rightLabel="Hypothek"
+            rightLabel={t("funnelCalc.mortgage")}
             rightValue={CHF(hypothek)}
           />
         </BoxWrapper>
@@ -170,16 +173,16 @@ export default function FunnelCalc({ data, projectData, propertyData, borrowers 
       return (
         <BoxWrapper>
           <TopBox
-            title={isNegative ? "Nicht berechtigt" : "Finanzierung möglich."}
-            subtitle="Geschätzter Hypothekbedarf:"
+            title={isNegative ? t("funnelCalc.notEligible") : t("funnelCalc.financingPossible")}
+            subtitle={t("funnelCalc.estimatedMortgageNeed")}
             value={CHF(hypothek)}
             error={isNegative}
           />
 
           <TwoBoxGrid
-            leftLabel="Eigenmittel"
+            leftLabel={t("funnelCalc.ownFunds")}
             leftValue={`${eigenmittelPct}%`}
-            rightLabel="Hypothek"
+            rightLabel={t("funnelCalc.mortgage")}
             rightValue={CHF(hypothek)}
           />
         </BoxWrapper>
@@ -189,16 +192,16 @@ export default function FunnelCalc({ data, projectData, propertyData, borrowers 
     return (
       <BoxWrapper>
         <TopBox
-          title={isNegative ? "Nicht berechtigt" : "Finanzierung möglich."}
-          subtitle="Geschätzter Hypothekbedarf:"
+          title={isNegative ? t("funnelCalc.notEligible") : t("funnelCalc.financingPossible")}
+          subtitle={t("funnelCalc.estimatedMortgageNeed")}
           value={CHF(hypothek)}
           error={isNegative}
         />
 
         <TwoBoxGrid
-          leftLabel="Eigenmittel"
+          leftLabel={t("funnelCalc.ownFunds")}
           leftValue={`${eigenmittelPct}%`}
-          rightLabel="Tragbarkeit"
+          rightLabel={t("funnelCalc.affordability")}
           rightValue={`${(
             ((hypothek * STRESS_RATE + kaufpreis * 0.008) /
               (Number(data.brutto || 0) + Number(data.bonus || 0) || 1)) *
@@ -264,16 +267,16 @@ export default function FunnelCalc({ data, projectData, propertyData, borrowers 
       return (
         <BoxWrapper>
           <TopBox
-            title={isNegative ? "Not eligible" : "Berechnung"}
-            subtitle="Geschätzter Finanzierungsbedarf:"
+            title={isNegative ? t("funnelCalc.notEligible") : t("funnelCalc.calculation")}
+            subtitle={t("funnelCalc.estimatedFinancingNeed")}
             value={CHF(hypothek)}
             error={isNegative}
           />
 
           <TwoBoxGrid
-            leftLabel="Hypothek"
+            leftLabel={t("funnelCalc.mortgage")}
             leftValue={CHF(hypothek)}
-            rightLabel="Erhöhung"
+            rightLabel={t("funnelCalc.increase")}
             rightValue={CHF(erhoehung)}
           />
         </BoxWrapper>
@@ -299,16 +302,16 @@ export default function FunnelCalc({ data, projectData, propertyData, borrowers 
       return (
         <BoxWrapper>
           <TopBox
-            title={isNegative ? "Nicht berechtigt" : "Finanzierung möglich."}
-            subtitle="Geschätzter Hypothekbedarf:"
+            title={isNegative ? t("funnelCalc.notEligible") : t("funnelCalc.financingPossible")}
+            subtitle={t("funnelCalc.estimatedMortgageNeed")}
             value={CHF(hypothek)}
             error={isNegative}
           />
 
           <TwoBoxGrid
-            leftLabel="Ablösung"
+            leftLabel={t("funnelCalc.redemption")}
             leftValue={CHF(betrag)}
-            rightLabel="Erhöhung"
+            rightLabel={t("funnelCalc.increase")}
             rightValue={CHF(erhoehung)}
           />
         </BoxWrapper>
@@ -318,16 +321,16 @@ export default function FunnelCalc({ data, projectData, propertyData, borrowers 
     return (
       <BoxWrapper>
         <TopBox
-          title={isNegative ? "Nicht berechtigt" : "Finanzierung möglich."}
-          subtitle="Geschätzter Hypothekbedarf:"
+          title={isNegative ? t("funnelCalc.notEligible") : t("funnelCalc.financingPossible")}
+          subtitle={t("funnelCalc.estimatedMortgageNeed")}
           value={CHF(hypothek)}
           error={isNegative}
         />
 
         <TwoBoxGrid
-          leftLabel="Hypothek"
+          leftLabel={t("funnelCalc.mortgage")}
           leftValue={CHF(hypothek)}
-          rightLabel="Tragbarkeit"
+          rightLabel={t("funnelCalc.affordability")}
           rightValue={`${tragbarkeitPct.toFixed(0)}%`}
         />
       </BoxWrapper>
