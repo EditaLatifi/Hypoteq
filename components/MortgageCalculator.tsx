@@ -634,7 +634,11 @@ function SliderInput({ label, value, setValue, min, max, minRequired }: any) {
         max={max}
         value={value}
         onChange={(e) => {
-          const newVal = Number(e.target.value);
+          let newVal = Number(e.target.value);
+          // Only apply 5000 step for Kaufpreis / Immobilienwert
+          if (label && label.toLowerCase().includes("kaufpreis")) {
+            newVal = Math.round(newVal / 5000) * 5000;
+          }
           if (minRequired !== undefined && newVal < minRequired) {
             setValue(minRequired);
           } else {
