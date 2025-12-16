@@ -33,8 +33,8 @@ export default function Calculator() {
   const [income, setIncome] = useState(0); // Brutto-Haushaltseinkommen p.a. (B11)
 
   // Refinanzierung
-  const [existingMortgage, setExistingMortgage] = useState(0); // Bisherige Hypothek
-  const [newMortgage, setNewMortgage] = useState(0); // Neue Hypothek (B9+B10 in Refi-Excel)
+  const [existingMortgage, setExistingMortgage] = useState(0); // B9: Bisherige Hypothek
+  const [mortgageIncrease, setMortgageIncrease] = useState(0); // B10: Hypothekerhoehung
 
   const [residenceType, setResidenceType] = useState<"haupt" | "zweit">("haupt");
   const [loanType, setLoanType] = useState<"purchase" | "refinancing" | null>(
@@ -85,10 +85,10 @@ export default function Calculator() {
   // Kauf: Total-Hypothek wie B51 = Kaufpreis - Eigenmittel
   const totalMortgagePurchase = Math.max(0, propertyPrice - ownFunds);
 
-  // Refi: Total-Hypothek wie in Refi-Sheet = neue Hypothek (B9+B10)
-  const totalMortgageRefi = Math.max(0, newMortgage);
+  // Refi: Total-Hypothek si në Excel = B9 + B10
+  const totalMortgageRefi = Math.max(0, existingMortgage + mortgageIncrease);
 
-  // Für Berechnungen (Tragbarkeit UND Monatskosten)
+  // Për të gjitha llogaritjet (Tragbarkeit dhe Monatskosten)
   const totalMortgageForCalc =
     loanType === "purchase" ? totalMortgagePurchase : totalMortgageRefi;
 
@@ -157,42 +157,52 @@ export default function Calculator() {
 
   const isEligible = isBelehnungOK && isTragbarkeitOK && isEquityOK;
 
-  // --- Monatskosten wie „Ergebnis & Monatskosten“ im Excel (B56–B59) ---
+  // --- Monatskosten sipas Excel (B56–B59) ---
 
-  // effektive Jahreszinsen (B56 * 12)
-  const interestYearEffective = totalMortgageForCalc * effectiveRate;
-  const monthlyInterest = interestYearEffective / 12;
-
-  // Jahres-Nebenkosten (0.8% vom Hypobetrag) (B58 * 12)
-  const maintenanceYear = totalMortgageForCalc * params.maintenanceRate;
+  // Korrigjo: Unterhalt/Nebenkosten = 0.8% e vlerës së pronës
+  const maintenanceYear = propertyPrice * params.maintenanceRate;
   const monthlyMaintenance = maintenanceYear / 12;
 
-  // Jahres-Amortisation 2. Hypothek (B53/B18) -> nur Hauptwohnsitz
+  // Zbritje për amortizim të dytë (jo negativ)
+  const secondMortgageOld =
+    residenceType === "haupt"
+      ? Math.max(0, existingMortgage - firstLimitAbs)
+      : 0;
+  const oldAmortYear =
+    residenceType === "haupt" && params.amortizationYears > 0
+      ? Math.max(0, secondMortgageOld / params.amortizationYears)
+      : 0;
+
+  // Vjetër (vetëm B9)
+  const oldInterestYear = existingMortgage * effectiveRate;
+  const oldMaintenanceYear = propertyPrice * params.maintenanceRate;
+  const monthlyOld = (oldInterestYear + oldMaintenanceYear + oldAmortYear) / 12;
+
+  // Re (B9+B10)
+  const newTotal = totalMortgageRefi;
+  const newInterestYear = newTotal * effectiveRate;
+  const newMaintenanceYear = propertyPrice * params.maintenanceRate;
+  const newSecondMortgage =
+    residenceType === "haupt"
+      ? Math.max(0, newTotal - firstLimitAbs)
+      : 0;
+  const newAmortYear =
+    residenceType === "haupt" && params.amortizationYears > 0
+      ? Math.max(0, newSecondMortgage / params.amortizationYears)
+      : 0;
+  const monthlyNew = (newInterestYear + newMaintenanceYear + newAmortYear) / 12;
+
+  // Për llogaritje të përgjithshme (për "purchase" ose "refinancing")
+  const interestYearEffective = totalMortgageForCalc * effectiveRate;
+  const monthlyInterest = interestYearEffective / 12;
+  // Amortizimi i përgjithshëm
   const amortizationYear =
     residenceType === "haupt" && params.amortizationYears > 0
-      ? secondMortgage / params.amortizationYears
+      ? Math.max(0, secondMortgage / params.amortizationYears)
       : 0;
   const monthlyAmortization = amortizationYear / 12;
-
-  // Gesamtkosten pro Monat (B59)
-  const monthlyCost =
-    monthlyInterest + monthlyMaintenance + monthlyAmortization;
-
-  // Alte Monatskosten bei Refinanzierung (nur Info, nicht aus Excel)
-  let monthlyOld = 0;
-  if (loanType === "refinancing") {
-    const oldInterestYear = existingMortgage * effectiveRate;
-    const oldMaintenanceYear =
-      existingMortgage * params.maintenanceRate;
-    const oldAmortYear =
-      residenceType === "haupt" && params.amortizationYears > 0
-        ? Math.max(0, existingMortgage - firstLimitAbs) /
-          params.amortizationYears
-        : 0;
-
-    monthlyOld =
-      (oldInterestYear + oldMaintenanceYear + oldAmortYear) / 12;
-  }
+  // Totali i kostove mujore
+  const monthlyCost = monthlyInterest + monthlyMaintenance + monthlyAmortization;
 
   // Slider-Visual-Limits
   const minVisualMax = 100000;
@@ -282,22 +292,18 @@ export default function Calculator() {
             {loanType === "refinancing" && (
               <>
                 <SliderInput
-                  label={t("calculator.existingMortgage")}
+                  label="Bisherige Hypothek"
                   value={existingMortgage}
-                  setValue={(v: number) =>
-                    setExistingMortgage(Math.min(v, propertyPrice))
-                  }
+                  setValue={setExistingMortgage}
                   min={0}
-                  max={sliderMaxExisting}
+                  max={propertyPrice}
                 />
                 <SliderInput
-                  label={t("calculator.newMortgage")}
-                  value={newMortgage}
-                  setValue={(v: number) =>
-                    setNewMortgage(Math.min(v, dynamicMaxMortgage))
-                  }
+                  label="Hypothekerhoehung"
+                  value={mortgageIncrease}
+                  setValue={setMortgageIncrease}
                   min={0}
-                  max={sliderMaxNew}
+                  max={params.maxBelehnung * propertyPrice}
                 />
               </>
             )}

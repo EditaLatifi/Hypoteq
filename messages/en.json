@@ -102,9 +102,9 @@
     "subtitle": "Smart Choice. Best Rates.",
     "description": "Our indicative rates serve as guidance. Your personal rate may vary depending on your situation. We're happy to calculate your individual rate.",
     "disclaimer": "Your personal rate may vary depending on your situation – we're happy to calculate your individual rate.",
-    "saronFrom": "Saron from 0.89%",
-    "fiveYearsFrom": "5 years from 1.20%",
-    "tenYearsFrom": "10 years from 1.48%",
+    "saronFrom": "Saron from",
+    "fiveYearsFrom": "5 years from",
+    "tenYearsFrom": "10 years from",
     "footerText": "With HYPOTEQ you always know where you stand. No window dressing rates, no hidden fees – just fair, transparent offers."
   },
   "contactform": {

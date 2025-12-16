@@ -102,9 +102,9 @@
     "subtitle": "Choix Intelligent. Meilleurs Taux.",
     "description": "Nos taux indicatifs servent de guide. ton taux personnel peut varier selon ta situation. Nous calculons volontiers ton taux individuel.",
     "disclaimer": "ton taux personnel peut varier selon ta situation – nous calculons volontiers ton taux individuel.",
-    "saronFrom": "Saron dès 0.89%",
-    "fiveYearsFrom": "5 ans dès 1.20%",
-    "tenYearsFrom": "10 ans dès 1.48%",
+    "saronFrom": "Saron dès",
+    "fiveYearsFrom": "5 ans dès",
+    "tenYearsFrom": "10 ans dès",
     "footerText": "Avec HYPOTEQ, tu sais toujours où tu en es. Pas de taux vitrines, pas de frais cachés – uniquement des offres justes et transparentes."
   },
   "contactform": {
