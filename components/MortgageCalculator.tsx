@@ -41,7 +41,7 @@ export default function Calculator() {
     "purchase"
   );
 
-  const [interestOption, setInterestOption] = useState("SARON 0.85%");
+  const [interestOption, setInterestOption] = useState("SARON 0.89%");
   const [openDropdown, setOpenDropdown] = useState(false);
 
   // Parameter gemäss Excel
