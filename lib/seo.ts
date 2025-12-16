@@ -193,7 +193,7 @@ export function generateOrganizationSchema() {
       name: "Switzerland",
     },
     sameAs: [
-      "https://www.linkedin.com/company/hypoteq", // Add your social media links
+      "https://www.linkedin.com/company/hypoteq-ag", // Add your social media links
       "https://twitter.com/hypoteq",
     ],
   };

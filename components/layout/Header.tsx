@@ -195,7 +195,7 @@ export default function Header() {
             <Link href={`/${pathLocale}/beratung`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("footer.hypoteqAdvisory")}</Link>
             <div className="flex items-center justify-center w-full mt-2">
               <span className="text-base font-medium text-[#132219] mr-2">{t("common.followUs")}</span>
-              <a href="https://www.linkedin.com/company/hypoteq/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center">
+              <a href="https://www.linkedin.com/company/hypoteq-ag" target="_blank" rel="noopener noreferrer" className="inline-flex items-center">
                 {/* Official LinkedIn SVG icon without extra background */}
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                   <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.268c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zm13.5 11.268h-3v-5.604c0-1.337-.026-3.063-1.868-3.063-1.868 0-2.156 1.459-2.156 2.967v5.7h-3v-10h2.881v1.367h.041c.401-.761 1.379-1.563 2.838-1.563 3.036 0 3.6 2 3.6 4.594v5.602z" fill="#0A66C2"/>

@@ -133,7 +133,7 @@ export default function Footer() {
           <div className="flex items-center gap-2 py-1">
             <span className="text-[15px] md:text-[16px] lg:text-[18px]">{t("common.followUs")}</span>
             <a
-              href="https://www.linkedin.com/company/hypoteq/"
+              href="https://www.linkedin.com/company/hypoteq-ag"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center"

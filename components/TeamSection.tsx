@@ -126,7 +126,7 @@ const TeamSection: React.FC = () => {
 
                   <div className="flex justify-center lg:justify-start pt-[20px]">
                     <a
-                      href="https://www.linkedin.com/company/hypoteq-ag/"
+                      href="https://www.linkedin.com/company/hypoteq-ag"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="
