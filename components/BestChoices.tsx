@@ -72,9 +72,9 @@ export default function BestChoices() {
             w-full lg:w-[622px] h-auto lg:h-[225px]
           "
         >
-          <RateCard title={t("bestChoices.saronFrom")} value="0.83%" />
-          <RateCard title={t("bestChoices.fiveYearsFrom")} value="0.99%" />
-          <RateCard title={t("bestChoices.tenYearsFrom")} value="1.38%" />
+          <RateCard title={t("bestChoices.saronFrom")} value="0.89%" />
+          <RateCard title={t("bestChoices.fiveYearsFrom")} value="1.20%" />
+          <RateCard title={t("bestChoices.tenYearsFrom")} value="1.48%" />
         </div>
 
         {/* Info text - shown inside box on mobile only */}

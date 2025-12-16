@@ -194,7 +194,7 @@
     "ownFunds": "Fondi propri",
     "grossIncome": "Reddito lordo familiare",
     "selectInterest": "Seleziona durata interessi:",
-    "interestOption1": "SARON 0.85%",
+    "interestOption1": "SARON 0.89%",
     "interestOption2": "Ipoteca fissa 5 anni – 1,03%",
     "interestOption3": "10 anni 1.40%",
     "financingPossiblePurchase": "Finanziamento possibile. Fabbisogno ipotecario stimato:",
@@ -645,7 +645,7 @@
     "stat2Desc": "Dalla richiesta all'approvazione",
     "stat3Title": "2,500+",
     "stat3Desc": "Clienti soddisfatti che ci hanno già dato fiducia.",
-    "stat4Title": "5+ Anni",
+    "stat4Title": "35+ Anni",
     "stat4Desc": "Esperienza dal mondo ipotecario e FinTech."
   },
   "startProcess": {

@@ -177,30 +177,35 @@ export default function Header() {
 
       {/* Full-width dropdown below header */}
       {menuOpen && (
-        <div className="absolute left-0 top-full w-full bg-white/80 backdrop-blur-lg shadow-2xl border-t border-[#CAF476] z-40 animate-fadeIn">
-          <div className="max-w-5xl mx-auto px-4 py-6 grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-4 justify-items-center items-center">
-            {/* COLUMN 1 */}
-            <Link href={`/${pathLocale}`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("footer.homePage")}</Link>
-            <Link href={`/${pathLocale}/hypotheken`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("footer.hypothekenMade")}</Link>
-            <Link href={`/${pathLocale}/documents`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("common.documents")}</Link>
-            <Link href={`/${pathLocale}/mezzanine`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("common.mezzanine")}</Link>
-            {/* COLUMN 2 */}
-            <Link href={`/${pathLocale}/uber-uns`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("footer.aboutUs")}</Link>
-            <Link href={`/${pathLocale}/kontaktieren-sie-uns`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("footer.contactUs")}</Link>
-            <Link href={`/${pathLocale}/partner-werden`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("footer.becomePartner")}</Link>
-            <Link href={`/${pathLocale}/impressum`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("footer.impressumData")}</Link>
-            {/* COLUMN 3 */}
-            <Link href={`/${pathLocale}/hypothekenrechner`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("footer.mortgageCalc")}</Link>
-            <Link href={`/${pathLocale}/faq`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("footer.faqTitle")}</Link>
-            <Link href={`/${pathLocale}/beratung`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("footer.hypoteqAdvisory")}</Link>
-            <div className="flex items-center justify-center w-full mt-2">
-              <span className="text-base font-medium text-[#132219] mr-2">{t("common.followUs")}</span>
-              <a href="https://www.linkedin.com/company/hypoteq-ag" target="_blank" rel="noopener noreferrer" className="inline-flex items-center">
-                {/* Official LinkedIn SVG icon without extra background */}
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.268c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zm13.5 11.268h-3v-5.604c0-1.337-.026-3.063-1.868-3.063-1.868 0-2.156 1.459-2.156 2.967v5.7h-3v-10h2.881v1.367h.041c.401-.761 1.379-1.563 2.838-1.563 3.036 0 3.6 2 3.6 4.594v5.602z" fill="#0A66C2"/>
-                </svg>
-              </a>
+        <div className="absolute left-0 top-full w-full bg-white shadow-2xl border-t border-[#CAF476] z-40 animate-fadeIn">
+          <div className="max-w-5xl mx-auto px-4 py-6 grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4 justify-items-center items-start">
+            {/* First column */}
+            <div className="flex flex-col w-full gap-2">
+              <Link href={`/${pathLocale}`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>Home Page</Link>
+              <Link href={`/${pathLocale}/hypotheken`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>Hypotheken leicht gemacht</Link>
+              <Link href={`/${pathLocale}/documents`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>Dokumente</Link>
+              <Link href={`/${pathLocale}/mezzanine`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>Mezzanine-Finanzierung</Link>
+            </div>
+            {/* Second column */}
+            <div className="flex flex-col w-full gap-2">
+              <Link href={`/${pathLocale}/uber-uns`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>Über uns</Link>
+              <Link href={`/${pathLocale}/kontaktieren-sie-uns`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>Kontaktiere uns</Link>
+              <Link href={`/${pathLocale}/partner-werden`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>HYPOTEQ Partner werden</Link>
+              <Link href={`/${pathLocale}/impressum`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>Impressum & Datenschutz</Link>
+            </div>
+            {/* Third column */}
+            <div className="flex flex-col w-full gap-2">
+              <Link href={`/${pathLocale}/hypothekenrechner`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>Hypothekenrechner</Link>
+              <Link href={`/${pathLocale}/faq`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>Frequently Asked Questions</Link>
+              <Link href={`/${pathLocale}/beratung`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>HYPOTEQ Advisory</Link>
+              <div className="flex items-center justify-center w-full mt-2">
+                <span className="text-base font-medium text-[#132219] mr-2">Folge uns:</span>
+                <a href="https://www.linkedin.com/company/hypoteq-ag" target="_blank" rel="noopener noreferrer" className="inline-flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.268c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zm13.5 11.268h-3v-5.604c0-1.337-.026-3.063-1.868-3.063-1.868 0-2.156 1.459-2.156 2.967v5.7h-3v-10h2.881v1.367h.041c.401-.761 1.379-1.563 2.838-1.563 3.036 0 3.6 2 3.6 4.594v5.602z" fill="#0A66C2"/>
+                  </svg>
+                </a>
+              </div>
             </div>
           </div>
           <div className="w-full flex justify-center items-center gap-8 py-4 border-t border-[#CAF476]">

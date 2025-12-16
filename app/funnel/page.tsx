@@ -87,7 +87,7 @@ useEffect(() => {
     firstName: "",
     lastName: "",
     email: "",
-    zip: "",
+    phone: "",
     partnerEmail: "",
   });
 

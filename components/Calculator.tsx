@@ -28,7 +28,7 @@ const [residenceType, setResidenceType] = useState<"haupt" | "zweit">("haupt");
 
 const [loanType, setLoanType] = useState<"purchase" | "refinancing" | null>("purchase");
 
-  const [interestOption, setInterestOption] = useState("SARON 0.85%");
+  const [interestOption, setInterestOption] = useState("SARON 0.89%");
   const params =
     residenceType === "haupt"
       ? {

@@ -20,6 +20,8 @@ function FinancingStep({
     kaufpreis: "",
     modell: "",
     pkVorbezug: "",
+    einkommen: "",
+    kaufdatum: "",
   });
   console.log("🔥 FinancingStep Debug:", {
   customerType,
@@ -115,25 +117,30 @@ const ToggleButton = ({ active, children, onClick }: any) => {
           <div className="space-y-6 lg:space-y-10">
             <h1 className="text-3xl lg:text-4xl font-semibold">{t("funnel.newPurchase" as any)}</h1>
 
-    {/* Kaufpreis */}
-<div>
-<input
-  type="text"
-  placeholder={t("funnel.amount" as any)}
-  className={inputStyle}
-  value={data.kaufpreis ? `CHF ${formatCHF(data.kaufpreis)}` : ""}
-  onChange={(e) => {
-    const rawValue = e.target.value.replace(/CHF\s?|'/g, "");
-    const numericValue = rawValue.replace(/\D/g, "");
-    handleChange("kaufpreis", numericValue);
-    setErrors((prev: any) => ({ ...prev, kaufpreis: "" }));
-  }}
-/>
-   {errors.kaufpreis && (
-     <p className="text-red-500 text-[12px] mt-1">{errors.kaufpreis}</p>
-   )}
-
-</div>
+    {/* Kaufpreis (required) */}
+    <div>
+      <label className="font-medium flex items-center gap-1 mb-2">
+        {t("purchasePriceLabel" as any)}
+        <span className="text-red-500">*</span>
+      </label>
+      <input
+        type="text"
+        placeholder={t("funnel.amount" as any)}
+        className={inputStyle}
+        value={data.kaufpreis ? `CHF ${formatCHF(data.kaufpreis)}` : ""}
+        onChange={(e) => {
+          const rawValue = e.target.value.replace(/CHF\s?|'/g, "");
+          const numericValue = rawValue.replace(/\D/g, "");
+          handleChange("kaufpreis", numericValue);
+          setErrors((prev: any) => ({ ...prev, kaufpreis: "" }));
+        }}
+        required
+        aria-required="true"
+      />
+      {errors.kaufpreis && (
+        <p className="text-red-500 text-[12px] mt-1">{errors.kaufpreis}</p>
+      )}
+    </div>
 
   {/* Eigenmittel */}
 <div>
@@ -209,18 +216,24 @@ const ToggleButton = ({ active, children, onClick }: any) => {
 {/* PK-Verpfändung – hide for juristische Personen and Rendite */}
 {!isJur && !isRendite && (
   <div className="flex-1">
-    <label className="font-medium">{t("funnel.pkPledge" as any)}</label>
+    <label className="font-medium">{t("funnel.pkPledge" as any)}<span className="text-red-500">*</span></label>
     <div className="flex gap-4 mt-3">
       {[t("funnel.yes" as any), t("funnel.no" as any)].map((opt) => (
         <ToggleButton
           key={opt}
           active={data.pkVorbezug === opt}
-          onClick={() => handleChange("pkVorbezug", opt)}
+          onClick={() => {
+            handleChange("pkVorbezug", opt);
+            setErrors((prev: any) => ({ ...prev, pkVorbezug: "" }));
+          }}
         >
           {opt}
         </ToggleButton>
       ))}
     </div>
+    {errors.pkVorbezug && (
+      <p className="text-red-500 text-[12px] mt-1">{errors.pkVorbezug}</p>
+    )}
   </div>
 )}
 
@@ -281,46 +294,52 @@ const ToggleButton = ({ active, children, onClick }: any) => {
       </div>
     )}
 
-    {/* Einkommen + Jährlicher Netto-Mietertrag for Vermietet */}
-    {isVermietet && (
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
-        <div>
-          <label className="font-medium">Einkommen</label>
-          <input
-            type="text"
-            placeholder="CHF"
-            className={inputStyle}
-            value={data.einkommen ? `CHF ${formatCHF(data.einkommen)}` : ""}
-            onChange={e => {
-              const raw = e.target.value.replace(/CHF\s?|'/g, "");
-              const numeric = raw.replace(/\D/g, "");
-              handleChange("einkommen", numeric);
-            }}
-          />
+     {/* Einkommen + Jährlicher Netto-Mietertrag for Vermietet */}
+      {isVermietet && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
+          <div>
+            <label className="font-medium">Einkommen <span className="text-red-500">*</span></label>
+            <input
+              type="text"
+              placeholder="CHF"
+              className={inputStyle}
+              value={data.einkommen ? `CHF ${formatCHF(data.einkommen)}` : ""}
+              onChange={e => {
+                const raw = e.target.value.replace(/CHF\s?|'/g, "");
+                const numeric = raw.replace(/\D/g, "");
+                handleChange("einkommen", numeric);
+                setErrors((prev: any) => ({ ...prev, einkommen: "" }));
+              }}
+              required
+              aria-required="true"
+            />
+            {errors.einkommen && (
+              <p className="text-red-500 text-[12px] mt-1">{errors.einkommen}</p>
+            )}
+          </div>
+          <div>
+            <label className="font-medium">Jährlicher Netto-Mietertrag</label>
+            <input
+              type="text"
+              placeholder="CHF"
+              className={inputStyle}
+              value={data.netto_mietertrag ? `CHF ${formatCHF(data.netto_mietertrag)}` : ""}
+              onChange={e => {
+                const raw = e.target.value.replace(/CHF\s?|'/g, "");
+                const numeric = raw.replace(/\D/g, "");
+                handleChange("netto_mietertrag", numeric);
+              }}
+            />
+          </div>
         </div>
-        <div>
-          <label className="font-medium">Jährlicher Netto-Mietertrag</label>
-          <input
-            type="text"
-            placeholder="CHF"
-            className={inputStyle}
-            value={data.netto_mietertrag ? `CHF ${formatCHF(data.netto_mietertrag)}` : ""}
-            onChange={e => {
-              const raw = e.target.value.replace(/CHF\s?|'/g, "");
-              const numeric = raw.replace(/\D/g, "");
-              handleChange("netto_mietertrag", numeric);
-            }}
-          />
-        </div>
-      </div>
-    )}
+      )}
 
    {/* Einkommen – hide for juristische Personen, except for Vermietet */}
    {!isJur && !isVermietet && (
     <div>
       <label className="font-medium">
         {t("funnel.income" as any)}<br />
-        {t("funnel.incomeDescription" as any)}
+        {t("funnel.incomeDescription" as any)} <span className="text-red-500">*</span>
       </label>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
@@ -334,9 +353,14 @@ const ToggleButton = ({ active, children, onClick }: any) => {
     const raw = e.target.value.replace(/CHF\s?|'/g, "");
     const numeric = raw.replace(/\D/g, ""); 
     handleChange("brutto", numeric);
+    setErrors((prev: any) => ({ ...prev, einkommen: "" }));
   }}
+  required
+  aria-required="true"
 />
-
+          {errors.einkommen && (
+            <p className="text-red-500 text-[12px] mt-1">{errors.einkommen}</p>
+          )}
         </div>
       </div>
     </div>
@@ -366,13 +390,19 @@ const ToggleButton = ({ active, children, onClick }: any) => {
 
 
             {/* Kaufdatum */}
-            <div className="flex items-center gap-4">
-              <label className="font-medium mr-2">{t("funnel.purchaseDate" as any)}</label>
+            <div className="flex flex-col gap-1">
+              <label className="font-medium mr-2">{t("funnel.purchaseDate" as any)}<span className="text-red-500">*</span></label>
               <SwissDatePicker
                 value={data.kaufdatum}
-                onChange={val => setData((prev: any) => ({ ...prev, kaufdatum: val }))}
+                onChange={val => {
+                  setData((prev: any) => ({ ...prev, kaufdatum: val }));
+                  setErrors((prev: any) => ({ ...prev, kaufdatum: "" }));
+                }}
                 className="w-full"
               />
+              {errors.kaufdatum && (
+                <p className="text-red-500 text-[12px]">{errors.kaufdatum}</p>
+              )}
             </div>
 
             {/* Kommentar */}
@@ -565,13 +595,14 @@ const ToggleButton = ({ active, children, onClick }: any) => {
 
         <button
           onClick={() => {
-            const newErrors: { kaufpreis?: string; modell?: string; pkVorbezug?: string } = {};
+            const newErrors: { kaufpreis?: string; modell?: string; pkVorbezug?: string; einkommen?: string; kaufdatum?: string } = {};
             const isJur = borrowers?.[0]?.type === "jur";
             const isKauf = projectData?.projektArt?.toLowerCase() === "kauf";
             const isRendite = propertyData?.nutzung === "Rendite-Immobilie" || 
                               propertyData?.nutzung?.toLowerCase()?.includes("rendite") ||
                               propertyData?.nutzung?.toLowerCase()?.includes("investment");
-            
+            const isVermietet = propertyData?.nutzung?.toLowerCase()?.includes("vermietet");
+
             if (isKauf) {
               if (!data.kaufpreis) {
                 newErrors.kaufpreis = t("funnel.errorPurchasePrice" as any) || "Please enter purchase price";
@@ -582,13 +613,24 @@ const ToggleButton = ({ active, children, onClick }: any) => {
               if (!isJur && !isRendite && !data.pkVorbezug) {
                 newErrors.pkVorbezug = t("funnel.errorPkPledge" as any) || "Please select PK pledge option";
               }
+              // Einkommen required when visible
+              if (isVermietet && !data.einkommen) {
+                newErrors.einkommen = "Bitte Einkommen angeben";
+              }
+              if (!isJur && !isVermietet && !data.brutto) {
+                newErrors.einkommen = "Bitte Einkommen angeben";
+              }
+              // Kaufdatum required when visible
+              if (!data.kaufdatum) {
+                newErrors.kaufdatum = "Bitte Kaufdatum angeben";
+              }
             }
             if (Object.keys(newErrors).length > 0) {
               setErrors((prev: any) => ({ ...prev, ...newErrors }));
               window.scrollTo({ top: 0, behavior: 'smooth' });
               return;
             }
-            setErrors({ kaufpreis: "", modell: "", pkVorbezug: "" });
+            setErrors({ kaufpreis: "", modell: "", pkVorbezug: "", einkommen: "", kaufdatum: "" });
             saveStep();
           }}
           className="px-4 lg:px-6 py-2 bg-[#CAF476] text-[#132219] rounded-full text-sm lg:text-base"

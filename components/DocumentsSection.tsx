@@ -87,19 +87,6 @@ type SectionProps = {
         </div>
 
         {/* ===== MORTGAGE CHECKLIST FOR A HOME ===== */}
-        {(activeCategory === "All" ||
-          activeCategory === "Mortgage checklist for a home") && (
-<Section
-  title={t("documents.section1Title")}
-  docs={[
-    { label: t("documents.section1Doc1"), file: "/documents/checkliste_selbst_bewohntes_wohneigentum.pdf" },
-    { label: t("documents.section1Doc2"), file: "/documents/Liste-de-controle-pour-les-logements-en-propriete-occupes-par-leur-proprietaire.pdf" },
-    { label: t("documents.section1Doc3"), file: "/documents/Lista-di-controllo-per-immobili-residenziali-occupati-dal-proprietario.pdf" },
-    { label: t("documents.section1Doc4"), file: "/documents/Checklist-for-owner-occupied-property.pdf" },
-  ]}
-/>
-
-        )}
 
 {/* ===== AUTHORIZATION TO PROVIDE INFORMATION ===== */}
 {(activeCategory === "All" ||
@@ -114,6 +101,19 @@ type SectionProps = {
     ]}
   />
 )}
+        {(activeCategory === "All" ||
+          activeCategory === "Mortgage checklist for a home") && (
+<Section
+  title={t("documents.section1Title")}
+  docs={[
+    { label: t("documents.section1Doc1"), file: "/documents/checkliste_selbst_bewohntes_wohneigentum.pdf" },
+    { label: t("documents.section1Doc2"), file: "/documents/Liste-de-controle-pour-les-logements-en-propriete-occupes-par-leur-proprietaire.pdf" },
+    { label: t("documents.section1Doc3"), file: "/documents/Lista-di-controllo-per-immobili-residenziali-occupati-dal-proprietario.pdf" },
+    { label: t("documents.section1Doc4"), file: "/documents/Checklist-for-owner-occupied-property.pdf" },
+  ]}
+/>
+
+        )}
 
 
 {/* ===== MORTGAGE CHECKLIST FOR A RETURN PROPERTY ===== */}

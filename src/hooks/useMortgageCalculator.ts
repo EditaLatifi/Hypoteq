@@ -65,12 +65,12 @@ export default function useMortgageCalculator() {
 
 
   // Interest options
-  const interestOptions = ["SARON 0.85%", "5Y 1.03%", "10Y 1.40%"];
+  const interestOptions = ["SARON 0.89%", "5Y 1.20%", "10Y 1.48%"];
 
   const effectiveRate = useMemo(() => {
-    if (interestOption.startsWith("SARON")) return 0.0085;
-    if (interestOption.startsWith("5Y")) return 0.0103;
-    if (interestOption.startsWith("10Y")) return 0.014;
+    if (interestOption.startsWith("SARON")) return 0.0089;
+    if (interestOption.startsWith("5Y")) return 0.0120;
+    if (interestOption.startsWith("10Y")) return 0.0148;
     return 0.0103;
   }, [interestOption]);
 

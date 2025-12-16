@@ -245,7 +245,7 @@ export default function ContactPage() {
             <div className="flex flex-col gap-1">
               <input 
                 type="text" 
-                placeholder="Vorname *"
+                placeholder={`${t("contactform.firstName")} *`}
                 value={formData.firstName}
                 onChange={(e) => handleInputChange("firstName", e.target.value)}
                 className={`w-full h-[50px] border ${errors.firstName ? 'border-red-500' : 'border-[#132219]'} rounded-full px-6 text-[16px] font-medium text-[#132219]/70 placeholder:text-[#132219]/70 outline-none`} 
@@ -257,7 +257,7 @@ export default function ContactPage() {
             <div className="flex flex-col gap-1">
               <input 
                 type="text" 
-                placeholder="Nachname *"
+                placeholder={`${t("contactform.lastName")} *`}
                 value={formData.lastName}
                 onChange={(e) => handleInputChange("lastName", e.target.value)}
                 className={`w-full h-[50px] border ${errors.lastName ? 'border-red-500' : 'border-[#132219]'} rounded-full px-6 text-[16px] font-medium text-[#132219]/70 placeholder:text-[#132219]/70 outline-none`} 
@@ -268,7 +268,7 @@ export default function ContactPage() {
             {/* Company (optional) */}
             <input 
               type="text" 
-              placeholder="Firmenname (optional)"
+              placeholder={`${t("contactform.company")} (${t("contactform.optional")})`}
               value={formData.company}
               onChange={(e) => handleInputChange("company", e.target.value)}
               className="w-full h-[50px] border border-[#132219] rounded-full px-6 text-[16px] font-medium text-[#132219]/70 placeholder:text-[#132219]/70 outline-none" 
@@ -278,7 +278,7 @@ export default function ContactPage() {
             <div className="flex flex-col gap-1">
               <input 
                 type="email" 
-                placeholder={`${t("contact.email")} *`}
+                placeholder={`${t("contactform.email")} *`}
                 value={formData.email}
                 onChange={(e) => handleInputChange("email", e.target.value)}
                 className={`w-full h-[50px] border ${errors.email ? 'border-red-500' : 'border-[#132219]'} rounded-full px-6 text-[16px] font-medium text-[#132219]/70 placeholder:text-[#132219]/70 outline-none`} 
@@ -290,7 +290,7 @@ export default function ContactPage() {
             <div className="flex flex-col gap-1">
               <input 
                 type="text" 
-                placeholder={`${t("contact.phone")} *`}
+                placeholder={`${t("contactform.phone")} *`}
                 value={formData.phone}
                 onChange={(e) => handleInputChange("phone", e.target.value)}
                 className={`w-full h-[50px] border ${errors.phone ? 'border-red-500' : 'border-[#132219]'} rounded-full px-6 text-[16px] font-medium text-[#132219]/70 placeholder:text-[#132219]/70 outline-none`} 
@@ -306,10 +306,10 @@ export default function ContactPage() {
                   onChange={(e) => handleInputChange("inquiryType", e.target.value)}
                   className={`w-full h-[50px] border ${errors.inquiryType ? 'border-red-500' : 'border-[#132219]'} rounded-full px-6 text-[16px] font-medium text-[#132219]/70 bg-white outline-none appearance-none`}
                 >
-                  <option value="">Anfrageart auswählen *</option>
-                  <option value="general">Allgemeine Anfrage</option>
-                  <option value="partnership">Partnerschaft</option>
-                  <option value="financing">Finanzierung</option>
+                  <option value="">{`${t("contactform.inquiryTypeSelect")} *`}</option>
+                  <option value="general">{t("contactform.inquiryTypeGeneral")}</option>
+                  <option value="partnership">{t("contactform.inquiryTypePartnership")}</option>
+                  <option value="financing">{t("contactform.inquiryTypeFinancing")}</option>
                 </select>
 
                 <svg className="absolute right-6 top-1/2 -translate-y-1/2 w-[12px] h-[7px] fill-[#132219]/70 pointer-events-none"

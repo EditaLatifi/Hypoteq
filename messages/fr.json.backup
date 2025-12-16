@@ -194,7 +194,7 @@
     "ownFunds": "Fonds propres",
     "grossIncome": "Revenu brut du ménage",
     "selectInterest": "Sélectionner la durée d'intérêt :",
-    "interestOption1": "SARON 0.85%",
+    "interestOption1": "SARON 0.89%",
     "interestOption2": "Hypothèque fixe 5 ans – 1,03 %",
     "interestOption3": "10 ans 1.40%",
     "financingPossiblePurchase": "Financement possible. Besoin hypothécaire estimé :",
@@ -636,7 +636,7 @@
     "stat2Desc": "De la demande à l'approbation",
     "stat3Title": "2,500+",
     "stat3Desc": "Clients satisfaits qui nous ont déjà fait confiance.",
-    "stat4Title": "5+ Ans",
+    "stat4Title": "35+ Ans",
     "stat4Desc": "Expérience du monde hypothécaire et FinTech."
   },
   "startProcess": {

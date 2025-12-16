@@ -17,15 +17,15 @@ function StartStep({
     firstName?: string;
     lastName?: string;
     email?: string;
-    zip?: string;
-      partnerEmail?: string;  
+    phone?: string;
+    partnerEmail?: string;  
   }
 
   const validateDirectCustomer = () => {
     const newErrors: ErrorFields = {};
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    // Swiss ZIP: 4 digits, range 1000-9999
-    const zipRegex = /^[1-9]\d{3}$/;
+    // Swiss phone: allow +41, 0, spaces, dashes, min 9 digits
+    const phoneRegex = /^((\+41|0)[\d\s\-]{8,})$/;
 
 if (!clientData.firstName)
   newErrors.firstName = t("funnel.errorFirstName" as any);
@@ -39,10 +39,10 @@ if (!clientData.email) {
   newErrors.email = t("funnel.validEmailError" as any);
 }
 
-if (!clientData.zip) {
-  newErrors.zip = t("funnel.errorZip" as any);
-} else if (!zipRegex.test(clientData.zip)) {
-  newErrors.zip = t("funnel.validZipError" as any);
+if (!clientData.phone) {
+  newErrors.phone = t("funnel.errorPhone" as any);
+} else if (!phoneRegex.test(clientData.phone)) {
+  newErrors.phone = t("funnel.validPhoneError" as any);
 }
 
 
@@ -180,23 +180,23 @@ if (!clientData.zip) {
 
             <div>
               <label className="text-[14px] font-medium text-[#132219]">
-                {t("funnel.zipCode" as any)}
+                {t("funnel.phone" as any)}
               </label>
 
               <input
                 className={`w-full mt-1 rounded-full px-5 py-2 text-[#132219]
       border 
-      ${errors.zip ? "border-red-500" : "border-[#132219] opacity-80"}
+      ${errors.phone ? "border-red-500" : "border-[#132219] opacity-80"}
     `}
-                value={clientData.zip}
+                value={clientData.phone}
                 onChange={(e) => {
-                  setClientData((p: any) => ({ ...p, zip: e.target.value }));
-                  setErrors((prev: any) => ({ ...prev, zip: "" }));
+                  setClientData((p: any) => ({ ...p, phone: e.target.value }));
+                  setErrors((prev: any) => ({ ...prev, phone: "" }));
                 }}
               />
 
-              {errors.zip && (
-                <p className="text-red-500 text-[12px] mt-1">{errors.zip}</p>
+              {errors.phone && (
+                <p className="text-red-500 text-[12px] mt-1">{errors.phone}</p>
               )}
             </div>
           </div>

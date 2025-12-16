@@ -300,7 +300,7 @@ function generateFunnelEmailHTML(data: any, saved: any): string {
         ${data.client.name ? `<tr><td>Nachname:</td><td>${data.client.name}</td></tr>` : ''}
         ${data.client.email ? `<tr><td>E-Mail:</td><td><a href="mailto:${data.client.email}" style="color: #132219; text-decoration: underline;">${data.client.email}</a></td></tr>` : ''}
         ${data.client.phone ? `<tr><td>Telefon:</td><td><a href="tel:${data.client.phone}" style="color: #132219; text-decoration: underline;">${data.client.phone}</a></td></tr>` : ''}
-        ${data.client.zip ? `<tr><td>PLZ:</td><td>${data.client.zip}</td></tr>` : ''}
+        ${data.client.phone ? `<tr><td>Telefon:</td><td><a href="tel:${data.client.phone}" style="color: #132219; text-decoration: underline;">${data.client.phone}</a></td></tr>` : ''}
         ${data.client.firma ? `<tr><td>Firma:</td><td>${data.client.firma}</td></tr>` : ''}
         ${data.client.partnerEmail ? `<tr><td>Partner E-Mail:</td><td><a href="mailto:${data.client.partnerEmail}" style="color: #132219; text-decoration: underline;">${data.client.partnerEmail}</a></td></tr>` : ''}
       </table>
