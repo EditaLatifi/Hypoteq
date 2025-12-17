@@ -17,8 +17,9 @@ export default function Header() {
   const pathLocale = (pathname.split("/")[1] || "de") as "de" | "en" | "fr" | "it";
   const { t } = useTranslation(pathLocale);
 
+  // Logoja të jetë gjithmonë me ngjyrë në /hypothekenrechner
   const whiteMenu =
-    (pathname.includes("/hypotheken") || pathname.includes("/uber-uns")) && !isScrolled;
+    (pathname.includes("/hypotheken") && !pathname.includes("/hypothekenrechner") || pathname.includes("/uber-uns")) && !isScrolled;
 
   // Sync context locale with URL locale on mount
   useEffect(() => {

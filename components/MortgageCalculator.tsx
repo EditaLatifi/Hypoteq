@@ -720,7 +720,7 @@ function ProgressBox({
         <div className="flex flex-col">
           <h3 className="text-[20px]">{title}</h3>
           {thresholdLabel && (
-            <span className="text-[13px] text-[#4b4b4b]">{thresholdLabel}</span>
+            <span className="hidden text-[13px] text-[#4b4b4b]">{thresholdLabel}</span>
           )}
         </div>
         <div className="w-[20px] h-[20px] rounded-full border border-[#132219] bg-[#CAF47E] flex items-center justify-center">
