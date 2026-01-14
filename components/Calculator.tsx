@@ -285,7 +285,7 @@ export default function Calculator() {
               value={propertyPrice}
               setValue={setPropertyPrice}
               min={0}
-              max={2000000}
+              max={5000000}
             />
 
             {/* Refi-spezifische Inputs */}
