@@ -335,12 +335,8 @@ export default function Calculator() {
               label={t("calculator.grossIncome")}
               value={income}
               setValue={setIncome}
-              min={
-                loanType === "purchase"
-                  ? getMinIncome(residenceType, propertyPrice, ownFunds)
-                  : 0
-              }
-              max={500000}
+              min={minIncomeRequired}
+              max={10000000}
               minRequired={minIncomeRequired}
             />
 
