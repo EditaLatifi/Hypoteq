@@ -335,12 +335,8 @@ export default function Calculator() {
               label={t("calculator.grossIncome")}
               value={income}
               setValue={setIncome}
-              min={
-                loanType === "purchase"
-                  ? getMinIncome(residenceType, propertyPrice, ownFunds)
-                  : 0
-              }
-              max={500000}
+              min={minIncomeRequired}
+              max={10000000}
               minRequired={minIncomeRequired}
             />
 
@@ -625,7 +621,9 @@ function SliderInput({ label, value, setValue, min, max, minRequired }: any) {
             const raw = e.target.value.replace(/[^0-9]/g, "");
             const parsed = Number(raw);
             if (!isNaN(parsed)) {
-              const bounded = Math.max(min, Math.min(parsed, max));
+              // Enforce dynamic minimum for income
+              const minVal = minRequired !== undefined ? minRequired : min;
+              const bounded = Math.max(minVal, Math.min(parsed, max));
               setValue(bounded);
             }
           }}
