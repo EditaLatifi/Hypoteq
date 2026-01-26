@@ -37,6 +37,22 @@ export async function POST(req: Request) {
       // Don't fail the request if auto-response fails
     }
 
+    // Salesforce sync (backend only)
+    try {
+      // Ensure LastName is present for Salesforce
+      if (data.client && data.client.lastName) {
+        data.lastName = data.client.lastName;
+      }
+      const salesforceApi = (await import("@/components/salesforceApi")).default;
+      const { syncFunnelStepsToSalesforce } = await import("@/components/syncFunnelStepsToSalesforce");
+      await salesforceApi.login();
+      await syncFunnelStepsToSalesforce(data, salesforceApi);
+      console.log("✅ Salesforce sync successful!");
+    } catch (sfError) {
+      console.error("❌ Salesforce sync failed:", sfError);
+      // Don't fail the request if Salesforce fails
+    }
+
     return NextResponse.json({ success: true });
   } catch (err: unknown) {
     // Type assertion to ensure 'err' is treated as an Error
