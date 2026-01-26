@@ -1,12 +1,39 @@
 "use client";
 
+
 import { useFunnelStore } from "@/src/store/funnelStore";
 import { useEffect } from "react";
 import { useTranslation } from "@/hooks/useTranslation";
+import { syncFunnelStepsToSalesforce } from "@/components/syncFunnelStepsToSalesforce";
+import salesforceApi from "@/components/salesforceApi";
 
 export default function DirectSummaryStep({ back, saveStep }: any) {
   const { t } = useTranslation();
-  const { project, property, borrowers, financing, customerType } = useFunnelStore();
+  const { project, property, borrowers, financing, customerType, client, documents, email } = useFunnelStore();
+
+
+  // Collect all funnel data for Salesforce
+  const funnelData = {
+    ...client,
+    ...project,
+    ...property,
+    borrowers,
+    ...financing,
+    documents,
+    email,
+    customerType,
+  };
+
+  // Trigger Salesforce sync on application submit
+  const handleSubmitApplication = async () => {
+    try {
+      await salesforceApi.login();
+      await syncFunnelStepsToSalesforce(funnelData, salesforceApi);
+      alert("Application sent to Salesforce successfully!");
+    } catch (error) {
+      alert("Failed to send application to Salesforce: " + error);
+    }
+  };
 
   useEffect(() => {
     console.log("📌 DirectSummaryStep - project from store:", project);
