@@ -26,9 +26,8 @@ const selectCard = (value: string) => {
 
   if (onProjectTypeChange) {
     onProjectTypeChange(value);
-  } else {
-    setTimeout(() => saveStep(), 50);
   }
+  // Removed auto-advance - user must click Continue button
 };
 
 

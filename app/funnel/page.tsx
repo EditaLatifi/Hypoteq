@@ -49,7 +49,7 @@ const borrowers = useFunnelStore((state) => state.borrowers);
 const setBorrowers = useFunnelStore((state) => state.setBorrowers);
 useEffect(() => {
   if (!borrowers || borrowers.length === 0) {
-    setBorrowers([{ id: uuidv4(), type: "nat" }]);
+    setBorrowers([{ id: uuidv4(), type: "" }]);
   }
 }, []);
 
@@ -162,7 +162,12 @@ const saveStep2 = () => {
 
 // Correct order
 const saveStep3 = () => {
-  setBorrowers(borrowers);
+  // Validate borrower type is selected
+  if (!borrowers || !borrowers[0] || !borrowers[0].type || borrowers[0].type === "") {
+    console.log("❌ BorrowersStep validation failed - no type selected");
+    return; // Don't proceed if no type selected
+  }
+  // Borrowers are already saved in store by BorrowersStep
   next();
 };
 
@@ -321,8 +326,7 @@ const submitFinal = async () => {
 
 {step === 3 && (
   <BorrowersStep
-saveStep={next}
-
+    saveStep={saveStep3}
     back={back}
   />
 )}

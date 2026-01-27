@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useFunnelStore } from "@/src/store/funnelStore";
 import { useTranslation } from "@/hooks/useTranslation";
 import { v4 as uuidv4 } from "uuid";
@@ -9,22 +9,28 @@ function BorrowersStep({ saveStep , back}: any) {
   const { t } = useTranslation();
   const borrowers = useFunnelStore((state) => state.borrowers);
   const setBorrowers = useFunnelStore((state) => state.setBorrowers);
+  const [showError, setShowError] = useState(false);
 
-  // Initialize default borrower on mount
+  // Initialize default borrower on mount - but without a type selected
   useEffect(() => {
     if (!borrowers || borrowers.length === 0) {
-      setBorrowers([{ id: uuidv4(), type: "nat" }]);
+      setBorrowers([{ id: uuidv4(), type: "" }]);
     }
   }, [borrowers, setBorrowers]);
 
 const selectType = (type: "nat" | "jur") => {
   const updated = [{ id: borrowers[0]?.id || uuidv4(), type }];
-  setBorrowers(updated); // Update store only
-  
-  // Auto-advance after selection
-  setTimeout(() => {
-    saveStep();
-  }, 300);
+  setBorrowers(updated);
+  setShowError(false); // Clear error when selection is made
+};
+
+const handleContinue = () => {
+  // Validate that a type has been selected
+  if (!borrowers[0]?.type || borrowers[0]?.type === "") {
+    setShowError(true);
+    return;
+  }
+  saveStep();
 };
 
 
@@ -66,6 +72,13 @@ const selectType = (type: "nat" | "jur") => {
         </div>
       </div>
       
+      {/* Error Message */}
+      {showError && (
+        <div className="mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+          {t("funnel.pleaseSelectBorrowerType" as any) || "Please select a borrower type."}
+        </div>
+      )}
+
       {/* ========================================================= */}
       {/*  BUTTONS                                                  */}
       {/* ========================================================= */}
@@ -73,7 +86,12 @@ const selectType = (type: "nat" | "jur") => {
         <button onClick={back} className="px-4 lg:px-6 py-2 border border-[#132219] rounded-full text-sm lg:text-base">
           {t("funnel.back" as any)}
         </button>
-        <button onClick={saveStep} className="px-4 md:px-5 lg:px-6 py-2 bg-[#CAF476] text-[#132219] rounded-full text-sm md:text-base">
+        <button 
+          onClick={handleContinue} 
+          className={`px-4 md:px-5 lg:px-6 py-2 rounded-full text-sm md:text-base transition-opacity ${
+            borrowers[0]?.type ? 'bg-[#CAF476] text-[#132219]' : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+          }`}
+        >
           {t("funnel.continue" as any)}
         </button>
       </div>
