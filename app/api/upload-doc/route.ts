@@ -34,35 +34,19 @@ async function getAccessToken() {
 }
 
 /* ============================
-   FIND OR CREATE EMAIL FOLDER
+   CREATE FOLDER WITH EMAIL_DATE_TIME
 ============================ */
-async function getOrCreateFolder(email: string, token: string) {
+async function createFolderWithTimestamp(email: string, token: string) {
   const DRIVE_ID = process.env.DRIVE_ID!;
   const ROOT_FOLDER_ID = process.env.FOLDER_ID!;
 
-  // 1️⃣ List all folders under ROOT_FOLDER_ID
-  const listRes = await fetch(
-    `https://graph.microsoft.com/v1.0/drives/${DRIVE_ID}/items/${ROOT_FOLDER_ID}/children`,
-    {
-      headers: { Authorization: `Bearer ${token}` },
-    }
-  );
+  // Create folder name: Email_Date_Time (e.g., user@example.com_2026-01-27_15-30-45)
+  const now = new Date();
+  const date = now.toISOString().split('T')[0]; // 2026-01-27
+  const time = now.toTimeString().split(' ')[0].replace(/:/g, '-'); // 15-30-45
+  const folderName = `${email}_${date}_${time}`;
 
-  const listJson = await listRes.json();
-
-  // 2️⃣ Check if EXACT matching folder name = email exists
-  const existing = listJson.value?.find(
-    (item: any) =>
-      item.folder && item.name.toLowerCase() === email.toLowerCase()
-  );
-
-  if (existing) {
-    console.log("📁 Existing email folder found:", existing.id);
-    return existing.id;
-  }
-
-  // 3️⃣ Create new folder if not found
-  console.log("📁 Creating new email folder:", email);
+  console.log("📁 Creating new folder:", folderName);
 
   const createRes = await fetch(
     `https://graph.microsoft.com/v1.0/drives/${DRIVE_ID}/items/${ROOT_FOLDER_ID}/children`,
@@ -73,9 +57,9 @@ async function getOrCreateFolder(email: string, token: string) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: email,
+        name: folderName,
         folder: {},
-        "@microsoft.graph.conflictBehavior": "fail",
+        "@microsoft.graph.conflictBehavior": "rename",
       }),
     }
   );
@@ -87,6 +71,7 @@ async function getOrCreateFolder(email: string, token: string) {
     throw new Error("Failed to create folder");
   }
 
+  console.log("✅ Folder created:", folderName);
   return createJson.id;
 }
 
@@ -111,8 +96,8 @@ export async function POST(req: Request) {
 
     const token = await getAccessToken();
 
-    // 🔍 Get or create folder by EMAIL
-    const folderId = await getOrCreateFolder(email, token);
+    // �️ Create folder with Email_Date_Time format
+    const folderId = await createFolderWithTimestamp(email, token);
 
     // Convert file to buffer
     const arrayBuffer = await file.arrayBuffer();
@@ -130,7 +115,7 @@ export async function POST(req: Request) {
         Authorization: `Bearer ${token}`,
         "Content-Type": file.type || "application/octet-stream",
       },
-      body: buffer,
+      body: buffer as any,
     });
 
     const uploadJson = await uploadRes.json();
