@@ -139,7 +139,7 @@ export default function Calculator() {
     interestYearStress + maintenanceYearTrag + amortizationYearTrag;
   const tragbarkeitPercent = income > 0 ? tragbarkeitCHF / income : 0;
   const minIncomeRequired =
-    tragbarkeitCHF > 0 ? tragbarkeitCHF / params.tragbarkeitThreshold : 0;
+    tragbarkeitCHF > 0 ? Math.ceil(tragbarkeitCHF / params.tragbarkeitThreshold) : 0;
 
   const isBelehnungOK = belehnung <= params.maxBelehnung;
   const isTragbarkeitOK =
@@ -684,8 +684,14 @@ function InfoBox({ title, value, red = false }: any) {
       <div className="flex justify-between items-start">
         <p className="text-[16px] font-medium leading-tight">{title}</p>
 
-        <div className="w-[20px] h-[20px] rounded-full border border-[#132219] bg-[#CAF47E] flex items-center justify-center">
-          <CheckIcon />
+        <div className={`w-[20px] h-[20px] rounded-full border border-[#132219] flex items-center justify-center ${red ? 'bg-[#FF9A9A]' : 'bg-[#CAF47E]'}`}>
+          {red ? (
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 3L3 9M3 3L9 9" stroke="#132219" strokeWidth="1.5" strokeLinecap="round"/>
+            </svg>
+          ) : (
+            <CheckIcon />
+          )}
         </div>
       </div>
 
