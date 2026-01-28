@@ -3,9 +3,9 @@ import SwissDatePicker from "@/components/SwissDatePicker";
 
 import { useTranslation } from "@/hooks/useTranslation";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-function PropertyStep({ data, setData, saveStep, borrowers, back, customerType, borrowerType, projectData }: any) {
+function PropertyStep({ data, setData, saveStep, borrowers, back, customerType, borrowerType, projectData, clientData }: any) {
   const { t } = useTranslation();
   const [errors, setErrors] = useState({
     artImmobilie: "",
@@ -14,6 +14,29 @@ function PropertyStep({ data, setData, saveStep, borrowers, back, customerType, 
     renovation: "",
     finanzierungsangebote: "",
   });
+  
+  // Pre-fill first borrower with client data from StartStep
+  useEffect(() => {
+    if (clientData && data.kreditnehmer && data.kreditnehmer.length > 0) {
+      const firstBorrower = data.kreditnehmer[0];
+      // Only pre-fill if the first borrower is empty
+      if (!firstBorrower.vorname && !firstBorrower.email && clientData.email) {
+        const updatedKreditnehmer = [...data.kreditnehmer];
+        updatedKreditnehmer[0] = {
+          ...updatedKreditnehmer[0],
+          vorname: clientData.firstName || "",
+          name: clientData.lastName || "",
+          email: clientData.email || "",
+          telefon: clientData.phone || "",
+        };
+        setData((prev: any) => ({
+          ...prev,
+          kreditnehmer: updatedKreditnehmer,
+        }));
+      }
+    }
+  }, [clientData]); // Only run when clientData changes
+  
   const update = (key: string, value: any) => {
     setData((prev: any) => ({ ...prev, [key]: value }));
     setErrors((prev: any) => ({ ...prev, [key]: "" }));
@@ -333,7 +356,7 @@ const propertyUseOptions =
         {/* ADD BUTTON */}
         <button
           onClick={() => {
-            if (data.kreditnehmer.length >= 6) return; // Max 6 borrowers
+            if (data.kreditnehmer.length >= 3) return; // Max 3 persons
             const updated = [...data.kreditnehmer];
             updated.splice(
               index + 1,
@@ -343,15 +366,17 @@ const propertyUseOptions =
                 : {
                     vorname: "",
                     name: "",
+                    email: "",
+                    telefon: "",
                     geburtsdatum: "",
-                    beschaeftigung: "",
+                    erwerb: "",
                     zivilstand: "",
                   }
             );
             update("kreditnehmer", updated);
           }}
           className="text-3xl leading-none text-[#132219] mt-[5px]"
-          disabled={data.kreditnehmer.length >= 6}
+          disabled={data.kreditnehmer.length >= 3}
         >
           +
         </button>
@@ -406,12 +431,12 @@ const propertyUseOptions =
           /* ======================== */
           /*  NATÜRLICHE PERSON VIEW  */
           /* ======================== */
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 md:gap-3 lg:gap-[16px] flex-1">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-3 lg:gap-[16px] flex-1">
             <input
               type="text"
               placeholder={t("funnel.firstName" as any)}
               className="px-5 py-2 border border-[#132219] rounded-full text-sm"
-              value={kn.vorname}
+              value={kn.vorname || ""}
               onChange={(e) => {
                 const updated = [...data.kreditnehmer];
                 updated[index].vorname = e.target.value;
@@ -422,10 +447,32 @@ const propertyUseOptions =
               type="text"
               placeholder={t("funnel.lastName" as any)}
               className="px-5 py-2 border border-[#132219] rounded-full text-sm"
-              value={kn.name}
+              value={kn.name || ""}
               onChange={(e) => {
                 const updated = [...data.kreditnehmer];
                 updated[index].name = e.target.value;
+                update("kreditnehmer", updated);
+              }}
+            />
+            <input
+              type="email"
+              placeholder={t("funnel.email" as any)}
+              className="px-5 py-2 border border-[#132219] rounded-full text-sm"
+              value={kn.email || ""}
+              onChange={(e) => {
+                const updated = [...data.kreditnehmer];
+                updated[index].email = e.target.value;
+                update("kreditnehmer", updated);
+              }}
+            />
+            <input
+              type="tel"
+              placeholder={t("funnel.phone" as any)}
+              className="px-5 py-2 border border-[#132219] rounded-full text-sm"
+              value={kn.telefon || ""}
+              onChange={(e) => {
+                const updated = [...data.kreditnehmer];
+                updated[index].telefon = e.target.value;
                 update("kreditnehmer", updated);
               }}
             />
@@ -447,7 +494,7 @@ const propertyUseOptions =
               <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 w-2 h-2 border-r-2 border-b-2 border-[#132219] rotate-45" />
             </div>
               <SwissDatePicker
-                value={kn.geburtsdatum}
+                value={kn.geburtsdatum || ""}
                 onChange={val => {
                   const updated = [...data.kreditnehmer];
                   updated[index].geburtsdatum = val;
@@ -458,7 +505,7 @@ const propertyUseOptions =
             <div className="relative w-full">
               <select
                 className="px-5 py-2 rounded-full text-sm w-full bg-white border border-[#132219] appearance-none pr-10"
-                value={kn.zivilstand}
+                value={kn.zivilstand || ""}
                 onChange={(e) => {
                   const updated = [...data.kreditnehmer];
                   updated[index].zivilstand = e.target.value;

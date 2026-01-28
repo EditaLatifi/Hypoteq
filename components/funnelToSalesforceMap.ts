@@ -1,11 +1,18 @@
 // funnelToSalesforceMap.ts
-export const funnelToSalesforceMap = {
- 
-  firstName: { salesforceField: "FirstName", salesforceObject: "personaccount" },
-  lastName:  { salesforceField: "LastName",  salesforceObject: "personaccount" },
-  email:     { salesforceField: "PersonEmail", salesforceObject: "personaccount" },
-  phone:     { salesforceField: "Phone", salesforceObject: "personaccount" },
+// Account fields: FirstName, LastName, Email, Telephone
+// All other fields go to Case
 
+export const funnelToSalesforceMap = {
+  // Account fields only
+  firstName: { salesforceField: "FirstName", salesforceObject: "account" },
+  lastName:  { salesforceField: "LastName",  salesforceObject: "account" },
+  email:     { salesforceField: "PersonEmail", salesforceObject: "account" },
+  phone:     { salesforceField: "Phone", salesforceObject: "account" },
+
+  // Case fields - client count
+  clientCount: { salesforceField: "Client__c", salesforceObject: "case" },
+
+  // Case fields - project info
   projektArt: { salesforceField: "Reason", salesforceObject: "case" },
   borrowerType: { salesforceField: "Kreditnehmer__c", salesforceObject: "case" },
 
@@ -19,6 +26,7 @@ export const funnelToSalesforceMap = {
   renovation: { salesforceField: "Gibt_es_Renovationen_oder_Zusatzkosten__c", salesforceObject: "case" },
   renovationsBetrag: { salesforceField: "Betrag__c", salesforceObject: "case" },
 
+  // Financing fields
   finanzierungsangebote: { salesforceField: "Bestehen_bereits_Finanzierungsangebote__c", salesforceObject: "case" },
   bank: { salesforceField: "Bank__c", salesforceObject: "case" },
   zins: { salesforceField: "Zins__c", salesforceObject: "case" },
@@ -46,5 +54,6 @@ export const funnelToSalesforceMap = {
   erhoehung_betrag: { salesforceField: "Erh_hung_betrag__c", salesforceObject: "case" },
 
   caseName: { salesforceField: "Case_Name__c", salesforceObject: "case" },
+  // partnerEmail: { salesforceField: "Partner_Email__c", salesforceObject: "case" },  // Uncomment after creating field in Salesforce
   
 } as const;

@@ -223,6 +223,9 @@ export default function FunnelCalc({ data, projectData, propertyData, borrowers 
     const hypothek = betrag + erhoehung;
 
     const kaufpreis = Number(data.kaufpreis || 0);
+    
+    // Property value for affordability: use immobilienwert, fallback to hypothek
+    const propertyValue = Number(data.immobilienwert || 0) || hypothek;
 
     const hasInputs = hypothek > 0 || kaufpreis > 0;
 
@@ -243,20 +246,19 @@ export default function FunnelCalc({ data, projectData, propertyData, borrowers 
     } else {
       const einkommen = Number(data.brutto || 0);
 
-      const zinssatz = getRealRate(data.modell);
-      const zinsen = (hypothek * zinssatz) / 12;
-      const unterhalt = (kaufpreis ? kaufpreis * 0.008 : 0) / 12;
+      // Use STRESS_RATE for affordability calculation
+      const zinsen = (hypothek * STRESS_RATE) / 12;
+      const unterhalt = (propertyValue * 0.008) / 12;
 
       // Use correct max Belehnung for Zweitwohnsitz
-      const zweiteHypothek = kaufpreis > 0 ? Math.max(hypothek - kaufpreis * (maxBelehnungPct / 100), 0) : 0;
+      const zweiteHypothek = propertyValue > 0 ? Math.max(hypothek - propertyValue * (maxBelehnungPct / 100), 0) : 0;
 
       const amortisation = zweiteHypothek > 0 ? zweiteHypothek / 15 / 12 : 0;
 
       const total = zinsen + unterhalt + amortisation;
 
-      const belehnungPct = kaufpreis > 0 ? Math.round((hypothek / kaufpreis) * 100) : 0;
+      const belehnungPct = propertyValue > 0 ? Math.round((hypothek / propertyValue) * 100) : 0;
       const tragbarkeitPct = einkommen > 0 ? Math.round(((total * 12) / einkommen) * 100) : 0;
-
       isNegative = hasInputs && (belehnungPct > maxBelehnungPct || tragbarkeitPct > tragbarkeitThreshold);
     }
 
@@ -288,10 +290,10 @@ export default function FunnelCalc({ data, projectData, propertyData, borrowers 
     -------------------------------------------*/
     const einkommen = Number(data.brutto || 0) + Number(data.bonus || 0);
     
-    const zinssatz = getRealRate(data.modell || "saron");
-    const zinsen = hypothek * zinssatz;
-    const unterhalt = kaufpreis ? kaufpreis * 0.008 : 0;
-    const zweiteHypothek = kaufpreis > 0 ? Math.max(hypothek - kaufpreis * 0.8, 0) : 0;
+    // Use STRESS_RATE for affordability calculation
+    const zinsen = hypothek * STRESS_RATE;
+    const unterhalt = propertyValue * 0.008;
+    const zweiteHypothek = propertyValue > 0 ? Math.max(hypothek - propertyValue * 0.8, 0) : 0;
     const amortisation = zweiteHypothek > 0 ? zweiteHypothek / 15 : 0;
     const totalJaehrlich = zinsen + unterhalt + amortisation;
     
@@ -322,15 +324,15 @@ export default function FunnelCalc({ data, projectData, propertyData, borrowers 
       <BoxWrapper>
         <TopBox
           title={isNegative ? t("funnelCalc.notEligible") : t("funnelCalc.financingPossible")}
-          subtitle={t("funnelCalc.estimatedMortgageNeed")}
+          subtitle={t("funnelCalc.currentMortgageWithIncrease")}
           value={CHF(hypothek)}
           error={isNegative}
         />
 
         <TwoBoxGrid
-          leftLabel={t("funnelCalc.mortgage")}
-          leftValue={CHF(hypothek)}
-          rightLabel={t("funnelCalc.affordability")}
+          leftLabel={t("funnelCalc.currentMortgage")}
+          leftValue={CHF(betrag)}
+          rightLabel={t("funnelCalc.affordabilityPercentage")}
           rightValue={`${tragbarkeitPct.toFixed(0)}%`}
         />
       </BoxWrapper>

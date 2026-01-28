@@ -40,9 +40,13 @@ async function createFolderWithTimestamp(email: string, token: string) {
   const DRIVE_ID = process.env.DRIVE_ID!;
   const ROOT_FOLDER_ID = process.env.FOLDER_ID!;
 
-  // Create folder name: Email_Date_Time (e.g., user@example.com_2026-01-27_15-30-45)
+  // Create folder name: Email_Date_Time (e.g., user@example.com_27-01-2026_15-30-45)
+  // Using Kosovo/European format: day-month-year
   const now = new Date();
-  const date = now.toISOString().split('T')[0]; // 2026-01-27
+  const day = String(now.getDate()).padStart(2, '0');
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const year = now.getFullYear();
+  const date = `${day}-${month}-${year}`; // 27-01-2026
   const time = now.toTimeString().split(' ')[0].replace(/:/g, '-'); // 15-30-45
   const folderName = `${email}_${date}_${time}`;
 

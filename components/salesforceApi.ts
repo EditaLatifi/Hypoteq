@@ -15,8 +15,29 @@ export async function findPersonAccountByEmail(email: string) {
   return conn.sobject('Account').findOne({ PersonEmail: email });
 }
 
+export async function findAccountByEmail(email: string) {
+  return conn.sobject('Account').findOne({ PersonEmail: email });
+}
+
 export async function createPersonAccount(fields: Record<string, any>) {
   return conn.sobject('Account').create({ ...fields, RecordTypeId: await getPersonAccountRecordTypeId() });
+}
+
+export async function createAccount(fields: Record<string, any>) {
+  const recordTypeId = await getPersonAccountRecordTypeId();
+  return conn.sobject('Account').create({ ...fields, RecordTypeId: recordTypeId });
+}
+
+export async function findContactByEmail(email: string) {
+  return conn.sobject('Contact').findOne({ Email: email });
+}
+
+export async function createContact(fields: Record<string, any>) {
+  return conn.sobject('Contact').create(fields);
+}
+
+export async function updateContact(id: string, fields: Record<string, any>) {
+  return conn.sobject('Contact').update({ Id: id, ...fields });
 }
 
 export async function updatePersonAccount(id: string, fields: Record<string, any>) {
@@ -38,7 +59,12 @@ async function getPersonAccountRecordTypeId() {
 export default {
   login,
   findPersonAccountByEmail,
+  findAccountByEmail,
   createPersonAccount,
+  createAccount,
+  findContactByEmail,
+  createContact,
+  updateContact,
   updatePersonAccount,
   createOrUpdateCase,
 };

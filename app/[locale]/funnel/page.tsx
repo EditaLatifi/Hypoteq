@@ -35,8 +35,11 @@ export default function FunnelPage() {
             id: uuidv4(),
             vorname: "",
             name: "",
+            email: "",
+            telefon: "",
             geburtsdatum: "",
-            status: "Angestellt",
+            erwerb: "",
+            zivilstand: "",
           },
         ],
         firmen: [{ firmenname: "" }],
@@ -138,6 +141,7 @@ useEffect(() => {
     firstName: "",
     lastName: "",
     email: "",
+    phone: "",
     zip: "",
     partnerEmail: "",
   });
@@ -162,8 +166,11 @@ useEffect(() => {
         id: uuidv4(),
         vorname: "",
         name: "",
+        email: "",
+        telefon: "",
         geburtsdatum: "",
-        status: "Angestellt",
+        erwerb: "",
+        zivilstand: "",
       },
     ],
     firmen: [{ firmenname: "" }],
@@ -211,7 +218,6 @@ const saveStep2 = () => {
 };
 
 
-// Correct order
 const saveStep3 = () => {
   // Validate borrower type is selected
   if (!borrowers || !borrowers[0] || !borrowers[0].type || borrowers[0].type === "") {
@@ -367,6 +373,7 @@ saveStep={next}
   customerType={customerType}            // direct / partner
   borrowerType={borrowers[0]?.type}
   projectData={projectData}
+  clientData={clientData}
 />
 
 )}
