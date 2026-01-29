@@ -137,17 +137,36 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     for (let i = 0; i < stepData.property.kreditnehmer.length; i++) {
       const kn = stepData.property.kreditnehmer[i];
       
-      // Only add if it has actual contact data and isn't empty
-      if ((kn.email || kn.emailAdresse) && (kn.vorname || kn.name || kn.firstName)) {
-        persons.push({
-          firstName: kn.firstName || kn.vorname || '',
-          lastName: kn.lastName || kn.nachname || kn.name || 'Unknown',
-          email: kn.email || kn.emailAdresse || '',
-          phone: kn.phone || kn.telefon || '',
-          erwerbsstatus: kn.erwerb || kn.erwerbsstatus || null,
-          zivilstand: kn.zivilstand || null,
-          geburtsdatum: kn.geburtsdatum || kn.birthdate || null,
-        });
+      // Check if it's a juristic person (company) by checking for firmenname
+      const isJuristicPerson = kn.firmenname || stepData.borrowers?.[0]?.type === 'jur';
+      
+      if (isJuristicPerson) {
+        // For juristic persons - use company name as LastName
+        if (kn.firmenname) {
+          persons.push({
+            firstName: '',
+            lastName: kn.firmenname,
+            email: kn.email || kn.emailAdresse || '',
+            phone: kn.phone || kn.telefon || '',
+            adresse: kn.adresse || '',
+            erwerbsstatus: null,
+            zivilstand: null,
+            geburtsdatum: null,
+          });
+        }
+      } else {
+        // For natural persons - existing logic
+        if ((kn.email || kn.emailAdresse) && (kn.vorname || kn.name || kn.firstName)) {
+          persons.push({
+            firstName: kn.firstName || kn.vorname || '',
+            lastName: kn.lastName || kn.nachname || kn.name || 'Unknown',
+            email: kn.email || kn.emailAdresse || '',
+            phone: kn.phone || kn.telefon || '',
+            erwerbsstatus: kn.erwerb || kn.erwerbsstatus || null,
+            zivilstand: kn.zivilstand || null,
+            geburtsdatum: kn.geburtsdatum || kn.birthdate || null,
+          });
+        }
       }
     }
   }
@@ -229,23 +248,37 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
       Phone: phone,
     };
     
+    // Add address if available (for juristic persons)
+    if (person.adresse) {
+      accountData.PersonMailingStreet = person.adresse;
+      console.log(`[Salesforce Sync] Adding address: ${person.adresse}`);
+    }
+    
     // Add additional person fields if available
     if (person.erwerbsstatus) {
       accountData.Erwerbsstatus__c = transformErwerbsstatus(person.erwerbsstatus);
+      console.log(`[Salesforce Sync] Erwerbsstatus: ${person.erwerbsstatus} -> ${accountData.Erwerbsstatus__c}`);
     }
     if (person.zivilstand) {
       accountData.Zivilstand__c = transformZivilstand(person.zivilstand);
+      console.log(`[Salesforce Sync] Zivilstand: ${person.zivilstand} -> ${accountData.Zivilstand__c}`);
     }
     if (person.geburtsdatum) {
-      accountData.PersonBirthdate = convertSwissDateToSalesforce(person.geburtsdatum);
+      const convertedDate = convertSwissDateToSalesforce(person.geburtsdatum);
+      accountData.PersonBirthdate = convertedDate;
+      console.log(`[Salesforce Sync] Geburtsdatum: ${person.geburtsdatum} -> ${convertedDate}`);
+    } else {
+      console.log(`[Salesforce Sync] No Geburtsdatum found for person`);
     }
     
     // Sanitize all account fields
     for (const [field, value] of Object.entries(accountData)) {
-      if (value !== undefined && field !== 'LastName' && field !== 'FirstName' && field !== 'PersonEmail' && field !== 'Phone') {
+      if (value !== undefined && field !== 'LastName' && field !== 'FirstName' && field !== 'PersonEmail' && field !== 'Phone' && field !== 'PersonBirthdate') {
         accountData[field] = sanitizeSFAccountValue(field, value);
       }
     }
+    
+    console.log(`[Salesforce Sync] Final accountData before create/update:`, JSON.stringify(accountData, null, 2));
     
     if (account) {
       console.log(`[Salesforce Sync] Account found for ${email}: ${account.Id}`);
@@ -256,6 +289,11 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
         Phone: phone,
       };
       
+      // Add address if available (for juristic persons)
+      if (person.adresse) {
+        updateData.PersonMailingStreet = person.adresse;
+      }
+      
       // Add optional person fields
       if (person.erwerbsstatus) {
         updateData.Erwerbsstatus__c = transformErwerbsstatus(person.erwerbsstatus);
@@ -264,7 +302,9 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
         updateData.Zivilstand__c = transformZivilstand(person.zivilstand);
       }
       if (person.geburtsdatum) {
-        updateData.PersonBirthdate = convertSwissDateToSalesforce(person.geburtsdatum);
+        const convertedDate = convertSwissDateToSalesforce(person.geburtsdatum);
+        updateData.PersonBirthdate = convertedDate;
+        console.log(`[Salesforce Sync] Updating Geburtsdatum: ${person.geburtsdatum} -> ${convertedDate}`);
       }
       
       console.log(`[Salesforce Sync] Updating Account ${account.Id} with data:`, updateData);
@@ -344,7 +384,12 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     flatData.neubauArt;
 
   flatData.artLiegenschaft =
+    flatData.artLiegenschaft === "Single-family home" ? "Einfamilienhaus" :
+    flatData.artLiegenschaft === "Multi-family home" ? "Mehrfamilienhaus" :
+    flatData.artLiegenschaft === "Apartment" ? "Wohnung" :
     flatData.artLiegenschaft === "Wohnung" ? "Wohnung" :
+    flatData.artLiegenschaft === "Commercial property" ? "Gewerbeimmobilie" :
+    flatData.artLiegenschaft === "Mixed-use property" ? "Gemischte Nutzung" :
     flatData.artLiegenschaft;
 
   flatData.modell =
@@ -363,11 +408,18 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     flatData.modell;
 
   const NUTZUNG_MAP: Record<string, string> = {
+    // German keys
     "Selbstbewohnt": "Selbstbewohnt",
     "Zweitwohnsitz / Ferienliegenschaft": "Zweitwohnsitz",
     "Vermietet & teilweise selbstbewohnt": "Vermietet & teilweise selbstbewohnt",
     "Rendite-Immobilie": "Rendite-Immobilie",
     "Für eigenes Geschäft": "Für eigenes Geschäft",
+    // English keys
+    "Owner-occupied": "Selbstbewohnt",
+    "Second home / Vacation property": "Zweitwohnsitz",
+    "Rented & partially owner-occupied": "Vermietet & teilweise selbstbewohnt",
+    "Investment property": "Rendite-Immobilie",
+    "For own business": "Für eigenes Geschäft",
   };
 
   if (flatData.nutzung) {
@@ -510,9 +562,16 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     }
   }
 
-  // Set Hypothekarvolumen__c (same as Hypothekenbedarf__c for now)
-  if (caseData['Hypothekenbedarf__c']) {
+  // Set Hypothekarvolumen__c based on project type
+  if (projektArt === 'kauf' && caseData['Hypothekenbedarf__c']) {
+    // For purchase: use calculated Hypothekenbedarf
     caseData['Hypothekarvolumen__c'] = caseData['Hypothekenbedarf__c'];
+  } else if (projektArt === 'abloesung') {
+    // For refinancing: use the abloesung_betrag input directly
+    const abloesungBetrag = Number(flatData.abloesung_betrag || 0);
+    if (abloesungBetrag > 0) {
+      caseData['Hypothekarvolumen__c'] = abloesungBetrag;
+    }
   }
 
   // Set Case Name if not already set

@@ -48,6 +48,7 @@ export const funnelToSalesforceMap = {
   kommentar: { salesforceField: "Kommentar__c", salesforceObject: "case" },
 
   abloesung_betrag: { salesforceField: "Abl_sung__c", salesforceObject: "case" },
+  erhoehung: { salesforceField: "Erh_hung__c", salesforceObject: "case" },
   erhoehung_betrag: { salesforceField: "Erh_hung_betrag__c", salesforceObject: "case" },
 
   caseName: { salesforceField: "Case_Name__c", salesforceObject: "case" },

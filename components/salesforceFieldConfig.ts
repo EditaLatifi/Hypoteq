@@ -38,6 +38,7 @@ export const SALESFORCE_CASE_FIELDS: Record<string, SFFieldType> = {
   Kreditnehmer__c: "picklist",
   Reason: "picklist",
   Verpf_ndung_PK__c: "picklist",
+  Erh_hung__c: "picklist",  // Mortgage increase (Ja/Nein)
 
   // String fields
   Kommentar__c: "string",

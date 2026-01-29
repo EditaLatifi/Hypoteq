@@ -45,7 +45,26 @@ export async function updatePersonAccount(id: string, fields: Record<string, any
 }
 
 export async function createOrUpdateCase(fields: Record<string, any>) {
-  // Always create a new case linked to the AccountId
+  // Check if a case already exists for this account to prevent duplicates
+  // Look for recent cases (created in last 5 minutes) with same AccountId
+  const accountId = fields.AccountId;
+  if (accountId) {
+    const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000).toISOString();
+    const query = `SELECT Id FROM Case WHERE AccountId = '${accountId}' AND CreatedDate >= ${fiveMinutesAgo} ORDER BY CreatedDate DESC LIMIT 1`;
+    
+    try {
+      const result = await conn.query(query);
+      if (result.records && result.records.length > 0) {
+        const existingCaseId = result.records[0].Id;
+        console.log(`[Salesforce] Found recent case ${existingCaseId}, updating instead of creating duplicate`);
+        return conn.sobject('Case').update({ Id: existingCaseId, ...fields });
+      }
+    } catch (err) {
+      console.log('[Salesforce] No recent case found, creating new one');
+    }
+  }
+  
+  // Create new case if no recent one exists
   return conn.sobject('Case').create(fields);
 }
 
