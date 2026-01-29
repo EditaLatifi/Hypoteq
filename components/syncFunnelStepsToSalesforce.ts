@@ -249,11 +249,26 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     
     if (account) {
       console.log(`[Salesforce Sync] Account found for ${email}: ${account.Id}`);
-      // Update existing account with new data if fields are present
-      if (person.erwerbsstatus || person.zivilstand || person.geburtsdatum) {
-        console.log(`[Salesforce Sync] Updating Account ${account.Id} with additional person fields`);
-        await salesforceApi.updatePersonAccount(account.Id, accountData);
+      // Always update existing account with all current data
+      const updateData: Record<string, any> = {
+        LastName: lastName,
+        FirstName: firstName,
+        Phone: phone,
+      };
+      
+      // Add optional person fields
+      if (person.erwerbsstatus) {
+        updateData.Erwerbsstatus__c = transformErwerbsstatus(person.erwerbsstatus);
       }
+      if (person.zivilstand) {
+        updateData.Zivilstand__c = transformZivilstand(person.zivilstand);
+      }
+      if (person.geburtsdatum) {
+        updateData.PersonBirthdate = convertSwissDateToSalesforce(person.geburtsdatum);
+      }
+      
+      console.log(`[Salesforce Sync] Updating Account ${account.Id} with data:`, updateData);
+      await salesforceApi.updatePersonAccount(account.Id, updateData);
     } else {
       // Create new Account
       console.log(`[Salesforce Sync] Creating new Account for ${email}`);
