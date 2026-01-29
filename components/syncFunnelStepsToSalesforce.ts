@@ -2,6 +2,38 @@ import { SALESFORCE_ACCOUNT_FIELDS } from "./salesforceAccountFieldConfig";
 import { funnelToSalesforceMap } from './funnelToSalesforceMap';
 import { SALESFORCE_CASE_FIELDS, SFFieldType } from "./salesforceFieldConfig";
 
+// Convert Swiss date format (DD.MM.YYYY) to Salesforce format (YYYY-MM-DD)
+function convertSwissDateToSalesforce(swissDate: string): string | null {
+  if (!swissDate || swissDate.trim() === '') return null;
+  const parts = swissDate.split('.');
+  if (parts.length !== 3) return null;
+  const [day, month, year] = parts;
+  if (!day || !month || !year) return null;
+  return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+}
+
+// Transform German picklist values to proper Salesforce format
+function transformErwerbsstatus(value: string | null | undefined): string | null {
+  if (!value) return null;
+  const mapping: Record<string, string> = {
+    'angestellt': 'Angestellt',
+    'selbständig': 'Selbständig',
+    'rentner': 'Rentner'
+  };
+  return mapping[value.toLowerCase()] || value;
+}
+
+function transformZivilstand(value: string | null | undefined): string | null {
+  if (!value) return null;
+  const mapping: Record<string, string> = {
+    'ledig': 'Ledig',
+    'verheiratet': 'Verheiratet',
+    'geschieden': 'Geschieden',
+    'verwitwet': 'Verwitwet'
+  };
+  return mapping[value.toLowerCase()] || value;
+}
+
 // Validation function
 function validatePersonData(person: any, personIndex: number, isPartnerEmail: boolean = false) {
   const errors: string[] = [];
@@ -112,6 +144,9 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
           lastName: kn.lastName || kn.nachname || kn.name || 'Unknown',
           email: kn.email || kn.emailAdresse || '',
           phone: kn.phone || kn.telefon || '',
+          erwerbsstatus: kn.erwerb || kn.erwerbsstatus || null,
+          zivilstand: kn.zivilstand || null,
+          geburtsdatum: kn.geburtsdatum || kn.birthdate || null,
         });
       }
     }
@@ -125,6 +160,9 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
         lastName: stepData.client.lastName || stepData.client.nachname || stepData.client.name || 'Unknown',
         email: stepData.client.email || stepData.client.emailAdresse || '',
         phone: stepData.client.phone || stepData.client.telefon || '',
+        erwerbsstatus: stepData.client.erwerb || stepData.client.erwerbsstatus || null,
+        zivilstand: stepData.client.zivilstand || null,
+        geburtsdatum: stepData.client.geburtsdatum || stepData.client.birthdate || null,
       });
     } else if (flatData.email) {
       // Final fallback if no client object
@@ -133,6 +171,9 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
         lastName: flatData.lastName || flatData.nachname || flatData.name || 'Unknown',
         email: flatData.email || flatData.emailAdresse || '',
         phone: flatData.phone || flatData.telefon || '',
+        erwerbsstatus: flatData.erwerb || flatData.erwerbsstatus || null,
+        zivilstand: flatData.zivilstand || null,
+        geburtsdatum: flatData.geburtsdatum || flatData.birthdate || null,
       });
     }
   }
@@ -180,17 +221,43 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     // STEP 1: Find or create Account using email as unique key
     let account = await salesforceApi.findAccountByEmail(email);
     
+    // Prepare Account data with additional person fields
+    const accountData: Record<string, any> = {
+      LastName: lastName,
+      FirstName: firstName,
+      PersonEmail: email,
+      Phone: phone,
+    };
+    
+    // Add additional person fields if available
+    if (person.erwerbsstatus) {
+      accountData.Erwerbsstatus__c = transformErwerbsstatus(person.erwerbsstatus);
+    }
+    if (person.zivilstand) {
+      accountData.Zivilstand__c = transformZivilstand(person.zivilstand);
+    }
+    if (person.geburtsdatum) {
+      accountData.PersonBirthdate = convertSwissDateToSalesforce(person.geburtsdatum);
+    }
+    
+    // Sanitize all account fields
+    for (const [field, value] of Object.entries(accountData)) {
+      if (value !== undefined && field !== 'LastName' && field !== 'FirstName' && field !== 'PersonEmail' && field !== 'Phone') {
+        accountData[field] = sanitizeSFAccountValue(field, value);
+      }
+    }
+    
     if (account) {
       console.log(`[Salesforce Sync] Account found for ${email}: ${account.Id}`);
+      // Update existing account with new data if fields are present
+      if (person.erwerbsstatus || person.zivilstand || person.geburtsdatum) {
+        console.log(`[Salesforce Sync] Updating Account ${account.Id} with additional person fields`);
+        await salesforceApi.updatePersonAccount(account.Id, accountData);
+      }
     } else {
       // Create new Account
       console.log(`[Salesforce Sync] Creating new Account for ${email}`);
-      account = await salesforceApi.createAccount({
-        LastName: lastName,
-        FirstName: firstName,
-        PersonEmail: email,
-        Phone: phone,
-      });
+      account = await salesforceApi.createAccount(accountData);
       console.log(`[Salesforce Sync] Account created: ${account.id || account.Id}`);
     }
 
@@ -382,15 +449,55 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
 
   // FINANCING LOGIC: If "Bestehen bereits Finanzierungsangebote?" = Nein → leave bank fields empty
   const hasFinancingOffers = flatData.finanzierungsangebote;
-  const hasFinancing = hasFinancingOffers === 'Ja' || hasFinancingOffers === true || hasFinancingOffers === 'yes';
+  const hasFinancing = hasFinancingOffers === 'Ja' || hasFinancingOffers === true || hasFinancingOffers === 'yes' || hasFinancingOffers === 'ja';
 
   if (!hasFinancing) {
     // Remove bank-related fields if no financing offers
     caseData['Bank__c'] = null;
+    caseData['Zins__c'] = null;
+    caseData['Laufzeit__c'] = null;
+    caseData['Bank2__c'] = null;
+    caseData['Zins2__c'] = null;
+    caseData['Laufzeit2__c'] = null;
+    caseData['Bank3__c'] = null;
+    caseData['Zins3__c'] = null;
+    caseData['Laufzeit3__c'] = null;
     caseData['Abl_sung__c'] = null;
     console.log('[Salesforce Sync] No financing offers - clearing bank fields');
   } else {
     console.log('[Salesforce Sync] Financing offers exist - mapping bank fields');
+    
+    // Map multiple bank offers from angebote array
+    const angebote = flatData.angebote || stepData.property?.angebote || [];
+    if (Array.isArray(angebote) && angebote.length > 0) {
+      // First bank offer (already mapped via funnelToSalesforceMap, but ensure it's set)
+      if (angebote[0]) {
+        caseData['Bank__c'] = angebote[0].bank || null;
+        caseData['Zins__c'] = angebote[0].zins || null;
+        caseData['Laufzeit__c'] = angebote[0].laufzeit || null;
+      }
+      
+      // Second bank offer
+      if (angebote[1]) {
+        caseData['Bank2__c'] = angebote[1].bank || null;
+        caseData['Zins2__c'] = angebote[1].zins || null;
+        caseData['Laufzeit2__c'] = angebote[1].laufzeit || null;
+        console.log('[Salesforce Sync] Mapped second bank offer');
+      }
+      
+      // Third bank offer
+      if (angebote[2]) {
+        caseData['Bank3__c'] = angebote[2].bank || null;
+        caseData['Zins3__c'] = angebote[2].zins || null;
+        caseData['Laufzeit3__c'] = angebote[2].laufzeit || null;
+        console.log('[Salesforce Sync] Mapped third bank offer');
+      }
+    }
+  }
+
+  // Set Hypothekarvolumen__c (same as Hypothekenbedarf__c for now)
+  if (caseData['Hypothekenbedarf__c']) {
+    caseData['Hypothekarvolumen__c'] = caseData['Hypothekenbedarf__c'];
   }
 
   // Set Case Name if not already set
@@ -434,6 +541,7 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
   // Link Client lookup fields AFTER all cleanup to prevent them being overwritten
   caseData['Client__c'] = mainAccountId;
   console.log(`[Salesforce Sync] Linked Client Account: ${mainAccountId}`);
+  console.log(`[Salesforce Sync] Number of clients: ${persons.length}`);
   
   if (persons.length >= 2 && accounts[1]) {
     const account2Id = accounts[1].id || accounts[1].Id;

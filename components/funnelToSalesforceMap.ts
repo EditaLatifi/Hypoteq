@@ -9,9 +9,6 @@ export const funnelToSalesforceMap = {
   email:     { salesforceField: "PersonEmail", salesforceObject: "account" },
   phone:     { salesforceField: "Phone", salesforceObject: "account" },
 
-  // Case fields - client count
-  clientCount: { salesforceField: "Client__c", salesforceObject: "case" },
-
   // Case fields - project info
   projektArt: { salesforceField: "Reason", salesforceObject: "case" },
   borrowerType: { salesforceField: "Kreditnehmer__c", salesforceObject: "case" },

@@ -45,6 +45,12 @@ export const SALESFORCE_CASE_FIELDS: Record<string, SFFieldType> = {
   Bank__c: "string",
   Zins__c: "string",
   Laufzeit__c: "string",
+  Bank2__c: "string",  // Second bank offer
+  Zins2__c: "string",  // Second bank interest rate
+  Laufzeit2__c: "string",  // Second bank term
+  Bank3__c: "string",  // Third bank offer
+  Zins3__c: "string",  // Third bank interest rate
+  Laufzeit3__c: "string",  // Third bank term
   Partner_Email__c: "string",  // Partner consultant email
   Eigenmittel_Prozent__c: "string",  // Own funds percentage
   Tragbarkeit_Prozent__c: "string",  // Affordability percentage
@@ -52,6 +58,9 @@ export const SALESFORCE_CASE_FIELDS: Record<string, SFFieldType> = {
   // Client lookup fields (Account IDs)
   Client_2__c: "string",
   Client_3__c: "string",
+
+  // Currency fields for mortgage volume
+  Hypothekarvolumen__c: "currency",  // Mortgage volume/amount
 
   // Date fields
   Kaufdatum__c: "date",
