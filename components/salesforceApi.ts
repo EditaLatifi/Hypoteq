@@ -55,9 +55,10 @@ export async function createOrUpdateCase(fields: Record<string, any>) {
     try {
       const result = await conn.query(query);
       if (result.records && result.records.length > 0) {
-        const existingCaseId = result.records[0].Id;
+        const existingCaseId = result.records[0].Id as string;
         console.log(`[Salesforce] Found recent case ${existingCaseId}, updating instead of creating duplicate`);
-        return conn.sobject('Case').update({ Id: existingCaseId, ...fields });
+        const updateFields = { ...fields, Id: existingCaseId };
+        return conn.sobject('Case').update(updateFields);
       }
     } catch (err) {
       console.log('[Salesforce] No recent case found, creating new one');

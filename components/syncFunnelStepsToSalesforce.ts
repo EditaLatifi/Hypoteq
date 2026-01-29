@@ -384,7 +384,12 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     flatData.neubauArt;
 
   flatData.artLiegenschaft =
+    flatData.artLiegenschaft === "Single-family home" ? "Einfamilienhaus" :
+    flatData.artLiegenschaft === "Multi-family home" ? "Mehrfamilienhaus" :
+    flatData.artLiegenschaft === "Apartment" ? "Wohnung" :
     flatData.artLiegenschaft === "Wohnung" ? "Wohnung" :
+    flatData.artLiegenschaft === "Commercial property" ? "Gewerbeimmobilie" :
+    flatData.artLiegenschaft === "Mixed-use property" ? "Gemischte Nutzung" :
     flatData.artLiegenschaft;
 
   flatData.modell =
@@ -403,11 +408,18 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     flatData.modell;
 
   const NUTZUNG_MAP: Record<string, string> = {
+    // German keys
     "Selbstbewohnt": "Selbstbewohnt",
     "Zweitwohnsitz / Ferienliegenschaft": "Zweitwohnsitz",
     "Vermietet & teilweise selbstbewohnt": "Vermietet & teilweise selbstbewohnt",
     "Rendite-Immobilie": "Rendite-Immobilie",
     "Für eigenes Geschäft": "Für eigenes Geschäft",
+    // English keys
+    "Owner-occupied": "Selbstbewohnt",
+    "Second home / Vacation property": "Zweitwohnsitz",
+    "Rented & partially owner-occupied": "Vermietet & teilweise selbstbewohnt",
+    "Investment property": "Rendite-Immobilie",
+    "For own business": "Für eigenes Geschäft",
   };
 
   if (flatData.nutzung) {
@@ -502,49 +514,42 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
 
   // ONLY link Client 2 Account if there are actually 2 or more persons (moved to end after cleanup)
 
-  // FINANCING LOGIC: If "Bestehen bereits Finanzierungsangebote?" = Nein → leave bank fields empty
+  // FINANCING LOGIC: Temporarily store bank data to apply after cleanup
+  let bankData: Record<string, any> = {};
   const hasFinancingOffers = flatData.finanzierungsangebote;
   const hasFinancing = hasFinancingOffers === 'Ja' || hasFinancingOffers === true || hasFinancingOffers === 'yes' || hasFinancingOffers === 'ja';
 
-  if (!hasFinancing) {
-    // Remove bank-related fields if no financing offers
-    caseData['Bank__c'] = null;
-    caseData['Zins__c'] = null;
-    caseData['Laufzeit__c'] = null;
-    caseData['Bank2__c'] = null;
-    caseData['Zins2__c'] = null;
-    caseData['Laufzeit2__c'] = null;
-    caseData['Bank3__c'] = null;
-    caseData['Zins3__c'] = null;
-    caseData['Laufzeit3__c'] = null;
-    caseData['Abl_sung__c'] = null;
-    console.log('[Salesforce Sync] No financing offers - clearing bank fields');
-  } else {
+  console.log('[Salesforce Sync] finanzierungsangebote:', flatData.finanzierungsangebote, 'hasFinancing:', hasFinancing);
+
+  if (hasFinancing) {
     console.log('[Salesforce Sync] Financing offers exist - mapping bank fields');
     
     // Map multiple bank offers from angebote array
     const angebote = flatData.angebote || stepData.property?.angebote || [];
+    console.log('[Salesforce Sync] angebote array:', JSON.stringify(angebote, null, 2));
+    
     if (Array.isArray(angebote) && angebote.length > 0) {
-      // First bank offer (already mapped via funnelToSalesforceMap, but ensure it's set)
+      // First bank offer
       if (angebote[0]) {
-        caseData['Bank__c'] = angebote[0].bank || null;
-        caseData['Zins__c'] = angebote[0].zins || null;
-        caseData['Laufzeit__c'] = angebote[0].laufzeit || null;
+        bankData['Bank__c'] = angebote[0].bank || null;
+        bankData['Zins__c'] = angebote[0].zins || null;
+        bankData['Laufzeit__c'] = angebote[0].laufzeit || null;
+        console.log('[Salesforce Sync] Bank 1:', angebote[0].bank, 'Zins:', angebote[0].zins, 'Laufzeit:', angebote[0].laufzeit);
       }
       
       // Second bank offer
       if (angebote[1]) {
-        caseData['Bank2__c'] = angebote[1].bank || null;
-        caseData['Zins2__c'] = angebote[1].zins || null;
-        caseData['Laufzeit2__c'] = angebote[1].laufzeit || null;
+        bankData['Bank2__c'] = angebote[1].bank || null;
+        bankData['Zins2__c'] = angebote[1].zins || null;
+        bankData['Laufzeit2__c'] = angebote[1].laufzeit || null;
         console.log('[Salesforce Sync] Mapped second bank offer');
       }
       
       // Third bank offer
       if (angebote[2]) {
-        caseData['Bank3__c'] = angebote[2].bank || null;
-        caseData['Zins3__c'] = angebote[2].zins || null;
-        caseData['Laufzeit3__c'] = angebote[2].laufzeit || null;
+        bankData['Bank3__c'] = angebote[2].bank || null;
+        bankData['Zins3__c'] = angebote[2].zins || null;
+        bankData['Laufzeit3__c'] = angebote[2].laufzeit || null;
         console.log('[Salesforce Sync] Mapped third bank offer');
       }
     }
@@ -599,6 +604,10 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
   Object.keys(caseData).forEach(
     k => caseData[k] === "" && (caseData[k] = null)
   );
+
+  // Apply bank data AFTER cleanup to prevent it being removed
+  console.log('[Salesforce Sync] Applying bank data after cleanup:', JSON.stringify(bankData, null, 2));
+  Object.assign(caseData, bankData);
 
   // Link Client lookup fields AFTER all cleanup to prevent them being overwritten
   caseData['Client__c'] = mainAccountId;
