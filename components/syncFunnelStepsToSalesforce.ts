@@ -384,12 +384,7 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     flatData.neubauArt;
 
   flatData.artLiegenschaft =
-    flatData.artLiegenschaft === "Single-family home" ? "Einfamilienhaus" :
-    flatData.artLiegenschaft === "Multi-family home" ? "Mehrfamilienhaus" :
-    flatData.artLiegenschaft === "Apartment" ? "Wohnung" :
     flatData.artLiegenschaft === "Wohnung" ? "Wohnung" :
-    flatData.artLiegenschaft === "Commercial property" ? "Gewerbeimmobilie" :
-    flatData.artLiegenschaft === "Mixed-use property" ? "Gemischte Nutzung" :
     flatData.artLiegenschaft;
 
   flatData.modell =
@@ -408,18 +403,11 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     flatData.modell;
 
   const NUTZUNG_MAP: Record<string, string> = {
-    // German keys
     "Selbstbewohnt": "Selbstbewohnt",
     "Zweitwohnsitz / Ferienliegenschaft": "Zweitwohnsitz",
     "Vermietet & teilweise selbstbewohnt": "Vermietet & teilweise selbstbewohnt",
     "Rendite-Immobilie": "Rendite-Immobilie",
     "Für eigenes Geschäft": "Für eigenes Geschäft",
-    // English keys
-    "Owner-occupied": "Selbstbewohnt",
-    "Second home / Vacation property": "Zweitwohnsitz",
-    "Rented & partially owner-occupied": "Vermietet & teilweise selbstbewohnt",
-    "Investment property": "Rendite-Immobilie",
-    "For own business": "Für eigenes Geschäft",
   };
 
   if (flatData.nutzung) {
