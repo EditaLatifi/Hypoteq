@@ -25,7 +25,16 @@ export async function createPersonAccount(fields: Record<string, any>) {
 
 export async function createAccount(fields: Record<string, any>) {
   const recordTypeId = await getPersonAccountRecordTypeId();
-  return conn.sobject('Account').create({ ...fields, RecordTypeId: recordTypeId });
+  const accountData = { ...fields, RecordTypeId: recordTypeId };
+  console.log('[Salesforce API] Creating Account with data:', JSON.stringify(accountData, null, 2));
+  try {
+    const result = await conn.sobject('Account').create(accountData);
+    console.log('[Salesforce API] Account created:', JSON.stringify(result, null, 2));
+    return result;
+  } catch (error) {
+    console.error('[Salesforce API] Create Account failed:', error);
+    throw error;
+  }
 }
 
 export async function findContactByEmail(email: string) {
@@ -41,7 +50,15 @@ export async function updateContact(id: string, fields: Record<string, any>) {
 }
 
 export async function updatePersonAccount(id: string, fields: Record<string, any>) {
-  return conn.sobject('Account').update({ Id: id, ...fields });
+  console.log('[Salesforce API] Updating Person Account:', id, JSON.stringify(fields, null, 2));
+  try {
+    const result = await conn.sobject('Account').update({ Id: id, ...fields });
+    console.log('[Salesforce API] Update result:', JSON.stringify(result, null, 2));
+    return result;
+  } catch (error) {
+    console.error('[Salesforce API] Update Person Account failed:', error);
+    throw error;
+  }
 }
 
 export async function createOrUpdateCase(fields: Record<string, any>) {

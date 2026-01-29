@@ -303,11 +303,13 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
       }
       if (person.geburtsdatum) {
         const convertedDate = convertSwissDateToSalesforce(person.geburtsdatum);
-        updateData.PersonBirthdate = convertedDate;
-        console.log(`[Salesforce Sync] Updating Geburtsdatum: ${person.geburtsdatum} -> ${convertedDate}`);
+        if (convertedDate) {
+          updateData.PersonBirthdate = convertedDate;
+          console.log(`[Salesforce Sync] Updating Geburtsdatum: ${person.geburtsdatum} -> ${convertedDate}`);
+        }
       }
       
-      console.log(`[Salesforce Sync] Updating Account ${account.Id} with data:`, updateData);
+      console.log(`[Salesforce Sync] Updating Account ${account.Id} with data:`, JSON.stringify(updateData, null, 2));
       await salesforceApi.updatePersonAccount(account.Id, updateData);
     } else {
       // Create new Account
