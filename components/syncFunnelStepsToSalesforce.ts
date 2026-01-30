@@ -471,7 +471,11 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     const sfField = mapping.salesforceField;
     const sanitized = sanitizeSFValue(sfField, value);
     
-    if (sanitized !== undefined) {
+    // Skip null currency fields for Ablösung-specific fields to avoid Salesforce errors
+    const isAbloesungCurrencyField = ['Abl_sung__c', 'Hypothekarbetrag__c'].includes(sfField);
+    const isNullCurrency = sanitized === null && SALESFORCE_CASE_FIELDS[sfField] === "currency";
+    
+    if (sanitized !== undefined && !(isAbloesungCurrencyField && isNullCurrency)) {
       caseData[sfField] = sanitized;
       // Log Ablösung-specific fields for debugging
       if (funnelField === 'abloesung_betrag' || funnelField === 'erhoehung' || funnelField === 'erhoehung_betrag' || funnelField === 'kaufdatum' || funnelField === 'kommentar' || funnelField === 'hypothekarbetrag') {
