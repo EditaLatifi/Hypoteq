@@ -35,9 +35,19 @@ function transformZivilstand(value: string | null | undefined): string | null {
 }
 
 // Validation function
-function validatePersonData(person: any, personIndex: number, isPartnerEmail: boolean = false) {
+function validatePersonData(person: any, personIndex: number, isPartnerEmail: boolean = false, isJuristicPerson: boolean = false) {
   const errors: string[] = [];
   
+  // Skip email/phone validation for juristic persons (companies)
+  if (isJuristicPerson) {
+    // Only validate that company name (lastName) exists
+    if (!person.lastName || person.lastName.trim() === '') {
+      errors.push(`Person ${personIndex}: Company name is mandatory`);
+    }
+    return errors;
+  }
+  
+  // For natural persons - email and phone validation
   if (!person.email || person.email.trim() === '') {
     errors.push(`Person ${personIndex}: Email is mandatory`);
   }
@@ -152,6 +162,7 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
             erwerbsstatus: null,
             zivilstand: null,
             geburtsdatum: null,
+            isJuristic: true, // Mark as juristic person for validation
           });
         }
       } else {
@@ -207,10 +218,12 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     throw new Error('At least one person is required');
   }
 
-  // VALIDATION: Validate each person (all end-customers must have email AND phone)
+  // VALIDATION: Validate each person
   const validationErrors: string[] = [];
   persons.forEach((person, index) => {
-    const errors = validatePersonData(person, index + 1, false); // false = phone required
+    // Skip email/phone validation for juristic persons
+    const isJuristicPerson = (person as any).isJuristic === true;
+    const errors = validatePersonData(person, index + 1, false, isJuristicPerson);
     validationErrors.push(...errors);
   });
 

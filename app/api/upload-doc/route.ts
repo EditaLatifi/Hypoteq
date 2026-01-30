@@ -34,21 +34,59 @@ async function getAccessToken() {
 }
 
 /* ============================
-   CREATE FOLDER WITH EMAIL_DATE_TIME
+   GET OR CREATE FOLDER FOR THIS SUBMISSION
 ============================ */
-async function createFolderWithTimestamp(email: string, token: string) {
+async function getOrCreateSubmissionFolder(email: string, inquiryId: string, token: string) {
   const DRIVE_ID = process.env.DRIVE_ID!;
   const ROOT_FOLDER_ID = process.env.FOLDER_ID!;
 
-  // Create folder name: Email_Date_Time (e.g., user@example.com_27-01-2026_15-30-45)
-  // Using Kosovo/European format: day-month-year
+  // Create folder name pattern: Email_Date_InquiryID (e.g., user@example.com_27-01-2026_abc123)
   const now = new Date();
   const day = String(now.getDate()).padStart(2, '0');
   const month = String(now.getMonth() + 1).padStart(2, '0');
   const year = now.getFullYear();
-  const date = `${day}-${month}-${year}`; // 27-01-2026
-  const time = now.toTimeString().split(' ')[0].replace(/:/g, '-'); // 15-30-45
-  const folderName = `${email}_${date}_${time}`;
+  const dateStr = `${day}-${month}-${year}`;
+  
+  // Use first 8 chars of inquiryId to match folder naming (SharePoint length limit)
+  const shortInquiryId = inquiryId.substring(0, 8);
+  const folderPrefix = `${email}_${dateStr}_${shortInquiryId}`;
+
+  console.log("🔍 Looking for existing folder with prefix:", folderPrefix);
+
+  // List folders in root to find existing one for this submission
+  try {
+    const listRes = await fetch(
+      `https://graph.microsoft.com/v1.0/drives/${DRIVE_ID}/items/${ROOT_FOLDER_ID}/children`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const listJson = await listRes.json();
+
+    if (listRes.ok && listJson.value) {
+      // Find folder that matches this submission's inquiryId (first 8 chars)
+      const existingFolder = listJson.value.find((item: any) => 
+        item.folder && item.name.includes(shortInquiryId)
+      );
+
+      if (existingFolder) {
+        console.log("♻️ Found existing folder for this submission:", existingFolder.name);
+        return existingFolder.id;
+      } else {
+        console.log("🔍 No matching folder found for inquiryId:", shortInquiryId);
+      }
+    }
+  } catch (err) {
+    console.log("❌ Error listing folders:", err);
+  }
+
+  // Create new folder with timestamp for this submission
+  const time = now.toTimeString().split(' ')[0].replace(/:/g, '-');
+  const folderName = `${email}_${dateStr}_${time}_${inquiryId.substring(0, 8)}`;
 
   console.log("📁 Creating new folder:", folderName);
 
@@ -90,6 +128,9 @@ export async function POST(req: Request) {
     const file = form.get("file") as File;
     const email = form.get("email") as string;
     const inquiryId = form.get("inquiryId") as string;
+    const existingFolderId = form.get("folderId") as string | null;
+
+    console.log("📋 Upload params - email:", email, "inquiryId:", inquiryId);
 
     if (!file || !email || !inquiryId) {
       return NextResponse.json(
@@ -100,8 +141,8 @@ export async function POST(req: Request) {
 
     const token = await getAccessToken();
 
-    // �️ Create folder with Email_Date_Time format
-    const folderId = await createFolderWithTimestamp(email, token);
+    // 📁 Get or create folder for this submission using inquiryId
+    const folderId = await getOrCreateSubmissionFolder(email, inquiryId, token);
 
     // Convert file to buffer
     const arrayBuffer = await file.arrayBuffer();
@@ -131,7 +172,7 @@ export async function POST(req: Request) {
 
     console.log("✅ Successfully uploaded:", file.name);
 
-    return NextResponse.json({ success: true, data: uploadJson });
+    return NextResponse.json({ success: true, data: uploadJson, folderId });
   } catch (err: any) {
     console.error("💥 SERVER ERROR:", err.message);
     return NextResponse.json(

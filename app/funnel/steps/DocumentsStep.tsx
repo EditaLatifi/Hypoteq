@@ -9,6 +9,17 @@ function DocumentsStep({ borrowers, docs, setDocs, addDocument, saveStep, back }
 const { t } = useTranslation();
 const { project, email, property, financing } = useFunnelStore();
 const [isDragging, setIsDragging] = useState(false);
+const [currentFolderId, setCurrentFolderId] = useState<string | null>(null);
+
+// Generate unique submission ID if project.id doesn't exist
+const submissionId = project?.id || uuidv4();
+console.log("🆔 Submission ID:", submissionId, "project.id:", project?.id);
+
+// Reset folderId when submission ID changes (new submission)
+useEffect(() => {
+  setCurrentFolderId(null);
+  console.log("🔄 New submission detected, folder ID reset. Submission ID:", submissionId);
+}, [submissionId]);
 
 const isNeubau = property?.artImmobilie === "neubau";
 const isBestand = property?.artImmobilie === "bestehend";
@@ -87,11 +98,14 @@ console.log("📄 Document Conditions:", {
 
 
 
-async function uploadDocToSharepoint(file: File, inquiryId: string, email: string) {
+async function uploadDocToSharepoint(file: File, inquiryId: string, email: string, folderId: string | null = null) {
   const formData = new FormData();
   formData.append("file", file);
   formData.append("inquiryId", inquiryId);
   formData.append("email", email);
+  if (folderId) {
+    formData.append("folderId", folderId);
+  }
 
   const res = await fetch("/api/upload-doc", {
     method: "POST",
@@ -356,17 +370,32 @@ const handleUpload = async (e: any) => {
   const files = e.target.files;
   if (!files || files.length === 0) return;
 
+  console.log("📤 Starting upload of", files.length, "file(s). Current folder ID:", currentFolderId);
+
   for (const file of files) {
+    console.log("🔍 Before upload - file:", file.name, "currentFolderId:", currentFolderId);
+    
     const uploadRes = await uploadDocToSharepoint(
       file,
-      project?.id ?? "no-inquiry-id",
-      email ?? "no-email"
+      submissionId,
+      email ?? "no-email",
+      currentFolderId
     );
+
+    console.log("📦 Upload response:", uploadRes);
 
     if (uploadRes?.error) {
       console.error("Upload failed:", uploadRes.error);
       alert(t("funnel.uploadError" as any));
       continue;
+    }
+
+    // Store folderId from first upload to reuse for subsequent uploads
+    if (!currentFolderId && uploadRes?.folderId) {
+      setCurrentFolderId(uploadRes.folderId);
+      console.log("📁 Folder created, ID stored:", uploadRes.folderId);
+    } else if (currentFolderId) {
+      console.log("♻️ Using existing folder:", currentFolderId);
     }
 
     const newDoc = {
@@ -399,17 +428,32 @@ const handleDrop = async (e: React.DragEvent) => {
   const files = Array.from(e.dataTransfer.files);
   if (!files || files.length === 0) return;
 
+  console.log("📤 Starting drag&drop upload of", files.length, "file(s). Current folder ID:", currentFolderId);
+
   for (const file of files) {
+    console.log("🔍 Before upload - file:", file.name, "currentFolderId:", currentFolderId);
+    
     const uploadRes = await uploadDocToSharepoint(
       file,
-      project?.id ?? "no-inquiry-id",
-      email ?? "no-email"
+      submissionId,
+      email ?? "no-email",
+      currentFolderId
     );
+
+    console.log("📦 Upload response:", uploadRes);
 
     if (uploadRes?.error) {
       console.error("Upload failed:", uploadRes.error);
       alert(t("funnel.uploadError" as any));
       continue;
+    }
+
+    // Store folderId from first upload to reuse for subsequent uploads
+    if (!currentFolderId && uploadRes?.folderId) {
+      setCurrentFolderId(uploadRes.folderId);
+      console.log("📁 Folder created, ID stored:", uploadRes.folderId);
+    } else if (currentFolderId) {
+      console.log("♻️ Using existing folder:", currentFolderId);
     }
 
     const newDoc = {
