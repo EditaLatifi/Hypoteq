@@ -609,10 +609,14 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     // For purchase: use calculated Hypothekenbedarf
     caseData['Hypothekarvolumen__c'] = caseData['Hypothekenbedarf__c'];
   } else if (projektArt === 'abloesung') {
-    // For refinancing: use the abloesung_betrag input directly
+    // For refinancing: use total (abloesung_betrag + hypothekarbetrag + erhoehung if applicable)
     const abloesungBetrag = Number(flatData.abloesung_betrag || 0);
-    if (abloesungBetrag > 0) {
-      caseData['Hypothekarvolumen__c'] = abloesungBetrag;
+    const hypothekarBetrag = Number(flatData.hypothekarbetrag || 0);
+    const erhoehungBetrag = flatData.erhoehung === 'Ja' ? Number(flatData.erhoehung_betrag || 0) : 0;
+    const totalVolumen = abloesungBetrag + hypothekarBetrag + erhoehungBetrag;
+    if (totalVolumen > 0) {
+      caseData['Hypothekarvolumen__c'] = totalVolumen;
+      console.log(`[Salesforce Sync] Hypothekarvolumen: ${abloesungBetrag} + ${hypothekarBetrag} + ${erhoehungBetrag} = ${totalVolumen}`);
     }
   }
 
