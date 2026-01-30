@@ -48,8 +48,7 @@ export const funnelToSalesforceMap = {
   kommentar: { salesforceField: "Kommentar__c", salesforceObject: "case" },
 
   abloesung_betrag: { salesforceField: "Abl_sung__c", salesforceObject: "case" },
-  erhoehung: { salesforceField: "Erh_hung__c", salesforceObject: "case" }, // Checkbox: Ja/Nein
-  erhoehung_betrag: { salesforceField: "Erh_hung_betrag__c", salesforceObject: "case" }, // Amount if Ja
+  erhoehung_betrag: { salesforceField: "Erh_hung__c", salesforceObject: "case" }, // Mortgage increase amount (only sent if erhoehung=Ja)
   // Note: hypothekarbetrag field doesn't exist in form data - the form uses abloesung_betrag instead
   // Hypothekarvolumen__c is set programmatically based on abloesung_betrag (see syncFunnelStepsToSalesforce.ts line 598)
 

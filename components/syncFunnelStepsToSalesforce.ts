@@ -459,6 +459,15 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     let value = flatData[funnelField];
     if (Array.isArray(value)) value = value.join(", ");
     
+    // Special handling for erhoehung_betrag: only set if erhoehung is "Ja"
+    if (funnelField === 'erhoehung_betrag') {
+      const erhoehungAnswer = flatData.erhoehung;
+      if (erhoehungAnswer !== 'Ja' && erhoehungAnswer !== 'ja' && erhoehungAnswer !== 'yes' && erhoehungAnswer !== 'Yes') {
+        console.log(`[Salesforce Sync] SKIPPED erhoehung_betrag because erhoehung is not "Ja": ${erhoehungAnswer}`);
+        continue; // Skip this field if user didn't answer "Ja" to the increase question
+      }
+    }
+    
     const sfField = mapping.salesforceField;
     const sanitized = sanitizeSFValue(sfField, value);
     

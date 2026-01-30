@@ -27,6 +27,7 @@ export const SALESFORCE_CASE_FIELDS: Record<string, SFFieldType> = {
   Einkommen__c: "currency",
   J_hrlicher_Netto_Mietertrag__c: "currency",
   Abl_sung__c: "currency",
+  Erh_hung__c: "currency",  // Mortgage increase amount (from erhoehung_betrag)
   Erh_hung_betrag__c: "currency",
   Hypothekenbedarf__c: "currency",  // Calculated mortgage need
   Hypothekarbetrag__c: "currency",  // Direct mortgage amount input (Ablösung)
@@ -40,7 +41,6 @@ export const SALESFORCE_CASE_FIELDS: Record<string, SFFieldType> = {
   Kreditnehmer__c: "picklist",
   Reason: "picklist",
   Verpf_ndung_PK__c: "picklist",
-  Erh_hung__c: "picklist",  // Mortgage increase (Ja/Nein)
 
   // String fields
   Kommentar__c: "string",
