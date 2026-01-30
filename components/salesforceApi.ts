@@ -7,6 +7,8 @@ const SF_LOGIN_URL = process.env.SF_LOGIN_URL || 'https://login.salesforce.com';
 
 const conn = new Connection({ loginUrl: SF_LOGIN_URL });
 
+export { conn }; // Export connection for direct queries
+
 export async function login() {
   await conn.login(SF_USERNAME, SF_PASSWORD + SF_TOKEN);
 }

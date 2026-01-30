@@ -247,46 +247,50 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     const phone = person.phone || person.telefon;
     const firstName = person.firstName || person.vorname || '';
     const lastName = person.lastName || person.nachname || person.name || 'Unknown';
+    const isJuristicPerson = (person as any).isJuristic === true;
 
-    console.log(`[Salesforce Sync] Processing person ${i + 1}: ${email}`);
+    console.log(`[Salesforce Sync] Processing person ${i + 1}: ${email} (${isJuristicPerson ? 'Company' : 'Individual'})`);
 
-    // STEP 1: Find or create Account using email as unique key
+    // STEP 1: Find or create Account using email as unique key (same for everyone)
     let account = await salesforceApi.findAccountByEmail(email);
     
-    // Prepare Account data with additional person fields
+    // Prepare Account data - Person Account fields for everyone (companies and individuals)
     const accountData: Record<string, any> = {
       LastName: lastName,
-      FirstName: firstName,
+      FirstName: isJuristicPerson ? '' : firstName, // Empty FirstName for companies
       PersonEmail: email,
       Phone: phone,
     };
     
-    // Add address if available (for juristic persons)
+    // Add address if available
     if (person.adresse) {
       accountData.PersonMailingStreet = person.adresse;
       console.log(`[Salesforce Sync] Adding address: ${person.adresse}`);
     }
     
-    // Add additional person fields if available
-    if (person.erwerbsstatus) {
-      accountData.Erwerbsstatus__c = transformErwerbsstatus(person.erwerbsstatus);
-      console.log(`[Salesforce Sync] Erwerbsstatus: ${person.erwerbsstatus} -> ${accountData.Erwerbsstatus__c}`);
-    }
-    if (person.zivilstand) {
-      accountData.Zivilstand__c = transformZivilstand(person.zivilstand);
-      console.log(`[Salesforce Sync] Zivilstand: ${person.zivilstand} -> ${accountData.Zivilstand__c}`);
-    }
-    if (person.geburtsdatum) {
-      const convertedDate = convertSwissDateToSalesforce(person.geburtsdatum);
-      accountData.PersonBirthdate = convertedDate;
-      console.log(`[Salesforce Sync] Geburtsdatum: ${person.geburtsdatum} -> ${convertedDate}`);
-    } else {
-      console.log(`[Salesforce Sync] No Geburtsdatum found for person`);
+    // Add additional person fields (only for natural persons)
+    if (!isJuristicPerson) {
+      if (person.erwerbsstatus) {
+        accountData.Erwerbsstatus__c = transformErwerbsstatus(person.erwerbsstatus);
+        console.log(`[Salesforce Sync] Erwerbsstatus: ${person.erwerbsstatus} -> ${accountData.Erwerbsstatus__c}`);
+      }
+      if (person.zivilstand) {
+        accountData.Zivilstand__c = transformZivilstand(person.zivilstand);
+        console.log(`[Salesforce Sync] Zivilstand: ${person.zivilstand} -> ${accountData.Zivilstand__c}`);
+      }
+      if (person.geburtsdatum) {
+        const convertedDate = convertSwissDateToSalesforce(person.geburtsdatum);
+        accountData.Geburtsdatum__c = convertedDate;
+        console.log(`[Salesforce Sync] Geburtsdatum: ${person.geburtsdatum} -> ${convertedDate}`);
+      } else {
+        console.log(`[Salesforce Sync] No Geburtsdatum found for person`);
+      }
     }
     
-    // Sanitize all account fields
+    // Sanitize all account fields (skip core identity fields)
+    const skipFields = ['LastName', 'FirstName', 'PersonEmail', 'Phone', 'Geburtsdatum__c', 'Name', 'Email__c'];
     for (const [field, value] of Object.entries(accountData)) {
-      if (value !== undefined && field !== 'LastName' && field !== 'FirstName' && field !== 'PersonEmail' && field !== 'Phone' && field !== 'PersonBirthdate') {
+      if (value !== undefined && !skipFields.includes(field)) {
         accountData[field] = sanitizeSFAccountValue(field, value);
       }
     }
@@ -295,30 +299,32 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     
     if (account) {
       console.log(`[Salesforce Sync] Account found for ${email}: ${account.Id}`);
-      // Always update existing account with all current data
+      // Always update existing account with all current data - Person Account fields for everyone
       const updateData: Record<string, any> = {
         LastName: lastName,
-        FirstName: firstName,
+        FirstName: isJuristicPerson ? '' : firstName, // Empty for companies
         Phone: phone,
       };
       
-      // Add address if available (for juristic persons)
+      // Add address if available
       if (person.adresse) {
         updateData.PersonMailingStreet = person.adresse;
       }
       
-      // Add optional person fields
-      if (person.erwerbsstatus) {
-        updateData.Erwerbsstatus__c = transformErwerbsstatus(person.erwerbsstatus);
-      }
-      if (person.zivilstand) {
-        updateData.Zivilstand__c = transformZivilstand(person.zivilstand);
-      }
-      if (person.geburtsdatum) {
-        const convertedDate = convertSwissDateToSalesforce(person.geburtsdatum);
-        if (convertedDate) {
-          updateData.PersonBirthdate = convertedDate;
-          console.log(`[Salesforce Sync] Updating Geburtsdatum: ${person.geburtsdatum} -> ${convertedDate}`);
+      // Add optional person fields (only for natural persons, not companies)
+      if (!isJuristicPerson) {
+        if (person.erwerbsstatus) {
+          updateData.Erwerbsstatus__c = transformErwerbsstatus(person.erwerbsstatus);
+        }
+        if (person.zivilstand) {
+          updateData.Zivilstand__c = transformZivilstand(person.zivilstand);
+        }
+        if (person.geburtsdatum) {
+          const convertedDate = convertSwissDateToSalesforce(person.geburtsdatum);
+          if (convertedDate) {
+            updateData.Geburtsdatum__c = convertedDate;
+            console.log(`[Salesforce Sync] Updating Geburtsdatum: ${person.geburtsdatum} -> ${convertedDate}`);
+          }
         }
       }
       
@@ -326,7 +332,7 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
       await salesforceApi.updatePersonAccount(account.Id, updateData);
     } else {
       // Create new Account
-      console.log(`[Salesforce Sync] Creating new Account for ${email}`);
+      console.log(`[Salesforce Sync] Creating new Account for ${email || lastName}`);
       account = await salesforceApi.createAccount(accountData);
       console.log(`[Salesforce Sync] Account created: ${account.id || account.Id}`);
     }
@@ -348,7 +354,6 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
         LastName: lastName,
         Email: email,
         Phone: phone,
-        IsPrimary__c: i === 0, // Mark first contact as primary
       });
     } else {
       // Create new Contact
@@ -359,7 +364,6 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
         LastName: lastName,
         Email: email,
         Phone: phone,
-        IsPrimary__c: i === 0, // Mark first contact as primary
       });
       console.log(`[Salesforce Sync] Contact created: ${contact.id || contact.Id}`);
     }
@@ -628,6 +632,14 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
   caseData['Client__c'] = mainAccountId;
   console.log(`[Salesforce Sync] Linked Client Account: ${mainAccountId}`);
   console.log(`[Salesforce Sync] Number of clients: ${persons.length}`);
+  
+  // Add Erwerbsstatus to Case (only for natural persons)
+  const firstPerson = persons[0];
+  const isJuristicPerson = (firstPerson as any).isJuristic === true;
+  if (!isJuristicPerson && firstPerson.erwerbsstatus) {
+    caseData['If_nat_rliche_person__c'] = transformErwerbsstatus(firstPerson.erwerbsstatus);
+    console.log(`[Salesforce Sync] Adding Erwerbsstatus to Case: ${firstPerson.erwerbsstatus} -> ${caseData['If_nat_rliche_person__c']}`);
+  }
   
   if (persons.length >= 2 && accounts[1]) {
     const account2Id = accounts[1].id || accounts[1].Id;
