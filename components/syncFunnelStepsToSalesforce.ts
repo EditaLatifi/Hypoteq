@@ -104,7 +104,9 @@ function sanitizeSFValue(sfField: string, value: any) {
     }
 
     case "date":
-      return value || null;
+      // Convert Swiss date format (DD.MM.YYYY) to Salesforce format (YYYY-MM-DD)
+      if (!value || value === '') return null;
+      return convertSwissDateToSalesforce(value);
 
     case "picklist":
       // Handle Ja/Nein picklists - ensure proper capitalization
@@ -462,6 +464,15 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     
     if (sanitized !== undefined) {
       caseData[sfField] = sanitized;
+      // Log Ablösung-specific fields for debugging
+      if (funnelField === 'abloesung_betrag' || funnelField === 'erhoehung' || funnelField === 'erhoehung_betrag' || funnelField === 'kaufdatum' || funnelField === 'kommentar' || funnelField === 'hypothekarbetrag') {
+        console.log(`[Salesforce Sync] Mapped ${funnelField}: ${value} → ${sfField}: ${sanitized}`);
+      }
+    } else {
+      // Log when a field is skipped
+      if (funnelField === 'abloesung_betrag' || funnelField === 'erhoehung' || funnelField === 'erhoehung_betrag' || funnelField === 'kaufdatum' || funnelField === 'kommentar' || funnelField === 'hypothekarbetrag') {
+        console.log(`[Salesforce Sync] SKIPPED ${funnelField} (value was undefined after sanitization): ${value}`);
+      }
     }
   }
 
@@ -473,6 +484,12 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
   const eigenmittel_pk = Number(flatData.eigenmittel_pk || 0);
   const eigenmittel_schenkung = Number(flatData.eigenmittel_schenkung || 0);
   const eigenmittel = eigenmittel_bar + eigenmittel_saeule3 + eigenmittel_pk + eigenmittel_schenkung;
+
+  // Add total Eigenmittel to Case
+  if (eigenmittel > 0) {
+    caseData['Eigenmittel__c'] = eigenmittel;
+    console.log(`[Salesforce Sync] Total Eigenmittel: ${eigenmittel}`);
+  }
 
   if (projektArt === 'kauf') {
     // Calculate mortgage need for purchase
@@ -504,9 +521,9 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     const hypothekenbedarf = betrag + erhoehung;
     caseData['Hypothekenbedarf__c'] = hypothekenbedarf;
     
-    // Add total mortgage amount including increase to Erh_hung__c
-    caseData['Erh_hung__c'] = hypothekenbedarf;
-    console.log(`[Salesforce Sync] Total mortgage with increase (Erh_hung__c): ${hypothekenbedarf}`);
+    // Note: Erh_hung__c (Ja/Nein checkbox) is already set from the mapping loop
+    // Don't overwrite it with the total amount
+    console.log(`[Salesforce Sync] Hypothekenbedarf for Ablösung: ${hypothekenbedarf}`);
 
     const propertyValue = Number(flatData.immobilienwert || 0) || hypothekenbedarf;
     const eigenmittelPct = propertyValue > 0 ? Math.round(((propertyValue - hypothekenbedarf) / propertyValue) * 100) : 0;

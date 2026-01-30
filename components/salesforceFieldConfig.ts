@@ -29,6 +29,8 @@ export const SALESFORCE_CASE_FIELDS: Record<string, SFFieldType> = {
   Abl_sung__c: "currency",
   Erh_hung_betrag__c: "currency",
   Hypothekenbedarf__c: "currency",  // Calculated mortgage need
+  Hypothekarbetrag__c: "currency",  // Direct mortgage amount input (Ablösung)
+  Eigenmittel__c: "currency",  // Total equity amount
 
   // Picklist fields
   Hypothekarlaufzeiten__c: "picklist",
