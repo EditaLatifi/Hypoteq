@@ -67,5 +67,7 @@ export const SALESFORCE_CASE_FIELDS: Record<string, SFFieldType> = {
 
   // Date fields
   Kaufdatum__c: "date",
-  If_Neubau__c: "date",
+  
+  // Picklist for new construction type
+  If_Neubau__c: "picklist",  // "Bereits erstellt" or "Bauprojekt"
 };
