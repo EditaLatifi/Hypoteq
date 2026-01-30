@@ -48,8 +48,8 @@ export const funnelToSalesforceMap = {
   kommentar: { salesforceField: "Kommentar__c", salesforceObject: "case" },
 
   abloesung_betrag: { salesforceField: "Abl_sung__c", salesforceObject: "case" },
-  erhoehung: { salesforceField: "Erh_hung__c", salesforceObject: "case" },
-  erhoehung_betrag: { salesforceField: "Erh_hung_betrag__c", salesforceObject: "case" },
+  erhoehung: { salesforceField: "Hypothekarbetrag__c", salesforceObject: "case" }, // Checkbox: Ja/Nein
+  erhoehung_betrag: { salesforceField: "Erh_hung_betrag__c", salesforceObject: "case" }, // Amount if Ja
 
   caseName: { salesforceField: "Case_Name__c", salesforceObject: "case" },
   // partnerEmail: { salesforceField: "Partner_Email__c", salesforceObject: "case" },  // Uncomment after creating field in Salesforce

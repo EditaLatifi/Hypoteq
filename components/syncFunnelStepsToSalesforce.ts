@@ -503,6 +503,10 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     const erhoehung = flatData.erhoehung === 'Ja' ? Number(flatData.erhoehung_betrag || 0) : 0;
     const hypothekenbedarf = betrag + erhoehung;
     caseData['Hypothekenbedarf__c'] = hypothekenbedarf;
+    
+    // Add total mortgage amount including increase to Erh_hung__c
+    caseData['Erh_hung__c'] = hypothekenbedarf;
+    console.log(`[Salesforce Sync] Total mortgage with increase (Erh_hung__c): ${hypothekenbedarf}`);
 
     const propertyValue = Number(flatData.immobilienwert || 0) || hypothekenbedarf;
     const eigenmittelPct = propertyValue > 0 ? Math.round(((propertyValue - hypothekenbedarf) / propertyValue) * 100) : 0;
