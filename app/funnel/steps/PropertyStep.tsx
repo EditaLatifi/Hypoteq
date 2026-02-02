@@ -557,13 +557,9 @@ const propertyUseOptions =
         </button>
         <button 
           onClick={() => {
-            // For partners, skip all validation - just save and continue
-            if (customerType === "partner") {
-              saveStep();
-              return;
-            }
-            
             const newErrors: any = {};
+            
+            // Basic property fields required for everyone (including partners)
             if (!data.artImmobilie) {
               newErrors.artImmobilie = t("funnel.errorPropertyType" as any) || "Please select property type";
             }
@@ -573,28 +569,31 @@ const propertyUseOptions =
             if (!data.nutzung) {
               newErrors.nutzung = t("funnel.errorPropertyUsage" as any) || "Please select property usage";
             }
-            if (!data.renovation) {
-              newErrors.renovation = t("funnel.errorRenovation" as any) || "Please select renovation option";
-            }
-            if (!data.finanzierungsangebote) {
-              newErrors.finanzierungsangebote = t("funnel.errorFinancingOffers" as any) || "Please select financing offers option";
-            }
-            // Validate reserved field if visible (for kauf, not abloesung)
-            if (customerType !== "jur" && data.artImmobilie && !isAbloesung && !data.reserviert) {
-              newErrors.reserviert = t("funnel.errorReserved" as any) || "Please select whether the property is reserved";
-            }
             
-            // Validate borrowers
-            if (!data.kreditnehmer || data.kreditnehmer.length === 0) {
-              newErrors.kreditnehmer = t("funnel.errorBorrowerRequired" as any);
-            } else {
-              // Validate each borrower
-              data.kreditnehmer.forEach((kn: any, idx: number) => {
-                if (borrowerType === "jur") {
-                  // Juristic person validation
-                  if (!kn.firmenname) {
-                    newErrors[`kreditnehmer_${idx}_firmenname`] = t("funnel.errorCompanyName" as any);
-                  }
+            // For non-partners, validate additional fields
+            if (customerType !== "partner") {
+              if (!data.renovation) {
+                newErrors.renovation = t("funnel.errorRenovation" as any) || "Please select renovation option";
+              }
+              if (!data.finanzierungsangebote) {
+                newErrors.finanzierungsangebote = t("funnel.errorFinancingOffers" as any) || "Please select financing offers option";
+              }
+              // Validate reserved field if visible (for kauf, not abloesung)
+              if (customerType !== "jur" && data.artImmobilie && !isAbloesung && !data.reserviert) {
+                newErrors.reserviert = t("funnel.errorReserved" as any) || "Please select whether the property is reserved";
+              }
+              
+              // Validate borrowers
+              if (!data.kreditnehmer || data.kreditnehmer.length === 0) {
+                newErrors.kreditnehmer = t("funnel.errorBorrowerRequired" as any);
+              } else {
+                // Validate each borrower
+                data.kreditnehmer.forEach((kn: any, idx: number) => {
+                  if (borrowerType === "jur") {
+                    // Juristic person validation
+                    if (!kn.firmenname) {
+                      newErrors[`kreditnehmer_${idx}_firmenname`] = t("funnel.errorCompanyName" as any);
+                    }
                   if (!kn.adresse) {
                     newErrors[`kreditnehmer_${idx}_adresse`] = t("funnel.errorAddress" as any);
                   }
@@ -623,6 +622,7 @@ const propertyUseOptions =
                   }
                 }
               });
+              }
             }
             
             if (Object.keys(newErrors).length > 0) {
