@@ -370,45 +370,23 @@ const handleUpload = async (e: any) => {
   const files = e.target.files;
   if (!files || files.length === 0) return;
 
-  console.log("📤 Starting upload of", files.length, "file(s). Current folder ID:", currentFolderId);
+  console.log("� Adding", files.length, "file(s) to local list (not uploading yet)");
 
+  // Store files locally without uploading
   for (const file of files) {
-    console.log("🔍 Before upload - file:", file.name, "currentFolderId:", currentFolderId);
-    
-    const uploadRes = await uploadDocToSharepoint(
-      file,
-      submissionId,
-      email ?? "no-email",
-      currentFolderId
-    );
-
-    console.log("📦 Upload response:", uploadRes);
-
-    if (uploadRes?.error) {
-      console.error("Upload failed:", uploadRes.error);
-      alert(t("funnel.uploadError" as any));
-      continue;
-    }
-
-    // Store folderId from first upload to reuse for subsequent uploads
-    if (!currentFolderId && uploadRes?.folderId) {
-      setCurrentFolderId(uploadRes.folderId);
-      console.log("📁 Folder created, ID stored:", uploadRes.folderId);
-    } else if (currentFolderId) {
-      console.log("♻️ Using existing folder:", currentFolderId);
-    }
-
     const newDoc = {
       id: uuidv4(),
       name: file.name,
       size: file.size,
       file,
-      sharepointUrl: uploadRes?.data?.webUrl ?? null,
+      sharepointUrl: null, // Will be set after actual upload
+      uploaded: false, // Track upload status
     };
 
     setDocs((prev: any[]) => [...prev, newDoc]);
-    addDocument(newDoc);
   }
+  
+  console.log("✅ Files added to local list. Upload will happen when Weiter is clicked.");
 };
 
 const handleDragOver = (e: React.DragEvent) => {
@@ -428,49 +406,84 @@ const handleDrop = async (e: React.DragEvent) => {
   const files = Array.from(e.dataTransfer.files);
   if (!files || files.length === 0) return;
 
-  console.log("📤 Starting drag&drop upload of", files.length, "file(s). Current folder ID:", currentFolderId);
+  console.log("� Adding", files.length, "dragged file(s) to local list (not uploading yet)");
 
+  // Store files locally without uploading
   for (const file of files) {
-    console.log("🔍 Before upload - file:", file.name, "currentFolderId:", currentFolderId);
-    
-    const uploadRes = await uploadDocToSharepoint(
-      file,
-      submissionId,
-      email ?? "no-email",
-      currentFolderId
-    );
-
-    console.log("📦 Upload response:", uploadRes);
-
-    if (uploadRes?.error) {
-      console.error("Upload failed:", uploadRes.error);
-      alert(t("funnel.uploadError" as any));
-      continue;
-    }
-
-    // Store folderId from first upload to reuse for subsequent uploads
-    if (!currentFolderId && uploadRes?.folderId) {
-      setCurrentFolderId(uploadRes.folderId);
-      console.log("📁 Folder created, ID stored:", uploadRes.folderId);
-    } else if (currentFolderId) {
-      console.log("♻️ Using existing folder:", currentFolderId);
-    }
-
     const newDoc = {
       id: uuidv4(),
       name: file.name,
       size: file.size,
       file,
-      sharepointUrl: uploadRes?.data?.webUrl ?? null,
+      sharepointUrl: null, // Will be set after actual upload
+      uploaded: false, // Track upload status
     };
 
     setDocs((prev: any[]) => [...prev, newDoc]);
-    addDocument(newDoc);
   }
+  
+  console.log("✅ Files added to local list. Upload will happen when Weiter is clicked.");
 };
 
 const removeUploadedFile = (docId: string) => {
   setDocs((prev: any[]) => prev.filter((d: any) => d.id !== docId));
+};
+
+// Upload all files to SharePoint when Weiter button is clicked
+const uploadAllFilesToSharePoint = async () => {
+  const filesToUpload = docs.filter((doc: any) => doc.file && !doc.uploaded);
+  
+  if (filesToUpload.length === 0) {
+    console.log("ℹ️ No files to upload");
+    return;
+  }
+
+  console.log("📤 Uploading", filesToUpload.length, "file(s) to SharePoint");
+  let uploadFolderId = currentFolderId;
+
+  for (const doc of filesToUpload) {
+    console.log("⬆️ Uploading file:", doc.name, "with folder ID:", uploadFolderId);
+    
+    const uploadRes = await uploadDocToSharepoint(
+      doc.file,
+      submissionId,
+      email ?? "no-email",
+      uploadFolderId
+    );
+
+    console.log("📦 Upload response for", doc.name, ":", uploadRes);
+
+    if (uploadRes?.error) {
+      console.error("❌ Upload failed for", doc.name, ":", uploadRes.error);
+      alert(t("funnel.uploadError" as any) + ": " + doc.name);
+      continue;
+    }
+
+    // Store folderId from first upload to reuse for subsequent uploads
+    if (!uploadFolderId && uploadRes?.folderId) {
+      uploadFolderId = uploadRes.folderId;
+      setCurrentFolderId(uploadFolderId);
+      console.log("📁 Folder created, ID stored:", uploadFolderId);
+    }
+
+    // Update the document with SharePoint URL and mark as uploaded
+    setDocs((prev: any[]) => 
+      prev.map((d: any) => 
+        d.id === doc.id 
+          ? { ...d, sharepointUrl: uploadRes?.data?.webUrl ?? null, uploaded: true }
+          : d
+      )
+    );
+    
+    // Update in store as well
+    addDocument({
+      ...doc,
+      sharepointUrl: uploadRes?.data?.webUrl ?? null,
+      uploaded: true
+    });
+  }
+  
+  console.log("✅ All files uploaded successfully");
 };
 
 
@@ -679,7 +692,10 @@ const saved = docs.some((d: { name: string }) => d.name === doc);
         </button>
 
         <button
-          onClick={saveStep}
+          onClick={async () => {
+            await uploadAllFilesToSharePoint();
+            saveStep();
+          }}
           className="px-8 md:px-10 py-3 bg-[#CAF476] rounded-full font-medium text-[#132219] shadow hover:bg-[#BCDF6A] transition-colors text-sm md:text-base order-1 sm:order-2"
         >
           {t("funnel.continueButton" as any)}

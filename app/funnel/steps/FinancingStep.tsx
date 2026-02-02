@@ -22,6 +22,8 @@ function FinancingStep({
     pkVorbezug: "",
     einkommen: "",
     kaufdatum: "",
+    eigenmittel: "",
+    steueroptimierung: "",
   });
   console.log("🔥 FinancingStep Debug:", {
   customerType,
@@ -144,7 +146,7 @@ const ToggleButton = ({ active, children, onClick }: any) => {
 
   {/* Eigenmittel */}
 <div>
-  <label className="font-medium">{t("funnel.ownFunds" as any)}</label>
+  <label className="font-medium">{t("funnel.ownFunds" as any)}<span className="text-red-500">*</span></label>
 
   {/* Juristische Person → Only 1 field */}
   {isJur ? (
@@ -162,6 +164,7 @@ const ToggleButton = ({ active, children, onClick }: any) => {
           const raw = e.target.value.replace(/CHF\s?|'/g, "");
           const numeric = raw.replace(/\D/g, "");
           handleChange("eigenmittel_bar", numeric);
+          setErrors((prev: any) => ({ ...prev, eigenmittel: "" }));
         }}
       />
     </div>
@@ -184,6 +187,7 @@ const ToggleButton = ({ active, children, onClick }: any) => {
             const raw = e.target.value.replace(/CHF\s?|'/g, "");
             const numeric = raw.replace(/\D/g, "");
             handleChange(key, numeric);
+            setErrors((prev: any) => ({ ...prev, eigenmittel: "" }));
           }}
         />
       ))}
@@ -206,6 +210,9 @@ const ToggleButton = ({ active, children, onClick }: any) => {
         />
       </div>
     </div>
+  )}
+  {errors.eigenmittel && (
+    <p className="text-red-500 text-[12px] mt-1">{errors.eigenmittel}</p>
   )}
 </div>
 
@@ -528,7 +535,10 @@ const ToggleButton = ({ active, children, onClick }: any) => {
         <ToggleButton
           key={opt}
           active={data.steueroptimierung === opt}
-          onClick={() => handleChange("steueroptimierung", opt)}
+          onClick={() => {
+            handleChange("steueroptimierung", opt);
+            setErrors((prev: any) => ({ ...prev, steueroptimierung: "" }));
+          }}
         >
           {opt}
         </ToggleButton>
@@ -595,42 +605,75 @@ const ToggleButton = ({ active, children, onClick }: any) => {
 
         <button
           onClick={() => {
-            const newErrors: { kaufpreis?: string; modell?: string; pkVorbezug?: string; einkommen?: string; kaufdatum?: string } = {};
+            const newErrors: any = {};
             const isJur = borrowers?.[0]?.type === "jur";
             const isKauf = projectData?.projektArt?.toLowerCase() === "kauf";
+            const isAbloesung = projectData?.projektArt?.toLowerCase() === "abloesung";
             const isRendite = propertyData?.nutzung === "Rendite-Immobilie" || 
                               propertyData?.nutzung?.toLowerCase()?.includes("rendite") ||
                               propertyData?.nutzung?.toLowerCase()?.includes("investment");
             const isVermietet = propertyData?.nutzung?.toLowerCase()?.includes("vermietet");
+            const normalizedCustomer = (customerType || "").toLowerCase();
+            const isPartner = normalizedCustomer === "partner";
 
             if (isKauf) {
+              // Kaufpreis required
               if (!data.kaufpreis) {
                 newErrors.kaufpreis = t("funnel.errorPurchasePrice" as any) || "Please enter purchase price";
               }
+              
+              // Eigenmittel required - at least one source for natural persons
+              if (!isJur) {
+                const totalEigenmittel = 
+                  Number(data.eigenmittel_bar || 0) +
+                  Number(data.eigenmittel_saeule3 || 0) +
+                  Number(data.eigenmittel_pk || 0) +
+                  Number(data.eigenmittel_schenkung || 0);
+                if (totalEigenmittel === 0) {
+                  newErrors.eigenmittel = t("funnel.errorOwnFunds" as any) || "Please enter own funds";
+                }
+              } else {
+                // For juristische, check eigenmittel_bar
+                if (!data.eigenmittel_bar || Number(data.eigenmittel_bar) === 0) {
+                  newErrors.eigenmittel = t("funnel.errorOwnFunds" as any) || "Please enter own funds";
+                }
+              }
+              
+              // Mortgage terms required
               if (!data.modell) {
                 newErrors.modell = t("funnel.errorHypothekarlaufzeiten" as any) || "Please select mortgage term";
               }
+              
+              // PK pledge required for natural persons (not juristic, not rendite)
               if (!isJur && !isRendite && !data.pkVorbezug) {
                 newErrors.pkVorbezug = t("funnel.errorPkPledge" as any) || "Please select PK pledge option";
               }
+              
               // Einkommen required when visible
               if (isVermietet && !data.einkommen) {
-                newErrors.einkommen = "Bitte Einkommen angeben";
+                newErrors.einkommen = t("funnel.errorIncome" as any) || "Please enter income";
               }
               if (!isJur && !isVermietet && !data.brutto) {
-                newErrors.einkommen = "Bitte Einkommen angeben";
+                newErrors.einkommen = t("funnel.errorIncome" as any) || "Please enter income";
               }
-              // Kaufdatum required when visible
+              
+              // Tax optimization required for natural persons (not partners)
+              if (!isJur && !isPartner && !data.steueroptimierung) {
+                newErrors.steueroptimierung = t("funnel.errorTaxOptimization" as any) || "Please select tax optimization option";
+              }
+              
+              // Kaufdatum required
               if (!data.kaufdatum) {
-                newErrors.kaufdatum = "Bitte Kaufdatum angeben";
+                newErrors.kaufdatum = t("funnel.errorPurchaseDate" as any) || "Please enter purchase date";
               }
             }
+            
             if (Object.keys(newErrors).length > 0) {
               setErrors((prev: any) => ({ ...prev, ...newErrors }));
               window.scrollTo({ top: 0, behavior: 'smooth' });
               return;
             }
-            setErrors({ kaufpreis: "", modell: "", pkVorbezug: "", einkommen: "", kaufdatum: "" });
+            setErrors({ kaufpreis: "", modell: "", pkVorbezug: "", einkommen: "", kaufdatum: "", eigenmittel: "", steueroptimierung: "" });
             saveStep();
           }}
           className="px-4 lg:px-6 py-2 bg-[#CAF476] text-[#132219] rounded-full text-sm lg:text-base"

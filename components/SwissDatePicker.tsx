@@ -18,10 +18,11 @@ export function dateToSwiss(date?: Date | null): string {
   return `${d}.${m}.${y}`;
 }
 
-export default function SwissDatePicker({ value, onChange, className = "", ...props }: {
+export default function SwissDatePicker({ value, onChange, className = "", placeholder, ...props }: {
   value?: string;
   onChange: (val: string) => void;
   className?: string;
+  placeholder?: string;
   [key: string]: any;
 }) {
   return (
@@ -30,7 +31,7 @@ export default function SwissDatePicker({ value, onChange, className = "", ...pr
       onChange={date => onChange(dateToSwiss(date))}
       dateFormat="dd.MM.yyyy"
       className={`px-5 py-2 border border-[#132219] rounded-full text-sm w-full ${className}`}
-      placeholderText="DD.MM.YYYY"
+      placeholderText={placeholder || "DD.MM.YYYY"}
       popperPlacement="bottom-start"
       {...props}
     />

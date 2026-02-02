@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 
 function PropertyStep({ data, setData, saveStep, borrowers, back, customerType, borrowerType, projectData, clientData }: any) {
   const { t } = useTranslation();
-  const [errors, setErrors] = useState({
+  const [errors, setErrors] = useState<Record<string, string>>({
     artImmobilie: "",
     artLiegenschaft: "",
     nutzung: "",
@@ -219,9 +219,9 @@ const propertyUseOptions =
       </div>
 
       {/* ========================================================= */}
-      {/*  RESERVIERUNG – SHOW FOR BOTH NEUBAU AND BESTEHEND        */}
+      {/*  RESERVIERUNG – SHOW ONLY FOR KAUF (NOT FOR ABLÖSUNG)      */}
       {/* ========================================================= */}
-      {customerType !== "jur" && data.artImmobilie && (
+      {customerType !== "jur" && data.artImmobilie && !isAbloesung && (
         <div>
           <h3 className="text-[16px] font-semibold mb-[16px]">
             {t("funnel.propertyReserved" as any)}
@@ -435,55 +435,70 @@ const propertyUseOptions =
             <input
               type="text"
               placeholder={t("funnel.firstName" as any)}
-              className="px-5 py-2 border border-[#132219] rounded-full text-sm"
+              className={`px-5 py-2 border rounded-full text-sm ${
+                errors[`kreditnehmer_${index}_vorname`] ? 'border-red-500' : 'border-[#132219]'
+              }`}
               value={kn.vorname || ""}
               onChange={(e) => {
                 const updated = [...data.kreditnehmer];
                 updated[index].vorname = e.target.value;
                 update("kreditnehmer", updated);
+                setErrors((prev: any) => ({ ...prev, [`kreditnehmer_${index}_vorname`]: "" }));
               }}
             />
             <input
               type="text"
               placeholder={t("funnel.lastName" as any)}
-              className="px-5 py-2 border border-[#132219] rounded-full text-sm"
+              className={`px-5 py-2 border rounded-full text-sm ${
+                errors[`kreditnehmer_${index}_name`] ? 'border-red-500' : 'border-[#132219]'
+              }`}
               value={kn.name || ""}
               onChange={(e) => {
                 const updated = [...data.kreditnehmer];
                 updated[index].name = e.target.value;
                 update("kreditnehmer", updated);
+                setErrors((prev: any) => ({ ...prev, [`kreditnehmer_${index}_name`]: "" }));
               }}
             />
             <input
               type="email"
               placeholder={t("funnel.email" as any)}
-              className="px-5 py-2 border border-[#132219] rounded-full text-sm"
+              className={`px-5 py-2 border rounded-full text-sm ${
+                errors[`kreditnehmer_${index}_email`] ? 'border-red-500' : 'border-[#132219]'
+              }`}
               value={kn.email || ""}
               onChange={(e) => {
                 const updated = [...data.kreditnehmer];
                 updated[index].email = e.target.value;
                 update("kreditnehmer", updated);
+                setErrors((prev: any) => ({ ...prev, [`kreditnehmer_${index}_email`]: "" }));
               }}
             />
             <input
               type="tel"
               placeholder={t("funnel.phone" as any)}
-              className="px-5 py-2 border border-[#132219] rounded-full text-sm"
+              className={`px-5 py-2 border rounded-full text-sm ${
+                errors[`kreditnehmer_${index}_telefon`] ? 'border-red-500' : 'border-[#132219]'
+              }`}
               value={kn.telefon || ""}
               onChange={(e) => {
                 const updated = [...data.kreditnehmer];
                 updated[index].telefon = e.target.value;
                 update("kreditnehmer", updated);
+                setErrors((prev: any) => ({ ...prev, [`kreditnehmer_${index}_telefon`]: "" }));
               }}
             />
             <div className="relative w-full">
               <select
-                className="px-5 py-2 rounded-full text-sm w-full bg-white border border-[#132219] appearance-none pr-10"
+                className={`px-5 py-2 rounded-full text-sm w-full bg-white border appearance-none pr-10 ${
+                  errors[`kreditnehmer_${index}_erwerb`] ? 'border-red-500' : 'border-[#132219]'
+                }`}
                 value={kn.erwerb || ""}
                 onChange={(e) => {
                   const updated = [...data.kreditnehmer];
                   updated[index].erwerb = e.target.value;
                   update("kreditnehmer", updated);
+                  setErrors((prev: any) => ({ ...prev, [`kreditnehmer_${index}_erwerb`]: "" }));
                 }}
               >
                 <option value="">{t("funnel.employmentStatus" as any)}</option>
@@ -499,17 +514,22 @@ const propertyUseOptions =
                   const updated = [...data.kreditnehmer];
                   updated[index].geburtsdatum = val;
                   update("kreditnehmer", updated);
+                  setErrors((prev: any) => ({ ...prev, [`kreditnehmer_${index}_geburtsdatum`]: "" }));
                 }}
-                className=""
+                placeholder={t("funnel.birthdayPlaceholder" as any)}
+                className={errors[`kreditnehmer_${index}_geburtsdatum`] ? 'border-red-500' : ''}
               />
             <div className="relative w-full">
               <select
-                className="px-5 py-2 rounded-full text-sm w-full bg-white border border-[#132219] appearance-none pr-10"
+                className={`px-5 py-2 rounded-full text-sm w-full bg-white border appearance-none pr-10 ${
+                  errors[`kreditnehmer_${index}_zivilstand`] ? 'border-red-500' : 'border-[#132219]'
+                }`}
                 value={kn.zivilstand || ""}
                 onChange={(e) => {
                   const updated = [...data.kreditnehmer];
                   updated[index].zivilstand = e.target.value;
                   update("kreditnehmer", updated);
+                  setErrors((prev: any) => ({ ...prev, [`kreditnehmer_${index}_zivilstand`]: "" }));
                 }}
               >
                 <option value="">{t("funnel.maritalStatus" as any)}</option>
@@ -553,6 +573,52 @@ const propertyUseOptions =
             if (!data.finanzierungsangebote) {
               newErrors.finanzierungsangebote = t("funnel.errorFinancingOffers" as any) || "Please select financing offers option";
             }
+            // Validate reserved field if visible (for kauf, not abloesung)
+            if (customerType !== "jur" && data.artImmobilie && !isAbloesung && !data.reserviert) {
+              newErrors.reserviert = t("funnel.errorReserved" as any) || "Please select whether the property is reserved";
+            }
+            
+            // Validate borrowers
+            if (!data.kreditnehmer || data.kreditnehmer.length === 0) {
+              newErrors.kreditnehmer = t("funnel.errorBorrowerRequired" as any);
+            } else {
+              // Validate each borrower
+              data.kreditnehmer.forEach((kn: any, idx: number) => {
+                if (customerType === "jur" || customerType === "partner") {
+                  // Juristic person validation
+                  if (!kn.firmenname) {
+                    newErrors[`kreditnehmer_${idx}_firmenname`] = t("funnel.errorCompanyName" as any);
+                  }
+                  if (!kn.adresse) {
+                    newErrors[`kreditnehmer_${idx}_adresse`] = t("funnel.errorAddress" as any);
+                  }
+                } else {
+                  // Natural person validation
+                  if (!kn.vorname) {
+                    newErrors[`kreditnehmer_${idx}_vorname`] = t("funnel.errorFirstName" as any);
+                  }
+                  if (!kn.name) {
+                    newErrors[`kreditnehmer_${idx}_name`] = t("funnel.errorLastName" as any);
+                  }
+                  if (!kn.email) {
+                    newErrors[`kreditnehmer_${idx}_email`] = t("funnel.errorEmail" as any);
+                  }
+                  if (!kn.telefon) {
+                    newErrors[`kreditnehmer_${idx}_telefon`] = t("funnel.errorPhone" as any);
+                  }
+                  if (!kn.geburtsdatum) {
+                    newErrors[`kreditnehmer_${idx}_geburtsdatum`] = t("funnel.errorBirthday" as any);
+                  }
+                  if (!kn.erwerb) {
+                    newErrors[`kreditnehmer_${idx}_erwerb`] = t("funnel.errorEmploymentStatus" as any);
+                  }
+                  if (!kn.zivilstand) {
+                    newErrors[`kreditnehmer_${idx}_zivilstand`] = t("funnel.errorMaritalStatus" as any);
+                  }
+                }
+              });
+            }
+            
             if (Object.keys(newErrors).length > 0) {
               setErrors((prev: any) => ({ ...prev, ...newErrors }));
               window.scrollTo({ top: 0, behavior: 'smooth' });

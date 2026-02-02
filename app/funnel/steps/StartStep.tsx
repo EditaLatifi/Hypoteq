@@ -275,12 +275,12 @@ if (!clientData.phone) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   
   if (!clientData.partnerEmail) {
-    setErrors({ partnerEmail: t("funnel.errorPartnerEmail" as any) });
+    setErrors((prev: any) => ({ ...prev, partnerEmail: t("funnel.errorPartnerEmail" as any) }));
     return;
   }
   
   if (!emailRegex.test(clientData.partnerEmail)) {
-    setErrors({ partnerEmail: t("funnel.validEmailError" as any) });
+    setErrors((prev: any) => ({ ...prev, partnerEmail: t("funnel.validEmailError" as any) }));
     return;
   }
 
