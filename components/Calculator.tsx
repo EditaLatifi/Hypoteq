@@ -98,13 +98,15 @@ export default function Calculator() {
     loanType === "purchase" ? totalMortgagePurchase : totalMortgageRefi;
   const totalMortgageCapped = Math.min(mortgageNeed, maxMortgageAllowed);
 
-  // LTV / Belehnung
-  const belehnungPurchase =
-    propertyPrice > 0 ? totalMortgagePurchase / propertyPrice : 0;
-  const belehnungRefi =
-    propertyPrice > 0 ? totalMortgageRefi / propertyPrice : 0;
-  const belehnung =
-    loanType === "refinancing" ? belehnungRefi : belehnungPurchase;
+  // --- EXPLICIT LTV CALCULATION ---
+  // LTV = Total Mortgage / Property Value
+  const ltv = propertyPrice > 0 ? totalMortgageForCalc / propertyPrice : 0;
+  
+  // LTV Limit based on residence type
+  const ltvLimit = residenceType === "haupt" ? 0.8 : 0.65;
+  
+  // LTV Check - independent rule
+  const ltvOk = ltv <= ltvLimit;
 
   // 1. und 2. Hypothek (nur für Kauf + Hauptwohnsitz relevant)
   const firstLimitAbs =
@@ -125,25 +127,27 @@ export default function Calculator() {
         params.amortizationYears
       : 0;
 
-  // --- Tragbarkeit (Excel-Formel) ---
+  // --- AFFORDABILITY CALCULATION (STRESS INTEREST ONLY) ---
+  // MUST use stress interest (5%) for eligibility, NOT product interest
+  
+  let affordability = 0;
+  let affordabilityCHF = 0;
 
-  // Stress-Zins & Unterhalt mit theoretischem Zins (5%) für Tragbarkeit
-  const interestYearStress = totalMortgageForCalc * params.stressRate;
-  const maintenanceYearTrag = totalMortgageForCalc * params.maintenanceRate;
-  const amortizationYearTrag =
-    residenceType === "haupt"
-      ? totalMortgageForCalc * amortizationRate
-      : 0;
-
-  const tragbarkeitCHF =
-    interestYearStress + maintenanceYearTrag + amortizationYearTrag;
-  const tragbarkeitPercent = income > 0 ? tragbarkeitCHF / income : 0;
+  if (residenceType === "haupt") {
+    // Primary residence: includes amortisation
+    affordabilityCHF = totalMortgageForCalc * (0.05 + 0.008 + ((0.8 - 0.6667) / 15));
+  } else {
+    // Secondary residence: no amortisation
+    affordabilityCHF = totalMortgageForCalc * (0.05 + 0.008);
+  }
+  
+  affordability = income > 0 ? affordabilityCHF / income : 0;
+  
+  // Affordability Check - independent rule
+  const affordabilityOk = affordability <= 0.35;
+  
   const minIncomeRequired =
-    tragbarkeitCHF > 0 ? tragbarkeitCHF / params.tragbarkeitThreshold : 0;
-
-  const isBelehnungOK = belehnung <= params.maxBelehnung;
-  const isTragbarkeitOK =
-    tragbarkeitPercent <= params.tragbarkeitThreshold || income === 0;
+    affordabilityCHF > 0 ? Math.ceil(affordabilityCHF / 0.35) : 0;
 
   // Minimum-Eigenmittel (Kauf)
   const minOwnFunds =
@@ -155,15 +159,28 @@ export default function Calculator() {
   const isEquityOK =
     loanType === "purchase" ? ownFunds >= minOwnFunds : true;
 
-  const isEligible = isBelehnungOK && isTragbarkeitOK && isEquityOK;
+  // --- TOP BOX AGGREGATOR ONLY ---
+  // eligible is ONLY an aggregation of independent checks
+  const isEligible = ltvOk && affordabilityOk && isEquityOK;
+  
+  // Keep legacy variables for backward compatibility in UI
+  const tragbarkeitPercent = affordability;
+  const tragbarkeitCHF = affordabilityCHF;
+  const isTragbarkeitOK = affordabilityOk;
+  const isBelehnungOK = ltvOk;
+  const belehnung = ltv;
+  const belehnungPurchase = propertyPrice > 0 ? totalMortgagePurchase / propertyPrice : 0;
+  const belehnungRefi = propertyPrice > 0 ? totalMortgageRefi / propertyPrice : 0;
 
-  // --- Monatskosten sipas Excel (B56–B59) ---
+  // --- MONTHLY COSTS (PRODUCT INTEREST RATE) ---
+  // Monthly costs MUST use effectiveRate (product interest), NOT stress rate
+  // Changing SARON/5Y/10Y should ONLY affect monthly costs, NOT affordability
 
-  // Korrigjo: Unterhalt/Nebenkosten = 0.8% e vlerës së pronës
+  // Maintenance costs = 0.8% of property value
   const maintenanceYear = propertyPrice * params.maintenanceRate;
   const monthlyMaintenance = maintenanceYear / 12;
 
-  // Zbritje për amortizim të dytë (jo negativ)
+  // For refinancing - old monthly cost
   const secondMortgageOld =
     residenceType === "haupt"
       ? Math.max(0, existingMortgage - firstLimitAbs)
@@ -173,14 +190,13 @@ export default function Calculator() {
       ? Math.max(0, secondMortgageOld / params.amortizationYears)
       : 0;
 
-  // Vjetër (vetëm B9)
-  const oldInterestYear = existingMortgage * effectiveRate;
+  const oldInterestYear = existingMortgage * effectiveRate; // Product interest
   const oldMaintenanceYear = propertyPrice * params.maintenanceRate;
   const monthlyOld = (oldInterestYear + oldMaintenanceYear + oldAmortYear) / 12;
 
-  // Re (B9+B10)
+  // For refinancing - new monthly cost
   const newTotal = totalMortgageRefi;
-  const newInterestYear = newTotal * effectiveRate;
+  const newInterestYear = newTotal * effectiveRate; // Product interest
   const newMaintenanceYear = propertyPrice * params.maintenanceRate;
   const newSecondMortgage =
     residenceType === "haupt"
@@ -192,16 +208,17 @@ export default function Calculator() {
       : 0;
   const monthlyNew = (newInterestYear + newMaintenanceYear + newAmortYear) / 12;
 
-  // Për llogaritje të përgjithshme (për "purchase" ose "refinancing")
-  const interestYearEffective = totalMortgageForCalc * effectiveRate;
+  // General monthly costs (purchase or refinancing)
+  const interestYearEffective = totalMortgageForCalc * effectiveRate; // Product interest
   const monthlyInterest = interestYearEffective / 12;
-  // Amortizimi i përgjithshëm
+  
   const amortizationYear =
     residenceType === "haupt" && params.amortizationYears > 0
       ? Math.max(0, secondMortgage / params.amortizationYears)
       : 0;
   const monthlyAmortization = amortizationYear / 12;
-  // Totali i kostove mujore
+  
+  // Total monthly cost with product interest
   const monthlyCost = monthlyInterest + monthlyMaintenance + monthlyAmortization;
 
   // Slider-Visual-Limits
