@@ -557,6 +557,12 @@ const propertyUseOptions =
         </button>
         <button 
           onClick={() => {
+            // For partners, skip all validation - just save and continue
+            if (customerType === "partner") {
+              saveStep();
+              return;
+            }
+            
             const newErrors: any = {};
             if (!data.artImmobilie) {
               newErrors.artImmobilie = t("funnel.errorPropertyType" as any) || "Please select property type";
@@ -584,7 +590,7 @@ const propertyUseOptions =
             } else {
               // Validate each borrower
               data.kreditnehmer.forEach((kn: any, idx: number) => {
-                if (customerType === "jur" || customerType === "partner") {
+                if (borrowerType === "jur") {
                   // Juristic person validation
                   if (!kn.firmenname) {
                     newErrors[`kreditnehmer_${idx}_firmenname`] = t("funnel.errorCompanyName" as any);
@@ -624,13 +630,6 @@ const propertyUseOptions =
               window.scrollTo({ top: 0, behavior: 'smooth' });
               return;
             }
-            setErrors({
-              artImmobilie: "",
-              artLiegenschaft: "",
-              nutzung: "",
-              renovation: "",
-              finanzierungsangebote: ""
-            });
             saveStep();
           }}
           className="px-4 lg:px-6 py-2 bg-[#CAF476] text-[#132219] rounded-full text-sm lg:text-base">
