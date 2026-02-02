@@ -301,20 +301,28 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     
     if (account) {
       console.log(`[Salesforce Sync] Account found for ${email}: ${account.Id}`);
-      // Always update existing account with all current data - Person Account fields for everyone
+      
+      // Check if this is a Person Account or Business Account
+      const isPersonAccount = (account as any).IsPersonAccount === true;
+      console.log(`[Salesforce Sync] Account type: ${isPersonAccount ? 'Person Account' : 'Business Account'}`);
+      
+      // Update existing account - LastName and FirstName cannot be updated on Person Accounts
       const updateData: Record<string, any> = {
-        LastName: lastName,
-        FirstName: isJuristicPerson ? '' : firstName, // Empty for companies
         Phone: phone,
       };
       
-      // Add address if available
+      // Add address if available - use correct field based on account type
       if (person.adresse) {
-        updateData.PersonMailingStreet = person.adresse;
+        if (isPersonAccount) {
+          updateData.PersonMailingStreet = person.adresse;
+        } else {
+          // For Business Accounts, use BillingStreet instead
+          updateData.BillingStreet = person.adresse;
+        }
       }
       
-      // Add optional person fields (only for natural persons, not companies)
-      if (!isJuristicPerson) {
+      // Add optional person fields (only for natural persons AND Person Accounts)
+      if (!isJuristicPerson && isPersonAccount) {
         if (person.erwerbsstatus) {
           updateData.Erwerbsstatus__c = transformErwerbsstatus(person.erwerbsstatus);
         }
@@ -342,35 +350,17 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     accounts.push(account);
 
     // STEP 2: Find or create Contact linked to this Account
+    // NOTE: Person Accounts cannot have Contacts - they contain contact info directly
+    // Only create Contacts for Business Accounts (standard accounts)
     const accountId = account.id || account.Id;
-    let contact = await salesforceApi.findContactByEmail(email);
     
-    if (contact && contact.AccountId === accountId) {
-      console.log(`[Salesforce Sync] Contact found for ${email}: ${contact.Id}`);
-    } else if (contact && contact.AccountId !== accountId) {
-      // Contact exists but linked to different account - update it
-      console.log(`[Salesforce Sync] Updating Contact ${contact.Id} to link to Account ${accountId}`);
-      await salesforceApi.updateContact(contact.Id, {
-        AccountId: accountId,
-        FirstName: firstName,
-        LastName: lastName,
-        Email: email,
-        Phone: phone,
-      });
-    } else {
-      // Create new Contact
-      console.log(`[Salesforce Sync] Creating new Contact for ${email}`);
-      contact = await salesforceApi.createContact({
-        AccountId: accountId,
-        FirstName: firstName,
-        LastName: lastName,
-        Email: email,
-        Phone: phone,
-      });
-      console.log(`[Salesforce Sync] Contact created: ${contact.id || contact.Id}`);
-    }
-
-    contacts.push(contact);
+    // Person Accounts are created with RecordTypeId for Person Account
+    // We'll skip Contact creation for Person Accounts since they already contain contact data
+    console.log(`[Salesforce Sync] Skipping Contact creation for Person Account ${accountId}`);
+    console.log(`[Salesforce Sync] Person Account contains contact data directly`);
+    
+    // For compatibility with existing code, push null for person accounts
+    contacts.push(null);
   }
 
   // STEP 3: Create ONE Case linked to the main Account (first person)

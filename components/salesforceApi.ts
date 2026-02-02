@@ -18,7 +18,9 @@ export async function findPersonAccountByEmail(email: string) {
 }
 
 export async function findAccountByEmail(email: string) {
-  return conn.sobject('Account').findOne({ PersonEmail: email });
+  // Query to get account with IsPersonAccount field to determine type
+  const result = await conn.query(`SELECT Id, PersonEmail, IsPersonAccount FROM Account WHERE PersonEmail = '${email}' LIMIT 1`);
+  return result.records && result.records.length > 0 ? result.records[0] : null;
 }
 
 export async function createPersonAccount(fields: Record<string, any>) {
