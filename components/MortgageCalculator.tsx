@@ -425,7 +425,7 @@ export default function Calculator() {
           <div className="flex flex-col gap-[36px] w-full">
             <InfoBox
               title={infoTitle}
-              value={formatCHF(totalMortgageCapped)}
+              value={formatCHF(totalMortgageForCalc)}
               red={!isEligible}
               loanType={loanType}
             />
