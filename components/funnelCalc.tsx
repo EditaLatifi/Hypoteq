@@ -159,10 +159,10 @@ export default function FunnelCalc({ data, projectData, propertyData, borrowers 
         
         <TwoBoxGrid
           leftLabel={t("funnelCalc.ownFunds")}
-          leftValue={`${Math.round(equityRatio * 100)}%`}
+          leftValue={`${(equityRatio * 100).toFixed(1).replace(".", ",")}%`}
           leftError={hasInputs && !equityOk}
           rightLabel={t("funnelCalc.affordability")}
-          rightValue={`${Math.round(affordability * 100)}%`}
+          rightValue={`${(affordability * 100).toFixed(1).replace(".", ",")}%`}
           rightError={hasInputs && !affordabilityOk}
         />
       </BoxWrapper>
@@ -250,7 +250,7 @@ export default function FunnelCalc({ data, projectData, propertyData, borrowers 
           leftValue={CHF(existingMortgage)}
           leftError={hasInputs && !ltvOk}
           rightLabel={t("funnelCalc.affordabilityPercentage")}
-          rightValue={`${Math.round(affordability * 100)}%`}
+          rightValue={`${(affordability * 100).toFixed(1).replace(".", ",")}%`}
           rightError={hasInputs && !affordabilityOk}
         />
       </BoxWrapper>
