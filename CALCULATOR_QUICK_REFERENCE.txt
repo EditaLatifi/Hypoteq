@@ -1,0 +1,155 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                   HYPOTEQ MORTGAGE CALCULATOR                                ║
+║                     QUICK REFERENCE CARD                                     ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+📊 CALCULATION FORMULAS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+LTV (Loan-to-Value):
+  ltv = totalMortgage / propertyValue
+  
+Primary Residence LTV Limit:      80%  (0.8)
+Secondary Residence LTV Limit:    65%  (0.65)
+
+Affordability (Primary Residence):
+  affordabilityCHF = totalMortgage × (5% + 0.8% + 0.889%)
+                   = totalMortgage × 6.689%
+  affordability% = affordabilityCHF / grossIncome
+  
+Affordability (Secondary Residence):
+  affordabilityCHF = totalMortgage × (5% + 0.8%)
+                   = totalMortgage × 5.8%
+  affordability% = affordabilityCHF / grossIncome
+
+Eligibility:
+  eligible = ltvOk AND affordabilityOk AND equityOk
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔢 CONSTANTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STRESS_RATE:              5.0%   (0.05)   - For affordability only
+MAINTENANCE_RATE:         0.8%   (0.008)  - Annual property maintenance
+AFFORDABILITY_THRESHOLD:  35%    (0.35)   - Maximum allowed ratio
+AMORTIZATION_YEARS:       15     (primary residence only)
+FIRST_MORTGAGE_LIMIT:     66.67% (0.6667) - Primary residence only
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🏠 PROPERTY TYPES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+PRIMARY RESIDENCE (Hauptwohnsitz):
+  ✓ Max LTV:           80%
+  ✓ Min Equity:        20%
+  ✓ Amortisation:      YES (on 2nd mortgage portion)
+  ✓ Amortisation Rate: 0.889% p.a. = (80% - 66.67%) / 15 years
+
+SECONDARY RESIDENCE (Zweitwohnsitz):
+  ✓ Max LTV:           65%
+  ✓ Min Equity:        35%
+  ✓ Amortisation:      NO
+  ✓ Amortisation Rate: 0%
+
+INVESTMENT PROPERTY (Rendite-Immobilie):
+  ✓ Calculator:        NOT DISPLAYED in funnel
+  ✓ Logic:             Does not apply
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💰 INTEREST RATES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STRESS RATE (for affordability):     5.00%  (0.05)
+  ↳ Used for ALL eligibility calculations
+  ↳ Does NOT change based on product selection
+
+PRODUCT RATES (for monthly cost display only):
+  ↳ SARON:            0.85%  (0.0085)
+  ↳ 5 Year Fixed:     1.05%  (0.0105)
+  ↳ 10 Year Fixed:    1.40%  (0.0140)
+
+⚠️  CRITICAL: Product rate does NOT affect affordability!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎨 UI COLOR LOGIC
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+GREEN (#CAF476):  All conditions met
+RED (#FF9A9A):    One or more conditions failed
+
+TOP BOX:
+  ❌ RED  → eligible = false (any condition fails)
+  ✅ GREEN → eligible = true (all conditions pass)
+
+LTV / EQUITY BOX:
+  ❌ RED  → ltvOk = false (LTV exceeds limit)
+  ✅ GREEN → ltvOk = true (LTV within limit)
+
+AFFORDABILITY BOX:
+  ❌ RED  → affordabilityOk = false (>35%)
+  ✅ GREEN → affordabilityOk = true (≤35%)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 EXAMPLES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Example 1: ✅ APPROVED - Primary Residence
+  Property:     CHF 800,000
+  Own Funds:    CHF 200,000  (25%)
+  Mortgage:     CHF 600,000
+  Income:       CHF 150,000
+  
+  LTV:          75% < 80%     ✅
+  Affordability: 26.75% < 35% ✅
+  Eligible:     ✅ YES
+
+Example 2: ❌ DECLINED - Insufficient Income
+  Property:     CHF 900,000
+  Own Funds:    CHF 180,000  (20%)
+  Mortgage:     CHF 720,000
+  Income:       CHF 120,000
+  
+  LTV:          80% = 80%     ✅
+  Affordability: 40.13% > 35% ❌
+  Eligible:     ❌ NO (Income too low)
+
+Example 3: ❌ DECLINED - Secondary Residence LTV
+  Property:     CHF 500,000
+  Own Funds:    CHF 150,000  (30%)
+  Mortgage:     CHF 350,000
+  Income:       CHF 100,000
+  
+  LTV:          70% > 65%     ❌
+  Equity:       30% < 35%     ❌
+  Eligible:     ❌ NO (Need 35% equity for secondary)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🧪 TESTING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Run test suite:
+  node test-mortgage-logic.js          # Core calculations
+  node test-component-comparison.js    # Component consistency
+  node test-real-scenarios.js          # Real-world scenarios
+
+All tests should show: ✅ PASSED
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ VERIFICATION STATUS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ Logic tested and verified
+✅ Components consistent (Homepage = Funnel)
+✅ Swiss mortgage standards compliant
+✅ Production ready
+
+Last verified: February 2, 2026
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━

@@ -98,13 +98,15 @@ export default function Calculator() {
     loanType === "purchase" ? totalMortgagePurchase : totalMortgageRefi;
   const totalMortgageCapped = Math.min(mortgageNeed, maxMortgageAllowed);
 
-  // LTV / Belehnung
-  const belehnungPurchase =
-    propertyPrice > 0 ? totalMortgagePurchase / propertyPrice : 0;
-  const belehnungRefi =
-    propertyPrice > 0 ? totalMortgageRefi / propertyPrice : 0;
-  const belehnung =
-    loanType === "refinancing" ? belehnungRefi : belehnungPurchase;
+  // --- EXPLICIT LTV CALCULATION ---
+  // LTV = Total Mortgage / Property Value
+  const ltv = propertyPrice > 0 ? totalMortgageForCalc / propertyPrice : 0;
+  
+  // LTV Limit based on residence type
+  const ltvLimit = residenceType === "haupt" ? 0.8 : 0.65;
+  
+  // LTV Check - independent rule
+  const ltvOk = ltv <= ltvLimit;
 
   // 1. und 2. Hypothek (nur für Kauf + Hauptwohnsitz relevant)
   const firstLimitAbs =
@@ -125,25 +127,27 @@ export default function Calculator() {
         params.amortizationYears
       : 0;
 
-  // --- Tragbarkeit (Excel-Formel) ---
+  // --- AFFORDABILITY CALCULATION (STRESS INTEREST ONLY) ---
+  // MUST use stress interest (5%) for eligibility, NOT product interest
+  
+  let affordability = 0;
+  let affordabilityCHF = 0;
 
-  // Stress-Zins & Unterhalt mit theoretischem Zins (5%) für Tragbarkeit
-  const interestYearStress = totalMortgageForCalc * params.stressRate;
-  const maintenanceYearTrag = totalMortgageForCalc * params.maintenanceRate;
-  const amortizationYearTrag =
-    residenceType === "haupt"
-      ? totalMortgageForCalc * amortizationRate
-      : 0;
-
-  const tragbarkeitCHF =
-    interestYearStress + maintenanceYearTrag + amortizationYearTrag;
-  const tragbarkeitPercent = income > 0 ? tragbarkeitCHF / income : 0;
+  if (residenceType === "haupt") {
+    // Primary residence: includes amortisation
+    affordabilityCHF = totalMortgageForCalc * (0.05 + 0.008 + ((0.8 - 0.6667) / 15));
+  } else {
+    // Secondary residence: no amortisation
+    affordabilityCHF = totalMortgageForCalc * (0.05 + 0.008);
+  }
+  
+  affordability = income > 0 ? affordabilityCHF / income : 0;
+  
+  // Affordability Check - independent rule
+  const affordabilityOk = affordability <= 0.35;
+  
   const minIncomeRequired =
-    tragbarkeitCHF > 0 ? Math.ceil(tragbarkeitCHF / params.tragbarkeitThreshold) : 0;
-
-  const isBelehnungOK = belehnung <= params.maxBelehnung;
-  const isTragbarkeitOK =
-    tragbarkeitPercent <= params.tragbarkeitThreshold || income === 0;
+    affordabilityCHF > 0 ? Math.ceil(affordabilityCHF / 0.35) : 0;
 
   // Minimum-Eigenmittel (Kauf)
   const minOwnFunds =
@@ -155,15 +159,28 @@ export default function Calculator() {
   const isEquityOK =
     loanType === "purchase" ? ownFunds >= minOwnFunds : true;
 
-  const isEligible = isBelehnungOK && isTragbarkeitOK && isEquityOK;
+  // --- TOP BOX AGGREGATOR ONLY ---
+  // eligible is ONLY an aggregation of independent checks
+  const isEligible = ltvOk && affordabilityOk && isEquityOK;
+  
+  // Keep legacy variables for backward compatibility in UI
+  const tragbarkeitPercent = affordability;
+  const tragbarkeitCHF = affordabilityCHF;
+  const isTragbarkeitOK = affordabilityOk;
+  const isBelehnungOK = ltvOk;
+  const belehnung = ltv;
+  const belehnungPurchase = propertyPrice > 0 ? totalMortgagePurchase / propertyPrice : 0;
+  const belehnungRefi = propertyPrice > 0 ? totalMortgageRefi / propertyPrice : 0;
 
-  // --- Monatskosten sipas Excel (B56–B59) ---
+  // --- MONTHLY COSTS (PRODUCT INTEREST RATE) ---
+  // Monthly costs MUST use effectiveRate (product interest), NOT stress rate
+  // Changing SARON/5Y/10Y should ONLY affect monthly costs, NOT affordability
 
-  // Korrigjo: Unterhalt/Nebenkosten = 0.8% e vlerës së pronës
+  // Maintenance costs = 0.8% of property value
   const maintenanceYear = propertyPrice * params.maintenanceRate;
   const monthlyMaintenance = maintenanceYear / 12;
 
-  // Zbritje për amortizim të dytë (jo negativ)
+  // For refinancing - old monthly cost
   const secondMortgageOld =
     residenceType === "haupt"
       ? Math.max(0, existingMortgage - firstLimitAbs)
@@ -173,14 +190,13 @@ export default function Calculator() {
       ? Math.max(0, secondMortgageOld / params.amortizationYears)
       : 0;
 
-  // Vjetër (vetëm B9)
-  const oldInterestYear = existingMortgage * effectiveRate;
+  const oldInterestYear = existingMortgage * effectiveRate; // Product interest
   const oldMaintenanceYear = propertyPrice * params.maintenanceRate;
   const monthlyOld = (oldInterestYear + oldMaintenanceYear + oldAmortYear) / 12;
 
-  // Re (B9+B10)
+  // For refinancing - new monthly cost
   const newTotal = totalMortgageRefi;
-  const newInterestYear = newTotal * effectiveRate;
+  const newInterestYear = newTotal * effectiveRate; // Product interest
   const newMaintenanceYear = propertyPrice * params.maintenanceRate;
   const newSecondMortgage =
     residenceType === "haupt"
@@ -192,16 +208,17 @@ export default function Calculator() {
       : 0;
   const monthlyNew = (newInterestYear + newMaintenanceYear + newAmortYear) / 12;
 
-  // Për llogaritje të përgjithshme (për "purchase" ose "refinancing")
-  const interestYearEffective = totalMortgageForCalc * effectiveRate;
+  // General monthly costs (purchase or refinancing)
+  const interestYearEffective = totalMortgageForCalc * effectiveRate; // Product interest
   const monthlyInterest = interestYearEffective / 12;
-  // Amortizimi i përgjithshëm
+  
   const amortizationYear =
     residenceType === "haupt" && params.amortizationYears > 0
       ? Math.max(0, secondMortgage / params.amortizationYears)
       : 0;
   const monthlyAmortization = amortizationYear / 12;
-  // Totali i kostove mujore
+  
+  // Total monthly cost with product interest
   const monthlyCost = monthlyInterest + monthlyMaintenance + monthlyAmortization;
 
   // Slider-Visual-Limits
@@ -313,18 +330,8 @@ export default function Calculator() {
               <SliderInput
                 label={t("calculator.ownFunds")}
                 value={ownFunds}
-                setValue={(v: number) => {
-                  if (residenceType === "zweit") {
-                    setOwnFunds(Math.max(v, propertyPrice * 0.35));
-                  } else {
-                    setOwnFunds(Math.max(v, propertyPrice * 0.2));
-                  }
-                }}
-                min={
-                  residenceType === "zweit"
-                    ? propertyPrice * 0.35
-                    : propertyPrice * 0.2
-                }
+                setValue={setOwnFunds}
+                min={0}
                 max={propertyPrice}
                 minRequired={minOwnFunds}
               />
@@ -335,7 +342,7 @@ export default function Calculator() {
               label={t("calculator.grossIncome")}
               value={income}
               setValue={setIncome}
-              min={minIncomeRequired}
+              min={0}
               max={10000000}
               minRequired={minIncomeRequired}
             />
@@ -437,11 +444,7 @@ export default function Calculator() {
                   current={formatCHF(ownFunds)}
                   total={formatCHF(propertyPrice)}
                   loanType={loanType}
-                  red={
-                    propertyPrice > 0 && residenceType === "zweit"
-                      ? ownFunds / propertyPrice < 0.35
-                      : ownFunds / propertyPrice < 0.2
-                  }
+                  red={!isEquityOK}
                   thresholdLabel={
                     residenceType === "zweit" ? "(min. 35%)" : "(min. 20%)"
                   }
@@ -491,17 +494,17 @@ export default function Calculator() {
                   value={formatCHF(monthlyOld)}
                 />
                 <SmallBox
-                  title={t("calculator.totalMonthlyCost")}
-                  value={formatCHF(monthlyCost)}
-                  highlight
+                  title={t("calculator.maintenanceCosts")}
+                  value={formatCHF(monthlyMaintenance)}
                 />
                 <SmallBox
                   title={t("calculator.interest")}
                   value={formatCHF(monthlyInterest)}
                 />
                 <SmallBox
-                  title={t("calculator.maintenanceCosts")}
-                  value={formatCHF(monthlyMaintenance)}
+                  title={t("calculator.totalMonthlyCost")}
+                  value={formatCHF(monthlyCost)}
+                  highlight
                 />
               </>
             ) : (
@@ -575,33 +578,21 @@ function SubToggle({ label, active, onClick }: any) {
 }
 
 function SliderInput({ label, value, setValue, min, max, minRequired }: any) {
-  const percentage = max > min ? ((value - min) / (max - min)) * 100 : 0;
-  const animationRef = useRef<number | null>(null);
+  // Always use 0 as the actual minimum for the slider
+  const sliderMin = 0;
+  const percentage = max > sliderMin ? ((value - sliderMin) / (max - sliderMin)) * 100 : 0;
+  const [inputValue, setInputValue] = useState(value.toLocaleString("de-CH"));
+  const [isFocused, setIsFocused] = useState(false);
+
+  // Sync inputValue with value when not focused
+  useEffect(() => {
+    if (!isFocused) {
+      setInputValue(value.toLocaleString("de-CH"));
+    }
+  }, [value, isFocused]);
 
   useEffect(() => {
-    if (minRequired === undefined) return;
-
-    const startValue = value;
-    const endValue = Math.min(Math.max(minRequired, min), max);
-    const duration = 400;
-    const startTime = performance.now();
-
-    const animate = (time: number) => {
-      const progress = Math.min((time - startTime) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      const newVal = startValue + (endValue - startValue) * eased;
-      setValue(Math.round(newVal));
-      if (progress < 1) animationRef.current = requestAnimationFrame(animate);
-    };
-
-    if (animationRef.current) cancelAnimationFrame(animationRef.current);
-    animationRef.current = requestAnimationFrame(animate);
-  }, [minRequired, min, max]);
-
-  useEffect(() => {
-    return () => {
-      if (animationRef.current) cancelAnimationFrame(animationRef.current);
-    };
+    return () => {};
   }, []);
 
   return (
@@ -616,15 +607,36 @@ function SliderInput({ label, value, setValue, min, max, minRequired }: any) {
       <div className="flex items-center justify-between border border-[#A8A8A8] rounded-full px-5 py-2">
         <input
           type="text"
-          value={value.toLocaleString("de-CH")}
-          onChange={(e) => {
-            const raw = e.target.value.replace(/[^0-9]/g, "");
+          value={inputValue}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => {
+            setIsFocused(false);
+            const raw = inputValue.replace(/[^0-9]/g, "");
             const parsed = Number(raw);
-            if (!isNaN(parsed)) {
-              // Enforce dynamic minimum for income
-              const minVal = minRequired !== undefined ? minRequired : min;
-              const bounded = Math.max(minVal, Math.min(parsed, max));
+            if (!isNaN(parsed) && parsed >= 0) {
+              // Allow any value from 0 to max, don't enforce minRequired
+              const bounded = Math.max(0, Math.min(parsed, max));
               setValue(bounded);
+              setInputValue(bounded.toLocaleString("de-CH"));
+            } else {
+              setInputValue(value.toLocaleString("de-CH"));
+            }
+          }}
+          onChange={(e) => {
+            const newValue = e.target.value;
+            setInputValue(newValue);
+            
+            // Update value in real-time as user types
+            const raw = newValue.replace(/[^0-9]/g, "");
+            const parsed = Number(raw);
+            if (!isNaN(parsed) && parsed >= 0) {
+              const bounded = Math.max(0, Math.min(parsed, max));
+              setValue(bounded);
+            }
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.currentTarget.blur();
             }
           }}
           className="bg-transparent text-[18px] font-medium w-[120px] outline-none"
@@ -634,20 +646,22 @@ function SliderInput({ label, value, setValue, min, max, minRequired }: any) {
 
       <input
         type="range"
-        min={min}
+        min={sliderMin}
         max={max}
         value={value}
+        onMouseDown={() => {
+          if (isFocused) {
+            setIsFocused(false);
+          }
+        }}
         onChange={(e) => {
           let newVal = Number(e.target.value);
           // Only apply 5000 step for Kaufpreis / Immobilienwert
           if (label && label.toLowerCase().includes("kaufpreis")) {
             newVal = Math.round(newVal / 5000) * 5000;
           }
-          if (minRequired !== undefined && newVal < minRequired) {
-            setValue(minRequired);
-          } else {
-            setValue(newVal);
-          }
+          // Don't enforce minRequired here, just set the value
+          setValue(newVal);
         }}
         className="w-full h-[4px] rounded-full appearance-none cursor-pointer transition-[background] duration-300 ease-out mt-[6px]"
         style={{
@@ -710,15 +724,21 @@ function ProgressBox({
   red = false,
   thresholdLabel,
 }: any) {
+  const bgColor = red
+    ? "bg-[linear-gradient(270deg,#FCA5A5_0%,#FECACA_100%)]"
+    : "bg-[linear-gradient(270deg,#CAF476_0%,#E3F4BF_100%)]";
+  
+  const iconBgColor = red ? "bg-[#FF9A9A]" : "bg-[#CAF47E]";
+
   return (
     <div
-      className="
+      className={`
       flex-1 h-[185px]
       flex flex-col justify-between 
       rounded-[10px] border border-[#132219] 
       px-[16px] py-[15px]
-      bg-[linear-gradient(270deg,#CAF476_0%,#E3F4BF_100%)]
-      "
+      ${bgColor}
+      `}
     >
       <div className="flex justify-between items-start">
         <div className="flex flex-col">
@@ -727,8 +747,14 @@ function ProgressBox({
             <span className="hidden text-[13px] text-[#4b4b4b]">{thresholdLabel}</span>
           )}
         </div>
-        <div className="w-[20px] h-[20px] rounded-full border border-[#132219] bg-[#CAF47E] flex items-center justify-center">
-          <CheckIcon red={red} />
+        <div className={`w-[20px] h-[20px] rounded-full border border-[#132219] ${iconBgColor} flex items-center justify-center`}>
+          {red ? (
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 3L3 9M3 3L9 9" stroke="#132219" strokeWidth="1.5" strokeLinecap="round"/>
+            </svg>
+          ) : (
+            <CheckIcon />
+          )}
         </div>
       </div>
 

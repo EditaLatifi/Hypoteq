@@ -219,9 +219,9 @@ const propertyUseOptions =
       </div>
 
       {/* ========================================================= */}
-      {/*  RESERVIERUNG – ONLY FOR NEUBAU (NEW CONSTRUCTION)        */}
+      {/*  RESERVIERUNG – SHOW FOR BOTH NEUBAU AND BESTEHEND        */}
       {/* ========================================================= */}
-      {customerType !== "jur" && data.artImmobilie === "neubau" && (
+      {customerType !== "jur" && data.artImmobilie && (
         <div>
           <h3 className="text-[16px] font-semibold mb-[16px]">
             {t("funnel.propertyReserved" as any)}

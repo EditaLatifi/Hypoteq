@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useFunnelStore } from "@/src/store/funnelStore";
+import { useTranslation } from "@/hooks/useTranslation";
 import ProgressBar from "@/components/ProgressBar"; 
 import StartStep from "../../funnel/steps/StartStep";
 import ProjectStep from "../../funnel/steps/ProjectStep";
@@ -14,6 +15,7 @@ import FunnelSidebar from "../../funnel/FunnelSidebar";
 import { v4 as uuidv4 } from "uuid";
 
 export default function FunnelPage() {
+  const { t, locale } = useTranslation();
     // Reset all dependent state when project type changes
     const handleProjectTypeChange = (newType: "" | "kauf" | "abloesung") => {
       setProjectData({
@@ -428,22 +430,21 @@ saveStep={next}
       </div>
 
       <h1 className="text-[28px] sm:text-[36px] md:text-[48px] lg:text-[52px] font-normal leading-tight mb-4 md:mb-6">
-        Vielen Dank, dass Sie das<br className="hidden sm:block" />
-        <span className="sm:hidden"> </span>Formular ausgefüllt haben.
+        {t("funnel.thankYouTitle" as any)}
       </h1>
 
       <p className="text-[18px] sm:text-[20px] md:text-[24px] font-normal text-[#132219]/80">
-        Wir melden uns in Kürze bei Ihnen!
+        {t("funnel.thankYouMessage" as any)}
       </p>
 
       <button
-        onClick={() => (window.location.href = "/de")}
+        onClick={() => (window.location.href = `/${locale}`)}
         className="mt-8 md:mt-10 px-6 md:px-8 py-3 md:py-3.5 flex items-center justify-center gap-2 rounded-full 
                    border border-[#132219] text-[#132219] text-[14px] md:text-[16px] font-medium
                    hover:opacity-90 transition-opacity mx-auto"
         style={{ backgroundColor: "#CAF476" }}
       >
-        Zurück zur Homepage
+        {t("funnel.backToHomepage" as any)}
       </button>
     </div>
   </div>

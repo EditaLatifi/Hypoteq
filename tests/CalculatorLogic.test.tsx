@@ -3,7 +3,7 @@ import { describe, it, expect } from '@jest/globals';
 // Helper functions to test logic
 function getMinOwnFunds(propertyPrice: number, residenceType: 'haupt' | 'zweit', loanType: 'purchase' | 'refinancing') {
   if (loanType === 'purchase') {
-    return propertyPrice * (residenceType === 'zweit' ? 0.3 : 0.2);
+    return propertyPrice * (residenceType === 'zweit' ? 0.35 : 0.2);
   }
   return 0;
 }
@@ -21,7 +21,7 @@ describe('Calculator Logic', () => {
   });
 
   it('calculates min own funds for Zweitwohnsitz purchase', () => {
-    expect(getMinOwnFunds(1000000, 'zweit', 'purchase')).toBe(300000);
+    expect(getMinOwnFunds(1000000, 'zweit', 'purchase')).toBe(350000);
   });
 
   it('min own funds for refinancing is always 0', () => {
