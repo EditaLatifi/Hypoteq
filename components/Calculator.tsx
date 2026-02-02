@@ -144,7 +144,8 @@ export default function Calculator() {
   affordability = income > 0 ? affordabilityCHF / income : 0;
   
   // Affordability Check - independent rule
-  const affordabilityOk = affordability <= 0.35;
+  // Should be OK only if there's income AND affordability is within limit
+  const affordabilityOk = income > 0 && affordability <= 0.35;
   
   const minIncomeRequired =
     affordabilityCHF > 0 ? Math.ceil(affordabilityCHF / 0.35) : 0;
@@ -157,7 +158,7 @@ export default function Calculator() {
       : 0;
 
   const isEquityOK =
-    loanType === "purchase" ? ownFunds >= minOwnFunds : true;
+    loanType === "purchase" ? (propertyPrice > 0 && ownFunds >= minOwnFunds) : true;
 
   // --- TOP BOX AGGREGATOR ONLY ---
   // eligible is ONLY an aggregation of independent checks
@@ -309,14 +310,14 @@ export default function Calculator() {
             {loanType === "refinancing" && (
               <>
                 <SliderInput
-                  label="Bisherige Hypothek"
+                  label={t("calculator.existingMortgage" as any)}
                   value={existingMortgage}
                   setValue={setExistingMortgage}
                   min={0}
                   max={propertyPrice}
                 />
                 <SliderInput
-                  label="Hypothekerhoehung"
+                  label={t("calculator.mortgageIncrease" as any)}
                   value={mortgageIncrease}
                   setValue={setMortgageIncrease}
                   min={0}
