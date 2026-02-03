@@ -460,34 +460,39 @@ const propertyUseOptions =
                 setErrors((prev: any) => ({ ...prev, [`kreditnehmer_${index}_name`]: "" }));
               }}
             />
-            <input
-              type="email"
-              placeholder={t("funnel.email" as any)}
-              className={`px-5 py-2 border rounded-full text-sm ${
-                errors[`kreditnehmer_${index}_email`] ? 'border-red-500' : 'border-[#132219]'
-              }`}
-              value={kn.email || ""}
-              onChange={(e) => {
-                const updated = [...data.kreditnehmer];
-                updated[index].email = e.target.value;
-                update("kreditnehmer", updated);
-                setErrors((prev: any) => ({ ...prev, [`kreditnehmer_${index}_email`]: "" }));
-              }}
-            />
-            <input
-              type="tel"
-              placeholder={t("funnel.phone" as any)}
-              className={`px-5 py-2 border rounded-full text-sm ${
-                errors[`kreditnehmer_${index}_telefon`] ? 'border-red-500' : 'border-[#132219]'
-              }`}
-              value={kn.telefon || ""}
-              onChange={(e) => {
-                const updated = [...data.kreditnehmer];
-                updated[index].telefon = e.target.value;
-                update("kreditnehmer", updated);
-                setErrors((prev: any) => ({ ...prev, [`kreditnehmer_${index}_telefon`]: "" }));
-              }}
-            />
+            {/* Hide email and phone for partner */}
+            {customerType !== "partner" && (
+              <>
+                <input
+                  type="email"
+                  placeholder={t("funnel.email" as any)}
+                  className={`px-5 py-2 border rounded-full text-sm ${
+                    errors[`kreditnehmer_${index}_email`] ? 'border-red-500' : 'border-[#132219]'
+                  }`}
+                  value={kn.email || ""}
+                  onChange={(e) => {
+                    const updated = [...data.kreditnehmer];
+                    updated[index].email = e.target.value;
+                    update("kreditnehmer", updated);
+                    setErrors((prev: any) => ({ ...prev, [`kreditnehmer_${index}_email`]: "" }));
+                  }}
+                />
+                <input
+                  type="tel"
+                  placeholder={t("funnel.phone" as any)}
+                  className={`px-5 py-2 border rounded-full text-sm ${
+                    errors[`kreditnehmer_${index}_telefon`] ? 'border-red-500' : 'border-[#132219]'
+                  }`}
+                  value={kn.telefon || ""}
+                  onChange={(e) => {
+                    const updated = [...data.kreditnehmer];
+                    updated[index].telefon = e.target.value;
+                    update("kreditnehmer", updated);
+                    setErrors((prev: any) => ({ ...prev, [`kreditnehmer_${index}_telefon`]: "" }));
+                  }}
+                />
+              </>
+            )}
             <div className="relative w-full">
               <select
                 className={`px-5 py-2 rounded-full text-sm w-full bg-white border appearance-none pr-10 ${

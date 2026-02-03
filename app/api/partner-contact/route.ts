@@ -10,8 +10,8 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { firstName, lastName, email, phone, message } = body;
 
-    // Validate required fields
-    if (!firstName || !lastName || !email || !phone || !message) {
+    // Validate required fields (email and phone are optional for partner)
+    if (!firstName || !lastName || !message) {
       return NextResponse.json(
         { success: false, error: "Alle Pflichtfelder müssen ausgefüllt werden" },
         { status: 400 }
