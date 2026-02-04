@@ -502,7 +502,7 @@
     "passportAuthorizedPersonJur": "Passeport ou carte d'identité de la personne autorisée à signer",
     "annualFinancialStatementsJur": "Comptes annuels (bilans et comptes de résultat des 3 dernières années)",
     "interimBalanceIfAvailable": "Bilan intermédiaire actuel (si disponible)",
-    "taxReturnLatestJur": "Déclaration d'impôts la plus récente (y compris dettes, valeurs mobilières, registre des propriétés)",
+    "taxReturnLatestJur": "Déclaration d'impôts la plus récente de l'entreprise (y compris dettes, valeurs mobilières, registre des propriétés)",
     "ownFundsProofJur": "Relevé et preuve des fonds propres",
     "purchaseOrRenovationContract": "Contrat d'achat (projet/original) et/ou contrat de rénovation",
     "inheritanceContract": "Contrat de succession",
