@@ -27,6 +27,7 @@ export default function DirectSummaryStep({ back, saveStep }: any) {
   // Trigger Salesforce sync on application submit
   const handleSubmitApplication = async () => {
     try {
+      console.log("🔎 FINAL PAYLOAD TO SALESFORCE:", JSON.stringify(funnelData, null, 2));
       await salesforceApi.login();
       await syncFunnelStepsToSalesforce(funnelData, salesforceApi);
       alert("Application sent to Salesforce successfully!");
