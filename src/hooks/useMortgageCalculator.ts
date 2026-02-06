@@ -16,7 +16,7 @@ export default function useMortgageCalculator() {
 
   const [residenceType, setResidenceType] = useState<"haupt" | "zweit" | null>(null);
   const [loanType, setLoanType] = useState<"purchase" | "refinancing" | null>(null);
-  const [interestOption, setInterestOption] = useState("10Y 1.40%");
+  const [interestOption, setInterestOption] = useState("Saron ab 0.90%");
 
   const params =
     residenceType === "haupt"
@@ -65,12 +65,32 @@ export default function useMortgageCalculator() {
 
 
   // Interest options
-  const interestOptions = ["SARON 0.89%", "5Y 1.28%", "10Y 1.59%"];
+  const interestOptions = [
+    "Saron ab 0.90%",
+    "1 Jahr ab 0.97%",
+    "2 Jahre ab 0.98%",
+    "3 Jahre ab 1.00%",
+    "4 Jahre ab 1.10%",
+    "5 Jahre ab 1.18%",
+    "6 Jahre ab 1.26%",
+    "7 Jahre ab 1.33%",
+    "8 Jahre ab 1.40%",
+    "9 Jahre ab 1.46%",
+    "10 Jahre ab 1.52%",
+  ];
 
   const effectiveRate = useMemo(() => {
-    if (interestOption.startsWith("SARON")) return 0.0089;
-    if (interestOption.startsWith("5Y")) return 0.0120;
-    if (interestOption.startsWith("10Y")) return 0.0148;
+    if (interestOption.startsWith("Saron ab")) return 0.0090;
+    if (interestOption.startsWith("1 Jahr ab")) return 0.0097;
+    if (interestOption.startsWith("2 Jahre ab")) return 0.0098;
+    if (interestOption.startsWith("3 Jahre ab")) return 0.0100;
+    if (interestOption.startsWith("4 Jahre ab")) return 0.0110;
+    if (interestOption.startsWith("5 Jahre ab")) return 0.0118;
+    if (interestOption.startsWith("6 Jahre ab")) return 0.0126;
+    if (interestOption.startsWith("7 Jahre ab")) return 0.0133;
+    if (interestOption.startsWith("8 Jahre ab")) return 0.0140;
+    if (interestOption.startsWith("9 Jahre ab")) return 0.0146;
+    if (interestOption.startsWith("10 Jahre ab")) return 0.0152;
     return 0.0103;
   }, [interestOption]);
 

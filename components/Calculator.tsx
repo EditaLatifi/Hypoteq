@@ -41,7 +41,7 @@ export default function Calculator() {
     "purchase"
   );
 
-  const [interestOption, setInterestOption] = useState("SARON 0.89%");
+  const [interestOption, setInterestOption] = useState("SARON 0.90%");
   const [openDropdown, setOpenDropdown] = useState(false);
 
   // Parameter gemäss Excel
@@ -68,16 +68,32 @@ export default function Calculator() {
 
   // Effektiver Zins (B55) abhängig von Auswahl
   const effectiveRate = useMemo(() => {
-    if (interestOption.startsWith("SARON")) return 0.0085;
-    if (interestOption.startsWith("5")) return 0.0105;
-    if (interestOption.startsWith("10")) return 0.014;
+    if (interestOption.startsWith("SARON")) return 0.0090;
+    if (interestOption.startsWith("1Y")) return 0.0097;
+    if (interestOption.startsWith("2Y")) return 0.0098;
+    if (interestOption.startsWith("3Y")) return 0.0100;
+    if (interestOption.startsWith("4Y")) return 0.0110;
+    if (interestOption.startsWith("5")) return 0.0118;
+    if (interestOption.startsWith("6Y")) return 0.0126;
+    if (interestOption.startsWith("7Y")) return 0.0133;
+    if (interestOption.startsWith("8Y")) return 0.0140;
+    if (interestOption.startsWith("9Y")) return 0.0146;
+    if (interestOption.startsWith("10")) return 0.0152;
     return 0.0105;
   }, [interestOption]);
 
   const interestOptions = [
-    t("calculator.interestOption1" as any),
-    t("calculator.interestOption2" as any),
-    t("calculator.interestOption3" as any),
+    "SARON 0.90%",
+    "1Y 0.97%",
+    "2Y 0.98%",
+    "3Y 1.00%",
+    "4Y 1.10%",
+    "5Y 1.18%",
+    "6Y 1.26%",
+    "7Y 1.33%",
+    "8Y 1.40%",
+    "9Y 1.46%",
+    "10Y 1.52%",
   ];
 
   // --- Hypothekenbeträge Kauf / Refi ---
