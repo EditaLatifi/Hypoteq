@@ -265,6 +265,8 @@
     "ctaCard2Button": "Jetzt kostenloses Infogespräch buchen."
   },
   "funnel": {
+    "loadingText": "Laden...",
+    "uploadingFilesText": "Dateien werden hochgeladen, bitte warten...",
     "hypothekarlaufzeiten": "Hypothekarlaufzeiten",
     "hypothekarbetrag": "Hypothekarbetrag",
     "kreditnehmer": "Kreditnehmer",
@@ -408,7 +410,6 @@
     "withBonus": "+ Bonus",
     "redemptionAmount": "Ablösungsbetrag",
     "increaseAmount": "Erhöhung der Hypothek",
-    "finanzierung": "Finanzierung",
     "propertyReservedQuestion": "Liegenschaft reserviert?",
     "financingOffersQuestion": "Finanzierungsangebote",
     "borrowerDetails": "Kreditnehmer Details",

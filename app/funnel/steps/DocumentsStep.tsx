@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 
 
 function DocumentsStep({ borrowers, docs, setDocs, addDocument, saveStep, back }: any) {
+const [loading, setLoading] = useState(false);
 const { t } = useTranslation();
 const { project, email, property, financing } = useFunnelStore();
 const [isDragging, setIsDragging] = useState(false);
@@ -681,9 +682,19 @@ const saved = docs.some((d: { name: string }) => d.name === doc);
 
       </div>
 
+      {/* UPLOADING INDICATOR */}
+      {loading && (
+        <div className="flex flex-col items-center justify-center mt-6 mb-2">
+          <svg className="animate-spin h-8 w-8 text-[#132219] mb-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+          </svg>
+          <span className="text-[#132219] font-semibold text-lg">{t("funnel.uploadingFilesText", "Uploading files, please wait...")}</span>
+        </div>
+      )}
+
       {/* FOOTER BUTTONS */}
       <div className="flex flex-col sm:flex-row justify-between gap-4 mt-12 md:mt-16 lg:mt-20">
-        
         <button
           onClick={back}
           className="px-6 md:px-8 py-3 rounded-full border border-[#132219] text-[#132219] hover:bg-[#F7F7F7] transition-colors text-sm md:text-base order-2 sm:order-1"
@@ -693,14 +704,28 @@ const saved = docs.some((d: { name: string }) => d.name === doc);
 
         <button
           onClick={async () => {
-            await uploadAllFilesToSharePoint();
-            saveStep();
+            if (loading) return;
+            setLoading(true);
+            try {
+              await uploadAllFilesToSharePoint();
+              await saveStep();
+            } finally {
+              setLoading(false);
+            }
           }}
-          className="px-8 md:px-10 py-3 bg-[#CAF476] rounded-full font-medium text-[#132219] shadow hover:bg-[#BCDF6A] transition-colors text-sm md:text-base order-1 sm:order-2"
+          disabled={loading}
+          className={`px-8 md:px-10 py-3 bg-[#CAF476] rounded-full font-medium text-[#132219] shadow hover:bg-[#BCDF6A] transition-colors text-sm md:text-base order-1 sm:order-2 ${loading ? 'opacity-60 cursor-not-allowed' : ''}`}
         >
-          {t("funnel.continueButton" as any)}
+          {loading ? (
+            <span className="flex items-center justify-center">
+              <svg className="animate-spin h-5 w-5 text-[#132219] mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+              </svg>
+              {t("funnel.loadingText" as any)}
+            </span>
+          ) : t("funnel.continueButton" as any)}
         </button>
-
       </div>
     </div>
   </div>

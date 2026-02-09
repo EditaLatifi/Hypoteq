@@ -263,6 +263,8 @@
     "ctaCard2Button": "Réservez maintenant un entretien d'information gratuit."
   },
   "funnel": {
+    "loadingText": "Chargement...",
+    "uploadingFilesText": "Téléchargement des fichiers, veuillez patienter...",
     "hypothekarlaufzeiten": "Durées hypothécaires",
     "hypothekarbetrag": "Montant hypothécaire",
     "kreditnehmer": "Emprunteur",
@@ -989,4 +991,5 @@
       "furtherHelp": "Pour plus d'assistance, veuillez visiter notre"
     }
   }
+  
 }

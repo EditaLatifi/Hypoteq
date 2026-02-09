@@ -263,6 +263,8 @@
     "ctaCard2Button": "Book a free information call now."
   },
   "funnel": {
+    "loadingText": "Loading...",
+    "uploadingFilesText": "Uploading files, please wait...",
     "hypothekarlaufzeiten": "Mortgage terms",
     "hypothekarbetrag": "Mortgage amount",
     "kreditnehmer": "Borrower",

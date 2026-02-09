@@ -519,6 +519,10 @@ const propertyUseOptions =
                 }}
                 placeholder={t("funnel.birthdayPlaceholder" as any)}
                 className={errors[`kreditnehmer_${index}_geburtsdatum`] ? 'border-red-500' : ''}
+                showYearDropdown
+                showMonthDropdown
+                scrollableYearDropdown
+                yearDropdownItemNumber={100}
               />
             <div className="relative w-full">
               <select

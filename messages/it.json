@@ -265,6 +265,8 @@
     "ctaCard2Button": "Prenota ora una consulenza informativa gratuita."
   },
   "funnel": {
+        "loadingText": "Caricamento...",
+    "uploadingFilesText": "Caricamento dei file in corso, attendere...",
     "hypothekarlaufzeiten": "Durate ipotecarie",
     "hypothekarbetrag": "Importo ipotecario",
     "kreditnehmer": "Mutuatario",
@@ -992,4 +994,5 @@
       "furtherHelp": "Per ulteriore assistenza, visita la nostra"
     }
   }
+  
 }
