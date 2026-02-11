@@ -84,7 +84,6 @@ export default function Calculator() {
 
   const interestOptions = [
     "SARON 0.90%",
-    "SARON 0.90%",
     "1Y 0.97%",
     "2Y 0.98%",
     "3Y 1.00%",
@@ -410,9 +409,10 @@ export default function Calculator() {
                       absolute left-0 top-[45px] w-full 
                       bg-white border border-[#132219]
                       rounded-[10px]
-                      shadow-lg z-10
+                      shadow-lg z-[9999]
                       py-2
                     "
+                    style={{zIndex: 9999}}
                   >
                     {interestOptions.map((option) => (
                       <button
