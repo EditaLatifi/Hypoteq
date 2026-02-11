@@ -73,27 +73,28 @@ export default function Calculator() {
     if (interestOption.startsWith("2Y")) return 0.0098;
     if (interestOption.startsWith("3Y")) return 0.0100;
     if (interestOption.startsWith("4Y")) return 0.0110;
-    if (interestOption.startsWith("5")) return 0.0118;
-    if (interestOption.startsWith("6Y")) return 0.0126;
-    if (interestOption.startsWith("7Y")) return 0.0133;
-    if (interestOption.startsWith("8Y")) return 0.0140;
-    if (interestOption.startsWith("9Y")) return 0.0146;
-    if (interestOption.startsWith("10")) return 0.0152;
-    return 0.0105;
+    if (interestOption.startsWith("4Y")) return 0.0121;
+    if (interestOption.startsWith("5")) return 0.0129;
+    if (interestOption.startsWith("6Y")) return 0.0129;
+    if (interestOption.startsWith("7Y")) return 0.0129;
+    if (interestOption.startsWith("8Y")) return 0.0134;
+    if (interestOption.startsWith("9Y")) return 0.0139;
+    if (interestOption.startsWith("10")) return 0.0144;
   }, [interestOption]);
 
   const interestOptions = [
     "SARON 0.90%",
+    "SARON 0.90%",
     "1Y 0.97%",
     "2Y 0.98%",
     "3Y 1.00%",
-    "4Y 1.10%",
-    "5Y 1.18%",
-    "6Y 1.26%",
-    "7Y 1.33%",
-    "8Y 1.40%",
-    "9Y 1.46%",
-    "10Y 1.52%",
+    "4Y 1.21%",
+    "5Y 1.29%",
+    "6Y 1.29%",
+    "7Y 1.29%",
+    "8Y 1.34%",
+    "9Y 1.39%",
+    "10Y 1.44%",
   ];
 
   // --- Hypothekenbeträge Kauf / Refi ---
