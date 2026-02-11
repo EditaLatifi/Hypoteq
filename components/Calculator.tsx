@@ -72,7 +72,6 @@ export default function Calculator() {
     if (interestOption.startsWith("1Y")) return 0.0097;
     if (interestOption.startsWith("2Y")) return 0.0098;
     if (interestOption.startsWith("3Y")) return 0.0100;
-    if (interestOption.startsWith("4Y")) return 0.0110;
     if (interestOption.startsWith("4Y")) return 0.0121;
     if (interestOption.startsWith("5")) return 0.0129;
     if (interestOption.startsWith("6Y")) return 0.0129;
@@ -80,6 +79,7 @@ export default function Calculator() {
     if (interestOption.startsWith("8Y")) return 0.0134;
     if (interestOption.startsWith("9Y")) return 0.0139;
     if (interestOption.startsWith("10")) return 0.0144;
+    return 0.01;
   }, [interestOption]);
 
   const interestOptions = [
