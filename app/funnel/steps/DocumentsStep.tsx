@@ -269,8 +269,8 @@ const sections = [
     ],
   }] : []),
 
-  // Conditional: Show only if reserviert = "ja" (for Neubau + Kauf, NOT for Ablösung)
-  ...(isKauf && isNeubau && !isAblösung && isReserviert ? [{
+  // Show reservation documents if reserviert = "ja" (for any case)
+  ...(isReserviert ? [{
     title: t("funnel.reservation" as any),
     items: [
       t("funnel.renovationContract" as any), // Renovationsvertrag

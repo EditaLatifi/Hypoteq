@@ -219,31 +219,29 @@ const propertyUseOptions =
       </div>
 
       {/* ========================================================= */}
-      {/*  RESERVIERUNG – SHOW ONLY FOR KAUF (NOT FOR ABLÖSUNG)      */}
+      {/*  RESERVIERUNG – SHOW ALWAYS                              */}
       {/* ========================================================= */}
-      {customerType !== "jur" && data.artImmobilie && !isAbloesung && (
-        <div>
-          <h3 className="text-[16px] font-semibold mb-[16px]">
-            {t("funnel.propertyReserved" as any)}
-          </h3>
-          <div className="flex gap-[24px]">
-            <ToggleButton
-              active={data.reserviert === "ja"}
-              onClick={() => update("reserviert", "ja")}
-              showCircle={true}
-            >
-              {t("funnel.yes" as any)}
-            </ToggleButton>
-            <ToggleButton
-              active={data.reserviert === "nein"}
-              onClick={() => update("reserviert", "nein")}
-              showCircle={true}
-            >
-              {t("funnel.no" as any)}
-            </ToggleButton>
-          </div>
+      <div>
+        <h3 className="text-[16px] font-semibold mb-[16px]">
+          {t("funnel.propertyReserved" as any)}
+        </h3>
+        <div className="flex gap-[24px]">
+          <ToggleButton
+            active={data.reserviert === "ja"}
+            onClick={() => update("reserviert", "ja")}
+            showCircle={true}
+          >
+            {t("funnel.yes" as any)}
+          </ToggleButton>
+          <ToggleButton
+            active={data.reserviert === "nein"}
+            onClick={() => update("reserviert", "nein")}
+            showCircle={true}
+          >
+            {t("funnel.no" as any)}
+          </ToggleButton>
         </div>
-      )}
+      </div>
 
       {/* ========================================================= */}
       {/*  FINANZIERUNGSANGEBOTE                                    */}
