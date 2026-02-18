@@ -554,90 +554,94 @@ const propertyUseOptions =
       {/* ========================================================= */}
       {/*  BUTTONS                                                  */}
       {/* ========================================================= */}
-      <div className="flex justify-between mt-6 lg:mt-10">
-        <button onClick={back} className="px-4 lg:px-6 py-2 border border-[#132219] rounded-full text-sm lg:text-base">
-          {t("funnel.back" as any)}
-        </button>
-        <button 
-          onClick={() => {
-            const newErrors: any = {};
-            
-            // Basic property fields required for everyone (including partners)
-            if (!data.artImmobilie) {
-              newErrors.artImmobilie = t("funnel.errorPropertyType" as any) || "Please select property type";
-            }
-            if (!data.artLiegenschaft) {
-              newErrors.artLiegenschaft = t("funnel.errorPropertyKind" as any) || "Please select property kind";
-            }
-            if (!data.nutzung) {
-              newErrors.nutzung = t("funnel.errorPropertyUsage" as any) || "Please select property usage";
-            }
-            
-            // For non-partners, validate additional fields
-            if (customerType !== "partner") {
-              if (!data.renovation) {
-                newErrors.renovation = t("funnel.errorRenovation" as any) || "Please select renovation option";
+      <div className="flex flex-col gap-2 mt-6 lg:mt-10">
+        <div className="flex justify-between">
+          <button onClick={back} className="px-4 lg:px-6 py-2 border border-[#132219] rounded-full text-sm lg:text-base">
+            {t("funnel.back" as any)}
+          </button>
+          <button 
+            onClick={() => {
+              const newErrors: any = {};
+              // Basic property fields required for everyone (including partners)
+              if (!data.artImmobilie) {
+                newErrors.artImmobilie = t("funnel.errorPropertyType" as any) || "Please select property type";
               }
-              if (!data.finanzierungsangebote) {
-                newErrors.finanzierungsangebote = t("funnel.errorFinancingOffers" as any) || "Please select financing offers option";
+              if (!data.artLiegenschaft) {
+                newErrors.artLiegenschaft = t("funnel.errorPropertyKind" as any) || "Please select property kind";
               }
-              // Validate reserved field if visible (for kauf, not abloesung)
-              if (customerType !== "jur" && data.artImmobilie && !isAbloesung && !data.reserviert) {
-                newErrors.reserviert = t("funnel.errorReserved" as any) || "Please select whether the property is reserved";
+              if (!data.nutzung) {
+                newErrors.nutzung = t("funnel.errorPropertyUsage" as any) || "Please select property usage";
               }
-              
-              // Validate borrowers
-              if (!data.kreditnehmer || data.kreditnehmer.length === 0) {
-                newErrors.kreditnehmer = t("funnel.errorBorrowerRequired" as any);
-              } else {
-                // Validate each borrower
-                data.kreditnehmer.forEach((kn: any, idx: number) => {
-                  if (borrowerType === "jur") {
-                    // Juristic person validation
-                    if (!kn.firmenname) {
-                      newErrors[`kreditnehmer_${idx}_firmenname`] = t("funnel.errorCompanyName" as any);
-                    }
-                  if (!kn.adresse) {
-                    newErrors[`kreditnehmer_${idx}_adresse`] = t("funnel.errorAddress" as any);
-                  }
-                } else {
-                  // Natural person validation
-                  if (!kn.vorname) {
-                    newErrors[`kreditnehmer_${idx}_vorname`] = t("funnel.errorFirstName" as any);
-                  }
-                  if (!kn.name) {
-                    newErrors[`kreditnehmer_${idx}_name`] = t("funnel.errorLastName" as any);
-                  }
-                  if (!kn.email) {
-                    newErrors[`kreditnehmer_${idx}_email`] = t("funnel.errorEmail" as any);
-                  }
-                  if (!kn.telefon) {
-                    newErrors[`kreditnehmer_${idx}_telefon`] = t("funnel.errorPhone" as any);
-                  }
-                  if (!kn.geburtsdatum) {
-                    newErrors[`kreditnehmer_${idx}_geburtsdatum`] = t("funnel.errorBirthday" as any);
-                  }
-                  if (!kn.erwerb) {
-                    newErrors[`kreditnehmer_${idx}_erwerb`] = t("funnel.errorEmploymentStatus" as any);
-                  }
-                  if (!kn.zivilstand) {
-                    newErrors[`kreditnehmer_${idx}_zivilstand`] = t("funnel.errorMaritalStatus" as any);
-                  }
+              // For non-partners, validate additional fields
+              if (customerType !== "partner") {
+                if (!data.renovation) {
+                  newErrors.renovation = t("funnel.errorRenovation" as any) || "Please select renovation option";
                 }
-              });
+                if (!data.finanzierungsangebote) {
+                  newErrors.finanzierungsangebote = t("funnel.errorFinancingOffers" as any) || "Please select financing offers option";
+                }
+                // Validate reserved field if visible (for kauf, not abloesung)
+                if (customerType !== "jur" && data.artImmobilie && !isAbloesung && !data.reserviert) {
+                  newErrors.reserviert = t("funnel.errorReserved" as any) || "Please select whether the property is reserved";
+                }
+                // Validate borrowers
+                if (!data.kreditnehmer || data.kreditnehmer.length === 0) {
+                  newErrors.kreditnehmer = t("funnel.errorBorrowerRequired" as any);
+                } else {
+                  // Validate each borrower
+                  data.kreditnehmer.forEach((kn: any, idx: number) => {
+                    if (borrowerType === "jur") {
+                      // Juristic person validation
+                      if (!kn.firmenname) {
+                        newErrors[`kreditnehmer_${idx}_firmenname`] = t("funnel.errorCompanyName" as any);
+                      }
+                      if (!kn.adresse) {
+                        newErrors[`kreditnehmer_${idx}_adresse`] = t("funnel.errorAddress" as any);
+                      }
+                    } else {
+                      // Natural person validation
+                      if (!kn.vorname) {
+                        newErrors[`kreditnehmer_${idx}_vorname`] = t("funnel.errorFirstName" as any);
+                      }
+                      if (!kn.name) {
+                        newErrors[`kreditnehmer_${idx}_name`] = t("funnel.errorLastName" as any);
+                      }
+                      if (!kn.email) {
+                        newErrors[`kreditnehmer_${idx}_email`] = t("funnel.errorEmail" as any);
+                      }
+                      if (!kn.telefon) {
+                        newErrors[`kreditnehmer_${idx}_telefon`] = t("funnel.errorPhone" as any);
+                      }
+                      if (!kn.geburtsdatum) {
+                        newErrors[`kreditnehmer_${idx}_geburtsdatum`] = t("funnel.errorBirthday" as any);
+                      }
+                      if (!kn.erwerb) {
+                        newErrors[`kreditnehmer_${idx}_erwerb`] = t("funnel.errorEmploymentStatus" as any);
+                      }
+                      if (!kn.zivilstand) {
+                        newErrors[`kreditnehmer_${idx}_zivilstand`] = t("funnel.errorMaritalStatus" as any);
+                      }
+                    }
+                  });
+                }
               }
-            }
-            
-            if (Object.keys(newErrors).length > 0) {
-              setErrors((prev: any) => ({ ...prev, ...newErrors }));
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-              return;
-            }
-            saveStep();
-          }}
-          className="px-4 lg:px-6 py-2 bg-[#CAF476] text-[#132219] rounded-full text-sm lg:text-base">
-          {t("funnel.continue" as any)}
-        </button>
+              if (Object.keys(newErrors).length > 0) {
+                setErrors((prev: any) => ({ ...prev, ...newErrors }));
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                return;
+              }
+              saveStep();
+            }}
+            className="px-4 lg:px-6 py-2 bg-[#CAF476] text-[#132219] rounded-full text-sm lg:text-base">
+            {t("funnel.continue" as any)}
+          </button>
+        </div>
+        {/* General error message below buttons */}
+        {Object.keys(errors).some(key => errors[key]) && (
+          <div className="text-red-500 text-[14px] mt-2 text-center">
+            {t("funnel.requiredFieldsError" as any) || "Please fill all required fields marked below."}
+          </div>
+        )}
       </div>
     </div>
   );
