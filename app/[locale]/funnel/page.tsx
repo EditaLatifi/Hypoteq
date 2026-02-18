@@ -31,6 +31,7 @@ export default function FunnelPage() {
         renovationsBetrag: "",
         reserviert: "",
         finanzierungsangebote: "",
+        angebote: [],
         angeboteListe: [],
         kreditnehmer: [
           {
@@ -162,6 +163,7 @@ useEffect(() => {
     renovationsBetrag: "",
     reserviert: "",
     finanzierungsangebote: "",
+    angebote: [] as { bank?: string; zins?: string; laufzeit?: string }[],
     angeboteListe: [] as string[],
     kreditnehmer: [
       {
@@ -231,7 +233,18 @@ const saveStep3 = () => {
 };
 
 const saveStep4 = () => {
-  setProperty(propertyData);
+  // Prepare angeboteListe for email: convert each offer to a readable string
+  let angeboteListe: string[] = [];
+  if (propertyData.finanzierungsangebote === "ja" && Array.isArray(propertyData.angebote)) {
+    angeboteListe = propertyData.angebote.map((offer: any, idx: number) => {
+      let parts = [];
+      if (offer.bank) parts.push(`Bank: ${offer.bank}`);
+      if (offer.zins) parts.push(`Zins: ${offer.zins}`);
+      if (offer.laufzeit) parts.push(`Laufzeit: ${offer.laufzeit}`);
+      return parts.length ? parts.join(", ") : `Angebot ${idx + 1}`;
+    });
+  }
+  setProperty({ ...propertyData, angeboteListe });
   next();
 };
 
