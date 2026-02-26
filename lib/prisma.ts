@@ -22,7 +22,17 @@ const createPrismaClient = () => {
   });
 };
 
-export const prisma = global.prisma || createPrismaClient();
+let prisma: PrismaClient;
+if (process.env.NODE_ENV === 'production') {
+  prisma = createPrismaClient();
+} else {
+  if (!global.prisma) {
+    global.prisma = createPrismaClient();
+  }
+  prisma = global.prisma;
+}
+
+export { prisma };
 
 if (process.env.NODE_ENV !== "production") {
   global.prisma = prisma;

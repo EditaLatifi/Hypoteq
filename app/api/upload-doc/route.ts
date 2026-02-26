@@ -132,22 +132,24 @@ export async function POST(req: Request) {
     const form = await req.formData();
     const file = form.get("file") as File;
     const email = form.get("email") as string;
-    const inquiryId = form.get("inquiryId") as string;
+    const inquiryId = form.get("inquiryId") as string | undefined;
+    const tempUserId = form.get("tempUserId") as string | undefined;
     const existingFolderId = form.get("folderId") as string | null;
 
-    console.log("📋 Upload params - email:", email, "inquiryId:", inquiryId);
+    console.log("📋 Upload params - email:", email, "inquiryId:", inquiryId, "tempUserId:", tempUserId);
 
-    if (!file || !email || !inquiryId) {
+    if (!file || !email) {
       return NextResponse.json(
-        { error: "Missing file, email or inquiryId" },
+        { error: "Missing file or email" },
         { status: 400 }
       );
     }
 
     const token = await getAccessToken();
 
-    // 📁 Get or create folder for this submission using inquiryId
-    const folderId = await getOrCreateSubmissionFolder(email, inquiryId, token);
+    // Use inquiryId if present, otherwise fallback to tempUserId for folder naming
+    const folderKey = inquiryId || tempUserId || "temp";
+    const folderId = await getOrCreateSubmissionFolder(email, folderKey, token);
 
     // Convert file to buffer
     const arrayBuffer = await file.arrayBuffer();
@@ -177,11 +179,60 @@ export async function POST(req: Request) {
 
     console.log("✅ Successfully uploaded:", file.name);
 
+    // === SAVE DOCUMENT TO DATABASE ===
+    try {
+      const { prisma } = await import("@/lib/prisma");
+      if (inquiryId) {
+        // Try to associate with inquiry if it exists
+        const inquiryExists = await prisma.inquiry.findUnique({ where: { id: inquiryId } });
+        if (inquiryExists) {
+          await prisma.document.create({
+            data: {
+              inquiryId,
+              email,
+              fileName: file.name,
+              fileUrl: uploadJson['@microsoft.graph.downloadUrl'] || uploadJson.webUrl || '',
+            },
+          });
+          console.log("✅ Document saved to DB:", file.name);
+        } else {
+          // Save to holding table if inquiry does not exist
+          await prisma.holdingDocument.create({
+            data: {
+              email,
+              fileName: file.name,
+              fileUrl: uploadJson['@microsoft.graph.downloadUrl'] || uploadJson.webUrl || '',
+              tempUserId: tempUserId || null,
+            },
+          });
+          console.log("✅ Document saved to HoldingDocument (inquiry not found):", file.name);
+        }
+      } else {
+        // No inquiryId, always save to holding table
+        await prisma.holdingDocument.create({
+          data: {
+            email,
+            fileName: file.name,
+            fileUrl: uploadJson['@microsoft.graph.downloadUrl'] || uploadJson.webUrl || '',
+            tempUserId: tempUserId || null,
+          },
+        });
+        console.log("✅ Document saved to HoldingDocument (no inquiryId):", file.name);
+      }
+    } catch (dbErr) {
+      console.error("❌ Failed to save document to DB or HoldingDocument:", dbErr);
+      let errorMsg = 'Failed to save document to DB or HoldingDocument';
+      if (dbErr instanceof Error) errorMsg = dbErr.message;
+      return NextResponse.json({ error: "Failed to save document", details: errorMsg }, { status: 500 });
+    }
+
     return NextResponse.json({ success: true, data: uploadJson, folderId });
   } catch (err: any) {
-    console.error("💥 SERVER ERROR:", err.message);
+    let errorMsg = 'Unknown server error';
+    if (err instanceof Error) errorMsg = err.message;
+    console.error("💥 SERVER ERROR:", errorMsg);
     return NextResponse.json(
-      { error: "Server error", details: err.message },
+      { error: "Server error", details: errorMsg },
       { status: 500 }
     );
   }

@@ -267,8 +267,9 @@ const submitFinal = async () => {
       return;
     }
 
-    // 2️⃣ Extract inquiryId for partners
-    const inquiryId = data.inquiry?.id;
+
+    // 2️⃣ Extract inquiryId for partners (fixed)
+    const inquiryId = data.inquiryId;
 
     // 3️⃣ Upload documents to SharePoint (partners only)
     if (uploadedDocs && uploadedDocs.length > 0) {

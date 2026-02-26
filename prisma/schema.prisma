@@ -1,3 +1,12 @@
+model HoldingDocument {
+  id         String   @id @default(uuid())
+  email      String
+  fileName   String
+  fileUrl    String
+  uploadedAt DateTime @default(now())
+  // Optionally, add a session or tempUserId to associate with the user before inquiry is created
+  tempUserId String?
+}
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
@@ -11,7 +20,6 @@ generator client {
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
-  directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 model Inquiry {
   id           String     @id @default(uuid())
@@ -30,9 +38,10 @@ model Inquiry {
 model Client {
   id           String @id @default(uuid())
   inquiryId    String @unique
-  firstName    String?
-  lastName     String?
-  email        String?
+  firstName    String
+  lastName     String
+  email        String  // REQUIRED
+  phone        String
   zip          String?
   partnerEmail String?
 
@@ -45,6 +54,17 @@ model Project {
   projektArt      String?
   kreditnehmerTyp String?
   liegenschaftZip String?
+  // Salesforce/funnel fields
+  borrowerType    String?
+  artImmobilie    String?
+  neubauArt       String?
+  artLiegenschaft String?
+  nutzung         String?
+  renovation      String?
+  renovationsBetrag String?
+  reserviert      String?
+  finanzierungsangebote String?
+  angebote        Json?
 
   inquiry Inquiry @relation(fields: [inquiryId], references: [id])
 }
@@ -58,12 +78,15 @@ model Property {
   renovationsBetrag   String?
   finanzierungsangebote String?
   reserviert          String?
-  angeboteListe       String[] // Make sure this exists if you are passing an array
+  angeboteListe       String[]
+  angebote            Json?
+  kreditnehmer        Json?
+  firmen              Json?
   // Add other relations as needed
   inquiry             Inquiry @relation(fields: [inquiryId], references: [id])
 
-  firmen              Firma[]
-  kreditnehmer        Kreditnehmer[]
+  firmas              Firma[]
+  kreditnehmers       Kreditnehmer[]
 }
 model Firma {
   id          String   @id @default(uuid())
@@ -85,6 +108,11 @@ model Borrower {
   civil      String?
   firmaName  String?
   firmaUID   String?
+  email      String?
+  telefon    String?
+  geburtsdatum String?
+  erwerb     String?
+  zivilstand String?
 
   inquiry Inquiry @relation(fields: [inquiryId], references: [id])
 }
@@ -126,10 +154,11 @@ model Kreditnehmer {
 }
 model Document {
   id          String   @id @default(uuid())
-  inquiryId   String
+  inquiryId   String?
+  email       String
   fileName    String
   fileUrl     String
   uploadedAt  DateTime @default(now())
 
-  inquiry Inquiry @relation(fields: [inquiryId], references: [id])
+  inquiry Inquiry? @relation(fields: [inquiryId], references: [id])
 }

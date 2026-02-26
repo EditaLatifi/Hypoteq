@@ -60,7 +60,131 @@ export async function POST(req: Request) {
       // Don't fail the request if Salesforce fails
     }
 
-    return NextResponse.json({ success: true });
+    // === SAVE TO DATABASE ===
+    try {
+      // Save Inquiry and all related data (without documents)
+      const inquiry = await prisma.inquiry.create({
+        data: {
+          customerType: data.customerType,
+          client: {
+            create: {
+              firstName: data.client?.firstName || '',
+              lastName: data.client?.lastName || '',
+              email: data.client?.email,
+              phone: data.client?.phone || '',
+              zip: data.client?.zip || '',
+              partnerEmail: data.client?.partnerEmail || '',
+            },
+          },
+          project: data.project ? {
+            create: {
+              projektArt: data.project.projektArt || '',
+              kreditnehmerTyp: data.project.kreditnehmerTyp || '',
+              liegenschaftZip: data.project.liegenschaftZip || '',
+              borrowerType: data.project.borrowerType || '',
+              artImmobilie: data.project.artImmobilie || '',
+              neubauArt: data.project.neubauArt || '',
+              artLiegenschaft: data.project.artLiegenschaft || '',
+              nutzung: data.project.nutzung || '',
+              renovation: data.project.renovation || '',
+              renovationsBetrag: data.project.renovationsBetrag || '',
+              reserviert: data.project.reserviert || '',
+              finanzierungsangebote: data.project.finanzierungsangebote || '',
+              angebote: data.project.angebote ? data.project.angebote : undefined,
+            },
+          } : undefined,
+          property: data.property ? {
+            create: {
+              artLiegenschaft: data.property.artLiegenschaft || '',
+              artImmobilie: data.property.artImmobilie || '',
+              nutzung: data.property.nutzung || '',
+              renovation: data.property.renovation || '',
+              renovationsBetrag: data.property.renovationsBetrag || '',
+              finanzierungsangebote: data.property.finanzierungsangebote || '',
+              reserviert: data.property.reserviert || '',
+              angeboteListe: data.property.angeboteListe || [],
+              angebote: data.property.angebote ? data.property.angebote : undefined,
+              kreditnehmer: data.property.kreditnehmer ? data.property.kreditnehmer : undefined,
+              firmen: data.property.firmen ? data.property.firmen : undefined,
+            },
+          } : undefined,
+          financing: data.financing ? {
+            create: {
+              kaufpreis: data.financing.kaufpreis || '',
+              eigenmittel_bar: data.financing.eigenmittel_bar || '',
+              eigenmittel_saeule3: data.financing.eigenmittel_saeule3 || '',
+              eigenmittel_pk: data.financing.eigenmittel_pk || '',
+              eigenmittel_schenkung: data.financing.eigenmittel_schenkung || '',
+              pkVorbezug: data.financing.pkVorbezug || '',
+              hypoBetrag: data.financing.hypoBetrag || '',
+              modell: data.financing.modell || '',
+              einkommen: data.financing.einkommen || '',
+              steueroptimierung: data.financing.steueroptimierung || '',
+              kaufdatum: data.financing.kaufdatum || '',
+              kommentar: data.financing.kommentar || '',
+              abloesung_betrag: data.financing.abloesung_betrag || '',
+              erhoehung: data.financing.erhoehung || '',
+              erhoehung_betrag: data.financing.erhoehung_betrag || '',
+              abloesedatum: data.financing.abloesedatum || '',
+              brutto: data.financing.brutto || '',
+            },
+          } : undefined,
+          borrowers: data.borrowers && Array.isArray(data.borrowers) ? {
+            create: data.borrowers.map((b: any) => ({
+              firstName: b.firstName || '',
+              lastName: b.lastName || '',
+              birthdate: b.birthdate || '',
+              job: b.job || '',
+              type: b.type || '',
+              civil: b.civil || '',
+              firmaName: b.firmaName || '',
+              firmaUID: b.firmaUID || '',
+              email: b.email || '',
+              telefon: b.telefon || '',
+              geburtsdatum: b.geburtsdatum || '',
+              erwerb: b.erwerb || '',
+              zivilstand: b.zivilstand || '',
+            })),
+          } : undefined,
+          // documents removed from inquiry creation
+        },
+      });
+      console.log("✅ Inquiry and all data saved to DB:", inquiry.id);
+
+      // === ASSOCIATE HOLDING DOCUMENTS ===
+      // If tempUserId is provided in the request, move holding documents to Document table
+      const tempUserId = data.tempUserId || null;
+      if (tempUserId) {
+        const holdingDocs = await prisma.holdingDocument.findMany({
+          where: {
+            email: data.client?.email,
+            tempUserId: tempUserId,
+          },
+        });
+        for (const doc of holdingDocs) {
+          await prisma.document.create({
+            data: {
+              inquiryId: inquiry.id,
+              email: doc.email,
+              fileName: doc.fileName,
+              fileUrl: doc.fileUrl,
+              uploadedAt: doc.uploadedAt,
+            },
+          });
+          await prisma.holdingDocument.delete({ where: { id: doc.id } });
+        }
+        if (holdingDocs.length > 0) {
+          console.log(`✅ Associated ${holdingDocs.length} holding documents with inquiry ${inquiry.id}`);
+        }
+      }
+
+      return NextResponse.json({ success: true, inquiryId: inquiry.id });
+    } catch (dbErr) {
+      console.error("❌ Failed to save inquiry to DB:", dbErr);
+      let errorMsg = 'Failed to save inquiry';
+      if (dbErr instanceof Error) errorMsg = dbErr.message;
+      return NextResponse.json({ success: false, error: errorMsg }, { status: 500 });
+    }
   } catch (err: unknown) {
     // Type assertion to ensure 'err' is treated as an Error
     if (err instanceof Error) {

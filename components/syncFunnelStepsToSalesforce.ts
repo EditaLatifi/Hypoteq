@@ -158,11 +158,12 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
       const isJuristicPerson = kn.firmenname || stepData.borrowers?.[0]?.type === 'jur';
       
       if (isJuristicPerson) {
-        // For juristic persons - use company name as LastName
+        // For juristic persons - use company name as LastName, but also send contact person details
         if (kn.firmenname) {
           persons.push({
-            firstName: '',
+            firstName: kn.vorname || '',
             lastName: kn.firmenname,
+            contactLastName: kn.name || '',
             email: kn.email || kn.emailAdresse || '',
             phone: kn.phone || kn.telefon || '',
             adresse: kn.adresse || '',
@@ -264,10 +265,14 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     // Prepare Account data - Person Account fields for everyone (companies and individuals)
     const accountData: Record<string, any> = {
       LastName: lastName,
-      FirstName: isJuristicPerson ? '' : firstName, // Empty FirstName for companies
+      FirstName: isJuristicPerson ? firstName : firstName, // Use contact person first name for companies
       PersonEmail: email,
       Phone: phone,
     };
+    // Optionally, add contactLastName as a custom field if needed in Salesforce
+    if (isJuristicPerson && person.contactLastName) {
+      accountData.Contact_LastName__c = person.contactLastName;
+    }
     
     // Add address if available
     if (person.adresse) {

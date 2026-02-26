@@ -360,7 +360,7 @@ const propertyUseOptions =
               index + 1,
               0,
               (customerType === "jur" || customerType === "partner")
-                ? { firmenname: "", adresse: "" }
+                ? { firmenname: "", adresse: "", vorname: "", name: "", email: "", telefon: "" }
                 : {
                     vorname: "",
                     name: "",
@@ -398,7 +398,6 @@ const propertyUseOptions =
   {borrowerType === "jur" ? (
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-[16px] w-full max-w-[600px]">
-
             {/* Firmenname */}
             <input
               type="text"
@@ -421,6 +420,58 @@ const propertyUseOptions =
               onChange={(e) => {
                 const updated = [...data.kreditnehmer];
                 updated[index].adresse = e.target.value;
+                update("kreditnehmer", updated);
+              }}
+            />
+
+            {/* Kontaktperson Vorname */}
+            <input
+              type="text"
+              placeholder={t("funnel.firstName" as any) + " (Kontaktperson)"}
+              className="px-5 py-2 border border-[#132219] rounded-full text-sm w-full"
+              value={kn.vorname || ""}
+              onChange={(e) => {
+                const updated = [...data.kreditnehmer];
+                updated[index].vorname = e.target.value;
+                update("kreditnehmer", updated);
+              }}
+            />
+
+            {/* Kontaktperson Nachname */}
+            <input
+              type="text"
+              placeholder={t("funnel.lastName" as any) + " (Kontaktperson)"}
+              className="px-5 py-2 border border-[#132219] rounded-full text-sm w-full"
+              value={kn.name || ""}
+              onChange={(e) => {
+                const updated = [...data.kreditnehmer];
+                updated[index].name = e.target.value;
+                update("kreditnehmer", updated);
+              }}
+            />
+
+            {/* Kontaktperson Email */}
+            <input
+              type="email"
+              placeholder={t("funnel.email" as any) + " (Kontaktperson)"}
+              className="px-5 py-2 border border-[#132219] rounded-full text-sm w-full"
+              value={kn.email || ""}
+              onChange={(e) => {
+                const updated = [...data.kreditnehmer];
+                updated[index].email = e.target.value;
+                update("kreditnehmer", updated);
+              }}
+            />
+
+            {/* Kontaktperson Telefon */}
+            <input
+              type="tel"
+              placeholder={t("funnel.phone" as any) + " (Kontaktperson)"}
+              className="px-5 py-2 border border-[#132219] rounded-full text-sm w-full"
+              value={kn.telefon || ""}
+              onChange={(e) => {
+                const updated = [...data.kreditnehmer];
+                updated[index].telefon = e.target.value;
                 update("kreditnehmer", updated);
               }}
             />
@@ -597,6 +648,19 @@ const propertyUseOptions =
                       }
                       if (!kn.adresse) {
                         newErrors[`kreditnehmer_${idx}_adresse`] = t("funnel.errorAddress" as any);
+                      }
+                      // Validate contact person fields for juristische Person
+                      if (!kn.vorname) {
+                        newErrors[`kreditnehmer_${idx}_vorname`] = t("funnel.errorFirstName" as any);
+                      }
+                      if (!kn.name) {
+                        newErrors[`kreditnehmer_${idx}_name`] = t("funnel.errorLastName" as any);
+                      }
+                      if (!kn.email) {
+                        newErrors[`kreditnehmer_${idx}_email`] = t("funnel.errorEmail" as any);
+                      }
+                      if (!kn.telefon) {
+                        newErrors[`kreditnehmer_${idx}_telefon`] = t("funnel.errorPhone" as any);
                       }
                     } else {
                       // Natural person validation
