@@ -17,6 +17,13 @@ export async function POST(req: Request) {
         { status: 400 }
       );
     }
+    // Email validation (if provided)
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return NextResponse.json(
+        { success: false, error: "Ungültige E-Mail-Adresse." },
+        { status: 400 }
+      );
+    }
 
     // Priority order: Microsoft Graph > Resend > SMTP
     const useGraph = process.env.USE_GRAPH === "true" && 

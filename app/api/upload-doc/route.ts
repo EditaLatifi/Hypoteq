@@ -37,6 +37,11 @@ async function getAccessToken() {
    GET OR CREATE FOLDER FOR THIS SUBMISSION
 ============================ */
 async function getOrCreateSubmissionFolder(email: string, inquiryId: string, token: string) {
+  // Email validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!email || !emailRegex.test(email)) {
+    throw new Error("Valid email is required for document upload.");
+  }
   const DRIVE_ID = process.env.DRIVE_ID!;
   const ROOT_FOLDER_ID = process.env.FOLDER_ID!;
 

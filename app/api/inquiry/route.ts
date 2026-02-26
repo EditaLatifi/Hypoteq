@@ -10,6 +10,13 @@ export async function POST(req: Request) {
     const data = await req.json();
     console.log('📥 Received data:', JSON.stringify(data, null, 2)); // Debugging step to ensure proper structure
 
+    // === EMAIL VALIDATION ===
+    const email = data?.client?.email;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || !emailRegex.test(email)) {
+      return NextResponse.json({ success: false, error: "Valid email is required." }, { status: 400 });
+    }
+
     // Only send email notification, do not save to database
     try {
       const now = new Date();
