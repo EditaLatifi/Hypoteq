@@ -293,7 +293,7 @@ const laufzeitLabel =
 
 
           <label className="text-[18px] font-light opacity-70">
-            {t("funnel.purchaseDate" as any)}
+            {t("funnel.redemptionDate" as any)}
           </label>
           <div className="text-[20px] font-medium">{formatDate(financing.kaufdatum)}</div>
 

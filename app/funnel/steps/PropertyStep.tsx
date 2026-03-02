@@ -204,17 +204,20 @@ const propertyUseOptions =
         )}
 
         {data.renovation === "ja" && (
-          <input
-            type="text"
-            placeholder={t("funnel.amountInCHF" as any)}
-            className="mt-[16px] px-5 py-2 border border-[#C8C8C8] rounded-full w-full md:w-[260px] text-sm"
-            value={data.renovationsBetrag ? `CHF ${formatCHF(data.renovationsBetrag)}` : ""}
-            onChange={(e) => {
-              const rawValue = e.target.value.replace(/CHF\s?|'/g, "");
-              const numericValue = rawValue.replace(/\D/g, "");
-              update("renovationsBetrag", numericValue);
-            }}
-          />
+          <>
+            <label className="block mt-[16px] mb-1 text-sm font-medium">{t("funnel.renovationAmount" as any)}</label>
+            <input
+              type="text"
+              placeholder={t("funnel.amountInCHF" as any)}
+              className="px-5 py-2 border border-[#C8C8C8] rounded-full w-full md:w-[260px] text-sm"
+              value={data.renovationsBetrag ? `CHF ${formatCHF(data.renovationsBetrag)}` : ""}
+              onChange={(e) => {
+                const rawValue = e.target.value.replace(/CHF\s?|'/g, "");
+                const numericValue = rawValue.replace(/\D/g, "");
+                update("renovationsBetrag", numericValue);
+              }}
+            />
+          </>
         )}
       </div>
 
@@ -365,9 +368,9 @@ const propertyUseOptions =
       : t("funnel.kreditnehmerSingle" as any)}
     <span className="text-red-500">*</span>
   </h3>
-  {errors.kreditnehmer && (
-    <div className="text-red-500 text-[13px] mb-2">{errors.kreditnehmer}</div>
-  )}
+      {errors.kreditnehmer && (
+        <div className="text-red-500 text-[15px] mb-4 font-semibold">{errors.kreditnehmer}</div>
+      )}
 
   <div className="space-y-[24px]">
     {data.kreditnehmer.map((kn: any, index: number) => (
@@ -680,6 +683,12 @@ const propertyUseOptions =
                       }
                       if (!kn.email) {
                         newErrors[`kreditnehmer_${idx}_email`] = t("funnel.errorEmail" as any);
+                      } else {
+                        // Stricter email validation
+                        const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+                        if (!emailRegex.test(kn.email.trim())) {
+                          newErrors[`kreditnehmer_${idx}_email`] = t("validEmailError" as any) || "Please enter a valid email address";
+                        }
                       }
                       if (!kn.telefon) {
                         newErrors[`kreditnehmer_${idx}_telefon`] = t("funnel.errorPhone" as any);
@@ -700,6 +709,25 @@ const propertyUseOptions =
                       }
                       if (!kn.geburtsdatum) {
                         newErrors[`kreditnehmer_${idx}_geburtsdatum`] = t("funnel.errorBirthday" as any);
+                      } else {
+                        // Check if under 18 years old
+                        let birthDate: Date | null = null;
+                        if (kn.geburtsdatum.includes("-")) {
+                          // yyyy-mm-dd
+                          const [y, m, d] = kn.geburtsdatum.split("-");
+                          birthDate = new Date(Number(y), Number(m) - 1, Number(d));
+                        } else if (kn.geburtsdatum.includes(".")) {
+                          // dd.mm.yyyy
+                          const [d, m, y] = kn.geburtsdatum.split(".");
+                          birthDate = new Date(Number(y), Number(m) - 1, Number(d));
+                        }
+                        if (birthDate) {
+                          const today = new Date();
+                          const age = today.getFullYear() - birthDate.getFullYear() - (today < new Date(today.getFullYear(), birthDate.getMonth(), birthDate.getDate()) ? 1 : 0);
+                          if (age < 18) {
+                            newErrors[`kreditnehmer_${idx}_geburtsdatum`] = t("funnel.errorUnder18" as any) || "Borrower must be at least 18 years old.";
+                          }
+                        }
                       }
                       if (!kn.erwerb) {
                         newErrors[`kreditnehmer_${idx}_erwerb`] = t("funnel.errorEmploymentStatus" as any);

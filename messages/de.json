@@ -1,4 +1,3 @@
-
 {
     "funnelCalc": {
     "notEligible": "Nicht berechtigt",
@@ -21,6 +20,7 @@
   },
   "purchasePriceLabel": "Kaufpreis",
   "annualNetRentalIncome": "Jährlicher Netto-Mietertrag",
+  "renovationAmount": "Betrag Renovationskosten",
   "purchaseDateWarning": "Achtung: Es kann nicht garantiert werden, dass die Finanzierung bei einem Kaufdatum vor weniger als 30 Tagen rechtzeitig abgeschlossen werden kann.",
   "seo": {
     "homeTitle": "HYPOTEQ - Hypotheken in der Schweiz | Beste Konditionen & Beratung",
@@ -300,6 +300,8 @@
     "errorCompanyName": "Bitte geben Sie den Firmennamen ein.",
     "errorAddress": "Bitte geben Sie die Adresse ein.",
     "errorBorrowerRequired": "Bitte fügen Sie mindestens einen Kreditnehmer hinzu.",
+    "errorUnder18": "Der Kreditnehmer muss mindestens 18 Jahre alt sein.",
+    "redemptionDate": "Ablösedatum",
     "errorPartnerEmail": "Bitte geben Sie Ihre E-Mail-Adresse ein.",
     "validEmailError": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
     "validPhoneError": "Bitte geben Sie eine gültige Schweizer Telefonnummer ein (z.B. +41 79 123 45 67)",

@@ -398,7 +398,7 @@ const ToggleButton = ({ active, children, onClick }: any) => {
 
             {/* Kaufdatum */}
             <div className="flex flex-col gap-1">
-              <label className="font-medium mr-2">{t("funnel.purchaseDate" as any)}<span className="text-red-500">*</span></label>
+              <label className="font-medium mr-2">{t("funnel.redemptionDate" as any)}<span className="text-red-500">*</span></label>
               <SwissDatePicker
                 value={data.kaufdatum}
                 onChange={val => {
