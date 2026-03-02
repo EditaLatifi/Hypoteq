@@ -20,6 +20,8 @@
     "income": "Einkommen"
   },
   "purchasePriceLabel": "Kaufpreis",
+  "annualNetRentalIncome": "Jährlicher Netto-Mietertrag",
+  "purchaseDateWarning": "Achtung: Es kann nicht garantiert werden, dass die Finanzierung bei einem Kaufdatum vor weniger als 30 Tagen rechtzeitig abgeschlossen werden kann.",
   "seo": {
     "homeTitle": "HYPOTEQ - Hypotheken in der Schweiz | Beste Konditionen & Beratung",
     "homeDescription": "Vergleichen Sie Hypothekenangebote von über 100 Schweizer Banken. Kostenlos, unabhängig und transparent. Jetzt beste Konditionen für Ihre Immobilienfinanzierung finden.",

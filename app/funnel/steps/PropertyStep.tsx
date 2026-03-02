@@ -253,7 +253,12 @@ const propertyUseOptions =
         <div className="flex gap-[24px]">
           <ToggleButton
             active={data.finanzierungsangebote === "ja"}
-            onClick={() => update("finanzierungsangebote", "ja")}
+            onClick={() => {
+              update("finanzierungsangebote", "ja");
+              if (!data.angebote || !Array.isArray(data.angebote) || data.angebote.length === 0) {
+                update("angebote", [{ bank: "", zins: "", laufzeit: "" }]);
+              }
+            }}
             showCircle={true}
           >
             {t("funnel.yes" as any)}
@@ -310,23 +315,36 @@ const propertyUseOptions =
                       update("angebote", updated);
                     }}
                   />
+                  <div className="relative w-full">
+                    <input
+                      type="number"
+                      min="0"
+                      step="0.01"
+                      placeholder={t("funnel.interestRate" as any)}
+                      className="px-5 py-2 border border-[#C8C8C8] rounded-full text-sm w-full pr-8"
+                      value={offer.zins || ""}
+                      onChange={(e) => {
+                        // Only allow numbers and dot/comma
+                        let val = e.target.value.replace(/[^\d.,]/g, "").replace(",", ".");
+                        const updated = [...(data.angebote || [{ bank: data.bank || "", zins: data.zins || "", laufzeit: data.laufzeit || "" }])];
+                        updated[idx].zins = val;
+                        update("angebote", updated);
+                      }}
+                    />
+                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500">%</span>
+                  </div>
                   <input
-                    placeholder={t("funnel.interestRate" as any)}
-                    className="px-5 py-2 border border-[#C8C8C8] rounded-full text-sm w-full"
-                    value={offer.zins || ""}
-                    onChange={(e) => {
-                      const updated = [...(data.angebote || [{ bank: data.bank || "", zins: data.zins || "", laufzeit: data.laufzeit || "" }])];
-                      updated[idx].zins = e.target.value;
-                      update("angebote", updated);
-                    }}
-                  />
-                  <input
+                    type="number"
+                    min="0"
+                    step="1"
                     placeholder={t("funnel.term" as any)}
                     className="px-5 py-2 border border-[#C8C8C8] rounded-full text-sm w-full"
                     value={offer.laufzeit || ""}
                     onChange={(e) => {
+                      // Only allow numbers
+                      let val = e.target.value.replace(/[^\d]/g, "");
                       const updated = [...(data.angebote || [{ bank: data.bank || "", zins: data.zins || "", laufzeit: data.laufzeit || "" }])];
-                      updated[idx].laufzeit = e.target.value;
+                      updated[idx].laufzeit = val;
                       update("angebote", updated);
                     }}
                   />
@@ -341,11 +359,15 @@ const propertyUseOptions =
 {/*  KREDITNEHMER FORM                                        */}
 {/* ========================================================= */}
 <div>
-  <h3 className="text-[16px] font-semibold mb-[16px]">
+  <h3 className="text-[16px] font-semibold mb-[16px] flex items-center gap-2">
     {(customerType === "jur" || customerType === "partner")
       ? t("funnel.kreditnehmerMultiple" as any)
       : t("funnel.kreditnehmerSingle" as any)}
+    <span className="text-red-500">*</span>
   </h3>
+  {errors.kreditnehmer && (
+    <div className="text-red-500 text-[13px] mb-2">{errors.kreditnehmer}</div>
+  )}
 
   <div className="space-y-[24px]">
     {data.kreditnehmer.map((kn: any, index: number) => (

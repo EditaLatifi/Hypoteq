@@ -19,6 +19,8 @@
   },
   
   "purchasePriceLabel": "Purchase price",
+  "annualNetRentalIncome": "Annual net rental income",
+  "purchaseDateWarning": "Warning: Financing cannot be guaranteed if the purchase date is less than 30 days ago.",
   "seo": {
     "homeTitle": "HYPOTEQ - Mortgages in Switzerland | Best Rates & Advice",
     "homeDescription": "Compare mortgage offers from over 100 Swiss banks. Free, independent and transparent. Find the best rates for your property financing now.",

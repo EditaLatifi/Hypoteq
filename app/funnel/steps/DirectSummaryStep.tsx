@@ -285,10 +285,43 @@ const laufzeitLabel =
             </>
           )}
 
+          {/* Annual Net Rental Income */}
+          <label className="text-[18px] font-light opacity-70">
+            {t("funnel.annualNetRentalIncome" as any)}
+          </label>
+          <div className="text-[20px] font-medium">{CHF(financing.jaehrlicher_netto_mietertrag)}</div>
+
+
           <label className="text-[18px] font-light opacity-70">
             {t("funnel.purchaseDate" as any)}
           </label>
           <div className="text-[20px] font-medium">{formatDate(financing.kaufdatum)}</div>
+
+          {/* Warning if purchase date is less than 30 days ago */}
+          {(() => {
+            if (!financing.kaufdatum) return null;
+            const today = new Date();
+            let kaufDate: Date | null = null;
+            if (financing.kaufdatum.includes("-")) {
+              // yyyy-mm-dd
+              const [y, m, d] = financing.kaufdatum.split("-");
+              kaufDate = new Date(Number(y), Number(m) - 1, Number(d));
+            } else if (financing.kaufdatum.includes(".")) {
+              // dd.mm.yyyy
+              const [d, m, y] = financing.kaufdatum.split(".");
+              kaufDate = new Date(Number(y), Number(m) - 1, Number(d));
+            }
+            if (!kaufDate) return null;
+            const diffDays = Math.floor((today.getTime() - kaufDate.getTime()) / (1000 * 60 * 60 * 24));
+            if (diffDays >= 0 && diffDays < 30) {
+              return (
+                <div className="text-red-600 text-[15px] mt-2">
+                  {t("funnel.purchaseDateWarning" as any) || "Warning: Financing cannot be guaranteed if the purchase date is less than 30 days ago."}
+                </div>
+              );
+            }
+            return null;
+          })()}
 
           <label className="text-[18px] font-light opacity-70">{t("funnel.comment" as any)}</label>
           <div className="text-[20px] font-medium">{format(financing.kommentar)}</div>
