@@ -263,6 +263,7 @@
     "ctaCard2Button": "Réservez maintenant un entretien d'information gratuit."
   },
   "funnel": {
+     "requiredFieldsError": "Veuillez remplir tous les champs obligatoires ci-dessous.",
     "loadingText": "Chargement...",
     "uploadingFilesText": "Téléchargement des fichiers, veuillez patienter...",
     "hypothekarlaufzeiten": "Durées hypothécaires",
@@ -282,6 +283,7 @@
     "phone": "Téléphone",
     "areYouPartner": "Êtes-vous partenaire?",
     "clickHere": "Cliquez ici",
+    "annualNetRentalIncome": "Revenu locatif net annuel",
     "continue": "Continuer",
     "startMortgageRequest": "Commencer la demande d'hypothèque",
     "errorFirstName": "Veuillez entrer ton prénom.",

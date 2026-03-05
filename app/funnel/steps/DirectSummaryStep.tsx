@@ -84,12 +84,18 @@ export default function DirectSummaryStep({ back, saveStep }: any) {
       ? t("funnel.redemption" as any)
       : t("funnel.notSelected" as any);
 
-  /* ================= FALLBACK BORROWER LABEL ================= */
+
+  // Show all borrower names (for case name)
   const borrowerLabel =
-    borrowers?.[0]?.type === "jur"
-      ? t("funnel.legalEntity" as any)
-      : borrowers?.[0]?.type === "nat"
-      ? t("funnel.naturalPerson" as any)
+    borrowers && borrowers.length > 0
+      ? borrowers
+          .map((b: any) =>
+            b.firmenname
+              ? b.firmenname
+              : [b.vorname, b.name].filter(Boolean).join(" ")
+          )
+          .filter(Boolean)
+          .join(" & ")
       : "—";
 
   // Check if it's a Rendite object (investment property)
@@ -194,14 +200,18 @@ const laufzeitLabel =
                     property.angebote.map((offer: any, idx: number) => (
                       <div key={idx} className="text-[16px] opacity-80">
                         {offer.bank || '—'}
-                        {offer.zins ? `, ${offer.zins}%` : ''}
+                        {offer.zins
+                          ? `, ${!isNaN(parseFloat(offer.zins)) ? parseFloat(offer.zins).toFixed(2) : offer.zins}%`
+                          : ''}
                         {offer.laufzeit ? `, ${offer.laufzeit}` : ''}
                       </div>
                     ))
                   ) : (
                     <div className="text-[16px] opacity-80">
                       {property.bank || '—'}
-                      {property.zins ? `, ${property.zins}%` : ''}
+                      {property.zins
+                        ? `, ${!isNaN(parseFloat(property.zins)) ? parseFloat(property.zins).toFixed(2) : property.zins}%`
+                        : ''}
                       {property.laufzeit ? `, ${property.laufzeit}` : ''}
                     </div>
                   )}
@@ -292,10 +302,24 @@ const laufzeitLabel =
           <div className="text-[20px] font-medium">{CHF(financing.jaehrlicher_netto_mietertrag)}</div>
 
 
-          <label className="text-[18px] font-light opacity-70">
-            {t("funnel.redemptionDate" as any)}
-          </label>
-          <div className="text-[20px] font-medium">{formatDate(financing.kaufdatum)}</div>
+
+          {/* Show correct date label and value depending on project type */}
+          {project.projektArt === "kauf" && (
+            <>
+              <label className="text-[18px] font-light opacity-70">
+                {t("funnel.purchaseDate" as any)}
+              </label>
+              <div className="text-[20px] font-medium">{formatDate(financing.kaufdatum)}</div>
+            </>
+          )}
+          {project.projektArt === "abloesung" && (
+            <>
+              <label className="text-[18px] font-light opacity-70">
+                {t("funnel.redemptionDate" as any)}
+              </label>
+              <div className="text-[20px] font-medium">{formatDate(financing.abloesedatum)}</div>
+            </>
+          )}
 
           {/* Warning if purchase date is less than 30 days ago */}
           {(() => {

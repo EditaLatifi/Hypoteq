@@ -265,6 +265,7 @@
     "ctaCard2Button": "Prenota ora una consulenza informativa gratuita."
   },
   "funnel": {
+    "requiredFieldsError": "Veuillez remplir tous les champs obligatoires ci-dessous.",
         "loadingText": "Caricamento...",
     "uploadingFilesText": "Caricamento dei file in corso, attendere...",
     "hypothekarlaufzeiten": "Durate ipotecarie",
@@ -284,6 +285,7 @@
     "phone": "Telefono",
     "areYouPartner": "Sei un partner?",
     "clickHere": "Clicca qui",
+    "annualNetRentalIncome": "Reddito netto da locazione annuale",
     "continue": "Continua",
     "startMortgageRequest": "Inizia richiesta di ipoteca",
     "errorFirstName": "Si prega di inserire il proprio nome.",

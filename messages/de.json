@@ -267,6 +267,7 @@
     "ctaCard2Button": "Jetzt kostenloses Infogespräch buchen."
   },
   "funnel": {
+     "requiredFieldsError": "Bitte füllen Sie alle unten markierten Pflichtfelder aus.",
     "loadingText": "Laden...",
     "uploadingFilesText": "Dateien werden hochgeladen, bitte warten...",
     "hypothekarlaufzeiten": "Hypothekarlaufzeiten",
@@ -288,6 +289,7 @@
     "phone": "Telefon",
     "areYouPartner": "Bist du Partner?",
     "clickHere": "Hier klicken",
+    "annualNetRentalIncome": "Jährlicher Netto-Mietertrag",
     "continue": "Weiter",
     "startMortgageRequest": "Hypothekanfrage starten",
     "errorFirstName": "Bitte geben Sie Ihren Vornamen ein.",

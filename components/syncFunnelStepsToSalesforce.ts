@@ -134,9 +134,10 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     ...(stepData.client || {}),
   };
 
-  // Fix: For Ablösung, use abloesedatum as kaufdatum for Salesforce mapping
+  // For Ablösung, use abloesedatum as kaufdatum and Abl_sung__c in Salesforce
   if ((flatData.projektArt === 'abloesung' || flatData.projektArt === 'Ablösung') && flatData.abloesedatum) {
     flatData.kaufdatum = flatData.abloesedatum;
+    flatData.abloesung_betrag = flatData.abloesedatum; // This will be mapped to Abl_sung__c
   }
 
   // Extract partner email if customerType is "partner" (doesn't create Account, just stored in Case)

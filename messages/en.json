@@ -265,6 +265,7 @@
     "ctaCard2Button": "Book a free information call now."
   },
   "funnel": {
+    "requiredFieldsError": "Please fill all required fields marked below.",
     "loadingText": "Loading...",
     "uploadingFilesText": "Uploading files, please wait...",
     "hypothekarlaufzeiten": "Mortgage terms",
@@ -284,6 +285,7 @@
     "phone": "Phone",
     "areYouPartner": "Are you a partner?",
     "clickHere": "Click here",
+    "annualNetRentalIncome": "Annual net rental income",
     "continue": "Continue",
     "startMortgageRequest": "Start Mortgage Request",
     "errorFirstName": "Please enter your first name.",

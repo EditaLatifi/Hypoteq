@@ -22,6 +22,7 @@ function FinancingStep({
     pkVorbezug: "",
     einkommen: "",
     kaufdatum: "",
+    abloesedatum: "",
     eigenmittel: "",
     steueroptimierung: "",
   });
@@ -396,21 +397,79 @@ const ToggleButton = ({ active, children, onClick }: any) => {
 )}
 
 
-            {/* Kaufdatum */}
-            <div className="flex flex-col gap-1">
-              <label className="font-medium mr-2">{t("funnel.redemptionDate" as any)}<span className="text-red-500">*</span></label>
-              <SwissDatePicker
-                value={data.kaufdatum}
-                onChange={val => {
-                  setData((prev: any) => ({ ...prev, kaufdatum: val }));
-                  setErrors((prev: any) => ({ ...prev, kaufdatum: "" }));
-                }}
-                className="w-full"
-              />
-              {errors.kaufdatum && (
-                <p className="text-red-500 text-[12px]">{errors.kaufdatum}</p>
-              )}
-            </div>
+            {/* Date field: Kaufdatum for Neuhypothek, Ablösedatum for Ablösung */}
+            {(() => {
+              // Calculate tomorrow's date in yyyy-mm-dd format
+              const today = new Date();
+              const tomorrow = new Date(today);
+              tomorrow.setDate(today.getDate() + 1);
+              const yyyy = tomorrow.getFullYear();
+              const mm = String(tomorrow.getMonth() + 1).padStart(2, '0');
+              const dd = String(tomorrow.getDate()).padStart(2, '0');
+              const minDate = `${yyyy}-${mm}-${dd}`;
+
+              if (projectArt === "kauf") {
+                return (
+                  <div>
+                    <label className="font-medium">{t("funnel.purchaseDate" as any)}<span className="text-red-500">*</span></label>
+                    <input
+                      type="date"
+                      placeholder="DD.MM.YYYY"
+                      className={inputStyle}
+                      min={minDate}
+                      value={data.kaufdatum ? (() => {
+                        const parts = data.kaufdatum.split(".");
+                        if (parts.length === 3) {
+                          return `${parts[2]}-${parts[1].padStart(2, "0")}-${parts[0].padStart(2, "0")}`;
+                        }
+                        return data.kaufdatum;
+                      })() : ""}
+                      onChange={(e) => {
+                        if (e.target.value) {
+                          const [y, m, d] = e.target.value.split("-");
+                          const swissDate = `${d}.${m}.${y}`;
+                          handleChange("kaufdatum", swissDate);
+                        }
+                      }}
+                    />
+                    {errors.kaufdatum && (
+                      <p className="text-red-500 text-[12px]">{errors.kaufdatum}</p>
+                    )}
+                  </div>
+                );
+              }
+              if (projectArt === "abloesung") {
+                return (
+                  <div>
+                    <label className="font-medium">{t("funnel.redemptionDate" as any)}<span className="text-red-500">*</span></label>
+                    <input
+                      type="date"
+                      placeholder="DD.MM.YYYY"
+                      className={inputStyle}
+                      min={minDate}
+                      value={data.abloesedatum ? (() => {
+                        const parts = data.abloesedatum.split(".");
+                        if (parts.length === 3) {
+                          return `${parts[2]}-${parts[1].padStart(2, "0")}-${parts[0].padStart(2, "0")}`;
+                        }
+                        return data.abloesedatum;
+                      })() : ""}
+                      onChange={(e) => {
+                        if (e.target.value) {
+                          const [y, m, d] = e.target.value.split("-");
+                          const swissDate = `${d}.${m}.${y}`;
+                          handleChange("abloesedatum", swissDate);
+                        }
+                      }}
+                    />
+                    {errors.abloesedatum && (
+                      <p className="text-red-500 text-[12px]">{errors.abloesedatum}</p>
+                    )}
+                  </div>
+                );
+              }
+              return null;
+            })()}
 
             {/* Kommentar */}
             <div>
@@ -548,29 +607,73 @@ const ToggleButton = ({ active, children, onClick }: any) => {
 )}
 
 
-            {/* Ablösedatum */}
-            <div>
-              <label className="font-medium">{t("funnel.redemptionDate" as any)}</label>
-              <input
-                type="date"
-                placeholder="DD.MM.YYYY"
-                className={inputStyle}
-                value={data.kaufdatum ? (() => {
-                  const parts = data.kaufdatum.split(".");
-                  if (parts.length === 3) {
-                    return `${parts[2]}-${parts[1].padStart(2, "0")}-${parts[0].padStart(2, "0")}`;
-                  }
-                  return data.kaufdatum;
-                })() : ""}
-                onChange={(e) => {
-                  if (e.target.value) {
-                    const [y, m, d] = e.target.value.split("-");
-                    const swissDate = `${d}.${m}.${y}`;
-                    handleChange("kaufdatum", swissDate);
-                  }
-                }}
-              />
-            </div>
+            {/* Date field: Kaufdatum for Neuhypothek, Ablösedatum for Ablösung */}
+            {(() => {
+              // Calculate tomorrow's date in yyyy-mm-dd format
+              const today = new Date();
+              const tomorrow = new Date(today);
+              tomorrow.setDate(today.getDate() + 1);
+              const yyyy = tomorrow.getFullYear();
+              const mm = String(tomorrow.getMonth() + 1).padStart(2, '0');
+              const dd = String(tomorrow.getDate()).padStart(2, '0');
+              const minDate = `${yyyy}-${mm}-${dd}`;
+
+              if (projectArt === "kauf") {
+                return (
+                  <div>
+                    <label className="font-medium">{t("funnel.purchaseDate" as any)}</label>
+                    <input
+                      type="date"
+                      placeholder="DD.MM.YYYY"
+                      className={inputStyle}
+                      min={minDate}
+                      value={data.kaufdatum ? (() => {
+                        const parts = data.kaufdatum.split(".");
+                        if (parts.length === 3) {
+                          return `${parts[2]}-${parts[1].padStart(2, "0")}-${parts[0].padStart(2, "0")}`;
+                        }
+                        return data.kaufdatum;
+                      })() : ""}
+                      onChange={(e) => {
+                        if (e.target.value) {
+                          const [y, m, d] = e.target.value.split("-");
+                          const swissDate = `${d}.${m}.${y}`;
+                          handleChange("kaufdatum", swissDate);
+                        }
+                      }}
+                    />
+                  </div>
+                );
+              }
+              if (projectArt === "abloesung") {
+                return (
+                  <div>
+                    <label className="font-medium">{t("funnel.redemptionDate" as any)}</label>
+                    <input
+                      type="date"
+                      placeholder="DD.MM.YYYY"
+                      className={inputStyle}
+                      min={minDate}
+                      value={data.abloesedatum ? (() => {
+                        const parts = data.abloesedatum.split(".");
+                        if (parts.length === 3) {
+                          return `${parts[2]}-${parts[1].padStart(2, "0")}-${parts[0].padStart(2, "0")}`;
+                        }
+                        return data.abloesedatum;
+                      })() : ""}
+                      onChange={(e) => {
+                        if (e.target.value) {
+                          const [y, m, d] = e.target.value.split("-");
+                          const swissDate = `${d}.${m}.${y}`;
+                          handleChange("abloesedatum", swissDate);
+                        }
+                      }}
+                    />
+                  </div>
+                );
+              }
+              return null;
+            })()}
 
             {/* Kommentar */}
             <div>
@@ -673,7 +776,7 @@ const ToggleButton = ({ active, children, onClick }: any) => {
               window.scrollTo({ top: 0, behavior: 'smooth' });
               return;
             }
-            setErrors({ kaufpreis: "", modell: "", pkVorbezug: "", einkommen: "", kaufdatum: "", eigenmittel: "", steueroptimierung: "" });
+            setErrors({ kaufpreis: "", modell: "", pkVorbezug: "", einkommen: "", kaufdatum: "", eigenmittel: "", steueroptimierung: "" , abloesedatum: ""});
             saveStep();
           }}
           className="px-4 lg:px-6 py-2 bg-[#CAF476] text-[#132219] rounded-full text-sm lg:text-base"
