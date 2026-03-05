@@ -548,25 +548,25 @@ const ToggleButton = ({ active, children, onClick }: any) => {
 )}
 
 
-            {/* Kaufdatum */}
+            {/* Ablösedatum */}
             <div>
-              <label className="font-medium">{t("funnel.purchaseDate" as any)}</label>
+              <label className="font-medium">{t("funnel.redemptionDate" as any)}</label>
               <input
                 type="date"
                 placeholder="DD.MM.YYYY"
                 className={inputStyle}
-                value={data.abloesedatum ? (() => {
-                  const parts = data.abloesedatum.split(".");
+                value={data.kaufdatum ? (() => {
+                  const parts = data.kaufdatum.split(".");
                   if (parts.length === 3) {
                     return `${parts[2]}-${parts[1].padStart(2, "0")}-${parts[0].padStart(2, "0")}`;
                   }
-                  return data.abloesedatum;
+                  return data.kaufdatum;
                 })() : ""}
                 onChange={(e) => {
                   if (e.target.value) {
                     const [y, m, d] = e.target.value.split("-");
                     const swissDate = `${d}.${m}.${y}`;
-                    handleChange("abloesedatum", swissDate);
+                    handleChange("kaufdatum", swissDate);
                   }
                 }}
               />
