@@ -265,6 +265,8 @@
     "ctaCard2Button": "Book a free information call now."
   },
   "funnel": {
+    "renovationAmount": "Renovation cost amount",
+    "financingOfferFields": "Financing offer fields",
     "requiredFieldsError": "Please fill all required fields marked below.",
     "loadingText": "Loading...",
     "uploadingFilesText": "Uploading files, please wait...",
@@ -315,6 +317,11 @@
     "errorOwnFunds": "Please enter own funds",
     "errorTaxOptimization": "Please select a tax optimization option",
     "errorPkPledge": "Please select a PK pledge option",
+      "errorRenovationAmount": "Please enter the renovation amount.",
+      "errorFinancingOfferDetails": "Please enter the financing offer details.",
+      "errorBankName": "Please enter the bank name.",
+      "errorInterestRate": "Please enter the interest rate.",
+      "errorTerm": "Please enter the term.",
     "backButtonText": "Back",
     "commentLabel": "Comment",
     "mortgageIncreaseQuestion": "Increase the mortgage?",

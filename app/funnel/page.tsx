@@ -216,7 +216,6 @@ const submitFinal = async () => {
     // Small delay to ensure state is updated
     await new Promise(resolve => setTimeout(resolve, 100));
 
-
     const storeState = useFunnelStore.getState();
     const {
       customerType: latestCustomerType,
@@ -251,14 +250,21 @@ const submitFinal = async () => {
       }),
     });
 
-    if (!res.ok) {
-      const errorData = await res.json();
-      console.error("❌ API Error:", errorData.error);
-      alert(`Fehler: ${errorData.error || "Etwas ist schief gelaufen. Bitte versuchen Sie es erneut."}`);
+    let data;
+    try {
+      data = await res.json();
+    } catch (jsonErr) {
+      console.error("❌ Failed to parse JSON from /api/inquiry:", jsonErr);
+      alert("Serverfehler (Ungültige Antwort). Bitte später erneut versuchen.");
       return;
     }
 
-    const data = await res.json();
+    if (!res.ok || !data.success) {
+      console.error("❌ API Error:", data.error || data);
+      alert(data.error || "Etwas ist schief gelaufen. Bitte versuchen Sie es erneut.");
+      return;
+    }
+
     console.log("📌 Inquiry created:", data);
 
     // For direct customers, skip document upload and go straight to thank you
@@ -267,7 +273,6 @@ const submitFinal = async () => {
       return;
     }
 
-
     // 2️⃣ Extract inquiryId for partners (fixed)
     const inquiryId = data.inquiryId;
 
@@ -275,8 +280,14 @@ const submitFinal = async () => {
     if (uploadedDocs && uploadedDocs.length > 0) {
       for (const doc of uploadedDocs) {
         if (doc.file) {
-          console.log("⬆ Uploading:", doc.name);
-          await uploadDocToSharepoint(doc.file, inquiryId);
+          try {
+            console.log("⬆ Uploading:", doc.name);
+            await uploadDocToSharepoint(doc.file, inquiryId);
+          } catch (uploadErr) {
+            console.error("❌ Error uploading document:", doc.name, uploadErr);
+            alert(`Fehler beim Hochladen von ${doc.name}. Bitte versuchen Sie es erneut.`);
+            return;
+          }
         }
       }
       console.log("🎉 All docs uploaded!");
@@ -285,8 +296,8 @@ const submitFinal = async () => {
     // 4️⃣ Move to success step
     setStep(7);
 
-  } catch (err: any) {
-    console.error("Error:", err);
+  } catch (err) {
+    console.error("❌ Error in submitFinal:", err);
     alert("Serverfehler. Bitte später erneut versuchen.");
   }
 };

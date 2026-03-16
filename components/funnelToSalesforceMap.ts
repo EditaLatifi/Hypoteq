@@ -13,6 +13,12 @@ export const funnelToSalesforceMap = {
   projektArt: { salesforceField: "Reason", salesforceObject: "case" },
   borrowerType: { salesforceField: "Kreditnehmer__c", salesforceObject: "case" },
 
+  // Correspondence language (from funnel language)
+  korrespondenzsprache: { salesforceField: "Korrespondenzsprache__c", salesforceObject: "case" },
+
+  // Stage (always set by bot)
+  Stage__c: { salesforceField: "Stage__c", salesforceObject: "case" },
+
   artImmobilie: { salesforceField: "Art_der_Immobilie__c", salesforceObject: "case" },
   neubauArt: { salesforceField: "If_Neubau__c", salesforceObject: "case" },
   artLiegenschaft: { salesforceField: "Art_der_Liegenschaft__c", salesforceObject: "case" },
@@ -52,6 +58,6 @@ export const funnelToSalesforceMap = {
   erhoehung_betrag: { salesforceField: "Erh_hung__c", salesforceObject: "case" }, // Mortgage increase amount (only sent if erhoehung=Ja)
 
   caseName: { salesforceField: "Case_Name__c", salesforceObject: "case" },
-  // partnerEmail: { salesforceField: "Partner_Email__c", salesforceObject: "case" },  // Uncomment after creating field in Salesforce
+  partnerEmail: { salesforceField: "Partner_Consultant__c", salesforceObject: "case" },  // Uncomment after creating field in Salesforce
   
 } as const;

@@ -1,6 +1,7 @@
 ﻿
 {
     "funnelCalc": {
+      "financingOfferFields": "Campi dell'offerta di finanziamento",
     "notEligible": "Non idoneo",
     "financingPossible": "Finanziamento possibile.",
     "calculation": "Calcolo",
@@ -308,6 +309,11 @@
     "errorOwnFunds": "Inserisci i fondi propri",
     "errorTaxOptimization": "Seleziona un'opzione di ottimizzazione fiscale",
     "backButtonText": "Indietro",
+      "errorRenovationAmount": "Inserisci l'importo della ristrutturazione.",
+      "errorFinancingOfferDetails": "Inserisci i dettagli dell'offerta di finanziamento.",
+      "errorBankName": "Inserisci il nome della banca.",
+      "errorInterestRate": "Inserisci il tasso di interesse.",
+      "errorTerm": "Inserisci la durata.",
     "commentLabel": "Commento",
     "mortgageIncreaseQuestion": "Aumento dell'ipoteca?",
     "continueButton": "Continua",

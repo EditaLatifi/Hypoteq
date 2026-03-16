@@ -310,16 +310,22 @@ const submitFinal = async () => {
       }),
     });
 
-    const data = await res.json();
+    let data;
+    try {
+      data = await res.json();
+    } catch (jsonErr) {
+      console.error("❌ Failed to parse JSON from /api/inquiry:", jsonErr);
+      alert("Serverfehler (Ungültige Antwort). Bitte später erneut versuchen.");
+      return;
+    }
 
-    if (!data.success) {
-      console.error("Failed:", data.error);
-      alert("Etwas ist schief gelaufen. Bitte versuchen Sie es erneut.");
+    if (!res.ok || !data.success) {
+      console.error("❌ API Error:", data.error || data);
+      alert(data.error || "Etwas ist schief gelaufen. Bitte versuchen Sie es erneut.");
       return;
     }
 
     console.log("📌 Inquiry created:", data);
-
 
     // 3️⃣ Upload documents to SharePoint (only if uploadedDocs exists)
     // Skipped because no inquiryId is available
@@ -330,7 +336,7 @@ const submitFinal = async () => {
     next();
     console.log("✅ next() called successfully");
 
-  } catch (err: any) {
+  } catch (err) {
     console.error("❌ Error in submitFinal:", err);
     alert("Serverfehler. Bitte später erneut versuchen.");
   }

@@ -17,6 +17,55 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: false, error: "Valid email is required." }, { status: 400 });
     }
 
+    // === PROJECT FIELD VALIDATION ===
+    const project = data.project || {};
+    if (project.renovation === "ja") {
+      if (!project.renovationsBetrag || isNaN(Number(project.renovationsBetrag)) || Number(project.renovationsBetrag) <= 0) {
+        return NextResponse.json({ success: false, error: "Renovationsbetrag ist erforderlich, wenn Renovation 'ja' ist." }, { status: 400 });
+      }
+    }
+    if (project.finanzierungsangebote === "ja") {
+      if (!Array.isArray(project.angebote) || project.angebote.length === 0) {
+        return NextResponse.json({ success: false, error: "Mindestens ein Finanzierungsangebot ist erforderlich." }, { status: 400 });
+      }
+      for (const [idx, offer] of project.angebote.entries()) {
+        if (!offer.bank || !offer.zins || !offer.laufzeit) {
+          return NextResponse.json({ success: false, error: `Alle Felder für Finanzierungsangebot #${idx + 1} sind erforderlich.` }, { status: 400 });
+        }
+        if (isNaN(Number(offer.zins)) || Number(offer.zins) <= 0) {
+          return NextResponse.json({ success: false, error: `Zinssatz für Angebot #${idx + 1} ist ungültig.` }, { status: 400 });
+        }
+        if (isNaN(Number(offer.laufzeit)) || Number(offer.laufzeit) <= 0) {
+          return NextResponse.json({ success: false, error: `Laufzeit für Angebot #${idx + 1} ist ungültig.` }, { status: 400 });
+        }
+      }
+    }
+
+    // === PROPERTY FIELD VALIDATION (if present) ===
+    const property = data.property || {};
+    if (property.renovation === "ja") {
+      if (!property.renovationsBetrag || isNaN(Number(property.renovationsBetrag)) || Number(property.renovationsBetrag) <= 0) {
+        return NextResponse.json({ success: false, error: "Renovationsbetrag ist erforderlich, wenn Renovation 'ja' ist (property)." }, { status: 400 });
+      }
+    }
+    if (property.finanzierungsangebote === "ja") {
+      if (!Array.isArray(property.angebote) || property.angebote.length === 0) {
+        return NextResponse.json({ success: false, error: "Mindestens ein Finanzierungsangebot ist erforderlich (property)." }, { status: 400 });
+      }
+      for (const [idx, offer] of property.angebote.entries()) {
+        if (!offer.bank || !offer.zins || !offer.laufzeit) {
+          return NextResponse.json({ success: false, error: `Alle Felder für Finanzierungsangebot #${idx + 1} sind erforderlich (property).` }, { status: 400 });
+        }
+        if (isNaN(Number(offer.zins)) || Number(offer.zins) <= 0) {
+          return NextResponse.json({ success: false, error: `Zinssatz für Angebot #${idx + 1} ist ungültig (property).` }, { status: 400 });
+        }
+        if (isNaN(Number(offer.laufzeit)) || Number(offer.laufzeit) <= 0) {
+          return NextResponse.json({ success: false, error: `Laufzeit für Angebot #${idx + 1} ist ungültig (property).` }, { status: 400 });
+        }
+      }
+    }
+
+
     // Only send email notification, do not save to database
     try {
       const now = new Date();
@@ -31,6 +80,17 @@ export async function POST(req: Request) {
     } catch (emailError) {
       console.error("⚠️ Email notification failed (continuing):", emailError);
       // Don't fail the request if email fails
+    }
+
+    // Store partner email in Salesforce PartnerConsultant__c on first step
+    if (data.customerType === 'partner' && data.client?.email) {
+      try {
+        const { savePartnerConsultantEmailToSalesforce } = await import("@/components/savePartnerConsultantEmailToSalesforce");
+        await savePartnerConsultantEmailToSalesforce(data.client.email);
+        console.log("✅ PartnerConsultant__c updated in Salesforce for:", data.client.email);
+      } catch (err) {
+        console.error("❌ Failed to update PartnerConsultant__c in Salesforce:", err);
+      }
     }
 
     // Send auto-response to customer
@@ -50,6 +110,26 @@ export async function POST(req: Request) {
       if (data.client && data.client.lastName) {
         data.lastName = data.client.lastName;
       }
+      // Set korrespondenzsprache from request headers if not provided
+      if (!data.korrespondenzsprache) {
+        // Try to get from accept-language header, default to 'Deutsch'
+        const acceptLanguage = req.headers.get('accept-language') || '';
+        const lang = acceptLanguage.substring(0, 2).toLowerCase();
+        // Map to Salesforce picklist values
+        const langMap: Record<string, string> = {
+          'de': 'Deutsch',
+          'fr': 'Französisch',
+          'it': 'Italienisch',
+          'en': 'Englisch'
+        };
+        data.korrespondenzsprache = langMap[lang] || 'Deutsch';
+        console.log(`[Salesforce Sync] Set korrespondenzsprache to: ${data.korrespondenzsprache}`);
+      }
+      // Set stage to 'Needs Analysis' only if both data.stage and data.Stage__c are missing
+      if (!data.stage && !data.Stage__c) {
+        data.stage = 'Needs Analysis'; // Valid Salesforce picklist value
+        console.log('[Salesforce Sync] Set stage to: Needs Analysis');
+      }
       const salesforceApi = (await import("@/components/salesforceApi")).default;
       const { syncFunnelStepsToSalesforce } = await import("@/components/syncFunnelStepsToSalesforce");
       await salesforceApi.login();
@@ -62,6 +142,12 @@ export async function POST(req: Request) {
 
     // === SAVE TO DATABASE ===
     try {
+      // Fix: Clear stale Prisma connection before DB write
+      console.log("🔄 Clearing stale Prisma connection...");
+      await prisma.$disconnect();
+      await new Promise(resolve => setTimeout(resolve, 100));
+      await prisma.$connect();
+      console.log("✅ Prisma reconnected successfully");
       // Save Inquiry and all related data (without documents)
       const inquiry = await prisma.inquiry.create({
         data: {

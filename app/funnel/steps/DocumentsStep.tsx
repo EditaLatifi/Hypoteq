@@ -3,12 +3,47 @@ import { v4 as uuidv4 } from "uuid";
 import { useFunnelStore } from "@/src/store/funnelStore";
 import { useTranslation } from "@/hooks/useTranslation";
 import { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
+
+const HypoteqLoadingPopup = dynamic(() => import("./HypoteqLoadingPopup"), { ssr: false });
+
+// Map funnel language code to Salesforce picklist value
+const FUNNEL_LANG_TO_SF: Record<string, string> = {
+  de: "Deutsch",
+  fr: "Französisch",
+  it: "Italienisch",
+  en: "Englisch",
+};
 
 
 function DocumentsStep({ borrowers, docs, setDocs, addDocument, saveStep, back }: any) {
-const [loading, setLoading] = useState(false);
+  // Remove loading state, only use showPopup
+  const [showPopup, setShowPopup] = useState(false);
 const { t } = useTranslation();
 const { project, email, property, financing } = useFunnelStore();
+
+// Robustly extract language from URL (e.g. /de/funnel, /fr/funnel, etc.)
+let langFromUrl = "de"; // fallback default
+if (typeof window !== "undefined") {
+  const pathParts = window.location.pathname.split("/");
+  if (pathParts.length > 1 && pathParts[1]) {
+    langFromUrl = pathParts[1].toLowerCase();
+  }
+  const allowedLangs = ["de", "fr", "it", "en"];
+  if (!allowedLangs.includes(langFromUrl)) {
+    langFromUrl = "de";
+  }
+}
+// Debug log for language extraction
+if (typeof window !== "undefined") {
+  console.log("🌐 Pathname:", window.location.pathname, "| Extracted lang:", langFromUrl);
+}
+
+// Map to Salesforce value, fallback to 'Deutsch' if not recognized
+const korrespondenzspracheValue = FUNNEL_LANG_TO_SF[langFromUrl] || FUNNEL_LANG_TO_SF["de"];
+if (typeof window !== "undefined") {
+  console.log("🗣️ korrespondenzspracheValue for Salesforce:", korrespondenzspracheValue);
+}
 const [isDragging, setIsDragging] = useState(false);
 const [currentFolderId, setCurrentFolderId] = useState<string | null>(null);
 
@@ -81,6 +116,7 @@ console.log("📄 Document Conditions:", {
   isStockwerkeigentum,
   isWohnung,
   isMehrfamilienhaus,
+  isMultipleEigentuemer,
   isBauprojekt,
   isRenovation,
   isReserviert,
@@ -193,7 +229,7 @@ const documentsForJur = [
     title: t("funnel.docSectionBauprojektRenovation" as any),
     items: [
       t("funnel.buildingPermitDoc2" as any), // Baubewilligung
-      t("funnel.projectPlanCostEstimate" as any), // Projektplan, Baubeschrieb und Bauhandwerkerverzeichnis
+      t("funnel.projectPlanCostEstimate" as any), // Projektplan, Baubeschrieb und Bauhandwerkerverzeichnis (inkl. Kostenvoranschlag und Kubatur)
     ],
   }] : []),
 ];
@@ -363,9 +399,6 @@ useEffect(() => {
   JSON.stringify(property),
   JSON.stringify(financing)
 ]);
-
-
-
 
 const handleUpload = async (e: any) => {
   const files = e.target.files;
@@ -682,16 +715,14 @@ const saved = docs.some((d: { name: string }) => d.name === doc);
 
       </div>
 
-      {/* UPLOADING INDICATOR */}
-      {loading && (
-        <div className="flex flex-col items-center justify-center mt-6 mb-2">
-          <svg className="animate-spin h-8 w-8 text-[#132219] mb-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
-          </svg>
-          <span className="text-[#132219] font-semibold text-lg">{t("funnel.uploadingFilesText", "Uploading files, please wait...")}</span>
-        </div>
-      )}
+      {/* UPLOADING INDICATOR (Popup only) */}
+      <HypoteqLoadingPopup
+        isOpen={showPopup}
+        onComplete={(redirectPath: string) => {
+          setShowPopup(false);
+          window.location.href = redirectPath;
+        }}
+      />
 
       {/* FOOTER BUTTONS */}
       <div className="flex flex-col sm:flex-row justify-between gap-4 mt-12 md:mt-16 lg:mt-20">
@@ -704,27 +735,44 @@ const saved = docs.some((d: { name: string }) => d.name === doc);
 
         <button
           onClick={async () => {
-            if (loading) return;
-            setLoading(true);
+            if (showPopup) return;
+            setShowPopup(true);
             try {
               await uploadAllFilesToSharePoint();
-              await saveStep();
-            } finally {
-              setLoading(false);
+              // Merge all funnel data and send to saveStep
+              const payload = {
+                project,
+                property,
+                financing,
+                email,
+                borrowers,
+                docs,
+                korrespondenzsprache: korrespondenzspracheValue,
+                stage: "Needs Analysis"
+              };
+              console.log("Payload to saveStep:", payload);
+              await saveStep(payload);
+              // After save, trigger popup completion (redirect)
+              const lang = (typeof window !== "undefined" && window.location.pathname.split("/")[1]) || "de";
+              const thankYouPaths: Record<string, string> = {
+                de: "/de/danke",
+                fr: "/fr/merci",
+                it: "/it/grazie",
+                en: "/en/thank-you"
+              };
+              const redirectPath = thankYouPaths[lang] || "/de/danke";
+              setTimeout(() => {
+                setShowPopup(false);
+                window.location.href = redirectPath;
+              }, 2000); // Show popup briefly before redirect
+            } catch (e) {
+              setShowPopup(false);
             }
           }}
-          disabled={loading}
-          className={`px-8 md:px-10 py-3 bg-[#CAF476] rounded-full font-medium text-[#132219] shadow hover:bg-[#BCDF6A] transition-colors text-sm md:text-base order-1 sm:order-2 ${loading ? 'opacity-60 cursor-not-allowed' : ''}`}
+          disabled={showPopup}
+          className={`px-8 md:px-10 py-3 bg-[#CAF476] rounded-full font-medium text-[#132219] shadow hover:bg-[#BCDF6A] transition-colors text-sm md:text-base order-1 sm:order-2 ${showPopup ? 'opacity-60 cursor-not-allowed' : ''}`}
         >
-          {loading ? (
-            <span className="flex items-center justify-center">
-              <svg className="animate-spin h-5 w-5 text-[#132219] mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
-              </svg>
-              {t("funnel.loadingText" as any)}
-            </span>
-          ) : t("funnel.continueButton" as any)}
+          {t("funnel.continueButton" as any)}
         </button>
       </div>
     </div>

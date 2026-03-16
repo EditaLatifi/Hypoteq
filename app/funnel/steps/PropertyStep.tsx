@@ -86,6 +86,38 @@ const propertyUseOptions =
         ];
 
 
+  // Helper: check if any error exists
+  const hasErrors = Object.values(errors).some((v) => v && v.length > 0);
+
+  // Helper: check if required fields are missing (for disabling button before first click)
+  const isRequiredMissing =
+    !data.artImmobilie ||
+    !data.artLiegenschaft ||
+    !data.nutzung ||
+    !data.renovation ||
+    (data.renovation === "ja" && (!data.renovationsBetrag || isNaN(Number(data.renovationsBetrag.replace(/[^\d]/g, ""))) || Number(data.renovationsBetrag.replace(/[^\d]/g, "")) <= 0)) ||
+    !data.finanzierungsangebote ||
+    (data.finanzierungsangebote === "ja" && (
+      !data.angebote ||
+      !Array.isArray(data.angebote) ||
+      data.angebote.length === 0 ||
+      data.angebote.some((offer: any) =>
+        !offer.bank || offer.bank.trim() === "" ||
+        !offer.zins || isNaN(Number(offer.zins.replace(/[^\d.]/g, "").replace(",", "."))) || Number(offer.zins.replace(/[^\d.]/g, "").replace(",", ".")) <= 0 ||
+        !offer.laufzeit || isNaN(Number(offer.laufzeit.replace(/[^\d]/g, ""))) || Number(offer.laufzeit.replace(/[^\d]/g, "")) <= 0
+      )
+    )) ||
+    (customerType !== "partner" && (
+      !data.kreditnehmer ||
+      !Array.isArray(data.kreditnehmer) ||
+      data.kreditnehmer.length === 0 ||
+      data.kreditnehmer.some((kn: any) =>
+        (!kn.vorname || !kn.name || !kn.email || !kn.telefon || !kn.geburtsdatum || !kn.erwerb || !kn.zivilstand)
+      )
+    ));
+
+  const isContinueDisabled = hasErrors || isRequiredMissing;
+
   return (
     <div className="w-full max-w-[1400px] pt-[180px] md:pt-0 mx-auto px-4 md:px-6 lg:px-4 lg:pl-28 space-y-6 lg:space-y-[30px] -mt-10">
       {/* ========================================================= */}
@@ -181,6 +213,7 @@ const propertyUseOptions =
           {customerType === "jur"
             ? t("funnel.renovationsJur" as any)
             : t("funnel.renovations" as any)}
+          <span className="text-red-500">*</span>
         </h3>
 
         <div className="flex gap-[24px]">
@@ -205,11 +238,11 @@ const propertyUseOptions =
 
         {data.renovation === "ja" && (
           <>
-            <label className="block mt-[16px] mb-1 text-sm font-medium">{t("funnel.renovationAmount" as any)}</label>
+            <label className="block mt-[16px] mb-1 text-sm font-medium">{t("funnel.renovationAmount" as any)}<span className="text-red-500">*</span></label>
             <input
               type="text"
               placeholder={t("funnel.amountInCHF" as any)}
-              className="px-5 py-2 border border-[#C8C8C8] rounded-full w-full md:w-[260px] text-sm"
+              className={`px-5 py-2 border rounded-full w-full md:w-[260px] text-sm ${errors.renovationsBetrag ? 'border-red-500' : 'border-[#C8C8C8]'}`}
               value={data.renovationsBetrag ? `CHF ${formatCHF(data.renovationsBetrag)}` : ""}
               onChange={(e) => {
                 const rawValue = e.target.value.replace(/CHF\s?|'/g, "");
@@ -217,6 +250,9 @@ const propertyUseOptions =
                 update("renovationsBetrag", numericValue);
               }}
             />
+            {errors.renovationsBetrag && (
+              <p className="text-red-500 text-[12px] mt-1">{errors.renovationsBetrag}</p>
+            )}
           </>
         )}
       </div>
@@ -252,6 +288,7 @@ const propertyUseOptions =
       <div>
         <h3 className="text-[16px] font-semibold mb-[16px]">
           {t("funnel.financingOffers" as any)}
+          <span className="text-red-500">*</span>
         </h3>
         <div className="flex gap-[24px]">
           <ToggleButton
@@ -279,6 +316,13 @@ const propertyUseOptions =
         )}
         {data.finanzierungsangebote === "ja" && (
           <div className="space-y-4 mt-[16px]">
+            <p className="text-sm font-semibold text-[#132219]">
+              {t("funnel.financingOfferFields" as any) || "Finanzierungsangebote"}
+              <span className="text-red-500">*</span>
+            </p>
+            {errors.angebote && (
+              <p className="text-red-500 text-[12px] mt-1">{errors.angebote}</p>
+            )}
             {(data.angebote || [{ bank: "", zins: "", laufzeit: "" }]).map((offer: any, idx: number) => (
               <div key={idx} className="flex items-center gap-4">
                 {/* Add Button */}
@@ -310,7 +354,7 @@ const propertyUseOptions =
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 flex-1">
                   <input
                     placeholder={t("funnel.whichBank" as any)}
-                    className="px-5 py-2 border border-[#C8C8C8] rounded-full text-sm w-full"
+                    className={`px-5 py-2 border rounded-full text-sm w-full ${errors[`angebote_${idx}_bank`] ? 'border-red-500' : 'border-[#C8C8C8]'}`}
                     value={offer.bank || ""}
                     onChange={(e) => {
                       const updated = [...(data.angebote || [{ bank: data.bank || "", zins: data.zins || "", laufzeit: data.laufzeit || "" }])];
@@ -324,7 +368,7 @@ const propertyUseOptions =
                       min="0"
                       step="0.01"
                       placeholder={t("funnel.interestRate" as any)}
-                      className="px-5 py-2 border border-[#C8C8C8] rounded-full text-sm w-full pr-8"
+                      className={`px-5 py-2 border rounded-full text-sm w-full pr-8 ${errors[`angebote_${idx}_zins`] ? 'border-red-500' : 'border-[#C8C8C8]'}`}
                       value={offer.zins || ""}
                       onChange={(e) => {
                         // Only allow numbers and dot/comma
@@ -341,7 +385,7 @@ const propertyUseOptions =
                     min="0"
                     step="1"
                     placeholder={t("funnel.term" as any)}
-                    className="px-5 py-2 border border-[#C8C8C8] rounded-full text-sm w-full"
+                    className={`px-5 py-2 border rounded-full text-sm w-full ${errors[`angebote_${idx}_laufzeit`] ? 'border-red-500' : 'border-[#C8C8C8]'}`}
                     value={offer.laufzeit || ""}
                     onChange={(e) => {
                       // Only allow numbers
@@ -351,6 +395,18 @@ const propertyUseOptions =
                       update("angebote", updated);
                     }}
                   />
+                </div>
+                {/* Show field errors for this offer */}
+                <div className="flex flex-col gap-1 ml-2">
+                  {errors[`angebote_${idx}_bank`] && (
+                    <span className="text-red-500 text-[12px]">{errors[`angebote_${idx}_bank`]}</span>
+                  )}
+                  {errors[`angebote_${idx}_zins`] && (
+                    <span className="text-red-500 text-[12px]">{errors[`angebote_${idx}_zins`]}</span>
+                  )}
+                  {errors[`angebote_${idx}_laufzeit`] && (
+                    <span className="text-red-500 text-[12px]">{errors[`angebote_${idx}_laufzeit`]}</span>
+                  )}
                 </div>
               </div>
             ))}
@@ -366,7 +422,7 @@ const propertyUseOptions =
     {(customerType === "jur" || customerType === "partner")
       ? t("funnel.kreditnehmerMultiple" as any)
       : t("funnel.kreditnehmerSingle" as any)}
-    <span className="text-red-500">*</span>
+    {customerType !== "partner" && <span className="text-red-500">*</span>}
   </h3>
       {errors.kreditnehmer && (
         <div className="text-red-500 text-[15px] mb-4 font-semibold">{errors.kreditnehmer}</div>
@@ -406,7 +462,9 @@ const propertyUseOptions =
 
         {/* DELETE BUTTON */}
         {data.kreditnehmer.length > 1 && (
-          <button
+          <button 
+            disabled={isContinueDisabled}
+            style={isContinueDisabled ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
             onClick={() => {
               const updated = data.kreditnehmer.filter((_: any, i: number) => i !== index);
               update("kreditnehmer", updated);
@@ -648,14 +706,74 @@ const propertyUseOptions =
               if (!data.nutzung) {
                 newErrors.nutzung = t("funnel.errorPropertyUsage" as any) || "Please select property usage";
               }
+              
+              // Validate renovation (ALWAYS REQUIRED - even for partners)
+              if (!data.renovation) {
+                newErrors.renovation = t("funnel.errorRenovation" as any) || "Please select renovation option";
+              } else if (data.renovation === "ja") {
+                // Require renovation amount if 'ja'
+                let renovationValue = data.renovationsBetrag;
+                if (typeof renovationValue === 'string') {
+                  renovationValue = renovationValue.replace(/[^\d]/g, '');
+                }
+                if (
+                  renovationValue === undefined || renovationValue === null || renovationValue === '' ||
+                  isNaN(Number(renovationValue)) || Number(renovationValue) <= 0
+                ) {
+                  newErrors.renovationsBetrag = t("funnel.errorRenovationAmount" as any) || "Bitte geben Sie den Renovationsbetrag ein.";
+                }
+              }
+              
+              // Validate financing offers (ALWAYS REQUIRED - even for partners)
+              if (!data.finanzierungsangebote) {
+                newErrors.finanzierungsangebote = t("funnel.errorFinancingOffers" as any) || "Please select financing offers option";
+              } else if (data.finanzierungsangebote === "ja") {
+                // Require at least one valid offer
+                if (!data.angebote || !Array.isArray(data.angebote) || data.angebote.length === 0) {
+                  newErrors.angebote = t("funnel.errorFinancingOfferDetails" as any) || "Bitte geben Sie mindestens ein Finanzierungsangebot ein.";
+                } else {
+                  let hasValidOffer = false;
+                  data.angebote.forEach((offer: any, idx: number) => {
+                    let zinsValue = offer.zins;
+                    let laufzeitValue = offer.laufzeit;
+                    if (typeof zinsValue === 'string') {
+                      zinsValue = zinsValue.replace(/[^\d.]/g, '').replace(',', '.');
+                    }
+                    if (typeof laufzeitValue === 'string') {
+                      laufzeitValue = laufzeitValue.replace(/[^\d]/g, '');
+                    }
+                    if (
+                      offer.bank && offer.bank.trim() !== '' &&
+                      zinsValue !== undefined && zinsValue !== null && zinsValue !== '' && !isNaN(Number(zinsValue)) && Number(zinsValue) > 0 &&
+                      laufzeitValue !== undefined && laufzeitValue !== null && laufzeitValue !== '' && !isNaN(Number(laufzeitValue)) && Number(laufzeitValue) > 0
+                    ) {
+                      hasValidOffer = true;
+                    } else {
+                      if (!offer.bank || offer.bank.trim() === "") {
+                        newErrors[`angebote_${idx}_bank`] = t("funnel.errorBankName" as any) || "Bitte geben Sie den Banknamen ein.";
+                      }
+                      if (
+                        zinsValue === undefined || zinsValue === null || zinsValue === '' ||
+                        isNaN(Number(zinsValue)) || Number(zinsValue) <= 0
+                      ) {
+                        newErrors[`angebote_${idx}_zins`] = t("funnel.errorInterestRate" as any) || "Bitte geben Sie einen gültigen Zinssatz ein.";
+                      }
+                      if (
+                        laufzeitValue === undefined || laufzeitValue === null || laufzeitValue === '' ||
+                        isNaN(Number(laufzeitValue)) || Number(laufzeitValue) <= 0
+                      ) {
+                        newErrors[`angebote_${idx}_laufzeit`] = t("funnel.errorTerm" as any) || "Bitte geben Sie die Laufzeit ein.";
+                      }
+                    }
+                  });
+                  if (!hasValidOffer) {
+                    newErrors.angebote = t("funnel.errorFinancingOfferDetails" as any) || "Bitte geben Sie mindestens ein vollständiges Finanzierungsangebot ein.";
+                  }
+                }
+              }
+              
               // For non-partners, validate additional fields
               if (customerType !== "partner") {
-                if (!data.renovation) {
-                  newErrors.renovation = t("funnel.errorRenovation" as any) || "Please select renovation option";
-                }
-                if (!data.finanzierungsangebote) {
-                  newErrors.finanzierungsangebote = t("funnel.errorFinancingOffers" as any) || "Please select financing offers option";
-                }
                 // Validate reserved field if visible (for kauf, not abloesung)
                 if (customerType !== "jur" && data.artImmobilie && !isAbloesung && !data.reserviert) {
                   newErrors.reserviert = t("funnel.errorReserved" as any) || "Please select whether the property is reserved";

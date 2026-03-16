@@ -133,6 +133,8 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     ...(stepData.property || {}),
     ...(stepData.client || {}),
   };
+  // Log flatData for debugging
+  console.log("Flat data for mapping:", flatData);
 
   // For Ablösung, use abloesedatum as kaufdatum and Abl_sung__c in Salesforce
   if ((flatData.projektArt === 'abloesung' || flatData.projektArt === 'Ablösung') && flatData.abloesedatum) {
@@ -270,11 +272,7 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
       PersonEmail: email,
       Phone: phone,
     };
-    // Optionally, add contactLastName as a custom field if needed in Salesforce
-    if (isJuristicPerson && person.contactLastName) {
-      accountData.Contact_LastName__c = person.contactLastName;
-    }
-    
+   
     // Add address if available
     if (person.adresse) {
       accountData.PersonMailingStreet = person.adresse;
@@ -456,10 +454,17 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
   // Map all Case fields from funnelToSalesforceMap
   for (const [funnelField, mapping] of Object.entries(funnelToSalesforceMap)) {
     if (mapping.salesforceObject !== "case") continue;
-    
+
+    // Accept alternate key names for korrespondenzsprache and Stage__c
     let value = flatData[funnelField];
+    if (funnelField === 'korrespondenzsprache' && (value === undefined || value === null)) {
+      value = flatData.korrespondenzSprache || flatData.correspondenceLanguage || value;
+    }
+    if (funnelField === 'Stage__c' && (value === undefined || value === null)) {
+      value = flatData.stage || flatData.stage__c || value;
+    }
     if (Array.isArray(value)) value = value.join(", ");
-    
+
     // Special handling for erhoehung_betrag: only set if erhoehung is "Ja"
     if (funnelField === 'erhoehung_betrag') {
       const erhoehungAnswer = flatData.erhoehung;
@@ -468,23 +473,23 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
         continue; // Skip this field if user didn't answer "Ja" to the increase question
       }
     }
-    
+
     const sfField = mapping.salesforceField;
     const sanitized = sanitizeSFValue(sfField, value);
-    
+
     // Skip null currency fields for Ablösung-specific fields to avoid Salesforce errors
     const isAbloesungCurrencyField = ['Abl_sung__c', 'Hypothekarbetrag__c'].includes(sfField);
     const isNullCurrency = sanitized === null && SALESFORCE_CASE_FIELDS[sfField] === "currency";
-    
+
     if (sanitized !== undefined && !(isAbloesungCurrencyField && isNullCurrency)) {
       caseData[sfField] = sanitized;
       // Log Ablösung-specific fields for debugging
-      if (funnelField === 'abloesung_betrag' || funnelField === 'erhoehung' || funnelField === 'erhoehung_betrag' || funnelField === 'kaufdatum' || funnelField === 'kommentar' || funnelField === 'hypothekarbetrag') {
+      if (funnelField === 'abloesung_betrag' || funnelField === 'erhoehung' || funnelField === 'erhoehung_betrag' || funnelField === 'kaufdatum' || funnelField === 'kommentar' || funnelField === 'hypothekarbetrag' || funnelField === 'korrespondenzsprache' || funnelField === 'Stage__c') {
         console.log(`[Salesforce Sync] Mapped ${funnelField}: ${value} → ${sfField}: ${sanitized}`);
       }
     } else {
       // Log when a field is skipped
-      if (funnelField === 'abloesung_betrag' || funnelField === 'erhoehung' || funnelField === 'erhoehung_betrag' || funnelField === 'kaufdatum' || funnelField === 'kommentar' || funnelField === 'hypothekarbetrag') {
+      if (funnelField === 'abloesung_betrag' || funnelField === 'erhoehung' || funnelField === 'erhoehung_betrag' || funnelField === 'kaufdatum' || funnelField === 'kommentar' || funnelField === 'hypothekarbetrag' || funnelField === 'korrespondenzsprache' || funnelField === 'Stage__c') {
         console.log(`[Salesforce Sync] SKIPPED ${funnelField} (value was undefined after sanitization): ${value}`);
       }
     }
@@ -694,6 +699,22 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     console.log(`[Salesforce Sync] Linked Client 3 Account: ${account3Id}`);
   } else {
     caseData['Client_3__c'] = null;
+  }
+
+  // Add Partner_Consultant__c as a Contact lookup field (Contact ID) if partnerEmail is present
+  if (partnerEmail) {
+    try {
+      const partnerContact = await salesforceApi.findContactByEmail(partnerEmail);
+      if (partnerContact) {
+        const partnerContactId = partnerContact.Id || partnerContact.id;
+        caseData['Partner_Consultant__c'] = partnerContactId;
+        console.log(`[Salesforce Sync] Linked partner contact to Case: ${partnerContactId}`);
+      } else {
+        console.log(`[Salesforce Sync] Partner contact not found for email: ${partnerEmail}`);
+      }
+    } catch (err) {
+      console.error(`[Salesforce Sync] Error finding partner contact:`, err);
+    }
   }
 
   console.log('[Salesforce Sync] Full caseData before sending:', JSON.stringify(caseData, null, 2));

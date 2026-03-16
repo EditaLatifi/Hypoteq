@@ -263,6 +263,7 @@
     "ctaCard2Button": "Réservez maintenant un entretien d'information gratuit."
   },
   "funnel": {
+    "financingOfferFields": "Champs de l'offre de financement",
      "requiredFieldsError": "Veuillez remplir tous les champs obligatoires ci-dessous.",
     "loadingText": "Chargement...",
     "uploadingFilesText": "Téléchargement des fichiers, veuillez patienter...",
@@ -311,6 +312,11 @@
     "errorOwnFunds": "Veuillez entrer les fonds propres",
     "errorTaxOptimization": "Veuillez sélectionner une option d'optimisation fiscale",
     "errorPkPledge": "Veuillez sélectionner une option de gage PK",
+      "errorRenovationAmount": "Veuillez entrer le montant de la rénovation.",
+      "errorFinancingOfferDetails": "Veuillez entrer les détails de l'offre de financement.",
+      "errorBankName": "Veuillez entrer le nom de la banque.",
+      "errorInterestRate": "Veuillez entrer le taux d'intérêt.",
+      "errorTerm": "Veuillez entrer la durée.",
     "backButtonText": "Retour",
     "commentLabel": "Commentaire",
     "mortgageIncreaseQuestion": "Augmentation de l'hypothèque ?",

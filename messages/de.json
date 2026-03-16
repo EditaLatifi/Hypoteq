@@ -267,6 +267,8 @@
     "ctaCard2Button": "Jetzt kostenloses Infogespräch buchen."
   },
   "funnel": {
+    "renovationAmount": "Betrag Renovationskosten",
+    "financingOfferFields": "Finanzierungsangebotsfelder",
      "requiredFieldsError": "Bitte füllen Sie alle unten markierten Pflichtfelder aus.",
     "loadingText": "Laden...",
     "uploadingFilesText": "Dateien werden hochgeladen, bitte warten...",
@@ -321,6 +323,11 @@
     "errorTaxOptimization": "Bitte wählen Sie eine Steueroptimierungsoption",
     "errorHypothekarlaufzeiten": "Bitte wählen Sie die Hypothekarlaufzeiten aus",
     "errorPkPledge": "Bitte wählen Sie eine PK-Verpfändung-Option aus",
+    "errorRenovationAmount": "Bitte geben Sie den Renovationsbetrag ein.",
+    "errorFinancingOfferDetails": "Bitte geben Sie die Details des Finanzierungsangebots ein.",
+    "errorBankName": "Bitte geben Sie den Namen der Bank ein.",
+    "errorInterestRate": "Bitte geben Sie den Zinssatz ein.",
+    "errorTerm": "Bitte geben Sie die Laufzeit ein.",
     "backButtonText": "Zurück",
     "commentLabel": "Kommentar",
     "mortgageIncreaseQuestion": "Erhöhung der Hypothek?",

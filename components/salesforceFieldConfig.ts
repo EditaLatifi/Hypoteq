@@ -11,6 +11,9 @@ export const SALESFORCE_CASE_FIELDS: Record<string, SFFieldType> = {
   // Client count field (number, not currency)
   Client__c: "string",
 
+  // Correspondence language field
+  Korrespondenzsprache__c: "picklist",
+
   // Boolean fields
   Ist_die_Liegenschaft_bereits_reserviert__c: "boolean",
   Gibt_es_Renovationen_oder_Zusatzkosten__c: "boolean",
@@ -70,4 +73,10 @@ export const SALESFORCE_CASE_FIELDS: Record<string, SFFieldType> = {
   
   // Picklist for new construction type
   If_Neubau__c: "picklist",  // "Bereits erstellt" or "Bauprojekt"
+
+  // Stage field for Case
+  Stage__c: "picklist",
+
+  // Partner Consultant field
+  Partner_Consultant__c: "string",  // Contact lookup field (stores Contact ID)
 };
