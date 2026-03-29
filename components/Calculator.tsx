@@ -737,6 +737,7 @@ function ProgressBox({
   red = false,
   thresholdLabel,
 }: any) {
+  red = false;
   return (
     <div
       className="
