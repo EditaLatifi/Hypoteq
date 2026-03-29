@@ -502,7 +502,7 @@ export default function Calculator() {
                   current={formatCHF(totalMortgageRefi)}
                   total={formatCHF(propertyPrice)}
                   loanType={loanType}
-                  red={!isBelehnungOK}
+                  red={false}
                 />
 
                 <ProgressBox
