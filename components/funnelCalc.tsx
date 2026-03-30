@@ -226,7 +226,7 @@ export default function FunnelCalc({ data, projectData, propertyData, borrowers 
           <TwoBoxGrid
             leftLabel={t("funnelCalc.mortgage")}
             leftValue={CHF(totalMortgage)}
-            leftError={hasInputs && !ltvOk}
+            leftError={false}
             rightLabel={t("funnelCalc.increase")}
             rightValue={CHF(mortgageIncrease)}
             rightError={false}
@@ -248,7 +248,7 @@ export default function FunnelCalc({ data, projectData, propertyData, borrowers 
         <TwoBoxGrid
           leftLabel={t("funnelCalc.currentMortgage")}
           leftValue={CHF(existingMortgage)}
-          leftError={hasInputs && !ltvOk}
+          leftError={false}
           rightLabel={t("funnelCalc.affordabilityPercentage")}
           rightValue={`${(affordability * 100).toFixed(1).replace(".", ",")}%`}
           rightError={hasInputs && !affordabilityOk}
