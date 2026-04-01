@@ -48,7 +48,8 @@ function validatePersonData(person: any, personIndex: number, isPartnerEmail: bo
   }
   
   // For natural persons - email and phone validation
-  if (!person.email || person.email.trim() === '') {
+  // Skip email validation for partner submissions (partner fills in their own email, not end-customer's)
+  if (!isPartnerEmail && (!person.email || person.email.trim() === '')) {
     errors.push(`Person ${personIndex}: Email is mandatory`);
   }
   
@@ -178,7 +179,8 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
         }
       } else {
         // For natural persons - existing logic
-        if ((kn.email || kn.emailAdresse) && (kn.vorname || kn.name || kn.firstName)) {
+        // For partner submissions, email may be empty on kreditnehmer
+        if ((kn.vorname || kn.name || kn.firstName) && ((kn.email || kn.emailAdresse) || partnerEmail)) {
           persons.push({
             firstName: kn.firstName || kn.vorname || '',
             lastName: kn.lastName || kn.nachname || kn.name || 'Unknown',
@@ -234,7 +236,7 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
   persons.forEach((person, index) => {
     // Skip email/phone validation for juristic persons
     const isJuristicPerson = (person as any).isJuristic === true;
-    const errors = validatePersonData(person, index + 1, false, isJuristicPerson);
+    const errors = validatePersonData(person, index + 1, !!partnerEmail, isJuristicPerson);
     validationErrors.push(...errors);
   });
 
