@@ -179,12 +179,13 @@ export default function FunnelCalc({ data, projectData, propertyData, borrowers 
     // Total mortgage = existing + increase
     const totalMortgage = existingMortgage + mortgageIncrease;
     
-    // Property value for LTV calculation
-    const propertyValue = Number(data.immobilienwert || 0) || Number(data.kaufpreis || 0) || totalMortgage;
-    
+    // Property value for LTV calculation (only if actually provided)
+    const propertyValue = Number(data.immobilienwert || 0) || Number(data.kaufpreis || 0);
+
     // --- EXPLICIT LTV CALCULATION ---
+    // Skip LTV check if no property value is provided (refinancing may not have one)
     const ltv = propertyValue > 0 ? totalMortgage / propertyValue : 0;
-    const ltvOk = ltv <= ltvLimit;
+    const ltvOk = propertyValue > 0 ? ltv <= ltvLimit : true;
     
     // --- AFFORDABILITY CALCULATION (Natural persons only) ---
     let affordability = 0;
