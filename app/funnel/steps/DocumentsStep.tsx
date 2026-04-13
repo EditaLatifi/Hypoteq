@@ -138,32 +138,123 @@ console.log("📄 Document Conditions:", {
 
 
 
-async function uploadDocToSharepoint(file: File, inquiryId: string, email: string, folderId: string | null = null) {
-  const formData = new FormData();
-  formData.append("file", file);
-  formData.append("inquiryId", inquiryId);
-  formData.append("email", email);
-  if (folderId) {
-    formData.append("folderId", folderId);
-  }
+// 5 MiB chunks — multiple of 320 KiB as required by Microsoft Graph.
+const UPLOAD_CHUNK_SIZE = 5 * 1024 * 1024;
+// Per-chunk network timeout. A stalled chunk must not hang the whole popup.
+const CHUNK_TIMEOUT_MS = 120_000;
 
-  // Hard timeout so a stalled SharePoint/Graph call can't hang the popup forever.
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 90_000);
+async function uploadDocToSharepoint(
+  file: File,
+  inquiryId: string,
+  email: string,
+  folderId: string | null = null
+) {
   try {
-    const res = await fetch("/api/upload-doc", {
+    const startRes = await fetch("/api/upload-doc/start", {
       method: "POST",
-      body: formData,
-      signal: controller.signal,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        fileName: file.name,
+        fileSize: file.size,
+        email,
+        inquiryId,
+        folderId,
+      }),
     });
-    return await res.json();
-  } catch (err: any) {
-    if (err?.name === "AbortError") {
-      return { error: "Upload timed out after 90s" };
+    const startJson = await startRes.json();
+    if (!startRes.ok || !startJson?.uploadUrl) {
+      return { error: startJson?.details || startJson?.error || "Failed to start upload" };
     }
+    const { uploadUrl, folderId: resolvedFolderId } = startJson;
+
+    const total = file.size;
+    let driveItem: any = null;
+    let offset = 0;
+
+    while (offset < total) {
+      const end = Math.min(offset + UPLOAD_CHUNK_SIZE, total);
+      const chunk = file.slice(offset, end);
+
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), CHUNK_TIMEOUT_MS);
+
+      let chunkRes: Response;
+      try {
+        chunkRes = await fetch(uploadUrl, {
+          method: "PUT",
+          headers: {
+            "Content-Range": `bytes ${offset}-${end - 1}/${total}`,
+          },
+          body: chunk,
+          signal: controller.signal,
+        });
+      } catch (err: any) {
+        if (err?.name === "AbortError") {
+          return { error: `Upload stalled on chunk ${offset}-${end - 1}` };
+        }
+        return { error: err?.message || "Network error during chunk upload" };
+      } finally {
+        clearTimeout(timeoutId);
+      }
+
+      if (chunkRes.status === 202) {
+        offset = end;
+        continue;
+      }
+      if (chunkRes.status === 200 || chunkRes.status === 201) {
+        try {
+          driveItem = await chunkRes.json();
+        } catch {
+          driveItem = null;
+        }
+        offset = end;
+        break;
+      }
+
+      let errBody: any = null;
+      try {
+        errBody = await chunkRes.json();
+      } catch {
+        errBody = null;
+      }
+      return {
+        error:
+          errBody?.error?.message ||
+          `Chunk upload failed: HTTP ${chunkRes.status}`,
+      };
+    }
+
+    if (!driveItem) {
+      return { error: "Upload completed without a final response from Graph" };
+    }
+
+    const finalizeRes = await fetch("/api/upload-doc/finalize", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        fileName: file.name,
+        email,
+        inquiryId,
+        driveItem,
+      }),
+    });
+    const finalizeJson = await finalizeRes.json();
+    if (!finalizeRes.ok || !finalizeJson?.success) {
+      return {
+        error:
+          finalizeJson?.details ||
+          finalizeJson?.error ||
+          "Failed to finalize upload",
+      };
+    }
+
+    return {
+      success: true,
+      data: driveItem,
+      folderId: resolvedFolderId,
+    };
+  } catch (err: any) {
     return { error: err?.message || "Network error" };
-  } finally {
-    clearTimeout(timeoutId);
   }
 }
 
