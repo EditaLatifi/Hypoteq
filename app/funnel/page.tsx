@@ -277,9 +277,12 @@ const submitFinal = async () => {
     const inquiryId = data.inquiryId;
 
     // 3️⃣ Upload documents to SharePoint (partners only)
+    // DocumentsStep already uploads files via its own SharePoint flow and
+    // marks them with `uploaded: true`. Re-uploading here would call the
+    // 2-arg upload helper (missing email) and fail. Skip anything already done.
     if (uploadedDocs && uploadedDocs.length > 0) {
       for (const doc of uploadedDocs) {
-        if (doc.file) {
+        if (doc.file && !doc.uploaded) {
           try {
             console.log("⬆ Uploading:", doc.name);
             await uploadDocToSharepoint(doc.file, inquiryId);

@@ -19,6 +19,9 @@ const FUNNEL_LANG_TO_SF: Record<string, string> = {
 function DocumentsStep({ borrowers, docs, setDocs, addDocument, saveStep, back }: any) {
   // Remove loading state, only use showPopup
   const [showPopup, setShowPopup] = useState(false);
+  // Set to true only after upload + save have actually succeeded.
+  // The loading popup uses this to know it's safe to animate to 100% and redirect.
+  const [submitDone, setSubmitDone] = useState(false);
 const { t } = useTranslation();
 const { project, email, property, financing } = useFunnelStore();
 
@@ -144,12 +147,24 @@ async function uploadDocToSharepoint(file: File, inquiryId: string, email: strin
     formData.append("folderId", folderId);
   }
 
-  const res = await fetch("/api/upload-doc", {
-    method: "POST",
-    body: formData,
-  });
-
-  return res.json();
+  // Hard timeout so a stalled SharePoint/Graph call can't hang the popup forever.
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 90_000);
+  try {
+    const res = await fetch("/api/upload-doc", {
+      method: "POST",
+      body: formData,
+      signal: controller.signal,
+    });
+    return await res.json();
+  } catch (err: any) {
+    if (err?.name === "AbortError") {
+      return { error: "Upload timed out after 90s" };
+    }
+    return { error: err?.message || "Network error" };
+  } finally {
+    clearTimeout(timeoutId);
+  }
 }
 
 
@@ -463,10 +478,12 @@ const removeUploadedFile = (docId: string) => {
   setDocs((prev: any[]) => prev.filter((d: any) => d.id !== docId));
 };
 
-// Upload all files to SharePoint when Weiter button is clicked
+// Upload all files to SharePoint when Weiter button is clicked.
+// Throws on the first failure so the caller can show one clean error and
+// keep the popup in a consistent state.
 const uploadAllFilesToSharePoint = async () => {
   const filesToUpload = docs.filter((doc: any) => doc.file && !doc.uploaded);
-  
+
   if (filesToUpload.length === 0) {
     console.log("ℹ️ No files to upload");
     return;
@@ -477,7 +494,7 @@ const uploadAllFilesToSharePoint = async () => {
 
   for (const doc of filesToUpload) {
     console.log("⬆️ Uploading file:", doc.name, "with folder ID:", uploadFolderId);
-    
+
     const uploadRes = await uploadDocToSharepoint(
       doc.file,
       submissionId,
@@ -487,10 +504,9 @@ const uploadAllFilesToSharePoint = async () => {
 
     console.log("📦 Upload response for", doc.name, ":", uploadRes);
 
-    if (uploadRes?.error) {
-      console.error("❌ Upload failed for", doc.name, ":", uploadRes.error);
-      alert(t("funnel.uploadError" as any) + ": " + doc.name);
-      continue;
+    if (uploadRes?.error || !uploadRes?.success) {
+      console.error("❌ Upload failed for", doc.name, ":", uploadRes?.error);
+      throw new Error(`Upload failed for ${doc.name}: ${uploadRes?.error || "unknown"}`);
     }
 
     // Store folderId from first upload to reuse for subsequent uploads
@@ -501,14 +517,14 @@ const uploadAllFilesToSharePoint = async () => {
     }
 
     // Update the document with SharePoint URL and mark as uploaded
-    setDocs((prev: any[]) => 
-      prev.map((d: any) => 
-        d.id === doc.id 
+    setDocs((prev: any[]) =>
+      prev.map((d: any) =>
+        d.id === doc.id
           ? { ...d, sharepointUrl: uploadRes?.data?.webUrl ?? null, uploaded: true }
           : d
       )
     );
-    
+
     // Update in store as well
     addDocument({
       ...doc,
@@ -516,7 +532,7 @@ const uploadAllFilesToSharePoint = async () => {
       uploaded: true
     });
   }
-  
+
   console.log("✅ All files uploaded successfully");
 };
 
@@ -718,8 +734,8 @@ const saved = docs.some((d: { name: string }) => d.name === doc);
       {/* UPLOADING INDICATOR (Popup only) */}
       <HypoteqLoadingPopup
         isOpen={showPopup}
+        isComplete={submitDone}
         onComplete={(redirectPath: string) => {
-          setShowPopup(false);
           window.location.href = redirectPath;
         }}
       />
@@ -737,9 +753,9 @@ const saved = docs.some((d: { name: string }) => d.name === doc);
           onClick={async () => {
             if (showPopup) return;
             setShowPopup(true);
+            setSubmitDone(false);
             try {
               await uploadAllFilesToSharePoint();
-              // Merge all funnel data and send to saveStep
               const payload = {
                 project,
                 property,
@@ -752,8 +768,16 @@ const saved = docs.some((d: { name: string }) => d.name === doc);
               };
               console.log("Payload to saveStep:", payload);
               await saveStep(payload);
-              // After save, trigger popup completion (redirect)
-              const lang = (typeof window !== "undefined" && window.location.pathname.split("/")[1]) || "de";
+
+              // Real work succeeded — let the popup animate to 100% and fire onComplete.
+              setSubmitDone(true);
+
+              // Safety-net redirect: if the popup was unmounted (e.g. submitFinal
+              // called setStep(7)) before its onComplete could fire, force the
+              // browser to the thank-you page anyway so the user always lands
+              // on a final URL instead of a half-rendered in-page state.
+              const lang =
+                (typeof window !== "undefined" && window.location.pathname.split("/")[1]) || "de";
               const thankYouPaths: Record<string, string> = {
                 de: "/de/danke",
                 fr: "/fr/merci",
@@ -762,11 +786,15 @@ const saved = docs.some((d: { name: string }) => d.name === doc);
               };
               const redirectPath = thankYouPaths[lang] || "/de/danke";
               setTimeout(() => {
-                setShowPopup(false);
-                window.location.href = redirectPath;
-              }, 2000); // Show popup briefly before redirect
+                if (typeof window !== "undefined" && !window.location.pathname.startsWith(redirectPath)) {
+                  window.location.href = redirectPath;
+                }
+              }, 1500);
             } catch (e) {
+              console.error("❌ Submission failed:", e);
               setShowPopup(false);
+              setSubmitDone(false);
+              alert(t("funnel.uploadError" as any) + "\n\n" + (e as Error)?.message);
             }
           }}
           disabled={showPopup}

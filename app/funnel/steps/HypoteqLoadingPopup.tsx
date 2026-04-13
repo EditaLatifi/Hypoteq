@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useRef } from "react";
 
 // ─── Translations ────────────────────────────────────────────────────────────
 const TRANSLATIONS = {
@@ -87,23 +87,25 @@ const STEP_ICONS = {
 // ─── Main Component ──────────────────────────────────────────────────────────
 type HypoteqLoadingPopupProps = {
   isOpen: boolean;
+  // Parent sets this to true once the real upload + save have actually finished.
+  // Until then the bar holds at 90% so we never redirect mid-upload.
+  isComplete?: boolean;
   onComplete?: (redirectPath: string) => void;
 };
 
-export default function HypoteqLoadingPopup({ isOpen, onComplete }: HypoteqLoadingPopupProps) {
+export default function HypoteqLoadingPopup({ isOpen, isComplete, onComplete }: HypoteqLoadingPopupProps) {
   const [progress, setProgress] = useState(0);
   const [stepStatus, setStepStatus] = useState(["active", "waiting", "waiting"]);
   const [stepLabelIndex, setStepLabelIndex] = useState(0);
   const lang = detectLanguage();
   const t = TRANSLATIONS[lang];
 
-  const handleComplete = useCallback(() => {
-    if (onComplete) {
-      onComplete(t.thankYouPath);
-    } else {
-      window.location.href = t.thankYouPath;
-    }
-  }, [t.thankYouPath, onComplete]);
+  const onCompleteRef = useRef(onComplete);
+  const thankYouPathRef = useRef(t.thankYouPath);
+  const isCompleteRef = useRef(!!isComplete);
+  onCompleteRef.current = onComplete;
+  thankYouPathRef.current = t.thankYouPath;
+  isCompleteRef.current = !!isComplete;
 
   useEffect(() => {
     if (!isOpen) {
@@ -115,10 +117,15 @@ export default function HypoteqLoadingPopup({ isOpen, onComplete }: HypoteqLoadi
 
     let current = 0;
     let triggered = [false, false, false];
+    let finished = false;
 
     const interval = setInterval(() => {
+      // Cap natural progress at 90% — the parent has to signal isComplete
+      // before we move past 90 and fire onComplete. This guarantees we never
+      // redirect while the real upload is still in flight.
+      const cap = isCompleteRef.current ? 100 : 90;
       const speed = current < 60 ? 1.4 : current < 85 ? 0.8 : 0.28;
-      current = Math.min(current + speed, 100);
+      current = Math.min(current + speed, cap);
       setProgress(Math.floor(current));
 
       if (!triggered[0] && current >= 30) {
@@ -131,17 +138,24 @@ export default function HypoteqLoadingPopup({ isOpen, onComplete }: HypoteqLoadi
         setStepStatus(["done", "done", "active"]);
         setStepLabelIndex(2);
       }
-      if (!triggered[2] && current >= 100) {
+      if (!finished && isCompleteRef.current && current >= 100) {
+        finished = true;
         triggered[2] = true;
         setStepStatus(["done", "done", "done"]);
         setStepLabelIndex(3);
         clearInterval(interval);
-        setTimeout(handleComplete, 900);
+        setTimeout(() => {
+          if (onCompleteRef.current) {
+            onCompleteRef.current(thankYouPathRef.current);
+          } else {
+            window.location.href = thankYouPathRef.current;
+          }
+        }, 600);
       }
     }, 60);
 
     return () => clearInterval(interval);
-  }, [isOpen, handleComplete]);
+  }, [isOpen]);
 
   if (!isOpen) return null;
 

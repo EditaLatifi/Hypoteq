@@ -97,7 +97,7 @@ type SectionProps = {
       { label: t("documents.section2Doc1"), file: "/documents/Auskunftsermaechtigung-1.pdf" },
      { label: t("documents.section2Doc2"), file: "/documents/20250711_HYPOTEQ-Pouvoir-dinformation-1-1.pdf" },
       { label: t("documents.section2Doc3"), file: "/documents/20250711_HYPOTEQ-Procura-per-informazioni-1.pdf" },
-      { label: t("documents.section2Doc4"), file: "/documents/HYPOTEQ-Pouvoir-dinformation-1-1.pdf" },
+      { label: t("documents.section2Doc4"), file: "/documents/20250711_HYPOTEQ-Authorisation-for-information-1.pdf" },
     ]}
   />
 )}
