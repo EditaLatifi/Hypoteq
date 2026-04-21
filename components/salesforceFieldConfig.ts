@@ -29,7 +29,6 @@ export const SALESFORCE_CASE_FIELDS: Record<string, SFFieldType> = {
   Schenkung_usw__c: "currency",
   Einkommen__c: "currency",
   J_hrlicher_Netto_Mietertrag__c: "currency",
-  Abl_sung__c: "currency",
   Erh_hung__c: "currency",  // Mortgage increase amount (from erhoehung_betrag)
   Erh_hung_betrag__c: "currency",
   Hypothekenbedarf__c: "currency",  // Calculated mortgage need

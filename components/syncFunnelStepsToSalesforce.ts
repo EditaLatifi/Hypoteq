@@ -137,10 +137,15 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
   // Log flatData for debugging
   console.log("Flat data for mapping:", flatData);
 
-  // For Ablösung, use abloesedatum as kaufdatum and Abl_sung__c in Salesforce
-  if ((flatData.projektArt === 'abloesung' || flatData.projektArt === 'Ablösung') && flatData.abloesedatum) {
+  // Capture raw project type up front — flatData.projektArt gets rewritten to a display
+  // label ("Neue Hypothek" / "Ablösung") later, which breaks downstream lowercase checks.
+  const projektArtRaw = (flatData.projektArt || '').toLowerCase();
+  const isKauf = projektArtRaw === 'kauf' || projektArtRaw === 'neue hypothek';
+  const isAbloesung = projektArtRaw === 'abloesung' || projektArtRaw === 'ablösung';
+
+  // For Ablösung, reuse abloesedatum as kaufdatum (Kaufdatum__c is the date field)
+  if (isAbloesung && flatData.abloesedatum) {
     flatData.kaufdatum = flatData.abloesedatum;
-    flatData.abloesung_betrag = flatData.abloesedatum; // This will be mapped to Abl_sung__c
   }
 
   // Extract partner email if customerType is "partner" (doesn't create Account, just stored in Case)
@@ -264,16 +269,18 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
 
     console.log(`[Salesforce Sync] Processing person ${i + 1}: ${email} (${isJuristicPerson ? 'Company' : 'Individual'})`);
 
-    // STEP 1: Find or create Account using email as unique key (same for everyone)
-    let account = await salesforceApi.findAccountByEmail(email);
-    
+    // STEP 1: Find or create Account. Only look up by email when we actually have one —
+    // partner submissions often have no end-customer email, and querying with '' can match
+    // unrelated empty-email Accounts from prior submissions.
+    let account = email ? await salesforceApi.findAccountByEmail(email) : null;
+
     // Prepare Account data - Person Account fields for everyone (companies and individuals)
     const accountData: Record<string, any> = {
       LastName: lastName,
-      FirstName: isJuristicPerson ? firstName : firstName, // Use contact person first name for companies
-      PersonEmail: email,
-      Phone: phone,
+      FirstName: firstName,
     };
+    if (email) accountData.PersonEmail = email;
+    if (phone) accountData.Phone = phone;
    
     // Add address if available
     if (person.adresse) {
@@ -318,9 +325,8 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
       console.log(`[Salesforce Sync] Account type: ${isPersonAccount ? 'Person Account' : 'Business Account'}`);
       
       // Update existing account - LastName and FirstName cannot be updated on Person Accounts
-      const updateData: Record<string, any> = {
-        Phone: phone,
-      };
+      const updateData: Record<string, any> = {};
+      if (phone) updateData.Phone = phone;
       
       // Add address if available - use correct field based on account type
       if (person.adresse) {
@@ -480,7 +486,7 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     const sanitized = sanitizeSFValue(sfField, value);
 
     // Skip null currency fields for Ablösung-specific fields to avoid Salesforce errors
-    const isAbloesungCurrencyField = ['Abl_sung__c', 'Hypothekarbetrag__c'].includes(sfField);
+    const isAbloesungCurrencyField = sfField === 'Hypothekarbetrag__c';
     const isNullCurrency = sanitized === null && SALESFORCE_CASE_FIELDS[sfField] === "currency";
 
     if (sanitized !== undefined && !(isAbloesungCurrencyField && isNullCurrency)) {
@@ -498,7 +504,6 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
   }
 
   // Calculate and add Hypothekenbedarf, Eigenmittel %, Tragbarkeit %
-  const projektArt = flatData.projektArt?.toLowerCase();
   const kaufpreis = Number(flatData.kaufpreis || 0);
   const eigenmittel_bar = Number(flatData.eigenmittel_bar || 0);
   const eigenmittel_saeule3 = Number(flatData.eigenmittel_saeule3 || 0);
@@ -512,7 +517,7 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     console.log(`[Salesforce Sync] Total Eigenmittel: ${eigenmittel}`);
   }
 
-  if (projektArt === 'kauf') {
+  if (isKauf) {
     // Calculate mortgage need for purchase
     const hypothekenbedarf = Math.max(kaufpreis - eigenmittel, 0);
     caseData['Hypothekenbedarf__c'] = hypothekenbedarf;
@@ -535,7 +540,7 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     }
 
     console.log(`[Salesforce Sync] Calculated: Hypothekenbedarf=${hypothekenbedarf}, Eigenmittel=${eigenmittelPct}%`);
-  } else if (projektArt === 'abloesung') {
+  } else if (isAbloesung) {
     // Calculate mortgage need for refinancing
     const betrag = Number(flatData.abloesung_betrag || 0);
     const erhoehung = flatData.erhoehung === 'Ja' ? Number(flatData.erhoehung_betrag || 0) : 0;
@@ -617,10 +622,10 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
   }
 
   // Set Hypothekarvolumen__c based on project type
-  if (projektArt === 'kauf' && caseData['Hypothekenbedarf__c']) {
+  if (isKauf && caseData['Hypothekenbedarf__c']) {
     // For purchase: use calculated Hypothekenbedarf
     caseData['Hypothekarvolumen__c'] = caseData['Hypothekenbedarf__c'];
-  } else if (projektArt === 'abloesung') {
+  } else if (isAbloesung) {
     // For refinancing: use total (abloesung_betrag + hypothekarbetrag + erhoehung if applicable)
     const abloesungBetrag = Number(flatData.abloesung_betrag || 0);
     const hypothekarBetrag = Number(flatData.hypothekarbetrag || 0);

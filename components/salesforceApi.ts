@@ -65,6 +65,37 @@ export async function updatePersonAccount(id: string, fields: Record<string, any
   }
 }
 
+// Execute a Case write (create or update) and retry on INVALID_FIELD errors by stripping
+// the offending column. Some __c fields in our config may not exist in every Salesforce
+// org; rather than hard-fail, we drop them and continue so the Case still gets created.
+async function writeCaseWithFieldFallback(
+  op: (fields: Record<string, any>) => Promise<any>,
+  fields: Record<string, any>,
+  context: string,
+): Promise<any> {
+  const working = { ...fields };
+  const maxAttempts = 20;
+  for (let attempt = 0; attempt < maxAttempts; attempt++) {
+    try {
+      return await op(working);
+    } catch (error: any) {
+      const isInvalidField = error?.errorCode === 'INVALID_FIELD'
+        || error?.data?.errorCode === 'INVALID_FIELD';
+      if (!isInvalidField) throw error;
+
+      const message: string = error?.data?.message || error?.message || '';
+      const match = message.match(/No such column '([^']+)' on (?:sobject|entity) of type Case/i);
+      if (!match) throw error;
+
+      const badField = match[1];
+      if (!(badField in working)) throw error;
+      console.warn(`[Salesforce] ${context}: dropping unknown Case field '${badField}' and retrying`);
+      delete working[badField];
+    }
+  }
+  throw new Error(`[Salesforce] ${context}: exceeded INVALID_FIELD retry limit`);
+}
+
 export async function createOrUpdateCase(fields: Record<string, any>) {
   // Check if a case already exists for this account to prevent duplicates
   // Look for recent cases (created in last 5 minutes) with same AccountId
@@ -72,22 +103,30 @@ export async function createOrUpdateCase(fields: Record<string, any>) {
   if (accountId) {
     const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000).toISOString();
     const query = `SELECT Id FROM Case WHERE AccountId = '${accountId}' AND CreatedDate >= ${fiveMinutesAgo} ORDER BY CreatedDate DESC LIMIT 1`;
-    
+
     try {
       const result = await conn.query(query);
       if (result.records && result.records.length > 0) {
         const existingCaseId = result.records[0].Id as string;
         console.log(`[Salesforce] Found recent case ${existingCaseId}, updating instead of creating duplicate`);
         const updateFields = { ...fields, Id: existingCaseId };
-        return conn.sobject('Case').update(updateFields);
+        return writeCaseWithFieldFallback(
+          (f) => (conn.sobject('Case') as any).update(f),
+          updateFields,
+          `update ${existingCaseId}`,
+        );
       }
     } catch (err) {
       console.log('[Salesforce] No recent case found, creating new one');
     }
   }
-  
+
   // Create new case if no recent one exists
-  return conn.sobject('Case').create(fields);
+  return writeCaseWithFieldFallback(
+    (f) => conn.sobject('Case').create(f),
+    fields,
+    'create Case',
+  );
 }
 
 async function getPersonAccountRecordTypeId() {
