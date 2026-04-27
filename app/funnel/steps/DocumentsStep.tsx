@@ -22,6 +22,8 @@ function DocumentsStep({ borrowers, docs, setDocs, addDocument, saveStep, back }
   // Set to true only after upload + save have actually succeeded.
   // The loading popup uses this to know it's safe to animate to 100% and redirect.
   const [submitDone, setSubmitDone] = useState(false);
+  const [auskunftsermaechtigungBestaetigt, setAuskunftsermaechtigungBestaetigt] = useState(false);
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
 const { t } = useTranslation();
 const { project, email, property, financing } = useFunnelStore();
 
@@ -646,6 +648,55 @@ const uploadAllFilesToSharePoint = async () => {
       setDocs((prev: any[]) => [...prev, newDoc]);
     }
   };
+
+  const performSubmit = async () => {
+    setShowPopup(true);
+    setSubmitDone(false);
+    try {
+      await uploadAllFilesToSharePoint();
+      const payload = {
+        project,
+        property,
+        financing,
+        email,
+        borrowers,
+        docs,
+        korrespondenzsprache: korrespondenzspracheValue,
+        auskunftsermaechtigung_bestaetigt: auskunftsermaechtigungBestaetigt,
+        stage: "Needs Analysis"
+      };
+      console.log("Payload to saveStep:", payload);
+      await saveStep(payload);
+
+      // Real work succeeded — let the popup animate to 100% and fire onComplete.
+      setSubmitDone(true);
+
+      // Safety-net redirect: if the popup was unmounted (e.g. submitFinal
+      // called setStep(7)) before its onComplete could fire, force the
+      // browser to the thank-you page anyway so the user always lands
+      // on a final URL instead of a half-rendered in-page state.
+      const lang =
+        (typeof window !== "undefined" && window.location.pathname.split("/")[1]) || "de";
+      const thankYouPaths: Record<string, string> = {
+        de: "/de/danke",
+        fr: "/fr/merci",
+        it: "/it/grazie",
+        en: "/en/thank-you"
+      };
+      const redirectPath = thankYouPaths[lang] || "/de/danke";
+      setTimeout(() => {
+        if (typeof window !== "undefined" && !window.location.pathname.startsWith(redirectPath)) {
+          window.location.href = redirectPath;
+        }
+      }, 1500);
+    } catch (e) {
+      console.error("❌ Submission failed:", e);
+      setShowPopup(false);
+      setSubmitDone(false);
+      alert(t("funnel.uploadError" as any) + "\n\n" + (e as Error)?.message);
+    }
+  };
+
 return (
   <div className="w-full flex justify-center pb-3 px-4 md:px-6 lg:-mt-16 font-sfpro">
 
@@ -747,6 +798,84 @@ return (
         </div>
       )}
 
+      {/* AUSKUNFTSERMÄCHTIGUNG — Download in 4 languages, sign & upload */}
+      <div className="mb-10 md:mb-14 bg-[#FFF8E1] border-[1.5px] border-[#F9A825] rounded-lg py-4 px-5">
+        <div className="flex items-start gap-3 md:gap-4 mb-4 md:mb-5">
+          <div className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-[#F9A825] flex items-center justify-center flex-shrink-0 mt-0.5">
+            <span className="text-white font-bold text-base md:text-lg leading-none">!</span>
+          </div>
+          <div className="flex-1">
+            <h3 className="text-[16px] sm:text-[18px] md:text-[20px] font-semibold text-[#132219] leading-tight">
+              {t("funnel.auskunftsermaechtigungTitle" as any)}
+            </h3>
+            <p className="text-[13px] sm:text-[14px] md:text-[15px] text-[#132219]/80 mt-1.5 leading-relaxed">
+              {t("funnel.auskunftsermaechtigungDescription" as any)}
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 md:gap-3">
+          {[
+            {
+              flag: "/images/HYPOTEQ_documents_flag_german.png",
+              label: t("documents.section2Doc1"),
+              file: "/documents/Auskunftsermaechtigung-1.pdf",
+            },
+            {
+              flag: "/images/HYPOTEQ_documents_flag_french.png",
+              label: t("documents.section2Doc2"),
+              file: "/documents/20250711_HYPOTEQ-Pouvoir-dinformation-1-1.pdf",
+            },
+            {
+              flag: "/images/HYPOTEQ_documents_flag_italian.png",
+              label: t("documents.section2Doc3"),
+              file: "/documents/20250711_HYPOTEQ-Procura-per-informazioni-1.pdf",
+            },
+            {
+              flag: "/images/HYPOTEQ_documents_flag_english.png",
+              label: t("documents.section2Doc4"),
+              file: "/documents/20250711_HYPOTEQ-Authorisation-for-information-1.pdf",
+            },
+          ].map((doc, i) => (
+            <a
+              key={i}
+              href={doc.file}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex justify-between items-center bg-white border border-[#E0D6CC] rounded-full px-4 sm:px-5 py-2.5 sm:py-3 hover:bg-[#FFF3E0] transition-colors"
+            >
+              <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+                <img
+                  src={doc.flag}
+                  alt="language flag"
+                  className="w-5 h-5 flex-shrink-0"
+                />
+                <p className="text-[13px] sm:text-[14px] font-medium text-[#132219] leading-tight truncate">
+                  {doc.label}
+                </p>
+              </div>
+              <span className="ml-3 flex-shrink-0 bg-[#F9A825] text-white text-[10px] sm:text-[11px] font-semibold tracking-wide px-2 py-0.5 rounded">
+                PDF
+              </span>
+            </a>
+          ))}
+        </div>
+
+        {/* CONFIRMATION CHECKBOX (optional) */}
+        <label className="flex items-start gap-3 mt-4 md:mt-5 cursor-pointer select-none">
+          <input
+            type="checkbox"
+            checked={auskunftsermaechtigungBestaetigt}
+            onChange={(e) => setAuskunftsermaechtigungBestaetigt(e.target.checked)}
+            className="mt-0.5 w-4 h-4 md:w-[18px] md:h-[18px] cursor-pointer flex-shrink-0"
+            style={{ accentColor: "#132219" }}
+          />
+          <span className="text-[13px] sm:text-[14px] md:text-[15px] text-[#132219] leading-relaxed">
+            {t("funnel.auskunftsermaechtigungCheckbox" as any)}
+          </span>
+        </label>
+      </div>
+
       {/* SECTION LIST */}
       <div className="space-y-8 md:space-y-12 lg:space-y-16">
 
@@ -843,50 +972,15 @@ const saved = docs.some((d: { name: string }) => d.name === doc);
         <button
           onClick={async () => {
             if (showPopup) return;
-            setShowPopup(true);
-            setSubmitDone(false);
-            try {
-              await uploadAllFilesToSharePoint();
-              const payload = {
-                project,
-                property,
-                financing,
-                email,
-                borrowers,
-                docs,
-                korrespondenzsprache: korrespondenzspracheValue,
-                stage: "Needs Analysis"
-              };
-              console.log("Payload to saveStep:", payload);
-              await saveStep(payload);
 
-              // Real work succeeded — let the popup animate to 100% and fire onComplete.
-              setSubmitDone(true);
-
-              // Safety-net redirect: if the popup was unmounted (e.g. submitFinal
-              // called setStep(7)) before its onComplete could fire, force the
-              // browser to the thank-you page anyway so the user always lands
-              // on a final URL instead of a half-rendered in-page state.
-              const lang =
-                (typeof window !== "undefined" && window.location.pathname.split("/")[1]) || "de";
-              const thankYouPaths: Record<string, string> = {
-                de: "/de/danke",
-                fr: "/fr/merci",
-                it: "/it/grazie",
-                en: "/en/thank-you"
-              };
-              const redirectPath = thankYouPaths[lang] || "/de/danke";
-              setTimeout(() => {
-                if (typeof window !== "undefined" && !window.location.pathname.startsWith(redirectPath)) {
-                  window.location.href = redirectPath;
-                }
-              }, 1500);
-            } catch (e) {
-              console.error("❌ Submission failed:", e);
-              setShowPopup(false);
-              setSubmitDone(false);
-              alert(t("funnel.uploadError" as any) + "\n\n" + (e as Error)?.message);
+            // Soft-block: if the user hasn't confirmed the Auskunftsermächtigung,
+            // show a confirm dialog instead of submitting directly.
+            if (!auskunftsermaechtigungBestaetigt) {
+              setShowConfirmDialog(true);
+              return;
             }
+
+            await performSubmit();
           }}
           disabled={showPopup}
           className={`px-8 md:px-10 py-3 bg-[#CAF476] rounded-full font-medium text-[#132219] shadow hover:bg-[#BCDF6A] transition-colors text-sm md:text-base order-1 sm:order-2 ${showPopup ? 'opacity-60 cursor-not-allowed' : ''}`}
@@ -894,6 +988,34 @@ const saved = docs.some((d: { name: string }) => d.name === doc);
           {t("funnel.continueButton" as any)}
         </button>
       </div>
+
+      {/* AUSKUNFTSERMÄCHTIGUNG — Confirmation dialog when checkbox is unchecked */}
+      {showConfirmDialog && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 px-4">
+          <div className="bg-white rounded-2xl shadow-xl max-w-md w-full p-6 md:p-7">
+            <p className="text-[15px] md:text-[16px] text-[#132219] leading-relaxed">
+              {t("funnel.auskunftsermaechtigungConfirmDialog" as any)}
+            </p>
+            <div className="flex flex-col-reverse sm:flex-row justify-end gap-3 mt-6">
+              <button
+                onClick={() => setShowConfirmDialog(false)}
+                className="px-5 py-2.5 rounded-full border border-[#132219] text-[#132219] hover:bg-[#F7F7F7] transition-colors text-sm md:text-base"
+              >
+                {t("funnel.auskunftsermaechtigungConfirmCancel" as any)}
+              </button>
+              <button
+                onClick={async () => {
+                  setShowConfirmDialog(false);
+                  await performSubmit();
+                }}
+                className="px-5 py-2.5 rounded-full bg-[#132219] text-white hover:bg-black transition-colors text-sm md:text-base"
+              >
+                {t("funnel.auskunftsermaechtigungConfirmYes" as any)}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   </div>
 );
