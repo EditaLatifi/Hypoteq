@@ -22,8 +22,6 @@ function DocumentsStep({ borrowers, docs, setDocs, addDocument, saveStep, back }
   // Set to true only after upload + save have actually succeeded.
   // The loading popup uses this to know it's safe to animate to 100% and redirect.
   const [submitDone, setSubmitDone] = useState(false);
-  const [auskunftsermaechtigungBestaetigt, setAuskunftsermaechtigungBestaetigt] = useState(false);
-  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
 const { t } = useTranslation();
 const { project, email, property, financing } = useFunnelStore();
 
@@ -662,7 +660,6 @@ const uploadAllFilesToSharePoint = async () => {
         borrowers,
         docs,
         korrespondenzsprache: korrespondenzspracheValue,
-        auskunftsermaechtigung_bestaetigt: auskunftsermaechtigungBestaetigt,
         stage: "Needs Analysis"
       };
       console.log("Payload to saveStep:", payload);
@@ -860,20 +857,6 @@ return (
             </a>
           ))}
         </div>
-
-        {/* CONFIRMATION CHECKBOX (optional) */}
-        <label className="flex items-start gap-3 mt-4 md:mt-5 cursor-pointer select-none">
-          <input
-            type="checkbox"
-            checked={auskunftsermaechtigungBestaetigt}
-            onChange={(e) => setAuskunftsermaechtigungBestaetigt(e.target.checked)}
-            className="mt-0.5 w-4 h-4 md:w-[18px] md:h-[18px] cursor-pointer flex-shrink-0"
-            style={{ accentColor: "#132219" }}
-          />
-          <span className="text-[13px] sm:text-[14px] md:text-[15px] text-[#132219] leading-relaxed">
-            {t("funnel.auskunftsermaechtigungCheckbox" as any)}
-          </span>
-        </label>
       </div>
 
       {/* SECTION LIST */}
@@ -972,14 +955,6 @@ const saved = docs.some((d: { name: string }) => d.name === doc);
         <button
           onClick={async () => {
             if (showPopup) return;
-
-            // Soft-block: if the user hasn't confirmed the Auskunftsermächtigung,
-            // show a confirm dialog instead of submitting directly.
-            if (!auskunftsermaechtigungBestaetigt) {
-              setShowConfirmDialog(true);
-              return;
-            }
-
             await performSubmit();
           }}
           disabled={showPopup}
@@ -988,34 +963,6 @@ const saved = docs.some((d: { name: string }) => d.name === doc);
           {t("funnel.continueButton" as any)}
         </button>
       </div>
-
-      {/* AUSKUNFTSERMÄCHTIGUNG — Confirmation dialog when checkbox is unchecked */}
-      {showConfirmDialog && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 px-4">
-          <div className="bg-white rounded-2xl shadow-xl max-w-md w-full p-6 md:p-7">
-            <p className="text-[15px] md:text-[16px] text-[#132219] leading-relaxed">
-              {t("funnel.auskunftsermaechtigungConfirmDialog" as any)}
-            </p>
-            <div className="flex flex-col-reverse sm:flex-row justify-end gap-3 mt-6">
-              <button
-                onClick={() => setShowConfirmDialog(false)}
-                className="px-5 py-2.5 rounded-full border border-[#132219] text-[#132219] hover:bg-[#F7F7F7] transition-colors text-sm md:text-base"
-              >
-                {t("funnel.auskunftsermaechtigungConfirmCancel" as any)}
-              </button>
-              <button
-                onClick={async () => {
-                  setShowConfirmDialog(false);
-                  await performSubmit();
-                }}
-                className="px-5 py-2.5 rounded-full bg-[#132219] text-white hover:bg-black transition-colors text-sm md:text-base"
-              >
-                {t("funnel.auskunftsermaechtigungConfirmYes" as any)}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   </div>
 );
