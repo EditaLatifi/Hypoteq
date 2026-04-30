@@ -106,7 +106,7 @@ Nachricht:
 ${message}
 
 ---
-Eingegangen am: ${new Date().toLocaleString('de-CH')}
+Eingegangen am: ${new Date().toLocaleString('de-CH', { timeZone: 'Europe/Zurich' })}
     `;
 
     // Send email using Graph API
@@ -250,7 +250,7 @@ Nachricht:
 ${message}
 
 ---
-Eingegangen am: ${new Date().toLocaleString('de-CH')}
+Eingegangen am: ${new Date().toLocaleString('de-CH', { timeZone: 'Europe/Zurich' })}
   `;
 
   // Send email
@@ -644,7 +644,8 @@ function generateEmailHTML(
               <div class="label" style="margin-bottom: 10px;">📅 Eingegangen am</div>
               <div class="value">${new Date().toLocaleString('de-CH', {
                 dateStyle: 'full',
-                timeStyle: 'short'
+                timeStyle: 'short',
+                timeZone: 'Europe/Zurich'
               })}</div>
             </div>
           </div>

@@ -100,7 +100,7 @@ Nachricht:
 ${message}
 
 ---
-Eingegangen am: ${new Date().toLocaleString('de-CH')}
+Eingegangen am: ${new Date().toLocaleString('de-CH', { timeZone: 'Europe/Zurich' })}
     `;
 
     // Send email using Graph API
@@ -238,7 +238,7 @@ Nachricht:
 ${message}
 
 ---
-Eingegangen am: ${new Date().toLocaleString('de-CH')}
+Eingegangen am: ${new Date().toLocaleString('de-CH', { timeZone: 'Europe/Zurich' })}
   `;
 
   // Send email
@@ -566,9 +566,10 @@ function generateEmailHTML(
     <!-- Footer -->
     <div style="background-color: #f8f9fa; padding: 20px 30px; border-top: 1px solid #e0e0e0;">
       <p style="color: #666; font-size: 13px; margin: 0; text-align: center;">
-        Eingegangen am: ${new Date().toLocaleString('de-CH', { 
-          dateStyle: 'full', 
-          timeStyle: 'short' 
+        Eingegangen am: ${new Date().toLocaleString('de-CH', {
+          dateStyle: 'full',
+          timeStyle: 'short',
+          timeZone: 'Europe/Zurich'
         })}
       </p>
       <p style="color: #999; font-size: 12px; margin: 10px 0 0 0; text-align: center;">

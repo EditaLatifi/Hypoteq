@@ -514,12 +514,13 @@ function generateFunnelEmailHTML(data: any, saved: any): string {
     <div class="highlight">
       <strong>Kundentyp:</strong> ${customerTypeLabel}<br>
       <strong>Projekt:</strong> ${projektArtLabel}<br>
-      <strong>Eingegangen am:</strong> ${new Date(saved.createdAt).toLocaleString('de-CH', { 
-        year: 'numeric', 
-        month: '2-digit', 
-        day: '2-digit', 
-        hour: '2-digit', 
-        minute: '2-digit' 
+      <strong>Eingegangen am:</strong> ${new Date(saved.createdAt).toLocaleString('de-CH', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZone: 'Europe/Zurich'
       })}
     </div>
 
@@ -656,7 +657,7 @@ function generateFunnelEmailHTML(data: any, saved: any): string {
 
   <div class="footer">
     <p>Diese E-Mail wurde automatisch generiert durch das HYPOTEQ Hypotheken-Formular.</p>
-    <p>Anfrage-ID: <strong>${saved.id}</strong> | Eingegangen: ${new Date(saved.createdAt).toLocaleString('de-CH')}</p>
+    <p>Anfrage-ID: <strong>${saved.id}</strong> | Eingegangen: ${new Date(saved.createdAt).toLocaleString('de-CH', { timeZone: 'Europe/Zurich' })}</p>
     <p>© ${new Date().getFullYear()} HYPOTEQ - Alle Rechte vorbehalten</p>
   </div>
 </body>
