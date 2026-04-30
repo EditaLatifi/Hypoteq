@@ -15,7 +15,7 @@ import FunnelSidebar from "./FunnelSidebar";
 import { v4 as uuidv4 } from "uuid";
 
 export default function FunnelPage() {
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
   const {
     customerType,
     setCustomerType,
@@ -242,6 +242,7 @@ const submitFinal = async () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         customerType: latestCustomerType,
+        locale,
         client,
         project,
         property,

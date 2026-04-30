@@ -301,6 +301,7 @@ const submitFinal = async () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         customerType,
+        locale,
         email: email || client?.email,
         client,
         project,

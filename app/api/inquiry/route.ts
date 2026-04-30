@@ -66,6 +66,13 @@ export async function POST(req: Request) {
     }
 
 
+    // Resolve locale (from body, then Accept-Language, then default)
+    const supportedLocales = ['de', 'fr', 'it', 'en'] as const;
+    type Locale = typeof supportedLocales[number];
+    const headerLang = (req.headers.get('accept-language') || '').substring(0, 2).toLowerCase();
+    const rawLocale = (data.locale || headerLang || 'de').toLowerCase();
+    const locale: Locale = (supportedLocales as readonly string[]).includes(rawLocale) ? rawLocale as Locale : 'de';
+
     // Only send email notification, do not save to database
     try {
       const now = new Date();
@@ -74,7 +81,8 @@ export async function POST(req: Request) {
         {
           id: data.id || Math.random().toString(36).substring(2, 10), // fallback if no id
           createdAt: now.toISOString(),
-        }
+        },
+        locale
       );
       console.log("✅ Email notification sent successfully");
     } catch (emailError) {
@@ -96,7 +104,7 @@ export async function POST(req: Request) {
     // Send auto-response to customer
     try {
       if (data.client?.email) {
-        await sendFunnelAutoResponse(data.client.email, data.client.firstName || data.client.vorname || '');
+        await sendFunnelAutoResponse(data.client.email, data.client.firstName || data.client.vorname || '', locale);
         console.log("✅ Auto-response sent to customer");
       }
     } catch (autoResponseError) {
@@ -283,11 +291,13 @@ export async function POST(req: Request) {
   }
 }
 
+type EmailLocale = 'de' | 'fr' | 'it' | 'en';
+
 // Send email notification for funnel submission
-async function sendFunnelNotificationEmail(data: any, saved: any) {
-  const useGraph = process.env.USE_GRAPH === "true" && 
-                   process.env.GRAPH_TENANT_ID && 
-                   process.env.GRAPH_CLIENT_ID && 
+async function sendFunnelNotificationEmail(data: any, saved: any, locale: EmailLocale = 'de') {
+  const useGraph = process.env.USE_GRAPH === "true" &&
+                   process.env.GRAPH_TENANT_ID &&
+                   process.env.GRAPH_CLIENT_ID &&
                    process.env.GRAPH_CLIENT_SECRET;
 
   if (!useGraph) {
@@ -312,8 +322,10 @@ async function sendFunnelNotificationEmail(data: any, saved: any) {
     },
   });
 
-  const emailHTML = generateFunnelEmailHTML(data, saved);
-  const subject = `Neue Hypothekanfrage ${data.customerType === 'partner' ? '(Partner)' : '(Direkt)'} - ID: ${saved.id}`;
+  const emailHTML = generateFunnelEmailHTML(data, saved, locale);
+  const L = EMAIL_LABELS[locale];
+  const customerTag = data.customerType === 'partner' ? L.customerType_partner : L.customerType_direct;
+  const subject = `${L.subject} (${customerTag}) - ID: ${saved.id}`;
 
   const sendMail = {
     message: {
@@ -345,320 +357,866 @@ async function sendFunnelNotificationEmail(data: any, saved: any) {
   await client.api(`/users/${sendAsUser}/sendMail`).post(sendMail);
 }
 
+/* ==========================================================================
+ * EMAIL LOCALIZATION
+ * Labels keyed by locale (de | fr | it | en). Every label used by the email
+ * must exist in all four locales — keep them in sync.
+ * ======================================================================== */
+const EMAIL_LABELS = {
+  de: {
+    subject: 'Neue Hypothekanfrage',
+    customerType_partner: 'Partner',
+    customerType_direct: 'Direktkunde',
+    customerType_unknown: 'Unbekannt',
+    inquiryId: 'Anfrage-ID',
+    receivedAt: 'Eingegangen am',
+    locale: 'de-CH',
+    section_summary: 'Übersicht',
+    section_client: 'Kundendaten',
+    section_project: 'Projektinformationen',
+    section_property: 'Immobiliendetails',
+    section_financing: 'Finanzierungsdetails',
+    section_borrowers: 'Kreditnehmer',
+    section_companies: 'Firmen / Juristische Personen',
+    section_offers: 'Finanzierungsangebote',
+    section_calc: 'Berechnete Werte',
+    customerType: 'Kundentyp',
+    projectType: 'Projektart',
+    firstName: 'Vorname',
+    lastName: 'Nachname',
+    email: 'E-Mail',
+    phone: 'Telefon',
+    zip: 'PLZ',
+    company: 'Firma',
+    partnerEmail: 'Partner E-Mail',
+    plzLiegenschaft: 'PLZ Liegenschaft',
+    kreditnehmerTyp: 'Kreditnehmer Typ',
+    artImmobilie: 'Art der Immobilie',
+    neubauArt: 'Neubau Art',
+    artLiegenschaft: 'Art der Liegenschaft',
+    nutzung: 'Nutzung',
+    renovation: 'Renovation',
+    renovationsBetrag: 'Renovationsbetrag',
+    reserviert: 'Reserviert',
+    finanzierungsangebote: 'Finanzierungsangebote',
+    offerN: 'Angebot',
+    bank: 'Bank',
+    interestRate: 'Zinssatz',
+    term: 'Laufzeit',
+    kaufpreis: 'Kaufpreis',
+    abloesungBetrag: 'Ablösungsbetrag',
+    eigenmittelBreakdown: 'Eigenmittel Aufschlüsselung',
+    eigenmittel_bar: 'Barmittel',
+    eigenmittel_saeule3: '3. Säule',
+    eigenmittel_pk: 'Pensionskasse',
+    eigenmittel_schenkung: 'Schenkung/Andere',
+    eigenmittel_total: 'Total Eigenmittel',
+    pkVorbezug: 'PK Vorbezug',
+    hypoBetrag: 'Hypothekenbetrag',
+    modell: 'Hypothekarlaufzeiten',
+    einkommen: 'Brutto-Jahreseinkommen',
+    brutto: 'Brutto-Einkommen',
+    bonus: 'Bonus',
+    nettoMietertrag: 'Jährlicher Netto-Mietertrag',
+    steueroptimierung: 'Steueroptimierung',
+    kaufdatum: 'Kaufdatum',
+    erhoehung: 'Erhöhung',
+    erhoehungBetrag: 'Erhöhungsbetrag',
+    abloesedatum: 'Ablösedatum',
+    kommentar: 'Kommentar',
+    borrowerN: 'Kreditnehmer',
+    companyN: 'Firma',
+    companyName: 'Firmenname',
+    birthdate: 'Geburtsdatum',
+    civilStatus: 'Zivilstand',
+    employment: 'Erwerbsstatus',
+    type: 'Typ',
+    job: 'Beruf',
+    typ_nat: 'Natürliche Person',
+    typ_jur: 'Juristische Person',
+    typ_partner: 'Partner',
+    artImmobilie_neubau: 'Neubau',
+    artImmobilie_bestehend: 'Bestehende Immobilie',
+    artImmobilie_bestandsobjekt: 'Bestandsobjekt',
+    artImmobilie_rendite: 'Rendite-Immobilie',
+    neubauArt_bereits_erstellt: 'Bereits erstellt',
+    neubauArt_im_bau: 'Im Bau',
+    neubauArt_geplant: 'Geplant',
+    neubauArt_bauprojekt: 'Bauprojekt',
+    projektArt_kauf: 'Kauf',
+    projektArt_abloesung: 'Ablösung',
+    modell_saron: 'SARON',
+    modell_mix: 'Mix',
+    yearsSingular: 'Jahr',
+    yearsPlural: 'Jahre',
+    yes: 'Ja',
+    no: 'Nein',
+    notProvided: '-',
+    calc_totalMortgage: 'Geschätzter Hypothekenbetrag',
+    calc_ownFunds: 'Eigenmittel',
+    calc_equityRatio: 'Eigenmittelquote',
+    calc_ltv: 'Belehnung (LTV)',
+    calc_affordability: 'Tragbarkeit',
+    calc_eligible: 'Finanzierung möglich',
+    calc_notEligible: 'Nicht tragbar',
+    calc_increase: 'Erhöhung',
+    calc_currentMortgage: 'Aktuelle Hypothek',
+    footer_disclaimer: 'Diese E-Mail wurde automatisch generiert durch das HYPOTEQ Hypotheken-Formular.',
+    footer_rights: 'Alle Rechte vorbehalten',
+  },
+  fr: {
+    subject: 'Nouvelle demande hypothécaire',
+    customerType_partner: 'Partenaire',
+    customerType_direct: 'Client direct',
+    customerType_unknown: 'Inconnu',
+    inquiryId: 'ID de la demande',
+    receivedAt: 'Reçue le',
+    locale: 'fr-CH',
+    section_summary: 'Aperçu',
+    section_client: 'Données du client',
+    section_project: 'Informations du projet',
+    section_property: 'Détails du bien',
+    section_financing: 'Détails du financement',
+    section_borrowers: 'Emprunteurs',
+    section_companies: 'Entreprises / Personnes morales',
+    section_offers: 'Offres de financement',
+    section_calc: 'Valeurs calculées',
+    customerType: 'Type de client',
+    projectType: 'Type de projet',
+    firstName: 'Prénom',
+    lastName: 'Nom',
+    email: 'E-mail',
+    phone: 'Téléphone',
+    zip: 'NPA',
+    company: 'Entreprise',
+    partnerEmail: 'E-mail partenaire',
+    plzLiegenschaft: 'NPA du bien',
+    kreditnehmerTyp: "Type d'emprunteur",
+    artImmobilie: 'Type de bien',
+    neubauArt: 'Type de construction neuve',
+    artLiegenschaft: 'Type de propriété',
+    nutzung: 'Utilisation',
+    renovation: 'Rénovation',
+    renovationsBetrag: 'Montant des rénovations',
+    reserviert: 'Réservé',
+    finanzierungsangebote: 'Offres de financement',
+    offerN: 'Offre',
+    bank: 'Banque',
+    interestRate: "Taux d'intérêt",
+    term: 'Durée',
+    kaufpreis: "Prix d'achat",
+    abloesungBetrag: 'Montant à refinancer',
+    eigenmittelBreakdown: 'Détail des fonds propres',
+    eigenmittel_bar: '💵 Liquidités',
+    eigenmittel_saeule3: '🏦 3e pilier',
+    eigenmittel_pk: '💼 Caisse de pension',
+    eigenmittel_schenkung: '🎁 Donation/Autre',
+    eigenmittel_total: 'Total des fonds propres',
+    pkVorbezug: 'Retrait LPP',
+    hypoBetrag: 'Montant hypothécaire',
+    modell: 'Durées hypothécaires',
+    einkommen: 'Revenu annuel brut',
+    brutto: 'Revenu brut',
+    bonus: 'Bonus',
+    nettoMietertrag: 'Revenu locatif net annuel',
+    steueroptimierung: 'Optimisation fiscale',
+    kaufdatum: "Date d'achat",
+    erhoehung: 'Augmentation',
+    erhoehungBetrag: "Montant de l'augmentation",
+    abloesedatum: 'Date de refinancement',
+    kommentar: 'Commentaire',
+    borrowerN: 'Emprunteur',
+    companyN: 'Entreprise',
+    companyName: "Nom de l'entreprise",
+    birthdate: 'Date de naissance',
+    civilStatus: 'État civil',
+    employment: 'Statut professionnel',
+    type: 'Type',
+    job: 'Profession',
+    typ_nat: 'Personne physique',
+    typ_jur: 'Personne morale',
+    typ_partner: 'Partenaire',
+    artImmobilie_neubau: 'Construction neuve',
+    artImmobilie_bestehend: 'Bien existant',
+    artImmobilie_bestandsobjekt: 'Bien existant',
+    artImmobilie_rendite: 'Bien de rendement',
+    neubauArt_bereits_erstellt: 'Déjà construit',
+    neubauArt_im_bau: 'En construction',
+    neubauArt_geplant: 'Planifié',
+    neubauArt_bauprojekt: 'Projet de construction',
+    projektArt_kauf: 'Achat',
+    projektArt_abloesung: 'Refinancement',
+    modell_saron: 'SARON',
+    modell_mix: 'Mix',
+    yearsSingular: 'an',
+    yearsPlural: 'ans',
+    yes: 'Oui',
+    no: 'Non',
+    notProvided: '-',
+    calc_totalMortgage: 'Montant hypothécaire estimé',
+    calc_ownFunds: 'Fonds propres',
+    calc_equityRatio: 'Ratio de fonds propres',
+    calc_ltv: 'Quotité (LTV)',
+    calc_affordability: 'Tenue des charges',
+    calc_eligible: 'Financement possible',
+    calc_notEligible: 'Non admissible',
+    calc_increase: 'Augmentation',
+    calc_currentMortgage: 'Hypothèque actuelle',
+    footer_disclaimer: "Cet e-mail a été généré automatiquement par le formulaire hypothécaire HYPOTEQ.",
+    footer_rights: 'Tous droits réservés',
+  },
+  it: {
+    subject: 'Nuova richiesta ipotecaria',
+    customerType_partner: 'Partner',
+    customerType_direct: 'Cliente diretto',
+    customerType_unknown: 'Sconosciuto',
+    inquiryId: 'ID richiesta',
+    receivedAt: 'Ricevuta il',
+    locale: 'it-CH',
+    section_summary: 'Panoramica',
+    section_client: 'Dati cliente',
+    section_project: 'Informazioni progetto',
+    section_property: 'Dettagli immobile',
+    section_financing: 'Dettagli finanziamento',
+    section_borrowers: 'Mutuatari',
+    section_companies: 'Aziende / Persone giuridiche',
+    section_offers: 'Offerte di finanziamento',
+    section_calc: 'Valori calcolati',
+    customerType: 'Tipo di cliente',
+    projectType: 'Tipo di progetto',
+    firstName: 'Nome',
+    lastName: 'Cognome',
+    email: 'E-mail',
+    phone: 'Telefono',
+    zip: 'CAP',
+    company: 'Azienda',
+    partnerEmail: 'E-mail partner',
+    plzLiegenschaft: 'CAP immobile',
+    kreditnehmerTyp: 'Tipo di mutuatario',
+    artImmobilie: 'Tipo di immobile',
+    neubauArt: 'Tipo di nuova costruzione',
+    artLiegenschaft: 'Tipo di proprietà',
+    nutzung: 'Utilizzo',
+    renovation: 'Ristrutturazione',
+    renovationsBetrag: 'Importo ristrutturazione',
+    reserviert: 'Riservato',
+    finanzierungsangebote: 'Offerte di finanziamento',
+    offerN: 'Offerta',
+    bank: 'Banca',
+    interestRate: 'Tasso di interesse',
+    term: 'Durata',
+    kaufpreis: "Prezzo d'acquisto",
+    abloesungBetrag: 'Importo da rifinanziare',
+    eigenmittelBreakdown: 'Dettaglio mezzi propri',
+    eigenmittel_bar: '💵 Liquidità',
+    eigenmittel_saeule3: '🏦 3° pilastro',
+    eigenmittel_pk: '💼 Cassa pensione',
+    eigenmittel_schenkung: '🎁 Donazione/Altro',
+    eigenmittel_total: 'Totale mezzi propri',
+    pkVorbezug: 'Prelievo LPP',
+    hypoBetrag: 'Importo ipoteca',
+    modell: 'Durate ipotecarie',
+    einkommen: 'Reddito annuo lordo',
+    brutto: 'Reddito lordo',
+    bonus: 'Bonus',
+    nettoMietertrag: 'Reddito locativo netto annuo',
+    steueroptimierung: 'Ottimizzazione fiscale',
+    kaufdatum: "Data d'acquisto",
+    erhoehung: 'Aumento',
+    erhoehungBetrag: "Importo dell'aumento",
+    abloesedatum: 'Data di rifinanziamento',
+    kommentar: 'Commento',
+    borrowerN: 'Mutuatario',
+    companyN: 'Azienda',
+    companyName: "Nome dell'azienda",
+    birthdate: 'Data di nascita',
+    civilStatus: 'Stato civile',
+    employment: 'Stato professionale',
+    type: 'Tipo',
+    job: 'Professione',
+    typ_nat: 'Persona fisica',
+    typ_jur: 'Persona giuridica',
+    typ_partner: 'Partner',
+    artImmobilie_neubau: 'Nuova costruzione',
+    artImmobilie_bestehend: 'Immobile esistente',
+    artImmobilie_bestandsobjekt: 'Immobile esistente',
+    artImmobilie_rendite: 'Immobile di reddito',
+    neubauArt_bereits_erstellt: 'Già costruito',
+    neubauArt_im_bau: 'In costruzione',
+    neubauArt_geplant: 'Pianificato',
+    neubauArt_bauprojekt: 'Progetto edilizio',
+    projektArt_kauf: 'Acquisto',
+    projektArt_abloesung: 'Rifinanziamento',
+    modell_saron: 'SARON',
+    modell_mix: 'Mix',
+    yearsSingular: 'anno',
+    yearsPlural: 'anni',
+    yes: 'Sì',
+    no: 'No',
+    notProvided: '-',
+    calc_totalMortgage: 'Importo ipotecario stimato',
+    calc_ownFunds: 'Mezzi propri',
+    calc_equityRatio: 'Quota di mezzi propri',
+    calc_ltv: 'Rapporto di copertura (LTV)',
+    calc_affordability: 'Sostenibilità',
+    calc_eligible: 'Finanziamento possibile',
+    calc_notEligible: 'Non idoneo',
+    calc_increase: 'Aumento',
+    calc_currentMortgage: 'Ipoteca attuale',
+    footer_disclaimer: "Questa e-mail è stata generata automaticamente dal modulo ipotecario HYPOTEQ.",
+    footer_rights: 'Tutti i diritti riservati',
+  },
+  en: {
+    subject: 'New mortgage request',
+    customerType_partner: 'Partner',
+    customerType_direct: 'Direct customer',
+    customerType_unknown: 'Unknown',
+    inquiryId: 'Inquiry ID',
+    receivedAt: 'Received at',
+    locale: 'en-CH',
+    section_summary: 'Summary',
+    section_client: 'Customer data',
+    section_project: 'Project information',
+    section_property: 'Property details',
+    section_financing: 'Financing details',
+    section_borrowers: 'Borrowers',
+    section_companies: 'Companies / Legal entities',
+    section_offers: 'Financing offers',
+    section_calc: 'Calculated values',
+    customerType: 'Customer type',
+    projectType: 'Project type',
+    firstName: 'First name',
+    lastName: 'Last name',
+    email: 'Email',
+    phone: 'Phone',
+    zip: 'ZIP',
+    company: 'Company',
+    partnerEmail: 'Partner email',
+    plzLiegenschaft: 'Property ZIP',
+    kreditnehmerTyp: 'Borrower type',
+    artImmobilie: 'Property type',
+    neubauArt: 'New build type',
+    artLiegenschaft: 'Real-estate type',
+    nutzung: 'Usage',
+    renovation: 'Renovation',
+    renovationsBetrag: 'Renovation amount',
+    reserviert: 'Reserved',
+    finanzierungsangebote: 'Financing offers',
+    offerN: 'Offer',
+    bank: 'Bank',
+    interestRate: 'Interest rate',
+    term: 'Term',
+    kaufpreis: 'Purchase price',
+    abloesungBetrag: 'Refinancing amount',
+    eigenmittelBreakdown: 'Equity breakdown',
+    eigenmittel_bar: 'Cash',
+    eigenmittel_saeule3: 'Pillar 3a',
+    eigenmittel_pk: 'Pension fund',
+    eigenmittel_schenkung: 'Gift/Other',
+    eigenmittel_total: 'Total equity',
+    pkVorbezug: 'Pension-fund withdrawal',
+    hypoBetrag: 'Mortgage amount',
+    modell: 'Mortgage terms',
+    einkommen: 'Gross annual income',
+    brutto: 'Gross income',
+    bonus: 'Bonus',
+    nettoMietertrag: 'Annual net rental income',
+    steueroptimierung: 'Tax optimisation',
+    kaufdatum: 'Purchase date',
+    erhoehung: 'Increase',
+    erhoehungBetrag: 'Increase amount',
+    abloesedatum: 'Refinancing date',
+    kommentar: 'Comment',
+    borrowerN: 'Borrower',
+    companyN: 'Company',
+    companyName: 'Company name',
+    birthdate: 'Date of birth',
+    civilStatus: 'Civil status',
+    employment: 'Employment status',
+    type: 'Type',
+    job: 'Profession',
+    typ_nat: 'Natural person',
+    typ_jur: 'Legal entity',
+    typ_partner: 'Partner',
+    artImmobilie_neubau: 'New build',
+    artImmobilie_bestehend: 'Existing property',
+    artImmobilie_bestandsobjekt: 'Existing property',
+    artImmobilie_rendite: 'Investment property',
+    neubauArt_bereits_erstellt: 'Already built',
+    neubauArt_im_bau: 'Under construction',
+    neubauArt_geplant: 'Planned',
+    neubauArt_bauprojekt: 'Building project',
+    projektArt_kauf: 'Purchase',
+    projektArt_abloesung: 'Refinancing',
+    modell_saron: 'SARON',
+    modell_mix: 'Mix',
+    yearsSingular: 'year',
+    yearsPlural: 'years',
+    yes: 'Yes',
+    no: 'No',
+    notProvided: '-',
+    calc_totalMortgage: 'Estimated mortgage amount',
+    calc_ownFunds: 'Own funds',
+    calc_equityRatio: 'Equity ratio',
+    calc_ltv: 'Loan-to-value (LTV)',
+    calc_affordability: 'Affordability',
+    calc_eligible: 'Financing possible',
+    calc_notEligible: 'Not eligible',
+    calc_increase: 'Increase',
+    calc_currentMortgage: 'Current mortgage',
+    footer_disclaimer: 'This email was generated automatically by the HYPOTEQ mortgage form.',
+    footer_rights: 'All rights reserved',
+  },
+} as const;
+
+type LabelDict = typeof EMAIL_LABELS[EmailLocale];
+
+// "-" fallback for empty/missing values
+function dash(value: any, L: LabelDict): string {
+  if (value === null || value === undefined) return L.notProvided;
+  const s = String(value).trim();
+  return s === '' ? L.notProvided : s;
+}
+
+function chf(value: any, L: LabelDict, localeStr: string): string {
+  const n = Number(value);
+  if (!value || isNaN(n) || n === 0) return L.notProvided;
+  return `CHF ${n.toLocaleString(localeStr)}`;
+}
+
+function yesNo(value: any, L: LabelDict): string {
+  if (value === null || value === undefined || value === '') return L.notProvided;
+  const v = String(value).toLowerCase();
+  if (v === 'ja' || v === 'oui' || v === 'sì' || v === 'si' || v === 'yes' || v === 'true') return L.yes;
+  if (v === 'nein' || v === 'non' || v === 'no' || v === 'false') return L.no;
+  return String(value);
+}
+
+function modellLabel(value: any, L: LabelDict): string {
+  if (!value) return L.notProvided;
+  const v = String(value).toLowerCase();
+  if (v === 'saron') return L.modell_saron;
+  if (v === 'mix') return L.modell_mix;
+  const n = Number(v);
+  if (!isNaN(n) && n > 0) return `${n} ${n === 1 ? L.yearsSingular : L.yearsPlural}`;
+  return String(value);
+}
+
+function artImmobilieLabel(value: any, L: LabelDict): string {
+  if (!value) return L.notProvided;
+  const v = String(value).toLowerCase();
+  switch (v) {
+    case 'neubau': return L.artImmobilie_neubau;
+    case 'bestehend': return L.artImmobilie_bestehend;
+    case 'bestandsobjekt': return L.artImmobilie_bestandsobjekt;
+    case 'rendite': return L.artImmobilie_rendite;
+    default: return String(value);
+  }
+}
+
+function neubauArtLabel(value: any, L: LabelDict): string {
+  if (!value) return L.notProvided;
+  const v = String(value).toLowerCase();
+  switch (v) {
+    case 'bereits_erstellt': return L.neubauArt_bereits_erstellt;
+    case 'im_bau': return L.neubauArt_im_bau;
+    case 'geplant': return L.neubauArt_geplant;
+    case 'bauprojekt': return L.neubauArt_bauprojekt;
+    default: return String(value);
+  }
+}
+
+function typLabel(value: any, L: LabelDict): string {
+  if (!value) return L.notProvided;
+  const v = String(value).toLowerCase();
+  switch (v) {
+    case 'nat': return L.typ_nat;
+    case 'jur': return L.typ_jur;
+    case 'partner': return L.typ_partner;
+    default: return String(value);
+  }
+}
+
+function projektArtLabel(value: any, L: LabelDict): string {
+  if (!value) return L.notProvided;
+  const v = String(value).toLowerCase();
+  if (v === 'kauf') return L.projektArt_kauf;
+  if (v === 'abloesung') return L.projektArt_abloesung;
+  return String(value);
+}
+
+// Build a single-row HTML <tr>. Always renders, using "-" for empty.
+function row(label: string, value: string): string {
+  return `<tr><td>${label}:</td><td>${value}</td></tr>`;
+}
+
+/* ==========================================================================
+ * CALCULATOR — server-side replication of components/funnelCalc.tsx
+ * Returns a result object or null when calculator should not be shown
+ * (e.g. Rendite-Immobilie). Mirrors the formulas exactly.
+ * ======================================================================== */
+function computeFunnelCalc(data: any): null | {
+  type: 'kauf' | 'abloesung';
+  isJur: boolean;
+  totalMortgage: number;
+  ownFunds: number;
+  equityRatio: number;
+  ltv: number;
+  affordability: number;
+  eligible: boolean;
+} {
+  const STRESS_RATE = 0.05;
+  const MAINTENANCE_RATE = 0.008;
+  const AFFORDABILITY_THRESHOLD = 0.35;
+
+  const projektArt = String(data.project?.projektArt || '').toLowerCase();
+  const borrowerType = data.borrowers?.[0]?.type;
+  const isJur = borrowerType === 'jur';
+  const nutzung = data.property?.nutzung || data.financing?.nutzung || '';
+
+  const isRendite =
+    nutzung === 'Rendite-Immobilie' ||
+    String(nutzung).toLowerCase().includes('rendite') ||
+    String(nutzung).toLowerCase().includes('investment');
+  if (isRendite) return null;
+
+  const isZweitwohnsitz =
+    String(nutzung).toLowerCase().includes('zweit') ||
+    String(nutzung).toLowerCase().includes('ferien') ||
+    String(nutzung).toLowerCase().includes('secondary');
+  const isPrimaryResidence = !isZweitwohnsitz;
+
+  const ltvLimit = isPrimaryResidence ? 0.8 : 0.65;
+  const minEquityPct = isPrimaryResidence ? 0.2 : 0.35;
+
+  const f = data.financing || {};
+
+  if (projektArt === 'kauf') {
+    const propertyPrice = Number(f.kaufpreis || 0);
+    if (propertyPrice <= 0) return null;
+    const ownFunds = isJur
+      ? Number(f.eigenmittel_bar || 0)
+      : Number(f.eigenmittel_bar || 0) +
+        Number(f.eigenmittel_saeule3 || 0) +
+        Number(f.eigenmittel_pk || 0) +
+        Number(f.eigenmittel_schenkung || 0);
+    const totalMortgage = Math.max(0, propertyPrice - ownFunds);
+    const ltv = propertyPrice > 0 ? totalMortgage / propertyPrice : 0;
+    const equityRatio = propertyPrice > 0 ? ownFunds / propertyPrice : 0;
+    const ltvOk = ltv <= ltvLimit;
+    const equityOk = equityRatio >= minEquityPct;
+
+    let affordability = 0;
+    let affordabilityOk = true;
+    if (!isJur) {
+      const grossIncome = Number(f.brutto || 0) + Number(f.bonus || 0);
+      const affordabilityCHF = isPrimaryResidence
+        ? totalMortgage * (STRESS_RATE + MAINTENANCE_RATE + (0.8 - 0.6667) / 15)
+        : totalMortgage * (STRESS_RATE + MAINTENANCE_RATE);
+      affordability = grossIncome > 0 ? affordabilityCHF / grossIncome : 0;
+      affordabilityOk = affordability <= AFFORDABILITY_THRESHOLD;
+    }
+
+    return {
+      type: 'kauf',
+      isJur,
+      totalMortgage,
+      ownFunds,
+      equityRatio,
+      ltv,
+      affordability,
+      eligible: ltvOk && equityOk && affordabilityOk,
+    };
+  }
+
+  if (projektArt === 'abloesung') {
+    const existingMortgage = Number(f.abloesung_betrag || 0);
+    const mortgageIncrease = String(f.erhoehung).toLowerCase() === 'ja' || String(f.erhoehung).toLowerCase() === 'yes'
+      ? Number(f.erhoehung_betrag || 0)
+      : 0;
+    const totalMortgage = existingMortgage + mortgageIncrease;
+    if (totalMortgage <= 0) return null;
+    const propertyValue = Number(f.immobilienwert || 0) || Number(f.kaufpreis || 0);
+    const ltv = propertyValue > 0 ? totalMortgage / propertyValue : 0;
+    const ltvOk = propertyValue > 0 ? ltv <= ltvLimit : true;
+
+    let affordability = 0;
+    let affordabilityOk = true;
+    if (!isJur) {
+      const grossIncome = Number(f.brutto || 0) + Number(f.bonus || 0);
+      const affordabilityCHF = isPrimaryResidence
+        ? totalMortgage * (STRESS_RATE + MAINTENANCE_RATE + (0.8 - 0.6667) / 15)
+        : totalMortgage * (STRESS_RATE + MAINTENANCE_RATE);
+      affordability = grossIncome > 0 ? affordabilityCHF / grossIncome : 0;
+      affordabilityOk = affordability <= AFFORDABILITY_THRESHOLD;
+    }
+
+    return {
+      type: 'abloesung',
+      isJur,
+      totalMortgage,
+      ownFunds: 0,
+      equityRatio: 0,
+      ltv,
+      affordability,
+      eligible: ltvOk && affordabilityOk,
+    };
+  }
+
+  return null;
+}
+
 // Generate HTML email template for funnel submission
-function generateFunnelEmailHTML(data: any, saved: any): string {
-      // Mapping for borrower type
-      const typLabels: Record<string, string> = {
-        nat: 'Natürliche Person',
-        jur: 'Juristische Person',
-        partner: 'Partner',
-      };
-      // Mapping for finanzierungsmodell
-      const finanzierungsmodellLabels: Record<string, string> = {
-        saron: 'SARON',
-        mix: 'Mix',
-        '1': '1 Jahr',
-        '2': '2 Jahre',
-        '3': '3 Jahre',
-        '4': '4 Jahre',
-        '5': '5 Jahre',
-        '6': '6 Jahre',
-        '7': '7 Jahre',
-        '8': '8 Jahre',
-        '9': '9 Jahre',
-        '10': '10 Jahre',
-      };
-    // Mapping for property fields
-    const artImmobilieLabels: Record<string, string> = {
-      neubau: 'Neubau',
-      bestandsobjekt: 'Bestandsobjekt',
-      rendite: 'Rendite-Immobilie',
-      bestehend: 'Bestehende Immobilie',
-      // add more as needed
-    };
-    const neubauArtLabels: Record<string, string> = {
-      bereits_erstellt: 'Bereits erstellt',
-      im_bau: 'Im Bau',
-      geplant: 'Geplant',
-      // add more as needed
-    };
+function generateFunnelEmailHTML(data: any, saved: any, locale: EmailLocale = 'de'): string {
+  const L = EMAIL_LABELS[locale];
+  const localeStr = L.locale;
 
-  const customerTypeLabel = data.customerType === 'partner' ? 'Partner' : data.customerType === 'direct' ? 'Direktkunde' : 'Unbekannt';
-  const projektArtLabel = data.project?.projektArt === 'kauf' ? 'Kauf' : data.project?.projektArt === 'abloesung' ? 'Ablösung' : 'Nicht angegeben';
-  
-  // Format borrowers/kreditnehmer from property
-  const kreditnehmerHTML = (data.property?.kreditnehmer || []).map((kn: any, index: number) => `
-    <tr>
-      <td style="padding: 8px; background-color: #f9f9f9;"><strong>Kreditnehmer ${index + 1}:</strong></td>
-      <td style="padding: 8px; background-color: #f9f9f9;">${kn.vorname || ''} ${kn.name || ''}</td>
-    </tr>
-    ${kn.id ? `<tr><td style="padding: 8px; padding-left: 20px;">ID:</td><td style="padding: 8px;">${kn.id}</td></tr>` : ''}
-    ${kn.geburtsdatum ? `<tr><td style="padding: 8px; padding-left: 20px;">Geburtsdatum:</td><td style="padding: 8px;">${kn.geburtsdatum}</td></tr>` : ''}
-    ${kn.erwerb ? `<tr><td style="padding: 8px; padding-left: 20px;">Erwerbsstatus:</td><td style="padding: 8px;">${kn.erwerb}</td></tr>` : ''}
-    ${kn.status ? `<tr><td style="padding: 8px; padding-left: 20px;">Status:</td><td style="padding: 8px;">${kn.status}</td></tr>` : ''}
-  `).join('');
+  const customerTypeLabel =
+    data.customerType === 'partner' ? L.customerType_partner :
+    data.customerType === 'direct' ? L.customerType_direct :
+    L.customerType_unknown;
 
-  // Format firmen (for Juristische Person)
-  const firmenHTML = (data.property?.firmen || []).filter((f: any) => f.firmenname).map((firma: any, index: number) => `
-    <tr>
-      <td style="padding: 8px; background-color: #f9f9f9;"><strong>Firma ${index + 1}:</strong></td>
-      <td style="padding: 8px; background-color: #f9f9f9;">${firma.firmenname}</td>
-    </tr>
-  `).join('');
+  const projektLabel = projektArtLabel(data.project?.projektArt, L);
+  const c = data.client || {};
+  const p = data.project || {};
+  const pr = data.property || {};
+  const f = data.financing || {};
 
-  // Format financing offers from angeboteListe
-  const angeboteHTML = (data.property?.angeboteListe || []).map((offer: string, index: number) => `
-    <tr>
-      <td style="padding: 8px; padding-left: 20px;">Angebot ${index + 1}:</td>
-      <td style="padding: 8px;">${offer}</td>
-    </tr>
-  `).join('');
+  // Borrowers/kreditnehmer rows from property.kreditnehmer
+  const kreditnehmerList: any[] = Array.isArray(pr.kreditnehmer) ? pr.kreditnehmer : [];
+  const kreditnehmerHTML = kreditnehmerList.length === 0
+    ? `<tr><td colspan="2">${L.notProvided}</td></tr>`
+    : kreditnehmerList.map((kn: any, i: number) => `
+        <tr><td colspan="2" style="background-color: #f9f9f9; font-weight: 600; padding: 12px;">${L.borrowerN} ${i + 1}</td></tr>
+        ${row(`&nbsp;&nbsp;${L.firstName}`, dash(kn.vorname || kn.firstName, L))}
+        ${row(`&nbsp;&nbsp;${L.lastName}`, dash(kn.name || kn.lastName, L))}
+        ${row(`&nbsp;&nbsp;${L.email}`, dash(kn.email, L))}
+        ${row(`&nbsp;&nbsp;${L.phone}`, dash(kn.telefon || kn.phone, L))}
+        ${row(`&nbsp;&nbsp;${L.birthdate}`, dash(kn.geburtsdatum || kn.birthdate, L))}
+        ${row(`&nbsp;&nbsp;${L.employment}`, dash(kn.erwerb || kn.job, L))}
+        ${row(`&nbsp;&nbsp;${L.civilStatus}`, dash(kn.zivilstand || kn.civil, L))}
+      `).join('');
 
-  // Calculate total Eigenmittel
-  const totalEigenmittel = 
-    Number(data.financing?.eigenmittel_bar || 0) +
-    Number(data.financing?.eigenmittel_saeule3 || 0) +
-    Number(data.financing?.eigenmittel_pk || 0) +
-    Number(data.financing?.eigenmittel_schenkung || 0);
+  // Companies (juristische Personen)
+  const firmenList: any[] = Array.isArray(pr.firmen) ? pr.firmen : [];
+  const firmenHTML = firmenList.length === 0
+    ? `<tr><td colspan="2">${L.notProvided}</td></tr>`
+    : firmenList.map((firma: any, i: number) => `
+        <tr><td colspan="2" style="background-color: #f9f9f9; font-weight: 600; padding: 12px;">${L.companyN} ${i + 1}</td></tr>
+        ${row(`&nbsp;&nbsp;${L.companyName}`, dash(firma.firmenname || firma.name, L))}
+      `).join('');
+
+  // Financing offers list (property.angeboteListe)
+  const angeboteListe: string[] = Array.isArray(pr.angeboteListe) ? pr.angeboteListe : [];
+  const angebote: any[] = Array.isArray(pr.angebote) && pr.angebote.length > 0
+    ? pr.angebote
+    : (Array.isArray(p.angebote) ? p.angebote : []);
+  const offerListHTML = angeboteListe.length > 0
+    ? angeboteListe.map((offer: string, i: number) => row(`${L.offerN} ${i + 1}`, dash(offer, L))).join('')
+    : '';
+  const offerStructuredHTML = angebote.length > 0
+    ? angebote.map((o: any, i: number) => `
+        <tr><td colspan="2" style="background-color: #f9f9f9; font-weight: 600; padding: 10px;">${L.offerN} ${i + 1}</td></tr>
+        ${row(`&nbsp;&nbsp;${L.bank}`, dash(o.bank, L))}
+        ${row(`&nbsp;&nbsp;${L.interestRate}`, dash(o.zins, L))}
+        ${row(`&nbsp;&nbsp;${L.term}`, dash(o.laufzeit, L))}
+      `).join('')
+    : '';
+  const combinedOffersHTML = offerListHTML + offerStructuredHTML;
+
+  // Partner additional borrowers (data.borrowers array)
+  const borrowersList: any[] = Array.isArray(data.borrowers) ? data.borrowers : [];
+  const additionalBorrowersHTML = borrowersList.length === 0
+    ? ''
+    : borrowersList.map((b: any, i: number) => `
+        <tr><td colspan="2" style="background-color: #f9f9f9; font-weight: 600; padding: 12px;">${L.borrowerN} ${i + 1}</td></tr>
+        ${row(`&nbsp;&nbsp;${L.firstName}`, dash(b.vorname || b.firstName, L))}
+        ${row(`&nbsp;&nbsp;${L.lastName}`, dash(b.name || b.lastName, L))}
+        ${row(`&nbsp;&nbsp;${L.birthdate}`, dash(b.geburtsdatum || b.birthdate, L))}
+        ${row(`&nbsp;&nbsp;${L.employment}`, dash(b.erwerb || b.job, L))}
+        ${row(`&nbsp;&nbsp;${L.civilStatus}`, dash(b.zivilstand || b.civil, L))}
+        ${row(`&nbsp;&nbsp;${L.type}`, typLabel(b.type, L))}
+      `).join('');
+
+  // Eigenmittel total
+  const totalEigenmittel =
+    Number(f.eigenmittel_bar || 0) +
+    Number(f.eigenmittel_saeule3 || 0) +
+    Number(f.eigenmittel_pk || 0) +
+    Number(f.eigenmittel_schenkung || 0);
+
+  // Calculator block
+  const calc = computeFunnelCalc(data);
+  const fmtPct = (v: number) => `${(v * 100).toFixed(1).replace('.', localeStr.startsWith('en') ? '.' : ',')}%`;
+  const calcHTML = !calc ? '' : `
+    <div class="section">
+      <div class="section-title">${L.section_calc}</div>
+      <table>
+        ${row(L.calc_totalMortgage, chf(calc.totalMortgage, L, localeStr))}
+        ${calc.type === 'kauf' ? row(L.calc_ownFunds, chf(calc.ownFunds, L, localeStr)) : ''}
+        ${calc.type === 'kauf' ? row(L.calc_equityRatio, fmtPct(calc.equityRatio)) : ''}
+        ${row(L.calc_ltv, fmtPct(calc.ltv))}
+        ${!calc.isJur ? row(L.calc_affordability, fmtPct(calc.affordability)) : ''}
+        <tr>
+          <td>${L.calc_eligible}:</td>
+          <td><strong style="color: ${calc.eligible ? '#0a8a0a' : '#c0392b'};">
+            ${calc.eligible ? L.calc_eligible : L.calc_notEligible}
+          </strong></td>
+        </tr>
+      </table>
+    </div>
+  `;
+
+  const receivedAtFmt = new Date(saved.createdAt).toLocaleString(localeStr, {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    timeZone: 'Europe/Zurich',
+  });
 
   return `
 <!DOCTYPE html>
-<html>
+<html lang="${locale}">
 <head>
+  <meta charset="UTF-8" />
   <style>
-    body {
-      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
-      line-height: 1.6;
-      color: #132219;
-      max-width: 700px;
-      margin: 0 auto;
-      padding: 20px;
-      background-color: #f5f5f5;
-    }
-    .header {
-      background: linear-gradient(135deg, #132219 0%, #1a2d22 100%);
-      color: #CAF476;
-      padding: 30px 20px;
-      text-align: center;
-      border-radius: 10px 10px 0 0;
-    }
-    .header h1 {
-      margin: 0;
-      font-size: 28px;
-      font-weight: 600;
-    }
-    .content {
-      background-color: white;
-      padding: 30px;
-      border-radius: 0 0 10px 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-    .section {
-      margin-bottom: 25px;
-    }
-    .section-title {
-      background-color: #CAF476;
-      color: #132219;
-      padding: 10px 15px;
-      border-radius: 5px;
-      font-weight: 600;
-      margin-bottom: 15px;
-      font-size: 18px;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 20px;
-    }
-    td {
-      padding: 10px;
-      border-bottom: 1px solid #e0e0e0;
-    }
-    td:first-child {
-      font-weight: 500;
-      width: 40%;
-      color: #555;
-    }
-    .highlight {
-      background-color: #fff8e6;
-      padding: 15px;
-      border-left: 4px solid #CAF476;
-      margin: 15px 0;
-      border-radius: 5px;
-    }
-    .footer {
-      text-align: center;
-      padding: 20px;
-      color: #888;
-      font-size: 12px;
-    }
-    .summary-box {
-      background-color: #f0f9ff;
-      border: 2px solid #CAF476;
-      padding: 15px;
-      border-radius: 8px;
-      margin: 20px 0;
-    }
-    .summary-box strong {
-      color: #132219;
-    }
+    body { font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; line-height: 1.6; color: #132219; max-width: 700px; margin: 0 auto; padding: 20px; background-color: #f5f5f5; }
+    .header { background-color: #ffffff; color: #000000; padding: 30px 20px; text-align: center; border-radius: 10px 10px 0 0; border-bottom: 3px solid #CAF476; }
+    .header h1 { margin: 0; font-size: 28px; font-weight: 600; color: #000000; }
+    .header p { color: #000000; }
+    .content { background-color: white; padding: 30px; border-radius: 0 0 10px 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    .section { margin-bottom: 25px; }
+    .section-title { background-color: #CAF476; color: #132219; padding: 10px 15px; border-radius: 5px; font-weight: 600; margin-bottom: 15px; font-size: 18px; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+    td { padding: 10px; border-bottom: 1px solid #e0e0e0; vertical-align: top; }
+    td:first-child { font-weight: 500; width: 40%; color: #555; }
+    .highlight { background-color: #fff8e6; padding: 15px; border-left: 4px solid #CAF476; margin: 15px 0; border-radius: 5px; }
+    .footer { text-align: center; padding: 20px; color: #888; font-size: 12px; }
+    .summary-box { background-color: #f0f9ff; border: 2px solid #CAF476; padding: 15px; border-radius: 8px; margin: 20px 0; }
+    .summary-box strong { color: #132219; }
+    .subhead { background-color: #f0f9ff; padding: 12px; font-weight: 600; }
   </style>
 </head>
 <body>
   <div class="header">
-    <h1>📋 Neue Hypothekanfrage</h1>
-    <p style="margin: 10px 0 0 0; opacity: 0.9;">Anfrage-ID: ${saved.id}</p>
+    <h1 style="color:#000000;">${L.subject}</h1>
+    <p style="margin: 10px 0 0 0; color:#000000;">${L.inquiryId}: ${saved.id}</p>
   </div>
 
   <div class="content">
     <div class="highlight">
-      <strong>Kundentyp:</strong> ${customerTypeLabel}<br>
-      <strong>Projekt:</strong> ${projektArtLabel}<br>
-      <strong>Eingegangen am:</strong> ${new Date(saved.createdAt).toLocaleString('de-CH', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        timeZone: 'Europe/Zurich'
-      })}
+      <strong>${L.customerType}:</strong> ${customerTypeLabel}<br>
+      <strong>${L.projectType}:</strong> ${projektLabel}<br>
+      <strong>${L.receivedAt}:</strong> ${receivedAtFmt}
     </div>
 
-    ${data.client ? `
     <div class="section">
-      <div class="section-title">👤 Kundendaten</div>
+      <div class="section-title">${L.section_client}</div>
       <table>
-        ${data.client.firstName ? `<tr><td>Vorname:</td><td>${data.client.firstName}</td></tr>` : ''}
-        ${data.client.lastName ? `<tr><td>Nachname:</td><td>${data.client.lastName}</td></tr>` : ''}
-        ${data.client.vorname ? `<tr><td>Vorname:</td><td>${data.client.vorname}</td></tr>` : ''}
-        ${data.client.name ? `<tr><td>Nachname:</td><td>${data.client.name}</td></tr>` : ''}
-        ${data.client.email ? `<tr><td>E-Mail:</td><td><a href="mailto:${data.client.email}" style="color: #132219; text-decoration: underline;">${data.client.email}</a></td></tr>` : ''}
-        ${data.client.phone ? `<tr><td>Telefon:</td><td><a href="tel:${data.client.phone}" style="color: #132219; text-decoration: underline;">${data.client.phone}</a></td></tr>` : ''}
-        ${data.client.phone ? `<tr><td>Telefon:</td><td><a href="tel:${data.client.phone}" style="color: #132219; text-decoration: underline;">${data.client.phone}</a></td></tr>` : ''}
-        ${data.client.firma ? `<tr><td>Firma:</td><td>${data.client.firma}</td></tr>` : ''}
-        ${data.client.partnerEmail ? `<tr><td>Partner E-Mail:</td><td><a href="mailto:${data.client.partnerEmail}" style="color: #132219; text-decoration: underline;">${data.client.partnerEmail}</a></td></tr>` : ''}
+        ${row(L.firstName, dash(c.firstName || c.vorname, L))}
+        ${row(L.lastName, dash(c.lastName || c.name, L))}
+        ${row(L.email, c.email ? `<a href="mailto:${c.email}" style="color:#132219;text-decoration:underline;">${c.email}</a>` : L.notProvided)}
+        ${row(L.phone, c.phone ? `<a href="tel:${c.phone}" style="color:#132219;text-decoration:underline;">${c.phone}</a>` : L.notProvided)}
+        ${row(L.zip, dash(c.zip, L))}
+        ${row(L.company, dash(c.firma || c.company, L))}
+        ${row(L.partnerEmail, c.partnerEmail ? `<a href="mailto:${c.partnerEmail}" style="color:#132219;text-decoration:underline;">${c.partnerEmail}</a>` : L.notProvided)}
       </table>
     </div>
-    ` : ''}
 
-    ${data.project ? `
     <div class="section">
-      <div class="section-title">🏗️ Projektinformationen</div>
+      <div class="section-title">${L.section_project}</div>
       <table>
-        <tr><td>Projektart:</td><td><strong>${projektArtLabel}</strong></td></tr>
-        ${data.project.liegenschaftZip ? `<tr><td>PLZ Liegenschaft:</td><td>${data.project.liegenschaftZip}</td></tr>` : ''}
-        ${data.project.kreditnehmerTyp ? `<tr><td>Kreditnehmer Typ:</td><td>${data.project.kreditnehmerTyp}</td></tr>` : ''}
+        ${row(L.projectType, projektLabel)}
+        ${row(L.plzLiegenschaft, dash(p.liegenschaftZip, L))}
+        ${row(L.kreditnehmerTyp, dash(p.kreditnehmerTyp, L))}
       </table>
     </div>
-    ` : ''}
 
-    ${data.property ? `
     <div class="section">
-      <div class="section-title">🏠 Immobiliendetails</div>
+      <div class="section-title">${L.section_property}</div>
       <table>
-        ${data.property.artImmobilie ? `<tr><td>Art der Immobilie:</td><td><strong>${artImmobilieLabels[data.property.artImmobilie] || data.property.artImmobilie}</strong></td></tr>` : ''}
-        ${data.property.neubauArt ? `<tr><td>Neubau Art:</td><td>${neubauArtLabels[data.property.neubauArt] || data.property.neubauArt}</td></tr>` : ''}
-        ${data.property.artLiegenschaft ? `<tr><td>Art der Liegenschaft:</td><td>${data.property.artLiegenschaft}</td></tr>` : ''}
-        ${data.property.nutzung ? `<tr><td>Nutzung:</td><td>${data.property.nutzung}</td></tr>` : ''}
-        ${data.property.renovation ? `<tr><td>Renovation:</td><td><strong>${data.property.renovation === 'ja' ? 'Ja' : 'Nein'}</strong></td></tr>` : ''}
-        ${data.property.renovationsBetrag && Number(data.property.renovationsBetrag) > 0 ? `<tr><td>Renovationsbetrag:</td><td><strong>CHF ${Number(data.property.renovationsBetrag).toLocaleString('de-CH')}</strong></td></tr>` : ''}
-        ${data.property.reserviert ? `<tr><td>Reserviert:</td><td><strong>${data.property.reserviert === 'ja' ? 'Ja' : 'Nein'}</strong></td></tr>` : ''}
-        ${data.property.finanzierungsangebote ? `<tr><td>Finanzierungsangebote:</td><td>${data.property.finanzierungsangebote}</td></tr>` : ''}
+        ${row(L.artImmobilie, artImmobilieLabel(pr.artImmobilie, L))}
+        ${row(L.neubauArt, neubauArtLabel(pr.neubauArt, L))}
+        ${row(L.artLiegenschaft, dash(pr.artLiegenschaft, L))}
+        ${row(L.nutzung, dash(pr.nutzung, L))}
+        ${row(L.renovation, yesNo(pr.renovation, L))}
+        ${row(L.renovationsBetrag, chf(pr.renovationsBetrag, L, localeStr))}
+        ${row(L.reserviert, yesNo(pr.reserviert, L))}
+        ${row(L.finanzierungsangebote, yesNo(pr.finanzierungsangebote, L))}
       </table>
-      ${angeboteHTML ? `
+      ${combinedOffersHTML ? `
         <div style="margin-top: 15px; background-color: #f9f9f9; padding: 15px; border-radius: 5px;">
-          <strong style="color: #132219;">📊 Finanzierungsangebote:</strong>
-          <table style="margin-top: 10px;">${angeboteHTML}</table>
+          <strong style="color: #132219;">${L.section_offers}</strong>
+          <table style="margin-top: 10px;">${combinedOffersHTML}</table>
         </div>
       ` : ''}
     </div>
-    ` : ''}
 
-    ${kreditnehmerHTML ? `
     <div class="section">
-      <div class="section-title">👥 Kreditnehmer</div>
+      <div class="section-title">${L.section_borrowers}</div>
       <table>
         ${kreditnehmerHTML}
+        ${additionalBorrowersHTML}
       </table>
     </div>
-    ` : ''}
 
-    ${firmenHTML ? `
     <div class="section">
-      <div class="section-title">🏢 Firmen / Juristische Personen</div>
+      <div class="section-title">${L.section_companies}</div>
       <table>
         ${firmenHTML}
       </table>
     </div>
-    ` : ''}
 
-    ${data.financing ? `
     <div class="section">
-      <div class="section-title">💰 Finanzierungsdetails</div>
-      
-      ${data.financing.kaufpreis ? `
+      <div class="section-title">${L.section_financing}</div>
+
+      ${f.kaufpreis ? `
       <div class="summary-box">
-        <strong>Gesamtübersicht:</strong><br>
-        Kaufpreis: <strong>CHF ${Number(data.financing.kaufpreis).toLocaleString('de-CH')}</strong><br>
-        ${totalEigenmittel > 0 ? `Eigenmittel Total: <strong>CHF ${totalEigenmittel.toLocaleString('de-CH')}</strong><br>` : ''}
-        ${data.financing.hypoBetrag ? `Hypothekenbetrag: <strong>CHF ${Number(data.financing.hypoBetrag).toLocaleString('de-CH')}</strong>` : ''}
+        <strong>${L.kaufpreis}:</strong> ${chf(f.kaufpreis, L, localeStr)}<br>
+        ${totalEigenmittel > 0 ? `<strong>${L.eigenmittel_total}:</strong> ${chf(totalEigenmittel, L, localeStr)}<br>` : ''}
+        ${f.hypoBetrag ? `<strong>${L.hypoBetrag}:</strong> ${chf(f.hypoBetrag, L, localeStr)}` : ''}
       </div>
       ` : ''}
-      
-      <table>
-        ${data.financing.kaufpreis ? `<tr><td>Kaufpreis:</td><td><strong>CHF ${Number(data.financing.kaufpreis).toLocaleString('de-CH')}</strong></td></tr>` : ''}
-        ${data.financing.abloesung_betrag ? `<tr><td>Ablösungsbetrag:</td><td><strong>CHF ${Number(data.financing.abloesung_betrag).toLocaleString('de-CH')}</strong></td></tr>` : ''}
-        
-        ${data.financing.eigenmittel_bar || data.financing.eigenmittel_saeule3 || data.financing.eigenmittel_pk || data.financing.eigenmittel_schenkung ? `
-        <tr><td colspan="2" style="background-color: #f0f9ff; padding: 12px; font-weight: 600;">Eigenmittel Aufschlüsselung:</td></tr>
-        ` : ''}
-        ${data.financing.eigenmittel_bar && Number(data.financing.eigenmittel_bar) > 0 ? `<tr><td style="padding-left: 20px;">💵 Barmittel:</td><td>CHF ${Number(data.financing.eigenmittel_bar).toLocaleString('de-CH')}</td></tr>` : ''}
-        ${data.financing.eigenmittel_saeule3 && Number(data.financing.eigenmittel_saeule3) > 0 ? `<tr><td style="padding-left: 20px;">🏦 3. Säule:</td><td>CHF ${Number(data.financing.eigenmittel_saeule3).toLocaleString('de-CH')}</td></tr>` : ''}
-        ${data.financing.eigenmittel_pk && Number(data.financing.eigenmittel_pk) > 0 ? `<tr><td style="padding-left: 20px;">💼 Pensionskasse:</td><td>CHF ${Number(data.financing.eigenmittel_pk).toLocaleString('de-CH')}</td></tr>` : ''}
-        ${data.financing.eigenmittel_schenkung && Number(data.financing.eigenmittel_schenkung) > 0 ? `<tr><td style="padding-left: 20px;">🎁 Schenkung/Andere:</td><td>CHF ${Number(data.financing.eigenmittel_schenkung).toLocaleString('de-CH')}</td></tr>` : ''}
-        ${totalEigenmittel > 0 ? `<tr><td style="padding-left: 20px; font-weight: 600;">Total Eigenmittel:</td><td style="font-weight: 600;">CHF ${totalEigenmittel.toLocaleString('de-CH')}</td></tr>` : ''}
-        
-        ${data.financing.pkVorbezug ? `<tr><td>PK Vorbezug:</td><td>${data.financing.pkVorbezug}</td></tr>` : ''}
-        ${data.financing.hypoBetrag ? `<tr><td>Hypothekenbetrag:</td><td><strong>CHF ${Number(data.financing.hypoBetrag).toLocaleString('de-CH')}</strong></td></tr>` : ''}
-        ${data.financing.modell ? `<tr><td>Hypothekarlaufzeiten:</td><td>${finanzierungsmodellLabels[data.financing.modell] || data.financing.modell}</td></tr>` : ''}
-        ${data.financing.einkommen ? `<tr><td>Brutto-Jahreseinkommen:</td><td>CHF ${Number(data.financing.einkommen).toLocaleString('de-CH')}</td></tr>` : ''}
-        ${data.financing.steueroptimierung ? `<tr><td>Steueroptimierung:</td><td>${data.financing.steueroptimierung}</td></tr>` : ''}
-        ${data.financing.kaufdatum ? `<tr><td>Kaufdatum:</td><td>${data.financing.kaufdatum}</td></tr>` : ''}
-        ${data.financing.erhoehung ? `<tr><td>Erhöhung:</td><td>${data.financing.erhoehung}</td></tr>` : ''}
-        ${data.financing.erhoehung_betrag && Number(data.financing.erhoehung_betrag) > 0 ? `<tr><td>Erhöhungsbetrag:</td><td>CHF ${Number(data.financing.erhoehung_betrag).toLocaleString('de-CH')}</td></tr>` : ''}
-        ${data.financing.abloesedatum ? `<tr><td>Ablösedatum:</td><td>${data.financing.abloesedatum}</td></tr>` : ''}
-        ${data.financing.kommentar ? `
-        <tr>
-          <td style="vertical-align: top;">Kommentar:</td>
-          <td style="white-space: pre-wrap; background-color: #f9f9f9; padding: 10px; border-radius: 5px;">${data.financing.kommentar}</td>
-        </tr>` : ''}
-      </table>
-    </div>
-    ` : ''}
 
-    ${data.borrowers && data.borrowers.length > 0 ? `
-    <div class="section">
-      <div class="section-title">📝 Partner Kreditnehmer (Zusätzliche)</div>
       <table>
-        ${data.borrowers.map((b: any, i: number) => `
-          <tr>
-            <td colspan="2" style="background-color: #f9f9f9; font-weight: 600; padding: 12px;">Kreditnehmer ${i + 1}</td>
-          </tr>
-          ${b.vorname ? `<tr><td style="padding-left: 20px;">Vorname:</td><td>${b.vorname}</td></tr>` : ''}
-          ${b.name ? `<tr><td style="padding-left: 20px;">Nachname:</td><td>${b.name}</td></tr>` : ''}
-          ${b.geburtsdatum ? `<tr><td style="padding-left: 20px;">Geburtsdatum:</td><td>${b.geburtsdatum}</td></tr>` : ''}
-          ${b.erwerb ? `<tr><td style="padding-left: 20px;">Erwerbsstatus:</td><td>${b.erwerb}</td></tr>` : ''}
-          ${b.type ? `<tr><td style="padding-left: 20px;">Typ:</td><td>${typLabels[b.type] || b.type}</td></tr>` : ''}
-        `).join('')}
+        ${row(L.kaufpreis, chf(f.kaufpreis, L, localeStr))}
+        ${row(L.abloesungBetrag, chf(f.abloesung_betrag, L, localeStr))}
+
+        <tr><td colspan="2" class="subhead">${L.eigenmittelBreakdown}</td></tr>
+        ${row(`&nbsp;&nbsp;${L.eigenmittel_bar}`, chf(f.eigenmittel_bar, L, localeStr))}
+        ${row(`&nbsp;&nbsp;${L.eigenmittel_saeule3}`, chf(f.eigenmittel_saeule3, L, localeStr))}
+        ${row(`&nbsp;&nbsp;${L.eigenmittel_pk}`, chf(f.eigenmittel_pk, L, localeStr))}
+        ${row(`&nbsp;&nbsp;${L.eigenmittel_schenkung}`, chf(f.eigenmittel_schenkung, L, localeStr))}
+        ${row(`&nbsp;&nbsp;${L.eigenmittel_total}`, chf(totalEigenmittel, L, localeStr))}
+
+        ${row(L.pkVorbezug, yesNo(f.pkVorbezug, L))}
+        ${row(L.hypoBetrag, chf(f.hypoBetrag, L, localeStr))}
+        ${row(L.modell, modellLabel(f.modell, L))}
+        ${row(L.einkommen, chf(f.einkommen, L, localeStr))}
+        ${row(L.brutto, chf(f.brutto, L, localeStr))}
+        ${row(L.bonus, chf(f.bonus, L, localeStr))}
+        ${row(L.nettoMietertrag, chf(f.netto_mietertrag || f.jaehrlicher_netto_mietertrag, L, localeStr))}
+        ${row(L.steueroptimierung, yesNo(f.steueroptimierung, L))}
+        ${row(L.kaufdatum, dash(f.kaufdatum, L))}
+        ${row(L.erhoehung, yesNo(f.erhoehung, L))}
+        ${row(L.erhoehungBetrag, chf(f.erhoehung_betrag, L, localeStr))}
+        ${row(L.abloesedatum, dash(f.abloesedatum, L))}
+        <tr>
+          <td>${L.kommentar}:</td>
+          <td style="white-space: pre-wrap; background-color: #f9f9f9; padding: 10px; border-radius: 5px;">${dash(f.kommentar, L)}</td>
+        </tr>
       </table>
     </div>
-    ` : ''}
+
+    ${calcHTML}
   </div>
 
   <div class="footer">
-    <p>Diese E-Mail wurde automatisch generiert durch das HYPOTEQ Hypotheken-Formular.</p>
-    <p>Anfrage-ID: <strong>${saved.id}</strong> | Eingegangen: ${new Date(saved.createdAt).toLocaleString('de-CH', { timeZone: 'Europe/Zurich' })}</p>
-    <p>© ${new Date().getFullYear()} HYPOTEQ - Alle Rechte vorbehalten</p>
+    <p>${L.footer_disclaimer}</p>
+    <p>${L.inquiryId}: <strong>${saved.id}</strong> | ${L.receivedAt}: ${receivedAtFmt}</p>
+    <p>© ${new Date().getFullYear()} HYPOTEQ - ${L.footer_rights}</p>
   </div>
 </body>
 </html>
@@ -666,17 +1224,17 @@ function generateFunnelEmailHTML(data: any, saved: any): string {
 }
 
 // Send auto-response to customer after funnel submission
-async function sendFunnelAutoResponse(customerEmail: string, firstName: string) {
+async function sendFunnelAutoResponse(customerEmail: string, firstName: string, locale: EmailLocale = 'de') {
   try {
-    console.log("📧 Sending funnel auto-response to customer:", customerEmail);
+    console.log("📧 Sending funnel auto-response to customer:", customerEmail, "locale:", locale);
 
-    const useGraph = process.env.USE_GRAPH === "true" && 
-                     process.env.GRAPH_TENANT_ID && 
-                     process.env.GRAPH_CLIENT_ID && 
+    const useGraph = process.env.USE_GRAPH === "true" &&
+                     process.env.GRAPH_TENANT_ID &&
+                     process.env.GRAPH_CLIENT_ID &&
                      process.env.GRAPH_CLIENT_SECRET;
 
-    const autoResponseHTML = generateFunnelAutoResponseHTML(firstName);
-    const subject = "Deine Hypothekaranfrage ist eingegangen · Ta demande d'hypothèque a été reçue · La tua richiesta ipotecaria è stata ricevuta · Your mortgage request has been received";
+    const autoResponseHTML = generateFunnelAutoResponseHTML(firstName, locale);
+    const subject = AUTO_RESPONSE_SUBJECT[locale];
 
     if (useGraph) {
       const credential = new ClientSecretCredential(
@@ -753,8 +1311,60 @@ async function sendFunnelAutoResponse(customerEmail: string, firstName: string) 
   }
 }
 
-// Generate auto-response HTML for funnel submission
-function generateFunnelAutoResponseHTML(firstName: string): string {
+const AUTO_RESPONSE_SUBJECT: Record<EmailLocale, string> = {
+  de: 'Deine Hypothekaranfrage ist eingegangen',
+  fr: "Ta demande d'hypothèque a été reçue",
+  it: 'La tua richiesta ipotecaria è stata ricevuta',
+  en: 'Your mortgage request has been received',
+};
+
+const AUTO_RESPONSE_CONTENT: Record<EmailLocale, {
+  tagline: string;
+  greetingFn: (name: string) => string;
+  body: string;
+  signoff: string;
+  team: string;
+}> = {
+  de: {
+    tagline: 'Deine Hypotheken-Experten',
+    greetingFn: (n) => `Hi${n ? ' ' + n : ''},`,
+    body: 'Danke für deine Anfrage und dein Vertrauen in HYPOTEQ. Wir haben alle Informationen erhalten und melden uns bald (werktags), um die nächsten Schritte zu besprechen.',
+    signoff: 'Beste Grüsse',
+    team: 'Dein HYPOTEQ Team',
+  },
+  fr: {
+    tagline: 'Tes experts hypothécaires',
+    greetingFn: (n) => `Salut${n ? ' ' + n : ''},`,
+    body: "Merci pour ta demande et pour ta confiance envers HYPOTEQ. Nous avons bien reçu toutes les informations et te recontactons bientôt (jours ouvrables) pour discuter des prochaines étapes.",
+    signoff: 'Meilleures salutations',
+    team: 'Ton équipe HYPOTEQ',
+  },
+  it: {
+    tagline: 'I tuoi esperti ipotecari',
+    greetingFn: (n) => `Ciao${n ? ' ' + n : ''},`,
+    body: 'Grazie per la tua richiesta e per la fiducia in HYPOTEQ. Abbiamo ricevuto tutte le informazioni e ti ricontatteremo presto (giorni lavorativi) per discutere i prossimi passi.',
+    signoff: 'Cordiali saluti',
+    team: 'Il tuo team HYPOTEQ',
+  },
+  en: {
+    tagline: 'Your mortgage experts',
+    greetingFn: (n) => `Hi${n ? ' ' + n : ''},`,
+    body: "Thanks for your request and your trust in HYPOTEQ. We've received all the information and will get back to you soon (business days) to discuss the next steps.",
+    signoff: 'Best regards',
+    team: 'Your HYPOTEQ team',
+  },
+};
+
+const AUTO_RESPONSE_RIGHTS: Record<EmailLocale, string> = {
+  de: 'Alle Rechte vorbehalten',
+  fr: 'Tous droits réservés',
+  it: 'Tutti i diritti riservati',
+  en: 'All rights reserved',
+};
+
+// Generate auto-response HTML for funnel submission (locale-specific)
+function generateFunnelAutoResponseHTML(firstName: string, locale: EmailLocale = 'de'): string {
+  const c = AUTO_RESPONSE_CONTENT[locale];
   return `
 <!DOCTYPE html>
 <html>
@@ -830,45 +1440,18 @@ function generateFunnelAutoResponseHTML(firstName: string): string {
   <div class="container">
     <div class="header">
       <div class="logo">HYPOTEQ</div>
-      <div style="color: #666; font-size: 14px;">Deine Hypotheken-Experten</div>
+      <div style="color: #666; font-size: 14px;">${c.tagline}</div>
     </div>
 
-    <!-- German -->
     <div class="section">
-      <div class="greeting">Hi${firstName ? ' ' + firstName : ''},</div>
-      <div class="text">
-        Danke für deine Anfrage und dein Vertrauen in HYPOTEQ. Wir haben alle Informationen erhalten und melden uns bald (werktags), um die nächsten Schritte zu besprechen.
-      </div>
-    </div>
-
-    <!-- French -->
-    <div class="section">
-      <div class="greeting">Salut${firstName ? ' ' + firstName : ''},</div>
-      <div class="text">
-        Merci pour ta demande et pour ta confiance envers HYPOTEQ. Nous avons bien reçu toutes les informations et te recontactons bientôt (jours ouvrables) pour discuter des prochaines étapes.
-      </div>
-    </div>
-
-    <!-- Italian -->
-    <div class="section">
-      <div class="greeting">Ciao${firstName ? ' ' + firstName : ''},</div>
-      <div class="text">
-        Grazie per la tua richiesta e per la fiducia in HYPOTEQ. Abbiamo ricevuto tutte le informazioni e ti ricontatteremo presto (giorni lavorativi) per discutere i prossimi passi.
-      </div>
-    </div>
-
-    <!-- English -->
-    <div class="section">
-      <div class="greeting">Hi${firstName ? ' ' + firstName : ''},</div>
-      <div class="text">
-        Thanks for your request and your trust in HYPOTEQ. We've received all the information and will get back to you soon (business days) to discuss the next steps.
-      </div>
+      <div class="greeting">${c.greetingFn(firstName)}</div>
+      <div class="text">${c.body}</div>
     </div>
 
     <!-- Signature -->
     <div class="signature">
-      <div class="text">Beste Grüsse / Meilleures salutations / Cordiali saluti / Best regards</div>
-      <div class="team-name">Dein HYPOTEQ Team</div>
+      <div class="text">${c.signoff}</div>
+      <div class="team-name">${c.team}</div>
       <div style="margin-top: 20px; font-size: 13px; color: #666;">
         <div>Marco Circelli</div>
         <div>HYPOTEQ AG</div>
@@ -883,7 +1466,7 @@ function generateFunnelAutoResponseHTML(firstName: string): string {
   </div>
 
   <div class="footer">
-    <p>© ${new Date().getFullYear()} HYPOTEQ AG - Alle Rechte vorbehalten</p>
+    <p>© ${new Date().getFullYear()} HYPOTEQ AG - ${AUTO_RESPONSE_RIGHTS[locale]}</p>
   </div>
 </body>
 </html>
