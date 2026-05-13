@@ -411,14 +411,37 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     flatData.neubauArt === "bauprojekt" ? "Bauprojekt" :
     flatData.neubauArt;
 
-  flatData.artLiegenschaft =
-    flatData.artLiegenschaft === "Single-family home" ? "Einfamilienhaus" :
-    flatData.artLiegenschaft === "Multi-family home" ? "Mehrfamilienhaus" :
-    flatData.artLiegenschaft === "Apartment" ? "Wohnung" :
-    flatData.artLiegenschaft === "Wohnung" ? "Wohnung" :
-    flatData.artLiegenschaft === "Commercial property" ? "Gewerbeimmobilie" :
-    flatData.artLiegenschaft === "Mixed-use property" ? "Gemischte Nutzung" :
-    flatData.artLiegenschaft;
+  // Map every locale (DE/EN/FR/IT) label to the Salesforce restricted picklist value.
+  // SF picklist: Einfamilienhaus, Wohnung, Mehrfamilienhaus, Landwirschaftszone.
+  // Unmapped values are sent through; the createOrUpdateCase retry helper drops them
+  // if SF rejects the picklist so the Case is still created.
+  const ART_LIEGENSCHAFT_MAP: Record<string, string> = {
+    // DE
+    "Einfamilienhaus": "Einfamilienhaus",
+    "Wohnung": "Wohnung",
+    "Mehrfamilienhaus": "Mehrfamilienhaus",
+    "Landwirschaftszone": "Landwirschaftszone",
+    "Landwirtschaftszone": "Landwirschaftszone",
+    // EN
+    "Single-family home": "Einfamilienhaus",
+    "Apartment": "Wohnung",
+    "Multi-family building": "Mehrfamilienhaus",
+    "Multi-family home": "Mehrfamilienhaus",
+    "Agricultural zone": "Landwirschaftszone",
+    // FR
+    "Maison unifamiliale": "Einfamilienhaus",
+    "Appartement": "Wohnung",
+    "Immeuble collectif": "Mehrfamilienhaus",
+    "Zone agricole": "Landwirschaftszone",
+    // IT
+    "Casa unifamiliare": "Einfamilienhaus",
+    "Appartamento": "Wohnung",
+    "Edificio plurifamiliare": "Mehrfamilienhaus",
+    "Zona agricola": "Landwirschaftszone",
+  };
+  if (flatData.artLiegenschaft && ART_LIEGENSCHAFT_MAP[flatData.artLiegenschaft]) {
+    flatData.artLiegenschaft = ART_LIEGENSCHAFT_MAP[flatData.artLiegenschaft];
+  }
 
   flatData.modell =
     flatData.modell === "saron" ? "Saron" :
@@ -435,19 +458,39 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     flatData.modell === "10" ? "10 Jahre" :
     flatData.modell;
 
+  // SF picklist: Selbstbewohnt, Zweitwohnsitz, Vermietet & teilweise selbstbewohnt,
+  // Rendite-Immobilie, Für eigenes Geschäft. Maps every locale label users see.
   const NUTZUNG_MAP: Record<string, string> = {
-    // German keys
+    // DE
     "Selbstbewohnt": "Selbstbewohnt",
+    "Zweitwohnsitz": "Zweitwohnsitz",
     "Zweitwohnsitz / Ferienliegenschaft": "Zweitwohnsitz",
     "Vermietet & teilweise selbstbewohnt": "Vermietet & teilweise selbstbewohnt",
     "Rendite-Immobilie": "Rendite-Immobilie",
     "Für eigenes Geschäft": "Für eigenes Geschäft",
-    // English keys
+    // EN
     "Owner-occupied": "Selbstbewohnt",
+    "Second home": "Zweitwohnsitz",
     "Second home / Vacation property": "Zweitwohnsitz",
     "Rented & partially owner-occupied": "Vermietet & teilweise selbstbewohnt",
     "Investment property": "Rendite-Immobilie",
     "For own business": "Für eigenes Geschäft",
+    // FR
+    "Occupé par le propriétaire": "Selbstbewohnt",
+    "Résidence secondaire": "Zweitwohnsitz",
+    "Résidence secondaire / Propriété de vacances": "Zweitwohnsitz",
+    "Loué et partiellement occupé par le propriétaire": "Vermietet & teilweise selbstbewohnt",
+    "Immeuble de rendement": "Rendite-Immobilie",
+    "Pour sa propre entreprise": "Für eigenes Geschäft",
+    "Pour ma propre entreprise": "Für eigenes Geschäft",
+    // IT
+    "Abitazione principale": "Selbstbewohnt",
+    "Occupato dal proprietario": "Selbstbewohnt",
+    "Seconda casa": "Zweitwohnsitz",
+    "Seconda casa / Proprietà per vacanze": "Zweitwohnsitz",
+    "Affittato e parzialmente occupato dal proprietario": "Vermietet & teilweise selbstbewohnt",
+    "Immobile da reddito": "Rendite-Immobilie",
+    "Per la propria attività": "Für eigenes Geschäft",
   };
 
   if (flatData.nutzung) {

@@ -45,3 +45,5 @@ pnpm-lock.yaml
 .history/
 
 /generated/prisma
+.vercel
+.env*.local

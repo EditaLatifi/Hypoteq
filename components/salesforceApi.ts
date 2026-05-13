@@ -65,9 +65,13 @@ export async function updatePersonAccount(id: string, fields: Record<string, any
   }
 }
 
-// Execute a Case write (create or update) and retry on INVALID_FIELD errors by stripping
-// the offending column. Some __c fields in our config may not exist in every Salesforce
-// org; rather than hard-fail, we drop them and continue so the Case still gets created.
+// Execute a Case write (create or update) with defensive retries. Three classes of error
+// were silently killing Cases in production before this helper was hardened:
+//   - INVALID_FIELD: the __c column doesn't exist in this org. Drop and retry.
+//   - STRING_TOO_LONG: value exceeds the SF field's max length. Truncate and retry.
+//   - INVALID_OR_NULL_FOR_RESTRICTED_PICKLIST: value isn't a valid picklist option
+//     (e.g. a French label not yet mapped to the German SF value). Drop and retry.
+// Any other error propagates so it surfaces in logs.
 async function writeCaseWithFieldFallback(
   op: (fields: Record<string, any>) => Promise<any>,
   fields: Record<string, any>,
@@ -79,21 +83,48 @@ async function writeCaseWithFieldFallback(
     try {
       return await op(working);
     } catch (error: any) {
-      const isInvalidField = error?.errorCode === 'INVALID_FIELD'
-        || error?.data?.errorCode === 'INVALID_FIELD';
-      if (!isInvalidField) throw error;
-
+      const code: string = error?.errorCode || error?.data?.errorCode || '';
       const message: string = error?.data?.message || error?.message || '';
-      const match = message.match(/No such column '([^']+)' on (?:sobject|entity) of type Case/i);
-      if (!match) throw error;
+      const errFields: string[] = error?.data?.fields || error?.fields || [];
 
-      const badField = match[1];
-      if (!(badField in working)) throw error;
-      console.warn(`[Salesforce] ${context}: dropping unknown Case field '${badField}' and retrying`);
-      delete working[badField];
+      if (code === 'INVALID_FIELD') {
+        const match = message.match(/No such column '([^']+)' on (?:sobject|entity) of type Case/i);
+        const badField = match?.[1];
+        if (badField && badField in working) {
+          console.warn(`[Salesforce] ${context}: dropping unknown Case field '${badField}' and retrying`);
+          delete working[badField];
+          continue;
+        }
+        throw error;
+      }
+
+      if (code === 'STRING_TOO_LONG') {
+        const lenMatch = message.match(/max length\s*=\s*(\d+)/i);
+        const max = lenMatch ? parseInt(lenMatch[1], 10) : null;
+        const target = errFields.find(f => f in working);
+        if (target && max && max > 3 && typeof working[target] === 'string') {
+          const original = working[target] as string;
+          working[target] = original.slice(0, max - 3) + '...';
+          console.warn(`[Salesforce] ${context}: truncating '${target}' from ${original.length} -> ${max} chars and retrying`);
+          continue;
+        }
+        throw error;
+      }
+
+      if (code === 'INVALID_OR_NULL_FOR_RESTRICTED_PICKLIST') {
+        const target = errFields.find(f => f in working);
+        if (target) {
+          console.warn(`[Salesforce] ${context}: dropping invalid picklist value for '${target}' ('${working[target]}') and retrying`);
+          delete working[target];
+          continue;
+        }
+        throw error;
+      }
+
+      throw error;
     }
   }
-  throw new Error(`[Salesforce] ${context}: exceeded INVALID_FIELD retry limit`);
+  throw new Error(`[Salesforce] ${context}: exceeded retry limit`);
 }
 
 export async function createOrUpdateCase(fields: Record<string, any>) {
