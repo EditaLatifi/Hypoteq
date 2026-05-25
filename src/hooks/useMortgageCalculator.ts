@@ -16,7 +16,7 @@ export default function useMortgageCalculator() {
 
   const [residenceType, setResidenceType] = useState<"haupt" | "zweit" | null>(null);
   const [loanType, setLoanType] = useState<"purchase" | "refinancing" | null>(null);
-  const [interestOption, setInterestOption] = useState("Saron ab 0.90%");
+  const [interestOption, setInterestOption] = useState("Saron ab 0.85%");
 
   const params =
     residenceType === "haupt"
@@ -66,32 +66,32 @@ export default function useMortgageCalculator() {
 
   // Interest options
   const interestOptions = [
-    "Saron ab 0.90%",
+    "Saron ab 0.85%",
     "1 Jahr ab 0.97%",
     "2 Jahre ab 0.98%",
-    "3 Jahre ab 1.00%",
+    "3 Jahre ab 1.23%",
     "4 Jahre ab 1.21%",
-    "5 Jahre ab 1.29%",
+    "5 Jahre ab 1.34%",
     "6 Jahre ab 1.29%",
-    "7 Jahre ab 1.29%",
+    "7 Jahre ab 1.43%",
     "8 Jahre ab 1.34%",
     "9 Jahre ab 1.39%",
-    "10 Jahre ab 1.44%",
+    "10 Jahre ab 1.56%",
   ];
 
   const effectiveRate = useMemo(() => {
-    if (interestOption.startsWith("Saron ab")) return 0.0090;
+    if (interestOption.startsWith("Saron ab")) return 0.0085;
     if (interestOption.startsWith("1 Jahr ab")) return 0.0097;
     if (interestOption.startsWith("2 Jahre ab")) return 0.0098;
-    if (interestOption.startsWith("3 Jahre ab")) return 0.0100;
+    if (interestOption.startsWith("3 Jahre ab")) return 0.0123;
     if (interestOption.startsWith("4 Jahre ab")) return 0.0121;
-    if (interestOption.startsWith("5 Jahre ab")) return 0.0129;
+    if (interestOption.startsWith("5 Jahre ab")) return 0.0134;
     if (interestOption.startsWith("6 Jahre ab")) return 0.0129;
-    if (interestOption.startsWith("7 Jahre ab")) return 0.0129;
+    if (interestOption.startsWith("7 Jahre ab")) return 0.0143;
     if (interestOption.startsWith("8 Jahre ab")) return 0.0134;
     if (interestOption.startsWith("9 Jahre ab")) return 0.0139;
-    if (interestOption.startsWith("10 Jahre ab")) return 0.0144;
-    return 0.0103;
+    if (interestOption.startsWith("10 Jahre ab")) return 0.0156;
+    return 0.0085;
   }, [interestOption]);
 
   /* ----------------------------

@@ -346,17 +346,17 @@ function testProductInterestSeparation() {
   console.log("-".repeat(80));
   
   const productRates = [
-    { name: "SARON 0.90%", rate: 0.0090 },
+    { name: "SARON 0.85%", rate: 0.0085 },
     { name: "1Y 0.97%", rate: 0.0097 },
     { name: "2Y 0.98%", rate: 0.0098 },
-    { name: "3Y 1.00%", rate: 0.0100 },
-    { name: "4Y 1.10%", rate: 0.0110 },
-    { name: "5Y 1.18%", rate: 0.0118 },
-    { name: "6Y 1.26%", rate: 0.0126 },
-    { name: "7Y 1.33%", rate: 0.0133 },
-    { name: "8Y 1.40%", rate: 0.0140 },
-    { name: "9Y 1.46%", rate: 0.0146 },
-    { name: "10Y 1.52%", rate: 0.0152 }
+    { name: "3Y 1.23%", rate: 0.0123 },
+    { name: "4Y 1.21%", rate: 0.0121 },
+    { name: "5Y 1.34%", rate: 0.0134 },
+    { name: "6Y 1.29%", rate: 0.0129 },
+    { name: "7Y 1.43%", rate: 0.0143 },
+    { name: "8Y 1.34%", rate: 0.0134 },
+    { name: "9Y 1.39%", rate: 0.0139 },
+    { name: "10Y 1.56%", rate: 0.0156 }
   ];
   
   productRates.forEach(product => {
