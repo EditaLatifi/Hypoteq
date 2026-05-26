@@ -39,6 +39,11 @@ const nextConfig = {
         destination: "/de/betterhomes",
         permanent: true,
       },
+      {
+        source: "/remax",
+        destination: "/de/remax",
+        permanent: true,
+      },
     ];
   },
 

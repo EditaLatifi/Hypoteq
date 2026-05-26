@@ -2,7 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useTranslation } from "@/hooks/useTranslation";
+
+const LOCALES = ["de", "en", "fr", "it"] as const;
+type LocaleCode = (typeof LOCALES)[number];
 
 const ArrowIcon = ({ className = "" }: { className?: string }) => (
   <svg
@@ -28,12 +32,19 @@ const REMAX_LOGO_URL = "https://www.remax.ch/cfdok/logo.svg";
 
 export default function Remax() {
   const pathname = usePathname();
+  const router = useRouter();
   const firstSegment = pathname?.split("/")[1] ?? "";
-  const pathLocale = (["de", "en", "fr", "it"].includes(firstSegment)
+  const pathLocale = (LOCALES.includes(firstSegment as LocaleCode)
     ? firstSegment
-    : "de") as "de" | "en" | "fr" | "it";
+    : "de") as LocaleCode;
+  const { t } = useTranslation(pathLocale);
 
   const startHref = `/${pathLocale}/funnel`;
+
+  const switchLocale = (next: LocaleCode) => {
+    if (next === pathLocale) return;
+    router.push(`/${next}/remax`);
+  };
 
   return (
     <main className="font-sfpro bg-white text-[#132219] overflow-x-hidden">
@@ -41,7 +52,7 @@ export default function Remax() {
       <section className="relative w-full min-h-[640px] md:min-h-[760px] lg:min-h-[835px] flex flex-col overflow-hidden isolate">
         <Image
           src="/images/HYPOTEQ_hypotheken_hero.png"
-          alt="Modernes Wohnhaus"
+          alt={t("remax.hero.imageAlt")}
           fill
           priority
           quality={85}
@@ -49,6 +60,29 @@ export default function Remax() {
           className="object-cover z-0"
         />
         <div className="absolute inset-0 bg-black/45 z-[1]" />
+
+        {/* Language switcher (top-right) */}
+        <div className="absolute top-[20px] right-[20px] md:top-[32px] md:right-[40px] z-20 flex items-center gap-[4px] rounded-full border border-white/30 bg-black/30 backdrop-blur-sm px-[6px] py-[4px]">
+          {LOCALES.map((lang) => {
+            const active = lang === pathLocale;
+            return (
+              <button
+                key={lang}
+                type="button"
+                onClick={() => switchLocale(lang)}
+                aria-label={`Switch language to ${lang.toUpperCase()}`}
+                aria-current={active ? "page" : undefined}
+                className={`min-w-[34px] px-[8px] py-[4px] rounded-full text-[12px] md:text-[13px] font-semibold uppercase tracking-wide transition-all ${
+                  active
+                    ? "bg-[#CAF476] text-[#132219]"
+                    : "text-white hover:bg-white/15"
+                }`}
+              >
+                {lang}
+              </button>
+            );
+          })}
+        </div>
 
         {/* Co-branded logos */}
         <div className="relative z-10 w-full flex justify-center pt-[28px] md:pt-[46px]">
@@ -68,7 +102,7 @@ export default function Remax() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={REMAX_LOGO_URL}
-              alt="RE/MAX"
+              alt={t("remax.logoAlt")}
               className="h-[32px] md:h-[42px] w-auto object-contain"
             />
           </div>
@@ -78,16 +112,14 @@ export default function Remax() {
         <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-6 md:px-12 py-[80px] md:py-[120px]">
           <div className="w-full max-w-[1178px] flex flex-col items-center gap-[28px] md:gap-[48px] text-center">
             <h1 className="text-white font-medium tracking-[-0.4px] md:tracking-[-0.8px] text-[40px] md:text-[64px] lg:text-[80px] leading-[1.1] md:leading-[1.2]">
-              <span className="block">Du hast deine Immobilie gefunden.</span>
+              <span className="block">{t("remax.hero.title")}</span>
               <span className="block text-[#CAF476]">
-                Wir finden deine Hypothek.
+                {t("remax.hero.titleAccent")}
               </span>
             </h1>
 
             <p className="text-white text-[16px] md:text-[20px] lg:text-[24px] leading-[1.5] md:leading-[1.4] max-w-[1080px]">
-              Exklusiv für Kundinnen und Kunden von RE/MAX. In nur 2 Minuten zur
-              ersten Einschätzung, in wenigen Tagen zum verbindlichen
-              Hypothekenangebot. Kostenlos, unabhängig und auf dich abgestimmt.
+              {t("remax.hero.subtitle")}
             </p>
 
             <Link href={startHref}>
@@ -95,7 +127,7 @@ export default function Remax() {
                 type="button"
                 className="inline-flex items-center gap-[10px] rounded-[45px] border border-[#132219] bg-[#CAF476] px-[24px] py-[12px] text-[#132219] text-[18px] md:text-[20px] font-semibold hover:opacity-90 transition-all"
               >
-                In 3 Schritten starten
+                {t("remax.hero.cta")}
                 <ArrowIcon />
               </button>
             </Link>
@@ -103,23 +135,21 @@ export default function Remax() {
         </div>
       </section>
 
-      {/* ============ SECTION: Schneller zur Hypothek ============ */}
+      {/* ============ SECTION: Benefits ============ */}
       <section className="w-full px-6 md:px-12 py-[64px] md:py-[100px]">
         <div className="mx-auto max-w-[1142px] flex flex-col items-center text-center gap-[24px]">
           <h2 className="text-[#132219] font-medium text-[32px] md:text-[40px] lg:text-[48px] leading-[1.2] md:leading-[1.4]">
-            Vom Kaufobjekt zur Finanzierung — ohne Umwege
+            {t("remax.benefits.title")}
           </h2>
           <p className="text-[#132219] font-light text-[16px] md:text-[20px] lg:text-[24px] leading-[1.4] max-w-[980px]">
-            Du hast über RE/MAX dein neues Zuhause gefunden. Wir kümmern uns um
-            die passende Hypothek — schnell, transparent und mit Zugang zu den
-            attraktivsten Finanzierungspartnern der Schweiz.
+            {t("remax.benefits.subtitle")}
           </p>
           <Link href={startHref}>
             <button
               type="button"
               className="inline-flex items-center gap-[10px] rounded-[45px] border border-[#132219] bg-[#CAF476] px-[24px] py-[10px] text-[#132219] text-[18px] md:text-[20px] font-semibold hover:opacity-90 transition-all"
             >
-              Jetzt kostenlos starten
+              {t("remax.benefits.cta")}
               <ArrowIcon />
             </button>
           </Link>
@@ -136,11 +166,10 @@ export default function Remax() {
               </span>
               <div className="flex flex-col gap-[8px] md:gap-[12px] pt-[4px] md:pt-[10px]">
                 <h3 className="text-[#132219] text-[22px] md:text-[28px] lg:text-[32px] leading-[1.2] font-normal">
-                  Eckdaten erfassen
+                  {t("remax.steps.step1.title")}
                 </h3>
                 <p className="text-[#132219] text-[16px] md:text-[18px] lg:text-[20px] leading-[1.5]">
-                  Gib in wenigen Minuten deine Angaben zu Objekt und Finanzen
-                  ein und erhalte eine erste Einschätzung.
+                  {t("remax.steps.step1.body")}
                 </p>
               </div>
             </li>
@@ -150,11 +179,10 @@ export default function Remax() {
               </span>
               <div className="flex flex-col gap-[8px] md:gap-[12px] pt-[4px] md:pt-[10px]">
                 <h3 className="text-[#132219] text-[22px] md:text-[28px] lg:text-[32px] leading-[1.2] font-normal">
-                  Angebote vergleichen
+                  {t("remax.steps.step2.title")}
                 </h3>
                 <p className="text-[#132219] text-[16px] md:text-[18px] lg:text-[20px] leading-[1.5]">
-                  Wir prüfen deine Anfrage und identifizieren die attraktivsten
-                  Angebote im Markt — abgestimmt auf dein Profil.
+                  {t("remax.steps.step2.body")}
                 </p>
               </div>
             </li>
@@ -164,11 +192,10 @@ export default function Remax() {
               </span>
               <div className="flex flex-col gap-[8px] md:gap-[12px] pt-[4px] md:pt-[10px]">
                 <h3 className="text-[#132219] text-[22px] md:text-[28px] lg:text-[32px] leading-[1.2] font-normal">
-                  Hypothek abschliessen
+                  {t("remax.steps.step3.title")}
                 </h3>
                 <p className="text-[#132219] text-[16px] md:text-[18px] lg:text-[20px] leading-[1.5]">
-                  Du erhältst ein verbindliches Angebot und wir begleiten dich
-                  bis zur finalen Zusage und darüber hinaus.
+                  {t("remax.steps.step3.body")}
                 </p>
               </div>
             </li>
@@ -177,7 +204,7 @@ export default function Remax() {
           <div className="relative w-full aspect-[629/523] rounded-[28px] overflow-hidden order-1 lg:order-2">
             <Image
               src="/images/HYPOTEQ_betterhome_keys.jpg"
-              alt="Schlüsselübergabe"
+              alt={t("remax.steps.imageAlt")}
               fill
               quality={85}
               sizes="(max-width: 1024px) 100vw, 629px"
@@ -187,16 +214,14 @@ export default function Remax() {
         </div>
       </section>
 
-      {/* ============ SECTION: Wir kennen den Markt ============ */}
+      {/* ============ SECTION: Market ============ */}
       <section className="w-full px-6 md:px-12 py-[64px] md:py-[100px]">
         <div className="mx-auto max-w-[1320px] grid grid-cols-1 md:grid-cols-2 gap-[20px] md:gap-[32px]">
           <h2 className="text-[#132219] font-medium text-[32px] md:text-[42px] lg:text-[50px] leading-[1.15] md:leading-[1.4] max-w-[613px]">
-            Unabhängig. Mit Zugang zu den besten Konditionen.
+            {t("remax.market.title")}
           </h2>
           <p className="text-[#132219] font-light text-[16px] md:text-[20px] lg:text-[24px] leading-[1.5] md:leading-[1.4] max-w-[616px]">
-            Dank unserer Marktkenntnis und unserem Netzwerk an Schweizer
-            Finanzierungspartnern sicherst du dir die passende Hypothek — ohne
-            selbst Angebote einholen und vergleichen zu müssen.
+            {t("remax.market.subtitle")}
           </p>
         </div>
       </section>
@@ -205,18 +230,17 @@ export default function Remax() {
       <section className="w-full bg-[#CAF476] px-6 md:px-12 py-[64px] md:py-[80px]">
         <div className="mx-auto max-w-[1142px] flex flex-col items-center text-center gap-[24px] md:gap-[30px]">
           <h2 className="text-[#132219] font-medium tracking-[-0.4px] md:tracking-[-0.6px] text-[36px] md:text-[48px] lg:text-[60px] leading-[1.15] md:leading-[1.2]">
-            Bereit, deine Finanzierung zu sichern?
+            {t("remax.finalCta.title")}
           </h2>
           <p className="text-black text-[16px] md:text-[20px] leading-[1.5] md:leading-[30px] max-w-[876px]">
-            Zuerst vergleichen. Dann entscheiden. Kostenlos und unverbindlich —
-            exklusiv für RE/MAX Kundinnen und Kunden.
+            {t("remax.finalCta.subtitle")}
           </p>
           <Link href={startHref}>
             <button
               type="button"
               className="inline-flex items-center gap-[8px] rounded-[45px] bg-black px-[24px] py-[10px] md:py-[8px] text-[#CAF476] text-[18px] md:text-[20px] font-semibold hover:opacity-90 transition-all"
             >
-              Jetzt starten
+              {t("remax.finalCta.button")}
               <ArrowIcon className="text-[#CAF476]" />
             </button>
           </Link>

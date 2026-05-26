@@ -18,6 +18,7 @@ const routes = [
   "/impressum",
   "/vorteile",
   "/betterhomes",
+  "/remax",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

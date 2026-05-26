@@ -1044,5 +1044,49 @@
       "subtitle": "D'abord comparer. Puis décider. Gratuit et sans engagement — exclusivement pour les clients Betterhomes.",
       "button": "Démarrer maintenant"
     }
+  },
+  "remax": {
+    "seo": {
+      "title": "RE/MAX x HYPOTEQ — Ton hypothèque en 3 étapes",
+      "description": "Exclusivement pour les clients RE/MAX : une première estimation en 2 minutes et une offre hypothécaire contraignante en quelques jours. Gratuit, indépendant et adapté à toi.",
+      "ogDescription": "Exclusivement pour les clients RE/MAX. Lance-toi en quelques secondes et soumets ta demande en seulement 2 minutes."
+    },
+    "logoAlt": "RE/MAX",
+    "hero": {
+      "title": "Tu as trouvé ton bien.",
+      "titleAccent": "Nous trouvons ton hypothèque.",
+      "subtitle": "Exclusivement pour les clients RE/MAX. Une première estimation en seulement 2 minutes, une offre hypothécaire contraignante en quelques jours. Gratuit, indépendant et adapté à toi.",
+      "cta": "Commencer en 3 étapes",
+      "imageAlt": "Immeuble résidentiel moderne"
+    },
+    "benefits": {
+      "title": "Du bien acheté au financement — sans détour",
+      "subtitle": "Tu as trouvé ton nouveau chez-toi grâce à RE/MAX. Nous nous occupons de l'hypothèque adaptée — rapide, transparente et avec accès aux partenaires de financement les plus attractifs de Suisse.",
+      "cta": "Commencer gratuitement"
+    },
+    "steps": {
+      "imageAlt": "Remise des clés",
+      "step1": {
+        "title": "Saisir tes données",
+        "body": "En quelques minutes, tu saisis tes informations sur le bien et tes finances et reçois une première estimation."
+      },
+      "step2": {
+        "title": "Comparer les offres",
+        "body": "Nous examinons ta demande et identifions les offres les plus attractives du marché — adaptées à ton profil."
+      },
+      "step3": {
+        "title": "Conclure ton hypothèque",
+        "body": "Tu reçois une offre contraignante et nous t'accompagnons jusqu'à l'accord final et au-delà."
+      }
+    },
+    "market": {
+      "title": "Indépendant. Avec accès aux meilleures conditions.",
+      "subtitle": "Grâce à notre connaissance du marché et à notre réseau de partenaires de financement suisses, tu sécurises l'hypothèque qui te convient — sans avoir à demander et comparer les offres toi-même."
+    },
+    "finalCta": {
+      "title": "Prêt à sécuriser ton financement ?",
+      "subtitle": "D'abord comparer. Puis décider. Gratuit et sans engagement — exclusivement pour les clients RE/MAX.",
+      "button": "Démarrer maintenant"
+    }
   }
 }

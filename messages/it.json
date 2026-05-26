@@ -1047,5 +1047,49 @@
       "subtitle": "Prima confrontare. Poi decidere. Gratuito e senza impegno — esclusivo per i clienti Betterhomes.",
       "button": "Inizia ora"
     }
+  },
+  "remax": {
+    "seo": {
+      "title": "RE/MAX x HYPOTEQ — La tua ipoteca in 3 passi",
+      "description": "Esclusivo per i clienti RE/MAX: una prima valutazione in 2 minuti e un'offerta ipotecaria vincolante in pochi giorni. Gratuito, indipendente e su misura per te.",
+      "ogDescription": "Esclusivo per i clienti RE/MAX. Inizia in pochi secondi e invia la tua richiesta in soli 2 minuti."
+    },
+    "logoAlt": "RE/MAX",
+    "hero": {
+      "title": "Hai trovato il tuo immobile.",
+      "titleAccent": "Troviamo la tua ipoteca.",
+      "subtitle": "Esclusivo per i clienti RE/MAX. Una prima valutazione in soli 2 minuti, un'offerta ipotecaria vincolante in pochi giorni. Gratuito, indipendente e su misura per te.",
+      "cta": "Inizia in 3 passi",
+      "imageAlt": "Edificio residenziale moderno"
+    },
+    "benefits": {
+      "title": "Dall'immobile al finanziamento — senza giri inutili",
+      "subtitle": "Hai trovato la tua nuova casa tramite RE/MAX. Ci occupiamo noi dell'ipoteca giusta — veloce, trasparente e con accesso ai partner di finanziamento più interessanti della Svizzera.",
+      "cta": "Inizia ora gratis"
+    },
+    "steps": {
+      "imageAlt": "Consegna delle chiavi",
+      "step1": {
+        "title": "Inserisci i tuoi dati",
+        "body": "In pochi minuti inserisci i dati dell'immobile e i dati finanziari e ricevi una prima valutazione."
+      },
+      "step2": {
+        "title": "Confronta le offerte",
+        "body": "Esaminiamo la tua richiesta e individuiamo le offerte più interessanti sul mercato — su misura per il tuo profilo."
+      },
+      "step3": {
+        "title": "Concludi l'ipoteca",
+        "body": "Ricevi un'offerta vincolante e ti accompagniamo fino all'approvazione finale e oltre."
+      }
+    },
+    "market": {
+      "title": "Indipendenti. Con accesso alle migliori condizioni.",
+      "subtitle": "Grazie alla nostra conoscenza del mercato e alla nostra rete di partner di finanziamento svizzeri, ottieni l'ipoteca adatta — senza dover richiedere e confrontare le offerte da solo."
+    },
+    "finalCta": {
+      "title": "Pronto ad assicurarti il finanziamento?",
+      "subtitle": "Prima confrontare. Poi decidere. Gratuito e senza impegno — esclusivo per i clienti RE/MAX.",
+      "button": "Inizia ora"
+    }
   }
 }

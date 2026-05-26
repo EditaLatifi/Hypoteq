@@ -1049,5 +1049,49 @@
       "subtitle": "Compare first. Then decide. Free and without obligation — exclusively for Betterhomes customers.",
       "button": "Start now"
     }
+  },
+  "remax": {
+    "seo": {
+      "title": "RE/MAX x HYPOTEQ — Your Mortgage in 3 Steps",
+      "description": "Exclusively for RE/MAX customers: get an initial assessment in 2 minutes and a binding mortgage offer within a few days. Free, independent and tailored to you.",
+      "ogDescription": "Exclusively for RE/MAX customers. Get started in seconds and submit your application in just 2 minutes."
+    },
+    "logoAlt": "RE/MAX",
+    "hero": {
+      "title": "You've found your property.",
+      "titleAccent": "We'll find your mortgage.",
+      "subtitle": "Exclusively for RE/MAX customers. An initial assessment in just 2 minutes, a binding mortgage offer within a few days. Free, independent and tailored to you.",
+      "cta": "Start in 3 steps",
+      "imageAlt": "Modern residential building"
+    },
+    "benefits": {
+      "title": "From property to financing — without detours",
+      "subtitle": "You found your new home through RE/MAX. We take care of the right mortgage — fast, transparent and with access to the most attractive financing partners in Switzerland.",
+      "cta": "Start now for free"
+    },
+    "steps": {
+      "imageAlt": "Key handover",
+      "step1": {
+        "title": "Enter your details",
+        "body": "In just a few minutes you enter your property and financial details and receive an initial assessment."
+      },
+      "step2": {
+        "title": "Compare offers",
+        "body": "We review your request and identify the most attractive offers on the market — tailored to your profile."
+      },
+      "step3": {
+        "title": "Secure your mortgage",
+        "body": "You receive a binding offer and we accompany you all the way to the final approval and beyond."
+      }
+    },
+    "market": {
+      "title": "Independent. With access to the best conditions.",
+      "subtitle": "Thanks to our market expertise and our network of Swiss financing partners, you secure the right mortgage — without having to gather and compare offers yourself."
+    },
+    "finalCta": {
+      "title": "Ready to secure your financing?",
+      "subtitle": "Compare first. Then decide. Free and without obligation — exclusively for RE/MAX customers.",
+      "button": "Start now"
+    }
   }
 }
