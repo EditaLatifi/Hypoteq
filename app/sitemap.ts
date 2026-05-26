@@ -17,6 +17,7 @@ const routes = [
   "/beratung",
   "/impressum",
   "/vorteile",
+  "/betterhomes",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

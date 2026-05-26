@@ -1005,5 +1005,49 @@
       "default": "That's a good question! I recommend speaking with one of our experts to get a detailed answer.",
       "furtherHelp": "For further assistance, please visit our"
     }
+  },
+  "betterhomes": {
+    "seo": {
+      "title": "Betterhomes x HYPOTEQ — Your Mortgage in 3 Steps",
+      "description": "Exclusively for Betterhomes customers: get an initial assessment in 2 minutes and a binding mortgage offer within a few days. Free, efficient and independent.",
+      "ogDescription": "Exclusively for Betterhomes customers. Get started in seconds and submit your application in just 2 minutes."
+    },
+    "logoAlt": "Betterhomes",
+    "hero": {
+      "title": "Your home is set.",
+      "titleAccent": "Now for the right mortgage.",
+      "subtitle": "Exclusively for Betterhomes customers. Get started in seconds and submit your application in just 2 minutes. You receive an initial assessment immediately and a binding offer within a few days. Free, efficient and independent.",
+      "cta": "Start in 3 steps",
+      "imageAlt": "Modern residential building"
+    },
+    "benefits": {
+      "title": "Faster to your mortgage thanks to Betterhomes",
+      "subtitle": "As a Betterhomes customer, the key property details are already on file. That makes the process noticeably faster and easier. We only need your personal information and documents.",
+      "cta": "Start now for free"
+    },
+    "steps": {
+      "imageAlt": "Key handover",
+      "step1": {
+        "title": "Get started easily",
+        "body": "In just a few minutes you enter your key details and receive an initial assessment."
+      },
+      "step2": {
+        "title": "We find the best offer",
+        "body": "We review your request and identify the most attractive offers on the market — tailored to your profile."
+      },
+      "step3": {
+        "title": "Secure your mortgage",
+        "body": "You receive a suitable binding offer and we accompany you all the way to the final approval."
+      }
+    },
+    "market": {
+      "title": "We know the market and find the best offer",
+      "subtitle": "Thanks to our market expertise and access to the most attractive financing partners, we make sure you get the right mortgage — without having to compare offers yourself."
+    },
+    "finalCta": {
+      "title": "Ready to start in 3 steps?",
+      "subtitle": "Compare first. Then decide. Free and without obligation — exclusively for Betterhomes customers.",
+      "button": "Start now"
+    }
   }
 }

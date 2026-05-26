@@ -1010,5 +1010,49 @@
       "default": "Das ist eine gute Frage! Ich empfehle Ihnen, mit einem unserer Experten zu sprechen, um eine detaillierte Antwort zu erhalten.",
       "furtherHelp": "Für weitere Unterstützung besuchen Sie bitte unsere"
     }
+  },
+  "betterhomes": {
+    "seo": {
+      "title": "Betterhomes x HYPOTEQ — Deine Hypothek in 3 Schritten",
+      "description": "Exklusiv für Betterhomes Kunden: in 2 Minuten zur ersten Einschätzung und in wenigen Tagen zum verbindlichen Hypothekenangebot. Kostenlos, effizient und unabhängig.",
+      "ogDescription": "Exklusiv für Betterhomes Kunden. Starte in Sekunden und stelle deinen Antrag in nur 2 Minuten."
+    },
+    "logoAlt": "Betterhomes",
+    "hero": {
+      "title": "Dein Zuhause steht.",
+      "titleAccent": "Jetzt kommt die richtige Hypothek.",
+      "subtitle": "Exklusiv für Betterhomes Kunden. Starte in Sekunden und stelle deinen Antrag in nur 2 Minuten. Du erhältst sofort eine erste Einschätzung und in wenigen Tagen ein verbindliches Angebot. Kostenlos, effizient und unabhängig.",
+      "cta": "In 3 Schritten starten",
+      "imageAlt": "Modernes Wohngebäude"
+    },
+    "benefits": {
+      "title": "Schneller zur Hypothek dank Betterhomes",
+      "subtitle": "Als Betterhomes Kunde sind die wichtigsten Informationen zur Immobilie bereits vorhanden. Dadurch wird der Prozess deutlich schneller und einfacher. Wir benötigen nur noch deine persönlichen Angaben und Unterlagen.",
+      "cta": "Jetzt kostenlos starten"
+    },
+    "steps": {
+      "imageAlt": "Schlüsselübergabe",
+      "step1": {
+        "title": "Einfach starten",
+        "body": "In wenigen Minuten gibst du deine Eckdaten ein und erhältst eine erste Einschätzung."
+      },
+      "step2": {
+        "title": "Wir finden das beste Angebot",
+        "body": "Wir prüfen deine Anfrage und identifizieren die attraktivsten Angebote im Markt — abgestimmt auf dein Profil."
+      },
+      "step3": {
+        "title": "Deine Hypothek sichern",
+        "body": "Du erhältst ein passendes verbindliches Angebot und wir begleiten dich bis zur finalen Zusage."
+      }
+    },
+    "market": {
+      "title": "Wir kennen den Markt und finden das beste Angebot",
+      "subtitle": "Dank unserer Marktkenntnis und unserem Zugang zu den attraktivsten Finanzierungspartnern stellen wir sicher, dass du die passende Hypothek erhältst — ohne selbst vergleichen zu müssen."
+    },
+    "finalCta": {
+      "title": "Bereit in 3 Schritten zu starten?",
+      "subtitle": "Zuerst vergleichen. Dann entscheiden. Kostenlos und unverbindlich — exklusiv für Betterhomes-Kunden.",
+      "button": "Jetzt starten"
+    }
   }
 }

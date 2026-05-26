@@ -1000,6 +1000,49 @@
       "default": "C'est une bonne question! Je tu recommande de parler avec l'un de nos experts pour obtenir une réponse détaillée.",
       "furtherHelp": "Pour plus d'assistance, veuillez visiter notre"
     }
+  },
+  "betterhomes": {
+    "seo": {
+      "title": "Betterhomes x HYPOTEQ — Ton hypothèque en 3 étapes",
+      "description": "Exclusivement pour les clients Betterhomes : une première estimation en 2 minutes et une offre hypothécaire contraignante en quelques jours. Gratuit, efficace et indépendant.",
+      "ogDescription": "Exclusivement pour les clients Betterhomes. Lance-toi en quelques secondes et soumets ta demande en seulement 2 minutes."
+    },
+    "logoAlt": "Betterhomes",
+    "hero": {
+      "title": "Ton chez-toi est trouvé.",
+      "titleAccent": "Place à la bonne hypothèque.",
+      "subtitle": "Exclusivement pour les clients Betterhomes. Lance-toi en quelques secondes et soumets ta demande en seulement 2 minutes. Tu reçois immédiatement une première estimation et, en quelques jours, une offre contraignante. Gratuit, efficace et indépendant.",
+      "cta": "Commencer en 3 étapes",
+      "imageAlt": "Immeuble résidentiel moderne"
+    },
+    "benefits": {
+      "title": "Plus vite à l'hypothèque grâce à Betterhomes",
+      "subtitle": "En tant que client Betterhomes, les principales informations sur ton bien sont déjà disponibles. Le processus en devient nettement plus rapide et plus simple. Nous n'avons plus besoin que de tes informations personnelles et de tes documents.",
+      "cta": "Commencer gratuitement"
+    },
+    "steps": {
+      "imageAlt": "Remise des clés",
+      "step1": {
+        "title": "Démarrer simplement",
+        "body": "En quelques minutes, tu saisis tes données clés et reçois une première estimation."
+      },
+      "step2": {
+        "title": "Nous trouvons la meilleure offre",
+        "body": "Nous examinons ta demande et identifions les offres les plus attractives du marché — adaptées à ton profil."
+      },
+      "step3": {
+        "title": "Sécurise ton hypothèque",
+        "body": "Tu reçois une offre contraignante adaptée et nous t'accompagnons jusqu'à l'accord final."
+      }
+    },
+    "market": {
+      "title": "Nous connaissons le marché et trouvons la meilleure offre",
+      "subtitle": "Grâce à notre connaissance du marché et à notre accès aux partenaires de financement les plus attractifs, nous nous assurons que tu obtiennes l'hypothèque qui te convient — sans avoir à comparer toi-même."
+    },
+    "finalCta": {
+      "title": "Prêt à démarrer en 3 étapes ?",
+      "subtitle": "D'abord comparer. Puis décider. Gratuit et sans engagement — exclusivement pour les clients Betterhomes.",
+      "button": "Démarrer maintenant"
+    }
   }
-  
 }

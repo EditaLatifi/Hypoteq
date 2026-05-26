@@ -31,6 +31,17 @@ const nextConfig = {
   // Production optimizations
   productionBrowserSourceMaps: false,
   
+  // Redirects (legacy URLs)
+  async redirects() {
+    return [
+      {
+        source: "/betterhome",
+        destination: "/de/betterhomes",
+        permanent: true,
+      },
+    ];
+  },
+
   // Headers for caching and performance
   async headers() {
     return [

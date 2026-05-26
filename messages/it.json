@@ -1003,6 +1003,49 @@
       "default": "È una buona domanda! Ti consiglio di parlare con uno dei nostri esperti per ottenere una risposta dettagliata.",
       "furtherHelp": "Per ulteriore assistenza, visita la nostra"
     }
+  },
+  "betterhomes": {
+    "seo": {
+      "title": "Betterhomes x HYPOTEQ — La tua ipoteca in 3 passi",
+      "description": "Esclusivo per i clienti Betterhomes: una prima valutazione in 2 minuti e un'offerta ipotecaria vincolante in pochi giorni. Gratuito, efficiente e indipendente.",
+      "ogDescription": "Esclusivo per i clienti Betterhomes. Inizia in pochi secondi e invia la tua richiesta in soli 2 minuti."
+    },
+    "logoAlt": "Betterhomes",
+    "hero": {
+      "title": "La tua casa è pronta.",
+      "titleAccent": "Ora la giusta ipoteca.",
+      "subtitle": "Esclusivo per i clienti Betterhomes. Inizia in pochi secondi e invia la tua richiesta in soli 2 minuti. Ricevi subito una prima valutazione e in pochi giorni un'offerta vincolante. Gratuito, efficiente e indipendente.",
+      "cta": "Inizia in 3 passi",
+      "imageAlt": "Edificio residenziale moderno"
+    },
+    "benefits": {
+      "title": "Più velocemente all'ipoteca grazie a Betterhomes",
+      "subtitle": "In qualità di cliente Betterhomes, le informazioni principali sull'immobile sono già disponibili. Il processo risulta così molto più rapido e semplice. Ci servono solo i tuoi dati personali e i documenti.",
+      "cta": "Inizia ora gratis"
+    },
+    "steps": {
+      "imageAlt": "Consegna delle chiavi",
+      "step1": {
+        "title": "Iniziare facilmente",
+        "body": "In pochi minuti inserisci i tuoi dati principali e ricevi una prima valutazione."
+      },
+      "step2": {
+        "title": "Troviamo la migliore offerta",
+        "body": "Esaminiamo la tua richiesta e individuiamo le offerte più interessanti sul mercato — su misura per il tuo profilo."
+      },
+      "step3": {
+        "title": "Assicura la tua ipoteca",
+        "body": "Ricevi un'offerta vincolante adatta e ti accompagniamo fino all'approvazione finale."
+      }
+    },
+    "market": {
+      "title": "Conosciamo il mercato e troviamo l'offerta migliore",
+      "subtitle": "Grazie alla nostra conoscenza del mercato e all'accesso ai partner di finanziamento più interessanti, garantiamo che tu ottenga l'ipoteca adatta — senza dover confrontare da solo."
+    },
+    "finalCta": {
+      "title": "Pronto a iniziare in 3 passi?",
+      "subtitle": "Prima confrontare. Poi decidere. Gratuito e senza impegno — esclusivo per i clienti Betterhomes.",
+      "button": "Inizia ora"
+    }
   }
-  
 }
