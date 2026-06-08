@@ -415,7 +415,7 @@ const sections = [
   ...(isReserviert ? [{
     title: t("funnel.reservation" as any),
     items: [
-      t("funnel.renovationContract" as any), // Renovationsvertrag
+      t("funnel.reservationContractDoc" as any), // Reservationsvertrag
       t("funnel.bankStatementReservation" as any), // Bankauszug Reservationszahlung
     ],
   }] : []),
