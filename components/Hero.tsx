@@ -15,7 +15,7 @@ export default function Hero() {
     <section className="relative w-full overflow-hidden font-sfpro min-h-[50vh]">
       {/* ✅ Background with Next.js Image optimization */}
       <Image
-        src="/images/HYPOTEQ_home_hero_banner.png"
+        src="/images/HYPOTEQ_home_hero_summer.png"
         alt="Hero background"
         fill
         priority
@@ -23,6 +23,9 @@ export default function Hero() {
         sizes="100vw"
         className="object-cover -z-10"
       />
+
+      {/* ✅ Soft light wash on the left to seat the dark text (keeps the bright summer look) */}
+      <div className="absolute inset-0 -z-[5] bg-gradient-to-r from-white/45 via-white/15 to-transparent md:from-white/40 md:via-white/10" />
 
       {/* ✅ Content */}
       <div
@@ -51,7 +54,7 @@ export default function Hero() {
           mt-4 md:mt-[20px] lg:mt-[32px]
           max-w-[95%] md:max-w-[650px] lg:max-w-[900px]"
         >
-          {t("hero.subtitle")} <br/> – <strong>{t("hero.subtitleBold")} </strong><br/>{t("hero.description")}
+          {t("hero.subtitle")} <br/> {pathLocale !== "fr" && "– "}<strong>{t("hero.subtitleBold")} </strong><br/>{t("hero.description")}
         </p>
 
         {/* ✅ CTA Button */}
