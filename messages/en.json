@@ -890,7 +890,10 @@
     "step3Title": "Receive offer & decide",
     "step3Desc": "Within 48–72 hours after receiving all documents, you'll receive your personal offers – transparent, comparable, and tailored to your profile. With one click, you can accept or decline the desired offer.",
     "step4Title": "Congratulations – your mortgage is ready",
-    "step4Desc": "After your selection, we take care of coordination with the bank and accompany you until completion."
+    "step4Desc": "After your selection, we take care of coordination with the bank and accompany you until completion.",
+    "chartHeadline": "We found your best offer! Continue with the process now",
+    "chartBadge": "Success!",
+    "chartOfferLabel": "Your offer"
   },
   "faqItems": {
     "q1": "How does a mortgage inquiry work at HYPOTEQ?",

@@ -62,12 +62,12 @@
     "hypotheken": "Hypothèques"
   },
   "hero": {
-    "title": "En trois étapes",
-    "title2": "vers ton",
-    "title3": "hypothèque",
-    "subtitle": "Obtiens ton offre hypothécaire personnelle en ligne",
-    "subtitleBold": "rapide, sûr et transparent.",
-    "description": "Compare différentes options, calcule tes coûts mensuels et lance ton processus de financement - le tout en trois étapes. Compare d'abord - décide ensuite",
+    "title": "Ton hypothèque",
+    "title2": "en trois",
+    "title3": "étapes",
+    "subtitle": "Obtiens ton offre hypothécaire personnalisée en ligne",
+    "subtitleBold": "Simple, rapide et en toute transparence.",
+    "description": "Compare différentes solutions hypothécaires, estime tes mensualités et démarre ta demande de financement en quelques clics. Le tout en seulement trois étapes. Compare d'abord. Décide ensuite.",
     "buttonText": "Calculer l'hypothèque"
   },
   "buttons": {
@@ -78,7 +78,7 @@
     "requestMortgage": "Demander une hypothèque",
     "bestOffer": "Visiter sur LinkedIn",
     "bookAppointment": "Prendre rendez-vous",
-    "bestOffer12": "Trouver la meilleure offre",
+    "bestOffer12": "Découvrir les meilleures offres",
     "bookAppointmentAdvisory": "Prendre Rendez-vous",
     "sendNewsletter": "Envoyer",
     "homeEvaluation": "Évaluation de la maison",
@@ -100,13 +100,13 @@
   },
   "bestChoices": {
     "title": "HYPOTEQ",
-    "subtitle": "Choix Intelligent. Meilleurs Taux.",
-    "description": "Nos taux indicatifs servent de guide. ton taux personnel peut varier selon ta situation. Nous calculons volontiers ton taux individuel.",
+    "subtitle": "Transparence totale. Meilleures décisions.",
+    "description": "Les taux affichés sont donnés à titre indicatif. Ton offre personnelle est calculée sur la base de ta situation afin de te proposer les meilleures conditions possibles.",
     "disclaimer": "ton taux personnel peut varier selon ta situation – nous calculons volontiers ton taux individuel.",
     "saronFrom": "Saron dès",
     "fiveYearsFrom": "5 ans dès",
     "tenYearsFrom": "10 ans dès",
-    "footerText": "Avec HYPOTEQ, tu sais toujours où tu en es. Pas de taux vitrines, pas de frais cachés – uniquement des offres justes et transparentes."
+    "footerText": "Chez HYPOTEQ, la transparence n'est pas une promesse, c'est un principe : aucun frais caché, aucune surprise, uniquement des offres claires et comparables."
   },
   "contactform": {
     "firstName": "Prénom",
@@ -622,14 +622,14 @@
     "bookConsultation": "Réserver maintenant une consultation gratuite"
   },
   "howItWorks": {
-    "title": "Comment ça marche - en trois étapes vers ton hypothèque",
+    "title": "Comment obtenir ton hypothèque en 3 étapes",
     "step1Title": "Comparez tes options",
     "step1Text": "Entre tes données immobilières, informations financières et souhaits. HYPOTEQ analyse ton situation et tu montre les options hypothécaires disponibles auprès de plus de 30 banques et prêteurs en temps réel.",
     "step2Title": "Calculez tes coûts",
     "step2Text": "Voyez exactement ce que coûte ton hypothèque - avec des calculs détaillés pour différents scénarios. Compare les taux d'intérêt, les frais et les conditions et décidez en toute connaissance de cause.",
     "step3Title": "Lancez ton processus",
     "step3Text": "Commence maintenant en seulement 3 étapes - nous te guidons en toute sécurité à chaque étape.",
-    "highlightText": "Commence maintenant en seulement 3 étapes - nous te guidons en toute sécurité à chaque étape."
+    "highlightText": "En trois étapes seulement, compare les offres, choisis la meilleure solution et bénéficie d'un accompagnement personnalisé jusqu'à la signature."
   },
   "advantages": {
     "title": "Nos avantages",
@@ -761,12 +761,12 @@
   },
   "yourAdvantages": {
     "title": "Tes avantages avec HYPOTEQ",
-    "card1Title": "Facile et rapide vers le meilleur financement",
-    "card1Text": "Ton chemin vers la propriété n'a pas à être compliqué. HYPOTEQ compare les offres de différents partenaires de financement et te montre immédiatement quelle solution te convient. Rapide, transparent et complètement numérique.",
-    "card2Title": "Plus de choix, meilleures conditions",
-    "card2Text": "Compare les offres de plusieurs partenaires de financement. Ainsi tu trouves le financement qui te convient vraiment – avec des conditions équitables et sans frais cachés.",
-    "card3Title": "Transparence totale",
-    "card3Text": "Avec HYPOTEQ, tu sais toujours où tu en es. Pas de frais cachés, pas de taux d'appel – seulement des offres équitables et compréhensibles et des conseils honnêtes."
+    "card1Title": "Le meilleur financement, simplement",
+    "card1Text": "Nous comparons les offres de plusieurs établissements financiers afin de te proposer rapidement la solution la plus avantageuse. Simple, rapide et entièrement digital.",
+    "card2Title": "Plus d'options, plus d'économies",
+    "card2Text": "Grâce à notre réseau de partenaires, tu bénéficies d'un large choix d'offres et de conditions compétitives, adaptées à tes besoins.",
+    "card3Title": "Une transparence à chaque étape",
+    "card3Text": "Tu sais toujours où tu en es. Pas de frais cachés, pas de surprises : uniquement des informations claires, des offres transparentes et un accompagnement de confiance."
   },
   "partners": {
     "title": "Partenaires"
@@ -876,16 +876,19 @@
   },
   "howItWorksSteps": {
     "step1Label": "Étape 1",
-    "step1Title": "Entrer les informations",
-    "step1Desc": "Entre les informations les plus importantes sur ton propriété, tes revenus et tes fonds propres. Tu verras immédiatement si la capacité financière et les fonds propres sont suffisants pour un financement. Rapide, simple et sans engagement.",
+    "step1Title": "Parle-nous de ton projet",
+    "step1Desc": "Indique les principales informations sur ton bien, tes revenus et tes fonds propres. En quelques instants, nous évaluons si les conditions nécessaires à l'obtention d'une hypothèque sont réunies. Simple, rapide et entièrement sans engagement.",
     "step2Label": "Étape 2",
-    "step2Title": "Soumettre les documents",
-    "step2Desc": "Téléchargez les documents requis (par ex. certificat de salaire, déclaration d'impôts, extrait du registre foncier). Dès que tout est complet, nous lançons le processus et obtenons les meilleures offres bancaires pour toi.",
+    "step2Title": "Soumets tes documents",
+    "step2Desc": "Téléverse les documents nécessaires à l'étude de ton dossier. Dès réception, nous lançons les démarches auprès de nos partenaires financiers pour trouver les meilleures offres adaptées à ton profil.",
     "step3Label": "Étape 3",
-    "step3Title": "Recevoir l'offre & décider",
-    "step3Desc": "Dans les 48 à 72 heures suivant la réception de tous les documents, Tu recevras tes offres personnelles – transparentes, comparables et personnellement adaptées à ton profil. En un clic, Tu peux accepter ou refuser l'offre souhaitée.",
-    "step4Title": "Félicitations – ton hypothèque est prête",
-    "step4Desc": "Après ton sélection, nous prenons en charge la coordination avec la banque et t'accompagnons jusqu'à la conclusion."
+    "step3Title": "Compare les offres et décide en toute confiance",
+    "step3Desc": "Une fois ton dossier complet, nous négocions pour toi auprès de nos partenaires financiers. Sous 48 à 72 heures, tu reçois plusieurs offres hypothécaires personnalisées, présentées de manière claire et comparable. Choisis l'offre qui correspond le mieux à tes besoins et confirme-la facilement en ligne.",
+    "step4Title": "Félicitations, ton financement est presque finalisé.",
+    "step4Desc": "Nous coordonnons les prochaines étapes avec la banque et veillons au bon déroulement du processus jusqu'à la conclusion de ton hypothèque.",
+    "chartHeadline": "Nous avons trouvé la meilleure offre pour toi ! Poursuis maintenant le processus de financement.",
+    "chartBadge": "Succès !",
+    "chartOfferLabel": "Ton offre"
   },
   "faqItems": {
     "q1": "Comment fonctionne une demande d'hypothèque chez HYPOTEQ ?",

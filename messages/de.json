@@ -895,7 +895,10 @@
     "step3Title": "Angebot erhalten & entscheiden",
     "step3Desc": "Innerhalb von 48–72 Stunden nach Eingang aller Dokumente erhältst du deine persönlichen Offerten – transparent, vergleichbar und persönlich auf dein Profil abgestimmt. Mit einem Klick kannst du das gewünschte Angebot annehmen oder ablehnen.",
     "step4Title": "Gratulation – deine Hypothek ist bereit",
-    "step4Desc": "Nach deiner Auswahl übernehmen wir die Koordination mit der Bank und begleiten dich bis zum Abschluss."
+    "step4Desc": "Nach deiner Auswahl übernehmen wir die Koordination mit der Bank und begleiten dich bis zum Abschluss.",
+    "chartHeadline": "Wir haben Ihr bestes Angebot gefunden! Fahren Sie jetzt mit dem Prozess fort",
+    "chartBadge": "Erfolg!",
+    "chartOfferLabel": "Ihr Angebot"
   },
   "faqItems": {
     "q1": "Wie funktioniert eine Hypothekenanfrage bei HYPOTEQ?",
