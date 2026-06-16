@@ -291,6 +291,90 @@ export async function POST(req: Request) {
   }
 }
 
+/* ==========================================================================
+ * DEV-ONLY EMAIL PREVIEW
+ * Renders the notification email in the browser without sending anything.
+ * Disabled in production. Examples:
+ *   /api/inquiry?preview=1                      → German, direct customer, Kauf
+ *   /api/inquiry?preview=1&locale=fr            → French
+ *   /api/inquiry?preview=1&type=partner         → partner (hides Steueroptimierung)
+ *   /api/inquiry?preview=1&projekt=abloesung    → refinancing (shows Erhöhung/Erhöhungsbetrag)
+ * ======================================================================== */
+export async function GET(req: Request) {
+  if (process.env.NODE_ENV === "production") {
+    return NextResponse.json({ error: "Not available." }, { status: 405 });
+  }
+  const url = new URL(req.url);
+  if (!url.searchParams.get("preview")) {
+    return NextResponse.json(
+      { error: "Method Not Allowed. Append ?preview=1 to render the email." },
+      { status: 405 }
+    );
+  }
+
+  const supported = ["de", "fr", "it", "en"];
+  const rawLocale = (url.searchParams.get("locale") || "de").toLowerCase();
+  const locale = (supported.includes(rawLocale) ? rawLocale : "de") as EmailLocale;
+  const customerType = url.searchParams.get("type") === "partner" ? "partner" : "direct";
+  const projektArt = url.searchParams.get("projekt") === "abloesung" ? "abloesung" : "kauf";
+
+  // Sample data mirroring the ticket example (two borrowers across both arrays)
+  const sample = {
+    customerType,
+    locale,
+    client: {
+      firstName: "Anna",
+      lastName: "Muster",
+      email: "anna.muster@example.ch",
+      phone: "+41 79 123 45 67",
+      zip: "8000",
+      firma: "",
+    },
+    project: { projektArt, liegenschaftZip: "8001", kreditnehmerTyp: "nat" },
+    property: {
+      artImmobilie: "bestehend",
+      artLiegenschaft: "Einfamilienhaus",
+      nutzung: "Eigenheim",
+      renovation: "nein",
+      reserviert: "ja",
+      finanzierungsangebote: "nein",
+      kreditnehmer: [
+        { vorname: "Mark", name: "Dedaj", geburtsdatum: "04.05.1998", erwerb: "angestellt", zivilstand: "ledig", type: "nat" },
+      ],
+    },
+    borrowers: [
+      { firstName: "Lea", lastName: "Beispiel", type: "nat", geburtsdatum: "12.09.1996", erwerb: "angestellt", zivilstand: "ledig" },
+    ],
+    financing: {
+      kaufpreis: "1500000",
+      eigenmittel_bar: "185000",
+      eigenmittel_saeule3: "53568",
+      eigenmittel_pk: "84762",
+      eigenmittel_schenkung: "",
+      pkVorbezug: "ja",
+      modell: "10",
+      brutto: "260000",
+      bonus: "",
+      steueroptimierung: "ja",
+      kaufdatum: "19.05.2026",
+      abloesung_betrag: projektArt === "abloesung" ? "900000" : "",
+      erhoehung: projektArt === "abloesung" ? "ja" : "",
+      erhoehung_betrag: projektArt === "abloesung" ? "100000" : "",
+      abloesedatum: projektArt === "abloesung" ? "01.07.2026" : "",
+    },
+  };
+
+  const html = generateFunnelEmailHTML(
+    sample,
+    { id: "PREVIEW", createdAt: new Date().toISOString() },
+    locale
+  );
+  return new NextResponse(html, {
+    status: 200,
+    headers: { "Content-Type": "text/html; charset=utf-8" },
+  });
+}
+
 type EmailLocale = 'de' | 'fr' | 'it' | 'en';
 
 // Send email notification for funnel submission
@@ -337,7 +421,7 @@ async function sendFunnelNotificationEmail(data: any, saved: any, locale: EmailL
       toRecipients: [
         {
           emailAddress: {
-            address: process.env.SMTP_TO || "info@hypoteq.ch",
+            address: "info@hypoteq.ch",
           },
         },
       ],
@@ -982,16 +1066,20 @@ function generateFunnelEmailHTML(data: any, saved: any, locale: EmailLocale = 'd
   const pr = data.property || {};
   const f = data.financing || {};
 
-  // Borrowers/kreditnehmer rows from property.kreditnehmer
+  // Borrower/person type (nat | jur | partner) — shown in the project section
+  const borrowerTyp =
+    data.borrowers?.[0]?.type ||
+    (Array.isArray(pr.kreditnehmer) ? pr.kreditnehmer[0]?.type : '') ||
+    p.kreditnehmerTyp ||
+    data.project?.borrowerType ||
+    '';
+
+  // Borrowers/kreditnehmer rows from property.kreditnehmer (no e-mail/phone/type here)
   const kreditnehmerList: any[] = Array.isArray(pr.kreditnehmer) ? pr.kreditnehmer : [];
-  const kreditnehmerHTML = kreditnehmerList.length === 0
-    ? `<tr><td colspan="2">${L.notProvided}</td></tr>`
-    : kreditnehmerList.map((kn: any, i: number) => `
+  const kreditnehmerHTML = kreditnehmerList.map((kn: any, i: number) => `
         <tr><td colspan="2" style="background-color: #f9f9f9; font-weight: 600; padding: 12px;">${L.borrowerN} ${i + 1}</td></tr>
         ${row(`&nbsp;&nbsp;${L.firstName}`, dash(kn.vorname || kn.firstName, L))}
         ${row(`&nbsp;&nbsp;${L.lastName}`, dash(kn.name || kn.lastName, L))}
-        ${row(`&nbsp;&nbsp;${L.email}`, dash(kn.email, L))}
-        ${row(`&nbsp;&nbsp;${L.phone}`, dash(kn.telefon || kn.phone, L))}
         ${row(`&nbsp;&nbsp;${L.birthdate}`, dash(kn.geburtsdatum || kn.birthdate, L))}
         ${row(`&nbsp;&nbsp;${L.employment}`, dash(kn.erwerb || kn.job, L))}
         ${row(`&nbsp;&nbsp;${L.civilStatus}`, dash(kn.zivilstand || kn.civil, L))}
@@ -1024,19 +1112,20 @@ function generateFunnelEmailHTML(data: any, saved: any, locale: EmailLocale = 'd
     : '';
   const combinedOffersHTML = offerListHTML + offerStructuredHTML;
 
-  // Partner additional borrowers (data.borrowers array)
+  // Partner additional borrowers (data.borrowers array) — numbering continues after kreditnehmerList
   const borrowersList: any[] = Array.isArray(data.borrowers) ? data.borrowers : [];
-  const additionalBorrowersHTML = borrowersList.length === 0
-    ? ''
-    : borrowersList.map((b: any, i: number) => `
-        <tr><td colspan="2" style="background-color: #f9f9f9; font-weight: 600; padding: 12px;">${L.borrowerN} ${i + 1}</td></tr>
+  const additionalBorrowersHTML = borrowersList.map((b: any, i: number) => `
+        <tr><td colspan="2" style="background-color: #f9f9f9; font-weight: 600; padding: 12px;">${L.borrowerN} ${kreditnehmerList.length + i + 1}</td></tr>
         ${row(`&nbsp;&nbsp;${L.firstName}`, dash(b.vorname || b.firstName, L))}
         ${row(`&nbsp;&nbsp;${L.lastName}`, dash(b.name || b.lastName, L))}
         ${row(`&nbsp;&nbsp;${L.birthdate}`, dash(b.geburtsdatum || b.birthdate, L))}
         ${row(`&nbsp;&nbsp;${L.employment}`, dash(b.erwerb || b.job, L))}
         ${row(`&nbsp;&nbsp;${L.civilStatus}`, dash(b.zivilstand || b.civil, L))}
-        ${row(`&nbsp;&nbsp;${L.type}`, typLabel(b.type, L))}
       `).join('');
+
+  // Unified borrowers block — single "-" placeholder only when there are no borrowers at all
+  const borrowersSectionHTML =
+    (kreditnehmerHTML + additionalBorrowersHTML) || `<tr><td colspan="2">${L.notProvided}</td></tr>`;
 
   // Eigenmittel total
   const totalEigenmittel =
@@ -1047,6 +1136,16 @@ function generateFunnelEmailHTML(data: any, saved: any, locale: EmailLocale = 'd
 
   // Calculator block
   const calc = computeFunnelCalc(data);
+
+  // Financing display helpers
+  const projektArtLower = String(p.projektArt || '').toLowerCase();
+  const isAbloesung = projektArtLower === 'abloesung';
+  const isKauf = projektArtLower === 'kauf';
+  const isDirect = data.customerType === 'direct';
+  // Mortgage amount: use entered value, else fall back to the computed estimate
+  const hypoBetragValue = f.hypoBetrag || (calc ? calc.totalMortgage : '');
+  // Gross annual income = gross income + bonus
+  const bruttoJahr = (Number(f.brutto) || 0) + (Number(f.bonus) || 0);
   const fmtPct = (v: number) => `${(v * 100).toFixed(1).replace('.', localeStr.startsWith('en') ? '.' : ',')}%`;
   const calcHTML = !calc ? '' : `
     <div class="section">
@@ -1121,7 +1220,6 @@ function generateFunnelEmailHTML(data: any, saved: any, locale: EmailLocale = 'd
         ${row(L.phone, c.phone ? `<a href="tel:${c.phone}" style="color:#132219;text-decoration:underline;">${c.phone}</a>` : L.notProvided)}
         ${row(L.zip, dash(c.zip, L))}
         ${row(L.company, dash(c.firma || c.company, L))}
-        ${row(L.partnerEmail, c.partnerEmail ? `<a href="mailto:${c.partnerEmail}" style="color:#132219;text-decoration:underline;">${c.partnerEmail}</a>` : L.notProvided)}
       </table>
     </div>
 
@@ -1130,7 +1228,7 @@ function generateFunnelEmailHTML(data: any, saved: any, locale: EmailLocale = 'd
       <table>
         ${row(L.projectType, projektLabel)}
         ${row(L.plzLiegenschaft, dash(p.liegenschaftZip, L))}
-        ${row(L.kreditnehmerTyp, dash(p.kreditnehmerTyp, L))}
+        ${row(L.type, typLabel(borrowerTyp, L))}
       </table>
     </div>
 
@@ -1157,8 +1255,7 @@ function generateFunnelEmailHTML(data: any, saved: any, locale: EmailLocale = 'd
     <div class="section">
       <div class="section-title">${L.section_borrowers}</div>
       <table>
-        ${kreditnehmerHTML}
-        ${additionalBorrowersHTML}
+        ${borrowersSectionHTML}
       </table>
     </div>
 
@@ -1176,13 +1273,13 @@ function generateFunnelEmailHTML(data: any, saved: any, locale: EmailLocale = 'd
       <div class="summary-box">
         <strong>${L.kaufpreis}:</strong> ${chf(f.kaufpreis, L, localeStr)}<br>
         ${totalEigenmittel > 0 ? `<strong>${L.eigenmittel_total}:</strong> ${chf(totalEigenmittel, L, localeStr)}<br>` : ''}
-        ${f.hypoBetrag ? `<strong>${L.hypoBetrag}:</strong> ${chf(f.hypoBetrag, L, localeStr)}` : ''}
+        ${hypoBetragValue ? `<strong>${L.hypoBetrag}:</strong> ${chf(hypoBetragValue, L, localeStr)}` : ''}
       </div>
       ` : ''}
 
       <table>
         ${row(L.kaufpreis, chf(f.kaufpreis, L, localeStr))}
-        ${row(L.abloesungBetrag, chf(f.abloesung_betrag, L, localeStr))}
+        ${isAbloesung ? row(L.abloesungBetrag, chf(f.abloesung_betrag, L, localeStr)) : ''}
 
         <tr><td colspan="2" class="subhead">${L.eigenmittelBreakdown}</td></tr>
         ${row(`&nbsp;&nbsp;${L.eigenmittel_bar}`, chf(f.eigenmittel_bar, L, localeStr))}
@@ -1192,17 +1289,17 @@ function generateFunnelEmailHTML(data: any, saved: any, locale: EmailLocale = 'd
         ${row(`&nbsp;&nbsp;${L.eigenmittel_total}`, chf(totalEigenmittel, L, localeStr))}
 
         ${row(L.pkVorbezug, yesNo(f.pkVorbezug, L))}
-        ${row(L.hypoBetrag, chf(f.hypoBetrag, L, localeStr))}
+        ${row(L.hypoBetrag, chf(hypoBetragValue, L, localeStr))}
         ${row(L.modell, modellLabel(f.modell, L))}
-        ${row(L.einkommen, chf(f.einkommen, L, localeStr))}
+        ${row(L.einkommen, chf(bruttoJahr || f.einkommen, L, localeStr))}
         ${row(L.brutto, chf(f.brutto, L, localeStr))}
         ${row(L.bonus, chf(f.bonus, L, localeStr))}
         ${row(L.nettoMietertrag, chf(f.netto_mietertrag || f.jaehrlicher_netto_mietertrag, L, localeStr))}
-        ${row(L.steueroptimierung, yesNo(f.steueroptimierung, L))}
-        ${row(L.kaufdatum, dash(f.kaufdatum, L))}
-        ${row(L.erhoehung, yesNo(f.erhoehung, L))}
-        ${row(L.erhoehungBetrag, chf(f.erhoehung_betrag, L, localeStr))}
-        ${row(L.abloesedatum, dash(f.abloesedatum, L))}
+        ${isDirect ? row(L.steueroptimierung, yesNo(f.steueroptimierung, L)) : ''}
+        ${isKauf ? row(L.kaufdatum, dash(f.kaufdatum, L)) : ''}
+        ${isAbloesung ? row(L.erhoehung, yesNo(f.erhoehung, L)) : ''}
+        ${isAbloesung ? row(L.erhoehungBetrag, chf(f.erhoehung_betrag, L, localeStr)) : ''}
+        ${isAbloesung ? row(L.abloesedatum, dash(f.abloesedatum, L)) : ''}
         <tr>
           <td>${L.kommentar}:</td>
           <td style="white-space: pre-wrap; background-color: #f9f9f9; padding: 10px; border-radius: 5px;">${dash(f.kommentar, L)}</td>
