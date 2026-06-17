@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -11,11 +11,23 @@ export default function Hero() {
   const pathLocale = pathname.split("/")[1] || "de";
   const { t } = useTranslation(pathLocale as "de" | "en" | "fr" | "it");
 
+  // TEMP: hero image comparison. Default = the original pre-pool banner.
+  // ?hero=1 / ?hero=2 preview the new sprinter photos (client-side only, build-safe).
+  const [heroParam, setHeroParam] = useState<string | null>(null);
+  useEffect(() => {
+    setHeroParam(new URLSearchParams(window.location.search).get("hero"));
+  }, []);
+  const heroImage =
+    heroParam === "1" ? "/images/HYPOTEQ_home_hero_runner1.png" :
+    heroParam === "2" ? "/images/HYPOTEQ_home_hero_runner2.png" :
+    "/images/HYPOTEQ_home_hero_banner.png";
+  const showWash = heroParam === "1" || heroParam === "2";
+
   return (
     <section className="relative w-full overflow-hidden font-sfpro min-h-[50vh]">
       {/* ✅ Background with Next.js Image optimization */}
       <Image
-        src="/images/HYPOTEQ_home_hero_summer.png"
+        src={heroImage}
         alt="Hero background"
         fill
         priority
@@ -24,8 +36,10 @@ export default function Hero() {
         className="object-cover -z-10"
       />
 
-      {/* ✅ Soft light wash on the left to seat the dark text (keeps the bright summer look) */}
-      <div className="absolute inset-0 -z-[5] bg-gradient-to-r from-white/45 via-white/15 to-transparent md:from-white/40 md:via-white/10" />
+      {/* Soft light wash on the left — only for the sprinter preview photos */}
+      {showWash && (
+        <div className="absolute inset-0 -z-[5] bg-gradient-to-r from-white/45 via-white/15 to-transparent md:from-white/40 md:via-white/10" />
+      )}
 
       {/* ✅ Content */}
       <div
