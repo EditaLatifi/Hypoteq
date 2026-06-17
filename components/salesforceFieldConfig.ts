@@ -49,15 +49,14 @@ export const SALESFORCE_CASE_FIELDS: Record<string, SFFieldType> = {
   Kommentar__c: "string",
   Case_Name__c: "string",
   Bank__c: "string",
-  Zins__c: "string",
+  Zins__c: "percent",  // Interest rate — SF field type: Percent
   Laufzeit__c: "string",
   Bank2__c: "string",  // Second bank offer
-  Zins2__c: "string",  // Second bank interest rate
+  Zins2__c: "percent",  // Second bank interest rate — SF field type: Percent
   Laufzeit2__c: "string",  // Second bank term
   Bank3__c: "string",  // Third bank offer
-  Zins3__c: "string",  // Third bank interest rate
+  Zins3__c: "percent",  // Third bank interest rate — SF field type: Percent
   Laufzeit3__c: "string",  // Third bank term
-  Partner_Email__c: "string",  // Partner consultant email
   EigenmittelProzent__c: "percent",  // Own funds percentage (Funnel: "Eigenmittel", Label: Eigenmittel %) — SF field type: Percent
   Tragbarkeit__c: "percent",  // Affordability percentage (Funnel: "Tragbarkeit", Label: Tragbarkeit) — SF field type: Percent
   

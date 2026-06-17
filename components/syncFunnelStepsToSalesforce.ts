@@ -82,6 +82,13 @@ function sanitizeSFAccountValue(sfField: string, value: any) {
   }
 }
 
+// Parse a percentage value into a plain number (handles "1.34", "1,34", "1.34%")
+function parsePercent(value: any): number | null {
+  if (value === "" || value == null) return null;
+  const n = Number(String(value).replace(/%/g, "").replace(",", ".").trim());
+  return Number.isFinite(n) ? n : null;
+}
+
 function sanitizeSFValue(sfField: string, value: any) {
   const type = SALESFORCE_CASE_FIELDS[sfField];
 
@@ -98,11 +105,8 @@ function sanitizeSFValue(sfField: string, value: any) {
       return Number.isFinite(n) ? n : null;
     }
 
-    case "percent": {
-      if (value === "" || value == null) return null;
-      const n = Number(String(value).replace(/%/g, "").trim());
-      return Number.isFinite(n) ? n : null;
-    }
+    case "percent":
+      return parsePercent(value);
 
     case "boolean": {
       if (value === true || value === false) return value;
@@ -647,7 +651,7 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
       // First bank offer
       if (angebote[0]) {
         bankData['Bank__c'] = angebote[0].bank || null;
-        bankData['Zins__c'] = angebote[0].zins || null;
+        bankData['Zins__c'] = parsePercent(angebote[0].zins);
         bankData['Laufzeit__c'] = angebote[0].laufzeit || null;
         console.log('[Salesforce Sync] Bank 1:', angebote[0].bank, 'Zins:', angebote[0].zins, 'Laufzeit:', angebote[0].laufzeit);
       }
@@ -655,7 +659,7 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
       // Second bank offer
       if (angebote[1]) {
         bankData['Bank2__c'] = angebote[1].bank || null;
-        bankData['Zins2__c'] = angebote[1].zins || null;
+        bankData['Zins2__c'] = parsePercent(angebote[1].zins);
         bankData['Laufzeit2__c'] = angebote[1].laufzeit || null;
         console.log('[Salesforce Sync] Mapped second bank offer');
       }
@@ -663,7 +667,7 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
       // Third bank offer
       if (angebote[2]) {
         bankData['Bank3__c'] = angebote[2].bank || null;
-        bankData['Zins3__c'] = angebote[2].zins || null;
+        bankData['Zins3__c'] = parsePercent(angebote[2].zins);
         bankData['Laufzeit3__c'] = angebote[2].laufzeit || null;
         console.log('[Salesforce Sync] Mapped third bank offer');
       }
