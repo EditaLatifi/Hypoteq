@@ -570,58 +570,54 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     console.log(`[Salesforce Sync] Total Eigenmittel: ${eigenmittel}`);
   }
 
+  // Tragbarkeit / Eigenmittel % — MUST mirror components/funnelCalc.tsx exactly so
+  // Salesforce matches the values the customer saw in the funnel calculator.
+  const STRESS_RATE = 0.05;
+  const MAINTENANCE_RATE = 0.008;
+  const borrowerType = stepData.borrowers?.[0]?.type;
+  const isJur = borrowerType === 'jur';
+  const grossIncome = Number(flatData.brutto || 0) + Number(flatData.bonus || 0);
+  // Primary residence unless the usage is a second / holiday home
+  const nutzungLower = String(flatData.nutzung || '').toLowerCase();
+  const isZweitwohnsitz =
+    nutzungLower.includes('zweit') || nutzungLower.includes('ferien') || nutzungLower.includes('secondary');
+  const isPrimaryResidence = !isZweitwohnsitz;
+  const round1 = (v: number) => Math.round(v * 10) / 10;
+  // Affordability ratio (natural persons only): same formula as funnelCalc.tsx
+  const affordabilityPct = (totalMortgage: number): number | null => {
+    if (isJur || grossIncome <= 0) return null;
+    const amort = isPrimaryResidence ? ((0.8 - 0.6667) / 15) : 0;
+    const affordabilityCHF = totalMortgage * (STRESS_RATE + MAINTENANCE_RATE + amort);
+    return round1((affordabilityCHF / grossIncome) * 100);
+  };
+
   if (isKauf) {
-    // Calculate mortgage need for purchase
-    const hypothekenbedarf = Math.max(kaufpreis - eigenmittel, 0);
+    // funnelCalc: companies (juristic) count only cash (Bar) as equity
+    const ownFundsForCalc = isJur ? eigenmittel_bar : eigenmittel;
+    const hypothekenbedarf = Math.max(kaufpreis - ownFundsForCalc, 0);
     caseData['Gesch_tzter_Hypothekenbedarf__c'] = hypothekenbedarf;
 
-    // Calculate Eigenmittel percentage
-    const eigenmittelPct = kaufpreis > 0 ? Math.round((eigenmittel / kaufpreis) * 100) : 0;
-    caseData['EigenmittelProzent__c'] = eigenmittelPct;
+    if (kaufpreis > 0) caseData['EigenmittelProzent__c'] = round1((ownFundsForCalc / kaufpreis) * 100);
 
-    // Calculate Tragbarkeit percentage (only for natural persons)
-    const borrowerType = stepData.borrowers?.[0]?.type;
-    const isJur = borrowerType === 'jur';
-    
-    if (!isJur) {
-      const einkommen = Number(flatData.brutto || 0) + Number(flatData.bonus || 0);
-      const STRESS_RATE = 0.05;
-      const tragbarkeitPct = einkommen > 0
-        ? (((hypothekenbedarf * STRESS_RATE + kaufpreis * 0.008) / einkommen) * 100).toFixed(0)
-        : '0';
-      caseData['Tragbarkeit__c'] = Number(tragbarkeitPct);
-    }
+    const tragb = affordabilityPct(hypothekenbedarf);
+    if (tragb !== null) caseData['Tragbarkeit__c'] = tragb;
 
-    console.log(`[Salesforce Sync] Calculated: Hypothekenbedarf=${hypothekenbedarf}, Eigenmittel=${eigenmittelPct}%`);
+    console.log(`[Salesforce Sync] Kauf calc: Hypothekenbedarf=${hypothekenbedarf}, Eigenmittel%=${caseData['EigenmittelProzent__c']}, Tragbarkeit%=${caseData['Tragbarkeit__c']}`);
   } else if (isAbloesung) {
-    // Calculate mortgage need for refinancing
+    // totalMortgage = bestehende Hypothek + Erhöhung (falls Ja)
     const betrag = Number(flatData.abloesung_betrag || 0);
-    const erhoehung = flatData.erhoehung === 'Ja' ? Number(flatData.erhoehung_betrag || 0) : 0;
+    const erhoehungJa = String(flatData.erhoehung).toLowerCase() === 'ja' || String(flatData.erhoehung).toLowerCase() === 'yes';
+    const erhoehung = erhoehungJa ? Number(flatData.erhoehung_betrag || 0) : 0;
     const hypothekenbedarf = betrag + erhoehung;
     caseData['Gesch_tzter_Hypothekenbedarf__c'] = hypothekenbedarf;
-    
-    // Note: Erh_hung__c (Ja/Nein checkbox) is already set from the mapping loop
-    // Don't overwrite it with the total amount
-    console.log(`[Salesforce Sync] Hypothekenbedarf for Ablösung: ${hypothekenbedarf}`);
 
-    const propertyValue = Number(flatData.immobilienwert || 0) || hypothekenbedarf;
-    const eigenmittelPct = propertyValue > 0 ? Math.round(((propertyValue - hypothekenbedarf) / propertyValue) * 100) : 0;
-    caseData['EigenmittelProzent__c'] = eigenmittelPct;
+    const propertyValue = Number(flatData.immobilienwert || 0) || Number(flatData.kaufpreis || 0) || hypothekenbedarf;
+    if (propertyValue > 0) caseData['EigenmittelProzent__c'] = round1(((propertyValue - hypothekenbedarf) / propertyValue) * 100);
 
-    // Calculate Tragbarkeit for refinancing (natural persons only)
-    const borrowerType = stepData.borrowers?.[0]?.type;
-    const isJur = borrowerType === 'jur';
-    
-    if (!isJur) {
-      const einkommen = Number(flatData.brutto || 0);
-      const STRESS_RATE = 0.05;
-      const tragbarkeitPct = einkommen > 0
-        ? (((hypothekenbedarf * STRESS_RATE + propertyValue * 0.008) / einkommen) * 100).toFixed(0)
-        : '0';
-      caseData['Tragbarkeit__c'] = Number(tragbarkeitPct);
-    }
+    const tragb = affordabilityPct(hypothekenbedarf);
+    if (tragb !== null) caseData['Tragbarkeit__c'] = tragb;
 
-    console.log(`[Salesforce Sync] Calculated: Hypothekenbedarf=${hypothekenbedarf}, Eigenmittel=${eigenmittelPct}%`);
+    console.log(`[Salesforce Sync] Ablösung calc: Hypothekenbedarf=${hypothekenbedarf}, Eigenmittel%=${caseData['EigenmittelProzent__c']}, Tragbarkeit%=${caseData['Tragbarkeit__c']}`);
   }
 
   // Add partner email AFTER mapping to prevent it from being overwritten
