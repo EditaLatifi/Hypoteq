@@ -98,6 +98,12 @@ function sanitizeSFValue(sfField: string, value: any) {
       return Number.isFinite(n) ? n : null;
     }
 
+    case "percent": {
+      if (value === "" || value == null) return null;
+      const n = Number(String(value).replace(/%/g, "").trim());
+      return Number.isFinite(n) ? n : null;
+    }
+
     case "boolean": {
       if (value === true || value === false) return value;
       const v = String(value).toLowerCase();
@@ -563,11 +569,11 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
   if (isKauf) {
     // Calculate mortgage need for purchase
     const hypothekenbedarf = Math.max(kaufpreis - eigenmittel, 0);
-    caseData['Hypothekenbedarf__c'] = hypothekenbedarf;
+    caseData['Gesch_tzter_Hypothekenbedarf__c'] = hypothekenbedarf;
 
     // Calculate Eigenmittel percentage
     const eigenmittelPct = kaufpreis > 0 ? Math.round((eigenmittel / kaufpreis) * 100) : 0;
-    caseData['Eigenmittel_Prozent__c'] = eigenmittelPct.toString();
+    caseData['EigenmittelProzent__c'] = eigenmittelPct;
 
     // Calculate Tragbarkeit percentage (only for natural persons)
     const borrowerType = stepData.borrowers?.[0]?.type;
@@ -579,7 +585,7 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
       const tragbarkeitPct = einkommen > 0
         ? (((hypothekenbedarf * STRESS_RATE + kaufpreis * 0.008) / einkommen) * 100).toFixed(0)
         : '0';
-      caseData['Tragbarkeit_Prozent__c'] = tragbarkeitPct;
+      caseData['Tragbarkeit__c'] = Number(tragbarkeitPct);
     }
 
     console.log(`[Salesforce Sync] Calculated: Hypothekenbedarf=${hypothekenbedarf}, Eigenmittel=${eigenmittelPct}%`);
@@ -588,7 +594,7 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     const betrag = Number(flatData.abloesung_betrag || 0);
     const erhoehung = flatData.erhoehung === 'Ja' ? Number(flatData.erhoehung_betrag || 0) : 0;
     const hypothekenbedarf = betrag + erhoehung;
-    caseData['Hypothekenbedarf__c'] = hypothekenbedarf;
+    caseData['Gesch_tzter_Hypothekenbedarf__c'] = hypothekenbedarf;
     
     // Note: Erh_hung__c (Ja/Nein checkbox) is already set from the mapping loop
     // Don't overwrite it with the total amount
@@ -596,7 +602,7 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
 
     const propertyValue = Number(flatData.immobilienwert || 0) || hypothekenbedarf;
     const eigenmittelPct = propertyValue > 0 ? Math.round(((propertyValue - hypothekenbedarf) / propertyValue) * 100) : 0;
-    caseData['Eigenmittel_Prozent__c'] = eigenmittelPct.toString();
+    caseData['EigenmittelProzent__c'] = eigenmittelPct;
 
     // Calculate Tragbarkeit for refinancing (natural persons only)
     const borrowerType = stepData.borrowers?.[0]?.type;
@@ -608,7 +614,7 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
       const tragbarkeitPct = einkommen > 0
         ? (((hypothekenbedarf * STRESS_RATE + propertyValue * 0.008) / einkommen) * 100).toFixed(0)
         : '0';
-      caseData['Tragbarkeit_Prozent__c'] = tragbarkeitPct;
+      caseData['Tragbarkeit__c'] = Number(tragbarkeitPct);
     }
 
     console.log(`[Salesforce Sync] Calculated: Hypothekenbedarf=${hypothekenbedarf}, Eigenmittel=${eigenmittelPct}%`);
@@ -665,9 +671,9 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
   }
 
   // Set Hypothekarvolumen__c based on project type
-  if (isKauf && caseData['Hypothekenbedarf__c']) {
-    // For purchase: use calculated Hypothekenbedarf
-    caseData['Hypothekarvolumen__c'] = caseData['Hypothekenbedarf__c'];
+  if (isKauf && caseData['Gesch_tzter_Hypothekenbedarf__c']) {
+    // For purchase: use calculated mortgage need
+    caseData['Hypothekarvolumen__c'] = caseData['Gesch_tzter_Hypothekenbedarf__c'];
   } else if (isAbloesung) {
     // For refinancing: use total (abloesung_betrag + hypothekarbetrag + erhoehung if applicable)
     const abloesungBetrag = Number(flatData.abloesung_betrag || 0);
@@ -703,6 +709,10 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     if (type === "currency" && typeof value !== "number") {
       console.error(`❌ Currency field got non-number`, field, value);
       caseData[field] = null;
+    }
+    if (type === "percent" && typeof value !== "number") {
+      const n = Number(value);
+      caseData[field] = Number.isFinite(n) ? n : null;
     }
     if (type === "boolean" && typeof value !== "boolean") {
       console.error(`❌ Boolean field got non-boolean`, field, value);

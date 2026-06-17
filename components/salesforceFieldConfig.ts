@@ -1,5 +1,6 @@
 export type SFFieldType =
   | "currency"
+  | "percent"
   | "boolean"
   | "string"
   | "picklist"
@@ -31,7 +32,7 @@ export const SALESFORCE_CASE_FIELDS: Record<string, SFFieldType> = {
   J_hrlicher_Netto_Mietertrag__c: "currency",
   Erh_hung__c: "currency",  // Mortgage increase amount (from erhoehung_betrag)
   Erh_hung_betrag__c: "currency",
-  Hypothekenbedarf__c: "currency",  // Calculated mortgage need
+  Gesch_tzter_Hypothekenbedarf__c: "currency",  // Calculated mortgage need (Funnel: "geschätzter Hypothekarbedarf", Label: Hypothekarbetrag)
   Hypothekarbetrag__c: "currency",  // Direct mortgage amount input (Ablösung)
   Eigenmittel__c: "currency",  // Total equity amount
 
@@ -57,8 +58,8 @@ export const SALESFORCE_CASE_FIELDS: Record<string, SFFieldType> = {
   Zins3__c: "string",  // Third bank interest rate
   Laufzeit3__c: "string",  // Third bank term
   Partner_Email__c: "string",  // Partner consultant email
-  Eigenmittel_Prozent__c: "string",  // Own funds percentage
-  Tragbarkeit_Prozent__c: "string",  // Affordability percentage
+  EigenmittelProzent__c: "percent",  // Own funds percentage (Funnel: "Eigenmittel", Label: Eigenmittel %) — SF field type: Percent
+  Tragbarkeit__c: "percent",  // Affordability percentage (Funnel: "Tragbarkeit", Label: Tragbarkeit) — SF field type: Percent
   
   // Client lookup fields (Account IDs)
   Client_2__c: "string",

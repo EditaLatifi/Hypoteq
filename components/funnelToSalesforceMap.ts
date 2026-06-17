@@ -53,7 +53,7 @@ export const funnelToSalesforceMap = {
   kaufdatum: { salesforceField: "Kaufdatum__c", salesforceObject: "case" },
   kommentar: { salesforceField: "Kommentar__c", salesforceObject: "case" },
 
-  // abloesung_betrag is not mapped directly — it flows into Hypothekenbedarf__c and
+  // abloesung_betrag is not mapped directly — it flows into Gesch_tzter_Hypothekenbedarf__c and
   // Hypothekarvolumen__c via the calculation block (Abl_sung__c does not exist on Case).
   hypothekarbetrag: { salesforceField: "Hypothekarbetrag__c", salesforceObject: "case" },
   erhoehung_betrag: { salesforceField: "Erh_hung__c", salesforceObject: "case" }, // Mortgage increase amount (only sent if erhoehung=Ja)
