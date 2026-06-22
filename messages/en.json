@@ -790,6 +790,9 @@
       "boardMember": "Board Member",
       "initiatorAndAdvisory": "Initiator and Advisory Board",
       "advisoryAndSalesCoach": "Advisory Board & Sales Coach",
+      "vrBusinessDev": "Board of Directors & Business Development",
+      "beiratInitiant": "Advisory Board & Initiator",
+      "vrInitiant": "Board of Directors & Initiator",
       "consultant": "Consultant"
     }
   },

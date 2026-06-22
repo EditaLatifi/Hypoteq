@@ -785,6 +785,9 @@
       "boardMember": "Membre du conseil d'administration",
       "initiatorAndAdvisory": "Initiateur et conseil consultatif",
       "advisoryAndSalesCoach": "Conseil consultatif & Coach commercial",
+      "vrBusinessDev": "Conseil d'administration & Business Development",
+      "beiratInitiant": "Comité consultatif & Initiateur",
+      "vrInitiant": "Conseil d'administration & Initiateur",
       "consultant": "Consultant"
     }
   },

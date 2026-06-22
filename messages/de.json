@@ -795,6 +795,9 @@
       "boardMember": "Verwaltungsrat",
       "initiatorAndAdvisory": "Initiant und Beirat",
       "advisoryAndSalesCoach": "Beirat & Sales Coach",
+      "vrBusinessDev": "Verwaltungsrat & Business Development",
+      "beiratInitiant": "Beirat & Initiant",
+      "vrInitiant": "Verwaltungsrat & Initiant",
       "consultant": "Consultant"
     }
   },

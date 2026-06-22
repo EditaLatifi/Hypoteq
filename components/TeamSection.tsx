@@ -24,7 +24,7 @@ const teamMembers: TeamMember[] = [
 
   {
     name: "Davide Iuorno",
-    position: "team.positions.deputyCeo",
+    position: "team.positions.beiratInitiant",
     image: "/images/HYPOTEQ_about_team_davide.png",
     linkedin: "https://www.linkedin.com/in/davide-iuorno/",
     email: "mailto:davide.iuorno@hypoteq.ch",
@@ -40,7 +40,7 @@ const teamMembers: TeamMember[] = [
 
   {
     name: "Alexander von Arx",
-    position: "team.positions.headOfBusinessDevelopment",
+    position: "team.positions.vrBusinessDev",
     image: "/images/HYPOTEQ_about_team_alexander.png",
     linkedin: "https://www.linkedin.com/in/alexander-von-arx-66a416326/",
     email: "mailto:alexander.vonarx@hypoteq.ch",
@@ -54,16 +54,8 @@ const teamMembers: TeamMember[] = [
   },
 
   {
-    name: "Christian Neff",
-    position: "team.positions.boardMember",
-    image: "/images/HYPOTEQ_about_team_christian.png",
-    linkedin: "https://www.linkedin.com/in/christianneff/",
-    email: "mailto:christian.neff@hypoteq.ch",
-  },
-
-  {
     name: "Cyril Kägi",
-    position: "team.positions.initiatorAndAdvisory",
+    position: "team.positions.vrInitiant",
     image: "/images/HYPOTEQ_about_team_cyril.png",
     linkedin: "https://www.linkedin.com/in/cyril-k%C3%A4gi-273a1965/",
     email: "mailto:cyril.kaegi@hypoteq.ch",
