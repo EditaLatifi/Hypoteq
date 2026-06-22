@@ -1007,6 +1007,41 @@
       "furtherHelp": "Pour plus d'assistance, veuillez visiter notre"
     }
   },
+  "geldberatung": {
+    "seo": {
+      "title": "Kühnis Geldberatung × HYPOTEQ — Ton hypothèque en 3 étapes",
+      "description": "Exclusivement pour les clients de Kühnis Geldberatung : une première estimation en 2 minutes et une offre hypothécaire contraignante en quelques jours. Indépendant, transparent et adapté à toi.",
+      "ogDescription": "Exclusivement pour les clients de Kühnis Geldberatung. Lance-toi en quelques secondes et soumets ta demande en seulement 2 minutes."
+    },
+    "logoAlt": "Kühnis Geldberatung",
+    "hero": {
+      "title": "Conseil indépendant.",
+      "titleAccent": "Le bon financement.",
+      "subtitle": "Avec Kühnis Geldberatung, HYPOTEQ t'amène rapidement et simplement à l'hypothèque qui te convient. Lance-toi en quelques secondes, reçois immédiatement une première estimation et une offre contraignante en quelques jours. Indépendant, transparent et adapté à ta situation.",
+      "cta": "Commencer en 3 étapes",
+      "imageAlt": "Immeuble résidentiel moderne"
+    },
+    "benefits": {
+      "title": "Plus vite à l'hypothèque — avec un conseil personnel",
+      "subtitle": "Tu profites du conseil indépendant de Kühnis Geldberatung et du processus hypothécaire numérique de HYPOTEQ. Nous comparons les offres les plus attractives et t'accompagnons étape par étape.",
+      "cta": "Commencer gratuitement"
+    },
+    "steps": {
+      "imageAlt": "Remise des clés",
+      "step1": { "title": "Commencer simplement", "body": "En quelques minutes, tu saisis tes informations clés et reçois une première estimation." },
+      "step2": { "title": "Nous trouvons la meilleure offre", "body": "Nous examinons ta demande et identifions les offres les plus attractives du marché — adaptées à ton profil." },
+      "step3": { "title": "Sécurise ton hypothèque", "body": "Tu reçois une offre contraignante adaptée et nous t'accompagnons jusqu'à l'accord final." }
+    },
+    "market": {
+      "title": "Nous connaissons le marché et trouvons la meilleure offre",
+      "subtitle": "Grâce à notre connaissance du marché et à notre accès aux partenaires de financement les plus attractifs, tu obtiens l'hypothèque qui te convient — sans avoir à comparer toi-même."
+    },
+    "finalCta": {
+      "title": "Prêt à démarrer en 3 étapes ?",
+      "subtitle": "D'abord comparer. Puis décider. Gratuit et sans engagement — exclusivement pour les clients de Kühnis Geldberatung.",
+      "button": "Démarrer maintenant"
+    }
+  },
   "betterhomes": {
     "seo": {
       "title": "Betterhomes x HYPOTEQ — Ton hypothèque en 3 étapes",

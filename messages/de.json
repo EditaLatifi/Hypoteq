@@ -1017,6 +1017,41 @@
       "furtherHelp": "Für weitere Unterstützung besuchen Sie bitte unsere"
     }
   },
+  "geldberatung": {
+    "seo": {
+      "title": "Kühnis Geldberatung × HYPOTEQ — Deine Hypothek in 3 Schritten",
+      "description": "Exklusiv für Kundinnen und Kunden der Kühnis Geldberatung: in 2 Minuten zur ersten Einschätzung, in wenigen Tagen zum verbindlichen Hypothekenangebot. Unabhängig, transparent und auf dich abgestimmt.",
+      "ogDescription": "Exklusiv für Kundinnen und Kunden der Kühnis Geldberatung. Starte in Sekunden und stelle deinen Antrag in nur 2 Minuten."
+    },
+    "logoAlt": "Kühnis Geldberatung",
+    "hero": {
+      "title": "Unabhängig beraten.",
+      "titleAccent": "Optimal finanziert.",
+      "subtitle": "Gemeinsam mit der Kühnis Geldberatung bringt dich HYPOTEQ schnell und unkompliziert zur passenden Hypothek. Starte in wenigen Sekunden, erhalte sofort eine erste Einschätzung und in wenigen Tagen ein verbindliches Angebot. Unabhängig, transparent und auf deine Situation abgestimmt.",
+      "cta": "In 3 Schritten starten",
+      "imageAlt": "Modernes Wohnhaus"
+    },
+    "benefits": {
+      "title": "Schneller zur Hypothek – mit persönlicher Beratung",
+      "subtitle": "Du profitierst von der unabhängigen Beratung der Kühnis Geldberatung und dem digitalen Hypotheken-Prozess von HYPOTEQ. Wir vergleichen die attraktivsten Angebote und begleiten dich Schritt für Schritt.",
+      "cta": "Kostenlos starten"
+    },
+    "steps": {
+      "imageAlt": "Schlüsselübergabe",
+      "step1": { "title": "Einfach starten", "body": "In wenigen Minuten erfasst du deine wichtigsten Angaben und erhältst eine erste Einschätzung." },
+      "step2": { "title": "Wir finden das beste Angebot", "body": "Wir prüfen deine Anfrage und ermitteln die attraktivsten Angebote am Markt – passend zu deinem Profil." },
+      "step3": { "title": "Hypothek sichern", "body": "Du erhältst ein passendes, verbindliches Angebot und wir begleiten dich bis zum Abschluss." }
+    },
+    "market": {
+      "title": "Wir kennen den Markt und finden das beste Angebot",
+      "subtitle": "Dank unserer Marktkenntnis und dem Zugang zu den attraktivsten Finanzierungspartnern erhältst du die passende Hypothek – ohne selbst vergleichen zu müssen."
+    },
+    "finalCta": {
+      "title": "Bereit, in 3 Schritten zu starten?",
+      "subtitle": "Zuerst vergleichen. Dann entscheiden. Kostenlos und unverbindlich – exklusiv für Kundinnen und Kunden der Kühnis Geldberatung.",
+      "button": "Jetzt starten"
+    }
+  },
   "betterhomes": {
     "seo": {
       "title": "Betterhomes x HYPOTEQ — Deine Hypothek in 3 Schritten",

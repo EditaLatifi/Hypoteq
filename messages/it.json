@@ -1010,6 +1010,41 @@
       "furtherHelp": "Per ulteriore assistenza, visita la nostra"
     }
   },
+  "geldberatung": {
+    "seo": {
+      "title": "Kühnis Geldberatung × HYPOTEQ — La tua ipoteca in 3 passi",
+      "description": "Esclusivamente per i clienti di Kühnis Geldberatung: una prima stima in 2 minuti e un'offerta ipotecaria vincolante in pochi giorni. Indipendente, trasparente e su misura per te.",
+      "ogDescription": "Esclusivamente per i clienti di Kühnis Geldberatung. Inizia in pochi secondi e invia la tua richiesta in soli 2 minuti."
+    },
+    "logoAlt": "Kühnis Geldberatung",
+    "hero": {
+      "title": "Consulenza indipendente.",
+      "titleAccent": "Il finanziamento giusto.",
+      "subtitle": "Insieme a Kühnis Geldberatung, HYPOTEQ ti porta rapidamente e facilmente all'ipoteca giusta. Inizia in pochi secondi, ricevi subito una prima stima e un'offerta vincolante in pochi giorni. Indipendente, trasparente e su misura per la tua situazione.",
+      "cta": "Inizia in 3 passi",
+      "imageAlt": "Edificio residenziale moderno"
+    },
+    "benefits": {
+      "title": "Più velocemente all'ipoteca — con consulenza personale",
+      "subtitle": "Approfitti della consulenza indipendente di Kühnis Geldberatung e del processo ipotecario digitale di HYPOTEQ. Confrontiamo le offerte più attraenti e ti accompagniamo passo dopo passo.",
+      "cta": "Inizia gratis"
+    },
+    "steps": {
+      "imageAlt": "Consegna delle chiavi",
+      "step1": { "title": "Inizia in modo semplice", "body": "In pochi minuti inserisci i tuoi dati principali e ricevi una prima stima." },
+      "step2": { "title": "Troviamo l'offerta migliore", "body": "Esaminiamo la tua richiesta e individuiamo le offerte più attraenti del mercato — su misura per il tuo profilo." },
+      "step3": { "title": "Assicura la tua ipoteca", "body": "Ricevi un'offerta vincolante adatta e ti accompagniamo fino alla conclusione." }
+    },
+    "market": {
+      "title": "Conosciamo il mercato e troviamo l'offerta migliore",
+      "subtitle": "Grazie alla nostra conoscenza del mercato e all'accesso ai partner di finanziamento più attraenti, ottieni l'ipoteca giusta — senza doverla confrontare da solo."
+    },
+    "finalCta": {
+      "title": "Pronto a iniziare in 3 passi?",
+      "subtitle": "Prima confronta. Poi decidi. Gratis e senza impegno — esclusivamente per i clienti di Kühnis Geldberatung.",
+      "button": "Inizia ora"
+    }
+  },
   "betterhomes": {
     "seo": {
       "title": "Betterhomes x HYPOTEQ — La tua ipoteca in 3 passi",

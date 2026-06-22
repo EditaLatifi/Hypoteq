@@ -1012,6 +1012,41 @@
       "furtherHelp": "For further assistance, please visit our"
     }
   },
+  "geldberatung": {
+    "seo": {
+      "title": "Kühnis Geldberatung × HYPOTEQ — Your mortgage in 3 steps",
+      "description": "Exclusively for Kühnis Geldberatung clients: a first estimate in 2 minutes and a binding mortgage offer within days. Independent, transparent and tailored to you.",
+      "ogDescription": "Exclusively for Kühnis Geldberatung clients. Get started in seconds and submit your request in just 2 minutes."
+    },
+    "logoAlt": "Kühnis Geldberatung",
+    "hero": {
+      "title": "Independent advice.",
+      "titleAccent": "The right financing.",
+      "subtitle": "Together with Kühnis Geldberatung, HYPOTEQ gets you to the right mortgage quickly and easily. Start in seconds, get an instant first estimate and a binding offer within days. Independent, transparent and tailored to your situation.",
+      "cta": "Start in 3 steps",
+      "imageAlt": "Modern residential building"
+    },
+    "benefits": {
+      "title": "Faster to your mortgage — with personal advice",
+      "subtitle": "You benefit from the independent advice of Kühnis Geldberatung and HYPOTEQ's digital mortgage process. We compare the most attractive offers and guide you step by step.",
+      "cta": "Start for free"
+    },
+    "steps": {
+      "imageAlt": "Handing over keys",
+      "step1": { "title": "Get started easily", "body": "In just a few minutes you enter your key details and receive a first estimate." },
+      "step2": { "title": "We find the best offer", "body": "We review your request and identify the most attractive offers on the market — tailored to your profile." },
+      "step3": { "title": "Secure your mortgage", "body": "You receive a suitable binding offer and we accompany you all the way to completion." }
+    },
+    "market": {
+      "title": "We know the market and find the best offer",
+      "subtitle": "Thanks to our market knowledge and access to the most attractive financing partners, you get the mortgage that fits — without having to compare yourself."
+    },
+    "finalCta": {
+      "title": "Ready to start in 3 steps?",
+      "subtitle": "Compare first. Then decide. Free and non-binding — exclusively for Kühnis Geldberatung clients.",
+      "button": "Start now"
+    }
+  },
   "betterhomes": {
     "seo": {
       "title": "Betterhomes x HYPOTEQ — Your Mortgage in 3 Steps",

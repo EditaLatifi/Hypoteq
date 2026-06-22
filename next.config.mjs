@@ -44,6 +44,11 @@ const nextConfig = {
         destination: "/de/remax",
         permanent: true,
       },
+      {
+        source: "/geldberatung",
+        destination: "/de/geldberatung",
+        permanent: true,
+      },
     ];
   },
 
