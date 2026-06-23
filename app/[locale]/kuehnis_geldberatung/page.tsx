@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return generateSEOMetadata(locale, {
     title: seo.title,
     description: seo.description,
-    canonical: "/geldberatung",
+    canonical: "/kuehnis_geldberatung",
   });
 }
 

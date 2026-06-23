@@ -41,7 +41,7 @@ export default function Geldberatung() {
 
   const switchLocale = (next: LocaleCode) => {
     if (next === pathLocale) return;
-    router.push(`/${next}/geldberatung`);
+    router.push(`/${next}/kuehnis_geldberatung`);
   };
 
   return (

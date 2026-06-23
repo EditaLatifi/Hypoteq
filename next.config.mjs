@@ -46,7 +46,12 @@ const nextConfig = {
       },
       {
         source: "/geldberatung",
-        destination: "/de/geldberatung",
+        destination: "/de/kuehnis_geldberatung",
+        permanent: true,
+      },
+      {
+        source: "/kuehnis_geldberatung",
+        destination: "/de/kuehnis_geldberatung",
         permanent: true,
       },
     ];
