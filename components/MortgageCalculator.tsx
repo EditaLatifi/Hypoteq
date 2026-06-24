@@ -70,30 +70,30 @@ export default function Calculator() {
   const effectiveRate = useMemo(() => {
     if (interestOption.startsWith("SARON")) return 0.0085;
     if (interestOption.startsWith("1Y")) return 0.0097;
-    if (interestOption.startsWith("2Y")) return 0.0098;
-    if (interestOption.startsWith("3Y")) return 0.0123;
-    if (interestOption.startsWith("4Y")) return 0.0121;
-    if (interestOption.startsWith("5")) return 0.0134;
-    if (interestOption.startsWith("6Y")) return 0.0129;
-    if (interestOption.startsWith("7Y")) return 0.0143;
-    if (interestOption.startsWith("8Y")) return 0.0134;
-    if (interestOption.startsWith("9Y")) return 0.0139;
-    if (interestOption.startsWith("10")) return 0.0156;
+    if (interestOption.startsWith("2Y")) return 0.0102;
+    if (interestOption.startsWith("3Y")) return 0.0113;
+    if (interestOption.startsWith("4Y")) return 0.0122;
+    if (interestOption.startsWith("5")) return 0.0130;
+    if (interestOption.startsWith("6Y")) return 0.0136;
+    if (interestOption.startsWith("7Y")) return 0.0142;
+    if (interestOption.startsWith("8Y")) return 0.0149;
+    if (interestOption.startsWith("9Y")) return 0.0155;
+    if (interestOption.startsWith("10")) return 0.0160;
     return 0.0085;
   }, [interestOption]);
 
   const interestOptions = [
     "SARON 0.85%",
     "1Y 0.97%",
-    "2Y 0.98%",
-    "3Y 1.23%",
-    "4Y 1.21%",
-    "5Y 1.34%",
-    "6Y 1.29%",
-    "7Y 1.43%",
-    "8Y 1.34%",
-    "9Y 1.39%",
-    "10Y 1.56%",
+    "2Y 1.02%",
+    "3Y 1.13%",
+    "4Y 1.22%",
+    "5Y 1.30%",
+    "6Y 1.36%",
+    "7Y 1.42%",
+    "8Y 1.49%",
+    "9Y 1.55%",
+    "10Y 1.60%",
   ];
 
 

@@ -22,25 +22,25 @@ const getRealRate = (modell: string) => {
     case "1":
       return 0.0097;
     case "2":
-      return 0.0098;
+      return 0.0102;
     case "3":
-      return 0.0123;
+      return 0.0113;
     case "4":
-      return 0.0121;
+      return 0.0122;
     case "5":
-      return 0.0134;
+      return 0.0130;
     case "6":
-      return 0.0129;
+      return 0.0136;
     case "7":
-      return 0.0143;
+      return 0.0142;
     case "8":
-      return 0.0134;
+      return 0.0149;
     case "9":
-      return 0.0139;
+      return 0.0155;
     case "10":
-      return 0.0156;
+      return 0.0160;
     case "mix":
-      return (0.0123 + 0.0156) / 2;
+      return (0.0113 + 0.0160) / 2;
     default:
       return 0.0085;
   }
