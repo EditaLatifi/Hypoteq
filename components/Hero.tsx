@@ -11,17 +11,27 @@ export default function Hero() {
   const pathLocale = pathname.split("/")[1] || "de";
   const { t } = useTranslation(pathLocale as "de" | "en" | "fr" | "it");
 
-  // TEMP: hero image comparison. Default = the original pre-pool banner.
-  // ?hero=1 / ?hero=2 preview the new sprinter photos (client-side only, build-safe).
+  // Main hero = the sprinter photo (runner2). ?hero= still previews the
+  // alternatives client-side: 1 = runner1, 3/4 = river-runners, banner = old banner.
   const [heroParam, setHeroParam] = useState<string | null>(null);
   useEffect(() => {
     setHeroParam(new URLSearchParams(window.location.search).get("hero"));
   }, []);
   const heroImage =
     heroParam === "1" ? "/images/HYPOTEQ_home_hero_runner1.png" :
-    heroParam === "2" ? "/images/HYPOTEQ_home_hero_runner2.png" :
-    "/images/HYPOTEQ_home_hero_banner.png";
-  const showWash = heroParam === "1" || heroParam === "2";
+    heroParam === "3" ? "/images/HYPOTEQ_home_hero_river1.png" :
+    heroParam === "4" ? "/images/HYPOTEQ_home_hero_river2.png" :
+    heroParam === "banner" ? "/images/HYPOTEQ_home_hero_banner.png" :
+    "/images/HYPOTEQ_home_hero_runner2.png";
+  // Text-legibility wash on every photo hero (i.e. everything except the old banner).
+  const showWash = heroParam !== "banner";
+  // On mobile the runner sits on the right edge of the runner photos and gets
+  // cropped out by object-cover's centered crop, so shift the focal point right.
+  // Desktop is wide enough to show her, so revert to centered there.
+  const isRunnerPhoto = heroParam === null || heroParam === "1" || heroParam === "2";
+  const heroPosition = isRunnerPhoto
+    ? "object-[78%_center] md:object-center"
+    : "object-center";
 
   return (
     <section className="relative w-full overflow-hidden font-sfpro min-h-[50vh]">
@@ -33,43 +43,47 @@ export default function Hero() {
         priority
         quality={85}
         sizes="100vw"
-        className="object-cover -z-10"
+        className={`object-cover ${heroPosition} -z-10`}
       />
-
-      {/* Soft light wash on the left — only for the sprinter preview photos */}
-      {showWash && (
-        <div className="absolute inset-0 -z-[5] bg-gradient-to-r from-white/45 via-white/15 to-transparent md:from-white/40 md:via-white/10" />
-      )}
 
       {/* ✅ Content */}
       <div
         className="relative z-10 flex flex-col justify-start h-full w-full mx-auto max-w-[1579px]
         px-6 md:px-[60px] lg:px-[116px] pt-[100px] pb-[20px] md:pt-[140px] lg:pt-[160px] gap-6 md:gap-[16px]"
       >
-        {/* ✅ Heading */}
-        <h1
-          className="text-[#132219] font-medium
-          text-[42px] md:text-[65px] lg:text-[90px] xl:text-[110px]
-          leading-[110%] md:leading-[100%]
-          tracking-[-0.6px] md:tracking-[-1px] lg:tracking-[-1.28px]
-          max-w-[95%] md:max-w-[700px] lg:max-w-[1000px]"
+        {/* Highlight behind the text on photo heroes for legibility */}
+        <div
+          className={
+            showWash
+              ? "flex flex-col self-start max-w-full rounded-[20px] bg-white/30 backdrop-blur-[2px] px-4 py-3 md:px-5 md:py-4 shadow-[0_4px_18px_rgba(0,0,0,0.04)]"
+              : "contents"
+          }
         >
-          {t("hero.title")} <br />
-          {t("hero.title2")} <br />
-          {t("hero.title3")}
-        </h1>
+          {/* ✅ Heading */}
+          <h1
+            className="text-[#132219] font-medium
+            text-[42px] md:text-[65px] lg:text-[90px] xl:text-[110px]
+            leading-[110%] md:leading-[100%]
+            tracking-[-0.6px] md:tracking-[-1px] lg:tracking-[-1.28px]
+            max-w-[95%] md:max-w-[700px] lg:max-w-[1000px]"
+          >
+            {t("hero.title")} <br />
+            {t("hero.title2")} <br />
+            {t("hero.title3")}
+          </h1>
 
-        {/* ✅ Paragraph */}
-        <p
-          className="text-[#132219]/80
-          text-[18px] md:text-[19px] lg:text-[21px] xl:text-[22px]
-          leading-[150%] md:leading-[140%]
-          font-[400]
-          mt-4 md:mt-[20px] lg:mt-[32px]
-          max-w-[95%] md:max-w-[650px] lg:max-w-[900px]"
-        >
-          {t("hero.subtitle")} <br/> {pathLocale !== "fr" && "– "}<strong>{t("hero.subtitleBold")} </strong><br/>{t("hero.description")}
-        </p>
+          {/* ✅ Paragraph */}
+          <p
+            className="text-[#132219]/80
+            text-[18px] md:text-[19px] lg:text-[21px] xl:text-[22px]
+            leading-[150%] md:leading-[140%]
+            font-[400]
+            mt-4 md:mt-[20px] lg:mt-[32px]
+            max-w-[95%] md:max-w-[650px] lg:max-w-[900px]"
+          >
+            {t("hero.subtitle")} <br/> {pathLocale !== "fr" && "– "}<strong>{t("hero.subtitleBold")} </strong><br/>{t("hero.description")}
+          </p>
+        </div>
 
         {/* ✅ CTA Button */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-[14px] mt-6 md:mt-[18px] lg:mt-[24px] w-full">
