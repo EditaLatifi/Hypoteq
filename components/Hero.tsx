@@ -34,7 +34,7 @@ export default function Hero() {
     : "object-center";
 
   return (
-    <section className="relative w-full overflow-hidden font-sfpro min-h-[50vh] 2xl:min-h-[760px] min-[1920px]:min-h-[900px] min-[2560px]:min-h-[1000px]">
+    <section className="relative w-full overflow-hidden font-sfpro min-h-[50vh]">
       {/* ✅ Background with Next.js Image optimization */}
       <Image
         src={heroImage}
@@ -48,24 +48,24 @@ export default function Hero() {
 
       {/* ✅ Content */}
       <div
-        className="relative z-10 flex flex-col justify-start h-full w-full mx-auto max-w-[1579px] 2xl:max-w-[1780px] min-[1920px]:max-w-[2000px]
-        px-6 md:px-[60px] lg:px-[116px] 2xl:px-[140px] min-[1920px]:px-[180px] pt-[100px] pb-[20px] md:pt-[140px] lg:pt-[160px] 2xl:pt-[210px] min-[1920px]:pt-[280px] min-[2560px]:pt-[340px] 2xl:pb-[48px] min-[1920px]:pb-[72px] gap-6 md:gap-[16px] 2xl:gap-[22px] min-[1920px]:gap-[30px]"
+        className="relative z-10 flex flex-col justify-start h-full w-full mx-auto max-w-[1579px]
+        px-6 md:px-[60px] lg:px-[116px] pt-[100px] pb-[20px] md:pt-[140px] lg:pt-[160px] gap-6 md:gap-[16px]"
       >
         {/* Highlight behind the text on photo heroes for legibility */}
         <div
           className={
             showWash
-              ? "flex flex-col self-start max-w-full rounded-[20px] 2xl:rounded-[28px] bg-white/30 backdrop-blur-[2px] px-4 py-3 md:px-5 md:py-4 2xl:px-8 2xl:py-7 shadow-[0_4px_18px_rgba(0,0,0,0.04)]"
+              ? "flex flex-col self-start max-w-full rounded-[20px] bg-white/30 backdrop-blur-[2px] px-4 py-3 md:px-5 md:py-4 shadow-[0_4px_18px_rgba(0,0,0,0.04)]"
               : "contents"
           }
         >
           {/* ✅ Heading */}
           <h1
             className="text-[#132219] font-medium
-            text-[42px] md:text-[65px] lg:text-[90px] xl:text-[110px] 2xl:text-[128px]
+            text-[42px] md:text-[65px] lg:text-[90px] xl:text-[110px]
             leading-[110%] md:leading-[100%]
-            tracking-[-0.6px] md:tracking-[-1px] lg:tracking-[-1.28px] 2xl:tracking-[-1.6px]
-            max-w-[95%] md:max-w-[700px] lg:max-w-[1000px] 2xl:max-w-[1200px]"
+            tracking-[-0.6px] md:tracking-[-1px] lg:tracking-[-1.28px]
+            max-w-[95%] md:max-w-[700px] lg:max-w-[1000px]"
           >
             {t("hero.title")} <br />
             {t("hero.title2")} <br />
@@ -75,11 +75,11 @@ export default function Hero() {
           {/* ✅ Paragraph */}
           <p
             className="text-[#132219]/80
-            text-[18px] md:text-[19px] lg:text-[21px] xl:text-[22px] 2xl:text-[25px]
+            text-[18px] md:text-[19px] lg:text-[21px] xl:text-[22px]
             leading-[150%] md:leading-[140%]
             font-[400]
-            mt-4 md:mt-[20px] lg:mt-[32px] 2xl:mt-[40px]
-            max-w-[95%] md:max-w-[650px] lg:max-w-[900px] 2xl:max-w-[1040px]"
+            mt-4 md:mt-[20px] lg:mt-[32px]
+            max-w-[95%] md:max-w-[650px] lg:max-w-[900px]"
           >
             {t("hero.subtitle")} <br/> {pathLocale !== "fr" && "– "}<strong>{t("hero.subtitleBold")} </strong><br/>{t("hero.description")}
           </p>
@@ -91,11 +91,11 @@ export default function Hero() {
   <button
     className="flex items-center justify-center 
     w-full sm:w-auto
-    h-[54px] md:h-[50px] lg:h-[56px] 2xl:h-[64px]
-    px-[32px] md:px-[36px] lg:px-[48px] 2xl:px-[56px] py-[12px] md:py-[11px] lg:py-[14px]
+    h-[54px] md:h-[50px] lg:h-[56px]
+    px-[32px] md:px-[36px] lg:px-[48px] py-[12px] md:py-[11px] lg:py-[14px]
     rounded-[45px]
     bg-[#132219] text-[#CAF476]
-    text-[18px] md:text-[19px] lg:text-[22px] 2xl:text-[24px] font-semibold
+    text-[18px] md:text-[19px] lg:text-[22px] font-semibold
     hover:opacity-90 transition-all"
   >
     {t("hero.buttonText")}
