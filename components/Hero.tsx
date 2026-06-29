@@ -29,9 +29,11 @@ export default function Hero() {
   // cropped out by object-cover's centered crop, so shift the focal point right.
   // Desktop is wide enough to show her, so revert to centered there.
   const isRunnerPhoto = heroParam === null || heroParam === "1" || heroParam === "2";
+  // Desktop anchors to the bottom so wide/short big screens crop the empty sky
+  // off the top (instead of the centered crop that cut the runner's feet).
   const heroPosition = isRunnerPhoto
-    ? "object-[78%_center] md:object-center"
-    : "object-center";
+    ? "object-[78%_center] md:object-bottom"
+    : "object-bottom";
 
   return (
     <section className="relative w-full overflow-hidden font-sfpro min-h-[50vh]">
