@@ -1,5 +1,3 @@
-import "dotenv/config";
-
 export async function getAccessToken(): Promise<string> {
   const tenantId = process.env.SHAREPOINT_TENANT_ID!;
   const clientId = process.env.SHAREPOINT_CLIENT_ID!;
