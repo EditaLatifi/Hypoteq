@@ -328,6 +328,7 @@ export async function GET(req: Request) {
       email: "anna.muster@example.ch",
       phone: "+41 79 123 45 67",
       zip: "8000",
+      ort: "Zürich",
       firma: "",
     },
     project: { projektArt, liegenschaftZip: "8001", kreditnehmerTyp: "nat" },
@@ -471,6 +472,7 @@ const EMAIL_LABELS = {
     email: 'E-Mail',
     phone: 'Telefon',
     zip: 'PLZ',
+    ort: 'Ort',
     company: 'Firma',
     partnerEmail: 'Partner E-Mail',
     plzLiegenschaft: 'PLZ Liegenschaft',
@@ -572,6 +574,7 @@ const EMAIL_LABELS = {
     email: 'E-mail',
     phone: 'Téléphone',
     zip: 'NPA',
+    ort: 'Localité',
     company: 'Entreprise',
     partnerEmail: 'E-mail partenaire',
     plzLiegenschaft: 'NPA du bien',
@@ -673,6 +676,7 @@ const EMAIL_LABELS = {
     email: 'E-mail',
     phone: 'Telefono',
     zip: 'CAP',
+    ort: 'Località',
     company: 'Azienda',
     partnerEmail: 'E-mail partner',
     plzLiegenschaft: 'CAP immobile',
@@ -774,6 +778,7 @@ const EMAIL_LABELS = {
     email: 'Email',
     phone: 'Phone',
     zip: 'ZIP',
+    ort: 'City',
     company: 'Company',
     partnerEmail: 'Partner email',
     plzLiegenschaft: 'Property ZIP',
@@ -1219,6 +1224,7 @@ function generateFunnelEmailHTML(data: any, saved: any, locale: EmailLocale = 'd
         ${row(L.email, c.email ? `<a href="mailto:${c.email}" style="color:#132219;text-decoration:underline;">${c.email}</a>` : L.notProvided)}
         ${row(L.phone, c.phone ? `<a href="tel:${c.phone}" style="color:#132219;text-decoration:underline;">${c.phone}</a>` : L.notProvided)}
         ${row(L.zip, dash(c.zip, L))}
+        ${row(L.ort, dash(c.ort, L))}
         ${row(L.company, dash(c.firma || c.company, L))}
       </table>
     </div>

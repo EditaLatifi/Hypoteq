@@ -146,6 +146,7 @@ useEffect(() => {
     email: "",
     phone: "",
     zip: "",
+    ort: "",
     partnerEmail: "",
   });
 
@@ -209,7 +210,7 @@ useEffect(() => {
 
   const saveStep1 = () => {
     if (customerType === "partner") {
-      setClient({ email: clientData.partnerEmail });
+      setClient({ email: clientData.partnerEmail, zip: clientData.zip, ort: clientData.ort });
     } else {
       setClient(clientData);
     }

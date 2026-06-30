@@ -686,11 +686,27 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     }
   }
 
-  // Set Case Name if not already set
+  // Set Case Name if not already set.
+  // Convention: "PLZ / Ort / Nachname" — or "PLZ / Ort / Firma" for a juristische Person.
   if (!caseData['Case_Name__c']) {
-    const person1 = persons[0];
-    const defaultName = `${person1.firstName || person1.vorname || ''} ${person1.lastName || person1.nachname || person1.name || ''} ${flatData.projektArt || ''}`.trim() || `Case ${Date.now()}`;
-    caseData['Case_Name__c'] = defaultName;
+    const isJurPerson =
+      stepData.borrowers?.[0]?.type === 'jur' || !!(persons[0] as any)?.isJuristic;
+
+    const plz = String(flatData.zip || flatData.liegenschaftZip || '').trim();
+    const ort = String(flatData.ort || '').trim();
+
+    // For a juristic person persons[0].lastName already holds the company name.
+    const firma = String(
+      (isJurPerson ? persons[0]?.lastName : '') ||
+      flatData.firmenname ||
+      stepData.property?.firmen?.[0]?.firmenname ||
+      ''
+    ).trim();
+    const nachname = String(flatData.lastName || persons[0]?.lastName || '').trim();
+
+    const nameOrFirma = isJurPerson ? firma : nachname;
+    const parts = [plz, ort, nameOrFirma].filter(Boolean);
+    caseData['Case_Name__c'] = parts.join(' / ') || `Case ${Date.now()}`;
   }
 
   // Clean up: Remove non-Case fields

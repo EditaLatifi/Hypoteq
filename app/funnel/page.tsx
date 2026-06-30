@@ -88,6 +88,8 @@ useEffect(() => {
     lastName: "",
     email: "",
     phone: "",
+    zip: "",
+    ort: "",
     partnerEmail: "",
   });
 
@@ -147,7 +149,7 @@ useEffect(() => {
 
   const saveStep1 = () => {
     if (customerType === "partner") {
-      setClient({ email: clientData.partnerEmail });
+      setClient({ email: clientData.partnerEmail, zip: clientData.zip, ort: clientData.ort });
     } else {
       setClient(clientData);
     }
@@ -204,7 +206,7 @@ const submitFinal = async () => {
     // Always push latest local state to store before submitting
     const currentType = useFunnelStore.getState().customerType;
     if (currentType === "partner") {
-      setClient({ email: clientData.partnerEmail });
+      setClient({ email: clientData.partnerEmail, zip: clientData.zip, ort: clientData.ort });
     } else {
       setClient(clientData);
     }

@@ -18,7 +18,9 @@ function StartStep({
     lastName?: string;
     email?: string;
     phone?: string;
-    partnerEmail?: string;  
+    zip?: string;
+    ort?: string;
+    partnerEmail?: string;
   }
 
   const validateDirectCustomer = () => {
@@ -44,6 +46,12 @@ if (!clientData.phone) {
 } else if (!phoneRegex.test(clientData.phone)) {
   newErrors.phone = t("funnel.validPhoneError" as any);
 }
+
+if (!clientData.zip)
+  newErrors.zip = t("funnel.errorPropertyZip" as any);
+
+if (!clientData.ort)
+  newErrors.ort = t("funnel.errorPropertyCity" as any);
 
 
     setErrors(newErrors);
@@ -217,6 +225,53 @@ if (!clientData.phone) {
             </div>
           </div>
 
+          {/* Row 3 — property to be financed */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 md:mb-7 lg:mb-8 mt-6 md:mt-7 lg:mt-8">
+            <div>
+              <label className="text-[14px] font-medium text-[#132219]">
+                {t("funnel.propertyZip" as any)}
+              </label>
+
+              <input
+                className={`w-full mt-1 rounded-full px-5 py-2 text-[#132219]
+      border
+      ${errors.zip ? "border-red-500" : "border-[#132219] opacity-80"}
+    `}
+                value={clientData.zip || ""}
+                onChange={(e) => {
+                  setClientData((p: any) => ({ ...p, zip: e.target.value }));
+                  setErrors((prev: any) => ({ ...prev, zip: "" }));
+                }}
+              />
+
+              {errors.zip && (
+                <p className="text-red-500 text-[12px] mt-1">{errors.zip}</p>
+              )}
+            </div>
+
+            <div>
+              <label className="text-[14px] font-medium text-[#132219]">
+                {t("funnel.propertyCity" as any)}
+              </label>
+
+              <input
+                className={`w-full mt-1 rounded-full px-5 py-2 text-[#132219]
+      border
+      ${errors.ort ? "border-red-500" : "border-[#132219] opacity-80"}
+    `}
+                value={clientData.ort || ""}
+                onChange={(e) => {
+                  setClientData((p: any) => ({ ...p, ort: e.target.value }));
+                  setErrors((prev: any) => ({ ...prev, ort: "" }));
+                }}
+              />
+
+              {errors.ort && (
+                <p className="text-red-500 text-[12px] mt-1">{errors.ort}</p>
+              )}
+            </div>
+          </div>
+
           {/* Footer */}
 <div className="flex flex-row items-center justify-end w-full mt-0 gap-4">
             <button
@@ -263,6 +318,48 @@ if (!clientData.phone) {
             </div>
           </div>
 
+          {/* Property to be financed */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-10">
+            <div>
+              <label className="text-[14px] font-medium text-[#132219]">
+                {t("funnel.propertyZip" as any)}
+              </label>
+              <input
+                className={`w-full mt-1 rounded-full px-5 py-2 text-[#132219]
+    border
+    ${errors.zip ? "border-red-500" : "border-[#132219] opacity-80"}
+  `}
+                value={clientData.zip || ""}
+                onChange={(e) => {
+                  setClientData((p: any) => ({ ...p, zip: e.target.value }));
+                  setErrors((prev: any) => ({ ...prev, zip: "" }));
+                }}
+              />
+              {errors.zip && (
+                <p className="text-red-500 text-[12px] mt-1">{errors.zip}</p>
+              )}
+            </div>
+            <div>
+              <label className="text-[14px] font-medium text-[#132219]">
+                {t("funnel.propertyCity" as any)}
+              </label>
+              <input
+                className={`w-full mt-1 rounded-full px-5 py-2 text-[#132219]
+    border
+    ${errors.ort ? "border-red-500" : "border-[#132219] opacity-80"}
+  `}
+                value={clientData.ort || ""}
+                onChange={(e) => {
+                  setClientData((p: any) => ({ ...p, ort: e.target.value }));
+                  setErrors((prev: any) => ({ ...prev, ort: "" }));
+                }}
+              />
+              {errors.ort && (
+                <p className="text-red-500 text-[12px] mt-1">{errors.ort}</p>
+              )}
+            </div>
+          </div>
+
           <div className="flex justify-between mt-6">
             <button
               onClick={() => setCustomerType("direct")}
@@ -283,6 +380,17 @@ if (!clientData.phone) {
     setErrors((prev: any) => ({ ...prev, partnerEmail: t("funnel.validEmailError" as any) }));
     return;
   }
+
+  let hasLocationError = false;
+  if (!clientData.zip) {
+    setErrors((prev: any) => ({ ...prev, zip: t("funnel.errorPropertyZip" as any) }));
+    hasLocationError = true;
+  }
+  if (!clientData.ort) {
+    setErrors((prev: any) => ({ ...prev, ort: t("funnel.errorPropertyCity" as any) }));
+    hasLocationError = true;
+  }
+  if (hasLocationError) return;
 
   setEmail(clientData.partnerEmail);
   saveStep();
