@@ -124,7 +124,7 @@ const Step: React.FC<StepProps> = ({ step, title, text, image, chart, highlightB
         className="
           flex flex-col justify-between items-center
           w-full sm:w-[85%] md:w-[550px]
-          h-auto sm:h-[260px] md:h-[300px] lg:h-[350px]
+          h-auto sm:min-h-[260px] md:min-h-[300px] lg:min-h-[350px]
           px-[24px] sm:px-[40px] md:px-[60px] lg:px-[80px]
           py-[24px] sm:py-[30px]
           bg-[#CAF476] rounded-[14px] shadow-md mt-6 lg:mt-0
