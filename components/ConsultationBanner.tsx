@@ -14,7 +14,7 @@ const ConsultationBanner: React.FC = () => {
       className="
         relative w-full max-w-[1273px] h-[278px] rounded-[10px]
         mt-[80px] md:mt-[100px] lg:mt-[120px] mb-[120px] md:mb-[160px] lg:mb-[200px] overflow-hidden mx-auto
-        flex justify-start items-start gap-[160px] px-[116px]pt-[40px]
+        flex justify-start lg:justify-between items-start gap-[160px] lg:gap-0 lg:pr-[80px]
         max-lg:flex-col max-lg:items-start max-lg:h-auto max-lg:px-[48px] max-lg:py-[60px]
         max-sm:w-full max-sm:rounded-none max-sm:px-[24px] max-sm:py-[50px]
         max-sm:flex max-sm:flex-col max-sm:items-center max-sm:justify-center max-sm:text-center
