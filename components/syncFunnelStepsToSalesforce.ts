@@ -705,7 +705,9 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     const nachname = String(flatData.lastName || persons[0]?.lastName || '').trim();
 
     const nameOrFirma = isJurPerson ? firma : nachname;
-    const parts = [plz, ort, nameOrFirma].filter(Boolean);
+    // PLZ and Ort read together as one location ("8001 Zürich"); only the name is slash-separated.
+    const location = [plz, ort].filter(Boolean).join(' ');
+    const parts = [location, nameOrFirma].filter(Boolean);
     caseData['Case_Name__c'] = parts.join(' / ') || `Case ${Date.now()}`;
   }
 
