@@ -147,8 +147,6 @@ export default function Footer() {
           <Link href={`/${pathLocale}/uber-uns`} className="hover:underline py-1">{t("footer.aboutUs")}</Link>
           <Link href={`/${pathLocale}/kontaktieren-sie-uns`} className="hover:underline py-1">{t("footer.contactUs")}</Link>
           <Link href={`/${pathLocale}/partner-werden`} className="hover:underline py-1">{t("footer.becomePartner")}</Link>
-          <Link href={`/${pathLocale}/impressum`} className="hover:underline py-1">{t("footer.impressumData")}</Link>
-          <Link href={`/${pathLocale}/agb`} className="hover:underline py-1">{t("footer.agb")}</Link>
         </div>
 
         {/* COLUMN 3 */}
@@ -172,6 +170,15 @@ export default function Footer() {
           </div>
         </div>
 
+      </div>
+
+      {/* Bottom legal bar */}
+      <div className="mt-[40px] md:mt-[48px] pt-[24px] border-t border-white/40 flex flex-col sm:flex-row sm:items-center gap-[12px] sm:gap-[20px] text-[14px] md:text-[15px] text-white/80">
+        <span>© {new Date().getFullYear()} {t("footer.company")}</span>
+        <span className="hidden sm:inline text-white/40">·</span>
+        <Link href={`/${pathLocale}/impressum`} className="hover:underline">{t("footer.impressumData")}</Link>
+        <span className="hidden sm:inline text-white/40">·</span>
+        <Link href={`/${pathLocale}/agb`} className="hover:underline">{t("footer.agb")}</Link>
       </div>
       </div>
 
