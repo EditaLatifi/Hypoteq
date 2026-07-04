@@ -148,6 +148,7 @@ export default function Footer() {
           <Link href={`/${pathLocale}/kontaktieren-sie-uns`} className="hover:underline py-1">{t("footer.contactUs")}</Link>
           <Link href={`/${pathLocale}/partner-werden`} className="hover:underline py-1">{t("footer.becomePartner")}</Link>
           <Link href={`/${pathLocale}/impressum`} className="hover:underline py-1">{t("footer.impressumData")}</Link>
+          <Link href={`/${pathLocale}/agb`} className="hover:underline py-1">{t("footer.agb")}</Link>
         </div>
 
         {/* COLUMN 3 */}
