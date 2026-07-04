@@ -147,11 +147,11 @@ export default function Footer() {
           <Link href={`/${pathLocale}/uber-uns`} className="hover:underline py-1">{t("footer.aboutUs")}</Link>
           <Link href={`/${pathLocale}/kontaktieren-sie-uns`} className="hover:underline py-1">{t("footer.contactUs")}</Link>
           <Link href={`/${pathLocale}/partner-werden`} className="hover:underline py-1">{t("footer.becomePartner")}</Link>
+          <Link href={`/${pathLocale}/hypothekenrechner`} className="hover:underline py-1">{t("footer.mortgageCalc")}</Link>
         </div>
 
         {/* COLUMN 3 */}
         <div className="flex flex-col gap-[16px] md:gap-[18px] lg:gap-[24px]">
-          <Link href={`/${pathLocale}/hypothekenrechner`} className="hover:underline py-1">{t("footer.mortgageCalc")}</Link>
           <Link href={`/${pathLocale}/faq`} className="hover:underline py-1">{t("footer.faqTitle")}</Link>
           <Link href={`/${pathLocale}/beratung`} className="hover:underline py-1">{t("footer.hypoteqAdvisory")}</Link>
           <div className="flex items-center gap-2 py-1">
