@@ -464,46 +464,18 @@ const propertyUseOptions =
 
   <div className="space-y-[24px]">
     {data.kreditnehmer.map((kn: any, index: number) => (
-      <div key={index} className="flex items-center gap-[16px]">
-        
-        {/* ADD BUTTON */}
-        <button
-          onClick={() => {
-            if (data.kreditnehmer.length >= 3) return; // Max 3 persons
-            const updated = [...data.kreditnehmer];
-            updated.splice(
-              index + 1,
-              0,
-              (customerType === "jur" || customerType === "partner")
-                ? { firmenname: "", adresse: "", vorname: "", name: "", email: "", telefon: "" }
-                : {
-                    vorname: "",
-                    name: "",
-                    email: "",
-                    telefon: "",
-                    geburtsdatum: "",
-                    erwerb: "",
-                    zivilstand: "",
-                  }
-            );
-            update("kreditnehmer", updated);
-          }}
-          className="text-3xl leading-none text-[#132219] mt-[5px]"
-          disabled={data.kreditnehmer.length >= 3}
-        >
-          +
-        </button>
+      <div key={index} className="flex items-start gap-[16px]">
 
-        {/* DELETE BUTTON */}
+        {/* DELETE BUTTON — order-last keeps it on the right so the fields stay left-aligned */}
         {data.kreditnehmer.length > 1 && (
-          <button 
+          <button
             disabled={isContinueDisabled}
             style={isContinueDisabled ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
             onClick={() => {
               const updated = data.kreditnehmer.filter((_: any, i: number) => i !== index);
               update("kreditnehmer", updated);
             }}
-            className="text-3xl leading-none text-red-600 mt-[5px]"
+            className="order-last text-3xl leading-none text-red-600 mt-[5px]"
           >
             −
           </button>
@@ -722,6 +694,26 @@ const propertyUseOptions =
   </div>
 </div>
 
+
+      {/* ========================================================= */}
+      {/*  ADD KREDITNEHMER (above the Zurück / Weiter row)         */}
+      {/* ========================================================= */}
+      {data.kreditnehmer.length < 3 && (
+        <button
+          type="button"
+          onClick={() => {
+            const template =
+              (customerType === "jur" || customerType === "partner")
+                ? { firmenname: "", adresse: "", vorname: "", name: "", email: "", telefon: "" }
+                : { vorname: "", name: "", email: "", telefon: "", geburtsdatum: "", erwerb: "", zivilstand: "" };
+            update("kreditnehmer", [...data.kreditnehmer, template]);
+          }}
+          className="flex items-center gap-2 mt-6 lg:mt-8 px-5 py-2 border border-[#132219] rounded-full text-sm text-[#132219] hover:bg-[#F7F7F7] w-fit"
+        >
+          <span className="text-xl leading-none">+</span>
+          {t("funnel.addBorrower" as any)}
+        </button>
+      )}
 
       {/* ========================================================= */}
       {/*  BUTTONS                                                  */}

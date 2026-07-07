@@ -293,6 +293,7 @@
     "propertyZip": "PLZ der zu finanzierende Immobilie",
     "propertyCity": "Ort der zu finanzierende Immobilie",
     "propertyLocation": "PLZ und Ort der zu finanzierende Immobilie",
+    "addBorrower": "Kreditnehmer hinzufügen",
     "plzShort": "PLZ",
     "ortShort": "Ort",
     "areYouPartner": "Bist du Partner?",

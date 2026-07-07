@@ -286,6 +286,7 @@
     "propertyZip": "NPA du bien à financer",
     "propertyCity": "Localité du bien à financer",
     "propertyLocation": "NPA et localité du bien à financer",
+    "addBorrower": "Ajouter un emprunteur",
     "plzShort": "NPA",
     "ortShort": "Localité",
     "areYouPartner": "Êtes-vous partenaire?",
