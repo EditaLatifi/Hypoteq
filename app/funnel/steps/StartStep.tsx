@@ -47,13 +47,6 @@ if (!clientData.phone) {
   newErrors.phone = t("funnel.validPhoneError" as any);
 }
 
-if (!clientData.zip)
-  newErrors.zip = t("funnel.errorPropertyZip" as any);
-
-if (!clientData.ort)
-  newErrors.ort = t("funnel.errorPropertyCity" as any);
-
-
     setErrors(newErrors);
 
     return Object.keys(newErrors).length === 0;
@@ -119,49 +112,6 @@ if (!clientData.ort)
             <p className="text-base md:text-lg font-normal font-sfpro text-[#132219]/80">
               {t("funnel.privateCustomerDescription" as any)}
             </p>
-          </div>
-
-          {/* Property to be financed — own section */}
-          <div className="mb-6 md:mb-7 lg:mb-8">
-            <p className="text-[15px] lg:text-[16px] font-semibold text-[#132219] mb-3">
-              {t("funnel.propertyLocation" as any)}
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <input
-                  placeholder={t("funnel.plzShort" as any)}
-                  className={`w-full rounded-full px-5 py-2 text-[#132219]
-        border
-        ${errors.zip ? "border-red-500" : "border-[#132219] opacity-80"}
-      `}
-                  value={clientData.zip || ""}
-                  onChange={(e) => {
-                    setClientData((p: any) => ({ ...p, zip: e.target.value }));
-                    setErrors((prev: any) => ({ ...prev, zip: "" }));
-                  }}
-                />
-                {errors.zip && (
-                  <p className="text-red-500 text-[12px] mt-1">{errors.zip}</p>
-                )}
-              </div>
-              <div>
-                <input
-                  placeholder={t("funnel.ortShort" as any)}
-                  className={`w-full rounded-full px-5 py-2 text-[#132219]
-        border
-        ${errors.ort ? "border-red-500" : "border-[#132219] opacity-80"}
-      `}
-                  value={clientData.ort || ""}
-                  onChange={(e) => {
-                    setClientData((p: any) => ({ ...p, ort: e.target.value }));
-                    setErrors((prev: any) => ({ ...prev, ort: "" }));
-                  }}
-                />
-                {errors.ort && (
-                  <p className="text-red-500 text-[12px] mt-1">{errors.ort}</p>
-                )}
-              </div>
-            </div>
           </div>
 
           {/* Row 1 */}

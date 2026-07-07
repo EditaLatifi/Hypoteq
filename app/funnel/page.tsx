@@ -88,8 +88,6 @@ useEffect(() => {
     lastName: "",
     email: "",
     phone: "",
-    zip: "",
-    ort: "",
     partnerEmail: "",
   });
 

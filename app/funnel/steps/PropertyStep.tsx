@@ -107,7 +107,7 @@ const propertyUseOptions =
         !offer.laufzeit || isNaN(Number(offer.laufzeit.replace(/[^\d]/g, ""))) || Number(offer.laufzeit.replace(/[^\d]/g, "")) <= 0
       )
     )) ||
-    (customerType === "partner" && (!data.zip || !data.ort)) ||
+    (!data.zip || !data.ort) ||
     (customerType !== "partner" && (
       !data.kreditnehmer ||
       !Array.isArray(data.kreditnehmer) ||
@@ -416,9 +416,9 @@ const propertyUseOptions =
       </div>
 
 {/* ========================================================= */}
-{/*  PLZ / ORT DER IMMOBILIE (partner only, one for all)     */}
+{/*  PLZ / ORT DER IMMOBILIE (all customers, one for all)    */}
 {/* ========================================================= */}
-{customerType === "partner" && (
+{customerType && (
   <div>
     <h3 className="text-[16px] font-semibold mb-[16px]">
       {t("funnel.propertyLocation" as any)}
@@ -802,11 +802,9 @@ const propertyUseOptions =
                 }
               }
               
-              // Partner: property PLZ/Ort (single section, one for all borrowers)
-              if (customerType === "partner") {
-                if (!data.zip) newErrors.zip = t("funnel.errorPropertyZip" as any);
-                if (!data.ort) newErrors.ort = t("funnel.errorPropertyCity" as any);
-              }
+              // Property PLZ/Ort — required for everyone (collected in this step)
+              if (!data.zip) newErrors.zip = t("funnel.errorPropertyZip" as any);
+              if (!data.ort) newErrors.ort = t("funnel.errorPropertyCity" as any);
 
               // For non-partners, validate additional fields
               if (customerType !== "partner") {
