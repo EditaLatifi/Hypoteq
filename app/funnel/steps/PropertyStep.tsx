@@ -107,7 +107,7 @@ const propertyUseOptions =
         !offer.laufzeit || isNaN(Number(offer.laufzeit.replace(/[^\d]/g, ""))) || Number(offer.laufzeit.replace(/[^\d]/g, "")) <= 0
       )
     )) ||
-    (customerType === "partner" && (!data.kreditnehmer?.[0]?.zip || !data.kreditnehmer?.[0]?.ort)) ||
+    (customerType === "partner" && (!data.zip || !data.ort)) ||
     (customerType !== "partner" && (
       !data.kreditnehmer ||
       !Array.isArray(data.kreditnehmer) ||
@@ -416,6 +416,39 @@ const propertyUseOptions =
       </div>
 
 {/* ========================================================= */}
+{/*  PLZ / ORT DER IMMOBILIE (partner only, one for all)     */}
+{/* ========================================================= */}
+{customerType === "partner" && (
+  <div>
+    <h3 className="text-[16px] font-semibold mb-[16px]">
+      {t("funnel.propertyLocation" as any)}
+    </h3>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-[16px] max-w-[600px]">
+      <div>
+        <input
+          type="text"
+          placeholder={t("funnel.plzShort" as any)}
+          className={`px-5 py-2 border rounded-full text-sm w-full ${errors.zip ? "border-red-500" : "border-[#132219]"}`}
+          value={data.zip || ""}
+          onChange={(e) => update("zip", e.target.value)}
+        />
+        {errors.zip && <p className="text-red-500 text-[12px] mt-1">{errors.zip}</p>}
+      </div>
+      <div>
+        <input
+          type="text"
+          placeholder={t("funnel.ortShort" as any)}
+          className={`px-5 py-2 border rounded-full text-sm w-full ${errors.ort ? "border-red-500" : "border-[#132219]"}`}
+          value={data.ort || ""}
+          onChange={(e) => update("ort", e.target.value)}
+        />
+        {errors.ort && <p className="text-red-500 text-[12px] mt-1">{errors.ort}</p>}
+      </div>
+    </div>
+  </div>
+)}
+
+{/* ========================================================= */}
 {/*  KREDITNEHMER FORM                                        */}
 {/* ========================================================= */}
 <div>
@@ -534,32 +567,6 @@ const propertyUseOptions =
               }}
             />
 
-            {/* Property PLZ / Ort */}
-            <input
-              type="text"
-              placeholder={t("funnel.propertyZip" as any)}
-              className={`px-5 py-2 border rounded-full text-sm w-full ${errors[`kreditnehmer_${index}_zip`] ? 'border-red-500' : 'border-[#132219]'}`}
-              value={kn.zip || ""}
-              onChange={(e) => {
-                const updated = [...data.kreditnehmer];
-                updated[index].zip = e.target.value;
-                update("kreditnehmer", updated);
-                setErrors((prev: any) => ({ ...prev, [`kreditnehmer_${index}_zip`]: "" }));
-              }}
-            />
-            <input
-              type="text"
-              placeholder={t("funnel.propertyCity" as any)}
-              className={`px-5 py-2 border rounded-full text-sm w-full ${errors[`kreditnehmer_${index}_ort`] ? 'border-red-500' : 'border-[#132219]'}`}
-              value={kn.ort || ""}
-              onChange={(e) => {
-                const updated = [...data.kreditnehmer];
-                updated[index].ort = e.target.value;
-                update("kreditnehmer", updated);
-                setErrors((prev: any) => ({ ...prev, [`kreditnehmer_${index}_ort`]: "" }));
-              }}
-            />
-
             {/* Kontaktperson Email */}
             <input
               type="email"
@@ -619,38 +626,6 @@ const propertyUseOptions =
                 setErrors((prev: any) => ({ ...prev, [`kreditnehmer_${index}_name`]: "" }));
               }}
             />
-            {customerType === "partner" && (
-              <>
-                <input
-                  type="text"
-                  placeholder={t("funnel.propertyZip" as any)}
-                  className={`px-5 py-2 border rounded-full text-sm ${
-                    errors[`kreditnehmer_${index}_zip`] ? 'border-red-500' : 'border-[#132219]'
-                  }`}
-                  value={kn.zip || ""}
-                  onChange={(e) => {
-                    const updated = [...data.kreditnehmer];
-                    updated[index].zip = e.target.value;
-                    update("kreditnehmer", updated);
-                    setErrors((prev: any) => ({ ...prev, [`kreditnehmer_${index}_zip`]: "" }));
-                  }}
-                />
-                <input
-                  type="text"
-                  placeholder={t("funnel.propertyCity" as any)}
-                  className={`px-5 py-2 border rounded-full text-sm ${
-                    errors[`kreditnehmer_${index}_ort`] ? 'border-red-500' : 'border-[#132219]'
-                  }`}
-                  value={kn.ort || ""}
-                  onChange={(e) => {
-                    const updated = [...data.kreditnehmer];
-                    updated[index].ort = e.target.value;
-                    update("kreditnehmer", updated);
-                    setErrors((prev: any) => ({ ...prev, [`kreditnehmer_${index}_ort`]: "" }));
-                  }}
-                />
-              </>
-            )}
             {/* Hide email and phone fields for partner natural person */}
             {!(customerType === "partner" && borrowerType === "nat") && (
               <>
@@ -835,11 +810,10 @@ const propertyUseOptions =
                 }
               }
               
-              // Partner: property PLZ/Ort is entered on the borrower(s); require it on the first
+              // Partner: property PLZ/Ort (single section, one for all borrowers)
               if (customerType === "partner") {
-                const kn0 = data.kreditnehmer?.[0];
-                if (!kn0?.zip) newErrors[`kreditnehmer_0_zip`] = t("funnel.errorPropertyZip" as any);
-                if (!kn0?.ort) newErrors[`kreditnehmer_0_ort`] = t("funnel.errorPropertyCity" as any);
+                if (!data.zip) newErrors.zip = t("funnel.errorPropertyZip" as any);
+                if (!data.ort) newErrors.ort = t("funnel.errorPropertyCity" as any);
               }
 
               // For non-partners, validate additional fields
