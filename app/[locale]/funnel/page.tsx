@@ -25,6 +25,8 @@ export default function FunnelPage() {
       });
       setPropertyData({
         artImmobilie: "",
+        zip: "",
+        ort: "",
         artLiegenschaft: "",
         nutzung: "",
         renovation: "",
@@ -158,6 +160,8 @@ useEffect(() => {
 
   const [propertyData, setPropertyData] = useState({
     artImmobilie: "",
+    zip: "",
+    ort: "",
     artLiegenschaft: "",
     nutzung: "",
     renovation: "",
@@ -210,7 +214,7 @@ useEffect(() => {
 
   const saveStep1 = () => {
     if (customerType === "partner") {
-      setClient({ email: clientData.partnerEmail, zip: clientData.zip, ort: clientData.ort });
+      setClient({ email: clientData.partnerEmail });
     } else {
       setClient(clientData);
     }

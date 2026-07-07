@@ -101,6 +101,8 @@ useEffect(() => {
 
   const [propertyData, setPropertyData] = useState({
     artImmobilie: "",
+    zip: "",
+    ort: "",
     artLiegenschaft: "",
     nutzung: "",
     renovation: "",
@@ -149,7 +151,7 @@ useEffect(() => {
 
   const saveStep1 = () => {
     if (customerType === "partner") {
-      setClient({ email: clientData.partnerEmail, zip: clientData.zip, ort: clientData.ort });
+      setClient({ email: clientData.partnerEmail });
     } else {
       setClient(clientData);
     }
@@ -206,7 +208,7 @@ const submitFinal = async () => {
     // Always push latest local state to store before submitting
     const currentType = useFunnelStore.getState().customerType;
     if (currentType === "partner") {
-      setClient({ email: clientData.partnerEmail, zip: clientData.zip, ort: clientData.ort });
+      setClient({ email: clientData.partnerEmail });
     } else {
       setClient(clientData);
     }

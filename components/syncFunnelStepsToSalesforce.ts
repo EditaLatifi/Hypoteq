@@ -692,8 +692,11 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     const isJurPerson =
       stepData.borrowers?.[0]?.type === 'jur' || !!(persons[0] as any)?.isJuristic;
 
-    const plz = String(flatData.zip || flatData.liegenschaftZip || '').trim();
-    const ort = String(flatData.ort || '').trim();
+    // Direct: PLZ/Ort come from the client (flatData). Partner: they're entered on the
+    // first Kreditnehmer, so fall back to that.
+    const kn0 = stepData.property?.kreditnehmer?.[0] || {};
+    const plz = String(flatData.zip || kn0.zip || flatData.liegenschaftZip || '').trim();
+    const ort = String(flatData.ort || kn0.ort || '').trim();
 
     // For a juristic person persons[0].lastName already holds the company name.
     const firma = String(

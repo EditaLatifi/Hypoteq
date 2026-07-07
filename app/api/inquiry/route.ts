@@ -1223,8 +1223,8 @@ function generateFunnelEmailHTML(data: any, saved: any, locale: EmailLocale = 'd
         ${row(L.lastName, dash(c.lastName || c.name, L))}
         ${row(L.email, c.email ? `<a href="mailto:${c.email}" style="color:#132219;text-decoration:underline;">${c.email}</a>` : L.notProvided)}
         ${row(L.phone, c.phone ? `<a href="tel:${c.phone}" style="color:#132219;text-decoration:underline;">${c.phone}</a>` : L.notProvided)}
-        ${row(L.zip, dash(c.zip, L))}
-        ${row(L.ort, dash(c.ort, L))}
+        ${row(L.zip, dash(c.zip || pr.zip || pr.kreditnehmer?.[0]?.zip, L))}
+        ${row(L.ort, dash(c.ort || pr.ort || pr.kreditnehmer?.[0]?.ort, L))}
         ${row(L.company, dash(c.firma || c.company, L))}
       </table>
     </div>
