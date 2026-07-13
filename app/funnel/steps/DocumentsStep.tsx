@@ -2,7 +2,7 @@
 import { v4 as uuidv4 } from "uuid";
 import { useFunnelStore } from "@/src/store/funnelStore";
 import { useTranslation } from "@/hooks/useTranslation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 
 const HypoteqLoadingPopup = dynamic(() => import("./HypoteqLoadingPopup"), { ssr: false });
@@ -50,11 +50,18 @@ if (typeof window !== "undefined") {
 const [isDragging, setIsDragging] = useState(false);
 const [currentFolderId, setCurrentFolderId] = useState<string | null>(null);
 
-// Generate unique submission ID if project.id doesn't exist
-const submissionId = project?.id || uuidv4();
+// Stable submission ID for the whole step. Must NOT be regenerated on every
+// render (a fresh uuid each render changes the SharePoint folder key and can
+// scatter one submission's documents across multiple folders). Prefer the real
+// project.id once it exists, otherwise keep the id generated on first mount.
+const submissionIdRef = useRef<string>(project?.id || uuidv4());
+if (project?.id && submissionIdRef.current !== project.id) {
+  submissionIdRef.current = project.id;
+}
+const submissionId = submissionIdRef.current;
 console.log("🆔 Submission ID:", submissionId, "project.id:", project?.id);
 
-// Reset folderId when submission ID changes (new submission)
+// Reset folderId when the submission ID changes (a genuinely new submission).
 useEffect(() => {
   setCurrentFolderId(null);
   console.log("🔄 New submission detected, folder ID reset. Submission ID:", submissionId);

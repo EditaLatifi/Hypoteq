@@ -687,29 +687,27 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
   }
 
   // Set Case Name if not already set.
-  // Convention: "PLZ / Ort / Nachname" — or "PLZ / Ort / Firma" for a juristische Person.
+  // Convention: "PLZ Ort / <borrower names>" — every borrower as "Vorname Name"
+  // (companies as Firmenname), multiple borrowers joined with " & ".
   if (!caseData['Case_Name__c']) {
-    const isJurPerson =
-      stepData.borrowers?.[0]?.type === 'jur' || !!(persons[0] as any)?.isJuristic;
-
     // Direct: PLZ/Ort come from the client. Partner: from the property section. Both land
     // in flatData (client spread last wins for direct; property provides them for partner).
     const plz = String(flatData.zip || flatData.liegenschaftZip || '').trim();
     const ort = String(flatData.ort || '').trim();
 
-    // For a juristic person persons[0].lastName already holds the company name.
-    const firma = String(
-      (isJurPerson ? persons[0]?.lastName : '') ||
-      flatData.firmenname ||
-      stepData.property?.firmen?.[0]?.firmenname ||
-      ''
-    ).trim();
-    const nachname = String(flatData.lastName || persons[0]?.lastName || '').trim();
+    const { getBorrowerDisplayName } = await import('./funnelPersonNames');
+    // Fall back to the normalized persons list when the raw funnel data yields nothing
+    // (e.g. partner submissions where the name only exists on the Account).
+    const namePart =
+      getBorrowerDisplayName(stepData) ||
+      persons
+        .map((p: any) => `${p.firstName || ''} ${p.lastName || ''}`.trim())
+        .filter(Boolean)
+        .join(' & ');
 
-    const nameOrFirma = isJurPerson ? firma : nachname;
     // PLZ and Ort read together as one location ("8001 Zürich"); only the name is slash-separated.
     const location = [plz, ort].filter(Boolean).join(' ');
-    const parts = [location, nameOrFirma].filter(Boolean);
+    const parts = [location, namePart].filter(Boolean);
     caseData['Case_Name__c'] = parts.join(' / ') || `Case ${Date.now()}`;
   }
 
@@ -781,7 +779,9 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     caseData['Client_3__c'] = null;
   }
 
-  // Add Partner_Consultant__c as a Contact lookup field (Contact ID) if partnerEmail is present
+  // Sales partner (Partner_Consultant__c, a Contact lookup):
+  //  - Partner submissions link the submitting partner's Contact.
+  //  - Direct submissions default to HYPOTEQ as their own sales partner.
   if (partnerEmail) {
     try {
       const partnerContact = await salesforceApi.findContactByEmail(partnerEmail);
@@ -794,6 +794,25 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
       }
     } catch (err) {
       console.error(`[Salesforce Sync] Error finding partner contact:`, err);
+    }
+  } else {
+    // Direct client → default sales partner is HYPOTEQ. Find (or create once) the
+    // HYPOTEQ Contact and link it. Override the email via HYPOTEQ_PARTNER_EMAIL.
+    const hypoteqEmail = process.env.HYPOTEQ_PARTNER_EMAIL || 'info@hypoteq.ch';
+    try {
+      let hypoteqContact = await salesforceApi.findContactByEmail(hypoteqEmail);
+      if (!hypoteqContact) {
+        const created = await salesforceApi.createContact({ LastName: 'HYPOTEQ', Email: hypoteqEmail });
+        if (created?.id) hypoteqContact = { Id: created.id };
+        console.log(`[Salesforce Sync] Created HYPOTEQ sales-partner contact: ${created?.id}`);
+      }
+      const hypoteqContactId = hypoteqContact?.Id || hypoteqContact?.id;
+      if (hypoteqContactId) {
+        caseData['Partner_Consultant__c'] = hypoteqContactId;
+        console.log(`[Salesforce Sync] Direct client → default HYPOTEQ sales partner: ${hypoteqContactId}`);
+      }
+    } catch (err) {
+      console.error(`[Salesforce Sync] Error setting HYPOTEQ default sales partner:`, err);
     }
   }
 

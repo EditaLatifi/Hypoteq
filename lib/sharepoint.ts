@@ -45,42 +45,37 @@ export async function getOrCreateSubmissionFolder(
   const year = now.getFullYear();
   const dateStr = `${day}-${month}-${year}`;
 
+  // Deterministic name per (email, date, submission): all documents of one
+  // submission resolve to the exact same folder no matter how many upload
+  // requests run — no timestamp, so there is nothing to make the name diverge.
   const shortInquiryId = inquiryId.substring(0, 8);
-  const folderPrefix = `${email}_${dateStr}_${shortInquiryId}`;
+  const folderName = `${email}_${dateStr}_${shortInquiryId}`;
+  const encodedFolder = encodeURIComponent(folderName);
 
-  console.log("🔍 Looking for existing folder with prefix:", folderPrefix);
-
-  try {
-    const listRes = await fetch(
-      `https://graph.microsoft.com/v1.0/drives/${DRIVE_ID}/items/${ROOT_FOLDER_ID}/children`,
-      {
-        method: "GET",
-        headers: { Authorization: `Bearer ${token}` },
-      }
+  // Address the child directly by path (no children listing / pagination): one
+  // request, returns 404 when it does not exist yet.
+  const lookupByPath = async (): Promise<string | null> => {
+    const res = await fetch(
+      `https://graph.microsoft.com/v1.0/drives/${DRIVE_ID}/items/${ROOT_FOLDER_ID}:/${encodedFolder}`,
+      { method: "GET", headers: { Authorization: `Bearer ${token}` } }
     );
-
-    const listJson = await listRes.json();
-
-    if (listRes.ok && listJson.value) {
-      const existingFolder = listJson.value.find(
-        (item: any) => item.folder && item.name.includes(shortInquiryId)
-      );
-
-      if (existingFolder) {
-        console.log("♻️ Found existing folder for this submission:", existingFolder.name);
-        return existingFolder.id;
-      }
-      console.log("🔍 No matching folder found for inquiryId:", shortInquiryId);
+    if (res.ok) {
+      const item = await res.json();
+      if (item?.id) return item.id as string;
     }
-  } catch (err) {
-    console.log("❌ Error listing folders:", err);
+    return null;
+  };
+
+  console.log("🔍 Looking for existing folder:", folderName);
+  const existingId = await lookupByPath();
+  if (existingId) {
+    console.log("♻️ Found existing folder for this submission:", folderName);
+    return existingId;
   }
 
-  const time = now.toTimeString().split(" ")[0].replace(/:/g, "-");
-  const folderName = `${email}_${dateStr}_${time}_${inquiryId.substring(0, 8)}`;
-
+  // Create with conflictBehavior "fail" so a concurrent create can never spawn a
+  // duplicate ("… 1") folder — the loser gets a 409 and re-fetches the winner.
   console.log("📁 Creating new folder:", folderName);
-
   const createRes = await fetch(
     `https://graph.microsoft.com/v1.0/drives/${DRIVE_ID}/items/${ROOT_FOLDER_ID}/children`,
     {
@@ -92,20 +87,27 @@ export async function getOrCreateSubmissionFolder(
       body: JSON.stringify({
         name: folderName,
         folder: {},
-        "@microsoft.graph.conflictBehavior": "rename",
+        "@microsoft.graph.conflictBehavior": "fail",
       }),
     }
   );
 
-  const createJson = await createRes.json();
-
-  if (!createRes.ok) {
-    console.error("❌ Folder creation failed:", createJson);
-    throw new Error("Failed to create folder");
+  if (createRes.ok) {
+    const createJson = await createRes.json();
+    console.log("✅ Folder created:", folderName);
+    return createJson.id as string;
   }
 
-  console.log("✅ Folder created:", folderName);
-  return createJson.id as string;
+  // Name already taken (created concurrently) → resolve to the existing folder.
+  const raced = await lookupByPath();
+  if (raced) {
+    console.log("♻️ Folder created concurrently, reusing:", folderName);
+    return raced;
+  }
+
+  const createJson = await createRes.json().catch(() => null);
+  console.error("❌ Folder creation failed:", createJson);
+  throw new Error("Failed to create folder");
 }
 
 export async function createUploadSession(
