@@ -378,6 +378,28 @@ export async function GET(req: Request) {
 
 type EmailLocale = 'de' | 'fr' | 'it' | 'en';
 
+// Derive the subject-line identifier for a funnel submission:
+// the first natural-person borrower's name ("Kreditnehmer"), else the
+// first company name ("Firmenname"), else the client's name.
+function funnelSubjectName(data: any): string {
+  const pr = data.property || {};
+  const persons: any[] = [
+    ...(Array.isArray(pr.kreditnehmer) ? pr.kreditnehmer : []),
+    ...(Array.isArray(data.borrowers) ? data.borrowers : []),
+  ];
+  for (const person of persons) {
+    const name = `${person.vorname || person.firstName || ''} ${person.name || person.lastName || ''}`.trim();
+    if (name) return name;
+  }
+  const firmen: any[] = Array.isArray(pr.firmen) ? pr.firmen : [];
+  for (const firma of firmen) {
+    const firmenname = (firma.firmenname || firma.name || '').trim();
+    if (firmenname) return firmenname;
+  }
+  const c = data.client || {};
+  return `${c.vorname || c.firstName || ''} ${c.name || c.lastName || ''}`.trim();
+}
+
 // Send email notification for funnel submission
 async function sendFunnelNotificationEmail(data: any, saved: any, locale: EmailLocale = 'de') {
   const useGraph = process.env.USE_GRAPH === "true" &&
@@ -410,7 +432,10 @@ async function sendFunnelNotificationEmail(data: any, saved: any, locale: EmailL
   const emailHTML = generateFunnelEmailHTML(data, saved, locale);
   const L = EMAIL_LABELS[locale];
   const customerTag = data.customerType === 'partner' ? L.customerType_partner : L.customerType_direct;
-  const subject = `${L.subject} (${customerTag}) - ID: ${saved.id}`;
+  const subjectName = funnelSubjectName(data);
+  const subject = subjectName
+    ? `${L.subject} (${customerTag}) - ${subjectName}`
+    : `${L.subject} (${customerTag}) - ID: ${saved.id}`;
 
   const sendMail = {
     message: {
