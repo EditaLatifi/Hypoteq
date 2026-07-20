@@ -178,10 +178,15 @@ async function getPersonAccountRecordTypeId() {
   return result.records[0]?.Id;
 }
 
+// NOTE: consumers import this default object (app/api/inquiry/route.ts), and
+// syncFunnelStepsToSalesforce types it as `any` — so a function missing from this
+// list is `undefined` at runtime with no compile error. Keep it in sync with the
+// named exports above when adding a function.
 export default {
   login,
   findPersonAccountByEmail,
   findAccountByEmail,
+  findAccountByName,
   createPersonAccount,
   createAccount,
   findContactByEmail,

@@ -811,6 +811,15 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     // Deliberately lookup-only: silently creating a second "HYPOTEQ AG" Account would
     // split the org's own pipeline across duplicates, so a miss is logged loudly instead.
     try {
+      // salesforceApi is `any` and callers pass its *default export* object, so a
+      // function absent from that object is silently undefined. Assert rather than
+      // let the TypeError disappear into the catch below.
+      if (typeof salesforceApi.findAccountByName !== 'function') {
+        throw new Error(
+          'salesforceApi.findAccountByName is not a function — it is likely missing from the ' +
+          'default export in components/salesforceApi.ts'
+        );
+      }
       const hypoteqAccount = await salesforceApi.findAccountByName(HYPOTEQ_ACCOUNT_NAME);
       const hypoteqAccountId = hypoteqAccount?.Id || hypoteqAccount?.id;
       if (hypoteqAccountId) {
