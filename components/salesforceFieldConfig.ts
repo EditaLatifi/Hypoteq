@@ -76,6 +76,9 @@ export const SALESFORCE_CASE_FIELDS: Record<string, SFFieldType> = {
   // Stage field for Case
   Stage__c: "picklist",
 
-  // Partner Consultant field
-  Partner_Consultant__c: "string",  // Contact lookup field (stores Contact ID)
+  // Kundenberater / customer advisor — Contact lookup (stores Contact ID).
+  // Only set for partner submissions. NOT the sales partner: that is an Account
+  // lookup written from SF_SALES_PARTNER_FIELD in syncFunnelStepsToSalesforce.ts,
+  // which is assigned after the non-Case-field cleanup and so isn't listed here.
+  Partner_Consultant__c: "string",
 };

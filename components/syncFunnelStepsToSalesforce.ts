@@ -2,6 +2,13 @@ import { SALESFORCE_ACCOUNT_FIELDS } from "./salesforceAccountFieldConfig";
 import { funnelToSalesforceMap } from './funnelToSalesforceMap';
 import { SALESFORCE_CASE_FIELDS, SFFieldType } from "./salesforceFieldConfig";
 
+// Sales Partner = the partner *company* Account on the Case (HYPOTEQ AG for direct
+// leads; Betterhomes / Remax / ... for partner leads). Verified against production:
+// the API name is the unhelpfully generic `Account__c` (label "Sales Partner"), which
+// is NOT the standard `AccountId` — that one holds the customer. Overridable per-org.
+const SALES_PARTNER_FIELD = process.env.SF_SALES_PARTNER_FIELD || 'Account__c';
+const HYPOTEQ_ACCOUNT_NAME = process.env.HYPOTEQ_ACCOUNT_NAME || 'HYPOTEQ AG';
+
 // Convert Swiss date format (DD.MM.YYYY) to Salesforce format (YYYY-MM-DD)
 function convertSwissDateToSalesforce(swissDate: string): string | null {
   if (!swissDate || swissDate.trim() === '') return null;
@@ -779,9 +786,13 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     caseData['Client_3__c'] = null;
   }
 
-  // Sales partner (Partner_Consultant__c, a Contact lookup):
-  //  - Partner submissions link the submitting partner's Contact.
-  //  - Direct submissions default to HYPOTEQ as their own sales partner.
+  // Two distinct roles, two distinct Case fields — they were previously conflated:
+  //   - Kundenberater / customer advisor = Partner_Consultant__c, a *Contact* lookup.
+  //     Only a partner submission has one (the submitting partner's own Contact).
+  //   - Sales Partner = SALES_PARTNER_FIELD, an *Account* lookup (the partner company).
+  //     Direct-customer leads belong to HYPOTEQ AG itself.
+  // A direct lead must NOT put HYPOTEQ into Partner_Consultant__c — HYPOTEQ AG is the
+  // sales partner, not the customer's advisor.
   if (partnerEmail) {
     try {
       const partnerContact = await salesforceApi.findContactByEmail(partnerEmail);
@@ -796,23 +807,23 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
       console.error(`[Salesforce Sync] Error finding partner contact:`, err);
     }
   } else {
-    // Direct client → default sales partner is HYPOTEQ. Find (or create once) the
-    // HYPOTEQ Contact and link it. Override the email via HYPOTEQ_PARTNER_EMAIL.
-    const hypoteqEmail = process.env.HYPOTEQ_PARTNER_EMAIL || 'info@hypoteq.ch';
+    // Direktkundenfunnel → HYPOTEQ AG is the sales partner. Resolve its Account by name.
+    // Deliberately lookup-only: silently creating a second "HYPOTEQ AG" Account would
+    // split the org's own pipeline across duplicates, so a miss is logged loudly instead.
     try {
-      let hypoteqContact = await salesforceApi.findContactByEmail(hypoteqEmail);
-      if (!hypoteqContact) {
-        const created = await salesforceApi.createContact({ LastName: 'HYPOTEQ', Email: hypoteqEmail });
-        if (created?.id) hypoteqContact = { Id: created.id };
-        console.log(`[Salesforce Sync] Created HYPOTEQ sales-partner contact: ${created?.id}`);
-      }
-      const hypoteqContactId = hypoteqContact?.Id || hypoteqContact?.id;
-      if (hypoteqContactId) {
-        caseData['Partner_Consultant__c'] = hypoteqContactId;
-        console.log(`[Salesforce Sync] Direct client → default HYPOTEQ sales partner: ${hypoteqContactId}`);
+      const hypoteqAccount = await salesforceApi.findAccountByName(HYPOTEQ_ACCOUNT_NAME);
+      const hypoteqAccountId = hypoteqAccount?.Id || hypoteqAccount?.id;
+      if (hypoteqAccountId) {
+        caseData[SALES_PARTNER_FIELD] = hypoteqAccountId;
+        console.log(`[Salesforce Sync] Direct client → sales partner ${HYPOTEQ_ACCOUNT_NAME}: ${hypoteqAccountId}`);
+      } else {
+        console.error(
+          `[Salesforce Sync] Sales partner Account "${HYPOTEQ_ACCOUNT_NAME}" not found — Case will have no sales partner. ` +
+          `Create the Account or set HYPOTEQ_ACCOUNT_NAME to its exact name.`
+        );
       }
     } catch (err) {
-      console.error(`[Salesforce Sync] Error setting HYPOTEQ default sales partner:`, err);
+      console.error(`[Salesforce Sync] Error resolving HYPOTEQ sales partner Account:`, err);
     }
   }
 

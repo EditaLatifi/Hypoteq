@@ -17,6 +17,17 @@ export async function findPersonAccountByEmail(email: string) {
   return conn.sobject('Account').findOne({ PersonEmail: email });
 }
 
+// Look up a business Account by its exact name. Used to resolve the sales-partner
+// Account (HYPOTEQ AG for direct clients, Betterhomes/Remax/... for partner leads).
+// Person Accounts are excluded — a sales partner is always a company.
+export async function findAccountByName(name: string) {
+  const escaped = name.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+  const result = await conn.query(
+    `SELECT Id, Name FROM Account WHERE Name = '${escaped}' AND IsPersonAccount = false LIMIT 1`
+  );
+  return result.records && result.records.length > 0 ? result.records[0] : null;
+}
+
 export async function findAccountByEmail(email: string) {
   // Query to get account with IsPersonAccount field to determine type
   const result = await conn.query(`SELECT Id, PersonEmail, IsPersonAccount FROM Account WHERE PersonEmail = '${email}' LIMIT 1`);
