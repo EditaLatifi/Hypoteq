@@ -1,9 +1,16 @@
 "use client";
-import SwissDatePicker from "@/components/SwissDatePicker";
+import SwissDatePicker, { swissToDate } from "@/components/SwissDatePicker";
 
 import { useTranslation } from "@/hooks/useTranslation";
 
 import { useState, useEffect } from "react";
+
+// Borrowers must be at least 18 — the calendar must not offer younger dates.
+function maxBirthdate() {
+  const d = new Date();
+  d.setFullYear(d.getFullYear() - 18);
+  return d;
+}
 
 function PropertyStep({ data, setData, saveStep, borrowers, back, customerType, borrowerType, projectData, clientData }: any) {
   const { t } = useTranslation();
@@ -665,6 +672,8 @@ const propertyUseOptions =
                 showMonthDropdown
                 scrollableYearDropdown
                 yearDropdownItemNumber={100}
+                maxDate={maxBirthdate()}
+                openToDate={swissToDate(kn.geburtsdatum) || maxBirthdate()}
               />
             <div className="relative w-full">
               <select
