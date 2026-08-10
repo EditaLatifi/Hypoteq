@@ -27,10 +27,8 @@ export async function login() {
 
     const { access_token, instance_url } = await res.json();
 
-    conn.initialize({
-      instanceUrl: instance_url,
-      accessToken: access_token,
-    });
+    conn.accessToken = access_token;
+    conn.instanceUrl = instance_url;
   } catch (error) {
     console.error('[Salesforce OAuth] Login failed:', error);
     throw error;
