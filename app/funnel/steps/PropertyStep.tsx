@@ -52,6 +52,15 @@ function PropertyStep({ data, setData, saveStep, borrowers, back, customerType, 
   // Check if project type is Ablösung (redemption) - Neubau not allowed
   const isAbloesung = projectData?.projektArt === "abloesung";
 
+  // Drop any reservation answer if the customer goes back and switches to Ablösung.
+  // The question is hidden in that case, so a leftover "ja" would otherwise be submitted
+  // and reach Salesforce without the customer ever being able to see or change it.
+  useEffect(() => {
+    if (isAbloesung && data.reserviert) {
+      setData((prev: any) => ({ ...prev, reserviert: "" }));
+    }
+  }, [isAbloesung, data.reserviert]);
+
   const ToggleButton = ({ active, children, onClick, showCircle = false, disabled = false }: any) => {
     return (
       <button
@@ -266,29 +275,35 @@ const propertyUseOptions =
       </div>
 
       {/* ========================================================= */}
-      {/*  RESERVIERUNG – SHOW ALWAYS                              */}
+      {/*  RESERVIERUNG – KAUF ONLY                                 */}
+      {/*  A reservation only exists when a property is being       */}
+      {/*  bought; on Ablösung the customer already owns it. The    */}
+      {/*  validation below has always skipped it for Ablösung —    */}
+      {/*  the question just kept rendering.                        */}
       {/* ========================================================= */}
-      <div>
-        <h3 className="text-[16px] font-semibold mb-[16px]">
-          {t("funnel.propertyReserved" as any)}
-        </h3>
-        <div className="flex gap-[24px]">
-          <ToggleButton
-            active={data.reserviert === "ja"}
-            onClick={() => update("reserviert", "ja")}
-            showCircle={true}
-          >
-            {t("funnel.yes" as any)}
-          </ToggleButton>
-          <ToggleButton
-            active={data.reserviert === "nein"}
-            onClick={() => update("reserviert", "nein")}
-            showCircle={true}
-          >
-            {t("funnel.no" as any)}
-          </ToggleButton>
+      {!isAbloesung && (
+        <div>
+          <h3 className="text-[16px] font-semibold mb-[16px]">
+            {t("funnel.propertyReserved" as any)}
+          </h3>
+          <div className="flex gap-[24px]">
+            <ToggleButton
+              active={data.reserviert === "ja"}
+              onClick={() => update("reserviert", "ja")}
+              showCircle={true}
+            >
+              {t("funnel.yes" as any)}
+            </ToggleButton>
+            <ToggleButton
+              active={data.reserviert === "nein"}
+              onClick={() => update("reserviert", "nein")}
+              showCircle={true}
+            >
+              {t("funnel.no" as any)}
+            </ToggleButton>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* ========================================================= */}
       {/*  FINANZIERUNGSANGEBOTE                                    */}
