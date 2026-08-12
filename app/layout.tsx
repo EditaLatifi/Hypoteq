@@ -68,8 +68,12 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/favicon.ico",
-    apple: "/favicon.ico",
+    icon: [
+      { url: "/favicon.ico", sizes: "16x16 32x32 48x48", type: "image/x-icon" },
+      { url: "/icons/icon-192.png", sizes: "192x192", type: "image/png" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
   },
   manifest: "/manifest.json",
   other: {
@@ -112,9 +116,10 @@ export default function RootLayout({
         <link rel="canonical" href="https://www.hypoteq.ch" />
         
         {/* Favicon */}
-        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png" />
         <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon.png" />
       </head>
       <body
         className="font-sfpro bg-white text-[#132219] overflow-visible"
