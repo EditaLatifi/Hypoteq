@@ -68,12 +68,6 @@ const teamMembers: TeamMember[] = [
     linkedin: "https://www.linkedin.com/in/wyssch/",
     email: "mailto:christian.wyss@hypoteq.ch",
   },
-
-  {
-    name: "HYPOTEQ",
-    bgColor: "#CAF476",
-    description: "team.linkedinDescription",
-  },
 ];
 
 
@@ -104,145 +98,144 @@ const TeamSection: React.FC = () => {
               key={index}
               className="flex flex-col items-start w-full"
             >
-              {member.bgColor ? (
-                <div
-                  className="flex flex-col justify-between lg:w-[1258px] h-[280px] rounded-[10px]"
-                  style={{
-                    backgroundColor: "#CAF476",
-                    padding: "14px 24px",
-                  }}
-                >
-                  <p className="text-[#132219] text-[32px] leading-[120%] font-normal font-sfpro">
-                    {member.description ? t(member.description as any) : member.description}
-                  </p>
+              <div
+                className="rounded-[10px] overflow-hidden w-full h-[283px]"
+                style={{
+                  backgroundImage: `url(${member.image})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+              ></div>
 
-                  <div className="flex justify-center lg:justify-start pt-[20px]">
+              <div className="mt-4 w-full flex flex-col gap-[10px]">
+
+                {/* Name + LinkedIn */}
+                <div className="flex items-center justify-between w-full">
+                  <h3
+                    className="text-[#132219] text-[20px] font-semibold leading-[24px]
+                               border border-black rounded-[42px] px-[12px] py-[4px]"
+                  >
+                    {member.name}
+                  </h3>
+
+                  {member.linkedin ? (
                     <a
-                      href="https://www.linkedin.com/company/hypoteq-ag"
+                      href={member.linkedin}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="
-                        inline-block
-                        w-fit
-                        border border-[#132219] rounded-[58px] 
-                        bg-[#CAF476] text-[#132219]
-                        transition-all duration-300
-                        hover:bg-[#dffb9b]
+                        flex justify-center items-center
+                        w-[42px] h-[42px]
+                        rounded-full border border-black
+                        bg-white hover:bg-gray-100 transition
                       "
-                      style={{
-                        fontSize: "20px",
-                        lineHeight: "120%",
-                        padding: "8px 24px",
-                      }}
                     >
-                      {t("team.findBestOffer")}
+                      <img
+                        src="/images/HYPOTEQ_about_social_linkedin.svg"
+                        alt="LinkedIn"
+                        className="w-[18px] h-[18px]"
+                      />
                     </a>
-                  </div>
-                </div>
-              ) : (
-                <div
-                  className="rounded-[10px] overflow-hidden w-full h-[283px]"
-                  style={{
-                    backgroundImage: `url(${member.image})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                  }}
-                ></div>
-              )}
-
-              {!member.bgColor && (
-                <div className="mt-4 w-full flex flex-col gap-[10px]">
-
-                  {/* Name + LinkedIn */}
-                  <div className="flex items-center justify-between w-full">
-                    <h3
-                      className="text-[#132219] text-[20px] font-semibold leading-[24px] 
-                                 border border-black rounded-[42px] px-[12px] py-[4px]"
+                  ) : (
+                    <div
+                      className="
+                        flex justify-center items-center
+                        w-[42px] h-[42px]
+                        rounded-full border border-black opacity-40
+                      "
                     >
-                      {member.name}
-                    </h3>
-
-                    {member.linkedin ? (
-                      <a
-                        href={member.linkedin}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="
-                          flex justify-center items-center
-                          w-[42px] h-[42px]
-                          rounded-full border border-black
-                          bg-white hover:bg-gray-100 transition
-                        "
-                      >
-                        <img
-                          src="/images/HYPOTEQ_about_social_linkedin.svg"
-                          alt="LinkedIn"
-                          className="w-[18px] h-[18px]"
-                        />
-                      </a>
-                    ) : (
-                      <div
-                        className="
-                          flex justify-center items-center
-                          w-[42px] h-[42px]
-                          rounded-full border border-black opacity-40
-                        "
-                      >
-                        <img
-                          src="/images/HYPOTEQ_about_social_linkedin.svg"
-                          alt="LinkedIn"
-                          className="w-[18px] h-[18px]"
-                        />
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Position + Email */}
-                  <div className="flex items-center justify-between w-full">
-                    <p
-                      className="text-[#132219] text-[16px] font-light leading-[22px] 
-                                border border-black rounded-[42px] px-[12px] py-[4px]"
-                    >
-                      {t(member.position as any)}
-                    </p>
-
-                    {member.email ? (
-                      <a
-                        href={member.email}
-                        className="
-                          flex justify-center items-center
-                          w-[42px] h-[42px]
-                          rounded-full border border-black
-                          bg-white hover:bg-gray-100 transition
-                        "
-                      >
-                        <img
-                          src="/images/HYPOTEQ_about_social_email.svg"
-                          alt="Email"
-                          className="w-[18px] h-[18px]"
-                        />
-                      </a>
-                    ) : (
-                      <div
-                        className="
-                          flex justify-center items-center
-                          w-[42px] h-[42px]
-                          rounded-full border border-black opacity-40
-                        "
-                      >
-                        <img
-                          src="/images/HYPOTEQ_about_social_email.svg"
-                          alt="Email"
-                          className="w-[18px] h-[18px]"
-                        />
-                      </div>
-                    )}
-                  </div>
-
+                      <img
+                        src="/images/HYPOTEQ_about_social_linkedin.svg"
+                        alt="LinkedIn"
+                        className="w-[18px] h-[18px]"
+                      />
+                    </div>
+                  )}
                 </div>
-              )}
+
+                {/* Position + Email */}
+                <div className="flex items-center justify-between w-full">
+                  <p
+                    className="text-[#132219] text-[16px] font-light leading-[22px]
+                              border border-black rounded-[42px] px-[12px] py-[4px]"
+                  >
+                    {t(member.position as any)}
+                  </p>
+
+                  {member.email ? (
+                    <a
+                      href={member.email}
+                      className="
+                        flex justify-center items-center
+                        w-[42px] h-[42px]
+                        rounded-full border border-black
+                        bg-white hover:bg-gray-100 transition
+                      "
+                    >
+                      <img
+                        src="/images/HYPOTEQ_about_social_email.svg"
+                        alt="Email"
+                        className="w-[18px] h-[18px]"
+                      />
+                    </a>
+                  ) : (
+                    <div
+                      className="
+                        flex justify-center items-center
+                        w-[42px] h-[42px]
+                        rounded-full border border-black opacity-40
+                      "
+                    >
+                      <img
+                        src="/images/HYPOTEQ_about_social_email.svg"
+                        alt="Email"
+                        className="w-[18px] h-[18px]"
+                      />
+                    </div>
+                  )}
+                </div>
+
+              </div>
             </div>
           ))}
+        </div>
+
+        {/* LinkedIn Section - Full Width Below Team Members */}
+        <div className="w-full mt-[80px]">
+          <div
+            className="flex flex-col justify-between rounded-[10px] w-full p-[24px] md:p-[32px]"
+            style={{
+              backgroundColor: "#CAF476",
+              minHeight: "200px",
+            }}
+          >
+            <p className="text-[#132219] text-[24px] md:text-[32px] leading-[120%] font-normal font-sfpro mb-[20px]">
+              {t("team.linkedinDescription")}
+            </p>
+
+            <div className="flex justify-start pt-[20px]">
+              <a
+                href="https://www.linkedin.com/company/hypoteq-ag"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="
+                  inline-block
+                  w-fit
+                  border border-[#132219] rounded-[58px]
+                  bg-[#CAF476] text-[#132219]
+                  transition-all duration-300
+                  hover:bg-[#dffb9b]
+                "
+                style={{
+                  fontSize: "16px",
+                  lineHeight: "120%",
+                  padding: "8px 24px",
+                }}
+              >
+                {t("team.findBestOffer")}
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
