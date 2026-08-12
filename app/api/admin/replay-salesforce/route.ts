@@ -192,6 +192,8 @@ export async function GET(req: Request) {
         status: apply ? "synced" : "would-sync",
         caseId,
         caseName: writes.find(w => w.op === "createOrUpdateCase")?.fields?.Case_Name__c,
+        plzOrt: writes.find(w => w.op === "createOrUpdateCase")?.fields?.PLZ_Ort__c ?? null,
+        partnerConsultant: writes.find(w => w.op === "createOrUpdateCase")?.fields?.Partner_Consultant__c ?? null,
       });
       console.log(`✅ ${apply ? "Replayed" : "Dry-ran"} ${inquiry.id} (${label})`);
     } catch (err) {

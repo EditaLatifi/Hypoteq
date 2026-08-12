@@ -50,6 +50,7 @@ model Client {
   email        String  // REQUIRED
   phone        String
   zip          String?
+  ort          String?
   partnerEmail String?
 
   inquiry Inquiry @relation(fields: [inquiryId], references: [id])
@@ -78,6 +79,10 @@ model Project {
 model Property {
   id                  String   @id @default(uuid())
   inquiryId           String   @unique
+  // Property location, captured (and required) in PropertyStep. Feeds Case_Name__c and
+  // the Salesforce Objektinformationen fields PLZ_Ort__c / City__c.
+  zip                 String?
+  ort                 String?
   artLiegenschaft     String?
   artImmobilie        String?
   nutzung             String?

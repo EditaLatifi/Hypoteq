@@ -160,6 +160,25 @@ async function writeWithFieldFallback(
         throw error;
       }
 
+      // A lookup/master-detail field was given something that is not a valid record Id
+      // (e.g. an email address landing in a Contact lookup). Dropping the reference costs
+      // one link; keeping it costs the entire lead.
+      if (code === 'MALFORMED_ID' || code === 'INVALID_CROSS_REFERENCE_KEY' || code === 'INVALID_ID_FIELD') {
+        const target =
+          errFields.find(f => f in working) ??
+          Object.keys(working).find(f => {
+            const v = working[f];
+            // Salesforce Ids are 15 or 18 chars; anything else in a lookup is malformed.
+            return typeof v === 'string' && f.endsWith('__c') && v !== '' && v.length !== 15 && v.length !== 18 && message.includes(v);
+          });
+        if (target) {
+          console.warn(`[Salesforce] ${context}: dropping invalid lookup value for '${target}' ('${working[target]}') and retrying`);
+          delete working[target];
+          continue;
+        }
+        throw error;
+      }
+
       if (code === 'INVALID_OR_NULL_FOR_RESTRICTED_PICKLIST') {
         const target = errFields.find(f => f in working);
         if (target) {

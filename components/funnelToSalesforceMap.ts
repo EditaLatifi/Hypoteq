@@ -59,6 +59,11 @@ export const funnelToSalesforceMap = {
   erhoehung_betrag: { salesforceField: "Erh_hung__c", salesforceObject: "case" }, // Mortgage increase amount (only sent if erhoehung=Ja)
 
   caseName: { salesforceField: "Case_Name__c", salesforceObject: "case" },
-  partnerEmail: { salesforceField: "Partner_Consultant__c", salesforceObject: "case" },  // Uncomment after creating field in Salesforce
-  
+  // NOTE: Partner_Consultant__c (Kundenberater) is deliberately NOT mapped here. It is a
+  // Contact *lookup*, so it needs a record Id — writing the raw partner email into it makes
+  // Salesforce reject the whole Case ("unzulässiger Typ des ID-Werts"). Partner submissions
+  // hid this because syncFunnelStepsToSalesforce overwrites the field with the resolved
+  // Contact Id afterwards; a direct submission carrying a partnerEmail did not, and lost the
+  // lead. The Contact is resolved in syncFunnelStepsToSalesforce — leave it to do that.
+
 } as const;

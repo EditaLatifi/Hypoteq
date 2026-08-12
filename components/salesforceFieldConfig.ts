@@ -48,6 +48,10 @@ export const SALESFORCE_CASE_FIELDS: Record<string, SFFieldType> = {
   // String fields
   Kommentar__c: "string",
   Case_Name__c: "string",
+  // Property location (Objektinformationen tab). The funnel already collects both in
+  // PropertyStep, where they are mandatory — they used to feed only the Case name.
+  PLZ_Ort__c: "string",   // "8645 Rapperswil" — SF max length 30
+  City__c: "string",      // "Rapperswil"      — SF max length 80
   Bank__c: "string",
   Zins__c: "percent",  // Interest rate — SF field type: Percent
   Laufzeit__c: "string",

@@ -180,6 +180,7 @@ export async function POST(req: Request) {
               email: data.client?.email,
               phone: data.client?.phone || '',
               zip: data.client?.zip || '',
+              ort: data.client?.ort || '',
               partnerEmail: data.client?.partnerEmail || '',
             },
           },
@@ -202,6 +203,8 @@ export async function POST(req: Request) {
           } : undefined,
           property: data.property ? {
             create: {
+              zip: data.property.zip || '',
+              ort: data.property.ort || '',
               artLiegenschaft: data.property.artLiegenschaft || '',
               artImmobilie: data.property.artImmobilie || '',
               nutzung: data.property.nutzung || '',

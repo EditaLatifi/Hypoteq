@@ -716,15 +716,24 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     }
   }
 
+  // Property location. Direct: PLZ/Ort come from the client. Partner: from the property
+  // section. Both land in flatData (client spread last wins for direct; property provides
+  // them for partner). PropertyStep makes both mandatory, so they are normally present.
+  const plz = String(flatData.zip || flatData.liegenschaftZip || '').trim();
+  const ort = String(flatData.ort || '').trim();
+  // PLZ and Ort read together as one location ("8001 Zürich").
+  const location = [plz, ort].filter(Boolean).join(' ');
+
+  // Populate the Objektinformationen fields too — the funnel already asks for this, and
+  // until now it was only ever used to build the Case name.
+  if (location) caseData['PLZ_Ort__c'] = location;
+  if (ort) caseData['City__c'] = ort;
+  console.log(`[Salesforce Sync] Location → PLZ_Ort__c: "${location}", City__c: "${ort}"`);
+
   // Set Case Name if not already set.
   // Convention: "PLZ Ort / <borrower names>" — every borrower as "Vorname Name"
   // (companies as Firmenname), multiple borrowers joined with " & ".
   if (!caseData['Case_Name__c']) {
-    // Direct: PLZ/Ort come from the client. Partner: from the property section. Both land
-    // in flatData (client spread last wins for direct; property provides them for partner).
-    const plz = String(flatData.zip || flatData.liegenschaftZip || '').trim();
-    const ort = String(flatData.ort || '').trim();
-
     const { getBorrowerDisplayName } = await import('./funnelPersonNames');
     // Fall back to the normalized persons list when the raw funnel data yields nothing
     // (e.g. partner submissions where the name only exists on the Account).
@@ -735,8 +744,7 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
         .filter(Boolean)
         .join(' & ');
 
-    // PLZ and Ort read together as one location ("8001 Zürich"); only the name is slash-separated.
-    const location = [plz, ort].filter(Boolean).join(' ');
+    // Only the name is slash-separated from the location.
     const parts = [location, namePart].filter(Boolean);
     // Last resort: a timestamp tells a caseworker nothing. Fall back to whoever submitted
     // the lead so an incomplete Case is still identifiable and chaseable in Salesforce.
