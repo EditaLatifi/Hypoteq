@@ -175,20 +175,33 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
   // Extract persons from kreditnehmer array (end-customers who will get Accounts)
   const persons: any[] = [];
   
+  // Company names live on kreditnehmer[].firmenname for some funnel paths and on
+  // property.firmen[] for others; a juristic lead needs whichever one was filled in.
+  const firmenList: any[] = Array.isArray(stepData.property?.firmen) ? stepData.property.firmen : [];
+
   // Use kreditnehmer array as primary source (end-customer data)
   if (Array.isArray(stepData.property?.kreditnehmer) && stepData.property.kreditnehmer.length > 0) {
     for (let i = 0; i < stepData.property.kreditnehmer.length; i++) {
       const kn = stepData.property.kreditnehmer[i];
-      
-      // Check if it's a juristic person (company) by checking for firmenname
-      const isJuristicPerson = kn.firmenname || stepData.borrowers?.[0]?.type === 'jur';
-      
+
+      // A borrower is only *usably* juristic when a company name exists to become LastName.
+      // Partner submissions routinely flag borrowerType `jur` while leaving Firmenname blank,
+      // and treating those as juristic dropped them entirely — discarding complete personal
+      // contact data and leaving the sync with zero persons, which killed the whole lead.
+      const declaredJuristic = stepData.borrowers?.[0]?.type === 'jur';
+      const companyName = String(
+        kn.firmenname ||
+        (declaredJuristic ? (firmenList[i]?.firmenname || firmenList[0]?.firmenname || '') : '') ||
+        ''
+      ).trim();
+      const isJuristicPerson = Boolean(companyName);
+
       if (isJuristicPerson) {
         // For juristic persons - use company name as LastName, but also send contact person details
-        if (kn.firmenname) {
+        {
           persons.push({
             firstName: kn.vorname || '',
-            lastName: kn.firmenname,
+            lastName: companyName,
             contactLastName: kn.name || '',
             email: kn.email || kn.emailAdresse || '',
             phone: kn.phone || kn.telefon || '',
@@ -248,9 +261,16 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     throw new Error('Maximum 3 persons allowed per submission');
   }
 
-  // VALIDATION: At least 1 person required
-  if (persons.length === 0) {
-    throw new Error('At least one person is required');
+  // A lead with no usable borrower name is still a lead. Partner Ablösung submissions can
+  // legitimately arrive with every Kreditnehmer field blank, and throwing here used to
+  // discard the entire enquiry — financing figures, partner consultant and all. Create the
+  // Case without a linked Account instead and let a human complete it in Salesforce.
+  const hasPersons = persons.length > 0;
+  if (!hasPersons) {
+    console.warn(
+      '[Salesforce Sync] No borrower name in this submission — creating the Case without a ' +
+      'linked Account so the lead is not lost. Needs manual completion in Salesforce.'
+    );
   }
 
   // VALIDATION: Validate each person
@@ -397,11 +417,15 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     contacts.push(null);
   }
 
-  // STEP 3: Create ONE Case linked to the main Account (first person)
+  // STEP 3: Create ONE Case linked to the main Account (first person), if there is one
   const mainAccount = accounts[0];
-  const mainAccountId = mainAccount.id || mainAccount.Id;
+  const mainAccountId = mainAccount ? (mainAccount.id || mainAccount.Id) : null;
 
-  console.log(`[Salesforce Sync] Creating Case linked to main Account: ${mainAccountId}`);
+  console.log(
+    mainAccountId
+      ? `[Salesforce Sync] Creating Case linked to main Account: ${mainAccountId}`
+      : `[Salesforce Sync] Creating Case with no linked Account (no borrower name supplied)`
+  );
 
   // Transform project type values
   if (!flatData.borrowerType && Array.isArray(stepData.borrowers) && stepData.borrowers.length > 0) {
@@ -515,9 +539,8 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
   }
 
   // Build Case data
-  const caseData: Record<string, any> = {
-    AccountId: mainAccountId,
-  };
+  const caseData: Record<string, any> = {};
+  if (mainAccountId) caseData.AccountId = mainAccountId;
 
   // Map all Case fields from funnelToSalesforceMap
   for (const [funnelField, mapping] of Object.entries(funnelToSalesforceMap)) {
@@ -715,7 +738,12 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     // PLZ and Ort read together as one location ("8001 Zürich"); only the name is slash-separated.
     const location = [plz, ort].filter(Boolean).join(' ');
     const parts = [location, namePart].filter(Boolean);
-    caseData['Case_Name__c'] = parts.join(' / ') || `Case ${Date.now()}`;
+    // Last resort: a timestamp tells a caseworker nothing. Fall back to whoever submitted
+    // the lead so an incomplete Case is still identifiable and chaseable in Salesforce.
+    const submitter = partnerEmail || flatData.email || '';
+    caseData['Case_Name__c'] =
+      parts.join(' / ') ||
+      (submitter ? `Unvollständige Anfrage – ${submitter}` : `Unvollständige Anfrage ${new Date().toISOString().slice(0, 10)}`);
   }
 
   // Clean up: Remove non-Case fields
@@ -758,14 +786,16 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
   Object.assign(caseData, bankData);
 
   // Link Client lookup fields AFTER all cleanup to prevent them being overwritten
-  caseData['Client__c'] = mainAccountId;
-  console.log(`[Salesforce Sync] Linked Client Account: ${mainAccountId}`);
+  if (mainAccountId) {
+    caseData['Client__c'] = mainAccountId;
+    console.log(`[Salesforce Sync] Linked Client Account: ${mainAccountId}`);
+  }
   console.log(`[Salesforce Sync] Number of clients: ${persons.length}`);
-  
+
   // Add Erwerbsstatus to Case (only for natural persons)
   const firstPerson = persons[0];
-  const isJuristicPerson = (firstPerson as any).isJuristic === true;
-  if (!isJuristicPerson && firstPerson.erwerbsstatus) {
+  const isJuristicPerson = (firstPerson as any)?.isJuristic === true;
+  if (firstPerson && !isJuristicPerson && firstPerson.erwerbsstatus) {
     caseData['If_nat_rliche_person__c'] = transformErwerbsstatus(firstPerson.erwerbsstatus);
     console.log(`[Salesforce Sync] Adding Erwerbsstatus to Case: ${firstPerson.erwerbsstatus} -> ${caseData['If_nat_rliche_person__c']}`);
   }

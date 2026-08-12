@@ -26,6 +26,13 @@ model Inquiry {
   customerType String
   createdAt    DateTime   @default(now())
 
+  // Salesforce sync outcome. The sync is non-fatal for the customer, so without this
+  // an outage is invisible: "which leads never reached Salesforce" must be a query,
+  // not a manual reconciliation against the org.
+  salesforceCaseId   String?
+  salesforceSyncedAt DateTime?
+  salesforceError    String?
+
   // Relations
   client       Client?
   project      Project?

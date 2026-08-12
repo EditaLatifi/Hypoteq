@@ -65,7 +65,15 @@ export async function createAccount(fields: Record<string, any>) {
   const accountData = { ...fields, RecordTypeId: recordTypeId };
   console.log('[Salesforce API] Creating Account with data:', JSON.stringify(accountData, null, 2));
   try {
-    const result = await conn.sobject('Account').create(accountData);
+    // Same defensive retries as the Case path. Orgs differ in which optional columns exist
+    // — this one has no standard address fields on Account at all — and a single unknown
+    // field must not cost the whole lead, since the Account is created before the Case.
+    const result = await writeWithFieldFallback(
+      (f) => conn.sobject('Account').create(f),
+      accountData,
+      'create Account',
+      'Account',
+    );
     console.log('[Salesforce API] Account created:', JSON.stringify(result, null, 2));
     return result;
   } catch (error) {
@@ -89,7 +97,12 @@ export async function updateContact(id: string, fields: Record<string, any>) {
 export async function updatePersonAccount(id: string, fields: Record<string, any>) {
   console.log('[Salesforce API] Updating Person Account:', id, JSON.stringify(fields, null, 2));
   try {
-    const result = await conn.sobject('Account').update({ Id: id, ...fields });
+    const result = await writeWithFieldFallback(
+      (f) => (conn.sobject('Account') as any).update(f),
+      { Id: id, ...fields },
+      `update Account ${id}`,
+      'Account',
+    );
     console.log('[Salesforce API] Update result:', JSON.stringify(result, null, 2));
     return result;
   } catch (error) {
@@ -105,10 +118,11 @@ export async function updatePersonAccount(id: string, fields: Record<string, any
 //   - INVALID_OR_NULL_FOR_RESTRICTED_PICKLIST: value isn't a valid picklist option
 //     (e.g. a French label not yet mapped to the German SF value). Drop and retry.
 // Any other error propagates so it surfaces in logs.
-async function writeCaseWithFieldFallback(
+async function writeWithFieldFallback(
   op: (fields: Record<string, any>) => Promise<any>,
   fields: Record<string, any>,
   context: string,
+  sobjectType: string = 'Case',
 ): Promise<any> {
   const working = { ...fields };
   const maxAttempts = 20;
@@ -121,10 +135,12 @@ async function writeCaseWithFieldFallback(
       const errFields: string[] = error?.data?.fields || error?.fields || [];
 
       if (code === 'INVALID_FIELD') {
-        const match = message.match(/No such column '([^']+)' on (?:sobject|entity) of type Case/i);
+        const match = message.match(
+          new RegExp(`No such column '([^']+)' on (?:sobject|entity) of type ${sobjectType}`, 'i')
+        );
         const badField = match?.[1];
         if (badField && badField in working) {
-          console.warn(`[Salesforce] ${context}: dropping unknown Case field '${badField}' and retrying`);
+          console.warn(`[Salesforce] ${context}: dropping unknown ${sobjectType} field '${badField}' and retrying`);
           delete working[badField];
           continue;
         }
@@ -174,7 +190,7 @@ export async function createOrUpdateCase(fields: Record<string, any>) {
         const existingCaseId = result.records[0].Id as string;
         console.log(`[Salesforce] Found recent case ${existingCaseId}, updating instead of creating duplicate`);
         const updateFields = { ...fields, Id: existingCaseId };
-        return writeCaseWithFieldFallback(
+        return writeWithFieldFallback(
           (f) => (conn.sobject('Case') as any).update(f),
           updateFields,
           `update ${existingCaseId}`,
@@ -186,18 +202,48 @@ export async function createOrUpdateCase(fields: Record<string, any>) {
   }
 
   // Create new case if no recent one exists
-  return writeCaseWithFieldFallback(
+  return writeWithFieldFallback(
     (f) => conn.sobject('Case').create(f),
     fields,
     'create Case',
   );
 }
 
-async function getPersonAccountRecordTypeId() {
+// Cached per warm instance — the Id is fixed for the org. Only the success path is
+// cached, so granting the record type takes effect without a redeploy.
+let personAccountRecordTypeId: string | null = null;
+
+export async function getPersonAccountRecordTypeId(): Promise<string> {
+  if (personAccountRecordTypeId) return personAccountRecordTypeId;
+
   const result = await conn.query(
-    "SELECT Id FROM RecordType WHERE SObjectType = 'Account' AND IsPersonType = true LIMIT 1"
+    "SELECT Id, DeveloperName FROM RecordType WHERE SObjectType = 'Account' AND IsPersonType = true AND IsActive = true LIMIT 1"
   );
-  return result.records[0]?.Id;
+  const recordType = result.records?.[0] as any;
+  if (!recordType?.Id) {
+    throw new Error(
+      '[Salesforce] No active Person Account record type in this org — every funnel Account write will fail.'
+    );
+  }
+
+  // A RecordType row stays *readable* even when the running user may not USE it, so the
+  // query above proves nothing on its own. describe() reports availability for the running
+  // user, and skipping that check is exactly how an integration-user change broke every
+  // sync silently: the Id resolved fine and Salesforce rejected the insert downstream with
+  // an error nobody was watching for.
+  const meta = await (conn.sobject('Account') as any).describe();
+  const info = (meta?.recordTypeInfos || []).find((rt: any) => rt.recordTypeId === recordType.Id);
+  if (info && info.available === false) {
+    throw new Error(
+      `[Salesforce] The Person Account record type (${recordType.DeveloperName} / ${recordType.Id}) is not ` +
+      `assigned to the integration user this connected app runs as. No Account — and therefore no Case — ` +
+      `can be created until it is granted: Setup → Users → (integration user) → Profile or Permission Set ` +
+      `→ Record Type Settings → Account → add "Person Account".`
+    );
+  }
+
+  personAccountRecordTypeId = recordType.Id;
+  return recordType.Id;
 }
 
 // NOTE: consumers import this default object (app/api/inquiry/route.ts), and
@@ -206,6 +252,7 @@ async function getPersonAccountRecordTypeId() {
 // named exports above when adding a function.
 export default {
   login,
+  getPersonAccountRecordTypeId,
   findPersonAccountByEmail,
   findAccountByEmail,
   findAccountByName,

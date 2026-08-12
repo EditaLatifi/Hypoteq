@@ -113,6 +113,8 @@ export async function POST(req: Request) {
     }
 
     // Salesforce sync (backend only)
+    let salesforceError: unknown = null;
+    let salesforceCaseId: string | null = null;
     try {
       // Ensure LastName is present for Salesforce
       if (data.client && data.client.lastName) {
@@ -141,11 +143,17 @@ export async function POST(req: Request) {
       const salesforceApi = (await import("@/components/salesforceApi")).default;
       const { syncFunnelStepsToSalesforce } = await import("@/components/syncFunnelStepsToSalesforce");
       await salesforceApi.login();
-      await syncFunnelStepsToSalesforce(data, salesforceApi);
-      console.log("✅ Salesforce sync successful!");
+      const syncResult = await syncFunnelStepsToSalesforce(data, salesforceApi);
+      salesforceCaseId = (syncResult as any)?.case?.id || (syncResult as any)?.case?.Id || null;
+      console.log("✅ Salesforce sync successful! Case:", salesforceCaseId);
     } catch (sfError) {
+      salesforceError = sfError;
       console.error("❌ Salesforce sync failed:", sfError);
-      // Don't fail the request if Salesforce fails
+      // Deliberately non-fatal: the lead is still captured in the DB and in the
+      // notification email, so the customer must not see an error. What this branch must
+      // NOT do is stay quiet — a broken sync went unnoticed for six days and cost 11 leads
+      // because the only signal was a console line nobody reads. The alert below is sent
+      // after the DB write so it can name the inquiry to replay.
     }
 
     // === SAVE TO DATABASE ===
@@ -160,6 +168,11 @@ export async function POST(req: Request) {
       const inquiry = await prisma.inquiry.create({
         data: {
           customerType: data.customerType,
+          salesforceCaseId,
+          salesforceSyncedAt: salesforceError ? null : new Date(),
+          salesforceError: salesforceError
+            ? (salesforceError instanceof Error ? salesforceError.message : String(salesforceError)).slice(0, 2000)
+            : null,
           client: {
             create: {
               firstName: data.client?.firstName || '',
@@ -272,9 +285,17 @@ export async function POST(req: Request) {
         }
       }
 
-      return NextResponse.json({ success: true, inquiryId: inquiry.id });
+      if (salesforceError) {
+        await sendSalesforceFailureAlert(inquiry.id, salesforceError);
+      }
+
+      return NextResponse.json({ success: true, inquiryId: inquiry.id, salesforceSynced: !salesforceError });
     } catch (dbErr) {
       console.error("❌ Failed to save inquiry to DB:", dbErr);
+      // Both sinks failed — the notification email is now the only copy of this lead.
+      if (salesforceError) {
+        await sendSalesforceFailureAlert(null, salesforceError);
+      }
       let errorMsg = 'Failed to save inquiry';
       if (dbErr instanceof Error) errorMsg = dbErr.message;
       return NextResponse.json({ success: false, error: errorMsg }, { status: 500 });
@@ -377,6 +398,84 @@ export async function GET(req: Request) {
 }
 
 type EmailLocale = 'de' | 'fr' | 'it' | 'en';
+
+// Build an authenticated Graph mail client, or null when Graph mail is not configured.
+function getGraphMailClient() {
+  const useGraph = process.env.USE_GRAPH === "true" &&
+                   process.env.GRAPH_TENANT_ID &&
+                   process.env.GRAPH_CLIENT_ID &&
+                   process.env.GRAPH_CLIENT_SECRET;
+  if (!useGraph) return null;
+
+  const credential = new ClientSecretCredential(
+    process.env.GRAPH_TENANT_ID!,
+    process.env.GRAPH_CLIENT_ID!,
+    process.env.GRAPH_CLIENT_SECRET!
+  );
+  return Client.initWithMiddleware({
+    authProvider: {
+      getAccessToken: async () => {
+        const token = await credential.getToken("https://graph.microsoft.com/.default");
+        return token?.token || "";
+      },
+    },
+  });
+}
+
+/* ==========================================================================
+ * SALESFORCE FAILURE ALERT
+ * The sync is intentionally non-fatal for the customer, which means a broken
+ * Salesforce connection is invisible unless it is actively reported. This mail is
+ * that report: it names the inquiry so the lead can be replayed once the cause is
+ * fixed. Never let it throw — it runs on an already-degraded path.
+ * ======================================================================== */
+async function sendSalesforceFailureAlert(inquiryId: string | null, error: unknown) {
+  try {
+    const detail = error instanceof Error
+      ? `${error.name}: ${error.message}`
+      : String(error);
+    const stack = error instanceof Error && error.stack ? error.stack : '';
+
+    const client = getGraphMailClient();
+    if (!client) {
+      console.error(
+        `🚨 Salesforce sync failed for inquiry ${inquiryId ?? '(not saved)'} and no alert could be sent ` +
+        `(Graph mail disabled): ${detail}`
+      );
+      return;
+    }
+
+    const html = `
+      <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #132219;">
+        <h2 style="color: #c0392b; margin-bottom: 4px;">⚠️ Salesforce-Sync fehlgeschlagen</h2>
+        <p>Die Anfrage wurde <strong>gespeichert und per E-Mail zugestellt</strong>, aber
+        <strong>nicht</strong> nach Salesforce übertragen. Der Lead muss nachgetragen werden.</p>
+        <table style="border-collapse: collapse; margin: 16px 0;">
+          <tr><td style="padding: 6px 12px 6px 0; font-weight: 600;">Anfrage-ID (DB):</td>
+              <td style="padding: 6px 0;"><code>${inquiryId ?? 'nicht gespeichert – siehe Benachrichtigungs-E-Mail'}</code></td></tr>
+          <tr><td style="padding: 6px 12px 6px 0; font-weight: 600;">Zeitpunkt:</td>
+              <td style="padding: 6px 0;">${new Date().toISOString()}</td></tr>
+        </table>
+        <p style="font-weight: 600; margin-bottom: 4px;">Fehler:</p>
+        <pre style="background:#f5f5f5;padding:12px;border-radius:6px;white-space:pre-wrap;font-size:12px;">${detail}</pre>
+        ${stack ? `<details><summary style="cursor:pointer;font-size:12px;color:#666;">Stacktrace</summary>
+        <pre style="background:#f5f5f5;padding:12px;border-radius:6px;white-space:pre-wrap;font-size:11px;">${stack}</pre></details>` : ''}
+      </div>`;
+
+    const sendAsUser = process.env.SMTP_USER || "info@hypoteq.ch";
+    await client.api(`/users/${sendAsUser}/sendMail`).post({
+      message: {
+        subject: `⚠️ Salesforce-Sync fehlgeschlagen – Anfrage ${inquiryId ?? 'unbekannt'}`,
+        body: { contentType: "HTML", content: html },
+        toRecipients: [{ emailAddress: { address: "info@hypoteq.ch" } }],
+      },
+      saveToSentItems: true,
+    });
+    console.log("📨 Salesforce failure alert sent to info@hypoteq.ch");
+  } catch (alertError) {
+    console.error("⚠️ Could not send Salesforce failure alert:", alertError);
+  }
+}
 
 // Send email notification for funnel submission
 async function sendFunnelNotificationEmail(data: any, saved: any, locale: EmailLocale = 'de') {
