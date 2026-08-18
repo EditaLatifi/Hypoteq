@@ -736,94 +736,6 @@ return (
 
       </div>
 
-      {/* UPLOAD CARD */}
-<div 
-  className={`
-    bg-[#CAF4761A] shadow-md rounded-2xl md:rounded-3xl p-6 sm:p-8 md:p-10 lg:p-12 
-    border-2 transition-all duration-200
-    flex flex-col items-center gap-4 md:gap-5 mb-8 md:mb-12 lg:mb-16
-    ${isDragging ? 'border-[#132219] bg-[#CAF47633]' : 'border-[#E6E6E6]'}
-  `}
-  onDragOver={handleDragOver}
-  onDragLeave={handleDragLeave}
-  onDrop={handleDrop}
->
-
-
-    <div className="w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center shadow-md">
-  <img 
-    src="/images/HYPOTEQ_funnel_upload_icon.svg" 
-    alt="Upload" 
-    className="w-8 h-8 md:w-10 md:h-10"
-  />
-</div>
-
-
-        <h2 className="text-[18px] sm:text-[20px] md:text-[22px] font-semibold text-[#132219] px-4">
-          {t("funnel.selectFileOrDrop" as any)}
-        </h2>
-
-        <p className="text-gray-500 text-[14px] md:text-[15px] px-4 text-center">
-          {t("funnel.fileFormatsSize" as any)}
-        </p>
-
-        <label className="cursor-pointer mt-3">
-<input
-  type="file"
-  className="hidden"
-  multiple    
-  onChange={handleUpload}
-/>
-          <div className="bg-[#132219] text-white px-6 md:px-8 py-2.5 md:py-3 rounded-full text-sm md:text-base tracking-wide hover:bg-black transition-colors">
-            {t("funnel.browseFiles" as any)}
-          </div>
-          
-        </label>
-
-<div className="flex flex-col items-center mt-5 md:mt-6 px-4">
-  <div className="h-[1px] w-20 md:w-24 bg-[#132219]/20 mb-3 md:mb-4"></div>
-
-  <p className="text-[14px] md:text-[16px] text-[#132219]/70 leading-relaxed text-center max-w-[480px]">
-    {t("funnel.uploadAllDocuments" as any)} {t("funnel.checkboxOptionalText" as any)}
-    <span className="opacity-60"> (optional)</span>
-  </p>
-</div>
-
-      </div>
-
-      {/* UPLOADED FILES PREVIEW */}
-      {docs && docs.length > 0 && docs.some((d: any) => d.file) && (
-        <div className="mb-8 md:mb-12">
-          <h3 className="text-lg font-semibold text-[#132219] mb-4">Uploaded Files ({docs.filter((d: any) => d.file).length})</h3>
-          <div className="space-y-2">
-            {docs.filter((d: any) => d.file).map((doc: any) => (
-              <div
-                key={doc.id}
-                className="flex items-center justify-between bg-white border border-gray-200 rounded-xl px-4 py-3 shadow-sm"
-              >
-                <div className="flex items-center gap-3 flex-1">
-                  <svg className="w-5 h-5 text-[#132219]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-[#132219] truncate">{doc.name}</p>
-                    <p className="text-xs text-gray-500">{(doc.size / 1024).toFixed(2)} KB</p>
-                  </div>
-                </div>
-                <button
-                  onClick={() => removeUploadedFile(doc.id)}
-                  className="ml-4 p-1 hover:bg-red-50 rounded-full transition-colors"
-                >
-                  <svg className="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
       {/* AUSKUNFTSERMÄCHTIGUNG — Download in 4 languages, sign & upload */}
       <div className="mb-10 md:mb-14 bg-[#FFF8E1] border-[1.5px] border-[#F9A825] rounded-lg py-4 px-5">
         <div className="flex items-start gap-3 md:gap-4 mb-4 md:mb-5">
@@ -888,6 +800,13 @@ return (
         </div>
       </div>
 
+      {/* LEGEND — explains the star and states there is no hard block, per spec:
+          the customer may always submit, even with required documents missing. */}
+      <div className="mb-6 md:mb-8 flex items-start gap-2 text-[13px] md:text-[14px] text-[#132219]/70 leading-relaxed">
+        <span className="text-[#C0392B] font-semibold leading-none mt-[2px]">*</span>
+        <p>{t("funnel.docRequiredHint" as any)}</p>
+      </div>
+
       {/* SECTION LIST */}
       <div className="space-y-8 md:space-y-12 lg:space-y-16">
 
@@ -943,7 +862,13 @@ return (
                     />
                     <span className="text-[13px] sm:text-[14px] md:text-[15px] text-[#132219] leading-tight break-words">
                       {t(doc as any)}
-                      {required && <span className="text-[#C0392B] font-semibold"> *</span>}
+                      {required ? (
+                        <span className="text-[#C0392B] font-semibold"> *</span>
+                      ) : (
+                        // Spec: optional fields must be marked as such, not merely left
+                        // unstarred — an unmarked tile reads as "we forgot the star".
+                        <span className="text-[#132219]/45 font-normal"> ({t("funnel.docOptionalBadge" as any)})</span>
+                      )}
                       {saved && (
                         <span className="block text-[11px] sm:text-[12px] text-[#132219]/60 mt-0.5">
                           {filesForDoc.map((f: any) => f.name).join(", ")}
@@ -981,6 +906,102 @@ return (
         ))}
 
       </div>
+
+      {/* UPLOAD CARD — catch-all for anything that fits none of the fields above.
+          Deliberately placed AFTER the sections and visually quieter than them: a file
+          dropped here carries docType: null, so it satisfies no required document and
+          does not count towards completeness. While this card sat on top it was the
+          obvious place to drop a Lohnausweis, which then still produced a "fehlende
+          Unterlagen" mail naming the document the customer had just sent. */}
+      <div className="mt-10 md:mt-14 mb-6 md:mb-8">
+        <h3 className="text-[18px] sm:text-[20px] md:text-[22px] font-semibold text-[#132219] tracking-tight">
+          {t("funnel.additionalDocumentsTitle" as any)}
+        </h3>
+        <p className="mt-1.5 text-[13px] md:text-[14px] text-[#132219]/60 leading-relaxed">
+          {t("funnel.additionalDocumentsHint" as any)}
+        </p>
+      </div>
+<div
+  className={`
+    bg-[#FAFAFA] rounded-2xl md:rounded-3xl p-6 sm:p-8 md:p-10
+    border-2 border-dashed transition-all duration-200
+    flex flex-col items-center gap-3 md:gap-4 mb-8 md:mb-12
+    ${isDragging ? 'border-[#132219] bg-[#CAF47633]' : 'border-[#E0E0E0]'}
+  `}
+  onDragOver={handleDragOver}
+  onDragLeave={handleDragLeave}
+  onDrop={handleDrop}
+>
+
+
+    <div className="w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center">
+  <img
+    src="/images/HYPOTEQ_funnel_upload_icon.svg"
+    alt="Upload"
+    className="w-7 h-7 md:w-8 md:h-8 opacity-70"
+  />
+</div>
+
+
+        <h2 className="text-[15px] sm:text-[16px] md:text-[17px] font-medium text-[#132219] px-4 text-center">
+          {t("funnel.selectFileOrDrop" as any)}
+        </h2>
+
+        <p className="text-gray-500 text-[13px] md:text-[14px] px-4 text-center">
+          {t("funnel.fileFormatsSize" as any)}
+        </p>
+
+        <label className="cursor-pointer mt-2">
+<input
+  type="file"
+  className="hidden"
+  multiple
+  onChange={handleUpload}
+/>
+          <div className="bg-[#132219] text-white px-6 md:px-7 py-2 md:py-2.5 rounded-full text-[13px] md:text-sm tracking-wide hover:bg-black transition-colors">
+            {t("funnel.browseFiles" as any)}
+          </div>
+
+        </label>
+
+      </div>
+
+      {/* UPLOADED FILES PREVIEW — loose uploads only. Files bound to a document type are
+          already listed on their own tile, so listing them again here made the same file
+          look like two separate uploads. */}
+      {docs?.some((d: any) => d.file && !d.docType) && (
+        <div className="mb-8 md:mb-12">
+          <h3 className="text-lg font-semibold text-[#132219] mb-4">
+            {t("funnel.additionalDocumentsTitle" as any)} ({docs.filter((d: any) => d.file && !d.docType).length})
+          </h3>
+          <div className="space-y-2">
+            {docs.filter((d: any) => d.file && !d.docType).map((doc: any) => (
+              <div
+                key={doc.id}
+                className="flex items-center justify-between bg-white border border-gray-200 rounded-xl px-4 py-3 shadow-sm"
+              >
+                <div className="flex items-center gap-3 flex-1">
+                  <svg className="w-5 h-5 text-[#132219]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium text-[#132219] truncate">{doc.name}</p>
+                    <p className="text-xs text-gray-500">{(doc.size / 1024).toFixed(2)} KB</p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => removeUploadedFile(doc.id)}
+                  className="ml-4 p-1 hover:bg-red-50 rounded-full transition-colors"
+                >
+                  <svg className="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* UPLOADING INDICATOR (Popup only) */}
       <HypoteqLoadingPopup

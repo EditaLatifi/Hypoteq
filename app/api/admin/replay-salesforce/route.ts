@@ -46,6 +46,25 @@ function toFunnelPayload(inquiry: any) {
     property: inquiry.property || undefined,
     financing: inquiry.financing || undefined,
     borrowers: inquiry.borrowers || [],
+    // Completeness verdict as it was decided at submit time. Without this a replayed
+    // inquiry reaches Salesforce with Documents_completed__c blank, which reads as
+    // "never checked" for a dossier that was. Rows from before the check existed have
+    // documentsComplete = null and are left alone.
+    //
+    // The per-document Dok_*__c booleans cannot be rebuilt here: the DB records which
+    // required documents were MISSING, not which of the visible ones were supplied, and
+    // that distinction is only knowable in the funnel. Sending an empty flag map leaves
+    // whatever the original sync wrote intact rather than clearing it to false.
+    documentCompleteness:
+      inquiry.documentsComplete === null || inquiry.documentsComplete === undefined
+        ? null
+        : {
+            complete: inquiry.documentsComplete === true,
+            missing: inquiry.documentsMissing
+              ? String(inquiry.documentsMissing).split(",").filter(Boolean)
+              : [],
+            salesforceFlags: {},
+          },
   };
 }
 

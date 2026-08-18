@@ -258,23 +258,26 @@ const saveStep5 = () => {
 
 
 
-  const saveStep6 = async () => {
+  const saveStep6 = async (payload?: any) => {
     // For partners: ensure all data is in store, then submit
     setProject(projectData);
     setProperty(propertyData);
     setBorrowers(borrowers);
     setFinancing(financingData);
-    
+
     // Small delay to ensure state is updated
     await new Promise(resolve => setTimeout(resolve, 100));
-    
-    await submitFinal();
+
+    await submitFinal(payload);
   };
 
   // -------------------------------------
   // RENDER
   // -------------------------------------
-const submitFinal = async () => {
+// `payload` comes from DocumentsStep and carries documentCompleteness. Everything else is
+// still read from the store — only the client knows which document sections were rendered,
+// so that verdict cannot be recomputed here or on the server.
+const submitFinal = async (payload?: any) => {
   try {
     const storeState = useFunnelStore.getState();
     const {
@@ -311,6 +314,7 @@ const submitFinal = async () => {
         property,
         borrowers,
         financing,
+        documentCompleteness: payload?.documentCompleteness ?? null,
       }),
     });
 
