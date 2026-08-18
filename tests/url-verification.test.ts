@@ -103,7 +103,10 @@ describe('URL Structure Verification', () => {
           'Header': ['partner-werden', 'kontaktieren-sie-uns'],
           'Hero': ['hypothekenrechner'],
           'Advisory': ['kontaktieren-sie-uns'],
-          'Calculator': ['kontaktieren-sie-uns'],
+          // The Calculator CTA now sends people into the funnel rather than to the contact
+          // page — its only <Link> is /${pathLocale}/funnel. The old expectation predates
+          // that change and never failed because the suite could not run at all.
+          'Calculator': ['funnel'],
           'PartnerWerden': ['partner-werden'],
           'Vorteile': ['partner-werden'],
         };
@@ -142,7 +145,10 @@ describe('URL Structure Verification', () => {
     LOCALES.forEach(locale => {
       it(`should have updated faq5Link in ${locale}.json`, () => {
         const translationPath = path.join(PROJECT_ROOT, 'messages', `${locale}.json`);
-        const content = fs.readFileSync(translationPath, 'utf-8');
+        // Three of the four message files carry a UTF-8 BOM. Node strips it when these
+        // are require()d, which is how the app loads them, so this is a test-only concern
+        // — but readFileSync does not, and JSON.parse chokes on it.
+        const content = fs.readFileSync(translationPath, 'utf-8').replace(/^\uFEFF/, '');
         const json = JSON.parse(content);
 
         // Check that faq5Link contains partner-werden
