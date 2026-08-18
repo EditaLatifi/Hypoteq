@@ -45,6 +45,22 @@ export const SALESFORCE_CASE_FIELDS: Record<string, SFFieldType> = {
   Reason: "picklist",
   Verpf_ndung_PK__c: "picklist",
 
+  // Document completeness. These fields already existed on Case (built before the funnel
+  // was wired up, previously unused). Dokumenten_Check_State__c is a 131k textarea holding
+  // the human-readable list of what is still missing.
+  Documents_completed__c: "boolean",
+  Dokumenten_Check_State__c: "string",
+  Dok_Identitaetsdokument__c: "boolean",
+  Dok_Lohnausweis__c: "boolean",
+  Dok_Steuererklaerung__c: "boolean",
+  Dok_Betreibungsregisterauszug__c: "boolean",
+  Dok_Pensionskassenausweis__c: "boolean",
+  Dok_Kaufvertrag__c: "boolean",
+  Dok_Grundbuchauszug__c: "boolean",
+  Dok_Gebaeudeversicherungsausweis__c: "boolean",
+  Dok_Fotos_der_Immobilie__c: "boolean",
+  Dok_Grundrissplaene__c: "boolean",
+
   // String fields
   Kommentar__c: "string",
   Case_Name__c: "string",

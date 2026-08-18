@@ -4,6 +4,7 @@ import { useFunnelStore } from "@/src/store/funnelStore";
 import { useTranslation } from "@/hooks/useTranslation";
 import { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
+import { isRequiredDoc, computeDocumentCompleteness } from "@/components/funnelDocumentCatalog";
 
 const HypoteqLoadingPopup = dynamic(() => import("./HypoteqLoadingPopup"), { ssr: false });
 
@@ -273,13 +274,13 @@ const documentsForJur = [
   {
     title: t("funnel.documentsJur" as any),
     items: [
-      t("funnel.commercialRegisterCurrent" as any), // Handelsregisterauszug (aktuell)
-      t("funnel.passportAuthorizedPersonJur" as any), // Pass oder Identitätskarte der Zeichnungsberechtigten Person
-      t("funnel.annualFinancialStatementsJur" as any), // Jahresabschlüsse (Bilanzen und Erfolgsrechnungen der letzten 3 Jahre)
-      t("funnel.interimBalanceIfAvailable" as any), // Aktuelle Zwischenbilanz (falls vorhanden)
-      t("funnel.taxReturnLatestJur" as any), // Aktuellste Steuererklärung (inkl. Schulden-, Wertschriten, Liegenschatsverzeichnis)
-      t("funnel.ownFundsProofJur" as any), // Aufstellung und Nachweis der Eigenmittel
-      t("funnel.taxReturnLatest" as any), // Aktuellste Steuererklärung (inkl. Schulden-, Wertschriften, Liegenschaftsverzeichnis)
+      "funnel.commercialRegisterCurrent", // Handelsregisterauszug (aktuell)
+      "funnel.passportAuthorizedPersonJur", // Pass oder Identitätskarte der Zeichnungsberechtigten Person
+      "funnel.annualFinancialStatementsJur", // Jahresabschlüsse (Bilanzen und Erfolgsrechnungen der letzten 3 Jahre)
+      "funnel.interimBalanceIfAvailable", // Aktuelle Zwischenbilanz (falls vorhanden)
+      "funnel.taxReturnLatestJur", // Aktuellste Steuererklärung (inkl. Schulden-, Wertschriten, Liegenschatsverzeichnis)
+      "funnel.ownFundsProofJur", // Aufstellung und Nachweis der Eigenmittel
+      "funnel.taxReturnLatest", // Aktuellste Steuererklärung (inkl. Schulden-, Wertschriften, Liegenschaftsverzeichnis)
     ],
   },
 
@@ -287,11 +288,11 @@ const documentsForJur = [
   ...(isKauf && isNeubau && !isAblösung ? [{
     title: t("funnel.docSectionNeubau" as any),
     items: [
-      t("funnel.salesDocPhotos" as any), // Verkaufsdokumentation (inkl. Fotos)
-      t("funnel.constructionPlansNetArea" as any), // Bau-/Grundrisspläne
-      t("funnel.landRegistryIfAvailable" as any), // Aktueller Grundbuchauszug falls vorhanden
-      t("funnel.purchaseOrRenovationContract" as any), // Kaufvertrag (Entwurf/original) oder/und Renovationsvertrag
-      t("funnel.buildingInsuranceIfAvailable" as any), // Aktuelle Gebäudeversicherungspolice (falls bereits vorhanden)
+      "funnel.salesDocPhotos", // Verkaufsdokumentation (inkl. Fotos)
+      "funnel.constructionPlansNetArea", // Bau-/Grundrisspläne
+      "funnel.landRegistryIfAvailable", // Aktueller Grundbuchauszug falls vorhanden
+      "funnel.purchaseOrRenovationContract", // Kaufvertrag (Entwurf/original) oder/und Renovationsvertrag
+      "funnel.buildingInsuranceIfAvailable", // Aktuelle Gebäudeversicherungspolice (falls bereits vorhanden)
     ],
   }] : []),
 
@@ -299,10 +300,10 @@ const documentsForJur = [
   ...(isKauf && isBestand && !isAblösung ? [{
     title: t("funnel.docSectionExistingProperty" as any),
     items: [
-      t("funnel.constructionDescriptionPhotos" as any), // Baubeschrieb (inkl. Foto des Innen- und Aussenbereichs)
-      t("funnel.constructionPlansNetArea" as any), // Bau-/Grundrisspläne inkl. Nettowohnfläche, Raumhöhe, Dachform, Bodenbeläge, Baubeschrieb
-      t("funnel.landRegistryNotOlder6Months" as any), // Aktueller Grundbuchauszug (nicht älter als 6 Monate)
-      t("funnel.oldSalesDocuments" as any), // Alte Verkaufdokumente (falls vorhanden)
+      "funnel.constructionDescriptionPhotos", // Baubeschrieb (inkl. Foto des Innen- und Aussenbereichs)
+      "funnel.constructionPlansNetArea", // Bau-/Grundrisspläne inkl. Nettowohnfläche, Raumhöhe, Dachform, Bodenbeläge, Baubeschrieb
+      "funnel.landRegistryNotOlder6Months", // Aktueller Grundbuchauszug (nicht älter als 6 Monate)
+      "funnel.oldSalesDocuments", // Alte Verkaufdokumente (falls vorhanden)
     ],
   }] : []),
 
@@ -310,10 +311,10 @@ const documentsForJur = [
   ...(isAblösung ? [{
     title: t("funnel.docSectionAbloesung" as any),
     items: [
-      t("funnel.constructionDescriptionPhotos" as any), // Baubeschrieb (inkl. Foto des Innen- und Aussenbereichs)
-      t("funnel.constructionPlansNetArea" as any), // Bau-/Grundrisspläne
-      t("funnel.landRegistryNotOlder6Months" as any), // Aktueller Grundbuchauszug (nicht älter als 6 Monate)
-      t("funnel.currentMortgageContract" as any), // Aktueller Hypothekenvertrag (bei Ablösung der Hypothek)
+      "funnel.constructionDescriptionPhotos", // Baubeschrieb (inkl. Foto des Innen- und Aussenbereichs)
+      "funnel.constructionPlansNetArea", // Bau-/Grundrisspläne
+      "funnel.landRegistryNotOlder6Months", // Aktueller Grundbuchauszug (nicht älter als 6 Monate)
+      "funnel.currentMortgageContract", // Aktueller Hypothekenvertrag (bei Ablösung der Hypothek)
     ],
   }] : []),
 
@@ -321,9 +322,9 @@ const documentsForJur = [
   ...(isStockwerkeigentum ? [{
     title: t("funnel.docSectionStockwerkeigentum" as any),
     items: [
-      t("funnel.condominiumActValue" as any), // Stockwerkeigentum-Begründungsakt mit Wertquotenaufteilung
-      t("funnel.usageRegulationsSTWE" as any), // Nutzungs- und Verwaltungsreglement der STWE-Gemeinschaft
-      t("funnel.renovationFundInfoCondominium" as any), // Bei Stockwerkeigentum: Angaben über den Erneuerungsfonds
+      "funnel.condominiumActValue", // Stockwerkeigentum-Begründungsakt mit Wertquotenaufteilung
+      "funnel.usageRegulationsSTWE", // Nutzungs- und Verwaltungsreglement der STWE-Gemeinschaft
+      "funnel.renovationFundInfoCondominium", // Bei Stockwerkeigentum: Angaben über den Erneuerungsfonds
     ],
   }] : []),
 
@@ -331,9 +332,9 @@ const documentsForJur = [
   ...(hasAndereEigenmittel ? [{
     title: t("funnel.otherOwnFunds" as any),
     items: [
-      t("funnel.giftContract" as any), // Schenkungsvertrag
-      t("funnel.loanContractGift" as any), // Darlehensvertag
-      t("funnel.inheritanceContract" as any), // Erbschafttsvertrag
+      "funnel.giftContract", // Schenkungsvertrag
+      "funnel.loanContractGift", // Darlehensvertag
+      "funnel.inheritanceContract", // Erbschafttsvertrag
     ],
   }] : []),
 
@@ -341,8 +342,8 @@ const documentsForJur = [
   ...((isBauprojekt || isRenovation) ? [{
     title: t("funnel.docSectionBauprojektRenovation" as any),
     items: [
-      t("funnel.buildingPermitDoc2" as any), // Baubewilligung
-      t("funnel.projectPlanCostEstimate" as any), // Projektplan, Baubeschrieb und Bauhandwerkerverzeichnis (inkl. Kostenvoranschlag und Kubatur)
+      "funnel.buildingPermitDoc2", // Baubewilligung
+      "funnel.projectPlanCostEstimate", // Projektplan, Baubeschrieb und Bauhandwerkerverzeichnis (inkl. Kostenvoranschlag und Kubatur)
     ],
   }] : []),
 ];
@@ -354,9 +355,9 @@ const sections = [
   {
     title: t("funnel.personalDocuments" as any),
     items: [
-      t("funnel.passportIDAllBorrowers" as any), // Pass, Identitätskarte, Aufenthaltsbewilligung (aller Kreditnehmer)
-      t("funnel.ownFundsProofOfficial" as any), // Aktuelle Aufstellung und Nachweis der Eigenmittel (PDF)
-      t("funnel.taxReturnLatest" as any), // Aktuellste Steuererklärung
+      "funnel.passportIDAllBorrowers", // Pass, Identitätskarte, Aufenthaltsbewilligung (aller Kreditnehmer)
+      "funnel.ownFundsProofOfficial", // Aktuelle Aufstellung und Nachweis der Eigenmittel (PDF)
+      "funnel.taxReturnLatest", // Aktuellste Steuererklärung
     ],
   },
 
@@ -364,8 +365,8 @@ const sections = [
   ...(hasAngestellt ? [{
     title: t("funnel.forEmployed" as any),
     items: [
-      t("funnel.salaryStatementBonus" as any), // Aktueller Lohnausweis (inkl. Nachweis Bonuszahlungen der letzten 3 Jahre)
-      t("funnel.pensionFund3rdPillarBuyback" as any), // Pensionskassenausweis und Rückkaufswerte von der 3. Säule
+      "funnel.salaryStatementBonus", // Aktueller Lohnausweis (inkl. Nachweis Bonuszahlungen der letzten 3 Jahre)
+      "funnel.pensionFund3rdPillarBuyback", // Pensionskassenausweis und Rückkaufswerte von der 3. Säule
     ],
   }] : []),
 
@@ -373,8 +374,8 @@ const sections = [
   ...(hasSelbständig ? [{
     title: t("funnel.forSelfEmployed" as any),
     items: [
-      t("funnel.balanceSheetAudit3Years" as any), // Bilanz und Erfolgsrechnung (inkl. Revisionsbericht) der letzten 3 Jahre
-      t("funnel.pensionFund3rdPillarBuyback" as any), // Pensionskassenausweis und Rückkaufswerte von der 3. Säule
+      "funnel.balanceSheetAudit3Years", // Bilanz und Erfolgsrechnung (inkl. Revisionsbericht) der letzten 3 Jahre
+      "funnel.pensionFund3rdPillarBuyback", // Pensionskassenausweis und Rückkaufswerte von der 3. Säule
     ],
   }] : []),
 
@@ -382,7 +383,7 @@ const sections = [
   ...(hasRentner ? [{
     title: t("funnel.forRetirees" as any),
     items: [
-      t("funnel.pensionCertificatePKAHV" as any), // Rentenbeschenigung (PK, AHV)
+      "funnel.pensionCertificatePKAHV", // Rentenbeschenigung (PK, AHV)
     ],
   }] : []),
 
@@ -390,8 +391,8 @@ const sections = [
   ...(hasAge50Plus ? [{
     title: t("funnel.from50Years" as any), // "50 Jahre Alter der Kreditnehmer"
     items: [
-      t("funnel.pensionForecastAHV" as any), // Rentenvorausberechnung (AHV)
-      t("funnel.pensionFund3rdPillarBuyback" as any), // Pensionskassenausweis und Rückkaufswerte von der 3. Säule
+      "funnel.pensionForecastAHV", // Rentenvorausberechnung (AHV)
+      "funnel.pensionFund3rdPillarBuyback", // Pensionskassenausweis und Rückkaufswerte von der 3. Säule
     ],
   }] : []),
 
@@ -399,11 +400,11 @@ const sections = [
   ...(isKauf && isNeubau && !isAblösung ? [{
     title: t("funnel.docSectionNeubau" as any),
     items: [
-      t("funnel.salesDocPhotos" as any), // Verkaufsdokumentation (inkl. Fotos des Innen- und Aussenbereichs)
-      t("funnel.constructionPlansNetArea" as any), // Bau-/Grundrisspläne inkl. Nettowohnfläche
-      t("funnel.landRegistryIfAvailable" as any), // Aktueller Grundbuchauszug falls vorhanden
-      t("funnel.purchaseContractDraft" as any), // Kaufvertrag (Entwurf/original)
-      t("funnel.buildingInsuranceIfAvailable" as any), // Aktuelle Gebäudeversicherungspolice
+      "funnel.salesDocPhotos", // Verkaufsdokumentation (inkl. Fotos des Innen- und Aussenbereichs)
+      "funnel.constructionPlansNetArea", // Bau-/Grundrisspläne inkl. Nettowohnfläche
+      "funnel.landRegistryIfAvailable", // Aktueller Grundbuchauszug falls vorhanden
+      "funnel.purchaseContractDraft", // Kaufvertrag (Entwurf/original)
+      "funnel.buildingInsuranceIfAvailable", // Aktuelle Gebäudeversicherungspolice
     ],
   }] : []),
 
@@ -411,10 +412,10 @@ const sections = [
   ...(isKauf && isBestand && !isAblösung ? [{
     title: t("funnel.docSectionExistingProperty" as any),
     items: [
-      t("funnel.constructionDescriptionPhotos" as any), // Baubeschrieb (inkl. Foto des Innen- und Aussenbereichs)
-      t("funnel.constructionPlansNetArea" as any), // Bau-/Grundrisspläne inkl. Nettowohnfläche, Raumhöhe, Dachform, Bodenbeläge, Baubeschrieb
-      t("funnel.landRegistryNotOlder6Months" as any), // Aktueller Grundbuchauszug (nicht älter als 6 Monate)
-      t("funnel.oldSalesDocuments" as any), // Alte Verkaufdokumente (falls vorhanden)
+      "funnel.constructionDescriptionPhotos", // Baubeschrieb (inkl. Foto des Innen- und Aussenbereichs)
+      "funnel.constructionPlansNetArea", // Bau-/Grundrisspläne inkl. Nettowohnfläche, Raumhöhe, Dachform, Bodenbeläge, Baubeschrieb
+      "funnel.landRegistryNotOlder6Months", // Aktueller Grundbuchauszug (nicht älter als 6 Monate)
+      "funnel.oldSalesDocuments", // Alte Verkaufdokumente (falls vorhanden)
     ],
   }] : []),
 
@@ -422,8 +423,8 @@ const sections = [
   ...(isReserviert ? [{
     title: t("funnel.reservation" as any),
     items: [
-      t("funnel.reservationContractDoc" as any), // Reservationsvertrag
-      t("funnel.bankStatementReservation" as any), // Bankauszug Reservationszahlung
+      "funnel.reservationContractDoc", // Reservationsvertrag
+      "funnel.bankStatementReservation", // Bankauszug Reservationszahlung
     ],
   }] : []),
 
@@ -431,7 +432,7 @@ const sections = [
   ...(isRenditeobjekt ? [{
     title: t("funnel.docSectionRenditeobjekt" as any),
     items: [
-      t("funnel.rentalOverviewCurrent" as any), // Aktueller Mieterspiegel inkl. Mietzinsaufstellung
+      "funnel.rentalOverviewCurrent", // Aktueller Mieterspiegel inkl. Mietzinsaufstellung
     ],
   }] : []),
 
@@ -439,10 +440,10 @@ const sections = [
   ...(isAblösung ? [{
     title: t("funnel.docSectionAbloesung" as any),
     items: [
-      t("funnel.constructionDescriptionPhotos" as any), // Baubeschrieb (inkl. Foto des Innen- und Aussenbereichs)
-      t("funnel.constructionPlansNetArea" as any), // Bau-/Grundrisspläne
-      t("funnel.landRegistryNotOlder6Months" as any), // Aktueller Grundbuchauszug (nicht älter als 6 Monate)
-      t("funnel.currentMortgageContract" as any), // Aktueller Hypothekenvertrag (bei Ablösung der Hypothek)
+      "funnel.constructionDescriptionPhotos", // Baubeschrieb (inkl. Foto des Innen- und Aussenbereichs)
+      "funnel.constructionPlansNetArea", // Bau-/Grundrisspläne
+      "funnel.landRegistryNotOlder6Months", // Aktueller Grundbuchauszug (nicht älter als 6 Monate)
+      "funnel.currentMortgageContract", // Aktueller Hypothekenvertrag (bei Ablösung der Hypothek)
     ],
   }] : []),
 
@@ -450,9 +451,9 @@ const sections = [
   ...(isStockwerkeigentum ? [{
     title: t("funnel.docSectionStockwerkeigentum" as any),
     items: [
-      t("funnel.condominiumActValue" as any), // Stockwerkeigentum-Begründungsakt mit Wertquotenaufteilung
-      t("funnel.usageRegulationsSTWE" as any), // Nutzungs- und Verwaltungsreglement der STWE-Gemeinschaft
-      t("funnel.renovationFundInfoCondominium" as any), // Bei Stockwerkeigentum: Angaben über den Erneuerungsfonds
+      "funnel.condominiumActValue", // Stockwerkeigentum-Begründungsakt mit Wertquotenaufteilung
+      "funnel.usageRegulationsSTWE", // Nutzungs- und Verwaltungsreglement der STWE-Gemeinschaft
+      "funnel.renovationFundInfoCondominium", // Bei Stockwerkeigentum: Angaben über den Erneuerungsfonds
     ],
   }] : []),
 
@@ -460,9 +461,9 @@ const sections = [
   ...(hasAndereEigenmittel ? [{
     title: t("funnel.otherOwnFunds" as any),
     items: [
-      t("funnel.giftContract" as any), // Schenkungsvertrag
-      t("funnel.loanContractGift" as any), // Darlehensvertrag
-      t("funnel.inheritanceConfirmation" as any), // Erbschaftbestätigung
+      "funnel.giftContract", // Schenkungsvertrag
+      "funnel.loanContractGift", // Darlehensvertrag
+      "funnel.inheritanceConfirmation", // Erbschaftbestätigung
     ],
   }] : []),
 
@@ -470,8 +471,8 @@ const sections = [
   ...((isBauprojekt || isRenovation) ? [{
     title: t("funnel.docSectionBauprojektRenovation" as any),
     items: [
-      t("funnel.buildingPermitDoc2" as any), // Baubewilligung
-      t("funnel.projectPlanCostEstimate" as any), // Projektplan, Baubeschrieb und Bauhandwerkerverzeichnis (inkl. Kostenvoranschlag und Kubatur)
+      "funnel.buildingPermitDoc2", // Baubewilligung
+      "funnel.projectPlanCostEstimate", // Projektplan, Baubeschrieb und Bauhandwerkerverzeichnis (inkl. Kostenvoranschlag und Kubatur)
     ],
   }] : []),
 ];
@@ -526,6 +527,7 @@ const handleUpload = async (e: any) => {
       name: file.name,
       size: file.size,
       file,
+      docType: null, // loose upload — counts as an extra, not as a required document
       sharepointUrl: null, // Will be set after actual upload
       uploaded: false, // Track upload status
     };
@@ -562,6 +564,7 @@ const handleDrop = async (e: React.DragEvent) => {
       name: file.name,
       size: file.size,
       file,
+      docType: null, // loose upload — counts as an extra, not as a required document
       sharepointUrl: null, // Will be set after actual upload
       uploaded: false, // Track upload status
     };
@@ -635,23 +638,31 @@ const uploadAllFilesToSharePoint = async () => {
 };
 
 
-  const toggleDocument = (docName: string) => {
-    const exists = docs.find((d: any) => d.name === docName);
+  // Attach real files to a specific document type. This replaces the old
+  // toggleDocument(), which only recorded a tick with `file: null` — so a customer could
+  // green-check the whole list having uploaded nothing, and no upload was ever associated
+  // with the document it was meant to satisfy.
+  const handleDocTypeUpload = (e: React.ChangeEvent<HTMLInputElement>, docType: string) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
 
-    if (exists) {
-      // remove
-      setDocs((prev: any[]) => prev.filter((d) => d.name !== docName));
-    } else {
-      // add placeholder (pa file, vetëm për checked state)
-      const newDoc = {
-        id: uuidv4(),
-        name: docName,
-        size: 0,
-        file: null,
-      };
+    const added = Array.from(files).map((file) => ({
+      id: uuidv4(),
+      name: file.name,
+      size: file.size,
+      file,
+      docType,
+      sharepointUrl: null,
+      uploaded: false,
+    }));
 
-      setDocs((prev: any[]) => [...prev, newDoc]);
-    }
+    // Re-picking for the same document replaces what was there, so the tile always
+    // reflects the current selection rather than accumulating stale entries.
+    setDocs((prev: any[]) => [
+      ...prev.filter((d: any) => !(d.docType === docType && !d.uploaded)),
+      ...added,
+    ]);
+    e.target.value = "";
   };
 
   const performSubmit = async () => {
@@ -659,6 +670,16 @@ const uploadAllFilesToSharePoint = async () => {
     setSubmitDone(false);
     try {
       await uploadAllFilesToSharePoint();
+      // Completeness is decided here because only the client knows which document
+      // sections were actually rendered for this case type. The server re-checks nothing;
+      // it just records the verdict and picks the confirmation mail.
+      const visibleDocKeys = selectedDocuments.flatMap((sec: any) => sec.items);
+      const providedDocKeys = docs
+        .filter((d: any) => d.file && d.docType)
+        .map((d: any) => d.docType);
+      const completeness = computeDocumentCompleteness(visibleDocKeys, providedDocKeys);
+      console.log("📋 Document completeness:", completeness);
+
       const payload = {
         project,
         property,
@@ -666,6 +687,7 @@ const uploadAllFilesToSharePoint = async () => {
         email,
         borrowers,
         docs,
+        documentCompleteness: completeness,
         korrespondenzsprache: korrespondenzspracheValue,
         stage: "Needs Analysis"
       };
@@ -888,26 +910,45 @@ return (
             {/* DOCUMENT GRID */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 md:gap-5">
               {section.items.map((doc, idx) => {
-const saved = docs.some((d: { name: string }) => d.name === doc);
+                // `doc` is an i18n key, not a label — a tile counts as satisfied only when
+                // a real file is bound to it. Ticking without uploading is what used to make
+                // a dossier look complete when nothing had been sent.
+                const filesForDoc = docs.filter((d: any) => d.docType === doc && d.file);
+                const saved = filesForDoc.length > 0;
+                const required = isRequiredDoc(doc);
 
                 return (
-                  <div
+                  <label
                     key={idx}
-                    onClick={() => toggleDocument(doc)}
                     className={`
                       flex items-center justify-between gap-3
                       px-4 sm:px-5 md:px-6 py-3 sm:py-3.5 md:py-4 cursor-pointer rounded-xl md:rounded-2xl
-                      shadow-sm border transition-all  
+                      shadow-sm border transition-all
 
                       ${
                         saved
                           ? "bg-[#EAF7D8] border-[#CAEBAA]"
-                          : "bg-[#FAFAFA] border-[#E4E4E4] hover:bg-[#F2F2F2]"
+                          : required
+                            ? "bg-[#FFFDF5] border-[#F0D48A] hover:bg-[#FFF8E6]"
+                            : "bg-[#FAFAFA] border-[#E4E4E4] hover:bg-[#F2F2F2]"
                       }
                     `}
                   >
+                    <input
+                      type="file"
+                      className="hidden"
+                      multiple
+                      accept=".pdf,.jpg,.jpeg,.png"
+                      onChange={(e) => handleDocTypeUpload(e, doc)}
+                    />
                     <span className="text-[13px] sm:text-[14px] md:text-[15px] text-[#132219] leading-tight break-words">
-                      {doc}
+                      {t(doc as any)}
+                      {required && <span className="text-[#C0392B] font-semibold"> *</span>}
+                      {saved && (
+                        <span className="block text-[11px] sm:text-[12px] text-[#132219]/60 mt-0.5">
+                          {filesForDoc.map((f: any) => f.name).join(", ")}
+                        </span>
+                      )}
                     </span>
 
                     {/* CHECK CIRCLE */}
@@ -931,7 +972,7 @@ const saved = docs.some((d: { name: string }) => d.name === doc);
                         </svg>
                       )}
                     </div>
-                  </div>
+                  </label>
                 );
               })}
             </div>

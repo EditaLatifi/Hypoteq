@@ -140,6 +140,18 @@ function sanitizeSFValue(sfField: string, value: any) {
   }
 }
 
+// Translate document i18n keys into German labels for the Salesforce Dokumenten-Check tab.
+// Falls back to the bare key so an unmapped document is still visible rather than silently
+// dropped from the missing list.
+function resolveDocLabelsDe(keys: string[]): string[] {
+  let de: any = {};
+  try { de = require("@/messages/de.json"); } catch { /* label lookup is best-effort */ }
+  return keys.map((key) => {
+    const [ns, name] = key.split(".");
+    return de?.[ns]?.[name] || key;
+  });
+}
+
 export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>, salesforceApi: any) {
   console.log('[Salesforce Sync] Starting sync process...');
   
@@ -729,6 +741,38 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
   if (location) caseData['PLZ_Ort__c'] = location;
   if (ort) caseData['City__c'] = ort;
   console.log(`[Salesforce Sync] Location → PLZ_Ort__c: "${location}", City__c: "${ort}"`);
+
+  // Document completeness (spec: Dokumenten-Upload & Completeness-Check).
+  // The verdict is computed in the funnel, because only the client knows which document
+  // sections were rendered for this case type. Written into fields that already existed
+  // on Case and had never been populated.
+  const completeness = stepData.documentCompleteness;
+  if (completeness && typeof completeness === 'object') {
+    caseData['Documents_completed__c'] = completeness.complete === true;
+
+    for (const [field, provided] of Object.entries(completeness.salesforceFlags || {})) {
+      caseData[field] = provided === true;
+    }
+
+    // Human-readable state for the Dokumenten-Check tab. German on purpose: this is read
+    // by HYPOTEQ staff, not by the customer, whatever locale the funnel ran in.
+    // Resolve i18n keys to readable German labels. The Dokumenten-Check tab is read by
+    // HYPOTEQ staff, so it stays German whatever locale the funnel ran in — and a raw
+    // "funnel.salaryStatementBonus" in the CRM helps nobody.
+    const missingLabels: string[] = Array.isArray(completeness.missingLabels)
+      ? completeness.missingLabels
+      : resolveDocLabelsDe(completeness.missing || []);
+    const NEWLINE = String.fromCharCode(10);
+    caseData['Dokumenten_Check_State__c'] = completeness.complete
+      ? 'Dossier vollständig'
+      : `Fehlende Unterlagen (${missingLabels.length}):` + NEWLINE +
+        missingLabels.map((m: string) => `- ${m}`).join(NEWLINE);
+
+    console.log(
+      `[Salesforce Sync] Documents complete=${completeness.complete}, ` +
+      `missing=${missingLabels.length}, flags=${JSON.stringify(completeness.salesforceFlags)}`
+    );
+  }
 
   // Set Case Name if not already set.
   // Convention: "PLZ Ort / <borrower names>" — every borrower as "Vorname Name"

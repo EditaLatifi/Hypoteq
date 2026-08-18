@@ -35,6 +35,30 @@ export async function login() {
   }
 }
 
+/**
+ * Run a Salesforce read, refreshing the session once if it has expired.
+ *
+ * Reads go straight through jsforce with the module-level `conn`, so a long-running job
+ * outliving its token used to fail outright. Note the retry is deliberately lazy: eagerly
+ * re-authenticating before every call is worse than useless, because each
+ * client-credentials token opens a new session and the org invalidates older ones — which
+ * kills the very session the current request is using.
+ */
+async function withSessionRetry<T>(op: () => Promise<T>, context: string): Promise<T> {
+  try {
+    return await op();
+  } catch (error: any) {
+    const code: string = error?.errorCode || error?.data?.errorCode || '';
+    const message: string = error?.data?.message || error?.message || '';
+    if (code === 'INVALID_SESSION_ID' || /session expired or invalid/i.test(message)) {
+      console.warn(`[Salesforce] ${context}: session expired, re-authenticating once and retrying`);
+      await login();
+      return await op();
+    }
+    throw error;
+  }
+}
+
 export async function findPersonAccountByEmail(email: string) {
   return conn.sobject('Account').findOne({ PersonEmail: email });
 }
@@ -44,15 +68,19 @@ export async function findPersonAccountByEmail(email: string) {
 // Person Accounts are excluded — a sales partner is always a company.
 export async function findAccountByName(name: string) {
   const escaped = name.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
-  const result = await conn.query(
-    `SELECT Id, Name FROM Account WHERE Name = '${escaped}' AND IsPersonAccount = false LIMIT 1`
+  const result = await withSessionRetry(
+    async () => await conn.query(`SELECT Id, Name FROM Account WHERE Name = '${escaped}' AND IsPersonAccount = false LIMIT 1`),
+    'findAccountByName',
   );
   return result.records && result.records.length > 0 ? result.records[0] : null;
 }
 
 export async function findAccountByEmail(email: string) {
   // Query to get account with IsPersonAccount field to determine type
-  const result = await conn.query(`SELECT Id, PersonEmail, IsPersonAccount FROM Account WHERE PersonEmail = '${email}' LIMIT 1`);
+  const result = await withSessionRetry(
+    async () => await conn.query(`SELECT Id, PersonEmail, IsPersonAccount FROM Account WHERE PersonEmail = '${email}' LIMIT 1`),
+    'findAccountByEmail',
+  );
   return result.records && result.records.length > 0 ? result.records[0] : null;
 }
 
@@ -83,7 +111,7 @@ export async function createAccount(fields: Record<string, any>) {
 }
 
 export async function findContactByEmail(email: string) {
-  return conn.sobject('Contact').findOne({ Email: email });
+  return withSessionRetry(async () => await conn.sobject('Contact').findOne({ Email: email }), 'findContactByEmail');
 }
 
 export async function createContact(fields: Record<string, any>) {
@@ -125,6 +153,7 @@ async function writeWithFieldFallback(
   sobjectType: string = 'Case',
 ): Promise<any> {
   const working = { ...fields };
+  let sessionRetried = false;
   const maxAttempts = 20;
   for (let attempt = 0; attempt < maxAttempts; attempt++) {
     try {
@@ -133,6 +162,19 @@ async function writeWithFieldFallback(
       const code: string = error?.errorCode || error?.data?.errorCode || '';
       const message: string = error?.data?.message || error?.message || '';
       const errFields: string[] = error?.data?.fields || error?.fields || [];
+
+      // The client-credentials token is short-lived and `conn` is module-level, so a
+      // long-running job (a backlog replay) outlives it. Re-authenticate once and retry
+      // rather than failing every remaining record with "Session expired or invalid".
+      if (code === 'INVALID_SESSION_ID' || /session expired or invalid/i.test(message)) {
+        if (!sessionRetried) {
+          sessionRetried = true;
+          console.warn(`[Salesforce] ${context}: session expired, re-authenticating and retrying`);
+          await login();
+          continue;
+        }
+        throw error;
+      }
 
       if (code === 'INVALID_FIELD') {
         const match = message.match(

@@ -1,0 +1,127 @@
+/**
+ * Catalog of every document the funnel can ask for.
+ *
+ * The key is the i18n key used in DocumentsStep (`messages/*.json` -> funnel.*), NOT the
+ * translated label: labels differ per locale, so a French submission would otherwise
+ * produce French identifiers that neither Salesforce nor the completeness check could match.
+ *
+ * `salesforceField` is one of the ten Dok_*__c booleans that already exist on Case. They
+ * were created before this feature was wired up and were entirely unused. Several funnel
+ * documents legitimately map onto the same flag (every pension document feeds
+ * Dok_Pensionskassenausweis__c), and several have no flag at all.
+ *
+ * ===========================================================================
+ * `requirement` IS A BUSINESS DECISION AND SHOULD BE REVIEWED BY HYPOTEQ.
+ * The defaults below were derived, not invented, from existing sources of truth:
+ *   1. Labels saying "falls vorhanden" / "if available" are optional - the label says so.
+ *   2. Documents the org built a Dok_*__c tracking flag for are required - creating a
+ *      field for it is a statement that it matters.
+ *   3. Everything else is optional, so the funnel never tells a customer their dossier
+ *      is incomplete over a document nobody decided was mandatory.
+ * Changing a value here changes which customers receive the "fehlende Unterlagen" mail.
+ * ===========================================================================
+ */
+
+export type DocRequirement = "required" | "optional";
+
+export interface DocCatalogEntry {
+  /** One of the ten pre-existing Dok_*__c booleans on Case, or null when none fits. */
+  salesforceField: string | null;
+  requirement: DocRequirement;
+}
+
+export const DOCUMENT_CATALOG: Record<string, DocCatalogEntry> = {
+  // ---- Identity -------------------------------------------------------------
+  "funnel.passportIDAllBorrowers":        { salesforceField: "Dok_Identitaetsdokument__c", requirement: "required" },
+  "funnel.passportAuthorizedPersonJur":   { salesforceField: "Dok_Identitaetsdokument__c", requirement: "required" },
+
+  // ---- Income / tax ---------------------------------------------------------
+  "funnel.salaryStatementBonus":          { salesforceField: "Dok_Lohnausweis__c",         requirement: "required" },
+  "funnel.taxReturnLatest":               { salesforceField: "Dok_Steuererklaerung__c",    requirement: "required" },
+  "funnel.taxReturnLatestJur":            { salesforceField: "Dok_Steuererklaerung__c",    requirement: "required" },
+
+  // ---- Pension --------------------------------------------------------------
+  "funnel.pensionFund3rdPillarBuyback":   { salesforceField: "Dok_Pensionskassenausweis__c", requirement: "required" },
+  "funnel.pensionCertificatePKAHV":       { salesforceField: "Dok_Pensionskassenausweis__c", requirement: "required" },
+  "funnel.pensionForecastAHV":            { salesforceField: "Dok_Pensionskassenausweis__c", requirement: "required" },
+
+  // ---- Purchase / reservation contract --------------------------------------
+  "funnel.purchaseContractDraft":         { salesforceField: "Dok_Kaufvertrag__c",         requirement: "required" },
+  "funnel.purchaseOrRenovationContract":  { salesforceField: "Dok_Kaufvertrag__c",         requirement: "required" },
+  "funnel.reservationContractDoc":        { salesforceField: "Dok_Kaufvertrag__c",         requirement: "required" },
+
+  // ---- Land registry --------------------------------------------------------
+  "funnel.landRegistryNotOlder6Months":   { salesforceField: "Dok_Grundbuchauszug__c",     requirement: "required" },
+  "funnel.landRegistryIfAvailable":       { salesforceField: "Dok_Grundbuchauszug__c",     requirement: "optional" }, // "falls vorhanden"
+
+  // ---- Building insurance ---------------------------------------------------
+  "funnel.buildingInsuranceIfAvailable":  { salesforceField: "Dok_Gebaeudeversicherungsausweis__c", requirement: "optional" }, // "falls bereits vorhanden"
+
+  // ---- Photos / floor plans -------------------------------------------------
+  "funnel.salesDocPhotos":                { salesforceField: "Dok_Fotos_der_Immobilie__c", requirement: "required" },
+  "funnel.constructionDescriptionPhotos": { salesforceField: "Dok_Fotos_der_Immobilie__c", requirement: "required" },
+  "funnel.oldSalesDocuments":             { salesforceField: "Dok_Fotos_der_Immobilie__c", requirement: "optional" },
+  "funnel.constructionPlansNetArea":      { salesforceField: "Dok_Grundrissplaene__c",     requirement: "required" },
+
+  // ---- No Dok_*__c flag exists for these ------------------------------------
+  "funnel.ownFundsProofOfficial":         { salesforceField: null, requirement: "optional" },
+  "funnel.ownFundsProofJur":              { salesforceField: null, requirement: "optional" },
+  "funnel.commercialRegisterCurrent":     { salesforceField: null, requirement: "optional" },
+  "funnel.annualFinancialStatementsJur":  { salesforceField: null, requirement: "optional" },
+  "funnel.balanceSheetAudit3Years":       { salesforceField: null, requirement: "optional" },
+  "funnel.interimBalanceIfAvailable":     { salesforceField: null, requirement: "optional" }, // "falls vorhanden"
+  "funnel.currentMortgageContract":       { salesforceField: null, requirement: "optional" },
+  "funnel.bankStatementReservation":      { salesforceField: null, requirement: "optional" },
+  "funnel.buildingPermitDoc2":            { salesforceField: null, requirement: "optional" },
+  "funnel.projectPlanCostEstimate":       { salesforceField: null, requirement: "optional" },
+  "funnel.condominiumActValue":           { salesforceField: null, requirement: "optional" },
+  "funnel.usageRegulationsSTWE":          { salesforceField: null, requirement: "optional" },
+  "funnel.renovationFundInfoCondominium": { salesforceField: null, requirement: "optional" },
+  "funnel.rentalOverviewCurrent":         { salesforceField: null, requirement: "optional" },
+  "funnel.giftContract":                  { salesforceField: null, requirement: "optional" },
+  "funnel.loanContractGift":              { salesforceField: null, requirement: "optional" },
+  "funnel.inheritanceContract":           { salesforceField: null, requirement: "optional" },
+  "funnel.inheritanceConfirmation":       { salesforceField: null, requirement: "optional" },
+};
+
+/** Dok_Betreibungsregisterauszug__c exists on Case but the funnel never asks for it. */
+export const UNUSED_SALESFORCE_DOC_FIELDS = ["Dok_Betreibungsregisterauszug__c"];
+
+export function isRequiredDoc(key: string): boolean {
+  return DOCUMENT_CATALOG[key]?.requirement === "required";
+}
+
+export interface CompletenessResult {
+  complete: boolean;
+  /** i18n keys of required documents with no file attached. */
+  missing: string[];
+  /** Dok_*__c -> true when at least one file was attached for a document feeding it. */
+  salesforceFlags: Record<string, boolean>;
+}
+
+/**
+ * Binary check, per spec V1: a required document counts as provided when at least one
+ * file is attached to it. No content validation - that is V2 (DocDive).
+ *
+ * `visibleKeys` matters: only documents actually shown for this case type can be required,
+ * otherwise a Kauf dossier would be flagged incomplete over Ablösung paperwork.
+ */
+export function computeDocumentCompleteness(
+  visibleKeys: string[],
+  providedKeys: string[],
+): CompletenessResult {
+  const provided = new Set(providedKeys);
+  const visible = Array.from(new Set(visibleKeys));
+
+  const missing = visible.filter((k) => isRequiredDoc(k) && !provided.has(k));
+
+  const salesforceFlags: Record<string, boolean> = {};
+  for (const key of visible) {
+    const field = DOCUMENT_CATALOG[key]?.salesforceField;
+    if (!field) continue;
+    // Several documents share one flag - it is true when any of them was supplied.
+    salesforceFlags[field] = (salesforceFlags[field] ?? false) || provided.has(key);
+  }
+
+  return { complete: missing.length === 0, missing, salesforceFlags };
+}

@@ -112,6 +112,19 @@ export async function POST(req: Request) {
       // Don't fail the request if auto-response fails
     }
 
+    // Mail 2a / 2b — dossier complete or missing documents. Follows the confirmation mail.
+    // Non-fatal for the same reason: the lead is captured either way.
+    const documentCompleteness = data.documentCompleteness || null;
+    if (documentCompleteness) {
+      try {
+        await sendDossierCompletenessEmail(data, documentCompleteness, locale);
+      } catch (dossierMailError) {
+        console.error("⚠️ Dossier completeness mail failed (continuing):", dossierMailError);
+      }
+    } else {
+      console.log("ℹ️ No documentCompleteness in payload — skipping Mail 2a/2b");
+    }
+
     // Salesforce sync (backend only)
     let salesforceError: unknown = null;
     let salesforceCaseId: string | null = null;
@@ -172,6 +185,10 @@ export async function POST(req: Request) {
           salesforceSyncedAt: salesforceError ? null : new Date(),
           salesforceError: salesforceError
             ? (salesforceError instanceof Error ? salesforceError.message : String(salesforceError)).slice(0, 2000)
+            : null,
+          documentsComplete: documentCompleteness ? documentCompleteness.complete === true : null,
+          documentsMissing: documentCompleteness && Array.isArray(documentCompleteness.missing)
+            ? documentCompleteness.missing.join(',').slice(0, 4000)
             : null,
           client: {
             create: {
@@ -401,6 +418,144 @@ export async function GET(req: Request) {
 }
 
 type EmailLocale = 'de' | 'fr' | 'it' | 'en';
+
+/* ==========================================================================
+ * DOSSIER COMPLETENESS MAIL (spec: Mail 2a / Mail 2b)
+ * Sent right after the existing confirmation mail. 2a when every required document was
+ * supplied, 2b listing what is still missing. The verdict is computed in the funnel —
+ * only the client knows which document sections were rendered for this case type.
+ * Recipient follows the same rule as the confirmation mail (data.client.email), which for
+ * partner submissions is the advisor rather than the end customer.
+ * ======================================================================== */
+const DOSSIER_MAIL = {
+  de: {
+    subjectComplete: 'HYPOTEQ - Ihr Dossier ist vollständig',
+    subjectIncomplete: 'HYPOTEQ - Fehlende Unterlagen zu Ihrem Dossier',
+    greeting: (n: string) => `Sehr geehrte/r ${n || 'Kundin/Kunde'}`,
+    completeBody: 'Vielen Dank - Ihr Dossier ist vollständig bei uns eingegangen.',
+    completeBody2: 'Wir freuen uns, Ihre Unterlagen zu analysieren, und melden uns zeitnah mit einer Rückmeldung bei Ihnen.',
+    incompleteBody: 'Vielen Dank für Ihre Einreichung. Ihr Dossier ist bei uns eingegangen, allerdings fehlen noch folgende Unterlagen:',
+    incompleteBody2: 'Bitte reichen Sie die fehlenden Dokumente nach, damit wir Ihr Dossier vollständig prüfen können. Sie können die Unterlagen direkt per Antwort auf diese E-Mail senden.',
+    signoff: 'Freundliche Grüsse',
+    team: 'Ihr HYPOTEQ-Team',
+  },
+  fr: {
+    subjectComplete: 'HYPOTEQ - Votre dossier est complet',
+    subjectIncomplete: 'HYPOTEQ - Documents manquants dans votre dossier',
+    greeting: (n: string) => `Madame, Monsieur ${n || ''}`.trim(),
+    completeBody: 'Merci - votre dossier nous est parvenu complet.',
+    completeBody2: "Nous nous réjouissons d'analyser vos documents et reviendrons vers vous rapidement.",
+    incompleteBody: 'Merci pour votre envoi. Votre dossier nous est parvenu, mais les documents suivants manquent encore:',
+    incompleteBody2: "Merci de nous faire parvenir les documents manquants afin que nous puissions examiner votre dossier. Vous pouvez les envoyer directement en réponse à cet e-mail.",
+    signoff: 'Meilleures salutations',
+    team: 'Votre équipe HYPOTEQ',
+  },
+  it: {
+    subjectComplete: 'HYPOTEQ - Il suo dossier è completo',
+    subjectIncomplete: 'HYPOTEQ - Documenti mancanti nel suo dossier',
+    greeting: (n: string) => `Gentile ${n || 'cliente'}`,
+    completeBody: 'Grazie - il suo dossier ci è pervenuto completo.',
+    completeBody2: 'Saremo lieti di analizzare la sua documentazione e la contatteremo a breve.',
+    incompleteBody: 'Grazie per il suo invio. Il suo dossier ci è pervenuto, tuttavia mancano ancora i seguenti documenti:',
+    incompleteBody2: 'La preghiamo di inviarci i documenti mancanti affinché possiamo esaminare il suo dossier. Può inviarli direttamente rispondendo a questa e-mail.',
+    signoff: 'Cordiali saluti',
+    team: 'Il suo team HYPOTEQ',
+  },
+  en: {
+    subjectComplete: 'HYPOTEQ - Your dossier is complete',
+    subjectIncomplete: 'HYPOTEQ - Missing documents for your dossier',
+    greeting: (n: string) => `Dear ${n || 'customer'}`,
+    completeBody: 'Thank you - your dossier has reached us complete.',
+    completeBody2: 'We look forward to analysing your documents and will get back to you shortly.',
+    incompleteBody: 'Thank you for your submission. Your dossier has reached us, but the following documents are still missing:',
+    incompleteBody2: 'Please send us the missing documents so we can review your dossier in full. You can reply directly to this e-mail with them.',
+    signoff: 'Best regards',
+    team: 'Your HYPOTEQ team',
+  },
+} as const;
+
+/**
+ * Resolve document i18n keys ("funnel.salaryStatementBonus") into human labels in the
+ * customer's own language. Falls back to German, then to the bare key, so a missing
+ * translation degrades to something readable instead of blanking the list.
+ */
+function resolveDocLabels(keys: string[], locale: EmailLocale): string[] {
+  let messages: any = {};
+  let fallback: any = {};
+  try { messages = require(`@/messages/${locale}.json`); } catch { /* falls through */ }
+  try { fallback = require('@/messages/de.json'); } catch { /* falls through */ }
+  return keys.map((key) => {
+    const [ns, name] = key.split('.');
+    return messages?.[ns]?.[name] || fallback?.[ns]?.[name] || key;
+  });
+}
+
+async function sendDossierCompletenessEmail(
+  data: any,
+  completeness: any,
+  locale: EmailLocale
+) {
+  const client = getGraphMailClient();
+  if (!client) {
+    console.log('⚠️ Dossier completeness mail skipped — Graph mail disabled');
+    return;
+  }
+  const to = data?.client?.email;
+  if (!to) return;
+
+  const L = DOSSIER_MAIL[locale];
+  const { getBorrowerDisplayName } = await import('@/components/funnelPersonNames');
+  const name =
+    getBorrowerDisplayName(data) ||
+    `${data.client?.firstName || ''} ${data.client?.lastName || ''}`.trim();
+
+  const complete = completeness?.complete === true;
+  const missingLabels: string[] = complete
+    ? []
+    : resolveDocLabels(completeness?.missing || [], locale);
+
+  const listHTML = missingLabels.length
+    ? '<ul style="margin:16px 0 20px 0;padding-left:20px;">' +
+      missingLabels.map((m) => `<li style="margin-bottom:6px;">${m}</li>`).join('') +
+      '</ul>'
+    : '';
+
+  const html = `
+<!DOCTYPE html>
+<html lang="${locale}">
+<head><meta charset="UTF-8" /></head>
+<body style="font-family:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;line-height:1.8;color:#132219;max-width:600px;margin:0 auto;padding:20px;background-color:#f5f5f5;">
+  <div style="background:#fff;border-radius:10px;padding:40px;box-shadow:0 2px 10px rgba(0,0,0,0.1);">
+    <div style="text-align:center;margin-bottom:30px;padding-bottom:20px;border-bottom:2px solid #CAF476;">
+      <div style="font-size:32px;font-weight:700;color:#132219;">HYPOTEQ</div>
+    </div>
+    <p style="font-size:18px;font-weight:600;">${L.greeting(name)}</p>
+    <p style="font-size:15px;">${complete ? L.completeBody : L.incompleteBody}</p>
+    ${listHTML}
+    <p style="font-size:15px;">${complete ? L.completeBody2 : L.incompleteBody2}</p>
+    <div style="margin-top:30px;padding-top:20px;border-top:2px solid #CAF476;">
+      <div style="font-size:15px;">${L.signoff}</div>
+      <div style="font-weight:600;margin-top:15px;">${L.team}</div>
+    </div>
+  </div>
+</body>
+</html>`;
+
+  const sendAsUser = process.env.SMTP_USER || 'info@hypoteq.ch';
+  await client.api(`/users/${sendAsUser}/sendMail`).post({
+    message: {
+      subject: complete ? L.subjectComplete : L.subjectIncomplete,
+      body: { contentType: 'HTML', content: html },
+      toRecipients: [{ emailAddress: { address: to } }],
+    },
+    saveToSentItems: true,
+  });
+  console.log(
+    `📨 Dossier ${complete ? 'complete (2a)' : 'incomplete (2b)'} mail sent to ${to}` +
+    (complete ? '' : ` — missing ${missingLabels.length}`)
+  );
+}
+
 
 // Build an authenticated Graph mail client, or null when Graph mail is not configured.
 function getGraphMailClient() {

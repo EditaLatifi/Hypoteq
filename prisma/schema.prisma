@@ -33,6 +33,11 @@ model Inquiry {
   salesforceSyncedAt DateTime?
   salesforceError    String?
 
+  // Document completeness verdict at submit time (spec: Completeness-Check).
+  // Stored so the decision behind a 'fehlende Unterlagen' mail stays auditable.
+  documentsComplete  Boolean?
+  documentsMissing   String?
+
   // Relations
   client       Client?
   project      Project?
