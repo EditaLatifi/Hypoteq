@@ -56,13 +56,23 @@ describe('computeDocumentCompleteness', () => {
     expect(r.complete).toBe(true);
   });
 
-  it('lists exactly the required documents with no file', () => {
+  it('reports nothing missing, because no document is mandatory', () => {
+    // HYPOTEQ made every document optional. The consequence is deliberate and load-bearing:
+    // `missing` can never be non-empty, so Mail 2b ("fehlende Unterlagen") is never sent and
+    // no Nachreichung link is minted. If this test ever fails, someone flipped a document
+    // back to "required" — which revives that mail, and should be an intentional decision.
     const r = computeDocumentCompleteness(
       [REQUIRED_SALARY, REQUIRED_TAX, OPTIONAL_LAND_REGISTRY],
       [OPTIONAL_LAND_REGISTRY],
     );
-    expect(r.complete).toBe(false);
-    expect(r.missing.sort()).toEqual([REQUIRED_SALARY, REQUIRED_TAX].sort());
+    expect(r.complete).toBe(true);
+    expect(r.missing).toEqual([]);
+  });
+
+  it('is complete even when the customer uploads nothing at all', () => {
+    const r = computeDocumentCompleteness([REQUIRED_SALARY, REQUIRED_TAX], []);
+    expect(r.complete).toBe(true);
+    expect(r.missing).toEqual([]);
   });
 
   it('scopes the check to documents shown for this case type', () => {
@@ -87,8 +97,11 @@ describe('computeDocumentCompleteness', () => {
   });
 
   it('deduplicates a document shown in more than one section', () => {
-    const r = computeDocumentCompleteness([REQUIRED_SALARY, REQUIRED_SALARY], []);
-    expect(r.missing).toEqual([REQUIRED_SALARY]);
+    // Deduplication is asserted through the Salesforce flags, since `missing` is now always
+    // empty: one entry per field, not one per occurrence.
+    const r = computeDocumentCompleteness([REQUIRED_SALARY, REQUIRED_SALARY], [REQUIRED_SALARY]);
+    expect(Object.keys(r.salesforceFlags)).toEqual(['Dok_Lohnausweis__c']);
+    expect(r.missing).toEqual([]);
   });
 
   describe('Salesforce flags', () => {
@@ -109,8 +122,9 @@ describe('computeDocumentCompleteness', () => {
         ['funnel.pensionForecastAHV'],
       );
       expect(r.salesforceFlags['Dok_Pensionskassenausweis__c']).toBe(true);
-      // ...while the sibling that shares the flag is still individually missing.
-      expect(r.missing).toContain('funnel.pensionCertificatePKAHV');
+      // The sibling that shares the flag was not supplied, but nothing is mandatory any
+      // more, so it is not reported as missing — only the shared flag records the fact.
+      expect(r.missing).toEqual([]);
     });
 
     it('does not invent a flag for documents that have none', () => {

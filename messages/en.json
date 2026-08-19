@@ -461,7 +461,7 @@
     "uploadAllDocuments": "Upload all documents conveniently in one place.",
     "checkboxOptionalText": "Simply mark uploaded files with a checkbox.",
     "docOptionalBadge": "optional",
-    "docRequiredHint": "Documents marked with * are required. You can still submit your request – missing documents can be supplied later.",
+    "docRequiredHint": "Upload the documents you have to hand. You can submit your request at any time – missing documents can be supplied later.",
     "additionalDocumentsTitle": "Other documents",
     "additionalDocumentsHint": "Documents that do not belong to any of the fields above. They do not count towards the completeness check.",
     "auskunftsermaechtigungDoc": "Signed authorisation for information",

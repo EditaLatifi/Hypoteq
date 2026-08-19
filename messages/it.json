@@ -448,7 +448,7 @@
     "uploadAllDocuments": "Carica tutti i documenti comodamente in un unico posto.",
     "checkboxOptionalText": "Contrassegna semplicemente i file caricati con una casella di controllo.",
     "docOptionalBadge": "facoltativo",
-    "docRequiredHint": "I documenti contrassegnati con * sono obbligatori. Può comunque inviare la sua richiesta: i documenti mancanti possono essere trasmessi in seguito.",
+    "docRequiredHint": "Carichi i documenti di cui dispone. Può inviare la sua richiesta in qualsiasi momento: i documenti mancanti possono essere trasmessi in seguito.",
     "additionalDocumentsTitle": "Altri documenti",
     "additionalDocumentsHint": "Documenti che non rientrano in nessuno dei campi qui sopra. Non vengono considerati nella verifica di completezza.",
     "auskunftsermaechtigungDoc": "Procura per informazioni firmata",
