@@ -457,6 +457,7 @@
     "docRequiredHint": "Les documents marqués d'un * sont obligatoires. Vous pouvez néanmoins envoyer votre demande – les documents manquants peuvent être transmis plus tard.",
     "additionalDocumentsTitle": "Autres documents",
     "additionalDocumentsHint": "Documents qui ne correspondent à aucun des champs ci-dessus. Ils ne sont pas pris en compte dans la vérification d'exhaustivité.",
+    "auskunftsermaechtigungDoc": "Pouvoir d'information signé",
     "auskunftsermaechtigungTitle": "Pouvoir d'information requis",
     "auskunftsermaechtigungDescription": "Veuillez télécharger le pouvoir d'information, le faire signer par le client et télécharger le document signé avec les autres pièces justificatives (indiquées ci-dessous).",
     "documentsJur": "Documents",
@@ -1142,5 +1143,18 @@
       "subtitle": "D'abord comparer. Puis décider. Gratuit et sans engagement — exclusivement pour les clients RE/MAX.",
       "button": "Démarrer maintenant"
     }
+  },
+  "nachreichen": {
+    "title": "Transmettre les documents manquants",
+    "intro": "Vous ne voyez ici que les documents qui nous manquent encore pour votre dossier. Téléversez-les puis envoyez-les.",
+    "loading": "Chargement …",
+    "notFound": "Ce lien n'est pas valide. Merci de répondre à notre e-mail afin que nous puissions vous en envoyer un nouveau.",
+    "expired": "Ce lien a expiré. Merci de répondre à notre e-mail afin que nous puissions vous en envoyer un nouveau.",
+    "alreadyComplete": "Votre dossier est déjà complet. Aucun document ne manque.",
+    "send": "Envoyer les documents",
+    "sending": "Envoi en cours …",
+    "error": "Le téléversement a échoué :",
+    "doneComplete": "Merci – votre dossier est désormais complet.",
+    "donePartial": "Merci – nous avons bien reçu vos documents. Il manque encore :"
   }
 }

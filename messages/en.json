@@ -464,6 +464,7 @@
     "docRequiredHint": "Documents marked with * are required. You can still submit your request – missing documents can be supplied later.",
     "additionalDocumentsTitle": "Other documents",
     "additionalDocumentsHint": "Documents that do not belong to any of the fields above. They do not count towards the completeness check.",
+    "auskunftsermaechtigungDoc": "Signed authorisation for information",
     "auskunftsermaechtigungTitle": "Authorisation for information required",
     "auskunftsermaechtigungDescription": "Please download the authorisation for information, have your client sign it, and upload the signed document together with the other documents (listed below).",
     "documentsJur": "Documents",
@@ -1147,5 +1148,18 @@
       "subtitle": "Compare first. Then decide. Free and without obligation — exclusively for RE/MAX customers.",
       "button": "Start now"
     }
+  },
+  "nachreichen": {
+    "title": "Supply the missing documents",
+    "intro": "This page shows only the documents we are still missing for your dossier. Upload them and send them in.",
+    "loading": "Loading …",
+    "notFound": "This link is not valid. Please reply to our e-mail so we can send you a new one.",
+    "expired": "This link has expired. Please reply to our e-mail so we can send you a new one.",
+    "alreadyComplete": "Your dossier is already complete. No documents are outstanding.",
+    "send": "Send documents",
+    "sending": "Sending …",
+    "error": "The upload failed:",
+    "doneComplete": "Thank you – your dossier is now complete.",
+    "donePartial": "Thank you – we have received your documents. Still outstanding:"
   }
 }

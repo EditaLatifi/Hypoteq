@@ -3,6 +3,14 @@ import { prisma } from "@/lib/prisma";
 import { Client } from "@microsoft/microsoft-graph-client";
 import { ClientSecretCredential } from "@azure/identity";
 import "isomorphic-fetch";
+import { randomUUID } from "crypto";
+import {
+  createNachreichToken,
+  nachreichExpiry,
+  buildNachreichUrl,
+  NACHREICH_TTL_DAYS,
+  type NachreichLocale,
+} from "@/components/nachreichung";
 
 export async function POST(req: Request) {
   try {
@@ -112,18 +120,26 @@ export async function POST(req: Request) {
       // Don't fail the request if auto-response fails
     }
 
-    // Mail 2a / 2b — dossier complete or missing documents. Follows the confirmation mail.
-    // Non-fatal for the same reason: the lead is captured either way.
+    // Mail 2a / 2b is NOT sent here. It used to be, but it carries the Nachreich link
+    // (spec V2), and a link can only be promised once the row backing it exists — sending
+    // first would hand out URLs that 404 whenever the DB write later failed. It is sent
+    // right after the inquiry is created instead.
     const documentCompleteness = data.documentCompleteness || null;
-    if (documentCompleteness) {
-      try {
-        await sendDossierCompletenessEmail(data, documentCompleteness, locale);
-      } catch (dossierMailError) {
-        console.error("⚠️ Dossier completeness mail failed (continuing):", dossierMailError);
-      }
-    } else {
-      console.log("ℹ️ No documentCompleteness in payload — skipping Mail 2a/2b");
+    if (!documentCompleteness) {
+      console.log("ℹ️ No documentCompleteness in payload — Mail 2a/2b will be skipped");
     }
+
+    // Minted up front so the same value can go into the DB row and the mail. Only an
+    // incomplete dossier gets one: there is nothing to come back and supply otherwise.
+    const needsNachreich = documentCompleteness?.complete === false;
+    const nachreichToken = needsNachreich ? createNachreichToken() : null;
+    const nachreichExpiresAt = needsNachreich ? nachreichExpiry() : null;
+
+    // Submission-ID (spec V2). Generated here rather than left to the database default
+    // because Salesforce is written BEFORE the row exists — without a value decided up
+    // front, the Case could not carry the id that ties it back to this submission.
+    const submissionId = randomUUID();
+    data.submissionId = submissionId;
 
     // Salesforce sync (backend only)
     let salesforceError: unknown = null;
@@ -180,6 +196,8 @@ export async function POST(req: Request) {
       // Save Inquiry and all related data (without documents)
       const inquiry = await prisma.inquiry.create({
         data: {
+          // Same value the Salesforce Case carries as its Submission-ID.
+          id: submissionId,
           customerType: data.customerType,
           salesforceCaseId,
           salesforceSyncedAt: salesforceError ? null : new Date(),
@@ -189,6 +207,14 @@ export async function POST(req: Request) {
           documentsComplete: documentCompleteness ? documentCompleteness.complete === true : null,
           documentsMissing: documentCompleteness && Array.isArray(documentCompleteness.missing)
             ? documentCompleteness.missing.join(',').slice(0, 4000)
+            : null,
+          nachreichToken,
+          nachreichExpiresAt,
+          // Remembered so documents supplied later land in the folder this submission
+          // created rather than a new one — the folder name embeds the upload date, so it
+          // cannot be re-derived on another day.
+          sharepointFolderId: typeof data.sharepointFolderId === 'string' && data.sharepointFolderId
+            ? data.sharepointFolderId
             : null,
           client: {
             create: {
@@ -277,6 +303,17 @@ export async function POST(req: Request) {
         },
       });
       console.log("✅ Inquiry and all data saved to DB:", inquiry.id);
+
+      // Mail 2a / 2b — now that the row exists, the Nachreich link in 2b is guaranteed to
+      // resolve. Non-fatal: the lead is captured either way, and a customer who never gets
+      // this mail can still reply to the confirmation one.
+      if (documentCompleteness) {
+        try {
+          await sendDossierCompletenessEmail(data, documentCompleteness, locale, nachreichToken);
+        } catch (dossierMailError) {
+          console.error("⚠️ Dossier completeness mail failed (continuing):", dossierMailError);
+        }
+      }
 
       // === ASSOCIATE HOLDING DOCUMENTS ===
       // If tempUserId is provided in the request, move holding documents to Document table
@@ -436,6 +473,9 @@ const DOSSIER_MAIL = {
     completeBody2: 'Wir freuen uns, Ihre Unterlagen zu analysieren, und melden uns zeitnah mit einer Rückmeldung bei Ihnen.',
     incompleteBody: 'Vielen Dank für Ihre Einreichung. Ihr Dossier ist bei uns eingegangen, allerdings fehlen noch folgende Unterlagen:',
     incompleteBody2: 'Bitte reichen Sie die fehlenden Dokumente nach, damit wir Ihr Dossier vollständig prüfen können. Sie können die Unterlagen direkt per Antwort auf diese E-Mail senden.',
+    uploadCta: "Fehlende Unterlagen jetzt hochladen",
+    uploadIntro: "Am einfachsten laden Sie die fehlenden Dokumente über Ihren persönlichen Link hoch - dort sehen Sie nur die Felder, die noch offen sind:",
+    uploadNote: (d: number) => `Der Link ist ${d} Tage gültig und ausschliesslich für Ihr Dossier bestimmt. Alternativ können Sie die Unterlagen direkt per Antwort auf diese E-Mail senden.`,
     signoff: 'Freundliche Grüsse',
     team: 'Ihr HYPOTEQ-Team',
   },
@@ -447,6 +487,9 @@ const DOSSIER_MAIL = {
     completeBody2: "Nous nous réjouissons d'analyser vos documents et reviendrons vers vous rapidement.",
     incompleteBody: 'Merci pour votre envoi. Votre dossier nous est parvenu, mais les documents suivants manquent encore:',
     incompleteBody2: "Merci de nous faire parvenir les documents manquants afin que nous puissions examiner votre dossier. Vous pouvez les envoyer directement en réponse à cet e-mail.",
+    uploadCta: "Téléverser les documents manquants",
+    uploadIntro: "Le plus simple est de téléverser les documents manquants via votre lien personnel - vous n'y verrez que les champs encore ouverts:",
+    uploadNote: (d: number) => `Le lien est valable ${d} jours et concerne uniquement votre dossier. Vous pouvez également envoyer les documents en réponse à cet e-mail.`,
     signoff: 'Meilleures salutations',
     team: 'Votre équipe HYPOTEQ',
   },
@@ -458,6 +501,9 @@ const DOSSIER_MAIL = {
     completeBody2: 'Saremo lieti di analizzare la sua documentazione e la contatteremo a breve.',
     incompleteBody: 'Grazie per il suo invio. Il suo dossier ci è pervenuto, tuttavia mancano ancora i seguenti documenti:',
     incompleteBody2: 'La preghiamo di inviarci i documenti mancanti affinché possiamo esaminare il suo dossier. Può inviarli direttamente rispondendo a questa e-mail.',
+    uploadCta: "Carica ora i documenti mancanti",
+    uploadIntro: "Il modo più semplice è caricare i documenti mancanti tramite il suo link personale - vedrà solo i campi ancora aperti:",
+    uploadNote: (d: number) => `Il link è valido ${d} giorni ed è destinato esclusivamente al suo dossier. In alternativa può inviare i documenti rispondendo a questa e-mail.`,
     signoff: 'Cordiali saluti',
     team: 'Il suo team HYPOTEQ',
   },
@@ -469,6 +515,9 @@ const DOSSIER_MAIL = {
     completeBody2: 'We look forward to analysing your documents and will get back to you shortly.',
     incompleteBody: 'Thank you for your submission. Your dossier has reached us, but the following documents are still missing:',
     incompleteBody2: 'Please send us the missing documents so we can review your dossier in full. You can reply directly to this e-mail with them.',
+    uploadCta: "Upload the missing documents",
+    uploadIntro: "The easiest way is to upload the missing documents through your personal link - it shows only the fields that are still open:",
+    uploadNote: (d: number) => `The link is valid for ${d} days and applies to your dossier only. Alternatively you can reply to this e-mail with the documents.`,
     signoff: 'Best regards',
     team: 'Your HYPOTEQ team',
   },
@@ -493,7 +542,8 @@ function resolveDocLabels(keys: string[], locale: EmailLocale): string[] {
 async function sendDossierCompletenessEmail(
   data: any,
   completeness: any,
-  locale: EmailLocale
+  locale: EmailLocale,
+  nachreichToken?: string | null
 ) {
   const client = getGraphMailClient();
   if (!client) {
@@ -520,6 +570,22 @@ async function sendDossierCompletenessEmail(
       '</ul>'
     : '';
 
+  // Nachreich link (spec V2). Only on 2b, and only when a token was actually minted — a
+  // complete dossier has nothing to come back for, and an absent token must degrade to the
+  // reply-by-mail wording rather than to a broken button.
+  const nachreichUrl = !complete && nachreichToken
+    ? buildNachreichUrl(nachreichToken, locale as NachreichLocale)
+    : null;
+  const uploadHTML = nachreichUrl
+    ? `
+    <p style="font-size:15px;">${L.uploadIntro}</p>
+    <p style="margin:22px 0;">
+      <a href="${nachreichUrl}"
+         style="background:#132219;color:#ffffff;text-decoration:none;padding:14px 28px;border-radius:999px;font-size:15px;font-weight:600;display:inline-block;">${L.uploadCta}</a>
+    </p>
+    <p style="font-size:13px;color:#132219;opacity:0.65;">${L.uploadNote(NACHREICH_TTL_DAYS)}</p>`
+    : '';
+
   const html = `
 <!DOCTYPE html>
 <html lang="${locale}">
@@ -532,6 +598,7 @@ async function sendDossierCompletenessEmail(
     <p style="font-size:18px;font-weight:600;">${L.greeting(name)}</p>
     <p style="font-size:15px;">${complete ? L.completeBody : L.incompleteBody}</p>
     ${listHTML}
+    ${uploadHTML}
     <p style="font-size:15px;">${complete ? L.completeBody2 : L.incompleteBody2}</p>
     <div style="margin-top:30px;padding-top:20px;border-top:2px solid #CAF476;">
       <div style="font-size:15px;">${L.signoff}</div>

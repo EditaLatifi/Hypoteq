@@ -315,6 +315,7 @@ const submitFinal = async (payload?: any) => {
         borrowers,
         financing,
         documentCompleteness: payload?.documentCompleteness ?? null,
+        sharepointFolderId: payload?.sharepointFolderId ?? null,
       }),
     });
 

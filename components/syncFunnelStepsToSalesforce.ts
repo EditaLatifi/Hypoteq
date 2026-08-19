@@ -762,11 +762,25 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     const missingLabels: string[] = Array.isArray(completeness.missingLabels)
       ? completeness.missingLabels
       : resolveDocLabelsDe(completeness.missing || []);
+    // Dokumenten_Check_State__c is NOT free text: it is a JSON "checked map" that drives
+    // the Dokumenten-Check tab on the Case (confirmed by the Salesforce side). Writing a
+    // German prose list into it, as this did, overwrites that state with something the tab
+    // cannot parse. Disabled until we have the exact JSON schema from Salesforce.
+    //
+    // Nothing is lost meanwhile: the ten Dok_*__c checkboxes below are the real per-document
+    // signal, and the full missing list is kept on Inquiry.documentsMissing in our own DB.
+    const WRITE_DOKUMENTEN_CHECK_STATE = false;
+
     const NEWLINE = String.fromCharCode(10);
-    caseData['Dokumenten_Check_State__c'] = completeness.complete
-      ? 'Dossier vollständig'
-      : `Fehlende Unterlagen (${missingLabels.length}):` + NEWLINE +
-        missingLabels.map((m: string) => `- ${m}`).join(NEWLINE);
+    if (WRITE_DOKUMENTEN_CHECK_STATE) {
+      const submissionLine = stepData.submissionId
+        ? NEWLINE + NEWLINE + `Submission-ID: ${stepData.submissionId}`
+        : '';
+      caseData['Dokumenten_Check_State__c'] = (completeness.complete
+        ? 'Dossier vollständig'
+        : `Fehlende Unterlagen (${missingLabels.length}):` + NEWLINE +
+          missingLabels.map((m: string) => `- ${m}`).join(NEWLINE)) + submissionLine;
+    }
 
     console.log(
       `[Salesforce Sync] Documents complete=${completeness.complete}, ` +

@@ -451,9 +451,11 @@
     "docRequiredHint": "I documenti contrassegnati con * sono obbligatori. Può comunque inviare la sua richiesta: i documenti mancanti possono essere trasmessi in seguito.",
     "additionalDocumentsTitle": "Altri documenti",
     "additionalDocumentsHint": "Documenti che non rientrano in nessuno dei campi qui sopra. Non vengono considerati nella verifica di completezza.",
+    "auskunftsermaechtigungDoc": "Procura per informazioni firmata",
     "auskunftsermaechtigungTitle": "Procura per informazioni necessaria",
     "auskunftsermaechtigungDescription": "Si prega di scaricare la procura per informazioni, farla firmare dal cliente e caricare il documento firmato insieme agli altri documenti (indicati di seguito).",
     "personalDocuments": "Documenti personali",
+    "documentsJur": "Documenti",
     "assetProof": "Prova di patrimonio",
     "forEmployed": "Per dipendenti",
     "forSelfEmployed": "Per lavoratori autonomi",
@@ -1145,5 +1147,18 @@
       "subtitle": "Prima confrontare. Poi decidere. Gratuito e senza impegno — esclusivo per i clienti RE/MAX.",
       "button": "Inizia ora"
     }
+  },
+  "nachreichen": {
+    "title": "Inviare i documenti mancanti",
+    "intro": "Qui vede soltanto i documenti che ci mancano ancora per il suo dossier. Li carichi e li invii.",
+    "loading": "Caricamento …",
+    "notFound": "Questo link non è valido. La preghiamo di rispondere alla nostra e-mail per riceverne uno nuovo.",
+    "expired": "Questo link è scaduto. La preghiamo di rispondere alla nostra e-mail per riceverne uno nuovo.",
+    "alreadyComplete": "Il suo dossier è già completo. Non manca alcun documento.",
+    "send": "Invia i documenti",
+    "sending": "Invio in corso …",
+    "error": "Il caricamento non è riuscito:",
+    "doneComplete": "Grazie – il suo dossier è ora completo.",
+    "donePartial": "Grazie – abbiamo ricevuto i suoi documenti. Mancano ancora:"
   }
 }

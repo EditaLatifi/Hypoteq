@@ -467,6 +467,7 @@
     "docRequiredHint": "Mit * markierte Dokumente sind Pflicht. Sie können Ihre Anfrage trotzdem absenden – fehlende Unterlagen können Sie später nachreichen.",
     "additionalDocumentsTitle": "Weitere Unterlagen",
     "additionalDocumentsHint": "Dokumente, die zu keinem der Felder oben gehören. Diese zählen nicht zur Vollständigkeitsprüfung.",
+    "auskunftsermaechtigungDoc": "Unterschriebene Auskunftsermächtigung",
     "auskunftsermaechtigungTitle": "Auskunftsermächtigung erforderlich",
     "auskunftsermaechtigungDescription": "Bitte laden Sie die Auskunftsermächtigung herunter, lassen Sie diese vom Kunden unterschreiben und laden Sie das unterschriebene Dokument zusammen mit den anderen Unterlagen (welche unten angegeben werden) hoch.",
     "documentsJur": "Unterlagen",
@@ -1152,5 +1153,18 @@
       "subtitle": "Zuerst vergleichen. Dann entscheiden. Kostenlos und unverbindlich — exklusiv für RE/MAX Kundinnen und Kunden.",
       "button": "Jetzt starten"
     }
+  },
+  "nachreichen": {
+    "title": "Fehlende Unterlagen nachreichen",
+    "intro": "Hier sehen Sie nur die Dokumente, die uns für Ihr Dossier noch fehlen. Laden Sie diese hoch und senden Sie sie ab.",
+    "loading": "Wird geladen …",
+    "notFound": "Dieser Link ist ungültig. Bitte antworten Sie auf unsere E-Mail, damit wir Ihnen einen neuen Link senden können.",
+    "expired": "Dieser Link ist abgelaufen. Bitte antworten Sie auf unsere E-Mail, damit wir Ihnen einen neuen Link senden können.",
+    "alreadyComplete": "Ihr Dossier ist bereits vollständig. Es fehlen keine Unterlagen mehr.",
+    "send": "Unterlagen senden",
+    "sending": "Wird gesendet …",
+    "error": "Das Hochladen ist fehlgeschlagen:",
+    "doneComplete": "Vielen Dank – Ihr Dossier ist jetzt vollständig.",
+    "donePartial": "Vielen Dank – wir haben Ihre Unterlagen erhalten. Es fehlen noch:"
   }
 }

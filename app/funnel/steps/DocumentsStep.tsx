@@ -4,7 +4,8 @@ import { useFunnelStore } from "@/src/store/funnelStore";
 import { useTranslation } from "@/hooks/useTranslation";
 import { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
-import { isRequiredDoc, computeDocumentCompleteness } from "@/components/funnelDocumentCatalog";
+import { computeDocumentCompleteness } from "@/components/funnelDocumentCatalog";
+import { documentSectionsFor } from "@/components/funnelDocumentSections";
 
 const HypoteqLoadingPopup = dynamic(() => import("./HypoteqLoadingPopup"), { ssr: false });
 
@@ -23,6 +24,8 @@ function DocumentsStep({ borrowers, docs, setDocs, addDocument, saveStep, back }
   // Set to true only after upload + save have actually succeeded.
   // The loading popup uses this to know it's safe to animate to 100% and redirect.
   const [submitDone, setSubmitDone] = useState(false);
+  // Track upload status per document: 'idle' | 'uploading' | 'uploaded' | 'failed'
+  const [uploadStatus, setUploadStatus] = useState<Record<string, string>>({});
 const { t } = useTranslation();
 const { project, email, property, financing } = useFunnelStore();
 
@@ -268,224 +271,42 @@ async function uploadDocToSharepoint(
 
 
 // ===================================
-// JURISTISCHE PERSON - Document Structure
+// Which documents this case is asked for.
+// The structure itself lives in components/funnelDocumentSections.ts so it can be tested
+// across every combination of case type without rendering this component.
 // ===================================
-const documentsForJur = [
-  {
-    title: t("funnel.documentsJur" as any),
-    items: [
-      "funnel.commercialRegisterCurrent", // Handelsregisterauszug (aktuell)
-      "funnel.passportAuthorizedPersonJur", // Pass oder Identitätskarte der Zeichnungsberechtigten Person
-      "funnel.annualFinancialStatementsJur", // Jahresabschlüsse (Bilanzen und Erfolgsrechnungen der letzten 3 Jahre)
-      "funnel.interimBalanceIfAvailable", // Aktuelle Zwischenbilanz (falls vorhanden)
-      "funnel.taxReturnLatestJur", // Aktuellste Steuererklärung (inkl. Schulden-, Wertschriten, Liegenschatsverzeichnis)
-      "funnel.ownFundsProofJur", // Aufstellung und Nachweis der Eigenmittel
-      "funnel.taxReturnLatest", // Aktuellste Steuererklärung (inkl. Schulden-, Wertschriften, Liegenschaftsverzeichnis)
-    ],
-  },
-
-  // NEUBAU documents for Juristische Person (only if it's Kauf + Neubau, NOT for Ablösung)
-  ...(isKauf && isNeubau && !isAblösung ? [{
-    title: t("funnel.docSectionNeubau" as any),
-    items: [
-      "funnel.salesDocPhotos", // Verkaufsdokumentation (inkl. Fotos)
-      "funnel.constructionPlansNetArea", // Bau-/Grundrisspläne
-      "funnel.landRegistryIfAvailable", // Aktueller Grundbuchauszug falls vorhanden
-      "funnel.purchaseOrRenovationContract", // Kaufvertrag (Entwurf/original) oder/und Renovationsvertrag
-      "funnel.buildingInsuranceIfAvailable", // Aktuelle Gebäudeversicherungspolice (falls bereits vorhanden)
-    ],
-  }] : []),
-
-  // BESTEHENDE IMMOBILIE documents for Juristische Person (only if it's Kauf + Bestehende Immobilie, NOT for Ablösung)
-  ...(isKauf && isBestand && !isAblösung ? [{
-    title: t("funnel.docSectionExistingProperty" as any),
-    items: [
-      "funnel.constructionDescriptionPhotos", // Baubeschrieb (inkl. Foto des Innen- und Aussenbereichs)
-      "funnel.constructionPlansNetArea", // Bau-/Grundrisspläne inkl. Nettowohnfläche, Raumhöhe, Dachform, Bodenbeläge, Baubeschrieb
-      "funnel.landRegistryNotOlder6Months", // Aktueller Grundbuchauszug (nicht älter als 6 Monate)
-      "funnel.oldSalesDocuments", // Alte Verkaufdokumente (falls vorhanden)
-    ],
-  }] : []),
-
-  // ABLÖSUNG documents for Juristische Person
-  ...(isAblösung ? [{
-    title: t("funnel.docSectionAbloesung" as any),
-    items: [
-      "funnel.constructionDescriptionPhotos", // Baubeschrieb (inkl. Foto des Innen- und Aussenbereichs)
-      "funnel.constructionPlansNetArea", // Bau-/Grundrisspläne
-      "funnel.landRegistryNotOlder6Months", // Aktueller Grundbuchauszug (nicht älter als 6 Monate)
-      "funnel.currentMortgageContract", // Aktueller Hypothekenvertrag (bei Ablösung der Hypothek)
-    ],
-  }] : []),
-
-  // STOCKWERKEIGENTUM for Juristische Person
-  ...(isStockwerkeigentum ? [{
-    title: t("funnel.docSectionStockwerkeigentum" as any),
-    items: [
-      "funnel.condominiumActValue", // Stockwerkeigentum-Begründungsakt mit Wertquotenaufteilung
-      "funnel.usageRegulationsSTWE", // Nutzungs- und Verwaltungsreglement der STWE-Gemeinschaft
-      "funnel.renovationFundInfoCondominium", // Bei Stockwerkeigentum: Angaben über den Erneuerungsfonds
-    ],
-  }] : []),
-
-  // ANDERE EIGENMITTEL for Juristische Person
-  ...(hasAndereEigenmittel ? [{
-    title: t("funnel.otherOwnFunds" as any),
-    items: [
-      "funnel.giftContract", // Schenkungsvertrag
-      "funnel.loanContractGift", // Darlehensvertag
-      "funnel.inheritanceContract", // Erbschafttsvertrag
-    ],
-  }] : []),
-
-  // BAUPROJEKT / RENOVATION for Juristische Person
-  ...((isBauprojekt || isRenovation) ? [{
-    title: t("funnel.docSectionBauprojektRenovation" as any),
-    items: [
-      "funnel.buildingPermitDoc2", // Baubewilligung
-      "funnel.projectPlanCostEstimate", // Projektplan, Baubeschrieb und Bauhandwerkerverzeichnis (inkl. Kostenvoranschlag und Kubatur)
-    ],
-  }] : []),
-];
-
-  // ===================================
-  // NATÜRLICHE PERSON - Document Structure
-  // ===================================
-const sections = [
-  {
-    title: t("funnel.personalDocuments" as any),
-    items: [
-      "funnel.passportIDAllBorrowers", // Pass, Identitätskarte, Aufenthaltsbewilligung (aller Kreditnehmer)
-      "funnel.ownFundsProofOfficial", // Aktuelle Aufstellung und Nachweis der Eigenmittel (PDF)
-      "funnel.taxReturnLatest", // Aktuellste Steuererklärung
-    ],
-  },
-
-  // Conditional: Show only if Angestellt
-  ...(hasAngestellt ? [{
-    title: t("funnel.forEmployed" as any),
-    items: [
-      "funnel.salaryStatementBonus", // Aktueller Lohnausweis (inkl. Nachweis Bonuszahlungen der letzten 3 Jahre)
-      "funnel.pensionFund3rdPillarBuyback", // Pensionskassenausweis und Rückkaufswerte von der 3. Säule
-    ],
-  }] : []),
-
-  // Conditional: Show only if Selbständig
-  ...(hasSelbständig ? [{
-    title: t("funnel.forSelfEmployed" as any),
-    items: [
-      "funnel.balanceSheetAudit3Years", // Bilanz und Erfolgsrechnung (inkl. Revisionsbericht) der letzten 3 Jahre
-      "funnel.pensionFund3rdPillarBuyback", // Pensionskassenausweis und Rückkaufswerte von der 3. Säule
-    ],
-  }] : []),
-
-  // Conditional: Show only if Rentner
-  ...(hasRentner ? [{
-    title: t("funnel.forRetirees" as any),
-    items: [
-      "funnel.pensionCertificatePKAHV", // Rentenbeschenigung (PK, AHV)
-    ],
-  }] : []),
-
-  // Conditional: Show only if age 50+ years
-  ...(hasAge50Plus ? [{
-    title: t("funnel.from50Years" as any), // "50 Jahre Alter der Kreditnehmer"
-    items: [
-      "funnel.pensionForecastAHV", // Rentenvorausberechnung (AHV)
-      "funnel.pensionFund3rdPillarBuyback", // Pensionskassenausweis und Rückkaufswerte von der 3. Säule
-    ],
-  }] : []),
-
-  // NEUBAU documents for Natürliche Person (only show if it's Kauf + Neubau, NOT for Ablösung)
-  ...(isKauf && isNeubau && !isAblösung ? [{
-    title: t("funnel.docSectionNeubau" as any),
-    items: [
-      "funnel.salesDocPhotos", // Verkaufsdokumentation (inkl. Fotos des Innen- und Aussenbereichs)
-      "funnel.constructionPlansNetArea", // Bau-/Grundrisspläne inkl. Nettowohnfläche
-      "funnel.landRegistryIfAvailable", // Aktueller Grundbuchauszug falls vorhanden
-      "funnel.purchaseContractDraft", // Kaufvertrag (Entwurf/original)
-      "funnel.buildingInsuranceIfAvailable", // Aktuelle Gebäudeversicherungspolice
-    ],
-  }] : []),
-
-  // BESTEHENDE IMMOBILIE documents for Natürliche Person (only show if it's Kauf + Bestehende Immobilie, NOT for Ablösung)
-  ...(isKauf && isBestand && !isAblösung ? [{
-    title: t("funnel.docSectionExistingProperty" as any),
-    items: [
-      "funnel.constructionDescriptionPhotos", // Baubeschrieb (inkl. Foto des Innen- und Aussenbereichs)
-      "funnel.constructionPlansNetArea", // Bau-/Grundrisspläne inkl. Nettowohnfläche, Raumhöhe, Dachform, Bodenbeläge, Baubeschrieb
-      "funnel.landRegistryNotOlder6Months", // Aktueller Grundbuchauszug (nicht älter als 6 Monate)
-      "funnel.oldSalesDocuments", // Alte Verkaufdokumente (falls vorhanden)
-    ],
-  }] : []),
-
-  // Show reservation documents if reserviert = "ja" (for any case)
-  ...(isReserviert ? [{
-    title: t("funnel.reservation" as any),
-    items: [
-      "funnel.reservationContractDoc", // Reservationsvertrag
-      "funnel.bankStatementReservation", // Bankauszug Reservationszahlung
-    ],
-  }] : []),
-
-  // Conditional: Show only if Renditeobjekt (investment property)
-  ...(isRenditeobjekt ? [{
-    title: t("funnel.docSectionRenditeobjekt" as any),
-    items: [
-      "funnel.rentalOverviewCurrent", // Aktueller Mieterspiegel inkl. Mietzinsaufstellung
-    ],
-  }] : []),
-
-  // ABLÖSUNG documents for Natürliche Person (only if Ablösung selected)
-  ...(isAblösung ? [{
-    title: t("funnel.docSectionAbloesung" as any),
-    items: [
-      "funnel.constructionDescriptionPhotos", // Baubeschrieb (inkl. Foto des Innen- und Aussenbereichs)
-      "funnel.constructionPlansNetArea", // Bau-/Grundrisspläne
-      "funnel.landRegistryNotOlder6Months", // Aktueller Grundbuchauszug (nicht älter als 6 Monate)
-      "funnel.currentMortgageContract", // Aktueller Hypothekenvertrag (bei Ablösung der Hypothek)
-    ],
-  }] : []),
-
-  // STOCKWERKEIGENTUM
-  ...(isStockwerkeigentum ? [{
-    title: t("funnel.docSectionStockwerkeigentum" as any),
-    items: [
-      "funnel.condominiumActValue", // Stockwerkeigentum-Begründungsakt mit Wertquotenaufteilung
-      "funnel.usageRegulationsSTWE", // Nutzungs- und Verwaltungsreglement der STWE-Gemeinschaft
-      "funnel.renovationFundInfoCondominium", // Bei Stockwerkeigentum: Angaben über den Erneuerungsfonds
-    ],
-  }] : []),
-
-  // ANDERE EIGENMITTEL (if any other funding sources exist)
-  ...(hasAndereEigenmittel ? [{
-    title: t("funnel.otherOwnFunds" as any),
-    items: [
-      "funnel.giftContract", // Schenkungsvertrag
-      "funnel.loanContractGift", // Darlehensvertrag
-      "funnel.inheritanceConfirmation", // Erbschaftbestätigung
-    ],
-  }] : []),
-
-  // BAUPROJEKT / RENOVATION
-  ...((isBauprojekt || isRenovation) ? [{
-    title: t("funnel.docSectionBauprojektRenovation" as any),
-    items: [
-      "funnel.buildingPermitDoc2", // Baubewilligung
-      "funnel.projectPlanCostEstimate", // Projektplan, Baubeschrieb und Bauhandwerkerverzeichnis (inkl. Kostenvoranschlag und Kubatur)
-    ],
-  }] : []),
-];
-
-
 const isJur = (borrowers ?? []).some((b: any) => b.type === "jur");
+
+const documentFlags = {
+  isJur,
+  isKauf,
+  isNeubau,
+  isBestand,
+  isAbloesung: isAblösung,
+  isStockwerkeigentum,
+  isBauprojekt,
+  isRenovation,
+  isReserviert,
+  isRenditeobjekt,
+  hasAndereEigenmittel: Boolean(hasAndereEigenmittel),
+  hasAngestellt,
+  hasSelbstaendig: hasSelbständig,
+  hasRentner,
+  hasAge50Plus,
+};
+
+// Titles are i18n keys in the module; resolve them for display here.
+const buildSections = () =>
+  documentSectionsFor(documentFlags).map((s) => ({ title: t(s.titleKey as any), items: s.items }));
+
+
 
 
 // State for selectedDocuments to force rerender on relevant changes
-const [selectedDocuments, setSelectedDocuments] = useState(isJur ? documentsForJur : sections);
+const [selectedDocuments, setSelectedDocuments] = useState(buildSections);
 
 useEffect(() => {
-  setSelectedDocuments(isJur ? documentsForJur : sections);
+  setSelectedDocuments(buildSections());
   // Shto props kryesore si dependency për rifreskim të saktë
 }, [
   isJur,
@@ -506,8 +327,6 @@ useEffect(() => {
   hasSelbständig,
   hasRentner,
   hasAge50Plus,
-  JSON.stringify(documentsForJur),
-  JSON.stringify(sections),
   JSON.stringify(borrowers),
   JSON.stringify(project),
   JSON.stringify(property),
@@ -582,12 +401,17 @@ const removeUploadedFile = (docId: string) => {
 // Upload all files to SharePoint when Weiter button is clicked.
 // Throws on the first failure so the caller can show one clean error and
 // keep the popup in a consistent state.
-const uploadAllFilesToSharePoint = async () => {
+//
+// Returns the SharePoint folder the files went into. The caller needs the value
+// immediately to put it in the submit payload, and `currentFolderId` is React state —
+// it is still the pre-update value on this tick, so reading the state here would send
+// null for every first-time submission.
+const uploadAllFilesToSharePoint = async (): Promise<string | null> => {
   const filesToUpload = docs.filter((doc: any) => doc.file && !doc.uploaded);
 
   if (filesToUpload.length === 0) {
     console.log("ℹ️ No files to upload");
-    return;
+    return currentFolderId;
   }
 
   console.log("📤 Uploading", filesToUpload.length, "file(s) to SharePoint");
@@ -595,6 +419,9 @@ const uploadAllFilesToSharePoint = async () => {
 
   for (const doc of filesToUpload) {
     console.log("⬆️ Uploading file:", doc.name, "with folder ID:", uploadFolderId);
+
+    // Set status to uploading
+    setUploadStatus((prev) => ({ ...prev, [doc.id]: 'uploading' }));
 
     const uploadRes = await uploadDocToSharepoint(
       doc.file,
@@ -607,6 +434,8 @@ const uploadAllFilesToSharePoint = async () => {
 
     if (uploadRes?.error || !uploadRes?.success) {
       console.error("❌ Upload failed for", doc.name, ":", uploadRes?.error);
+      // Set status to failed
+      setUploadStatus((prev) => ({ ...prev, [doc.id]: 'failed' }));
       throw new Error(`Upload failed for ${doc.name}: ${uploadRes?.error || "unknown"}`);
     }
 
@@ -632,9 +461,13 @@ const uploadAllFilesToSharePoint = async () => {
       sharepointUrl: uploadRes?.data?.webUrl ?? null,
       uploaded: true
     });
+
+    // Set status to uploaded
+    setUploadStatus((prev) => ({ ...prev, [doc.id]: 'uploaded' }));
   }
 
   console.log("✅ All files uploaded successfully");
+  return uploadFolderId;
 };
 
 
@@ -668,8 +501,10 @@ const uploadAllFilesToSharePoint = async () => {
   const performSubmit = async () => {
     setShowPopup(true);
     setSubmitDone(false);
+    // Reset upload status for a fresh attempt
+    setUploadStatus({});
     try {
-      await uploadAllFilesToSharePoint();
+      const uploadedFolderId = await uploadAllFilesToSharePoint();
       // Completeness is decided here because only the client knows which document
       // sections were actually rendered for this case type. The server re-checks nothing;
       // it just records the verdict and picks the confirmation mail.
@@ -688,6 +523,10 @@ const uploadAllFilesToSharePoint = async () => {
         borrowers,
         docs,
         documentCompleteness: completeness,
+        // Where this submission's files went. Persisted so documents supplied later
+        // through the Nachreich link land in the same folder — the folder name embeds
+        // the upload date, so it cannot be re-derived on a later day.
+        sharepointFolderId: uploadedFolderId,
         korrespondenzsprache: korrespondenzspracheValue,
         stage: "Needs Analysis"
       };
@@ -719,6 +558,16 @@ const uploadAllFilesToSharePoint = async () => {
       console.error("❌ Submission failed:", e);
       setShowPopup(false);
       setSubmitDone(false);
+      // Clear uploading status on error to allow retry
+      setUploadStatus((prev) => {
+        const updated = { ...prev };
+        Object.keys(updated).forEach((key) => {
+          if (updated[key] === 'uploading') {
+            delete updated[key];
+          }
+        });
+        return updated;
+      });
       alert(t("funnel.uploadError" as any) + "\n\n" + (e as Error)?.message);
     }
   };
@@ -800,12 +649,13 @@ return (
         </div>
       </div>
 
-      {/* LEGEND — explains the star and states there is no hard block, per spec:
-          the customer may always submit, even with required documents missing. */}
-      <div className="mb-6 md:mb-8 flex items-start gap-2 text-[13px] md:text-[14px] text-[#132219]/70 leading-relaxed">
-        <span className="text-[#C0392B] font-semibold leading-none mt-[2px]">*</span>
+      {/* LEGEND — states that submitting is possible without every document. Per spec there
+          is deliberately no hard block, and no document is flagged in the UI. */}
+      <div className="mb-6 md:mb-8 text-[13px] md:text-[14px] text-[#132219]/70 leading-relaxed">
         <p>{t("funnel.docRequiredHint" as any)}</p>
       </div>
+      {/* `required` is no longer read per tile — every document is required — but the
+          import stays in use for the completeness verdict below. */}
 
       {/* SECTION LIST */}
       <div className="space-y-8 md:space-y-12 lg:space-y-16">
@@ -834,7 +684,12 @@ return (
                 // a dossier look complete when nothing had been sent.
                 const filesForDoc = docs.filter((d: any) => d.docType === doc && d.file);
                 const saved = filesForDoc.length > 0;
-                const required = isRequiredDoc(doc);
+
+                // Get upload status for this document type
+                const docUploadStatus = filesForDoc.length > 0 ? uploadStatus[filesForDoc[0]?.id] : undefined;
+                const isUploading = docUploadStatus === 'uploading';
+                const isUploadedSuccessfully = docUploadStatus === 'uploaded';
+                const isUploadFailed = docUploadStatus === 'failed';
 
                 return (
                   <label
@@ -845,11 +700,18 @@ return (
                       shadow-sm border transition-all
 
                       ${
-                        saved
+                        isUploadedSuccessfully
                           ? "bg-[#EAF7D8] border-[#CAEBAA]"
-                          : required
-                            ? "bg-[#FFFDF5] border-[#F0D48A] hover:bg-[#FFF8E6]"
-                            : "bg-[#FAFAFA] border-[#E4E4E4] hover:bg-[#F2F2F2]"
+                          : isUploadFailed
+                            ? "bg-[#FADDD1] border-[#F4A49C]"
+                            : isUploading
+                              ? "bg-[#F3F8FF] border-[#C5E4FF]"
+                              : saved
+                                ? "bg-[#EAF7D8] border-[#CAEBAA]"
+                                : // One neutral resting style for every document: the tile
+                                  // no longer signals required vs optional, so a two-tone
+                                  // palette would reintroduce the distinction visually.
+                                  "bg-[#FAFAFA] border-[#E4E4E4] hover:bg-[#F2F2F2]"
                       }
                     `}
                   >
@@ -859,16 +721,14 @@ return (
                       multiple
                       accept=".pdf,.jpg,.jpeg,.png"
                       onChange={(e) => handleDocTypeUpload(e, doc)}
+                      disabled={isUploading}
                     />
                     <span className="text-[13px] sm:text-[14px] md:text-[15px] text-[#132219] leading-tight break-words">
                       {t(doc as any)}
-                      {required ? (
-                        <span className="text-[#C0392B] font-semibold"> *</span>
-                      ) : (
-                        // Spec: optional fields must be marked as such, not merely left
-                        // unstarred — an unmarked tile reads as "we forgot the star".
-                        <span className="text-[#132219]/45 font-normal"> ({t("funnel.docOptionalBadge" as any)})</span>
-                      )}
+                      {/* No required/optional marker at all, at HYPOTEQ's request: every
+                          document is presented the same way. The distinction still exists
+                          in the catalog and still drives the completeness check and the
+                          "fehlende Unterlagen" mail — it is simply not shown. */}
                       {saved && (
                         <span className="block text-[11px] sm:text-[12px] text-[#132219]/60 mt-0.5">
                           {filesForDoc.map((f: any) => f.name).join(", ")}
@@ -876,15 +736,47 @@ return (
                       )}
                     </span>
 
-                    {/* CHECK CIRCLE */}
+                    {/* STATUS INDICATOR */}
                     <div
                       className={`
-                        w-5 h-5 md:w-6 md:h-6 rounded-full flex items-center justify-center flex-shrink-0
-                        ${saved ? "bg-[#CAF476] border-[#132219]" : "bg-white border-gray-300"}
+                        w-7 h-7 md:w-8 md:h-8 rounded-full flex items-center justify-center flex-shrink-0
                         border transition
+                        ${
+                          isUploadedSuccessfully
+                            ? "bg-[#CAF476] border-[#132219]"
+                            : isUploadFailed
+                              ? "bg-[#FF6B6B] border-[#C92A2A]"
+                              : isUploading
+                                ? "bg-[#E3F2FD] border-[#90CAF9]"
+                                : saved
+                                  ? "bg-[#CAF476] border-[#132219]"
+                                  : "bg-white border-gray-300"
+                        }
                       `}
                     >
-                      {saved && (
+                      {isUploading && (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="w-3 h-3 md:w-4 md:h-4 text-[#1976D2] animate-spin"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth={2}
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                        </svg>
+                      )}
+                      {isUploadFailed && (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="w-3 h-3 md:w-4 md:h-4 text-white"
+                          fill="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                        </svg>
+                      )}
+                      {isUploadedSuccessfully && (
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           className="w-3 h-3 md:w-4 md:h-4 text-[#132219]"
@@ -894,6 +786,36 @@ return (
                           strokeWidth={3}
                         >
                           <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/>
+                        </svg>
+                      )}
+                      {saved && !isUploading && !isUploadFailed && !isUploadedSuccessfully && (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="w-3 h-3 md:w-4 md:h-4 text-[#132219]"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth={3}
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/>
+                        </svg>
+                      )}
+                      {/* Nothing attached yet: an upload arrow, not an empty circle. The
+                          bare circle read as a checkbox to tick — which is precisely the
+                          self-declaration this step replaced — rather than as a target to
+                          drop a file on. */}
+                      {!saved && !isUploading && !isUploadFailed && !isUploadedSuccessfully && (
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="w-3.5 h-3.5 md:w-[17px] md:h-[17px] text-[#132219]/50"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth={2}
+                          aria-hidden="true"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5" />
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M4 15v3a2 2 0 002 2h12a2 2 0 002-2v-3" />
                         </svg>
                       )}
                     </div>
@@ -975,30 +897,82 @@ return (
             {t("funnel.additionalDocumentsTitle" as any)} ({docs.filter((d: any) => d.file && !d.docType).length})
           </h3>
           <div className="space-y-2">
-            {docs.filter((d: any) => d.file && !d.docType).map((doc: any) => (
-              <div
-                key={doc.id}
-                className="flex items-center justify-between bg-white border border-gray-200 rounded-xl px-4 py-3 shadow-sm"
-              >
-                <div className="flex items-center gap-3 flex-1">
-                  <svg className="w-5 h-5 text-[#132219]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-[#132219] truncate">{doc.name}</p>
-                    <p className="text-xs text-gray-500">{(doc.size / 1024).toFixed(2)} KB</p>
+            {docs.filter((d: any) => d.file && !d.docType).map((doc: any) => {
+              const status = uploadStatus[doc.id];
+              const isUploading = status === 'uploading';
+              const isUploadedSuccessfully = status === 'uploaded';
+              const isUploadFailed = status === 'failed';
+
+              return (
+                <div
+                  key={doc.id}
+                  className={`
+                    flex items-center justify-between rounded-xl px-4 py-3 shadow-sm border transition-all
+                    ${
+                      isUploadedSuccessfully
+                        ? "bg-[#EAF7D8] border-[#CAEBAA]"
+                        : isUploadFailed
+                          ? "bg-[#FADDD1] border-[#F4A49C]"
+                          : isUploading
+                            ? "bg-[#F3F8FF] border-[#C5E4FF]"
+                            : "bg-white border-gray-200"
+                    }
+                  `}
+                >
+                  <div className="flex items-center gap-3 flex-1">
+                    <svg className={`w-5 h-5 ${isUploadedSuccessfully ? 'text-[#132219]' : isUploadFailed ? 'text-[#C92A2A]' : 'text-[#132219]'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium text-[#132219] truncate">{doc.name}</p>
+                      <p className="text-xs text-gray-500">{(doc.size / 1024).toFixed(2)} KB</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    {isUploading && (
+                      <svg
+                        className="w-5 h-5 text-[#1976D2] animate-spin flex-shrink-0"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                      </svg>
+                    )}
+                    {isUploadedSuccessfully && (
+                      <svg
+                        className="w-5 h-5 text-green-600 flex-shrink-0"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        strokeWidth={2}
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/>
+                      </svg>
+                    )}
+                    {isUploadFailed && (
+                      <svg
+                        className="w-5 h-5 text-red-600 flex-shrink-0"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                      </svg>
+                    )}
+                    <button
+                      onClick={() => removeUploadedFile(doc.id)}
+                      className="ml-2 p-1 hover:bg-red-50 rounded-full transition-colors flex-shrink-0"
+                      disabled={isUploading}
+                    >
+                      <svg className="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
                   </div>
                 </div>
-                <button
-                  onClick={() => removeUploadedFile(doc.id)}
-                  className="ml-4 p-1 hover:bg-red-50 rounded-full transition-colors"
-                >
-                  <svg className="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       )}

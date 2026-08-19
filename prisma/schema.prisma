@@ -38,6 +38,17 @@ model Inquiry {
   documentsComplete  Boolean?
   documentsMissing   String?
 
+  // Nachreichung (spec V2): the one-time link sent in Mail 2b. The token is the only
+  // credential the page asks for, so it is random, unique and expires.
+  nachreichToken       String?   @unique
+  nachreichExpiresAt   DateTime?
+  nachreichCompletedAt DateTime?
+
+  // SharePoint folder created by the original submission. Documents supplied later must
+  // land beside the originals, and the folder name embeds the upload date — so the folder
+  // has to be remembered rather than re-derived.
+  sharepointFolderId String?
+
   // Relations
   client       Client?
   project      Project?

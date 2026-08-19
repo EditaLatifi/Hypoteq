@@ -31,6 +31,11 @@ export interface DocCatalogEntry {
 }
 
 export const DOCUMENT_CATALOG: Record<string, DocCatalogEntry> = {
+  // ---- Authorisation --------------------------------------------------------
+  // No Dok_*__c checkbox exists for this one; the Case tracks it through the
+  // Dokumenten-Check state instead.
+  "funnel.auskunftsermaechtigungDoc":     { salesforceField: null, requirement: "required" },
+
   // ---- Identity -------------------------------------------------------------
   "funnel.passportIDAllBorrowers":        { salesforceField: "Dok_Identitaetsdokument__c", requirement: "required" },
   "funnel.passportAuthorizedPersonJur":   { salesforceField: "Dok_Identitaetsdokument__c", requirement: "required" },
