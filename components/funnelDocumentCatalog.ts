@@ -39,6 +39,18 @@ export const DOCUMENT_CATALOG: Record<string, DocCatalogEntry> = {
   // Dokumenten-Check state instead.
   "funnel.auskunftsermaechtigungDoc":     { salesforceField: null, requirement: "optional" },
 
+  // ---- Added from HYPOTEQ's document-requirements spec (Mai 2026) ------------
+  // Dok_Betreibungsregisterauszug__c existed on Case from the start and had never been
+  // asked for by the funnel; the spec puts it in the company base set, so it is now wired.
+  "funnel.debtCollectionExtractCurrent":  { salesforceField: "Dok_Betreibungsregisterauszug__c", requirement: "optional" },
+  // A plain interior/exterior photo set, distinct from the sales documentation and the
+  // Baubeschrieb that also carry photos — all three feed the same Case flag.
+  "funnel.propertyPhotosInteriorExterior": { salesforceField: "Dok_Fotos_der_Immobilie__c", requirement: "optional" },
+  // No Dok_*__c flag exists for these three.
+  "funnel.baurechtsvertrag":              { salesforceField: null, requirement: "optional" },
+  "funnel.monthlyPayslips3":              { salesforceField: null, requirement: "optional" },
+  "funnel.leasingContract":               { salesforceField: null, requirement: "optional" },
+
   // ---- Identity -------------------------------------------------------------
   "funnel.passportIDAllBorrowers":        { salesforceField: "Dok_Identitaetsdokument__c", requirement: "optional" },
   "funnel.passportAuthorizedPersonJur":   { salesforceField: "Dok_Identitaetsdokument__c", requirement: "optional" },

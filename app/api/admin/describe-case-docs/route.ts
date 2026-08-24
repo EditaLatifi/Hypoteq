@@ -47,6 +47,25 @@ export async function GET(req: Request) {
       warmup = e?.data?.message || e?.message || "failed";
     }
 
+    // ?case=<Id> reads back what a real Case actually holds for the document fields —
+    // the only way to answer "did our upload reach Salesforce?" with evidence rather than
+    // with a claim about what the code sends.
+    const caseId = url.searchParams.get("case");
+    if (caseId) {
+      const fields = [
+        "Id", "CaseNumber", "Documents_completed__c", "Dokumenten_Check_State__c",
+        "Dok_Identitaetsdokument__c", "Dok_Lohnausweis__c", "Dok_Steuererklaerung__c",
+        "Dok_Betreibungsregisterauszug__c", "Dok_Pensionskassenausweis__c",
+        "Dok_Kaufvertrag__c", "Dok_Grundbuchauszug__c",
+        "Dok_Gebaeudeversicherungsausweis__c", "Dok_Fotos_der_Immobilie__c",
+        "Dok_Grundrissplaene__c",
+      ];
+      const q: any = await conn.query(
+        `SELECT ${fields.join(",")} FROM Case WHERE Id = '${caseId.replace(/'/g, "")}'`
+      );
+      return NextResponse.json({ record: q?.records?.[0] ?? null, warmup });
+    }
+
     // ?probe=1 answers the only question that matters when everything returns
     // INVALID_SESSION_ID: is this route's connection authenticated at all (in which case
     // the refusals are about metadata permissions), or is it not (in which case the

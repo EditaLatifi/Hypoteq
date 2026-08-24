@@ -1,15 +1,17 @@
 /**
  * Which document sections a given case sees.
  *
- * Lifted verbatim out of DocumentsStep, where it lived inline inside the component. It had
- * to move: this logic decides which documents are REQUIRED of a customer, and therefore who
- * receives a "fehlende Unterlagen" mail — but while it sat inside a 1200-line client
- * component it could not be exercised without a browser, so no combination of case type,
- * employment status and property type was ever verified. The component now renders what
- * this returns; titles stay i18n keys so nothing here depends on a locale.
+ * Transcribed from HYPOTEQ's "Dokumenten-Anforderungen" specification (v1.0, Mai 2026),
+ * which is the source of truth for what the funnel asks a customer to supply. It replaced
+ * an earlier structure that had grown inside DocumentsStep and had drifted from it.
  *
- * Two structures, picked by borrower type: a juristische Person sees a company set, a
- * natürliche Person the private one.
+ * Kept out of the component on purpose: this logic decides which documents a customer is
+ * asked for, and therefore what a "fehlende Unterlagen" mail lists. While it lived inside a
+ * 1200-line client component it could not be exercised without a browser, so no combination
+ * of case type, employment status and property type was ever verified. Titles and items are
+ * i18n keys, so nothing here depends on a locale.
+ *
+ * Where the spec was ambiguous, the reading is noted at the point it applies.
  */
 
 export interface DocumentFlags {
@@ -24,7 +26,8 @@ export interface DocumentFlags {
   isRenovation: boolean;
   isReserviert: boolean;
   isRenditeobjekt: boolean;
-  hasAndereEigenmittel: boolean;
+  /** More than one borrower on the case — drives the "Andere Eigentümer" section. */
+  hasMultipleOwners: boolean;
   hasAngestellt: boolean;
   hasSelbstaendig: boolean;
   hasRentner: boolean;
@@ -49,18 +52,40 @@ export const EMPTY_DOCUMENT_FLAGS: DocumentFlags = {
   isRenovation: false,
   isReserviert: false,
   isRenditeobjekt: false,
-  hasAndereEigenmittel: false,
+  hasMultipleOwners: false,
   hasAngestellt: false,
   hasSelbstaendig: false,
   hasRentner: false,
   hasAge50Plus: false,
 };
 
+/** Sections both borrower types share, in the spec's order. */
+function sharedConditionalSections(f: DocumentFlags): DocumentSection[] {
+  return [
+    ...(f.isStockwerkeigentum
+      ? [{
+          titleKey: "funnel.docSectionStockwerkeigentum",
+          items: [
+            "funnel.condominiumActValue",
+            "funnel.usageRegulationsSTWE",
+            "funnel.renovationFundInfoCondominium",
+          ],
+        }]
+      : []),
+
+    ...(f.isBauprojekt || f.isRenovation
+      ? [{
+          titleKey: "funnel.docSectionBauprojektRenovation",
+          items: ["funnel.buildingPermitDoc2", "funnel.projectPlanCostEstimate"],
+        }]
+      : []),
+  ];
+}
+
 function juristischePersonSections(f: DocumentFlags): DocumentSection[] {
   return [
-    // The signed authorisation gets its own section rather than sitting inside the base
-    // list: it is the one document the customer must first download, sign and scan, and
-    // burying it among the others is how it gets skipped.
+    // The signed authorisation stands alone: it is the one form the customer must first
+    // download, sign and scan back, and it was being skipped when buried in the base list.
     {
       titleKey: "funnel.docSectionAuskunftsermaechtigung",
       items: ["funnel.auskunftsermaechtigungDoc"],
@@ -73,34 +98,24 @@ function juristischePersonSections(f: DocumentFlags): DocumentSection[] {
         "funnel.passportAuthorizedPersonJur",
         "funnel.annualFinancialStatementsJur",
         "funnel.interimBalanceIfAvailable",
+        "funnel.debtCollectionExtractCurrent",
         "funnel.taxReturnLatestJur",
         "funnel.ownFundsProofJur",
-        "funnel.taxReturnLatest",
+        "funnel.propertyPhotosInteriorExterior",
+        "funnel.baurechtsvertrag",
       ],
     },
 
     // Neubau — purchase only. An Ablösung never asks for sales documentation.
-    ...(f.isKauf && f.isNeubau && !f.isAbloesung
+    ...(f.isNeubau && !f.isAbloesung
       ? [{
           titleKey: "funnel.docSectionNeubau",
           items: [
             "funnel.salesDocPhotos",
             "funnel.constructionPlansNetArea",
-            "funnel.landRegistryIfAvailable",
+            "funnel.landRegistryNotOlder6Months",
             "funnel.purchaseOrRenovationContract",
             "funnel.buildingInsuranceIfAvailable",
-          ],
-        }]
-      : []),
-
-    ...(f.isKauf && f.isBestand && !f.isAbloesung
-      ? [{
-          titleKey: "funnel.docSectionExistingProperty",
-          items: [
-            "funnel.constructionDescriptionPhotos",
-            "funnel.constructionPlansNetArea",
-            "funnel.landRegistryNotOlder6Months",
-            "funnel.oldSalesDocuments",
           ],
         }]
       : []),
@@ -117,30 +132,14 @@ function juristischePersonSections(f: DocumentFlags): DocumentSection[] {
         }]
       : []),
 
-    ...(f.isStockwerkeigentum
-      ? [{
-          titleKey: "funnel.docSectionStockwerkeigentum",
-          items: [
-            "funnel.condominiumActValue",
-            "funnel.usageRegulationsSTWE",
-            "funnel.renovationFundInfoCondominium",
-          ],
-        }]
-      : []),
+    ...sharedConditionalSections(f),
 
-    ...(f.hasAndereEigenmittel
+    ...(f.hasMultipleOwners
       ? [{
-          titleKey: "funnel.otherOwnFunds",
-          // Note: the company set ends with inheritanceContract where the private set uses
-          // inheritanceConfirmation. Preserved as-is — this mirrors the original.
+          titleKey: "funnel.otherOwners",
+          // The company set ends with Erbschaftsvertrag where the private set uses
+          // Erbschaftsbestätigung — as the spec has it.
           items: ["funnel.giftContract", "funnel.loanContractGift", "funnel.inheritanceContract"],
-        }]
-      : []),
-
-    ...(f.isBauprojekt || f.isRenovation
-      ? [{
-          titleKey: "funnel.docSectionBauprojektRenovation",
-          items: ["funnel.buildingPermitDoc2", "funnel.projectPlanCostEstimate"],
         }]
       : []),
   ];
@@ -148,9 +147,6 @@ function juristischePersonSections(f: DocumentFlags): DocumentSection[] {
 
 function natuerlichePersonSections(f: DocumentFlags): DocumentSection[] {
   return [
-    // The signed authorisation gets its own section rather than sitting inside the base
-    // list: it is the one document the customer must first download, sign and scan, and
-    // burying it among the others is how it gets skipped.
     {
       titleKey: "funnel.docSectionAuskunftsermaechtigung",
       items: ["funnel.auskunftsermaechtigungDoc"],
@@ -162,13 +158,19 @@ function natuerlichePersonSections(f: DocumentFlags): DocumentSection[] {
         "funnel.passportIDAllBorrowers",
         "funnel.ownFundsProofOfficial",
         "funnel.taxReturnLatest",
+        "funnel.propertyPhotosInteriorExterior",
+        "funnel.baurechtsvertrag",
       ],
     },
 
     ...(f.hasAngestellt
       ? [{
           titleKey: "funnel.forEmployed",
-          items: ["funnel.salaryStatementBonus", "funnel.pensionFund3rdPillarBuyback"],
+          items: [
+            "funnel.salaryStatementBonus",
+            "funnel.monthlyPayslips3",
+            "funnel.pensionFund3rdPillarBuyback",
+          ],
         }]
       : []),
 
@@ -193,38 +195,6 @@ function natuerlichePersonSections(f: DocumentFlags): DocumentSection[] {
         }]
       : []),
 
-    ...(f.isKauf && f.isNeubau && !f.isAbloesung
-      ? [{
-          titleKey: "funnel.docSectionNeubau",
-          items: [
-            "funnel.salesDocPhotos",
-            "funnel.constructionPlansNetArea",
-            "funnel.landRegistryIfAvailable",
-            "funnel.purchaseContractDraft",
-            "funnel.buildingInsuranceIfAvailable",
-          ],
-        }]
-      : []),
-
-    ...(f.isKauf && f.isBestand && !f.isAbloesung
-      ? [{
-          titleKey: "funnel.docSectionExistingProperty",
-          items: [
-            "funnel.constructionDescriptionPhotos",
-            "funnel.constructionPlansNetArea",
-            "funnel.landRegistryNotOlder6Months",
-            "funnel.oldSalesDocuments",
-          ],
-        }]
-      : []),
-
-    ...(f.isReserviert
-      ? [{
-          titleKey: "funnel.reservation",
-          items: ["funnel.reservationContractDoc", "funnel.bankStatementReservation"],
-        }]
-      : []),
-
     ...(f.isRenditeobjekt
       ? [{
           titleKey: "funnel.docSectionRenditeobjekt",
@@ -232,11 +202,41 @@ function natuerlichePersonSections(f: DocumentFlags): DocumentSection[] {
         }]
       : []),
 
+    // "Andere Einkommen und Schulden" is unconditional in the spec: these are debts the
+    // customer may have regardless of how the purchase is funded. It used to hang off
+    // eigenmittel_schenkung, which meant a customer with a car lease was never asked.
+    {
+      titleKey: "funnel.otherIncomeAndDebts",
+      items: ["funnel.leasingContract", "funnel.giftContract", "funnel.loanContractGift"],
+    },
+
+    // The spec lists this under "immer" but titles it "Falls reserviert". Read as
+    // conditional: asking a customer who reserved nothing for a reservation contract and
+    // its bank transfer would be nonsense, and the title is the more specific statement.
+    ...(f.isReserviert
+      ? [{
+          titleKey: "funnel.reservation",
+          items: ["funnel.reservationContractDoc", "funnel.bankStatementReservation"],
+        }]
+      : []),
+
+    ...(f.isNeubau && !f.isAbloesung
+      ? [{
+          titleKey: "funnel.docSectionNeubau",
+          items: [
+            "funnel.salesDocPhotos",
+            "funnel.constructionPlansNetArea",
+            "funnel.purchaseContractDraft",
+            "funnel.buildingInsuranceIfAvailable",
+            "funnel.landRegistryNotOlder6Months",
+          ],
+        }]
+      : []),
+
     ...(f.isAbloesung
       ? [{
           titleKey: "funnel.docSectionAbloesung",
           items: [
-            "funnel.constructionDescriptionPhotos",
             "funnel.constructionPlansNetArea",
             "funnel.landRegistryNotOlder6Months",
             "funnel.currentMortgageContract",
@@ -244,35 +244,37 @@ function natuerlichePersonSections(f: DocumentFlags): DocumentSection[] {
         }]
       : []),
 
-    ...(f.isStockwerkeigentum
+    ...sharedConditionalSections(f),
+
+    ...(f.hasMultipleOwners
       ? [{
-          titleKey: "funnel.docSectionStockwerkeigentum",
+          titleKey: "funnel.otherOwners",
           items: [
-            "funnel.condominiumActValue",
-            "funnel.usageRegulationsSTWE",
-            "funnel.renovationFundInfoCondominium",
+            "funnel.giftContract",
+            "funnel.loanContractGift",
+            "funnel.inheritanceConfirmation",
           ],
-        }]
-      : []),
-
-    ...(f.hasAndereEigenmittel
-      ? [{
-          titleKey: "funnel.otherOwnFunds",
-          items: ["funnel.giftContract", "funnel.loanContractGift", "funnel.inheritanceConfirmation"],
-        }]
-      : []),
-
-    ...(f.isBauprojekt || f.isRenovation
-      ? [{
-          titleKey: "funnel.docSectionBauprojektRenovation",
-          items: ["funnel.buildingPermitDoc2", "funnel.projectPlanCostEstimate"],
         }]
       : []),
   ];
 }
 
 export function documentSectionsFor(flags: DocumentFlags): DocumentSection[] {
-  return flags.isJur ? juristischePersonSections(flags) : natuerlichePersonSections(flags);
+  const sections = flags.isJur
+    ? juristischePersonSections(flags)
+    : natuerlichePersonSections(flags);
+
+  // A document can legitimately appear in two sections (Schenkungs- and Darlehensvertrag
+  // are both an "andere Schulden" item and an "andere Eigentümer" item). Showing the same
+  // upload tile twice would let a customer wonder which one counts, so later duplicates
+  // are dropped and any section left empty by that is removed.
+  const seen = new Set<string>();
+  return sections
+    .map((s) => ({
+      titleKey: s.titleKey,
+      items: s.items.filter((k) => (seen.has(k) ? false : (seen.add(k), true))),
+    }))
+    .filter((s) => s.items.length > 0);
 }
 
 /** Every document key a case will be shown, deduplicated — the input to the completeness check. */

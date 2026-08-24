@@ -76,7 +76,10 @@ const isBestand = property?.artImmobilie === "bestehend";
 const isAblösung = project?.projektArt === "abloesung";
 const isKauf = project?.projektArt === "kauf";
 const isWohnung = property?.artLiegenschaft === "Wohnung";
-const isStockwerkeigentum = property?.artLiegenschaft === "Stockwerkeigentum" || property?.artLiegenschaft === "Wohnung";
+// Strictly Stockwerkeigentum, as the spec defines it. This used to include "Wohnung",
+// which asked every flat buyer for a Begründungsakt and a Verwaltungsreglement they may
+// have no share in.
+const isStockwerkeigentum = property?.artLiegenschaft === "Stockwerkeigentum";
 const isMehrfamilienhaus = property?.artLiegenschaft === "Mehrfamilienhaus";
 const isMultipleEigentuemer = property?.kreditnehmer?.length > 1;
 const isBauprojekt = property?.neubauArt === "bauprojekt";
@@ -288,7 +291,9 @@ const documentFlags = {
   isRenovation,
   isReserviert,
   isRenditeobjekt,
-  hasAndereEigenmittel: Boolean(hasAndereEigenmittel),
+  // Per the spec: "Andere Eigentümer" keys off the number of borrowers, not off whether
+  // gifted funds were declared.
+  hasMultipleOwners: Boolean(isMultipleEigentuemer),
   hasAngestellt,
   hasSelbstaendig: hasSelbständig,
   hasRentner,
