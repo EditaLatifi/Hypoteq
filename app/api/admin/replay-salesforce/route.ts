@@ -55,6 +55,9 @@ function toFunnelPayload(inquiry: any) {
     // required documents were MISSING, not which of the visible ones were supplied, and
     // that distinction is only knowable in the funnel. Sending an empty flag map leaves
     // whatever the original sync wrote intact rather than clearing it to false.
+    //
+    // Same for the Dokumenten-Check tab: with no `supplied` list the sync writes no
+    // Dokumenten_Check_State__c, so a replay never blanks ticks a caseworker has made.
     documentCompleteness:
       inquiry.documentsComplete === null || inquiry.documentsComplete === undefined
         ? null

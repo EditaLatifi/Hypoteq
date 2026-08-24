@@ -63,7 +63,40 @@ export async function GET(req: Request) {
       const q: any = await conn.query(
         `SELECT ${fields.join(",")} FROM Case WHERE Id = '${caseId.replace(/'/g, "")}'`
       );
-      return NextResponse.json({ record: q?.records?.[0] ?? null, warmup });
+      const record = q?.records?.[0] ?? null;
+
+      // The Dok_*__c booleans are NOT what the Dokumenten-Check tab renders — it reads only
+      // Dokumenten_Check_State__c. Decoding it here is the difference between "the sync says
+      // it wrote the ticks" and knowing which ticks the tab has to work with, which is the
+      // question anyone opening this endpoint is actually asking.
+      let dokumentenCheck: any = { present: false };
+      const raw = record?.Dokumenten_Check_State__c;
+      if (raw) {
+        try {
+          const parsed = JSON.parse(raw);
+          const checked = Object.entries(parsed?.checked || {})
+            .filter(([, v]) => v === true)
+            .map(([k]) => k);
+          const { VERIFIED_TAB_ENTRIES } = await import("@/components/dokumentenCheckState");
+          const known = new Set(VERIFIED_TAB_ENTRIES);
+          dokumentenCheck = {
+            present: true,
+            savedAt: parsed?.savedAt ?? null,
+            // A filters snapshot means a human saved this through the tab; the funnel never
+            // writes one.
+            savedThroughTheTab: Boolean(parsed?.filters),
+            tickedCount: checked.length,
+            ticked: checked,
+            // A label the component does not use ticks nothing and fails silently, so any
+            // entry here is a mapping that has drifted and needs fixing.
+            unrecognisedEntries: checked.filter((k) => !known.has(k)),
+          };
+        } catch {
+          dokumentenCheck = { present: true, parseable: false, rawPreview: String(raw).slice(0, 200) };
+        }
+      }
+
+      return NextResponse.json({ record, dokumentenCheck, warmup });
     }
 
     // ?probe=1 answers the only question that matters when everything returns

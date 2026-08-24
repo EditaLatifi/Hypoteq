@@ -115,6 +115,14 @@ export interface CompletenessResult {
   complete: boolean;
   /** i18n keys of required documents with no file attached. */
   missing: string[];
+  /**
+   * i18n keys that were shown AND uploaded — the exact complement of `missing`.
+   *
+   * The Dok_*__c booleans cannot stand in for this: ten of them cover forty documents, so
+   * "Dok_Fotos_der_Immobilie__c is true" does not say which of the three photo documents
+   * arrived. The Dokumenten-Check tab needs per-document detail, hence the explicit list.
+   */
+  supplied: string[];
   /** Dok_*__c -> true when at least one file was attached for a document feeding it. */
   salesforceFlags: Record<string, boolean>;
 }
@@ -139,6 +147,9 @@ export function computeDocumentCompleteness(
   const visible = Array.from(new Set(visibleKeys));
 
   const missing = visible.filter((k) => !provided.has(k));
+  // Restricted to `visible` for the same reason `missing` is: a document the customer was
+  // never shown cannot be reported either way.
+  const supplied = visible.filter((k) => provided.has(k));
 
   const salesforceFlags: Record<string, boolean> = {};
   for (const key of visible) {
@@ -148,5 +159,5 @@ export function computeDocumentCompleteness(
     salesforceFlags[field] = (salesforceFlags[field] ?? false) || provided.has(key);
   }
 
-  return { complete: missing.length === 0, missing, salesforceFlags };
+  return { complete: missing.length === 0, missing, supplied, salesforceFlags };
 }

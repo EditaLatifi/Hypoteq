@@ -762,29 +762,36 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     const missingLabels: string[] = Array.isArray(completeness.missingLabels)
       ? completeness.missingLabels
       : resolveDocLabelsDe(completeness.missing || []);
-    // Dokumenten_Check_State__c is NOT free text: it is a JSON "checked map" that drives
-    // the Dokumenten-Check tab on the Case (confirmed by the Salesforce side). Writing a
-    // German prose list into it, as this did, overwrites that state with something the tab
-    // cannot parse. Disabled until we have the exact JSON schema from Salesforce.
+    // Dokumenten_Check_State__c is NOT free text: it is the JSON "checked map" that drives
+    // the Dokumenten-Check tab. Writing German prose into it, as this once did, left the tab
+    // unable to parse its own state — so that was disabled, and the tab then showed
+    // "0 / 11 Dokumente" on every dossier no matter what the customer had uploaded, because
+    // the tab does not read the Dok_*__c booleans below. It reads only this field.
     //
-    // Nothing is lost meanwhile: the ten Dok_*__c checkboxes below are the real per-document
-    // signal, and the full missing list is kept on Inquiry.documentsMissing in our own DB.
-    const WRITE_DOKUMENTEN_CHECK_STATE = false;
+    // The schema is now known (read back off Cases staff had saved by hand) and lives in
+    // dokumentenCheckState.ts. Nothing is merged here: this runs at submit time, when the
+    // Case is being created and has no state to preserve.
+    const { buildDokumentenCheckState, tabEntriesFor, unmappedSupplied } = await import('./dokumentenCheckState');
+    const supplied: string[] = Array.isArray(completeness.supplied) ? completeness.supplied : [];
+    const checkState = buildDokumentenCheckState(supplied);
+    if (checkState) caseData['Dokumenten_Check_State__c'] = checkState;
 
-    const NEWLINE = String.fromCharCode(10);
-    if (WRITE_DOKUMENTEN_CHECK_STATE) {
-      const submissionLine = stepData.submissionId
-        ? NEWLINE + NEWLINE + `Submission-ID: ${stepData.submissionId}`
-        : '';
-      caseData['Dokumenten_Check_State__c'] = (completeness.complete
-        ? 'Dossier vollständig'
-        : `Fehlende Unterlagen (${missingLabels.length}):` + NEWLINE +
-          missingLabels.map((m: string) => `- ${m}`).join(NEWLINE)) + submissionLine;
+    // Documents the customer supplied that the tab has no entry for. Logged rather than
+    // dropped in silence: it is the only signal that the tab's checklist and the funnel's
+    // document set have drifted apart, and it reads as "the sync is broken" otherwise.
+    const notShown = unmappedSupplied(supplied);
+    if (notShown.length) {
+      console.warn(
+        `[Salesforce Sync] ${notShown.length} uploaded document(s) have no Dokumenten-Check entry ` +
+        `and will not appear in the tab: ${notShown.join(', ')}`
+      );
     }
 
     console.log(
       `[Salesforce Sync] Documents complete=${completeness.complete}, ` +
-      `missing=${missingLabels.length}, flags=${JSON.stringify(completeness.salesforceFlags)}`
+      `missing=${missingLabels.length}, supplied=${supplied.length}, ` +
+      `tab entries ticked=${tabEntriesFor(supplied).length}, ` +
+      `flags=${JSON.stringify(completeness.salesforceFlags)}`
     );
   }
 
