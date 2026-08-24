@@ -457,6 +457,7 @@
     "docRequiredHint": "Téléversez les documents dont vous disposez. Vous pouvez envoyer votre demande à tout moment – les documents manquants peuvent être transmis plus tard.",
     "additionalDocumentsTitle": "Autres documents",
     "additionalDocumentsHint": "Documents qui ne correspondent à aucun des champs ci-dessus. Ils ne sont pas pris en compte dans la vérification d'exhaustivité.",
+    "docSectionAuskunftsermaechtigung": "Pouvoir d'information",
     "auskunftsermaechtigungDoc": "Pouvoir d'information signé",
     "auskunftsermaechtigungTitle": "Pouvoir d'information requis",
     "auskunftsermaechtigungDescription": "Veuillez télécharger le pouvoir d'information, le faire signer par le client et télécharger le document signé avec les autres pièces justificatives (indiquées ci-dessous).",

@@ -464,6 +464,7 @@
     "docRequiredHint": "Upload the documents you have to hand. You can submit your request at any time – missing documents can be supplied later.",
     "additionalDocumentsTitle": "Other documents",
     "additionalDocumentsHint": "Documents that do not belong to any of the fields above. They do not count towards the completeness check.",
+    "docSectionAuskunftsermaechtigung": "Authorisation for information",
     "auskunftsermaechtigungDoc": "Signed authorisation for information",
     "auskunftsermaechtigungTitle": "Authorisation for information required",
     "auskunftsermaechtigungDescription": "Please download the authorisation for information, have your client sign it, and upload the signed document together with the other documents (listed below).",

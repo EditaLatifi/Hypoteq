@@ -58,10 +58,17 @@ export const EMPTY_DOCUMENT_FLAGS: DocumentFlags = {
 
 function juristischePersonSections(f: DocumentFlags): DocumentSection[] {
   return [
+    // The signed authorisation gets its own section rather than sitting inside the base
+    // list: it is the one document the customer must first download, sign and scan, and
+    // burying it among the others is how it gets skipped.
+    {
+      titleKey: "funnel.docSectionAuskunftsermaechtigung",
+      items: ["funnel.auskunftsermaechtigungDoc"],
+    },
+
     {
       titleKey: "funnel.documentsJur",
       items: [
-        "funnel.auskunftsermaechtigungDoc",
         "funnel.commercialRegisterCurrent",
         "funnel.passportAuthorizedPersonJur",
         "funnel.annualFinancialStatementsJur",
@@ -141,10 +148,17 @@ function juristischePersonSections(f: DocumentFlags): DocumentSection[] {
 
 function natuerlichePersonSections(f: DocumentFlags): DocumentSection[] {
   return [
+    // The signed authorisation gets its own section rather than sitting inside the base
+    // list: it is the one document the customer must first download, sign and scan, and
+    // burying it among the others is how it gets skipped.
+    {
+      titleKey: "funnel.docSectionAuskunftsermaechtigung",
+      items: ["funnel.auskunftsermaechtigungDoc"],
+    },
+
     {
       titleKey: "funnel.personalDocuments",
       items: [
-        "funnel.auskunftsermaechtigungDoc",
         "funnel.passportIDAllBorrowers",
         "funnel.ownFundsProofOfficial",
         "funnel.taxReturnLatest",

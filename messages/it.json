@@ -451,6 +451,7 @@
     "docRequiredHint": "Carichi i documenti di cui dispone. Può inviare la sua richiesta in qualsiasi momento: i documenti mancanti possono essere trasmessi in seguito.",
     "additionalDocumentsTitle": "Altri documenti",
     "additionalDocumentsHint": "Documenti che non rientrano in nessuno dei campi qui sopra. Non vengono considerati nella verifica di completezza.",
+    "docSectionAuskunftsermaechtigung": "Procura per informazioni",
     "auskunftsermaechtigungDoc": "Procura per informazioni firmata",
     "auskunftsermaechtigungTitle": "Procura per informazioni necessaria",
     "auskunftsermaechtigungDescription": "Si prega di scaricare la procura per informazioni, farla firmare dal cliente e caricare il documento firmato insieme agli altri documenti (indicati di seguito).",

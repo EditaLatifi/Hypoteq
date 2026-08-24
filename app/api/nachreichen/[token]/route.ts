@@ -5,7 +5,6 @@ import {
   parseMissingKeys,
   type NachreichLocale,
 } from "@/components/nachreichung";
-import { isRequiredDoc } from "@/components/funnelDocumentCatalog";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -55,9 +54,10 @@ export async function GET(
   const rejection = rejectNachreich(row, new Date());
   if (rejection) return rejectionResponse(rejection);
 
-  // Only documents that are still required and still missing. A document the customer
-  // already supplied must not reappear, and an optional one was never being asked for.
-  const missing = parseMissingKeys(row!.documentsMissing).filter(isRequiredDoc);
+  // Everything this submission was shown and did not upload. No requirement filter: the
+  // funnel presents every document the same way, so the Nachreich page must offer back
+  // exactly what is still outstanding.
+  const missing = parseMissingKeys(row!.documentsMissing);
 
   return NextResponse.json({
     valid: true,
@@ -92,7 +92,7 @@ export async function POST(
   const rejection = rejectNachreich(row, new Date());
   if (rejection) return rejectionResponse(rejection);
 
-  const stillMissing = parseMissingKeys(row!.documentsMissing).filter(isRequiredDoc);
+  const stillMissing = parseMissingKeys(row!.documentsMissing);
 
   // Trust the token, not the payload: a client may only claim documents this submission
   // was actually still waiting for. Anything else is dropped rather than rejected, so a

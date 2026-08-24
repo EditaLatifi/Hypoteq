@@ -467,6 +467,7 @@
     "docRequiredHint": "Laden Sie die Unterlagen hoch, die Ihnen vorliegen. Sie können Ihre Anfrage jederzeit absenden – fehlende Dokumente können Sie später nachreichen.",
     "additionalDocumentsTitle": "Weitere Unterlagen",
     "additionalDocumentsHint": "Dokumente, die zu keinem der Felder oben gehören. Diese zählen nicht zur Vollständigkeitsprüfung.",
+    "docSectionAuskunftsermaechtigung": "Auskunftsermächtigung",
     "auskunftsermaechtigungDoc": "Unterschriebene Auskunftsermächtigung",
     "auskunftsermaechtigungTitle": "Auskunftsermächtigung erforderlich",
     "auskunftsermaechtigungDescription": "Bitte laden Sie die Auskunftsermächtigung herunter, lassen Sie diese vom Kunden unterschreiben und laden Sie das unterschriebene Dokument zusammen mit den anderen Unterlagen (welche unten angegeben werden) hoch.",

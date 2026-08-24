@@ -108,11 +108,16 @@ export interface CompletenessResult {
 }
 
 /**
- * Binary check, per spec V1: a required document counts as provided when at least one
- * file is attached to it. No content validation - that is V2 (DocDive).
+ * Binary check, per spec V1: a document counts as provided when at least one file is
+ * attached to it. No content validation - that is V2 (DocDive).
  *
- * `visibleKeys` matters: only documents actually shown for this case type can be required,
- * otherwise a Kauf dossier would be flagged incomplete over Ablösung paperwork.
+ * "Missing" means SHOWN BUT NOT UPLOADED. It deliberately ignores `requirement`: the funnel
+ * no longer labels anything required or optional, so the only honest definition of a gap is
+ * "we asked for it and it did not arrive". Filtering by `requirement` here is what produced
+ * "Ihr Dossier ist vollständig" mails to customers who had uploaded nothing at all.
+ *
+ * `visibleKeys` matters: only documents actually shown for this case type can be missing,
+ * otherwise a Kauf dossier would be chased for Ablösung paperwork it was never offered.
  */
 export function computeDocumentCompleteness(
   visibleKeys: string[],
@@ -121,7 +126,7 @@ export function computeDocumentCompleteness(
   const provided = new Set(providedKeys);
   const visible = Array.from(new Set(visibleKeys));
 
-  const missing = visible.filter((k) => isRequiredDoc(k) && !provided.has(k));
+  const missing = visible.filter((k) => !provided.has(k));
 
   const salesforceFlags: Record<string, boolean> = {};
   for (const key of visible) {

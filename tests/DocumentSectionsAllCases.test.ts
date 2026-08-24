@@ -106,13 +106,13 @@ describe('Completeness across all coherent cases', () => {
     expect(bad).toEqual([]);
   });
 
-  it('reports missing exactly the required documents when nothing is supplied', () => {
+  it('reports missing exactly the documents shown but not supplied', () => {
+    // No requirement filter anywhere: "missing" is shown-minus-uploaded, for every case.
     const bad: string[] = [];
     for (const f of COHERENT) {
-      const visible = visibleDocumentKeys(f);
-      const expected = visible.filter(isRequiredDoc).sort();
+      const visible = visibleDocumentKeys(f).sort();
       const r = computeDocumentCompleteness(visible, []);
-      if (JSON.stringify(r.missing.sort()) !== JSON.stringify(expected)) bad.push(describeCase(f));
+      if (JSON.stringify(r.missing.sort()) !== JSON.stringify(visible)) bad.push(describeCase(f));
     }
     expect(bad).toEqual([]);
   });
@@ -127,25 +127,37 @@ describe('Completeness across all coherent cases', () => {
     expect(bad).toEqual([]);
   });
 
-  it('a case with no required documents is complete without any upload', () => {
-    // This is the "we have applications that need no documents" case: such a customer must
-    // get the "dossier complete" mail, never a list of missing paperwork.
-    const noRequired = COHERENT.filter((f) => !visibleDocumentKeys(f).some(isRequiredDoc));
-    for (const f of noRequired) {
+  it('a case shown no documents at all is complete without any upload', () => {
+    // The genuine "this application needs no documents" case. Only an empty document list
+    // qualifies — a customer who was shown documents and uploaded none is NOT complete.
+    const noneShown = COHERENT.filter((f) => visibleDocumentKeys(f).length === 0);
+    for (const f of noneShown) {
       const r = computeDocumentCompleteness(visibleDocumentKeys(f), []);
       expect(r.complete).toBe(true);
       expect(r.missing).toEqual([]);
     }
   });
 
-  it('supplying only optional documents never satisfies a required one', () => {
+  it('never reports a dossier complete when a shown document was skipped', () => {
+    // Regression guard for the mail that said "Ihr Dossier ist vollständig" to customers
+    // who had uploaded nothing.
     const bad: string[] = [];
     for (const f of COHERENT) {
       const visible = visibleDocumentKeys(f);
-      const optionalOnly = visible.filter((k) => !isRequiredDoc(k));
-      const required = visible.filter(isRequiredDoc);
-      const r = computeDocumentCompleteness(visible, optionalOnly);
-      if (required.length > 0 && r.complete) bad.push(describeCase(f));
+      if (visible.length === 0) continue;
+      if (computeDocumentCompleteness(visible, []).complete) bad.push(describeCase(f));
+      if (computeDocumentCompleteness(visible, visible.slice(1)).complete) bad.push(describeCase(f));
+    }
+    expect(bad).toEqual([]);
+  });
+
+  it('supplying a subset never counts as the whole set', () => {
+    const bad: string[] = [];
+    for (const f of COHERENT) {
+      const visible = visibleDocumentKeys(f);
+      if (visible.length < 2) continue;
+      const r = computeDocumentCompleteness(visible, visible.slice(0, visible.length - 1));
+      if (r.complete || r.missing.length !== 1) bad.push(describeCase(f));
     }
     expect(bad).toEqual([]);
   });
