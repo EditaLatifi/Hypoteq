@@ -6,6 +6,7 @@ import { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import { computeDocumentCompleteness } from "@/components/funnelDocumentCatalog";
 import { documentSectionsFor } from "@/components/funnelDocumentSections";
+import { FALLBACK_NAVIGATION_MS, thankYouPathFor } from "@/components/funnelThankYou";
 
 const HypoteqLoadingPopup = dynamic(() => import("./HypoteqLoadingPopup"), { ssr: false });
 
@@ -70,6 +71,22 @@ useEffect(() => {
   setCurrentFolderId(null);
   console.log("🔄 New submission detected, folder ID reset. Submission ID:", submissionId);
 }, [submissionId]);
+
+// Whether this step is still on screen, read by the fallback navigation in performSubmit:
+// this step going away means the funnel put up a screen of its own and nothing here should
+// navigate on top of it.
+//
+// Read when the timer fires rather than cancelled on unmount, deliberately. The timer is
+// armed after `await saveStep(...)`, and that await is when the parent may swap the step
+// out — so whether the unmount lands before or after the timer is set is a race, and a
+// cleanup that runs first would clear nothing. Reading at fire time does not care.
+const isMountedRef = useRef(true);
+useEffect(
+  () => () => {
+    isMountedRef.current = false;
+  },
+  []
+);
 
 const isNeubau = property?.artImmobilie === "neubau";
 const isBestand = property?.artImmobilie === "bestehend";
@@ -541,24 +558,27 @@ const uploadAllFilesToSharePoint = async (): Promise<string | null> => {
       // Real work succeeded — let the popup animate to 100% and fire onComplete.
       setSubmitDone(true);
 
-      // Safety-net redirect: if the popup was unmounted (e.g. submitFinal
-      // called setStep(7)) before its onComplete could fire, force the
-      // browser to the thank-you page anyway so the user always lands
-      // on a final URL instead of a half-rendered in-page state.
-      const lang =
-        (typeof window !== "undefined" && window.location.pathname.split("/")[1]) || "de";
-      const thankYouPaths: Record<string, string> = {
-        de: "/de/danke",
-        fr: "/fr/merci",
-        it: "/it/grazie",
-        en: "/en/thank-you"
-      };
-      const redirectPath = thankYouPaths[lang] || "/de/danke";
+      // The thank-you page is reached by the progress popup: it animates to 100% and then
+      // navigates (see HypoteqLoadingPopup). This timer only rescues a customer the popup
+      // left stranded on the upload form.
+      //
+      // 20s, not 1.5s. The popup needs roughly eight seconds to reach 100% — it is capped at
+      // 90% until the upload actually finishes — so a 1.5s timer fired every time and cut
+      // the animation off mid-way. Anything shorter than the popup's own run races it.
+      //
+      // It also skips if this step has gone away, which would mean the funnel advanced to a
+      // screen of its own and this navigation is no longer wanted.
+      const redirectPath = thankYouPathFor(
+        typeof window !== "undefined" ? window.location.pathname : null
+      );
       setTimeout(() => {
+        // Still on the upload form long after a successful submit: the popup never took us.
+        if (!isMountedRef.current) return;
         if (typeof window !== "undefined" && !window.location.pathname.startsWith(redirectPath)) {
+          console.warn("[Funnel] Popup did not navigate; falling back to", redirectPath);
           window.location.href = redirectPath;
         }
-      }, 1500);
+      }, FALLBACK_NAVIGATION_MS);
     } catch (e) {
       console.error("❌ Submission failed:", e);
       setShowPopup(false);

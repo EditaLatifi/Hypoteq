@@ -12,6 +12,7 @@ import FinancingStep from "../../funnel/steps/FinancingStep";
 import DocumentsStep from "../../funnel/steps/DocumentsStep";
 import DirectSummaryStep from "../../funnel/steps/DirectSummaryStep";
 import FunnelSidebar from "../../funnel/FunnelSidebar";
+import { showsInFunnelThankYou } from "@/components/funnelThankYou";
 import { v4 as uuidv4 } from "uuid";
 
 export default function FunnelPage() {
@@ -339,7 +340,21 @@ const submitFinal = async (payload?: any) => {
     // 3️⃣ Upload documents to SharePoint (only if uploadedDocs exists)
     // Skipped because no inquiryId is available
 
-    // 4️⃣ Move to success step
+    // 4️⃣ Final screen.
+    //
+    // Partners do NOT advance to step 7. They submit from DocumentsStep, whose progress
+    // popup finishes its animation and then navigates to the localised thank-you page
+    // (/de/danke, /fr/merci, /it/grazie, /en/thank-you). Advancing here as well is what
+    // produced two "Vielen Dank" screens for one submission: step 7 rendered, then the
+    // redirect landed a moment later.
+    //
+    // Direct customers have no upload step and no popup, so step 7 is their only final
+    // screen and still applies.
+    if (!showsInFunnelThankYou(customerType)) {
+      console.log("✅ Inquiry created; DocumentsStep will navigate to the thank-you page");
+      return;
+    }
+
     console.log("✅ Moving to thank you page, current step:", step);
     window.scrollTo({ top: 0, behavior: "smooth" });
     next();

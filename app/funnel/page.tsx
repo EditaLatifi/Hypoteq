@@ -12,6 +12,7 @@ import FinancingStep from "./steps/FinancingStep";
 import DocumentsStep from "./steps/DocumentsStep";
 import DirectSummaryStep from "./steps/DirectSummaryStep";
 import FunnelSidebar from "./FunnelSidebar";
+import { showsInFunnelThankYou } from "@/components/funnelThankYou";
 import { v4 as uuidv4 } from "uuid";
 
 export default function FunnelPage() {
@@ -275,8 +276,8 @@ const submitFinal = async (payload?: any) => {
 
     console.log("📌 Inquiry created:", data);
 
-    // For direct customers, skip document upload and go straight to thank you
-    if (customerType === "direct") {
+    // Direct customers have no document step, so step 7 is their only final screen.
+    if (showsInFunnelThankYou(customerType)) {
       setStep(7);
       return;
     }
@@ -304,8 +305,14 @@ const submitFinal = async (payload?: any) => {
       console.log("🎉 All docs uploaded!");
     }
 
-    // 4️⃣ Move to success step
-    setStep(7);
+    // 4️⃣ Final screen — partners only reach here, and they do NOT go to step 7.
+    //
+    // They submit from DocumentsStep, whose progress popup finishes its animation and then
+    // navigates to the localised thank-you page (/de/danke, /fr/merci, /it/grazie,
+    // /en/thank-you). Setting step 7 as well is what produced two "Vielen Dank" screens for
+    // one submission: step 7 rendered, then the redirect landed a moment later. Direct
+    // customers returned at the top of this function and keep step 7.
+    console.log("✅ Inquiry created; DocumentsStep will navigate to the thank-you page");
 
   } catch (err) {
     console.error("❌ Error in submitFinal:", err);

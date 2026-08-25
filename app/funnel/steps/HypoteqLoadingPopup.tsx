@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import { THANK_YOU_PATHS, localeFromPath } from "@/components/funnelThankYou";
 
 // ─── Translations ────────────────────────────────────────────────────────────
 const TRANSLATIONS = {
@@ -16,7 +17,7 @@ const TRANSLATIONS = {
     notice:
       "Der Upload dauert je nach Dateigrösse 10–30 Sekunden. Sie werden danach automatisch weitergeleitet.",
     noticeStrong: "Kurz innehalten:",
-    thankYouPath: "/de/danke",
+    thankYouPath: THANK_YOU_PATHS.de,
   },
   en: {
     eyebrow: "HYPOTEQ",
@@ -32,7 +33,7 @@ const TRANSLATIONS = {
     notice:
       "The upload may take 10–30 seconds depending on file size. You will be redirected automatically.",
     noticeStrong: "Just a moment:",
-    thankYouPath: "/en/thank-you",
+    thankYouPath: THANK_YOU_PATHS.en,
   },
   fr: {
     eyebrow: "HYPOTEQ",
@@ -48,7 +49,7 @@ const TRANSLATIONS = {
     notice:
       "Le téléchargement peut prendre 10 à 30 secondes selon la taille des fichiers. Vous serez redirigé(e) automatiquement.",
     noticeStrong: "Un instant :",
-    thankYouPath: "/fr/merci",
+    thankYouPath: THANK_YOU_PATHS.fr,
   },
   it: {
     eyebrow: "HYPOTEQ",
@@ -64,17 +65,13 @@ const TRANSLATIONS = {
     notice:
       "Il caricamento può richiedere 10–30 secondi a seconda delle dimensioni del file. Verrà reindirizzato automaticamente.",
     noticeStrong: "Un momento:",
-    thankYouPath: "/it/grazie",
+    thankYouPath: THANK_YOU_PATHS.it,
   },
 };
 
 // ─── Detect language from URL path ──────────────────────────────────────────
 function detectLanguage() {
-  const path = window.location.pathname;
-  if (path.startsWith("/fr")) return "fr";
-  if (path.startsWith("/it")) return "it";
-  if (path.startsWith("/en")) return "en";
-  return "de"; // default
+  return localeFromPath(window.location.pathname);
 }
 
 // ─── Step icon states ────────────────────────────────────────────────────────
