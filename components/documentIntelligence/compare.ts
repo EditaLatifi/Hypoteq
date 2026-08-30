@@ -30,6 +30,8 @@ export interface Comparison {
   status: ComparisonStatus;
   /** Why a comparison was skipped, when it was. */
   reason?: string;
+  /** Funnel field the document value can be written into, when one exists. */
+  writesBackTo?: string;
 }
 
 /** The funnel values a document can be checked against. */
@@ -63,6 +65,16 @@ interface CompareRule {
   tolerance?: number;
   /** Compare as names rather than numbers. */
   kind?: "number" | "name" | "text";
+  /**
+   * The funnel field this value would overwrite if the customer accepts the document's
+   * version (section 16, "Dokumentwert übernehmen").
+   *
+   * Stated per rule rather than derived from the field name: own funds is read off one
+   * document but stored across four separate funnel inputs, so there is no single field to
+   * write back to and the rule leaves this unset. An offer to accept a value that cannot be
+   * applied is worse than not offering it.
+   */
+  writesBackTo?: "financing.einkommen" | "financing.kaufpreis" | "financing.abloesung_betrag";
 }
 
 /**
@@ -80,7 +92,7 @@ interface CompareRule {
  */
 const RULES: Record<string, CompareRule[]> = {
   salary_certificate: [
-    { field: "grossAnnualSalary", funnel: (f) => f.annualIncome, tolerance: 0.02, kind: "number" },
+    { field: "grossAnnualSalary", funnel: (f) => f.annualIncome, tolerance: 0.02, kind: "number", writesBackTo: "financing.einkommen" },
     { field: "employee", funnel: (f) => borrowerName(f), kind: "name" },
   ],
   monthly_payslip: [{ field: "employer", funnel: () => null, kind: "text" }],
@@ -90,14 +102,14 @@ const RULES: Record<string, CompareRule[]> = {
     { field: "dateOfBirth", funnel: (f) => f.borrowers?.[0]?.birthdate, kind: "text" },
   ],
   purchase_contract: [
-    { field: "purchasePrice", funnel: (f) => f.purchasePrice, tolerance: 0.02, kind: "number" },
+    { field: "purchasePrice", funnel: (f) => f.purchasePrice, tolerance: 0.02, kind: "number", writesBackTo: "financing.kaufpreis" },
     { field: "propertyAddress", funnel: (f) => f.propertyLocation, kind: "text" },
   ],
   own_funds_proof: [
     { field: "ownFundsTotal", funnel: (f) => f.ownFundsTotal, tolerance: 0.05, kind: "number" },
   ],
   mortgage_contract: [
-    { field: "mortgageAmount", funnel: (f) => f.existingMortgage, tolerance: 0.02, kind: "number" },
+    { field: "mortgageAmount", funnel: (f) => f.existingMortgage, tolerance: 0.02, kind: "number", writesBackTo: "financing.abloesung_betrag" },
   ],
   land_registry_extract: [{ field: "owner", funnel: (f) => borrowerName(f), kind: "name" }],
   tax_return: [],
@@ -214,6 +226,7 @@ export function compareWithFunnel(
         documentValue: docNum,
         difference,
         status: difference <= allowed ? "match" : "mismatch",
+        writesBackTo: rule.writesBackTo,
       });
       continue;
     }
@@ -228,6 +241,7 @@ export function compareWithFunnel(
       funnelValue: funnelStr,
       documentValue: docStr,
       status: same ? "match" : "mismatch",
+      writesBackTo: rule.writesBackTo,
     });
   }
 
@@ -270,4 +284,23 @@ export function funnelFactsFrom(data: {
       birthdate: b.birthdate || b.geburtsdatum || "",
     })),
   };
+}
+
+/**
+ * A customer's answer to a discrepancy (sections 14 and 36).
+ *
+ * Recorded rather than merely acted on: section 36 asks what the AI found AND what the
+ * human made of it, so the original value has to survive the correction. Without this the
+ * audit trail only ever has the machine's half.
+ */
+export interface HumanDecision {
+  field: string;
+  /** What was read off the document. */
+  documentValue: string | number | boolean | null;
+  /** What the funnel held before the customer answered. */
+  funnelValue: string | number | null;
+  choice: "took_document" | "kept_own" | "edited";
+  /** The value in force after the decision. */
+  finalValue: string | number | boolean | null;
+  decidedAt: string;
 }

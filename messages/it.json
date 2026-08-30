@@ -267,6 +267,11 @@
     "ctaCard2Button": "Prenota ora una consulenza informativa gratuita."
   },
   "funnel": {
+    "docMismatchTitle": "differisce dalla sua indicazione",
+    "docYourAnswer": "La sua indicazione",
+    "docInDocument": "Nel documento",
+    "docTakeDocumentValue": "Usa il valore del documento",
+    "docKeepMyValue": "Mantieni la mia indicazione",
     "docAnalysing": "Analisi del documento …",
     "docWrongDocument": "Questo documento non sembra essere quello richiesto.",
     "docOutdated": "Questo documento potrebbe non essere più attuale.",

@@ -264,6 +264,11 @@
     "ctaCard2Button": "Réservez maintenant un entretien d'information gratuit."
   },
   "funnel": {
+    "docMismatchTitle": "diffère de votre indication",
+    "docYourAnswer": "Votre indication",
+    "docInDocument": "Dans le document",
+    "docTakeDocumentValue": "Reprendre la valeur du document",
+    "docKeepMyValue": "Conserver mon indication",
     "docAnalysing": "Analyse du document …",
     "docWrongDocument": "Ce document ne semble pas être celui demandé.",
     "docOutdated": "Ce document n'est peut-être plus à jour.",

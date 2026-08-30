@@ -7,6 +7,13 @@ import dynamic from "next/dynamic";
 import { computeDocumentCompleteness } from "@/components/funnelDocumentCatalog";
 import { documentSectionsFor } from "@/components/funnelDocumentSections";
 import { FALLBACK_NAVIGATION_MS, thankYouPathFor } from "@/components/funnelThankYou";
+import {
+  compareWithFunnel,
+  funnelFactsFrom,
+  mismatchesOnly,
+  type Comparison,
+  type HumanDecision,
+} from "@/components/documentIntelligence/compare";
 
 const HypoteqLoadingPopup = dynamic(() => import("./HypoteqLoadingPopup"), { ssr: false });
 
@@ -28,7 +35,7 @@ function DocumentsStep({ borrowers, docs, setDocs, addDocument, saveStep, back }
   // Track upload status per document: 'idle' | 'uploading' | 'uploaded' | 'failed'
   const [uploadStatus, setUploadStatus] = useState<Record<string, string>>({});
 const { t } = useTranslation();
-const { project, email, property, financing } = useFunnelStore();
+const { project, email, property, financing, setFinancing } = useFunnelStore();
 
 // Robustly extract language from URL (e.g. /de/funnel, /fr/funnel, etc.)
 let langFromUrl = "de"; // fallback default
@@ -80,6 +87,13 @@ useEffect(() => {
 // upload so the model is called once per document.
 const [analyses, setAnalyses] = useState<Record<string, any>>({});
 const [analysing, setAnalysing] = useState<Record<string, boolean>>({});
+
+// Differences between a document and what the customer already told the funnel, and what
+// they decided about each (sections 16 and 14). Decisions are kept per document so they can
+// travel with the upload into the audit trail — acting on a correction without recording it
+// would leave section 36 with only the machine's half of the story.
+const [mismatches, setMismatches] = useState<Record<string, Comparison[]>>({});
+const [decisions, setDecisions] = useState<Record<string, HumanDecision[]>>({});
 
 // Whether this step is still on screen, read by the fallback navigation in performSubmit:
 // this step going away means the funnel put up a screen of its own and nothing here should
@@ -475,7 +489,9 @@ const uploadAllFilesToSharePoint = async (): Promise<string | null> => {
       email ?? "no-email",
       uploadFolderId,
       doc.docType ?? null,
-      analyses[doc.id] ?? null
+      analyses[doc.id]
+        ? { ...analyses[doc.id], humanReview: decisions[doc.id] ?? [] }
+        : null
     );
 
     console.log("📦 Upload response for", doc.name, ":", uploadRes);
@@ -548,6 +564,16 @@ const uploadAllFilesToSharePoint = async (): Promise<string | null> => {
 
       setAnalyses((prev) => ({ ...prev, [docId]: analysis }));
 
+      // Section 28: the comparison is ours, not the model's. Only genuine differences are
+      // surfaced — a value the funnel never captured is not a discrepancy (section 34).
+      const found = mismatchesOnly(
+        compareWithFunnel(
+          analysis,
+          funnelFactsFrom({ financing, property, borrowers: borrowers ?? [] })
+        )
+      );
+      if (found.length) setMismatches((prev) => ({ ...prev, [docId]: found }));
+
       // Section 9: a file dropped in without picking a tile gets attached to whatever it
       // turned out to be. Only when the requirement is one this case was actually shown —
       // otherwise it would satisfy something the customer was never asked for.
@@ -564,6 +590,46 @@ const uploadAllFilesToSharePoint = async (): Promise<string | null> => {
     } finally {
       setAnalysing((prev) => ({ ...prev, [docId]: false }));
     }
+  };
+
+  // Record what the customer decided about a discrepancy, and apply it (sections 14, 16).
+  //
+  // The funnel value is only overwritten when the rule names a field to write into. Own
+  // funds, for instance, is read off one document but entered across four separate funnel
+  // inputs — there is nothing to write back to, so accepting the document's figure there is
+  // recorded but changes no input rather than guessing how to split it.
+  const decideMismatch = (docId: string, c: Comparison, choice: "took_document" | "kept_own") => {
+    const finalValue = choice === "took_document" ? c.documentValue : c.funnelValue;
+
+    if (choice === "took_document" && c.writesBackTo === "financing.einkommen") {
+      setFinancing({ ...(financing as any), einkommen: String(c.documentValue) });
+    } else if (choice === "took_document" && c.writesBackTo === "financing.kaufpreis") {
+      setFinancing({ ...(financing as any), kaufpreis: String(c.documentValue) });
+    } else if (choice === "took_document" && c.writesBackTo === "financing.abloesung_betrag") {
+      setFinancing({ ...(financing as any), abloesung_betrag: String(c.documentValue) });
+    }
+
+    setDecisions((prev) => ({
+      ...prev,
+      [docId]: [
+        ...(prev[docId] ?? []).filter((d) => d.field !== c.field),
+        {
+          field: c.field,
+          documentValue: c.documentValue,
+          funnelValue: c.funnelValue,
+          choice,
+          finalValue,
+          decidedAt: new Date().toISOString(),
+        },
+      ],
+    }));
+
+    // Answered questions leave the screen; section 34 wants the exception visible, not
+    // permanent.
+    setMismatches((prev) => ({
+      ...prev,
+      [docId]: (prev[docId] ?? []).filter((m) => m.field !== c.field),
+    }));
   };
 
   // Attach real files to a specific document type. This replaces the old
@@ -875,6 +941,50 @@ return (
                           </span>
                         );
                       })}
+
+                      {/* Section 16 and 34: the exception, and only the exception. A
+                          difference the customer has answered disappears; one they have
+                          not is shown with both ways out and no default. */}
+                      {filesForDoc.flatMap((f: any) =>
+                        (mismatches[f.id] ?? []).map((m: any) => (
+                          <span
+                            key={`${f.id}-${m.field}`}
+                            className="block mt-2 rounded-lg border border-[#F4C48A] bg-[#FFF6E9] px-3 py-2"
+                            onClick={(e) => e.preventDefault()}
+                          >
+                            <span className="block text-[12px] font-semibold text-[#8A5A00]">
+                              ⚠ {m.label} {t("funnel.docMismatchTitle" as any)}
+                            </span>
+                            <span className="block text-[12px] text-[#132219]/80 mt-1">
+                              {t("funnel.docYourAnswer" as any)}: {String(m.funnelValue)}
+                              {" · "}
+                              {t("funnel.docInDocument" as any)}: {String(m.documentValue)}
+                            </span>
+                            <span className="flex flex-wrap gap-2 mt-2">
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  decideMismatch(f.id, m, "took_document");
+                                }}
+                                className="px-3 py-1 rounded-full text-[12px] border border-[#132219] bg-[#CAF476] text-[#132219]"
+                              >
+                                {t("funnel.docTakeDocumentValue" as any)}
+                              </button>
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  decideMismatch(f.id, m, "kept_own");
+                                }}
+                                className="px-3 py-1 rounded-full text-[12px] border border-[#132219]/40 text-[#132219]"
+                              >
+                                {t("funnel.docKeepMyValue" as any)}
+                              </button>
+                            </span>
+                          </span>
+                        ))
+                      )}
                       {/* No required/optional marker at all, at HYPOTEQ's request: every
                           document is presented the same way. The distinction still exists
                           in the catalog and still drives the completeness check and the

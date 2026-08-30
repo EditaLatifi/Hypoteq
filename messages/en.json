@@ -266,6 +266,11 @@
     "ctaCard2Button": "Book a free information call now."
   },
   "funnel": {
+    "docMismatchTitle": "differs from what you entered",
+    "docYourAnswer": "Your answer",
+    "docInDocument": "In the document",
+    "docTakeDocumentValue": "Use the document value",
+    "docKeepMyValue": "Keep my answer",
     "docAnalysing": "Analysing document …",
     "docWrongDocument": "This does not look like the requested document.",
     "docOutdated": "This document may no longer be current.",
