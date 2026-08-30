@@ -135,10 +135,28 @@ export async function POST(req: Request) {
     const nachreichToken = needsNachreich ? createNachreichToken() : null;
     const nachreichExpiresAt = needsNachreich ? nachreichExpiry() : null;
 
-    // Submission-ID (spec V2). Generated here rather than left to the database default
-    // because Salesforce is written BEFORE the row exists — without a value decided up
-    // front, the Case could not carry the id that ties it back to this submission.
-    const submissionId = randomUUID();
+    // Submission-ID (spec V2). Decided here rather than left to the database default
+    // because Salesforce is written BEFORE the row exists — without a value up front, the
+    // Case could not carry the id that ties it back to this submission.
+    //
+    // The funnel's own id wins when it sent one. That is what links a submission's uploads
+    // to it: files reach SharePoint before this route ever runs, so they are recorded
+    // against the funnel's id and can only be claimed if the Inquiry is created under the
+    // same one. Minting a fresh id here is what orphaned every upload — 2738 rows with no
+    // inquiry against 27 that had one. It doubles as the SharePoint folder name, so a Case
+    // can be traced to its folder.
+    //
+    // Validated as a UUID before use: it becomes a primary key, and it arrives from the
+    // browser.
+    const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+    const clientSubmissionId =
+      typeof data.submissionId === 'string' && UUID_RE.test(data.submissionId)
+        ? data.submissionId
+        : null;
+    if (data.submissionId && !clientSubmissionId) {
+      console.warn(`[Inquiry] Ignoring malformed submissionId from the funnel: ${String(data.submissionId).slice(0, 60)}`);
+    }
+    const submissionId = clientSubmissionId || randomUUID();
     data.submissionId = submissionId;
 
     // Salesforce sync (backend only)
@@ -315,8 +333,26 @@ export async function POST(req: Request) {
         }
       }
 
-      // === ASSOCIATE HOLDING DOCUMENTS ===
-      // If tempUserId is provided in the request, move holding documents to Document table
+      // === CLAIM THIS SUBMISSION'S UPLOADS ===
+      // The files went to SharePoint before this route ran, so they are sitting in
+      // HoldingDocument against the submission id the Inquiry was just created with.
+      //
+      // Non-fatal on purpose: the files are already safe in SharePoint and the lead is
+      // already saved, so a failure here must not turn a good submission into an error.
+      try {
+        const { adoptHoldingDocuments } = await import("@/lib/sharepoint");
+        const adopted = await adoptHoldingDocuments(inquiry.id, submissionId);
+        if (adopted > 0) {
+          console.log(`✅ Linked ${adopted} uploaded document(s) to inquiry ${inquiry.id}`);
+        } else {
+          console.log(`ℹ️ No held uploads for submission ${submissionId}`);
+        }
+      } catch (adoptErr) {
+        console.error("⚠️ Could not link uploaded documents to the inquiry:", adoptErr);
+      }
+
+      // Legacy path: an older client passed tempUserId instead. Kept so an upload made by a
+      // browser still running the previous bundle is not stranded during a deploy.
       const tempUserId = data.tempUserId || null;
       if (tempUserId) {
         const holdingDocs = await prisma.holdingDocument.findMany({
@@ -332,6 +368,8 @@ export async function POST(req: Request) {
               email: doc.email,
               fileName: doc.fileName,
               fileUrl: doc.fileUrl,
+              docType: doc.docType,
+              originalFileName: doc.originalFileName || doc.fileName,
               uploadedAt: doc.uploadedAt,
             },
           });

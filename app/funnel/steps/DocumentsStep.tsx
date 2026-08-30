@@ -178,7 +178,11 @@ async function uploadDocToSharepoint(
   file: File,
   inquiryId: string,
   email: string,
-  folderId: string | null = null
+  folderId: string | null = null,
+  // Which requirement this file answers. Sent to finalize so the stored row says what the
+  // file IS, not merely that a file arrived — the Dok_*__c booleans cannot express it (ten
+  // of them cover forty documents) and nothing else records it.
+  docType: string | null = null
 ) {
   try {
     const startRes = await fetch("/api/upload-doc/start", {
@@ -264,8 +268,13 @@ async function uploadDocToSharepoint(
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         fileName: file.name,
+        originalFileName: file.name,
         email,
         inquiryId,
+        // The Inquiry does not exist yet on a first submission, so the row is held against
+        // this id and claimed once /api/inquiry creates the Inquiry under it.
+        submissionId: inquiryId,
+        docType,
         driveItem,
       }),
     });
@@ -449,7 +458,8 @@ const uploadAllFilesToSharePoint = async (): Promise<string | null> => {
       doc.file,
       submissionId,
       email ?? "no-email",
-      uploadFolderId
+      uploadFolderId,
+      doc.docType ?? null
     );
 
     console.log("📦 Upload response for", doc.name, ":", uploadRes);
@@ -545,6 +555,10 @@ const uploadAllFilesToSharePoint = async (): Promise<string | null> => {
         borrowers,
         docs,
         documentCompleteness: completeness,
+        // The id every file just uploaded was filed under. The Inquiry is created with this
+        // as its own id, which is what lets those files be claimed — and it is the same id
+        // the SharePoint folder name carries, so a Case can be traced to its folder.
+        submissionId,
         // Where this submission's files went. Persisted so documents supplied later
         // through the Nachreich link land in the same folder — the folder name embeds
         // the upload date, so it cannot be re-derived on a later day.

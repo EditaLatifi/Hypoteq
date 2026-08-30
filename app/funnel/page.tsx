@@ -256,6 +256,9 @@ const submitFinal = async (payload?: any) => {
         financing,
         documentCompleteness: payload?.documentCompleteness ?? null,
         sharepointFolderId: payload?.sharepointFolderId ?? null,
+        // The id the documents step filed its uploads under. Passed on so the
+        // Inquiry is created with it and can claim them.
+        submissionId: payload?.submissionId ?? null,
       }),
     });
 

@@ -143,23 +143,43 @@ export async function createUploadSession(
   return json.uploadUrl as string;
 }
 
+/**
+ * Record an uploaded file.
+ *
+ * Two destinations, and the holding one is the normal case rather than the exception: the
+ * documents step pushes files to SharePoint before the funnel is submitted, so on a first
+ * submission there is no Inquiry to attach to yet. Those rows carry `submissionId` and are
+ * claimed by /api/inquiry the moment the Inquiry is created (see adoptHoldingDocuments).
+ *
+ * A Nachreichung is the other case: its Inquiry already exists, so the row lands straight
+ * on Document.
+ */
 export async function persistDocumentRecord(params: {
   email: string;
   fileName: string;
   fileUrl: string;
   inquiryId?: string;
   tempUserId?: string;
+  /** Funnel document key this file was supplied for; null for a loose upload. */
+  docType?: string | null;
+  /** Ties the row to its submission so it can be adopted once the Inquiry exists. */
+  submissionId?: string | null;
+  /** Name the file had when the customer picked it. */
+  originalFileName?: string | null;
 }): Promise<void> {
   const { email, fileName, fileUrl, inquiryId, tempUserId } = params;
+  const docType = params.docType || null;
+  const submissionId = params.submissionId || inquiryId || null;
+  const originalFileName = params.originalFileName || fileName;
   const { prisma } = await import("@/lib/prisma");
 
   if (inquiryId) {
     const inquiryExists = await prisma.inquiry.findUnique({ where: { id: inquiryId } });
     if (inquiryExists) {
       await prisma.document.create({
-        data: { inquiryId, email, fileName, fileUrl },
+        data: { inquiryId, email, fileName, fileUrl, docType, originalFileName },
       });
-      console.log("✅ Document saved to DB:", fileName);
+      console.log(`✅ Document saved to DB: ${fileName} (${docType || "loose upload"})`);
       return;
     }
   }
@@ -170,7 +190,50 @@ export async function persistDocumentRecord(params: {
       fileName,
       fileUrl,
       tempUserId: tempUserId || null,
+      submissionId,
+      docType,
+      originalFileName,
     },
   });
-  console.log("✅ Document saved to HoldingDocument:", fileName);
+  console.log(
+    `✅ Document held for submission ${submissionId || "(none)"}: ${fileName} (${docType || "loose upload"})`
+  );
+}
+
+/**
+ * Claim the files uploaded for a submission once its Inquiry exists.
+ *
+ * Called right after the Inquiry is created. Deliberately forgiving — a lead that cannot
+ * adopt its documents is still a lead, and the files are already safe in SharePoint — so
+ * failures are reported and swallowed by the caller rather than failing the submission.
+ *
+ * Returns how many rows were adopted.
+ */
+export async function adoptHoldingDocuments(
+  inquiryId: string,
+  submissionId: string
+): Promise<number> {
+  if (!submissionId) return 0;
+  const { prisma } = await import("@/lib/prisma");
+
+  const held = await prisma.holdingDocument.findMany({ where: { submissionId } });
+  if (held.length === 0) return 0;
+
+  await prisma.document.createMany({
+    data: held.map((h) => ({
+      inquiryId,
+      email: h.email,
+      fileName: h.fileName,
+      fileUrl: h.fileUrl,
+      docType: h.docType,
+      originalFileName: h.originalFileName || h.fileName,
+      uploadedAt: h.uploadedAt,
+    })),
+  });
+
+  // Only delete what was actually copied. Re-running is then a no-op rather than a
+  // duplicate, and a crash between the two statements leaves the rows claimable again.
+  await prisma.holdingDocument.deleteMany({ where: { id: { in: held.map((h) => h.id) } } });
+
+  return held.length;
 }

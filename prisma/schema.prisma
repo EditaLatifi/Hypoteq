@@ -1,3 +1,13 @@
+/// Where an upload waits until its Inquiry exists.
+///
+/// Files are pushed to SharePoint from the documents step, which runs BEFORE the funnel is
+/// submitted — so at upload time there is no Inquiry row to point at. That is not an edge
+/// case, it is every single upload: 2738 rows landed here against 27 that ever reached
+/// Document, because nothing later went back to claim them.
+///
+/// `submissionId` is what makes claiming possible. The funnel mints it once per submission
+/// and it becomes the Inquiry's own id, so /api/inquiry can adopt these rows the moment the
+/// Inquiry is created.
 model HoldingDocument {
   id         String   @id @default(uuid())
   email      String
@@ -6,6 +16,16 @@ model HoldingDocument {
   uploadedAt DateTime @default(now())
   // Optionally, add a session or tempUserId to associate with the user before inquiry is created
   tempUserId String?
+
+  /// The funnel's submission id, which becomes the Inquiry id. Indexed because adoption
+  /// queries by it on every submission.
+  submissionId     String?
+  /// Funnel document key this file was supplied for; carried over on adoption.
+  docType          String?
+  /// Name the file had when the customer picked it.
+  originalFileName String?
+
+  @@index([submissionId])
 }
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
@@ -187,6 +207,16 @@ model Document {
   fileName    String
   fileUrl     String
   uploadedAt  DateTime @default(now())
+
+  /// Which funnel document this file was supplied for (an i18n key from
+  /// funnelDocumentCatalog, e.g. "funnel.salaryStatementBonus"). Null for a loose upload
+  /// dropped in without picking a requirement. Ten Dok_*__c booleans cover forty documents,
+  /// so Salesforce cannot answer this — it has to be recorded here.
+  docType     String?
+
+  /// The name the customer's file had before anything renamed it. Kept separate from
+  /// fileName so an auto-generated name stays auditable back to the original upload.
+  originalFileName String?
 
   inquiry Inquiry? @relation(fields: [inquiryId], references: [id])
 }

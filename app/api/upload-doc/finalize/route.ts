@@ -13,6 +13,16 @@ export async function POST(req: Request) {
       typeof body?.inquiryId === "string" && body.inquiryId ? body.inquiryId : undefined;
     const tempUserId =
       typeof body?.tempUserId === "string" && body.tempUserId ? body.tempUserId : undefined;
+    // Which requirement this file answers, and the submission it belongs to. Without the
+    // latter the row cannot be claimed once the Inquiry is created, which is how every
+    // upload ended up orphaned in HoldingDocument.
+    const docType = typeof body?.docType === "string" && body.docType ? body.docType : null;
+    const submissionId =
+      typeof body?.submissionId === "string" && body.submissionId ? body.submissionId : null;
+    const originalFileName =
+      typeof body?.originalFileName === "string" && body.originalFileName
+        ? body.originalFileName
+        : null;
     const driveItem = body?.driveItem || null;
 
     if (!fileName || !email) {
@@ -32,6 +42,9 @@ export async function POST(req: Request) {
         fileUrl,
         inquiryId,
         tempUserId,
+        docType,
+        submissionId: submissionId || inquiryId || null,
+        originalFileName,
       });
     } catch (dbErr) {
       console.error("❌ Failed to save document record:", dbErr);
