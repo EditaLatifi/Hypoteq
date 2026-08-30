@@ -7,7 +7,11 @@ import dynamic from "next/dynamic";
 import { computeDocumentCompleteness } from "@/components/funnelDocumentCatalog";
 import { documentSectionsFor } from "@/components/funnelDocumentSections";
 import { FALLBACK_NAVIGATION_MS, thankYouPathFor } from "@/components/funnelThankYou";
-import { DOCUMENT_TYPES, candidateTypesFor } from "@/components/documentIntelligence/documentTypes";
+import {
+  DOCUMENT_TYPES,
+  candidateTypesFor,
+  docTypeById,
+} from "@/components/documentIntelligence/documentTypes";
 import {
   compareWithFunnel,
   funnelFactsFrom,
@@ -101,6 +105,34 @@ const [decisions, setDecisions] = useState<Record<string, HumanDecision[]>>({});
 // section 36 needs both, not the latest state of one field.
 const [openDoc, setOpenDoc] = useState<any | null>(null);
 const [edits, setEdits] = useState<Record<string, Record<string, string>>>({});
+
+// Funnel values the customer replaced with what a document said.
+//
+// Kept here and sent up with the submit payload, not left to the store alone. The parent
+// pushes its own copy of the financing form on the way out — `setFinancing` replaces the
+// whole object, and that copy was frozen back on step 5 — so a value corrected here is
+// overwritten moments before it is sent. The customer accepts CHF 142'300, Salesforce
+// receives CHF 150'000, and the only trace is an audit row saying otherwise. Travelling
+// with the payload makes the correction the last write instead of the first.
+const [financingOverrides, setFinancingOverrides] = useState<Record<string, string>>({});
+
+// One object URL per opened document, released when it closes.
+//
+// Built here rather than in the markup because createObjectURL in a render body mints a new
+// URL on every keystroke in the editable fields — the old ones are never freed, and the PDF
+// viewer reloads and jumps back to page one each time, so a customer correcting a value on
+// page three loses their place with every character.
+const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+useEffect(() => {
+  const file = openDoc?.doc?.file;
+  if (!file) {
+    setPreviewUrl(null);
+    return;
+  }
+  const url = URL.createObjectURL(file);
+  setPreviewUrl(url);
+  return () => URL.revokeObjectURL(url);
+}, [openDoc]);
 
 // Whether this step is still on screen, read by the fallback navigation in performSubmit:
 // this step going away means the funnel put up a screen of its own and nothing here should
@@ -636,12 +668,13 @@ const uploadAllFilesToSharePoint = async (): Promise<string | null> => {
   const decideMismatch = (docId: string, c: Comparison, choice: "took_document" | "kept_own") => {
     const finalValue = choice === "took_document" ? c.documentValue : c.funnelValue;
 
-    if (choice === "took_document" && c.writesBackTo === "financing.einkommen") {
-      setFinancing({ ...(financing as any), einkommen: String(c.documentValue) });
-    } else if (choice === "took_document" && c.writesBackTo === "financing.kaufpreis") {
-      setFinancing({ ...(financing as any), kaufpreis: String(c.documentValue) });
-    } else if (choice === "took_document" && c.writesBackTo === "financing.abloesung_betrag") {
-      setFinancing({ ...(financing as any), abloesung_betrag: String(c.documentValue) });
+    if (choice === "took_document" && c.writesBackTo) {
+      const field = c.writesBackTo.split(".")[1];
+      const value = String(c.documentValue);
+      // Applied now so the rest of the step reflects it, and recorded so the submit can
+      // apply it again after the parent has pushed its own copy of the form.
+      setFinancing({ ...(financing as any), [field]: value });
+      setFinancingOverrides((prev) => ({ ...prev, [field]: value }));
     }
 
     setDecisions((prev) => ({
@@ -721,6 +754,9 @@ const uploadAllFilesToSharePoint = async (): Promise<string | null> => {
         borrowers,
         docs,
         documentCompleteness: completeness,
+        // Values the customer took from a document. Applied last by saveStep6, after the
+        // parent writes its own financing copy, or they would be silently reverted.
+        financingOverrides,
         // The id every file just uploaded was filed under. The Inquiry is created with this
         // as its own id, which is what lets those files be claimed — and it is the same id
         // the SharePoint folder name carries, so a Case can be traced to its folder.
@@ -1381,16 +1417,16 @@ return (
 
             <div className="flex-1 overflow-auto grid grid-cols-1 md:grid-cols-2 gap-4 p-5">
               <div className="min-h-[320px] rounded-xl border border-[#EEE] bg-[#FAFAFA] overflow-hidden">
-                {openDoc.doc?.file ? (
+                {previewUrl ? (
                   openDoc.doc.file.type?.startsWith("image/") ? (
                     <img
-                      src={URL.createObjectURL(openDoc.doc.file)}
+                      src={previewUrl}
                       alt={openDoc.doc.name}
                       className="w-full h-full object-contain"
                     />
                   ) : (
                     <object
-                      data={URL.createObjectURL(openDoc.doc.file)}
+                      data={previewUrl}
                       type="application/pdf"
                       className="w-full h-[420px]"
                     >
@@ -1413,7 +1449,12 @@ return (
                     return (
                       <label key={key} className="block">
                         <span className="block text-[11px] text-[#132219]/60">
-                          {key}
+                          {/* Section 13 asks for the document's own wording. The catalog
+                              already carries it; showing "grossAnnualSalary" would make the
+                              customer decode a field name to check their own salary. */}
+                          {docTypeById(openDoc.analysis?.classification?.type)?.fields.find(
+                            (fs: any) => fs.key === key
+                          )?.label ?? key}
                           {/* Section 15 in the customer view: three states, never a
                               percentage — a number only invites arguing with it. */}
                           {f.confidence < 0.9 && (
@@ -1445,7 +1486,18 @@ return (
             <div className="px-5 py-4 border-t border-[#EEE] flex justify-end">
               <button
                 type="button"
-                onClick={() => setOpenDoc(null)}
+                onClick={() => {
+                  // Section 14: a person has now looked at the values, so the document is no
+                  // longer waiting for one. Closing the panel without this left it flagged
+                  // "bitte prüfen" after it had been checked, which trains people to ignore
+                  // the flag.
+                  const id = openDoc.doc.id;
+                  setAnalyses((prev) => ({
+                    ...prev,
+                    [id]: { ...(prev[id] ?? {}), status: "confirmed", confirmedByHuman: true },
+                  }));
+                  setOpenDoc(null);
+                }}
                 className="px-5 py-2 rounded-full text-[14px] border border-[#132219] bg-[#CAF476] text-[#132219]"
               >
                 {t("funnel.docConfirmValues" as any)}

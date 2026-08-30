@@ -13,6 +13,7 @@ import DocumentsStep from "../../funnel/steps/DocumentsStep";
 import DirectSummaryStep from "../../funnel/steps/DirectSummaryStep";
 import FunnelSidebar from "../../funnel/FunnelSidebar";
 import { showsInFunnelThankYou } from "@/components/funnelThankYou";
+import { applyDocumentCorrections } from "@/components/funnelCorrections";
 import { v4 as uuidv4 } from "uuid";
 
 export default function FunnelPage() {
@@ -260,11 +261,15 @@ const saveStep5 = () => {
 
 
   const saveStep6 = async (payload?: any) => {
+    // Corrections the customer accepted from a document, applied AFTER the financing form
+    // below is pushed. setFinancing replaces the whole object with a copy frozen on step 5,
+    // so applying them first would revert them — see financingOverrides in DocumentsStep.
+    const overrides = payload?.financingOverrides ?? {};
     // For partners: ensure all data is in store, then submit
     setProject(projectData);
     setProperty(propertyData);
     setBorrowers(borrowers);
-    setFinancing(financingData);
+    setFinancing(applyDocumentCorrections(financingData, overrides));
 
     // Small delay to ensure state is updated
     await new Promise(resolve => setTimeout(resolve, 100));

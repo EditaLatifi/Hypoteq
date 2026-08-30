@@ -13,6 +13,7 @@ import DocumentsStep from "./steps/DocumentsStep";
 import DirectSummaryStep from "./steps/DirectSummaryStep";
 import FunnelSidebar from "./FunnelSidebar";
 import { showsInFunnelThankYou } from "@/components/funnelThankYou";
+import { applyDocumentCorrections } from "@/components/funnelCorrections";
 import { v4 as uuidv4 } from "uuid";
 
 export default function FunnelPage() {
@@ -187,11 +188,15 @@ const saveStep5 = () => {
 
 
   const saveStep6 = async (payload?: any) => {
+    // Corrections the customer accepted from a document, applied AFTER the financing form
+    // below is pushed. setFinancing replaces the whole object with a copy frozen on step 5,
+    // so applying them first would revert them — see financingOverrides in DocumentsStep.
+    const overrides = payload?.financingOverrides ?? {};
     // For partners: ensure all data is in store, then submit
     setProject(projectData);
     setProperty(propertyData);
     setBorrowers(useFunnelStore.getState().borrowers);
-    setFinancing(financingData);
+    setFinancing(applyDocumentCorrections(financingData, overrides));
     
     // Small delay to ensure state is updated
     await new Promise(resolve => setTimeout(resolve, 100));
@@ -216,7 +221,9 @@ const submitFinal = async (payload?: any) => {
     }
     setProject(projectData);
     setProperty(propertyData);
-    setFinancing(financingData);
+    // Same reason as in saveStep6: this runs after it, with the step-5 copy of the form, so
+    // a value the customer took from a document would be reverted here instead.
+    setFinancing(applyDocumentCorrections(financingData, payload?.financingOverrides));
     setBorrowers(borrowers);
 
     // Small delay to ensure state is updated
