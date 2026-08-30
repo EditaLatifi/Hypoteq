@@ -1,4 +1,5 @@
 import { conn, login } from "@/components/salesforceApi";
+import { isTestMode, skipped } from "@/components/testMode";
 import { DOCUMENT_CATALOG } from "@/components/funnelDocumentCatalog";
 
 /**
@@ -52,6 +53,10 @@ export async function updateCaseCompleteness(
   update: CompletenessUpdate
 ): Promise<void> {
   if (!caseId) return;
+  if (isTestMode()) {
+    skipped("Case completeness update", `${caseId} (+${update.supplied.length} supplied)`);
+    return;
+  }
 
   const fields: Record<string, any> = {
     Id: caseId,

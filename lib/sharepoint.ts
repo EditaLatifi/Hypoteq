@@ -1,3 +1,5 @@
+import { isTestMode, TEST_FOLDER_PREFIX } from "@/components/testMode";
+
 export async function getAccessToken(): Promise<string> {
   const tenantId = process.env.SHAREPOINT_TENANT_ID!;
   const clientId = process.env.SHAREPOINT_CLIENT_ID!;
@@ -49,7 +51,10 @@ export async function getOrCreateSubmissionFolder(
   // submission resolve to the exact same folder no matter how many upload
   // requests run — no timestamp, so there is nothing to make the name diverge.
   const shortInquiryId = inquiryId.substring(0, 8);
-  const folderName = `${email}_${dateStr}_${shortInquiryId}`;
+  // Uploading is the part most worth testing, so a test run still creates a real folder —
+  // it just says so in the name, and sorts away from customer paperwork.
+  const prefix = isTestMode() ? TEST_FOLDER_PREFIX : "";
+  const folderName = `${prefix}${email}_${dateStr}_${shortInquiryId}`;
   const encodedFolder = encodeURIComponent(folderName);
 
   // Address the child directly by path (no children listing / pagination): one

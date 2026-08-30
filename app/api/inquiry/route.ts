@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { isTestMode, skipped } from "@/components/testMode";
 import { prisma } from "@/lib/prisma";
 import { Client } from "@microsoft/microsoft-graph-client";
 import { ClientSecretCredential } from "@azure/identity";
@@ -11,6 +12,9 @@ import {
   NACHREICH_TTL_DAYS,
   type NachreichLocale,
 } from "@/components/nachreichung";
+
+/** Thrown to leave the Salesforce block without recording a failure (see isTestMode). */
+class SkipInTestMode extends Error {}
 
 export async function POST(req: Request) {
   try {
@@ -111,7 +115,9 @@ export async function POST(req: Request) {
 
     // Send auto-response to customer
     try {
-      if (data.client?.email) {
+      if (isTestMode()) {
+        skipped("auto-response mail", data.client?.email);
+      } else if (data.client?.email) {
         await sendFunnelAutoResponse(data.client.email, data.client.firstName || data.client.vorname || '', locale);
         console.log("✅ Auto-response sent to customer");
       }
@@ -187,6 +193,12 @@ export async function POST(req: Request) {
         data.stage = 'Needs Analysis'; // Valid Salesforce picklist value
         console.log('[Salesforce Sync] Set stage to: Needs Analysis');
       }
+      if (isTestMode()) {
+        // Everything up to here has run — validation, picklist mapping, the completeness
+        // verdict — so the payload is still exercised. Only the write is withheld.
+        skipped("Salesforce sync", `Case would have been created for ${data.client?.email ?? "unknown"}`);
+        throw new SkipInTestMode();
+      }
       const salesforceApi = (await import("@/components/salesforceApi")).default;
       const { syncFunnelStepsToSalesforce } = await import("@/components/syncFunnelStepsToSalesforce");
       await salesforceApi.login();
@@ -194,13 +206,19 @@ export async function POST(req: Request) {
       salesforceCaseId = (syncResult as any)?.case?.id || (syncResult as any)?.case?.Id || null;
       console.log("✅ Salesforce sync successful! Case:", salesforceCaseId);
     } catch (sfError) {
-      salesforceError = sfError;
-      console.error("❌ Salesforce sync failed:", sfError);
-      // Deliberately non-fatal: the lead is still captured in the DB and in the
-      // notification email, so the customer must not see an error. What this branch must
-      // NOT do is stay quiet — a broken sync went unnoticed for six days and cost 11 leads
-      // because the only signal was a console line nobody reads. The alert below is sent
-      // after the DB write so it can name the inquiry to replay.
+      // A deliberate skip is not a failure: recording it as one would fill the DB with
+      // salesforceError rows and fire the outage alert on every test submission.
+      if (sfError instanceof SkipInTestMode) {
+        salesforceCaseId = null;
+      } else {
+        salesforceError = sfError;
+        console.error("❌ Salesforce sync failed:", sfError);
+        // Deliberately non-fatal: the lead is still captured in the DB and in the
+        // notification email, so the customer must not see an error. What this branch must
+        // NOT do is stay quiet — a broken sync went unnoticed for six days and cost 11 leads
+        // because the only signal was a console line nobody reads. The alert below is sent
+        // after the DB write so it can name the inquiry to replay.
+      }
     }
 
     // === SAVE TO DATABASE ===
@@ -327,7 +345,11 @@ export async function POST(req: Request) {
       // this mail can still reply to the confirmation one.
       if (documentCompleteness) {
         try {
+          if (isTestMode()) {
+            skipped("dossier completeness mail", data.client?.email);
+          } else {
           await sendDossierCompletenessEmail(data, documentCompleteness, locale, nachreichToken);
+          }
         } catch (dossierMailError) {
           console.error("⚠️ Dossier completeness mail failed (continuing):", dossierMailError);
         }
@@ -693,6 +715,10 @@ function getGraphMailClient() {
  * fixed. Never let it throw — it runs on an already-degraded path.
  * ======================================================================== */
 async function sendSalesforceFailureAlert(inquiryId: string | null, error: unknown) {
+  if (isTestMode()) {
+    skipped("Salesforce failure alert", inquiryId ?? "no inquiry");
+    return;
+  }
   try {
     const detail = error instanceof Error
       ? `${error.name}: ${error.message}`
