@@ -267,6 +267,11 @@
     "ctaCard2Button": "Prenota ora una consulenza informativa gratuita."
   },
   "funnel": {
+    "docCaseProgress": "documenti presenti",
+    "docCaseNeedsCheck": "indicazioni da verificare",
+    "docShowDetails": "Dettagli",
+    "docExtractedInfo": "Informazioni riconosciute – modificabili",
+    "docConfirmValues": "Conferma le indicazioni",
     "docMismatchTitle": "differisce dalla sua indicazione",
     "docYourAnswer": "La sua indicazione",
     "docInDocument": "Nel documento",

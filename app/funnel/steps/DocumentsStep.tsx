@@ -7,6 +7,7 @@ import dynamic from "next/dynamic";
 import { computeDocumentCompleteness } from "@/components/funnelDocumentCatalog";
 import { documentSectionsFor } from "@/components/funnelDocumentSections";
 import { FALLBACK_NAVIGATION_MS, thankYouPathFor } from "@/components/funnelThankYou";
+import { DOCUMENT_TYPES, candidateTypesFor } from "@/components/documentIntelligence/documentTypes";
 import {
   compareWithFunnel,
   funnelFactsFrom,
@@ -94,6 +95,12 @@ const [analysing, setAnalysing] = useState<Record<string, boolean>>({});
 // would leave section 36 with only the machine's half of the story.
 const [mismatches, setMismatches] = useState<Record<string, Comparison[]>>({});
 const [decisions, setDecisions] = useState<Record<string, HumanDecision[]>>({});
+
+// The document open in the detail view (section 13), and any values corrected there.
+// Corrections are held apart from the analysis so the original extraction survives them —
+// section 36 needs both, not the latest state of one field.
+const [openDoc, setOpenDoc] = useState<any | null>(null);
+const [edits, setEdits] = useState<Record<string, Record<string, string>>>({});
 
 // Whether this step is still on screen, read by the fallback navigation in performSubmit:
 // this step going away means the funnel put up a screen of its own and nothing here should
@@ -490,7 +497,12 @@ const uploadAllFilesToSharePoint = async (): Promise<string | null> => {
       uploadFolderId,
       doc.docType ?? null,
       analyses[doc.id]
-        ? { ...analyses[doc.id], humanReview: decisions[doc.id] ?? [] }
+        ? {
+            ...analyses[doc.id],
+            humanReview: decisions[doc.id] ?? [],
+            // Section 13 corrections, kept beside the extraction rather than overwriting it.
+            humanEdits: edits[doc.id] ?? {},
+          }
         : null
     );
 
@@ -590,6 +602,29 @@ const uploadAllFilesToSharePoint = async (): Promise<string | null> => {
     } finally {
       setAnalysing((prev) => ({ ...prev, [docId]: false }));
     }
+  };
+
+  // Section 21: the file could not be placed, so the customer says what it is. The document
+  // is never dropped over this — an unrecognised upload still counts, it just carries no
+  // extracted values.
+  const assignTypeManually = (docId: string, typeId: string) => {
+    const spec = DOCUMENT_TYPES.find((t) => t.id === typeId);
+    const visible = new Set(selectedDocuments.flatMap((sec: any) => sec.items));
+    const key = spec?.funnelKeys.find((k) => visible.has(k)) ?? null;
+    if (key) {
+      setDocs((prev: any[]) => prev.map((d: any) => (d.id === docId ? { ...d, docType: key } : d)));
+    }
+    setAnalyses((prev) => ({
+      ...prev,
+      [docId]: {
+        ...(prev[docId] ?? { fields: {} }),
+        classification: { type: typeId, label: spec?.label ?? typeId, confidence: 1 },
+        funnelDocKey: key,
+        // Confirmed by a person, so it is no longer awaiting one.
+        status: "confirmed",
+        classifiedBy: "human",
+      },
+    }));
   };
 
   // Record what the customer decided about a discrepancy, and apply it (sections 14, 16).
@@ -828,6 +863,43 @@ return (
           import stays in use for the completeness verdict below. */}
 
       {/* SECTION LIST */}
+      {/* Section 33: the case as a whole, not a document at a time. Recomputed from what
+          the funnel asked for and what has actually been attached, with the count of things
+          still waiting on a person — that second number is what section 33 adds over the
+          plain completeness check. */}
+      {(() => {
+        const visible = selectedDocuments.flatMap((sec: any) => sec.items);
+        const provided = new Set(
+          docs.filter((d: any) => d.file && d.docType).map((d: any) => d.docType)
+        );
+        const have = visible.filter((k: string) => provided.has(k)).length;
+        const needsCheck = docs.filter((d: any) => {
+          const a = analyses[d.id];
+          return a && (a.status === "review_required" || (mismatches[d.id] ?? []).length > 0);
+        }).length;
+        if (visible.length === 0) return null;
+        return (
+          <div className="mb-8 rounded-2xl border border-[#E4E4E4] bg-[#FAFAFA] px-5 py-4">
+            <div className="flex items-baseline justify-between gap-3 flex-wrap">
+              <span className="text-[15px] font-semibold text-[#132219]">
+                {have} / {visible.length} {t("funnel.docCaseProgress" as any)}
+              </span>
+              {needsCheck > 0 && (
+                <span className="text-[13px] text-[#8A5A00]">
+                  ⚠ {needsCheck} {t("funnel.docCaseNeedsCheck" as any)}
+                </span>
+              )}
+            </div>
+            <div className="mt-2 h-1.5 w-full rounded-full bg-[#E8E8E8] overflow-hidden">
+              <div
+                className="h-full rounded-full bg-[#CAF476]"
+                style={{ width: `${Math.round((have / visible.length) * 100)}%` }}
+              />
+            </div>
+          </div>
+        );
+      })()}
+
       <div className="space-y-8 md:space-y-12 lg:space-y-16">
 
         {selectedDocuments.map((section, index) => (
@@ -924,11 +996,33 @@ return (
                           );
                         }
                         if (a.status === "unsupported" || a.status === "failed") {
-                          // Section 21 and 38: the file is kept and still counts; only the
-                          // automatic recognition is missing.
+                          // Section 21: the file is kept and still counts; the customer is
+                          // asked what it is rather than being told it was rejected.
+                          const options = candidateTypesFor(
+                            selectedDocuments.flatMap((sec: any) => sec.items)
+                          );
                           return (
-                            <span key={f.id} className="block text-[11px] sm:text-[12px] text-[#132219]/60 mt-0.5">
-                              {t("funnel.docNotRecognised" as any)}
+                            <span key={f.id} className="block mt-1">
+                              <span className="block text-[11px] sm:text-[12px] text-[#132219]/60">
+                                {t("funnel.docNotRecognised" as any)}
+                              </span>
+                              {options.length > 0 && (
+                                <span className="flex flex-wrap gap-1.5 mt-1.5">
+                                  {options.map((o) => (
+                                    <button
+                                      key={o.id}
+                                      type="button"
+                                      onClick={(e) => {
+                                        e.preventDefault();
+                                        assignTypeManually(f.id, o.id);
+                                      }}
+                                      className="px-2.5 py-1 rounded-full text-[11px] border border-[#132219]/30 text-[#132219] hover:bg-[#F2F2F2]"
+                                    >
+                                      {o.label}
+                                    </button>
+                                  ))}
+                                </span>
+                              )}
                             </span>
                           );
                         }
@@ -938,6 +1032,18 @@ return (
                             ✓ {a.classification?.label}
                             {count > 0 ? ` — ${count} ${t("funnel.docFieldsRead" as any)}` : ""}
                             {a.status === "review_required" ? ` · ${t("funnel.docPleaseCheck" as any)}` : ""}
+                            {Object.keys(a.fields || {}).length > 0 && (
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  setOpenDoc({ doc: f, analysis: a });
+                                }}
+                                className="ml-2 underline text-[#132219]/70"
+                              >
+                                {t("funnel.docShowDetails" as any)}
+                              </button>
+                            )}
                           </span>
                         );
                       })}
@@ -1233,6 +1339,118 @@ return (
                 </div>
               );
             })}
+          </div>
+        </div>
+      )}
+
+      {/* Section 13: the document on the left, what was read out of it on the right, and the
+          values editable. The preview is built from the File the customer picked rather than
+          from SharePoint — at this point the upload has not happened yet, and a preview that
+          only works after submitting is a preview nobody uses.
+
+          Edits are held separately from the extraction (see `edits`): section 36 wants the
+          original value AND the corrected one, so overwriting the analysis in place would
+          destroy exactly what the audit trail is for. */}
+      {openDoc && (
+        <div
+          className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4"
+          onClick={() => setOpenDoc(null)}
+        >
+          <div
+            className="bg-white rounded-2xl w-full max-w-[1000px] max-h-[88vh] overflow-hidden flex flex-col"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between px-5 py-4 border-b border-[#EEE]">
+              <div>
+                <div className="text-[12px] text-[#132219]/60">
+                  {openDoc.analysis?.classification?.label}
+                </div>
+                <div className="text-[16px] font-semibold text-[#132219]">
+                  {openDoc.doc?.name}
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setOpenDoc(null)}
+                className="text-[20px] leading-none text-[#132219]/60 px-2"
+                aria-label="Schliessen"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="flex-1 overflow-auto grid grid-cols-1 md:grid-cols-2 gap-4 p-5">
+              <div className="min-h-[320px] rounded-xl border border-[#EEE] bg-[#FAFAFA] overflow-hidden">
+                {openDoc.doc?.file ? (
+                  openDoc.doc.file.type?.startsWith("image/") ? (
+                    <img
+                      src={URL.createObjectURL(openDoc.doc.file)}
+                      alt={openDoc.doc.name}
+                      className="w-full h-full object-contain"
+                    />
+                  ) : (
+                    <object
+                      data={URL.createObjectURL(openDoc.doc.file)}
+                      type="application/pdf"
+                      className="w-full h-[420px]"
+                    >
+                      <p className="p-4 text-[13px] text-[#132219]/70">
+                        {openDoc.doc.name}
+                      </p>
+                    </object>
+                  )
+                ) : null}
+              </div>
+
+              <div>
+                <div className="text-[13px] font-semibold text-[#132219] mb-2">
+                  {t("funnel.docExtractedInfo" as any)}
+                </div>
+                <div className="space-y-2">
+                  {Object.entries(openDoc.analysis?.fields ?? {}).map(([key, f]: any) => {
+                    const edited = edits[openDoc.doc.id]?.[key];
+                    const shown = edited ?? String(f.value ?? "");
+                    return (
+                      <label key={key} className="block">
+                        <span className="block text-[11px] text-[#132219]/60">
+                          {key}
+                          {/* Section 15 in the customer view: three states, never a
+                              percentage — a number only invites arguing with it. */}
+                          {f.confidence < 0.9 && (
+                            <span className="ml-1 text-[#8A5A00]">
+                              ⚠ {t("funnel.docPleaseCheck" as any)}
+                            </span>
+                          )}
+                        </span>
+                        <input
+                          value={shown}
+                          onChange={(e) =>
+                            setEdits((prev) => ({
+                              ...prev,
+                              [openDoc.doc.id]: {
+                                ...(prev[openDoc.doc.id] ?? {}),
+                                [key]: e.target.value,
+                              },
+                            }))
+                          }
+                          className="w-full mt-0.5 px-3 py-2 rounded-lg border border-[#E4E4E4] text-[13px]"
+                        />
+                      </label>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+
+            <div className="px-5 py-4 border-t border-[#EEE] flex justify-end">
+              <button
+                type="button"
+                onClick={() => setOpenDoc(null)}
+                className="px-5 py-2 rounded-full text-[14px] border border-[#132219] bg-[#CAF476] text-[#132219]"
+              >
+                {t("funnel.docConfirmValues" as any)}
+              </button>
+            </div>
           </div>
         </div>
       )}

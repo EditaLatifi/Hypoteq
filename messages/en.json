@@ -266,6 +266,11 @@
     "ctaCard2Button": "Book a free information call now."
   },
   "funnel": {
+    "docCaseProgress": "documents provided",
+    "docCaseNeedsCheck": "details should be checked",
+    "docShowDetails": "Details",
+    "docExtractedInfo": "Recognised information – editable",
+    "docConfirmValues": "Confirm details",
     "docMismatchTitle": "differs from what you entered",
     "docYourAnswer": "Your answer",
     "docInDocument": "In the document",
