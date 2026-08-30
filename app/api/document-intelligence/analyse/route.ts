@@ -12,6 +12,7 @@ import { analyseDocument } from "@/components/documentIntelligence/analyse";
  *   visibleDocKeys    JSON array of the requirements this case was shown
  *   expectedDocKey    optional; the requirement the file was uploaded against
  *   borrowers         optional; JSON [{id, name}] for person assignment (section 24)
+ *   submissionId      optional; when given, the analysis is stored against the uploaded row
  *
  * Section 38 governs the failure behaviour: an AI error must never make the funnel
  * unusable, so every failure comes back as HTTP 200 with status "failed" and the funnel
@@ -83,6 +84,9 @@ export async function POST(req: Request) {
       .map((b) => ({ id: String(b.id), name: String(b.name ?? "") }));
     const expectedRaw = form.get("expectedDocKey");
     const expectedFunnelKey = typeof expectedRaw === "string" && expectedRaw ? expectedRaw : null;
+    const submissionRaw = form.get("submissionId");
+    const submissionId =
+      typeof submissionRaw === "string" && submissionRaw ? submissionRaw : null;
 
     const data = Buffer.from(await file.arrayBuffer());
 
@@ -102,6 +106,31 @@ export async function POST(req: Request) {
         `(${Math.round(analysis.classification.confidence * 100)}%), status=${analysis.status}, ` +
         `${Object.keys(analysis.fields).length} field(s), ${analysis.audit.durationMs}ms`
     );
+
+    // Store it against the row the upload created (sections 27 and 36). Done here rather
+    // than in a follow-up call from the browser so the audit record cannot be lost by a
+    // customer closing the tab between the two requests.
+    //
+    // Never fatal: the analysis is already computed and is returned either way, and a
+    // dossier that cannot write its audit row is still a dossier.
+    if (submissionId) {
+      try {
+        const { attachAnalysis } = await import("@/lib/sharepoint");
+        const where = await attachAnalysis({
+          submissionId,
+          fileName,
+          status: analysis.status,
+          docType: analysis.classification.type,
+          confidence: analysis.classification.confidence,
+          analysis,
+        });
+        if (where === "not_found") {
+          console.warn(`[DocAI] No upload row yet for ${fileName} in ${submissionId}; analysis not stored`);
+        }
+      } catch (storeErr) {
+        console.error("[DocAI] Could not store the analysis:", storeErr);
+      }
+    }
 
     return NextResponse.json({ success: true, analysis });
   } catch (err: any) {

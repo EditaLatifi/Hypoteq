@@ -267,6 +267,12 @@
     "ctaCard2Button": "Prenota ora una consulenza informativa gratuita."
   },
   "funnel": {
+    "docAnalysing": "Analisi del documento …",
+    "docWrongDocument": "Questo documento non sembra essere quello richiesto.",
+    "docOutdated": "Questo documento potrebbe non essere più attuale.",
+    "docNotRecognised": "Non riconosciuto automaticamente – verifica manuale.",
+    "docFieldsRead": "informazioni lette",
+    "docPleaseCheck": "da verificare",
     "requiredFieldsError": "Veuillez remplir tous les champs obligatoires ci-dessous.",
         "loadingText": "Caricamento...",
     "uploadingFilesText": "Caricamento dei file in corso, attendere...",

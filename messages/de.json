@@ -268,6 +268,12 @@
     "ctaCard2Button": "Jetzt kostenloses Infogespräch buchen."
   },
   "funnel": {
+    "docAnalysing": "Dokument wird analysiert …",
+    "docWrongDocument": "Dieses Dokument scheint nicht das angeforderte zu sein.",
+    "docOutdated": "Dieses Dokument ist möglicherweise nicht mehr aktuell.",
+    "docNotRecognised": "Nicht automatisch erkannt – wird manuell geprüft.",
+    "docFieldsRead": "Angaben gelesen",
+    "docPleaseCheck": "bitte prüfen",
     "renovationAmount": "Betrag Renovationskosten",
     "financingOfferFields": "Finanzierungsangebotsfelder",
      "requiredFieldsError": "Bitte füllen Sie alle unten markierten Pflichtfelder aus.",

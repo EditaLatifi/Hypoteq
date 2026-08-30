@@ -264,6 +264,12 @@
     "ctaCard2Button": "Réservez maintenant un entretien d'information gratuit."
   },
   "funnel": {
+    "docAnalysing": "Analyse du document …",
+    "docWrongDocument": "Ce document ne semble pas être celui demandé.",
+    "docOutdated": "Ce document n'est peut-être plus à jour.",
+    "docNotRecognised": "Non reconnu automatiquement – vérification manuelle.",
+    "docFieldsRead": "informations lues",
+    "docPleaseCheck": "à vérifier",
     "financingOfferFields": "Champs de l'offre de financement",
      "requiredFieldsError": "Veuillez remplir tous les champs obligatoires ci-dessous.",
     "loadingText": "Chargement...",

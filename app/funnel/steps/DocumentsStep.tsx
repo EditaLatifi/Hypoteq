@@ -72,6 +72,15 @@ useEffect(() => {
   console.log("🔄 New submission detected, folder ID reset. Submission ID:", submissionId);
 }, [submissionId]);
 
+// What the AI made of each picked file, keyed by the doc's local id.
+//
+// Analysis runs when the customer selects a file, not at submit: section 31 wants a result
+// while they are still looking at the page, and holding it until submit would mean the
+// verdict arrives on a screen they are already leaving. The result is carried into the
+// upload so the model is called once per document.
+const [analyses, setAnalyses] = useState<Record<string, any>>({});
+const [analysing, setAnalysing] = useState<Record<string, boolean>>({});
+
 // Whether this step is still on screen, read by the fallback navigation in performSubmit:
 // this step going away means the funnel put up a screen of its own and nothing here should
 // navigate on top of it.
@@ -182,7 +191,10 @@ async function uploadDocToSharepoint(
   // Which requirement this file answers. Sent to finalize so the stored row says what the
   // file IS, not merely that a file arrived — the Dok_*__c booleans cannot express it (ten
   // of them cover forty documents) and nothing else records it.
-  docType: string | null = null
+  docType: string | null = null,
+  // Result of the analysis run when the file was picked; stored with the upload row so the
+  // audit trail (section 36) is written in the same request that creates the record.
+  analysis: any = null
 ) {
   try {
     const startRes = await fetch("/api/upload-doc/start", {
@@ -275,6 +287,7 @@ async function uploadDocToSharepoint(
         // this id and claimed once /api/inquiry creates the Inquiry under it.
         submissionId: inquiryId,
         docType,
+        analysis,
         driveItem,
       }),
     });
@@ -383,8 +396,9 @@ const handleUpload = async (e: any) => {
     };
 
     setDocs((prev: any[]) => [...prev, newDoc]);
+    void analyseFile(newDoc.id, file, null);
   }
-  
+
   console.log("✅ Files added to local list. Upload will happen when Weiter is clicked.");
 };
 
@@ -420,8 +434,9 @@ const handleDrop = async (e: React.DragEvent) => {
     };
 
     setDocs((prev: any[]) => [...prev, newDoc]);
+    void analyseFile(newDoc.id, file, null);
   }
-  
+
   console.log("✅ Files added to local list. Upload will happen when Weiter is clicked.");
 };
 
@@ -459,7 +474,8 @@ const uploadAllFilesToSharePoint = async (): Promise<string | null> => {
       submissionId,
       email ?? "no-email",
       uploadFolderId,
-      doc.docType ?? null
+      doc.docType ?? null,
+      analyses[doc.id] ?? null
     );
 
     console.log("📦 Upload response for", doc.name, ":", uploadRes);
@@ -503,6 +519,53 @@ const uploadAllFilesToSharePoint = async (): Promise<string | null> => {
 };
 
 
+  // Send a picked file for classification and extraction.
+  //
+  // Failure is deliberately quiet: section 38 requires an AI outage to cost classification
+  // and nothing else, so the file stays attached and the customer carries on exactly as
+  // they did before this feature existed.
+  const analyseFile = async (docId: string, file: File, expectedDocKey: string | null) => {
+    setAnalysing((prev) => ({ ...prev, [docId]: true }));
+    try {
+      const form = new FormData();
+      form.append("file", file);
+      form.append("visibleDocKeys", JSON.stringify(selectedDocuments.flatMap((s: any) => s.items)));
+      if (expectedDocKey) form.append("expectedDocKey", expectedDocKey);
+      form.append(
+        "borrowers",
+        JSON.stringify(
+          (borrowers ?? []).map((b: any, i: number) => ({
+            id: b.id || `borrower_${String(i + 1).padStart(2, "0")}`,
+            name: [b.firstName || b.vorname, b.lastName || b.name].filter(Boolean).join(" "),
+          }))
+        )
+      );
+
+      const res = await fetch("/api/document-intelligence/analyse", { method: "POST", body: form });
+      const json = await res.json();
+      const analysis = json?.analysis ?? null;
+      if (!analysis) return;
+
+      setAnalyses((prev) => ({ ...prev, [docId]: analysis }));
+
+      // Section 9: a file dropped in without picking a tile gets attached to whatever it
+      // turned out to be. Only when the requirement is one this case was actually shown —
+      // otherwise it would satisfy something the customer was never asked for.
+      if (!expectedDocKey && analysis.funnelDocKey) {
+        const visible = new Set(selectedDocuments.flatMap((sec: any) => sec.items));
+        if (visible.has(analysis.funnelDocKey)) {
+          setDocs((prev: any[]) =>
+            prev.map((d: any) => (d.id === docId ? { ...d, docType: analysis.funnelDocKey } : d))
+          );
+        }
+      }
+    } catch {
+      /* section 38: analysis is optional, the upload is not */
+    } finally {
+      setAnalysing((prev) => ({ ...prev, [docId]: false }));
+    }
+  };
+
   // Attach real files to a specific document type. This replaces the old
   // toggleDocument(), which only recorded a tick with `file: null` — so a customer could
   // green-check the whole list having uploaded nothing, and no upload was ever associated
@@ -528,6 +591,8 @@ const uploadAllFilesToSharePoint = async (): Promise<string | null> => {
       ...added,
     ]);
     e.target.value = "";
+
+    for (const d of added) void analyseFile(d.id, d.file, docType);
   };
 
   const performSubmit = async () => {
@@ -764,6 +829,52 @@ return (
                     />
                     <span className="text-[13px] sm:text-[14px] md:text-[15px] text-[#132219] leading-tight break-words">
                       {t(doc as any)}
+                      {/* What the analysis made of this file (sections 31 and 34): one line
+                          when all is well, the problem itself when it is not. The customer
+                          never sees a confidence number — section 15 allows three states and
+                          a percentage would only invite arguing with it. */}
+                      {filesForDoc.map((f: any) => {
+                        if (analysing[f.id]) {
+                          return (
+                            <span key={f.id} className="block text-[11px] sm:text-[12px] text-[#132219]/60 mt-0.5">
+                              ◌ {t("funnel.docAnalysing" as any)}
+                            </span>
+                          );
+                        }
+                        const a = analyses[f.id];
+                        if (!a) return null;
+                        if (a.status === "rejected" && a.mismatchedRequirement) {
+                          return (
+                            <span key={f.id} className="block text-[11px] sm:text-[12px] text-[#B3261E] mt-0.5">
+                              ⚠ {t("funnel.docWrongDocument" as any)}
+                            </span>
+                          );
+                        }
+                        if (a.status === "outdated" && a.freshness) {
+                          return (
+                            <span key={f.id} className="block text-[11px] sm:text-[12px] text-[#8A5A00] mt-0.5">
+                              ⚠ {t("funnel.docOutdated" as any)}
+                            </span>
+                          );
+                        }
+                        if (a.status === "unsupported" || a.status === "failed") {
+                          // Section 21 and 38: the file is kept and still counts; only the
+                          // automatic recognition is missing.
+                          return (
+                            <span key={f.id} className="block text-[11px] sm:text-[12px] text-[#132219]/60 mt-0.5">
+                              {t("funnel.docNotRecognised" as any)}
+                            </span>
+                          );
+                        }
+                        const count = Object.keys(a.fields || {}).length;
+                        return (
+                          <span key={f.id} className="block text-[11px] sm:text-[12px] text-[#2E6B2E] mt-0.5">
+                            ✓ {a.classification?.label}
+                            {count > 0 ? ` — ${count} ${t("funnel.docFieldsRead" as any)}` : ""}
+                            {a.status === "review_required" ? ` · ${t("funnel.docPleaseCheck" as any)}` : ""}
+                          </span>
+                        );
+                      })}
                       {/* No required/optional marker at all, at HYPOTEQ's request: every
                           document is presented the same way. The distinction still exists
                           in the catalog and still drives the completeness check and the

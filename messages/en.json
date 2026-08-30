@@ -266,6 +266,12 @@
     "ctaCard2Button": "Book a free information call now."
   },
   "funnel": {
+    "docAnalysing": "Analysing document …",
+    "docWrongDocument": "This does not look like the requested document.",
+    "docOutdated": "This document may no longer be current.",
+    "docNotRecognised": "Not recognised automatically – will be checked manually.",
+    "docFieldsRead": "details read",
+    "docPleaseCheck": "please check",
     "renovationAmount": "Renovation cost amount",
     "financingOfferFields": "Financing offer fields",
     "requiredFieldsError": "Please fill all required fields marked below.",

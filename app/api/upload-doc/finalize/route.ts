@@ -23,6 +23,24 @@ export async function POST(req: Request) {
       typeof body?.originalFileName === "string" && body.originalFileName
         ? body.originalFileName
         : null;
+    // The analysis the funnel already ran when the customer picked this file. Sent with
+    // the upload so the model is called once per document rather than once per lifecycle
+    // stage, and so the audit row is written in the same request that creates it.
+    const rawAnalysis = body?.analysis && typeof body.analysis === "object" ? body.analysis : null;
+    const analysis = rawAnalysis
+      ? {
+          status: String(rawAnalysis.status ?? "failed"),
+          docType:
+            typeof rawAnalysis?.classification?.type === "string"
+              ? rawAnalysis.classification.type
+              : null,
+          confidence:
+            typeof rawAnalysis?.classification?.confidence === "number"
+              ? rawAnalysis.classification.confidence
+              : null,
+          raw: rawAnalysis,
+        }
+      : null;
     const driveItem = body?.driveItem || null;
 
     if (!fileName || !email) {
@@ -45,6 +63,7 @@ export async function POST(req: Request) {
         docType,
         submissionId: submissionId || inquiryId || null,
         originalFileName,
+        analysis,
       });
     } catch (dbErr) {
       console.error("❌ Failed to save document record:", dbErr);

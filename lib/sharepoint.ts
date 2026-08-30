@@ -166,18 +166,35 @@ export async function persistDocumentRecord(params: {
   submissionId?: string | null;
   /** Name the file had when the customer picked it. */
   originalFileName?: string | null;
+  /**
+   * Analysis computed when the customer picked the file, carried through the upload.
+   *
+   * Passed in rather than run here so the model sees each document exactly once: the
+   * funnel analyses on selection to show a result immediately (section 31), and re-running
+   * it at upload time would double the cost and could return a different answer for a file
+   * the customer has already been shown a verdict on.
+   */
+  analysis?: { status: string; docType: string | null; confidence: number | null; raw: unknown } | null;
 }): Promise<void> {
   const { email, fileName, fileUrl, inquiryId, tempUserId } = params;
   const docType = params.docType || null;
   const submissionId = params.submissionId || inquiryId || null;
   const originalFileName = params.originalFileName || fileName;
+  const ai = params.analysis
+    ? {
+        aiStatus: params.analysis.status,
+        aiDocType: params.analysis.docType,
+        aiConfidence: params.analysis.confidence,
+        aiAnalysis: params.analysis.raw as any,
+      }
+    : {};
   const { prisma } = await import("@/lib/prisma");
 
   if (inquiryId) {
     const inquiryExists = await prisma.inquiry.findUnique({ where: { id: inquiryId } });
     if (inquiryExists) {
       await prisma.document.create({
-        data: { inquiryId, email, fileName, fileUrl, docType, originalFileName },
+        data: { inquiryId, email, fileName, fileUrl, docType, originalFileName, ...ai },
       });
       console.log(`✅ Document saved to DB: ${fileName} (${docType || "loose upload"})`);
       return;
@@ -193,6 +210,7 @@ export async function persistDocumentRecord(params: {
       submissionId,
       docType,
       originalFileName,
+      ...ai,
     },
   });
   console.log(
@@ -227,6 +245,13 @@ export async function adoptHoldingDocuments(
       fileUrl: h.fileUrl,
       docType: h.docType,
       originalFileName: h.originalFileName || h.fileName,
+      // The analysis was made at upload time, before this Inquiry existed. Carrying it
+      // across is the whole point of holding it — re-running the model on adoption would
+      // cost a second call and could return a different answer for the same file.
+      aiStatus: h.aiStatus,
+      aiDocType: h.aiDocType,
+      aiConfidence: h.aiConfidence,
+      aiAnalysis: h.aiAnalysis ?? undefined,
       uploadedAt: h.uploadedAt,
     })),
   });
@@ -236,4 +261,54 @@ export async function adoptHoldingDocuments(
   await prisma.holdingDocument.deleteMany({ where: { id: { in: held.map((h) => h.id) } } });
 
   return held.length;
+}
+
+/**
+ * Attach an analysis to the row that already holds the file (spec sections 27 and 36).
+ *
+ * Looks in both places because a file is analysed at upload time: on a first submission the
+ * row is still in HoldingDocument, while a Nachreichung analyses a file whose Inquiry
+ * already exists and whose row is therefore on Document.
+ *
+ * Matching is by (submission, filename) because that is all the client knows at this point —
+ * the row id is never sent to the browser. The newest row wins if a customer uploads the
+ * same filename twice, which is also the one they just analysed.
+ */
+export async function attachAnalysis(params: {
+  submissionId: string;
+  fileName: string;
+  status: string;
+  docType: string | null;
+  confidence: number | null;
+  analysis: unknown;
+}): Promise<"document" | "holding" | "not_found"> {
+  const { prisma } = await import("@/lib/prisma");
+  const data = {
+    aiStatus: params.status,
+    aiDocType: params.docType,
+    aiConfidence: params.confidence,
+    aiAnalysis: params.analysis as any,
+  };
+
+  const held = await prisma.holdingDocument.findFirst({
+    where: { submissionId: params.submissionId, fileName: params.fileName },
+    orderBy: { uploadedAt: "desc" },
+  });
+  if (held) {
+    await prisma.holdingDocument.update({ where: { id: held.id }, data });
+    return "holding";
+  }
+
+  const doc = await prisma.document.findFirst({
+    where: { inquiryId: params.submissionId, fileName: params.fileName },
+    orderBy: { uploadedAt: "desc" },
+  });
+  if (doc) {
+    await prisma.document.update({ where: { id: doc.id }, data });
+    return "document";
+  }
+
+  // Not an error: analysis can legitimately run before the upload row is written, and the
+  // funnel must not fail over bookkeeping. The caller logs it.
+  return "not_found";
 }
