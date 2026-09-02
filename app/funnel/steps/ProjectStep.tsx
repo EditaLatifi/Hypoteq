@@ -3,6 +3,7 @@
 import { useFunnelStore } from "@/src/store/funnelStore";
 import { useTranslation } from "@/hooks/useTranslation";
 import { useState } from "react";
+import FunnelHeading from "../FunnelHeading";
 
 function ProjectStep({ data, setData, saveStep, customerType, back, onProjectTypeChange }: any) {
   const { t } = useTranslation();
@@ -44,12 +45,7 @@ const selectCard = (value: string) => {
 
   return (
     <div className="w-full max-w-[1400px] pt-[150px] md:pt-0 mx-auto px-4 md:px-8 lg:pl-20 lg:pr-48">
-      {/* TITLE */}
-      <h2 className="text-3xl md:text-4xl lg:text-[48px] font-semibold text-[#132219] mb-2 md:mb-2.5 lg:mb-3">
-        {title}
-      </h2>
-
-      <p className="text-lg md:text-xl lg:text-[24px] text-[#132219]/80 mb-8 md:mb-10 lg:mb-12">{subtitle}</p>
+      <FunnelHeading title={title} lead={subtitle} leadSize="body" />
 
       {/* CARDS */}
       <div className="flex flex-col md:flex-row gap-4 md:gap-5 lg:gap-[26px]">

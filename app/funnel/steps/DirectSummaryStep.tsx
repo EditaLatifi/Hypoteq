@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { useTranslation } from "@/hooks/useTranslation";
 import { syncFunnelStepsToSalesforce } from "@/components/syncFunnelStepsToSalesforce";
 import salesforceApi from "@/components/salesforceApi";
+import FunnelHeading from "../FunnelHeading";
 
 export default function DirectSummaryStep({ back, saveStep }: any) {
   const { t } = useTranslation();
@@ -134,11 +135,7 @@ const laufzeitLabel =
 <div className="w-full max-w-[1100px] mx-auto text-[#132219] py-12 md:py-16 lg:py-20 px-4 md:px-5 lg:px-6 -mt-10 md:-mt-12 lg:-mt-16">
 
       {/* ================= HEADER ================= */}
-      <div className="pb-6 md:pb-7 lg:pb-8 border-b border-gray-200">
-        <h2 className="text-3xl md:text-[36px] lg:text-[40px] font-semibold tracking-tight">
-          {t("funnel.summary" as any)}
-        </h2>
-      </div>
+      <FunnelHeading title={t("funnel.summary" as any)} />
 
       <div className="flex flex-col gap-8 md:gap-10 lg:gap-12 mt-8 md:mt-10 lg:mt-12">
 

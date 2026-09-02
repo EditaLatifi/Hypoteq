@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useFunnelStore } from "@/src/store/funnelStore";
 import { useTranslation } from "@/hooks/useTranslation";
 import { v4 as uuidv4 } from "uuid";
+import FunnelHeading from "../FunnelHeading";
 
 function BorrowersStep({ saveStep , back}: any) {
   const { t } = useTranslation();
@@ -36,9 +37,7 @@ const handleContinue = () => {
 
   return (
     <div className="w-full max-w-[1400px] mx-auto px-4 md:px-8 pt-[150px] lg:pt-0 lg:pl-20 lg:pr-48">
-      <h2 className="text-3xl md:text-4xl lg:text-[48px] font-semibold text-[#132219] mb-6 md:mb-7 lg:mb-8">
-        {t("funnel.borrowerType" as any)}
-      </h2>
+      <FunnelHeading title={t("funnel.borrowerType" as any)} />
 
       <div className="flex flex-col md:flex-row gap-4 md:gap-5 lg:gap-[26px] mb-12 md:mb-16 lg:mb-12">
         {/* Natürliche Person Card */}

@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { useFunnelStore } from "@/src/store/funnelStore";
 import { useTranslation } from "@/hooks/useTranslation";
+import FunnelHeading from "../FunnelHeading";
 
 function StartStep({
   customerType,
@@ -62,15 +63,10 @@ if (!clientData.phone) {
 
   return (
     <div className="w-full max-w-[1400px] mx-auto px-4 md:px-8 pt-[150px] md:pt-0 lg:pl-20 lg:pr-32 -mt-10">
-      {/* === Title === */}
-      <h2 className="text-3xl md:text-4xl lg:text-[48px] font-normal text-[#132219] mb-1 font-sfpro">
-        {t("funnel.startTitle" as any)}
-      </h2>
-
-      {/* === Subtitle === */}
-      <p className="text-lg md:text-xl lg:text-[24px] font-normal font-sfpro text-[#132219]/80 mb-6">
-        {t("funnel.startSubtitle" as any)}
-      </p>
+      <FunnelHeading
+        title={t("funnel.startTitle" as any)}
+        lead={t("funnel.startSubtitle" as any)}
+      />
 
       {/* === Partner Section (only show if not partner) === */}
       {customerType !== "partner" && (

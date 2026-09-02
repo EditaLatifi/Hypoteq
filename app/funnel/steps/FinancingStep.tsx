@@ -4,6 +4,7 @@ import FunnelCalc from "@/components/funnelCalc";
 import SwissDatePicker from "@/components/SwissDatePicker";
 import { useTranslation } from "@/hooks/useTranslation";
 import { useState } from "react";
+import FunnelHeading from "../FunnelHeading";
 
 function FinancingStep({
   data,
@@ -85,19 +86,28 @@ const ToggleButton = ({ active, children, onClick }: any) => {
   return (
     <button
       onClick={onClick}
-      className={`
-        flex items-center gap-3
-        px-6 py-2.5 rounded-full border text-sm transition-all
-        ${active ? "bg-[#CAF476] border-[#132219] text-[#132219]" : "bg-white border-[#C8C8C8] text-[#132219]"}
-      `}
-      style={{ minHeight: "40px" }}
+      className="flex items-center gap-2.5 transition-all"
+      style={{
+        padding: "10px 20px",
+        borderRadius: "var(--radius-pill)",
+        fontSize: "var(--text-body-sm)",
+        fontWeight: "var(--weight-semibold)" as any,
+        minHeight: 40,
+        lineHeight: 1.1,
+        background: active ? "var(--lime-500)" : "#fff",
+        border: `1px solid ${active ? "var(--forest-800)" : "var(--paper-400)"}`,
+        color: "var(--forest-800)",
+        transition: "var(--transition-control)",
+      }}
     >
-      {/* Full Circle Indicator */}
-      <span
-        className={`w-4 h-4 rounded-full flex-shrink-0
-          ${active ? "bg-[#132219]" : "bg-[#132219]"} 
-        `}
-      ></span>
+      {/* Only when chosen. The dark dot used to be painted on every option, selected or not,
+          which made the whole row read as already answered. */}
+      {active && (
+        <span
+          className="flex-shrink-0"
+          style={{ width: 16, height: 16, borderRadius: 999, background: "var(--forest-800)" }}
+        />
+      )}
       {children}
     </button>
   );
@@ -118,7 +128,7 @@ const ToggleButton = ({ active, children, onClick }: any) => {
 
           {/* LEFT SIDE */}
           <div className="space-y-6 lg:space-y-10">
-            <h1 className="text-3xl lg:text-4xl font-semibold">{t("funnel.newPurchase" as any)}</h1>
+            <FunnelHeading title={t("funnel.newPurchase" as any)} />
 
     {/* Kaufpreis (required) */}
     <div>
@@ -502,7 +512,7 @@ const ToggleButton = ({ active, children, onClick }: any) => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 px-6 md:px-12">
 
           <div className="space-y-6 lg:space-y-10">
-            <h1 className="text-3xl lg:text-4xl font-semibold">{t("funnel.redemption" as any)}</h1>
+            <FunnelHeading title={t("funnel.redemption" as any)} />
 
             {/* Hypothekarbetrag */}
             <div>

@@ -4,6 +4,7 @@ import SwissDatePicker, { swissToDate } from "@/components/SwissDatePicker";
 import { useTranslation } from "@/hooks/useTranslation";
 
 import { useState, useEffect } from "react";
+import FunnelHeading from "../FunnelHeading";
 
 // Borrowers must be at least 18 — the calendar must not offer younger dates.
 function maxBirthdate() {
@@ -66,18 +67,26 @@ function PropertyStep({ data, setData, saveStep, borrowers, back, customerType, 
       <button
         onClick={disabled ? undefined : onClick}
         disabled={disabled}
-        className={`
-          flex items-center gap-3
-          px-6 py-2.5 rounded-full border text-sm transition-all
-          ${disabled
-            ? "bg-gray-100 border-gray-300 text-gray-400 cursor-not-allowed opacity-50"
-            : active
-            ? "bg-[#CAF476] border-[#132219] text-[#132219]"
-            : "bg-white border-[#C8C8C8] text-[#132219]"}
-        `}
-        style={{ minHeight: "40px" }}
+        className="flex items-center gap-2.5 transition-all"
+        style={{
+          padding: "10px 20px",
+          borderRadius: "var(--radius-pill)",
+          fontSize: "var(--text-body-sm)",
+          fontWeight: "var(--weight-semibold)" as any,
+          minHeight: 40,
+          lineHeight: 1.1,
+          background: disabled ? "var(--paper-200)" : active ? "var(--lime-500)" : "#fff",
+          border: `1px solid ${disabled ? "var(--paper-300)" : active ? "var(--forest-800)" : "var(--paper-400)"}`,
+          color: disabled ? "var(--on-light-45)" : "var(--forest-800)",
+          cursor: disabled ? "not-allowed" : "pointer",
+          transition: "var(--transition-control)",
+        }}
       >
-        {showCircle && <span className="w-4 h-4 rounded-full bg-[#132219]"></span>}
+        {showCircle && active && (
+          <span
+            style={{ width: 16, height: 16, borderRadius: 999, background: "var(--forest-800)" }}
+          />
+        )}
         {children}
       </button>
     );
@@ -137,6 +146,17 @@ const propertyUseOptions =
 
   return (
     <div className="w-full max-w-[1400px] pt-[180px] md:pt-0 mx-auto px-4 md:px-6 lg:px-4 lg:pl-28 space-y-6 lg:space-y-[30px] -mt-10">
+      {/* This step had no heading at all — it opened straight into "Art der Immobilie",
+          which left the customer on a page of questions with nothing saying what the page
+          was for. The mockup gives it one, and the lead is the mockup's own sentence: it
+          explains why the questions matter, which is that each answer changes the document
+          list at the end. */}
+      <FunnelHeading
+        title={t("funnel.stepProjectObject" as any)}
+        lead={t("funnel.propertyLead" as any)}
+        leadSize="body"
+      />
+
       {/* ========================================================= */}
       {/*  ART DER IMMOBILIE                                        */}
       {/* ========================================================= */}
