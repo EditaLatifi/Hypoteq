@@ -723,6 +723,37 @@ const uploadAllFilesToSharePoint = async (): Promise<string | null> => {
   };
 
   /**
+   * The state of one requirement, as the mockup's status table defines it.
+   *
+   * Derived from what the analysis already decided rather than tracked separately — a second
+   * copy of "is this document all right" is a second thing to keep in step, and the two
+   * would disagree the first time a rule changed. The order matters: a wrong document is a
+   * problem at any confidence, and a file nobody could identify is not "low confidence".
+   */
+  const rowStatus = (filesForDoc: any[]) => {
+    const S = {
+      missing: { badge: "badgeMissing", glyph: "○", bg: "var(--paper-200)", fg: "var(--on-light-45)", border: "var(--paper-300)" },
+      analysing: { badge: "badgeAnalysing", glyph: "◌", bg: "var(--lime-200)", fg: "var(--lime-800)", border: "var(--lime-300)" },
+      ok: { badge: "badgeConfirmed", glyph: "✓", bg: "var(--success-100)", fg: "var(--success-500)", border: "var(--paper-300)" },
+      review: { badge: "badgeCheck", glyph: "⚠", bg: "var(--warning-100)", fg: "var(--warning-500)", border: "var(--warning-500)" },
+      outdated: { badge: "badgeOutdated", glyph: "⚠", bg: "var(--warning-100)", fg: "var(--warning-500)", border: "var(--warning-500)" },
+      wrong: { badge: "badgeWrong", glyph: "!", bg: "var(--danger-100)", fg: "var(--danger-500)", border: "var(--danger-500)" },
+      unknown: { badge: "badgeUnknown", glyph: "?", bg: "var(--info-100)", fg: "var(--info-500)", border: "var(--info-500)" },
+    };
+
+    if (!filesForDoc.length) return S.missing;
+    if (filesForDoc.some((f: any) => analysing[f.id])) return S.analysing;
+
+    const list = filesForDoc.map((f: any) => analyses[f.id]).filter(Boolean);
+    if (list.some((a: any) => a.status === "rejected")) return S.wrong;
+    if (list.some((a: any) => a.status === "outdated")) return S.outdated;
+    if (list.some((a: any) => a.status === "unsupported" || a.status === "failed")) return S.unknown;
+    if (filesForDoc.some((f: any) => (mismatches[f.id] ?? []).length > 0)) return S.review;
+    if (list.some((a: any) => a.status === "review_required")) return S.review;
+    return S.ok;
+  };
+
+  /**
    * What the analysis made of one file (sections 31 and 34): one line when all is well, the
    * problem itself when it is not. The customer never sees a confidence number — section 15
    * allows three states, and a percentage only invites arguing with it.
@@ -971,13 +1002,85 @@ return (
 
     <div className="w-full max-w-[1100px]">
 
-      {/* HEADER AREA */}
-      <div className="text-center mb-8 md:mb-12 lg:mb-14">
-        <h1 className="text-[28px] sm:text-[32px] md:text-[38px] font-semibold text-[#132219] tracking-tight">
-         {t("funnel.uploadDocuments" as any)}
+      {/* HEADER — the mockup's short lime rule, the display heading, and a lead that says
+          what the step now actually does. Left-aligned rather than centred: the whole screen
+          below it is a left-aligned list, and a centred heading over that reads as a title
+          borrowed from a different page. */}
+      <div className="flex flex-col gap-3 mb-8 md:mb-10">
+        <span style={{ width: "var(--rule-length)", height: "var(--rule-weight)", background: "var(--lime-600)" }} />
+        <h1
+          style={{
+            margin: 0,
+            fontFamily: "var(--font-display)",
+            fontSize: "var(--text-display-3)",
+            lineHeight: "var(--leading-snug)",
+            letterSpacing: "var(--tracking-tight)",
+            color: "var(--forest-800)",
+            fontWeight: "var(--weight-bold)" as any,
+            textWrap: "pretty" as any,
+          }}
+        >
+          {t("funnel.uploadDocuments" as any)}
         </h1>
-
+        <p
+          style={{
+            margin: 0,
+            fontSize: "var(--text-lead)",
+            lineHeight: "var(--leading-normal)",
+            color: "var(--on-light-70)",
+            maxWidth: "58ch",
+          }}
+        >
+          {t("funnel.docUploadLead" as any)}
+        </p>
       </div>
+
+      {/* The drop zone moved up here, where the mockup puts it: the customer's first move on
+          this screen is to hand over files, and the state of the dossier is the answer to
+          that rather than the thing they have to read first.
+
+          A label rather than a button, so the whole area opens the picker without a second
+          control inside it. The size in the hint is 25 MB and not the mockup's 50: the route
+          rejects anything larger, and a promise the server breaks is worse than a smaller
+          promise it keeps. */}
+      <label
+        className="flex flex-col items-center gap-2.5 cursor-pointer mb-8 text-center"
+        style={{
+          background: isDragging ? "var(--lime-100)" : "var(--paper-100)",
+          border: `1px dashed ${isDragging ? "var(--lime-600)" : "var(--paper-400)"}`,
+          borderRadius: "var(--radius-lg)",
+          padding: "34px 24px",
+          transition: "var(--transition-control)",
+        }}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop}
+      >
+        <input type="file" className="hidden" multiple onChange={handleUpload} />
+        <img
+          src="/images/HYPOTEQ_funnel_upload_icon.svg"
+          alt=""
+          style={{ width: 34, height: 34, opacity: 0.7 }}
+        />
+        <span
+          style={{
+            fontSize: "var(--text-lead)",
+            fontWeight: "var(--weight-semibold)" as any,
+            color: "var(--forest-800)",
+          }}
+        >
+          {t("funnel.docDropTitle" as any)}
+        </span>
+        <span
+          style={{
+            fontSize: "var(--text-body-sm)",
+            color: "var(--on-light-70)",
+            maxWidth: "46ch",
+          }}
+        >
+          {t("funnel.docDropHint" as any)}
+        </span>
+      </label>
 
       {/* AUSKUNFTSERMÄCHTIGUNG — Download in 4 languages, sign & upload */}
       <div className="mb-10 md:mb-14 bg-[#FFF8E1] border-[1.5px] border-[#F9A825] rounded-lg py-4 px-5">
@@ -1067,23 +1170,80 @@ return (
           return a && (a.status === "review_required" || (mismatches[d.id] ?? []).length > 0);
         }).length;
         if (visible.length === 0) return null;
+
+        // Two segments, not one. A bar that counts a document still waiting on a person as
+        // done tells the customer they are finished when they are not — so what is settled
+        // is green and what is attached but unresolved is amber, and only the rest is empty.
+        const okCount = Math.max(0, have - needsCheck);
+        const pct = (n: number) => `${(n / visible.length) * 100}%`;
+        const open = visible.length - have;
+
+        const tally = (n: number, label: string, bg: string, fg: string) =>
+          n > 0 ? (
+            <span
+              key={label}
+              style={{
+                background: bg,
+                color: fg,
+                borderRadius: "var(--radius-pill)",
+                padding: "5px 12px",
+                fontSize: "var(--text-caption)",
+                fontWeight: "var(--weight-semibold)" as any,
+                whiteSpace: "nowrap",
+              }}
+            >
+              {n} {label}
+            </span>
+          ) : null;
+
         return (
-          <div className="mb-8 rounded-2xl border border-[#E4E4E4] bg-[#FAFAFA] px-5 py-4">
-            <div className="flex items-baseline justify-between gap-3 flex-wrap">
-              <span className="text-[15px] font-semibold text-[#132219]">
-                {have} / {visible.length} {t("funnel.docCaseProgress" as any)}
-              </span>
-              {needsCheck > 0 && (
-                <span className="text-[13px] text-[#8A5A00]">
-                  ⚠ {needsCheck} {t("funnel.docCaseNeedsCheck" as any)}
+          <div
+            className="mb-8 flex flex-col gap-4"
+            style={{
+              border: "var(--border-on-light)",
+              borderRadius: "var(--radius-lg)",
+              background: "#fff",
+              padding: 22,
+            }}
+          >
+            <div className="flex flex-wrap items-start justify-between gap-4">
+              <div className="flex flex-col gap-1.5">
+                <span
+                  style={{
+                    fontSize: "var(--text-micro)",
+                    letterSpacing: "var(--tracking-label)",
+                    textTransform: "uppercase",
+                    color: "var(--on-light-45)",
+                  }}
+                >
+                  {t("funnel.docCompleteness" as any)}
                 </span>
-              )}
+                <span
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontSize: "var(--text-title)",
+                    color: "var(--forest-800)",
+                    fontWeight: "var(--weight-bold)" as any,
+                    lineHeight: 1.1,
+                  }}
+                >
+                  {have} {t("funnel.docOf" as any)} {visible.length}{" "}
+                  {t("funnel.docDocumentsWord" as any)}
+                </span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {tally(okCount, t("funnel.docTallyOk" as any), "var(--success-100)", "var(--success-500)")}
+                {tally(needsCheck, t("funnel.docTallyCheck" as any), "var(--warning-100)", "var(--warning-500)")}
+                {tally(open, t("funnel.docTallyOpen" as any), "var(--paper-200)", "var(--on-light-45)")}
+              </div>
             </div>
-            <div className="mt-2 h-1.5 w-full rounded-full bg-[#E8E8E8] overflow-hidden">
-              <div
-                className="h-full rounded-full bg-[#CAF476]"
-                style={{ width: `${Math.round((have / visible.length) * 100)}%` }}
-              />
+
+            <div
+              className="flex overflow-hidden"
+              style={{ height: 8, borderRadius: 999, background: "var(--paper-200)" }}
+            >
+              <div style={{ width: pct(okCount), background: "var(--success-500)" }} />
+              <div style={{ width: pct(needsCheck), background: "var(--warning-500)" }} />
             </div>
           </div>
         );
@@ -1092,23 +1252,30 @@ return (
       <div className="space-y-8 md:space-y-12 lg:space-y-16">
 
         {selectedDocuments.map((section, index) => (
-          <div
-            key={index}
-            className="bg-white shadow-sm rounded-2xl md:rounded-3xl p-6 sm:p-8 md:p-10 border border-[#F0F0F0]"
-          >
-            {/* SECTION HEADER */}
-            <div className="flex items-center justify-between mb-6 md:mb-8">
-              <h3 className="text-[18px] sm:text-[20px] md:text-[22px] font-semibold text-[#132219] tracking-tight">
+          <div key={index} className="flex flex-col gap-2.5">
+            {/* GROUP HEADER — the mockup's quiet rule-and-count line instead of a card
+                around each section. The card was competing with the rows inside it for the
+                same attention, and the rows are the part carrying a status. */}
+            <div className="flex items-baseline gap-2.5">
+              <span
+                style={{
+                  fontSize: "var(--text-micro)",
+                  letterSpacing: "var(--tracking-label)",
+                  textTransform: "uppercase",
+                  color: "var(--on-light-45)",
+                }}
+              >
                 {section.title}
-              </h3>
-
-              <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#F6F6F6] flex items-center justify-center shadow-inner flex-shrink-0">
-                <span className="text-base md:text-lg opacity-70">📄</span>
-              </div>
+              </span>
+              <span className="flex-1" style={{ height: 1, background: "var(--paper-300)" }} />
+              <span style={{ fontSize: "var(--text-micro)", color: "var(--on-light-45)" }}>
+                {section.items.filter((k: string) => docs.some((d: any) => d.docType === k && d.file)).length}
+                /{section.items.length}
+              </span>
             </div>
 
-            {/* DOCUMENT GRID */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 md:gap-5">
+            {/* ROWS */}
+            <div className="flex flex-col gap-2.5">
               {section.items.map((doc, idx) => {
                 // `doc` is an i18n key, not a label — a tile counts as satisfied only when
                 // a real file is bound to it. Ticking without uploading is what used to make
@@ -1121,31 +1288,40 @@ return (
                 const isUploading = docUploadStatus === 'uploading';
                 const isUploadedSuccessfully = docUploadStatus === 'uploaded';
                 const isUploadFailed = docUploadStatus === 'failed';
+                const rowState = rowStatus(filesForDoc);
 
                 return (
                   <label
                     key={idx}
-                    className={`
-                      flex items-center justify-between gap-3
-                      px-4 sm:px-5 md:px-6 py-3 sm:py-3.5 md:py-4 cursor-pointer rounded-xl md:rounded-2xl
-                      shadow-sm border transition-all
-
-                      ${
-                        isUploadedSuccessfully
-                          ? "bg-[#EAF7D8] border-[#CAEBAA]"
-                          : isUploadFailed
-                            ? "bg-[#FADDD1] border-[#F4A49C]"
-                            : isUploading
-                              ? "bg-[#F3F8FF] border-[#C5E4FF]"
-                              : saved
-                                ? "bg-[#EAF7D8] border-[#CAEBAA]"
-                                : // One neutral resting style for every document: the tile
-                                  // no longer signals required vs optional, so a two-tone
-                                  // palette would reintroduce the distinction visually.
-                                  "bg-[#FAFAFA] border-[#E4E4E4] hover:bg-[#F2F2F2]"
-                      }
-                    `}
+                    className="flex items-start gap-3.5 cursor-pointer"
+                    style={{
+                      // White ground for every row; the status speaks through the glyph, the
+                      // border and the badge rather than by tinting the whole card. A wall of
+                      // coloured cards is how a list stops being readable at nine documents.
+                      background: "#fff",
+                      border: `1px solid ${rowState.border}`,
+                      borderRadius: "var(--radius-md)",
+                      padding: "14px 18px",
+                      transition: "var(--transition-control)",
+                    }}
                   >
+                    {/* Status glyph, in the mockup's colours for this state. */}
+                    <span
+                      className="flex items-center justify-center flex-none"
+                      style={{
+                        width: 30,
+                        height: 30,
+                        borderRadius: 999,
+                        background: rowState.bg,
+                        color: rowState.fg,
+                        fontSize: "var(--text-body-sm)",
+                        fontWeight: "var(--weight-semibold)" as any,
+                        marginTop: 1,
+                      }}
+                      aria-hidden="true"
+                    >
+                      {rowState.glyph}
+                    </span>
                     <input
                       type="file"
                       className="hidden"
@@ -1154,8 +1330,18 @@ return (
                       onChange={(e) => handleDocTypeUpload(e, doc)}
                       disabled={isUploading}
                     />
-                    <span className="text-[13px] sm:text-[14px] md:text-[15px] text-[#132219] leading-tight break-words">
-                      {t(doc as any)}
+                    <span className="flex-1 min-w-0 flex flex-col gap-1 break-words">
+                      <span
+                        style={{
+                          fontSize: "var(--text-body)",
+                          fontWeight: "var(--weight-semibold)" as any,
+                          color: "var(--forest-800)",
+                          lineHeight: "var(--leading-snug)",
+                          textWrap: "pretty" as any,
+                        }}
+                      >
+                        {t(doc as any)}
+                      </span>
                       {filesForDoc.map((f: any) => renderAnalysisNote(f))}
                       {filesForDoc.flatMap((f: any) => renderMismatches(f))}
                       {/* No required/optional marker at all, at HYPOTEQ's request: every
@@ -1169,89 +1355,24 @@ return (
                       )}
                     </span>
 
-                    {/* STATUS INDICATOR */}
-                    <div
-                      className={`
-                        w-7 h-7 md:w-8 md:h-8 rounded-full flex items-center justify-center flex-shrink-0
-                        border transition
-                        ${
-                          isUploadedSuccessfully
-                            ? "bg-[#CAF476] border-[#132219]"
-                            : isUploadFailed
-                              ? "bg-[#FF6B6B] border-[#C92A2A]"
-                              : isUploading
-                                ? "bg-[#E3F2FD] border-[#90CAF9]"
-                                : saved
-                                  ? "bg-[#CAF476] border-[#132219]"
-                                  : "bg-white border-gray-300"
-                        }
-                      `}
+                    {/* The state in words. The glyph alone asks the customer to learn a
+                        legend; the badge says it outright, and the two agree by construction
+                        because both come from rowStatus. */}
+                    <span
+                      className="flex-none"
+                      style={{
+                        background: rowState.bg,
+                        color: rowState.fg,
+                        borderRadius: "var(--radius-pill)",
+                        padding: "4px 12px",
+                        fontSize: "var(--text-micro)",
+                        fontWeight: "var(--weight-semibold)" as any,
+                        whiteSpace: "nowrap",
+                        marginTop: 4,
+                      }}
                     >
-                      {isUploading && (
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="w-3 h-3 md:w-4 md:h-4 text-[#1976D2] animate-spin"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          strokeWidth={2}
-                        >
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
-                        </svg>
-                      )}
-                      {isUploadFailed && (
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="w-3 h-3 md:w-4 md:h-4 text-white"
-                          fill="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
-                        </svg>
-                      )}
-                      {isUploadedSuccessfully && (
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="w-3 h-3 md:w-4 md:h-4 text-[#132219]"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          strokeWidth={3}
-                        >
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/>
-                        </svg>
-                      )}
-                      {saved && !isUploading && !isUploadFailed && !isUploadedSuccessfully && (
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="w-3 h-3 md:w-4 md:h-4 text-[#132219]"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          strokeWidth={3}
-                        >
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/>
-                        </svg>
-                      )}
-                      {/* Nothing attached yet: an upload arrow, not an empty circle. The
-                          bare circle read as a checkbox to tick — which is precisely the
-                          self-declaration this step replaced — rather than as a target to
-                          drop a file on. */}
-                      {!saved && !isUploading && !isUploadFailed && !isUploadedSuccessfully && (
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="w-3.5 h-3.5 md:w-[17px] md:h-[17px] text-[#132219]/50"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          strokeWidth={2}
-                          aria-hidden="true"
-                        >
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5" />
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M4 15v3a2 2 0 002 2h12a2 2 0 002-2v-3" />
-                        </svg>
-                      )}
-                    </div>
+                      {t(("funnel." + rowState.badge) as any)}
+                    </span>
                   </label>
                 );
               })}
@@ -1261,6 +1382,17 @@ return (
         ))}
 
       </div>
+
+      {/* The mockup's closing reassurance, and it is true: the funnel has always allowed a
+          submission with documents outstanding, and the completeness verdict travels with it
+          so the Nachreichung mail can name what is still needed. Saying so here removes the
+          reason a customer stalls on a document they cannot find tonight. */}
+      <p
+        className="mt-6"
+        style={{ fontSize: "var(--text-body-sm)", color: "var(--on-light-70)" }}
+      >
+        {t("funnel.docSubmitAnytime" as any)}
+      </p>
 
       {/* UPLOAD CARD — catch-all for anything that fits none of the fields above.
           Deliberately placed AFTER the sections and visually quieter than them: a file
@@ -1275,50 +1407,6 @@ return (
         <p className="mt-1.5 text-[13px] md:text-[14px] text-[#132219]/60 leading-relaxed">
           {t("funnel.additionalDocumentsHint" as any)}
         </p>
-      </div>
-<div
-  className={`
-    bg-[#FAFAFA] rounded-2xl md:rounded-3xl p-6 sm:p-8 md:p-10
-    border-2 border-dashed transition-all duration-200
-    flex flex-col items-center gap-3 md:gap-4 mb-8 md:mb-12
-    ${isDragging ? 'border-[#132219] bg-[#CAF47633]' : 'border-[#E0E0E0]'}
-  `}
-  onDragOver={handleDragOver}
-  onDragLeave={handleDragLeave}
-  onDrop={handleDrop}
->
-
-
-    <div className="w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center">
-  <img
-    src="/images/HYPOTEQ_funnel_upload_icon.svg"
-    alt="Upload"
-    className="w-7 h-7 md:w-8 md:h-8 opacity-70"
-  />
-</div>
-
-
-        <h2 className="text-[15px] sm:text-[16px] md:text-[17px] font-medium text-[#132219] px-4 text-center">
-          {t("funnel.selectFileOrDrop" as any)}
-        </h2>
-
-        <p className="text-gray-500 text-[13px] md:text-[14px] px-4 text-center">
-          {t("funnel.fileFormatsSize" as any)}
-        </p>
-
-        <label className="cursor-pointer mt-2">
-<input
-  type="file"
-  className="hidden"
-  multiple
-  onChange={handleUpload}
-/>
-          <div className="bg-[#132219] text-white px-6 md:px-7 py-2 md:py-2.5 rounded-full text-[13px] md:text-sm tracking-wide hover:bg-black transition-colors">
-            {t("funnel.browseFiles" as any)}
-          </div>
-
-        </label>
-
       </div>
 
       {/* UPLOADED FILES PREVIEW — loose uploads only. Files bound to a document type are
