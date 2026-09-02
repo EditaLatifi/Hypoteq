@@ -131,11 +131,16 @@ useEffect(() => {
   // -------------------------------------
   // CALCULATE SIDEBAR MAPPING
   // -------------------------------------
+  // Which of the sidebar's five groups the current internal step belongs to. The mockups
+  // give Unterlagen a group of its own, which is right — it is where the customer does the
+  // most work — so Financing and Documents no longer share one. Presentation only: the
+  // internal step numbering and every validation hanging off it are unchanged.
   const getSidebarStep = () => {
-    if (step <= 3) return 1;               // StartStep, ProjectStep, BorrowersStep
-    if (step === 4) return 2;              // PropertyStep
-    if (step === 5 || step === 6) return 3; // FinancingStep + Documents/Summary
-    return 4;                              // Final
+    if (step <= 3) return 1;  // Start, Project, Borrowers -> Allgemeines
+    if (step === 4) return 2; // Property                  -> Projekt & Objekt
+    if (step === 5) return 3; // Financing                 -> Kalkulator
+    if (step === 6) return 4; // Documents / Summary       -> Unterlagen
+    return 5;                 //                              Abschluss
   };
 
   const sidebarStep = getSidebarStep();
@@ -376,7 +381,19 @@ const submitFinal = async (payload?: any) => {
 
 
   return (
-    <div className="w-full min-h-screen bg-white flex">
+    // The shell from the funnel mockups: the page sits on the brand's darkest forest and the
+    // funnel itself is a card floating on it. The card is desktop-only — on a phone the
+    // mockup's 412px device frame is the canvas showing a phone, not a border a real phone
+    // should draw around its own screen, so there it goes full-bleed.
+    <div
+      className="w-full min-h-screen flex justify-center"
+      style={{ background: "var(--forest-900)", fontFamily: "var(--font-text)" }}
+    >
+      <div
+        className="w-full md:my-7 md:max-w-[1360px] md:rounded-2xl md:overflow-hidden"
+        style={{ background: "var(--paper)" }}
+      >
+        <div className="flex flex-col md:flex-row items-stretch md:min-h-[940px]">
 
       <FunnelSidebar step={sidebarStep} />
 
@@ -501,6 +518,8 @@ saveStep={next}
   </div>
 )}
 
+      </div>
+        </div>
       </div>
     </div>
   );

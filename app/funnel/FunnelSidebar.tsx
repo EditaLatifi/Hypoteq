@@ -8,6 +8,23 @@ interface Props {
   step: number;
 }
 
+/**
+ * The funnel's shell, rebuilt to the HYPOTEQ funnel mockups.
+ *
+ * Five groups rather than the four this showed before, because the mockup gives Unterlagen a
+ * step of its own — which is right: it is where the customer does the most work and the only
+ * one they may come back to. The internal step numbers are untouched; the pages map their
+ * own step onto these five. This is presentation, and the funnel's navigation and validation
+ * have too much hard-won behaviour in them to be rewritten for a visual change.
+ *
+ * Deliberately NOT clickable, unlike the mockup. Jumping to step 4 from step 1 would skip
+ * the validation each step runs on the way out, and the mockup is a picture of a finished
+ * flow rather than a claim about which of them may be entered early.
+ *
+ * The mockup's footer line "Automatisch gespeichert" is also missing on purpose: the store
+ * has no persistence, so a refresh loses the lot. Printing that promise would be a lie told
+ * in the brand's own typeface. It belongs here the day the store actually persists.
+ */
 export default function FunnelSidebar({ step }: Props) {
   const { t } = useTranslation();
   const { borrowers } = useFunnelStore();
@@ -18,86 +35,135 @@ export default function FunnelSidebar({ step }: Props) {
     setMounted(true);
   }, []);
 
-  const isJur = borrowers?.[0]?.type === "jur";
-
   const steps = [
     { id: 1, label: mounted ? t("funnel.stepGeneral" as any) : "" },
-    { id: 2, label: mounted ? t("funnel.stepFinancing" as any) : "" },
-    {
-      id: 3,
-      label: mounted ? (isJur
-        ? t("funnel.stepCalculatorDocuments" as any)
-        : t("funnel.stepCalculatorSummary" as any)) : "",
-    },
-    { id: 4, label: mounted ? t("funnel.stepCompletion" as any) : "" },
+    { id: 2, label: mounted ? t("funnel.stepProjectObject" as any) : "" },
+    { id: 3, label: mounted ? t("funnel.stepCalculator" as any) : "" },
+    { id: 4, label: mounted ? t("funnel.stepDocuments" as any) : "" },
+    { id: 5, label: mounted ? t("funnel.stepCompletion" as any) : "" },
   ];
 
   if (!mounted) return null;
 
+  const current = steps.find((s) => s.id === step);
+
+  /** The wordmark, as the brand guide draws it: white rule box with the corner cut. */
+  const Wordmark = ({ size }: { size: "sm" | "lg" }) => {
+    const lg = size === "lg";
+    return (
+      <span className="inline-flex items-start" style={{ gap: lg ? 3 : 2 }}>
+        <span
+          style={{
+            display: "inline-block",
+            border: `${lg ? 3 : 2}px solid #fff`,
+            padding: lg ? "7px 11px 8px" : "5px 8px 6px",
+            fontFamily: "var(--font-display)",
+            fontSize: lg ? 19 : 13,
+            fontWeight: "var(--weight-bold)" as any,
+            letterSpacing: "0.02em",
+            color: "#fff",
+            clipPath: lg
+              ? "polygon(11px 0,100% 0,100% 100%,0 100%,0 11px)"
+              : "polygon(8px 0,100% 0,100% 100%,0 100%,0 8px)",
+          }}
+        >
+          HYPOTEQ
+        </span>
+        <span style={{ color: "#fff", fontSize: lg ? 9 : 7, lineHeight: 1 }}>®</span>
+      </span>
+    );
+  };
+
   return (
     <>
-      {/* Mobile Header - Hide on tablet and desktop */}
-      <div className="md:hidden fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-50">
-        <div className="flex items-center justify-between px-4 py-3">
+      {/* MOBILE HEADER */}
+      <div
+        className="md:hidden fixed top-0 left-0 right-0 z-50"
+        style={{ background: "var(--forest-800)" }}
+      >
+        <div className="flex items-center justify-between gap-3 px-5 pt-3.5">
           <a href="/" className="cursor-pointer">
-            <img src="/images/HYPOTEQ_layout_logo.png" className="h-8" alt="Logo" />
+            <Wordmark size="sm" />
           </a>
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 text-[#132219]"
-          >
-            {mobileMenuOpen ? (
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            ) : (
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            )}
-          </button>
+          <div className="flex items-center gap-3">
+            <span style={{ fontSize: "var(--text-caption)", color: "var(--on-dark-70)" }}>
+              {current?.label} · {step}/{steps.length}
+            </span>
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-1"
+              style={{ color: "var(--on-dark-70)" }}
+              aria-label="Menu"
+            >
+              {mobileMenuOpen ? (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              ) : (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              )}
+            </button>
+          </div>
         </div>
-        
-        {/* Mobile Progress Indicator */}
-        <div className="px-4 lg:pb-3">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-xs text-gray-500">{t("funnel.step" as any)} {step} / {steps.length}</span>
-            <span className="text-xs font-medium text-[#132219]">{steps[step - 1]?.label}</span>
-          </div>
-          <div className="w-full bg-gray-200 rounded-full h-1.5">
-            <div 
-              className="bg-[#CAF476] h-1.5 rounded-full transition-all duration-300"
-              style={{ width: `${(step / steps.length) * 100}%` }}
+
+        {/* One bar per step: position without a paragraph about it. */}
+        <div className="flex gap-1 px-5 pt-3.5 pb-3">
+          {steps.map((s) => (
+            <span
+              key={s.id}
+              className="flex-1"
+              style={{
+                height: 3,
+                borderRadius: 999,
+                background: step >= s.id ? "var(--lime-500)" : "rgba(255,255,255,.18)",
+              }}
             />
-          </div>
+          ))}
         </div>
       </div>
 
-      {/* Mobile Dropdown Menu - Hide on tablet and desktop */}
+      {/* MOBILE DROPDOWN */}
       {mobileMenuOpen && (
-        <div className="md:hidden fixed top-[88px] left-0 right-0 bg-white border-b border-gray-200 z-40 shadow-lg">
-          <div className="px-4 py-4 space-y-3">
+        <div
+          className="md:hidden fixed top-[86px] left-0 right-0 z-40"
+          style={{ background: "var(--forest-700)", borderBottom: "var(--border-on-dark)" }}
+        >
+          <div className="px-5 py-4 flex flex-col gap-1">
             {steps.map((s) => {
-              const isActive = s.id === step;
-              const isCompleted = s.id < step;
-
+              const active = s.id === step;
+              const done = step > s.id;
               return (
-                <div key={s.id} className="flex items-center gap-3">
-                  <div
-                    className={`
-                      w-8 h-8 rounded-full border flex items-center justify-center
-                      text-sm font-semibold transition-all
-                      ${isActive || isCompleted 
-                        ? "bg-[#CAF476] border-[#132219] text-[#132219]"
-                        : "border-gray-300 text-gray-400"
-                      }
-                    `}
+                <div key={s.id} className="flex items-center gap-3.5 py-2">
+                  <span
+                    className="flex items-center justify-center flex-none"
+                    style={{
+                      width: 30,
+                      height: 30,
+                      borderRadius: 999,
+                      fontSize: "var(--text-body-sm)",
+                      fontWeight: "var(--weight-semibold)" as any,
+                      background: active ? "var(--lime-500)" : "transparent",
+                      color: active
+                        ? "var(--forest-800)"
+                        : done
+                          ? "var(--lime-500)"
+                          : "var(--on-dark-45)",
+                      border: active ? "1px solid transparent" : "1px solid var(--on-dark-14)",
+                    }}
                   >
-                    {s.id}
-                  </div>
-                  <div className={`text-sm ${isActive || isCompleted ? "text-[#132219] font-medium" : "text-gray-400"}`}>
+                    {done ? "✓" : s.id}
+                  </span>
+                  <span
+                    style={{
+                      fontSize: "var(--text-body-sm)",
+                      fontWeight: "var(--weight-semibold)" as any,
+                      color: active ? "#fff" : "var(--on-dark-45)",
+                    }}
+                  >
                     {s.label}
-                  </div>
+                  </span>
                 </div>
               );
             })}
@@ -105,60 +171,131 @@ export default function FunnelSidebar({ step }: Props) {
         </div>
       )}
 
-      {/* Tablet & Desktop Sidebar */}
-      <div className="hidden md:flex w-[200px] lg:w-[250px] min-h-screen bg-[#E2E2E2] flex-col px-4 lg:px-5 py-8 lg:py-10 border-r border-gray-300">
+      {/* DESKTOP SIDEBAR */}
+      <aside
+        className="hidden md:flex flex-col self-stretch"
+        style={{
+          width: 288,
+          flex: "0 0 288px",
+          background: "var(--forest-800)",
+          padding: "36px 28px 28px",
+          gap: 44,
+        }}
+      >
+        <div className="flex flex-col gap-1.5">
+          <a href="/" className="cursor-pointer">
+            <Wordmark size="lg" />
+          </a>
+          <span
+            style={{
+              fontSize: "var(--text-micro)",
+              letterSpacing: "var(--tracking-label)",
+              textTransform: "uppercase",
+              color: "var(--on-dark-45)",
+              paddingLeft: 2,
+            }}
+          >
+            {t("funnel.sidebarEyebrow" as any)}
+          </span>
+        </div>
 
-      {/* LOGO */}
-      <a href="/" className="cursor-pointer">
-        <img src="/images/HYPOTEQ_layout_logo.png" className="w-[120px] lg:w-[140px] h-auto mb-10 lg:mb-14" alt="HYPOTEQ Logo" />
-      </a>
-
-      {/* STEPS */}
-      <div className="flex flex-col gap-6 lg:gap-10">
-        {steps.map((s) => {
-          const isActive = s.id === step;
-          const isCompleted = s.id < step;
-
-          return (
-            <div key={s.id} className="relative flex items-center gap-2 lg:gap-3 mb-4 lg:mb-6">
-
-              {isActive && (
-                <div className="absolute -left-4 h-full w-1.5 bg-[#132219] rounded-r-md" />
-              )}
-
+        <nav className="flex flex-col gap-0.5">
+          {steps.map((s) => {
+            const active = s.id === step;
+            const done = step > s.id;
+            return (
               <div
-                className={`
-                  w-[38px] h-[38px] lg:w-[46px] lg:h-[46px] rounded-full border flex items-center justify-center
-                  text-[16px] lg:text-[18px] font-semibold transition-all duration-200
-                  ${isActive || isCompleted 
-                    ? "bg-[#CAF476] border-[#132219] text-[#132219]"
-                    : "border-[#A0A0A0] text-[#A0A0A0]"
-                  }
-                `}
+                key={s.id}
+                className="flex items-center"
+                style={{
+                  gap: 14,
+                  padding: "11px 12px",
+                  margin: "0 -12px",
+                  borderRadius: "var(--radius-md)",
+                  background: active ? "var(--on-dark-08)" : "transparent",
+                  borderLeft: `3px solid ${active ? "var(--lime-500)" : "transparent"}`,
+                  color: active ? "#fff" : "var(--on-dark-45)",
+                }}
               >
-                {s.id}
-              </div>
-
-              <div>
-                <div className="text-[11px] lg:text-[12px] text-gray-500">{t("funnel.step" as any)} {s.id}</div>
-                <div
-                  className={`
-                    text-[14px] lg:text-[16px] transition-all duration-200
-                    ${isActive || isCompleted
-                      ? "text-[#132219]"
-                      : "text-[#A0A0A0]"
-                    }
-                  `}
+                <span
+                  className="flex items-center justify-center flex-none"
+                  style={{
+                    width: 30,
+                    height: 30,
+                    borderRadius: 999,
+                    fontSize: "var(--text-body-sm)",
+                    fontWeight: "var(--weight-semibold)" as any,
+                    background: active ? "var(--lime-500)" : "transparent",
+                    color: active
+                      ? "var(--forest-800)"
+                      : done
+                        ? "var(--lime-500)"
+                        : "var(--on-dark-45)",
+                    border: active ? "1px solid transparent" : "1px solid var(--on-dark-14)",
+                  }}
                 >
-                  {s.label}
-                </div>
+                  {done ? "✓" : s.id}
+                </span>
+                <span className="flex flex-col gap-0.5 text-left">
+                  <span
+                    style={{
+                      fontSize: "var(--text-micro)",
+                      letterSpacing: "var(--tracking-label)",
+                      textTransform: "uppercase",
+                      opacity: 0.55,
+                    }}
+                  >
+                    {t("funnel.step" as any)} {s.id}
+                  </span>
+                  <span
+                    style={{
+                      fontSize: "var(--text-body-sm)",
+                      fontWeight: "var(--weight-semibold)" as any,
+                    }}
+                  >
+                    {s.label}
+                  </span>
+                </span>
               </div>
+            );
+          })}
+        </nav>
 
-            </div>
-          );
-        })}
-      </div>
-    </div>
+        {/* Who this request belongs to, once the funnel knows. Nothing is invented to fill
+            the space: before the borrowers step there is genuinely nothing to say here. */}
+        <div className="mt-auto flex flex-col gap-3.5">
+          <div style={{ height: 1, background: "var(--on-dark-14)" }} />
+          {(() => {
+            const names = (borrowers ?? [])
+              .map((b: any) => [b.firstName || b.vorname, b.lastName || b.name].filter(Boolean).join(" ").trim())
+              .filter(Boolean);
+            if (!names.length) return null;
+            return (
+              <div className="flex flex-col gap-1">
+                <span
+                  style={{
+                    fontSize: "var(--text-micro)",
+                    letterSpacing: "var(--tracking-label)",
+                    textTransform: "uppercase",
+                    color: "var(--on-dark-45)",
+                  }}
+                >
+                  {t("funnel.sidebarRequest" as any)}
+                </span>
+                <span
+                  style={{
+                    fontSize: "var(--text-body-sm)",
+                    color: "#fff",
+                    fontWeight: "var(--weight-semibold)" as any,
+                  }}
+                >
+                  {names.join(" & ")}
+                </span>
+              </div>
+            );
+          })()}
+        </div>
+      </aside>
     </>
   );
 }
