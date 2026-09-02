@@ -856,9 +856,111 @@ const uploadAllFilesToSharePoint = async (): Promise<string | null> => {
   };
 
   /**
+   * Section 24's question, asked only when it is a real question: the document was
+   * recognised, this case has more than one borrower, and the model either could not say who
+   * it belongs to or was not confident enough to be trusted with it.
+   *
+   * On a single-borrower case there is nothing to ask, and asking anyway would be the exact
+   * busywork section 34 forbids.
+   */
+  const renderPersonQuestion = (f: any) => {
+    const a = analyses[f.id];
+    if (!a || a.classification?.type === "unknown") return null;
+    if (a.person?.assignedBy === "human") return null;
+
+    const choices = borrowerChoices();
+    if (choices.length < 2) return null;
+    if (a.person?.borrowerId && (a.person?.confidence ?? 0) >= 0.7) return null;
+
+    return (
+      <span
+        key={`person-${f.id}`}
+        className="block mt-2"
+        style={{
+          border: "1px solid var(--info-500)",
+          background: "var(--info-100)",
+          borderRadius: "var(--radius-md)",
+          padding: "12px 14px",
+        }}
+        onClick={(e) => e.preventDefault()}
+      >
+        <span style={{ display: "block", fontSize: "var(--text-body-sm)", color: "var(--forest-800)" }}>
+          {t("funnel.docWhichBorrower" as any)}
+        </span>
+        <span className="flex flex-wrap gap-2 mt-2">
+          {choices.map((b: any) => (
+            <button
+              key={b.id}
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                assignPerson(f.id, b.id, b.name);
+              }}
+              style={{
+                borderRadius: "var(--radius-pill)",
+                padding: "7px 14px",
+                fontSize: "var(--text-caption)",
+                fontWeight: "var(--weight-semibold)" as any,
+                background: "#fff",
+                border: "1px solid var(--paper-400)",
+                color: "var(--forest-800)",
+              }}
+            >
+              {b.name}
+            </button>
+          ))}
+        </span>
+      </span>
+    );
+  };
+
+  /**
    * Section 16 and 34: the exception, and only the exception. A difference the customer has
    * answered disappears; one they have not is shown with both ways out and no default.
    */
+  /**
+   * Section 24: which borrower a document belongs to, when the model could not say.
+   *
+   * Asked rather than guessed. On a two-earner dossier the wrong answer files Anna's salary
+   * certificate under Max, and the mistake surfaces at the lender rather than here — so an
+   * unclear attribution becomes a question, which is what the section asks for.
+   *
+   * Recorded as a human decision alongside the value corrections, so the audit trail says a
+   * person made this call and not the model.
+   */
+  const assignPerson = (docId: string, borrowerId: string, name: string) => {
+    setAnalyses((prev) => ({
+      ...prev,
+      [docId]: {
+        ...(prev[docId] ?? {}),
+        person: { borrowerId, confidence: 1, assignedBy: "human" },
+      },
+    }));
+    setDecisions((prev) => ({
+      ...prev,
+      [docId]: [
+        ...(prev[docId] ?? []).filter((d) => d.field !== "person"),
+        {
+          field: "person",
+          documentValue: analyses[docId]?.person?.borrowerId ?? null,
+          funnelValue: null,
+          choice: "edited",
+          finalValue: name,
+          decidedAt: new Date().toISOString(),
+        },
+      ],
+    }));
+  };
+
+  /** The borrowers this case has, in the shape the person question needs. */
+  const borrowerChoices = () =>
+    (borrowers ?? [])
+      .map((b: any, i: number) => ({
+        id: b.id || `borrower_${String(i + 1).padStart(2, "0")}`,
+        name: [b.firstName || b.vorname, b.lastName || b.name].filter(Boolean).join(" ").trim(),
+      }))
+      .filter((b: any) => b.name);
+
   /** The small pill used for a field's state. One definition so the confidence chip and the
    *  corrected chip cannot drift into looking like two different kinds of thing. */
   const chip = (bg: string, fg: string) => ({
@@ -1554,6 +1656,7 @@ return (
                         {t(doc as any)}
                       </span>
                       {filesForDoc.map((f: any) => renderAnalysisNote(f))}
+                      {filesForDoc.map((f: any) => renderPersonQuestion(f))}
                       {filesForDoc.flatMap((f: any) => renderMismatches(f))}
                       {/* No required/optional marker at all, at HYPOTEQ's request: every
                           document is presented the same way. The distinction still exists
@@ -1850,6 +1953,7 @@ return (
                           could not place it, so this is exactly where the picker and the
                           "wird analysiert" line are needed most. */}
                       {renderAnalysisNote(doc)}
+                      {renderPersonQuestion(doc)}
                       {renderMismatches(doc)}
                     </div>
                   </div>

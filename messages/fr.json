@@ -265,6 +265,7 @@
   },
   "funnel": {
     "docCaseProgress": "documents fournis",
+    "docWhichBorrower": "À quel emprunteur appartient ce document ?",
     "docAuditTrail": "Historique",
     "docAuditAnalysed": "Analysé",
     "docAuditRenamed": "Renommé",

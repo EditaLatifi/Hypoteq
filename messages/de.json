@@ -269,6 +269,7 @@
   },
   "funnel": {
     "docCaseProgress": "Dokumente vorhanden",
+    "docWhichBorrower": "Zu welchem Kreditnehmer gehört dieses Dokument?",
     "docAuditTrail": "Verlauf",
     "docAuditAnalysed": "Analysiert",
     "docAuditRenamed": "Umbenannt",
