@@ -103,6 +103,18 @@ const [analysing, setAnalysing] = useState<Record<string, boolean>>({});
 // document, which on a phone connection is the customer's data allowance.
 const docAiOffRef = useRef(false);
 
+// Section 35's internal view, opened with ?intern=1. Read after mount rather than during
+// render: the server has no query string, and reading it inline would make the first client
+// render disagree with the server's and blank the step with a hydration error.
+const [internView, setInternView] = useState(false);
+useEffect(() => {
+  try {
+    setInternView(new URLSearchParams(window.location.search).get("intern") === "1");
+  } catch {
+    /* no window, no internal view — the customer's screen is the safe default */
+  }
+}, []);
+
 // Differences between a document and what the customer already told the funnel, and what
 // they decided about each (sections 16 and 14). Decisions are kept per document so they can
 // travel with the upload into the audit trail — acting on a correction without recording it
@@ -1248,6 +1260,147 @@ return (
           </div>
         );
       })()}
+
+      {/* WHAT THE AI ACTUALLY DID (spec sections 34 and 35).
+          One quiet line for the customer: section 34 is explicit that they must not be shown
+          thirty extracted fields when nothing is wrong, but the work has to be visible or the
+          step looks exactly like the upload box it replaced. Counts, not confidence — a
+          percentage invites arguing with a number the customer cannot check. */}
+      {(() => {
+        const done = docs.filter((d: any) => analyses[d.id]);
+        if (!done.length) return null;
+        const fields = done.reduce(
+          (n: number, d: any) => n + Object.keys(analyses[d.id]?.fields ?? {}).length,
+          0
+        );
+        const deviations = docs.reduce((n: number, d: any) => n + (mismatches[d.id] ?? []).length, 0);
+        const decided = Object.values(decisions).reduce((n: number, l: any) => n + l.length, 0);
+
+        return (
+          <div
+            className="mb-8 flex flex-wrap items-center gap-x-5 gap-y-2"
+            style={{
+              border: "var(--border-on-light)",
+              borderRadius: "var(--radius-lg)",
+              background: "var(--paper-100)",
+              padding: "14px 18px",
+            }}
+          >
+            <span
+              style={{
+                fontSize: "var(--text-micro)",
+                letterSpacing: "var(--tracking-label)",
+                textTransform: "uppercase",
+                color: "var(--on-light-45)",
+              }}
+            >
+              {t("funnel.aiReviewedTitle" as any)}
+            </span>
+            <span style={{ fontSize: "var(--text-body-sm)", color: "var(--on-light-70)" }}>
+              {done.length} {t("funnel.aiDocsAnalysed" as any)} · {fields}{" "}
+              {t("funnel.aiFieldsRead" as any)}
+            </span>
+            <span
+              style={{
+                fontSize: "var(--text-body-sm)",
+                fontWeight: "var(--weight-semibold)" as any,
+                color: deviations > 0 ? "var(--warning-500)" : "var(--success-500)",
+              }}
+            >
+              {deviations > 0
+                ? `${deviations} ${t("funnel.aiDeviations" as any)}`
+                : decided > 0
+                  ? `${decided} ${t("funnel.aiDeviations" as any)}`
+                  : t("funnel.aiNoDeviation" as any)}
+            </span>
+          </div>
+        );
+      })()}
+
+      {/* INTERNAL VIEW (section 35). Everything the customer's line deliberately hides:
+          confidence per document, the model that read it, when, and how long it took.
+
+          Behind ?intern=1 rather than a role, because the funnel has no notion of a HYPOTEQ
+          employee — customerType only knows direct and partner. A URL flag is honest about
+          being a stopgap; inventing a role here would create a second, weaker idea of who is
+          internal, next to the one the admin API already enforces. It reveals nothing the
+          viewer did not already upload themselves. */}
+      {internView && Object.keys(analyses).length > 0 && (
+        <div
+          className="mb-8 flex flex-col gap-4"
+          style={{
+            border: "var(--border-on-light)",
+            borderRadius: "var(--radius-lg)",
+            background: "var(--paper-100)",
+            padding: "20px 22px",
+          }}
+        >
+          <div className="flex flex-wrap items-center gap-2.5">
+            <span
+              style={{
+                background: "var(--info-100)",
+                color: "var(--info-500)",
+                borderRadius: "var(--radius-pill)",
+                padding: "4px 12px",
+                fontSize: "var(--text-micro)",
+                fontWeight: "var(--weight-semibold)" as any,
+              }}
+            >
+              {t("funnel.aiInternTitle" as any)}
+            </span>
+            {(() => {
+              const a: any = Object.values(analyses).find((x: any) => x?.audit);
+              if (!a) return null;
+              return (
+                <span style={{ fontSize: "var(--text-caption)", color: "var(--on-light-70)" }}>
+                  {t("funnel.aiInternModel" as any)} {a.audit.provider}/{a.audit.model}
+                </span>
+              );
+            })()}
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <span
+              style={{
+                fontSize: "var(--text-micro)",
+                letterSpacing: "var(--tracking-label)",
+                textTransform: "uppercase",
+                color: "var(--on-light-45)",
+              }}
+            >
+              {t("funnel.aiInternValidations" as any)}
+            </span>
+            {docs
+              .filter((d: any) => analyses[d.id])
+              .map((d: any) => {
+                const a = analyses[d.id];
+                const conf = Math.round((a.classification?.confidence ?? 0) * 100);
+                const low = Object.entries(a.fields ?? {}).filter(
+                  ([, f]: any) => (f?.confidence ?? 0) < 0.9
+                );
+                return (
+                  <div key={d.id} className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                    <span
+                      style={{
+                        fontSize: "var(--text-micro)",
+                        color: "var(--on-light-45)",
+                        minWidth: 150,
+                      }}
+                    >
+                      {a.audit?.originalFileName ?? d.name}
+                    </span>
+                    <span style={{ fontSize: "var(--text-caption)", color: "var(--on-light-70)" }}>
+                      {a.classification?.type} · {conf}% · {a.status} · {a.audit?.durationMs}ms
+                      {low.length > 0 && ` · ${low.length} Feld(er) < 90%`}
+                      {a.freshness && ` · ${a.freshness.ageMonths} Monate alt`}
+                      {a.mismatchedRequirement && ` · erwartet ${a.mismatchedRequirement.expected}`}
+                    </span>
+                  </div>
+                );
+              })}
+          </div>
+        </div>
+      )}
 
       <div className="space-y-8 md:space-y-12 lg:space-y-16">
 
