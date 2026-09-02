@@ -128,7 +128,7 @@ const ToggleButton = ({ active, children, onClick }: any) => {
 
           {/* LEFT SIDE */}
           <div className="space-y-6 lg:space-y-10">
-            <FunnelHeading title={t("funnel.newPurchase" as any)} />
+            <FunnelHeading title={t("funnel.newPurchase" as any)} lead={t("funnel.calcLead" as any)} leadSize="body" />
 
     {/* Kaufpreis (required) */}
     <div>
@@ -512,7 +512,7 @@ const ToggleButton = ({ active, children, onClick }: any) => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 px-6 md:px-12">
 
           <div className="space-y-6 lg:space-y-10">
-            <FunnelHeading title={t("funnel.redemption" as any)} />
+            <FunnelHeading title={t("funnel.redemption" as any)} lead={t("funnel.calcLead" as any)} leadSize="body" />
 
             {/* Hypothekarbetrag */}
             <div>

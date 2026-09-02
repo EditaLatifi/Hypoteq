@@ -272,9 +272,27 @@ export default function FunnelCalc({ data, projectData, propertyData, borrowers 
 /* ==========================================
    UI COMPONENTS
 ========================================== */
+/* ============================================================================
+ * Presentation only, from here down.
+ *
+ * The mockup replaces the lime boxes with one dark panel beside the inputs: the verdict as a
+ * small uppercase line, the figure it produces in display type, and the checks beneath it.
+ * Every number, every rule and every caller above is untouched — this is the same calculator
+ * wearing the design, which matters more here than anywhere else in the funnel, because a
+ * second opinion about whether a purchase is financeable is the one thing this screen must
+ * never produce.
+ * ========================================================================= */
+
 function BoxWrapper({ children }: any) {
   return (
-    <div className="w-full max-w-[444px] border border-black rounded-[10px] bg-white flex flex-col gap-[12px] p-[12px]">
+    <div
+      className="w-full max-w-[444px] flex flex-col gap-5"
+      style={{
+        background: "var(--forest-800)",
+        borderRadius: "var(--radius-lg)",
+        padding: 26,
+      }}
+    >
       {children}
     </div>
   );
@@ -282,44 +300,65 @@ function BoxWrapper({ children }: any) {
 
 function TopBox({ title, subtitle, value, error = false }: any) {
   return (
-    <div
-      className={`w-full border border-black rounded-[10px]
-      flex flex-col items-center gap-[12px] py-[14px] px-[12px]
-      ${error ? "bg-[#FF9A9A]" : "bg-[#CAF476]"}`}
-    >
-      <p className="text-center text-[16px] font-medium text-[#132219]">
+    <div className="flex flex-col gap-2.5">
+      <span
+        style={{
+          fontSize: "var(--text-micro)",
+          letterSpacing: "var(--tracking-label)",
+          textTransform: "uppercase",
+          color: error ? "var(--warning-500)" : "var(--lime-500)",
+        }}
+      >
         {title}
-        <br />
+      </span>
+      <span style={{ fontSize: "var(--text-body-sm)", color: "var(--on-dark-70)" }}>
         {subtitle}
-      </p>
-
-      <div className="text-[38px] font-semibold">{value}</div>
+      </span>
+      <span
+        style={{
+          fontFamily: "var(--font-display)",
+          fontSize: "var(--text-display-2)",
+          lineHeight: 1,
+          color: error ? "var(--warning-500)" : "var(--lime-500)",
+          fontWeight: "var(--weight-bold)" as any,
+          letterSpacing: "var(--tracking-tight)",
+          wordBreak: "break-word",
+        }}
+      >
+        {value}
+      </span>
     </div>
   );
 }
 
 function TwoBoxGrid({ leftLabel, leftValue, leftError = false, rightLabel, rightValue, rightError = false }: any) {
   return (
-    <div className="w-full grid grid-cols-2 gap-[12px]">
-      <SmallBox label={leftLabel} value={leftValue} error={leftError} />
-      <SmallBox label={rightLabel} value={rightValue} error={rightError} />
-    </div>
+    <>
+      <div style={{ height: 1, background: "var(--on-dark-14)" }} />
+      <div className="flex flex-col gap-4">
+        <SmallBox label={leftLabel} value={leftValue} error={leftError} />
+        <SmallBox label={rightLabel} value={rightValue} error={rightError} />
+      </div>
+    </>
   );
 }
 
 function SmallBox({ label, value, error = false }: any) {
   return (
-    <div className={`border border-black rounded-[10px]
-    flex flex-col items-center py-[14px] px-[12px] gap-[12px]
-    ${error ? "bg-[#FF9A9A]" : "bg-[#CAF476]"}`}>
-      <p className="text-[20px] font-medium">{label}</p>
-      <div className="border-t border-black w-full" />
-      <p
-        className="text-[32px] font-bold break-words overflow-x-auto w-full text-center sm:text-[28px] md:text-[32px] lg:text-[32px]"
-        style={{ wordBreak: 'break-word' }}
+    <div className="flex items-baseline justify-between gap-3">
+      <span style={{ fontSize: "var(--text-body-sm)", color: "var(--on-dark-70)" }}>{label}</span>
+      <span
+        style={{
+          fontFamily: "var(--font-display)",
+          fontSize: "var(--text-lead)",
+          fontWeight: "var(--weight-semibold)" as any,
+          color: error ? "var(--warning-500)" : "#fff",
+          textAlign: "right",
+          wordBreak: "break-word",
+        }}
       >
         {value}
-      </p>
+      </span>
     </div>
   );
 }
