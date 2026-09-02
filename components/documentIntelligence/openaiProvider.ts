@@ -34,8 +34,12 @@ const DEFAULT_MODEL = "gpt-5.5";
  * So the cap sits above the honest slow case and below the function's own limit, leaving
  * room for the response to be written. A timeout is not a lost document: section 38 turns it
  * into manual classification, which is a far better outcome than a spinner that never ends.
+ *
+ * 45s because the function itself is killed at 60 on this account's plan. Being under that
+ * is the whole point: a timeout we raise ourselves becomes a document the customer can
+ * classify by hand, while one the platform raises is a dead request with no answer in it.
  */
-const TIMEOUT_MS = Number(process.env.DOCAI_TIMEOUT_MS ?? 90_000);
+const TIMEOUT_MS = Number(process.env.DOCAI_TIMEOUT_MS ?? 45_000);
 
 function client(): OpenAI {
   const apiKey = process.env.OPENAI_API_KEY;

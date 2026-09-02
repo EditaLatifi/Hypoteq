@@ -22,15 +22,15 @@ import { documentIntelligenceDisabledReason } from "@/components/documentIntelli
 
 export const runtime = "nodejs";
 // Analysis of a long PDF is slow; section 31 wants this off the UI thread, and the client
-// polls rather than blocks. Well above the provider's own latency so a slow read is not
-// truncated into a spurious failure.
+// polls rather than blocks. Above the provider's own latency so a slow read is not truncated
+// into a spurious failure — measured at 5-7s per document, so this is headroom for the
+// pathological case rather than the expected wait.
 //
-// vercel.json caps every other API route at 30s and names this one at 120s explicitly. Both
-// have to say 120, because it is not worth depending on which of the two wins: a real run
-// against synthetic one-page PDFs already took 6–12 seconds, so a multi-page scan has room
-// to cross 30s, and a cap that bites would surface as a timeout the customer reads as "the
-// upload is broken".
-export const maxDuration = 120;
+// 60 is the ceiling of the plan this project is on, not a considered number: asking for more
+// on Hobby does not get more. vercel.json names this route at 60 as well, because it is not
+// worth depending on which of the two wins. Raising both is the first thing to do if the
+// account ever moves to Pro, and DOCAI_TIMEOUT_MS has to stay below whatever they say.
+export const maxDuration = 60;
 
 const MAX_BYTES = 25 * 1024 * 1024;
 
