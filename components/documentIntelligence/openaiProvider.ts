@@ -22,6 +22,21 @@ import { DOCUMENT_TYPES, docTypeById } from "./documentTypes";
 
 const DEFAULT_MODEL = "gpt-5.5";
 
+/**
+ * How long one analysis may take before it is abandoned.
+ *
+ * The SDK's own default is ten minutes with two retries — half an hour in the worst case,
+ * for a request the serverless function is killed out from under at 120 seconds and a
+ * customer stopped watching after twenty. Measured: a document that matches one of the
+ * candidate types comes back in 8-18s, while one that matches none took 114s and, on
+ * another run, over 180s — the model spends its time trying not to force a wrong answer.
+ *
+ * So the cap sits above the honest slow case and below the function's own limit, leaving
+ * room for the response to be written. A timeout is not a lost document: section 38 turns it
+ * into manual classification, which is a far better outcome than a spinner that never ends.
+ */
+const TIMEOUT_MS = Number(process.env.DOCAI_TIMEOUT_MS ?? 90_000);
+
 function client(): OpenAI {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
@@ -29,7 +44,24 @@ function client(): OpenAI {
     // into a "manual classification still works" response rather than a broken funnel.
     throw new Error("OPENAI_API_KEY is not set — document analysis is unavailable.");
   }
-  return new OpenAI({ apiKey });
+  // One retry, not two: a retry of a request that already ran out of time costs the customer
+  // the same wait again and rarely ends differently.
+  return new OpenAI({ apiKey, timeout: TIMEOUT_MS, maxRetries: 1 });
+}
+
+/**
+ * Reasoning effort, for the models that have the setting.
+ *
+ * Reading a value off a payslip is not a reasoning problem — the answer is printed on the
+ * page. The default effort is what made an unrecognisable document take almost two minutes:
+ * the model deliberates over a choice it should simply decline. Low effort is the right
+ * setting for extraction, and section 21 already says declining is a valid answer.
+ *
+ * Applied only to the model families that accept it, so setting OPENAI_DOCUMENT_MODEL to
+ * something older does not turn every request into a 400.
+ */
+function reasoningFor(model: string): { effort: "low" } | undefined {
+  return /^(gpt-5|o[134])/.test(model) ? { effort: "low" } : undefined;
 }
 
 /**
@@ -175,6 +207,7 @@ export class OpenAIDocumentProvider implements DocumentIntelligenceProvider {
 
     const response = await client().responses.create({
       model: this.model,
+      reasoning: reasoningFor(this.model),
       instructions: buildInstructions({ ...input, candidateTypes: candidates }),
       input: [
         {

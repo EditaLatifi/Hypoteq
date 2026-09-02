@@ -47,3 +47,8 @@ pnpm-lock.yaml
 /generated/prisma
 .vercel
 .env*.local
+
+# Generated test documents (scripts/writeTestPdfs.ts). The generator is the source, not
+# the PDFs it produces — and a folder of documents in the repo invites someone to drop a
+# real customer file next to them.
+/test-documents
