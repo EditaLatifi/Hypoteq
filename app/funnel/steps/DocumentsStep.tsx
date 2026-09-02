@@ -722,6 +722,137 @@ const uploadAllFilesToSharePoint = async (): Promise<string | null> => {
     }));
   };
 
+  /**
+   * What the analysis made of one file (sections 31 and 34): one line when all is well, the
+   * problem itself when it is not. The customer never sees a confidence number — section 15
+   * allows three states, and a percentage only invites arguing with it.
+   *
+   * Shared by the two places a file can appear, because a file can be in either and the
+   * customer does not know the difference. It shows under the requirement it answers, and it
+   * shows under "weitere Dokumente" for a file dropped in without choosing one — which is
+   * the flow section 9 actually asks for, and the one where until now nothing was rendered
+   * at all: no spinner while it ran, and for a document that could not be placed, no picker
+   * and no message, ever. The feature was working and invisible.
+   */
+  const renderAnalysisNote = (f: any) => {
+    if (analysing[f.id]) {
+      return (
+        <span key={f.id} className="block text-[11px] sm:text-[12px] text-[#132219]/60 mt-0.5">
+          ◌ {t("funnel.docAnalysing" as any)}
+        </span>
+      );
+    }
+    const a = analyses[f.id];
+    if (!a) return null;
+    if (a.status === "rejected" && a.mismatchedRequirement) {
+      return (
+        <span key={f.id} className="block text-[11px] sm:text-[12px] text-[#B3261E] mt-0.5">
+          ⚠ {t("funnel.docWrongDocument" as any)}
+        </span>
+      );
+    }
+    if (a.status === "outdated" && a.freshness) {
+      return (
+        <span key={f.id} className="block text-[11px] sm:text-[12px] text-[#8A5A00] mt-0.5">
+          ⚠ {t("funnel.docOutdated" as any)}
+        </span>
+      );
+    }
+    if (a.status === "unsupported" || a.status === "failed") {
+      // Section 21: the file is kept and still counts; the customer is asked what it is
+      // rather than being told it was rejected.
+      const options = candidateTypesFor(selectedDocuments.flatMap((sec: any) => sec.items));
+      return (
+        <span key={f.id} className="block mt-1">
+          <span className="block text-[11px] sm:text-[12px] text-[#132219]/60">
+            {t("funnel.docNotRecognised" as any)}
+          </span>
+          {options.length > 0 && (
+            <span className="flex flex-wrap gap-1.5 mt-1.5">
+              {options.map((o) => (
+                <button
+                  key={o.id}
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    assignTypeManually(f.id, o.id);
+                  }}
+                  className="px-2.5 py-1 rounded-full text-[11px] border border-[#132219]/30 text-[#132219] hover:bg-[#F2F2F2]"
+                >
+                  {o.label}
+                </button>
+              ))}
+            </span>
+          )}
+        </span>
+      );
+    }
+    const count = Object.keys(a.fields || {}).length;
+    return (
+      <span key={f.id} className="block text-[11px] sm:text-[12px] text-[#2E6B2E] mt-0.5">
+        ✓ {a.classification?.label}
+        {count > 0 ? ` — ${count} ${t("funnel.docFieldsRead" as any)}` : ""}
+        {a.status === "review_required" ? ` · ${t("funnel.docPleaseCheck" as any)}` : ""}
+        {count > 0 && (
+          <button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              setOpenDoc({ doc: f, analysis: a });
+            }}
+            className="ml-2 underline text-[#132219]/70"
+          >
+            {t("funnel.docShowDetails" as any)}
+          </button>
+        )}
+      </span>
+    );
+  };
+
+  /**
+   * Section 16 and 34: the exception, and only the exception. A difference the customer has
+   * answered disappears; one they have not is shown with both ways out and no default.
+   */
+  const renderMismatches = (f: any) =>
+    (mismatches[f.id] ?? []).map((m: any) => (
+      <span
+        key={`${f.id}-${m.field}`}
+        className="block mt-2 rounded-lg border border-[#F4C48A] bg-[#FFF6E9] px-3 py-2"
+        onClick={(e) => e.preventDefault()}
+      >
+        <span className="block text-[12px] font-semibold text-[#8A5A00]">
+          ⚠ {m.label} {t("funnel.docMismatchTitle" as any)}
+        </span>
+        <span className="block text-[12px] text-[#132219]/80 mt-1">
+          {t("funnel.docYourAnswer" as any)}: {String(m.funnelValue)}
+          {" · "}
+          {t("funnel.docInDocument" as any)}: {String(m.documentValue)}
+        </span>
+        <span className="flex flex-wrap gap-2 mt-2">
+          <button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              decideMismatch(f.id, m, "took_document");
+            }}
+            className="px-3 py-1 rounded-full text-[12px] border border-[#132219] bg-[#CAF476] text-[#132219]"
+          >
+            {t("funnel.docTakeDocumentValue" as any)}
+          </button>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              decideMismatch(f.id, m, "kept_own");
+            }}
+            className="px-3 py-1 rounded-full text-[12px] border border-[#132219]/40 text-[#132219]"
+          >
+            {t("funnel.docKeepMyValue" as any)}
+          </button>
+        </span>
+      </span>
+    ));
+
   // Attach real files to a specific document type. This replaces the old
   // toggleDocument(), which only recorded a tick with `file: null` — so a customer could
   // green-check the whole list having uploaded nothing, and no upload was ever associated
@@ -1025,130 +1156,8 @@ return (
                     />
                     <span className="text-[13px] sm:text-[14px] md:text-[15px] text-[#132219] leading-tight break-words">
                       {t(doc as any)}
-                      {/* What the analysis made of this file (sections 31 and 34): one line
-                          when all is well, the problem itself when it is not. The customer
-                          never sees a confidence number — section 15 allows three states and
-                          a percentage would only invite arguing with it. */}
-                      {filesForDoc.map((f: any) => {
-                        if (analysing[f.id]) {
-                          return (
-                            <span key={f.id} className="block text-[11px] sm:text-[12px] text-[#132219]/60 mt-0.5">
-                              ◌ {t("funnel.docAnalysing" as any)}
-                            </span>
-                          );
-                        }
-                        const a = analyses[f.id];
-                        if (!a) return null;
-                        if (a.status === "rejected" && a.mismatchedRequirement) {
-                          return (
-                            <span key={f.id} className="block text-[11px] sm:text-[12px] text-[#B3261E] mt-0.5">
-                              ⚠ {t("funnel.docWrongDocument" as any)}
-                            </span>
-                          );
-                        }
-                        if (a.status === "outdated" && a.freshness) {
-                          return (
-                            <span key={f.id} className="block text-[11px] sm:text-[12px] text-[#8A5A00] mt-0.5">
-                              ⚠ {t("funnel.docOutdated" as any)}
-                            </span>
-                          );
-                        }
-                        if (a.status === "unsupported" || a.status === "failed") {
-                          // Section 21: the file is kept and still counts; the customer is
-                          // asked what it is rather than being told it was rejected.
-                          const options = candidateTypesFor(
-                            selectedDocuments.flatMap((sec: any) => sec.items)
-                          );
-                          return (
-                            <span key={f.id} className="block mt-1">
-                              <span className="block text-[11px] sm:text-[12px] text-[#132219]/60">
-                                {t("funnel.docNotRecognised" as any)}
-                              </span>
-                              {options.length > 0 && (
-                                <span className="flex flex-wrap gap-1.5 mt-1.5">
-                                  {options.map((o) => (
-                                    <button
-                                      key={o.id}
-                                      type="button"
-                                      onClick={(e) => {
-                                        e.preventDefault();
-                                        assignTypeManually(f.id, o.id);
-                                      }}
-                                      className="px-2.5 py-1 rounded-full text-[11px] border border-[#132219]/30 text-[#132219] hover:bg-[#F2F2F2]"
-                                    >
-                                      {o.label}
-                                    </button>
-                                  ))}
-                                </span>
-                              )}
-                            </span>
-                          );
-                        }
-                        const count = Object.keys(a.fields || {}).length;
-                        return (
-                          <span key={f.id} className="block text-[11px] sm:text-[12px] text-[#2E6B2E] mt-0.5">
-                            ✓ {a.classification?.label}
-                            {count > 0 ? ` — ${count} ${t("funnel.docFieldsRead" as any)}` : ""}
-                            {a.status === "review_required" ? ` · ${t("funnel.docPleaseCheck" as any)}` : ""}
-                            {Object.keys(a.fields || {}).length > 0 && (
-                              <button
-                                type="button"
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  setOpenDoc({ doc: f, analysis: a });
-                                }}
-                                className="ml-2 underline text-[#132219]/70"
-                              >
-                                {t("funnel.docShowDetails" as any)}
-                              </button>
-                            )}
-                          </span>
-                        );
-                      })}
-
-                      {/* Section 16 and 34: the exception, and only the exception. A
-                          difference the customer has answered disappears; one they have
-                          not is shown with both ways out and no default. */}
-                      {filesForDoc.flatMap((f: any) =>
-                        (mismatches[f.id] ?? []).map((m: any) => (
-                          <span
-                            key={`${f.id}-${m.field}`}
-                            className="block mt-2 rounded-lg border border-[#F4C48A] bg-[#FFF6E9] px-3 py-2"
-                            onClick={(e) => e.preventDefault()}
-                          >
-                            <span className="block text-[12px] font-semibold text-[#8A5A00]">
-                              ⚠ {m.label} {t("funnel.docMismatchTitle" as any)}
-                            </span>
-                            <span className="block text-[12px] text-[#132219]/80 mt-1">
-                              {t("funnel.docYourAnswer" as any)}: {String(m.funnelValue)}
-                              {" · "}
-                              {t("funnel.docInDocument" as any)}: {String(m.documentValue)}
-                            </span>
-                            <span className="flex flex-wrap gap-2 mt-2">
-                              <button
-                                type="button"
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  decideMismatch(f.id, m, "took_document");
-                                }}
-                                className="px-3 py-1 rounded-full text-[12px] border border-[#132219] bg-[#CAF476] text-[#132219]"
-                              >
-                                {t("funnel.docTakeDocumentValue" as any)}
-                              </button>
-                              <button
-                                type="button"
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  decideMismatch(f.id, m, "kept_own");
-                                }}
-                                className="px-3 py-1 rounded-full text-[12px] border border-[#132219]/40 text-[#132219]"
-                              >
-                                {t("funnel.docKeepMyValue" as any)}
-                              </button>
-                            </span>
-                          </span>
-                        ))
-                      )}
+                      {filesForDoc.map((f: any) => renderAnalysisNote(f))}
+                      {filesForDoc.flatMap((f: any) => renderMismatches(f))}
                       {/* No required/optional marker at all, at HYPOTEQ's request: every
                           document is presented the same way. The distinction still exists
                           in the catalog and still drives the completeness check and the
@@ -1350,6 +1359,12 @@ return (
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium text-[#132219] truncate">{doc.name}</p>
                       <p className="text-xs text-gray-500">{(doc.size / 1024).toFixed(2)} KB</p>
+                      {/* A file lands here when it was dropped in without choosing a
+                          requirement — section 9's whole point. It stays here when the AI
+                          could not place it, so this is exactly where the picker and the
+                          "wird analysiert" line are needed most. */}
+                      {renderAnalysisNote(doc)}
+                      {renderMismatches(doc)}
                     </div>
                   </div>
                   <div className="flex items-center gap-3">
