@@ -145,7 +145,7 @@ const propertyUseOptions =
   const isContinueDisabled = hasErrors || isRequiredMissing;
 
   return (
-    <div className="w-full max-w-[1400px] pt-[180px] md:pt-0 mx-auto px-4 md:px-6 lg:px-4 lg:pl-28 space-y-6 lg:space-y-[30px] -mt-10">
+    <div className="w-full max-w-[1400px] pt-[180px] lg:pt-0 mx-auto px-4 md:px-6 lg:px-4 lg:pl-28 space-y-6 lg:space-y-[30px]">
       {/* This step had no heading at all — it opened straight into "Art der Immobilie",
           which left the customer on a page of questions with nothing saying what the page
           was for. The mockup gives it one, and the lead is the mockup's own sentence: it

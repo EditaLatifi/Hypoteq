@@ -114,11 +114,12 @@ const ToggleButton = ({ active, children, onClick }: any) => {
 };
 
 
-  const inputStyle =
-    "px-5 py-2 border border-[#132219] rounded-full text-sm w-full";
+  // The field look now lives in one CSS rule (see .hq-field in hypoteq-tokens.css), so every
+  // input in the funnel matches without each call site being told how to look.
+  const inputStyle = "hq-field";
 
   return (
-    <div className="pt-[150px] md:pt-0 w-full max-w-[1400px] mx-auto px-4 md:px-6 lg:pl-20 -mt-10">
+    <div className="pt-[150px] lg:pt-0 w-full max-w-[1400px] mx-auto px-4 md:px-6 lg:pl-20">
 
       {/* ====================================================== */}
       {/* NEUKAUF (Direct + Natürliche/Juristische Person) */}

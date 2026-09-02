@@ -78,7 +78,7 @@ export default function FunnelSidebar({ step }: Props) {
     <>
       {/* MOBILE HEADER */}
       <div
-        className="md:hidden fixed top-0 left-0 right-0 z-50"
+        className="lg:hidden fixed top-0 left-0 right-0 z-50"
         style={{ background: "var(--forest-800)" }}
       >
         <div className="flex items-center justify-between gap-3 px-5 pt-3.5">
@@ -127,7 +127,7 @@ export default function FunnelSidebar({ step }: Props) {
       {/* MOBILE DROPDOWN */}
       {mobileMenuOpen && (
         <div
-          className="md:hidden fixed top-[86px] left-0 right-0 z-40"
+          className="lg:hidden fixed top-[86px] left-0 right-0 z-40"
           style={{ background: "var(--forest-700)", borderBottom: "var(--border-on-dark)" }}
         >
           <div className="px-5 py-4 flex flex-col gap-1">
@@ -173,7 +173,7 @@ export default function FunnelSidebar({ step }: Props) {
 
       {/* DESKTOP SIDEBAR */}
       <aside
-        className="hidden md:flex flex-col self-stretch"
+        className="hidden lg:flex flex-col self-stretch"
         style={{
           width: 288,
           flex: "0 0 288px",

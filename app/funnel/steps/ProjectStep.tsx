@@ -44,7 +44,7 @@ const selectCard = (value: string) => {
       : t("funnel.projectSubtitle" as any);
 
   return (
-    <div className="w-full max-w-[1400px] pt-[150px] md:pt-0 mx-auto px-4 md:px-8 lg:pl-20 lg:pr-48">
+    <div className="w-full max-w-[1400px] pt-[150px] lg:pt-0 mx-auto px-4 md:px-8 lg:pl-20 lg:pr-48">
       <FunnelHeading title={title} lead={subtitle} leadSize="body" />
 
       {/* CARDS */}

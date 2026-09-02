@@ -342,19 +342,19 @@ const submitFinal = async (payload?: any) => {
     // mockup's 412px device frame is the canvas showing a phone, not a border a real phone
     // should draw around its own screen, so there it goes full-bleed.
     <div
-      className="w-full min-h-screen flex justify-center"
+      className="hq-funnel w-full min-h-screen flex justify-center"
       style={{ background: "var(--forest-900)", fontFamily: "var(--font-text)" }}
     >
       <div
-        className="w-full md:my-7 md:max-w-[1360px] md:rounded-2xl md:overflow-hidden"
+        className="w-full lg:my-7 lg:max-w-[1579px] lg:rounded-2xl lg:overflow-hidden"
         style={{ background: "var(--paper)" }}
       >
-        <div className="flex flex-col md:flex-row items-stretch md:min-h-[940px]">
+        <div className="flex flex-col lg:flex-row items-stretch lg:min-h-[940px]">
 
       <FunnelSidebar step={sidebarStep} />
 
       {/* Main Content - Add top padding only for mobile */}
-      <div className="flex-1 w-full px-4 md:px-6 lg:px-8 pt-24 md:pt-0 pb-20 md:pb-24 lg:pb-32">
+      <div className="flex-1 w-full px-4 md:px-6 lg:px-8 pt-24 lg:pt-0 pb-20 md:pb-24 lg:pb-32">
 
         
         <div className="mb-8 md:mb-16 lg:mb-[140px]">

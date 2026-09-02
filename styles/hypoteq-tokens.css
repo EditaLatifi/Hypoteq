@@ -160,6 +160,69 @@
     opacity var(--duration-base) var(--ease-out);
 }
 
+/*
+ * Funnel fields.
+ *
+ * The mockups draw every input the same way: a tall field with a hairline border and the
+ * brand's radius, not the pill the funnel used. Done as one scoped rule rather than by
+ * editing thirty-seven call sites across three step files — the point of a design system is
+ * that a field looks a certain way because it is a field, not because someone remembered.
+ *
+ * Typed selectors on purpose: file inputs, checkboxes and radios are left alone, because
+ * they are not text fields and the document step's hidden file inputs must stay hidden.
+ * Element+class beats a Tailwind utility on specificity, so the old classes still on the
+ * markup lose without having to be removed one by one.
+ */
+.hq-funnel input[type="text"],
+.hq-funnel input[type="email"],
+.hq-funnel input[type="tel"],
+.hq-funnel input[type="number"],
+.hq-funnel input[type="date"],
+.hq-funnel select,
+.hq-funnel textarea,
+.hq-field {
+  width: 100%;
+  padding: 14px 18px;
+  border: 1px solid var(--paper-400);
+  border-radius: var(--radius-md);
+  background: var(--paper);
+  color: var(--forest-800);
+  font-family: var(--font-text);
+  font-size: var(--text-body-sm);
+  line-height: 1.3;
+  transition: var(--transition-control);
+}
+
+.hq-funnel input[type="text"]:focus,
+.hq-funnel input[type="email"]:focus,
+.hq-funnel input[type="tel"]:focus,
+.hq-funnel input[type="number"]:focus,
+.hq-funnel input[type="date"]:focus,
+.hq-funnel select:focus,
+.hq-funnel textarea:focus,
+.hq-field:focus {
+  outline: none;
+  border-color: var(--forest-800);
+  box-shadow: var(--focus-ring);
+}
+
+.hq-funnel input::placeholder,
+.hq-funnel textarea::placeholder {
+  color: var(--on-light-45);
+}
+
+.hq-funnel input:disabled,
+.hq-funnel select:disabled {
+  background: var(--paper-200);
+  color: var(--on-light-45);
+  cursor: not-allowed;
+}
+
+/* Field labels, wherever a step writes one above its input. */
+.hq-funnel label {
+  color: var(--forest-800);
+}
+
 /* The three animations the mockups use, named as they are there. */
 @keyframes hqspin {
   to {

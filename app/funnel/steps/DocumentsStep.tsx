@@ -1164,7 +1164,7 @@ const uploadAllFilesToSharePoint = async (): Promise<string | null> => {
   };
 
 return (
-  <div className="w-full flex justify-center pb-3 px-4 md:px-6 lg:-mt-16 font-sfpro">
+  <div className="w-full flex justify-center pb-3 px-4 md:px-6 font-sfpro">
 
     <div className="w-full max-w-[1100px]">
 
