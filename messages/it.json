@@ -268,6 +268,13 @@
   },
   "funnel": {
     "docCaseProgress": "documenti presenti",
+    "docAuditTrail": "Cronologia",
+    "docAuditAnalysed": "Analizzato",
+    "docAuditRenamed": "Rinominato",
+    "docAuditDecided": "Deciso",
+    "docAuditEdited": "Corretto",
+    "docCorrected": "corretto",
+    "docOpenDocument": "Vedi documento",
     "docDifference": "Differenza",
     "aiReviewedTitle": "Verificato da HYPOTEQ",
     "aiDocsAnalysed": "documenti analizzati",

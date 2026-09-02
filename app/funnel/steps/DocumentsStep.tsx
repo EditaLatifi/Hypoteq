@@ -103,6 +103,9 @@ const [analysing, setAnalysing] = useState<Record<string, boolean>>({});
 // document, which on a phone connection is the customer's data allowance.
 const docAiOffRef = useRef(false);
 
+// Which requirement rows are expanded, keyed by the file id inside them.
+const [openRows, setOpenRows] = useState<Record<string, boolean>>({});
+
 // Section 35's internal view, opened with ?intern=1. Read after mount rather than during
 // render: the server has no query string, and reading it inline would make the first client
 // render disagree with the server's and blank the step with a hydration error.
@@ -856,6 +859,18 @@ const uploadAllFilesToSharePoint = async (): Promise<string | null> => {
    * Section 16 and 34: the exception, and only the exception. A difference the customer has
    * answered disappears; one they have not is shown with both ways out and no default.
    */
+  /** The small pill used for a field's state. One definition so the confidence chip and the
+   *  corrected chip cannot drift into looking like two different kinds of thing. */
+  const chip = (bg: string, fg: string) => ({
+    background: bg,
+    color: fg,
+    borderRadius: "var(--radius-pill)",
+    padding: "2px 9px",
+    fontSize: "var(--text-micro)",
+    fontWeight: "var(--weight-semibold)" as any,
+    whiteSpace: "nowrap" as const,
+  });
+
   /** Swiss grouping: 142300 -> 142'300. A gap you have to count digits to read is a gap
    *  the customer skims past. */
   const fmtNumber = (v: any) =>
@@ -1480,10 +1495,12 @@ return (
                 const isUploadFailed = docUploadStatus === 'failed';
                 const rowState = rowStatus(filesForDoc);
 
+                const rowFiles = filesForDoc.filter((f: any) => analyses[f.id]);
+                const rowOpen = rowFiles.some((f: any) => openRows[f.id]);
+
                 return (
-                  <label
+                  <div
                     key={idx}
-                    className="flex items-start gap-3.5 cursor-pointer"
                     style={{
                       // White ground for every row; the status speaks through the glyph, the
                       // border and the badge rather than by tinting the whole card. A wall of
@@ -1491,9 +1508,13 @@ return (
                       background: "#fff",
                       border: `1px solid ${rowState.border}`,
                       borderRadius: "var(--radius-md)",
-                      padding: "14px 18px",
+                      overflow: "hidden",
                       transition: "var(--transition-control)",
                     }}
+                  >
+                  <label
+                    className="flex items-start gap-3.5 cursor-pointer"
+                    style={{ padding: "14px 18px" }}
                   >
                     {/* Status glyph, in the mockup's colours for this state. */}
                     <span
@@ -1563,7 +1584,194 @@ return (
                     >
                       {t(("funnel." + rowState.badge) as any)}
                     </span>
+
+                    {/* The mockup's chevron. preventDefault because it sits inside the label
+                        whose click opens the file picker — without it, asking to see what was
+                        read would also ask for another upload. */}
+                    {rowFiles.length > 0 && (
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          setOpenRows((prev) => {
+                            const next = { ...prev };
+                            for (const f of rowFiles) next[f.id] = !rowOpen;
+                            return next;
+                          });
+                        }}
+                        className="flex-none"
+                        style={{
+                          color: "var(--on-light-45)",
+                          fontSize: 14,
+                          lineHeight: 1,
+                          marginTop: 8,
+                          transform: rowOpen ? "rotate(180deg)" : "none",
+                          transition: "transform var(--duration-base) var(--ease-out)",
+                        }}
+                        aria-label={t("funnel.docShowDetails" as any)}
+                      >
+                        ▾
+                      </button>
+                    )}
                   </label>
+
+                  {/* WHAT WAS READ, AND WHAT HAPPENED TO IT (sections 13 and 36).
+                      In the row rather than only behind a modal: the modal is the right place
+                      to correct a value against the page it came from, but the wrong place to
+                      answer "what did it actually find" — a question asked in passing, which
+                      nobody should have to open a dialog for. */}
+                  {rowOpen &&
+                    rowFiles.map((f: any) => {
+                      const a = analyses[f.id];
+                      const spec = docTypeById(a.classification?.type);
+                      const entries = Object.entries(a.fields ?? {});
+                      const decided = decisions[f.id] ?? [];
+                      const editedKeys = Object.keys(edits[f.id] ?? {});
+
+                      return (
+                        <div
+                          key={f.id}
+                          className="flex flex-col gap-4"
+                          style={{ padding: "0 18px 18px", animation: "hqrise .24s var(--ease-out) both" }}
+                        >
+                          {entries.length > 0 && (
+                            <div className="flex flex-col" style={{ borderTop: "1px solid var(--paper-300)", paddingTop: 14 }}>
+                              <span
+                                style={{
+                                  fontSize: "var(--text-micro)",
+                                  letterSpacing: "var(--tracking-label)",
+                                  textTransform: "uppercase",
+                                  color: "var(--on-light-45)",
+                                  paddingBottom: 8,
+                                }}
+                              >
+                                {t("funnel.docExtractedInfo" as any)}
+                              </span>
+                              {entries.map(([key, fl]: any) => {
+                                const label = spec?.fields.find((x: any) => x.key === key)?.label ?? key;
+                                const corrected = edits[f.id]?.[key];
+                                // Section 15's three states as words. A percentage invites the
+                                // customer to argue with a number they cannot check; "bitte
+                                // prüfen" tells them what to do instead.
+                                const uncertain = (fl?.confidence ?? 0) < 0.9;
+                                return (
+                                  <div
+                                    key={key}
+                                    className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1"
+                                    style={{ padding: "7px 0", borderBottom: "1px solid var(--paper-200)" }}
+                                  >
+                                    <span style={{ fontSize: "var(--text-body-sm)", color: "var(--on-light-70)" }}>
+                                      {label}
+                                    </span>
+                                    <span className="flex items-center gap-2.5 flex-wrap justify-end">
+                                      <span
+                                        style={{
+                                          fontSize: "var(--text-body-sm)",
+                                          fontWeight: "var(--weight-semibold)" as any,
+                                          color: "var(--forest-800)",
+                                        }}
+                                      >
+                                        {corrected ?? fmtNumber(fl?.value)}
+                                        {fl?.unit ? " " + fl.unit : ""}
+                                      </span>
+                                      {corrected !== undefined ? (
+                                        <span style={chip("var(--info-100)", "var(--info-500)")}>
+                                          {t("funnel.docCorrected" as any)}
+                                        </span>
+                                      ) : uncertain ? (
+                                        <span style={chip("var(--warning-100)", "var(--warning-500)")}>
+                                          {t("funnel.docPleaseCheck" as any)}
+                                        </span>
+                                      ) : null}
+                                    </span>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          )}
+
+                          {/* AUDIT TRAIL (section 36): what the AI found and what the human
+                              made of it, in the order it happened. That is the whole question
+                              the section exists to answer, and it was being stored where only
+                              a database query could reach it. */}
+                          <div className="flex flex-col gap-2" style={{ borderTop: "1px solid var(--paper-300)", paddingTop: 12 }}>
+                            <span
+                              style={{
+                                fontSize: "var(--text-micro)",
+                                letterSpacing: "var(--tracking-label)",
+                                textTransform: "uppercase",
+                                color: "var(--on-light-45)",
+                              }}
+                            >
+                              {t("funnel.docAuditTrail" as any)}
+                            </span>
+                            {[
+                              {
+                                ts: a.audit?.analysedAt,
+                                text:
+                                  t("funnel.docAuditAnalysed" as any) +
+                                  ": " + (a.audit?.originalFileName ?? f.name) +
+                                  " → " + (a.classification?.label ?? "—"),
+                              },
+                              ...(a.suggestedFilename
+                                ? [{ ts: a.audit?.analysedAt, text: t("funnel.docAuditRenamed" as any) + ": " + a.suggestedFilename }]
+                                : []),
+                              ...decided.map((d: any) => ({
+                                ts: d.decidedAt,
+                                text: t("funnel.docAuditDecided" as any) + ": " + d.field + " → " + fmtNumber(d.finalValue),
+                              })),
+                              ...editedKeys.map((k: string) => ({
+                                ts: null,
+                                text:
+                                  t("funnel.docAuditEdited" as any) + ": " +
+                                  (spec?.fields.find((x: any) => x.key === k)?.label ?? k),
+                              })),
+                            ].map((ev: any, i: number) => (
+                              <div key={i} className="flex gap-2.5 items-baseline">
+                                <span
+                                  style={{
+                                    fontSize: "var(--text-micro)",
+                                    color: "var(--on-light-45)",
+                                    whiteSpace: "nowrap",
+                                    minWidth: 100,
+                                  }}
+                                >
+                                  {ev.ts
+                                    ? new Date(ev.ts).toLocaleString("de-CH", { dateStyle: "short", timeStyle: "short" })
+                                    : "—"}
+                                </span>
+                                <span style={{ fontSize: "var(--text-caption)", color: "var(--on-light-70)" }}>
+                                  {ev.text}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+
+                          <div className="flex flex-wrap gap-2.5">
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                setOpenDoc({ doc: f, analysis: a });
+                              }}
+                              style={{
+                                borderRadius: "var(--radius-pill)",
+                                padding: "9px 18px",
+                                fontSize: "var(--text-body-sm)",
+                                fontWeight: "var(--weight-semibold)" as any,
+                                background: "#fff",
+                                border: "1px solid var(--paper-400)",
+                                color: "var(--forest-800)",
+                              }}
+                            >
+                              {t("funnel.docOpenDocument" as any)}
+                            </button>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
                 );
               })}
             </div>
