@@ -1513,6 +1513,53 @@ return (
             })()}
           </div>
 
+          {/* The mockup's metric row. Four numbers a reviewer reads at a glance before
+              deciding whether the list below is worth going through. */}
+          {(() => {
+            const all: any[] = Object.values(analyses).filter(Boolean);
+            const metrics = [
+              { value: all.length, label: t("funnel.aiDocsAnalysed" as any) },
+              {
+                value: all.filter((a: any) => a.status === "classified" || a.status === "confirmed").length,
+                label: t("funnel.docTallyOk" as any),
+              },
+              {
+                value: all.filter((a: any) =>
+                  ["review_required", "rejected", "outdated", "unsupported", "failed"].includes(a.status)
+                ).length,
+                label: t("funnel.docTallyCheck" as any),
+              },
+              {
+                value: all.reduce((n: number, a: any) => n + Object.keys(a.fields ?? {}).length, 0),
+                label: t("funnel.aiFieldsRead" as any),
+              },
+            ];
+            return (
+              <div className="grid gap-4" style={{ gridTemplateColumns: "repeat(auto-fit,minmax(120px,1fr))" }}>
+                {metrics.map((m) => (
+                  <div key={m.label} className="flex flex-col gap-1">
+                    <span
+                      style={{
+                        fontFamily: "var(--font-display)",
+                        fontSize: "var(--text-title)",
+                        color: "var(--forest-800)",
+                        fontWeight: "var(--weight-bold)" as any,
+                        lineHeight: 1,
+                      }}
+                    >
+                      {m.value}
+                    </span>
+                    <span style={{ fontSize: "var(--text-caption)", color: "var(--on-light-70)" }}>
+                      {m.label}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            );
+          })()}
+
+          <div style={{ height: 1, background: "var(--paper-300)" }} />
+
           <div className="flex flex-col gap-2">
             <span
               style={{
