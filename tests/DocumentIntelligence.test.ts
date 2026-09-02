@@ -243,3 +243,30 @@ describe('provider independence (section 30)', () => {
     expect(a.documentId).toMatch(/^doc_/);
   });
 });
+
+describe('several documents in one file (section 22)', () => {
+  it('names the other documents it saw in the same upload', async () => {
+    const a = await analyseDocument(
+      req(),
+      stub({ alsoContains: ['identity_document', 'land_registry_extract'] })
+    );
+    expect(a.alsoContains).toEqual(['identity_document', 'land_registry_extract']);
+  });
+
+  it('drops the file\'s own type from that list', async () => {
+    // A salary certificate does not also contain a salary certificate. Repeating the primary
+    // type would show the customer a document they were never asked to look for.
+    const a = await analyseDocument(req(), stub({ alsoContains: ['salary_certificate'] }));
+    expect(a.alsoContains).toEqual([]);
+  });
+
+  it('drops a type it does not recognise rather than showing it', async () => {
+    const a = await analyseDocument(req(), stub({ alsoContains: ['not_a_real_type'] }));
+    expect(a.alsoContains).toEqual([]);
+  });
+
+  it('is empty for an ordinary single document', async () => {
+    const a = await analyseDocument(req(), stub({}));
+    expect(a.alsoContains).toEqual([]);
+  });
+});

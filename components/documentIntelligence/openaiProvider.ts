@@ -119,6 +119,12 @@ function buildSchema(candidates: string[]) {
         additionalProperties: false,
       },
       documentDate: { type: ["string", "null"] },
+      // Section 22: customers merge a whole dossier into one PDF. The model is asked what
+      // else is in the file, so the other documents can be acknowledged rather than lost.
+      alsoContains: {
+        type: "array",
+        items: { type: "string", enum: [...candidates] },
+      },
       fields: {
         type: "object",
         properties: fieldProperties,
@@ -126,7 +132,8 @@ function buildSchema(candidates: string[]) {
         additionalProperties: false,
       },
     },
-    required: ["classification", "person", "documentDate", "fields"],
+    // Strict mode requires every declared property to be listed here, alsoContains included.
+    required: ["classification", "person", "documentDate", "alsoContains", "fields"],
     additionalProperties: false,
   };
 }
@@ -176,6 +183,10 @@ function buildInstructions(input: ProviderInput): string {
     "  period it covers), never today's date.",
     "- person.borrowerId names the borrower the document belongs to, matched on the names",
     "  printed in it. Use null when it is unclear; the user will be asked.",
+    "- alsoContains lists OTHER listed types that are also present in the same file, when the",
+    "  upload is several documents merged into one PDF. Classify the file as whichever",
+    "  document it mainly is, and name the rest here. Leave it empty for an ordinary",
+    "  single document — a long contract is one document, not several.",
   ].join("\n");
 }
 
@@ -281,6 +292,9 @@ export class OpenAIDocumentProvider implements DocumentIntelligenceProvider {
       classification,
       person,
       documentDate: typeof parsed?.documentDate === "string" ? parsed.documentDate : null,
+      alsoContains: Array.isArray(parsed?.alsoContains)
+        ? parsed.alsoContains.filter((x: unknown): x is string => typeof x === "string")
+        : [],
       fields: toExtractedFields(parsed?.fields),
       durationMs,
     };

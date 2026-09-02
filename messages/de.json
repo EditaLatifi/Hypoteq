@@ -269,6 +269,7 @@
   },
   "funnel": {
     "docCaseProgress": "Dokumente vorhanden",
+    "docAlsoContains": "Diese Datei enthält offenbar auch",
     "exportPdf": "Als PDF exportieren",
     "toastTookDocument": "Wert aus dem Dokument übernommen",
     "toastKeptOwn": "Deine Angabe bleibt bestehen",

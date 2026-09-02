@@ -8,6 +8,7 @@ import { computeDocumentCompleteness } from "@/components/funnelDocumentCatalog"
 import { documentSectionsFor } from "@/components/funnelDocumentSections";
 import { FALLBACK_NAVIGATION_MS, thankYouPathFor } from "@/components/funnelThankYou";
 import FunnelToast, { type ToastLine } from "../FunnelToast";
+import { crossCheck } from "@/components/documentIntelligence/crossCheck";
 import {
   DOCUMENT_TYPES,
   candidateTypesFor,
@@ -853,6 +854,13 @@ const uploadAllFilesToSharePoint = async (): Promise<string | null> => {
       );
     }
     const count = Object.keys(a.fields || {}).length;
+    // Section 22: the customer merged a dossier into one PDF. Named rather than split — the
+    // other documents are acknowledged so nobody re-uploads them believing they were lost,
+    // and the requirements they answer stay open because one file cannot be filed twice.
+    const also = (a.alsoContains ?? [])
+      .map((id: string) => DOCUMENT_TYPES.find((t) => t.id === id)?.label)
+      .filter(Boolean);
+
     return (
       <span key={f.id} className="block text-[11px] sm:text-[12px] text-[#2E6B2E] mt-0.5">
         ✓ {a.classification?.label}
@@ -869,6 +877,14 @@ const uploadAllFilesToSharePoint = async (): Promise<string | null> => {
           >
             {t("funnel.docShowDetails" as any)}
           </button>
+        )}
+        {also.length > 0 && (
+          <span
+            className="block mt-1"
+            style={{ fontSize: "var(--text-caption)", color: "var(--info-500)" }}
+          >
+            {t("funnel.docAlsoContains" as any)}: {also.join(", ")}
+          </span>
         )}
       </span>
     );
@@ -1508,6 +1524,45 @@ return (
                   ? `${decided} ${t("funnel.aiDeviations" as any)}`
                   : t("funnel.aiNoDeviation" as any)}
             </span>
+          </div>
+        );
+      })()}
+
+      {/* CROSS-DOCUMENT CHECKS (section 18). The documents against each other, not against
+          the funnel — the question the customer cannot answer for us. Every finding is a
+          note: section 18 calls these "mögliche Abweichungen", a job change between the
+          certificate's year and this month's payslip is the ordinary explanation, and none of
+          it blocks a submission. */}
+      {(() => {
+        const findings = crossCheck(Object.values(analyses).filter(Boolean) as any);
+        if (!findings.length) return null;
+        return (
+          <div className="mb-8 flex flex-col gap-2.5">
+            {findings.map((f: any) => (
+              <div
+                key={f.id}
+                className="flex items-start gap-3"
+                style={{
+                  border: `1px solid ${f.level === "warning" ? "var(--warning-500)" : "var(--paper-300)"}`,
+                  background: f.level === "warning" ? "var(--warning-100)" : "var(--paper-100)",
+                  borderRadius: "var(--radius-md)",
+                  padding: "12px 16px",
+                }}
+              >
+                <span
+                  className="flex-none"
+                  style={{
+                    color: f.level === "warning" ? "var(--warning-500)" : "var(--success-500)",
+                    fontWeight: "var(--weight-semibold)" as any,
+                  }}
+                >
+                  {f.level === "warning" ? "⚠" : "✓"}
+                </span>
+                <span style={{ fontSize: "var(--text-body-sm)", color: "var(--on-light-70)" }}>
+                  {f.text}
+                </span>
+              </div>
+            ))}
           </div>
         );
       })()}

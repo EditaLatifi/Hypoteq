@@ -192,6 +192,12 @@ export async function analyseDocument(
     funnelDocKey,
     mismatchedRequirement,
     freshness,
+    // Section 22. Filtered here rather than trusted from the model: a type it does not
+    // recognise, or the file's own primary type repeated, would otherwise be shown to the
+    // customer as a document they have not been asked for.
+    alsoContains: (result.alsoContains ?? []).filter(
+      (id) => id !== typeId && Boolean(docTypeById(id))
+    ),
     audit: {
       originalFileName: req.fileName,
       model: provider.model,

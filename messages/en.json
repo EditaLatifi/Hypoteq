@@ -267,6 +267,7 @@
   },
   "funnel": {
     "docCaseProgress": "documents provided",
+    "docAlsoContains": "This file also appears to contain",
     "exportPdf": "Export as PDF",
     "toastTookDocument": "Value from the document applied",
     "toastKeptOwn": "Your entry stays as it is",

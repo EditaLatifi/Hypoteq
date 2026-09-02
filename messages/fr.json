@@ -265,6 +265,7 @@
   },
   "funnel": {
     "docCaseProgress": "documents fournis",
+    "docAlsoContains": "Ce fichier semble contenir aussi",
     "exportPdf": "Exporter en PDF",
     "toastTookDocument": "Valeur du document reprise",
     "toastKeptOwn": "Votre indication est conservée",

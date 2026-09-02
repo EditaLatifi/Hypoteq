@@ -50,6 +50,14 @@ export interface DocumentAnalysis {
   mismatchedRequirement?: { expected: string; got: string } | null;
   /** Set when the document is older than its rule allows (§25). */
   freshness?: { maxAgeMonths: number; documentDate: string; ageMonths: number } | null;
+  /**
+   * Other document types the same file appears to contain (§22).
+   *
+   * Reported, not acted on. Splitting a combined PDF into its parts is a later stage; what
+   * matters now is that a customer who merged eight documents into one upload is told the
+   * other seven were seen, rather than left believing they are missing.
+   */
+  alsoContains?: string[];
 
   /** Audit (§36). The raw model output is deliberately NOT kept — see the route. */
   audit: {
@@ -86,6 +94,8 @@ export interface ProviderResult {
   person: { borrowerId: string | null; confidence: number } | null;
   documentDate: string | null;
   fields: Record<string, ExtractedField>;
+  /** Other listed types the file also appears to contain (§22). */
+  alsoContains?: string[];
   durationMs: number;
 }
 
