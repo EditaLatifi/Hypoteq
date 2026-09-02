@@ -47,32 +47,21 @@ export default function FunnelSidebar({ step }: Props) {
 
   const current = steps.find((s) => s.id === step);
 
-  /** The wordmark, as the brand guide draws it: white rule box with the corner cut. */
-  const Wordmark = ({ size }: { size: "sm" | "lg" }) => {
-    const lg = size === "lg";
-    return (
-      <span className="inline-flex items-start" style={{ gap: lg ? 3 : 2 }}>
-        <span
-          style={{
-            display: "inline-block",
-            border: `${lg ? 3 : 2}px solid #fff`,
-            padding: lg ? "7px 11px 8px" : "5px 8px 6px",
-            fontFamily: "var(--font-display)",
-            fontSize: lg ? 19 : 13,
-            fontWeight: "var(--weight-bold)" as any,
-            letterSpacing: "0.02em",
-            color: "#fff",
-            clipPath: lg
-              ? "polygon(11px 0,100% 0,100% 100%,0 100%,0 11px)"
-              : "polygon(8px 0,100% 0,100% 100%,0 100%,0 8px)",
-          }}
-        >
-          HYPOTEQ
-        </span>
-        <span style={{ color: "#fff", fontSize: lg ? 9 : 7, lineHeight: 1 }}>®</span>
-      </span>
-    );
-  };
+  /**
+   * The real logo asset, not a wordmark rebuilt out of a bordered span.
+   *
+   * The recreation had to guess the border weight, the corner cut and where the ® sits, and
+   * it guessed them slightly wrong at every size. HYPOTEQ already ships a white logo for dark
+   * grounds — using it means the funnel's mark is the same file as the one in the header of
+   * every other page, and it cannot drift from the brand when the brand changes.
+   */
+  const Wordmark = ({ size }: { size: "sm" | "lg" }) => (
+    <img
+      src="/images/HYPOTEQ_layout_logo_white.png"
+      alt="HYPOTEQ"
+      style={{ height: size === "lg" ? 34 : 26, width: "auto", display: "block" }}
+    />
+  );
 
   return (
     <>

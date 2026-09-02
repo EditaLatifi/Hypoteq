@@ -381,20 +381,19 @@ const submitFinal = async (payload?: any) => {
 
 
   return (
-    // The shell from the funnel mockups: the page sits on the brand's darkest forest and the
-    // funnel itself is a card floating on it. The card is desktop-only — on a phone the
-    // mockup's 412px device frame is the canvas showing a phone, not a border a real phone
-    // should draw around its own screen, so there it goes full-bleed.
+    // Full-bleed rather than the mockup's floating card. On the canvas the funnel sits on
+    // the brand's darkest forest as a framing device; in a real browser window that reads as
+    // a black band above the page, and the funnel is a whole screen rather than an exhibit.
     <div
-      className="hq-funnel w-full min-h-screen flex justify-center"
-      style={{ background: "var(--forest-900)", fontFamily: "var(--font-text)" }}
+      className="hq-funnel w-full min-h-screen"
+      style={{ background: "var(--paper)", fontFamily: "var(--font-text)" }}
     >
-      {/* The light island on the dark page, marked as the design system marks it. Everything
-          inside reads --surface-*, --fg-* and --action-* from the light context rather than
-          from the brand's dark default. */}
+      {/* The light context, marked as the design system marks it: everything inside reads
+          --surface-*, --fg-* and --action-* from the light palette rather than the brand's
+          dark default. */}
       <div
         data-hq-theme="light"
-        className="w-full lg:my-7 lg:max-w-[1579px] lg:rounded-2xl lg:overflow-hidden"
+        className="w-full"
         style={{ background: "var(--surface-card)" }}
       >
         <div className="flex flex-col lg:flex-row items-stretch lg:min-h-[940px]">
