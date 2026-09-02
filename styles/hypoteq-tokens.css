@@ -1,0 +1,197 @@
+/*
+ * HYPOTEQ design tokens.
+ *
+ * Copied from the design system shipped with the funnel mockups
+ * (_ds/hypoteq-design-system-…/tokens/*), so the funnel and the mockups cannot describe the
+ * same brand in two different vocabularies. Values are the design system's, unchanged —
+ * where this file departs from it, that is a bug, not a decision.
+ *
+ * These are plain CSS variables rather than a Tailwind theme extension on purpose: the
+ * mockups are written in these exact names, so a component can be translated from the canvas
+ * by reading it, and a reviewer can check the result against the design by name.
+ *
+ * FONT. The design system declares SF Pro Display from OTF files HYPOTEQ supplied. Those
+ * files are deliberately NOT shipped here: SF Pro is Apple's typeface and putting it on a
+ * public site is a licensing decision for HYPOTEQ to make, not one to arrive at by copying
+ * files. The stack below falls back to -apple-system, which IS SF on Apple devices, so the
+ * intended face already appears for a large share of visitors. Say the word and the OTFs go
+ * into public/fonts and the @font-face rules come with them.
+ */
+
+:root {
+  /* ---- Brand core (HYPOTEQ brand guide p.2) ---- */
+  --lime-500: #caf476;
+  --forest-800: #132219;
+  --white: #ffffff;
+
+  /* ---- Lime ramp (hue-locked to #CAF476) ---- */
+  --lime-100: #f2fbdd;
+  --lime-200: #e6f8c0;
+  --lime-300: #daf6a2;
+  --lime-400: #d2f58c;
+  --lime-600: #b7e455;
+  --lime-700: #9cc93b;
+  --lime-800: #7ba228;
+
+  /* ---- Forest ramp ---- */
+  --forest-900: #0a130d;
+  --forest-700: #1a2e20;
+  --forest-600: #223b2a;
+  --forest-500: #2e4e37;
+  --forest-400: #456a4f;
+  --forest-300: #6b8d74;
+
+  /* ---- Light neutrals: green-tinted, never pure grey ---- */
+  --paper: #ffffff;
+  --paper-100: #f6f8f4;
+  --paper-200: #edf1e9;
+  --paper-300: #e1e7dc;
+  --paper-400: #c9d2c3;
+  --ink-500: #5c6a5f;
+
+  /* ---- Alpha utilities: the brand's 70% transparency rule ---- */
+  --on-dark-100: rgba(255, 255, 255, 1);
+  --on-dark-70: rgba(255, 255, 255, 0.7);
+  --on-dark-45: rgba(255, 255, 255, 0.45);
+  --on-dark-14: rgba(255, 255, 255, 0.14);
+  --on-dark-08: rgba(255, 255, 255, 0.08);
+  --on-light-100: #132219;
+  --on-light-70: rgba(19, 34, 25, 0.7);
+  --on-light-45: rgba(19, 34, 25, 0.45);
+  --on-light-12: rgba(19, 34, 25, 0.12);
+  --on-light-06: rgba(19, 34, 25, 0.06);
+
+  /* ---- Status. Quiet on purpose: this is a finance context ---- */
+  --success-500: #2f8f52;
+  --success-100: #e4f3e8;
+  --warning-500: #c98a16;
+  --warning-100: #fbf1dc;
+  --danger-500: #b23b34;
+  --danger-100: #f8e7e5;
+  --info-500: #2f6b8f;
+  --info-100: #e4eef4;
+
+  /* ---- Type ---- */
+  --font-display: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  --font-text: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --text-hero: 96px;
+  --text-display-1: 56px;
+  --text-display-2: 44px;
+  --text-display-3: 34px;
+  --text-title: 28px;
+  --text-heading: 24px;
+  --text-lead: 21px;
+  --text-body: 17px;
+  --text-body-sm: 15px;
+  --text-caption: 13px;
+  --text-micro: 11px;
+
+  --leading-tight: 1.05;
+  --leading-snug: 1.15;
+  --leading-normal: 1.35;
+  --leading-relaxed: 1.5;
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-heavy: 800;
+
+  --tracking-tight: -0.02em;
+  --tracking-snug: -0.01em;
+  --tracking-normal: 0;
+  --tracking-label: 0.08em;
+  --tracking-wide: 0.14em;
+
+  /* ---- Space ---- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+
+  --pad-card: 24px;
+  --pad-control-x: 20px;
+  --pad-control-y: 12px;
+  --measure-body: 62ch;
+  --container-max: 1200px;
+
+  /* ---- Radii ---- */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-pill: 999px;
+
+  /* ---- Borders and shadows. Flat brand: shadows are product UI only ---- */
+  --border-hairline: 1px;
+  --border-thick: 2px;
+  --border-logo-box: 3px;
+  --rule-length: 44px;
+  --rule-weight: 3px;
+  --border-on-dark: 1px solid var(--on-dark-14);
+  --border-on-light: 1px solid var(--paper-300);
+
+  --shadow-sm: 0 1px 2px rgba(10, 19, 13, 0.06);
+  --shadow-md: 0 6px 20px rgba(10, 19, 13, 0.1);
+  --shadow-lg: 0 18px 48px rgba(10, 19, 13, 0.16);
+  --focus-ring: 0 0 0 3px rgba(202, 244, 118, 0.55);
+  --focus-ring-on-dark: 0 0 0 3px rgba(202, 244, 118, 0.35);
+
+  /* ---- Motion ---- */
+  --ease-out: cubic-bezier(0.2, 0.7, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 120ms;
+  --duration-base: 180ms;
+  --duration-slow: 280ms;
+  --duration-reveal: 420ms;
+  --transition-control: background-color var(--duration-base) var(--ease-out),
+    color var(--duration-base) var(--ease-out), border-color var(--duration-base) var(--ease-out),
+    opacity var(--duration-base) var(--ease-out);
+}
+
+/* The three animations the mockups use, named as they are there. */
+@keyframes hqspin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes hqpulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes hqrise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* The rise is decoration; the spinner is the only one carrying meaning, and a customer who
+     asked the system to stop moving things should still be told the document is being read —
+     so it keeps its meaning through the text beside it, not the rotation. */
+  .hq-rise,
+  .hq-spin {
+    animation: none !important;
+  }
+}

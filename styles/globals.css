@@ -1,3 +1,8 @@
+/* The brand's own vocabulary, in the names the mockups use. First because CSS requires
+   @import to precede every other statement; harmless here because the file defines custom
+   properties, which Tailwind's reset does not touch. */
+@import "./hypoteq-tokens.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
