@@ -856,6 +856,11 @@ const uploadAllFilesToSharePoint = async (): Promise<string | null> => {
    * Section 16 and 34: the exception, and only the exception. A difference the customer has
    * answered disappears; one they have not is shown with both ways out and no default.
    */
+  /** Swiss grouping: 142300 -> 142'300. A gap you have to count digits to read is a gap
+   *  the customer skims past. */
+  const fmtNumber = (v: any) =>
+    typeof v === "number" && Number.isFinite(v) ? v.toLocaleString("de-CH") : String(v);
+
   const renderMismatches = (f: any) =>
     (mismatches[f.id] ?? []).map((m: any) => (
       <span
@@ -866,10 +871,42 @@ const uploadAllFilesToSharePoint = async (): Promise<string | null> => {
         <span className="block text-[12px] font-semibold text-[#8A5A00]">
           ⚠ {m.label} {t("funnel.docMismatchTitle" as any)}
         </span>
-        <span className="block text-[12px] text-[#132219]/80 mt-1">
-          {t("funnel.docYourAnswer" as any)}: {String(m.funnelValue)}
-          {" · "}
-          {t("funnel.docInDocument" as any)}: {String(m.documentValue)}
+        {/* The mockup's three columns, and section 16's worked example: what you said, what
+            the document says, and the gap between them. The difference is the number that
+            decides whether this is worth the customer's attention — CHF 7'700 is an argument,
+            CHF 12 is a rounding — so leaving it to be worked out in their head was asking
+            them to do the one piece of arithmetic the comparison already did. */}
+        <span className="grid gap-3 mt-2" style={{ gridTemplateColumns: "repeat(auto-fit,minmax(120px,1fr))" }}>
+          {[
+            { label: t("funnel.docYourAnswer" as any), value: m.funnelValue, warn: false },
+            { label: t("funnel.docInDocument" as any), value: m.documentValue, warn: false },
+            ...(typeof m.difference === "number"
+              ? [{ label: t("funnel.docDifference" as any), value: fmtNumber(m.difference), warn: true }]
+              : []),
+          ].map((c: any) => (
+            <span key={c.label} className="flex flex-col gap-1">
+              <span
+                style={{
+                  fontSize: "var(--text-micro)",
+                  letterSpacing: "var(--tracking-label)",
+                  textTransform: "uppercase",
+                  color: "var(--on-light-45)",
+                }}
+              >
+                {c.label}
+              </span>
+              <span
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontSize: "var(--text-lead)",
+                  fontWeight: "var(--weight-semibold)" as any,
+                  color: c.warn ? "var(--warning-500)" : "var(--forest-800)",
+                }}
+              >
+                {typeof c.value === "number" ? fmtNumber(c.value) : String(c.value)}
+              </span>
+            </span>
+          ))}
         </span>
         <span className="flex flex-wrap gap-2 mt-2">
           <button

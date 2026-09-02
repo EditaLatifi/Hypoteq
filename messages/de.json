@@ -269,6 +269,7 @@
   },
   "funnel": {
     "docCaseProgress": "Dokumente vorhanden",
+    "docDifference": "Differenz",
     "aiReviewedTitle": "Von HYPOTEQ geprüft",
     "aiDocsAnalysed": "Dokumente analysiert",
     "aiFieldsRead": "Angaben gelesen",

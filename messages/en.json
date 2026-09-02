@@ -267,6 +267,7 @@
   },
   "funnel": {
     "docCaseProgress": "documents provided",
+    "docDifference": "Difference",
     "aiReviewedTitle": "Checked by HYPOTEQ",
     "aiDocsAnalysed": "documents analysed",
     "aiFieldsRead": "details read",

@@ -265,6 +265,7 @@
   },
   "funnel": {
     "docCaseProgress": "documents fournis",
+    "docDifference": "Écart",
     "aiReviewedTitle": "Vérifié par HYPOTEQ",
     "aiDocsAnalysed": "documents analysés",
     "aiFieldsRead": "informations lues",
