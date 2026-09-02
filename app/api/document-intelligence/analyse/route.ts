@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { analyseDocument } from "@/components/documentIntelligence/analyse";
+import { documentIntelligenceDisabledReason } from "@/components/documentIntelligence/enabled";
 
 /**
  * Document Intelligence endpoint (spec section 30).
@@ -23,6 +24,12 @@ export const runtime = "nodejs";
 // Analysis of a long PDF is slow; section 31 wants this off the UI thread, and the client
 // polls rather than blocks. Well above the provider's own latency so a slow read is not
 // truncated into a spurious failure.
+//
+// vercel.json caps every other API route at 30s and names this one at 120s explicitly. Both
+// have to say 120, because it is not worth depending on which of the two wins: a real run
+// against synthetic one-page PDFs already took 6–12 seconds, so a multi-page scan has room
+// to cross 30s, and a cap that bites would surface as a timeout the customer reads as "the
+// upload is broken".
 export const maxDuration = 120;
 
 const MAX_BYTES = 25 * 1024 * 1024;
@@ -35,6 +42,32 @@ const ACCEPTED = new Set([
   "image/heic",
 ]);
 
+/**
+ * The body sent when no analysis happened — a failure, or a deployment where the feature is
+ * switched off. Shared so those two cannot drift apart: the client tells them apart by
+ * nothing at all, and must not need to. Section 38 governs both, and the funnel falls back
+ * to manual classification either way.
+ */
+function withoutAnalysis(message: string, disabled = false) {
+  return {
+    success: false,
+    error: message,
+    // Set only when the feature is switched off here, never on a failure. The client stops
+    // sending files once it sees it — otherwise a customer on a production deployment would
+    // upload every document twice, once to SharePoint and once to an endpoint that was
+    // always going to refuse it. A flag rather than the message text, so the client is not
+    // matching on a sentence someone may reword.
+    disabled,
+    analysis: {
+      documentId: null,
+      status: "failed",
+      classification: { type: "unknown", label: "Nicht analysiert", confidence: 0 },
+      fields: {},
+      funnelDocKey: null,
+    },
+  };
+}
+
 function parseJsonArray(raw: FormDataEntryValue | null): any[] {
   if (typeof raw !== "string" || !raw) return [];
   try {
@@ -46,6 +79,16 @@ function parseJsonArray(raw: FormDataEntryValue | null): any[] {
 }
 
 export async function POST(req: Request) {
+  // Checked before the body is read: on a deployment where analysis is switched off there is
+  // no reason to pull 25 MB over the wire to throw it away. Answered as a non-analysis
+  // rather than an error, because to the funnel this is not a failure — it is the behaviour
+  // it had before the feature existed.
+  const disabled = documentIntelligenceDisabledReason();
+  if (disabled) {
+    console.log(`[DocAI] skipped: ${disabled}`);
+    return NextResponse.json(withoutAnalysis(disabled, true));
+  }
+
   let fileName = "";
   try {
     const form = await req.formData();
@@ -139,16 +182,6 @@ export async function POST(req: Request) {
 
     // Deliberately 200. Section 38: the funnel must stay usable when analysis is not, and
     // the client shows a manual document-type picker on this status rather than an error.
-    return NextResponse.json({
-      success: false,
-      error: message,
-      analysis: {
-        documentId: null,
-        status: "failed",
-        classification: { type: "unknown", label: "Nicht analysiert", confidence: 0 },
-        fields: {},
-        funnelDocKey: null,
-      },
-    });
+    return NextResponse.json(withoutAnalysis(message));
   }
 }

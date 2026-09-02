@@ -111,6 +111,20 @@ describe('status (section 32)', () => {
     expect(a.funnelDocKey).toBeNull();
     expect(a.suggestedFilename).toBeNull();
   });
+
+  it('attributes nobody when it could not place the document (section 24)', async () => {
+    // A real run came back with an electricity bill assigned to borrower_01 at 96%: the
+    // model answers the person question even when it has answered nothing else. Section 24
+    // assigns a document to a borrower, and there is no document here to assign.
+    const a = await analyseDocument(
+      req(),
+      stub({
+        classification: { type: 'unknown', label: 'Nicht erkannt', confidence: 0.2 },
+        person: { borrowerId: 'borrower_01', confidence: 0.96 },
+      })
+    );
+    expect(a.person).toBeNull();
+  });
 });
 
 describe('wrong document (section 20)', () => {
@@ -183,6 +197,33 @@ describe('suggested filename (section 11)', () => {
     );
     expect(a.suggestedFilename).toMatch(/^[A-Za-z0-9_.-]+$/);
     expect(a.suggestedFilename).toContain('Juerg_Mueller-Gross');
+  });
+
+  it('takes the name out of a register entry that states far more than a name', async () => {
+    // Exactly what a real Grundbuchauszug returned. Passing the field through whole
+    // produced Grundbuchauszug_2024_Muster_Max_geb_14_03_1985_Alleineigentum.pdf — a name
+    // worse than the IMG_4829.pdf it replaced, which is the one outcome section 11 forbids.
+    const a = await analyseDocument(
+      req(),
+      stub({
+        classification: { type: 'land_registry_extract', label: 'Grundbuchauszug', confidence: 0.99 },
+        documentDate: '2024-01-15',
+        fields: { owner: { value: 'Muster, Max, geb. 14.03.1985, Alleineigentum', confidence: 0.97 } },
+      })
+    );
+    expect(a.suggestedFilename).toBe('Grundbuchauszug_2024_Muster_Max.pdf');
+  });
+
+  it('keeps a joint name intact rather than truncating it to one person', async () => {
+    const a = await analyseDocument(
+      req(),
+      stub({
+        classification: { type: 'purchase_contract', label: 'Kaufvertrag', confidence: 0.99 },
+        documentDate: '2026-05-04',
+        fields: { buyer: { value: 'Max Muster und Anna Muster', confidence: 0.98 } },
+      })
+    );
+    expect(a.suggestedFilename).toBe('Kaufvertrag_2026_Max_Muster_und_Anna_Muster.pdf');
   });
 
   it('keeps the original name for the audit trail (section 36)', async () => {

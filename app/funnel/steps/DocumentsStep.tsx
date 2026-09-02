@@ -93,6 +93,16 @@ useEffect(() => {
 const [analyses, setAnalyses] = useState<Record<string, any>>({});
 const [analysing, setAnalysing] = useState<Record<string, boolean>>({});
 
+// Set once the server says analysis is switched off on this deployment. A ref rather than
+// state because several files are analysed at the same time and this has to be readable the
+// instant the first answer lands, without waiting for a render.
+//
+// It cannot spare the files already in flight — those learn it from their own reply — but
+// it stops every later upload from being sent to an endpoint that will refuse it. On a
+// production deployment that is the difference between one wasted upload and one per
+// document, which on a phone connection is the customer's data allowance.
+const docAiOffRef = useRef(false);
+
 // Differences between a document and what the customer already told the funnel, and what
 // they decided about each (sections 16 and 14). Decisions are kept per document so they can
 // travel with the upload into the audit trail — acting on a correction without recording it
@@ -585,6 +595,7 @@ const uploadAllFilesToSharePoint = async (): Promise<string | null> => {
   // and nothing else, so the file stays attached and the customer carries on exactly as
   // they did before this feature existed.
   const analyseFile = async (docId: string, file: File, expectedDocKey: string | null) => {
+    if (docAiOffRef.current) return;
     setAnalysing((prev) => ({ ...prev, [docId]: true }));
     try {
       const form = new FormData();
@@ -603,6 +614,17 @@ const uploadAllFilesToSharePoint = async (): Promise<string | null> => {
 
       const res = await fetch("/api/document-intelligence/analyse", { method: "POST", body: form });
       const json = await res.json();
+
+      // Switched off on this deployment, which is not the same as having tried and failed.
+      // Nothing is recorded against the file: the "please tell us what this is" picker
+      // belongs to a document the AI could not place, and showing it here would hand the
+      // customer work to compensate for a feature that never ran. The step behaves exactly
+      // as it did before this feature existed.
+      if (json?.disabled) {
+        docAiOffRef.current = true;
+        return;
+      }
+
       const analysis = json?.analysis ?? null;
       if (!analysis) return;
 

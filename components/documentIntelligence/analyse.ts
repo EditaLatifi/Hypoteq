@@ -32,6 +32,44 @@ export interface AnalyseRequest {
   now?: Date;
 }
 
+/**
+ * The person part of a generated filename, from a field that may hold far more than a name.
+ *
+ * A land registry extract states its owner as "Muster, Max, geb. 14.03.1985,
+ * Alleineigentum", and passing that through produced
+ * `Grundbuchauszug_2024_Muster_Max_geb_14_03_1985_Alleineigentum.pdf` — a name that is
+ * worse than the IMG_4829.pdf it replaced, which is the one thing section 11 must not do.
+ *
+ * A Swiss register writes the person first, so the name is the leading comma-separated
+ * parts: everything from the first part carrying a digit (a birth date, a share, a parcel)
+ * is dropped, and the ownership form is dropped by name because it carries no digit to
+ * catch it. Two parts at most — "Muster, Max" is a name, a third piece never is.
+ */
+const OWNERSHIP_TERMS = new Set([
+  "alleineigentum",
+  "miteigentum",
+  "gesamteigentum",
+  "stockwerkeigentum",
+  "eigentuemer",
+  "eigentümer",
+]);
+
+function personForFilename(raw: unknown): string {
+  if (typeof raw !== "string") return "";
+
+  const kept: string[] = [];
+  for (const part of raw.split(",").map((s) => s.trim()).filter(Boolean)) {
+    if (/\d/.test(part)) break;
+    if (OWNERSHIP_TERMS.has(part.toLowerCase())) break;
+    kept.push(part);
+    if (kept.length === 2) break;
+  }
+
+  // A joint buyer ("Max Muster und Anna Muster") is still a legitimate name; the cap only
+  // stops a sentence from becoming a filename.
+  return kept.join(" ").split(/\s+/).slice(0, 5).join(" ");
+}
+
 /** Section 11: a name that says what the file is, from what was read out of it. */
 function suggestFilename(
   typeId: string,
@@ -43,14 +81,15 @@ function suggestFilename(
   if (!spec) return null;
 
   const ext = originalFileName.includes(".") ? originalFileName.split(".").pop() : "pdf";
-  const person =
+  const person = personForFilename(
     (fields.employee?.value as string) ||
-    (fields.insuredPerson?.value as string) ||
-    (fields.fullName?.value as string) ||
-    [fields.firstName?.value, fields.lastName?.value].filter(Boolean).join(" ") ||
-    (fields.buyer?.value as string) ||
-    (fields.owner?.value as string) ||
-    "";
+      (fields.insuredPerson?.value as string) ||
+      (fields.fullName?.value as string) ||
+      [fields.firstName?.value, fields.lastName?.value].filter(Boolean).join(" ") ||
+      (fields.buyer?.value as string) ||
+      (fields.owner?.value as string) ||
+      ""
+  );
 
   const year = documentDate ? String(documentDate).slice(0, 4) : "";
   const base = spec.filenameBase;
@@ -139,7 +178,11 @@ export async function analyseDocument(
   return {
     documentId,
     classification: result.classification,
-    person: result.person,
+    // Section 24 assigns a DOCUMENT to a borrower. A file nobody could identify has no
+    // document to assign, so an answer here would be a claim with nothing behind it — an
+    // electricity bill came back attributed to borrower_01 at 96% confidence, which is
+    // exactly the kind of confident noise that teaches staff to distrust the whole panel.
+    person: recognised ? result.person : null,
     documentDate: result.documentDate,
     suggestedFilename: recognised
       ? suggestFilename(typeId, result.fields, result.documentDate, req.fileName)

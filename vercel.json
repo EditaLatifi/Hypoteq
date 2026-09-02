@@ -2,6 +2,9 @@
   "framework": "nextjs",
   "regions": ["fra1"],
   "functions": {
+    "app/api/document-intelligence/analyse/route.ts": {
+      "maxDuration": 120
+    },
     "app/api/**/*.ts": {
       "maxDuration": 30
     }
