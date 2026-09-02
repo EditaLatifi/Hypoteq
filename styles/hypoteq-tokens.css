@@ -161,6 +161,101 @@
 }
 
 /*
+ * The semantic layer (tokens/semantic.css).
+ *
+ * The raw ramps above say what colours exist; this says what they are FOR. The brand's home
+ * surface is dark, so these default to the dark context, and a light island — the funnel card
+ * sitting on the forest page — flips them by carrying data-hq-theme="light", exactly as the
+ * mockup does.
+ *
+ * TWO NAMES ARE DELIBERATELY NOT COPIED. The design system defines --text-body and
+ * --text-heading twice: as sizes in typography.css (17px, 24px) and again as colours in
+ * semantic.css, which is imported afterwards and therefore wins. In the system as shipped,
+ * `font-size: var(--text-body)` resolves to a colour and is dropped — its own base.css does
+ * exactly that on the body element. Copying the collision here would silently break every
+ * font-size in the funnel that reads those names. The colour meanings live on as --fg-body
+ * and --fg-heading instead; the sizes keep the original names because that is what the
+ * mockup markup uses.
+ */
+:root {
+  --surface-page: var(--forest-800);
+  --surface-raised: var(--forest-700);
+  --surface-sunken: var(--forest-900);
+  --surface-accent: var(--lime-500);
+  --surface-card: var(--forest-700);
+  --surface-card-light: var(--paper);
+  --surface-input: var(--on-dark-08);
+
+  --fg-heading: var(--white);
+  --fg-body: var(--on-dark-100);
+  --text-muted: var(--on-dark-70);
+  --text-faint: var(--on-dark-45);
+  --text-accent: var(--lime-500);
+  --text-on-accent: var(--forest-800);
+  --text-link: var(--lime-500);
+  --text-link-hover: var(--lime-300);
+
+  --border-subtle: var(--on-dark-14);
+  --border-strong: var(--white);
+  --border-accent: var(--lime-500);
+
+  --action-primary-bg: var(--lime-500);
+  --action-primary-fg: var(--forest-800);
+  --action-primary-bg-hover: var(--lime-600);
+  --action-primary-bg-active: var(--lime-700);
+  --action-secondary-bg: transparent;
+  --action-secondary-fg: var(--white);
+  --action-secondary-border: var(--white);
+  --action-disabled-bg: var(--on-dark-08);
+  --action-disabled-fg: var(--on-dark-45);
+}
+
+/* Light context: website body copy, and the funnel card. */
+.hq-light,
+[data-hq-theme="light"] {
+  --surface-page: var(--paper);
+  --surface-raised: var(--paper-100);
+  --surface-sunken: var(--paper-200);
+  --surface-card: var(--paper);
+  --surface-input: var(--white);
+
+  --fg-heading: var(--forest-800);
+  --fg-body: var(--on-light-100);
+  --text-muted: var(--on-light-70);
+  --text-faint: var(--on-light-45);
+  --text-accent: var(--lime-800);
+  --text-on-accent: var(--forest-800);
+  --text-link: var(--forest-800);
+  --text-link-hover: var(--lime-800);
+
+  --border-subtle: var(--paper-300);
+  --border-strong: var(--forest-800);
+
+  --action-secondary-fg: var(--forest-800);
+  --action-secondary-border: var(--forest-800);
+  --action-disabled-bg: var(--paper-200);
+  --action-disabled-fg: var(--on-light-45);
+}
+
+/* The two utility classes base.css defines. The rest of base.css is deliberately left out:
+   it restyles h1–h4, p and a globally, and this stylesheet is loaded by the whole site. */
+.hq-eyebrow {
+  font-size: var(--text-caption);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  color: var(--text-muted);
+}
+.hq-rule {
+  width: var(--rule-length);
+  height: var(--rule-weight);
+  background: var(--white);
+  border: 0;
+}
+.hq-rule--accent {
+  background: var(--lime-500);
+}
+
+/*
  * Funnel fields.
  *
  * The mockups draw every input the same way: a tall field with a hairline border and the

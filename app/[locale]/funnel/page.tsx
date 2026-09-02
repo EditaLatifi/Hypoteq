@@ -389,9 +389,13 @@ const submitFinal = async (payload?: any) => {
       className="hq-funnel w-full min-h-screen flex justify-center"
       style={{ background: "var(--forest-900)", fontFamily: "var(--font-text)" }}
     >
+      {/* The light island on the dark page, marked as the design system marks it. Everything
+          inside reads --surface-*, --fg-* and --action-* from the light context rather than
+          from the brand's dark default. */}
       <div
+        data-hq-theme="light"
         className="w-full lg:my-7 lg:max-w-[1579px] lg:rounded-2xl lg:overflow-hidden"
-        style={{ background: "var(--paper)" }}
+        style={{ background: "var(--surface-card)" }}
       >
         <div className="flex flex-col lg:flex-row items-stretch lg:min-h-[940px]">
 

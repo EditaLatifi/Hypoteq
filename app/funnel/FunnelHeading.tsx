@@ -24,13 +24,7 @@ export default function FunnelHeading({
 }) {
   return (
     <div className="flex flex-col gap-3 mb-8 md:mb-10">
-      <span
-        style={{
-          width: "var(--rule-length)",
-          height: "var(--rule-weight)",
-          background: "var(--lime-600)",
-        }}
-      />
+      <span className="hq-rule hq-rule--accent" />
       <h1
         style={{
           margin: 0,
@@ -38,7 +32,7 @@ export default function FunnelHeading({
           fontSize: "var(--text-display-3)",
           lineHeight: "var(--leading-snug)",
           letterSpacing: "var(--tracking-tight)",
-          color: "var(--forest-800)",
+          color: "var(--fg-heading)",
           fontWeight: "var(--weight-bold)" as any,
           textWrap: "pretty" as any,
         }}
@@ -51,7 +45,7 @@ export default function FunnelHeading({
             margin: 0,
             fontSize: leadSize === "lead" ? "var(--text-lead)" : "var(--text-body)",
             lineHeight: "var(--leading-normal)",
-            color: "var(--on-light-70)",
+            color: "var(--text-muted)",
             maxWidth: leadSize === "lead" ? "52ch" : "56ch",
           }}
         >
