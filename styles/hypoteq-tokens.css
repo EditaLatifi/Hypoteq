@@ -318,6 +318,40 @@
   color: var(--forest-800);
 }
 
+/*
+ * Print, which is what "Als PDF exportieren" actually is.
+ *
+ * The browser's own print-to-PDF rather than a PDF library: it needs no dependency in the
+ * bundle, it produces a file the customer can open anywhere, and it cannot fall out of step
+ * with the page it is exporting — because it IS the page. What it needs is for the page to
+ * stop being an application for a moment: no dark surround, no sidebar, no sticky header,
+ * no buttons that print as grey rectangles nobody can press on paper.
+ */
+@media print {
+  .hq-funnel {
+    background: #fff !important;
+    display: block !important;
+  }
+  .hq-funnel aside,
+  .hq-funnel .hq-no-print,
+  .hq-funnel button,
+  .hq-funnel input[type="file"] {
+    display: none !important;
+  }
+  .hq-funnel [data-hq-theme="light"] {
+    max-width: none !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+  /* A row opened on screen should print opened; one collapsed should not silently omit what
+     it holds. Everything that survives the rules above is printed as it stands. */
+  .hq-funnel * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
 /* The three animations the mockups use, named as they are there. */
 @keyframes hqspin {
   to {

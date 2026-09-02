@@ -269,6 +269,7 @@
   },
   "funnel": {
     "docCaseProgress": "Dokumente vorhanden",
+    "exportPdf": "Als PDF exportieren",
     "toastTookDocument": "Wert aus dem Dokument übernommen",
     "toastKeptOwn": "Deine Angabe bleibt bestehen",
     "toastAuditNote": "Der ursprüngliche Wert bleibt im Verlauf sichtbar.",

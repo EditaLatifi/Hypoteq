@@ -2101,6 +2101,27 @@ return (
             <span style={{ fontSize: "var(--text-body-sm)", color: "var(--on-light-70)" }}>
               {t("funnel.docSubmitAnytime" as any)}
             </span>
+
+            {/* "Als PDF exportieren" from the mockup, done as print-to-PDF rather than with a
+                PDF library: no dependency in the bundle, a file that opens anywhere, and it
+                cannot drift from the page it exports because it is the page. The print rules
+                in hypoteq-tokens.css drop the shell, the sidebar and the buttons. */}
+            <button
+              type="button"
+              onClick={() => window.print()}
+              className="hq-no-print self-start"
+              style={{
+                borderRadius: "var(--radius-pill)",
+                padding: "9px 18px",
+                fontSize: "var(--text-body-sm)",
+                fontWeight: "var(--weight-semibold)" as any,
+                background: "#fff",
+                border: "1px solid var(--paper-400)",
+                color: "var(--forest-800)",
+              }}
+            >
+              {t("funnel.exportPdf" as any)}
+            </button>
           </div>
         );
       })()}

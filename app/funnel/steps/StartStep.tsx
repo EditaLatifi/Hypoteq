@@ -68,48 +68,76 @@ if (!clientData.phone) {
         lead={t("funnel.startSubtitle" as any)}
       />
 
-      {/* === Partner Section (only show if not partner) === */}
-      {customerType !== "partner" && (
-        <div className="mb-8 md:mb-10 lg:mb-12 border-t border-b border-[#132219] py-4">
-          <p className="text-lg md:text-xl lg:text-[20px] font-semibold font-sfpro text-[#132219] mb-1">
-            {t("funnel.partnerTitle" as any)}
-          </p>
-          <div className="flex items-center gap-4 justify-between">
-            <p className="text-base md:text-lg font-normal font-sfpro text-[#132219]/80">
-              {t("funnel.partnerDescription" as any)}
-            </p>
+      {/* The mockup's two entry cards. Same two choices the step always offered — the
+          partner banner and the private-customer heading — but as a choice you can see and
+          change, rather than a button that switches the page and a paragraph that describes
+          where you already are. Nothing about who is filling in the funnel changed; this is
+          the same customerType, selected differently. */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 md:mb-10">
+        {[
+          {
+            key: "direct",
+            title: t("funnel.privateCustomerTitle" as any),
+            sub: t("funnel.privateCustomerDescription" as any),
+          },
+          {
+            key: "partner",
+            title: t("funnel.partnerTitle" as any),
+            sub: t("funnel.partnerDescription" as any),
+          },
+        ].map((e) => {
+          const active = customerType === e.key;
+          return (
             <button
-              onClick={() => setCustomerType("partner")}
-              className="
-                px-8 py-2
-                rounded-full
-                bg-[#CAF476]
-                border border-[#132219]
-                text-[14px] font-medium text-[#132219]
-                hover:bg-[#b8e966]
-                transition
-                whitespace-nowrap
-              "
+              key={e.key}
+              type="button"
+              onClick={() => setCustomerType(e.key as any)}
+              className="flex flex-col gap-2 text-left"
+              style={{
+                border: `1px solid ${active ? "var(--forest-800)" : "var(--paper-400)"}`,
+                background: active ? "var(--lime-100)" : "#fff",
+                borderRadius: "var(--radius-lg)",
+                padding: "20px 22px",
+                transition: "var(--transition-control)",
+              }}
             >
-              {t("funnel.partnerButton" as any)}
+              <span className="flex items-center justify-between gap-3">
+                <span
+                  style={{
+                    fontSize: "var(--text-lead)",
+                    fontWeight: "var(--weight-semibold)" as any,
+                    color: "var(--fg-heading)",
+                  }}
+                >
+                  {e.title}
+                </span>
+                <span
+                  className="flex items-center justify-center flex-none"
+                  style={{
+                    width: 26,
+                    height: 26,
+                    borderRadius: 999,
+                    background: active ? "var(--lime-500)" : "transparent",
+                    border: active ? "1px solid var(--forest-800)" : "1px solid var(--paper-400)",
+                    color: "var(--forest-800)",
+                    fontSize: 13,
+                    fontWeight: "var(--weight-bold)" as any,
+                  }}
+                >
+                  {active ? "✓" : ""}
+                </span>
+              </span>
+              <span style={{ fontSize: "var(--text-body-sm)", color: "var(--text-muted)" }}>
+                {e.sub}
+              </span>
             </button>
-          </div>
-        </div>
-      )}
+          );
+        })}
+      </div>
 
       {/* === DIRECT CUSTOMER FORM === */}
       {customerType === "direct" && (
         <>
-          {/* Private Customer Title & Description */}
-          <div className="mb-6">
-            <p className="text-lg md:text-xl lg:text-[20px] font-semibold font-sfpro text-[#132219] mb-1">
-              {t("funnel.privateCustomerTitle" as any)}
-            </p>
-            <p className="text-base md:text-lg font-normal font-sfpro text-[#132219]/80">
-              {t("funnel.privateCustomerDescription" as any)}
-            </p>
-          </div>
-
           {/* Row 1 */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 md:mb-7 lg:mb-8">
             <div>

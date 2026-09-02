@@ -267,6 +267,7 @@
   },
   "funnel": {
     "docCaseProgress": "documents provided",
+    "exportPdf": "Export as PDF",
     "toastTookDocument": "Value from the document applied",
     "toastKeptOwn": "Your entry stays as it is",
     "toastAuditNote": "The original value remains visible in the history.",
