@@ -267,6 +267,9 @@
   },
   "funnel": {
     "docCaseProgress": "documents provided",
+    "finalCheckTitle": "A last look at your request",
+    "finalCheckChanged": "detail(s) were changed by hand",
+    "docCancel": "Cancel",
     "calcNeed": "Estimated mortgage needed",
     "calcLtv": "Loan to value",
     "calcAffordability": "Affordability",

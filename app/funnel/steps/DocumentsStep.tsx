@@ -1935,12 +1935,100 @@ return (
           submission with documents outstanding, and the completeness verdict travels with it
           so the Nachreichung mail can name what is still needed. Saying so here removes the
           reason a customer stalls on a document they cannot find tonight. */}
-      <p
-        className="mt-6"
-        style={{ fontSize: "var(--text-body-sm)", color: "var(--on-light-70)" }}
-      >
-        {t("funnel.docSubmitAnytime" as any)}
-      </p>
+      {/* LETZTER BLICK (spec section 41, screen 7; the mockup's step 5).
+          A last look before submitting, in the place the flow already ends rather than as a
+          new step — adding one would change the navigation this redesign is not allowed to
+          touch. Per section, not per document: eight green ticks are not a summary, they are
+          the same list again. */}
+      {(() => {
+        const visible = selectedDocuments.flatMap((sec: any) => sec.items);
+        if (!visible.length) return null;
+
+        const rows = selectedDocuments
+          .map((sec: any) => {
+            const have = sec.items.filter((k: string) =>
+              docs.some((d: any) => d.docType === k && d.file)
+            ).length;
+            const needsCheck = docs.some((d: any) => {
+              if (!sec.items.includes(d.docType)) return false;
+              const a = analyses[d.id];
+              return (a && a.status === "review_required") || (mismatches[d.id] ?? []).length > 0;
+            });
+            return { name: sec.title, have, total: sec.items.length, needsCheck };
+          })
+          .filter((r: any) => r.total > 0);
+
+        const changed = Object.values(decisions).reduce((n: number, l: any) => n + l.length, 0)
+          + Object.values(edits).reduce((n: number, m: any) => n + Object.keys(m).length, 0);
+
+        return (
+          <div
+            className="mt-8 flex flex-col gap-4"
+            style={{
+              border: "var(--border-on-light)",
+              borderRadius: "var(--radius-lg)",
+              background: "#fff",
+              padding: 22,
+            }}
+          >
+            <span
+              style={{
+                fontSize: "var(--text-micro)",
+                letterSpacing: "var(--tracking-label)",
+                textTransform: "uppercase",
+                color: "var(--on-light-45)",
+              }}
+            >
+              {t("funnel.finalCheckTitle" as any)}
+            </span>
+
+            <div className="flex flex-col">
+              {rows.map((r: any) => {
+                const complete = r.have >= r.total;
+                const glyph = r.needsCheck ? "⚠" : complete ? "✓" : "○";
+                const colour = r.needsCheck
+                  ? "var(--warning-500)"
+                  : complete
+                    ? "var(--success-500)"
+                    : "var(--on-light-45)";
+                return (
+                  <div
+                    key={r.name}
+                    className="flex items-center gap-3"
+                    style={{ padding: "9px 0", borderBottom: "1px solid var(--paper-200)" }}
+                  >
+                    <span style={{ color: colour, fontWeight: "var(--weight-semibold)" as any, width: 16 }}>
+                      {glyph}
+                    </span>
+                    <span
+                      className="flex-1 min-w-0"
+                      style={{ fontSize: "var(--text-body-sm)", color: "var(--forest-800)" }}
+                    >
+                      {r.name}
+                    </span>
+                    <span style={{ fontSize: "var(--text-caption)", color: "var(--on-light-45)" }}>
+                      {r.have}/{r.total}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Section 41 puts this line on the final screen, and it is the one thing on it
+                a reviewer at HYPOTEQ will look for first: a figure the customer changed by
+                hand is a figure no document backs. */}
+            {changed > 0 && (
+              <span style={{ fontSize: "var(--text-body-sm)", color: "var(--warning-500)" }}>
+                ⚠ {changed} {t("funnel.finalCheckChanged" as any)}
+              </span>
+            )}
+
+            <span style={{ fontSize: "var(--text-body-sm)", color: "var(--on-light-70)" }}>
+              {t("funnel.docSubmitAnytime" as any)}
+            </span>
+          </div>
+        );
+      })()}
 
       {/* UPLOAD CARD — catch-all for anything that fits none of the fields above.
           Deliberately placed AFTER the sections and visually quieter than them: a file
@@ -2078,6 +2166,22 @@ return (
                 <div className="text-[16px] font-semibold text-[#132219]">
                   {openDoc.doc?.name}
                 </div>
+                {/* The mockup's meta line. What the document itself says it is about, so the
+                    person checking a value knows which document and whose it is without
+                    reading the preview first. */}
+                <div style={{ fontSize: "var(--text-caption)", color: "var(--on-light-45)", marginTop: 2 }}>
+                  {[
+                    openDoc.analysis?.documentDate,
+                    (() => {
+                      const id = openDoc.analysis?.person?.borrowerId;
+                      if (!id) return null;
+                      return borrowerChoices().find((b: any) => b.id === id)?.name ?? null;
+                    })(),
+                    `${Object.keys(openDoc.analysis?.fields ?? {}).length} ${t("funnel.docFieldsRead" as any)}`,
+                  ]
+                    .filter(Boolean)
+                    .join(" · ")}
+                </div>
               </div>
               <button
                 type="button"
@@ -2157,7 +2261,33 @@ return (
               </div>
             </div>
 
-            <div className="px-5 py-4 border-t border-[#EEE] flex justify-end">
+            <div className="px-5 py-4 flex flex-wrap justify-end gap-2.5" style={{ borderTop: "1px solid var(--paper-300)" }}>
+              {/* Abbrechen discards the edits made in this panel rather than merely closing
+                  it. A dialog whose cancel button keeps your changes is a dialog nobody
+                  trusts, and here the changes are numbers that travel to a lender. */}
+              <button
+                type="button"
+                onClick={() => {
+                  const id = openDoc.doc.id;
+                  setEdits((prev) => {
+                    const next = { ...prev };
+                    delete next[id];
+                    return next;
+                  });
+                  setOpenDoc(null);
+                }}
+                style={{
+                  borderRadius: "var(--radius-pill)",
+                  padding: "9px 18px",
+                  fontSize: "var(--text-body-sm)",
+                  fontWeight: "var(--weight-semibold)" as any,
+                  background: "#fff",
+                  border: "1px solid var(--paper-400)",
+                  color: "var(--forest-800)",
+                }}
+              >
+                {t("funnel.docCancel" as any)}
+              </button>
               <button
                 type="button"
                 onClick={() => {

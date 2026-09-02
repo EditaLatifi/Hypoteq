@@ -265,6 +265,9 @@
   },
   "funnel": {
     "docCaseProgress": "documents fournis",
+    "finalCheckTitle": "Un dernier regard sur votre demande",
+    "finalCheckChanged": "information(s) modifiée(s) manuellement",
+    "docCancel": "Annuler",
     "calcNeed": "Besoin hypothécaire estimé",
     "calcLtv": "Taux d’avance",
     "calcAffordability": "Capacité financière",

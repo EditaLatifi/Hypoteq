@@ -269,6 +269,9 @@
   },
   "funnel": {
     "docCaseProgress": "Dokumente vorhanden",
+    "finalCheckTitle": "Letzter Blick auf deine Anfrage",
+    "finalCheckChanged": "Angabe(n) wurden manuell geändert",
+    "docCancel": "Abbrechen",
     "calcNeed": "Geschätzter Hypothekbedarf",
     "calcLtv": "Belehnung",
     "calcAffordability": "Tragbarkeit",
