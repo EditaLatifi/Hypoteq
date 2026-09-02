@@ -269,6 +269,11 @@
   },
   "funnel": {
     "docCaseProgress": "Dokumente vorhanden",
+    "toastTookDocument": "Wert aus dem Dokument übernommen",
+    "toastKeptOwn": "Deine Angabe bleibt bestehen",
+    "toastAuditNote": "Der ursprüngliche Wert bleibt im Verlauf sichtbar.",
+    "toastDeviationNoted": "Wir vermerken die Abweichung für die Prüfung.",
+    "toastClassified": "Dokumenttyp übernommen – das Dokument bleibt gespeichert.",
     "docCertain": "Sicher",
     "finalCheckTitle": "Letzter Blick auf deine Anfrage",
     "finalCheckChanged": "Angabe(n) wurden manuell geändert",

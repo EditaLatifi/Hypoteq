@@ -268,6 +268,11 @@
   },
   "funnel": {
     "docCaseProgress": "documenti presenti",
+    "toastTookDocument": "Valore del documento applicato",
+    "toastKeptOwn": "La tua indicazione resta invariata",
+    "toastAuditNote": "Il valore originale resta visibile nella cronologia.",
+    "toastDeviationNoted": "Annotiamo lo scostamento per la verifica.",
+    "toastClassified": "Tipo di documento applicato – il documento resta salvato.",
     "docCertain": "Sicuro",
     "finalCheckTitle": "Un ultimo sguardo alla tua richiesta",
     "finalCheckChanged": "informazione/i modificata/e manualmente",

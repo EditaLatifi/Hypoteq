@@ -7,6 +7,7 @@ import dynamic from "next/dynamic";
 import { computeDocumentCompleteness } from "@/components/funnelDocumentCatalog";
 import { documentSectionsFor } from "@/components/funnelDocumentSections";
 import { FALLBACK_NAVIGATION_MS, thankYouPathFor } from "@/components/funnelThankYou";
+import FunnelToast, { type ToastLine } from "../FunnelToast";
 import {
   DOCUMENT_TYPES,
   candidateTypesFor,
@@ -105,6 +106,9 @@ const docAiOffRef = useRef(false);
 
 // Which requirement rows are expanded, keyed by the file id inside them.
 const [openRows, setOpenRows] = useState<Record<string, boolean>>({});
+
+// The confirmation shown after an action that changed something.
+const [toast, setToast] = useState<ToastLine[] | null>(null);
 
 // Section 35's internal view, opened with ?intern=1. Read after mount rather than during
 // render: the server has no query string, and reading it inline would make the first client
@@ -694,6 +698,7 @@ const uploadAllFilesToSharePoint = async (): Promise<string | null> => {
         classifiedBy: "human",
       },
     }));
+    setToast([{ text: `✓ ${spec?.label ?? typeId}`, big: true }, { text: t("funnel.toastClassified" as any) }]);
   };
 
   // Record what the customer decided about a discrepancy, and apply it (sections 14, 16).
@@ -728,6 +733,20 @@ const uploadAllFilesToSharePoint = async (): Promise<string | null> => {
         },
       ],
     }));
+
+    // The panel disappearing reads equally well as "accepted" and as "dismissed", and with a
+    // salary figure headed for a lender that is not a difference to leave to inference.
+    setToast(
+      choice === "took_document"
+        ? [
+            { text: `✓ ${t("funnel.toastTookDocument" as any)}`, big: true },
+            { text: t("funnel.toastAuditNote" as any) },
+          ]
+        : [
+            { text: `✓ ${t("funnel.toastKeptOwn" as any)}`, big: true },
+            { text: t("funnel.toastDeviationNoted" as any) },
+          ]
+    );
 
     // Answered questions leave the screen; section 34 wants the exception visible, not
     // permanent.
@@ -2366,6 +2385,8 @@ return (
           </div>
         </div>
       )}
+
+      <FunnelToast lines={toast} onDone={() => setToast(null)} />
 
       {/* UPLOADING INDICATOR (Popup only) */}
       <HypoteqLoadingPopup

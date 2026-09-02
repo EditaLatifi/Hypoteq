@@ -265,6 +265,11 @@
   },
   "funnel": {
     "docCaseProgress": "documents fournis",
+    "toastTookDocument": "Valeur du document reprise",
+    "toastKeptOwn": "Votre indication est conservée",
+    "toastAuditNote": "La valeur d’origine reste visible dans l’historique.",
+    "toastDeviationNoted": "Nous notons l’écart pour la vérification.",
+    "toastClassified": "Type de document repris – le document reste enregistré.",
     "docCertain": "Fiable",
     "finalCheckTitle": "Un dernier regard sur votre demande",
     "finalCheckChanged": "information(s) modifiée(s) manuellement",

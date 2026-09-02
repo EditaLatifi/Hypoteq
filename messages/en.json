@@ -267,6 +267,11 @@
   },
   "funnel": {
     "docCaseProgress": "documents provided",
+    "toastTookDocument": "Value from the document applied",
+    "toastKeptOwn": "Your entry stays as it is",
+    "toastAuditNote": "The original value remains visible in the history.",
+    "toastDeviationNoted": "We note the deviation for the review.",
+    "toastClassified": "Document type applied – the document stays saved.",
     "docCertain": "Certain",
     "finalCheckTitle": "A last look at your request",
     "finalCheckChanged": "detail(s) were changed by hand",
