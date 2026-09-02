@@ -168,11 +168,16 @@ export default function HypoteqLoadingPopup({ isOpen, isComplete, onComplete }: 
           <div className="hq-icon-wrap">
             <div className="hq-ring" />
             <div className="hq-ring-inner" />
-            <div className="hq-icon-center">📤</div>
+            <div className="hq-icon-center">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 15v3a2 2 0 002 2h12a2 2 0 002-2v-3" />
+              </svg>
+            </div>
           </div>
 
           {/* Eyebrow */}
-          <div className="hq-eyebrow">{t.eyebrow}</div>
+          <div className="hq-lp-eyebrow">{t.eyebrow}</div>
 
           {/* Title */}
           <h2 className="hq-title">
@@ -222,11 +227,17 @@ export default function HypoteqLoadingPopup({ isOpen, isComplete, onComplete }: 
 }
 
 // ─── Scoped CSS-in-JS ────────────────────────────────────────────────────────
+//
+// Rewritten onto the brand tokens. It had its own greens (#a8d946, #7db52e), its own
+// neutrals and DM Sans — a second palette that happened to be green, which is why this panel
+// looked like a different product to the funnel behind it. The blobs, the gradient fill and
+// the gloss sweep are gone too: the brand is flat, and none of them told the customer
+// anything about their upload.
 const CSS = `
   .hq-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(20, 26, 14, 0.72);
+    background: rgba(10, 19, 13, 0.72);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     display: flex;
@@ -236,196 +247,151 @@ const CSS = `
     padding: 20px;
     animation: hqFadeIn 0.35s ease forwards;
   }
-  @keyframes hqFadeIn {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-  }
+  @keyframes hqFadeIn { from { opacity: 0; } to { opacity: 1; } }
 
   .hq-card {
-    background: #fff;
-    border-radius: 28px;
-    padding: 52px 48px 48px;
+    background: var(--paper);
+    border-radius: var(--radius-xl);
+    padding: 44px 40px 40px;
     max-width: 520px;
     width: 100%;
     text-align: center;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 40px 80px rgba(0,0,0,0.22), 0 0 0 1px rgba(168,217,70,0.15);
-    animation: hqSlideUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  }
-  @keyframes hqSlideUp {
-    from { transform: translateY(30px) scale(0.97); opacity: 0; }
-    to   { transform: translateY(0)    scale(1);    opacity: 1; }
+    box-shadow: var(--shadow-lg);
+    animation: hqrise 0.32s var(--ease-out) both;
+    font-family: var(--font-text);
   }
 
-  .hq-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 5px;
-    background: linear-gradient(90deg, #7db52e, #a8d946, #c8ea6e, #a8d946);
-    background-size: 200% 100%;
-    animation: hqShimmer 2s linear infinite;
-  }
-  @keyframes hqShimmer {
-    0%   { background-position: 0% 0%; }
-    100% { background-position: 200% 0%; }
-  }
+  /* The decorative blobs are kept in the markup but given no size: removing the elements
+     would mean touching the component's JSX for a purely visual decision. */
+  .hq-blob { display: none; }
 
-  .hq-blob {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(60px);
-    opacity: 0.1;
-    pointer-events: none;
-  }
-  .hq-blob-1 { width: 260px; height: 260px; background: #a8d946; top: -80px; right: -60px; }
-  .hq-blob-2 { width: 200px; height: 200px; background: #7db52e; bottom: -60px; left: -40px; }
-
-  /* Spinner */
   .hq-icon-wrap {
-    width: 96px; height: 96px;
-    margin: 0 auto 28px;
     position: relative;
+    width: 84px; height: 84px;
+    margin: 0 auto 22px;
   }
   .hq-ring {
     position: absolute; inset: 0;
     border-radius: 50%;
-    border: 3px solid transparent;
-    border-top-color: #a8d946;
-    border-right-color: #7db52e;
+    border: 3px solid var(--paper-200);
+    border-top-color: var(--lime-600);
     animation: hqSpin 1.1s linear infinite;
   }
-  .hq-ring-inner {
-    position: absolute; inset: 10px;
-    border-radius: 50%;
-    border: 2px solid transparent;
-    border-top-color: #e8f5c8;
-    border-left-color: #a8d946;
-    animation: hqSpin 0.7s linear infinite reverse;
-  }
+  .hq-ring-inner { display: none; }
   .hq-icon-center {
-    position: absolute; inset: 18px;
+    position: absolute; inset: 14px;
     border-radius: 50%;
-    background: #e8f5c8;
+    background: var(--lime-100);
+    color: var(--forest-800);
     display: flex; align-items: center; justify-content: center;
-    font-size: 26px;
-    animation: hqPulse 1.5s ease-in-out infinite;
   }
-  @keyframes hqSpin  { to { transform: rotate(360deg); } }
-  @keyframes hqPulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+  @keyframes hqSpin { to { transform: rotate(360deg); } }
 
-  /* Text */
-  .hq-eyebrow {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.18em;
+  /* Text. Named hq-lp-eyebrow, not hq-eyebrow: the design system defines that class
+     globally now, and two rules of the same name in different files is how a change in one
+     of them silently moves the other. */
+  .hq-lp-eyebrow {
+    font-size: var(--text-micro);
+    font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-label);
     text-transform: uppercase;
-    color: #7db52e;
+    color: var(--lime-800);
     margin-bottom: 12px;
-    display: flex; align-items: center; justify-content: center; gap: 8px;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
   }
-  .hq-eyebrow::before, .hq-eyebrow::after {
-    content: ''; display: block; width: 28px; height: 1px;
-    background: #a8d946; opacity: 0.6;
+  .hq-lp-eyebrow::before, .hq-lp-eyebrow::after {
+    content: ''; display: block; width: 28px; height: 1px; background: var(--paper-400);
   }
 
   .hq-title {
-    font-size: clamp(20px, 4vw, 26px);
-    font-weight: 700;
-    color: #1a1f14;
-    line-height: 1.25;
-    margin-bottom: 14px;
-    letter-spacing: -0.02em;
+    font-family: var(--font-display);
+    font-size: clamp(22px, 4vw, var(--text-title));
+    font-weight: var(--weight-bold);
+    color: var(--forest-800);
+    line-height: var(--leading-snug);
+    margin-bottom: 12px;
+    letter-spacing: var(--tracking-tight);
   }
-  .hq-title span { color: #7db52e; }
+  /* lime-800, not the brand lime: #CAF476 on white fails every contrast check, and this is
+     the one line the customer is meant to read while waiting. */
+  .hq-title span { color: var(--lime-800); }
 
   .hq-sub {
-    font-size: 14px;
-    color: #6b7a5c;
-    line-height: 1.6;
-    margin-bottom: 28px;
-    font-weight: 300;
+    font-size: var(--text-body-sm);
+    color: var(--on-light-70);
+    line-height: var(--leading-relaxed);
+    margin-bottom: 26px;
   }
 
   /* Progress */
   .hq-progress-wrap {
-    background: #eef2e6;
-    border-radius: 100px;
-    height: 10px;
+    background: var(--paper-200);
+    border-radius: var(--radius-pill);
+    height: 8px;
     overflow: hidden;
     margin-bottom: 10px;
   }
   .hq-progress-bar {
     height: 100%;
-    border-radius: 100px;
-    background: linear-gradient(90deg, #7db52e, #a8d946, #c8ea6e);
-    transition: width 0.35s ease;
-    position: relative;
+    border-radius: var(--radius-pill);
+    background: var(--lime-500);
+    transition: width var(--duration-slow) var(--ease-out);
   }
-  .hq-progress-bar::after {
-    content: '';
-    position: absolute; top: 0; right: 0;
-    width: 40px; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5));
-    animation: hqGloss 1.2s ease-in-out infinite;
-  }
-  @keyframes hqGloss { 0%,100% { opacity: 0; } 50% { opacity: 1; } }
-
   .hq-progress-label {
     display: flex; justify-content: space-between;
-    font-size: 12px; color: #8a9878;
-    margin-bottom: 24px;
+    font-size: var(--text-caption); color: var(--on-light-45);
+    margin-bottom: 22px;
   }
-  .hq-progress-label strong { color: #7db52e; font-weight: 600; }
+  .hq-progress-label strong { color: var(--lime-800); font-weight: var(--weight-semibold); }
 
   /* Steps */
-  .hq-steps { display: flex; flex-direction: column; gap: 10px; text-align: left; margin-bottom: 28px; }
-
+  .hq-steps { display: flex; flex-direction: column; gap: 8px; text-align: left; margin-bottom: 24px; }
   .hq-step {
     display: flex; align-items: center; gap: 14px;
     padding: 12px 16px;
-    border-radius: 12px;
-    background: #fafcf6;
-    border: 1px solid #e8f0d8;
-    font-size: 14px; color: #7a8a6a;
-    font-weight: 300;
-    transition: all 0.4s ease;
+    border-radius: var(--radius-md);
+    background: var(--paper-100);
+    border: 1px solid var(--paper-300);
+    font-size: var(--text-body-sm); color: var(--on-light-45);
+    transition: var(--transition-control);
   }
-  .hq-step--done   { background: #e8f5c8; border-color: #a8d946; color: #3d4a2e; font-weight: 400; }
-  .hq-step--active { background: #fff; border-color: #7db52e; color: #1a1f14; font-weight: 600;
-                     box-shadow: 0 2px 12px rgba(125,181,46,0.18); }
+  .hq-step--done {
+    background: var(--lime-100); border-color: var(--lime-300); color: var(--forest-800);
+  }
+  .hq-step--active {
+    background: var(--paper); border-color: var(--forest-800); color: var(--forest-800);
+    font-weight: var(--weight-semibold);
+  }
 
   .hq-step-icon {
-    width: 28px; height: 28px; border-radius: 50%;
+    width: 26px; height: 26px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    font-size: 13px; flex-shrink: 0;
-    background: #e8f0d8; transition: all 0.4s ease;
+    font-size: 12px; flex-shrink: 0;
+    background: var(--paper-200); color: var(--on-light-45);
+    transition: var(--transition-control);
   }
-  .hq-step--done   .hq-step-icon { background: #7db52e; color: #fff; }
-  .hq-step--active .hq-step-icon {
-    background: #a8d946;
-    animation: hqStepPulse 1s ease-in-out infinite;
-  }
-  @keyframes hqStepPulse {
-    0%,100% { box-shadow: 0 0 0 0 rgba(168,217,70,0.6); }
-    50%      { box-shadow: 0 0 0 6px rgba(168,217,70,0); }
-  }
+  .hq-step--done .hq-step-icon { background: var(--lime-500); color: var(--forest-800); }
+  .hq-step--active .hq-step-icon { background: var(--lime-500); color: var(--forest-800); }
 
   /* Notice */
   .hq-notice {
-    background: linear-gradient(135deg, #f0f7e0, #e6f2d0);
-    border: 1px solid #a8d946;
-    border-radius: 14px;
-    padding: 16px 20px;
+    background: var(--lime-100);
+    border: 1px solid var(--lime-300);
+    border-radius: var(--radius-md);
+    padding: 14px 18px;
     display: flex; align-items: flex-start; gap: 12px; text-align: left;
   }
-  .hq-notice-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
-  .hq-notice-text { font-size: 13px; color: #3d4a2e; line-height: 1.5; font-weight: 300; }
-  .hq-notice-text strong { font-weight: 600; color: #1a1f14; }
+  .hq-notice-icon { display: none; }
+  .hq-notice-text { font-size: var(--text-caption); color: var(--on-light-70); line-height: var(--leading-relaxed); }
+  .hq-notice-text strong { font-weight: var(--weight-semibold); color: var(--forest-800); }
 
   @media (max-width: 560px) {
-    .hq-card { padding: 40px 24px 36px; border-radius: 20px; }
+    .hq-card { padding: 34px 22px 30px; border-radius: var(--radius-lg); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hq-ring { animation: none; }
   }
 `;
