@@ -269,6 +269,7 @@
   },
   "funnel": {
     "docCaseProgress": "Dokumente vorhanden",
+    "docCertain": "Sicher",
     "finalCheckTitle": "Letzter Blick auf deine Anfrage",
     "finalCheckChanged": "Angabe(n) wurden manuell geändert",
     "docCancel": "Abbrechen",
@@ -321,7 +322,7 @@
     "docShowDetails": "Details",
     "docExtractedInfo": "Erkannte Informationen – bearbeitbar",
     "docConfirmValues": "Angaben bestätigen",
-    "docMismatchTitle": "weicht von Ihrer Angabe ab",
+    "docMismatchTitle": "weicht von deiner Angabe im Funnel ab",
     "docYourAnswer": "Ihre Angabe",
     "docInDocument": "Im Dokument",
     "docTakeDocumentValue": "Dokumentwert übernehmen",

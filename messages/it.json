@@ -268,6 +268,7 @@
   },
   "funnel": {
     "docCaseProgress": "documenti presenti",
+    "docCertain": "Sicuro",
     "finalCheckTitle": "Un ultimo sguardo alla tua richiesta",
     "finalCheckChanged": "informazione/i modificata/e manualmente",
     "docCancel": "Annulla",
@@ -320,7 +321,7 @@
     "docShowDetails": "Dettagli",
     "docExtractedInfo": "Informazioni riconosciute – modificabili",
     "docConfirmValues": "Conferma le indicazioni",
-    "docMismatchTitle": "differisce dalla sua indicazione",
+    "docMismatchTitle": "differisce da quanto hai indicato",
     "docYourAnswer": "La sua indicazione",
     "docInDocument": "Nel documento",
     "docTakeDocumentValue": "Usa il valore del documento",

@@ -970,6 +970,8 @@ const uploadAllFilesToSharePoint = async (): Promise<string | null> => {
     padding: "2px 9px",
     fontSize: "var(--text-micro)",
     fontWeight: "var(--weight-semibold)" as any,
+    letterSpacing: "var(--tracking-label)",
+    textTransform: "uppercase" as const,
     whiteSpace: "nowrap" as const,
   });
 
@@ -1045,6 +1047,26 @@ const uploadAllFilesToSharePoint = async (): Promise<string | null> => {
             className="px-3 py-1 rounded-full text-[12px] border border-[#132219]/40 text-[#132219]"
           >
             {t("funnel.docKeepMyValue" as any)}
+          </button>
+          {/* The third way out the mockup offers, and the honest one: look at the document
+              before deciding which number is right. */}
+          <button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              setOpenDoc({ doc: f, analysis: analyses[f.id] });
+            }}
+            style={{
+              borderRadius: "var(--radius-pill)",
+              padding: "9px 18px",
+              fontSize: "var(--text-body-sm)",
+              fontWeight: "var(--weight-semibold)" as any,
+              background: "#fff",
+              border: "1px solid var(--paper-400)",
+              color: "var(--forest-800)",
+            }}
+          >
+            {t("funnel.docOpenDocument" as any)}
           </button>
         </span>
       </span>
@@ -1701,7 +1723,32 @@ return (
                         }}
                       >
                         {t(doc as any)}
+                        {(() => {
+                          const a = rowFiles.length ? analyses[rowFiles[0].id] : null;
+                          const id = a?.person?.borrowerId;
+                          const name = id ? borrowerChoices().find((b: any) => b.id === id)?.name : null;
+                          return name ? ` · ${name}` : "";
+                        })()}
                       </span>
+
+                      {/* The mockup's second line: which file answered this, whose it is and
+                          what date it carries. It replaced a bare list of filenames, which
+                          told the customer the one thing they already knew. */}
+                      {rowFiles.length > 0 && (
+                        <span
+                          className="block"
+                          style={{ fontSize: "var(--text-caption)", color: "var(--on-light-70)" }}
+                        >
+                          {(() => {
+                            const a = analyses[rowFiles[0].id];
+                            const id = a?.person?.borrowerId;
+                            const name = id ? borrowerChoices().find((b: any) => b.id === id)?.name : null;
+                            return [a?.suggestedFilename ?? rowFiles[0].name, name, a?.documentDate]
+                              .filter(Boolean)
+                              .join(" · ");
+                          })()}
+                        </span>
+                      )}
                       {filesForDoc.map((f: any) => renderAnalysisNote(f))}
                       {filesForDoc.map((f: any) => renderPersonQuestion(f))}
                       {filesForDoc.flatMap((f: any) => renderMismatches(f))}
@@ -1709,7 +1756,7 @@ return (
                           document is presented the same way. The distinction still exists
                           in the catalog and still drives the completeness check and the
                           "fehlende Unterlagen" mail — it is simply not shown. */}
-                      {saved && (
+                      {saved && rowFiles.length === 0 && (
                         <span className="block text-[11px] sm:text-[12px] text-[#132219]/60 mt-0.5">
                           {filesForDoc.map((f: any) => f.name).join(", ")}
                         </span>
@@ -1728,6 +1775,8 @@ return (
                         padding: "4px 12px",
                         fontSize: "var(--text-micro)",
                         fontWeight: "var(--weight-semibold)" as any,
+                        letterSpacing: "var(--tracking-label)",
+                        textTransform: "uppercase",
                         whiteSpace: "nowrap",
                         marginTop: 4,
                       }}
@@ -1833,7 +1882,14 @@ return (
                                         <span style={chip("var(--warning-100)", "var(--warning-500)")}>
                                           {t("funnel.docPleaseCheck" as any)}
                                         </span>
-                                      ) : null}
+                                      ) : (
+                                        // Section 15's third state, said out loud. Marking
+                                        // only the doubtful ones leaves the rest ambiguous:
+                                        // unmarked could mean "read cleanly" or "not checked".
+                                        <span style={chip("var(--success-100)", "var(--success-500)")}>
+                                          {t("funnel.docCertain" as any)}
+                                        </span>
+                                      )}
                                     </span>
                                   </div>
                                 );

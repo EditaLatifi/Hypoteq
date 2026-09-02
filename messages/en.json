@@ -267,6 +267,7 @@
   },
   "funnel": {
     "docCaseProgress": "documents provided",
+    "docCertain": "Certain",
     "finalCheckTitle": "A last look at your request",
     "finalCheckChanged": "detail(s) were changed by hand",
     "docCancel": "Cancel",
@@ -319,7 +320,7 @@
     "docShowDetails": "Details",
     "docExtractedInfo": "Recognised information – editable",
     "docConfirmValues": "Confirm details",
-    "docMismatchTitle": "differs from what you entered",
+    "docMismatchTitle": "differs from what you entered in the funnel",
     "docYourAnswer": "Your answer",
     "docInDocument": "In the document",
     "docTakeDocumentValue": "Use the document value",
