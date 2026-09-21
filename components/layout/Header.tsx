@@ -182,7 +182,7 @@ export default function Header() {
           <div className="max-w-5xl mx-auto px-4 py-6 grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4 justify-items-center items-start">
             {/* First column */}
             <div className="flex flex-col w-full gap-2">
-              <Link href={`/${pathLocale}`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("footer.homePage")}</Link>
+              <Link href={`/${pathLocale}`} className="hidden md:block text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("footer.homePage")}</Link>
               <Link href={`/${pathLocale}/hypotheken`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("footer.hypothekenMade")}</Link>
               <Link href={`/${pathLocale}/documents`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("common.documents")}</Link>
               <Link href={`/${pathLocale}/mezzanine`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("common.mezzanine")}</Link>
@@ -199,7 +199,7 @@ export default function Header() {
               <Link href={`/${pathLocale}/hypothekenrechner`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("footer.mortgageCalc")}</Link>
               <Link href={`/${pathLocale}/faq`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("footer.faqTitle")}</Link>
               <Link href={`/${pathLocale}/beratung`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("footer.hypoteqAdvisory")}</Link>
-              <div className="flex items-center justify-center w-full mt-2">
+              <div className="hidden md:flex items-center justify-center w-full mt-2">
                 <span className="text-base font-medium text-[#132219] mr-2">{t("common.followUs")}</span>
                 <a href="https://www.linkedin.com/company/hypoteq-ag" target="_blank" rel="noopener noreferrer" className="inline-flex items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
