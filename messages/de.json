@@ -1,4 +1,19 @@
 {
+  "promoPopup": {
+    "badge": "Nur für kurze Zeit",
+    "title": "Wie viel ist Ihre Immobilie wert?",
+    "text": "Erfahren Sie den Wert Ihrer Immobilie. Mit einer Bewertung auf Basis des Bewertungsmodells von Wüest Partner.",
+    "priceCaption": "Aktionspreis",
+    "priceNew": "CHF 300.–",
+    "priceOldPrefix": "statt",
+    "priceOld": "CHF 450.–",
+    "sealAmount": "CHF 150.–",
+    "sealLabel": "sparen",
+    "cta": "Mehr zur Bewertung erfahren",
+    "note": "Online, in wenigen Minuten – unverbindlich.",
+    "dismiss": "Vielleicht später",
+    "close": "Schliessen"
+  },
     "funnelCalc": {
     "notEligible": "Nicht berechtigt",
     "financingPossible": "Finanzierung möglich.",
@@ -61,6 +76,7 @@
     "mezzanine": "Mezzanine-Finanzierung"
   },
   "navigation": {
+    "immobilienBewertung": "Immobilien-Bewertung",
     "partnerWerden": "Partner werden",
     "hypothekAnfragen": "Hypothek anfragen",
     "hypotheken": "Hypotheken"

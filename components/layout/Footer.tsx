@@ -154,6 +154,14 @@ export default function Footer() {
         <div className="flex flex-col gap-[16px] md:gap-[18px] lg:gap-[24px]">
           <Link href={`/${pathLocale}/faq`} className="hover:underline py-1">{t("footer.faqTitle")}</Link>
           <Link href={`/${pathLocale}/beratung`} className="hover:underline py-1">{t("footer.hypoteqAdvisory")}</Link>
+          <a
+            href="https://hypoteq-hedonic.wuestappraisal.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:underline py-1"
+          >
+            {t("navigation.immobilienBewertung")}
+          </a>
           <div className="flex items-center gap-2 py-1">
             <span className="text-[15px] md:text-[16px] lg:text-[18px]">{t("common.followUs")}</span>
             <a
