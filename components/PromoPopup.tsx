@@ -9,6 +9,10 @@ const LOCALES = ["de", "en", "fr", "it"] as const;
 
 const VALUATION_URL = "https://hypoteq-hedonic.wuestappraisal.com/";
 
+// Blurred stand-in for the band photo, painted the moment the popup opens.
+const BAND_BLUR =
+  "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAIABQDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDQbUDL9mW3aMGZsZY9OcZHrUy3JEqQuA7MM7o+Vxz/AIUUU+Z3FyRsKb22UkNKFI6gg5oooroRyN6n/9k=";
+
 // Bump the suffix when the campaign changes, so visitors who already closed
 // the old popup get to see the new one.
 const STORAGE_KEY = "hypoteq_promo_immobilienbewertung_2026";
@@ -86,13 +90,18 @@ export default function PromoPopup() {
         className="relative w-full max-w-[480px] my-auto rounded-[28px] overflow-hidden bg-[#0B1C14] ring-1 ring-white/10 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.75)] text-white font-sfpro animate-promoCardIn"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Photo band */}
-        <div className="relative h-[150px] sm:h-[180px] overflow-hidden">
+        {/* Photo band. The popup only mounts a second into the visit, so the
+            photo is cropped to this slot and carries a blurred stand-in -
+            otherwise the band sits empty while the image is still arriving. */}
+        <div className="relative h-[150px] sm:h-[180px] overflow-hidden bg-[#1C3325]">
           <Image
-            src="/images/HYPOTEQ_misc_houses.png"
+            src="/images/HYPOTEQ_popup_bewertung.jpg"
             alt=""
             aria-hidden="true"
             fill
+            priority
+            placeholder="blur"
+            blurDataURL={BAND_BLUR}
             sizes="(max-width: 520px) 100vw, 480px"
             className="object-cover object-center"
           />
