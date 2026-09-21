@@ -154,14 +154,6 @@ export default function Footer() {
         <div className="flex flex-col gap-[16px] md:gap-[18px] lg:gap-[24px]">
           <Link href={`/${pathLocale}/faq`} className="hover:underline py-1">{t("footer.faqTitle")}</Link>
           <Link href={`/${pathLocale}/beratung`} className="hover:underline py-1">{t("footer.hypoteqAdvisory")}</Link>
-          <a
-            href="https://hypoteq-hedonic.wuestappraisal.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:underline py-1"
-          >
-            {t("navigation.immobilienBewertung")}
-          </a>
           <div className="flex items-center gap-2 py-1">
             <span className="text-[15px] md:text-[16px] lg:text-[18px]">{t("common.followUs")}</span>
             <a
@@ -176,6 +168,17 @@ export default function Footer() {
               </svg>
             </a>
           </div>
+          <a
+            href="https://hypoteq-hedonic.wuestappraisal.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-[4px] self-start inline-flex items-center justify-center gap-2 px-6 py-3 rounded-[58px] bg-[#CAF476] text-[#132219] text-[15px] md:text-[16px] font-semibold hover:opacity-90 transition"
+          >
+            {t("navigation.immobilienBewertung")}
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M7 17 17 7M8 7h9v9" />
+            </svg>
+          </a>
         </div>
 
       </div>
