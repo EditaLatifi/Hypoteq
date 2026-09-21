@@ -214,12 +214,15 @@ export default function Header() {
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="22" fill="none" viewBox="0 0 18 24"><path fill="#132219" d="M0.46 2.92L3.48 1.09c.22-.13.45-.15.69-.07.24.08.42.24.54.48l2.36 4.74c.19.38.14.84-.13 1.15L5.04 9.53c-.27.31-.33.75-.15 1.12 1 2.08 2.9 4.55 4.6 5.93.31.25.72.26 1.04.03l2.25-1.68c.33-.25.75-.24 1.09.06l3.86 3.34c.2.17.31.39.34.66.03.27-.04.51-.2.73l-2.15 2.96c-.21.29-.53.41-.87.35C7.66 21.63.06 11.75 0 3.79c-.01-.37.17-.69.46-.88z"/></svg>
               Contact
             </Link>
+            <Link href={`/${pathLocale}/funnel`} className="hidden sm:flex sm:w-auto max-w-[340px] items-center justify-center gap-2 px-6 py-3 rounded-[58px] bg-[#CAF476] text-[#132219] text-lg font-semibold hover:opacity-90 transition">
+              {t("navigation.hypothekAnfragen")}
+            </Link>
             <a
               href="https://hypoteq-hedonic.wuestappraisal.com/"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setMenuOpen(false)}
-              className="w-full sm:w-auto max-w-[340px] flex items-center justify-center gap-2 px-6 py-3 rounded-[58px] bg-[#CAF476] text-[#132219] text-lg font-semibold hover:opacity-90 transition"
+              className="w-full sm:w-auto max-w-[340px] flex items-center justify-center gap-2 px-6 py-3 rounded-[58px] bg-[#132219] text-white text-lg font-semibold hover:bg-[#1C3325] transition"
             >
               {t("navigation.immobilienBewertung")}
               <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
