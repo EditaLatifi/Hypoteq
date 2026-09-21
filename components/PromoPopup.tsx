@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useTranslation } from "@/hooks/useTranslation";
 
@@ -91,19 +90,26 @@ export default function PromoPopup() {
         onClick={(e) => e.stopPropagation()}
       >
         {/* Photo band. The popup only mounts a second into the visit, so the
-            photo is cropped to this slot and carries a blurred stand-in -
-            otherwise the band sits empty while the image is still arriving. */}
-        <div className="relative h-[150px] sm:h-[180px] overflow-hidden bg-[#1C3325]">
-          <Image
+            photo is cropped to this slot and sits on a blurred stand-in -
+            otherwise the band is empty while the image is still arriving.
+            It is served straight from /images rather than through the image
+            optimiser: the file is already the right size, and the optimiser
+            labels its output Content-Disposition: attachment, which some
+            mobile browsers refuse to paint inline. */}
+        <div
+          className="relative h-[150px] sm:h-[180px] overflow-hidden bg-[#1C3325] bg-cover bg-center"
+          style={{ backgroundImage: `url("${BAND_BLUR}")` }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
             src="/images/HYPOTEQ_popup_bewertung.jpg"
             alt=""
             aria-hidden="true"
-            fill
-            priority
-            placeholder="blur"
-            blurDataURL={BAND_BLUR}
-            sizes="(max-width: 520px) 100vw, 480px"
-            className="object-cover object-center"
+            width={960}
+            height={360}
+            loading="eager"
+            decoding="async"
+            className="absolute inset-0 w-full h-full object-cover object-center"
           />
           {/* Blends the photo into the card and keeps the close button readable */}
           <div className="absolute inset-0 bg-gradient-to-b from-[#0B1C14]/45 via-[#0B1C14]/10 to-[#0B1C14]" />
