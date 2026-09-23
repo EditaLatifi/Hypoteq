@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { AlertCircle, ArrowLeft, ArrowRight, Check, Download, FileCheck, FileText, ShieldOff } from "lucide-react";
+import FileList from "@/components/portal/FileList";
 import MessageForm from "@/components/portal/MessageForm";
 import UploadButton from "@/components/portal/UploadButton";
 import { Badge, Card, Eyebrow, FormError, btn, formatDate } from "@/components/portal/ui";
 import { prisma } from "@/lib/prisma";
 import { audit } from "@/lib/portal/audit";
-import { caseFolder, listReleasedFiles, type DriveFile } from "@/lib/portal/files";
+import { caseFolder, listCaseFiles, listReleasedFiles, type DriveFile } from "@/lib/portal/files";
 import type { Dict } from "@/lib/portal/i18n/dict";
 import { getDict } from "@/lib/portal/i18n/server";
 import { notifText } from "@/lib/portal/notifications";
@@ -104,20 +105,24 @@ export default async function CaseDetailPage({ params }: { params: { id: string 
   const readOnly = !!user.viewingAs;
   const closed = CLOSED_STATUSES.includes(c.status);
 
-  const [uploads, messages, notifs, released] = await Promise.all([
+  const [uploads, messages, notifs, dossier] = await Promise.all([
     prisma.portalUpload.findMany({ where: { caseId: c.id }, orderBy: { createdAt: "desc" }, take: 50 }),
     prisma.portalMessage.findMany({ where: { caseId: c.id }, orderBy: { createdAt: "desc" }, take: 20 }),
     readOnly ? Promise.resolve([]) : prisma.portalNotification.findMany({ where: { userId: user.id, caseId: c.id }, orderBy: { createdAt: "desc" }, take: 20 }),
-    (async (): Promise<DriveFile[]> => {
+    // The client's SharePoint dossier: what was submitted, and what HYPOTEQ released.
+    (async (): Promise<{ files: DriveFile[]; released: DriveFile[]; failed: boolean }> => {
       try {
         const folder = await caseFolder(c!.id, { create: false });
-        return folder ? await listReleasedFiles(folder) : [];
+        if (!folder) return { files: [], released: [], failed: false };
+        const [files, released] = await Promise.all([listCaseFiles(folder), listReleasedFiles(folder)]);
+        return { files, released, failed: false };
       } catch (err) {
-        console.error("[portal] released files unavailable", err);
-        return [];
+        console.error("[portal] dossier files unavailable", err);
+        return { files: [], released: [], failed: true };
       }
     })(),
   ]);
+  const released = dossier.released;
   if (!readOnly) {
     await prisma.portalNotification.updateMany({ where: { userId: user.id, caseId: c.id, readAt: null }, data: { readAt: new Date() } });
   }
@@ -242,29 +247,20 @@ export default async function CaseDetailPage({ params }: { params: { id: string 
           </Card>
 
           <Card>
-            <Eyebrow accent>{t.caseDetail.released}</Eyebrow>
-            {released.length ? (
-              <div className="flex flex-col">
-                {released.map((f) => (
-                  <div key={f.id} className="flex items-center justify-between gap-3 border-t border-white/[.14] py-3">
-                    <div className="flex min-w-0 items-center gap-3">
-                      <FileCheck size={20} className="flex-none text-[#CAF476]" />
-                      <div className="min-w-0">
-                        <div className="truncate text-[15px] font-medium">{f.name}</div>
-                        <div className="text-[13px] text-white/70">
-                          {(f.size / 1024 / 1024).toFixed(1)} MB · {formatDate(f.modified)}
-                        </div>
-                      </div>
-                    </div>
-                    <a href={`/api/portal/files/${c.id}/${f.id}`} className={`${btn.ghost} h-9 flex-none text-[15px]`}>
-                      <Download size={18} /> {t.caseDetail.download}
-                    </a>
-                  </div>
-                ))}
-              </div>
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <Eyebrow accent>{t.caseDetail.files}</Eyebrow>
+              {dossier.files.length ? <span className="text-[13px] text-white/70">{dossier.files.length}</span> : null}
+            </div>
+            {dossier.failed ? (
+              <p className="m-0 text-[15px] text-white/70">{t.caseDetail.filesUnavailable}</p>
             ) : (
-              <p className="m-0 text-[15px] text-white/70">{t.caseDetail.noReleased}</p>
+              <FileList caseId={c.id} files={dossier.files} empty={t.caseDetail.filesNone} />
             )}
+          </Card>
+
+          <Card>
+            <Eyebrow accent>{t.caseDetail.released}</Eyebrow>
+            <FileList caseId={c.id} files={released} empty={t.caseDetail.noReleased} />
           </Card>
         </div>
 

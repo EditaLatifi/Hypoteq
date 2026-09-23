@@ -75,25 +75,71 @@ export async function listReleasedFiles(folderId: string): Promise<DriveFile[]> 
 
 async function getItem(itemId: string, token: string): Promise<any | null> {
   if (!/^[A-Za-z0-9!_-]{8,200}$/.test(itemId)) return null;
-  const res = await fetch(`${GRAPH}/drives/${drive()}/items/${itemId}?$select=id,name,size,webUrl,parentReference,file,@microsoft.graph.downloadUrl`, {
+  // No $select: Graph only returns @microsoft.graph.downloadUrl on the full item.
+  const res = await fetch(`${GRAPH}/drives/${drive()}/items/${itemId}`, {
     headers: { Authorization: `Bearer ${token}` },
     cache: "no-store",
   });
   return res.ok ? res.json() : null;
 }
 
-/** Short-lived download URL of a released file, only if it sits in this Case's release folder. */
-export async function releasedDownloadUrl(folderId: string, itemId: string): Promise<{ url: string; name: string } | null> {
+/** Files of the Case's dossier (the folder itself, not its subfolders), newest first. */
+export async function listCaseFiles(folderId: string): Promise<DriveFile[]> {
   const token = await getAccessToken();
-  const [item, released] = await Promise.all([
-    getItem(itemId, token),
-    fetch(`${GRAPH}/drives/${drive()}/items/${folderId}:/${RELEASED_FOLDER}?$select=id`, { headers: { Authorization: `Bearer ${token}` }, cache: "no-store" }).then((r) =>
-      r.ok ? r.json() : null
-    ),
-  ]);
-  if (!item || !released || item.parentReference?.id !== released.id) return null;
-  const url = item["@microsoft.graph.downloadUrl"];
+  const res = await fetch(`${GRAPH}/drives/${drive()}/items/${folderId}/children?$select=id,name,size,lastModifiedDateTime,file&$top=500`, {
+    headers: { Authorization: `Bearer ${token}` },
+    cache: "no-store",
+  });
+  if (res.status === 404) return [];
+  if (!res.ok) throw new Error(`Graph ${res.status} listing case files`);
+  const json = await res.json();
+  return (json.value || [])
+    .filter((i: any) => i.file)
+    .map((i: any) => ({ id: i.id, name: i.name, size: i.size, modified: i.lastModifiedDateTime }))
+    .sort((a: DriveFile, b: DriveFile) => b.modified.localeCompare(a.modified));
+}
+
+/**
+ * A file the partner may open: it must sit directly in this Case's folder or in its
+ * release folder. Anything else — another Case's file, a guessed id — is refused.
+ */
+async function caseItem(folderId: string, itemId: string, token: string): Promise<any | null> {
+  const item = await getItem(itemId, token);
+  if (!item?.file) return null;
+  const parent = item.parentReference?.id;
+  if (parent === folderId) return item;
+  const released = await fetch(`${GRAPH}/drives/${drive()}/items/${folderId}:/${RELEASED_FOLDER}?$select=id`, {
+    headers: { Authorization: `Bearer ${token}` },
+    cache: "no-store",
+  }).then((r) => (r.ok ? r.json() : null));
+  return released && parent === released.id ? item : null;
+}
+
+/** Short-lived download URL of a Case file. */
+export async function caseFileDownloadUrl(folderId: string, itemId: string): Promise<{ url: string; name: string } | null> {
+  const token = await getAccessToken();
+  const item = await caseItem(folderId, itemId, token);
+  const url = item?.["@microsoft.graph.downloadUrl"];
   return url ? { url, name: item.name } : null;
+}
+
+/**
+ * Short-lived, embeddable viewer URL for a Case file (Graph "preview"): PDFs, images and
+ * Office files render in an iframe without a Microsoft login. The plain download URL
+ * cannot be framed (attachment + X-Frame-Options), hence the viewer.
+ */
+export async function caseFilePreviewUrl(folderId: string, itemId: string): Promise<{ url: string; name: string } | null> {
+  const token = await getAccessToken();
+  const item = await caseItem(folderId, itemId, token);
+  if (!item) return null;
+  const res = await fetch(`${GRAPH}/drives/${drive()}/items/${item.id}/preview`, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+    body: "{}",
+    cache: "no-store",
+  });
+  const json = res.ok ? await res.json() : null;
+  return json?.getUrl ? { url: json.getUrl, name: item.name } : null;
 }
 
 /** The uploaded item, only if the browser really put it into this Case's folder. */

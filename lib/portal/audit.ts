@@ -18,6 +18,7 @@ export type AuditAction =
   | "partner_enabled"
   | "document_uploaded"
   | "document_downloaded"
+  | "document_viewed"
   | "message_sent"
   | "profile_confirmed"
   | "view_as_started"
@@ -43,6 +44,7 @@ export const AUDIT_LABELS: Record<string, string> = {
   partner_enabled: "Partner reaktiviert",
   document_uploaded: "Dokument hochgeladen",
   document_downloaded: "Dokument heruntergeladen",
+  document_viewed: "Dokument angesehen",
   message_sent: "Nachricht gesendet",
   profile_confirmed: "Angaben bestätigt",
   view_as_started: "Als Partner angesehen",
