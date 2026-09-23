@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/admin/"],
+        disallow: ["/api/", "/admin/", "/portal/"],
       },
     ],
     sitemap: "https://hypoteq.ch/sitemap.xml",

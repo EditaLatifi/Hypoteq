@@ -190,3 +190,153 @@ model Document {
 
   inquiry Inquiry? @relation(fields: [inquiryId], references: [id])
 }
+
+// ---------------------------------------------------------------------------
+// Partnerportal. Partner and case data stay in Salesforce; these tables only hold
+// who may log in, how, and what they did. Created by prisma/partner-portal.sql —
+// never by `prisma migrate` (the migration history is stale).
+// ---------------------------------------------------------------------------
+
+model PortalUser {
+  id              String    @id @default(uuid())
+  // Always stored lowercased: it is the login.
+  email           String    @unique
+  role            String    @default("partner") // partner | admin
+  status          String    @default("invited") // invited | active | disabled
+  name            String?
+  company         String?
+  phone           String?
+  // The Salesforce Contact the partner is, and the company Account it belongs to.
+  // Cases are matched on the Contact (Case.Partner_Consultant__c).
+  sfContactId     String?
+  sfAccountId     String?
+  passwordHash    String?
+  termsAcceptedAt DateTime?
+  invitedAt       DateTime?
+  invitedBy       String?
+  activatedAt     DateTime?
+  lastLoginAt     DateTime?
+  // Step 2 of the first login: the partner checked the data HYPOTEQ holds about them.
+  profileConfirmedAt DateTime?
+  // E-mail notification switches: { newCase, docs, status, lender } — all on when unset.
+  notifyPrefs     Json?
+  // de | en | fr | it — portal and e-mail language.
+  locale          String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  tokens        PortalToken[]
+  sessions      PortalSession[]
+  notifications PortalNotification[]
+}
+
+// One-time links: invite (set up access), reset (new password), magic (log in).
+// Only the SHA-256 of the token is stored, so a database leak does not leak links.
+model PortalToken {
+  id        String    @id @default(uuid())
+  userId    String
+  purpose   String
+  tokenHash String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  user PortalUser @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, purpose])
+}
+
+model PortalSession {
+  id         String   @id @default(uuid())
+  userId     String
+  tokenHash  String   @unique
+  createdAt  DateTime @default(now())
+  lastSeenAt DateTime @default(now())
+  expiresAt  DateTime
+  ip         String?
+  userAgent  String?
+  // Admin "view as partner": the portal shows this Salesforce Contact's Cases, read-only.
+  viewAsContactId String?
+  viewAsName      String?
+
+  user PortalUser @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+// Last state of a Case as the portal saw it. Comparing against it is how status changes
+// become notifications — Salesforce itself does not tell us when a Case moves.
+model PortalCaseState {
+  caseId       String   @id
+  contactId    String
+  status       String
+  missingCount Int      @default(0)
+  // SharePoint folder for Cases that did not come through the funnel (no Inquiry folder).
+  folderId     String?
+  updatedAt    DateTime @updatedAt
+
+  @@index([contactId])
+}
+
+model PortalNotification {
+  id        String    @id @default(uuid())
+  userId    String
+  caseId    String
+  caseNr    String
+  kunde     String
+  // new_case | docs | status | lender — which e-mail switch governs it
+  kind      String
+  // Text variant (keys of the `notif` dictionary) and the portal status it reports, so the
+  // notification renders in whatever language the partner reads it in.
+  variant   String
+  status    String?
+  createdAt DateTime  @default(now())
+  readAt    DateTime?
+  emailedAt DateTime?
+
+  user PortalUser @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@index([caseId])
+}
+
+// A message a partner sent to HYPOTEQ about a Case (also posted to Salesforce as a CaseComment).
+model PortalMessage {
+  id        String   @id @default(uuid())
+  userId    String
+  caseId    String
+  body      String
+  createdAt DateTime @default(now())
+
+  @@index([caseId, createdAt])
+}
+
+// A file a partner uploaded to a Case through the portal.
+model PortalUpload {
+  id          String   @id @default(uuid())
+  userId      String
+  caseId      String
+  docKey      String?
+  docLabel    String
+  fileName    String
+  driveItemId String
+  webUrl      String?
+  createdAt   DateTime @default(now())
+
+  @@index([caseId, createdAt])
+  @@index([userId, createdAt])
+}
+
+// Who did what, without sensitive content: action, actor, and a case or partner reference.
+model PortalAuditLog {
+  id         String   @id @default(uuid())
+  at         DateTime @default(now())
+  actorId    String?
+  actorEmail String?
+  action     String
+  target     String?
+  ip         String?
+
+  @@index([at])
+  @@index([actorEmail, action, at])
+}

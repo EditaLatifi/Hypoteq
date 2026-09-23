@@ -17,7 +17,7 @@ const BAND_BLUR =
 const STORAGE_KEY = "hypoteq_promo_immobilienbewertung_2026";
 
 // Pages where the visitor is already in a flow - no promo on top of those.
-const HIDDEN_ON = ["/funnel", "/nachreichen", "/danke", "/thank-you", "/merci", "/grazie"];
+const HIDDEN_ON = ["/funnel", "/nachreichen", "/danke", "/thank-you", "/merci", "/grazie", "/portal"];
 
 const DELAY_MS = 1000;
 
