@@ -62,8 +62,9 @@ export function Field({
   label,
   icon,
   hint,
+  trailing,
   ...input
-}: React.InputHTMLAttributes<HTMLInputElement> & { label?: string; icon?: ReactNode; hint?: string }) {
+}: React.InputHTMLAttributes<HTMLInputElement> & { label?: string; icon?: ReactNode; hint?: string; trailing?: ReactNode }) {
   return (
     <label className="flex flex-col gap-2">
       {label ? <span className="text-[15px] font-semibold text-white">{label}</span> : null}
@@ -71,8 +72,9 @@ export function Field({
         {icon ? <span className="pointer-events-none absolute left-4 text-white/60">{icon}</span> : null}
         <input
           {...input}
-          className={`h-[50px] w-full rounded-xl border border-white/[.14] bg-white/[.08] ${icon ? "pl-12" : "pl-4"} pr-4 text-[17px] text-white placeholder:text-white/45 outline-none focus:border-[#CAF476] focus:shadow-[0_0_0_3px_rgba(202,244,118,.35)] disabled:text-white/60`}
+          className={`h-[50px] w-full rounded-xl border border-white/[.14] bg-white/[.08] ${icon ? "pl-12" : "pl-4"} ${trailing ? "pr-12" : "pr-4"} text-[17px] text-white placeholder:text-white/45 outline-none focus:border-[#CAF476] focus:shadow-[0_0_0_3px_rgba(202,244,118,.35)] disabled:text-white/60`}
         />
+        {trailing ? <span className="absolute right-1.5">{trailing}</span> : null}
       </span>
       {hint ? <span className="text-[13px] text-white/60">{hint}</span> : null}
     </label>

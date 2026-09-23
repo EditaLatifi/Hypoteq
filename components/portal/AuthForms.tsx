@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState, type ReactNode } from "react";
 import { useFormState, useFormStatus } from "react-dom";
-import { ArrowRight, Building2, Lock, Mail, MailCheck, Phone, User, WandSparkles } from "lucide-react";
+import { ArrowRight, Building2, Eye, EyeOff, Lock, Mail, MailCheck, Phone, User, WandSparkles } from "lucide-react";
 import {
   activateAction,
   confirmProfileAction,
@@ -35,6 +35,31 @@ function Submit({ children, disabled }: { children: ReactNode; disabled?: boolea
       {pending ? t.common.pleaseWait : children}
       {!pending ? <ArrowRight size={20} /> : null}
     </button>
+  );
+}
+
+/** A password input with an eye button that shows or hides what was typed. */
+function PasswordField(props: Omit<React.ComponentProps<typeof Field>, "type" | "icon" | "trailing">) {
+  const t = useT();
+  const [visible, setVisible] = useState(false);
+  return (
+    <Field
+      {...props}
+      type={visible ? "text" : "password"}
+      icon={<Lock size={20} />}
+      trailing={
+        <button
+          type="button"
+          onClick={() => setVisible((v) => !v)}
+          aria-label={visible ? t.auth.hidePassword : t.auth.showPassword}
+          aria-pressed={visible}
+          title={visible ? t.auth.hidePassword : t.auth.showPassword}
+          className="grid h-10 w-10 place-items-center rounded-lg text-white/60 transition-colors hover:bg-white/[.08] hover:text-white focus-visible:text-white"
+        >
+          {visible ? <EyeOff size={20} /> : <Eye size={20} />}
+        </button>
+      }
+    />
   );
 }
 
@@ -79,7 +104,7 @@ export function LoginForm() {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          <Field label={t.auth.password} name="password" type="password" autoComplete="current-password" placeholder="••••••••" icon={<Lock size={20} />} />
+          <PasswordField label={t.auth.password} name="password" autoComplete="current-password" placeholder="••••••••" />
         </div>
         <FormError>{error}</FormError>
         <div className="flex flex-col gap-3">
@@ -175,16 +200,8 @@ export function ActivateForm({ token, email, name, company }: { token: string; e
           <div className="flex flex-col gap-4">
             <Field label={t.auth.email} value={email} disabled icon={<Mail size={20} />} readOnly />
             <input type="hidden" name="username" value={email} autoComplete="username" />
-            <Field
-              label={t.auth.newPassword}
-              name="password"
-              type="password"
-              autoComplete="new-password"
-              placeholder={t.auth.pwPlaceholder}
-              icon={<Lock size={20} />}
-              hint={t.auth.pwHint}
-            />
-            <Field label={t.auth.repeatPassword} name="password2" type="password" autoComplete="new-password" placeholder="••••••••" icon={<Lock size={20} />} />
+            <PasswordField label={t.auth.newPassword} name="password" autoComplete="new-password" placeholder={t.auth.pwPlaceholder} hint={t.auth.pwHint} />
+            <PasswordField label={t.auth.repeatPassword} name="password2" autoComplete="new-password" placeholder="••••••••" />
           </div>
         ) : (
           <div className="rounded-xl bg-white/[.08] p-4 text-[15px] text-white/70">{t.auth.magicInfo(email)}</div>
@@ -224,8 +241,8 @@ export function NewPasswordForm({ token, email }: { token: string; email: string
       <form action={action} className="flex flex-col gap-5">
         <input type="hidden" name="token" value={token} />
         <input type="hidden" name="username" value={email} autoComplete="username" />
-        <Field label={t.auth.newPassword} name="password" type="password" autoComplete="new-password" placeholder={t.auth.pwPlaceholder} icon={<Lock size={20} />} hint={t.auth.pwHint} />
-        <Field label={t.auth.repeatPassword} name="password2" type="password" autoComplete="new-password" placeholder="••••••••" icon={<Lock size={20} />} />
+        <PasswordField label={t.auth.newPassword} name="password" autoComplete="new-password" placeholder={t.auth.pwPlaceholder} hint={t.auth.pwHint} />
+        <PasswordField label={t.auth.repeatPassword} name="password2" autoComplete="new-password" placeholder="••••••••" />
         <FormError>{state?.error}</FormError>
         <Submit>{t.auth.savePassword}</Submit>
       </form>
