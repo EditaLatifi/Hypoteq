@@ -17,7 +17,7 @@ export default function PortalShell({
   userInitials,
   isAdmin,
   hasCases,
-  unread,
+  counts,
   viewingAs,
 }: {
   children: ReactNode;
@@ -26,18 +26,20 @@ export default function PortalShell({
   userInitials: string;
   isAdmin: boolean;
   hasCases: boolean;
-  unread: number;
+  /** Sidebar badges: Cases needing action, missing documents, unread notifications. */
+  counts: { cases: number; documents: number; notifications: number };
   viewingAs: string | null;
 }) {
   const t = useT();
   const locale = useLocale();
   const pathname = usePathname() || "";
+  const unread = counts.notifications;
 
   const partnerNav: NavItem[] = hasCases
     ? [
         { href: "/portal/dashboard", label: t.nav.dashboard, icon: <LayoutGrid size={20} /> },
-        { href: "/portal/cases", label: t.nav.cases, icon: <FolderOpen size={20} /> },
-        { href: "/portal/dokumente", label: t.nav.documents, icon: <FileText size={20} /> },
+        { href: "/portal/cases", label: t.nav.cases, icon: <FolderOpen size={20} />, badge: counts.cases },
+        { href: "/portal/dokumente", label: t.nav.documents, icon: <FileText size={20} />, badge: counts.documents },
         ...(viewingAs ? [] : [{ href: "/portal/meldungen", label: t.nav.notifications, icon: <Bell size={20} />, badge: unread }]),
       ]
     : [{ href: "/portal/dashboard", label: t.nav.dashboard, icon: <LayoutGrid size={20} /> }];
@@ -71,14 +73,18 @@ export default function PortalShell({
                 key={n.href}
                 href={n.href}
                 aria-current={on ? "page" : undefined}
-                className={`flex h-11 items-center gap-3 rounded-lg px-3.5 text-[16px] transition-colors ${
-                  on ? "bg-white/[.08] font-semibold text-white" : "text-white/75 hover:bg-white/[.05] hover:text-white"
+                className={`flex h-[46px] items-center gap-3 rounded-xl border-2 px-3.5 text-[16px] transition-colors ${
+                  on
+                    ? "border-[#CAF476]/55 bg-white/[.08] font-semibold text-white"
+                    : "border-transparent text-white/80 hover:bg-white/[.05] hover:text-white"
                 }`}
               >
-                <span className={on ? "text-[#CAF476]" : "text-white/60"}>{n.icon}</span>
+                <span className={on ? "text-white" : "text-white/60"}>{n.icon}</span>
                 <span className="flex-1">{n.label}</span>
                 {n.badge ? (
-                  <span className="grid h-5 min-w-5 place-items-center rounded-full bg-[#CAF476] px-1.5 text-[11px] font-semibold text-[#132219]">{n.badge}</span>
+                  <span className="grid h-5 min-w-[22px] place-items-center rounded-full bg-[#CAF476] px-1.5 text-[11px] font-semibold tabular-nums text-[#132219]">
+                    {n.badge}
+                  </span>
                 ) : null}
               </Link>
             );

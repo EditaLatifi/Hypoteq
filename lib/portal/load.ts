@@ -1,3 +1,4 @@
+import { cache } from "react";
 import type { Locale } from "@/lib/portal/i18n/dict";
 import { syncNotifications } from "@/lib/portal/notifications";
 import { listPartnerCases, type PortalCaseSummary } from "@/lib/portal/salesforce";
@@ -6,8 +7,9 @@ import { requestOrigin, type SessionUser } from "@/lib/portal/session";
 /**
  * The Cases this session shows, or whether loading failed. For a partner the load also
  * records changes as notifications; an admin viewing as a partner changes nothing.
+ * Cached per request: the layout (sidebar counts) and the page share one Salesforce query.
  */
-export async function loadMyCases(user: SessionUser, locale: Locale): Promise<{ cases: PortalCaseSummary[]; failed: boolean }> {
+export const loadMyCases = cache(async (user: SessionUser, locale: Locale): Promise<{ cases: PortalCaseSummary[]; failed: boolean }> => {
   if (!user.contactId) return { cases: [], failed: false };
   let cases: PortalCaseSummary[];
   try {
@@ -24,4 +26,4 @@ export async function loadMyCases(user: SessionUser, locale: Locale): Promise<{ 
     }
   }
   return { cases, failed: false };
-}
+});

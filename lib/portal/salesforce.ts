@@ -172,6 +172,9 @@ const LIST_FIELDS = [
   "Reason",
   "Case_Name__c",
   "Account.Name",
+  "Client_2__r.Name",
+  "Client_3__r.Name",
+  "Dokumenten_Check_State__c",
   "Gesch_tzter_Hypothekenbedarf__c",
   "Hypothekarvolumen__c",
   "Betrag__c",
@@ -263,6 +266,50 @@ async function inquiryInfoByCase(caseIds: string[], locale: Locale): Promise<Map
   return out;
 }
 
+/**
+ * All borrowers of the Case: the customer Account plus Kunde 2 / Kunde 3. Two people with
+ * the same surname read the way the design shows them: "Sarah & Marco Brunner".
+ */
+function customerName(rec: any): string | null {
+  const names = [rec.Account?.Name, rec.Client_2__r?.Name, rec.Client_3__r?.Name]
+    .map((n) => (typeof n === "string" ? n.trim() : ""))
+    .filter(Boolean)
+    .filter((n, i, all) => all.indexOf(n) === i);
+  if (!names.length) return null;
+  if (names.length === 2) {
+    const [a, b] = names.map((n) => n.split(/\s+/));
+    const lastA = a[a.length - 1];
+    if (a.length > 1 && b.length > 1 && lastA === b[b.length - 1]) {
+      return `${a.slice(0, -1).join(" ")} & ${b.slice(0, -1).join(" ")} ${lastA}`;
+    }
+  }
+  return names.join(" & ");
+}
+
+/**
+ * Documents HYPOTEQ has on file for the Case. Caseworkers tick them in the
+ * "Dokumenten-Check" tab (stored as JSON in Dokumenten_Check_State__c, keys
+ * "<Section>|<Label>"); the older Dok_*__c checkboxes are read as well. The tab's labels
+ * are German and are shown as they are.
+ */
+function presentDocs(rec: any, locale: Locale): string[] {
+  const names: string[] = DOC_FLAGS.filter((d) => rec[d.field] === true).map((d) => d.label[locale]);
+  const raw = rec.Dokumenten_Check_State__c;
+  if (typeof raw === "string" && raw) {
+    try {
+      const checked = JSON.parse(raw)?.checked || {};
+      for (const [key, on] of Object.entries(checked)) {
+        if (on !== true) continue;
+        const label = key.includes("|") ? key.slice(key.indexOf("|") + 1) : key;
+        if (label) names.push(label);
+      }
+    } catch {
+      // A checklist that is not JSON is ignored; the Dok_*__c flags still count.
+    }
+  }
+  return Array.from(new Set(names));
+}
+
 function summarize(rec: any, info: InquiryInfo | undefined, locale: Locale): PortalCaseSummary {
   const missing = info?.missing || [];
   // The Salesforce checkbox is never unticked on purpose, so only a tick means anything;
@@ -281,12 +328,12 @@ function summarize(rec: any, info: InquiryInfo | undefined, locale: Locale): Por
   const closed = CLOSED_STATUSES.includes(status);
   const documents: CaseDoc[] = [
     ...(closed ? [] : missing.map((m) => ({ key: m.key, name: m.label, state: "fehlt" as const }))),
-    ...DOC_FLAGS.filter((d) => rec[d.field] === true).map((d) => ({ key: null, name: d.label[locale], state: "vorhanden" as const })),
+    ...presentDocs(rec, locale).map((name) => ({ key: null, name, state: "vorhanden" as const })),
   ];
   return {
     id: rec.Id,
     nr: rec.CaseNumber || rec.Id,
-    kunde: rec.Account?.Name || rec.Case_Name__c || UNNAMED[locale],
+    kunde: customerName(rec) || rec.Case_Name__c || UNNAMED[locale],
     art: rec.Reason ? ART[rec.Reason]?.[locale] || rec.Reason : ART_FALLBACK[locale],
     betrag: num(rec.Gesch_tzter_Hypothekenbedarf__c) ?? num(rec.Hypothekarvolumen__c) ?? num(rec.Betrag__c),
     createdAt: rec.CreatedDate,
@@ -375,14 +422,14 @@ export type UnassignedCase = { id: string; nr: string; kunde: string; betrag: nu
 /** Open Cases without a partner, newest first — candidates for an admin to assign. */
 export async function listUnassignedCases(): Promise<UnassignedCase[]> {
   const recs = await queryWithFields(
-    ["Id", "CaseNumber", "CreatedDate", "Account.Name", "Case_Name__c", "Gesch_tzter_Hypothekenbedarf__c", "Hypothekarvolumen__c"],
+    ["Id", "CaseNumber", "CreatedDate", "Account.Name", "Client_2__r.Name", "Client_3__r.Name", "Case_Name__c", "Gesch_tzter_Hypothekenbedarf__c", "Hypothekarvolumen__c"],
     (select) =>
       `SELECT ${select} FROM Case WHERE ${partnerCaseField()} = null AND IsClosed = false AND Stage__c != 'Verloren' ORDER BY CreatedDate DESC LIMIT 100`
   );
   return recs.map((r: any) => ({
     id: r.Id,
     nr: r.CaseNumber,
-    kunde: r.Account?.Name || r.Case_Name__c || "Unbenannter Case",
+    kunde: customerName(r) || r.Case_Name__c || "Unbenannter Case",
     betrag: num(r.Gesch_tzter_Hypothekenbedarf__c) ?? num(r.Hypothekarvolumen__c),
     createdAt: r.CreatedDate,
   }));
