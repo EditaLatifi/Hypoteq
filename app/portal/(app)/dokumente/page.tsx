@@ -48,9 +48,9 @@ export default async function DocumentsPage() {
       });
     }
   }
-  const order = { fehlt: 0, hochgeladen: 1, vorhanden: 2 };
+  const order = { fehlt: 0, offen: 1, hochgeladen: 2, vorhanden: 3 };
   rows.sort((a, b) => order[a.state] - order[b.state]);
-  const action = rows.filter((r) => r.state === "fehlt").length;
+  const action = rows.filter((r) => r.state === "fehlt" || r.state === "offen").length;
 
   return (
     <>

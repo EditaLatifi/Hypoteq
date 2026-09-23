@@ -2,6 +2,7 @@ import { cache } from "react";
 import type { Locale } from "@/lib/portal/i18n/dict";
 import { syncNotifications } from "@/lib/portal/notifications";
 import { listPartnerCases, type PortalCaseSummary } from "@/lib/portal/salesforce";
+import { scopeFor } from "@/lib/portal/scope";
 import { requestOrigin, type SessionUser } from "@/lib/portal/session";
 
 /**
@@ -13,7 +14,9 @@ export const loadMyCases = cache(async (user: SessionUser, locale: Locale): Prom
   if (!user.contactId) return { cases: [], failed: false };
   let cases: PortalCaseSummary[];
   try {
-    cases = await listPartnerCases(user.contactId, locale);
+    const scope = await scopeFor(user);
+    if (!scope) return { cases: [], failed: false };
+    cases = await listPartnerCases(scope, locale);
   } catch (err) {
     console.error("[portal] loading cases from Salesforce failed", err);
     return { cases: [], failed: true };

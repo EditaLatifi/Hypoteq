@@ -22,6 +22,7 @@ export type SessionUser = Pick<
   | "profileConfirmedAt"
   | "notifyPrefs"
   | "locale"
+  | "companyScope"
 > & {
   sessionId: string;
   /**
@@ -131,6 +132,7 @@ export const readSession = cache(async (): Promise<SessionState> => {
       profileConfirmedAt: u.profileConfirmedAt,
       notifyPrefs: u.notifyPrefs,
       locale: u.locale,
+      companyScope: u.companyScope,
       id: u.id,
       email: u.email,
       role: u.role,

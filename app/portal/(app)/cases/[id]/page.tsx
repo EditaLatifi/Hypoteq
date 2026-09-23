@@ -11,6 +11,7 @@ import type { Dict } from "@/lib/portal/i18n/dict";
 import { getDict } from "@/lib/portal/i18n/server";
 import { notifText } from "@/lib/portal/notifications";
 import { docLabel, getPartnerCase, type PortalCaseDetail } from "@/lib/portal/salesforce";
+import { scopeFor } from "@/lib/portal/scope";
 import { requestIp, requireUser } from "@/lib/portal/session";
 import { CLOSED_STATUSES } from "@/lib/portal/status";
 
@@ -88,7 +89,8 @@ export default async function CaseDetailPage({ params }: { params: { id: string 
 
   let c: PortalCaseDetail | null = null;
   try {
-    c = await getPartnerCase(user.contactId, params.id, locale);
+    const scope = await scopeFor(user);
+    c = scope ? await getPartnerCase(scope, params.id, locale) : null;
   } catch (err) {
     console.error("[portal] loading case failed", err);
     return <FormError>{t.common.caseLoadError}</FormError>;
@@ -121,7 +123,10 @@ export default async function CaseDetailPage({ params }: { params: { id: string 
   }
 
   const uploadLabel = (key: string | null) => (key ? docLabel(key, locale) : t.caseDetail.otherDoc);
-  const missing = c.documents.filter((d) => d.state === "fehlt");
+  // Outstanding: confirmed missing first, then expected per HYPOTEQ's list.
+  const missing = [...c.documents.filter((d) => d.state === "fehlt"), ...c.documents.filter((d) => d.state === "offen")];
+  const hasOpen = missing.some((d) => d.state === "offen");
+  const stateBadge = (state: string) => (state === "offen" ? <Badge tone="warning">{t.caseDetail.open}</Badge> : <Badge tone="danger">{t.caseDetail.missing}</Badge>);
   const present = c.documents.filter((d) => d.state === "vorhanden");
   const updates = [
     ...notifs.map((n) => ({ at: n.createdAt, text: notifText(t, n).text, by: "HYPOTEQ" })),
@@ -165,7 +170,7 @@ export default async function CaseDetailPage({ params }: { params: { id: string 
                   <span className="text-[17px] font-medium">{d.name}</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Badge tone="danger">{t.caseDetail.missing}</Badge>
+                  {stateBadge(d.state)}
                   {!readOnly ? <UploadButton caseId={c.id} docKey={d.key} label={d.name} text={t.caseDetail.uploadDoc} /> : null}
                 </div>
               </div>
@@ -194,7 +199,7 @@ export default async function CaseDetailPage({ params }: { params: { id: string 
                       <span className="text-[15px] font-medium">{d.name}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Badge tone="danger">{t.caseDetail.missing}</Badge>
+                      {stateBadge(d.state)}
                       {!readOnly ? <UploadButton caseId={c.id} docKey={d.key} label={d.name} variant="secondary" /> : null}
                     </div>
                   </div>
@@ -226,6 +231,7 @@ export default async function CaseDetailPage({ params }: { params: { id: string 
             ) : (
               <p className="m-0 text-[15px] text-white/70">{t.caseDetail.noDocs}</p>
             )}
+            {hasOpen ? <p className="m-0 text-[13px] text-white/60">{t.caseDetail.openNote}</p> : null}
             {closed ? (
               <p className="m-0 border-t border-white/[.14] pt-4 text-[14px] text-white/60">{t.caseDetail.closedNoUpload}</p>
             ) : !readOnly ? (

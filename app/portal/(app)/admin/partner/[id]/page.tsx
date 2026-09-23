@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, Eye, Link2, Mail, UserCheck, UserX, X } from "lucide-react";
-import { assignCaseAction, resendInviteAction, setPartnerStatusAction, unassignCaseAction } from "@/app/portal/(app)/admin/actions";
+import { ArrowLeft, Building2, Eye, Link2, Mail, UserCheck, UserX, X } from "lucide-react";
+import { assignCaseAction, resendInviteAction, setCompanyScopeAction, setPartnerStatusAction, unassignCaseAction } from "@/app/portal/(app)/admin/actions";
 import { startViewAsAction } from "@/app/portal/actions";
 import { ACCESS_TONE } from "@/components/portal/access";
 import { Badge, Card, Eyebrow, FormError, btn, formatChf, formatDate, formatDateTime } from "@/components/portal/ui";
@@ -9,6 +9,7 @@ import { prisma } from "@/lib/prisma";
 import { partnerCaseField } from "@/lib/portal/config";
 import { getDict } from "@/lib/portal/i18n/server";
 import { listPartnerCases, listUnassignedCases, type PortalCaseSummary, type UnassignedCase } from "@/lib/portal/salesforce";
+import { scopeOfPartner } from "@/lib/portal/scope";
 import { requireAdmin } from "@/lib/portal/session";
 
 export default async function AdminPartnerDetailPage({ params }: { params: { id: string } }) {
@@ -22,7 +23,7 @@ export default async function AdminPartnerDetailPage({ params }: { params: { id:
   let failed = false;
   if (p.sfContactId) {
     try {
-      [cases, unassigned] = await Promise.all([listPartnerCases(p.sfContactId, locale), listUnassignedCases()]);
+      [cases, unassigned] = await Promise.all([listPartnerCases(scopeOfPartner(p)!, locale), listUnassignedCases()]);
     } catch (err) {
       console.error("[portal] admin: loading partner cases failed", err);
       failed = true;
@@ -38,6 +39,7 @@ export default async function AdminPartnerDetailPage({ params }: { params: { id:
     [t.admin.invited, p.invitedAt ? (p.invitedBy ? t.admin.invitedBy(formatDate(p.invitedAt), p.invitedBy) : formatDate(p.invitedAt)) : "–"],
     [t.admin.activated, formatDate(p.activatedAt)],
     [t.admin.loginMethod, p.status !== "active" ? "–" : p.passwordHash ? t.admin.loginBoth : t.admin.loginMagic],
+    [t.admin.visibility, p.companyScope ? t.admin.visibilityCompany : t.admin.visibilityOwn],
     [t.common.language, (p.locale || "de").toUpperCase()],
     [t.profile.role, p.role === "admin" ? t.profile.roleAdmin : t.profile.rolePartner],
   ];
@@ -69,6 +71,15 @@ export default async function AdminPartnerDetailPage({ params }: { params: { id:
               <input type="hidden" name="contactId" value={p.sfContactId} />
               <button type="submit" className={`${btn.secondary} h-10 text-[15px]`}>
                 <Eye size={18} /> {t.admin.viewAsThis}
+              </button>
+            </form>
+          ) : null}
+          {p.sfContactId ? (
+            <form action={setCompanyScopeAction}>
+              <input type="hidden" name="userId" value={p.id} />
+              <input type="hidden" name="on" value={p.companyScope ? "0" : "1"} />
+              <button type="submit" className={`${btn.secondary} h-10 text-[15px]`}>
+                <Building2 size={18} /> {p.companyScope ? t.admin.companyOff : t.admin.companyOn}
               </button>
             </form>
           ) : null}
@@ -119,17 +130,20 @@ export default async function AdminPartnerDetailPage({ params }: { params: { id:
                   <div className="text-[15px] font-medium">{c.kunde}</div>
                   <div className="text-[13px] text-white/70">
                     {c.nr} · {formatChf(c.betrag)}
+                    {c.consultantId !== p.sfContactId && c.consultantName ? ` · ${t.common.consultant(c.consultantName)}` : ""}
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
                   <Badge tone={c.tone}>{t.status[c.status] || c.status}</Badge>
-                  <form action={unassignCaseAction}>
-                    <input type="hidden" name="userId" value={p.id} />
-                    <input type="hidden" name="caseId" value={c.id} />
-                    <button type="submit" aria-label={t.admin.unassign} title={t.admin.unassign} className="grid h-9 w-9 place-items-center rounded-full hover:bg-white/[.08]">
-                      <X size={18} />
-                    </button>
-                  </form>
+                  {c.consultantId === p.sfContactId ? (
+                    <form action={unassignCaseAction}>
+                      <input type="hidden" name="userId" value={p.id} />
+                      <input type="hidden" name="caseId" value={c.id} />
+                      <button type="submit" aria-label={t.admin.unassign} title={t.admin.unassign} className="grid h-9 w-9 place-items-center rounded-full hover:bg-white/[.08]">
+                        <X size={18} />
+                      </button>
+                    </form>
+                  ) : null}
                 </div>
               </div>
             ))}

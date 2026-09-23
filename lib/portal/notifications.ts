@@ -57,18 +57,18 @@ export async function syncNotifications(
   cases: PortalCaseSummary[],
   mail: { origin: string } | null
 ): Promise<number> {
-  const states = await prisma.portalCaseState.findMany({ where: { caseId: { in: cases.map((c) => c.id) } } });
-  const byId = new Map(states.map((s) => [s.caseId, s]));
+  const seen = await prisma.portalCaseSeen.findMany({ where: { contactId } });
+  const byId = new Map(seen.map((s) => [s.caseId, s]));
   // The very first sync only records what exists: a partner must not get a notification
   // for every Case they already had on the day they were invited.
-  const firstSync = (await prisma.portalCaseState.count({ where: { contactId } })) === 0;
+  const firstSync = seen.length === 0;
 
   const created: { kind: NotifyKind; variant: NotifyVariant; c: PortalCaseSummary }[] = [];
   for (const c of cases) {
     const prev = byId.get(c.id);
     const missingCount = c.missingDocs.length;
 
-    if (!prev || prev.contactId !== contactId) {
+    if (!prev) {
       if (!firstSync) created.push({ kind: "new_case", variant: "new_case", c });
     } else if (prev.status !== c.status) {
       created.push({ ...variantFor(c.status), c });
@@ -76,11 +76,11 @@ export async function syncNotifications(
       created.push({ kind: "docs", variant: "docs", c });
     }
 
-    if (!prev || prev.status !== c.status || prev.missingCount !== missingCount || prev.contactId !== contactId) {
-      await prisma.portalCaseState.upsert({
-        where: { caseId: c.id },
-        create: { caseId: c.id, contactId, status: c.status, missingCount },
-        update: { contactId, status: c.status, missingCount },
+    if (!prev || prev.status !== c.status || prev.missingCount !== missingCount) {
+      await prisma.portalCaseSeen.upsert({
+        where: { contactId_caseId: { contactId, caseId: c.id } },
+        create: { contactId, caseId: c.id, status: c.status, missingCount },
+        update: { status: c.status, missingCount },
       });
     }
   }

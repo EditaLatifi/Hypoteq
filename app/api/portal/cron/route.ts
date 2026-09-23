@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { syncNotifications } from "@/lib/portal/notifications";
+import { isLocale } from "@/lib/portal/i18n/dict";
 import { listPartnerCases } from "@/lib/portal/salesforce";
+import { scopeOfPartner } from "@/lib/portal/scope";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -22,14 +24,14 @@ export async function GET(req: Request) {
 
   const partners = await prisma.portalUser.findMany({
     where: { status: "active", sfContactId: { not: null } },
-    select: { id: true, email: true, name: true, notifyPrefs: true, locale: true, sfContactId: true },
+    select: { id: true, email: true, name: true, notifyPrefs: true, locale: true, sfContactId: true, sfAccountId: true, companyScope: true },
   });
 
   let notifications = 0;
   const failures: string[] = [];
   for (const p of partners) {
     try {
-      const cases = await listPartnerCases(p.sfContactId!);
+      const cases = await listPartnerCases(scopeOfPartner(p)!, isLocale(p.locale) ? p.locale : "de");
       notifications += await syncNotifications(p, p.sfContactId!, cases, { origin });
     } catch (err: any) {
       failures.push(p.id);

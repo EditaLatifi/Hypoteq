@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { ALLOWED_EXT, MAX_UPLOAD_BYTES, caseFolder, safeFileName } from "@/lib/portal/files";
 import { getPartnerCase } from "@/lib/portal/salesforce";
+import { scopeFor } from "@/lib/portal/scope";
 import { readSession } from "@/lib/portal/session";
 import { CLOSED_STATUSES } from "@/lib/portal/status";
 import { createUploadSession, getAccessToken } from "@/lib/sharepoint";
@@ -32,11 +33,12 @@ export async function POST(req: Request) {
   if (!ALLOWED_EXT.includes(ext)) return NextResponse.json({ error: "Erlaubt sind PDF, JPG, JPEG und PNG." }, { status: 400 });
   if (size <= 0 || size > MAX_UPLOAD_BYTES) return NextResponse.json({ error: "Die Datei darf höchstens 20 MB gross sein." }, { status: 400 });
 
-  const c = await getPartnerCase(user.contactId, caseId);
+  const scope = await scopeFor(user);
+  const c = scope ? await getPartnerCase(scope, caseId) : null;
   if (!c) return NextResponse.json({ error: "Case nicht gefunden." }, { status: 404 });
   if (CLOSED_STATUSES.includes(c.status)) return NextResponse.json({ error: "Dieser Case ist abgeschlossen." }, { status: 409 });
 
-  const doc = docKey ? c.documents.find((d) => d.key === docKey && d.state === "fehlt") : null;
+  const doc = docKey ? c.documents.find((d) => d.key === docKey && d.state !== "vorhanden") : null;
   if (docKey && !doc) return NextResponse.json({ error: "Dieses Dokument wird nicht mehr benötigt." }, { status: 409 });
   const label = doc?.name || "Weiteres Dokument";
 

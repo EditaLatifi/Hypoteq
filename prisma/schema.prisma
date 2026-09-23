@@ -210,6 +210,9 @@ model PortalUser {
   // Cases are matched on the Contact (Case.Partner_Consultant__c).
   sfContactId     String?
   sfAccountId     String?
+  // Sees all Cases of their company (Case.Account__c), not only their own. Defaults to the
+  // Contact's Primary__c at invite; an admin can switch it.
+  companyScope    Boolean   @default(false)
   passwordHash    String?
   termsAcceptedAt DateTime?
   invitedAt       DateTime?
@@ -276,6 +279,19 @@ model PortalCaseState {
   updatedAt    DateTime @updatedAt
 
   @@index([contactId])
+}
+
+// What each partner last saw of each Case. Per partner, because with company-wide
+// visibility the consultant and the company's primary contact see the same Case.
+model PortalCaseSeen {
+  contactId    String
+  caseId       String
+  status       String
+  missingCount Int      @default(0)
+  updatedAt    DateTime @updatedAt
+
+  @@id([contactId, caseId])
+  @@index([caseId])
 }
 
 model PortalNotification {

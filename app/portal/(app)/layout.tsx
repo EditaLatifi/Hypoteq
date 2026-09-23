@@ -20,8 +20,8 @@ export default async function PortalAppLayout({ children }: { children: React.Re
   if (user.contactId) {
     const { cases } = await loadMyCases(user, locale);
     const open = cases.filter((c) => !CLOSED_STATUSES.includes(c.status));
-    casesAction = open.filter((c) => matchesFilter("Dokumente fehlen", c.status, c.missingDocs.length)).length;
-    docsMissing = open.reduce((n, c) => n + c.missingDocs.length, 0);
+    casesAction = open.filter((c) => matchesFilter("Dokumente fehlen", c.status, c.missingDocs.length + c.openDocs.length)).length;
+    docsMissing = open.reduce((n, c) => n + c.missingDocs.length + c.openDocs.length, 0);
   }
   const unread = user.viewingAs || !user.contactId ? 0 : await unreadCount(user.id);
 

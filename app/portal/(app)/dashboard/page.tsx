@@ -32,8 +32,9 @@ export default async function DashboardPage() {
 
   const { cases, failed } = await loadMyCases(user, locale);
   const open = cases.filter((c) => !CLOSED_STATUSES.includes(c.status));
-  const needsAction = open.filter((c) => matchesFilter("Dokumente fehlen", c.status, c.missingDocs.length));
-  const count = (f: CaseFilter) => cases.filter((c) => matchesFilter(f, c.status, c.missingDocs.length)).length;
+  const outstanding = (c: (typeof cases)[number]) => c.missingDocs.length + c.openDocs.length;
+  const needsAction = open.filter((c) => matchesFilter("Dokumente fehlen", c.status, outstanding(c)));
+  const count = (f: CaseFilter) => cases.filter((c) => matchesFilter(f, c.status, outstanding(c))).length;
 
   const kpis: { label: string; filter: CaseFilter; value: number }[] = [
     { label: t.dashboard.kpiOpen, filter: "Offen", value: open.length },
@@ -66,7 +67,11 @@ export default async function DashboardPage() {
                     {c.kunde} <span className="font-normal opacity-70">· {c.nr}</span>
                   </div>
                   <div className="text-[15px] text-[#132219]/70">
-                    {c.missingDocs.length ? `${t.dashboard.docsMissing(c.missingDocs.length)}: ${c.missingDocs.join(", ")}` : t.status[c.status]}
+                    {c.missingDocs.length
+                      ? `${t.dashboard.docsMissing(c.missingDocs.length)}: ${c.missingDocs.join(", ")}`
+                      : c.openDocs.length
+                        ? `${t.dashboard.docsOpen(c.openDocs.length)}: ${c.openDocs.join(", ")}`
+                        : t.status[c.status]}
                   </div>
                 </div>
                 <Link
@@ -103,7 +108,7 @@ export default async function DashboardPage() {
         </div>
         <div className="rounded-xl border border-white/[.08] bg-[#1A2E20] px-5">
           {cases.length ? (
-            cases.slice(0, 5).map((c) => <CaseRow key={c.id} c={c} />)
+            cases.slice(0, 5).map((c) => <CaseRow key={c.id} c={c} viewerContactId={user.contactId} />)
           ) : (
             <div className="py-10 text-[15px] text-white/70">{failed ? "–" : t.dashboard.noCases}</div>
           )}

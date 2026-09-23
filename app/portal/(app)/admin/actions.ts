@@ -34,9 +34,17 @@ export async function invitePartnerAction(_prev: AdminFormState, fd: FormData): 
   if (existing?.status === "active") return { error: t.admin.err.alreadyActive(email) };
   if (existing?.status === "disabled") return { error: t.admin.err.isDisabled(email) };
 
-  let data: { name: string | null; company: string | null; phone: string | null; sfContactId: string | null; sfAccountId: string | null; locale: string | null };
+  let data: {
+    name: string | null;
+    company: string | null;
+    phone: string | null;
+    sfContactId: string | null;
+    sfAccountId: string | null;
+    locale: string | null;
+    companyScope: boolean;
+  };
   if (asAdmin) {
-    data = { name: null, company: "HYPOTEQ AG", phone: null, sfContactId: null, sfAccountId: null, locale };
+    data = { name: null, company: "HYPOTEQ AG", phone: null, sfContactId: null, sfAccountId: null, locale, companyScope: false };
   } else {
     let contact;
     try {
@@ -54,6 +62,8 @@ export async function invitePartnerAction(_prev: AdminFormState, fd: FormData): 
       sfAccountId: contact.AccountId,
       // Invite in the partner's correspondence language from Salesforce.
       locale: localeFromSalesforce(contact.Korrespondenzsprache__c) || "de",
+      // The company's primary contact sees all of its Cases; an admin can change it.
+      companyScope: contact.Primary__c === true,
     };
   }
 
@@ -108,6 +118,20 @@ export async function setPartnerStatusAction(fd: FormData): Promise<void> {
   revalidatePath(`/portal/admin/partner/${id}`);
 }
 
+/** Switch whether the partner sees all Cases of their company. */
+export async function setCompanyScopeAction(fd: FormData): Promise<void> {
+  const admin = await requireAdmin();
+  const userId = String(fd.get("userId") || "");
+  const on = fd.get("on") === "1";
+  const p = await prisma.portalUser.findUnique({ where: { id: userId } });
+  if (!p?.sfContactId) return;
+  await prisma.portalUser.update({ where: { id: userId }, data: { companyScope: on } });
+  // Cases coming into view must not all arrive as "new case" notifications.
+  if (on) await prisma.portalCaseSeen.deleteMany({ where: { contactId: p.sfContactId } });
+  await audit({ action: on ? "partner_enabled" : "partner_disabled", actorId: admin.id, actorEmail: admin.email, target: `${p.name || p.email} · Firmenweite Sicht ${on ? "ein" : "aus"}`, ip: requestIp() });
+  revalidatePath(`/portal/admin/partner/${userId}`);
+}
+
 /** Assign an open Case to the partner (writes Partner_Consultant__c in Salesforce). */
 export async function assignCaseAction(fd: FormData): Promise<void> {
   const admin = await requireAdmin();
@@ -127,7 +151,7 @@ export async function unassignCaseAction(fd: FormData): Promise<void> {
   const p = await prisma.portalUser.findUnique({ where: { id: userId } });
   if (!p?.sfContactId || !isSalesforceId(caseId)) return;
   await setCasePartner(caseId, null);
-  await prisma.portalCaseState.deleteMany({ where: { caseId } });
+  await prisma.portalCaseSeen.deleteMany({ where: { caseId, contactId: p.sfContactId } });
   await audit({ action: "case_unassigned", actorId: admin.id, actorEmail: admin.email, target: `${caseId} ✕ ${p.name || p.email}`, ip: requestIp() });
   revalidatePath(`/portal/admin/partner/${userId}`);
 }

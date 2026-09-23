@@ -9,7 +9,7 @@ import { CASE_FILTERS, matchesFilter, type CaseFilter } from "@/lib/portal/statu
 
 type Sort = { by: "date" | "status"; dir: 1 | -1 };
 
-export default function CaseList({ cases, initialFilter }: { cases: PortalCaseSummary[]; initialFilter: CaseFilter }) {
+export default function CaseList({ cases, initialFilter, viewerContactId }: { cases: PortalCaseSummary[]; initialFilter: CaseFilter; viewerContactId: string | null }) {
   const t = useT();
   const [filter, setFilter] = useState<CaseFilter>(initialFilter);
   const [query, setQuery] = useState("");
@@ -18,7 +18,7 @@ export default function CaseList({ cases, initialFilter }: { cases: PortalCaseSu
   const shown = useMemo(() => {
     const q = query.trim().toLowerCase();
     return cases
-      .filter((c) => matchesFilter(filter, c.status, c.missingDocs.length))
+      .filter((c) => matchesFilter(filter, c.status, c.missingDocs.length + c.openDocs.length))
       .filter((c) => !q || c.kunde.toLowerCase().includes(q) || c.nr.toLowerCase().includes(q))
       .sort((a, b) =>
         sort.by === "date"
@@ -71,7 +71,7 @@ export default function CaseList({ cases, initialFilter }: { cases: PortalCaseSu
       </div>
       <div className="rounded-xl border border-white/[.08] bg-[#1A2E20] px-5">
         {shown.map((c) => (
-          <CaseRow key={c.id} c={c} meta="docs" />
+          <CaseRow key={c.id} c={c} meta="docs" viewerContactId={viewerContactId} />
         ))}
         {shown.length === 0 ? <div className="py-10 text-[15px] text-white/70">{t.cases.none}</div> : null}
       </div>

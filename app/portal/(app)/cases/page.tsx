@@ -18,7 +18,7 @@ export default async function CasesPage({ searchParams }: { searchParams: { filt
     <>
       <PageHeader eyebrow={t.nav.cases} title={t.cases.title} />
       <FormError>{failed ? t.common.casesLoadError : null}</FormError>
-      <CaseList cases={cases} initialFilter={initialFilter} />
+      <CaseList cases={cases} initialFilter={initialFilter} viewerContactId={user.contactId} />
     </>
   );
 }

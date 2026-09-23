@@ -32,6 +32,7 @@ import {
   requireUser,
   revokeAllSessions,
 } from "@/lib/portal/session";
+import { scopeFor } from "@/lib/portal/scope";
 import { consumeToken, issueToken, peekToken } from "@/lib/portal/tokens";
 
 export type FormState = { error?: string; sent?: string; ok?: string } | undefined;
@@ -285,7 +286,8 @@ export async function sendMessageAction(_prev: FormState, fd: FormData): Promise
   const body = field(fd, "body").trim().slice(0, 4000);
   if (!body) return { error: t.errors.messageEmpty };
 
-  const c = await getPartnerCase(user.contactId, caseId);
+  const scope = await scopeFor(user);
+  const c = scope ? await getPartnerCase(scope, caseId) : null;
   if (!c) return { error: t.errors.generic };
 
   await prisma.portalMessage.create({ data: { userId: user.id, caseId: c.id, body } });

@@ -13,12 +13,12 @@ export type DocRow = {
   caseNr: string;
   kunde: string;
   name: string;
-  state: "fehlt" | "hochgeladen" | "vorhanden";
+  state: "fehlt" | "offen" | "hochgeladen" | "vorhanden";
   docKey: string | null;
   meta: string | null;
 };
 
-type Filter = "all" | "fehlt" | "hochgeladen" | "vorhanden";
+type Filter = "all" | "fehlt" | "offen" | "hochgeladen" | "vorhanden";
 
 export default function DocumentList({ rows, readOnly }: { rows: DocRow[]; readOnly: boolean }) {
   const t = useT();
@@ -27,6 +27,7 @@ export default function DocumentList({ rows, readOnly }: { rows: DocRow[]; readO
   const filters: [Filter, string][] = [
     ["all", t.documentsPage.filterAll],
     ["fehlt", t.documentsPage.filterMissing],
+    ["offen", t.documentsPage.filterOpen],
     ["hochgeladen", t.documentsPage.filterUploaded],
     ["vorhanden", t.documentsPage.filterPresent],
   ];
@@ -55,7 +56,7 @@ export default function DocumentList({ rows, readOnly }: { rows: DocRow[]; readO
             className="grid grid-cols-1 items-center gap-x-5 gap-y-3 border-b border-white/[.14] py-3.5 last:border-b-0 sm:grid-cols-2 lg:grid-cols-[1.4fr_1.2fr_auto_auto]"
           >
             <div className="flex min-w-0 items-center gap-3">
-              {r.state === "fehlt" ? <FileText size={20} className="flex-none text-[#CAF476]" /> : <FileCheck size={20} className="flex-none text-[#CAF476]" />}
+              {r.state === "fehlt" || r.state === "offen" ? <FileText size={20} className="flex-none text-[#CAF476]" /> : <FileCheck size={20} className="flex-none text-[#CAF476]" />}
               <div className="min-w-0">
                 <div className="text-[15px] font-medium">{r.name}</div>
                 {r.meta ? <div className="truncate text-[13px] text-white/70">{r.meta}</div> : null}
@@ -68,6 +69,8 @@ export default function DocumentList({ rows, readOnly }: { rows: DocRow[]; readO
             <div>
               {r.state === "fehlt" ? (
                 <Badge tone="danger">{t.caseDetail.missing}</Badge>
+              ) : r.state === "offen" ? (
+                <Badge tone="warning">{t.caseDetail.open}</Badge>
               ) : r.state === "hochgeladen" ? (
                 <Badge tone="accent">{t.caseDetail.uploaded}</Badge>
               ) : (
@@ -75,7 +78,7 @@ export default function DocumentList({ rows, readOnly }: { rows: DocRow[]; readO
               )}
             </div>
             <div className="flex justify-end">
-              {r.state === "fehlt" && !readOnly ? <UploadButton caseId={r.caseId} docKey={r.docKey} label={r.name} /> : null}
+              {(r.state === "fehlt" || r.state === "offen") && !readOnly ? <UploadButton caseId={r.caseId} docKey={r.docKey} label={r.name} /> : null}
             </div>
           </div>
         ))}

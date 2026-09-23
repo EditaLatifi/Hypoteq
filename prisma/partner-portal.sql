@@ -25,6 +25,7 @@ CREATE UNIQUE INDEX IF NOT EXISTS "PortalUser_email_key" ON "PortalUser"("email"
 ALTER TABLE "PortalUser" ADD COLUMN IF NOT EXISTS "profileConfirmedAt" TIMESTAMP(3);
 ALTER TABLE "PortalUser" ADD COLUMN IF NOT EXISTS "notifyPrefs" JSONB;
 ALTER TABLE "PortalUser" ADD COLUMN IF NOT EXISTS "locale" TEXT;
+ALTER TABLE "PortalUser" ADD COLUMN IF NOT EXISTS "companyScope" BOOLEAN NOT NULL DEFAULT false;
 
 CREATE TABLE IF NOT EXISTS "PortalToken" (
   "id"        TEXT PRIMARY KEY,
@@ -62,6 +63,16 @@ CREATE TABLE IF NOT EXISTS "PortalCaseState" (
   "updatedAt"    TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 CREATE INDEX IF NOT EXISTS "PortalCaseState_contactId_idx" ON "PortalCaseState"("contactId");
+
+CREATE TABLE IF NOT EXISTS "PortalCaseSeen" (
+  "contactId"    TEXT NOT NULL,
+  "caseId"       TEXT NOT NULL,
+  "status"       TEXT NOT NULL,
+  "missingCount" INTEGER NOT NULL DEFAULT 0,
+  "updatedAt"    TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY ("contactId", "caseId")
+);
+CREATE INDEX IF NOT EXISTS "PortalCaseSeen_caseId_idx" ON "PortalCaseSeen"("caseId");
 
 CREATE TABLE IF NOT EXISTS "PortalNotification" (
   "id"        TEXT PRIMARY KEY,
