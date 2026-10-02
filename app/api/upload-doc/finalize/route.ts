@@ -1,83 +1,78 @@
 import { NextResponse } from "next/server";
-import { persistDocumentRecord } from "@/lib/sharepoint";
+import { getAccessToken, getDriveItem, persistDocumentRecord } from "@/lib/sharepoint";
 
 export const runtime = "nodejs";
 export const maxDuration = 30;
 
+/**
+ * Record a file the browser has just finished uploading to SharePoint.
+ *
+ * The browser only reports WHICH item it uploaded; name, size and link are read back from
+ * SharePoint here, so the stored row always describes the file that is actually there (a
+ * name clash is renamed on upload, and the browser's idea of the name would then be wrong).
+ *
+ * Returns the row id. Everything after this — analysis, removal, the customer's decisions at
+ * submit — refers to the file by that id.
+ */
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const fileName = typeof body?.fileName === "string" ? body.fileName : "";
     const email = typeof body?.email === "string" ? body.email : "";
     const inquiryId =
       typeof body?.inquiryId === "string" && body.inquiryId ? body.inquiryId : undefined;
-    const tempUserId =
-      typeof body?.tempUserId === "string" && body.tempUserId ? body.tempUserId : undefined;
-    // Which requirement this file answers, and the submission it belongs to. Without the
-    // latter the row cannot be claimed once the Inquiry is created, which is how every
-    // upload ended up orphaned in HoldingDocument.
-    const docType = typeof body?.docType === "string" && body.docType ? body.docType : null;
     const submissionId =
       typeof body?.submissionId === "string" && body.submissionId ? body.submissionId : null;
+    const docType = typeof body?.docType === "string" && body.docType ? body.docType : null;
     const originalFileName =
       typeof body?.originalFileName === "string" && body.originalFileName
         ? body.originalFileName
         : null;
-    // The analysis the funnel already ran when the customer picked this file. Sent with
-    // the upload so the model is called once per document rather than once per lifecycle
-    // stage, and so the audit row is written in the same request that creates it.
-    const rawAnalysis = body?.analysis && typeof body.analysis === "object" ? body.analysis : null;
-    const analysis = rawAnalysis
-      ? {
-          status: String(rawAnalysis.status ?? "failed"),
-          docType:
-            typeof rawAnalysis?.classification?.type === "string"
-              ? rawAnalysis.classification.type
-              : null,
-          confidence:
-            typeof rawAnalysis?.classification?.confidence === "number"
-              ? rawAnalysis.classification.confidence
-              : null,
-          raw: rawAnalysis,
-        }
-      : null;
-    const driveItem = body?.driveItem || null;
+    // `driveItem.id` is what the last chunk's response carries; accepted as well so a
+    // browser still running the previous bundle during a deploy is not stranded.
+    const driveItemId =
+      typeof body?.driveItemId === "string" && body.driveItemId
+        ? body.driveItemId
+        : typeof body?.driveItem?.id === "string"
+          ? body.driveItem.id
+          : "";
+    const folderId = typeof body?.folderId === "string" && body.folderId ? body.folderId : null;
 
-    if (!fileName || !email) {
+    if (!driveItemId || !email || (!submissionId && !inquiryId)) {
       return NextResponse.json(
-        { error: "Missing fileName or email" },
+        { error: "Missing driveItemId, email or submissionId" },
         { status: 400 }
       );
     }
 
-    const fileUrl =
-      driveItem?.["@microsoft.graph.downloadUrl"] || driveItem?.webUrl || "";
-
-    try {
-      await persistDocumentRecord({
-        email,
-        fileName,
-        fileUrl,
-        inquiryId,
-        tempUserId,
-        docType,
-        submissionId: submissionId || inquiryId || null,
-        originalFileName,
-        analysis,
-      });
-    } catch (dbErr) {
-      console.error("❌ Failed to save document record:", dbErr);
-      const details = dbErr instanceof Error ? dbErr.message : "DB save failed";
-      return NextResponse.json(
-        { error: "Failed to save document", details },
-        { status: 500 }
-      );
+    const token = await getAccessToken();
+    const item = await getDriveItem(driveItemId, token);
+    if (!item) {
+      return NextResponse.json({ error: "Uploaded file not found in SharePoint" }, { status: 404 });
     }
+    // The file must sit in the folder this submission's upload session was opened in.
+    if (folderId && item.parentId && item.parentId !== folderId) {
+      return NextResponse.json({ error: "File is not in this submission's folder" }, { status: 400 });
+    }
+
+    const record = await persistDocumentRecord({
+      email,
+      fileName: item.name,
+      // The permanent SharePoint link. The pre-signed download URL Graph also returns
+      // expires within the hour and is useless to anyone opening the dossier later.
+      fileUrl: item.webUrl,
+      inquiryId,
+      docType,
+      submissionId: submissionId || inquiryId || null,
+      originalFileName,
+      driveItemId: item.id,
+    });
 
     return NextResponse.json({
       success: true,
-      data: driveItem,
-      fileUrl,
+      documentId: record.id,
+      fileName: item.name,
+      webUrl: item.webUrl,
+      size: item.size,
     });
   } catch (err: any) {
     const errorMsg = err instanceof Error ? err.message : "Unknown server error";

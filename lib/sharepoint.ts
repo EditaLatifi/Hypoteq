@@ -1,6 +1,14 @@
 import { isTestMode, TEST_FOLDER_PREFIX } from "@/components/testMode";
 
+// One token per warm instance rather than one per request: every upload now makes several
+// Graph calls (folder, session, verify, analysis read-back), and a token is valid for an hour.
+// Refreshed five minutes early so a long upload never runs into an expired one.
+let cachedToken: { value: string; expiresAt: number } | null = null;
+
 export async function getAccessToken(): Promise<string> {
+  if (cachedToken && cachedToken.expiresAt > Date.now() + 5 * 60_000) {
+    return cachedToken.value;
+  }
   const tenantId = process.env.SHAREPOINT_TENANT_ID!;
   const clientId = process.env.SHAREPOINT_CLIENT_ID!;
   const clientSecret = process.env.SHAREPOINT_CLIENT_SECRET!;
@@ -26,7 +34,11 @@ export async function getAccessToken(): Promise<string> {
     throw new Error("Could not get SharePoint token");
   }
 
-  return json.access_token as string;
+  cachedToken = {
+    value: json.access_token as string,
+    expiresAt: Date.now() + Number(json.expires_in ?? 3600) * 1000,
+  };
+  return cachedToken.value;
 }
 
 export async function getOrCreateSubmissionFolder(
@@ -148,172 +160,284 @@ export async function createUploadSession(
   return json.uploadUrl as string;
 }
 
+/** What Graph says about one uploaded file. */
+export type DriveItemInfo = {
+  id: string;
+  name: string;
+  webUrl: string;
+  size: number;
+  mimeType: string | null;
+  parentId: string | null;
+};
+
+/**
+ * Look a file up by its driveItem id, or null when it does not exist.
+ *
+ * Used to confirm what the browser reports after an upload instead of trusting it: the
+ * browser sends the id, the server reads name, size and link back from SharePoint itself.
+ */
+export async function getDriveItem(itemId: string, token: string): Promise<DriveItemInfo | null> {
+  const DRIVE_ID = process.env.DRIVE_ID!;
+  const res = await fetch(
+    `https://graph.microsoft.com/v1.0/drives/${DRIVE_ID}/items/${encodeURIComponent(itemId)}?$select=id,name,webUrl,size,file,parentReference`,
+    { headers: { Authorization: `Bearer ${token}` } }
+  );
+  if (res.status === 404) return null;
+  if (!res.ok) {
+    const body = await res.text().catch(() => "");
+    throw new Error(`Graph item lookup failed (${res.status}): ${body.slice(0, 300)}`);
+  }
+  const item = await res.json();
+  return {
+    id: item.id,
+    name: item.name,
+    webUrl: item.webUrl,
+    size: Number(item.size ?? 0),
+    mimeType: item.file?.mimeType ?? null,
+    parentId: item.parentReference?.id ?? null,
+  };
+}
+
+/** The file's bytes, read back from SharePoint so the browser never has to send them twice. */
+export async function downloadDriveItem(itemId: string, token: string): Promise<Buffer> {
+  const DRIVE_ID = process.env.DRIVE_ID!;
+  const res = await fetch(
+    `https://graph.microsoft.com/v1.0/drives/${DRIVE_ID}/items/${encodeURIComponent(itemId)}/content`,
+    { headers: { Authorization: `Bearer ${token}` }, redirect: "follow" }
+  );
+  if (!res.ok) {
+    throw new Error(`Graph download failed (${res.status})`);
+  }
+  return Buffer.from(await res.arrayBuffer());
+}
+
+/** Delete a file. Already gone counts as done. */
+export async function deleteDriveItem(itemId: string, token: string): Promise<void> {
+  const DRIVE_ID = process.env.DRIVE_ID!;
+  const res = await fetch(
+    `https://graph.microsoft.com/v1.0/drives/${DRIVE_ID}/items/${encodeURIComponent(itemId)}`,
+    { method: "DELETE", headers: { Authorization: `Bearer ${token}` } }
+  );
+  if (!res.ok && res.status !== 404) {
+    throw new Error(`Graph delete failed (${res.status})`);
+  }
+}
+
 /**
  * Record an uploaded file.
  *
- * Two destinations, and the holding one is the normal case rather than the exception: the
- * documents step pushes files to SharePoint before the funnel is submitted, so on a first
- * submission there is no Inquiry to attach to yet. Those rows carry `submissionId` and are
- * claimed by /api/inquiry the moment the Inquiry is created (see adoptHoldingDocuments).
+ * Two destinations, and the holding one is the normal case: files upload the moment the
+ * customer picks them, long before the funnel is submitted, so there is no Inquiry to attach
+ * to yet. Those rows carry `submissionId` and are claimed by /api/inquiry when the Inquiry is
+ * created (see adoptHoldingDocuments).
  *
- * A Nachreichung is the other case: its Inquiry already exists, so the row lands straight
- * on Document.
+ * A Nachreichung is the other case: its Inquiry already exists, so the row lands straight on
+ * Document.
+ *
+ * Returns the row, because everything after the upload (analysis, removal, the customer's
+ * decisions at submit) refers to the file by this id rather than by its name.
  */
 export async function persistDocumentRecord(params: {
   email: string;
   fileName: string;
   fileUrl: string;
   inquiryId?: string;
-  tempUserId?: string;
   /** Funnel document key this file was supplied for; null for a loose upload. */
   docType?: string | null;
   /** Ties the row to its submission so it can be adopted once the Inquiry exists. */
   submissionId?: string | null;
   /** Name the file had when the customer picked it. */
   originalFileName?: string | null;
-  /**
-   * Analysis computed when the customer picked the file, carried through the upload.
-   *
-   * Passed in rather than run here so the model sees each document exactly once: the
-   * funnel analyses on selection to show a result immediately (section 31), and re-running
-   * it at upload time would double the cost and could return a different answer for a file
-   * the customer has already been shown a verdict on.
-   */
-  analysis?: { status: string; docType: string | null; confidence: number | null; raw: unknown } | null;
-}): Promise<void> {
-  const { email, fileName, fileUrl, inquiryId, tempUserId } = params;
+  /** SharePoint item, so the server can read the file back or delete it. */
+  driveItemId?: string | null;
+}): Promise<{ id: string; table: "document" | "holding" }> {
+  const { email, fileName, fileUrl, inquiryId } = params;
   const docType = params.docType || null;
   const submissionId = params.submissionId || inquiryId || null;
   const originalFileName = params.originalFileName || fileName;
-  const ai = params.analysis
-    ? {
-        aiStatus: params.analysis.status,
-        aiDocType: params.analysis.docType,
-        aiConfidence: params.analysis.confidence,
-        aiAnalysis: params.analysis.raw as any,
-      }
-    : {};
+  const driveItemId = params.driveItemId || null;
   const { prisma } = await import("@/lib/prisma");
 
   if (inquiryId) {
-    const inquiryExists = await prisma.inquiry.findUnique({ where: { id: inquiryId } });
+    const inquiryExists = await prisma.inquiry.findUnique({ where: { id: inquiryId }, select: { id: true } });
     if (inquiryExists) {
-      await prisma.document.create({
-        data: { inquiryId, email, fileName, fileUrl, docType, originalFileName, ...ai },
+      const row = await prisma.document.create({
+        data: { inquiryId, email, fileName, fileUrl, docType, originalFileName, driveItemId },
+        select: { id: true },
       });
       console.log(`✅ Document saved to DB: ${fileName} (${docType || "loose upload"})`);
-      return;
+      return { id: row.id, table: "document" };
     }
   }
 
-  await prisma.holdingDocument.create({
-    data: {
-      email,
-      fileName,
-      fileUrl,
-      tempUserId: tempUserId || null,
-      submissionId,
-      docType,
-      originalFileName,
-      ...ai,
-    },
+  const row = await prisma.holdingDocument.create({
+    data: { email, fileName, fileUrl, submissionId, docType, originalFileName, driveItemId },
+    select: { id: true },
   });
   console.log(
     `✅ Document held for submission ${submissionId || "(none)"}: ${fileName} (${docType || "loose upload"})`
   );
+  return { id: row.id, table: "holding" };
+}
+
+/**
+ * What the customer decided about one file on the documents step, sent with the submit.
+ *
+ * The machine's analysis is already on the row (stored by the analyse route); these are the
+ * human half of the audit trail (spec section 36) and are merged beside it, never over it.
+ */
+export type ClientDocumentDetail = {
+  documentId: string;
+  /** The requirement the file ended up answering (may differ from the one it was picked for). */
+  docType?: string | null;
+  /** Mismatch decisions: took the document's value or kept their own. */
+  humanReview?: unknown;
+  /** Values corrected by hand in the detail view. */
+  humanEdits?: unknown;
+  /** Type chosen by the customer for a file the AI could not place. */
+  manualClassification?: { type: string; label?: string } | null;
+  /** Borrower the customer said the document belongs to. */
+  personId?: string | null;
+  /** The customer opened the extracted values and confirmed them. */
+  confirmedByHuman?: boolean;
+};
+
+/**
+ * The Document row a held upload becomes, with the customer's decisions merged in.
+ *
+ * Pure, so the merge can be tested without a database. The AI's analysis is kept intact;
+ * the person's answers are added beside it, and a type chosen by hand keeps the machine's
+ * verdict readable as `machineClassification`.
+ */
+export function adoptedDocumentData(
+  h: {
+    email: string;
+    fileName: string;
+    fileUrl: string;
+    driveItemId: string | null;
+    docType: string | null;
+    originalFileName: string | null;
+    aiStatus: string | null;
+    aiDocType: string | null;
+    aiConfidence: number | null;
+    aiAnalysis: unknown;
+    uploadedAt: Date;
+  },
+  inquiryId: string,
+  d?: ClientDocumentDetail
+) {
+  const ai = (h.aiAnalysis && typeof h.aiAnalysis === "object" ? h.aiAnalysis : null) as any;
+  const manual = d?.manualClassification?.type ? d.manualClassification : null;
+  const human =
+    d && (d.humanReview || d.humanEdits || manual || d.personId || d.confirmedByHuman)
+      ? {
+          ...(ai ?? {}),
+          humanReview: d.humanReview ?? ai?.humanReview ?? [],
+          humanEdits: d.humanEdits ?? ai?.humanEdits ?? {},
+          ...(d.personId ? { personId: d.personId } : {}),
+          ...(d.confirmedByHuman ? { confirmedByHuman: true } : {}),
+          ...(manual
+            ? {
+                // The machine's verdict stays readable next to the person's.
+                machineClassification: ai?.classification ?? null,
+                classification: { type: manual.type, label: manual.label ?? manual.type, confidence: 1 },
+                classifiedBy: "human",
+              }
+            : {}),
+        }
+      : ai;
+  return {
+    inquiryId,
+    email: h.email,
+    fileName: h.fileName,
+    fileUrl: h.fileUrl,
+    driveItemId: h.driveItemId,
+    docType: d && d.docType !== undefined ? d.docType || null : h.docType,
+    originalFileName: h.originalFileName || h.fileName,
+    aiStatus: manual || d?.confirmedByHuman ? "confirmed" : h.aiStatus,
+    aiDocType: manual ? manual.type : h.aiDocType,
+    aiConfidence: manual ? 1 : h.aiConfidence,
+    aiAnalysis: human ?? undefined,
+    uploadedAt: h.uploadedAt,
+  };
 }
 
 /**
  * Claim the files uploaded for a submission once its Inquiry exists.
  *
- * Called right after the Inquiry is created. Deliberately forgiving — a lead that cannot
- * adopt its documents is still a lead, and the files are already safe in SharePoint — so
- * failures are reported and swallowed by the caller rather than failing the submission.
+ * Runs in one transaction: either every held row becomes a Document or none does, so a
+ * failure part-way can neither duplicate rows nor strand some of them.
  *
  * Returns how many rows were adopted.
  */
 export async function adoptHoldingDocuments(
   inquiryId: string,
-  submissionId: string
+  submissionId: string,
+  details: ClientDocumentDetail[] = []
 ): Promise<number> {
   if (!submissionId) return 0;
   const { prisma } = await import("@/lib/prisma");
+  const byId = new Map(details.filter((d) => d && typeof d.documentId === "string").map((d) => [d.documentId, d]));
 
-  const held = await prisma.holdingDocument.findMany({ where: { submissionId } });
-  if (held.length === 0) return 0;
+  return prisma.$transaction(async (tx) => {
+    const held = await tx.holdingDocument.findMany({ where: { submissionId } });
+    if (held.length === 0) return 0;
 
-  await prisma.document.createMany({
-    data: held.map((h) => ({
-      inquiryId,
-      email: h.email,
-      fileName: h.fileName,
-      fileUrl: h.fileUrl,
-      docType: h.docType,
-      originalFileName: h.originalFileName || h.fileName,
-      // The analysis was made at upload time, before this Inquiry existed. Carrying it
-      // across is the whole point of holding it — re-running the model on adoption would
-      // cost a second call and could return a different answer for the same file.
-      aiStatus: h.aiStatus,
-      aiDocType: h.aiDocType,
-      aiConfidence: h.aiConfidence,
-      aiAnalysis: h.aiAnalysis ?? undefined,
-      uploadedAt: h.uploadedAt,
-    })),
+    await tx.document.createMany({
+      data: held.map((h) => adoptedDocumentData(h, inquiryId, byId.get(h.id))),
+    });
+
+    await tx.holdingDocument.deleteMany({ where: { id: { in: held.map((h) => h.id) } } });
+    return held.length;
   });
+}
 
-  // Only delete what was actually copied. Re-running is then a no-op rather than a
-  // duplicate, and a crash between the two statements leaves the rows claimable again.
-  await prisma.holdingDocument.deleteMany({ where: { id: { in: held.map((h) => h.id) } } });
+/** An uploaded file's row, wherever it currently lives. */
+export async function findUploadedDocument(id: string) {
+  const { prisma } = await import("@/lib/prisma");
+  const held = await prisma.holdingDocument.findUnique({ where: { id } });
+  if (held) return { table: "holding" as const, row: held, submissionId: held.submissionId };
+  const doc = await prisma.document.findUnique({ where: { id } });
+  if (doc) return { table: "document" as const, row: doc, submissionId: doc.inquiryId };
+  return null;
+}
 
-  return held.length;
+/** Store an analysis on the row it was made for (spec sections 27 and 36). */
+export async function storeAnalysis(
+  table: "holding" | "document",
+  id: string,
+  analysis: { status: string; docType: string | null; confidence: number | null; raw: unknown }
+): Promise<void> {
+  const { prisma } = await import("@/lib/prisma");
+  const data = {
+    aiStatus: analysis.status,
+    aiDocType: analysis.docType,
+    aiConfidence: analysis.confidence,
+    aiAnalysis: analysis.raw as any,
+  };
+  if (table === "holding") await prisma.holdingDocument.update({ where: { id }, data });
+  else await prisma.document.update({ where: { id }, data });
 }
 
 /**
- * Attach an analysis to the row that already holds the file (spec sections 27 and 36).
+ * Remove a file the customer took back before submitting: the SharePoint copy and its row.
  *
- * Looks in both places because a file is analysed at upload time: on a first submission the
- * row is still in HoldingDocument, while a Nachreichung analyses a file whose Inquiry
- * already exists and whose row is therefore on Document.
- *
- * Matching is by (submission, filename) because that is all the client knows at this point —
- * the row id is never sent to the browser. The newest row wins if a customer uploads the
- * same filename twice, which is also the one they just analysed.
+ * Only held rows qualify. Once a submission is in, its documents belong to the dossier and are
+ * not the browser's to delete. The submission id must match as well, so a row id on its own is
+ * not enough to remove someone else's file.
  */
-export async function attachAnalysis(params: {
-  submissionId: string;
-  fileName: string;
-  status: string;
-  docType: string | null;
-  confidence: number | null;
-  analysis: unknown;
-}): Promise<"document" | "holding" | "not_found"> {
+export async function removeHeldDocument(
+  id: string,
+  submissionId: string
+): Promise<"deleted" | "not_found"> {
   const { prisma } = await import("@/lib/prisma");
-  const data = {
-    aiStatus: params.status,
-    aiDocType: params.docType,
-    aiConfidence: params.confidence,
-    aiAnalysis: params.analysis as any,
-  };
+  const held = await prisma.holdingDocument.findUnique({ where: { id } });
+  if (!held || held.submissionId !== submissionId) return "not_found";
 
-  const held = await prisma.holdingDocument.findFirst({
-    where: { submissionId: params.submissionId, fileName: params.fileName },
-    orderBy: { uploadedAt: "desc" },
-  });
-  if (held) {
-    await prisma.holdingDocument.update({ where: { id: held.id }, data });
-    return "holding";
+  if (held.driveItemId) {
+    const token = await getAccessToken();
+    await deleteDriveItem(held.driveItemId, token);
   }
-
-  const doc = await prisma.document.findFirst({
-    where: { inquiryId: params.submissionId, fileName: params.fileName },
-    orderBy: { uploadedAt: "desc" },
-  });
-  if (doc) {
-    await prisma.document.update({ where: { id: doc.id }, data });
-    return "document";
-  }
-
-  // Not an error: analysis can legitimately run before the upload row is written, and the
-  // funnel must not fail over bookkeeping. The caller logs it.
-  return "not_found";
+  await prisma.holdingDocument.delete({ where: { id } });
+  return "deleted";
 }

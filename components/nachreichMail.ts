@@ -2,6 +2,7 @@ import { Client } from "@microsoft/microsoft-graph-client";
 import { ClientSecretCredential } from "@azure/identity";
 import "isomorphic-fetch";
 import type { NachreichLocale } from "@/components/nachreichung";
+import { routeMail } from "@/components/testMode";
 
 /**
  * Confirmation sent after a customer uploads through their Nachreich link.
@@ -146,12 +147,14 @@ export async function sendNachreichConfirmation(params: {
 </body>
 </html>`;
 
+  const routed = routeMail(params.to, params.complete ? L.subjectComplete : L.subjectPartial);
+  if (!routed) return;
   const sendAsUser = process.env.SMTP_USER || "info@hypoteq.ch";
   await client.api(`/users/${sendAsUser}/sendMail`).post({
     message: {
-      subject: params.complete ? L.subjectComplete : L.subjectPartial,
+      subject: routed.subject,
       body: { contentType: "HTML", content: html },
-      toRecipients: [{ emailAddress: { address: params.to } }],
+      toRecipients: [{ emailAddress: { address: routed.to } }],
     },
     saveToSentItems: true,
   });

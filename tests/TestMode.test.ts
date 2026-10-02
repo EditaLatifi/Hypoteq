@@ -1,5 +1,5 @@
 import { describe, it, expect, afterEach } from '@jest/globals';
-import { isTestMode, TEST_FOLDER_PREFIX } from '../components/testMode';
+import { isTestMode, routeMail, TEST_FOLDER_PREFIX } from '../components/testMode';
 
 /**
  * The only property that really matters here is the default.
@@ -43,5 +43,40 @@ describe('test folder prefix', () => {
     // SharePoint sorts by name, so a test dossier must not land among real paperwork.
     expect(TEST_FOLDER_PREFIX).toMatch(/^ZZ/);
     expect(TEST_FOLDER_PREFIX.toUpperCase()).toContain('TEST');
+  });
+});
+
+describe('routeMail', () => {
+  const originalInbox = process.env.HYPOTEQ_TEST_MAIL_TO;
+  afterEach(() => {
+    if (originalInbox === undefined) delete process.env.HYPOTEQ_TEST_MAIL_TO;
+    else process.env.HYPOTEQ_TEST_MAIL_TO = originalInbox;
+  });
+
+  it('leaves mail untouched outside test mode, even with a test inbox set', () => {
+    delete process.env.HYPOTEQ_TEST_MODE;
+    process.env.HYPOTEQ_TEST_MAIL_TO = 'qa@example.com';
+    expect(routeMail('kunde@example.com', 'Ihre Anfrage')).toEqual({
+      to: 'kunde@example.com',
+      subject: 'Ihre Anfrage',
+    });
+  });
+
+  it('redirects to the test inbox in test mode and names the real recipient', () => {
+    process.env.HYPOTEQ_TEST_MODE = 'true';
+    process.env.HYPOTEQ_TEST_MAIL_TO = 'qa@example.com';
+    const routed = routeMail('info@hypoteq.ch', 'Neue Anfrage');
+    expect(routed?.to).toBe('qa@example.com');
+    expect(routed?.subject).toContain('[TEST');
+    expect(routed?.subject).toContain('info@hypoteq.ch');
+    expect(routed?.subject).toContain('Neue Anfrage');
+  });
+
+  it('sends nothing in test mode when no valid test inbox is configured', () => {
+    process.env.HYPOTEQ_TEST_MODE = 'true';
+    delete process.env.HYPOTEQ_TEST_MAIL_TO;
+    expect(routeMail('kunde@example.com', 'x')).toBeNull();
+    process.env.HYPOTEQ_TEST_MAIL_TO = 'not-an-address';
+    expect(routeMail('kunde@example.com', 'x')).toBeNull();
   });
 });

@@ -178,6 +178,9 @@ model Document {
   fileName    String
   fileUrl     String
   uploadedAt  DateTime @default(now())
+  /// SharePoint driveItem id. `fileUrl` is a link for people; this is what the server needs
+  /// to read the file back (analysis) or delete it. Null on rows from before it was stored.
+  driveItemId String?
 
   /// Which funnel document this file was supplied for (an i18n key from
   /// funnelDocumentCatalog, e.g. "funnel.salaryStatementBonus"). Null for a loose upload
@@ -222,6 +225,9 @@ model HoldingDocument {
   uploadedAt DateTime @default(now())
   // Optionally, add a session or tempUserId to associate with the user before inquiry is created
   tempUserId String?
+  /// SharePoint driveItem id, so the file can be analysed server-side and deleted when the
+  /// customer removes it before submitting.
+  driveItemId String?
 
   /// The funnel's submission id, which becomes the Inquiry id. Indexed because adoption
   /// queries by it on every submission.

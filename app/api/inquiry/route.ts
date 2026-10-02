@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { isTestMode, skipped } from "@/components/testMode";
+import { isTestMode, routeMail, skipped } from "@/components/testMode";
 import { prisma } from "@/lib/prisma";
 import { Client } from "@microsoft/microsoft-graph-client";
 import { ClientSecretCredential } from "@azure/identity";
@@ -85,45 +85,44 @@ export async function POST(req: Request) {
     const rawLocale = (data.locale || headerLang || 'de').toLowerCase();
     const locale: Locale = (supportedLocales as readonly string[]).includes(rawLocale) ? rawLocale as Locale : 'de';
 
-    // Only send email notification, do not save to database
+    // === SUBMISSION ID ===
+    // The funnel mints it once per submission and files every upload under it, so the
+    // Inquiry is created with the same id and can claim those files. It doubles as the
+    // SharePoint folder name, so a Case can be traced to its folder.
+    //
+    // Validated as a UUID before use: it becomes a primary key, and it arrives from the
+    // browser.
+    const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+    const clientSubmissionId =
+      typeof data.submissionId === 'string' && UUID_RE.test(data.submissionId)
+        ? data.submissionId
+        : null;
+    if (data.submissionId && !clientSubmissionId) {
+      console.warn(`[Inquiry] Ignoring malformed submissionId from the funnel: ${String(data.submissionId).slice(0, 60)}`);
+    }
+    const submissionId = clientSubmissionId || randomUUID();
+    data.submissionId = submissionId;
+
+    // === ALREADY SUBMITTED? ===
+    // A retry after a slow or dropped response must not create a second lead, a second
+    // Case, or send every mail twice. The first request already did all of it.
+    const existing = await prisma.inquiry.findUnique({ where: { id: submissionId }, select: { id: true } });
+    if (existing) {
+      console.log(`ℹ️ Submission ${submissionId} was already saved; not processing it again`);
+      return NextResponse.json({ success: true, inquiryId: existing.id, alreadySubmitted: true });
+    }
+
+    // Internal notification first: if everything after this fails, this mail is still a
+    // copy of the lead.
     try {
-      const now = new Date();
       await sendFunnelNotificationEmail(
         data,
-        {
-          id: data.id || Math.random().toString(36).substring(2, 10), // fallback if no id
-          createdAt: now.toISOString(),
-        },
+        { id: submissionId, createdAt: new Date().toISOString() },
         locale
       );
       console.log("✅ Email notification sent successfully");
     } catch (emailError) {
       console.error("⚠️ Email notification failed (continuing):", emailError);
-      // Don't fail the request if email fails
-    }
-
-    // Store partner email in Salesforce PartnerConsultant__c on first step
-    if (data.customerType === 'partner' && data.client?.email) {
-      try {
-        const { savePartnerConsultantEmailToSalesforce } = await import("@/components/savePartnerConsultantEmailToSalesforce");
-        await savePartnerConsultantEmailToSalesforce(data.client.email);
-        console.log("✅ PartnerConsultant__c updated in Salesforce for:", data.client.email);
-      } catch (err) {
-        console.error("❌ Failed to update PartnerConsultant__c in Salesforce:", err);
-      }
-    }
-
-    // Send auto-response to customer
-    try {
-      if (isTestMode()) {
-        skipped("auto-response mail", data.client?.email);
-      } else if (data.client?.email) {
-        await sendFunnelAutoResponse(data.client.email, data.client.firstName || data.client.vorname || '', locale);
-        console.log("✅ Auto-response sent to customer");
-      }
-    } catch (autoResponseError) {
-      console.error("⚠️ Auto-response failed (continuing):", autoResponseError);
-      // Don't fail the request if auto-response fails
     }
 
     // Mail 2a / 2b is NOT sent here. It used to be, but it carries the Nachreich link
@@ -141,105 +140,16 @@ export async function POST(req: Request) {
     const nachreichToken = needsNachreich ? createNachreichToken() : null;
     const nachreichExpiresAt = needsNachreich ? nachreichExpiry() : null;
 
-    // Submission-ID (spec V2). Decided here rather than left to the database default
-    // because Salesforce is written BEFORE the row exists — without a value up front, the
-    // Case could not carry the id that ties it back to this submission.
-    //
-    // The funnel's own id wins when it sent one. That is what links a submission's uploads
-    // to it: files reach SharePoint before this route ever runs, so they are recorded
-    // against the funnel's id and can only be claimed if the Inquiry is created under the
-    // same one. Minting a fresh id here is what orphaned every upload — 2738 rows with no
-    // inquiry against 27 that had one. It doubles as the SharePoint folder name, so a Case
-    // can be traced to its folder.
-    //
-    // Validated as a UUID before use: it becomes a primary key, and it arrives from the
-    // browser.
-    const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-    const clientSubmissionId =
-      typeof data.submissionId === 'string' && UUID_RE.test(data.submissionId)
-        ? data.submissionId
-        : null;
-    if (data.submissionId && !clientSubmissionId) {
-      console.warn(`[Inquiry] Ignoring malformed submissionId from the funnel: ${String(data.submissionId).slice(0, 60)}`);
-    }
-    const submissionId = clientSubmissionId || randomUUID();
-    data.submissionId = submissionId;
-
-    // Salesforce sync (backend only)
-    let salesforceError: unknown = null;
-    let salesforceCaseId: string | null = null;
-    try {
-      // Ensure LastName is present for Salesforce
-      if (data.client && data.client.lastName) {
-        data.lastName = data.client.lastName;
-      }
-      // Set korrespondenzsprache from request headers if not provided
-      if (!data.korrespondenzsprache) {
-        // Try to get from accept-language header, default to 'Deutsch'
-        const acceptLanguage = req.headers.get('accept-language') || '';
-        const lang = acceptLanguage.substring(0, 2).toLowerCase();
-        // Map to Salesforce picklist values
-        const langMap: Record<string, string> = {
-          'de': 'Deutsch',
-          'fr': 'Französisch',
-          'it': 'Italienisch',
-          'en': 'Englisch'
-        };
-        data.korrespondenzsprache = langMap[lang] || 'Deutsch';
-        console.log(`[Salesforce Sync] Set korrespondenzsprache to: ${data.korrespondenzsprache}`);
-      }
-      // Set stage to 'Needs Analysis' only if both data.stage and data.Stage__c are missing
-      if (!data.stage && !data.Stage__c) {
-        data.stage = 'Needs Analysis'; // Valid Salesforce picklist value
-        console.log('[Salesforce Sync] Set stage to: Needs Analysis');
-      }
-      if (isTestMode()) {
-        // Everything up to here has run — validation, picklist mapping, the completeness
-        // verdict — so the payload is still exercised. Only the write is withheld.
-        skipped("Salesforce sync", `Case would have been created for ${data.client?.email ?? "unknown"}`);
-        throw new SkipInTestMode();
-      }
-      const salesforceApi = (await import("@/components/salesforceApi")).default;
-      const { syncFunnelStepsToSalesforce } = await import("@/components/syncFunnelStepsToSalesforce");
-      await salesforceApi.login();
-      const syncResult = await syncFunnelStepsToSalesforce(data, salesforceApi);
-      salesforceCaseId = (syncResult as any)?.case?.id || (syncResult as any)?.case?.Id || null;
-      console.log("✅ Salesforce sync successful! Case:", salesforceCaseId);
-    } catch (sfError) {
-      // A deliberate skip is not a failure: recording it as one would fill the DB with
-      // salesforceError rows and fire the outage alert on every test submission.
-      if (sfError instanceof SkipInTestMode) {
-        salesforceCaseId = null;
-      } else {
-        salesforceError = sfError;
-        console.error("❌ Salesforce sync failed:", sfError);
-        // Deliberately non-fatal: the lead is still captured in the DB and in the
-        // notification email, so the customer must not see an error. What this branch must
-        // NOT do is stay quiet — a broken sync went unnoticed for six days and cost 11 leads
-        // because the only signal was a console line nobody reads. The alert below is sent
-        // after the DB write so it can name the inquiry to replay.
-      }
-    }
-
     // === SAVE TO DATABASE ===
+    // Before Salesforce, not after: a failure here returns an error and the funnel can retry
+    // cleanly, whereas a Case created first would be duplicated by that retry.
+    let inquiry: { id: string };
     try {
-      // Fix: Clear stale Prisma connection before DB write
-      console.log("🔄 Clearing stale Prisma connection...");
-      await prisma.$disconnect();
-      await new Promise(resolve => setTimeout(resolve, 100));
-      await prisma.$connect();
-      console.log("✅ Prisma reconnected successfully");
-      // Save Inquiry and all related data (without documents)
-      const inquiry = await prisma.inquiry.create({
+      inquiry = await prisma.inquiry.create({
         data: {
           // Same value the Salesforce Case carries as its Submission-ID.
           id: submissionId,
           customerType: data.customerType,
-          salesforceCaseId,
-          salesforceSyncedAt: salesforceError ? null : new Date(),
-          salesforceError: salesforceError
-            ? (salesforceError instanceof Error ? salesforceError.message : String(salesforceError)).slice(0, 2000)
-            : null,
           documentsComplete: documentCompleteness ? documentCompleteness.complete === true : null,
           documentsMissing: documentCompleteness && Array.isArray(documentCompleteness.missing)
             ? documentCompleteness.missing.join(',').slice(0, 4000)
@@ -337,86 +247,148 @@ export async function POST(req: Request) {
           } : undefined,
           // documents removed from inquiry creation
         },
+        select: { id: true },
       });
       console.log("✅ Inquiry and all data saved to DB:", inquiry.id);
-
-      // Mail 2a / 2b — now that the row exists, the Nachreich link in 2b is guaranteed to
-      // resolve. Non-fatal: the lead is captured either way, and a customer who never gets
-      // this mail can still reply to the confirmation one.
-      if (documentCompleteness) {
-        try {
-          if (isTestMode()) {
-            skipped("dossier completeness mail", data.client?.email);
-          } else {
-          await sendDossierCompletenessEmail(data, documentCompleteness, locale, nachreichToken);
-          }
-        } catch (dossierMailError) {
-          console.error("⚠️ Dossier completeness mail failed (continuing):", dossierMailError);
-        }
-      }
-
-      // === CLAIM THIS SUBMISSION'S UPLOADS ===
-      // The files went to SharePoint before this route ran, so they are sitting in
-      // HoldingDocument against the submission id the Inquiry was just created with.
-      //
-      // Non-fatal on purpose: the files are already safe in SharePoint and the lead is
-      // already saved, so a failure here must not turn a good submission into an error.
-      try {
-        const { adoptHoldingDocuments } = await import("@/lib/sharepoint");
-        const adopted = await adoptHoldingDocuments(inquiry.id, submissionId);
-        if (adopted > 0) {
-          console.log(`✅ Linked ${adopted} uploaded document(s) to inquiry ${inquiry.id}`);
-        } else {
-          console.log(`ℹ️ No held uploads for submission ${submissionId}`);
-        }
-      } catch (adoptErr) {
-        console.error("⚠️ Could not link uploaded documents to the inquiry:", adoptErr);
-      }
-
-      // Legacy path: an older client passed tempUserId instead. Kept so an upload made by a
-      // browser still running the previous bundle is not stranded during a deploy.
-      const tempUserId = data.tempUserId || null;
-      if (tempUserId) {
-        const holdingDocs = await prisma.holdingDocument.findMany({
-          where: {
-            email: data.client?.email,
-            tempUserId: tempUserId,
-          },
-        });
-        for (const doc of holdingDocs) {
-          await prisma.document.create({
-            data: {
-              inquiryId: inquiry.id,
-              email: doc.email,
-              fileName: doc.fileName,
-              fileUrl: doc.fileUrl,
-              docType: doc.docType,
-              originalFileName: doc.originalFileName || doc.fileName,
-              uploadedAt: doc.uploadedAt,
-            },
-          });
-          await prisma.holdingDocument.delete({ where: { id: doc.id } });
-        }
-        if (holdingDocs.length > 0) {
-          console.log(`✅ Associated ${holdingDocs.length} holding documents with inquiry ${inquiry.id}`);
-        }
-      }
-
-      if (salesforceError) {
-        await sendSalesforceFailureAlert(inquiry.id, salesforceError);
-      }
-
-      return NextResponse.json({ success: true, inquiryId: inquiry.id, salesforceSynced: !salesforceError });
     } catch (dbErr) {
       console.error("❌ Failed to save inquiry to DB:", dbErr);
-      // Both sinks failed — the notification email is now the only copy of this lead.
-      if (salesforceError) {
-        await sendSalesforceFailureAlert(null, salesforceError);
-      }
-      let errorMsg = 'Failed to save inquiry';
-      if (dbErr instanceof Error) errorMsg = dbErr.message;
+      const errorMsg = dbErr instanceof Error ? dbErr.message : 'Failed to save inquiry';
       return NextResponse.json({ success: false, error: errorMsg }, { status: 500 });
     }
+
+    // === CLAIM THIS SUBMISSION'S UPLOADS ===
+    // Files upload the moment they are picked, so they are waiting in HoldingDocument under
+    // this submission id. The customer's decisions about each file (type, corrections,
+    // mismatch answers) arrive with the submit and are stored beside the AI's analysis.
+    //
+    // Non-fatal on purpose: the files are safe in SharePoint and the lead is saved, so a
+    // failure here must not turn a good submission into an error.
+    try {
+      const { adoptHoldingDocuments } = await import("@/lib/sharepoint");
+      const details = Array.isArray(data.documents) ? data.documents : [];
+      const adopted = await adoptHoldingDocuments(inquiry.id, submissionId, details);
+      console.log(
+        adopted > 0
+          ? `✅ Linked ${adopted} uploaded document(s) to inquiry ${inquiry.id}`
+          : `ℹ️ No held uploads for submission ${submissionId}`
+      );
+    } catch (adoptErr) {
+      console.error("⚠️ Could not link uploaded documents to the inquiry:", adoptErr);
+    }
+
+    // Salesforce sync (backend only)
+    let salesforceError: unknown = null;
+    let salesforceCaseId: string | null = null;
+    try {
+      // Ensure LastName is present for Salesforce
+      if (data.client && data.client.lastName) {
+        data.lastName = data.client.lastName;
+      }
+      // Set korrespondenzsprache from request headers if not provided
+      if (!data.korrespondenzsprache) {
+        // Try to get from accept-language header, default to 'Deutsch'
+        const acceptLanguage = req.headers.get('accept-language') || '';
+        const lang = acceptLanguage.substring(0, 2).toLowerCase();
+        // Map to Salesforce picklist values
+        const langMap: Record<string, string> = {
+          'de': 'Deutsch',
+          'fr': 'Französisch',
+          'it': 'Italienisch',
+          'en': 'Englisch'
+        };
+        data.korrespondenzsprache = langMap[lang] || 'Deutsch';
+        console.log(`[Salesforce Sync] Set korrespondenzsprache to: ${data.korrespondenzsprache}`);
+      }
+      // Set stage to 'Needs Analysis' only if both data.stage and data.Stage__c are missing
+      if (!data.stage && !data.Stage__c) {
+        data.stage = 'Needs Analysis'; // Valid Salesforce picklist value
+        console.log('[Salesforce Sync] Set stage to: Needs Analysis');
+      }
+      if (isTestMode()) {
+        // Everything up to here has run — validation, picklist mapping, the completeness
+        // verdict — so the payload is still exercised. Only the write is withheld.
+        skipped("Salesforce sync", `Case would have been created for ${data.client?.email ?? "unknown"}`);
+        throw new SkipInTestMode();
+      }
+      const salesforceApi = (await import("@/components/salesforceApi")).default;
+      const { syncFunnelStepsToSalesforce } = await import("@/components/syncFunnelStepsToSalesforce");
+      await salesforceApi.login();
+      const syncResult = await syncFunnelStepsToSalesforce(data, salesforceApi);
+      salesforceCaseId = (syncResult as any)?.case?.id || (syncResult as any)?.case?.Id || null;
+      console.log("✅ Salesforce sync successful! Case:", salesforceCaseId);
+    } catch (sfError) {
+      // A deliberate skip is not a failure: recording it as one would fill the DB with
+      // salesforceError rows and fire the outage alert on every test submission.
+      if (sfError instanceof SkipInTestMode) {
+        salesforceCaseId = null;
+      } else {
+        salesforceError = sfError;
+        console.error("❌ Salesforce sync failed:", sfError);
+        // Deliberately non-fatal: the lead is still captured in the DB and in the
+        // notification email, so the customer must not see an error. What this branch must
+        // NOT do is stay quiet — a broken sync went unnoticed for six days and cost 11 leads
+        // because the only signal was a console line nobody reads. The alert below is sent
+        // after the DB write so it can name the inquiry to replay.
+      }
+    }
+
+    // Record how the sync went. A test-mode skip is stamped as synced so the replay tool
+    // never pushes a test submission into the real org.
+    try {
+      await prisma.inquiry.update({
+        where: { id: inquiry.id },
+        data: {
+          salesforceCaseId,
+          salesforceSyncedAt: salesforceError ? null : new Date(),
+          salesforceError: salesforceError
+            ? (salesforceError instanceof Error ? salesforceError.message : String(salesforceError)).slice(0, 2000)
+            : isTestMode() ? 'test mode: Salesforce sync skipped' : null,
+        },
+      });
+    } catch (updateErr) {
+      console.error("⚠️ Could not record the Salesforce result on the inquiry:", updateErr);
+    }
+
+    // Store partner email in Salesforce PartnerConsultant__c
+    if (data.customerType === 'partner' && data.client?.email) {
+      if (isTestMode()) {
+        skipped("partner contact in Salesforce", data.client.email);
+      } else {
+        try {
+          const { savePartnerConsultantEmailToSalesforce } = await import("@/components/savePartnerConsultantEmailToSalesforce");
+          await savePartnerConsultantEmailToSalesforce(data.client.email);
+          console.log("✅ PartnerConsultant__c updated in Salesforce for:", data.client.email);
+        } catch (err) {
+          console.error("❌ Failed to update PartnerConsultant__c in Salesforce:", err);
+        }
+      }
+    }
+
+    // Auto-response to the customer
+    try {
+      if (data.client?.email) {
+        await sendFunnelAutoResponse(data.client.email, data.client.firstName || data.client.vorname || '', locale);
+        console.log("✅ Auto-response sent to customer");
+      }
+    } catch (autoResponseError) {
+      console.error("⚠️ Auto-response failed (continuing):", autoResponseError);
+    }
+
+    // Mail 2a / 2b — now that the row exists, the Nachreich link in 2b is guaranteed to
+    // resolve. Non-fatal: the lead is captured either way.
+    if (documentCompleteness) {
+      try {
+        await sendDossierCompletenessEmail(data, documentCompleteness, locale, nachreichToken);
+      } catch (dossierMailError) {
+        console.error("⚠️ Dossier completeness mail failed (continuing):", dossierMailError);
+      }
+    }
+
+    if (salesforceError) {
+      await sendSalesforceFailureAlert(inquiry.id, salesforceError);
+    }
+
+    return NextResponse.json({ success: true, inquiryId: inquiry.id, salesforceSynced: !salesforceError });
   } catch (err: unknown) {
     // Type assertion to ensure 'err' is treated as an Error
     if (err instanceof Error) {
@@ -668,12 +640,14 @@ async function sendDossierCompletenessEmail(
 </body>
 </html>`;
 
+  const routed = routeMail(to, complete ? L.subjectComplete : L.subjectIncomplete);
+  if (!routed) return;
   const sendAsUser = process.env.SMTP_USER || 'info@hypoteq.ch';
   await client.api(`/users/${sendAsUser}/sendMail`).post({
     message: {
-      subject: complete ? L.subjectComplete : L.subjectIncomplete,
+      subject: routed.subject,
       body: { contentType: 'HTML', content: html },
-      toRecipients: [{ emailAddress: { address: to } }],
+      toRecipients: [{ emailAddress: { address: routed.to } }],
     },
     saveToSentItems: true,
   });
@@ -804,9 +778,11 @@ async function sendFunnelNotificationEmail(data: any, saved: any, locale: EmailL
     ? `${L.subject} (${customerTag}) - ${subjectName}`
     : `${L.subject} (${customerTag}) - ID: ${saved.id}`;
 
+  const routed = routeMail("info@hypoteq.ch", subject);
+  if (!routed) return;
   const sendMail = {
     message: {
-      subject: subject,
+      subject: routed.subject,
       body: {
         contentType: "HTML",
         content: emailHTML,
@@ -814,7 +790,7 @@ async function sendFunnelNotificationEmail(data: any, saved: any, locale: EmailL
       toRecipients: [
         {
           emailAddress: {
-            address: "info@hypoteq.ch",
+            address: routed.to,
           },
         },
       ],
@@ -1729,7 +1705,10 @@ async function sendFunnelAutoResponse(customerEmail: string, firstName: string, 
                      process.env.GRAPH_CLIENT_SECRET;
 
     const autoResponseHTML = generateFunnelAutoResponseHTML(firstName, locale);
-    const subject = AUTO_RESPONSE_SUBJECT[locale];
+    const routed = routeMail(customerEmail, AUTO_RESPONSE_SUBJECT[locale]);
+    if (!routed) return;
+    const subject = routed.subject;
+    customerEmail = routed.to;
 
     if (useGraph) {
       const credential = new ClientSecretCredential(

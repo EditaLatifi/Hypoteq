@@ -5,6 +5,12 @@
     "app/api/document-intelligence/analyse/route.ts": {
       "maxDuration": 60
     },
+    "app/api/inquiry/route.ts": {
+      "maxDuration": 60
+    },
+    "app/api/upload-doc/start/route.ts": {
+      "maxDuration": 60
+    },
     "app/api/**/*.ts": {
       "maxDuration": 30
     }

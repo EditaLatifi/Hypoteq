@@ -33,16 +33,41 @@ const FUNNEL_LANG_TO_SF: Record<string, string> = {
 };
 
 
+// Uploads still running, by local file id. Module level rather than component state: the
+// step remounts whenever the case changes (its key is the whole form), and an upload started
+// before that must still be awaited by the submit after it.
+const inflightUploads = new Map<string, Promise<boolean>>();
+// Files the customer removed while their upload was still running. When such an upload
+// finishes, the file is deleted again instead of being kept.
+const removedWhileUploading = new Set<string>();
+// The outcome of each upload, by local file id. The submit reads this rather than React state
+// alone, because an upload that finishes while the submit waits for it has not re-rendered yet.
+const uploadResults = new Map<
+  string,
+  { uploadState: "uploaded" | "failed"; documentId?: string; sharepointUrl?: string | null }
+>();
+
 function DocumentsStep({ borrowers, docs, setDocs, addDocument, saveStep, back }: any) {
   // Remove loading state, only use showPopup
   const [showPopup, setShowPopup] = useState(false);
   // Set to true only after upload + save have actually succeeded.
   // The loading popup uses this to know it's safe to animate to 100% and redirect.
   const [submitDone, setSubmitDone] = useState(false);
-  // Track upload status per document: 'idle' | 'uploading' | 'uploaded' | 'failed'
-  const [uploadStatus, setUploadStatus] = useState<Record<string, string>>({});
+  // Upload state per file: 'uploading' | 'uploaded' | 'failed'. Kept on the file entries
+  // themselves (which live in the page, not here) so it survives this step remounting.
+  const uploadStatus: Record<string, string> = Object.fromEntries(
+    (docs ?? []).filter((d: any) => d.uploadState).map((d: any) => [d.id, d.uploadState])
+  );
 const { t } = useTranslation();
-const { project, email, property, financing, setFinancing } = useFunnelStore();
+const {
+  project,
+  email,
+  property,
+  financing,
+  setFinancing,
+  submissionId,
+  setSharepointFolderId,
+} = useFunnelStore();
 
 // Robustly extract language from URL (e.g. /de/funnel, /fr/funnel, etc.)
 let langFromUrl = "de"; // fallback default
@@ -67,24 +92,11 @@ if (typeof window !== "undefined") {
   console.log("🗣️ korrespondenzspracheValue for Salesforce:", korrespondenzspracheValue);
 }
 const [isDragging, setIsDragging] = useState(false);
-const [currentFolderId, setCurrentFolderId] = useState<string | null>(null);
-
-// Stable submission ID for the whole step. Must NOT be regenerated on every
-// render (a fresh uuid each render changes the SharePoint folder key and can
-// scatter one submission's documents across multiple folders). Prefer the real
-// project.id once it exists, otherwise keep the id generated on first mount.
-const submissionIdRef = useRef<string>(project?.id || uuidv4());
-if (project?.id && submissionIdRef.current !== project.id) {
-  submissionIdRef.current = project.id;
-}
-const submissionId = submissionIdRef.current;
-console.log("🆔 Submission ID:", submissionId, "project.id:", project?.id);
-
-// Reset folderId when the submission ID changes (a genuinely new submission).
-useEffect(() => {
-  setCurrentFolderId(null);
-  console.log("🔄 New submission detected, folder ID reset. Submission ID:", submissionId);
-}, [submissionId]);
+// The submission id and its SharePoint folder live in the store: every upload is filed
+// under them the moment a file is picked, and they must not change when this step remounts.
+// The folder is read straight from the store inside upload callbacks, because several files
+// upload at once and the first one to finish is the one that learns it.
+const folderIdNow = () => useFunnelStore.getState().sharepointFolderId;
 
 // What the AI made of each picked file, keyed by the doc's local id.
 //
@@ -268,17 +280,15 @@ const CHUNK_TIMEOUT_MS = 120_000;
 
 async function uploadDocToSharepoint(
   file: File,
-  inquiryId: string,
+  submissionId: string,
   email: string,
   folderId: string | null = null,
-  // Which requirement this file answers. Sent to finalize so the stored row says what the
-  // file IS, not merely that a file arrived — the Dok_*__c booleans cannot express it (ten
-  // of them cover forty documents) and nothing else records it.
-  docType: string | null = null,
-  // Result of the analysis run when the file was picked; stored with the upload row so the
-  // audit trail (section 36) is written in the same request that creates the record.
-  analysis: any = null
-) {
+  // Which requirement this file answers, so the stored row says what the file IS.
+  docType: string | null = null
+): Promise<
+  | { success: true; documentId: string; webUrl: string | null; folderId: string | null }
+  | { success?: false; error: string }
+> {
   try {
     const startRes = await fetch("/api/upload-doc/start", {
       method: "POST",
@@ -287,11 +297,11 @@ async function uploadDocToSharepoint(
         fileName: file.name,
         fileSize: file.size,
         email,
-        inquiryId,
+        inquiryId: submissionId,
         folderId,
       }),
     });
-    const startJson = await startRes.json();
+    const startJson = await startRes.json().catch(() => null);
     if (!startRes.ok || !startJson?.uploadUrl) {
       return { error: startJson?.details || startJson?.error || "Failed to start upload" };
     }
@@ -332,62 +342,47 @@ async function uploadDocToSharepoint(
         continue;
       }
       if (chunkRes.status === 200 || chunkRes.status === 201) {
-        try {
-          driveItem = await chunkRes.json();
-        } catch {
-          driveItem = null;
-        }
+        driveItem = await chunkRes.json().catch(() => null);
         offset = end;
         break;
       }
 
-      let errBody: any = null;
-      try {
-        errBody = await chunkRes.json();
-      } catch {
-        errBody = null;
-      }
+      const errBody = await chunkRes.json().catch(() => null);
       return {
-        error:
-          errBody?.error?.message ||
-          `Chunk upload failed: HTTP ${chunkRes.status}`,
+        error: errBody?.error?.message || `Chunk upload failed: HTTP ${chunkRes.status}`,
       };
     }
 
-    if (!driveItem) {
-      return { error: "Upload completed without a final response from Graph" };
+    if (!driveItem?.id) {
+      return { error: "Upload completed without a final response from SharePoint" };
     }
 
+    // The server reads the file's name, size and link back from SharePoint itself and
+    // answers with the row id everything after this refers to.
     const finalizeRes = await fetch("/api/upload-doc/finalize", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        fileName: file.name,
+        driveItemId: driveItem.id,
+        folderId: resolvedFolderId,
         originalFileName: file.name,
         email,
-        inquiryId,
-        // The Inquiry does not exist yet on a first submission, so the row is held against
-        // this id and claimed once /api/inquiry creates the Inquiry under it.
-        submissionId: inquiryId,
+        submissionId,
         docType,
-        analysis,
-        driveItem,
       }),
     });
-    const finalizeJson = await finalizeRes.json();
-    if (!finalizeRes.ok || !finalizeJson?.success) {
+    const finalizeJson = await finalizeRes.json().catch(() => null);
+    if (!finalizeRes.ok || !finalizeJson?.success || !finalizeJson?.documentId) {
       return {
-        error:
-          finalizeJson?.details ||
-          finalizeJson?.error ||
-          "Failed to finalize upload",
+        error: finalizeJson?.details || finalizeJson?.error || "Failed to finalize upload",
       };
     }
 
     return {
       success: true,
-      data: driveItem,
-      folderId: resolvedFolderId,
+      documentId: finalizeJson.documentId,
+      webUrl: finalizeJson.webUrl ?? null,
+      folderId: resolvedFolderId ?? null,
     };
   } catch (err: any) {
     return { error: err?.message || "Network error" };
@@ -460,29 +455,127 @@ useEffect(() => {
   JSON.stringify(financing)
 ]);
 
-const handleUpload = async (e: any) => {
-  const files = e.target.files;
-  if (!files || files.length === 0) return;
+// Update one file entry. The entries live in the page, so this is the only way to record
+// progress that has to outlive a remount of this step.
+const patchDoc = (docId: string, patch: Record<string, any>) =>
+  setDocs((prev: any[]) => prev.map((d: any) => (d.id === docId ? { ...d, ...patch } : d)));
 
-  console.log("� Adding", files.length, "file(s) to local list (not uploading yet)");
+const visibleKeysNow = () => selectedDocuments.flatMap((s: any) => s.items);
 
-  // Store files locally without uploading
-  for (const file of files) {
-    const newDoc = {
-      id: uuidv4(),
-      name: file.name,
-      size: file.size,
-      file,
-      docType: null, // loose upload — counts as an extra, not as a required document
-      sharepointUrl: null, // Will be set after actual upload
-      uploaded: false, // Track upload status
-    };
+// The newest file list. `docs` in a closure is that render's copy, which does not yet include
+// uploads that finished while the submit was waiting for them.
+const docsRef = useRef<any[]>(docs ?? []);
+docsRef.current = docs ?? [];
 
-    setDocs((prev: any[]) => [...prev, newDoc]);
-    void analyseFile(newDoc.id, file, null);
+// Take a file back: from SharePoint and the database if it got there.
+// Best effort — a file that cannot be deleted is still left out of the dossier's checklist,
+// and it is only an extra copy in the submission's own folder.
+const discardRemote = async (doc: any) => {
+  if (!doc?.documentId) {
+    if (inflightUploads.has(doc?.id)) removedWhileUploading.add(doc.id);
+    return;
   }
+  try {
+    await fetch(
+      `/api/upload-doc/${encodeURIComponent(doc.documentId)}?submissionId=${encodeURIComponent(submissionId)}`,
+      { method: "DELETE" }
+    );
+  } catch (err) {
+    console.warn("Could not remove the uploaded file:", err);
+  }
+};
 
-  console.log("✅ Files added to local list. Upload will happen when Weiter is clicked.");
+/**
+ * Upload one file straight away, then have it analysed.
+ *
+ * Files go to SharePoint the moment they are picked rather than all at once on submit: the
+ * customer sees each one land while still on the page, a failure shows on that file instead
+ * of aborting the whole submit, and the AI reads the file back from SharePoint, so it crosses
+ * the customer's connection exactly once.
+ *
+ * Resolves true when the upload succeeded. The analysis is not awaited.
+ */
+const processFile = (doc: any, expectedDocKey: string | null): Promise<boolean> => {
+  const run = (async () => {
+    patchDoc(doc.id, { uploadState: "uploading", uploadError: null });
+    const res = await uploadDocToSharepoint(
+      doc.file,
+      submissionId,
+      email ?? "",
+      folderIdNow(),
+      expectedDocKey
+    );
+
+    if (!res.success) {
+      const message = "error" in res ? res.error : "Upload failed";
+      console.error("❌ Upload failed for", doc.name, ":", message);
+      uploadResults.set(doc.id, { uploadState: "failed" });
+      patchDoc(doc.id, { uploadState: "failed", uploadError: message });
+      return false;
+    }
+    if (res.folderId && !folderIdNow()) setSharepointFolderId(res.folderId);
+
+    // Removed while it was still uploading: delete it again rather than keep it.
+    if (removedWhileUploading.has(doc.id)) {
+      removedWhileUploading.delete(doc.id);
+      await discardRemote({ ...doc, documentId: res.documentId });
+      return false;
+    }
+
+    uploadResults.set(doc.id, {
+      uploadState: "uploaded",
+      documentId: res.documentId,
+      sharepointUrl: res.webUrl,
+    });
+    patchDoc(doc.id, {
+      uploadState: "uploaded",
+      uploaded: true,
+      documentId: res.documentId,
+      sharepointUrl: res.webUrl,
+    });
+    addDocument({
+      id: doc.id,
+      name: doc.name,
+      size: doc.size,
+      docType: expectedDocKey,
+      documentId: res.documentId,
+      sharepointUrl: res.webUrl,
+      uploaded: true,
+    });
+
+    void analyseFile(doc.id, res.documentId, expectedDocKey);
+    return true;
+  })();
+
+  inflightUploads.set(doc.id, run);
+  run.finally(() => {
+    if (inflightUploads.get(doc.id) === run) inflightUploads.delete(doc.id);
+  });
+  return run;
+};
+
+const addFiles = (files: File[], docType: string | null) => {
+  const added = files.map((file) => ({
+    id: uuidv4(),
+    name: file.name,
+    size: file.size,
+    file,
+    // null for a loose upload — counts as an extra, not as a required document
+    docType,
+    sharepointUrl: null,
+    uploaded: false,
+    uploadState: "uploading",
+  }));
+  setDocs((prev: any[]) => [...prev, ...added]);
+  for (const d of added) void processFile(d, docType);
+  return added;
+};
+
+const handleUpload = async (e: any) => {
+  const files: File[] = Array.from(e.target.files ?? []);
+  if (files.length === 0) return;
+  addFiles(files, null);
+  e.target.value = "";
 };
 
 const handleDragOver = (e: React.DragEvent) => {
@@ -498,148 +591,88 @@ const handleDragLeave = (e: React.DragEvent) => {
 const handleDrop = async (e: React.DragEvent) => {
   e.preventDefault();
   setIsDragging(false);
-  
   const files = Array.from(e.dataTransfer.files);
-  if (!files || files.length === 0) return;
+  if (files.length === 0) return;
+  addFiles(files, null);
+};
 
-  console.log("� Adding", files.length, "dragged file(s) to local list (not uploading yet)");
-
-  // Store files locally without uploading
-  for (const file of files) {
-    const newDoc = {
-      id: uuidv4(),
-      name: file.name,
-      size: file.size,
-      file,
-      docType: null, // loose upload — counts as an extra, not as a required document
-      sharepointUrl: null, // Will be set after actual upload
-      uploaded: false, // Track upload status
-    };
-
-    setDocs((prev: any[]) => [...prev, newDoc]);
-    void analyseFile(newDoc.id, file, null);
-  }
-
-  console.log("✅ Files added to local list. Upload will happen when Weiter is clicked.");
+const forgetAnalysis = (docId: string) => {
+  const drop = (prev: Record<string, any>) => {
+    if (!(docId in prev)) return prev;
+    const next = { ...prev };
+    delete next[docId];
+    return next;
+  };
+  setAnalyses(drop);
+  setMismatches(drop);
+  setDecisions(drop);
+  setEdits(drop);
 };
 
 const removeUploadedFile = (docId: string) => {
+  const doc = docsRef.current.find((d: any) => d.id === docId);
   setDocs((prev: any[]) => prev.filter((d: any) => d.id !== docId));
+  forgetAnalysis(docId);
+  if (doc) void discardRemote(doc);
 };
 
-// Upload all files to SharePoint when Weiter button is clicked.
-// Throws on the first failure so the caller can show one clean error and
-// keep the popup in a consistent state.
-//
-// Returns the SharePoint folder the files went into. The caller needs the value
-// immediately to put it in the submit payload, and `currentFolderId` is React state —
-// it is still the pre-update value on this tick, so reading the state here would send
-// null for every first-time submission.
-const uploadAllFilesToSharePoint = async (): Promise<string | null> => {
-  const filesToUpload = docs.filter((doc: any) => doc.file && !doc.uploaded);
+/**
+ * Before submitting: wait for uploads still running, and give failed ones one more try.
+ *
+ * Throws when a file still cannot be uploaded, so the customer is told which one instead of
+ * the dossier silently arriving without it.
+ */
+// The file list with every finished upload's outcome applied, whether or not it has
+// re-rendered yet.
+const docsWithResults = () =>
+  docsRef.current.map((d: any) => ({ ...d, ...(uploadResults.get(d.id) ?? {}) }));
 
-  if (filesToUpload.length === 0) {
-    console.log("ℹ️ No files to upload");
-    return currentFolderId;
+const settleUploads = async () => {
+  await Promise.allSettled(Array.from(inflightUploads.values()));
+  const failed = docsWithResults().filter((d: any) => d.file && d.uploadState !== "uploaded");
+  for (const doc of failed) {
+    const ok = await processFile(doc, doc.docType ?? null);
+    if (!ok) throw new Error(doc.name);
   }
-
-  console.log("📤 Uploading", filesToUpload.length, "file(s) to SharePoint");
-  let uploadFolderId = currentFolderId;
-
-  for (const doc of filesToUpload) {
-    console.log("⬆️ Uploading file:", doc.name, "with folder ID:", uploadFolderId);
-
-    // Set status to uploading
-    setUploadStatus((prev) => ({ ...prev, [doc.id]: 'uploading' }));
-
-    const uploadRes = await uploadDocToSharepoint(
-      doc.file,
-      submissionId,
-      email ?? "no-email",
-      uploadFolderId,
-      doc.docType ?? null,
-      analyses[doc.id]
-        ? {
-            ...analyses[doc.id],
-            humanReview: decisions[doc.id] ?? [],
-            // Section 13 corrections, kept beside the extraction rather than overwriting it.
-            humanEdits: edits[doc.id] ?? {},
-          }
-        : null
-    );
-
-    console.log("📦 Upload response for", doc.name, ":", uploadRes);
-
-    if (uploadRes?.error || !uploadRes?.success) {
-      console.error("❌ Upload failed for", doc.name, ":", uploadRes?.error);
-      // Set status to failed
-      setUploadStatus((prev) => ({ ...prev, [doc.id]: 'failed' }));
-      throw new Error(`Upload failed for ${doc.name}: ${uploadRes?.error || "unknown"}`);
-    }
-
-    // Store folderId from first upload to reuse for subsequent uploads
-    if (!uploadFolderId && uploadRes?.folderId) {
-      uploadFolderId = uploadRes.folderId;
-      setCurrentFolderId(uploadFolderId);
-      console.log("📁 Folder created, ID stored:", uploadFolderId);
-    }
-
-    // Update the document with SharePoint URL and mark as uploaded
-    setDocs((prev: any[]) =>
-      prev.map((d: any) =>
-        d.id === doc.id
-          ? { ...d, sharepointUrl: uploadRes?.data?.webUrl ?? null, uploaded: true }
-          : d
-      )
-    );
-
-    // Update in store as well
-    addDocument({
-      ...doc,
-      sharepointUrl: uploadRes?.data?.webUrl ?? null,
-      uploaded: true
-    });
-
-    // Set status to uploaded
-    setUploadStatus((prev) => ({ ...prev, [doc.id]: 'uploaded' }));
-  }
-
-  console.log("✅ All files uploaded successfully");
-  return uploadFolderId;
 };
 
-
-  // Send a picked file for classification and extraction.
+  // Have the AI look at a file that has been uploaded.
   //
   // Failure is deliberately quiet: section 38 requires an AI outage to cost classification
   // and nothing else, so the file stays attached and the customer carries on exactly as
   // they did before this feature existed.
-  const analyseFile = async (docId: string, file: File, expectedDocKey: string | null) => {
+  //
+  // `reuse` asks for the analysis already stored with the file, for a step that remounted
+  // and lost what it had shown.
+  const analyseFile = async (
+    docId: string,
+    documentId: string,
+    expectedDocKey: string | null,
+    reuse = false
+  ) => {
     if (docAiOffRef.current) return;
     setAnalysing((prev) => ({ ...prev, [docId]: true }));
     try {
-      const form = new FormData();
-      form.append("file", file);
-      form.append("visibleDocKeys", JSON.stringify(selectedDocuments.flatMap((s: any) => s.items)));
-      if (expectedDocKey) form.append("expectedDocKey", expectedDocKey);
-      form.append(
-        "borrowers",
-        JSON.stringify(
-          (borrowers ?? []).map((b: any, i: number) => ({
+      const res = await fetch("/api/document-intelligence/analyse", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          documentId,
+          submissionId,
+          reuse,
+          visibleDocKeys: visibleKeysNow(),
+          expectedDocKey,
+          borrowers: (borrowers ?? []).map((b: any, i: number) => ({
             id: b.id || `borrower_${String(i + 1).padStart(2, "0")}`,
             name: [b.firstName || b.vorname, b.lastName || b.name].filter(Boolean).join(" "),
-          }))
-        )
-      );
-
-      const res = await fetch("/api/document-intelligence/analyse", { method: "POST", body: form });
-      const json = await res.json();
+          })),
+        }),
+      });
+      const json = await res.json().catch(() => null);
 
       // Switched off on this deployment, which is not the same as having tried and failed.
       // Nothing is recorded against the file: the "please tell us what this is" picker
-      // belongs to a document the AI could not place, and showing it here would hand the
-      // customer work to compensate for a feature that never ran. The step behaves exactly
-      // as it did before this feature existed.
+      // belongs to a document the AI could not place.
       if (json?.disabled) {
         docAiOffRef.current = true;
         return;
@@ -664,10 +697,12 @@ const uploadAllFilesToSharePoint = async (): Promise<string | null> => {
       // turned out to be. Only when the requirement is one this case was actually shown —
       // otherwise it would satisfy something the customer was never asked for.
       if (!expectedDocKey && analysis.funnelDocKey) {
-        const visible = new Set(selectedDocuments.flatMap((sec: any) => sec.items));
+        const visible = new Set(visibleKeysNow());
         if (visible.has(analysis.funnelDocKey)) {
           setDocs((prev: any[]) =>
-            prev.map((d: any) => (d.id === docId ? { ...d, docType: analysis.funnelDocKey } : d))
+            prev.map((d: any) =>
+              d.id === docId && !d.docType ? { ...d, docType: analysis.funnelDocKey } : d
+            )
           );
         }
       }
@@ -677,6 +712,18 @@ const uploadAllFilesToSharePoint = async (): Promise<string | null> => {
       setAnalysing((prev) => ({ ...prev, [docId]: false }));
     }
   };
+
+  // After a remount the analyses shown before are gone from this step's state, but they are
+  // stored with each file. Fetch them back rather than showing those files as unanalysed.
+  useEffect(() => {
+    for (const d of docsRef.current) {
+      if (d.documentId && !analyses[d.id]) {
+        void analyseFile(d.id, d.documentId, d.docType ?? null, true);
+      }
+    }
+    // Once per mount: later files are analysed by their own upload.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Section 21: the file could not be placed, so the customer says what it is. The document
   // is never dropped over this — an unrecognised upload still counts, it just carries no
@@ -1112,44 +1159,68 @@ const uploadAllFilesToSharePoint = async (): Promise<string | null> => {
   // green-check the whole list having uploaded nothing, and no upload was ever associated
   // with the document it was meant to satisfy.
   const handleDocTypeUpload = (e: React.ChangeEvent<HTMLInputElement>, docType: string) => {
-    const files = e.target.files;
-    if (!files || files.length === 0) return;
-
-    const added = Array.from(files).map((file) => ({
-      id: uuidv4(),
-      name: file.name,
-      size: file.size,
-      file,
-      docType,
-      sharepointUrl: null,
-      uploaded: false,
-    }));
+    const files = Array.from(e.target.files ?? []);
+    e.target.value = "";
+    if (files.length === 0) return;
 
     // Re-picking for the same document replaces what was there, so the tile always
-    // reflects the current selection rather than accumulating stale entries.
-    setDocs((prev: any[]) => [
-      ...prev.filter((d: any) => !(d.docType === docType && !d.uploaded)),
-      ...added,
-    ]);
-    e.target.value = "";
-
-    for (const d of added) void analyseFile(d.id, d.file, docType);
+    // reflects the current selection — in SharePoint too, where the replaced files are
+    // removed rather than left behind as extra copies.
+    const replaced = docsRef.current.filter((d: any) => d.docType === docType);
+    if (replaced.length) {
+      setDocs((prev: any[]) => prev.filter((d: any) => d.docType !== docType));
+      for (const d of replaced) {
+        forgetAnalysis(d.id);
+        void discardRemote(d);
+      }
+    }
+    addFiles(files, docType);
   };
 
   const performSubmit = async () => {
     setShowPopup(true);
     setSubmitDone(false);
-    // Reset upload status for a fresh attempt
-    setUploadStatus({});
     try {
-      const uploadedFolderId = await uploadAllFilesToSharePoint();
+      // Files upload as they are picked; this only waits for any still running and
+      // retries the ones that failed.
+      try {
+        await settleUploads();
+      } catch (uploadErr) {
+        throw new Error(`${(uploadErr as Error).message}: ${t("funnel.uploadError" as any)}`);
+      }
+      const currentDocs = docsWithResults();
+
       // Completeness is decided here because only the client knows which document
       // sections were actually rendered for this case type. The server re-checks nothing;
       // it just records the verdict and picks the confirmation mail.
+      //
+      // A file the AI identified as the wrong document does not satisfy the requirement
+      // it was uploaded against.
       const visibleDocKeys = selectedDocuments.flatMap((sec: any) => sec.items);
-      const providedDocKeys = docs
-        .filter((d: any) => d.file && d.docType)
+      const providedDocKeys = currentDocs
+        .filter((d: any) => d.documentId && d.docType && analyses[d.id]?.status !== "rejected")
         .map((d: any) => d.docType);
+
+      // What the customer decided about each file. The AI's own analysis is already stored
+      // with the file; this is the human half, saved beside it when the Inquiry claims it.
+      const documents = currentDocs
+        .filter((d: any) => d.documentId)
+        .map((d: any) => {
+          const a = analyses[d.id];
+          return {
+            documentId: d.documentId,
+            docType: d.docType ?? null,
+            humanReview: decisions[d.id] ?? [],
+            humanEdits: edits[d.id] ?? {},
+            manualClassification:
+              a?.classifiedBy === "human" && a?.classification?.type
+                ? { type: a.classification.type, label: a.classification.label }
+                : null,
+            personId: a?.person?.assignedBy === "human" ? a.person.borrowerId : null,
+            confirmedByHuman: a?.confirmedByHuman === true,
+          };
+        });
+
       const completeness = computeDocumentCompleteness(visibleDocKeys, providedDocKeys);
       console.log("📋 Document completeness:", completeness);
 
@@ -1159,7 +1230,8 @@ const uploadAllFilesToSharePoint = async (): Promise<string | null> => {
         financing,
         email,
         borrowers,
-        docs,
+        docs: currentDocs.map(({ file, ...rest }: any) => rest),
+        documents,
         documentCompleteness: completeness,
         // Values the customer took from a document. Applied last by saveStep6, after the
         // parent writes its own financing copy, or they would be silently reverted.
@@ -1171,7 +1243,7 @@ const uploadAllFilesToSharePoint = async (): Promise<string | null> => {
         // Where this submission's files went. Persisted so documents supplied later
         // through the Nachreich link land in the same folder — the folder name embeds
         // the upload date, so it cannot be re-derived on a later day.
-        sharepointFolderId: uploadedFolderId,
+        sharepointFolderId: folderIdNow(),
         korrespondenzsprache: korrespondenzspracheValue,
         stage: "Needs Analysis"
       };
@@ -1206,16 +1278,6 @@ const uploadAllFilesToSharePoint = async (): Promise<string | null> => {
       console.error("❌ Submission failed:", e);
       setShowPopup(false);
       setSubmitDone(false);
-      // Clear uploading status on error to allow retry
-      setUploadStatus((prev) => {
-        const updated = { ...prev };
-        Object.keys(updated).forEach((key) => {
-          if (updated[key] === 'uploading') {
-            delete updated[key];
-          }
-        });
-        return updated;
-      });
       alert(t("funnel.uploadError" as any) + "\n\n" + (e as Error)?.message);
     }
   };
@@ -1734,7 +1796,14 @@ return (
                 const saved = filesForDoc.length > 0;
 
                 // Get upload status for this document type
-                const docUploadStatus = filesForDoc.length > 0 ? uploadStatus[filesForDoc[0]?.id] : undefined;
+                const tileStates = filesForDoc.map((f: any) => uploadStatus[f.id]);
+                const docUploadStatus = tileStates.includes("failed")
+                  ? "failed"
+                  : tileStates.includes("uploading")
+                    ? "uploading"
+                    : tileStates.length > 0 && tileStates.every((x: any) => x === "uploaded")
+                      ? "uploaded"
+                      : undefined;
                 const isUploading = docUploadStatus === 'uploading';
                 const isUploadedSuccessfully = docUploadStatus === 'uploaded';
                 const isUploadFailed = docUploadStatus === 'failed';

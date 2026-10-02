@@ -39,7 +39,12 @@ const DEFAULT_MODEL = "gpt-5.5";
  * is the whole point: a timeout we raise ourselves becomes a document the customer can
  * classify by hand, while one the platform raises is a dead request with no answer in it.
  */
-const TIMEOUT_MS = Number(process.env.DOCAI_TIMEOUT_MS ?? 45_000);
+// Parsed defensively: `.env.example` leaves the variable blank, and Number("") is 0, which
+// would make every request time out instantly.
+const TIMEOUT_MS = (() => {
+  const raw = Number((process.env.DOCAI_TIMEOUT_MS ?? "").trim());
+  return Number.isFinite(raw) && raw > 0 ? Math.min(raw, 45_000) : 45_000;
+})();
 
 function client(): OpenAI {
   const apiKey = process.env.OPENAI_API_KEY;
@@ -48,9 +53,10 @@ function client(): OpenAI {
     // into a "manual classification still works" response rather than a broken funnel.
     throw new Error("OPENAI_API_KEY is not set — document analysis is unavailable.");
   }
-  // One retry, not two: a retry of a request that already ran out of time costs the customer
-  // the same wait again and rarely ends differently.
-  return new OpenAI({ apiKey, timeout: TIMEOUT_MS, maxRetries: 1 });
+  // No retry. Two attempts of up to 45s each cannot fit in the 60s function limit, and a
+  // request killed by the platform returns nothing at all, where our own timeout becomes a
+  // document the customer can still classify by hand.
+  return new OpenAI({ apiKey, timeout: TIMEOUT_MS, maxRetries: 0 });
 }
 
 /**

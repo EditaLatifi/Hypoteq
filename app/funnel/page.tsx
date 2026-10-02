@@ -56,18 +56,6 @@ useEffect(() => {
 }, []);
 
 
-  async function uploadDocToSharepoint(file: File, inquiryId: string) {
-  const formData = new FormData();
-  formData.append("file", file);
-  formData.append("inquiryId", inquiryId);
-
-  const res = await fetch("/api/upload-doc", {
-    method: "POST",
-    body: formData,
-  });
-
-  return res.json();
-}
 
   // -------------------------------------
   // CALCULATE SIDEBAR MAPPING
@@ -267,29 +255,31 @@ const submitFinal = async (payload?: any) => {
         borrowers: latestBorrowers,
         financing,
         documentCompleteness: payload?.documentCompleteness ?? null,
-        sharepointFolderId: payload?.sharepointFolderId ?? null,
-        // The id the documents step filed its uploads under. Passed on so the
-        // Inquiry is created with it and can claim them.
-        submissionId: payload?.submissionId ?? null,
+        sharepointFolderId: payload?.sharepointFolderId ?? storeState.sharepointFolderId ?? null,
+        // The id every upload was filed under. The Inquiry is created with it, which is
+        // what lets it claim them — and a retry with the same id is recognised as one.
+        submissionId: payload?.submissionId ?? storeState.submissionId,
+        // What the customer decided about each uploaded file.
+        documents: payload?.documents ?? [],
       }),
     });
 
-    let data;
+    let data: any = null;
     try {
       data = await res.json();
     } catch (jsonErr) {
       console.error("❌ Failed to parse JSON from /api/inquiry:", jsonErr);
-      alert("Serverfehler (Ungültige Antwort). Bitte später erneut versuchen.");
-      return;
+      throw new Error("Serverfehler (Ungültige Antwort). Bitte später erneut versuchen.");
     }
 
-    if (!res.ok || !data.success) {
-      console.error("❌ API Error:", data.error || data);
-      alert(data.error || "Etwas ist schief gelaufen. Bitte versuchen Sie es erneut.");
-      return;
+    if (!res.ok || !data?.success) {
+      console.error("❌ API Error:", data?.error || data);
+      throw new Error(data?.error || "Etwas ist schief gelaufen. Bitte versuchen Sie es erneut.");
     }
 
     console.log("📌 Inquiry created:", data);
+    // Sent. Anything started after this is a new submission with its own id and folder.
+    storeState.renewSubmission();
 
     // Direct customers have no document step, so step 7 is their only final screen.
     if (showsInFunnelThankYou(customerType)) {
@@ -297,28 +287,8 @@ const submitFinal = async (payload?: any) => {
       return;
     }
 
-    // 2️⃣ Extract inquiryId for partners (fixed)
-    const inquiryId = data.inquiryId;
-
-    // 3️⃣ Upload documents to SharePoint (partners only)
-    // DocumentsStep already uploads files via its own SharePoint flow and
-    // marks them with `uploaded: true`. Re-uploading here would call the
-    // 2-arg upload helper (missing email) and fail. Skip anything already done.
-    if (uploadedDocs && uploadedDocs.length > 0) {
-      for (const doc of uploadedDocs) {
-        if (doc.file && !doc.uploaded) {
-          try {
-            console.log("⬆ Uploading:", doc.name);
-            await uploadDocToSharepoint(doc.file, inquiryId);
-          } catch (uploadErr) {
-            console.error("❌ Error uploading document:", doc.name, uploadErr);
-            alert(`Fehler beim Hochladen von ${doc.name}. Bitte versuchen Sie es erneut.`);
-            return;
-          }
-        }
-      }
-      console.log("🎉 All docs uploaded!");
-    }
+    // Files were uploaded and claimed already: they upload as they are picked, and the
+    // Inquiry adopted them when it was created.
 
     // 4️⃣ Final screen — partners only reach here, and they do NOT go to step 7.
     //
@@ -331,7 +301,10 @@ const submitFinal = async (payload?: any) => {
 
   } catch (err) {
     console.error("❌ Error in submitFinal:", err);
-    alert("Serverfehler. Bitte später erneut versuchen.");
+    // The documents step shows its own error and keeps the customer on the form; returning
+    // normally here is what used to send a failed submission to the thank-you page.
+    if (payload) throw err;
+    alert((err as Error)?.message || "Serverfehler. Bitte später erneut versuchen.");
   }
 };
 

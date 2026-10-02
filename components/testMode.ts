@@ -44,3 +44,22 @@ export function skipped(what: string, detail?: string): void {
  * obvious instead, so nobody mistakes a test dossier for a customer's paperwork.
  */
 export const TEST_FOLDER_PREFIX = "ZZ-TEST_";
+
+/**
+ * Where a mail actually goes, given who it was meant for.
+ *
+ * Outside test mode: unchanged. In test mode every mail — the customer's confirmation, the
+ * internal notification to info@, the dossier and Nachreich mails — is either redirected to
+ * HYPOTEQ_TEST_MAIL_TO with the real recipient in the subject, so testers can see exactly what
+ * would have gone out, or, when no test inbox is configured, not sent at all (null).
+ */
+export function routeMail(to: string, subject: string): { to: string; subject: string } | null {
+  if (!isTestMode()) return { to, subject };
+  const inbox = (process.env.HYPOTEQ_TEST_MAIL_TO ?? "").trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inbox)) {
+    skipped("mail", `"${subject}" to ${to} (set HYPOTEQ_TEST_MAIL_TO to receive it)`);
+    return null;
+  }
+  console.log(`[TEST MODE] mail for ${to} redirected to ${inbox}`);
+  return { to: inbox, subject: `[TEST → ${to}] ${subject}` };
+}
