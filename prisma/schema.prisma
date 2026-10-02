@@ -97,6 +97,10 @@ model Property {
   renovationsBetrag   String?
   finanzierungsangebote String?
   reserviert          String?
+  // Document-rule answers (prisma/sql/2026-10-02-document-rules-fields.sql): "ja" / "nein".
+  baurecht            String?
+  neubauGrundbuchGvVorhanden String?
+  stockwerkeigentum   String?
   angeboteListe       String[]
   angebote            Json?
   kreditnehmer        Json?
@@ -144,6 +148,11 @@ model Financing {
   eigenmittel_saeule3 String?
   eigenmittel_pk    String?
   eigenmittel_schenkung String?
+  // Collected but NOT part of the Eigenmittel total — a loan is not equity.
+  eigenmittel_darlehen String?
+  eigenmittel_erbschaft String?
+  // "ja" / "nein" — drives the Leasingvertrag document request.
+  leasingVorhanden  String?
   pkVorbezug        String?
   hypoBetrag        String?
   modell            String?
