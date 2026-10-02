@@ -40,6 +40,9 @@ const inflightUploads = new Map<string, Promise<boolean>>();
 // Files the customer removed while their upload was still running. When such an upload
 // finishes, the file is deleted again instead of being kept.
 const removedWhileUploading = new Set<string>();
+// Analyses still running, by local file id. The submit gives them a short while to finish so
+// the customer's answers about a just-analysed file can travel with it.
+const inflightAnalyses = new Map<string, Promise<void>>();
 // The outcome of each upload, by local file id. The submit reads this rather than React state
 // alone, because an upload that finishes while the submit waits for it has not re-rendered yet.
 const uploadResults = new Map<
@@ -434,7 +437,7 @@ const processFile = (doc: any, expectedDocKey: string | null): Promise<boolean> 
       uploaded: true,
     });
 
-    void analyseFile(doc.id, res.documentId, expectedDocKey);
+    void analyseFileTracked(doc.id, res.documentId, expectedDocKey);
     return true;
   })();
 
@@ -525,6 +528,15 @@ const settleUploads = async () => {
     const ok = await processFile(doc, doc.docType ?? null);
     if (!ok) throw new Error(doc.name);
   }
+  // Analyses are not required for a submit, and their results are stored with the file
+  // either way. Waiting a little only lets a verdict that is about to land reach the screen
+  // and the customer's decisions first; it never holds the submit for long.
+  if (inflightAnalyses.size) {
+    await Promise.race([
+      Promise.allSettled(Array.from(inflightAnalyses.values())),
+      new Promise((resolve) => setTimeout(resolve, 20_000)),
+    ]);
+  }
 };
 
   // Have the AI look at a file that has been uploaded.
@@ -604,12 +616,37 @@ const settleUploads = async () => {
     }
   };
 
+  const analyseFileTracked = (
+    docId: string,
+    documentId: string,
+    expectedDocKey: string | null,
+    reuse = false
+  ) => {
+    const run = analyseFile(docId, documentId, expectedDocKey, reuse);
+    inflightAnalyses.set(docId, run);
+    run.finally(() => {
+      if (inflightAnalyses.get(docId) === run) inflightAnalyses.delete(docId);
+    });
+    return run;
+  };
+
   // After a remount the analyses shown before are gone from this step's state, but they are
-  // stored with each file. Fetch them back rather than showing those files as unanalysed.
+  // stored with each file. Fetch them back rather than showing those files as unanalysed —
+  // including files whose upload was still running when the step went away, whose analysis
+  // was started by the previous instance and landed there instead of here.
   useEffect(() => {
     for (const d of docsRef.current) {
       if (d.documentId && !analyses[d.id]) {
-        void analyseFile(d.id, d.documentId, d.docType ?? null, true);
+        void analyseFileTracked(d.id, d.documentId, d.docType ?? null, true);
+      } else if (!d.documentId && inflightUploads.has(d.id)) {
+        void inflightUploads.get(d.id)!.then(async (ok) => {
+          const documentId = uploadResults.get(d.id)?.documentId;
+          if (!ok || !documentId) return;
+          // Let the previous instance's own analysis request store its result first, so
+          // this one is answered from the row instead of calling the model again.
+          await (inflightAnalyses.get(d.id) ?? Promise.resolve());
+          void analyseFileTracked(d.id, documentId, d.docType ?? null, true);
+        });
       }
     }
     // Once per mount: later files are analysed by their own upload.

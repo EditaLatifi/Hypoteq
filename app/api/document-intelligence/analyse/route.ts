@@ -164,15 +164,26 @@ export async function POST(req: Request) {
     );
 
     // Never fatal: the analysis is computed and is returned either way.
+    //
+    // The row may have moved while the model was reading: a customer who submits right after
+    // picking a file has the Inquiry claim it mid-analysis. Adoption keeps the id, so look it
+    // up again and store the result wherever it now lives.
+    const result = {
+      status: analysis.status,
+      docType: analysis.classification.type,
+      confidence: analysis.classification.confidence,
+      raw: analysis,
+    };
     try {
-      await storeAnalysis(found.table, documentId, {
-        status: analysis.status,
-        docType: analysis.classification.type,
-        confidence: analysis.classification.confidence,
-        raw: analysis,
-      });
-    } catch (storeErr) {
-      console.error("[DocAI] Could not store the analysis:", storeErr);
+      await storeAnalysis(found.table, documentId, result);
+    } catch {
+      try {
+        const moved = await findUploadedDocument(documentId);
+        if (moved) await storeAnalysis(moved.table, documentId, result);
+        else console.warn(`[DocAI] Row ${documentId} is gone; analysis not stored`);
+      } catch (storeErr) {
+        console.error("[DocAI] Could not store the analysis:", storeErr);
+      }
     }
 
     return NextResponse.json({ success: true, analysis });

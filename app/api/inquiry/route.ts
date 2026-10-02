@@ -258,6 +258,12 @@ export async function POST(req: Request) {
       });
       console.log("✅ Inquiry and all data saved to DB:", inquiry.id);
     } catch (dbErr) {
+      // The same submission arriving twice at once (a double click, a retry racing the
+      // original): the other request is saving it, so this one has nothing left to do.
+      if ((dbErr as any)?.code === 'P2002') {
+        console.log(`ℹ️ Submission ${submissionId} is being saved by a concurrent request`);
+        return NextResponse.json({ success: true, inquiryId: submissionId, alreadySubmitted: true });
+      }
       console.error("❌ Failed to save inquiry to DB:", dbErr);
       const errorMsg = dbErr instanceof Error ? dbErr.message : 'Failed to save inquiry';
       return NextResponse.json({ success: false, error: errorMsg }, { status: 500 });

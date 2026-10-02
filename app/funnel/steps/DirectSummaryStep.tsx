@@ -370,7 +370,9 @@ const laufzeitLabel =
         </button>
 
         <button
-          onClick={saveStep}
+          // Called without arguments: a payload means "the documents step will report the
+          // error", and the click event would otherwise be taken for one.
+          onClick={() => saveStep()}
           className="px-10 py-2 rounded-full bg-[#CAF476] text-[#132219] font-semibold"
         >
           {t("funnel.continue" as any)}

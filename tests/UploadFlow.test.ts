@@ -67,10 +67,11 @@ const analyseDocument = jest.fn(async (req: any) => ({
 jest.mock('@/components/documentIntelligence/analyse', () => ({ analyseDocument }));
 
 // ---- fake SharePoint (Graph) ---------------------------------------------------------
-const drive: Record<string, { name: string; parent: string; bytes: Buffer }> = {
+const freshDrive = () => ({
   'item-1': { name: 'Lohnausweis 1.pdf', parent: 'folder-A', bytes: Buffer.from('%PDF-1.4 fake') },
   'item-2': { name: 'Scan.pdf', parent: 'folder-A', bytes: Buffer.from('%PDF-1.4 other') },
-};
+});
+const drive: Record<string, { name: string; parent: string; bytes: Buffer }> = freshDrive();
 const deleted: string[] = [];
 const fetchMock = jest.fn(async (url: any, init: any = {}) => {
   const u = String(url);
@@ -117,6 +118,9 @@ beforeEach(() => {
   db.document = [];
   db.inquiry = [];
   analyseDocument.mockClear();
+  for (const k of Object.keys(drive)) delete drive[k];
+  Object.assign(drive, freshDrive());
+  deleted.length = 0;
   process.env.DRIVE_ID = 'drive';
   process.env.FOLDER_ID = 'root';
   delete process.env.VERCEL_ENV;
@@ -137,6 +141,42 @@ async function upload(itemId: string, docType: string | null) {
 }
 
 describe('upload flow', () => {
+  it('leaves out a file the customer removed whose delete had not landed yet', async () => {
+    drive['item-1'] = { name: 'Lohnausweis 1.pdf', parent: 'folder-A', bytes: Buffer.from('%PDF') };
+    drive['item-2'] = { name: 'Scan.pdf', parent: 'folder-A', bytes: Buffer.from('%PDF') };
+    const kept = (await upload('item-1', 'funnel.salaryStatement')).body.documentId;
+    await upload('item-2', 'funnel.salaryStatement');
+    const adopted = await adoptHoldingDocuments('inq-2', SUBMISSION, [{ documentId: kept }]);
+    expect(adopted).toBe(1);
+    expect(db.document.map((d) => d.id)).toEqual([kept]);
+    expect(db.holding).toHaveLength(0);
+    expect(deleted).toContain('item-2');
+  });
+
+  it('stores an analysis that finishes after the Inquiry already claimed the file', async () => {
+    drive['item-1'] = { name: 'Lohnausweis 1.pdf', parent: 'folder-A', bytes: Buffer.from('%PDF') };
+    const id = (await upload('item-1', 'funnel.salaryStatement')).body.documentId;
+    let release!: () => void;
+    analyseDocument.mockImplementationOnce(async (req: any) => {
+      await new Promise<void>((r) => (release = r));
+      return {
+        documentId: req.documentId,
+        status: 'classified',
+        classification: { type: 'salary_certificate', label: 'Lohnausweis', confidence: 0.9 },
+        fields: {},
+        funnelDocKey: 'funnel.salaryStatement',
+        audit: { durationMs: 1 },
+      } as any;
+    });
+    const pending = analyse(post({ documentId: id, submissionId: SUBMISSION }));
+    await new Promise((r) => setTimeout(r, 10));
+    await adoptHoldingDocuments(SUBMISSION, SUBMISSION, [{ documentId: id }]);
+    release();
+    await pending;
+    expect(db.document[0].id).toBe(id);
+    expect(db.document[0].aiStatus).toBe('classified');
+  });
+
   it('records the file as SharePoint reports it, not as the browser names it', async () => {
     const { status, body } = await upload('item-1', 'funnel.salaryStatement');
     expect(status).toBe(200);
@@ -220,6 +260,9 @@ describe('upload flow', () => {
     expect(db.document[0].inquiryId).toBe('inq-1');
     expect(db.document[0].driveItemId).toBe('item-1');
     expect(db.document[0].aiAnalysis.humanEdits).toEqual({ grossIncome: '118000' });
+
+    // The adopted row keeps the id the page and a running analysis know it by.
+    expect(db.document[0].id).toBe(a);
 
     // Running it again finds nothing left to claim rather than duplicating.
     expect(await adoptHoldingDocuments('inq-1', SUBMISSION)).toBe(0);

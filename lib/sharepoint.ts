@@ -322,6 +322,7 @@ export function adoptedDocumentData(
     aiConfidence: number | null;
     aiAnalysis: unknown;
     uploadedAt: Date;
+    id: string;
   },
   inquiryId: string,
   d?: ClientDocumentDetail
@@ -347,6 +348,9 @@ export function adoptedDocumentData(
         }
       : ai;
   return {
+    // The same id the documents step has been using. An analysis still running when the
+    // Inquiry claims the file can then find it and store its result on the adopted row.
+    id: h.id,
     inquiryId,
     email: h.email,
     fileName: h.fileName,
@@ -379,17 +383,37 @@ export async function adoptHoldingDocuments(
   const { prisma } = await import("@/lib/prisma");
   const byId = new Map(details.filter((d) => d && typeof d.documentId === "string").map((d) => [d.documentId, d]));
 
-  return prisma.$transaction(async (tx) => {
+  const { adopted, stale } = await prisma.$transaction(async (tx) => {
     const held = await tx.holdingDocument.findMany({ where: { submissionId } });
-    if (held.length === 0) return 0;
+    if (held.length === 0) return { adopted: 0, stale: [] as typeof held };
 
-    await tx.document.createMany({
-      data: held.map((h) => adoptedDocumentData(h, inquiryId, byId.get(h.id))),
-    });
+    // The submit lists every file the customer still has. A held row it does not list was
+    // removed or replaced on the page and only survived because its delete had not landed
+    // yet. Claiming it would put a file the customer took back into the dossier. An older
+    // client that sends no list at all keeps the previous behaviour: everything is claimed.
+    const keep = byId.size > 0 ? held.filter((h) => byId.has(h.id)) : held;
+    const drop = byId.size > 0 ? held.filter((h) => !byId.has(h.id)) : [];
 
+    if (keep.length) {
+      await tx.document.createMany({
+        data: keep.map((h) => adoptedDocumentData(h, inquiryId, byId.get(h.id))),
+      });
+    }
     await tx.holdingDocument.deleteMany({ where: { id: { in: held.map((h) => h.id) } } });
-    return held.length;
+    return { adopted: keep.length, stale: drop };
   });
+
+  // Outside the transaction: a SharePoint call has no business holding database locks, and
+  // a file that cannot be deleted is only an extra copy in the submission's own folder.
+  if (stale.length) {
+    try {
+      const token = await getAccessToken();
+      for (const h of stale) if (h.driveItemId) await deleteDriveItem(h.driveItemId, token);
+    } catch (err) {
+      console.warn("Could not delete files the customer removed before submitting:", err);
+    }
+  }
+  return adopted;
 }
 
 /** An uploaded file's row, wherever it currently lives. */

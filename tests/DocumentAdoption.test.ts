@@ -10,6 +10,7 @@ import { adoptedDocumentData } from '../lib/sharepoint';
  */
 
 const held = (over: Record<string, unknown> = {}) => ({
+  id: 'h1',
   email: 'partner@example.com',
   fileName: 'Lohnausweis.pdf',
   fileUrl: 'https://sharepoint.example/Lohnausweis.pdf',
@@ -32,6 +33,8 @@ describe('adoptedDocumentData', () => {
   it('copies a held row unchanged when the customer decided nothing about it', () => {
     const row = adoptedDocumentData(held(), 'inq-1');
     expect(row.inquiryId).toBe('inq-1');
+    // Kept, so an analysis still running at submit finds the adopted row.
+    expect(row.id).toBe('h1');
     expect(row.driveItemId).toBe('item-1');
     expect(row.docType).toBe('funnel.salaryStatement');
     expect(row.aiStatus).toBe('classified');
