@@ -201,6 +201,9 @@ export async function POST(req: Request) {
               renovationsBetrag: data.property.renovationsBetrag || '',
               finanzierungsangebote: data.property.finanzierungsangebote || '',
               reserviert: data.property.reserviert || '',
+              baurecht: data.property.baurecht || '',
+              neubauGrundbuchGvVorhanden: data.property.neubauGrundbuchGvVorhanden || '',
+              stockwerkeigentum: data.property.stockwerkeigentum || '',
               angeboteListe: data.property.angeboteListe || [],
               angebote: data.property.angebote ? data.property.angebote : undefined,
               kreditnehmer: data.property.kreditnehmer ? data.property.kreditnehmer : undefined,
@@ -214,6 +217,9 @@ export async function POST(req: Request) {
               eigenmittel_saeule3: data.financing.eigenmittel_saeule3 || '',
               eigenmittel_pk: data.financing.eigenmittel_pk || '',
               eigenmittel_schenkung: data.financing.eigenmittel_schenkung || '',
+              eigenmittel_darlehen: data.financing.eigenmittel_darlehen || '',
+              eigenmittel_erbschaft: data.financing.eigenmittel_erbschaft || '',
+              leasingVorhanden: data.financing.leasingVorhanden || '',
               pkVorbezug: data.financing.pkVorbezug || '',
               hypoBetrag: data.financing.hypoBetrag || '',
               modell: data.financing.modell || '',
@@ -852,6 +858,10 @@ const EMAIL_LABELS = {
     renovation: 'Renovation',
     renovationsBetrag: 'Renovationsbetrag',
     reserviert: 'Reserviert',
+    baurecht: 'Baurecht',
+    neubauGrundbuchGvVorhanden: 'Grundbuchauszug & Gebäudeversicherung vorhanden',
+    stockwerkeigentum: 'Stockwerkeigentum',
+    pkVorhanden: 'Pensionskasse vorhanden',
     finanzierungsangebote: 'Finanzierungsangebote',
     offerN: 'Angebot',
     bank: 'Bank',
@@ -863,7 +873,10 @@ const EMAIL_LABELS = {
     eigenmittel_bar: 'Barmittel',
     eigenmittel_saeule3: '3. Säule',
     eigenmittel_pk: 'Pensionskasse',
-    eigenmittel_schenkung: 'Schenkung/Andere',
+    eigenmittel_schenkung: 'Schenkung',
+    eigenmittel_erbschaft: 'Erbvorbezug / Erbschaft',
+    eigenmittel_darlehen: 'Darlehen (zählt nicht zu den Eigenmitteln)',
+    leasingVorhanden: 'Leasingverträge',
     eigenmittel_total: 'Total Eigenmittel',
     pkVorbezug: 'PK Vorbezug',
     hypoBetrag: 'Hypothekenbetrag',
@@ -954,6 +967,10 @@ const EMAIL_LABELS = {
     renovation: 'Rénovation',
     renovationsBetrag: 'Montant des rénovations',
     reserviert: 'Réservé',
+    baurecht: 'Droit de superficie',
+    neubauGrundbuchGvVorhanden: 'Registre foncier & assurance bâtiment disponibles',
+    stockwerkeigentum: 'Propriété par étages',
+    pkVorhanden: 'Caisse de pension existante',
     finanzierungsangebote: 'Offres de financement',
     offerN: 'Offre',
     bank: 'Banque',
@@ -965,7 +982,10 @@ const EMAIL_LABELS = {
     eigenmittel_bar: '💵 Liquidités',
     eigenmittel_saeule3: '🏦 3e pilier',
     eigenmittel_pk: '💼 Caisse de pension',
-    eigenmittel_schenkung: '🎁 Donation/Autre',
+    eigenmittel_schenkung: '🎁 Donation',
+    eigenmittel_erbschaft: "📜 Avancement d'hoirie / Héritage",
+    eigenmittel_darlehen: '🤝 Prêt (ne compte pas comme fonds propres)',
+    leasingVorhanden: 'Contrats de leasing',
     eigenmittel_total: 'Total des fonds propres',
     pkVorbezug: 'Retrait LPP',
     hypoBetrag: 'Montant hypothécaire',
@@ -1056,6 +1076,10 @@ const EMAIL_LABELS = {
     renovation: 'Ristrutturazione',
     renovationsBetrag: 'Importo ristrutturazione',
     reserviert: 'Riservato',
+    baurecht: 'Diritto di superficie',
+    neubauGrundbuchGvVorhanden: 'Registro fondiario e assicurazione edificio disponibili',
+    stockwerkeigentum: 'Proprietà per piani',
+    pkVorhanden: 'Cassa pensione presente',
     finanzierungsangebote: 'Offerte di finanziamento',
     offerN: 'Offerta',
     bank: 'Banca',
@@ -1067,7 +1091,10 @@ const EMAIL_LABELS = {
     eigenmittel_bar: '💵 Liquidità',
     eigenmittel_saeule3: '🏦 3° pilastro',
     eigenmittel_pk: '💼 Cassa pensione',
-    eigenmittel_schenkung: '🎁 Donazione/Altro',
+    eigenmittel_schenkung: '🎁 Donazione',
+    eigenmittel_erbschaft: '📜 Anticipo ereditario / Eredità',
+    eigenmittel_darlehen: '🤝 Prestito (non conta come mezzi propri)',
+    leasingVorhanden: 'Contratti di leasing',
     eigenmittel_total: 'Totale mezzi propri',
     pkVorbezug: 'Prelievo LPP',
     hypoBetrag: 'Importo ipoteca',
@@ -1158,6 +1185,10 @@ const EMAIL_LABELS = {
     renovation: 'Renovation',
     renovationsBetrag: 'Renovation amount',
     reserviert: 'Reserved',
+    baurecht: 'Building lease (Baurecht)',
+    neubauGrundbuchGvVorhanden: 'Land registry extract & building insurance available',
+    stockwerkeigentum: 'Condominium ownership',
+    pkVorhanden: 'Pension fund available',
     finanzierungsangebote: 'Financing offers',
     offerN: 'Offer',
     bank: 'Bank',
@@ -1169,7 +1200,10 @@ const EMAIL_LABELS = {
     eigenmittel_bar: 'Cash',
     eigenmittel_saeule3: 'Pillar 3a',
     eigenmittel_pk: 'Pension fund',
-    eigenmittel_schenkung: 'Gift/Other',
+    eigenmittel_schenkung: 'Gift',
+    eigenmittel_erbschaft: 'Advance on inheritance / Inheritance',
+    eigenmittel_darlehen: 'Loan (not counted as equity)',
+    leasingVorhanden: 'Leasing contracts',
     eigenmittel_total: 'Total equity',
     pkVorbezug: 'Pension-fund withdrawal',
     hypoBetrag: 'Mortgage amount',
@@ -1356,7 +1390,8 @@ function computeFunnelCalc(data: any): null | {
       : Number(f.eigenmittel_bar || 0) +
         Number(f.eigenmittel_saeule3 || 0) +
         Number(f.eigenmittel_pk || 0) +
-        Number(f.eigenmittel_schenkung || 0);
+        Number(f.eigenmittel_schenkung || 0) +
+        Number(f.eigenmittel_erbschaft || 0);
     const totalMortgage = Math.max(0, propertyPrice - ownFunds);
     const ltv = propertyPrice > 0 ? totalMortgage / propertyPrice : 0;
     const equityRatio = propertyPrice > 0 ? ownFunds / propertyPrice : 0;
@@ -1456,6 +1491,7 @@ function generateFunnelEmailHTML(data: any, saved: any, locale: EmailLocale = 'd
         ${row(`&nbsp;&nbsp;${L.birthdate}`, dash(kn.geburtsdatum || kn.birthdate, L))}
         ${row(`&nbsp;&nbsp;${L.employment}`, dash(kn.erwerb || kn.job, L))}
         ${row(`&nbsp;&nbsp;${L.civilStatus}`, dash(kn.zivilstand || kn.civil, L))}
+        ${kn.erwerb === 'selbständig' ? row(`&nbsp;&nbsp;${L.pkVorhanden}`, yesNo(kn.pkVorhanden || 'nein', L)) : ''}
       `).join('');
 
   // Companies (juristische Personen)
@@ -1500,12 +1536,14 @@ function generateFunnelEmailHTML(data: any, saved: any, locale: EmailLocale = 'd
   const borrowersSectionHTML =
     (kreditnehmerHTML + additionalBorrowersHTML) || `<tr><td colspan="2">${L.notProvided}</td></tr>`;
 
-  // Eigenmittel total
+  // Eigenmittel total. Erbvorbezug / Erbschaft counts like a Schenkung; a Darlehen is
+  // listed in the mail but is not equity, so it stays out of the total.
   const totalEigenmittel =
     Number(f.eigenmittel_bar || 0) +
     Number(f.eigenmittel_saeule3 || 0) +
     Number(f.eigenmittel_pk || 0) +
-    Number(f.eigenmittel_schenkung || 0);
+    Number(f.eigenmittel_schenkung || 0) +
+    Number(f.eigenmittel_erbschaft || 0);
 
   // Calculator block
   const calc = computeFunnelCalc(data);
@@ -1616,6 +1654,9 @@ function generateFunnelEmailHTML(data: any, saved: any, locale: EmailLocale = 'd
         ${row(L.renovation, yesNo(pr.renovation, L))}
         ${row(L.renovationsBetrag, chf(pr.renovationsBetrag, L, localeStr))}
         ${row(L.reserviert, yesNo(pr.reserviert, L))}
+        ${row(L.baurecht, yesNo(pr.baurecht, L))}
+        ${pr.artImmobilie === 'neubau' ? row(L.neubauGrundbuchGvVorhanden, yesNo(pr.neubauGrundbuchGvVorhanden || 'nein', L)) : ''}
+        ${pr.stockwerkeigentum ? row(L.stockwerkeigentum, yesNo(pr.stockwerkeigentum, L)) : ''}
         ${row(L.finanzierungsangebote, yesNo(pr.finanzierungsangebote, L))}
       </table>
       ${combinedOffersHTML ? `
@@ -1660,7 +1701,10 @@ function generateFunnelEmailHTML(data: any, saved: any, locale: EmailLocale = 'd
         ${row(`&nbsp;&nbsp;${L.eigenmittel_saeule3}`, chf(f.eigenmittel_saeule3, L, localeStr))}
         ${row(`&nbsp;&nbsp;${L.eigenmittel_pk}`, chf(f.eigenmittel_pk, L, localeStr))}
         ${row(`&nbsp;&nbsp;${L.eigenmittel_schenkung}`, chf(f.eigenmittel_schenkung, L, localeStr))}
+        ${row(`&nbsp;&nbsp;${L.eigenmittel_erbschaft}`, chf(f.eigenmittel_erbschaft, L, localeStr))}
         ${row(`&nbsp;&nbsp;${L.eigenmittel_total}`, chf(totalEigenmittel, L, localeStr))}
+        ${row(L.eigenmittel_darlehen, chf(f.eigenmittel_darlehen, L, localeStr))}
+        ${f.leasingVorhanden ? row(L.leasingVorhanden, yesNo(f.leasingVorhanden, L)) : ''}
 
         ${row(L.pkVorbezug, yesNo(f.pkVorbezug, L))}
         ${row(L.hypoBetrag, chf(hypoBetragValue, L, localeStr))}

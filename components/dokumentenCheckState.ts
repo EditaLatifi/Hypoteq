@@ -105,6 +105,18 @@ export const DOKUMENTEN_CHECK_MAP: Record<string, string[]> = {
     "Selbständig Erwerbstätige|Pensionskassenausweis und Rückkaufswerte von der 3. Säule",
     "Ab 50 Jahre Alter der Kreditnehmer|Pensionskassenausweis und Rückkaufswerte von der 3. Säule",
   ],
+  // The funnel now asks for the PK certificate and the 3. Säule separately; the tab still
+  // has the one combined line, so either half ticks it.
+  "funnel.pensionFundCertificate": [
+    "Angestellte / Unselbständig Erwerbstätige|Pensionskassenausweis und Rückkaufswerte von der 3. Säule",
+    "Selbständig Erwerbstätige|Pensionskassenausweis und Rückkaufswerte von der 3. Säule",
+    "Ab 50 Jahre Alter der Kreditnehmer|Pensionskassenausweis und Rückkaufswerte von der 3. Säule",
+  ],
+  "funnel.pillar3BuybackValues": [
+    "Angestellte / Unselbständig Erwerbstätige|Pensionskassenausweis und Rückkaufswerte von der 3. Säule",
+    "Selbständig Erwerbstätige|Pensionskassenausweis und Rückkaufswerte von der 3. Säule",
+    "Ab 50 Jahre Alter der Kreditnehmer|Pensionskassenausweis und Rückkaufswerte von der 3. Säule",
+  ],
   "funnel.balanceSheetAudit3Years": [
     "Selbständig Erwerbstätige|Bilanz und Erfolgsrechnung (inkl. Revisionsbericht) der letzten 3 Jahre",
   ],

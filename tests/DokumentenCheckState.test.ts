@@ -73,6 +73,14 @@ describe('tabEntriesFor', () => {
     ]);
   });
 
+  it('ticks the combined pension line from either half of the split document', () => {
+    // The funnel now asks for the PK certificate and the 3. Säule separately; the tab still
+    // has one line for both.
+    const combined = tabEntriesFor(['funnel.pensionFund3rdPillarBuyback']).sort();
+    expect(tabEntriesFor(['funnel.pensionFundCertificate']).sort()).toEqual(combined);
+    expect(tabEntriesFor(['funnel.pillar3BuybackValues']).sort()).toEqual(combined);
+  });
+
   it('de-duplicates when two documents feed the same entry', () => {
     // Both purchase-contract variants point at the tab's single Kaufvertrag line.
     const entries = tabEntriesFor(['funnel.purchaseContractDraft', 'funnel.purchaseOrRenovationContract']);

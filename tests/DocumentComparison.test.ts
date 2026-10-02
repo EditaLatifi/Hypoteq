@@ -160,6 +160,8 @@ describe('funnelFactsFrom', () => {
         eigenmittel_saeule3: '50000',
         eigenmittel_pk: '30000',
         eigenmittel_schenkung: '',
+        eigenmittel_erbschaft: '',
+        eigenmittel_darlehen: '40000',
       },
       property: { zip: '8001', ort: 'Zürich' },
       borrowers: [{ firstName: 'Max', lastName: 'Muster' }],
@@ -168,6 +170,20 @@ describe('funnelFactsFrom', () => {
     expect(facts.purchasePrice).toBe(900000);
     expect(facts.ownFundsTotal).toBe(180000);
     expect(facts.propertyLocation).toBe('8001 Zürich');
+  });
+
+  it('counts Erbvorbezug / Erbschaft as own funds but not a Darlehen', () => {
+    // A loan is borrowed money: the funnel collects it (and asks for the contract) but it
+    // is not equity, so it must not inflate the figure a document is compared against.
+    const facts = funnelFactsFrom({
+      financing: {
+        eigenmittel_bar: '100000',
+        eigenmittel_schenkung: '20000',
+        eigenmittel_erbschaft: '30000',
+        eigenmittel_darlehen: '50000',
+      },
+    });
+    expect(facts.ownFundsTotal).toBe(150000);
   });
 
   it('reads borrowers whichever of the duplicated field names they use', () => {

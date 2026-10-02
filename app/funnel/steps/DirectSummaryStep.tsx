@@ -7,6 +7,7 @@ import { useTranslation } from "@/hooks/useTranslation";
 import { syncFunnelStepsToSalesforce } from "@/components/syncFunnelStepsToSalesforce";
 import salesforceApi from "@/components/salesforceApi";
 import FunnelHeading from "../FunnelHeading";
+import { isRenditeNutzung } from "@/components/propertyLabels";
 
 export default function DirectSummaryStep({ back, saveStep }: any) {
   const { t } = useTranslation();
@@ -99,18 +100,21 @@ export default function DirectSummaryStep({ back, saveStep }: any) {
           .join(" & ")
       : "—";
 
-  // Check if it's a Rendite object (investment property)
-  const isRendite = property.nutzung === "Rendite-Immobilie" || 
-                    property.nutzung?.toLowerCase()?.includes("rendite") ||
-                    property.nutzung?.toLowerCase()?.includes("investment");
+  // Check if it's a Rendite object (investment property) — in any locale; nutzung holds the
+  // translated label.
+  const isRendite = isRenditeNutzung(property.nutzung);
 
   /* ================= CALCULATE TOTAL EIGENMITTEL ================= */
+  // Erbvorbezug / Erbschaft counts like a Schenkung. A Darlehen is shown separately below but
+  // is not equity, so it stays out of the total.
   const totalEigenmittel = financing
     ? Number(financing.eigenmittel_bar || 0) +
       Number(financing.eigenmittel_saeule3 || 0) +
       Number(financing.eigenmittel_pk || 0) +
-      Number(financing.eigenmittel_schenkung || 0)
+      Number(financing.eigenmittel_schenkung || 0) +
+      Number(financing.eigenmittel_erbschaft || 0)
     : 0;
+  const darlehen = Number(financing?.eigenmittel_darlehen || 0);
 /* ================= MAP HYPOTHEKARLAUFZEITEN ================= */
 const laufzeitMap = {
   saron: "Saron",
@@ -244,6 +248,13 @@ const laufzeitLabel =
           <div className="text-[20px] font-medium">
             {totalEigenmittel > 0 ? CHF(totalEigenmittel) : "—"}
           </div>
+
+          {darlehen > 0 && (
+            <>
+              <label className="text-[18px] font-light opacity-70">{t("funnel.loanOwnFunds" as any)}</label>
+              <div className="text-[20px] font-medium">{CHF(darlehen)}</div>
+            </>
+          )}
 
           {/* Show Ablösung and Erhöhung for Ablösung projects */}
           {project.projektArt === "abloesung" && (
