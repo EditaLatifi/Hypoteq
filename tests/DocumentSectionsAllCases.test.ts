@@ -668,3 +668,23 @@ describe('Translations for the new funnel questions', () => {
     expect(json.funnel.purchaseContractDraft).not.toMatch(/Reservationsvertrag/);
   });
 });
+
+describe('isZweitwohnsitzNutzung', () => {
+  const { isZweitwohnsitzNutzung, isRenditeNutzung } = require('../components/propertyLabels');
+  it('recognises a second home in every locale', () => {
+    for (const label of [
+      'Zweitwohnsitz / Ferienliegenschaft',
+      'Second home / Vacation property',
+      'Résidence secondaire / Propriété de vacances',
+      'Seconda casa / Proprietà per vacanze',
+    ]) {
+      expect(isZweitwohnsitzNutzung(label)).toBe(true);
+    }
+  });
+  it('does not treat other usages as a second home', () => {
+    for (const label of ['Selbstbewohnt', 'Owner-occupied', 'Occupé par le propriétaire', 'Abitazione principale', 'Immeuble de rendement', '']) {
+      expect(isZweitwohnsitzNutzung(label)).toBe(false);
+    }
+    expect(isRenditeNutzung('Immobile da reddito')).toBe(true);
+  });
+});

@@ -1,7 +1,7 @@
 import { SALESFORCE_ACCOUNT_FIELDS } from "./salesforceAccountFieldConfig";
 import { funnelToSalesforceMap } from './funnelToSalesforceMap';
 import { SALESFORCE_CASE_FIELDS, SFFieldType } from "./salesforceFieldConfig";
-import { ART_LIEGENSCHAFT_MAP, NUTZUNG_MAP } from "./propertyLabels";
+import { ART_LIEGENSCHAFT_MAP, NUTZUNG_MAP, isZweitwohnsitzNutzung } from "./propertyLabels";
 
 // Sales Partner = the partner *company* Account on the Case (HYPOTEQ AG for direct
 // leads; Betterhomes / Remax / ... for partner leads). Verified against production:
@@ -579,9 +579,7 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
   const isJur = borrowerType === 'jur';
   const grossIncome = Number(flatData.brutto || 0) + Number(flatData.bonus || 0);
   // Primary residence unless the usage is a second / holiday home
-  const nutzungLower = String(flatData.nutzung || '').toLowerCase();
-  const isZweitwohnsitz =
-    nutzungLower.includes('zweit') || nutzungLower.includes('ferien') || nutzungLower.includes('secondary');
+  const isZweitwohnsitz = isZweitwohnsitzNutzung(flatData.nutzung);
   const isPrimaryResidence = !isZweitwohnsitz;
   const round1 = (v: number) => Math.round(v * 10) / 10;
   // Affordability ratio (natural persons only): same formula as funnelCalc.tsx

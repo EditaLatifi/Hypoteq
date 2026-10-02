@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { isTestMode, routeMail, skipped } from "@/components/testMode";
+import { isRenditeNutzung, isZweitwohnsitzNutzung } from "@/components/propertyLabels";
 import { prisma } from "@/lib/prisma";
 import { Client } from "@microsoft/microsoft-graph-client";
 import { ClientSecretCredential } from "@azure/identity";
@@ -1365,16 +1366,10 @@ function computeFunnelCalc(data: any): null | {
   const isJur = borrowerType === 'jur';
   const nutzung = data.property?.nutzung || data.financing?.nutzung || '';
 
-  const isRendite =
-    nutzung === 'Rendite-Immobilie' ||
-    String(nutzung).toLowerCase().includes('rendite') ||
-    String(nutzung).toLowerCase().includes('investment');
-  if (isRendite) return null;
+  // Any locale: the stored value is the label the customer saw.
+  if (isRenditeNutzung(nutzung)) return null;
 
-  const isZweitwohnsitz =
-    String(nutzung).toLowerCase().includes('zweit') ||
-    String(nutzung).toLowerCase().includes('ferien') ||
-    String(nutzung).toLowerCase().includes('secondary');
+  const isZweitwohnsitz = isZweitwohnsitzNutzung(nutzung);
   const isPrimaryResidence = !isZweitwohnsitz;
 
   const ltvLimit = isPrimaryResidence ? 0.8 : 0.65;

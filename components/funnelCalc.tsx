@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslation } from "@/hooks/useTranslation";
-import { isRenditeNutzung } from "@/components/propertyLabels";
+import { isRenditeNutzung, isZweitwohnsitzNutzung } from "@/components/propertyLabels";
 
 // Format CHF
 function CHF(v: number) {
@@ -70,9 +70,7 @@ export default function FunnelCalc({ data, projectData, propertyData, borrowers 
     return null;
   }
   
-  const isZweitwohnsitz = nutzung?.toLowerCase()?.includes("zweit") || 
-                          nutzung?.toLowerCase()?.includes("ferien") || 
-                          nutzung?.toLowerCase()?.includes("secondary");
+  const isZweitwohnsitz = isZweitwohnsitzNutzung(nutzung);
   
   // Determine if primary residence (Hauptwohnsitz)
   const isPrimaryResidence = !isZweitwohnsitz;

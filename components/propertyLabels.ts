@@ -97,3 +97,18 @@ export function isRenditeNutzung(label: unknown): boolean {
   const lower = typeof label === "string" ? label.toLowerCase() : "";
   return lower.includes("rendite") || lower.includes("investment");
 }
+
+/**
+ * Whether the property is a second or holiday home, in any locale.
+ *
+ * The substring checks used before matched German and "secondary" only, so "Second home",
+ * "Résidence secondaire" and "Seconda casa" were all calculated as a primary residence —
+ * with amortisation and the primary-residence affordability rules.
+ */
+export function isZweitwohnsitzNutzung(label: unknown): boolean {
+  if (normalizeNutzung(label) === "Zweitwohnsitz") return true;
+  const lower = typeof label === "string" ? label.toLowerCase() : "";
+  return ["zweit", "ferien", "secondary", "second home", "secondaire", "seconda casa", "vacan"].some((k) =>
+    lower.includes(k)
+  );
+}
