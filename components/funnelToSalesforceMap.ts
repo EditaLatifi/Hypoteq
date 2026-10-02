@@ -40,6 +40,9 @@ export const funnelToSalesforceMap = {
   eigenmittel_bar: { salesforceField: "Bar__c", salesforceObject: "case" },
   eigenmittel_saeule3: { salesforceField: "X3_Saeule__c", salesforceObject: "case" },
   eigenmittel_pk: { salesforceField: "PK_Betrag__c", salesforceObject: "case" },
+  // Carries Schenkung + Erbvorbezug/Erbschaft: the sync folds eigenmittel_erbschaft into this
+  // value before mapping, as Case has no field of its own for it. eigenmittel_darlehen has
+  // no Case field and is not equity — it is deliberately not mapped.
   eigenmittel_schenkung: { salesforceField: "Schenkung_usw__c", salesforceObject: "case" },
 
   pkVorbezug: { salesforceField: "Verpf_ndung_PK__c", salesforceObject: "case" },

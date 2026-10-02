@@ -167,10 +167,16 @@ export const DOCUMENT_TYPES: DocTypeSpec[] = [
     id: "pension_fund_statement",
     label: "Pensionskassenausweis",
     filenameBase: "Pensionskassenausweis",
+    // The PK certificate first. The retired combined key stays so analyses stored before
+    // the split still resolve. The 3. Säule statement comes last: it is a separate
+    // document now, and only claims a recognised pension statement when no PK requirement
+    // was shown.
     funnelKeys: [
+      "funnel.pensionFundCertificate",
       "funnel.pensionFund3rdPillarBuyback",
       "funnel.pensionCertificatePKAHV",
       "funnel.pensionForecastAHV",
+      "funnel.pillar3BuybackValues",
     ],
     fields: [
       { key: "insuredPerson", label: "Versicherte Person", kind: "text", compare: true },

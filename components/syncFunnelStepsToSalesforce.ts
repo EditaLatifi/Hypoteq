@@ -1,6 +1,7 @@
 import { SALESFORCE_ACCOUNT_FIELDS } from "./salesforceAccountFieldConfig";
 import { funnelToSalesforceMap } from './funnelToSalesforceMap';
 import { SALESFORCE_CASE_FIELDS, SFFieldType } from "./salesforceFieldConfig";
+import { ART_LIEGENSCHAFT_MAP, NUTZUNG_MAP } from "./propertyLabels";
 
 // Sales Partner = the partner *company* Account on the Case (HYPOTEQ AG for direct
 // leads; Betterhomes / Remax / ... for partner leads). Verified against production:
@@ -467,31 +468,8 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
   // Map every locale (DE/EN/FR/IT) label to the Salesforce restricted picklist value.
   // SF picklist: Einfamilienhaus, Wohnung, Mehrfamilienhaus, Landwirschaftszone.
   // Unmapped values are sent through; the createOrUpdateCase retry helper drops them
-  // if SF rejects the picklist so the Case is still created.
-  const ART_LIEGENSCHAFT_MAP: Record<string, string> = {
-    // DE
-    "Einfamilienhaus": "Einfamilienhaus",
-    "Wohnung": "Wohnung",
-    "Mehrfamilienhaus": "Mehrfamilienhaus",
-    "Landwirschaftszone": "Landwirschaftszone",
-    "Landwirtschaftszone": "Landwirschaftszone",
-    // EN
-    "Single-family home": "Einfamilienhaus",
-    "Apartment": "Wohnung",
-    "Multi-family building": "Mehrfamilienhaus",
-    "Multi-family home": "Mehrfamilienhaus",
-    "Agricultural zone": "Landwirschaftszone",
-    // FR
-    "Maison unifamiliale": "Einfamilienhaus",
-    "Appartement": "Wohnung",
-    "Immeuble collectif": "Mehrfamilienhaus",
-    "Zone agricole": "Landwirschaftszone",
-    // IT
-    "Casa unifamiliare": "Einfamilienhaus",
-    "Appartamento": "Wohnung",
-    "Edificio plurifamiliare": "Mehrfamilienhaus",
-    "Zona agricola": "Landwirschaftszone",
-  };
+  // if SF rejects the picklist so the Case is still created. The table is shared with the
+  // document rules (components/propertyLabels.ts), which branch on the same answer.
   if (flatData.artLiegenschaft && ART_LIEGENSCHAFT_MAP[flatData.artLiegenschaft]) {
     flatData.artLiegenschaft = ART_LIEGENSCHAFT_MAP[flatData.artLiegenschaft];
   }
@@ -512,42 +490,22 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     flatData.modell;
 
   // SF picklist: Selbstbewohnt, Zweitwohnsitz, Vermietet & teilweise selbstbewohnt,
-  // Rendite-Immobilie, Für eigenes Geschäft. Maps every locale label users see.
-  const NUTZUNG_MAP: Record<string, string> = {
-    // DE
-    "Selbstbewohnt": "Selbstbewohnt",
-    "Zweitwohnsitz": "Zweitwohnsitz",
-    "Zweitwohnsitz / Ferienliegenschaft": "Zweitwohnsitz",
-    "Vermietet & teilweise selbstbewohnt": "Vermietet & teilweise selbstbewohnt",
-    "Rendite-Immobilie": "Rendite-Immobilie",
-    "Für eigenes Geschäft": "Für eigenes Geschäft",
-    // EN
-    "Owner-occupied": "Selbstbewohnt",
-    "Second home": "Zweitwohnsitz",
-    "Second home / Vacation property": "Zweitwohnsitz",
-    "Rented & partially owner-occupied": "Vermietet & teilweise selbstbewohnt",
-    "Investment property": "Rendite-Immobilie",
-    "For own business": "Für eigenes Geschäft",
-    // FR
-    "Occupé par le propriétaire": "Selbstbewohnt",
-    "Résidence secondaire": "Zweitwohnsitz",
-    "Résidence secondaire / Propriété de vacances": "Zweitwohnsitz",
-    "Loué et partiellement occupé par le propriétaire": "Vermietet & teilweise selbstbewohnt",
-    "Immeuble de rendement": "Rendite-Immobilie",
-    "Pour sa propre entreprise": "Für eigenes Geschäft",
-    "Pour ma propre entreprise": "Für eigenes Geschäft",
-    // IT
-    "Abitazione principale": "Selbstbewohnt",
-    "Occupato dal proprietario": "Selbstbewohnt",
-    "Seconda casa": "Zweitwohnsitz",
-    "Seconda casa / Proprietà per vacanze": "Zweitwohnsitz",
-    "Affittato e parzialmente occupato dal proprietario": "Vermietet & teilweise selbstbewohnt",
-    "Immobile da reddito": "Rendite-Immobilie",
-    "Per la propria attività": "Für eigenes Geschäft",
-  };
-
+  // Rendite-Immobilie, Für eigenes Geschäft. NUTZUNG_MAP (components/propertyLabels.ts)
+  // maps every locale label users see.
   if (flatData.nutzung) {
     flatData.nutzung = NUTZUNG_MAP[flatData.nutzung] ?? null;
+  }
+
+  // Erbvorbezug / Erbschaft has no Case field of its own. It is the same kind of money as a
+  // Schenkung — family funds that count as Eigenmittel — so it is folded into the existing
+  // Schenkung_usw__c figure. Done before the mapping loop so the Case field and the
+  // Eigenmittel total below both see the combined amount. Darlehen is deliberately NOT
+  // added: a loan is not equity and has no Salesforce field; it reaches HYPOTEQ through
+  // the internal notification mail only.
+  const schenkungOnly = Number(flatData.eigenmittel_schenkung || 0);
+  const erbschaft = Number(flatData.eigenmittel_erbschaft || 0);
+  if (erbschaft > 0) {
+    flatData.eigenmittel_schenkung = String(schenkungOnly + erbschaft);
   }
 
   // Build Case data
@@ -603,6 +561,7 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
   const eigenmittel_bar = Number(flatData.eigenmittel_bar || 0);
   const eigenmittel_saeule3 = Number(flatData.eigenmittel_saeule3 || 0);
   const eigenmittel_pk = Number(flatData.eigenmittel_pk || 0);
+  // Already includes Erbschaft (folded in above); Darlehen is excluded on purpose.
   const eigenmittel_schenkung = Number(flatData.eigenmittel_schenkung || 0);
   const eigenmittel = eigenmittel_bar + eigenmittel_saeule3 + eigenmittel_pk + eigenmittel_schenkung;
 

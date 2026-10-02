@@ -1,10 +1,24 @@
 "use client";
 
 import FunnelCalc from "@/components/funnelCalc";
+import { isRenditeNutzung } from "@/components/propertyLabels";
 import SwissDatePicker from "@/components/SwissDatePicker";
 import { useTranslation } from "@/hooks/useTranslation";
 import { useState } from "react";
 import FunnelHeading from "../FunnelHeading";
+
+// The Eigenmittel total. Erbvorbezug / Erbschaft counts like a Schenkung; a Darlehen is
+// collected (the Darlehensvertrag is asked for) but is borrowed money, not equity, so it is
+// left out — here, in the calculator, in the summary and in the Salesforce sync alike.
+function ownFundsTotal(data: any): number {
+  return (
+    Number(data.eigenmittel_bar || 0) +
+    Number(data.eigenmittel_saeule3 || 0) +
+    Number(data.eigenmittel_pk || 0) +
+    Number(data.eigenmittel_schenkung || 0) +
+    Number(data.eigenmittel_erbschaft || 0)
+  );
+}
 
 function FinancingStep({
   data,
@@ -53,10 +67,9 @@ const isPartner = normalizedCustomer === "partner";
   const isJur = borrowerType === "jur";
   const isNat = borrowerType === "nat";
 
-  // Check if Rendite object
-  const isRendite = propertyData?.nutzung === "Rendite-Immobilie" || 
-                    propertyData?.nutzung?.toLowerCase()?.includes("rendite") ||
-                    propertyData?.nutzung?.toLowerCase()?.includes("investment");
+  // Check if Rendite object. nutzung holds the label in the customer's language, so the
+  // check has to know the French, Italian and English labels too.
+  const isRendite = isRenditeNutzung(propertyData?.nutzung);
   const isVermietet = propertyData?.nutzung?.toLowerCase()?.includes("vermietet");
                     
   /* ==========================
@@ -117,6 +130,30 @@ const ToggleButton = ({ active, children, onClick }: any) => {
   // The field look now lives in one CSS rule (see .hq-field in hypoteq-tokens.css), so every
   // input in the funnel matches without each call site being told how to look.
   const inputStyle = "hq-field";
+
+  // "Bestehen Leasingverträge?" — private borrowers only, on both a purchase and an
+  // Ablösung. Only "ja" asks for the Leasingvertrag on the documents step. Stored as
+  // "ja" / "nein" rather than the translated label so the document rules read the same
+  // answer in every language. Optional, like the Steueroptimierung toggle beside it.
+  const leasingQuestion = !isJur && (
+    <div>
+      <label className="font-medium">{t("funnel.leasingQuestion" as any)}</label>
+      <div className="flex gap-4 mt-3">
+        {[
+          { value: "ja", label: t("funnel.yes" as any) },
+          { value: "nein", label: t("funnel.no" as any) },
+        ].map(({ value, label }) => (
+          <ToggleButton
+            key={value}
+            active={data.leasingVorhanden === value}
+            onClick={() => handleChange("leasingVorhanden", value)}
+          >
+            {label}
+          </ToggleButton>
+        ))}
+      </div>
+    </div>
+  );
 
   return (
     <div className="pt-[150px] lg:pt-0 w-full max-w-[1400px] mx-auto px-4 md:px-6 lg:pl-20">
@@ -188,6 +225,8 @@ const ToggleButton = ({ active, children, onClick }: any) => {
         { key: "eigenmittel_saeule3", placeholder: t("funnel.pillar3" as any) },
         { key: "eigenmittel_pk", placeholder: t("funnel.pensionFund" as any) },
         { key: "eigenmittel_schenkung", placeholder: t("funnel.donation" as any) },
+        { key: "eigenmittel_erbschaft", placeholder: t("funnel.inheritanceOwnFunds" as any) },
+        { key: "eigenmittel_darlehen", placeholder: t("funnel.loanOwnFunds" as any) },
       ].map(({ key, placeholder }) => (
         <input
           key={key}
@@ -212,14 +251,15 @@ const ToggleButton = ({ active, children, onClick }: any) => {
           placeholder={t("funnel.amount" as any)}
           className={`${inputStyle} bg-[#F5F5F5] text-[#555] cursor-not-allowed`}
           value={(() => {
-            const total =
-              Number(data.eigenmittel_bar || 0) +
-              Number(data.eigenmittel_saeule3 || 0) +
-              Number(data.eigenmittel_pk || 0) +
-              Number(data.eigenmittel_schenkung || 0);
+            const total = ownFundsTotal(data);
             return total ? `CHF ${formatCHF(total)}` : "";
           })()}
         />
+        {Number(data.eigenmittel_darlehen || 0) > 0 && (
+          <p className="text-[12px] mt-1" style={{ color: "var(--on-light-45)" }}>
+            {t("funnel.loanNotOwnFundsHint" as any)}
+          </p>
+        )}
       </div>
     </div>
   )}
@@ -385,6 +425,9 @@ const ToggleButton = ({ active, children, onClick }: any) => {
     </div>
    )}
 
+
+    {/* Leasingverträge – private borrowers only */}
+    {leasingQuestion}
 
     {/* Steueroptimierung – hidden for juristische Personen and Partners */}
 {!isJur && !isPartner && (
@@ -593,6 +636,9 @@ const ToggleButton = ({ active, children, onClick }: any) => {
   </div>
 )}
 
+    {/* Leasingverträge – private borrowers only */}
+    {leasingQuestion}
+
     {/* Steueroptimierung – hidden for juristische Personen and Partners */}
 {!isJur && !isPartner && (
   <div>
@@ -723,9 +769,7 @@ const ToggleButton = ({ active, children, onClick }: any) => {
             const isJur = borrowers?.[0]?.type === "jur";
             const isKauf = projectData?.projektArt?.toLowerCase() === "kauf";
             const isAbloesung = projectData?.projektArt?.toLowerCase() === "abloesung";
-            const isRendite = propertyData?.nutzung === "Rendite-Immobilie" || 
-                              propertyData?.nutzung?.toLowerCase()?.includes("rendite") ||
-                              propertyData?.nutzung?.toLowerCase()?.includes("investment");
+            const isRendite = isRenditeNutzung(propertyData?.nutzung);
             const isVermietet = propertyData?.nutzung?.toLowerCase()?.includes("vermietet");
             const normalizedCustomer = (customerType || "").toLowerCase();
             const isPartner = normalizedCustomer === "partner";
@@ -738,11 +782,7 @@ const ToggleButton = ({ active, children, onClick }: any) => {
               
               // Eigenmittel required - at least one source for natural persons
               if (!isJur) {
-                const totalEigenmittel = 
-                  Number(data.eigenmittel_bar || 0) +
-                  Number(data.eigenmittel_saeule3 || 0) +
-                  Number(data.eigenmittel_pk || 0) +
-                  Number(data.eigenmittel_schenkung || 0);
+                const totalEigenmittel = ownFundsTotal(data);
                 if (totalEigenmittel === 0) {
                   newErrors.eigenmittel = t("funnel.errorOwnFunds" as any) || "Please enter own funds";
                 }

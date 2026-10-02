@@ -5,7 +5,7 @@ import { useTranslation } from "@/hooks/useTranslation";
 import { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import { computeDocumentCompleteness } from "@/components/funnelDocumentCatalog";
-import { documentSectionsFor } from "@/components/funnelDocumentSections";
+import { documentFlagsFrom, documentSectionsFor } from "@/components/funnelDocumentSections";
 import { FALLBACK_NAVIGATION_MS, thankYouPathFor } from "@/components/funnelThankYou";
 import FunnelToast, { type ToastLine } from "../FunnelToast";
 import { crossCheck } from "@/components/documentIntelligence/crossCheck";
@@ -180,84 +180,10 @@ useEffect(
   []
 );
 
-const isNeubau = property?.artImmobilie === "neubau";
-const isBestand = property?.artImmobilie === "bestehend";
-const isAblösung = project?.projektArt === "abloesung";
-const isKauf = project?.projektArt === "kauf";
-const isWohnung = property?.artLiegenschaft === "Wohnung";
-// Strictly Stockwerkeigentum, as the spec defines it. This used to include "Wohnung",
-// which asked every flat buyer for a Begründungsakt and a Verwaltungsreglement they may
-// have no share in.
-const isStockwerkeigentum = property?.artLiegenschaft === "Stockwerkeigentum";
-const isMehrfamilienhaus = property?.artLiegenschaft === "Mehrfamilienhaus";
-const isMultipleEigentuemer = property?.kreditnehmer?.length > 1;
-const isBauprojekt = property?.neubauArt === "bauprojekt";
-const isRenovation = property?.renovation === "ja";
-const isReserviert = property?.reserviert === "ja";
-const isRenditeobjekt = property?.nutzung === "Rendite-Immobilie";
-
-// Check for other funding sources (gift/donation, loan, inheritance)
-// Currently only eigenmittel_schenkung exists in the data model
-// When this is filled, user may need to provide gift contract, loan contract, or inheritance documents
-const hasAndereEigenmittel = financing?.eigenmittel_schenkung && Number(financing.eigenmittel_schenkung) > 0;
-
-// Helper function to calculate age from Swiss date format (DD.MM.YYYY)
-const calculateAge = (birthdate: string): number => {
-  if (!birthdate) return 0;
-  const parts = birthdate.split(".");
-  if (parts.length !== 3) return 0;
-  const day = parseInt(parts[0]);
-  const month = parseInt(parts[1]) - 1; // JS months are 0-indexed
-  const year = parseInt(parts[2]);
-  const birthDate = new Date(year, month, day);
-  const today = new Date();
-  let age = today.getFullYear() - birthDate.getFullYear();
-  const m = today.getMonth() - birthDate.getMonth();
-  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-    age--;
-  }
-  return age;
-};
-
-// Check if any borrower is 50+ years old
-const hasAge50Plus = (property?.kreditnehmer || []).some((kn: any) => calculateAge(kn.geburtsdatum) >= 50);
-
-// Check employment status
-const hasAngestellt = (property?.kreditnehmer || []).some((kn: any) => kn.erwerb === "angestellt");
-const hasSelbständig = (property?.kreditnehmer || []).some((kn: any) => kn.erwerb === "selbständig");
-const hasRentner = (property?.kreditnehmer || []).some((kn: any) => kn.erwerb === "rentner");
-
-// Debug logging for conditions
-console.log("📄 Document Conditions:", {
-  "property.artImmobilie": property?.artImmobilie,
-  "property.artLiegenschaft": property?.artLiegenschaft,
-  "property.nutzung": property?.nutzung,
-  "property.renovation": property?.renovation,
-  "project.projektArt": project?.projektArt,
-  "financing.eigenmittel_schenkung": financing?.eigenmittel_schenkung,
-  isNeubau,
-  isBestand,
-  isAblösung,
-  isKauf,
-  isStockwerkeigentum,
-  isWohnung,
-  isMehrfamilienhaus,
-  isMultipleEigentuemer,
-  isBauprojekt,
-  isRenovation,
-  isReserviert,
-  isRenditeobjekt,
-  hasAndereEigenmittel,
-  hasAngestellt,
-  hasSelbständig,
-  hasRentner,
-  hasAge50Plus,
-  "Ablösung Section Should Show": isAblösung,
-  "Stockwerkeigentum Section Should Show": isStockwerkeigentum,
-  "Rendite Section Should Show": isRenditeobjekt,
-  "Renovation Section Should Show": isBauprojekt || isRenovation,
-  "Andere Eigenmittel Section Should Show": hasAndereEigenmittel
-});
+// The document flags (Neubau, Ablösung, Erwerbsstatus, Eigenmittel sources, ...) are derived
+// from the funnel answers by documentFlagsFrom in components/funnelDocumentSections.ts — see
+// `documentFlags` below. It lives there so the derivation can be tested in all four
+// languages without rendering this component.
 
 
 
@@ -400,27 +326,8 @@ async function uploadDocToSharepoint(
 // The structure itself lives in components/funnelDocumentSections.ts so it can be tested
 // across every combination of case type without rendering this component.
 // ===================================
-const isJur = (borrowers ?? []).some((b: any) => b.type === "jur");
-
-const documentFlags = {
-  isJur,
-  isKauf,
-  isNeubau,
-  isBestand,
-  isAbloesung: isAblösung,
-  isStockwerkeigentum,
-  isBauprojekt,
-  isRenovation,
-  isReserviert,
-  isRenditeobjekt,
-  // Per the spec: "Andere Eigentümer" keys off the number of borrowers, not off whether
-  // gifted funds were declared.
-  hasMultipleOwners: Boolean(isMultipleEigentuemer),
-  hasAngestellt,
-  hasSelbstaendig: hasSelbständig,
-  hasRentner,
-  hasAge50Plus,
-};
+const documentFlags = documentFlagsFrom({ borrowers, project, property, financing });
+console.log("📄 Document Conditions:", documentFlags);
 
 // Titles are i18n keys in the module; resolve them for display here.
 const buildSections = () =>
@@ -436,24 +343,8 @@ useEffect(() => {
   setSelectedDocuments(buildSections());
   // Shto props kryesore si dependency për rifreskim të saktë
 }, [
-  isJur,
-  isKauf,
-  isNeubau,
-  isBestand,
-  isAblösung,
-  isWohnung,
-  isStockwerkeigentum,
-  isMehrfamilienhaus,
-  isMultipleEigentuemer,
-  isBauprojekt,
-  isRenovation,
-  isReserviert,
-  isRenditeobjekt,
-  hasAndereEigenmittel,
-  hasAngestellt,
-  hasSelbständig,
-  hasRentner,
-  hasAge50Plus,
+  // Every flag the sections depend on, in one value: a new flag cannot be forgotten here.
+  JSON.stringify(documentFlags),
   JSON.stringify(borrowers),
   JSON.stringify(project),
   JSON.stringify(property),

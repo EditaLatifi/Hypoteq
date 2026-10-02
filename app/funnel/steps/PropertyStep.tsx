@@ -5,6 +5,7 @@ import { useTranslation } from "@/hooks/useTranslation";
 
 import { useState, useEffect } from "react";
 import FunnelHeading from "../FunnelHeading";
+import { normalizeArtLiegenschaft } from "@/components/propertyLabels";
 
 // Borrowers must be at least 18 — the calendar must not offer younger dates.
 function maxBirthdate() {
@@ -61,6 +62,23 @@ function PropertyStep({ data, setData, saveStep, borrowers, back, customerType, 
       setData((prev: any) => ({ ...prev, reserviert: "" }));
     }
   }, [isAbloesung, data.reserviert]);
+
+  // The Stockwerkeigentum question only exists for a Wohnung, and the "Grundbuchauszug und
+  // Gebäudeversicherung vorhanden" tick only for a Neubau. Same reasoning as above: once
+  // the question is hidden, a leftover answer must not keep asking for documents.
+  // artLiegenschaft holds the translated label, hence the normalisation.
+  const isWohnung = normalizeArtLiegenschaft(data.artLiegenschaft) === "Wohnung";
+  const isNeubauAnswer = data.artImmobilie === "neubau" && !isAbloesung;
+  useEffect(() => {
+    if (!isWohnung && data.stockwerkeigentum) {
+      setData((prev: any) => ({ ...prev, stockwerkeigentum: "" }));
+    }
+  }, [isWohnung, data.stockwerkeigentum]);
+  useEffect(() => {
+    if (!isNeubauAnswer && data.neubauGrundbuchGvVorhanden) {
+      setData((prev: any) => ({ ...prev, neubauGrundbuchGvVorhanden: "" }));
+    }
+  }, [isNeubauAnswer, data.neubauGrundbuchGvVorhanden]);
 
   const ToggleButton = ({ active, children, onClick, showCircle = false, disabled = false }: any) => {
     return (
@@ -196,6 +214,21 @@ const propertyUseOptions =
             </ToggleButton>
           </div>
         )}
+        {/* A single tick, not a yes/no pair: not every new build has a Grundbuchauszug and
+            a Gebäudeversicherungspolice yet, and only a ticked box asks for them. */}
+        {isNeubauAnswer && (
+          <div className="flex flex-wrap gap-[24px] mt-[16px]">
+            <ToggleButton
+              active={data.neubauGrundbuchGvVorhanden === "ja"}
+              onClick={() =>
+                update("neubauGrundbuchGvVorhanden", data.neubauGrundbuchGvVorhanden === "ja" ? "" : "ja")
+              }
+              showCircle={true}
+            >
+              {t("funnel.neubauGrundbuchGvAvailable" as any)}
+            </ToggleButton>
+          </div>
+        )}
       </div>
 
       {/* ========================================================= */}
@@ -219,6 +252,62 @@ const propertyUseOptions =
         {errors.artLiegenschaft && (
           <p className="text-red-500 text-[12px] mt-1">{errors.artLiegenschaft}</p>
         )}
+      </div>
+
+      {/* ========================================================= */}
+      {/*  STOCKWERKEIGENTUM – WOHNUNG ONLY                         */}
+      {/*  Not every flat is Stockwerkeigentum, and only STWE needs */}
+      {/*  the Begründungsakt, the Reglement and the Erneuerungs-   */}
+      {/*  fonds. Optional, like the reservation question.          */}
+      {/* ========================================================= */}
+      {isWohnung && (
+        <div>
+          <h3 className="text-[16px] font-semibold mb-[16px]">
+            {t("funnel.stockwerkeigentumQuestion" as any)}
+          </h3>
+          <div className="flex gap-[24px]">
+            <ToggleButton
+              active={data.stockwerkeigentum === "ja"}
+              onClick={() => update("stockwerkeigentum", "ja")}
+              showCircle={true}
+            >
+              {t("funnel.yes" as any)}
+            </ToggleButton>
+            <ToggleButton
+              active={data.stockwerkeigentum === "nein"}
+              onClick={() => update("stockwerkeigentum", "nein")}
+              showCircle={true}
+            >
+              {t("funnel.no" as any)}
+            </ToggleButton>
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================= */}
+      {/*  BAURECHT                                                 */}
+      {/*  Only a "ja" asks for the Baurechtsvertrag. Optional.     */}
+      {/* ========================================================= */}
+      <div>
+        <h3 className="text-[16px] font-semibold mb-[16px]">
+          {t("funnel.baurechtQuestion" as any)}
+        </h3>
+        <div className="flex gap-[24px]">
+          <ToggleButton
+            active={data.baurecht === "ja"}
+            onClick={() => update("baurecht", "ja")}
+            showCircle={true}
+          >
+            {t("funnel.yes" as any)}
+          </ToggleButton>
+          <ToggleButton
+            active={data.baurecht === "nein"}
+            onClick={() => update("baurecht", "nein")}
+            showCircle={true}
+          >
+            {t("funnel.no" as any)}
+          </ToggleButton>
+        </div>
       </div>
 
       {/* ========================================================= */}
@@ -731,6 +820,26 @@ const propertyUseOptions =
               </select>
               <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 w-2 h-2 border-r-2 border-b-2 border-[#132219] rotate-45" />
             </div>
+            {/* Not every self-employed borrower has a Pensionskasse; only a tick here asks
+                for the Pensionskassenausweis. Employees are always asked. */}
+            {kn.erwerb === "selbständig" && (
+              <div className="md:col-span-2">
+                <ToggleButton
+                  active={kn.pkVorhanden === "ja"}
+                  onClick={() => {
+                    const updated = [...data.kreditnehmer];
+                    updated[index] = {
+                      ...updated[index],
+                      pkVorhanden: kn.pkVorhanden === "ja" ? "" : "ja",
+                    };
+                    update("kreditnehmer", updated);
+                  }}
+                  showCircle={true}
+                >
+                  {t("funnel.pkAvailable" as any)}
+                </ToggleButton>
+              </div>
+            )}
           </div>
         )}
       </div>

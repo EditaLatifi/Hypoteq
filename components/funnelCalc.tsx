@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslation } from "@/hooks/useTranslation";
+import { isRenditeNutzung } from "@/components/propertyLabels";
 
 // Format CHF
 function CHF(v: number) {
@@ -60,9 +61,9 @@ export default function FunnelCalc({ data, projectData, propertyData, borrowers 
   const nutzung = propertyData?.nutzung || data.nutzung;
   
   // Determine property usage type
-  const isRendite = nutzung === "Rendite-Immobilie" || 
-                    nutzung?.toLowerCase()?.includes("rendite") ||
-                    nutzung?.toLowerCase()?.includes("investment");
+  // nutzung holds the translated label, so "Immeuble de rendement" / "Immobile da reddito"
+  // must count too.
+  const isRendite = isRenditeNutzung(nutzung);
   
   // ❌ DO NOT apply calculator for investment/rental properties
   if (isRendite) {
@@ -93,8 +94,10 @@ export default function FunnelCalc({ data, projectData, propertyData, borrowers 
       : Number(data.eigenmittel_bar || 0) +
         Number(data.eigenmittel_saeule3 || 0) +
         Number(data.eigenmittel_pk || 0) +
-        Number(data.eigenmittel_schenkung || 0);
-    
+        Number(data.eigenmittel_schenkung || 0) +
+        // Erbvorbezug / Erbschaft counts like a Schenkung; a Darlehen is not equity.
+        Number(data.eigenmittel_erbschaft || 0);
+
     // Total mortgage = property price - own funds
     const totalMortgage = Math.max(0, propertyPrice - ownFunds);
     

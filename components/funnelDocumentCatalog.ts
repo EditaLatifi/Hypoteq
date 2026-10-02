@@ -61,7 +61,13 @@ export const DOCUMENT_CATALOG: Record<string, DocCatalogEntry> = {
   "funnel.taxReturnLatestJur":            { salesforceField: "Dok_Steuererklaerung__c",    requirement: "optional" },
 
   // ---- Pension --------------------------------------------------------------
+  // Retired: the combined "PK-Ausweis und Rückkaufswerte 3. Säule" was split in two. No
+  // longer shown, but kept so submissions made before the split still resolve.
   "funnel.pensionFund3rdPillarBuyback":   { salesforceField: "Dok_Pensionskassenausweis__c", requirement: "optional" },
+  "funnel.pensionFundCertificate":        { salesforceField: "Dok_Pensionskassenausweis__c", requirement: "optional" },
+  // No Dok_*__c flag exists for a 3a statement; the Pensionskassenausweis flag would claim
+  // a PK certificate arrived when only the 3. Säule did.
+  "funnel.pillar3BuybackValues":          { salesforceField: null, requirement: "optional" },
   "funnel.pensionCertificatePKAHV":       { salesforceField: "Dok_Pensionskassenausweis__c", requirement: "optional" },
   "funnel.pensionForecastAHV":            { salesforceField: "Dok_Pensionskassenausweis__c", requirement: "optional" },
 

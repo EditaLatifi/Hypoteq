@@ -18,7 +18,7 @@ const VISIBLE = [
   "funnel.taxReturnLatest",
   "funnel.salaryStatementBonus",
   "funnel.monthlyPayslips3",
-  "funnel.pensionFund3rdPillarBuyback",
+  "funnel.pensionFundCertificate",
   "funnel.landRegistryNotOlder6Months",
   "funnel.purchaseContractDraft",
 ];

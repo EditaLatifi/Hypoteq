@@ -262,11 +262,14 @@ export function funnelFactsFrom(data: {
   const fin = data.financing ?? {};
   const prop = data.property ?? {};
 
+  // The same sources the funnel totals: Erbvorbezug / Erbschaft counts like a Schenkung,
+  // a Darlehen is not equity and is left out.
   const ownFunds = [
     fin.eigenmittel_bar,
     fin.eigenmittel_saeule3,
     fin.eigenmittel_pk,
     fin.eigenmittel_schenkung,
+    fin.eigenmittel_erbschaft,
   ]
     .map(toNumber)
     .filter((n): n is number => n !== null)
