@@ -1,0 +1,89 @@
+﻿Bereich;Funnel-Feld;Funnel-Key;Salesforce-Objekt;API-Name;SF-Typ;Werte-Mapping;Quelle;Hinweis;Abgleich bestehendes Mapping
+Case;Case Name (generiert);–;Case;Case_Name__c;Text(50);{Nachname} {Vorname} – {PLZ} {Ort};System;Pflichtfeld;ABWEICHEND: bestehend «{PLZ} {Ort} / {Vorname} {Nachname}» (mehrere Kreditnehmer mit «&», Firmen mit Firmenname). Bestehendes Format bleibt.
+Case;Owner;–;Case;OwnerId;Lookup(User/Group);Queue «Web-Anfragen» oder HYPOTEQ-User;System;Pflichtfeld;FEHLT: OwnerId wird nicht gesetzt (Integrations-User bzw. SF-Zuweisung). Braucht Id/Name der Queue «Web-Anfragen» von HYPOTEQ.
+Case;Status;–;Case;Status;Picklist;New;System;Qualifizierung manuell → erzeugt Opportunity;"FEHLT (implizit): Status bleibt auf dem SF-Default; gesetzt wird Stage__c = «Needs Analysis» (Partnerportal liest Stage__c, bleibt)."
+Case;Herkunft;–;Case;Origin;Picklist;Web;System;;FEHLT: Origin wird nicht geschrieben. Vor Einführung prüfen, ob Origin = Web Web-to-Case-Regeln oder Flows auslöst.
+Einstieg;Berater-E-Mail (erkannt, VP);txt.bmail;Case;Partner_Consultant__c;Lookup(Contact);Kontakt-ID aus VP-Berater-Liste;Funnel;;ABWEICHEND: Abgleich per E-Mail gegen alle Kontakte, ohne VP-Filter. Neu: exakter Abgleich mit konfigurierbarem VP-Kriterium (Kriterium durch HYPOTEQ festzulegen).
+Einstieg;Vertriebspartner des Beraters;–;Case;Account__c;Lookup(Account);Account des Kontakts;System;Sales Partner;FEHLT bei Partner-Anfragen (kein Sales Partner gesetzt). Bestehend: Direktanfragen → HYPOTEQ AG. Neu: Account des erkannten Kontakts.
+Einstieg;Berater-E-Mail (HYPOTEQ-User);txt.bmail;Case;OwnerId;Lookup(User);User per E-Mail;Funnel;;FEHLT: keine User-Suche, keine Owner-Zuweisung. Neu umgesetzt (User per E-Mail, nur @hypoteq.ch/.com).
+Einstieg;Einreicher Name;txt.pvor + txt.pnach / txt.vor + txt.nach;Case;SuppliedName;Text(80);;Funnel;Partner oder Kunde (wer einreicht);FEHLT: wird nicht geschrieben (Partner-Name bisher nicht erfasst). Neu umgesetzt für unbekannte Partner.
+Einstieg;Einreicher E-Mail;txt.bmail / txt.mail;Case;SuppliedEmail;email;;Funnel;;FEHLT: Partner-E-Mail nur in der Datenbank. Neu umgesetzt für unbekannte Partner.
+Einstieg;Einreicher Telefon;txt.ptel;Case;SuppliedPhone;Text(40);;Funnel;;FEHLT: Partner-Telefon bisher nicht erfasst. Neu umgesetzt («Als Partner erfassen»).
+Einstieg;Einreicher Firma;txt.pfirma;Case;SuppliedCompany;Text(80);;Funnel;nur neuer Partner;FEHLT: Partner-Firma bisher nicht erfasst. Neu umgesetzt («Als Partner erfassen»).
+Einstieg;Neuer Partner – Vermerk;–;Case;Comments;Textbereich(4000);«Neuer Partner – bitte prüfen und anlegen»;System;;ABWEICHEND: bisher wurde für unbekannte E-Mails ein Platzhalter-Kontakt «Partner …» angelegt. Neu wie Spezifikation (kein Kontakt, Supplied* + Vermerk). Bestehende Platzhalter-Kontakte sollten bereinigt werden.
+Antrag;Kreditantrag;ans.antrag;Case;Reason;Picklist;"Neue Hypothek → Neue Hypothek; Ablösung → Ablösung";Funnel;;GLEICH (Neue Hypothek / Ablösung).
+Antrag;Kreditnehmer;ans.kn;Case;Kreditnehmer__c;Picklist;"Natürliche Person → Natürliche Person; Juristische Person → Juristische Personen";Funnel;Plural in SF;GLEICH (Plural «Juristische Personen» bereits so).
+Kunde;Anrede;ans.anrede;PersonAccount;Salutation;Picklist;"Herr → Mr.; Frau → Mrs.";Funnel;für Rechnungen nötig;"FEHLT: Anrede wurde bisher nicht gefragt. Neu im Funnel; Feldrechte auf Salutation prüfen."
+Kunde;Vorname;txt.vor;PersonAccount;FirstName;Text(40);;Funnel;;GLEICH (bei bestehendem Account nicht überschrieben).
+Kunde;Nachname;txt.nach;PersonAccount;LastName;Text(80);;Funnel;;GLEICH (bei bestehendem Account nicht überschrieben).
+Kunde;E-Mail;txt.mail;PersonAccount;PersonEmail;email;;Funnel;;GLEICH (auch Schlüssel für die Dubletten-Suche).
+Kunde;Telefon;–;PersonAccount;PersonMobilePhone;phone;;Funnel;nur Einstieg Kunde selbst;"ABWEICHEND: bestehend Account.Phone. Bestehendes bleibt; PersonMobilePhone kann zusätzlich geschrieben werden."
+Kunde;Rolle;–;PersonAccount;Rolle__pc;Picklist;Endkunde;System;;FEHLT: Rolle__pc wird nicht geschrieben. Picklist-Wert «Endkunde» bestätigen.
+Kunde;Kunde ↔ Case;–;Case;Client__c;Lookup(Account);Person Account;System;;GLEICH, zusätzlich Standard-AccountId (Partnerportal liest Account.Name, bleibt).
+Kunde;Weitere Kreditnehmer;–;Case;Client_2__c / Client_3__c / Wie_viele_Kunden__c;Lookup / Picklist;1–3;Funnel;SF max. 3, Funnel 6 – offen;TEILWEISE: Client_2/3 ja, Wie_viele_Kunden__c nein. Funnel neu auf 3 Kreditnehmer begrenzt (bei mehr als 3 bricht der Sync heute ab).
+Kunde;Korrespondenzsprache;–;Case + PersonAccount;Korrespondenzsprache__c / Korrespondenzsprache__pc;Picklist;Browsersprache, Default Deutsch;System;keine Frage;"TEILWEISE: Case-Feld aus der Funnel-Sprache gesetzt; Korrespondenzsprache__pc auf dem Person Account fehlt."
+Objekt;PLZ + Ort;txt.plz + txt.ort;Case;PLZ_Ort__c;Text(30);«8820 Wädenswil»;Funnel;;GLEICH («8820 Wädenswil»).
+Objekt;Ort;txt.ort;Case;City__c;Text(80);;Funnel;;GLEICH.
+Objekt;Kanton;–;Case;Kantone__c;Picklist;aus PLZ, z.B. Canton of Zurich;System;;FEHLT: braucht PLZ→Kanton-Tabelle und die exakten Picklist-Werte von Kantone__c.
+Objekt;Art der Immobilie;ans.immo;Case;Art_der_Immobilie__c;Picklist;"Bestehende Immobilie → Bestehende Immobilie; Neubau → Neubau; Bauprojekt → Neubau";Funnel;;GLEICH im Ergebnis (Bauprojekt bisher als Unterfrage von Neubau).
+Objekt;Neubau-Unterart;ans.immo;Case;If_Neubau__c;Picklist;"Neubau → Bereits erstellt; Bauprojekt → Bauprojekt";Funnel;;GLEICH (Bereits erstellt / Bauprojekt).
+Objekt;Art der Liegenschaft;ans.lieg;Case;Art_der_Liegenschaft__c;Picklist;"Einfamilienhaus → Einfamilienhaus; Stockwerkeigentum → Wohnung; Mehrfamilienhaus → Mehrfamilienhaus; Ferienobjekt → (kein Wert)";Funnel;Ferienobjekt offen;"GLEICH für EFH/Wohnung/MFH (STWE → Wohnung). Bisher Landwirtschaftszone statt Ferienobjekt im Funnel; Ferienobjekt bleibt ohne SF-Wert (offener Punkt 1)."
+Objekt;Nutzung;ans.nutz;Case;Nutzung_der_Immobilie__c;Picklist;"Selbstbewohnt → Selbstbewohnt; Vermietet → Rendite-Immobilie; Zweitwohnsitz → Zweitwohnsitz";Funnel;;GLEICH (Vermietet → Rendite-Immobilie). Der bestehende Funnel bietet zusätzlich «Vermietet & teilweise selbstbewohnt» und «Für eigenes Geschäft» an (offener Punkt 2).
+Objekt;Heizungsart;ans.heizung;Case;Waermeerzeugung__c;Picklist (NEU);"Wärmepumpe → Wärmepumpe Luft-Wasser; Fernwärme → Fernwärme; Holz / Pellets → Holz; Gas → Gas Erdgas; Öl → Öl; Unbekannt → leer";Funnel;Wärmepumpe aufteilen?;"FEHLT: Heizung bisher nicht gefragt; Feld NEU → braucht SF-Admin (Picklist-Werte)."
+Objekt;Baurecht;ans.baurecht;Case;Objekt_im_Baurecht__c;Checkbox (NEU);Ja → true;Funnel;;FEHLT in SF: wird erfasst, aber es gibt kein Feld (NEU → SF-Admin). Bis dahin im JSON.
+Objekt;Bestehende Hypothek;fin.old;Case;Hypothekarvolumen__c;Währung;;Funnel;Ablösebetrag;"ABWEICHEND: bestehend Gesamtvolumen (Ablösung: bestehend + Erhöhung; Kauf: Hypothekarbedarf), nicht der reine Ablösebetrag. Bestehendes bleibt."
+Objekt;Erhöhung Ja/Nein;ans.aufstockung;Case;Hypothekarbetrag__c;Checkbox;Ja → true;Funnel;Label «Erhöhung der Hypothek?»;"KONFLIKT: Code führt Hypothekarbetrag__c als Währungsfeld (schreibt praktisch nichts); Spezifikation sagt Checkbox. Feldtyp in SF bestätigen."
+Objekt;Erhöhung Betrag;fin.up;Case;Erh_hung_betrag__c;Währung;;Funnel;Erh_hung__c existiert auch – klären;ABWEICHEND: Erhöhungsbetrag wird nach Erh_hung__c geschrieben (nur wenn Erhöhung = Ja). Bestehendes bleibt (offener Punkt 4).
+Objekt;Verwendungszweck;Freitext;Case;Kommentar__c;Textbereich(1140);Präfix «Verwendungszweck:»;Funnel;;FEHLT: Verwendungszweck bisher nicht gefragt. Neu als Präfix in Kommentar__c.
+Objekt;Kaufpreis;–;Case;Kaufpreis__c;Währung;;Funnel;synchronisiert auf Opportunity;GLEICH.
+Objekt;Renovationen;ans.reno;Case;Gibt_es_Renovationen_oder_Zusatzkosten__c;Checkbox;;Funnel;;GLEICH (bestehend zusätzlich Betrag__c für den Renovationsbetrag).
+Objekt;Reserviert;ans.reserviert;Case;Ist_die_Liegenschaft_bereits_reserviert__c;Checkbox;;Funnel;;GLEICH.
+Objekt;Finanzierungsangebote;ans.angebote;Case;Bestehen_bereits_Finanzierungsangebote__c;Checkbox;;Funnel;;GLEICH für die Checkbox. Bestehend gehen die Angebotsdetails nach Bank__c / Zins__c / Laufzeit__c (siehe Zeilen 71–73).
+Objekt;Neubau: GB/GVZ vorhanden;ans.nbDocs;Case;Dokumenten_Check_State__c;JSON;answers.nbDocs;Funnel;kein eigenes Feld;FEHLT in SF: erfasst, nur Datenbank. Neu im JSON-Block answers.
+Person;Bruttoeinkommen;fin.inc;Case;Einkommen__c;Währung;;Funnel;;GLEICH (Bonus zählt in die Tragbarkeit, wird aber nicht gespeichert).
+Person;Beschäftigung;ans.job;Case;If_nat_rliche_person__c;Picklist;"Angestellt → Angestellt; Selbständig → Selbständig; Pensioniert → Rentner";Funnel;;GLEICH (zusätzlich Account.Erwerbsstatus__c).
+Person;Privatkredite / Leasings;ans.kredite / ans.leasing;PersonAccount;Verbindlichkeiten_z_B_Leasing__c;Text(30);"«Privatkredit; Leasing»";Funnel;;"FEHLT: Leasing erfasst, aber nicht geschrieben; Privatkredite bisher nicht gefragt."
+Person;PK vorhanden (selbständig);ans.pkSe;Case;Dokumenten_Check_State__c;JSON;answers.pkSe;Funnel;kein eigenes Feld;FEHLT (bisher nicht gefragt). Neu im JSON-Block answers.
+Person;Ab 50 Jahre;ans.ab50;Case;Dokumenten_Check_State__c;JSON;answers.ab50;Funnel;später aus Geburtsdatum prüfbar;"FEHLT (bisher nicht gefragt; Partnerportal leitet «ab 50» aus PersonBirthdate ab). Neu im JSON-Block answers."
+Person;Kinder / Unterhalt;ans.kinder / ans.unterhalt;Case;Dokumenten_Check_State__c;JSON;answers.kinder, answers.unterhalt;Funnel;Vorschlag Unterhaltspflicht__c;FEHLT (bisher nicht gefragt). Neu im JSON-Block answers.
+Person;Solidarbürgschaft;ans.buerge;Case;Dokumenten_Check_State__c;JSON;answers.buerge;Funnel;Vorschlag Solidarbuergschaft__c;FEHLT (bisher nicht gefragt). Neu im JSON-Block answers.
+Finanzierung;Gesamtfinanzierung (berechnet);–;Case;Gesch_tzter_Hypothekenbedarf__c;Währung;"Ablösung: old + up; Kauf: Objektwert × 80 %";System;wird Opportunity-Hypothekarbetrag;ABWEICHEND bei Kauf: bestehend Kaufpreis − Eigenmittel, Spezifikation Objektwert × 80 %. Ablösung gleich. Entscheid nötig, welche Formel gilt.
+Finanzierung;Tragbarkeit (berechnet);–;Case;Tragbarkeit__c;Prozent;;System;;ABWEICHEND: bestehende Formel Hypothek × (5 % + 0.8 % + Amortisation) / Einkommen, identisch mit dem bisherigen Funnel-Rechner. Entscheid nötig.
+Finanzierung;Geschätzter Objektwert;fin.val;–;(kein Feld);–;;Funnel;offen – Vorschlag Geschaetzter_Objektwert__c;"FEHLT: Objektwert wurde bisher nicht erfasst; kein Feld (offener Punkt 3)."
+Finanzierung;Laufzeit;ans.laufzeit;Case;Hypothekarlaufzeiten__c;Picklist;"SARON → Saron; 2 Jahre → 2 Jahre; 3 Jahre → 3 Jahre; 5 Jahre → 5 Jahre; 10 Jahre → 10 Jahre; Mix → Mix";Funnel;;GLEICH (bestehend zusätzlich 1, 4, 6–9 Jahre).
+Finanzierung;Säule 3a Betrag;ans.s3a + Extraktion;Case;X3_Saeule__c;Währung;Betrag aus 3a-Bescheinigung;Dokument;;ABWEICHENDE Quelle: bestehend eingegebener Betrag, Spezifikation Betrag aus dem Dokument. Feld gleich.
+Finanzierung;Pensionskasse Betrag;ans.pk + Extraktion;Case;PK_Betrag__c;Währung;Betrag aus PK-Ausweis;Dokument;;ABWEICHENDE Quelle: eingegebener Betrag statt Extraktion. Feld gleich.
+Finanzierung;PK Verpfändung;ans.pk;Case;Verpf_ndung_PK__c;Picklist;Ja / Nein;Funnel;;GLEICH (FR/IT-Werte Oui/Non/Sì werden heute nicht normalisiert – wird behoben).
+Finanzierung;Schenkung / Erbschaft Betrag;ans.schenkung / ans.erbe + Extraktion;Case;Schenkung_usw__c;Währung;Betrag aus Vertrag;Dokument;beide teilen sich das Feld;GLEICH (Erbschaft wird bereits zur Schenkung addiert).
+Finanzierung;Darlehen;ans.darlehen;Case;Dokumenten_Check_State__c;JSON;answers.darlehen;Funnel;Vorschlag Darlehen_Eigenmittel__c;FEHLT: Betrag wird erfasst, bewusst nicht nach SF geschrieben (nur E-Mail). Neu im JSON.
+Finanzierung;Eigenmittel total;Extraktion;Case;Eigenmittel_Total__c;Währung;aus Eigenmittelnachweis;Dokument;;ABWEICHEND: bestehend Eigenmittel__c (Summe der eingegebenen Beträge) plus EigenmittelProzent__c. Klären, ob Eigenmittel_Total__c ein separates Feld ist.
+Finanzierung;Kommentare;Freitext;Case;Kommentar__c;Textbereich(1140);;Funnel;;GLEICH.
+Extraktion;Geburtsdatum;ID;PersonAccount;PersonBirthdate;Datum;;Dokument;Standard vor Geburtsdatum__c;"ABWEICHEND: bestehend Geburtsdatum__c aus Funnel-Eingabe; keine Extraktion. Partnerportal liest PersonBirthdate."
+Extraktion;Nationalität;ID;PersonAccount;Nationalitaet__c;Text(18);;Dokument;;FEHLT (keine Übernahme aus der Extraktion).
+Extraktion;Zivilstand;Steuererklärung;PersonAccount;Zivilstand__c;Picklist;"Ledig; Verheiratet; Geschieden; Verwitwet";Dokument;;TEILWEISE: gleiches Feld, bisher aus Funnel-Eingabe statt aus der Steuererklärung.
+Extraktion;Wohnadresse;ID / Steuererklärung;PersonAccount;BillingStreet / BillingPostalCode / BillingCity;Text;;Dokument;erscheint auf Rechnungen;"ABWEICHEND / FEHLT: keine Extraktion; bestehend PersonMailingStreet für Firmenadressen."
+Extraktion;Objektadresse;Grundbuchauszug;Case;Adresse__c;Text(30);;Dokument;;FEHLT.
+Extraktion;Wertquote;Grundbuchauszug;Case;Wertquote__c;Zahl(8,1) (NEU);;Dokument;;"FEHLT; Feld NEU → braucht SF-Admin."
+Extraktion;Baujahr;GVZ-Police / Verkaufsdoku;Case;Baujahr__c;Zahl;;Dokument;;FEHLT (keine Übernahme aus der Extraktion).
+Extraktion;Kubatur;GVZ-Police;Case;Kubatur__c;Text(80);;Dokument;;FEHLT.
+Extraktion;Zimmer / Wohnfläche / Stockwerk;Verkaufsdoku / Pläne;Case;Anzahl_Zimmer__c / Wohnfl_che_m2__c / Stockwerk__c;Zahl / Text;;Dokument;;FEHLT.
+Extraktion;Energie-Zertifikat;Verkaufsdoku;Case;Energie_Zertifizierung__c;Picklist (NEU);;Dokument;;"FEHLT; Feld NEU → braucht SF-Admin."
+Extraktion;Bank bestehende Hypothek;Zinsabrechnung;Case;Bank__c;Text(80);;Dokument;;"KONFLIKT: Bank__c enthält bestehend die Bank von Finanzierungsangebot 1, nicht den aktuellen Kreditgeber. Bestehendes bleibt; Ziel für die bestehende Hypothek festlegen."
+Extraktion;Zinssatz;Zinsabrechnung;Case;Zins__c;Prozent;;Dokument;;KONFLIKT: wie Zeile 71 (Zinssatz von Angebot 1).
+Extraktion;Laufzeit bestehend;Zinsabrechnung;Case;Laufzeit__c;Text(80);;Dokument;;KONFLIKT: wie Zeile 71 (Laufzeit von Angebot 1).
+Extraktion;Ablösedatum;Zinsabrechnung;Case;Abl_sedatum__c;Datum;;Dokument;;ABWEICHEND: das Ablösedatum aus dem Funnel geht bestehend nach Kaufdatum__c.
+Dokumente;Pass / ID erfüllt;req id;Case;Dok_Identitaetsdokument__c;Checkbox;;System;;GLEICH (mindestens eine Datei hochgeladen).
+Dokumente;Lohnausweise erfüllt;req lohnausweise;Case;Dok_Lohnausweis__c;Checkbox;;System;;GLEICH.
+Dokumente;PK-Ausweis erfüllt;req pk;Case;Dok_Pensionskassenausweis__c;Checkbox;;System;;"GLEICH (bestehend speisen auch Renten-/AHV-Dokumente das Feld; neu nur der PK-Ausweis)."
+Dokumente;Steuererklärung erfüllt;req steuer;Case;Dok_Steuererklaerung__c;Checkbox;;System;;GLEICH.
+Dokumente;Fotos erfüllt;req fotos;Case;Dok_Fotos_der_Immobilie__c;Checkbox;;System;;"GLEICH (bestehend speisen auch Verkaufsdoku/Baubeschrieb das Feld; neu nur Fotos)."
+Dokumente;Grundrisspläne erfüllt;req stwe_plan;Case;Dok_Grundrissplaene__c;Checkbox;;System;;GLEICH.
+Dokumente;Grundbuchauszug erfüllt;req grundbuch;Case;Dok_Grundbuchauszug__c;Checkbox;nur wenn nicht veraltet;System;;TEILWEISE: bestehend beim Upload gesetzt, ohne Prüfung «veraltet». Neu nur wenn nicht veraltet.
+Dokumente;Gebäudeversicherung erfüllt;req gvz;Case;Dok_Gebaeudeversicherungsausweis__c;Checkbox;;System;;GLEICH.
+Dokumente;Kaufvertrag erfüllt;req kaufvertrag;Case;Dok_Kaufvertrag__c;Checkbox;;System;;"GLEICH (bestehend auch Reservations-/Renovationsvertrag; neu nur Kaufvertrag)."
+Dokumente;Betreibungsauszug erfüllt;req betreibung;Case;Dok_Betreibungsregisterauszug__c;Checkbox;;System;;GLEICH.
+Dokumente;Alle Pflichtdokumente;–;Case;Documents_completed__c;Checkbox;;System;;GLEICH in der Wirkung, ohne Unterscheidung Pflicht/optional. Neu: alle Pflicht-Anforderungen erfüllt.
+Dokumente;Komplette Checkliste;–;Case;Dokumenten_Check_State__c;Textbereich(131072);JSON gemäss Spezifikation 6.11;System;;ABWEICHEND: bestehendes JSON folgt dem Schema des SF-Tabs (filters / checked / savedAt). Die Blöcke aus 6.11 werden zusätzlich geschrieben, checked bleibt. SF-Entwickler: bleiben unbekannte Schlüssel beim Speichern im Tab erhalten? Feldlänge?
+Dokumente;Ablageort;–;Case;SharePoint_Doc__c;url;URL Fall-Ordner;System;;FEHLT: nur die Ordner-Id steht in der Datenbank. Neu: URL des Fall-Ordners.
+Nicht mappen;Opportunity Amount / Purchase price;–;Opportunity;Amount / Purchase price;–;–;–;wird automatisch synchronisiert;GLEICH (konform: keine Opportunity-Felder).
+Nicht mappen;Formel- und Systemfelder;–;alle;Befüllbar = Nein;–;–;–;;GLEICH (zu prüfen: Hypothekarbetrag__c und EigenmittelProzent__c sind keine Formelfelder).
