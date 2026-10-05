@@ -26,6 +26,9 @@ Beim Salesforce-Mapping gilt die Regel der Spezifikation: **das bestehende Mappi
 | D13 | Partner-Erkennung | Live-Abfrage in Salesforce (exakter E-Mail-Abgleich auf Contact) mit Zwischenspeicher; `@hypoteq.ch` / `@hypoteq.com` → User. Das Kriterium «aktiver VP-Berater» ist konfigurierbar (`SF_PARTNER_CONTACT_FILTER`), bis HYPOTEQ es festlegt. Unbekannte Partner werden **nicht** mehr als Platzhalter-Kontakt angelegt. | Spec 2.2, 8.7 |
 | D14 | Alter Funnel ohne Sprachpräfix (`/funnel`) | Weiterleitung auf `/{sprache}/funnel` | – |
 | D15 | Zuordnung von Dokumenten | eine Drop-Zone, automatische Zuordnung; nur «Nicht erkannt» wird manuell zugeordnet | Spec 5 |
+| D16 | Tragbarkeit Fall Gerber | Die Formel aus Spec 3 ergibt 37.6 % (Verdikt «Prüfung nötig»), das Beispiel-Dossier zeigt 32.3 %. Gebaut wird nach der Formel der Spezifikation; HYPOTEQ bestätigt, welche gilt. | Spec 3 / Fall-Dossier |
+| D17 | Bestätigungsmail bei Berater-Anfragen | geht an den Kunden aus Schritt 1 (Spec 3 Schritt 6: «{name} erhält eine Bestätigung an {email}»); der Berater erhält eine Kopie. Bisher ging sie an den Partner. | Spec 3 |
+| D18 | Mitkreditnehmer 2 und 3 in Salesforce | v3 fragt pro Person keine E-Mail mehr; der Sync legt Mitkreditnehmer heute nur mit E-Mail als Account an. Neu: Person Account ohne E-Mail anlegen, Daten aus den Dokumenten ergänzen. | Spec 3 Schritt 3 |
 
 ## Salesforce
 
