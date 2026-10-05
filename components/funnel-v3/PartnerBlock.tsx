@@ -22,11 +22,16 @@ export default function PartnerBlock({ errors }: { errors: StepErrors }) {
   const [formOpen, setFormOpen] = useState(() => Boolean(txt.pvor || txt.pnach || txt.ptel || txt.pfirma));
 
   const current = lookup.email === txt.bmail.trim().toLowerCase();
+  const checking = current && lookup.loading && isLookupEmail(txt.bmail);
   const result = current && !lookup.loading ? lookup.result : null;
   const known = result && result.status !== "unknown" && result.name ? result : null;
   // Once the form is open it stays while the address in it is being edited (and is briefly
   // invalid or being looked up again) — only a recognised partner replaces it.
   const unknown = Boolean((result && !known && isLookupEmail(txt.bmail)) || (formOpen && !known));
+  // Salesforce could not be asked (outage, rate limit): the address may well be a partner's,
+  // so the box must not claim «kennen wir noch nicht». The sync looks the address up again
+  // at submit (components/syncFunnelStepsToSalesforce applyPartnerToCase).
+  const degraded = Boolean(result?.degraded) && !formOpen;
 
   return (
     <div className="v3-section">
@@ -47,6 +52,7 @@ export default function PartnerBlock({ errors }: { errors: StepErrors }) {
       </div>
 
       <div aria-live="polite">
+        {checking ? <span className="v3-note v3-note--tight">{t("s1.checking")}</span> : null}
         {known ? (
           <div className="v3-partner">
             <span className="v3-initials" aria-hidden="true">
@@ -64,8 +70,8 @@ export default function PartnerBlock({ errors }: { errors: StepErrors }) {
           <div className="v3-newpartner">
             <div className="v3-newpartner-top">
               <span className="v3-newpartner-copy">
-                <span className="v3-newpartner-title">{t("s1.noPartner.title")}</span>
-                <span className="v3-newpartner-text">{t("s1.noPartner.text")}</span>
+                <span className="v3-newpartner-title">{t(degraded ? "s1.lookupFailed.title" : "s1.noPartner.title")}</span>
+                <span className="v3-newpartner-text">{t(degraded ? "s1.lookupFailed.text" : "s1.noPartner.text")}</span>
               </span>
               {!formOpen ? (
                 <button type="button" className="v3-btn v3-btn--dark" onClick={() => setFormOpen(true)}>

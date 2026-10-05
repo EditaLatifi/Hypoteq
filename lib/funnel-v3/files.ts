@@ -8,6 +8,7 @@
  */
 
 import type { UploadedFile } from "./requirementStatus";
+import { freshnessProblem } from "@/components/documentIntelligence/v3/catalogue";
 
 /** Extraction of one value from a document. */
 export interface ExtractedField {
@@ -95,8 +96,13 @@ export interface FileAuditEntry {
   params?: Record<string, string | number>;
 }
 
-/** Map store entries to the shape requirementStatus() expects. */
-export function toUploadedFiles(files: FileEntry[]): UploadedFile[] {
+/**
+ * Map store entries to the shape requirementStatus() expects. «Veraltet» is judged again
+ * against `now`, not only taken from the analysis: a Grundbuchauszug read as fresh in the
+ * funnel can have passed its six months by the time the Nachreichung or a long session
+ * looks at it (spec 4.2).
+ */
+export function toUploadedFiles(files: FileEntry[], now: Date = new Date()): UploadedFile[] {
   return files.map((f) => ({
     fileId: f.id,
     requirementId: f.instanceId ?? null,
@@ -106,7 +112,9 @@ export function toUploadedFiles(files: FileEntry[]): UploadedFile[] {
         : f.analysisState === "done"
           ? "done"
           : "analysing",
-    outdated: Boolean(f.analysis?.outdated),
+    outdated:
+      Boolean(f.analysis?.outdated) ||
+      (f.analysisState === "done" && freshnessProblem(f.analysis?.docTypeId, f.analysis?.docDate, f.analysis?.fields, now) !== null),
     outdatedOverride: Boolean(f.outdatedOverride),
     extraKind: f.instanceId ? undefined : f.analysis?.extraKind,
     note: f.analysis?.note ?? undefined,
