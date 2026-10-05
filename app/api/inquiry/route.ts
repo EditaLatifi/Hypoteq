@@ -107,10 +107,11 @@ export async function POST(req: Request) {
     // === ALREADY SUBMITTED? ===
     // A retry after a slow or dropped response must not create a second lead, a second
     // Case, or send every mail twice. The first request already did all of it.
-    const existing = await prisma.inquiry.findUnique({ where: { id: submissionId }, select: { id: true } });
+    const existing = await prisma.inquiry.findUnique({ where: { id: submissionId }, select: { id: true, caseNumber: true } });
     if (existing) {
       console.log(`ℹ️ Submission ${submissionId} was already saved; not processing it again`);
-      return NextResponse.json({ success: true, inquiryId: existing.id, alreadySubmitted: true });
+      // Funnel v3: a retry after a lost response shows the same case number (lib/funnel-v3/submit.ts).
+      return NextResponse.json({ success: true, inquiryId: existing.id, caseNumber: existing.caseNumber ?? null, alreadySubmitted: true });
     }
 
     // Internal notification first: if everything after this fails, this mail is still a
@@ -301,6 +302,20 @@ export async function POST(req: Request) {
       console.error("⚠️ Could not link uploaded documents to the inquiry:", adoptErr);
     }
 
+    // === FUNNEL V3 CLOSING (lib/funnel-v3/completion.ts) — v3 payloads only ===
+    // Renames the files to their stored names, removes duplicates / not-needed files, stores
+    // the Fall-Dossier in the case folder. Every step inside is non-fatal; the result rides
+    // along to the Salesforce sync below (SharePoint_Doc__c, stored names in the 6.11 state).
+    if (data.v3) {
+      try {
+        const { completeV3Inquiry } = await import("@/lib/funnel-v3/completion");
+        data.v3Completion = await completeV3Inquiry({ inquiryId: inquiry.id, submissionId, caseNumber, data });
+      } catch (v3Err) {
+        console.error("⚠️ Funnel v3 closing failed (continuing):", v3Err);
+      }
+    }
+    // === END FUNNEL V3 CLOSING ===
+
     // Salesforce sync (backend only)
     let salesforceError: unknown = null;
     let salesforceCaseId: string | null = null;
@@ -377,10 +392,23 @@ export async function POST(req: Request) {
     // The partner is linked inside the sync (components/partnerDirectory). Unknown partners
     // are no longer created as placeholder Contacts (spec 2.2 / 6.3, DECISIONS D13).
 
-    // Auto-response to the customer
+    // Auto-response to the customer. Funnel v3 Berater submission: to the customer from
+    // step 1 with a copy to the Berater (DECISIONS D17); otherwise unchanged (client.email).
+    let confirmation: { to: string | null; cc: string | null; firstName: string } = {
+      to: data.client?.email || null,
+      cc: null,
+      firstName: data.client?.firstName || data.client?.vorname || '',
+    };
+    if (data.v3) {
+      try {
+        confirmation = (await import("@/lib/funnel-v3/completion")).confirmationRecipients(data);
+      } catch (recipientErr) {
+        console.error("⚠️ Could not resolve the v3 confirmation recipients (using client.email):", recipientErr);
+      }
+    }
     try {
-      if (data.client?.email) {
-        await sendFunnelAutoResponse(data.client.email, data.client.firstName || data.client.vorname || '', locale);
+      if (confirmation.to) {
+        await sendFunnelAutoResponse(confirmation.to, confirmation.firstName, locale, confirmation.cc);
         console.log("✅ Auto-response sent to customer");
       }
     } catch (autoResponseError) {
@@ -391,7 +419,7 @@ export async function POST(req: Request) {
     // resolve. Non-fatal: the lead is captured either way.
     if (documentCompleteness) {
       try {
-        await sendDossierCompletenessEmail(data, documentCompleteness, locale, nachreichToken);
+        await sendDossierCompletenessEmail(data, documentCompleteness, locale, nachreichToken, confirmation);
       } catch (dossierMailError) {
         console.error("⚠️ Dossier completeness mail failed (continuing):", dossierMailError);
       }
@@ -588,14 +616,15 @@ async function sendDossierCompletenessEmail(
   data: any,
   completeness: any,
   locale: EmailLocale,
-  nachreichToken?: string | null
+  nachreichToken?: string | null,
+  recipients?: { to: string | null; cc: string | null }
 ) {
   const client = getGraphMailClient();
   if (!client) {
     console.log('⚠️ Dossier completeness mail skipped — Graph mail disabled');
     return;
   }
-  const to = data?.client?.email;
+  const to = recipients ? recipients.to : data?.client?.email;
   if (!to) return;
 
   const L = DOSSIER_MAIL[locale];
@@ -605,9 +634,12 @@ async function sendDossierCompletenessEmail(
     `${data.client?.firstName || ''} ${data.client?.lastName || ''}`.trim();
 
   const complete = completeness?.complete === true;
+  // Funnel v3 sends its missing requirements already labelled in the funnel language.
   const missingLabels: string[] = complete
     ? []
-    : resolveDocLabels(completeness?.missing || [], locale);
+    : Array.isArray(completeness?.missingLabelsLocale)
+      ? completeness.missingLabelsLocale
+      : resolveDocLabels(completeness?.missing || [], locale);
 
   const listHTML = missingLabels.length
     ? '<ul style="margin:16px 0 20px 0;padding-left:20px;">' +
@@ -655,12 +687,14 @@ async function sendDossierCompletenessEmail(
 
   const routed = routeMail(to, complete ? L.subjectComplete : L.subjectIncomplete);
   if (!routed) return;
+  const cc = copyRecipient(recipients?.cc, routed.to);
   const sendAsUser = process.env.SMTP_USER || 'info@hypoteq.ch';
   await client.api(`/users/${sendAsUser}/sendMail`).post({
     message: {
       subject: routed.subject,
       body: { contentType: 'HTML', content: html },
       toRecipients: [{ emailAddress: { address: routed.to } }],
+      ...(cc ? { ccRecipients: [{ emailAddress: { address: cc } }] } : {}),
     },
     saveToSentItems: true,
   });
@@ -1740,7 +1774,7 @@ function generateFunnelEmailHTML(data: any, saved: any, locale: EmailLocale = 'd
 }
 
 // Send auto-response to customer after funnel submission
-async function sendFunnelAutoResponse(customerEmail: string, firstName: string, locale: EmailLocale = 'de') {
+async function sendFunnelAutoResponse(customerEmail: string, firstName: string, locale: EmailLocale = 'de', copyTo?: string | null) {
   try {
     console.log("📧 Sending funnel auto-response to customer:", customerEmail, "locale:", locale);
 
@@ -1754,6 +1788,7 @@ async function sendFunnelAutoResponse(customerEmail: string, firstName: string, 
     if (!routed) return;
     const subject = routed.subject;
     customerEmail = routed.to;
+    const cc = copyRecipient(copyTo, routed.to);
 
     if (useGraph) {
       const credential = new ClientSecretCredential(
@@ -1785,6 +1820,7 @@ async function sendFunnelAutoResponse(customerEmail: string, firstName: string, 
               },
             },
           ],
+          ...(cc ? { ccRecipients: [{ emailAddress: { address: cc } }] } : {}),
         },
         saveToSentItems: true,
       };
@@ -1818,6 +1854,7 @@ async function sendFunnelAutoResponse(customerEmail: string, firstName: string, 
       await transporter.sendMail({
         from: `"HYPOTEQ" <${process.env.SMTP_USER}>`,
         to: customerEmail,
+        ...(cc ? { cc } : {}),
         subject: subject,
         html: autoResponseHTML,
       });
@@ -1828,6 +1865,17 @@ async function sendFunnelAutoResponse(customerEmail: string, firstName: string, 
     console.error("⚠️ Failed to send funnel auto-response (non-critical):", error.message);
     // Don't throw - auto-response failure shouldn't fail the main request
   }
+}
+
+/**
+ * The copy of a customer mail (DECISIONS D17: the Berater gets one). Test mode routes every
+ * mail to the test inbox already, so a copy is only added when it goes somewhere else.
+ */
+function copyRecipient(cc: string | null | undefined, routedTo: string): string | null {
+  if (!cc) return null;
+  const routed = routeMail(cc, "");
+  if (!routed || routed.to.toLowerCase() === routedTo.toLowerCase()) return null;
+  return routed.to;
 }
 
 const AUTO_RESPONSE_SUBJECT: Record<EmailLocale, string> = {
