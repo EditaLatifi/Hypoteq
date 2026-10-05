@@ -252,7 +252,12 @@ function drawCover(pdf: Pdf, c: DossierModel["cover"]) {
   const kw = textW / Math.max(c.kpis.length, 1);
   c.kpis.forEach((k, i) => {
     pdf.text(k.value, inner + i * kw, yb, { size: 15, bold: true, color: k.accent ? COLOR.lime : COLOR.white });
-    pdf.text(upper(k.label), inner + i * kw, yb + 21, { size: 6.8, color: COLOR.white, opacity: 0.6 });
+    // A long label («Geschätzter Hypothekbedarf») must not run into the next column.
+    const label = upper(k.label);
+    const room = kw - 10;
+    const natural = pdf.width(label, 6.8);
+    const size = natural > room ? Math.max(5.2, (6.8 * room) / natural) : 6.8;
+    pdf.text(label, inner + i * kw, yb + 21, { size, color: COLOR.white, opacity: 0.6 });
   });
   yb += 40;
   pdf.page.drawLine({ start: { x: inner, y: yb }, end: { x: inner + textW, y: yb }, thickness: 0.6, color: COLOR.white, opacity: 0.18 });

@@ -381,7 +381,8 @@ export function buildDossierModel(input: DossierInput): DossierModel {
   const recognised = input.files.filter((f) => counted.has(f.id)).length;
   const keptExtras = extras.filter((f) => !f.removed).length;
   const removedExtras = extras.filter((f) => f.removed).length;
-  const intro = d(T.annexIntro, { n: recognised }) + (extras.length ? " " + d(T.annexExtras, { kept: keptExtras, removed: removedExtras }) : "");
+  const extrasLine = removedExtras > 0 ? T.annexExtras : T.annexExtrasKept;
+  const intro = d(T.annexIntro, { n: recognised }) + (extras.length ? " " + d(extrasLine, { kept: keptExtras, removed: removedExtras }) : "");
 
   const hintTitles = hints.map((h) => t(h.titleKey) + (h.kind === "outdated" ? ` (${t("state.outdated")})` : ""));
   const completeness = {

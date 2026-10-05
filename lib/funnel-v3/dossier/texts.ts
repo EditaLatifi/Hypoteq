@@ -87,6 +87,8 @@ export interface DossierTexts {
   annex: string;
   annexIntro: string;
   annexExtras: string;
+  /** Same sentence when nothing was removed, so the annex never states «0 … nicht abgelegt». */
+  annexExtrasKept: string;
   colNo: string;
   colReq: string;
   colFile: string;
@@ -216,6 +218,7 @@ export const DOSSIER_TEXTS: Record<Lang, DossierTexts> = {
     annex: "Annex · Dokumentenverzeichnis",
     annexIntro: "{n} Dateien erkannt, zugeordnet und ausgelesen. Jede Anforderung zeigt ihre Herkunft (Trigger-Antwort) und die extrahierten Kernangaben.",
     annexExtras: "{kept} weitere Datei(en) mitgeführt, {removed} nicht benötigte Datei(en) bzw. Duplikat(e) nicht abgelegt.",
+    annexExtrasKept: "{kept} weitere Datei(en) mitgeführt.",
     colNo: "#",
     colReq: "Anforderung · Herkunft",
     colFile: "Datei",
@@ -313,6 +316,7 @@ export const DOSSIER_TEXTS: Record<Lang, DossierTexts> = {
     annex: "Annex · Document index",
     annexIntro: "{n} files recognised, assigned and read. Each requirement shows its origin (triggering answer) and the key extracted details.",
     annexExtras: "{kept} further file(s) included, {removed} file(s) not needed or duplicate not stored.",
+    annexExtrasKept: "{kept} further file(s) included.",
     colNo: "#",
     colReq: "Requirement · origin",
     colFile: "File",
@@ -416,6 +420,7 @@ export const DOSSIER_TEXTS: Record<Lang, DossierTexts> = {
     annex: "Annexe · Liste des documents",
     annexIntro: "{n} fichiers reconnus, attribués et lus. Chaque exigence indique son origine (réponse déclenchante) et les informations clés extraites.",
     annexExtras: "{kept} autre(s) fichier(s) joint(s), {removed} fichier(s) non requis ou doublon(s) non enregistré(s).",
+    annexExtrasKept: "{kept} autre(s) fichier(s) joint(s).",
     colNo: "#",
     colReq: "Exigence · origine",
     colFile: "Fichier",
@@ -519,6 +524,7 @@ export const DOSSIER_TEXTS: Record<Lang, DossierTexts> = {
     annex: "Allegato · Elenco dei documenti",
     annexIntro: "{n} file riconosciuti, assegnati e letti. Ogni requisito indica la sua origine (risposta che lo attiva) e i dati principali estratti.",
     annexExtras: "{kept} ulteriore/i file allegato/i, {removed} file non necessario/i o duplicato/i non archiviato/i.",
+    annexExtrasKept: "{kept} ulteriore/i file allegato/i.",
     colNo: "#",
     colReq: "Requisito · origine",
     colFile: "File",

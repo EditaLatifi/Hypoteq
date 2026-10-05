@@ -227,7 +227,8 @@ export default function Step6Finish() {
             <button type="button" className="v3-btn v3-btn--primary" onClick={startOver}>
               {t("s6.newRequest")}
             </button>
-            <a className="v3-btn v3-btn--outline" href={HYPOTEQ_URL}>
+            {/* On the dark done panel: the white outline, not the dark one meant for light panels. */}
+            <a className="v3-btn v3-btn--outline-dark" href={HYPOTEQ_URL}>
               {t("s6.finish")}
             </a>
             <a className="v3-btn v3-btn--text v3f-on-dark" href={storedDossierUrl(done)} download>
