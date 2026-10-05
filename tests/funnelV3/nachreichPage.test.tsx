@@ -21,6 +21,8 @@ const copy = {
   doneComplete: "Merci – votre dossier est désormais complet.",
   donePartial: "Merci – il manque encore :",
   alreadyComplete: "Votre dossier est déjà complet.",
+  completeIntro: "Vous pouvez ajouter ici d’autres documents à tout moment.",
+  doneExtras: "Merci – documents supplémentaires reçus.",
 };
 
 const render = (view: any) => renderToStaticMarkup(createElement(NachreichV3, { token: TOKEN, view, copy }));
@@ -43,9 +45,12 @@ describe("NachreichV3 (server render)", () => {
     expect(html).toMatch(/<button type="button" class="v3-btn v3-btn--primary" disabled="">Envoyer les documents<\/button>/);
   });
 
-  it("says so when nothing is missing", () => {
+  it("a complete dossier says so and still offers the drop zone for further documents (D26)", () => {
     const html = render({ ...nachreichV3View(inquiryRow(), existingRows())!, missing: [] });
     expect(html).toContain("Votre dossier est déjà complet.");
-    expect(html).not.toContain("v3-drop");
+    expect(html).toContain("Vous pouvez ajouter ici d’autres documents à tout moment.");
+    expect(html).toContain("v3-drop");
+    // Nothing to list: no requirement groups.
+    expect(html).not.toContain("v3-docgroup-head");
   });
 });

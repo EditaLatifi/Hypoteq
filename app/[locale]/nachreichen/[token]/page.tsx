@@ -221,6 +221,8 @@ export default function NachreichenPage({
           doneComplete: t("nachreichen.doneComplete" as any),
           donePartial: t("nachreichen.donePartial" as any),
           alreadyComplete: t("nachreichen.alreadyComplete" as any),
+          completeIntro: t("nachreichen.completeIntro" as any),
+          doneExtras: t("nachreichen.doneExtras" as any),
         }}
       />
     );

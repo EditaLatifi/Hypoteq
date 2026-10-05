@@ -1256,6 +1256,8 @@
     "sending": "Invio in corso …",
     "error": "Il caricamento non è riuscito:",
     "doneComplete": "Grazie – il suo dossier è ora completo.",
-    "donePartial": "Grazie – abbiamo ricevuto i suoi documenti. Mancano ancora:"
+    "donePartial": "Grazie – abbiamo ricevuto i suoi documenti. Mancano ancora:",
+    "completeIntro": "Può aggiungere qui ulteriori documenti in qualsiasi momento – li alleghiamo al suo dossier.",
+    "doneExtras": "Grazie – abbiamo ricevuto i suoi documenti aggiuntivi e li abbiamo allegati al suo dossier."
   }
 }

@@ -1252,6 +1252,8 @@
     "sending": "Envoi en cours …",
     "error": "Le téléversement a échoué :",
     "doneComplete": "Merci – votre dossier est désormais complet.",
-    "donePartial": "Merci – nous avons bien reçu vos documents. Il manque encore :"
+    "donePartial": "Merci – nous avons bien reçu vos documents. Il manque encore :",
+    "completeIntro": "Vous pouvez ajouter ici d’autres documents à tout moment – nous les joignons à votre dossier.",
+    "doneExtras": "Merci – nous avons bien reçu vos documents supplémentaires et les avons joints à votre dossier."
   }
 }

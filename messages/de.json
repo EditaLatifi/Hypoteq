@@ -1262,6 +1262,8 @@
     "sending": "Wird gesendet …",
     "error": "Das Hochladen ist fehlgeschlagen:",
     "doneComplete": "Vielen Dank – Ihr Dossier ist jetzt vollständig.",
-    "donePartial": "Vielen Dank – wir haben Ihre Unterlagen erhalten. Es fehlen noch:"
+    "donePartial": "Vielen Dank – wir haben Ihre Unterlagen erhalten. Es fehlen noch:",
+    "completeIntro": "Sie können hier jederzeit weitere Unterlagen hinzufügen – wir ordnen sie Ihrem Dossier zu.",
+    "doneExtras": "Vielen Dank – wir haben Ihre zusätzlichen Unterlagen erhalten und Ihrem Dossier beigefügt."
   }
 }

@@ -36,6 +36,7 @@ Beim Salesforce-Mapping gilt die Regel der Spezifikation: **das bestehende Mappi
 | D23 | Interne Ansicht (`?intern=`) | Die interne Prüfansicht (Prozentwerte, Audit-Trail) öffnet mit `?intern=<Schlüssel>`; der Schlüssel ist `NEXT_PUBLIC_V3_INTERN_KEY`. Bis HYPOTEQ einen Schlüssel setzt, gilt `?intern=1`. Reine Ansicht im Browser — serverseitig zählt sie nicht (D19). | Spec 5 |
 | D24 | «Veraltet» zum Zeitpunkt der Anzeige | Die Frist (z.B. Grundbuchauszug max. 6 Monate) wird bei jeder Statusberechnung gegen das aktuelle Datum geprüft, nicht nur bei der Analyse: ein in der Anfrage noch frischer Auszug kann bei der Nachreichung bereits veraltet sein. | Spec 4.2 |
 | D25 | Partner-Prüfung nicht erreichbar | Antwortet Salesforce nicht (Ausfall, Rate-Limit), sagt der Funnel «Prüfung gerade nicht möglich» statt «kennen wir noch nicht»; die Anfrage läuft weiter, der Sync prüft die Adresse beim Eingang erneut. Während der Prüfung steht «Adresse wird geprüft …». | Spec 2.2 |
+| D26 | Vollständiges Dossier, Link aus der Mail | Die Nachreich-Seite eines vollständigen v3-Dossiers zeigt den Stand («vollständig») und nimmt weitere Unterlagen an; sie werden als «Weitere Dateien» geführt (Spec 4.3, `_ZUSATZ_`), das Fall-Dossier und der Case werden aktualisiert. Nur v3; abgelaufene Links bleiben abgelehnt. | Spec 3 Schritt 6, 4.3 |
 
 ## Salesforce
 

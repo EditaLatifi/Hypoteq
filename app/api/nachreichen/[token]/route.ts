@@ -82,8 +82,9 @@ export async function GET(
 
   const rejection = rejectNachreich(row, new Date());
   // A v3 confirmation mail links here whether the dossier is complete or not (DECISIONS D20):
-  // a complete one shows its status page (Fallnummer, «bereits vollständig») instead of the
-  // generic 410. Expired and unknown links are rejected as before; POST stays rejected.
+  // a complete one shows its status page (Fallnummer, «vollständig») with the drop zone for
+  // further documents (D26) instead of the generic 410. Expired and unknown links are
+  // rejected as before.
   if (rejection === "already_complete" && isV3Inquiry(row)) return v3Get(row!);
   if (rejection) return rejectionResponse(rejection);
   if (isV3Inquiry(row)) return v3Get(row!);
@@ -121,6 +122,9 @@ export async function POST(
   const row = await findByToken(token);
 
   const rejection = rejectNachreich(row, new Date());
+  // A complete v3 dossier still takes documents: they are kept as extras («Weitere
+  // Dateien», spec 4.3), the Fall-Dossier and the Case are refreshed (DECISIONS D26).
+  if (rejection === "already_complete" && isV3Inquiry(row)) return v3Post(row!, body);
   if (rejection) return rejectionResponse(rejection);
   if (isV3Inquiry(row)) return v3Post(row!, body);
 

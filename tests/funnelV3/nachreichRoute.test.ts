@@ -198,11 +198,16 @@ describe("GET /api/nachreichen/[token]", () => {
     expect((await GET(req(), ctx)).status).toBe(410);
   });
 
-  it("a complete v3 dossier still refuses uploads", async () => {
+  it("a complete v3 dossier still takes documents (D26): the gate opens, the body is checked as usual", async () => {
     seedV3();
     mockDb.inquiry.documentsComplete = true;
-    const res = await POST(req({ files: [] }), ctx);
-    expect(res.status).toBe(410);
+    const res = await POST(req({ documents: [] }), ctx);
+    expect(res.status).toBe(400);
+    expect(await res.json()).toEqual({ error: "No documents" });
+    // A complete legacy inquiry is still rejected.
+    seedLegacy();
+    mockDb.inquiry.documentsComplete = true;
+    expect((await POST(req({ files: [] }), ctx)).status).toBe(410);
   });
 });
 

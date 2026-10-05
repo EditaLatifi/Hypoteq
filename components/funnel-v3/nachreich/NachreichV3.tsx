@@ -45,6 +45,10 @@ export interface NachreichCopy {
   doneComplete: string;
   donePartial: string;
   alreadyComplete: string;
+  /** Lead of a complete dossier: nothing is missing, more documents are welcome (D26). */
+  completeIntro: string;
+  /** Done state after documents were added to a complete dossier. */
+  doneExtras: string;
 }
 
 const NO_SUGGESTIONS = new Set<string>();
@@ -171,10 +175,13 @@ export default function NachreichV3({ token, view, copy }: { token: string; view
     </div>
   );
 
+  // Nothing missing: the page is the dossier's status, and a place to add documents (D26).
+  const wasComplete = !view.missing.length;
+
   if (phase === "done" && result) {
     return shell(
       <>
-        {head(result.complete ? copy.doneComplete : copy.donePartial)}
+        {head(wasComplete ? copy.doneExtras : result.complete ? copy.doneComplete : copy.donePartial)}
         {!result.complete && result.remaining.length ? (
           <ul className="v3-nachreich-remaining">
             {result.remaining.map((r) => (
@@ -186,14 +193,12 @@ export default function NachreichV3({ token, view, copy }: { token: string; view
     );
   }
 
-  if (!view.missing.length) return shell(head(copy.title, copy.alreadyComplete));
-
   const sending = phase === "sending";
   const ready = files.some((f) => f.uploadState !== "failed");
 
   return shell(
     <>
-      {head(copy.title, copy.intro)}
+      {head(copy.title, wasComplete ? `${copy.alreadyComplete} ${copy.completeIntro}` : copy.intro)}
 
       <DropZone ref={drop} onFiles={onFiles} total={files.length} open={busy} />
 

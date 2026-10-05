@@ -1257,6 +1257,8 @@
     "sending": "Sending …",
     "error": "The upload failed:",
     "doneComplete": "Thank you – your dossier is now complete.",
-    "donePartial": "Thank you – we have received your documents. Still outstanding:"
+    "donePartial": "Thank you – we have received your documents. Still outstanding:",
+    "completeIntro": "You can add further documents here at any time – we file them with your dossier.",
+    "doneExtras": "Thank you – we have received your additional documents and added them to your dossier."
   }
 }
