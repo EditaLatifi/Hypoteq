@@ -1,3 +1,4 @@
+import { createHash } from "crypto";
 import { isTestMode, TEST_FOLDER_PREFIX } from "@/components/testMode";
 
 // One token per warm instance rather than one per request: every upload now makes several
@@ -211,6 +212,63 @@ export async function downloadDriveItem(itemId: string, token: string): Promise<
   return Buffer.from(await res.arrayBuffer());
 }
 
+/**
+ * SHA-256 of a file in SharePoint, streamed: the bytes pass through the hash and are never held
+ * in memory as a whole. Used for duplicate detection (spec 4.3 «Duplikat»).
+ *
+ * Computed here rather than trusted from the browser: Graph exposes only quickXorHash for
+ * SharePoint drives (no SHA-256), so a hash the client sent could not be verified without
+ * reading the file anyway — and reading it inside Microsoft's network is fast.
+ */
+export async function hashDriveItem(itemId: string, token: string): Promise<string> {
+  const DRIVE_ID = process.env.DRIVE_ID!;
+  const res = await fetch(
+    `https://graph.microsoft.com/v1.0/drives/${DRIVE_ID}/items/${encodeURIComponent(itemId)}/content`,
+    { headers: { Authorization: `Bearer ${token}` }, redirect: "follow" }
+  );
+  if (!res.ok) throw new Error(`Graph download failed (${res.status})`);
+  const hash = createHash("sha256");
+  const reader = res.body?.getReader();
+  if (!reader) {
+    hash.update(Buffer.from(await res.arrayBuffer()));
+  } else {
+    for (;;) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      if (value) hash.update(value);
+    }
+  }
+  return hash.digest("hex");
+}
+
+/** SHA-256 of bytes already in memory (the analyse route has them anyway). */
+export function sha256Hex(data: Buffer | Uint8Array): string {
+  return createHash("sha256").update(data).digest("hex");
+}
+
+/**
+ * Store a file's content hash on its row. Best effort and separate from the insert on
+ * purpose: until prisma/sql/2026-10-05-document-content-hash.sql has run and the client is
+ * regenerated, the column does not exist — that must cost duplicate detection, never the upload.
+ */
+export async function storeContentHash(
+  table: "holding" | "document",
+  id: string,
+  contentHash: string
+): Promise<boolean> {
+  try {
+    const { prisma } = await import("@/lib/prisma");
+    // Narrow cast: `contentHash` is in schema.prisma but not in a client generated before it.
+    const data = { contentHash } as Record<string, unknown> as any;
+    if (table === "holding") await prisma.holdingDocument.update({ where: { id }, data });
+    else await prisma.document.update({ where: { id }, data });
+    return true;
+  } catch (err) {
+    console.warn(`Could not store the content hash of ${id}:`, err instanceof Error ? err.message : err);
+    return false;
+  }
+}
+
 /** Delete a file. Already gone counts as done. */
 export async function deleteDriveItem(itemId: string, token: string): Promise<void> {
   const DRIVE_ID = process.env.DRIVE_ID!;
@@ -363,6 +421,9 @@ export function adoptedDocumentData(
     aiConfidence: manual ? 1 : h.aiConfidence,
     aiAnalysis: human ?? undefined,
     uploadedAt: h.uploadedAt,
+    // Carried over only when the row has the column (a client generated after the
+    // content-hash SQL); an older client would reject an unknown field and fail the adoption.
+    ...("contentHash" in h ? { contentHash: (h as { contentHash?: string | null }).contentHash ?? null } : {}),
   };
 }
 

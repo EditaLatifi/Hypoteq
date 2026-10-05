@@ -10,7 +10,7 @@ const allKeys = (lang: (typeof LANGS)[number]) =>
 
 describe("funnel-v3 messages", () => {
   // The delivered texts stay exactly as delivered; the UI may add keys the prototype wrote
-  // inline (e.g. «Zu den Unterlagen», the short question names of the «weil: …» line).
+  // inline (the short question names of the «weil: …» line, the documents step's «docs.*» texts).
   it("contain the delivered i18n file, unchanged", () => {
     const delivered = JSON.parse(
       fs.readFileSync(path.join(__dirname, "..", "docs", "funnel-v3", "HYPOTEQ_Funnel_i18n.json"), "utf8")

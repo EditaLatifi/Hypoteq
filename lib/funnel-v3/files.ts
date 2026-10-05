@@ -74,6 +74,25 @@ export interface FileEntry {
   outdatedOverride?: boolean;
   /** The customer chose to keep a «nicht benötigt» file. */
   keep?: boolean;
+  // ---- Added by the documents step (all optional, so older session copies still load) ----
+  /** When the file was added (ISO); orders duplicates and the audit trail. */
+  addedAt?: string;
+  /** Path inside a dropped folder («Unterlagen/Lohn/2024.pdf»); absent for single files. */
+  relativePath?: string;
+  /** Values the customer corrected in the detail view, by field key (→ SubmittedDocument). */
+  humanEdits?: Record<string, string>;
+  /** «Angaben bestätigen» in the detail view. */
+  confirmed?: boolean;
+  /** Stored name chosen by a Berater or the internal role (spec 5.1); customers only see it. */
+  nameOverride?: string;
+  /** Audit trail for the internal role: i18n key (`audit.*`) + params, never shown to customers. */
+  audit?: FileAuditEntry[];
+}
+
+export interface FileAuditEntry {
+  ts: string;
+  key: string;
+  params?: Record<string, string | number>;
 }
 
 /** Map store entries to the shape requirementStatus() expects. */
@@ -108,4 +127,8 @@ export interface SubmittedDocument {
   assignedByUser?: boolean;
   /** Values the customer confirmed or corrected in the detail view. */
   humanEdits?: Record<string, string>;
+  /** The customer confirmed the recognised values («Angaben bestätigen»). */
+  confirmed?: boolean;
+  /** A stored name set by hand (Berater / intern, spec 5.1); the server's own name otherwise. */
+  storedName?: string;
 }
