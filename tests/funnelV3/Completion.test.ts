@@ -2,6 +2,7 @@ import { describe, it, expect, jest } from "@jest/globals";
 import {
   completeV3Inquiry,
   confirmationRecipients,
+  overrideName,
   planFiles,
   v3DocumentCaseFields,
   withSuffix,
@@ -146,6 +147,61 @@ describe("planFiles — stored names (spec 5.1)", () => {
   it("withSuffix", () => {
     expect(withSuffix("a_b.pdf", 2)).toBe("a_b_2.pdf");
     expect(withSuffix("noext", 3)).toBe("noext_3");
+  });
+});
+
+describe("planFiles — stored name set by hand (spec 5.1, DECISIONS D19)", () => {
+  const files = gerberFiles();
+  const rows = rowsFor(files);
+  const ID_FILE = "01_ID_Gary_Gerber.pdf";
+  const GB_FILE = "03_Grundbuchauszug_Etzelstrasse_52_Waedenswil_2026_01_15.pdf";
+  const GB_NAME = "HQ-26-06-156283_03_Grundbuchauszug_2026-01-15.pdf";
+  const idOf = (orig: string) => files.find((f) => f.name === orig)!.documentId!;
+  const withOverride = (docs: any[], orig: string, storedName: string) => docs.map((d) => (d.documentId === idOf(orig) ? { ...d, storedName } : d));
+  const targetOf = (plans: ReturnType<typeof planFiles>, orig: string) => plans.find((x) => x.row.originalFileName === orig)!.target;
+
+  it("Berater: the typed name is used, sanitised like the automatic ones, with the file's lower-case extension", () => {
+    const p = payload(files, { state: { role: "berater" } });
+    expect(p.v3.role).toBe("berater");
+    const subs = withOverride(p.documents as any[], ID_FILE, "  Pass Gäry Gerber (Kopie).PDF ");
+    const plans = planFiles(p.v3 as any, rows, subs, CASE);
+    expect(targetOf(plans, ID_FILE)).toBe("Pass_Gary_Gerber_Kopie.pdf");
+    // The others keep their automatic names.
+    expect(targetOf(plans, GB_FILE)).toBe(GB_NAME);
+  });
+
+  it("Kunde: the override is ignored (customers cannot rename)", () => {
+    const p = payload(files);
+    expect(p.v3.role).toBe("kunde");
+    const subs = withOverride(p.documents as any[], ID_FILE, "Pass.pdf");
+    expect(targetOf(planFiles(p.v3 as any, rows, subs, CASE), ID_FILE)).toBe("HQ-26-06-156283_01_ID_Gerber-Gary.pdf");
+  });
+
+  it("extension: the file's own, lower-case; appended when none was typed, replacing a foreign one", () => {
+    expect(overrideName("Lohnausweis 2024", "PDF")).toBe("Lohnausweis_2024.pdf");
+    expect(overrideName("Scan.jpg", "pdf")).toBe("Scan.pdf");
+    expect(overrideName("Steuern.2024", "pdf")).toBe("Steuern2024.pdf");
+    expect(overrideName("HQ-26-06-156283_01_ID_Gerber-Gary.pdf", "pdf")).toBe("HQ-26-06-156283_01_ID_Gerber-Gary.pdf");
+    expect(overrideName("Überweisung_Müller", "png")).toBe("Uberweisung_Muller.png");
+    expect(overrideName("   ", "pdf")).toBeNull();
+    expect(overrideName("***.pdf", "pdf")).toBeNull();
+    expect(overrideName(undefined, "pdf")).toBeNull();
+  });
+
+  it("an empty or unusable override leaves the automatic name", () => {
+    const p = payload(files, { state: { role: "berater" } });
+    const subs = withOverride(p.documents as any[], ID_FILE, "   ");
+    expect(targetOf(planFiles(p.v3 as any, rows, subs, CASE), ID_FILE)).toBe("HQ-26-06-156283_01_ID_Gerber-Gary.pdf");
+  });
+
+  it("a hand-picked name that collides with another file's name gets _2", () => {
+    const p = payload(files, { state: { role: "berater" } });
+    const subs = withOverride(p.documents as any[], ID_FILE, GB_NAME);
+    const plans = planFiles(p.v3 as any, rows, subs, CASE);
+    const names = [targetOf(plans, ID_FILE), targetOf(plans, GB_FILE)];
+    expect(new Set(names)).toEqual(new Set([GB_NAME, "HQ-26-06-156283_03_Grundbuchauszug_2026-01-15_2.pdf"]));
+    const all = plans.filter((x) => x.target).map((x) => x.target!.toLowerCase());
+    expect(new Set(all).size).toBe(all.length);
   });
 });
 

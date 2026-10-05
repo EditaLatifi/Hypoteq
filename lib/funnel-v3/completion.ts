@@ -285,8 +285,39 @@ export function planFiles(
     }
   }
 
+  // A stored name set by hand (spec 5.1, DECISIONS D19): honoured for a Berater submission
+  // only. Customers cannot rename, so a customer payload carrying one is ignored; the intern
+  // flag (`?intern=1`) is a client-side URL parameter that never reaches the server. Before
+  // resolveCollisions, so a hand-picked name that clashes still gets its `_2`.
+  if (state.role === "berater") {
+    for (const p of plans) {
+      if (p.remove) continue;
+      const over = overrideName(p.sub?.storedName, extOf(p.row.originalFileName || p.row.fileName));
+      if (over) p.target = over;
+    }
+  }
+
   resolveCollisions(plans);
   return plans;
+}
+
+/** Extensions a hand-typed name may end in; anything else is part of the name (`Steuern.2024`). */
+const KNOWN_EXT = new Set(["pdf", "jpg", "jpeg", "png", "heic", "heif", "tif", "tiff", "gif", "webp", "doc", "docx", "xls", "xlsx"]);
+
+/**
+ * A Berater's stored name, sanitised like the automatic ones (D10: cleanNamePart per part,
+ * whitespace and underscores separate parts) and ending in the file's own lower-case
+ * extension — the typed extension, if any, is dropped so a file is never stored under a type
+ * it is not. Null when nothing usable remains (the automatic name then stands).
+ */
+export function overrideName(raw: string | null | undefined, fileExt: string): string | null {
+  const s = typeof raw === "string" ? raw.trim() : "";
+  if (!s) return null;
+  const m = /^(.*)\.([A-Za-z0-9]{1,8})$/.exec(s);
+  const stem = m && KNOWN_EXT.has(m[2].toLowerCase()) ? m[1] : s;
+  const base = stem.split(/[\s_]+/).map((part) => cleanNamePart(part)).filter(Boolean).join("_").slice(0, 120);
+  if (!base) return null;
+  return `${base}.${(fileExt || "pdf").replace(/^\./, "").toLowerCase()}`;
 }
 
 /** `name.pdf` → `name_2.pdf`. */

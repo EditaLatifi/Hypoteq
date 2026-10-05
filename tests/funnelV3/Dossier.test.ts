@@ -104,6 +104,37 @@ describe("Fall-Dossier model — Gerber", () => {
   });
 });
 
+describe("Fall-Dossier annex E — the reason in the dossier language (D11)", () => {
+  // placeFile.ts stores its reason as a German sentence (REASON_DE); the dossier must not print it abroad.
+  const DUP_DE = "Identischer Inhalt wie eine andere Datei – wird nicht doppelt gespeichert.";
+  const withReason = (files: DossierFile[]) =>
+    files.map((f) => (f.analysis?.extraKind === "duplicate" ? { ...f, analysis: { ...f.analysis!, extraReason: DUP_DE } } : f));
+  const annexE = (m: ReturnType<typeof buildDossierModel>) => m.annex.groups.find((g) => g.title.startsWith("E"))!.table.rows.map((r) => r[2].text);
+
+  it("English dossier: translated from the reason, the duplicate names its twin; no German sentence", () => {
+    const m = buildDossierModel(input({ lang: "en", files: withReason(toDossierFiles(gerberFiles())) }));
+    const e = annexE(m);
+    expect(JSON.stringify(m.annex)).not.toContain("Identischer Inhalt");
+    expect(e).toContain("Duplicate – Same content as 01_Leasingvertrag_Cembra_Gary_Gerber.pdf – not stored twice. – not stored twice");
+    // Free German catalogue text («Steuerrechnung», «viertes Jahr») is not printed abroad either.
+    expect(e.join("\n")).not.toMatch(/Steuerrechnung|Nebenkostenabrechnung|viertes Jahr/);
+    expect(e).toContain("Not needed – Not required for the financing review. – not stored");
+    expect(e[0]).toBe("Surplus – included");
+  });
+
+  it("German dossier: the sentence as stored", () => {
+    const m = buildDossierModel(input({ files: withReason(toDossierFiles(gerberFiles())) }));
+    expect(annexE(m)).toContain(`Duplikat – ${DUP_DE} – nicht doppelt gespeichert`);
+  });
+
+  it("French and Italian: no German either", () => {
+    for (const lang of ["fr", "it"] as const) {
+      const m = buildDossierModel(input({ lang, files: withReason(toDossierFiles(gerberFiles())) }));
+      expect(JSON.stringify(annexE(m))).not.toMatch(/Identischer Inhalt|Steuerrechnung|viertes Jahr/);
+    }
+  });
+});
+
 describe("Fall-Dossier PDF", () => {
   it("renders the Gerber case to a valid multi-page PDF", async () => {
     const bytes = await createDossierPdf(input());

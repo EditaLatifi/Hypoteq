@@ -14,6 +14,13 @@ import {
   NACHREICH_TTL_DAYS,
   type NachreichLocale,
 } from "@/components/nachreichung";
+import {
+  autoResponseSubject,
+  CASE_NUMBER_LABEL,
+  generateFunnelAutoResponseHTML,
+  type AutoResponseExtras,
+  type AutoResponseLocale,
+} from "@/components/funnelAutoResponse";
 
 /** Thrown to leave the Salesforce block without recording a failure (see isTestMode). */
 class SkipInTestMode extends Error {}
@@ -137,9 +144,10 @@ export async function POST(req: Request) {
       console.log("ℹ️ No documentCompleteness in payload — Mail 2a/2b will be skipped");
     }
 
-    // Minted up front so the same value can go into the DB row and the mail. Only an
-    // incomplete dossier gets one: there is nothing to come back and supply otherwise.
-    const needsNachreich = documentCompleteness?.complete === false;
+    // Minted up front so the same value can go into the DB row and the mail. An incomplete
+    // dossier gets one to come back and supply; a Funnel v3 inquiry always gets one, because
+    // its confirmation mail links back to the inquiry (DECISIONS D20) — complete or not.
+    const needsNachreich = documentCompleteness?.complete === false || Boolean(data.v3);
     const nachreichToken = needsNachreich ? createNachreichToken() : null;
     const nachreichExpiresAt = needsNachreich ? nachreichExpiry() : null;
 
@@ -422,9 +430,14 @@ export async function POST(req: Request) {
         console.error("⚠️ Could not resolve the v3 confirmation recipients (using client.email):", recipientErr);
       }
     }
+    // Funnel v3 (DECISIONS D20): the mail names the Fallnummer and links back to the inquiry
+    // (the Nachreich page — state of the dossier, documents can be added).
+    const autoResponseExtras: AutoResponseExtras = data.v3
+      ? { caseNumber, returnUrl: nachreichToken ? buildNachreichUrl(nachreichToken, locale as NachreichLocale) : null }
+      : {};
     try {
       if (confirmation.to) {
-        await sendFunnelAutoResponse(confirmation.to, confirmation.firstName, locale, confirmation.cc);
+        await sendFunnelAutoResponse(confirmation.to, confirmation.firstName, locale, confirmation.cc, autoResponseExtras);
         console.log("✅ Auto-response sent to customer");
       }
     } catch (autoResponseError) {
@@ -435,7 +448,7 @@ export async function POST(req: Request) {
     // resolve. Non-fatal: the lead is captured either way.
     if (documentCompleteness) {
       try {
-        await sendDossierCompletenessEmail(data, documentCompleteness, locale, nachreichToken, confirmation);
+        await sendDossierCompletenessEmail(data, documentCompleteness, locale, nachreichToken, confirmation, data.v3 ? caseNumber : null);
       } catch (dossierMailError) {
         console.error("⚠️ Dossier completeness mail failed (continuing):", dossierMailError);
       }
@@ -543,7 +556,7 @@ export async function GET(req: Request) {
   });
 }
 
-type EmailLocale = 'de' | 'fr' | 'it' | 'en';
+type EmailLocale = AutoResponseLocale;
 
 /* ==========================================================================
  * DOSSIER COMPLETENESS MAIL (spec: Mail 2a / Mail 2b)
@@ -633,7 +646,9 @@ async function sendDossierCompletenessEmail(
   completeness: any,
   locale: EmailLocale,
   nachreichToken?: string | null,
-  recipients?: { to: string | null; cc: string | null }
+  recipients?: { to: string | null; cc: string | null },
+  /** Funnel v3: the Fallnummer, named under the greeting. */
+  caseNumber?: string | null
 ) {
   const client = getGraphMailClient();
   if (!client) {
@@ -689,6 +704,7 @@ async function sendDossierCompletenessEmail(
       <div style="font-size:32px;font-weight:700;color:#132219;">HYPOTEQ</div>
     </div>
     <p style="font-size:18px;font-weight:600;">${L.greeting(name)}</p>
+    ${caseNumber ? `<p style="font-size:14px;color:#555;margin-top:-8px;">${CASE_NUMBER_LABEL[locale]} <strong>${caseNumber}</strong></p>` : ''}
     <p style="font-size:15px;">${complete ? L.completeBody : L.incompleteBody}</p>
     ${listHTML}
     ${uploadHTML}
@@ -1790,7 +1806,7 @@ function generateFunnelEmailHTML(data: any, saved: any, locale: EmailLocale = 'd
 }
 
 // Send auto-response to customer after funnel submission
-async function sendFunnelAutoResponse(customerEmail: string, firstName: string, locale: EmailLocale = 'de', copyTo?: string | null) {
+async function sendFunnelAutoResponse(customerEmail: string, firstName: string, locale: EmailLocale = 'de', copyTo?: string | null, extras: AutoResponseExtras = {}) {
   try {
     console.log("📧 Sending funnel auto-response to customer:", customerEmail, "locale:", locale);
 
@@ -1799,8 +1815,8 @@ async function sendFunnelAutoResponse(customerEmail: string, firstName: string, 
                      process.env.GRAPH_CLIENT_ID &&
                      process.env.GRAPH_CLIENT_SECRET;
 
-    const autoResponseHTML = generateFunnelAutoResponseHTML(firstName, locale);
-    const routed = routeMail(customerEmail, AUTO_RESPONSE_SUBJECT[locale]);
+    const autoResponseHTML = generateFunnelAutoResponseHTML(firstName, locale, extras);
+    const routed = routeMail(customerEmail, autoResponseSubject(locale, extras.caseNumber));
     if (!routed) return;
     const subject = routed.subject;
     customerEmail = routed.to;
@@ -1894,164 +1910,4 @@ function copyRecipient(cc: string | null | undefined, routedTo: string): string 
   return routed.to;
 }
 
-const AUTO_RESPONSE_SUBJECT: Record<EmailLocale, string> = {
-  de: 'Deine Hypothekaranfrage ist eingegangen',
-  fr: "Ta demande d'hypothèque a été reçue",
-  it: 'La tua richiesta ipotecaria è stata ricevuta',
-  en: 'Your mortgage request has been received',
-};
-
-const AUTO_RESPONSE_CONTENT: Record<EmailLocale, {
-  tagline: string;
-  greetingFn: (name: string) => string;
-  body: string;
-  signoff: string;
-  team: string;
-}> = {
-  de: {
-    tagline: 'Deine Hypotheken-Experten',
-    greetingFn: (n) => `Hi${n ? ' ' + n : ''},`,
-    body: 'Danke für deine Anfrage und dein Vertrauen in HYPOTEQ. Wir haben alle Informationen erhalten und melden uns bald (werktags), um die nächsten Schritte zu besprechen.',
-    signoff: 'Beste Grüsse',
-    team: 'Dein HYPOTEQ Team',
-  },
-  fr: {
-    tagline: 'Tes experts hypothécaires',
-    greetingFn: (n) => `Salut${n ? ' ' + n : ''},`,
-    body: "Merci pour ta demande et pour ta confiance envers HYPOTEQ. Nous avons bien reçu toutes les informations et te recontactons bientôt (jours ouvrables) pour discuter des prochaines étapes.",
-    signoff: 'Meilleures salutations',
-    team: 'Ton équipe HYPOTEQ',
-  },
-  it: {
-    tagline: 'I tuoi esperti ipotecari',
-    greetingFn: (n) => `Ciao${n ? ' ' + n : ''},`,
-    body: 'Grazie per la tua richiesta e per la fiducia in HYPOTEQ. Abbiamo ricevuto tutte le informazioni e ti ricontatteremo presto (giorni lavorativi) per discutere i prossimi passi.',
-    signoff: 'Cordiali saluti',
-    team: 'Il tuo team HYPOTEQ',
-  },
-  en: {
-    tagline: 'Your mortgage experts',
-    greetingFn: (n) => `Hi${n ? ' ' + n : ''},`,
-    body: "Thanks for your request and your trust in HYPOTEQ. We've received all the information and will get back to you soon (business days) to discuss the next steps.",
-    signoff: 'Best regards',
-    team: 'Your HYPOTEQ team',
-  },
-};
-
-const AUTO_RESPONSE_RIGHTS: Record<EmailLocale, string> = {
-  de: 'Alle Rechte vorbehalten',
-  fr: 'Tous droits réservés',
-  it: 'Tutti i diritti riservati',
-  en: 'All rights reserved',
-};
-
-// Generate auto-response HTML for funnel submission (locale-specific)
-function generateFunnelAutoResponseHTML(firstName: string, locale: EmailLocale = 'de'): string {
-  const c = AUTO_RESPONSE_CONTENT[locale];
-  return `
-<!DOCTYPE html>
-<html>
-<head>
-  <style>
-    body {
-      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
-      line-height: 1.8;
-      color: #132219;
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 20px;
-      background-color: #f5f5f5;
-    }
-    .container {
-      background-color: white;
-      border-radius: 10px;
-      padding: 40px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-    .header {
-      text-align: center;
-      margin-bottom: 30px;
-      padding-bottom: 20px;
-      border-bottom: 2px solid #CAF476;
-    }
-    .logo {
-      font-size: 32px;
-      font-weight: 700;
-      color: #132219;
-      margin-bottom: 10px;
-    }
-    .section {
-      margin-bottom: 25px;
-      padding-bottom: 20px;
-      border-bottom: 1px solid #e0e0e0;
-    }
-    .section:last-of-type {
-      border-bottom: none;
-    }
-    .greeting {
-      font-size: 18px;
-      font-weight: 600;
-      color: #132219;
-      margin-bottom: 10px;
-    }
-    .text {
-      font-size: 15px;
-      line-height: 1.8;
-      color: #333;
-      margin: 10px 0;
-    }
-    .signature {
-      margin-top: 30px;
-      padding-top: 20px;
-      border-top: 2px solid #CAF476;
-    }
-    .team-name {
-      font-weight: 600;
-      color: #132219;
-      margin-top: 15px;
-    }
-    .footer {
-      margin-top: 30px;
-      padding-top: 20px;
-      text-align: center;
-      font-size: 12px;
-      color: #888;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <div class="header">
-      <div class="logo">HYPOTEQ</div>
-      <div style="color: #666; font-size: 14px;">${c.tagline}</div>
-    </div>
-
-    <div class="section">
-      <div class="greeting">${c.greetingFn(firstName)}</div>
-      <div class="text">${c.body}</div>
-    </div>
-
-    <!-- Signature -->
-    <div class="signature">
-      <div class="text">${c.signoff}</div>
-      <div class="team-name">${c.team}</div>
-      <div style="margin-top: 20px; font-size: 13px; color: #666;">
-        <div>Marco Circelli</div>
-        <div>HYPOTEQ AG</div>
-        <div style="margin-top: 10px;">
-          📱 +41 79 815 35 65<br>
-          📞 +41 44 554 41 00<br>
-          ✉️ marco.circelli@hypoteq.ch<br>
-          🌐 www.hypoteq.ch
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="footer">
-    <p>© ${new Date().getFullYear()} HYPOTEQ AG - ${AUTO_RESPONSE_RIGHTS[locale]}</p>
-  </div>
-</body>
-</html>
-  `;
-}
+// The confirmation texts and HTML live in components/funnelAutoResponse.ts (pure, tested).

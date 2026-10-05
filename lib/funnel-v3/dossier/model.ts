@@ -371,7 +371,7 @@ export function buildDossierModel(input: DossierInput): DossierModel {
   if (extras.length) {
     const rows = extras.map((f, i): TableCell[] => {
       const kind = (f.instanceId ? "unknown" : f.extraKind ?? f.analysis?.extraKind ?? "unknown") as ExtraKind;
-      const why = [t(`state.${kind}`), str(f.analysis?.extraReason), f.removed ? (kind === "duplicate" ? T.duplicateOf : T.notStored) : T.kept].filter(Boolean).join(" – ");
+      const why = [t(`state.${kind}`), extraReasonText(f, kind, input.files, lang), f.removed ? (kind === "duplicate" ? T.duplicateOf : T.notStored) : T.kept].filter(Boolean).join(" – ");
       return [{ text: `E${i + 1}` }, { text: f.name, sub: f.originalName && f.originalName !== f.name ? f.originalName : undefined }, { text: why }];
     });
     groups.push({ title: `E · ${T.grpE}`, table: { head: [T.colNo, T.colFile, T.colKind], widths: [0.45, 4.5, 2.7], rows } });
@@ -409,6 +409,46 @@ export function buildDossierModel(input: DossierInput): DossierModel {
     hints,
     calc,
   };
+}
+
+/**
+ * placeFile.ts writes its reason as a German sentence (`analysis.extraReason`, REASON_DE — the
+ * Salesforce JSON wants German); the dossier is in the funnel language (D11), so the sentence
+ * is mapped back to its `docs.x.*` key here. Keyed by the German text because placeFile does
+ * not store the PlaceReason on the analysis.
+ */
+const REASON_KEY_FROM_TEXT: Record<string, string> = {
+  "Identischer Inhalt wie eine andere Datei – wird nicht doppelt gespeichert.": "docs.x.duplicate",
+  "Die Anforderung ist bereits vollständig – wird im Dossier mitgeführt, zählt nicht.": "docs.x.full",
+  "Ausserhalb der verlangten Jahre – wird im Dossier mitgeführt, zählt nicht.": "docs.x.period",
+  "Für die Finanzierungsprüfung nicht erforderlich.": "docs.x.notneeded",
+  "Passt zu keiner Anforderung der aktuellen Antworten.": "docs.x.offList",
+  "Passt zu keiner Anforderung der aktuellen Antworten (Vorschlag abgelehnt).": "docs.x.dismissed",
+  "Dokumenttyp nicht erkannt.": "docs.x.unknown",
+  "Konnte nicht gelesen werden.": "docs.x.failed",
+  "Person nicht eindeutig erkannt.": "docs.x.person",
+};
+
+/** When the reason is free German text (a catalogue label), the kind alone decides the translated line. */
+const REASON_KEY_FROM_KIND: Partial<Record<ExtraKind, string>> = {
+  duplicate: "docs.x.duplicate",
+  notneeded: "docs.x.notneeded",
+  unknown: "docs.x.unknown",
+};
+
+/**
+ * The «why» of a file in annex E, in the dossier language. German text is printed as it is
+ * only in a German dossier; elsewhere the reason is translated from its key, or left out when
+ * it is free German text whose kind has no generic line (a surplus file: the state says it).
+ */
+function extraReasonText(f: DossierFile, kind: ExtraKind, all: DossierFile[], lang: Lang): string {
+  const text = str(f.analysis?.extraReason);
+  if (lang === "de") return text;
+  const key = (text && REASON_KEY_FROM_TEXT[text]) || (text ? REASON_KEY_FROM_KIND[kind] : undefined);
+  if (!key) return "";
+  const hash = f.analysis?.contentHash;
+  const twin = hash ? all.find((o) => o.id !== f.id && o.analysis?.contentHash === hash) : undefined;
+  return translate(lang, key, { name: twin?.name || "–", years: "–" });
 }
 
 function languageName(lang: Lang): string {
