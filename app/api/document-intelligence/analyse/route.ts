@@ -7,6 +7,8 @@ import {
   getAccessToken,
   storeAnalysis,
 } from "@/lib/sharepoint";
+import { ACCEPTED_MIME, MAX_ANALYSE_BYTES, MIME_BY_EXTENSION } from "./fileTypes";
+import { analyseV3 } from "./v3";
 
 /**
  * Document Intelligence endpoint (spec section 30).
@@ -40,24 +42,9 @@ export const runtime = "nodejs";
 // sits below it with room for the SharePoint read and the DB write.
 export const maxDuration = 60;
 
-const MAX_BYTES = 25 * 1024 * 1024;
-
-const ACCEPTED = new Set([
-  "application/pdf",
-  "image/jpeg",
-  "image/png",
-  "image/webp",
-  "image/heic",
-]);
-
-const BY_EXTENSION: Record<string, string> = {
-  pdf: "application/pdf",
-  jpg: "image/jpeg",
-  jpeg: "image/jpeg",
-  png: "image/png",
-  webp: "image/webp",
-  heic: "image/heic",
-};
+const MAX_BYTES = MAX_ANALYSE_BYTES;
+const ACCEPTED = ACCEPTED_MIME;
+const BY_EXTENSION = MIME_BY_EXTENSION;
 
 /**
  * The body sent when no analysis happened — a failure, or a deployment where the feature is
@@ -86,6 +73,12 @@ function stringArray(raw: unknown): string[] {
 }
 
 export async function POST(req: Request) {
+  const body = await req.json().catch(() => null);
+
+  // Funnel v3 (`v3: true`): classification against the whole v3 catalogue, answer and stored
+  // value are a V3Analysis. Everything else keeps the classic behaviour below.
+  if (body?.v3 === true) return NextResponse.json(...(await analyseV3(body)));
+
   const disabled = documentIntelligenceDisabledReason();
   if (disabled) {
     console.log(`[DocAI] skipped: ${disabled}`);
@@ -94,7 +87,6 @@ export async function POST(req: Request) {
 
   let fileName = "";
   try {
-    const body = await req.json().catch(() => null);
     const documentId = typeof body?.documentId === "string" ? body.documentId : "";
     const submissionId = typeof body?.submissionId === "string" ? body.submissionId : "";
     if (!documentId || !submissionId) {
