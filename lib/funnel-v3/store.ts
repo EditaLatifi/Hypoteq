@@ -28,6 +28,7 @@ import {
   type Role,
   type Texts,
 } from "./types";
+import type { FileEntry } from "./files";
 
 /** 0 = Start, 1 Allgemeines, 2 Objekt, 3 Personen, 4 Finanzierung, 5 Unterlagen, 6 Abschluss. */
 export type Step = 0 | 1 | 2 | 3 | 4 | 5 | 6;
@@ -41,9 +42,15 @@ export interface FunnelV3Data extends FunnelState {
   step: Step;
   /** The furthest step reached; the question path may jump forward only up to here (D6). */
   visited: Step;
-  // TODO(documents): the documents engineer owns the shape of these entries. Anything that
-  // is a File / Blob is left out of the sessionStorage copy (see partialize below).
-  files: any[];
+  /**
+   * Uploaded files (lib/funnel-v3/files.ts). The browser `File` stays in memory only — it is
+   * left out of the sessionStorage copy (see partialize below).
+   */
+  files: FileEntry[];
+  /** Instance ids marked «Habe ich nicht» (spec 4.2; honoured for optional requirements). */
+  skipped: string[];
+  /** File ids whose answer-correction suggestion was turned down («Dokument nicht verwenden»). */
+  dismissed: string[];
 }
 
 export interface FunnelV3Actions {
@@ -60,7 +67,17 @@ export interface FunnelV3Actions {
   next: () => void;
   back: () => void;
   setSharepointFolderId: (id: string | null) => void;
-  setFiles: (files: any[] | ((prev: any[]) => any[])) => void;
+  setFiles: (files: FileEntry[] | ((prev: FileEntry[]) => FileEntry[])) => void;
+  /** Append files (ids already in the list are ignored). */
+  addFiles: (files: FileEntry[]) => void;
+  /** Patch one file; a function receives the current entry. No-op for an unknown id. */
+  updateFile: (id: string, patch: Partial<FileEntry> | ((f: FileEntry) => Partial<FileEntry>)) => void;
+  /** Drop a file from the list (the SharePoint copy is lib/funnel-v3/upload.ts's job). */
+  removeFile: (id: string) => void;
+  /** «Habe ich nicht» on (true) or off («Doch hochladen»). */
+  setSkipped: (instanceId: string, skipped: boolean) => void;
+  /** «Dokument nicht verwenden» on an answer-correction suggestion. */
+  dismissSuggestion: (fileIds: string[]) => void;
   /** «Neuen Antrag stellen»: empty funnel, new submission id. */
   reset: () => void;
 }
@@ -96,6 +113,8 @@ export function initialFunnelV3(): FunnelV3Data {
     step: 0,
     visited: 0,
     files: [],
+    skipped: [],
+    dismissed: [],
   };
 }
 
@@ -183,12 +202,12 @@ function sessionStore(): StateStorage {
 const isBlob = (v: unknown) => typeof Blob !== "undefined" && v instanceof Blob;
 
 /** File entries without File / Blob values, which cannot be serialised. */
-function serialisableFiles(files: any[]): any[] {
+function serialisableFiles(files: FileEntry[]): FileEntry[] {
   return (files || [])
     .filter((f) => !isBlob(f))
     .map((f) =>
       f && typeof f === "object"
-        ? Object.fromEntries(Object.entries(f).filter(([, v]) => !isBlob(v)))
+        ? (Object.fromEntries(Object.entries(f).filter(([, v]) => !isBlob(v))) as unknown as FileEntry)
         : f
     );
 }
@@ -269,6 +288,42 @@ export const useFunnelV3 = create<FunnelV3Store>()(
 
       setFiles: (files) => set((s) => ({ files: typeof files === "function" ? files(s.files) : files })),
 
+      addFiles: (files) =>
+        set((s) => {
+          const have = new Set(s.files.map((f) => f.id));
+          const fresh = files.filter((f) => !have.has(f.id));
+          return fresh.length ? { files: [...s.files, ...fresh] } : {};
+        }),
+
+      updateFile: (id, patch) =>
+        set((s) => {
+          const i = s.files.findIndex((f) => f.id === id);
+          if (i < 0) return {};
+          const cur = s.files[i];
+          const next = { ...cur, ...(typeof patch === "function" ? patch(cur) : patch), id };
+          return { files: s.files.map((f, j) => (j === i ? next : f)) };
+        }),
+
+      removeFile: (id) =>
+        set((s) =>
+          s.files.some((f) => f.id === id)
+            ? { files: s.files.filter((f) => f.id !== id), dismissed: s.dismissed.filter((d) => d !== id) }
+            : {}
+        ),
+
+      setSkipped: (instanceId, skipped) =>
+        set((s) => {
+          const has = s.skipped.includes(instanceId);
+          if (skipped === has) return {};
+          return { skipped: skipped ? [...s.skipped, instanceId] : s.skipped.filter((x) => x !== instanceId) };
+        }),
+
+      dismissSuggestion: (fileIds) =>
+        set((s) => {
+          const add = fileIds.filter((id) => !s.dismissed.includes(id));
+          return add.length ? { dismissed: [...s.dismissed, ...add] } : {};
+        }),
+
       reset: () => set(initialFunnelV3()),
     }),
     {
@@ -287,7 +342,20 @@ export const useFunnelV3 = create<FunnelV3Store>()(
         step: s.step,
         visited: s.visited,
         files: serialisableFiles(s.files),
+        skipped: s.skipped,
+        dismissed: s.dismissed,
       }),
+      // A copy saved before `skipped` / `dismissed` existed has neither: start them empty.
+      merge: (persisted, current) => {
+        const p = (persisted || {}) as Partial<FunnelV3Data>;
+        return {
+          ...current,
+          ...p,
+          files: Array.isArray(p.files) ? p.files : current.files,
+          skipped: Array.isArray(p.skipped) ? p.skipped : [],
+          dismissed: Array.isArray(p.dismissed) ? p.dismissed : [],
+        };
+      },
     }
   )
 );

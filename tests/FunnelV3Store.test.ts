@@ -142,7 +142,7 @@ describe("useFunnelV3", () => {
     S().setRole("kunde");
     S().setTxt("vor", "Gary");
     S().setSharepointFolderId("folder-1");
-    S().setFiles([{ name: "a.pdf" }]);
+    S().setFiles([{ name: "a.pdf" } as any]);
     S().next();
     const before = S().submissionId;
     S().reset();
@@ -177,7 +177,7 @@ describe("persistence", () => {
       });
       const store = mod!.useFunnelV3;
       store.getState().setTxt("vor", "Gary");
-      store.getState().setFiles([{ name: "a.pdf", file: new Blob(["x"]) }]);
+      store.getState().setFiles([{ name: "a.pdf", file: new Blob(["x"]) } as any]);
       const saved = JSON.parse(data[FUNNEL_V3_STORAGE_KEY]);
       expect(saved.state.txt.vor).toBe("Gary");
       expect(saved.state.files).toEqual([{ name: "a.pdf" }]);
