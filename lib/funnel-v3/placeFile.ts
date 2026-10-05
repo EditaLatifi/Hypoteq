@@ -55,6 +55,11 @@ export interface PlaceOptions {
   now?: Date;
   /** File ids whose answer-correction suggestion was dismissed. */
   dismissed?: Iterable<string>;
+  /**
+   * placeAll: the instances to place on instead of reqList(state) — the Nachreich page places
+   * new files only on what the inquiry is still missing (lib/funnel-v3/nachreichView.ts).
+   */
+  instances?: RequirementInstance[];
 }
 
 /** What placement needs to know about a file already placed. */
@@ -203,7 +208,7 @@ const dateRank = (a: V3Analysis | undefined) => {
 export function placeAll(files: FileEntry[], state: ReqState, opts: PlaceOptions = {}): Map<string, Placement> {
   const now = opts.now ?? new Date();
   const dismissed = new Set(opts.dismissed ?? []);
-  const instances = reqList(state);
+  const instances = opts.instances ?? reqList(state);
   const byInstance = new Map(instances.map((i) => [i.instanceId, i]));
   const out = new Map<string, Placement>();
   const used = new Map<string, number>();

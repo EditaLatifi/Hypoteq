@@ -45,6 +45,12 @@ model Inquiry {
   // has to be remembered rather than re-derived.
   sharepointFolderId String?
 
+  // Funnel v3: the submitted `v3` block (role, ans, txt, fin, borrowers, lang) and the
+  // «Habe ich nicht» instance ids, so a Nachreichung can recompute the requirement list and
+  // its status (prisma/sql/2026-10-05-inquiry-v3-state.sql). Null for legacy inquiries.
+  v3State   Json?
+  v3Skipped Json?
+
   // Relations
   client       Client?
   project      Project?

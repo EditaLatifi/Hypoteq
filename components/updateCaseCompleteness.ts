@@ -1,4 +1,4 @@
-import { conn, login } from "@/components/salesforceApi";
+import { conn, login, updateCase } from "@/components/salesforceApi";
 import { isTestMode, skipped } from "@/components/testMode";
 import { DOCUMENT_CATALOG } from "@/components/funnelDocumentCatalog";
 
@@ -122,4 +122,36 @@ export async function updateCaseCompleteness(
     `[Salesforce] Case ${caseId} completeness updated: complete=${update.complete}, ` +
       `supplied=${update.supplied.length}, still missing=${update.missing.length}`
   );
+}
+
+/**
+ * Funnel v3 Nachreichung: write the recomputed document fields onto the Case — Dok_*__c,
+ * Documents_completed__c, SharePoint_Doc__c and Dokumenten_Check_State__c (spec 6.9 / 6.11).
+ *
+ * `build` receives what the Case holds in Dokumenten_Check_State__c (null when it cannot be
+ * read) and returns the fields with the check state merged onto it — lib/funnel-v3/completion.ts
+ * `v3DocumentCaseFields`, the builder the submit-time sync uses, so a caseworker's ticks
+ * survive. Unlike updateCaseCompleteness this may also clear a Dok_* flag: the v3 status is
+ * recomputed from every document of the inquiry, not accumulated from what just arrived.
+ */
+export async function updateCaseV3Documents(
+  caseId: string,
+  build: (previous: string | null) => Record<string, boolean | string> | null
+): Promise<Record<string, boolean | string> | null> {
+  if (!caseId) return null;
+  if (isTestMode()) {
+    skipped("Case v3 document update", caseId);
+    return null;
+  }
+  let previous: string | null = null;
+  try {
+    previous = await readDokumentenCheckState(caseId);
+  } catch (error) {
+    console.error(`[Salesforce] Case ${caseId}: could not read Dokumenten_Check_State__c (writing a fresh one):`, error);
+  }
+  const fields = build(previous);
+  if (!fields) return null;
+  await updateCase(caseId, fields);
+  console.log(`[Salesforce] Case ${caseId} v3 documents updated: complete=${fields.Documents_completed__c}`);
+  return fields;
 }

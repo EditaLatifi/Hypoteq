@@ -2,7 +2,7 @@ import { Client } from "@microsoft/microsoft-graph-client";
 import { ClientSecretCredential } from "@azure/identity";
 import "isomorphic-fetch";
 import type { NachreichLocale } from "@/components/nachreichung";
-import { routeMail } from "@/components/testMode";
+import { isTestMode, routeMail } from "@/components/testMode";
 
 /**
  * Confirmation sent after a customer uploads through their Nachreich link.
@@ -81,6 +81,11 @@ function resolveDocLabels(keys: string[], locale: NachreichLocale): string[] {
   });
 }
 
+/** Labels carry customer-entered names (per-borrower requirements); they go into HTML. */
+function escapeHtml(s: string): string {
+  return String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
+}
+
 function getGraphMailClient(): Client | null {
   const useGraph =
     process.env.USE_GRAPH === "true" &&
@@ -110,6 +115,13 @@ export async function sendNachreichConfirmation(params: {
   locale: NachreichLocale;
   complete: boolean;
   remaining: string[];
+  /**
+   * Funnel v3: the outstanding requirements already labelled in the customer's language
+   * (`remaining` then holds requirement instance ids, which have no `funnel.*` label).
+   */
+  remainingLabels?: string[];
+  /** Funnel v3 Berater submission: the Berater gets a copy (DECISIONS D17). Not in test mode. */
+  cc?: string | null;
 }): Promise<void> {
   const client = getGraphMailClient();
   if (!client) {
@@ -118,7 +130,11 @@ export async function sendNachreichConfirmation(params: {
   }
 
   const L = COPY[params.locale] || COPY.de;
-  const labels = params.complete ? [] : resolveDocLabels(params.remaining, params.locale);
+  const labels = params.complete
+    ? []
+    : params.remainingLabels
+      ? params.remainingLabels.map(escapeHtml)
+      : resolveDocLabels(params.remaining, params.locale);
 
   const listHTML = labels.length
     ? '<ul style="margin:16px 0 20px 0;padding-left:20px;">' +
@@ -155,6 +171,8 @@ export async function sendNachreichConfirmation(params: {
       subject: routed.subject,
       body: { contentType: "HTML", content: html },
       toRecipients: [{ emailAddress: { address: routed.to } }],
+      // In test mode the mail is redirected to the test inbox; a copy to a real Berater must not leak out.
+      ...(params.cc && !isTestMode() ? { ccRecipients: [{ emailAddress: { address: params.cc } }] } : {}),
     },
     saveToSentItems: true,
   });

@@ -303,6 +303,20 @@ export async function createOrUpdateCase(fields: Record<string, any>) {
   );
 }
 
+/**
+ * Update fields of an existing Case by Id, with the same fallbacks as the funnel's Case write
+ * (an org without a field, e.g. SharePoint_Doc__c, drops it instead of failing). Used by the
+ * Funnel v3 Nachreichung, which revises the document fields of the Case the submit created.
+ */
+export async function updateCase(id: string, fields: Record<string, any>) {
+  await ensureSession();
+  return writeWithFieldFallback(
+    (f) => (conn.sobject('Case') as any).update(f),
+    { ...fields, Id: id },
+    `update Case ${id}`,
+  );
+}
+
 // Cached per warm instance — the Id is fixed for the org. Only the success path is
 // cached, so granting the record type takes effect without a redeploy.
 let personAccountRecordTypeId: string | null = null;
@@ -360,4 +374,5 @@ export default {
   updateContact,
   updatePersonAccount,
   createOrUpdateCase,
+  updateCase,
 };

@@ -5,6 +5,7 @@ import {
   parseMissingKeys,
   type NachreichLocale,
 } from "@/components/nachreichung";
+import { isV3Inquiry, nachreichV3View, submitV3Nachreichung, type NachreichInquiryRow } from "@/lib/funnel-v3/nachreich";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -33,6 +34,37 @@ const SELECT = {
   client: { select: { email: true, firstName: true, lastName: true } },
 } as const;
 
+// === FUNNEL V3 NACHREICHUNG (lib/funnel-v3/nachreich.ts) ===
+// A v3 inquiry is recognised by its stored answers (Inquiry.v3State); its documentsMissing are
+// requirement instance ids. Legacy inquiries (no v3State) take the unchanged path below.
+// v3State / v3Skipped are new columns (prisma/sql/2026-10-05-inquiry-v3-state.sql): the casts
+// cover a Prisma client generated before them.
+const SELECT_WITH_V3 = { ...SELECT, caseNumber: true, v3State: true, v3Skipped: true } as unknown as typeof SELECT;
+type InquiryRow = NonNullable<Awaited<ReturnType<typeof findByToken>>>;
+
+async function findByToken(token: string) {
+  const row = await prisma.inquiry.findUnique({ where: { nachreichToken: token }, select: SELECT_WITH_V3 });
+  return row as (typeof row & Pick<NachreichInquiryRow, "caseNumber" | "v3State" | "v3Skipped">) | null;
+}
+
+async function v3Get(row: InquiryRow) {
+  const documents = await prisma.document.findMany({ where: { inquiryId: row.id }, orderBy: { uploadedAt: "asc" } });
+  return NextResponse.json(nachreichV3View(row, documents as any));
+}
+
+async function v3Post(row: InquiryRow, body: any) {
+  const result = await submitV3Nachreichung(row, body);
+  if (!result.ok) return NextResponse.json({ error: result.error }, { status: result.status });
+  console.log(`📥 v3 Nachreichung for ${row.id}: +${result.adopted} file(s), ${result.remaining.length} still missing`);
+  return NextResponse.json({
+    ok: true,
+    v3: true,
+    complete: result.complete,
+    remaining: result.remainingLabels,
+  });
+}
+// === END FUNNEL V3 NACHREICHUNG ===
+
 function rejectionResponse(reason: string) {
   // 410 for a link that was valid once and no longer is, 404 for one that never existed.
   const status = reason === "not_found" ? 404 : 410;
@@ -46,13 +78,11 @@ export async function GET(
   const token = params?.token;
   if (!token) return rejectionResponse("not_found");
 
-  const row = await prisma.inquiry.findUnique({
-    where: { nachreichToken: token },
-    select: SELECT,
-  });
+  const row = await findByToken(token);
 
   const rejection = rejectNachreich(row, new Date());
   if (rejection) return rejectionResponse(rejection);
+  if (isV3Inquiry(row)) return v3Get(row!);
 
   // Everything this submission was shown and did not upload. No requirement filter: the
   // funnel presents every document the same way, so the Nachreich page must offer back
@@ -84,13 +114,11 @@ export async function POST(
     return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
   }
 
-  const row = await prisma.inquiry.findUnique({
-    where: { nachreichToken: token },
-    select: SELECT,
-  });
+  const row = await findByToken(token);
 
   const rejection = rejectNachreich(row, new Date());
   if (rejection) return rejectionResponse(rejection);
+  if (isV3Inquiry(row)) return v3Post(row!, body);
 
   const stillMissing = parseMissingKeys(row!.documentsMissing);
 

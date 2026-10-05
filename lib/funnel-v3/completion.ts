@@ -31,7 +31,7 @@ import { createDossierPdf, dossierFileName, type DossierFile, type DossierInput 
 import type { SubmittedDocument, V3Analysis } from "./files";
 import { isLang, type Lang } from "./i18n";
 import { getRequirement, reqList, type RequirementDef, type RequirementInstance } from "./requirements";
-import { bankHints, requirementStatus, type ExtraKind, type UploadedFile } from "./requirementStatus";
+import { bankHints, requirementStatus, type ExtraKind, type StatusResult, type UploadedFile } from "./requirementStatus";
 import { cleanNamePart, storedName } from "./storedName";
 import type { FunnelState } from "./types";
 
@@ -101,6 +101,8 @@ export interface CompletedFile {
   extraKind?: ExtraKind;
   keep?: boolean;
   outdatedOverride?: boolean;
+  /** Placed by hand (a file the AI could not read still counts once a person placed it). */
+  assignedByUser?: boolean;
   removed: boolean;
   analysis?: V3Analysis | null;
 }
@@ -122,7 +124,7 @@ export interface CompletionInput {
   data: any;
 }
 
-type V3State = Pick<FunnelState, "role" | "ans" | "txt" | "fin" | "borrowers">;
+export type V3State = Pick<FunnelState, "role" | "ans" | "txt" | "fin" | "borrowers">;
 
 // ---- Reading the payload ------------------------------------------------------------------
 
@@ -144,7 +146,7 @@ export function submittedDocumentsOf(data: any): SubmittedDocument[] {
   );
 }
 
-function skippedOf(data: any): string[] {
+export function skippedOf(data: any): string[] {
   const s = data?.documentCompleteness?.skipped;
   return Array.isArray(s) ? s.filter((x: unknown): x is string => typeof x === "string") : [];
 }
@@ -469,6 +471,7 @@ export async function completeV3Inquiry(input: CompletionInput, deps?: Partial<C
       ...(p.extraKind ? { extraKind: p.extraKind } : {}),
       ...(p.sub?.keep ? { keep: true } : {}),
       ...(p.sub?.outdatedOverride ? { outdatedOverride: true } : {}),
+      ...(p.sub?.assignedByUser && p.instance ? { assignedByUser: true } : {}),
       removed,
       analysis: p.analysis,
     };
@@ -538,6 +541,7 @@ function filesForSync(data: any): CompletedFile[] {
     ...(s.instanceId ? {} : { extraKind: s.extraKind ?? "unknown" }),
     ...(s.keep ? { keep: true } : {}),
     ...(s.outdatedOverride ? { outdatedOverride: true } : {}),
+    ...(s.assignedByUser && s.instanceId ? { assignedByUser: true } : {}),
     removed: false,
     analysis: null,
   }));
@@ -548,20 +552,41 @@ function filesForSync(data: any): CompletedFile[] {
  * status, Dokumenten_Check_State__c (spec 6.11, merged onto `previous`, legacy `checked` kept),
  * SharePoint_Doc__c (the case folder). Null when the payload is not v3.
  */
-export function v3DocumentCaseFields(data: any, previous?: string | null, now: Date = new Date()): Record<string, boolean | string> | null {
+export interface V3DocumentStatus {
+  state: V3State;
+  /** The files still in the case folder (removed ones left out). */
+  files: CompletedFile[];
+  uploaded: UploadedFile[];
+  status: StatusResult;
+}
+
+/**
+ * The requirement status of a v3 payload's documents: from the closing result when it ran,
+ * else from the submitted detail. What Salesforce gets (below) and what a Nachreichung
+ * recomputes (nachreich.ts) — one rule for both. Null when the payload is not v3.
+ */
+export function v3DocumentStatus(data: any): V3DocumentStatus | null {
   const state = v3StateOf(data);
   if (!state) return null;
   const files = filesForSync(data).filter((f) => !f.removed);
   const uploaded: UploadedFile[] = files.map((f) => ({
     fileId: f.documentId,
     requirementId: f.instanceId,
-    status: f.analysis?.status === "failed" ? "failed" : "done",
+    // A file the analysis could not read counts once a person placed it (spec 4.3 «manuell zuordnen»).
+    status: f.analysis?.status === "failed" && !(f.assignedByUser && f.instanceId) ? "failed" : "done",
     outdated: Boolean(f.analysis?.outdated),
     outdatedOverride: Boolean(f.outdatedOverride),
     extraKind: f.instanceId ? undefined : f.extraKind ?? "unknown",
     note: f.analysis?.note ?? undefined,
   }));
   const status = requirementStatus(reqList(state), uploaded, skippedOf(data));
+  return { state, files, uploaded, status };
+}
+
+export function v3DocumentCaseFields(data: any, previous?: string | null, now: Date = new Date()): Record<string, boolean | string> | null {
+  const computed = v3DocumentStatus(data);
+  if (!computed) return null;
+  const { state, files, uploaded, status } = computed;
   const hints = bankHints(status, uploaded);
 
   const byId = new Map(files.map((f) => [f.documentId, f]));

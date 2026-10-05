@@ -214,9 +214,11 @@ function serialisableFiles(files: FileEntry[]): FileEntry[] {
 
 export const FUNNEL_V3_STORAGE_KEY = "hypoteq-funnel-v3";
 
-export const useFunnelV3 = create<FunnelV3Store>()(
-  persist(
-    (set, get) => ({
+type SetState = (partial: Partial<FunnelV3Store> | ((s: FunnelV3Store) => Partial<FunnelV3Store>)) => void;
+
+/** State and actions of the funnel store, shared by the persisted store and createFunnelV3Store. */
+function funnelV3Creator(set: SetState, get: () => FunnelV3Store): FunnelV3Store {
+  return {
       ...initialFunnelV3(),
 
       setRole: (role) =>
@@ -325,7 +327,12 @@ export const useFunnelV3 = create<FunnelV3Store>()(
         }),
 
       reset: () => set(initialFunnelV3()),
-    }),
+  };
+}
+
+export const useFunnelV3 = create<FunnelV3Store>()(
+  persist(
+    (set, get) => funnelV3Creator(set, get),
     {
       name: FUNNEL_V3_STORAGE_KEY,
       version: 1,
@@ -370,4 +377,13 @@ export function useFunnelV3Hydration(): boolean {
     return unsub;
   }, []);
   return hydrated;
+}
+
+/**
+ * A store with the funnel's shape and actions but without sessionStorage — for a page outside
+ * the funnel that reuses the documents pipeline (the Nachreich page, lib/funnel-v3/upload.ts
+ * `bindUploadPipeline`). It never touches the funnel's own saved session.
+ */
+export function createFunnelV3Store(init: Partial<FunnelV3Data> = {}) {
+  return create<FunnelV3Store>()((set, get) => ({ ...funnelV3Creator(set, get), ...init }));
 }

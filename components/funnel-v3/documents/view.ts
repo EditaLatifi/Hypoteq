@@ -190,10 +190,10 @@ export function extOf(name: string): string {
 }
 
 /** «Wird gespeichert als» for a file on a requirement (index 1-based among its files). */
-export function storedNameFor(f: FileEntry, inst: RequirementInstance, index: number, total: number): string {
+export function storedNameFor(f: FileEntry, inst: RequirementInstance, index: number, total: number, caseNumber?: string | null): string {
   if (f.nameOverride) return f.nameOverride;
   return storedName({
-    caseNumber: CASE_PLACEHOLDER,
+    caseNumber: caseNumber || CASE_PLACEHOLDER,
     requirement: inst,
     bank: f.analysis?.bank ?? undefined,
     docDate: f.analysis?.docDate ?? null,

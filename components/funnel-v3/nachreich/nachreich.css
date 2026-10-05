@@ -1,0 +1,18 @@
+/* Nachreich page for v3 inquiries: the funnel's look (funnel-v3.css), one centred column. */
+.hqv3.v3-nachreich .v3-content {
+  margin: 0 auto;
+}
+.hqv3.v3-nachreich .v3-head-eyebrow {
+  letter-spacing: 0.02em;
+}
+.hqv3 .v3-nachreich-remaining {
+  margin: 0;
+  padding-left: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: var(--on-light-70);
+}
+.hqv3 .v3-nachreich-submit {
+  justify-content: flex-end;
+}

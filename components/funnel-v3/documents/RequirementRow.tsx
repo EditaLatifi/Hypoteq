@@ -20,10 +20,17 @@ interface Props {
   intern: boolean;
   canRename: boolean;
   borrowerCount: number;
+  /**
+   * Nachreich page: the inquiry's case number is known (names are final, no «assigned at
+   * completion» hint), and `priorFiles` files of this requirement are already in the case
+   * folder, so the new ones are numbered after them.
+   */
+  caseNumber?: string | null;
+  priorFiles?: number;
 }
 
 /** One requirement (spec 4.2): state, reason, files, recognised values, actions. */
-export default function RequirementRow({ status: r, files, open, onToggle, onPick, onView, intern, canRename, borrowerCount }: Props) {
+export default function RequirementRow({ status: r, files, open, onToggle, onPick, onView, intern, canRename, borrowerCount, caseNumber, priorFiles = 0 }: Props) {
   const { t, lang } = useFunnelT();
   const fin = useFunnelV3((s) => s.fin);
   const setSkipped = useFunnelV3((s) => s.setSkipped);
@@ -82,7 +89,7 @@ export default function RequirementRow({ status: r, files, open, onToggle, onPic
               <span className="v3-eyebrow">{t("s5.storedAs")}</span>
               {done.map((f, i) => (
                 <div key={f.id} className="v3-stored-row">
-                  <StoredName file={f} name={storedNameFor(f, inst, i + 1, done.length)} canRename={canRename} />
+                  <StoredName file={f} name={storedNameFor(f, inst, priorFiles + i + 1, priorFiles + done.length, caseNumber)} canRename={canRename} />
                   <button type="button" className="v3-btn v3-btn--ghost v3-btn--sm" onClick={() => onView(f.id)}>
                     {t("act.view")}
                   </button>
@@ -91,7 +98,7 @@ export default function RequirementRow({ status: r, files, open, onToggle, onPic
                   </button>
                 </div>
               ))}
-              <span className="v3-stored-hint">{t("docs.caseLater")}</span>
+              {caseNumber ? null : <span className="v3-stored-hint">{t("docs.caseLater")}</span>}
             </div>
           ) : null}
 

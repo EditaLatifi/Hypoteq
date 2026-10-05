@@ -122,6 +122,37 @@ function validatePersonData(person: any, personIndex: number, isPartnerEmail: bo
   return errors;
 }
 
+/**
+ * Funnel v3 co-borrower without e-mail (DECISIONS D18) → a person for the Account loop, or
+ * null when no name was entered (nothing to create an Account for).
+ */
+function v3CoBorrowerPerson(kn: any): Record<string, any> | null {
+  const firstName = String(kn.firstName || kn.vorname || '').trim();
+  const lastName = String(kn.lastName || kn.nachname || kn.name || '').trim();
+  if (!firstName && !lastName) return null;
+  return {
+    firstName,
+    lastName: lastName || 'Unknown',
+    email: '',
+    phone: '',
+    erwerbsstatus: kn.erwerb || kn.erwerbsstatus || null,
+    zivilstand: kn.zivilstand || null,
+    geburtsdatum: kn.geburtsdatum || kn.birthdate || null,
+    v3CoBorrower: true,
+  };
+}
+
+const personNameKey = (p: any) =>
+  `${String(p?.firstName || '').trim()}|${String(p?.lastName || '').trim()}`
+    .normalize('NFC')
+    .toLowerCase()
+    .replace(/\s+/g, ' ');
+
+/** Same first and last name (case and spacing aside) — the within-submission de-duplication of D18. */
+function samePersonName(a: any, b: any): boolean {
+  return !a?.isJuristic && personNameKey(a) === personNameKey(b);
+}
+
 function sanitizeSFAccountValue(sfField: string, value: any) {
   const type = SALESFORCE_ACCOUNT_FIELDS[sfField];
   if (!type) return value ?? null;
@@ -303,6 +334,24 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
           });
         }
       } else {
+        // === FUNNEL V3 CO-BORROWERS (DECISIONS D18) — v3 payloads only ===
+        // v3 asks no e-mail or phone for Kreditnehmer 2 and 3, so the rule below (a natural
+        // person needs an e-mail unless a partner submits) dropped them from a customer's
+        // submission. They become Person Accounts by name. Without an e-mail there is nothing
+        // to look an existing Account up by, and a name alone must never pull in someone
+        // else's Account, so the only de-duplication is within this submission.
+        if (stepData.v3 && i > 0 && !(kn.email || kn.emailAdresse)) {
+          const coBorrower = v3CoBorrowerPerson(kn);
+          if (!coBorrower) continue;
+          if (persons.some((p) => samePersonName(p, coBorrower))) {
+            console.log(`[Salesforce Sync] v3 co-borrower ${i + 1} repeats a person of this submission — not created twice`);
+          } else {
+            persons.push(coBorrower);
+          }
+          continue;
+        }
+        // === END FUNNEL V3 CO-BORROWERS ===
+
         // For natural persons - existing logic
         // For partner submissions, email may be empty on kreditnehmer
         if ((kn.vorname || kn.name || kn.firstName) && ((kn.email || kn.emailAdresse) || partnerEmail)) {
@@ -368,7 +417,9 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
   persons.forEach((person, index) => {
     // Skip email/phone validation for juristic persons
     const isJuristicPerson = (person as any).isJuristic === true;
-    const errors = validatePersonData(person, index + 1, !!partnerEmail, isJuristicPerson);
+    // A v3 co-borrower has no e-mail or phone by design (D18): validated like a partner's borrower.
+    const contactOptional = !!partnerEmail || (person as any).v3CoBorrower === true;
+    const errors = validatePersonData(person, index + 1, contactOptional, isJuristicPerson);
     validationErrors.push(...errors);
   });
 

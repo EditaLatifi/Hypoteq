@@ -6,6 +6,7 @@ import { Client } from "@microsoft/microsoft-graph-client";
 import { ClientSecretCredential } from "@azure/identity";
 import "isomorphic-fetch";
 import { randomUUID } from "crypto";
+import { v3InquiryColumns } from "@/lib/funnel-v3/nachreich";
 import {
   createNachreichToken,
   nachreichExpiry,
@@ -269,6 +270,21 @@ export async function POST(req: Request) {
       const errorMsg = dbErr instanceof Error ? dbErr.message : 'Failed to save inquiry';
       return NextResponse.json({ success: false, error: errorMsg }, { status: 500 });
     }
+
+    // === FUNNEL V3 STATE FOR THE NACHREICHUNG — v3 payloads only ===
+    // documentsMissing holds requirement instance ids for v3; the Nachreich route needs the
+    // answers they were computed from (and the «Habe ich nicht» marks) to recompute the list.
+    // Written right after the row exists and non-fatal, like the case number below: a missing
+    // column (prisma/sql/2026-10-05-inquiry-v3-state.sql not run yet) must never cost the lead.
+    // The cast covers a Prisma client generated before the columns.
+    if (data.v3) {
+      try {
+        await (prisma.inquiry as any).update({ where: { id: inquiry.id }, data: v3InquiryColumns(data, locale), select: { id: true } });
+      } catch (v3StateErr) {
+        console.error(`⚠️ Could not store the v3 answers on inquiry ${inquiry.id} (Nachreichung falls back to the legacy page):`, v3StateErr);
+      }
+    }
+    // === END FUNNEL V3 STATE ===
 
     // === CASE NUMBER (DECISIONS D1) ===
     // Stored right after the row exists, so a failure here can never cost the lead: the
