@@ -25,3 +25,4 @@ ALTER TABLE "Property" ADD COLUMN IF NOT EXISTS "neubauGrundbuchGvVorhanden" TEX
 ALTER TABLE "Property" ADD COLUMN IF NOT EXISTS "stockwerkeigentum" TEXT;
 ALTER TABLE "Inquiry" ADD COLUMN IF NOT EXISTS "caseNumber" TEXT;
 CREATE UNIQUE INDEX IF NOT EXISTS "Inquiry_caseNumber_key" ON "Inquiry"("caseNumber");
+ALTER TABLE "Document" ADD COLUMN IF NOT EXISTS "storedName" TEXT;

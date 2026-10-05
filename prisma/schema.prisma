@@ -206,6 +206,11 @@ model Document {
   /// fileName so an auto-generated name stays auditable back to the original upload.
   originalFileName String?
 
+  /// Name in the case folder after the Funnel v3 closing (spec 5.1), e.g.
+  /// HQ-26-06-156283_01_Lohnausweis_Gerber-Gary_2024_2.pdf. Null when not renamed.
+  /// prisma/sql/2026-10-05-document-stored-name.sql
+  storedName String?
+
   /// What the AI made of this file (spec sections 27 and 36).
   ///
   /// `docType` above is the requirement the file answers; `aiDocType` is what the model
