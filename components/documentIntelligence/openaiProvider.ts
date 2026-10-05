@@ -20,7 +20,7 @@ import { DOCUMENT_TYPES, docTypeById } from "./documentTypes";
  * decision HYPOTEQ will want to make without a deploy.
  */
 
-const DEFAULT_MODEL = "gpt-5.5";
+export const DEFAULT_MODEL = "gpt-5.5";
 
 /**
  * How long one analysis may take before it is abandoned.
@@ -46,7 +46,7 @@ const TIMEOUT_MS = (() => {
   return Number.isFinite(raw) && raw > 0 ? Math.min(raw, 45_000) : 45_000;
 })();
 
-function client(): OpenAI {
+export function client(): OpenAI {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
     // A clear failure here beats an SDK error 3 stack frames deep, and the route turns this
@@ -70,7 +70,7 @@ function client(): OpenAI {
  * Applied only to the model families that accept it, so setting OPENAI_DOCUMENT_MODEL to
  * something older does not turn every request into a 400.
  */
-function reasoningFor(model: string): { effort: "low" } | undefined {
+export function reasoningFor(model: string): { effort: "low" } | undefined {
   return /^(gpt-5|o[134])/.test(model) ? { effort: "low" } : undefined;
 }
 
