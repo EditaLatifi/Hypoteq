@@ -6,7 +6,7 @@ import type { FileEntry } from "@/lib/funnel-v3/files";
 import type { RequirementStatus } from "@/lib/funnel-v3/requirementStatus";
 import { acceptOutdated, removeFile } from "@/lib/funnel-v3/upload";
 import { freshnessProblem } from "@/components/documentIntelligence/v3/catalogue";
-import { chf, chip, crossChecks, mergedFields, outdatedText, reasonText, rowClass, STATE_LOOK, storedNameFor } from "./view";
+import { chf, chip, crossChecks, mergedFields, outdatedText, reasonText, rowClass, STATE_LOOK, storedNameFor, type CrossCheck } from "./view";
 import StoredName from "./StoredName";
 import AuditTrail from "./AuditTrail";
 
@@ -27,10 +27,14 @@ interface Props {
    */
   caseNumber?: string | null;
   priorFiles?: number;
+  /** Every placed file, for the document-against-document checks (Baujahr, Ablösedatum). */
+  allFiles?: FileEntry[];
+  /** Checks computed outside the row (the household income over all borrowers). */
+  extraChecks?: CrossCheck[];
 }
 
 /** One requirement (spec 4.2): state, reason, files, recognised values, actions. */
-export default function RequirementRow({ status: r, files, open, onToggle, onPick, onView, intern, canRename, borrowerCount, caseNumber, priorFiles = 0 }: Props) {
+export default function RequirementRow({ status: r, files, open, onToggle, onPick, onView, intern, canRename, borrowerCount, caseNumber, priorFiles = 0, allFiles, extraChecks }: Props) {
   const { t, lang } = useFunnelT();
   const fin = useFunnelV3((s) => s.fin);
   const setSkipped = useFunnelV3((s) => s.setSkipped);
@@ -49,7 +53,7 @@ export default function RequirementRow({ status: r, files, open, onToggle, onPic
 
   const badge = r.state === "partial" ? `${t(look.labelKey)} · ${r.doneFiles}/${r.expect}` : t(look.labelKey);
   const fields = hasContent ? mergedFields(done) : [];
-  const checks = hasContent ? crossChecks(inst, done, fin, borrowerCount) : [];
+  const checks = hasContent ? [...crossChecks(inst, done, fin, borrowerCount, allFiles), ...(extraChecks ?? [])] : [];
   const notes = Array.from(new Set(done.map((f) => f.analysis?.note).filter((n): n is string => !!n)));
   const outdatedFiles = done.filter((f) => f.analysis?.outdated);
   const warn =
@@ -124,13 +128,22 @@ export default function RequirementRow({ status: r, files, open, onToggle, onPic
             <div className="v3-docrow-section">
               <span className="v3-eyebrow">{t("s5.crossCheck")}</span>
               {checks.map((c) => (
-                <div key={c.field} className={`v3-check${c.ok ? "" : " is-diff"}`}>
+                <div key={`${c.kind}:${c.field}`} className={`v3-check${c.ok ? "" : " is-diff"}`}>
                   <span className="v3-check-mark" aria-hidden="true">
                     {c.ok ? "✓" : "!"}
                   </span>
                   <span>
-                    <strong>{c.field}</strong> · {t("s5.funnel")} {chf(c.funnel)} · {t("s5.document")} {chf(c.doc)} ·{" "}
-                    {c.ok ? t("docs.checkOk") : t("docs.checkDiff")}
+                    <strong>{c.kind === "funnel" && c.household ? t("s4.householdIncome") : c.field}</strong> ·{" "}
+                    {c.kind === "funnel" ? (
+                      <>
+                        {t("s5.funnel")} {chf(c.funnel)} · {t("s5.document")} {chf(c.doc)}
+                      </>
+                    ) : (
+                      <>
+                        {t(`doc.${c.left.typeId}`)} {c.left.value} · {t(`doc.${c.right.typeId}`)} {c.right.value}
+                      </>
+                    )}{" "}
+                    · {c.ok ? t("docs.checkOk") : t("docs.checkDiff")}
                   </span>
                 </div>
               ))}

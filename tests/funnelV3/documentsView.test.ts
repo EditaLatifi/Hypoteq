@@ -11,9 +11,12 @@ import {
   chip,
   crossChecks,
   groupRows,
+  householdIncomeCheck,
   mergedFields,
+  normaliseDate,
   outdatedText,
   parseChf,
+  parseYear,
   reasonText,
   storedNameFor,
   storedNameForExtra,
@@ -75,10 +78,80 @@ describe("fields, names, checks", () => {
       ["Bruttolohn 2024", "CHF 118'900", false],
     ]);
     const inst = reqList(mkState())!.find((i) => i.id === "lohnausweise")!;
-    expect(crossChecks(inst, [a, b], { ...EMPTY_AMOUNTS, inc: 125000 }, 1)).toEqual([{ field: "Bruttoeinkommen", funnel: 125000, doc: 125385, ok: true }]);
+    expect(crossChecks(inst, [a, b], { ...EMPTY_AMOUNTS, inc: 125000 }, 1)).toEqual([{ kind: "funnel", field: "Bruttoeinkommen", funnel: 125000, doc: 125385, ok: true }]);
     expect(crossChecks(inst, [a, b], { ...EMPTY_AMOUNTS, inc: 125000 }, 2)).toEqual([]);
     expect(parseChf("CHF 449'000.00")).toBe(449000);
     expect(parseChf("–")).toBeNull();
+  });
+
+  it("holds a document against its counterpart: Baujahr (GVZ · Verkaufsdoku), Ablösedatum (H3 · H1)", () => {
+    const list = reqList(mkState(GERBER_ANSWERS));
+    const mk = (id: string, typeId: string, fields: Record<string, { value: string; confidence: number }>) =>
+      f({ id, instanceId: typeId, analysis: { status: "done", docTypeId: typeId, docTypeLabel: "", confidence: 1, requirementId: typeId, fields } });
+    const g = mk("g", "gvz", { Erstellungsjahr: { value: "1998", confidence: 0.9 } });
+    const v = mk("v", "verkaufsdoku", { Baujahr: { value: "Baujahr 2001 (Renovation 2015)", confidence: 0.9 } });
+    const gvz = list.find((i) => i.id === "gvz")!;
+    const vk = list.find((i) => i.id === "verkaufsdoku")!;
+    expect(crossChecks(gvz, [g], EMPTY_AMOUNTS, 1, [g, v])).toEqual([
+      { kind: "documents", field: "Baujahr", left: { typeId: "gvz", value: "1998" }, right: { typeId: "verkaufsdoku", value: "2001" }, ok: false },
+    ]);
+    // the same check on the other row, its own document first
+    expect(crossChecks(vk, [v], EMPTY_AMOUNTS, 1, [g, v])).toEqual([
+      { kind: "documents", field: "Baujahr", left: { typeId: "verkaufsdoku", value: "2001" }, right: { typeId: "gvz", value: "1998" }, ok: false },
+    ]);
+    // same year → ok; counterpart missing or unreadable → no check; without allFiles → no check
+    expect(crossChecks(gvz, [g], EMPTY_AMOUNTS, 1, [g, mk("v2", "verkaufsdoku", { Baujahr: { value: "1998", confidence: 0.7 } })])[0].ok).toBe(true);
+    expect(crossChecks(gvz, [g], EMPTY_AMOUNTS, 1, [g])).toEqual([]);
+    expect(crossChecks(gvz, [g], EMPTY_AMOUNTS, 1, [g, mk("v3", "verkaufsdoku", { Baujahr: { value: "unbekannt", confidence: 0.3 } })])).toEqual([]);
+    expect(crossChecks(gvz, [g], EMPTY_AMOUNTS, 1)).toEqual([]);
+
+    const zins = list.find((i) => i.id === "hyp_zins")!;
+    const rahmen = list.find((i) => i.id === "hyp_rahmen")!;
+    const z = mk("z", "hyp_zins", { Kapital: { value: "CHF 449'000.00", confidence: 1 }, Ablösedatum: { value: "31.3.2027", confidence: 0.8 } });
+    const r = mk("r", "hyp_rahmen", { Rahmenkredit: { value: "CHF 449'000", confidence: 1 }, Ablösedatum: { value: "2027-03-31", confidence: 0.8 } });
+    expect(crossChecks(zins, [z], { ...EMPTY_AMOUNTS, old: 449000 }, 1, [z, r])).toEqual([
+      { kind: "funnel", field: "Bestehende Hypothek", funnel: 449000, doc: 449000, ok: true },
+      { kind: "documents", field: "Ablösedatum", left: { typeId: "hyp_zins", value: "31.03.2027" }, right: { typeId: "hyp_rahmen", value: "31.03.2027" }, ok: true },
+    ]);
+    const r2 = mk("r2", "hyp_rahmen", { Ablösedatum: { value: "30.09.2027", confidence: 0.8 } });
+    expect(crossChecks(rahmen, [r2], EMPTY_AMOUNTS, 1, [z, r2])).toEqual([
+      { kind: "documents", field: "Ablösedatum", left: { typeId: "hyp_rahmen", value: "30.09.2027" }, right: { typeId: "hyp_zins", value: "31.03.2027" }, ok: false },
+    ]);
+  });
+
+  it("sums every borrower's latest Bruttolohn against the household income", () => {
+    const anna = { id: "b2", vor: "Anna", nach: "Muster", job: "Angestellt" as const, pkSe: "Nein" as const };
+    const list = reqList(mkState(GERBER_ANSWERS, {}, {}, [GARY, anna]));
+    const lohn = (id: string, instanceId: string, fields: Record<string, { value: string; confidence: number }>) =>
+      f({ id, instanceId, analysis: { status: "done", docTypeId: "lohnausweise", docTypeLabel: "", confidence: 1, requirementId: "lohnausweise", fields } });
+    const g = lohn("g", "lohnausweise#b1", { "Bruttolohn 2025": { value: "CHF 125'385", confidence: 0.95 }, "Bruttolohn 2024": { value: "CHF 118'900", confidence: 0.95 } });
+    const a = lohn("a", "lohnausweise#b2", { "Bruttolohn 2024": { value: "CHF 80'000", confidence: 0.9 } });
+    const fin = { ...EMPTY_AMOUNTS, inc: 205000 };
+    expect(householdIncomeCheck(list, [g, a], fin, 2)).toEqual({ kind: "funnel", field: "Bruttoeinkommen", funnel: 205000, doc: 205385, ok: true, household: true });
+    expect(householdIncomeCheck(list, [g, a], { ...EMPTY_AMOUNTS, inc: 150000 }, 2)!.ok).toBe(false);
+    // a borrower without a recognised Lohnausweis → no sum
+    expect(householdIncomeCheck(list, [g], fin, 2)).toBeNull();
+    expect(householdIncomeCheck(list, [g, lohn("a2", "lohnausweise#b2", { Arbeitgeber: { value: "X AG", confidence: 1 } })], fin, 2)).toBeNull();
+    // a selbständig co-borrower has no Lohnausweise requirement → nothing comparable
+    const se = reqList(mkState(GERBER_ANSWERS, {}, {}, [GARY, { ...anna, job: "Selbständig" as const }]));
+    expect(householdIncomeCheck(se, [g, a], fin, 2)).toBeNull();
+    // single borrower: crossChecks does it; no income → nothing
+    expect(householdIncomeCheck(list, [g, a], fin, 1)).toBeNull();
+    expect(householdIncomeCheck(list, [g, a], EMPTY_AMOUNTS, 2)).toBeNull();
+  });
+
+  it("normalises years and dates for the document checks", () => {
+    expect(parseYear("Baujahr 1998")).toBe("1998");
+    expect(parseYear("2001 / 2015")).toBe("2001");
+    expect(parseYear("unbekannt")).toBeNull();
+    expect(parseYear(null)).toBeNull();
+    expect(normaliseDate("31.3.2027")).toBe("31.03.2027");
+    expect(normaliseDate("31.03.2027")).toBe("31.03.2027");
+    expect(normaliseDate("31/03/2027")).toBe("31.03.2027");
+    expect(normaliseDate("2027-03-31")).toBe("31.03.2027");
+    expect(normaliseDate("per 31.03.2027")).toBe("31.03.2027");
+    expect(normaliseDate("Ende März 2027")).toBeNull();
+    expect(normaliseDate("")).toBeNull();
   });
 
   it("previews the stored name with the case number placeholder", () => {

@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { LOCALES, pickLocale } from "@/lib/locale";
 
-const SUPPORTED_LOCALES = ["de", "en", "fr", "it"];
-const DEFAULT_LOCALE = "de";
+const SUPPORTED_LOCALES: readonly string[] = LOCALES;
 
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
@@ -20,10 +20,11 @@ export function middleware(request: NextRequest) {
     return response;
   }
 
-  // Check if root path
+  // Root: the saved language (NEXT_LOCALE), else the browser language (Accept-Language), else
+  // German — spec 7 «automatisch aus der Browsersprache bzw. der URL».
   if (pathname === "/") {
-    // Redirect to /de
-    return NextResponse.redirect(new URL("/de", request.url));
+    const locale = pickLocale(request.cookies.get("NEXT_LOCALE")?.value, request.headers.get("accept-language"));
+    return NextResponse.redirect(new URL(`/${locale}`, request.url));
   }
 
   // If no locale and not root, allow it to proceed (for API routes, etc)

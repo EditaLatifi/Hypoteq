@@ -8,8 +8,8 @@
  * recognise are assigned by hand. The work itself runs in lib/funnel-v3/upload.ts and survives
  * this component unmounting; everything shown is derived from the store (documentsSummary).
  *
- * `?intern=1` shows the internal review view (percentages, audit trail). Customers and Berater
- * see «Erkannt / Prüfen» only.
+ * `?intern=<key>` shows the internal review view (percentages, audit trail). Customers and
+ * Berater see «Erkannt / Prüfen» only.
  */
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -33,14 +33,20 @@ import RequirementRow from "../documents/RequirementRow";
 import ExtraFiles from "../documents/ExtraFiles";
 import FileDetail from "../documents/FileDetail";
 import Toast, { useToast } from "../documents/Toast";
-import { groupRows } from "../documents/view";
+import { groupRows, householdIncomeCheck } from "../documents/view";
 
-/** `?intern=1`, read after mount (useSearchParams would need a Suspense boundary). */
+/**
+ * The value `?intern=` must carry: NEXT_PUBLIC_V3_INTERN_KEY when HYPOTEQ has set one, `1`
+ * until then (DECISIONS D23). A view toggle only — renames are authorised server-side.
+ */
+const INTERN_KEY = process.env.NEXT_PUBLIC_V3_INTERN_KEY || "1";
+
+/** `?intern=<key>`, read after mount (useSearchParams would need a Suspense boundary). */
 function useIntern(): boolean {
   const [intern, setIntern] = useState(false);
   useEffect(() => {
     try {
-      setIntern(new URLSearchParams(window.location.search).get("intern") === "1");
+      setIntern(new URLSearchParams(window.location.search).get("intern") === INTERN_KEY);
     } catch {
       setIntern(false);
     }
@@ -57,6 +63,7 @@ export default function Step5Documents() {
   const ans = useFunnelV3((s) => s.ans);
   const borrowers = useFunnelV3((s) => s.borrowers);
   const txt = useFunnelV3((s) => s.txt);
+  const fin = useFunnelV3((s) => s.fin);
   const setAns = useFunnelV3((s) => s.setAns);
   const dismissSuggestion = useFunnelV3((s) => s.dismissSuggestion);
   const summary = useDocumentsSummary();
@@ -73,9 +80,12 @@ export default function Step5Documents() {
   }, []);
 
   const state = useMemo(() => ({ ans, borrowers, txt }), [ans, borrowers, txt]);
-  const borrowerCount = ans.kn === "Juristische Person" ? 0 : effectiveBorrowers(state).length;
+  const natural = useMemo(() => (ans.kn === "Juristische Person" ? [] : effectiveBorrowers(state)), [ans.kn, state]);
+  const borrowerCount = natural.length;
   const canRename = intern || role === "berater";
   const { status, files, placements, suggestions, instances } = summary;
+  // Spec 5 «Bruttoeinkommen» with several borrowers: shown on the first borrower's Lohnausweise.
+  const household = useMemo(() => householdIncomeCheck(instances, files, fin, borrowerCount), [instances, files, fin, borrowerCount]);
   const byId = useMemo(() => new Map(files.map((f) => [f.id, f])), [files]);
   const extras = files.filter((f) => !f.instanceId);
   const groups = useMemo(() => groupRows(status.requirements, state, lang), [status.requirements, state, lang]);
@@ -265,6 +275,8 @@ export default function Step5Documents() {
               intern={intern}
               canRename={canRename}
               borrowerCount={borrowerCount}
+              allFiles={files}
+              extraChecks={household && r.instance.id === "lohnausweise" && r.instance.borrowerId === natural[0]?.id ? [household] : undefined}
             />
           ))}
         </section>

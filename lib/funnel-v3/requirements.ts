@@ -199,7 +199,7 @@ export const REQ: readonly RequirementDef[] = [
   def({
     id: "hyp_rahmen", code: "H1", group: "hypothek", labelDe: "Aktueller Hypothekarvertrag (Rahmenvertrag)",
     shortName: "Hypothekarvertrag", legacyKeys: ["funnel.currentMortgageContract"],
-    fields: ["Bank", "Kunden-Nr.", "Rahmenkredit", "Vertragsbeginn"],
+    fields: ["Bank", "Kunden-Nr.", "Rahmenkredit", "Vertragsbeginn", "Ablösedatum"],
     rule: "Ablösung",
   }),
   def({
@@ -211,7 +211,7 @@ export const REQ: readonly RequirementDef[] = [
   def({
     id: "hyp_zins", code: "H3", group: "hypothek", labelDe: "Letzte Zinsabrechnung",
     shortName: "Zinsabrechnung",
-    fields: ["Produkt", "Kapital", "Zinssatz", "Laufzeit", "Zins Q1 2026"],
+    fields: ["Produkt", "Kapital", "Zinssatz", "Laufzeit", "Zins Q1 2026", "Ablösedatum"],
     rule: "Ablösung",
   }),
 
@@ -309,9 +309,9 @@ export const REQ: readonly RequirementDef[] = [
   }),
   def({
     id: "b_lohn", code: "P16", group: "person", labelDe: "Solidarbürge · Lohnausweise 3 Jahre",
-    // The spec gives no file count for the guarantor's three Lohnausweise (only P3 «erwartet 3 Dateien»).
-    shortName: "Lohnausweis", personKind: "guarantor",
-    rule: "Solidarbürgschaft = Ja",
+    // «3 Jahre» means three files, like P3 (DECISIONS D22); the catalogue's period rule is the same.
+    shortName: "Lohnausweis", personKind: "guarantor", expect: 3,
+    rule: "Solidarbürgschaft = Ja · erwartet 3 Dateien",
   }),
   def({
     id: "hr", code: "J1", group: "person", labelDe: "Aktueller Handelsregisterauszug",
@@ -643,7 +643,7 @@ export function reqList(state: ReqState): RequirementInstance[] {
         push("lohnabrechnungen", PER_BORROWER, { borrower: b });
         push("anstellung", PER_BORROWER, { borrower: b });
         // Spec P6 says «angestellt»; an open Beschäftigung is treated as angestellt like P3–P5
-        // (the prototype does so, and the Gerber counter starts at 13 only that way).
+        // (the prototype does so, and the Gerber counter starts at 13 only that way) — DECISIONS D21.
         push("pk", PER_BORROWER, { borrower: b });
       } else if (b.job === "Selbständig") {
         if (b.pkSe === "Ja") push("pk", because(cond("job", "Selbständig"), cond("pkSe", "Ja")), { borrower: b });

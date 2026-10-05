@@ -227,12 +227,27 @@ export function storedNameForExtra(f: FileEntry, p: Placement | undefined): stri
 
 // ---- Cross-checks (spec 5 «Abgleich mit Funnel-Angaben») -------------------------------------
 
-export interface CrossCheck {
+/** A funnel answer against a document (amounts): Bruttoeinkommen, Bestehende Hypothek. */
+export interface FunnelCheck {
+  kind: "funnel";
   field: string;
   funnel: number;
   doc: number;
   ok: boolean;
+  /** The latest Bruttolohn of every borrower's Lohnausweise summed (several borrowers). */
+  household?: boolean;
 }
+
+/** Two documents against each other (Baujahr, Ablösedatum): the values as read, normalised. */
+export interface DocumentsCheck {
+  kind: "documents";
+  field: string;
+  left: { typeId: string; value: string };
+  right: { typeId: string; value: string };
+  ok: boolean;
+}
+
+export type CrossCheck = FunnelCheck | DocumentsCheck;
 
 /** «CHF 125'385.00» → 125385. */
 export function parseChf(v: string | null | undefined): number | null {
@@ -243,25 +258,92 @@ export function parseChf(v: string | null | undefined): number | null {
   return Number.isFinite(n) && n > 0 ? n : null;
 }
 
+/** "1998", "Baujahr 1998", "1998 (Renovation 2015)" → "1998" — the first year read; none → null. */
+export function parseYear(v: string | null | undefined): string | null {
+  const m = v ? String(v).match(/\b(1[89]\d{2}|20\d{2})\b/) : null;
+  return m ? m[1] : null;
+}
+
+/** "31.3.2027", "31.03.2027", "31/03/2027", "2027-03-31" → "31.03.2027"; nothing readable → null. */
+export function normaliseDate(v: string | null | undefined): string | null {
+  if (!v) return null;
+  const s = String(v).trim();
+  const dmy = s.match(/(\d{1,2})[./](\d{1,2})[./](\d{4})/);
+  if (dmy) return `${dmy[1].padStart(2, "0")}.${dmy[2].padStart(2, "0")}.${dmy[3]}`;
+  const iso = s.match(/(\d{4})-(\d{2})-(\d{2})/);
+  if (iso) return `${iso[3]}.${iso[2]}.${iso[1]}`;
+  return null;
+}
+
 const within = (a: number, b: number, tolerance: number) => Math.abs(a - b) <= Math.max(a, b) * tolerance;
 
+/** The most recent Bruttolohn among the merged fields of a borrower's Lohnausweise. */
+function latestGross(fields: FieldView[]): number | null {
+  const get = (k: string) => parseChf(fields.find((f) => f.key === k)?.value);
+  return get("Bruttolohn 2025") ?? get("Bruttolohn 2024") ?? get("Bruttolohn 2023");
+}
+
 /**
- * Compares what the funnel was told with what the document says. Only where the two mean the
- * same thing: the household income against the Lohnausweis only with a single borrower.
+ * Document pairs that state the same fact (spec 5 «Baujahr», «Ablösedatum»): which other
+ * requirement to look at, which field on each side, and how to normalise the values.
  */
-export function crossChecks(inst: RequirementInstance, files: FileEntry[], fin: Amounts, borrowerCount: number): CrossCheck[] {
+const DOC_PAIRS: Record<string, { other: string; field: string; mine: string; theirs: string; norm: (v: string | null | undefined) => string | null }> = {
+  gvz: { other: "verkaufsdoku", field: "Baujahr", mine: "Erstellungsjahr", theirs: "Baujahr", norm: parseYear },
+  verkaufsdoku: { other: "gvz", field: "Baujahr", mine: "Baujahr", theirs: "Erstellungsjahr", norm: parseYear },
+  hyp_zins: { other: "hyp_rahmen", field: "Ablösedatum", mine: "Ablösedatum", theirs: "Ablösedatum", norm: normaliseDate },
+  hyp_rahmen: { other: "hyp_zins", field: "Ablösedatum", mine: "Ablösedatum", theirs: "Ablösedatum", norm: normaliseDate },
+};
+
+/**
+ * Compares what the funnel was told with what the document says — only where the two mean the
+ * same thing: the household income against the Lohnausweis with a single borrower (several
+ * borrowers: `householdIncomeCheck`), the existing mortgage against H1/H3. With `allFiles`
+ * (every placed file) a document is also held against its counterpart: GVZ «Erstellungsjahr»
+ * against the Verkaufsdokumentation's «Baujahr», the Zinsabrechnung's «Ablösedatum» against the
+ * Rahmenvertrag's. A check appears on both rows of a pair, each with its own document first.
+ */
+export function crossChecks(inst: RequirementInstance, files: FileEntry[], fin: Amounts, borrowerCount: number, allFiles: FileEntry[] = []): CrossCheck[] {
   const fields = mergedFields(files);
   const get = (k: string) => parseChf(fields.find((f) => f.key === k)?.value);
   const out: CrossCheck[] = [];
   if (inst.id === "lohnausweise" && borrowerCount === 1 && fin.inc > 0) {
-    const doc = get("Bruttolohn 2025") ?? get("Bruttolohn 2024") ?? get("Bruttolohn 2023");
-    if (doc) out.push({ field: "Bruttoeinkommen", funnel: fin.inc, doc, ok: within(fin.inc, doc, 0.05) });
+    const doc = latestGross(fields);
+    if (doc) out.push({ kind: "funnel", field: "Bruttoeinkommen", funnel: fin.inc, doc, ok: within(fin.inc, doc, 0.05) });
   }
   if ((inst.id === "hyp_zins" || inst.id === "hyp_rahmen") && fin.old > 0) {
     const doc = get(inst.id === "hyp_zins" ? "Kapital" : "Rahmenkredit");
-    if (doc) out.push({ field: "Bestehende Hypothek", funnel: fin.old, doc, ok: within(fin.old, doc, 0.01) });
+    if (doc) out.push({ kind: "funnel", field: "Bestehende Hypothek", funnel: fin.old, doc, ok: within(fin.old, doc, 0.01) });
+  }
+  const pair = DOC_PAIRS[inst.id];
+  if (pair) {
+    const others = allFiles.filter((f) => f.instanceId === pair.other && f.analysisState === "done");
+    const mine = pair.norm(fields.find((f) => f.key === pair.mine)?.value);
+    const theirs = others.length ? pair.norm(mergedFields(others).find((f) => f.key === pair.theirs)?.value) : null;
+    if (mine && theirs) {
+      out.push({ kind: "documents", field: pair.field, left: { typeId: inst.id, value: mine }, right: { typeId: pair.other, value: theirs }, ok: mine === theirs });
+    }
   }
   return out;
+}
+
+/**
+ * Spec 5 «Bruttoeinkommen» with several borrowers: the funnel's household income against the
+ * SUM of the latest Bruttolohn over every borrower's Lohnausweise. Only when every natural
+ * borrower has a Lohnausweise requirement and a recognised Bruttolohn — a selbständig or
+ * pensioniert borrower has none, and a sum over part of the household would mislead. Shown on
+ * the first borrower's Lohnausweise row.
+ */
+export function householdIncomeCheck(instances: RequirementInstance[], files: FileEntry[], fin: Amounts, borrowerCount: number): FunnelCheck | null {
+  if (borrowerCount < 2 || fin.inc <= 0) return null;
+  const rows = instances.filter((i) => i.id === "lohnausweise");
+  if (rows.length !== borrowerCount) return null;
+  let sum = 0;
+  for (const inst of rows) {
+    const v = latestGross(mergedFields(files.filter((f) => f.instanceId === inst.instanceId && f.analysisState === "done")));
+    if (!v) return null;
+    sum += v;
+  }
+  return { kind: "funnel", field: "Bruttoeinkommen", funnel: fin.inc, doc: sum, ok: within(fin.inc, sum, 0.05), household: true };
 }
 
 export function chf(n: number): string {

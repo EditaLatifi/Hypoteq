@@ -1,5 +1,5 @@
 import { describe, it, expect } from "@jest/globals";
-import { chf, pct, parseAmount, date } from "@/lib/funnel-v3/format";
+import { chf, pct, parseAmount, date, time, dateTime } from "@/lib/funnel-v3/format";
 import { calcFinancing } from "@/lib/funnel-v3/calc";
 
 describe("format", () => {
@@ -42,6 +42,19 @@ describe("format", () => {
     expect(date("2026-01-15")).toBe("15.01.2026");
     expect(date("nonsense")).toBe("");
     expect(date(null)).toBe("");
+  });
+
+  it("dateTime is TT.MM.JJJJ HH:MM in every language (audit trail)", () => {
+    const d = new Date(2026, 9, 5, 14, 3, 27);
+    expect(time(d)).toBe("14:03");
+    expect(time(new Date(2026, 0, 1, 9, 7))).toBe("09:07");
+    expect(dateTime(d)).toBe("05.10.2026 14:03");
+    expect(dateTime(d.toISOString())).toBe("05.10.2026 14:03");
+    expect(dateTime(d.getTime())).toBe("05.10.2026 14:03");
+    expect(dateTime("2026-01-15")).toBe("15.01.2026");
+    expect(dateTime("nonsense")).toBe("");
+    expect(dateTime(null)).toBe("");
+    expect(time(undefined)).toBe("");
   });
 });
 

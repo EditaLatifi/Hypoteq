@@ -68,3 +68,18 @@ export function date(d: Date | string | number | null | undefined): string {
   if (Number.isNaN(dt.getTime())) return "";
   return `${pad2(dt.getDate())}.${pad2(dt.getMonth() + 1)}.${dt.getFullYear()}`;
 }
+
+/** `HH:MM` (24 h) of a Date, timestamp or ISO string, in local time. Invalid input → "". */
+export function time(d: Date | string | number | null | undefined): string {
+  if (d === null || d === undefined || d === "") return "";
+  const dt = d instanceof Date ? d : new Date(d);
+  if (Number.isNaN(dt.getTime())) return "";
+  return `${pad2(dt.getHours())}:${pad2(dt.getMinutes())}`;
+}
+
+/** `TT.MM.JJJJ HH:MM`, e.g. for the audit trail: "05.10.2026 14:03". Invalid input → "". */
+export function dateTime(d: Date | string | number | null | undefined): string {
+  if (typeof d === "string" && /^\d{4}-\d{2}-\d{2}$/.test(d)) return date(d);
+  const day = date(d);
+  return day ? `${day} ${time(d)}` : "";
+}

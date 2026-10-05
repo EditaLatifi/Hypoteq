@@ -275,8 +275,8 @@ describe('catalogue', () => {
       ...['loan', 'maint', '3a', 'stwe'].flatMap((s) => [`sug.${s}.title`, `sug.${s}.text`])];
     for (const k of keys) for (const l of langs) expect([k, l, typeof lookup(l, k)]).toEqual([k, l, 'string']);
   });
-  it('expects 3 Lohnausweise and 2 3a-Police files, 1 otherwise', () => {
-    expect(REQ.filter((r) => r.expect !== 1).map((r) => [r.code, r.expect])).toEqual([['P3', 3], ['E3', 2]]);
+  it('expects 3 Lohnausweise (P3, and P16 for the Solidarbürge — D22) and 2 3a-Police files, 1 otherwise', () => {
+    expect(REQ.filter((r) => r.expect !== 1).map((r) => [r.code, r.expect])).toEqual([['P3', 3], ['P16', 3], ['E3', 2]]);
   });
   it('allows «Habe ich nicht» only for O2 and J4', () => {
     expect(REQ.filter((r) => r.optional).map((r) => r.code)).toEqual(['O2', 'J4']);

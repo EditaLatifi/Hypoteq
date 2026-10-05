@@ -227,6 +227,7 @@ export default function NachreichV3({ token, view, copy }: { token: string; view
                 key={id}
                 status={r}
                 files={r.fileIds.map((fid) => byId.get(fid)).filter((f): f is NonNullable<typeof f> => Boolean(f))}
+                allFiles={files}
                 open={Boolean(open[id])}
                 onToggle={() => setOpen((o) => ({ ...o, [id]: !o[id] }))}
                 onPick={() => drop.current?.pick()}

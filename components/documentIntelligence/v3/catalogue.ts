@@ -89,6 +89,7 @@ const FIELD_HINTS: Record<string, string> = {
   "Bruttolohn 2023": "gross salary (Bruttolohn, Ziffer 8) of 2023 — only from a certificate for 2023, else null",
   "Verkaufspreis 2024": "asking or sale price as printed, with CHF",
   "Zins Q1 2026": "interest amount of the most recent billed period, with the period",
+  "Ablösedatum": "date the current mortgage (tranche or framework) can be redeemed — end of the fixed term / maturity, DD.MM.YYYY; null when the document names none",
   "Saldo per 31.12.2025": "fund balance at the most recent closing date, with that date",
   "Beiträge 2025": "contributions paid in the year the certificate covers, with the year",
   "Rückkaufswert per 09.01.2026": "surrender value (Rückkaufswert) with the date it refers to",
