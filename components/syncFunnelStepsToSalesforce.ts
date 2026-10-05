@@ -2,6 +2,7 @@ import { SALESFORCE_ACCOUNT_FIELDS } from "./salesforceAccountFieldConfig";
 import { funnelToSalesforceMap } from './funnelToSalesforceMap';
 import { SALESFORCE_CASE_FIELDS, SFFieldType } from "./salesforceFieldConfig";
 import { ART_LIEGENSCHAFT_MAP, NUTZUNG_MAP, isZweitwohnsitzNutzung } from "./propertyLabels";
+import { resolvePartner, type PartnerResolution } from "./partnerDirectory";
 
 // Sales Partner = the partner *company* Account on the Case (HYPOTEQ AG for direct
 // leads; Betterhomes / Remax / ... for partner leads). Verified against production:
@@ -9,6 +10,58 @@ import { ART_LIEGENSCHAFT_MAP, NUTZUNG_MAP, isZweitwohnsitzNutzung } from "./pro
 // is NOT the standard `AccountId` — that one holds the customer. Overridable per-org.
 const SALES_PARTNER_FIELD = process.env.SF_SALES_PARTNER_FIELD || 'Account__c';
 const HYPOTEQ_ACCOUNT_NAME = process.env.HYPOTEQ_ACCOUNT_NAME || 'HYPOTEQ AG';
+
+export const NEW_PARTNER_NOTE = 'Neuer Partner – bitte prüfen und anlegen';
+export const PARTNER_CHECK_FAILED_NOTE = 'Partner konnte nicht geprüft werden – bitte prüfen';
+
+function prependComment(caseData: Record<string, any>, note: string) {
+  const existing = typeof caseData['Comments'] === 'string' ? caseData['Comments'].trim() : '';
+  caseData['Comments'] = existing ? `${note}\n\n${existing}` : note;
+}
+
+/**
+ * Put the submitting Berater on the Case (spec 6.3, DECISIONS D13).
+ *   partner (VP Contact) → Partner_Consultant__c = Contact, Sales Partner = its Account
+ *   HYPOTEQ user         → OwnerId = User
+ *   unknown              → no lookups; Supplied* from the new-partner form and a note in
+ *                          Comments so HYPOTEQ creates the partner by hand. Nothing is created
+ *                          in Salesforce for them.
+ * Runs after the Case field cleanup, so the standard fields set here survive it.
+ */
+export async function applyPartnerToCase(
+  caseData: Record<string, any>,
+  partnerEmail: string,
+  partnerForm: { email?: string; vorname?: string; nachname?: string; telefon?: string; firma?: string } | undefined | null,
+): Promise<void> {
+  let resolved: PartnerResolution | null = null;
+  try {
+    resolved = await resolvePartner(partnerEmail, { fresh: true });
+  } catch (err) {
+    console.error(`[Salesforce Sync] Partner lookup failed for ${partnerEmail}:`, err);
+  }
+
+  if (resolved?.status === 'partner') {
+    caseData['Partner_Consultant__c'] = resolved.contactId;
+    if (resolved.accountId) caseData[SALES_PARTNER_FIELD] = resolved.accountId;
+    console.log(`[Salesforce Sync] Partner recognised: Contact ${resolved.contactId}, Account ${resolved.accountId ?? '–'}`);
+    return;
+  }
+  if (resolved?.status === 'hypoteq') {
+    caseData['OwnerId'] = resolved.userId;
+    console.log(`[Salesforce Sync] HYPOTEQ user submitted: Owner ${resolved.userId}`);
+    return;
+  }
+
+  const form = partnerForm || {};
+  const name = [form.vorname, form.nachname].map((s) => (s || '').trim()).filter(Boolean).join(' ');
+  if (name) caseData['SuppliedName'] = name;
+  caseData['SuppliedEmail'] = (form.email || partnerEmail || '').trim() || null;
+  if (form.telefon?.trim()) caseData['SuppliedPhone'] = form.telefon.trim();
+  if (form.firma?.trim()) caseData['SuppliedCompany'] = form.firma.trim();
+  // A failed lookup is not proof the partner is new — say so, so nobody creates a duplicate.
+  prependComment(caseData, resolved ? NEW_PARTNER_NOTE : PARTNER_CHECK_FAILED_NOTE);
+  console.log(`[Salesforce Sync] Partner not recognised (${resolved ? 'unknown' : 'lookup failed'}): ${partnerEmail}`);
+}
 
 // Convert Swiss date format (DD.MM.YYYY) to Salesforce format (YYYY-MM-DD)
 function convertSwissDateToSalesforce(swissDate: string): string | null {
@@ -179,9 +232,12 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
   }
 
   // Extract partner email if customerType is "partner" (doesn't create Account, just stored in Case)
+  // Funnel v3 sends the Berater block as `partner` ({ email, vorname, nachname, telefon,
+  // firma }); the older funnel only had the partner's address in client.email.
   let partnerEmail: string | null = null;
-  if (stepData.customerType === 'partner' && stepData.client?.email) {
-    partnerEmail = stepData.client.email;
+  const partnerEmailRaw = stepData.partner?.email || stepData.client?.email;
+  if (stepData.customerType === 'partner' && partnerEmailRaw) {
+    partnerEmail = String(partnerEmailRaw).trim();
     console.log(`[Salesforce Sync] Partner email detected: ${partnerEmail}`);
   }
 
@@ -854,18 +910,9 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
   // A direct lead must NOT put HYPOTEQ into Partner_Consultant__c — HYPOTEQ AG is the
   // sales partner, not the customer's advisor.
   if (partnerEmail) {
-    try {
-      const partnerContact = await salesforceApi.findContactByEmail(partnerEmail);
-      if (partnerContact) {
-        const partnerContactId = partnerContact.Id || partnerContact.id;
-        caseData['Partner_Consultant__c'] = partnerContactId;
-        console.log(`[Salesforce Sync] Linked partner contact to Case: ${partnerContactId}`);
-      } else {
-        console.log(`[Salesforce Sync] Partner contact not found for email: ${partnerEmail}`);
-      }
-    } catch (err) {
-      console.error(`[Salesforce Sync] Error finding partner contact:`, err);
-    }
+    // Spec 6.3 / DECISIONS D13. Fresh lookup: the Case is what HYPOTEQ works from, so it
+    // must not rest on a recognition cached minutes ago in the browser's session.
+    await applyPartnerToCase(caseData, partnerEmail, stepData.partner);
   } else {
     // Direktkundenfunnel → HYPOTEQ AG is the sales partner. Resolve its Account by name.
     // Deliberately lookup-only: silently creating a second "HYPOTEQ AG" Account would

@@ -175,17 +175,9 @@ export async function GET(req: Request) {
     const writes: any[] = [];
     const api = apply ? salesforceApi : dryRunApi(salesforceApi, writes);
 
-    // Mirror the live funnel route: the partner's Contact must exist *before* the sync,
-    // otherwise findContactByEmail misses and the Case lands without a Partner_Consultant__c.
-    if (apply && inquiry.customerType === "partner" && inquiry.client?.email) {
-      try {
-        const { savePartnerConsultantEmailToSalesforce } =
-          await import("@/components/savePartnerConsultantEmailToSalesforce");
-        await savePartnerConsultantEmailToSalesforce(inquiry.client.email);
-      } catch (err) {
-        console.error(`⚠️ Partner consultant upsert failed for ${inquiry.client.email}:`, err);
-      }
-    }
+    // The partner is resolved inside the sync (components/partnerDirectory). Like the live
+    // route, the replay no longer creates placeholder Contacts for unknown partners
+    // (DECISIONS D13) — a placeholder would afterwards be "recognised" as a real partner.
     const kn = Array.isArray((inquiry.property as any)?.kreditnehmer) ? (inquiry.property as any).kreditnehmer : [];
     const label = [
       inquiry.createdAt.toISOString().slice(0, 16),

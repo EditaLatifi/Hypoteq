@@ -269,6 +269,18 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: false, error: errorMsg }, { status: 500 });
     }
 
+    // === CASE NUMBER (DECISIONS D1) ===
+    // Stored right after the row exists, so a failure here can never cost the lead: the
+    // inquiry stays saved with caseNumber null, and the miss is logged.
+    let caseNumber: string | null = null;
+    try {
+      const { allocateCaseNumber } = await import("@/components/caseNumber");
+      caseNumber = await allocateCaseNumber(prisma as any, new Date(), inquiry.id);
+      console.log(`✅ Case number ${caseNumber} for inquiry ${inquiry.id}`);
+    } catch (caseNumberErr) {
+      console.error(`⚠️ Could not allocate a case number for inquiry ${inquiry.id}:`, caseNumberErr);
+    }
+
     // === CLAIM THIS SUBMISSION'S UPLOADS ===
     // Files upload the moment they are picked, so they are waiting in HoldingDocument under
     // this submission id. The customer's decisions about each file (type, corrections,
@@ -362,20 +374,8 @@ export async function POST(req: Request) {
       console.error("⚠️ Could not record the Salesforce result on the inquiry:", updateErr);
     }
 
-    // Store partner email in Salesforce PartnerConsultant__c
-    if (data.customerType === 'partner' && data.client?.email) {
-      if (isTestMode()) {
-        skipped("partner contact in Salesforce", data.client.email);
-      } else {
-        try {
-          const { savePartnerConsultantEmailToSalesforce } = await import("@/components/savePartnerConsultantEmailToSalesforce");
-          await savePartnerConsultantEmailToSalesforce(data.client.email);
-          console.log("✅ PartnerConsultant__c updated in Salesforce for:", data.client.email);
-        } catch (err) {
-          console.error("❌ Failed to update PartnerConsultant__c in Salesforce:", err);
-        }
-      }
-    }
+    // The partner is linked inside the sync (components/partnerDirectory). Unknown partners
+    // are no longer created as placeholder Contacts (spec 2.2 / 6.3, DECISIONS D13).
 
     // Auto-response to the customer
     try {
@@ -401,7 +401,7 @@ export async function POST(req: Request) {
       await sendSalesforceFailureAlert(inquiry.id, salesforceError);
     }
 
-    return NextResponse.json({ success: true, inquiryId: inquiry.id, salesforceSynced: !salesforceError });
+    return NextResponse.json({ success: true, inquiryId: inquiry.id, caseNumber, salesforceSynced: !salesforceError });
   } catch (err: unknown) {
     // Type assertion to ensure 'err' is treated as an Error
     if (err instanceof Error) {
