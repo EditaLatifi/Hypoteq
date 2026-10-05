@@ -108,7 +108,7 @@ describe("toInquiryPayload — Gerber, Kunde", () => {
     expect(p.documents).toEqual([{ id: "d" }]);
     expect(p.documentCompleteness).toEqual({ complete: false, missing: [] });
     expect(p.partner).toBeNull();
-    expect(p.client).toEqual({ firstName: "Gary", lastName: "Gerber", email: "gary.gerber@example.ch", phone: "079 123 45 67" });
+    expect(p.client).toEqual({ firstName: "Gary", lastName: "Gerber", email: "gary.gerber@example.ch", phone: "079 123 45 67", anrede: "Herr" });
   });
 
   it("project and property in the values the server maps", () => {
@@ -129,7 +129,7 @@ describe("toInquiryPayload — Gerber, Kunde", () => {
       firmen: [],
     });
     expect(p.property.kreditnehmer).toEqual([
-      { id: "b1", vorname: "Gary", name: "Gerber", email: "gary.gerber@example.ch", telefon: "079 123 45 67", geburtsdatum: "", erwerb: "angestellt", zivilstand: "", pkVorhanden: "" },
+      { id: "b1", vorname: "Gary", name: "Gerber", anrede: "Herr", email: "gary.gerber@example.ch", telefon: "079 123 45 67", geburtsdatum: "", erwerb: "angestellt", zivilstand: "", pkVorhanden: "" },
     ]);
   });
 
@@ -143,6 +143,7 @@ describe("toInquiryPayload — Gerber, Kunde", () => {
       immobilienwert: "1450000",
       hypoBetrag: "650000",
       modell: "5",
+      pkVorbezug: "Nein",
       leasingVorhanden: "ja",
       kommentar: "Verwendungszweck: Ablösung Privatkredit und Leasing\n\nBitte Rückruf am Vormittag.",
     });
@@ -186,7 +187,9 @@ describe("toInquiryPayload — mapping tables", () => {
   it("Liegenschaft and Nutzung", () => {
     expect(map({ lieg: "Einfamilienhaus" }).property).toMatchObject({ artLiegenschaft: "Einfamilienhaus", stockwerkeigentum: "" });
     expect(map({ lieg: "Mehrfamilienhaus" }).property.artLiegenschaft).toBe("Mehrfamilienhaus");
-    expect(map({ lieg: "Ferienobjekt" }).property.artLiegenschaft).toBe("Ferienobjekt");
+    // D8: no Salesforce value — sent empty, so Art_der_Liegenschaft__c stays unset.
+    expect(map({ lieg: "Ferienobjekt" }).property).toMatchObject({ artLiegenschaft: "", stockwerkeigentum: "" });
+    expect(map({ lieg: "Stockwerkeigentum" }).property).toMatchObject({ artLiegenschaft: "Wohnung", stockwerkeigentum: "ja" });
     expect(map({ nutz: "Vermietet" }).property.nutzung).toBe("Rendite-Immobilie");
     expect(map({ nutz: "Zweitwohnsitz" }).property.nutzung).toBe("Zweitwohnsitz");
   });
@@ -220,10 +223,17 @@ describe("toInquiryPayload — mapping tables", () => {
       }),
       { locale: "de", submissionId: SUBMISSION }
     );
-    expect(p.property.kreditnehmer.map((k: any) => [k.vorname, k.erwerb, k.pkVorhanden, k.email])).toEqual([
-      ["Gary", "selbständig", "ja", "gary.gerber@example.ch"],
-      ["Anna", "rentner", "", ""],
+    expect(p.property.kreditnehmer.map((k: any) => [k.vorname, k.erwerb, k.pkVorhanden, k.email, k.anrede])).toEqual([
+      ["Gary", "selbständig", "ja", "gary.gerber@example.ch", "Herr"],
+      ["Anna", "rentner", "", "", ""],
     ]);
+  });
+
+  it("Anrede and PK Verpfändung", () => {
+    expect(map({ anrede: "Frau" }).client).toMatchObject({ anrede: "Frau" });
+    expect(map({ anrede: undefined }).client).toMatchObject({ anrede: "" });
+    expect(map({ pk: "Ja" }).financing.pkVorbezug).toBe("Ja");
+    expect(map({ pk: "Nein" }).financing.pkVorbezug).toBe("Nein");
   });
 });
 

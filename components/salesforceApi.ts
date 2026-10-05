@@ -264,6 +264,19 @@ async function writeWithFieldFallback(
         throw error;
       }
 
+      // The column exists but the integration user may not write it (field-level security),
+      // e.g. Account.Salutation for the Funnel v3 Anrede. Salesforce names the fields; drop
+      // them and retry rather than lose the record over an optional attribute.
+      if (code === 'INVALID_FIELD_FOR_INSERT_UPDATE') {
+        const targets = errFields.filter(f => f in working);
+        if (targets.length) {
+          console.warn(`[Salesforce] ${context}: dropping unwritable ${sobjectType} field(s) ${targets.map(f => `'${f}'`).join(', ')} and retrying`);
+          for (const f of targets) delete working[f];
+          continue;
+        }
+        throw error;
+      }
+
       throw error;
     }
   }

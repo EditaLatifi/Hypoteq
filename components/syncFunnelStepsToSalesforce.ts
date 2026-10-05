@@ -84,6 +84,18 @@ function transformErwerbsstatus(value: string | null | undefined): string | null
   return mapping[value.toLowerCase()] || value;
 }
 
+/**
+ * Funnel v3 Anrede → PersonAccount.Salutation (spec 6.4): Herr → Mr., Frau → Mrs. Anything
+ * else (the legacy funnel sends nothing) → null, so no Salutation is written.
+ */
+export function toSalesforceSalutation(value: unknown): 'Mr.' | 'Mrs.' | null {
+  if (typeof value !== 'string') return null;
+  const v = value.trim().toLowerCase();
+  if (v === 'herr' || v === 'mr.' || v === 'mr') return 'Mr.';
+  if (v === 'frau' || v === 'mrs.' || v === 'mrs') return 'Mrs.';
+  return null;
+}
+
 function transformZivilstand(value: string | null | undefined): string | null {
   if (!value) return null;
   const mapping: Record<string, string> = {
@@ -212,11 +224,12 @@ function sanitizeSFValue(sfField: string, value: any) {
       return convertSwissDateToSalesforce(value);
 
     case "picklist":
-      // Handle Ja/Nein picklists - ensure proper capitalization
+      // Handle Ja/Nein picklists - ensure proper capitalization. The French and Italian
+      // spellings are normalised too (Verpf_ndung_PK__c used to be dropped for «Oui»/«Sì»).
       if (value && typeof value === 'string') {
-        const lowerValue = value.toLowerCase();
-        if (lowerValue === 'ja' || lowerValue === 'yes') return 'Ja';
-        if (lowerValue === 'nein' || lowerValue === 'no') return 'Nein';
+        const lowerValue = value.trim().toLowerCase();
+        if (['ja', 'yes', 'oui', 'sì', 'si'].includes(lowerValue)) return 'Ja';
+        if (['nein', 'no', 'non'].includes(lowerValue)) return 'Nein';
       }
       return value ?? null;
       
@@ -363,6 +376,8 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
             erwerbsstatus: kn.erwerb || kn.erwerbsstatus || null,
             zivilstand: kn.zivilstand || null,
             geburtsdatum: kn.geburtsdatum || kn.birthdate || null,
+            // Funnel v3 Anrede (spec 6.4); the legacy funnel never sends it.
+            salutation: kn.anrede || null,
           });
         }
       }
@@ -380,6 +395,7 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
         erwerbsstatus: stepData.client.erwerb || stepData.client.erwerbsstatus || null,
         zivilstand: stepData.client.zivilstand || null,
         geburtsdatum: stepData.client.geburtsdatum || stepData.client.birthdate || null,
+        salutation: stepData.client.anrede || null,
       });
     } else if (flatData.email) {
       // Final fallback if no client object
@@ -483,10 +499,17 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
       } else {
         console.log(`[Salesforce Sync] No Geburtsdatum found for person`);
       }
+      // Funnel v3 Anrede → Salutation (spec 6.4). Only on a NEW Person Account: an existing
+      // Account's salutation is never overwritten (the update block below does not set it).
+      const salutation = toSalesforceSalutation(person.salutation);
+      if (salutation) {
+        accountData.Salutation = salutation;
+        console.log(`[Salesforce Sync] Salutation: ${person.salutation} -> ${salutation}`);
+      }
     }
-    
+
     // Sanitize all account fields (skip core identity fields)
-    const skipFields = ['LastName', 'FirstName', 'PersonEmail', 'Phone', 'Geburtsdatum__c', 'Name', 'Email__c'];
+    const skipFields = ['LastName', 'FirstName', 'PersonEmail', 'Phone', 'Geburtsdatum__c', 'Name', 'Email__c', 'Salutation'];
     for (const [field, value] of Object.entries(accountData)) {
       if (value !== undefined && !skipFields.includes(field)) {
         accountData[field] = sanitizeSFAccountValue(field, value);
@@ -538,7 +561,20 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     } else {
       // Create new Account
       console.log(`[Salesforce Sync] Creating new Account for ${email || lastName}`);
-      account = await salesforceApi.createAccount(accountData);
+      if (accountData.Salutation) {
+        // createAccount already drops a field the org lacks or forbids and retries
+        // (writeWithFieldFallback). Should Salutation still be refused for a reason that
+        // helper does not know, the Anrede must not cost the Account — or the Case after it.
+        try {
+          account = await salesforceApi.createAccount(accountData);
+        } catch (salutationErr) {
+          console.warn(`[Salesforce Sync] Account create with Salutation failed, retrying without it:`, salutationErr);
+          const { Salutation: _dropped, ...withoutSalutation } = accountData;
+          account = await salesforceApi.createAccount(withoutSalutation);
+        }
+      } else {
+        account = await salesforceApi.createAccount(accountData);
+      }
       console.log(`[Salesforce Sync] Account created: ${account.id || account.Id}`);
     }
 
@@ -718,7 +754,29 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     return round1((affordabilityCHF / grossIncome) * 100);
   };
 
-  if (isKauf) {
+  // === FUNNEL V3 GESAMTFINANZIERUNG (spec 6.7, DECISIONS S6) — v3 payloads only ===
+  // v3 asks for no Eigenmittel amounts (they come from the documents), so the Kauf formula
+  // below (Kaufpreis − Eigenmittel) would book every purchase as 100 % financed. The funnel
+  // showed the customer financing.hypoBetrag (lib/funnel-v3/calc.ts: Objektwert × 80 % for
+  // a Kauf, old + Erhöhung for an Ablösung); that amount is the Gesamtfinanzierung here. The
+  // Tragbarkeit keeps the existing formula (S1) — only its base changes.
+  const v3HypoBetragRaw = stepData.v3 ? Number(String(flatData.hypoBetrag ?? '').replace(/'/g, '')) : NaN;
+  const v3HypoBetrag = Number.isFinite(v3HypoBetragRaw) && v3HypoBetragRaw > 0 ? v3HypoBetragRaw : null;
+
+  if (isKauf && v3HypoBetrag !== null) {
+    caseData['Gesch_tzter_Hypothekenbedarf__c'] = v3HypoBetrag;
+
+    // Eigenmittel % = the part of the object value the mortgage does not cover; no
+    // Eigenmittel__c, because no amount was entered.
+    const objectValue = Number(flatData.immobilienwert || 0) || kaufpreis;
+    if (objectValue > 0) caseData['EigenmittelProzent__c'] = round1(((objectValue - v3HypoBetrag) / objectValue) * 100);
+
+    const tragb = affordabilityPct(v3HypoBetrag);
+    if (tragb !== null) caseData['Tragbarkeit__c'] = tragb;
+
+    console.log(`[Salesforce Sync] v3 Kauf calc: Gesamtfinanzierung=${v3HypoBetrag}, Objektwert=${objectValue}, Eigenmittel%=${caseData['EigenmittelProzent__c']}, Tragbarkeit%=${caseData['Tragbarkeit__c']}`);
+  // === END FUNNEL V3 GESAMTFINANZIERUNG (the Ablösung branch below reads v3HypoBetrag too) ===
+  } else if (isKauf) {
     // funnelCalc: companies (juristic) count only cash (Bar) as equity
     const ownFundsForCalc = isJur ? eigenmittel_bar : eigenmittel;
     const hypothekenbedarf = Math.max(kaufpreis - ownFundsForCalc, 0);
@@ -735,7 +793,8 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     const betrag = Number(flatData.abloesung_betrag || 0);
     const erhoehungJa = String(flatData.erhoehung).toLowerCase() === 'ja' || String(flatData.erhoehung).toLowerCase() === 'yes';
     const erhoehung = erhoehungJa ? Number(flatData.erhoehung_betrag || 0) : 0;
-    const hypothekenbedarf = betrag + erhoehung;
+    // Funnel v3: the Gesamtfinanzierung the funnel showed (same sum, computed once in calc.ts).
+    const hypothekenbedarf = v3HypoBetrag !== null ? v3HypoBetrag : betrag + erhoehung;
     caseData['Gesch_tzter_Hypothekenbedarf__c'] = hypothekenbedarf;
 
     const propertyValue = Number(flatData.immobilienwert || 0) || Number(flatData.kaufpreis || 0) || hypothekenbedarf;

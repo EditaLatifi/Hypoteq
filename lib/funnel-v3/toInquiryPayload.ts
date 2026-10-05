@@ -16,7 +16,7 @@
  */
 
 import { calcFinancing } from "./calc";
-import type { Borrower, FunnelState, Job, Laufzeit, Liegenschaft, Nutzung, YesNo } from "./types";
+import type { Anrede, Borrower, FunnelState, Job, Laufzeit, Liegenschaft, Nutzung, YesNo } from "./types";
 
 export type Locale = "de" | "en" | "fr" | "it";
 
@@ -36,12 +36,22 @@ export const KORRESPONDENZSPRACHE: Record<Locale, string> = {
   it: "Italienisch",
 };
 
-/** Spec 6.5. Ferienobjekt has no Salesforce value (D8); the sync drops a rejected picklist value. */
+/**
+ * Spec 6.5. Ferienobjekt has no Salesforce picklist value (DECISIONS D8, S9): it is sent empty
+ * on purpose, so Art_der_Liegenschaft__c stays unset instead of relying on Salesforce rejecting
+ * an unknown value. The raw answer is still in `v3.ans.lieg` (and in the Dokumenten-Check JSON).
+ */
 export const ART_LIEGENSCHAFT: Record<Liegenschaft, string> = {
   Einfamilienhaus: "Einfamilienhaus",
   Stockwerkeigentum: "Wohnung",
   Mehrfamilienhaus: "Mehrfamilienhaus",
-  Ferienobjekt: "Ferienobjekt",
+  Ferienobjekt: "",
+};
+
+/** Spec 6.4: PersonAccount.Salutation. The sync turns this into Mr. / Mrs. on a new Account. */
+export const ANREDE: Record<Anrede, string> = {
+  Herr: "Herr",
+  Frau: "Frau",
 };
 
 export const NUTZUNG: Record<Nutzung, string> = {
@@ -85,6 +95,8 @@ export function toInquiryPayload(state: FunnelState, opts: InquiryPayloadOptions
   const borrowerType = isJur ? "jur" : "nat";
   const phone = isPartner ? "" : txt.tel.trim();
   const mail = txt.mail.trim();
+  // Anrede (spec 6.4) belongs to the step-1 contact, a natural person; a company has none.
+  const anrede = !isJur && ans.anrede ? ANREDE[ans.anrede] : "";
 
   const calc = calcFinancing({
     antrag: ans.antrag,
@@ -103,7 +115,7 @@ export function toInquiryPayload(state: FunnelState, opts: InquiryPayloadOptions
   // old server reads for a partner — it resolves Partner_Consultant__c from it).
   const client = isPartner
     ? { email: txt.bmail.trim() }
-    : { firstName: txt.vor.trim(), lastName: txt.nach.trim(), email: mail, phone };
+    : { firstName: txt.vor.trim(), lastName: txt.nach.trim(), email: mail, phone, anrede };
 
   const kreditnehmer = isJur
     ? [
@@ -120,6 +132,8 @@ export function toInquiryPayload(state: FunnelState, opts: InquiryPayloadOptions
         // The first borrower is the step-1 contact; the UI keeps them in step, txt wins.
         vorname: (i === 0 ? txt.vor : b.vor).trim(),
         name: (i === 0 ? txt.nach : b.nach).trim(),
+        // Only the step-1 contact is asked for an Anrede; co-borrowers have none (spec 3).
+        anrede: i === 0 ? anrede : "",
         email: i === 0 ? mail : "",
         telefon: i === 0 ? phone : "",
         geburtsdatum: "",
@@ -182,6 +196,8 @@ export function toInquiryPayload(state: FunnelState, opts: InquiryPayloadOptions
       // Gesamtfinanzierung as the funnel computed it; the mail shows it as Hypothekarbetrag.
       hypoBetrag: amount(calc.need),
       modell: ans.laufzeit ? MODELL[ans.laufzeit] : "",
+      // Spec 6.7: Verpf_ndung_PK__c. «Ja»/«Nein» as the sync's picklist sanitiser expects.
+      pkVorbezug: ans.pk,
       leasingVorhanden: jn(ans.leasing),
       kommentar: buildKommentar(txt.zweck, txt.kommentar),
     },
