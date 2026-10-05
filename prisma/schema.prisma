@@ -218,6 +218,10 @@ model Document {
   /// confident it was. Section 36 requires that to survive any later correction.
   aiAnalysis   Json?
 
+  /// SHA-256 (hex) of the file content, for duplicate detection (Funnel v3, spec 4.3).
+  /// prisma/sql/2026-10-05-document-content-hash.sql
+  contentHash  String?
+
   inquiry Inquiry? @relation(fields: [inquiryId], references: [id])
 }
 
@@ -257,6 +261,8 @@ model HoldingDocument {
   aiDocType    String?
   aiConfidence Float?
   aiAnalysis   Json?
+  /// SHA-256 (hex) of the file content; carried over to Document on adoption.
+  contentHash  String?
 
   @@index([submissionId])
 }

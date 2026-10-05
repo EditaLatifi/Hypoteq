@@ -1,8 +1,17 @@
 import { NextResponse } from "next/server";
-import { getAccessToken, getDriveItem, persistDocumentRecord } from "@/lib/sharepoint";
+import {
+  getAccessToken,
+  getDriveItem,
+  hashDriveItem,
+  persistDocumentRecord,
+  storeContentHash,
+} from "@/lib/sharepoint";
 
 export const runtime = "nodejs";
 export const maxDuration = 30;
+
+/** Larger files are not hashed here (the 30 s budget); the analyse route refuses them anyway. */
+const MAX_HASH_BYTES = 50 * 1024 * 1024;
 
 /**
  * Record a file the browser has just finished uploading to SharePoint.
@@ -67,12 +76,31 @@ export async function POST(req: Request) {
       driveItemId: item.id,
     });
 
+    // Content hash for duplicate detection (Funnel v3, spec 4.3). Computed from the file as
+    // SharePoint holds it, streamed — see hashDriveItem for why not from the browser. Never
+    // fatal: a file without a hash is only exempt from duplicate detection, and the analyse
+    // route fills the hash in from the bytes it reads anyway.
+    let contentHash: string | null = null;
+    if (item.size > 0 && item.size <= MAX_HASH_BYTES) {
+      try {
+        contentHash = await hashDriveItem(item.id, token);
+        await storeContentHash(record.table, record.id, contentHash);
+      } catch (err) {
+        console.warn(
+          `upload-doc/finalize: no content hash for ${record.id}:`,
+          err instanceof Error ? err.message : err
+        );
+        contentHash = null;
+      }
+    }
+
     return NextResponse.json({
       success: true,
       documentId: record.id,
       fileName: item.name,
       webUrl: item.webUrl,
       size: item.size,
+      contentHash,
     });
   } catch (err: any) {
     const errorMsg = err instanceof Error ? err.message : "Unknown server error";
