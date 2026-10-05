@@ -1,0 +1,158 @@
+/* Documents step (Funnel v3 step 5): only what funnel-v3.css (the prototype translation) has no
+   class for. Scoped under .hqv3 like the rest. */
+
+.hqv3 .v3-drop-folder {
+  margin-top: 2px;
+  background: none;
+  border: 0;
+  padding: 2px 4px;
+  font: inherit;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-semibold);
+  color: var(--forest-800);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+.hqv3 .v3-drop:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+.hqv3 .v3-docs-hidden-input {
+  display: none;
+}
+
+/* internal review panel */
+.hqv3 .v3-intern {
+  border: 1px solid var(--paper-300);
+  border-radius: var(--radius-lg);
+  background: var(--paper-100);
+  padding: 18px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.hqv3 .v3-intern-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: var(--text-caption);
+  color: var(--on-light-70);
+}
+.hqv3 .v3-intern-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+.hqv3 .v3-intern-value {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--text-title);
+  font-weight: var(--weight-bold);
+  color: var(--forest-800);
+  line-height: 1;
+}
+.hqv3 .v3-intern-label {
+  font-size: var(--text-caption);
+  color: var(--on-light-70);
+}
+
+/* one file inside an opened requirement */
+.hqv3 .v3-stored-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.hqv3 .v3-stored-row .v3-stored {
+  flex: 1 1 260px;
+  min-width: 0;
+}
+.hqv3 .v3-stored-hint {
+  font-size: var(--text-caption);
+  color: var(--on-light-45);
+}
+.hqv3 .v3-rename {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.hqv3 .v3-rename .v3-input {
+  flex: 1 1 280px;
+  min-width: 0;
+  font-size: var(--text-caption);
+  padding: 8px 12px;
+}
+
+/* «Weitere Dateien» */
+.hqv3 .v3-extra-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  padding: 0 18px 14px 62px;
+}
+.hqv3 .v3-assign {
+  min-width: 220px;
+  max-width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--paper-400);
+  border-radius: var(--radius-pill);
+  background: #fff;
+  font: inherit;
+  font-size: var(--text-caption);
+  color: var(--forest-800);
+}
+.hqv3 .v3-hidden-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 18px;
+  border: 1px dashed var(--paper-400);
+  border-radius: var(--radius-lg);
+  font-size: var(--text-caption);
+  color: var(--on-light-70);
+  background: var(--paper-100);
+}
+
+/* cross-check that differs */
+.hqv3 .v3-check.is-diff {
+  border-color: var(--warning-100);
+  background: var(--warning-100);
+}
+.hqv3 .v3-check.is-diff .v3-check-mark {
+  color: var(--warning-500);
+}
+
+/* detail modal */
+.hqv3 .v3-preview-img {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--paper-300);
+  border-radius: var(--radius-sm);
+  background: #fff;
+}
+.hqv3 .v3-preview-empty {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+  font-size: var(--text-body-sm);
+  color: var(--on-light-70);
+}
+.hqv3 .v3-modal-field .v3-input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 899px) {
+  .hqv3 .v3-intern-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .hqv3 .v3-extra-actions {
+    padding-left: 18px;
+  }
+}
