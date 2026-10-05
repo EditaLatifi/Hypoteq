@@ -44,7 +44,7 @@ export async function login() {
  * client-credentials token opens a new session and the org invalidates older ones — which
  * kills the very session the current request is using.
  */
-async function withSessionRetry<T>(op: () => Promise<T>, context: string): Promise<T> {
+export async function withSessionRetry<T>(op: () => Promise<T>, context: string): Promise<T> {
   try {
     return await op();
   } catch (error: any) {
@@ -59,6 +59,32 @@ async function withSessionRetry<T>(op: () => Promise<T>, context: string): Promi
   }
 }
 
+/**
+ * A SOQL string literal, quotes included. Every value interpolated into a query goes through
+ * this: an address like o'brien@x.ch is legal, and unescaped it either breaks the query or
+ * rewrites it.
+ */
+export function soqlString(value: string): string {
+  return `'${String(value).replace(/\\/g, '\\\\').replace(/'/g, "\\'")}'`;
+}
+
+/**
+ * Log in once per warm instance if this one has no session yet. A read-only route (partner
+ * recognition) can be the first thing a cold instance runs; after that, withSessionRetry
+ * renews an expired token lazily. Logging in on every call would be wrong: each
+ * client-credentials login invalidates older sessions (see withSessionRetry).
+ */
+export async function ensureSession(): Promise<void> {
+  if (!conn.accessToken) await login();
+}
+
+/** Run a read-only SOQL query with a session and one lazy re-login; returns the rows. */
+export async function sfQuery<T = any>(soql: string, context: string): Promise<T[]> {
+  await ensureSession();
+  const result: any = await withSessionRetry(async () => await conn.query(soql), context);
+  return (result?.records || []) as T[];
+}
+
 export async function findPersonAccountByEmail(email: string) {
   return conn.sobject('Account').findOne({ PersonEmail: email });
 }
@@ -67,9 +93,8 @@ export async function findPersonAccountByEmail(email: string) {
 // Account (HYPOTEQ AG for direct clients, Betterhomes/Remax/... for partner leads).
 // Person Accounts are excluded — a sales partner is always a company.
 export async function findAccountByName(name: string) {
-  const escaped = name.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
   const result = await withSessionRetry(
-    async () => await conn.query(`SELECT Id, Name FROM Account WHERE Name = '${escaped}' AND IsPersonAccount = false LIMIT 1`),
+    async () => await conn.query(`SELECT Id, Name FROM Account WHERE Name = ${soqlString(name)} AND IsPersonAccount = false LIMIT 1`),
     'findAccountByName',
   );
   return result.records && result.records.length > 0 ? result.records[0] : null;
@@ -78,7 +103,7 @@ export async function findAccountByName(name: string) {
 export async function findAccountByEmail(email: string) {
   // Query to get account with IsPersonAccount field to determine type
   const result = await withSessionRetry(
-    async () => await conn.query(`SELECT Id, PersonEmail, IsPersonAccount FROM Account WHERE PersonEmail = '${email}' LIMIT 1`),
+    async () => await conn.query(`SELECT Id, PersonEmail, IsPersonAccount FROM Account WHERE PersonEmail = ${soqlString(email)} LIMIT 1`),
     'findAccountByEmail',
   );
   return result.records && result.records.length > 0 ? result.records[0] : null;
@@ -111,7 +136,15 @@ export async function createAccount(fields: Record<string, any>) {
 }
 
 export async function findContactByEmail(email: string) {
-  return withSessionRetry(async () => await conn.sobject('Contact').findOne({ Email: email }), 'findContactByEmail');
+  // Oldest match first, so a later duplicate Contact never takes over the original.
+  const result = await withSessionRetry(
+    async () =>
+      await conn.query(
+        `SELECT Id, Email, AccountId FROM Contact WHERE Email = ${soqlString(email)} ORDER BY CreatedDate ASC LIMIT 1`,
+      ),
+    'findContactByEmail',
+  );
+  return result.records && result.records.length > 0 ? (result.records[0] as any) : null;
 }
 
 export async function createContact(fields: Record<string, any>) {
@@ -313,6 +346,9 @@ export async function getPersonAccountRecordTypeId(): Promise<string> {
 // named exports above when adding a function.
 export default {
   login,
+  ensureSession,
+  sfQuery,
+  soqlString,
   getPersonAccountRecordTypeId,
   findPersonAccountByEmail,
   findAccountByEmail,
