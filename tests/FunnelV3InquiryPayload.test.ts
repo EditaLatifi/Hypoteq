@@ -3,6 +3,24 @@ import { toInquiryPayload, buildKommentar } from "@/lib/funnel-v3/toInquiryPaylo
 import { DEFAULT_ANSWERS, EMPTY_AMOUNTS, EMPTY_TEXTS, type FunnelState } from "@/lib/funnel-v3/types";
 import { syncFunnelStepsToSalesforce } from "@/components/syncFunnelStepsToSalesforce";
 
+// The sync resolves the partner through the partner directory (a live Salesforce query in
+// production). Answered here so nothing leaves the process.
+jest.mock("@/components/partnerDirectory", () => {
+  const actual = jest.requireActual("@/components/partnerDirectory") as object;
+  return {
+    ...actual,
+    resolvePartner: jest.fn(async () => ({
+      status: "partner",
+      contactId: "003PARTNER",
+      accountId: "001SALESPARTNER",
+      name: "Petra Partner",
+      firstName: "Petra",
+      lastName: "Partner",
+      company: "Partner AG",
+    })),
+  };
+});
+
 const SUBMISSION = "6f1c2b9e-1d2a-4c3b-9e8f-0a1b2c3d4e5f";
 
 /** Fall Gerber (spec header, sample dossier): Ablösung + Erhöhung, STWE, Wädenswil. */
