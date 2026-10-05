@@ -396,6 +396,28 @@ body:has(.hqv3) {
   color: var(--forest-800);
 }
 
+/* Phone header: a compact select instead of four buttons. */
+.hqv3 .v3-lang-select {
+  height: 30px;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  border: 1px solid var(--on-dark-45);
+  background: transparent;
+  color: #fff;
+  font-family: var(--font-text);
+  font-size: var(--text-micro);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label);
+  padding: 0 8px;
+  cursor: pointer;
+}
+.hqv3 .v3-lang-select option {
+  color: var(--forest-800);
+}
+.hqv3 .v3-lang-select:focus-visible {
+  box-shadow: var(--focus-ring-on-dark);
+}
+
 /* ---------------------------------------------------------------- sidebar (question path) */
 .hqv3 .v3-side {
   width: 300px;
@@ -617,17 +639,17 @@ body:has(.hqv3) {
   gap: 10px;
   min-width: 0;
 }
+.hqv3 .v3-mhead-logo {
+  flex: 0 0 auto;
+}
 .hqv3 .v3-mhead-title {
+  flex: 0 1 auto;
+  min-width: 0;
   font-size: var(--text-caption);
   color: var(--on-dark-70);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-.hqv3 .v3-mhead-langs {
-  padding: 10px 0 0;
-  display: flex;
-  justify-content: flex-end;
 }
 .hqv3 .v3-arrow--dark {
   width: 30px;
@@ -1055,6 +1077,12 @@ body:has(.hqv3) {
   overflow-wrap: anywhere;
   hyphens: auto;
   text-wrap: pretty;
+}
+/* The heading takes focus when a step opens (screen readers); it is not a control. */
+.hqv3 .v3-h1:focus,
+.hqv3 .v3-h1:focus-visible {
+  outline: none;
+  box-shadow: none;
 }
 .hqv3 .v3-lead {
   margin: 0;
