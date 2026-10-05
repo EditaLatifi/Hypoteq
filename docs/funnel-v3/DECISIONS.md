@@ -29,6 +29,11 @@ Beim Salesforce-Mapping gilt die Regel der Spezifikation: **das bestehende Mappi
 | D16 | Tragbarkeit Fall Gerber | Die Formel aus Spec 3 ergibt 37.6 % (Verdikt «Prüfung nötig»), das Beispiel-Dossier zeigt 32.3 %. Gebaut wird nach der Formel der Spezifikation; HYPOTEQ bestätigt, welche gilt. | Spec 3 / Fall-Dossier |
 | D17 | Bestätigungsmail bei Berater-Anfragen | geht an den Kunden aus Schritt 1 (Spec 3 Schritt 6: «{name} erhält eine Bestätigung an {email}»); der Berater erhält eine Kopie. Bisher ging sie an den Partner. | Spec 3 |
 | D18 | Mitkreditnehmer 2 und 3 in Salesforce | v3 fragt pro Person keine E-Mail mehr; der Sync legt Mitkreditnehmer heute nur mit E-Mail als Account an. Neu: Person Account ohne E-Mail anlegen, Daten aus den Dokumenten ergänzen. | Spec 3 Schritt 3 |
+| D19 | Dateiname von Hand ändern | Nur der Berater kann den gespeicherten Namen ändern (Spec 5.1: Kunden sehen ihn nur). Der Server übernimmt `storedName` aus dem Payload nur bei `role = berater`, bereinigt ihn wie die automatischen Namen (D10; die Endung der Datei bleibt) und löst Kollisionen mit `_2`. Die interne Rolle (`?intern=1`) ist nur im Browser bekannt und zählt serverseitig nicht. | Spec 5.1 |
+| D20 | Bestätigungsmail v3 | nennt die Fallnummer (Betreff und Text) und enthält einen Link zurück zur Anfrage (Nachreich-Seite: Stand des Dossiers, Unterlagen nachreichen). Dafür wird das Nachreich-Token bei v3 immer erzeugt, nicht nur bei unvollständigem Dossier. FR «vous», IT «Lei» (D9). | Spec 3 Schritt 6, Spec 7 |
+| D21 | P6 Pensionskassenausweis bei offener Beschäftigung | Spec 4.1 verlangt P6 nur bei «angestellt». Ist die Beschäftigung noch nicht beantwortet, wird sie wie bei P3–P5 als angestellt behandelt, P6 steht also auch dann auf der Liste (so der Prototyp; der Gerber-Zähler beginnt nur so bei 13). Mit der Antwort «Selbständig» oder «Pensioniert» verschwindet P6 wieder. | Spec 4.1 P3–P6, Prototyp |
+| D22 | P16 Solidarbürge · Lohnausweise 3 Jahre | erwartet 3 Dateien wie P3 (Spec 4.1 nennt die Anzahl nur bei P3); Dateien anderer Jahre werden wie bei P3 als «Überzählig» geführt. Bisher galt P16 mit einer Datei als vollständig. | Spec 4.1 P3 / P16 |
+| D23 | Interne Ansicht (`?intern=`) | Die interne Prüfansicht (Prozentwerte, Audit-Trail) öffnet mit `?intern=<Schlüssel>`; der Schlüssel ist `NEXT_PUBLIC_V3_INTERN_KEY`. Bis HYPOTEQ einen Schlüssel setzt, gilt `?intern=1`. Reine Ansicht im Browser — serverseitig zählt sie nicht (D19). | Spec 5 |
 
 ## Salesforce
 
@@ -39,6 +44,10 @@ Beim Salesforce-Mapping gilt die Regel der Spezifikation: **das bestehende Mappi
 | S3 | `Dokumenten_Check_State__c` | Die Struktur aus Spec 6.11 wird **zusätzlich** geschrieben. `checked`, `filters` und `savedAt` bleiben, weil der Salesforce-Tab und das Partnerportal sie lesen. |
 | S4 | `Bank__c`, `Zins__c`, `Laufzeit__c` | bleiben bei den Finanzierungsangeboten (bestehendes Mapping). Die Werte der bestehenden Hypothek stehen im JSON, bis HYPOTEQ ein Ziel festlegt. |
 | S5 | `Origin`, `Status` | `Origin = Web` und `Status = New` erst nach Bestätigung durch HYPOTEQ, dass keine Web-to-Case-Regeln ausgelöst werden; `Stage__c` bleibt. |
+| S6 | Gesamtfinanzierung bei v3 | Für v3-Payloads übernimmt der Sync `financing.hypoBetrag` (die im Funnel gezeigte Gesamtfinanzierung: Kauf Objektwert × 80 %, Ablösung bestehend + Erhöhung) als `Gesch_tzter_Hypothekenbedarf__c` und `Hypothekarvolumen__c`; `EigenmittelProzent__c` = (Objektwert − Gesamtfinanzierung) / Objektwert, `Eigenmittel__c` bleibt leer (kein eingegebener Betrag). Die Tragbarkeitsformel bleibt (S1), nur ihre Basis ändert. Der alte Funnel rechnet unverändert Kaufpreis − Eigenmittel. |
+| S7 | Anrede → `Salutation` | `ans.anrede` wird als `anrede` des ersten Kreditnehmers mitgeschickt; der Sync schreibt `Salutation = Mr.`/`Mrs.` nur beim Anlegen eines neuen Person Accounts, nie auf einen bestehenden. Fehlen die Feldrechte, verwirft `writeWithFieldFallback` das Feld und der Account wird ohne Anrede angelegt. |
+| S8 | `Verpf_ndung_PK__c` | `ans.pk` wird als `financing.pkVorbezug` («Ja»/«Nein») gesendet; der Picklist-Sanitizer normalisiert zusätzlich `oui`/`sì`/`si` → Ja und `non`/`no` → Nein. |
+| S9 | Ferienobjekt (D8) | wird explizit leer gesendet (`artLiegenschaft = ""`), damit `Art_der_Liegenschaft__c` leer bleibt, statt auf die Ablehnung eines unbekannten Picklist-Werts zu vertrauen; `stockwerkeigentum` und Nutzung/Zweitwohnsitz unverändert. |
 
 ## Offene Fragen an HYPOTEQ
 

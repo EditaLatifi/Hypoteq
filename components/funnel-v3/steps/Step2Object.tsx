@@ -54,9 +54,10 @@ export default function Step2Object() {
       <span className="v3-note v3-note--tight">{t("s2.fromDocs")}</span>
 
       {choice("immo")}
+      {/* Spec 3, Schritt 2: the Neubau follow-up comes right after «Art der Immobilie». */}
+      {show.has("nbDocs") ? <div className="v3-sub v3-rise">{choice("nbDocs")}</div> : null}
       {choice("lieg")}
       {choice("nutz")}
-      {show.has("nbDocs") ? <div className="v3-sub">{choice("nbDocs")}</div> : null}
       {choice("heizung")}
       {choice("baurecht")}
 

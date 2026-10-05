@@ -2455,6 +2455,15 @@ body:has(.hqv3) {
   .hqv3 .v3-docrow-head {
     align-items: flex-start;
     flex-wrap: wrap;
+    row-gap: 10px;
+  }
+  /* The title keeps the whole width beside the glyph; state and «Mehr» go on a second line
+     under it — otherwise the two fixed-width controls squeeze the title into a sliver. */
+  .hqv3 .v3-docrow-main {
+    flex: 1 1 calc(100% - 44px);
+  }
+  .hqv3 .v3-docrow-head > .v3-tag {
+    margin-left: 44px;
   }
   .hqv3 .v3-docrow-head .v3-more {
     margin-left: auto;
