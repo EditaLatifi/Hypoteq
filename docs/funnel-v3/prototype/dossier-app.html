@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="2473598f-03cd-4508-9b01-924b46ae9ec8"></script>
+
+</head>
+<body>
+<x-dc>
+<helmet>
+  <style>/* HYPOTEQ brand face — SF Pro Display, supplied by HYPOTEQ as OTF.
+   Roman weights 400/500/700 are the three the brand guide fixes (Regular 17 / Medium 21 / Bold 56).
+   Italics were supplied too and are declared for completeness — the brand does not use italic type. */
+
+@font-face{font-family:"SF Pro Display";src:url("16441ebd-a288-43fd-847f-08c125ed1f58") format("opentype");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"SF Pro Display";src:url("cb5b71dd-1fc2-4206-a35f-c62581ca2af0") format("opentype");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"SF Pro Display";src:url("f1fcc5d3-aeaa-4f8c-b778-71d236dad55e") format("opentype");font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"SF Pro Display";src:url("f47896de-074c-41bd-89d3-d84e2c787866") format("opentype");font-weight:200;font-style:italic;font-display:swap}
+@font-face{font-family:"SF Pro Display";src:url("f9701e9a-733a-4d1a-a63f-b27351b0471a") format("opentype");font-weight:100;font-style:italic;font-display:swap}
+@font-face{font-family:"SF Pro Display";src:url("4f19ff58-b19d-4c36-a6e4-9b9109e3bb73") format("opentype");font-weight:300;font-style:italic;font-display:swap}
+@font-face{font-family:"SF Pro Display";src:url("e74adac4-97f3-4764-b598-15167ca8e2d5") format("opentype");font-weight:600;font-style:italic;font-display:swap}
+@font-face{font-family:"SF Pro Display";src:url("e5898b16-c1e8-44bc-82d8-3a56b4ff38a1") format("opentype");font-weight:900;font-style:italic;font-display:swap}
+@font-face{font-family:"SF Pro Display";src:url("421d5d16-6a31-484c-902b-d7763fc20a58") format("opentype");font-weight:800;font-style:italic;font-display:swap}
+
+/* No separate SF Pro Text was supplied. Body copy uses SF Pro Display — which is what the
+   brand guide specifies anyway (Regular 17 px is called "SF Pro Display Regular"). */
+
+:root{
+  --font-display:"SF Pro Display",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  --font-text:"SF Pro Display",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  --font-mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+</style>
+  <style>:root{
+  /* ---- Brand core (from HYPOTEQ brand guide p.2) ---- */
+  --lime-500:#CAF476;      /* "Yellow green" — the brand accent */
+  --forest-800:#132219;    /* "Forest green" — the brand dark */
+  --white:#FFFFFF;         /* "normal White" */
+
+  /* ---- Lime ramp (derived, hue-locked to #CAF476) ---- */
+  --lime-100:#F2FBDD;
+  --lime-200:#E6F8C0;
+  --lime-300:#DAF6A2;
+  --lime-400:#D2F58C;
+  --lime-600:#B7E455;
+  --lime-700:#9CC93B;
+  --lime-800:#7BA228;
+
+  /* ---- Forest ramp (derived) ---- */
+  --forest-900:#0A130D;
+  --forest-700:#1A2E20;
+  --forest-600:#223B2A;
+  --forest-500:#2E4E37;
+  --forest-400:#456A4F;
+  --forest-300:#6B8D74;
+
+  /* ---- Light neutrals (green-tinted, never pure grey) ---- */
+  --paper:#FFFFFF;
+  --paper-100:#F6F8F4;
+  --paper-200:#EDF1E9;
+  --paper-300:#E1E7DC;
+  --paper-400:#C9D2C3;
+  --ink-500:#5C6A5F;
+
+  /* ---- Alpha utilities: the brand's 70% transparency rule ---- */
+  --on-dark-100:rgba(255,255,255,1);
+  --on-dark-70:rgba(255,255,255,.70);
+  --on-dark-45:rgba(255,255,255,.45);
+  --on-dark-14:rgba(255,255,255,.14);
+  --on-dark-08:rgba(255,255,255,.08);
+  --on-light-100:#132219;
+  --on-light-70:rgba(19,34,25,.70);
+  --on-light-45:rgba(19,34,25,.45);
+  --on-light-12:rgba(19,34,25,.12);
+  --on-light-06:rgba(19,34,25,.06);
+
+  /* ---- Semantic status (kept quiet; finance context) ---- */
+  --success-500:#2F8F52;
+  --success-100:#E4F3E8;
+  --warning-500:#C98A16;
+  --warning-100:#FBF1DC;
+  --danger-500:#B23B34;
+  --danger-100:#F8E7E5;
+  --info-500:#2F6B8F;
+  --info-100:#E4EEF4;
+}
+</style>
+  <style>:root{
+  /* Brand guide fixes three sizes: Bold 56 / Medium 21 / Regular 17.
+     Those are --text-display-1, --text-lead, --text-body. The rest is the
+     ratio-extended scale used for social, slides and product UI. */
+  --text-hero:96px;
+  --text-display-1:56px;
+  --text-display-2:44px;
+  --text-display-3:34px;
+  --text-title:28px;
+  --text-heading:24px;
+  --text-lead:21px;
+  --text-body:17px;
+  --text-body-sm:15px;
+  --text-caption:13px;
+  --text-micro:11px;
+
+  --leading-tight:1.05;
+  --leading-snug:1.15;
+  --leading-normal:1.35;
+  --leading-relaxed:1.5;
+
+  --weight-regular:400;
+  --weight-medium:500;
+  --weight-semibold:600;
+  --weight-bold:700;
+  --weight-heavy:800;
+
+  --tracking-tight:-0.02em;
+  --tracking-snug:-0.01em;
+  --tracking-normal:0;
+  --tracking-label:0.08em;   /* uppercase eyebrows / footers */
+  --tracking-wide:0.14em;    /* small uppercase meta */
+}
+</style>
+  <style>:root{
+  --space-1:4px;
+  --space-2:8px;
+  --space-3:12px;
+  --space-4:16px;
+  --space-5:20px;
+  --space-6:24px;
+  --space-8:32px;
+  --space-10:40px;
+  --space-12:48px;
+  --space-16:64px;
+  --space-20:80px;
+  --space-24:96px;
+
+  /* Frame paddings used by the social / slide system */
+  --pad-social:64px;      /* 1080x1350 LinkedIn frame */
+  --pad-section:96px;     /* website section block */
+  --pad-card:24px;
+  --pad-control-x:20px;
+  --pad-control-y:12px;
+
+  --measure-narrow:34ch;
+  --measure-body:62ch;
+  --container-max:1200px;
+}
+</style>
+  <style>:root{
+  --radius-xs:4px;
+  --radius-sm:8px;
+  --radius-md:12px;
+  --radius-lg:16px;
+  --radius-xl:24px;
+  --radius-pill:999px;
+  --radius-frame:0px;   /* social frames + slides are hard-cornered */
+}
+</style>
+  <style>:root{
+  --border-hairline:1px;
+  --border-thick:2px;
+  --border-logo-box:3px;      /* the wordmark's outline box */
+  --rule-length:44px;         /* the short dash above headlines */
+  --rule-weight:3px;
+
+  --border-on-dark:1px solid var(--on-dark-14);
+  --border-on-light:1px solid var(--paper-300);
+
+  /* Flat brand: shadows are for product UI only, never for social/slides. */
+  --shadow-none:none;
+  --shadow-sm:0 1px 2px rgba(10,19,13,.06);
+  --shadow-md:0 6px 20px rgba(10,19,13,.10);
+  --shadow-lg:0 18px 48px rgba(10,19,13,.16);
+  --focus-ring:0 0 0 3px rgba(202,244,118,.55);
+  --focus-ring-on-dark:0 0 0 3px rgba(202,244,118,.35);
+
+  /* Protection gradient for text over photography */
+  --scrim-dark:linear-gradient(90deg,rgba(19,34,25,.96) 0%,rgba(19,34,25,.88) 45%,rgba(19,34,25,0) 100%); /* @kind other */
+  --scrim-bottom:linear-gradient(180deg,rgba(19,34,25,0) 0%,rgba(19,34,25,.85) 100%); /* @kind other */
+}
+</style>
+  <style>:root{
+  --ease-out:cubic-bezier(.2,.7,.3,1); /* @kind other */
+  --ease-in-out:cubic-bezier(.4,0,.2,1); /* @kind other */
+  --duration-fast:120ms; /* @kind other */
+  --duration-base:180ms; /* @kind other */
+  --duration-slow:280ms; /* @kind other */
+  --duration-reveal:420ms; /* @kind other */
+  --transition-control:background-color var(--duration-base) var(--ease-out),color var(--duration-base) var(--ease-out),border-color var(--duration-base) var(--ease-out),opacity var(--duration-base) var(--ease-out);
+}
+</style>
+  <style>:root{
+  /* Default (dark) context — the brand's home surface */
+  --surface-page:var(--forest-800);
+  --surface-raised:var(--forest-700);
+  --surface-sunken:var(--forest-900);
+  --surface-accent:var(--lime-500);
+  --surface-card:var(--forest-700);
+  --surface-card-light:var(--paper);
+  --surface-input:var(--on-dark-08);
+
+  --text-heading:var(--white);
+  --text-body:var(--on-dark-100);
+  --text-muted:var(--on-dark-70);
+  --text-faint:var(--on-dark-45);
+  --text-accent:var(--lime-500);
+  --text-on-accent:var(--forest-800);
+  --text-link:var(--lime-500);
+  --text-link-hover:var(--lime-300);
+
+  --border-subtle:var(--on-dark-14);
+  --border-strong:var(--white);
+  --border-accent:var(--lime-500);
+
+  --action-primary-bg:var(--lime-500);
+  --action-primary-fg:var(--forest-800);
+  --action-primary-bg-hover:var(--lime-600);
+  --action-primary-bg-active:var(--lime-700);
+  --action-secondary-bg:transparent;
+  --action-secondary-fg:var(--white);
+  --action-secondary-border:var(--white);
+  --action-disabled-bg:var(--on-dark-08);
+  --action-disabled-fg:var(--on-dark-45);
+}
+
+/* Light context — website body copy, Academy content areas, print */
+.hq-light,[data-hq-theme="light"]{
+  --surface-page:var(--paper);
+  --surface-raised:var(--paper-100);
+  --surface-sunken:var(--paper-200);
+  --surface-card:var(--paper);
+  --surface-input:var(--white);
+
+  --text-heading:var(--forest-800);
+  --text-body:var(--on-light-100);
+  --text-muted:var(--on-light-70);
+  --text-faint:var(--on-light-45);
+  --text-accent:var(--lime-800);
+  --text-on-accent:var(--forest-800);
+  --text-link:var(--forest-800);
+  --text-link-hover:var(--lime-800);
+
+  --border-subtle:var(--paper-300);
+  --border-strong:var(--forest-800);
+
+  --action-secondary-fg:var(--forest-800);
+  --action-secondary-border:var(--forest-800);
+  --action-disabled-bg:var(--paper-200);
+  --action-disabled-fg:var(--on-light-45);
+}
+</style>
+  <style>*,*::before,*::after{box-sizing:border-box}
+body{margin:0;font-family:var(--font-text);font-size:var(--text-body);line-height:var(--leading-normal);color:var(--text-body);background:var(--surface-page);-webkit-font-smoothing:antialiased;text-wrap:pretty}
+h1,h2,h3,h4{font-family:var(--font-display);color:var(--text-heading);margin:0;letter-spacing:var(--tracking-tight);line-height:var(--leading-snug)}
+h1{font-size:var(--text-display-1);font-weight:var(--weight-bold)}
+h2{font-size:var(--text-display-3);font-weight:var(--weight-bold)}
+h3{font-size:var(--text-heading);font-weight:var(--weight-semibold)}
+h4{font-size:var(--text-lead);font-weight:var(--weight-medium);letter-spacing:var(--tracking-snug)}
+p{margin:0 0 var(--space-4)}
+a{color:var(--text-link);text-decoration:none;border-bottom:1px solid currentColor;transition:var(--transition-control)}
+a:hover{color:var(--text-link-hover)}
+strong{font-weight:var(--weight-semibold)}
+:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+::selection{background:var(--lime-500);color:var(--forest-800)}
+.hq-eyebrow{font-size:var(--text-caption);text-transform:uppercase;letter-spacing:var(--tracking-label);color:var(--text-muted)}
+.hq-rule{width:var(--rule-length);height:var(--rule-weight);background:var(--white);border:0}
+.hq-rule--accent{background:var(--lime-500)}
+</style>
+  <style>/* HYPOTEQ brand face — SF Pro Display, supplied by HYPOTEQ as OTF.
+   Roman weights 400/500/700 are the three the brand guide fixes (Regular 17 / Medium 21 / Bold 56).
+   Italics were supplied too and are declared for completeness — the brand does not use italic type. */
+
+@font-face{font-family:"SF Pro Display";src:url("16441ebd-a288-43fd-847f-08c125ed1f58") format("opentype");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"SF Pro Display";src:url("cb5b71dd-1fc2-4206-a35f-c62581ca2af0") format("opentype");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"SF Pro Display";src:url("f1fcc5d3-aeaa-4f8c-b778-71d236dad55e") format("opentype");font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"SF Pro Display";src:url("f47896de-074c-41bd-89d3-d84e2c787866") format("opentype");font-weight:200;font-style:italic;font-display:swap}
+@font-face{font-family:"SF Pro Display";src:url("f9701e9a-733a-4d1a-a63f-b27351b0471a") format("opentype");font-weight:100;font-style:italic;font-display:swap}
+@font-face{font-family:"SF Pro Display";src:url("4f19ff58-b19d-4c36-a6e4-9b9109e3bb73") format("opentype");font-weight:300;font-style:italic;font-display:swap}
+@font-face{font-family:"SF Pro Display";src:url("e74adac4-97f3-4764-b598-15167ca8e2d5") format("opentype");font-weight:600;font-style:italic;font-display:swap}
+@font-face{font-family:"SF Pro Display";src:url("e5898b16-c1e8-44bc-82d8-3a56b4ff38a1") format("opentype");font-weight:900;font-style:italic;font-display:swap}
+@font-face{font-family:"SF Pro Display";src:url("421d5d16-6a31-484c-902b-d7763fc20a58") format("opentype");font-weight:800;font-style:italic;font-display:swap}
+
+/* No separate SF Pro Text was supplied. Body copy uses SF Pro Display — which is what the
+   brand guide specifies anyway (Regular 17 px is called "SF Pro Display Regular"). */
+
+:root{
+  --font-display:"SF Pro Display",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  --font-text:"SF Pro Display",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  --font-mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+
+:root{
+  /* ---- Brand core (from HYPOTEQ brand guide p.2) ---- */
+  --lime-500:#CAF476;      /* "Yellow green" — the brand accent */
+  --forest-800:#132219;    /* "Forest green" — the brand dark */
+  --white:#FFFFFF;         /* "normal White" */
+
+  /* ---- Lime ramp (derived, hue-locked to #CAF476) ---- */
+  --lime-100:#F2FBDD;
+  --lime-200:#E6F8C0;
+  --lime-300:#DAF6A2;
+  --lime-400:#D2F58C;
+  --lime-600:#B7E455;
+  --lime-700:#9CC93B;
+  --lime-800:#7BA228;
+
+  /* ---- Forest ramp (derived) ---- */
+  --forest-900:#0A130D;
+  --forest-700:#1A2E20;
+  --forest-600:#223B2A;
+  --forest-500:#2E4E37;
+  --forest-400:#456A4F;
+  --forest-300:#6B8D74;
+
+  /* ---- Light neutrals (green-tinted, never pure grey) ---- */
+  --paper:#FFFFFF;
+  --paper-100:#F6F8F4;
+  --paper-200:#EDF1E9;
+  --paper-300:#E1E7DC;
+  --paper-400:#C9D2C3;
+  --ink-500:#5C6A5F;
+
+  /* ---- Alpha utilities: the brand's 70% transparency rule ---- */
+  --on-dark-100:rgba(255,255,255,1);
+  --on-dark-70:rgba(255,255,255,.70);
+  --on-dark-45:rgba(255,255,255,.45);
+  --on-dark-14:rgba(255,255,255,.14);
+  --on-dark-08:rgba(255,255,255,.08);
+  --on-light-100:#132219;
+  --on-light-70:rgba(19,34,25,.70);
+  --on-light-45:rgba(19,34,25,.45);
+  --on-light-12:rgba(19,34,25,.12);
+  --on-light-06:rgba(19,34,25,.06);
+
+  /* ---- Semantic status (kept quiet; finance context) ---- */
+  --success-500:#2F8F52;
+  --success-100:#E4F3E8;
+  --warning-500:#C98A16;
+  --warning-100:#FBF1DC;
+  --danger-500:#B23B34;
+  --danger-100:#F8E7E5;
+  --info-500:#2F6B8F;
+  --info-100:#E4EEF4;
+}
+
+:root{
+  /* Brand guide fixes three sizes: Bold 56 / Medium 21 / Regular 17.
+     Those are --text-display-1, --text-lead, --text-body. The rest is the
+     ratio-extended scale used for social, slides and product UI. */
+  --text-hero:96px;
+  --text-display-1:56px;
+  --text-display-2:44px;
+  --text-display-3:34px;
+  --text-title:28px;
+  --text-heading:24px;
+  --text-lead:21px;
+  --text-body:17px;
+  --text-body-sm:15px;
+  --text-caption:13px;
+  --text-micro:11px;
+
+  --leading-tight:1.05;
+  --leading-snug:1.15;
+  --leading-normal:1.35;
+  --leading-relaxed:1.5;
+
+  --weight-regular:400;
+  --weight-medium:500;
+  --weight-semibold:600;
+  --weight-bold:700;
+  --weight-heavy:800;
+
+  --tracking-tight:-0.02em;
+  --tracking-snug:-0.01em;
+  --tracking-normal:0;
+  --tracking-label:0.08em;   /* uppercase eyebrows / footers */
+  --tracking-wide:0.14em;    /* small uppercase meta */
+}
+
+:root{
+  --space-1:4px;
+  --space-2:8px;
+  --space-3:12px;
+  --space-4:16px;
+  --space-5:20px;
+  --space-6:24px;
+  --space-8:32px;
+  --space-10:40px;
+  --space-12:48px;
+  --space-16:64px;
+  --space-20:80px;
+  --space-24:96px;
+
+  /* Frame paddings used by the social / slide system */
+  --pad-social:64px;      /* 1080x1350 LinkedIn frame */
+  --pad-section:96px;     /* website section block */
+  --pad-card:24px;
+  --pad-control-x:20px;
+  --pad-control-y:12px;
+
+  --measure-narrow:34ch;
+  --measure-body:62ch;
+  --container-max:1200px;
+}
+
+:root{
+  --radius-xs:4px;
+  --radius-sm:8px;
+  --radius-md:12px;
+  --radius-lg:16px;
+  --radius-xl:24px;
+  --radius-pill:999px;
+  --radius-frame:0px;   /* social frames + slides are hard-cornered */
+}
+
+:root{
+  --border-hairline:1px;
+  --border-thick:2px;
+  --border-logo-box:3px;      /* the wordmark's outline box */
+  --rule-length:44px;         /* the short dash above headlines */
+  --rule-weight:3px;
+
+  --border-on-dark:1px solid var(--on-dark-14);
+  --border-on-light:1px solid var(--paper-300);
+
+  /* Flat brand: shadows are for product UI only, never for social/slides. */
+  --shadow-none:none;
+  --shadow-sm:0 1px 2px rgba(10,19,13,.06);
+  --shadow-md:0 6px 20px rgba(10,19,13,.10);
+  --shadow-lg:0 18px 48px rgba(10,19,13,.16);
+  --focus-ring:0 0 0 3px rgba(202,244,118,.55);
+  --focus-ring-on-dark:0 0 0 3px rgba(202,244,118,.35);
+
+  /* Protection gradient for text over photography */
+  --scrim-dark:linear-gradient(90deg,rgba(19,34,25,.96) 0%,rgba(19,34,25,.88) 45%,rgba(19,34,25,0) 100%); /* @kind other */
+  --scrim-bottom:linear-gradient(180deg,rgba(19,34,25,0) 0%,rgba(19,34,25,.85) 100%); /* @kind other */
+}
+
+:root{
+  --ease-out:cubic-bezier(.2,.7,.3,1); /* @kind other */
+  --ease-in-out:cubic-bezier(.4,0,.2,1); /* @kind other */
+  --duration-fast:120ms; /* @kind other */
+  --duration-base:180ms; /* @kind other */
+  --duration-slow:280ms; /* @kind other */
+  --duration-reveal:420ms; /* @kind other */
+  --transition-control:background-color var(--duration-base) var(--ease-out),color var(--duration-base) var(--ease-out),border-color var(--duration-base) var(--ease-out),opacity var(--duration-base) var(--ease-out);
+}
+
+:root{
+  /* Default (dark) context — the brand's home surface */
+  --surface-page:var(--forest-800);
+  --surface-raised:var(--forest-700);
+  --surface-sunken:var(--forest-900);
+  --surface-accent:var(--lime-500);
+  --surface-card:var(--forest-700);
+  --surface-card-light:var(--paper);
+  --surface-input:var(--on-dark-08);
+
+  --text-heading:var(--white);
+  --text-body:var(--on-dark-100);
+  --text-muted:var(--on-dark-70);
+  --text-faint:var(--on-dark-45);
+  --text-accent:var(--lime-500);
+  --text-on-accent:var(--forest-800);
+  --text-link:var(--lime-500);
+  --text-link-hover:var(--lime-300);
+
+  --border-subtle:var(--on-dark-14);
+  --border-strong:var(--white);
+  --border-accent:var(--lime-500);
+
+  --action-primary-bg:var(--lime-500);
+  --action-primary-fg:var(--forest-800);
+  --action-primary-bg-hover:var(--lime-600);
+  --action-primary-bg-active:var(--lime-700);
+  --action-secondary-bg:transparent;
+  --action-secondary-fg:var(--white);
+  --action-secondary-border:var(--white);
+  --action-disabled-bg:var(--on-dark-08);
+  --action-disabled-fg:var(--on-dark-45);
+}
+
+/* Light context — website body copy, Academy content areas, print */
+.hq-light,[data-hq-theme="light"]{
+  --surface-page:var(--paper);
+  --surface-raised:var(--paper-100);
+  --surface-sunken:var(--paper-200);
+  --surface-card:var(--paper);
+  --surface-input:var(--white);
+
+  --text-heading:var(--forest-800);
+  --text-body:var(--on-light-100);
+  --text-muted:var(--on-light-70);
+  --text-faint:var(--on-light-45);
+  --text-accent:var(--lime-800);
+  --text-on-accent:var(--forest-800);
+  --text-link:var(--forest-800);
+  --text-link-hover:var(--lime-800);
+
+  --border-subtle:var(--paper-300);
+  --border-strong:var(--forest-800);
+
+  --action-secondary-fg:var(--forest-800);
+  --action-secondary-border:var(--forest-800);
+  --action-disabled-bg:var(--paper-200);
+  --action-disabled-fg:var(--on-light-45);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;font-family:var(--font-text);font-size:var(--text-body);line-height:var(--leading-normal);color:var(--text-body);background:var(--surface-page);-webkit-font-smoothing:antialiased;text-wrap:pretty}
+h1,h2,h3,h4{font-family:var(--font-display);color:var(--text-heading);margin:0;letter-spacing:var(--tracking-tight);line-height:var(--leading-snug)}
+h1{font-size:var(--text-display-1);font-weight:var(--weight-bold)}
+h2{font-size:var(--text-display-3);font-weight:var(--weight-bold)}
+h3{font-size:var(--text-heading);font-weight:var(--weight-semibold)}
+h4{font-size:var(--text-lead);font-weight:var(--weight-medium);letter-spacing:var(--tracking-snug)}
+p{margin:0 0 var(--space-4)}
+a{color:var(--text-link);text-decoration:none;border-bottom:1px solid currentColor;transition:var(--transition-control)}
+a:hover{color:var(--text-link-hover)}
+strong{font-weight:var(--weight-semibold)}
+:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+::selection{background:var(--lime-500);color:var(--forest-800)}
+.hq-eyebrow{font-size:var(--text-caption);text-transform:uppercase;letter-spacing:var(--tracking-label);color:var(--text-muted)}
+.hq-rule{width:var(--rule-length);height:var(--rule-weight);background:var(--white);border:0}
+.hq-rule--accent{background:var(--lime-500)}
+
+</style>
+  <style>
+    doc-page:not(:defined) { visibility: hidden; }
+    .k { break-inside: avoid; }
+    .pb { break-before: page; }
+    doc-page * { color: #132219; }
+    doc-page .dk, doc-page .dk * { color: #fff; }
+    doc-page .lm { color: #CAF476 !important; }
+    doc-page .mu { opacity: .65; }
+    doc-page table { border-collapse: collapse; width: 100%; }
+    doc-page td, doc-page th { padding: 7px 0; border-bottom: 1px solid #E1E7DC; text-align: left; vertical-align: top; font-size: 12.5px; line-height: 1.45; }
+    doc-page th { font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; font-weight: 600; opacity: .55; }
+    doc-page td.r, doc-page th.r { text-align: right; white-space: nowrap; }
+  </style>
+  <script src="e13106a5-99ca-4b05-9bee-c4f4e7e08a78"></script>
+</helmet>
+<doc-page margin="0.8in">
+  <div slot="header" style="display:flex;align-items:center;justify-content:space-between;padding-bottom:10px;border-bottom:1px solid #E1E7DC;font-family:var(--font-display,system-ui);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:#132219">
+    <img src="ccbb5f24-0e2b-4499-9988-da5c6a46bdff" alt="HYPOTEQ" style="height:16px;width:auto">
+    <span style="opacity:.6">Fall-Dossier · HQ-26-06-156283 · Gerber, Wädenswil</span>
+  </div>
+  <div slot="footer" style="display:flex;align-items:baseline;justify-content:space-between;padding-top:10px;border-top:1px solid #E1E7DC;font-family:var(--font-display,system-ui);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:#132219;opacity:.5">
+    <span>Vertraulich · für Kreditgeber</span>
+    <span>hypoteq.com</span>
+  </div>
+
+  <div style="font-family:var(--font-display,system-ui);color:#132219;font-size:13.5px;line-height:1.55;-webkit-font-smoothing:antialiased">
+
+    <!-- Deckblatt -->
+    <div class="dk" style="background:#132219;border-radius:16px;padding:44px 40px 40px;display:flex;flex-direction:column;gap:22px;min-height:560px;box-sizing:border-box;position:relative;overflow:hidden">
+      <div style="position:absolute;right:-60px;top:0;bottom:0;width:220px;background:#CAF476;transform:skewX(-14deg)"></div>
+      <img src="ff173c98-8910-4868-862d-b290d0466d56" alt="HYPOTEQ" style="height:30px;width:auto;align-self:flex-start;position:relative">
+      <div style="width:44px;height:3px;background:#CAF476;margin-top:auto;position:relative"></div>
+      <div style="position:relative;max-width:70%">
+        <span style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;opacity:.6">Finanzierungsanfrage · Ablösung und Erhöhung</span>
+        <h1 style="font-size:40px;font-weight:700;letter-spacing:-.02em;line-height:1.08;margin:10px 0 14px">Gary Samuel Gerber<br>Etzelstrasse 52, 8820 Wädenswil</h1>
+        <p style="margin:0;font-size:15px;opacity:.75;max-width:40em">Stockwerkeigentum, selbstbewohnt. Ablösung der bestehenden SARON-Hypothek der Zuger Kantonalbank per 30.01.2028 und Erhöhung um CHF 201'000.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;position:relative;max-width:70%;padding-top:10px;border-top:1px solid rgba(255,255,255,.14)">
+        <div><span style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;opacity:.6">Gesamtfinanzierung</span><br><span class="lm" style="font-size:24px;font-weight:700">CHF 650'000</span></div>
+        <div><span style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;opacity:.6">Belehnung</span><br><span class="lm" style="font-size:24px;font-weight:700">44.8 %</span></div>
+        <div><span style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;opacity:.6">Tragbarkeit</span><br><span class="lm" style="font-size:24px;font-weight:700">32.3 %</span></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;gap:20px;font-size:11px;opacity:.6;position:relative;max-width:70%">
+        <span>Erfasst von Fisnik Salihu · fisnik.salihu@hypoteq.ch</span>
+        <span>Case 00001146 · 02.06.2026</span>
+      </div>
+    </div>
+
+    <!-- 1 Antrag -->
+    <div class="k" style="padding-top:36px">
+      <h2 style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin:0 0 14px">01 · Antrag</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 40px">
+        <sc-raw-table><sc-raw-tbody>
+          <sc-raw-tr><sc-raw-td class="mu">Kreditantrag</sc-raw-td><sc-raw-td class="r">Ablösung / Refinanzierung, mit Erhöhung</sc-raw-td></sc-raw-tr>
+          <sc-raw-tr><sc-raw-td class="mu">Kreditnehmer</sc-raw-td><sc-raw-td class="r">Natürliche Person, 1 Kreditnehmer</sc-raw-td></sc-raw-tr>
+          <sc-raw-tr><sc-raw-td class="mu">Bestehende Bank</sc-raw-td><sc-raw-td class="r">Zuger Kantonalbank</sc-raw-td></sc-raw-tr>
+          <sc-raw-tr><sc-raw-td class="mu">Bestehende Hypothek</sc-raw-td><sc-raw-td class="r">CHF 449'000 · SARON 0.65 %</sc-raw-td></sc-raw-tr>
+          <sc-raw-tr><sc-raw-td class="mu">Ablösedatum</sc-raw-td><sc-raw-td class="r">30.01.2028 (Forward)</sc-raw-td></sc-raw-tr>
+        </sc-raw-tbody></sc-raw-table>
+        <sc-raw-table><sc-raw-tbody>
+          <sc-raw-tr><sc-raw-td class="mu">Gewünschte Erhöhung</sc-raw-td><sc-raw-td class="r">CHF 201'000</sc-raw-td></sc-raw-tr>
+          <sc-raw-tr><sc-raw-td class="mu">Gesamtfinanzierung</sc-raw-td><sc-raw-td class="r"><strong>CHF 650'000</strong></sc-raw-td></sc-raw-tr>
+          <sc-raw-tr><sc-raw-td class="mu">Gewünschte Laufzeit</sc-raw-td><sc-raw-td class="r">3 Jahre fest</sc-raw-td></sc-raw-tr>
+          <sc-raw-tr><sc-raw-td class="mu">Finanzierungsangebote</sc-raw-td><sc-raw-td class="r">keine</sc-raw-td></sc-raw-tr>
+          <sc-raw-tr><sc-raw-td class="mu">Korrespondenzsprache</sc-raw-td><sc-raw-td class="r">Deutsch</sc-raw-td></sc-raw-tr>
+        </sc-raw-tbody></sc-raw-table>
+      </div>
+      <p style="margin:14px 0 0;padding-left:14px;border-left:3px solid #CAF476;font-size:12.5px"><strong style="font-weight:600">Verwendungszweck der Erhöhung:</strong> Ablösung Privatkredit BANK-now (CHF 24'360, Rate CHF 507.50/Mt.) und Cembra-Leasing, kleinere Renovationen, zusätzliche Liquidität. Die Ablösung der Konsumkredite verbessert die Tragbarkeit um rund CHF 10'750 pro Jahr.</p>
+    </div>
+
+    <!-- 2 Objekt -->
+    <div class="k" style="padding-top:32px">
+      <h2 style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin:0 0 14px">02 · Objekt</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 40px">
+        <sc-raw-table><sc-raw-tbody>
+          <sc-raw-tr><sc-raw-td class="mu">Adresse</sc-raw-td><sc-raw-td class="r">Etzelstrasse 52, 8820 Wädenswil ZH</sc-raw-td></sc-raw-tr>
+          <sc-raw-tr><sc-raw-td class="mu">Art</sc-raw-td><sc-raw-td class="r">Stockwerkeigentum, 4.5 Zimmer, EG</sc-raw-td></sc-raw-tr>
+          <sc-raw-tr><sc-raw-td class="mu">Nutzung</sc-raw-td><sc-raw-td class="r">Selbstbewohnt</sc-raw-td></sc-raw-tr>
+          <sc-raw-tr><sc-raw-td class="mu">Baujahr</sc-raw-td><sc-raw-td class="r">1921 (Jugendstil, teilsaniert)</sc-raw-td></sc-raw-tr>
+          <sc-raw-tr><sc-raw-td class="mu">Grundbuch</sc-raw-td><sc-raw-td class="r">Wädenswil, Blatt 7357 / 7361</sc-raw-td></sc-raw-tr>
+        </sc-raw-tbody></sc-raw-table>
+        <sc-raw-table><sc-raw-tbody>
+          <sc-raw-tr><sc-raw-td class="mu">Nebenräume</sc-raw-td><sc-raw-td class="r">Garten ca. 50 m², Keller, Werkraum, Estrich Nr. 5, Aussenparkplatz</sc-raw-td></sc-raw-tr>
+          <sc-raw-tr><sc-raw-td class="mu">Gebäudeversicherung</sc-raw-td><sc-raw-td class="r">GVZ Police 167'371 · CHF 1'509'314</sc-raw-td></sc-raw-tr>
+          <sc-raw-tr><sc-raw-td class="mu">Erneuerungsfonds</sc-raw-td><sc-raw-td class="r">CHF 10'047.65 (31.12.2025)</sc-raw-td></sc-raw-tr>
+          <sc-raw-tr><sc-raw-td class="mu">Letzter Verkaufspreis</sc-raw-td><sc-raw-td class="r">CHF 1'450'000 (2024)</sc-raw-td></sc-raw-tr>
+          <sc-raw-tr><sc-raw-td class="mu">Heizung / Baurecht</sc-raw-td><sc-raw-td class="r">unbekannt · kein Baurecht</sc-raw-td></sc-raw-tr>
+        </sc-raw-tbody></sc-raw-table>
+      </div>
+    </div>
+
+    <!-- 3 Person -->
+    <div class="k" style="padding-top:32px">
+      <h2 style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin:0 0 14px">03 · Kreditnehmer</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 40px">
+        <sc-raw-table><sc-raw-tbody>
+          <sc-raw-tr><sc-raw-td class="mu">Name</sc-raw-td><sc-raw-td class="r">Gary Samuel Gerber</sc-raw-td></sc-raw-tr>
+          <sc-raw-tr><sc-raw-td class="mu">Geburtsdatum</sc-raw-td><sc-raw-td class="r">04.01.1988 · Schweizer</sc-raw-td></sc-raw-tr>
+          <sc-raw-tr><sc-raw-td class="mu">Zivilstand</sc-raw-td><sc-raw-td class="r">ledig</sc-raw-td></sc-raw-tr>
+          <sc-raw-tr><sc-raw-td class="mu">Kinder</sc-raw-td><sc-raw-td class="r">Elias und Thalia Gerber, 07.09.2018</sc-raw-td></sc-raw-tr>
+          <sc-raw-tr><sc-raw-td class="mu">Unterhalt</sc-raw-td><sc-raw-td class="r">Elternvereinbarung 2025, ca. CHF 1'400/Mt.</sc-raw-td></sc-raw-tr>
+        </sc-raw-tbody></sc-raw-table>
+        <sc-raw-table><sc-raw-tbody>
+          <sc-raw-tr><sc-raw-td class="mu">Arbeitgeber</sc-raw-td><sc-raw-td class="r">Etzel Liegenschaften AG, Feusisberg</sc-raw-td></sc-raw-tr>
+          <sc-raw-tr><sc-raw-td class="mu">Anstellung</sc-raw-td><sc-raw-td class="r">unbefristet, 100 %</sc-raw-td></sc-raw-tr>
+          <sc-raw-tr><sc-raw-td class="mu">Bruttoeinkommen</sc-raw-td><sc-raw-td class="r"><strong>CHF 125'000</strong> (13 × 9'615)</sc-raw-td></sc-raw-tr>
+          <sc-raw-tr><sc-raw-td class="mu">Kredite / Leasing</sc-raw-td><sc-raw-td class="r">BANK-now CHF 24'360 · Cembra – werden abgelöst</sc-raw-td></sc-raw-tr>
+          <sc-raw-tr><sc-raw-td class="mu">Solidarbürgschaft</sc-raw-td><sc-raw-td class="r">keine</sc-raw-td></sc-raw-tr>
+        </sc-raw-tbody></sc-raw-table>
+      </div>
+    </div>
+
+    <!-- 4 Finanzierung -->
+    <div class="k" style="padding-top:32px">
+      <h2 style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin:0 0 14px">04 · Finanzierung und Tragbarkeit</h2>
+      <div class="dk" style="background:#132219;border-radius:14px;padding:24px 28px;display:grid;grid-template-columns:repeat(4,1fr);gap:20px">
+        <div><span style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;opacity:.6">Objektwert</span><br><span style="font-size:20px;font-weight:700">CHF 1'450'000</span></div>
+        <div><span style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;opacity:.6">Hypothek neu</span><br><span class="lm" style="font-size:20px;font-weight:700">CHF 650'000</span></div>
+        <div><span style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;opacity:.6">Belehnung</span><br><span style="font-size:20px;font-weight:700">44.8 %</span></div>
+        <div><span style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;opacity:.6">Tragbarkeit</span><br><span style="font-size:20px;font-weight:700">32.3 %</span></div>
+      </div>
+      <sc-raw-table style="margin-top:14px"><sc-raw-thead><sc-raw-tr><sc-raw-th>Kalkulatorische Kosten pro Jahr</sc-raw-th><sc-raw-th class="r">Betrag</sc-raw-th></sc-raw-tr></sc-raw-thead><sc-raw-tbody>
+        <sc-raw-tr><sc-raw-td>Zins 5 % auf CHF 650'000</sc-raw-td><sc-raw-td class="r">CHF 32'500</sc-raw-td></sc-raw-tr>
+        <sc-raw-tr><sc-raw-td>Amortisation (1. Hypothek nicht überschritten)</sc-raw-td><sc-raw-td class="r">CHF 0</sc-raw-td></sc-raw-tr>
+        <sc-raw-tr><sc-raw-td>Nebenkosten 1 % Objektwert</sc-raw-td><sc-raw-td class="r">CHF 14'500</sc-raw-td></sc-raw-tr>
+        <sc-raw-tr><sc-raw-td>Unterhaltszahlungen Kinder</sc-raw-td><sc-raw-td class="r">CHF 16'800</sc-raw-td></sc-raw-tr>
+        <sc-raw-tr><sc-raw-td><strong>Total Belastung</strong></sc-raw-td><sc-raw-td class="r"><strong>CHF 63'800</strong></sc-raw-td></sc-raw-tr>
+        <sc-raw-tr><sc-raw-td class="mu">Anteil am Bruttoeinkommen CHF 125'000 · nach Ablösung der Konsumkredite</sc-raw-td><sc-raw-td class="r">51.0 % → mit Bankmodell knapp; Zusage Migros Bank am 09.07.2026</sc-raw-td></sc-raw-tr>
+      </sc-raw-tbody></sc-raw-table>
+      <p style="margin:12px 0 0;font-size:12px;opacity:.65">Eigenmittel: Vorsorgepolice AXA 3a L50 1583886 (Rückkaufswert CHF 10'340), Pensionskasse (Altersguthaben ca. CHF 86'500), UBS Konten. Keine Schenkung, kein Darlehen.</p>
+    </div>
+
+    <!-- 5 Verlauf -->
+    <div class="k" style="padding-top:32px">
+      <h2 style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin:0 0 14px">05 · Verlauf</h2>
+      <sc-raw-table><sc-raw-tbody>
+        <sc-raw-tr><sc-raw-td class="r" style="width:90px;text-align:left;opacity:.6">02.06.2026</sc-raw-td><sc-raw-td>Anfrage über den Funnel · Case 00001146 · Dokumentenanforderung an Kunde</sc-raw-td></sc-raw-tr>
+        <sc-raw-tr><sc-raw-td style="opacity:.6">02.–28.06.</sc-raw-td><sc-raw-td>Unterlagen vollständig (29 Dateien, 8 nicht benötigt, 1 Duplikat)</sc-raw-td></sc-raw-tr>
+        <sc-raw-tr><sc-raw-td style="opacity:.6">29.06. / 06.07.</sc-raw-td><sc-raw-td>Finanzierungsanfragen an Valiant Zürich und Migros Bank Winterthur</sc-raw-td></sc-raw-tr>
+        <sc-raw-tr><sc-raw-td style="opacity:.6">09.07.</sc-raw-td><sc-raw-td>Kunde nimmt Angebot Migros Bank an: 3 Jahre fest, 1.14 %</sc-raw-td></sc-raw-tr>
+        <sc-raw-tr><sc-raw-td style="opacity:.6">10.07.</sc-raw-td><sc-raw-td>ZEK-Eintrag BANK-now bestätigt – Ablösung über Erhöhung</sc-raw-td></sc-raw-tr>
+        <sc-raw-tr><sc-raw-td style="opacity:.6">30.07.</sc-raw-td><sc-raw-td>Zahlungsversprechen Migros Bank (18-Monats-Fenster)</sc-raw-td></sc-raw-tr>
+        <sc-raw-tr><sc-raw-td style="opacity:.6">18.09.2026</sc-raw-td><sc-raw-td><strong>Abschluss</strong> · Tranche 1 CHF 449'000 bis 31.01.2031 · Tranche 2 CHF 201'000 bis 31.08.2029 · je 1.14 %</sc-raw-td></sc-raw-tr>
+      </sc-raw-tbody></sc-raw-table>
+    </div>
+
+    <!-- Annex -->
+    <div class="pb" style="padding-top:8px">
+      <div style="width:44px;height:3px;background:#CAF476;margin-bottom:18px"></div>
+      <h2 style="font-size:28px;font-weight:700;letter-spacing:-.02em;margin:0 0 6px">Annex · Dokumentenverzeichnis</h2>
+      <p style="margin:0 0 22px;font-size:13px;opacity:.65;max-width:52em">29 Dateien erkannt, zugeordnet und ausgelesen. Jede Anforderung zeigt ihre Herkunft (Trigger-Antwort) und die extrahierten Kernangaben. 8 weitere Dateien wurden als nicht benötigt erkannt und mitgeführt, 1 Duplikat entfernt.</p>
+
+      <h3 style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin:0 0 6px">A · Zum Objekt</h3>
+      <sc-raw-table><sc-raw-thead><sc-raw-tr><sc-raw-th style="width:26px">#</sc-raw-th><sc-raw-th>Anforderung · Herkunft</sc-raw-th><sc-raw-th>Datei</sc-raw-th><sc-raw-th>Kernangaben</sc-raw-th></sc-raw-tr></sc-raw-thead><sc-raw-tbody>
+        <sc-raw-tr><sc-raw-td>A1</sc-raw-td><sc-raw-td>Fotos der Immobilie<br><span class="mu">Pflicht</span></sc-raw-td><sc-raw-td>03_Foto_Liegenschaft_Etzelstrasse_52.pdf</sc-raw-td><sc-raw-td>7 Seiten – Aussen, Wohnbereich, Garten, Keller</sc-raw-td></sc-raw-tr>
+        <sc-raw-tr><sc-raw-td>A2</sc-raw-td><sc-raw-td>Grundbuchauszug<br><span class="mu">Pflicht · ⚠ 15.01.2026, älter als 6 Monate</span></sc-raw-td><sc-raw-td>03_Grundbuchauszug_Etzelstrasse_52_Waedenswil_2026_01_15.pdf</sc-raw-td><sc-raw-td>GB Wädenswil Blatt 7357/7361 · Eigentümer G. S. Gerber · Register-Schuldbrief CHF 449'000 ZKB</sc-raw-td></sc-raw-tr>
+        <sc-raw-tr><sc-raw-td>A3</sc-raw-td><sc-raw-td>Gebäudeversicherungspolice<br><span class="mu">weil: Ablösung</span></sc-raw-td><sc-raw-td>03_Gebaeudeversicherung_GVZ_Liegenschaft_2026.pdf</sc-raw-td><sc-raw-td>GVZ 167'371 · CHF 1'509'314 Neuwert · Erstellungsjahr 1921 · 1'497 m³</sc-raw-td></sc-raw-tr>
+        <sc-raw-tr><sc-raw-td>A4</sc-raw-td><sc-raw-td>Verkaufsdokumentation<br><span class="mu">Pflicht · bestehende Immobilie</span></sc-raw-td><sc-raw-td>03_Verkaufsdokumentation_Etzelstrasse_52_8820_Waedenswil.pdf</sc-raw-td><sc-raw-td>Gespo Immobilien · 4.5 Zi EG · CHF 1'450'000 (2024) · Garten 50 m²</sc-raw-td></sc-raw-tr>
+        <sc-raw-tr><sc-raw-td>A5</sc-raw-td><sc-raw-td>STWE-Reglement<br><span class="mu">weil: Stockwerkeigentum</span></sc-raw-td><sc-raw-td>03_STWE_Reglement_Liegenschaft_angepasst.pdf</sc-raw-td><sc-raw-td>20 Seiten, angepasste Fassung</sc-raw-td></sc-raw-tr>
+        <sc-raw-tr><sc-raw-td>A6</sc-raw-td><sc-raw-td>STWE-Aufteilungspläne<br><span class="mu">weil: Stockwerkeigentum</span></sc-raw-td><sc-raw-td>03_STWE_Aufteilungsplaene_Liegenschaft.pdf</sc-raw-td><sc-raw-td>11 Seiten – EG, OG, DG, Keller</sc-raw-td></sc-raw-tr>
+        <sc-raw-tr><sc-raw-td>A7</sc-raw-td><sc-raw-td>Auszug Erneuerungsfonds<br><span class="mu">weil: Stockwerkeigentum</span></sc-raw-td><sc-raw-td>03_Erneuerungsfonds_Auszug_Liegenschaft.pdf</sc-raw-td><sc-raw-td>UBS CH64 0021 … 88M1 F · Saldo CHF 10'047.65 per 31.12.2025</sc-raw-td></sc-raw-tr>
+      </sc-raw-tbody></sc-raw-table>
+
+      <h3 style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin:22px 0 6px">B · Bestehende Hypothek</h3>
+      <sc-raw-table><sc-raw-thead><sc-raw-tr><sc-raw-th style="width:26px">#</sc-raw-th><sc-raw-th>Anforderung · Herkunft</sc-raw-th><sc-raw-th>Datei</sc-raw-th><sc-raw-th>Kernangaben</sc-raw-th></sc-raw-tr></sc-raw-thead><sc-raw-tbody>
+        <sc-raw-tr><sc-raw-td>B1</sc-raw-td><sc-raw-td>Rahmenvertrag<br><span class="mu">weil: Ablösung</span></sc-raw-td><sc-raw-td>03_Hypothek_Rahmenvertrag_ZKB_Gary_Gerber.pdf</sc-raw-td><sc-raw-td>ZKB Kunden-Nr. 78.596.237 · Rahmen CHF 449'000 · ab 20.01.2023</sc-raw-td></sc-raw-tr>
+        <sc-raw-tr><sc-raw-td>B2</sc-raw-td><sc-raw-td>Sicherungsvereinbarung / Schuldbrief<br><span class="mu">weil: Ablösung</span></sc-raw-td><sc-raw-td>03_Hypothek_Sicherungsvereinbarung_ZKB_Gary_Gerber.pdf</sc-raw-td><sc-raw-td>Register-Schuldbrief CHF 449'000 auf Wohnung Nr. 1 EG, Werkraum, Keller, Estrich Nr. 5</sc-raw-td></sc-raw-tr>
+        <sc-raw-tr><sc-raw-td>B3</sc-raw-td><sc-raw-td>Letzte Zinsabrechnung<br><span class="mu">weil: Ablösung</span></sc-raw-td><sc-raw-td>03_Hypothek_Zinsabrechnung_ZKB_Gary_Gerber.pdf</sc-raw-td><sc-raw-td>SARON 0.65 % · CHF 449'000 · Laufzeit bis 30.01.2028 · Zins Q1 2026 CHF 729.65</sc-raw-td></sc-raw-tr>
+      </sc-raw-tbody></sc-raw-table>
+
+      <h3 style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin:22px 0 6px">C · Zur Person · Gary Gerber</h3>
+      <sc-raw-table><sc-raw-thead><sc-raw-tr><sc-raw-th style="width:26px">#</sc-raw-th><sc-raw-th>Anforderung · Herkunft</sc-raw-th><sc-raw-th>Datei</sc-raw-th><sc-raw-th>Kernangaben</sc-raw-th></sc-raw-tr></sc-raw-thead><sc-raw-tbody>
+        <sc-raw-tr><sc-raw-td>C1</sc-raw-td><sc-raw-td>Auskunftsermächtigung<br><span class="mu">Pflicht</span></sc-raw-td><sc-raw-td>01_Auskunftsermaechtigung_Gary_Gerber_unterzeichnet.pdf</sc-raw-td><sc-raw-td>unterzeichnet 02.06.2026</sc-raw-td></sc-raw-tr>
+        <sc-raw-tr><sc-raw-td>C2</sc-raw-td><sc-raw-td>Pass / ID<br><span class="mu">Pflicht</span></sc-raw-td><sc-raw-td>01_ID_Gary_Gerber.pdf</sc-raw-td><sc-raw-td>Gerber, Gary Samuel · 04.01.1988 · CH</sc-raw-td></sc-raw-tr>
+        <sc-raw-tr><sc-raw-td>C3</sc-raw-td><sc-raw-td>Lohnausweise 3 Jahre<br><span class="mu">Pflicht</span></sc-raw-td><sc-raw-td>01_Lohnausweis_Gary_Gerber_2023 / 2024 / 2025.pdf</sc-raw-td><sc-raw-td>Etzel Liegenschaften AG · 2025 CHF 125'385 · 2024 CHF 118'900 · 2023 CHF 112'400</sc-raw-td></sc-raw-tr>
+        <sc-raw-tr><sc-raw-td>C4</sc-raw-td><sc-raw-td>Letzte Monatslohnabrechnungen<br><span class="mu">Pflicht</span></sc-raw-td><sc-raw-td>01_Lohnabrechnung_Gary_Gerber_2026_02_03_04_05.pdf</sc-raw-td><sc-raw-td>Feb–Mai 2026 · brutto CHF 9'645 · netto CHF 8'532.65</sc-raw-td></sc-raw-tr>
+        <sc-raw-tr><sc-raw-td>C5</sc-raw-td><sc-raw-td>Anstellungsvertrag<br><span class="mu">Pflicht · angestellt</span></sc-raw-td><sc-raw-td>01_Anstellungsvertrag_Etzel.pdf</sc-raw-td><sc-raw-td>unbefristet, 100 %</sc-raw-td></sc-raw-tr>
+        <sc-raw-tr><sc-raw-td>C6</sc-raw-td><sc-raw-td>Steuererklärung 2025<br><span class="mu">Pflicht</span></sc-raw-td><sc-raw-td>01_Steuererklaerung_Gary_Gerber_2025.pdf</sc-raw-td><sc-raw-td>Kanton ZH · ledig · 2 Kinder · Hypothek CHF 449'000</sc-raw-td></sc-raw-tr>
+        <sc-raw-tr><sc-raw-td>C7</sc-raw-td><sc-raw-td>Vermögensnachweis<br><span class="mu">Pflicht</span></sc-raw-td><sc-raw-td>01_Vermoegen_UBS_Konten_Gary_Gerber.pdf</sc-raw-td><sc-raw-td>UBS Privatkonto CH48 0028 … 9140 P</sc-raw-td></sc-raw-tr>
+        <sc-raw-tr><sc-raw-td>C8</sc-raw-td><sc-raw-td>Pensionskassenausweis<br><span class="mu">Pflicht</span></sc-raw-td><sc-raw-td>01_Pensionskassenausweis_Gary_Gerber_2026.pdf</sc-raw-td><sc-raw-td>Altersguthaben ca. CHF 86'500</sc-raw-td></sc-raw-tr>
+        <sc-raw-tr><sc-raw-td>C9</sc-raw-td><sc-raw-td>Unterhaltsvereinbarung<br><span class="mu">weil: Unterhaltszahlungen = Ja</span></sc-raw-td><sc-raw-td>01_Unterhalt_Elternvereinbarung_Gary_Gerber_2025.pdf</sc-raw-td><sc-raw-td>Elias und Thalia Gerber · ca. CHF 1'400/Mt.</sc-raw-td></sc-raw-tr>
+        <sc-raw-tr><sc-raw-td>C10</sc-raw-td><sc-raw-td>Kreditvertrag<br><span class="mu">weil: Kredite oder Leasings = Ja</span></sc-raw-td><sc-raw-td>01_Privatkredit_BANKnow_Gary_Gerber_21768324.pdf</sc-raw-td><sc-raw-td>BANK-now 21768324 · Restschuld CHF 24'360 · Rate CHF 507.50 · wird abgelöst</sc-raw-td></sc-raw-tr>
+        <sc-raw-tr><sc-raw-td>C11</sc-raw-td><sc-raw-td>Leasingvertrag<br><span class="mu">weil: Kredite oder Leasings = Ja</span></sc-raw-td><sc-raw-td>01_Leasingvertrag_Cembra_Gary_Gerber.pdf</sc-raw-td><sc-raw-td>Cembra Money Bank · wird abgelöst</sc-raw-td></sc-raw-tr>
+      </sc-raw-tbody></sc-raw-table>
+
+      <h3 style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin:22px 0 6px">D · Eigenmittel und Vorsorge</h3>
+      <sc-raw-table><sc-raw-thead><sc-raw-tr><sc-raw-th style="width:26px">#</sc-raw-th><sc-raw-th>Anforderung · Herkunft</sc-raw-th><sc-raw-th>Datei</sc-raw-th><sc-raw-th>Kernangaben</sc-raw-th></sc-raw-tr></sc-raw-thead><sc-raw-tbody>
+        <sc-raw-tr><sc-raw-td>D1</sc-raw-td><sc-raw-td>Säule 3a Bescheinigung<br><span class="mu">weil: Säule 3a = Ja</span></sc-raw-td><sc-raw-td>01_Saeule3a_Bescheinigung_Gary_Gerber.pdf</sc-raw-td><sc-raw-td>AXA Leben · Beiträge 2025 · seit 01.01.2023</sc-raw-td></sc-raw-tr>
+        <sc-raw-tr><sc-raw-td>D2</sc-raw-td><sc-raw-td>Vorsorgepolice inkl. Wertmitteilung<br><span class="mu">weil: Säule 3a = Ja</span></sc-raw-td><sc-raw-td>01_Versicherung_Saeule3a_Police_…1583886.pdf · …Wertmitteilung_…1583886.pdf</sc-raw-td><sc-raw-td>AXA L50 1583886 · SmartFlex · Prämie CHF 400/Mt. · Rückkaufswert CHF 10'340.49 (09.01.2026) · an ZKB verpfändet</sc-raw-td></sc-raw-tr>
+      </sc-raw-tbody></sc-raw-table>
+
+      <h3 style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin:22px 0 6px">E · Weitere Dateien · nicht gewertet</h3>
+      <sc-raw-table><sc-raw-thead><sc-raw-tr><sc-raw-th style="width:26px">#</sc-raw-th><sc-raw-th>Datei</sc-raw-th><sc-raw-th>Einordnung</sc-raw-th></sc-raw-tr></sc-raw-thead><sc-raw-tbody>
+        <sc-raw-tr><sc-raw-td>E1</sc-raw-td><sc-raw-td>01_Leasingvertrag_Cembra_Gary_Gerbe.pdf</sc-raw-td><sc-raw-td>Duplikat von C11 – nicht doppelt gespeichert</sc-raw-td></sc-raw-tr>
+        <sc-raw-tr><sc-raw-td>E2</sc-raw-td><sc-raw-td>01_Lohnausweis_Gary_Gerber_2022.pdf</sc-raw-td><sc-raw-td>Überzählig – viertes Jahr, mitgeführt</sc-raw-td></sc-raw-tr>
+        <sc-raw-tr><sc-raw-td>E3</sc-raw-td><sc-raw-td>01_Steuererklaerung_Gary_Gerber_2024.pdf</sc-raw-td><sc-raw-td>Überzählig – Vorjahr, mitgeführt</sc-raw-td></sc-raw-tr>
+        <sc-raw-tr><sc-raw-td>E4</sc-raw-td><sc-raw-td>01_Lohnabrechnung_Gary_Gerber_2026_04.pdf</sc-raw-td><sc-raw-td>Nicht benötigt – in C4 enthalten</sc-raw-td></sc-raw-tr>
+        <sc-raw-tr><sc-raw-td>E5</sc-raw-td><sc-raw-td>01_Steuererklaerung_Gary_Gerber_2024_Entwurf.PDF</sc-raw-td><sc-raw-td>Nicht benötigt – Entwurf</sc-raw-td></sc-raw-tr>
+        <sc-raw-tr><sc-raw-td>E6</sc-raw-td><sc-raw-td>01_Steuerrechnung_Gary_Gerber_2023_Schlussrechnung.pdf</sc-raw-td><sc-raw-td>Nicht benötigt</sc-raw-td></sc-raw-tr>
+        <sc-raw-tr><sc-raw-td>E7</sc-raw-td><sc-raw-td>01_Steuerrechnung_Gary_Gerber_2024_provisorisch.pdf</sc-raw-td><sc-raw-td>Nicht benötigt</sc-raw-td></sc-raw-tr>
+        <sc-raw-tr><sc-raw-td>E8</sc-raw-td><sc-raw-td>01_Unterhalt_Bestaetigung_Gary_Gerber.pdf</sc-raw-td><sc-raw-td>Nicht benötigt – durch C9 abgedeckt</sc-raw-td></sc-raw-tr>
+        <sc-raw-tr><sc-raw-td>E9</sc-raw-td><sc-raw-td>01_Verpfaendung_Vorsorge_Gary_Gerber.pdf</sc-raw-td><sc-raw-td>Nicht benötigt – wird mit Ablösung hinfällig</sc-raw-td></sc-raw-tr>
+        <sc-raw-tr><sc-raw-td>E10</sc-raw-td><sc-raw-td>03_Betriebskostenabrechnung_Liegenschaft_Gary_Gerber.pdf</sc-raw-td><sc-raw-td>Nicht benötigt</sc-raw-td></sc-raw-tr>
+        <sc-raw-tr><sc-raw-td>E11</sc-raw-td><sc-raw-td>03_Nebenkostenabrechnung_Etzelstrasse_52_Waedenswil_2025.pdf</sc-raw-td><sc-raw-td>Nicht benötigt</sc-raw-td></sc-raw-tr>
+      </sc-raw-tbody></sc-raw-table>
+
+      <div class="dk" style="margin-top:28px;background:#132219;border-radius:14px;padding:22px 26px;display:flex;justify-content:space-between;gap:20px;align-items:center">
+        <div><span style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;opacity:.6">Vollständigkeit</span><br><span class="lm" style="font-size:22px;font-weight:700">23 von 23 Anforderungen erfüllt</span></div>
+        <span style="font-size:12px;opacity:.7;text-align:right;max-width:26em">1 Hinweis: Grundbuchauszug vor Bankanfrage aktualisieren (älter als 6 Monate).</span>
+      </div>
+    </div>
+  </div>
+</doc-page>
+
+</x-dc>
+
+
+</body></html>

@@ -1,0 +1,1866 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="bfbd918b-14ef-4e98-890b-de87c5c5ca67"></script>
+
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>/* HYPOTEQ brand face — SF Pro Display, supplied by HYPOTEQ as OTF.
+   Roman weights 400/500/700 are the three the brand guide fixes (Regular 17 / Medium 21 / Bold 56).
+   Italics were supplied too and are declared for completeness — the brand does not use italic type. */
+
+@font-face{font-family:"SF Pro Display";src:url("4b492054-d526-4a24-99aa-d68b66247d21") format("opentype");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"SF Pro Display";src:url("90e7de78-b516-470d-94ba-c5f3d7085f93") format("opentype");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"SF Pro Display";src:url("813dfc0d-d0d1-4b0d-9ff6-177e0515012b") format("opentype");font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"SF Pro Display";src:url("4bddf3bb-1eaf-4c16-93dd-a397bea75f9d") format("opentype");font-weight:200;font-style:italic;font-display:swap}
+@font-face{font-family:"SF Pro Display";src:url("66a9c2e3-9e29-4508-9fe3-80b472c68be7") format("opentype");font-weight:100;font-style:italic;font-display:swap}
+@font-face{font-family:"SF Pro Display";src:url("9cb7a43c-057b-44ee-ac11-b428ee25bb8f") format("opentype");font-weight:300;font-style:italic;font-display:swap}
+@font-face{font-family:"SF Pro Display";src:url("791d8638-df9e-4973-a9f2-fb5fe0ba28cc") format("opentype");font-weight:600;font-style:italic;font-display:swap}
+@font-face{font-family:"SF Pro Display";src:url("bc8b2995-76cc-4afc-9e10-e6331fdeb203") format("opentype");font-weight:900;font-style:italic;font-display:swap}
+@font-face{font-family:"SF Pro Display";src:url("a8915ee0-5335-40f9-8a3f-aca758971226") format("opentype");font-weight:800;font-style:italic;font-display:swap}
+
+/* No separate SF Pro Text was supplied. Body copy uses SF Pro Display — which is what the
+   brand guide specifies anyway (Regular 17 px is called "SF Pro Display Regular"). */
+
+:root{
+  --font-display:"SF Pro Display",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  --font-text:"SF Pro Display",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  --font-mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+</style>
+<style>:root{
+  /* ---- Brand core (from HYPOTEQ brand guide p.2) ---- */
+  --lime-500:#CAF476;      /* "Yellow green" — the brand accent */
+  --forest-800:#132219;    /* "Forest green" — the brand dark */
+  --white:#FFFFFF;         /* "normal White" */
+
+  /* ---- Lime ramp (derived, hue-locked to #CAF476) ---- */
+  --lime-100:#F2FBDD;
+  --lime-200:#E6F8C0;
+  --lime-300:#DAF6A2;
+  --lime-400:#D2F58C;
+  --lime-600:#B7E455;
+  --lime-700:#9CC93B;
+  --lime-800:#7BA228;
+
+  /* ---- Forest ramp (derived) ---- */
+  --forest-900:#0A130D;
+  --forest-700:#1A2E20;
+  --forest-600:#223B2A;
+  --forest-500:#2E4E37;
+  --forest-400:#456A4F;
+  --forest-300:#6B8D74;
+
+  /* ---- Light neutrals (green-tinted, never pure grey) ---- */
+  --paper:#FFFFFF;
+  --paper-100:#F6F8F4;
+  --paper-200:#EDF1E9;
+  --paper-300:#E1E7DC;
+  --paper-400:#C9D2C3;
+  --ink-500:#5C6A5F;
+
+  /* ---- Alpha utilities: the brand's 70% transparency rule ---- */
+  --on-dark-100:rgba(255,255,255,1);
+  --on-dark-70:rgba(255,255,255,.70);
+  --on-dark-45:rgba(255,255,255,.45);
+  --on-dark-14:rgba(255,255,255,.14);
+  --on-dark-08:rgba(255,255,255,.08);
+  --on-light-100:#132219;
+  --on-light-70:rgba(19,34,25,.70);
+  --on-light-45:rgba(19,34,25,.45);
+  --on-light-12:rgba(19,34,25,.12);
+  --on-light-06:rgba(19,34,25,.06);
+
+  /* ---- Semantic status (kept quiet; finance context) ---- */
+  --success-500:#2F8F52;
+  --success-100:#E4F3E8;
+  --warning-500:#C98A16;
+  --warning-100:#FBF1DC;
+  --danger-500:#B23B34;
+  --danger-100:#F8E7E5;
+  --info-500:#2F6B8F;
+  --info-100:#E4EEF4;
+}
+</style>
+<style>:root{
+  /* Brand guide fixes three sizes: Bold 56 / Medium 21 / Regular 17.
+     Those are --text-display-1, --text-lead, --text-body. The rest is the
+     ratio-extended scale used for social, slides and product UI. */
+  --text-hero:96px;
+  --text-display-1:56px;
+  --text-display-2:44px;
+  --text-display-3:34px;
+  --text-title:28px;
+  --text-heading:24px;
+  --text-lead:21px;
+  --text-body:17px;
+  --text-body-sm:15px;
+  --text-caption:13px;
+  --text-micro:11px;
+
+  --leading-tight:1.05;
+  --leading-snug:1.15;
+  --leading-normal:1.35;
+  --leading-relaxed:1.5;
+
+  --weight-regular:400;
+  --weight-medium:500;
+  --weight-semibold:600;
+  --weight-bold:700;
+  --weight-heavy:800;
+
+  --tracking-tight:-0.02em;
+  --tracking-snug:-0.01em;
+  --tracking-normal:0;
+  --tracking-label:0.08em;   /* uppercase eyebrows / footers */
+  --tracking-wide:0.14em;    /* small uppercase meta */
+}
+</style>
+<style>:root{
+  --space-1:4px;
+  --space-2:8px;
+  --space-3:12px;
+  --space-4:16px;
+  --space-5:20px;
+  --space-6:24px;
+  --space-8:32px;
+  --space-10:40px;
+  --space-12:48px;
+  --space-16:64px;
+  --space-20:80px;
+  --space-24:96px;
+
+  /* Frame paddings used by the social / slide system */
+  --pad-social:64px;      /* 1080x1350 LinkedIn frame */
+  --pad-section:96px;     /* website section block */
+  --pad-card:24px;
+  --pad-control-x:20px;
+  --pad-control-y:12px;
+
+  --measure-narrow:34ch;
+  --measure-body:62ch;
+  --container-max:1200px;
+}
+</style>
+<style>:root{
+  --radius-xs:4px;
+  --radius-sm:8px;
+  --radius-md:12px;
+  --radius-lg:16px;
+  --radius-xl:24px;
+  --radius-pill:999px;
+  --radius-frame:0px;   /* social frames + slides are hard-cornered */
+}
+</style>
+<style>:root{
+  --border-hairline:1px;
+  --border-thick:2px;
+  --border-logo-box:3px;      /* the wordmark's outline box */
+  --rule-length:44px;         /* the short dash above headlines */
+  --rule-weight:3px;
+
+  --border-on-dark:1px solid var(--on-dark-14);
+  --border-on-light:1px solid var(--paper-300);
+
+  /* Flat brand: shadows are for product UI only, never for social/slides. */
+  --shadow-none:none;
+  --shadow-sm:0 1px 2px rgba(10,19,13,.06);
+  --shadow-md:0 6px 20px rgba(10,19,13,.10);
+  --shadow-lg:0 18px 48px rgba(10,19,13,.16);
+  --focus-ring:0 0 0 3px rgba(202,244,118,.55);
+  --focus-ring-on-dark:0 0 0 3px rgba(202,244,118,.35);
+
+  /* Protection gradient for text over photography */
+  --scrim-dark:linear-gradient(90deg,rgba(19,34,25,.96) 0%,rgba(19,34,25,.88) 45%,rgba(19,34,25,0) 100%); /* @kind other */
+  --scrim-bottom:linear-gradient(180deg,rgba(19,34,25,0) 0%,rgba(19,34,25,.85) 100%); /* @kind other */
+}
+</style>
+<style>:root{
+  --ease-out:cubic-bezier(.2,.7,.3,1); /* @kind other */
+  --ease-in-out:cubic-bezier(.4,0,.2,1); /* @kind other */
+  --duration-fast:120ms; /* @kind other */
+  --duration-base:180ms; /* @kind other */
+  --duration-slow:280ms; /* @kind other */
+  --duration-reveal:420ms; /* @kind other */
+  --transition-control:background-color var(--duration-base) var(--ease-out),color var(--duration-base) var(--ease-out),border-color var(--duration-base) var(--ease-out),opacity var(--duration-base) var(--ease-out);
+}
+</style>
+<style>:root{
+  /* Default (dark) context — the brand's home surface */
+  --surface-page:var(--forest-800);
+  --surface-raised:var(--forest-700);
+  --surface-sunken:var(--forest-900);
+  --surface-accent:var(--lime-500);
+  --surface-card:var(--forest-700);
+  --surface-card-light:var(--paper);
+  --surface-input:var(--on-dark-08);
+
+  --text-heading:var(--white);
+  --text-body:var(--on-dark-100);
+  --text-muted:var(--on-dark-70);
+  --text-faint:var(--on-dark-45);
+  --text-accent:var(--lime-500);
+  --text-on-accent:var(--forest-800);
+  --text-link:var(--lime-500);
+  --text-link-hover:var(--lime-300);
+
+  --border-subtle:var(--on-dark-14);
+  --border-strong:var(--white);
+  --border-accent:var(--lime-500);
+
+  --action-primary-bg:var(--lime-500);
+  --action-primary-fg:var(--forest-800);
+  --action-primary-bg-hover:var(--lime-600);
+  --action-primary-bg-active:var(--lime-700);
+  --action-secondary-bg:transparent;
+  --action-secondary-fg:var(--white);
+  --action-secondary-border:var(--white);
+  --action-disabled-bg:var(--on-dark-08);
+  --action-disabled-fg:var(--on-dark-45);
+}
+
+/* Light context — website body copy, Academy content areas, print */
+.hq-light,[data-hq-theme="light"]{
+  --surface-page:var(--paper);
+  --surface-raised:var(--paper-100);
+  --surface-sunken:var(--paper-200);
+  --surface-card:var(--paper);
+  --surface-input:var(--white);
+
+  --text-heading:var(--forest-800);
+  --text-body:var(--on-light-100);
+  --text-muted:var(--on-light-70);
+  --text-faint:var(--on-light-45);
+  --text-accent:var(--lime-800);
+  --text-on-accent:var(--forest-800);
+  --text-link:var(--forest-800);
+  --text-link-hover:var(--lime-800);
+
+  --border-subtle:var(--paper-300);
+  --border-strong:var(--forest-800);
+
+  --action-secondary-fg:var(--forest-800);
+  --action-secondary-border:var(--forest-800);
+  --action-disabled-bg:var(--paper-200);
+  --action-disabled-fg:var(--on-light-45);
+}
+</style>
+<style>*,*::before,*::after{box-sizing:border-box}
+body{margin:0;font-family:var(--font-text);font-size:var(--text-body);line-height:var(--leading-normal);color:var(--text-body);background:var(--surface-page);-webkit-font-smoothing:antialiased;text-wrap:pretty}
+h1,h2,h3,h4{font-family:var(--font-display);color:var(--text-heading);margin:0;letter-spacing:var(--tracking-tight);line-height:var(--leading-snug)}
+h1{font-size:var(--text-display-1);font-weight:var(--weight-bold)}
+h2{font-size:var(--text-display-3);font-weight:var(--weight-bold)}
+h3{font-size:var(--text-heading);font-weight:var(--weight-semibold)}
+h4{font-size:var(--text-lead);font-weight:var(--weight-medium);letter-spacing:var(--tracking-snug)}
+p{margin:0 0 var(--space-4)}
+a{color:var(--text-link);text-decoration:none;border-bottom:1px solid currentColor;transition:var(--transition-control)}
+a:hover{color:var(--text-link-hover)}
+strong{font-weight:var(--weight-semibold)}
+:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+::selection{background:var(--lime-500);color:var(--forest-800)}
+.hq-eyebrow{font-size:var(--text-caption);text-transform:uppercase;letter-spacing:var(--tracking-label);color:var(--text-muted)}
+.hq-rule{width:var(--rule-length);height:var(--rule-weight);background:var(--white);border:0}
+.hq-rule--accent{background:var(--lime-500)}
+</style>
+<style>/* HYPOTEQ brand face — SF Pro Display, supplied by HYPOTEQ as OTF.
+   Roman weights 400/500/700 are the three the brand guide fixes (Regular 17 / Medium 21 / Bold 56).
+   Italics were supplied too and are declared for completeness — the brand does not use italic type. */
+
+@font-face{font-family:"SF Pro Display";src:url("4b492054-d526-4a24-99aa-d68b66247d21") format("opentype");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"SF Pro Display";src:url("90e7de78-b516-470d-94ba-c5f3d7085f93") format("opentype");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"SF Pro Display";src:url("813dfc0d-d0d1-4b0d-9ff6-177e0515012b") format("opentype");font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"SF Pro Display";src:url("4bddf3bb-1eaf-4c16-93dd-a397bea75f9d") format("opentype");font-weight:200;font-style:italic;font-display:swap}
+@font-face{font-family:"SF Pro Display";src:url("66a9c2e3-9e29-4508-9fe3-80b472c68be7") format("opentype");font-weight:100;font-style:italic;font-display:swap}
+@font-face{font-family:"SF Pro Display";src:url("9cb7a43c-057b-44ee-ac11-b428ee25bb8f") format("opentype");font-weight:300;font-style:italic;font-display:swap}
+@font-face{font-family:"SF Pro Display";src:url("791d8638-df9e-4973-a9f2-fb5fe0ba28cc") format("opentype");font-weight:600;font-style:italic;font-display:swap}
+@font-face{font-family:"SF Pro Display";src:url("bc8b2995-76cc-4afc-9e10-e6331fdeb203") format("opentype");font-weight:900;font-style:italic;font-display:swap}
+@font-face{font-family:"SF Pro Display";src:url("a8915ee0-5335-40f9-8a3f-aca758971226") format("opentype");font-weight:800;font-style:italic;font-display:swap}
+
+/* No separate SF Pro Text was supplied. Body copy uses SF Pro Display — which is what the
+   brand guide specifies anyway (Regular 17 px is called "SF Pro Display Regular"). */
+
+:root{
+  --font-display:"SF Pro Display",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  --font-text:"SF Pro Display",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  --font-mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+
+:root{
+  /* ---- Brand core (from HYPOTEQ brand guide p.2) ---- */
+  --lime-500:#CAF476;      /* "Yellow green" — the brand accent */
+  --forest-800:#132219;    /* "Forest green" — the brand dark */
+  --white:#FFFFFF;         /* "normal White" */
+
+  /* ---- Lime ramp (derived, hue-locked to #CAF476) ---- */
+  --lime-100:#F2FBDD;
+  --lime-200:#E6F8C0;
+  --lime-300:#DAF6A2;
+  --lime-400:#D2F58C;
+  --lime-600:#B7E455;
+  --lime-700:#9CC93B;
+  --lime-800:#7BA228;
+
+  /* ---- Forest ramp (derived) ---- */
+  --forest-900:#0A130D;
+  --forest-700:#1A2E20;
+  --forest-600:#223B2A;
+  --forest-500:#2E4E37;
+  --forest-400:#456A4F;
+  --forest-300:#6B8D74;
+
+  /* ---- Light neutrals (green-tinted, never pure grey) ---- */
+  --paper:#FFFFFF;
+  --paper-100:#F6F8F4;
+  --paper-200:#EDF1E9;
+  --paper-300:#E1E7DC;
+  --paper-400:#C9D2C3;
+  --ink-500:#5C6A5F;
+
+  /* ---- Alpha utilities: the brand's 70% transparency rule ---- */
+  --on-dark-100:rgba(255,255,255,1);
+  --on-dark-70:rgba(255,255,255,.70);
+  --on-dark-45:rgba(255,255,255,.45);
+  --on-dark-14:rgba(255,255,255,.14);
+  --on-dark-08:rgba(255,255,255,.08);
+  --on-light-100:#132219;
+  --on-light-70:rgba(19,34,25,.70);
+  --on-light-45:rgba(19,34,25,.45);
+  --on-light-12:rgba(19,34,25,.12);
+  --on-light-06:rgba(19,34,25,.06);
+
+  /* ---- Semantic status (kept quiet; finance context) ---- */
+  --success-500:#2F8F52;
+  --success-100:#E4F3E8;
+  --warning-500:#C98A16;
+  --warning-100:#FBF1DC;
+  --danger-500:#B23B34;
+  --danger-100:#F8E7E5;
+  --info-500:#2F6B8F;
+  --info-100:#E4EEF4;
+}
+
+:root{
+  /* Brand guide fixes three sizes: Bold 56 / Medium 21 / Regular 17.
+     Those are --text-display-1, --text-lead, --text-body. The rest is the
+     ratio-extended scale used for social, slides and product UI. */
+  --text-hero:96px;
+  --text-display-1:56px;
+  --text-display-2:44px;
+  --text-display-3:34px;
+  --text-title:28px;
+  --text-heading:24px;
+  --text-lead:21px;
+  --text-body:17px;
+  --text-body-sm:15px;
+  --text-caption:13px;
+  --text-micro:11px;
+
+  --leading-tight:1.05;
+  --leading-snug:1.15;
+  --leading-normal:1.35;
+  --leading-relaxed:1.5;
+
+  --weight-regular:400;
+  --weight-medium:500;
+  --weight-semibold:600;
+  --weight-bold:700;
+  --weight-heavy:800;
+
+  --tracking-tight:-0.02em;
+  --tracking-snug:-0.01em;
+  --tracking-normal:0;
+  --tracking-label:0.08em;   /* uppercase eyebrows / footers */
+  --tracking-wide:0.14em;    /* small uppercase meta */
+}
+
+:root{
+  --space-1:4px;
+  --space-2:8px;
+  --space-3:12px;
+  --space-4:16px;
+  --space-5:20px;
+  --space-6:24px;
+  --space-8:32px;
+  --space-10:40px;
+  --space-12:48px;
+  --space-16:64px;
+  --space-20:80px;
+  --space-24:96px;
+
+  /* Frame paddings used by the social / slide system */
+  --pad-social:64px;      /* 1080x1350 LinkedIn frame */
+  --pad-section:96px;     /* website section block */
+  --pad-card:24px;
+  --pad-control-x:20px;
+  --pad-control-y:12px;
+
+  --measure-narrow:34ch;
+  --measure-body:62ch;
+  --container-max:1200px;
+}
+
+:root{
+  --radius-xs:4px;
+  --radius-sm:8px;
+  --radius-md:12px;
+  --radius-lg:16px;
+  --radius-xl:24px;
+  --radius-pill:999px;
+  --radius-frame:0px;   /* social frames + slides are hard-cornered */
+}
+
+:root{
+  --border-hairline:1px;
+  --border-thick:2px;
+  --border-logo-box:3px;      /* the wordmark's outline box */
+  --rule-length:44px;         /* the short dash above headlines */
+  --rule-weight:3px;
+
+  --border-on-dark:1px solid var(--on-dark-14);
+  --border-on-light:1px solid var(--paper-300);
+
+  /* Flat brand: shadows are for product UI only, never for social/slides. */
+  --shadow-none:none;
+  --shadow-sm:0 1px 2px rgba(10,19,13,.06);
+  --shadow-md:0 6px 20px rgba(10,19,13,.10);
+  --shadow-lg:0 18px 48px rgba(10,19,13,.16);
+  --focus-ring:0 0 0 3px rgba(202,244,118,.55);
+  --focus-ring-on-dark:0 0 0 3px rgba(202,244,118,.35);
+
+  /* Protection gradient for text over photography */
+  --scrim-dark:linear-gradient(90deg,rgba(19,34,25,.96) 0%,rgba(19,34,25,.88) 45%,rgba(19,34,25,0) 100%); /* @kind other */
+  --scrim-bottom:linear-gradient(180deg,rgba(19,34,25,0) 0%,rgba(19,34,25,.85) 100%); /* @kind other */
+}
+
+:root{
+  --ease-out:cubic-bezier(.2,.7,.3,1); /* @kind other */
+  --ease-in-out:cubic-bezier(.4,0,.2,1); /* @kind other */
+  --duration-fast:120ms; /* @kind other */
+  --duration-base:180ms; /* @kind other */
+  --duration-slow:280ms; /* @kind other */
+  --duration-reveal:420ms; /* @kind other */
+  --transition-control:background-color var(--duration-base) var(--ease-out),color var(--duration-base) var(--ease-out),border-color var(--duration-base) var(--ease-out),opacity var(--duration-base) var(--ease-out);
+}
+
+:root{
+  /* Default (dark) context — the brand's home surface */
+  --surface-page:var(--forest-800);
+  --surface-raised:var(--forest-700);
+  --surface-sunken:var(--forest-900);
+  --surface-accent:var(--lime-500);
+  --surface-card:var(--forest-700);
+  --surface-card-light:var(--paper);
+  --surface-input:var(--on-dark-08);
+
+  --text-heading:var(--white);
+  --text-body:var(--on-dark-100);
+  --text-muted:var(--on-dark-70);
+  --text-faint:var(--on-dark-45);
+  --text-accent:var(--lime-500);
+  --text-on-accent:var(--forest-800);
+  --text-link:var(--lime-500);
+  --text-link-hover:var(--lime-300);
+
+  --border-subtle:var(--on-dark-14);
+  --border-strong:var(--white);
+  --border-accent:var(--lime-500);
+
+  --action-primary-bg:var(--lime-500);
+  --action-primary-fg:var(--forest-800);
+  --action-primary-bg-hover:var(--lime-600);
+  --action-primary-bg-active:var(--lime-700);
+  --action-secondary-bg:transparent;
+  --action-secondary-fg:var(--white);
+  --action-secondary-border:var(--white);
+  --action-disabled-bg:var(--on-dark-08);
+  --action-disabled-fg:var(--on-dark-45);
+}
+
+/* Light context — website body copy, Academy content areas, print */
+.hq-light,[data-hq-theme="light"]{
+  --surface-page:var(--paper);
+  --surface-raised:var(--paper-100);
+  --surface-sunken:var(--paper-200);
+  --surface-card:var(--paper);
+  --surface-input:var(--white);
+
+  --text-heading:var(--forest-800);
+  --text-body:var(--on-light-100);
+  --text-muted:var(--on-light-70);
+  --text-faint:var(--on-light-45);
+  --text-accent:var(--lime-800);
+  --text-on-accent:var(--forest-800);
+  --text-link:var(--forest-800);
+  --text-link-hover:var(--lime-800);
+
+  --border-subtle:var(--paper-300);
+  --border-strong:var(--forest-800);
+
+  --action-secondary-fg:var(--forest-800);
+  --action-secondary-border:var(--forest-800);
+  --action-disabled-bg:var(--paper-200);
+  --action-disabled-fg:var(--on-light-45);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;font-family:var(--font-text);font-size:var(--text-body);line-height:var(--leading-normal);color:var(--text-body);background:var(--surface-page);-webkit-font-smoothing:antialiased;text-wrap:pretty}
+h1,h2,h3,h4{font-family:var(--font-display);color:var(--text-heading);margin:0;letter-spacing:var(--tracking-tight);line-height:var(--leading-snug)}
+h1{font-size:var(--text-display-1);font-weight:var(--weight-bold)}
+h2{font-size:var(--text-display-3);font-weight:var(--weight-bold)}
+h3{font-size:var(--text-heading);font-weight:var(--weight-semibold)}
+h4{font-size:var(--text-lead);font-weight:var(--weight-medium);letter-spacing:var(--tracking-snug)}
+p{margin:0 0 var(--space-4)}
+a{color:var(--text-link);text-decoration:none;border-bottom:1px solid currentColor;transition:var(--transition-control)}
+a:hover{color:var(--text-link-hover)}
+strong{font-weight:var(--weight-semibold)}
+:focus-visible{outline:none;box-shadow:var(--focus-ring)}
+::selection{background:var(--lime-500);color:var(--forest-800)}
+.hq-eyebrow{font-size:var(--text-caption);text-transform:uppercase;letter-spacing:var(--tracking-label);color:var(--text-muted)}
+.hq-rule{width:var(--rule-length);height:var(--rule-weight);background:var(--white);border:0}
+.hq-rule--accent{background:var(--lime-500)}
+
+</style>
+<script src="ffda3f93-a190-4547-bd8a-e6b8e95c9475"></script>
+<script src="e8ec724d-3051-47f0-b2a1-208ff193e0cd"></script>
+<script src="38c3c799-1452-4936-8dd6-4dc081ea023a"></script>
+<style>
+body{margin:0;background:var(--paper,#F4F6F1)}
+a{color:var(--forest-800);text-decoration:underline;text-underline-offset:2px}
+a:hover{color:var(--lime-800)}
+input,textarea{outline:none}
+input:focus,textarea:focus{box-shadow:0 0 0 3px rgba(202,244,118,.55)}
+@keyframes hqpulse{0%,100%{opacity:.35}50%{opacity:1}}
+@keyframes hqrise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes hqbar{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+</style>
+</helmet>
+
+<div ref="{{ rootRef }}" data-hq-theme="light" style="{{ s.layout }}">
+
+<!-- ===== 0 START ===== -->
+<sc-if value="{{ isStart }}" hint-placeholder-val="{{ true }}">
+<div style="flex:1;min-height:100vh;background:var(--forest-800);display:flex;flex-direction:column;position:relative;overflow:hidden">
+  <div style="{{ s.wedge }}"></div>
+  <div style="{{ s.startPad }}">
+    <img src="a378b662-043a-4f40-a0a3-eaafeba2e74e" alt="HYPOTEQ" style="height:34px;width:auto;display:block;align-self:flex-start;position:relative">
+    <div style="margin-top:auto;display:flex;flex-direction:column;gap:18px;position:relative;max-width:640px">
+      <span style="width:44px;height:3px;background:var(--lime-500)"></span>
+      <h1 style="margin:0;font-family:var(--font-display);font-size:clamp(34px,5vw,56px);line-height:1.06;letter-spacing:var(--tracking-tight);color:#fff;font-weight:var(--weight-bold);text-wrap:pretty">Finanzierungsanfrage<br>in wenigen Minuten.</h1>
+      <p style="margin:0;font-size:var(--text-lead);line-height:var(--leading-normal);color:var(--on-dark-70);max-width:44ch;text-wrap:pretty">Du beantwortest ein paar Fragen. Wir sagen dir sofort, welche Unterlagen es braucht – und lesen sie danach für dich aus.</p>
+    </div>
+    <div style="{{ s.startCards }}">
+      <sc-for list="{{ entries }}" as="e" hint-placeholder-count="2">
+        <button sc-camel-on-click="{{ e.pick }}" style="{{ e.cardStyle }}">
+          <span style="font-size:var(--text-micro);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--on-light-45)">{{ e.eyebrow }}</span>
+          <span style="font-family:var(--font-display);font-size:var(--text-title);font-weight:var(--weight-bold);color:var(--forest-800);line-height:1.15">{{ e.title }}</span>
+          <span style="font-size:var(--text-body-sm);color:var(--on-light-70);text-align:left;text-wrap:pretty">{{ e.sub }}</span>
+          <span style="margin-top:auto;font-size:var(--text-body-sm);font-weight:var(--weight-semibold);color:var(--forest-800)">Starten →</span>
+        </button>
+      </sc-for>
+    </div>
+    <span style="font-size:var(--text-caption);color:var(--on-dark-45);position:relative">Hypotheken sind dank HYPOTEQ vergleichbar geworden. Ihr Berater ist hingegen einzigartig.®</span>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ showSidebar }}" hint-placeholder-val="{{ false }}">
+<aside style="width:300px;flex:0 0 300px;background:var(--forest-800);padding:32px 30px 26px;display:flex;flex-direction:column;gap:26px;position:sticky;top:0;height:100vh;box-sizing:border-box;overflow-y:auto">
+  <img src="a378b662-043a-4f40-a0a3-eaafeba2e74e" alt="HYPOTEQ" style="height:28px;width:auto;display:block;align-self:flex-start">
+  <div style="display:flex;flex-direction:column;gap:4px;padding-bottom:20px;border-bottom:1px solid var(--on-dark-14)">
+    <span style="font-size:var(--text-micro);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--on-dark-45)">Anfrage</span>
+    <span style="font-size:var(--text-body);color:#fff;font-weight:var(--weight-semibold);text-wrap:pretty">{{ caseLine }}</span>
+    <span style="font-size:var(--text-caption);color:var(--on-dark-70)">{{ roleLine }}</span>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:4px">
+    <span style="font-size:var(--text-micro);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--on-dark-45)">Fragepfad</span>
+    <span style="font-size:var(--text-caption);color:var(--on-dark-70)">{{ pathLine }}</span>
+  </div>
+  <nav style="display:flex;flex-direction:column">
+    <sc-for list="{{ steps }}" as="st" hint-placeholder-count="6">
+      <button sc-camel-on-click="{{ st.go }}" style="{{ st.navStyle }}">
+        <span style="display:flex;flex-direction:column;align-items:center;align-self:stretch;width:12px;flex:0 0 12px">
+          <span style="{{ st.dotStyle }}"></span>
+          <span style="{{ st.lineStyle }}"></span>
+        </span>
+        <span style="display:flex;flex-direction:column;gap:2px;text-align:left;padding-bottom:18px;min-width:0">
+          <span style="{{ st.labelStyle }}">{{ st.label }}</span>
+          <span style="{{ st.subStyle }}">{{ st.sub }}</span>
+        </span>
+      </button>
+    </sc-for>
+  </nav>
+  <div style="margin-top:auto;display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;align-items:center;gap:12px;background:var(--on-dark-08);border-radius:var(--radius-md);padding:12px 14px">
+      <span style="font-family:var(--font-display);font-size:24px;font-weight:var(--weight-bold);color:var(--lime-500);line-height:1">{{ reqCount }}</span>
+      <span style="font-size:var(--text-caption);color:var(--on-dark-70);line-height:1.35">Unterlagen für diese Anfrage</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;font-size:var(--text-caption);color:var(--on-dark-45)">
+      <span style="width:6px;height:6px;border-radius:999px;background:var(--lime-500)"></span>Gespeichert · der Link in der Bestätigungsmail führt hierher zurück
+    </div>
+  </div>
+</aside>
+</sc-if>
+
+<sc-if value="{{ notStart }}" hint-placeholder-val="{{ false }}">
+<div style="flex:1;min-width:0;display:flex;flex-direction:column;min-height:100vh">
+
+  <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+  <header style="background:var(--forest-800);padding:14px 18px 0;position:sticky;top:0;z-index:5">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+      <img src="a378b662-043a-4f40-a0a3-eaafeba2e74e" alt="HYPOTEQ" style="height:22px;width:auto;display:block">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="font-size:var(--text-caption);color:var(--on-dark-70)">{{ stepTitle }} · {{ stepNo }}/6</span>
+        <button sc-camel-on-click="{{ prev }}" style="width:30px;height:30px;border-radius:999px;border:1px solid var(--on-dark-45);background:transparent;color:#fff;cursor:pointer;font-size:15px;line-height:1">‹</button>
+        <button sc-camel-on-click="{{ next }}" style="width:30px;height:30px;border-radius:999px;border:1px solid var(--on-dark-45);background:transparent;color:#fff;cursor:pointer;font-size:15px;line-height:1">›</button>
+      </div>
+    </div>
+    <div style="display:flex;gap:4px;padding:12px 0 12px">
+      <sc-for list="{{ steps }}" as="st" hint-placeholder-count="6">
+        <button sc-camel-on-click="{{ st.go }}" style="{{ st.barStyle }}"></button>
+      </sc-for>
+    </div>
+    <sc-if value="{{ showRail }}" hint-placeholder-val="{{ false }}">
+    <button sc-camel-on-click="{{ toggleRail }}" style="width:100%;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--on-dark-08);border:0;border-top:1px solid var(--on-dark-14);margin:0 -18px;width:calc(100% + 36px);padding:12px 18px;cursor:pointer;color:#fff;font-family:var(--font-text)">
+      <span style="display:flex;align-items:baseline;gap:10px">
+        <span style="font-family:var(--font-display);font-size:22px;font-weight:var(--weight-bold);color:var(--lime-500);line-height:1">{{ reqCount }}</span>
+        <span style="font-size:var(--text-caption);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--on-dark-70)">Deine Unterlagen</span>
+      </span>
+      <span style="font-size:var(--text-caption);color:var(--on-dark-70)">{{ railToggleLabel }}</span>
+    </button>
+    </sc-if>
+  </header>
+  </sc-if>
+
+  <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+  <div style="display:flex;align-items:center;gap:20px;padding:22px 52px 0">
+    <div style="flex:1;height:4px;border-radius:999px;background:var(--paper-300);overflow:hidden">
+      <div style="{{ s.progress }}"></div>
+    </div>
+    <span style="font-size:var(--text-caption);color:var(--on-light-45);white-space:nowrap">Schritt {{ stepNo }} von 6</span>
+    <div style="display:flex;gap:6px">
+      <button sc-camel-on-click="{{ prev }}" title="Zurück (←)" style="width:32px;height:32px;border-radius:999px;border:1px solid var(--paper-400);background:#fff;color:var(--forest-800);cursor:pointer;font-size:15px;line-height:1;display:inline-flex;align-items:center;justify-content:center">‹</button>
+      <button sc-camel-on-click="{{ next }}" title="Weiter (→)" style="{{ s.nextArrow }}">›</button>
+    </div>
+  </div>
+  <sc-if value="{{ isNarrow }}" hint-placeholder-val="{{ false }}">
+  <div style="position:sticky;top:0;z-index:5;padding:14px 52px 0;background:var(--paper)">
+    <button sc-camel-on-click="{{ toggleRail }}" style="width:100%;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--forest-800);border:0;border-radius:var(--radius-md);padding:12px 18px;cursor:pointer;color:#fff;font-family:var(--font-text)">
+      <span style="display:flex;align-items:baseline;gap:10px">
+        <span style="font-family:var(--font-display);font-size:22px;font-weight:var(--weight-bold);color:var(--lime-500);line-height:1">{{ reqCount }}</span>
+        <span style="font-size:var(--text-caption);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--on-dark-70)">Deine Unterlagen</span>
+      </span>
+      <span style="font-size:var(--text-caption);color:var(--on-dark-70)">{{ railToggleLabel }}</span>
+    </button>
+  </div>
+  </sc-if>
+  </sc-if>
+
+  <main style="{{ s.main }}">
+  <div style="{{ s.split }}">
+  <div style="flex:1 1 0%;min-width:0;width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:34px;max-width:840px">
+
+  <!-- ===== 1 ALLGEMEINES ===== -->
+  <sc-if value="{{ isStep1 }}" hint-placeholder-val="{{ true }}">
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <span style="width:44px;height:3px;background:var(--lime-600)"></span>
+      <span style="font-size:var(--text-micro);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--on-light-70)"><strong style="color:var(--forest-800)">Thema {{ stepNo }} von 6</strong> · {{ stepTitle }}</span>
+      <h1 style="margin:0;font-family:var(--font-display);font-size:clamp(28px,4vw,40px);line-height:1.1;letter-spacing:var(--tracking-tight);color:var(--forest-800);font-weight:var(--weight-bold);overflow-wrap:anywhere;hyphens:auto;text-wrap:pretty">Neue Finanzierungsanfrage</h1>
+      <p style="margin:0;font-size:var(--text-lead);line-height:var(--leading-normal);color:var(--on-light-70);max-width:52ch">Ein paar Angaben zum Antrag – rechts siehst du sofort, welche Unterlagen daraus folgen.</p>
+    </div>
+
+    <sc-if value="{{ isBerater }}" hint-placeholder-val="{{ true }}">
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <span style="font-size:var(--text-micro);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--on-light-45)">Berater / Partner</span>
+      <div style="{{ s.two }}">
+        <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" label="Deine E-Mail" placeholder="name@firma.ch" value="{{ T.bmail }}" sc-camel-on-change="{{ on.bmail }}" hint="Mehr brauchen wir nicht – wir erkennen dich an der Adresse." hint-size="100%,88px"></x-import>
+      </div>
+
+      <sc-if value="{{ pKnown }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;align-items:center;gap:14px;background:#fff;border:1px solid var(--paper-300);border-radius:var(--radius-md);padding:14px 16px;animation:hqrise .22s var(--ease-out) both">
+        <span style="width:40px;height:40px;flex:0 0 auto;border-radius:999px;background:var(--forest-800);color:var(--lime-500);display:inline-flex;align-items:center;justify-content:center;font-size:var(--text-caption);font-weight:var(--weight-bold)">{{ pInitials }}</span>
+        <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px">
+          <span style="font-size:var(--text-body);font-weight:var(--weight-semibold);color:var(--forest-800)">{{ pName }}</span>
+          <span style="font-size:var(--text-caption);color:var(--on-light-70)">{{ pFirm }}</span>
+        </span>
+        <span style="font-size:11px;letter-spacing:var(--tracking-label);text-transform:uppercase;font-weight:var(--weight-bold);background:var(--lime-500);color:var(--forest-800);border-radius:999px;padding:4px 10px">Erkannt</span>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ pUnknown }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;gap:16px;background:#fff;border:1px solid var(--paper-300);border-radius:var(--radius-lg);padding:20px 22px;animation:hqrise .22s var(--ease-out) both">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap">
+          <span style="display:flex;flex-direction:column;gap:4px;min-width:0;flex:1 1 260px">
+            <span style="font-size:var(--text-body);font-weight:var(--weight-semibold);color:var(--forest-800)">Noch kein Partner?</span>
+            <span style="font-size:var(--text-body-sm);color:var(--on-light-70);text-wrap:pretty">Diese Adresse kennen wir noch nicht. Erfasse dich in einer Minute – danach läuft die Anfrage ganz normal weiter.</span>
+          </span>
+          <sc-if value="{{ pNotOpen }}" hint-placeholder-val="{{ true }}">
+          <button sc-camel-on-click="{{ pOpen }}" style="background:var(--forest-800);color:#fff;border:0;border-radius:var(--radius-pill);padding:11px 20px;font-family:var(--font-text);font-size:var(--text-body-sm);font-weight:var(--weight-semibold);cursor:pointer;white-space:nowrap">Als Partner erfassen</button>
+          </sc-if>
+        </div>
+        <sc-if value="{{ pIsOpen }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;gap:14px;border-top:1px solid var(--paper-300);padding-top:16px;animation:hqrise .22s var(--ease-out) both">
+          <div style="{{ s.two }}">
+            <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" label="Vorname" placeholder="Vorname" value="{{ T.pvor }}" sc-camel-on-change="{{ on.pvor }}" hint-size="100%,68px"></x-import>
+            <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" label="Nachname" placeholder="Nachname" value="{{ T.pnach }}" sc-camel-on-change="{{ on.pnach }}" hint-size="100%,68px"></x-import>
+            <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" label="E-Mail" value="{{ T.bmail }}" sc-camel-on-change="{{ on.bmail }}" hint-size="100%,68px"></x-import>
+            <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" label="Telefon für Rückfragen" placeholder="+41 79 …" value="{{ T.ptel }}" sc-camel-on-change="{{ on.ptel }}" hint-size="100%,68px"></x-import>
+            <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" label="Firma" placeholder="Firmenname" value="{{ T.pfirma }}" sc-camel-on-change="{{ on.pfirma }}" hint-size="100%,68px"></x-import>
+          </div>
+          <span style="font-size:var(--text-caption);color:var(--on-light-45);text-wrap:pretty">HYPOTEQ prüft die Angaben und meldet sich bei Rückfragen. Die Anfrage kannst du jetzt schon erfassen.</span>
+        </div>
+        </sc-if>
+      </div>
+      </sc-if>
+    </div>
+    </sc-if>
+
+    <sc-for list="{{ q1 }}" as="q" hint-placeholder-count="2">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font-size:var(--text-body-sm);font-weight:var(--weight-semibold);color:var(--forest-800)">{{ q.label }}</span>
+        <div style="display:flex;flex-wrap:wrap;gap:10px">
+          <sc-for list="{{ q.opts }}" as="o" hint-placeholder-count="2">
+            <button sc-camel-on-click="{{ o.pick }}" style="{{ o.style }}"><sc-if value="{{ o.icon }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="{{ o.icon }}" size="26" hint-size="26px,26px"></x-import></sc-if><span>{{ o.label }}</span><sc-if value="{{ o.delta }}" hint-placeholder-val="{{ false }}"><span style="{{ o.deltaStyle }}">{{ o.delta }}</span></sc-if></button>
+          </sc-for>
+        </div>
+      </div>
+    </sc-for>
+
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <span style="font-size:var(--text-micro);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--on-light-45)">{{ kontaktLabel }}</span>
+      <sc-for list="{{ qAnrede }}" as="q" hint-placeholder-count="1">
+        <div style="display:flex;flex-wrap:wrap;gap:10px" aria-label="{{ q.label }}">
+          <sc-for list="{{ q.opts }}" as="o" hint-placeholder-count="2">
+            <button sc-camel-on-click="{{ o.pick }}" style="{{ o.style }}"><span>{{ o.label }}</span></button>
+          </sc-for>
+        </div>
+      </sc-for>
+      <div style="{{ s.two }}">
+        <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" label="Vorname" placeholder="Vorname" value="{{ T.vor }}" sc-camel-on-change="{{ on.vor }}" hint-size="100%,68px"></x-import>
+        <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" label="Nachname" placeholder="Nachname" value="{{ T.nach }}" sc-camel-on-change="{{ on.nach }}" hint-size="100%,68px"></x-import>
+        <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" label="E-Mail" placeholder="name@mail.ch" value="{{ T.mail }}" sc-camel-on-change="{{ on.mail }}" hint-size="100%,68px"></x-import>
+        <sc-if value="{{ isKunde }}" hint-placeholder-val="{{ false }}">
+        <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" label="Telefon" placeholder="+41 79 …" hint-size="100%,68px"></x-import>
+        </sc-if>
+      </div>
+      <span style="font-size:var(--text-caption);color:var(--on-light-45)">Mehr brauchen wir jetzt nicht – Geburtsdatum, Adresse und Zivilstand lesen wir aus deinen Unterlagen.</span>
+    </div>
+  </sc-if>
+
+  <!-- ===== 2 OBJEKT ===== -->
+  <sc-if value="{{ isStep2 }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <span style="width:44px;height:3px;background:var(--lime-600)"></span>
+      <span style="font-size:var(--text-micro);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--on-light-70)"><strong style="color:var(--forest-800)">Thema {{ stepNo }} von 6</strong> · {{ stepTitle }}</span>
+      <h1 style="margin:0;font-family:var(--font-display);font-size:clamp(28px,4vw,40px);line-height:1.1;letter-spacing:var(--tracking-tight);color:var(--forest-800);font-weight:var(--weight-bold);overflow-wrap:anywhere;hyphens:auto">Was finanzieren wir?</h1>
+      <p style="margin:0;font-size:var(--text-body);color:var(--on-light-70);max-width:56ch">Jede Antwort bestimmt, welche Unterlagen wir später brauchen. Nichts muss doppelt angegeben werden.</p>
+    </div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap">
+      <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" label="PLZ" placeholder="PLZ" value="{{ T.plz }}" sc-camel-on-change="{{ on.plz }}" style="{{ s.plz }}" hint-size="120px,68px"></x-import>
+      <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" label="Ort" placeholder="Ort" value="{{ T.ort }}" sc-camel-on-change="{{ on.ort }}" style="{{ s.ort }}" hint-size="240px,68px"></x-import>
+    </div>
+    <span style="font-size:var(--text-caption);color:var(--on-light-45);margin-top:-22px">Adresse, Baujahr und Grundbuchdaten lesen wir später aus den Unterlagen.</span>
+    <sc-for list="{{ q2a }}" as="q" hint-placeholder-count="4">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font-size:var(--text-body-sm);font-weight:var(--weight-semibold);color:var(--forest-800)">{{ q.label }}</span>
+        <div style="display:flex;flex-wrap:wrap;gap:10px">
+          <sc-for list="{{ q.opts }}" as="o" hint-placeholder-count="3">
+            <button sc-camel-on-click="{{ o.pick }}" style="{{ o.style }}"><sc-if value="{{ o.icon }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="{{ o.icon }}" size="26" hint-size="26px,26px"></x-import></sc-if><span>{{ o.label }}</span><sc-if value="{{ o.delta }}" hint-placeholder-val="{{ false }}"><span style="{{ o.deltaStyle }}">{{ o.delta }}</span></sc-if></button>
+          </sc-for>
+        </div>
+        <sc-if value="{{ q.hint }}" hint-placeholder-val="{{ false }}"><span style="font-size:var(--text-caption);color:var(--on-light-45)">{{ q.hint }}</span></sc-if>
+      </div>
+    </sc-for>
+    <sc-for list="{{ q2n }}" as="q" hint-placeholder-count="0">
+      <div style="display:flex;flex-direction:column;gap:12px;border-left:1px solid var(--paper-300);padding-left:18px;animation:hqrise .24s var(--ease-out) both">
+        <span style="font-size:var(--text-body-sm);font-weight:var(--weight-semibold);color:var(--forest-800)">{{ q.label }}</span>
+        <div style="display:flex;flex-wrap:wrap;gap:10px">
+          <sc-for list="{{ q.opts }}" as="o" hint-placeholder-count="2">
+            <button sc-camel-on-click="{{ o.pick }}" style="{{ o.style }}"><sc-if value="{{ o.icon }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="{{ o.icon }}" size="26" hint-size="26px,26px"></x-import></sc-if><span>{{ o.label }}</span><sc-if value="{{ o.delta }}" hint-placeholder-val="{{ false }}"><span style="{{ o.deltaStyle }}">{{ o.delta }}</span></sc-if></button>
+          </sc-for>
+        </div>
+        <span style="font-size:var(--text-caption);color:var(--on-light-45)">{{ q.hint }}</span>
+      </div>
+    </sc-for>
+    <sc-for list="{{ q2b }}" as="q" hint-placeholder-count="2">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font-size:var(--text-body-sm);font-weight:var(--weight-semibold);color:var(--forest-800)">{{ q.label }}</span>
+        <div style="display:flex;flex-wrap:wrap;gap:10px">
+          <sc-for list="{{ q.opts }}" as="o" hint-placeholder-count="3">
+            <button sc-camel-on-click="{{ o.pick }}" style="{{ o.style }}"><sc-if value="{{ o.icon }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="{{ o.icon }}" size="26" hint-size="26px,26px"></x-import></sc-if><span>{{ o.label }}</span><sc-if value="{{ o.delta }}" hint-placeholder-val="{{ false }}"><span style="{{ o.deltaStyle }}">{{ o.delta }}</span></sc-if></button>
+          </sc-for>
+        </div>
+        <sc-if value="{{ q.hint }}" hint-placeholder-val="{{ false }}"><span style="font-size:var(--text-caption);color:var(--on-light-45)">{{ q.hint }}</span></sc-if>
+      </div>
+    </sc-for>
+
+    <sc-if value="{{ isAbloesung }}" hint-placeholder-val="{{ false }}">
+    <div style="border:1px solid var(--paper-300);border-radius:var(--radius-lg);background:#fff;padding:22px;display:flex;flex-direction:column;gap:20px">
+      <span style="font-size:var(--text-micro);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--on-light-45)">Bestehende Hypothek</span>
+      <div style="{{ s.two }}">
+        <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" label="Bestehende Hypothek" placeholder="CHF" value="{{ fin.oldStr }}" sc-camel-on-change="{{ fin.onOld }}" hint="Bank, Produkt und Ablösedatum lesen wir aus der Zinsabrechnung." hint-size="100%,88px"></x-import>
+      </div>
+      <sc-for list="{{ q2c }}" as="q" hint-placeholder-count="1">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <span style="font-size:var(--text-body-sm);font-weight:var(--weight-semibold);color:var(--forest-800)">{{ q.label }}</span>
+          <div style="display:flex;flex-wrap:wrap;gap:10px">
+            <sc-for list="{{ q.opts }}" as="o" hint-placeholder-count="2">
+              <button sc-camel-on-click="{{ o.pick }}" style="{{ o.style }}"><sc-if value="{{ o.icon }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="{{ o.icon }}" size="26" hint-size="26px,26px"></x-import></sc-if><span>{{ o.label }}</span><sc-if value="{{ o.delta }}" hint-placeholder-val="{{ false }}"><span style="{{ o.deltaStyle }}">{{ o.delta }}</span></sc-if></button>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+      <sc-if value="{{ isAufstockung }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;gap:16px;animation:hqrise .24s var(--ease-out) both">
+        <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" label="Gewünschte Erhöhung" placeholder="CHF" value="{{ fin.upStr }}" sc-camel-on-change="{{ fin.onUp }}" hint-size="100%,68px"></x-import>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <span style="font-size:var(--text-caption);font-weight:var(--weight-semibold);color:var(--forest-800)">Verwendungszweck der Erhöhung</span>
+          <textarea rows="3" placeholder="Wofür wird die Erhöhung verwendet?" style="width:100%;box-sizing:border-box;resize:vertical;border:1px solid var(--paper-400);border-radius:var(--radius-md);padding:12px 14px;font-family:var(--font-text);font-size:var(--text-body-sm);color:var(--forest-800);background:#fff;line-height:1.5"></textarea>
+        </div>
+      </div>
+      </sc-if>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ isKauf }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" label="Kaufpreis" sc-camel-default-value="CHF 0" hint-size="100%,68px"></x-import>
+      <sc-for list="{{ q2k }}" as="q" hint-placeholder-count="2">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <span style="font-size:var(--text-body-sm);font-weight:var(--weight-semibold);color:var(--forest-800)">{{ q.label }}</span>
+          <div style="display:flex;flex-wrap:wrap;gap:10px">
+            <sc-for list="{{ q.opts }}" as="o" hint-placeholder-count="2">
+              <button sc-camel-on-click="{{ o.pick }}" style="{{ o.style }}"><sc-if value="{{ o.icon }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="{{ o.icon }}" size="26" hint-size="26px,26px"></x-import></sc-if><span>{{ o.label }}</span><sc-if value="{{ o.delta }}" hint-placeholder-val="{{ false }}"><span style="{{ o.deltaStyle }}">{{ o.delta }}</span></sc-if></button>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    </sc-if>
+
+    <sc-for list="{{ q2d }}" as="q" hint-placeholder-count="1">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font-size:var(--text-body-sm);font-weight:var(--weight-semibold);color:var(--forest-800)">{{ q.label }}</span>
+        <div style="display:flex;flex-wrap:wrap;gap:10px">
+          <sc-for list="{{ q.opts }}" as="o" hint-placeholder-count="2">
+            <button sc-camel-on-click="{{ o.pick }}" style="{{ o.style }}"><sc-if value="{{ o.icon }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="{{ o.icon }}" size="26" hint-size="26px,26px"></x-import></sc-if><span>{{ o.label }}</span><sc-if value="{{ o.delta }}" hint-placeholder-val="{{ false }}"><span style="{{ o.deltaStyle }}">{{ o.delta }}</span></sc-if></button>
+          </sc-for>
+        </div>
+      </div>
+    </sc-for>
+  </sc-if>
+
+  <!-- ===== 3 PERSONEN ===== -->
+  <sc-if value="{{ isStep3 }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <span style="width:44px;height:3px;background:var(--lime-600)"></span>
+      <span style="font-size:var(--text-micro);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--on-light-70)"><strong style="color:var(--forest-800)">Thema {{ stepNo }} von 6</strong> · {{ stepTitle }}</span>
+      <h1 style="margin:0;font-family:var(--font-display);font-size:clamp(28px,4vw,40px);line-height:1.1;letter-spacing:var(--tracking-tight);color:var(--forest-800);font-weight:var(--weight-bold);overflow-wrap:anywhere;hyphens:auto">Wer finanziert?</h1>
+      <p style="margin:0;font-size:var(--text-body);color:var(--on-light-70);max-width:56ch">Pro Kreditnehmer brauchen wir dieselben Unterlagen. Zusatzfragen ergänzen die Liste nur, wenn sie zutreffen.</p>
+    </div>
+
+    <sc-if value="{{ isJP }}" hint-placeholder-val="{{ false }}">
+    <div style="border:1px solid var(--paper-300);border-radius:var(--radius-lg);background:#fff;padding:22px;display:flex;flex-direction:column;gap:18px">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+        <span style="font-size:var(--text-micro);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--on-light-45)">Kreditnehmer 1</span>
+        <span style="font-size:var(--text-caption);color:var(--on-light-45)">Juristische Person</span>
+      </div>
+      <div style="{{ s.two }}">
+        <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" label="Firma" placeholder="Firmenname gemäss Handelsregister" hint-size="100%,68px"></x-import>
+        <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" label="Zeichnungsberechtigte Person" placeholder="Vorname Name" hint-size="100%,68px"></x-import>
+      </div>
+      <span style="font-size:var(--text-caption);color:var(--on-light-45)">UID, Sitz und Zeichnungsberechtigung lesen wir aus dem Handelsregisterauszug.</span>
+    </div>
+    </sc-if>
+    <sc-if value="{{ isNP }}" hint-placeholder-val="{{ true }}">
+    <div style="border:1px solid var(--paper-300);border-radius:var(--radius-lg);background:#fff;padding:22px;display:flex;flex-direction:column;gap:18px">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+        <span style="font-size:var(--text-micro);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--on-light-45)">Kreditnehmer 1</span>
+        <span style="font-size:var(--text-caption);color:var(--on-light-45)">Natürliche Person</span>
+      </div>
+      <div style="{{ s.two }}">
+        <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" label="Vorname(n)" placeholder="Vorname(n)" value="{{ T.vor }}" sc-camel-on-change="{{ on.vor }}" hint-size="100%,68px"></x-import>
+        <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" label="Nachname" placeholder="Nachname" value="{{ T.nach }}" sc-camel-on-change="{{ on.nach }}" hint-size="100%,68px"></x-import>
+        <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" label="Bruttoeinkommen pro Jahr" placeholder="CHF" value="{{ fin.incStr }}" sc-camel-on-change="{{ fin.onInc }}" hint="Geburtsdatum, Adresse und Arbeitgeber lesen wir aus ID und Lohnausweis." hint-size="100%,88px"></x-import>
+      </div>
+      <sc-for list="{{ q3a }}" as="q" hint-placeholder-count="1">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <span style="font-size:var(--text-body-sm);font-weight:var(--weight-semibold);color:var(--forest-800)">{{ q.label }}</span>
+          <div style="display:flex;flex-wrap:wrap;gap:10px">
+            <sc-for list="{{ q.opts }}" as="o" hint-placeholder-count="3">
+              <button sc-camel-on-click="{{ o.pick }}" style="{{ o.style }}"><sc-if value="{{ o.icon }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="{{ o.icon }}" size="26" hint-size="26px,26px"></x-import></sc-if><span>{{ o.label }}</span><sc-if value="{{ o.delta }}" hint-placeholder-val="{{ false }}"><span style="{{ o.deltaStyle }}">{{ o.delta }}</span></sc-if></button>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <div>
+      <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" variant="secondary" size="sm" sc-camel-icon-left="plus" hint-size="auto,36px">Kreditnehmer hinzufügen</x-import>
+    </div>
+
+    <sc-for list="{{ q3b }}" as="q" hint-placeholder-count="3">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font-size:var(--text-body-sm);font-weight:var(--weight-semibold);color:var(--forest-800)">{{ q.label }}</span>
+        <div style="display:flex;flex-wrap:wrap;gap:10px">
+          <sc-for list="{{ q.opts }}" as="o" hint-placeholder-count="2">
+            <button sc-camel-on-click="{{ o.pick }}" style="{{ o.style }}"><sc-if value="{{ o.icon }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="{{ o.icon }}" size="26" hint-size="26px,26px"></x-import></sc-if><span>{{ o.label }}</span><sc-if value="{{ o.delta }}" hint-placeholder-val="{{ false }}"><span style="{{ o.deltaStyle }}">{{ o.delta }}</span></sc-if></button>
+          </sc-for>
+        </div>
+        <sc-if value="{{ q.hint }}" hint-placeholder-val="{{ false }}"><span style="font-size:var(--text-caption);color:var(--on-light-45);text-wrap:pretty">{{ q.hint }}</span></sc-if>
+      </div>
+    </sc-for>
+
+    <sc-if value="{{ hasKinder }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;gap:16px;animation:hqrise .24s var(--ease-out) both;border-left:1px solid var(--paper-300);padding-left:18px">
+      <sc-for list="{{ q3k }}" as="q" hint-placeholder-count="1">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <span style="font-size:var(--text-body-sm);font-weight:var(--weight-semibold);color:var(--forest-800)">{{ q.label }}</span>
+          <div style="display:flex;flex-wrap:wrap;gap:10px">
+            <sc-for list="{{ q.opts }}" as="o" hint-placeholder-count="2">
+              <button sc-camel-on-click="{{ o.pick }}" style="{{ o.style }}"><sc-if value="{{ o.icon }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="{{ o.icon }}" size="26" hint-size="26px,26px"></x-import></sc-if><span>{{ o.label }}</span><sc-if value="{{ o.delta }}" hint-placeholder-val="{{ false }}"><span style="{{ o.deltaStyle }}">{{ o.delta }}</span></sc-if></button>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    </sc-if>
+    </sc-if>
+
+    <sc-for list="{{ q3c }}" as="q" hint-placeholder-count="3">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font-size:var(--text-body-sm);font-weight:var(--weight-semibold);color:var(--forest-800)">{{ q.label }}</span>
+        <div style="display:flex;flex-wrap:wrap;gap:10px">
+          <sc-for list="{{ q.opts }}" as="o" hint-placeholder-count="2">
+            <button sc-camel-on-click="{{ o.pick }}" style="{{ o.style }}"><sc-if value="{{ o.icon }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="{{ o.icon }}" size="26" hint-size="26px,26px"></x-import></sc-if><span>{{ o.label }}</span><sc-if value="{{ o.delta }}" hint-placeholder-val="{{ false }}"><span style="{{ o.deltaStyle }}">{{ o.delta }}</span></sc-if></button>
+          </sc-for>
+        </div>
+        <sc-if value="{{ q.hint }}" hint-placeholder-val="{{ false }}"><span style="font-size:var(--text-caption);color:var(--on-light-45);text-wrap:pretty">{{ q.hint }}</span></sc-if>
+      </div>
+    </sc-for>
+    <sc-if value="{{ hasBuerge }}" hint-placeholder-val="{{ false }}">
+    <div style="{{ s.two }}">
+      <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" label="Solidarbürge · Vorname Name" sc-camel-default-value="" hint-size="100%,68px"></x-import>
+    </div>
+    </sc-if>
+  </sc-if>
+
+  <!-- ===== 4 FINANZIERUNG ===== -->
+  <sc-if value="{{ isStep4 }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <span style="width:44px;height:3px;background:var(--lime-600)"></span>
+      <span style="font-size:var(--text-micro);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--on-light-70)"><strong style="color:var(--forest-800)">Thema {{ stepNo }} von 6</strong> · {{ stepTitle }}</span>
+      <h1 style="margin:0;font-family:var(--font-display);font-size:clamp(28px,4vw,40px);line-height:1.1;letter-spacing:var(--tracking-tight);color:var(--forest-800);font-weight:var(--weight-bold);overflow-wrap:anywhere;hyphens:auto">Finanzierung</h1>
+      <p style="margin:0;font-size:var(--text-body);color:var(--on-light-70);max-width:56ch">Belehnung und Tragbarkeit siehst du sofort. Eigenmittelfragen stehen auf Nein, bis du sie änderst.</p>
+    </div>
+
+    <div style="background:var(--forest-800);border-radius:var(--radius-lg);padding:26px;display:flex;flex-direction:column;gap:22px">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <span style="font-size:var(--text-micro);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--on-dark-45)">{{ fin.verdict }}</span>
+        <span style="font-size:var(--text-body-sm);color:var(--on-dark-70)">{{ fin.needLabel }}</span>
+        <span style="font-family:var(--font-display);font-size:clamp(34px,5vw,52px);line-height:1;color:var(--lime-500);font-weight:var(--weight-bold);letter-spacing:var(--tracking-tight)">{{ fin.needStr }}</span>
+        <span style="font-size:var(--text-caption);color:var(--on-dark-45)">{{ fin.needSub }}</span>
+      </div>
+      <div style="height:1px;background:var(--on-dark-14)"></div>
+      <div style="{{ s.two }}">
+        <sc-for list="{{ fin.stats }}" as="k" hint-placeholder-count="2">
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
+              <span style="font-size:var(--text-body-sm);color:var(--on-dark-70)">{{ k.label }}</span>
+              <span style="font-family:var(--font-display);font-size:var(--text-lead);color:#fff;font-weight:var(--weight-semibold)">{{ k.value }}</span>
+            </div>
+            <div style="height:6px;border-radius:999px;background:var(--on-dark-08);overflow:hidden"><div style="{{ k.bar }}"></div></div>
+            <span style="font-size:var(--text-caption);color:var(--on-dark-45)">{{ k.hint }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="{{ s.two }}">
+      <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" label="Geschätzter Objektwert" placeholder="CHF" value="{{ fin.valStr }}" sc-camel-on-change="{{ fin.onVal }}" hint="Schätzung, letzter Kaufpreis oder Verkehrswert" hint-size="100%,88px"></x-import>
+      <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" label="Bruttoeinkommen Haushalt" placeholder="CHF" value="{{ fin.incStr }}" sc-camel-on-change="{{ fin.onInc }}" hint="Aus Schritt 3 übernommen" hint-size="100%,88px"></x-import>
+    </div>
+
+    <sc-for list="{{ q4a }}" as="q" hint-placeholder-count="2">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font-size:var(--text-body-sm);font-weight:var(--weight-semibold);color:var(--forest-800)">{{ q.label }}</span>
+        <div style="display:flex;flex-wrap:wrap;gap:10px">
+          <sc-for list="{{ q.opts }}" as="o" hint-placeholder-count="3">
+            <button sc-camel-on-click="{{ o.pick }}" style="{{ o.style }}"><sc-if value="{{ o.icon }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="{{ o.icon }}" size="26" hint-size="26px,26px"></x-import></sc-if><span>{{ o.label }}</span><sc-if value="{{ o.delta }}" hint-placeholder-val="{{ false }}"><span style="{{ o.deltaStyle }}">{{ o.delta }}</span></sc-if></button>
+          </sc-for>
+        </div>
+        <sc-if value="{{ q.hint }}" hint-placeholder-val="{{ false }}"><span style="font-size:var(--text-caption);color:var(--on-light-45)">{{ q.hint }}</span></sc-if>
+      </div>
+    </sc-for>
+
+    <div style="border:1px solid var(--paper-300);border-radius:var(--radius-lg);background:#fff;padding:22px;display:flex;flex-direction:column;gap:18px">
+      <span style="font-size:var(--text-micro);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--on-light-45)">Entsteht ein Teil der Eigenmittel über …</span>
+      <sc-for list="{{ q4b }}" as="q" hint-placeholder-count="2">
+        <div style="{{ s.qRow }}">
+          <span style="font-size:var(--text-body-sm);font-weight:var(--weight-semibold);color:var(--forest-800)">{{ q.label }}</span>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <sc-for list="{{ q.opts }}" as="o" hint-placeholder-count="2">
+              <button sc-camel-on-click="{{ o.pick }}" style="{{ o.style }}"><sc-if value="{{ o.icon }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="{{ o.icon }}" size="26" hint-size="26px,26px"></x-import></sc-if><span>{{ o.label }}</span><sc-if value="{{ o.delta }}" hint-placeholder-val="{{ false }}"><span style="{{ o.deltaStyle }}">{{ o.delta }}</span></sc-if></button>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <span style="font-size:var(--text-caption);font-weight:var(--weight-semibold);color:var(--forest-800)">Kommentare</span>
+      <textarea rows="3" placeholder="Was die Bank sonst noch wissen sollte" style="width:100%;box-sizing:border-box;resize:vertical;border:1px solid var(--paper-400);border-radius:var(--radius-md);padding:12px 14px;font-family:var(--font-text);font-size:var(--text-body-sm);color:var(--forest-800);background:#fff;line-height:1.5"></textarea>
+    </div>
+  </sc-if>
+
+  <!-- ===== 5 UNTERLAGEN ===== -->
+  <sc-if value="{{ isStep5 }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <span style="width:44px;height:3px;background:var(--lime-600)"></span>
+      <span style="font-size:var(--text-micro);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--on-light-70)"><strong style="color:var(--forest-800)">Thema {{ stepNo }} von 6</strong> · {{ stepTitle }}</span>
+      <h1 style="margin:0;font-family:var(--font-display);font-size:clamp(28px,4vw,40px);line-height:1.1;letter-spacing:var(--tracking-tight);color:var(--forest-800);font-weight:var(--weight-bold);overflow-wrap:anywhere;hyphens:auto;text-wrap:pretty">Unterlagen hochladen</h1>
+      <p style="margin:0;font-size:var(--text-lead);line-height:var(--leading-normal);color:var(--on-light-70);max-width:58ch">Alles auf einmal, in beliebiger Reihenfolge. HYPOTEQ erkennt jedes Dokument, ordnet es zu und liest die relevanten Angaben aus.</p>
+    </div>
+
+    <sc-if value="{{ isIntern }}" hint-placeholder-val="{{ false }}">
+    <div style="border:1px solid var(--paper-300);border-radius:var(--radius-lg);background:var(--paper-100);padding:18px 22px;display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Badge" tone="info" hint-size="auto,20px">Interne Prüfansicht</x-import>
+        <span style="font-size:var(--text-caption);color:var(--on-light-70)">Case 00001146 · Modell doc-intel-2.1 · Schwellwerte 90 / 70 %</span>
+      </div>
+      <div style="{{ s.metrics }}">
+        <sc-for list="{{ internMetrics }}" as="m" hint-placeholder-count="4">
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <span style="font-family:var(--font-display);font-size:var(--text-title);color:var(--forest-800);font-weight:var(--weight-bold);line-height:1">{{ m.value }}</span>
+            <span style="font-size:var(--text-caption);color:var(--on-light-70)">{{ m.label }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    </sc-if>
+
+    <div sc-camel-on-drop="{{ onDrop }}" sc-camel-on-drag-over="{{ onDragOver }}" sc-camel-on-drag-leave="{{ onDragLeave }}" sc-camel-on-click="{{ pickFiles }}" style="{{ s.drop }}">
+      <input ref="{{ fileRef }}" type="file" multiple="{{ true }}" sc-camel-on-change="{{ onPick }}" style="display:none">
+      <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="upload-cloud" size="{{ icoLg }}" hint-size="34px,34px"></x-import>
+      <span style="font-size:var(--text-lead);font-weight:var(--weight-semibold);color:var(--forest-800);text-align:center">{{ dropTitle }}</span>
+      <span style="font-size:var(--text-body-sm);color:var(--on-light-70);text-align:center;max-width:46ch">PDF, JPG, PNG. Ganze Ordner sind möglich. Du musst nicht angeben, was welches Dokument ist.</span>
+      <span style="{{ s.dropHint }}">{{ dropHint }}</span>
+    </div>
+
+    <sc-if value="{{ busy }}" hint-placeholder-val="{{ false }}">
+    <div style="border:1px solid var(--lime-300);border-radius:var(--radius-lg);background:var(--lime-100);padding:16px 20px;display:flex;flex-direction:column;gap:10px;animation:hqrise .24s var(--ease-out) both">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+        <span style="font-size:var(--text-body-sm);font-weight:var(--weight-semibold);color:var(--forest-800)">{{ busyLine }}</span>
+        <span style="font-size:var(--text-caption);color:var(--on-light-70)">{{ busySub }}</span>
+      </div>
+      <div style="height:4px;border-radius:999px;background:rgba(19,34,25,.1);overflow:hidden;position:relative">
+        <div style="{{ s.busyBar }}"></div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ hasSuggest }}" hint-placeholder-val="{{ false }}">
+    <sc-for list="{{ suggests }}" as="sg" hint-placeholder-count="1">
+      <div style="border:1px solid var(--info-500);border-radius:var(--radius-lg);background:var(--info-100);padding:18px 20px;display:flex;flex-direction:column;gap:12px;animation:hqrise .24s var(--ease-out) both">
+        <span style="font-size:var(--text-body);font-weight:var(--weight-semibold);color:var(--forest-800);text-wrap:pretty">{{ sg.title }}</span>
+        <span style="font-size:var(--text-body-sm);color:var(--on-light-70);text-wrap:pretty">{{ sg.text }}</span>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button sc-camel-on-click="{{ sg.accept }}" style="{{ sg.primary }}">{{ sg.acceptLabel }}</button>
+          <button sc-camel-on-click="{{ sg.dismiss }}" style="{{ sg.ghost }}">Dokument nicht verwenden</button>
+        </div>
+      </div>
+    </sc-for>
+    </sc-if>
+
+    <div style="border:1px solid var(--paper-300);border-radius:var(--radius-lg);background:#fff;padding:22px;display:flex;flex-direction:column;gap:16px">
+      <div style="{{ s.statusHead }}">
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <span style="font-size:var(--text-micro);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--on-light-45)">Vollständigkeit</span>
+          <span style="font-family:var(--font-display);font-size:var(--text-title);color:var(--forest-800);font-weight:var(--weight-bold);line-height:1.1">{{ progressLine }}</span>
+          <span style="font-size:var(--text-body-sm);color:var(--on-light-70);text-wrap:pretty">{{ progressSub }}</span>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <sc-for list="{{ tallies }}" as="t" hint-placeholder-count="3">
+            <span style="{{ t.style }}">{{ t.label }}</span>
+          </sc-for>
+        </div>
+      </div>
+      <div style="height:8px;border-radius:999px;background:var(--paper-200);overflow:hidden;display:flex">
+        <div style="{{ s.barOk }}"></div>
+        <div style="{{ s.barWarn }}"></div>
+      </div>
+    </div>
+
+    <sc-for list="{{ groups }}" as="g" hint-placeholder-count="4">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;align-items:baseline;gap:10px">
+          <span style="font-size:var(--text-micro);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--on-light-45)">{{ g.name }}</span>
+          <span style="flex:1;height:1px;background:var(--paper-300)"></span>
+          <span style="font-size:var(--text-micro);color:var(--on-light-45)">{{ g.count }}</span>
+        </div>
+        <sc-for list="{{ g.rows }}" as="row" hint-placeholder-count="3">
+          <div style="{{ row.cardStyle }}">
+            <button sc-camel-on-click="{{ row.toggle }}" style="{{ row.headStyle }}">
+              <span style="{{ row.glyphStyle }}">{{ row.glyph }}</span>
+              <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px;text-align:left">
+                <span style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap">
+                  <span style="font-size:var(--text-body);font-weight:var(--weight-semibold);color:var(--forest-800);text-wrap:pretty">{{ row.label }}</span>
+                  <span style="font-size:var(--text-micro);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--on-light-45)">{{ row.why }}</span>
+                </span>
+                <span style="font-size:var(--text-caption);color:var(--on-light-70);text-wrap:pretty;word-break:break-word">{{ row.sub }}</span>
+              </span>
+              <span style="{{ row.badgeStyle }}">{{ row.badge }}</span>
+              <span style="{{ row.chevStyle }}"><span>{{ row.detailLabel }}</span><span style="{{ row.caretStyle }}">▾</span></span>
+            </button>
+            <sc-if value="{{ row.open }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:0 18px 18px;display:flex;flex-direction:column;gap:16px;animation:hqrise .24s var(--ease-out) both">
+              <sc-if value="{{ row.hasStored }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--paper-300);padding-top:14px">
+                <span style="font-size:var(--text-micro);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--on-light-45)">Wird gespeichert als</span>
+                <sc-for list="{{ row.stored }}" as="fn" hint-placeholder-count="1">
+                  <div style="display:flex;flex-direction:column;gap:3px;background:var(--paper);border-radius:var(--radius-md);padding:10px 14px">
+                    <span style="font-size:var(--text-body-sm);font-weight:var(--weight-semibold);color:var(--forest-800);word-break:break-all">{{ fn.stored }}</span>
+                    <span style="font-size:var(--text-caption);color:var(--on-light-45);word-break:break-all">Original: {{ fn.orig }}</span>
+                  </div>
+                </sc-for>
+              </div>
+              </sc-if>
+              <sc-if value="{{ row.hasFields }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:2px;border-top:1px solid var(--paper-300);padding-top:14px">
+                <span style="font-size:var(--text-micro);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--on-light-45);padding-bottom:8px">Erkannte Angaben</span>
+                <sc-for list="{{ row.fields }}" as="f" hint-placeholder-count="4">
+                  <div style="{{ f.rowStyle }}">
+                    <span style="font-size:var(--text-body-sm);color:var(--on-light-70)">{{ f.k }}</span>
+                    <span style="display:flex;align-items:center;gap:10px;justify-content:flex-end;flex-wrap:wrap">
+                      <span style="font-size:var(--text-body-sm);font-weight:var(--weight-semibold);color:var(--forest-800);text-align:right">{{ f.v }}</span>
+                      <span style="{{ f.chipStyle }}">{{ f.chip }}</span>
+                    </span>
+                  </div>
+                </sc-for>
+              </div>
+              </sc-if>
+              <sc-if value="{{ row.hasChecks }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <span style="font-size:var(--text-micro);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--on-light-45)">Abgleich mit deinen Angaben</span>
+                <sc-for list="{{ row.checks }}" as="c" hint-placeholder-count="1">
+                  <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;border:1px solid var(--success-100);background:var(--success-100);border-radius:var(--radius-md);padding:10px 14px">
+                    <span style="width:20px;height:20px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;background:#fff;color:var(--success-500);font-size:12px;font-weight:700">✓</span>
+                    <span style="font-size:var(--text-body-sm);color:var(--forest-800)"><strong style="font-weight:var(--weight-semibold)">{{ c.field }}</strong> · Funnel {{ c.funnel }} · Dokument {{ c.doc }}</span>
+                  </div>
+                </sc-for>
+              </div>
+              </sc-if>
+              <sc-if value="{{ row.note }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;gap:10px;align-items:flex-start;border-left:2px solid var(--lime-500);padding-left:12px">
+                <span style="font-size:var(--text-body-sm);color:var(--on-light-70);text-wrap:pretty">{{ row.note }}</span>
+              </div>
+              </sc-if>
+              <sc-if value="{{ row.warn }}" hint-placeholder-val="{{ false }}">
+              <div style="border:1px solid var(--warning-500);border-radius:var(--radius-md);background:var(--warning-100);padding:14px 16px">
+                <span style="font-size:var(--text-body-sm);color:var(--forest-800);text-wrap:pretty">{{ row.warn }}</span>
+              </div>
+              </sc-if>
+              <sc-if value="{{ row.showAudit }}" hint-placeholder-val="{{ false }}">
+              <div style="border-top:1px solid var(--paper-300);padding-top:12px;display:flex;flex-direction:column;gap:8px">
+                <span style="font-size:var(--text-micro);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--on-light-45)">Audit Trail</span>
+                <sc-for list="{{ row.audit }}" as="a" hint-placeholder-count="2">
+                  <div style="display:flex;gap:10px;align-items:baseline">
+                    <span style="font-size:var(--text-micro);color:var(--on-light-45);white-space:nowrap;min-width:110px">{{ a.ts }}</span>
+                    <span style="font-size:var(--text-caption);color:var(--on-light-70);text-wrap:pretty">{{ a.text }}</span>
+                  </div>
+                </sc-for>
+              </div>
+              </sc-if>
+              <sc-if value="{{ row.hasActions }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-wrap:wrap;gap:10px">
+                <sc-for list="{{ row.actions }}" as="a" hint-placeholder-count="2">
+                  <button sc-camel-on-click="{{ a.act }}" style="{{ a.style }}">{{ a.label }}</button>
+                </sc-for>
+              </div>
+              </sc-if>
+            </div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </sc-for>
+  </sc-if>
+
+  <!-- ===== 6 ABSCHLUSS ===== -->
+  <sc-if value="{{ isStep6 }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <span style="width:44px;height:3px;background:var(--lime-600)"></span>
+      <span style="font-size:var(--text-micro);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--on-light-70)"><strong style="color:var(--forest-800)">Thema {{ stepNo }} von 6</strong> · {{ stepTitle }}</span>
+      <h1 style="margin:0;font-family:var(--font-display);font-size:clamp(28px,4vw,40px);line-height:1.1;letter-spacing:var(--tracking-tight);color:var(--forest-800);font-weight:var(--weight-bold);overflow-wrap:anywhere;hyphens:auto;text-wrap:pretty">{{ finalTitle }}</h1>
+      <p style="margin:0;font-size:var(--text-lead);color:var(--on-light-70);max-width:54ch;text-wrap:pretty">{{ finalLead }}</p>
+    </div>
+    <div style="{{ s.kpis }}">
+      <sc-for list="{{ kpis }}" as="k" hint-placeholder-count="4">
+        <div style="background:#fff;padding:18px 20px;display:flex;flex-direction:column;gap:6px;min-width:0">
+          <span style="font-size:11px;letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--on-light-45);overflow-wrap:anywhere">{{ k.label }}</span>
+          <span style="font-family:var(--font-display);font-size:24px;font-weight:var(--weight-bold);color:var(--forest-800);line-height:1.1">{{ k.value }}</span>
+        </div>
+      </sc-for>
+    </div>
+    <sc-if value="{{ hasHints }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <span style="font-size:var(--text-micro);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--on-light-45)">Hinweise an die Bank · {{ hintCount }}</span>
+      <sc-for list="{{ hints }}" as="hn" hint-placeholder-count="2">
+        <div style="display:flex;align-items:flex-start;gap:14px;background:#fff;border:1px solid var(--paper-300);border-radius:var(--radius-md);padding:14px 18px">
+          <span style="font-size:11px;letter-spacing:var(--tracking-label);text-transform:uppercase;font-weight:var(--weight-bold);background:var(--warning-100);color:var(--forest-800);border-radius:999px;padding:4px 10px;flex:0 0 auto;margin-top:1px">Hinweis</span>
+          <span style="display:flex;flex-direction:column;gap:2px;min-width:0"><span style="font-size:var(--text-body-sm);font-weight:var(--weight-semibold);color:var(--forest-800)">{{ hn.title }}</span><span style="font-size:var(--text-caption);color:var(--on-light-70);text-wrap:pretty">{{ hn.text }}</span></span>
+        </div>
+      </sc-for>
+    </div>
+    </sc-if>
+    <span style="font-size:var(--text-micro);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--on-light-45);margin-bottom:-22px">Die Prüfung dahinter</span>
+    <div style="border:1px solid var(--paper-300);border-radius:var(--radius-lg);background:#fff;overflow:hidden">
+      <sc-for list="{{ finalChecks }}" as="c" hint-placeholder-count="6">
+        <div style="{{ c.rowStyle }}">
+          <span style="{{ c.glyphStyle }}">{{ c.glyph }}</span>
+          <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px">
+            <span style="font-size:var(--text-body);font-weight:var(--weight-semibold);color:var(--forest-800)">{{ c.label }}</span>
+            <span style="font-size:var(--text-caption);color:var(--on-light-70);text-wrap:pretty">{{ c.sub }}</span>
+          </span>
+          <span style="{{ c.badgeStyle }}">{{ c.badge }}</span>
+        </div>
+      </sc-for>
+    </div>
+    <sc-if value="{{ notDone }}" hint-placeholder-val="{{ true }}">
+    <div style="background:var(--lime-500);border-radius:var(--radius-lg);padding:26px;display:flex;flex-direction:column;gap:14px">
+      <span style="font-family:var(--font-display);font-size:var(--text-title);font-weight:var(--weight-bold);color:var(--forest-800);line-height:var(--leading-snug);text-wrap:pretty">Finanzierungsanfrage abschliessen</span>
+      <span style="font-size:var(--text-body-sm);color:var(--forest-800);opacity:.75;max-width:58ch;text-wrap:pretty">Mit dem Abschluss geht der Fall an HYPOTEQ zur Bankanfrage. Das Fall-Dossier fasst alle Angaben und Dokumente für den Kreditgeber zusammen.</span>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;padding-top:4px">
+        <button sc-camel-on-click="{{ finish }}" style="display:inline-flex;align-items:center;gap:10px;background:var(--forest-800);color:#fff;border:1px solid var(--forest-800);border-radius:var(--radius-pill);padding:13px 26px;font-family:var(--font-text);font-size:var(--text-body);font-weight:var(--weight-semibold);cursor:pointer">Finanzierungsanfrage abschliessen</button>
+        <a href="HYPOTEQ_Fall-Dossier_Gerber.html" target="_blank" style="display:inline-flex;align-items:center;gap:10px;background:transparent;color:var(--forest-800);border:1px solid var(--forest-800);border-radius:var(--radius-pill);padding:13px 26px;font-family:var(--font-text);font-size:var(--text-body);font-weight:var(--weight-semibold);cursor:pointer;text-decoration:none">Fall-Dossier als PDF</a>
+      </div>
+    </div>
+    </sc-if>
+    <sc-if value="{{ isDone }}" hint-placeholder-val="{{ false }}">
+    <div style="background:var(--forest-800);border-radius:var(--radius-lg);padding:28px;display:flex;flex-direction:column;gap:14px;animation:hqrise .3s var(--ease-out) both">
+      <span style="font-size:var(--text-micro);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--lime-500)">Abgeschlossen</span>
+      <span style="font-family:var(--font-display);font-size:var(--text-title);font-weight:var(--weight-bold);color:#fff;line-height:var(--leading-snug);text-wrap:pretty">{{ doneTitle }}</span>
+      <span style="font-size:var(--text-body-sm);color:var(--on-dark-70);max-width:58ch;text-wrap:pretty">{{ doneSub }}</span>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;padding-top:4px">
+        <button sc-camel-on-click="{{ reset }}" style="display:inline-flex;align-items:center;gap:10px;background:var(--lime-500);color:var(--forest-800);border:1px solid transparent;border-radius:var(--radius-pill);padding:13px 26px;font-family:var(--font-text);font-size:var(--text-body);font-weight:var(--weight-semibold);cursor:pointer">Neuen Antrag stellen</button>
+        <a href="https://www.hypoteq.ch" style="display:inline-flex;align-items:center;gap:10px;background:transparent;color:#fff;border:1px solid var(--on-dark-45);border-radius:var(--radius-pill);padding:13px 26px;font-family:var(--font-text);font-size:var(--text-body);font-weight:var(--weight-semibold);text-decoration:none">Abschliessen</a>
+      </div>
+    </div>
+    </sc-if>
+  </sc-if>
+
+  </div>
+
+  <!-- ===== RAIL: DEINE UNTERLAGEN ===== -->
+  <sc-if value="{{ railVisible }}" hint-placeholder-val="{{ true }}">
+  <aside style="{{ s.rail }}">
+    <div style="background:var(--forest-800);border-radius:var(--radius-lg);padding:24px;display:flex;flex-direction:column;gap:18px">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <span style="font-size:var(--text-micro);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--on-dark-45)">Deine Unterlagen</span>
+        <span style="font-family:var(--font-display);font-size:48px;line-height:1;color:var(--lime-500);font-weight:var(--weight-bold)">{{ reqCount }}</span>
+        <span style="font-size:var(--text-body-sm);color:var(--on-dark-70);text-wrap:pretty">Dokumente werden für diese Anfrage benötigt. Die Liste wächst nur mit deinen Antworten.</span>
+      </div>
+      <div style="height:1px;background:var(--on-dark-14)"></div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <sc-for list="{{ railGroups }}" as="rg" hint-placeholder-count="3">
+          <div style="display:flex;flex-direction:column;gap:2px">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px;padding-bottom:6px">
+              <span style="font-size:var(--text-micro);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--on-dark-45)">{{ rg.name }}</span>
+              <span style="font-size:var(--text-micro);color:var(--on-dark-45)">{{ rg.count }}</span>
+            </div>
+            <sc-for list="{{ rg.items }}" as="r" hint-placeholder-count="4">
+              <div style="display:flex;align-items:flex-start;gap:10px;padding:7px 0;border-top:1px solid var(--on-dark-08);animation:hqrise .22s var(--ease-out) both">
+                <span style="{{ r.dot }}"></span>
+                <span style="display:flex;flex-direction:column;gap:1px;min-width:0">
+                  <span style="font-size:var(--text-caption);color:{{ r.color }};text-wrap:pretty">{{ r.label }}</span>
+                  <span style="font-size:10px;letter-spacing:.04em;color:var(--on-dark-45)">{{ r.why }}</span>
+                </span>
+              </div>
+            </sc-for>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </aside>
+  </sc-if>
+  </div>
+  </main>
+
+  <footer style="{{ s.footer }}">
+    <button sc-camel-on-click="{{ prev }}" style="{{ s.prevBtn }}">Zurück</button>
+    <sc-if value="{{ hasNext }}" hint-placeholder-val="{{ true }}">
+    <button sc-camel-on-click="{{ next }}" style="display:inline-flex;align-items:center;gap:8px;background:var(--lime-500);color:var(--forest-800);border:1px solid transparent;border-radius:var(--radius-pill);padding:12px 26px;font-family:var(--font-text);font-size:var(--text-body);font-weight:var(--weight-semibold);cursor:pointer">{{ nextLabel }}</button>
+    </sc-if>
+  </footer>
+</div>
+</sc-if>
+</div>
+
+<!-- ===== DETAIL-MODAL ===== -->
+<sc-if value="{{ modal }}" hint-placeholder-val="{{ false }}">
+<div sc-camel-on-click="{{ closeModal }}" style="position:fixed;inset:0;z-index:40;background:rgba(10,19,13,.6);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:20px">
+  <div sc-camel-on-click="{{ stop }}" data-hq-theme="light" style="{{ s.modal }}">
+    <header style="display:flex;align-items:flex-start;gap:16px;padding:20px 24px;border-bottom:1px solid var(--paper-300)">
+      <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:5px">
+        <span style="font-size:var(--text-micro);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--on-light-45)">Dokument-Detail</span>
+        <span style="font-family:var(--font-display);font-size:var(--text-title);font-weight:var(--weight-bold);color:var(--forest-800);line-height:1.15;text-wrap:pretty">{{ modal.title }}</span>
+        <span style="font-size:var(--text-caption);color:var(--on-light-70);word-break:break-word">{{ modal.meta }}</span>
+      </div>
+      <button sc-camel-on-click="{{ closeModal }}" style="width:36px;height:36px;border-radius:999px;border:1px solid var(--paper-300);background:#fff;color:var(--forest-800);font-size:16px;cursor:pointer;flex:0 0 auto">✕</button>
+    </header>
+    <div style="{{ s.modalBody }}">
+      <div style="{{ s.preview }}">
+        <sc-if value="{{ modal.url }}" hint-placeholder-val="{{ false }}">
+          <iframe src="{{ modal.url }}" title="Dokument" style="width:100%;height:100%;min-height:420px;border:1px solid var(--paper-300);border-radius:var(--radius-sm);background:#fff"></iframe>
+        </sc-if>
+        <sc-if value="{{ modal.noUrl }}" hint-placeholder-val="{{ true }}">
+          <div style="background:#fff;border:1px solid var(--paper-300);border-radius:var(--radius-sm);padding:28px 26px;display:flex;flex-direction:column;gap:14px;min-height:280px">
+            <span style="font-size:var(--text-micro);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--on-light-45)">Vorschau · {{ modal.pages }} Seiten</span>
+            <sc-for list="{{ modal.lines }}" as="l" hint-placeholder-count="8"><span style="{{ l.style }}"></span></sc-for>
+          </div>
+        </sc-if>
+      </div>
+      <div style="{{ s.fieldsCol }}">
+        <span style="font-size:var(--text-micro);letter-spacing:var(--tracking-label);text-transform:uppercase;color:var(--on-light-45)">Erkannte Informationen – editierbar</span>
+        <sc-for list="{{ modal.fields }}" as="f" hint-placeholder-count="6">
+          <div style="display:flex;flex-direction:column;gap:6px;padding:12px 0;border-bottom:1px solid var(--paper-300)">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+              <span style="font-size:var(--text-caption);color:var(--on-light-70)">{{ f.k }}</span>
+              <span style="{{ f.chipStyle }}">{{ f.chip }}</span>
+            </div>
+            <input sc-camel-default-value="{{ f.v }}" style="width:100%;box-sizing:border-box;background:#fff;border:1px solid var(--paper-300);border-radius:var(--radius-md);padding:11px 14px;font-family:var(--font-text);font-size:var(--text-body-sm);color:var(--forest-800)">
+          </div>
+        </sc-for>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;padding-top:6px">
+          <button sc-camel-on-click="{{ modal.confirm }}" style="display:inline-flex;align-items:center;gap:8px;background:var(--lime-500);color:var(--forest-800);border:1px solid transparent;border-radius:var(--radius-pill);padding:11px 22px;font-family:var(--font-text);font-size:var(--text-body-sm);font-weight:var(--weight-semibold);cursor:pointer">Angaben bestätigen</button>
+          <button sc-camel-on-click="{{ closeModal }}" style="display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--forest-800);border:1px solid var(--forest-800);border-radius:var(--radius-pill);padding:11px 22px;font-family:var(--font-text);font-size:var(--text-body-sm);font-weight:var(--weight-semibold);cursor:pointer">Schliessen</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<!-- ===== TOAST ===== -->
+<sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+<div style="position:fixed;left:50%;bottom:88px;transform:translateX(-50%);z-index:50;background:var(--forest-800);border:1px solid var(--on-dark-14);border-radius:var(--radius-md);padding:16px 20px;display:flex;flex-direction:column;gap:6px;min-width:300px;max-width:min(92vw,520px);animation:hqrise .3s var(--ease-out) both;box-shadow:var(--shadow-lg)">
+  <sc-for list="{{ toast.lines }}" as="l" hint-placeholder-count="3"><span style="{{ l.style }}">{{ l.text }}</span></sc-for>
+</div>
+</sc-if>
+
+
+
+</x-dc>
+<script type="text/x-dc" data-dc-script="" data-props="{&quot;role&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;kunde&quot;,&quot;berater&quot;,&quot;intern&quot;],&quot;default&quot;:&quot;berater&quot;,&quot;tsType&quot;:&quot;'kunde' | 'berater' | 'intern'&quot;,&quot;section&quot;:&quot;Demo&quot;},&quot;simulate&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Demo&quot;},&quot;viewport&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;auto&quot;,&quot;desktop&quot;,&quot;mobile&quot;],&quot;default&quot;:&quot;auto&quot;,&quot;tsType&quot;:&quot;'auto' | 'desktop' | 'mobile'&quot;,&quot;section&quot;:&quot;Prototyp&quot;},&quot;step&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:0,&quot;min&quot;:0,&quot;max&quot;:6,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Prototyp&quot;}}">
+class Component extends DCLogic {
+  state = {
+    step: this.props.step ?? 0,
+    role: this.props.role ?? 'berater',
+    width: 1280,
+    railOpen: false,
+    ans: { antrag: null, kn: 'Natürliche Person', immo: null, lieg: null, nutz: null, heizung: null, baurecht: 'Nein', aufstockung: 'Nein', angebote: 'Nein', reno: 'Nein', reserviert: 'Nein', kinder: 'Nein', unterhalt: 'Nein', kredite: 'Nein', leasing: 'Nein', buerge: 'Nein', ab50: 'Nein', pkSe: 'Nein', nbDocs: 'Nein', laufzeit: null, s3a: 'Nein', pk: 'Nein', schenkung: 'Nein', erbe: 'Nein', darlehen: 'Nein' },
+    fin: { old: 0, up: 0, val: 0, inc: 0 },
+    txt: {},
+    files: [],      // {name, url, kind, reqId, extra, status:'analysing'|'done'}
+    resolved: {},   // reqId -> {status, audit[]}
+    open: {},
+    dismissed: {},
+    modal: null, toast: null, drag: false, busy: false, done: false
+  };
+  rootRef = React.createRef();
+  fileRef = React.createRef();
+
+  componentDidUpdate(prev) {
+    if (prev.role !== this.props.role && this.props.role) this.setState({ role: this.props.role });
+    if (prev.simulate !== this.props.simulate && this.props.simulate) this.simulateAll();
+  }
+  componentDidMount() {
+    const el = this.rootRef.current;
+    if (el && window.ResizeObserver) {
+      this.ro = new ResizeObserver(() => this.setState({ width: el.clientWidth }));
+      this.ro.observe(el);
+    }
+    this.setState({ width: el ? el.clientWidth : window.innerWidth });
+    this.onKey = e => {
+      const tag = (e.target && e.target.tagName || '').toLowerCase();
+      if (tag === 'input' || tag === 'textarea' || this.state.modal || this.state.step === 0) return;
+      if (e.key === 'ArrowRight') this.goto(Math.min(6, this.state.step + 1));
+      if (e.key === 'ArrowLeft') this.goto(Math.max(0, this.state.step - 1));
+    };
+    window.addEventListener('keydown', this.onKey);
+  }
+  componentWillUnmount() { if (this.ro) this.ro.disconnect(); window.removeEventListener('keydown', this.onKey); }
+
+  // ---------- Anforderungen aus Antworten ----------
+  reqList(over) {
+    const a = over || this.state.ans, G = window.HQ_GERBER, R = G ? G.REQ : [];
+    const by = id => R.find(r => r.id === id);
+    const gen = (id, grp, label, why, opt) => ({ id, grp, label, why, fields: [], generic: true, optionalHint: !!opt });
+    const out = [];
+    const abl = a.antrag === 'Ablösung', kauf = a.antrag === 'Neue Hypothek', jp = a.kn === 'Juristische Person';
+    const proj = a.immo === 'Bauprojekt', neu = a.immo === 'Neubau';
+    // Objekt – Grundunterlagen (immer, ausser Bauprojekt)
+    if (!proj) { out.push(by('fotos')); out.push(by('verkaufsdoku')); out.push(by('stwe_plan')); }
+    if (!neu || a.nbDocs === 'Ja') { out.push(by('grundbuch')); if (!proj) out.push(by('gvz')); }
+    if (kauf && !proj) out.push(gen('kaufvertrag', 'objekt', 'Kaufvertrag (Entwurf oder Original)', 'weil: Kauf'));
+    if (kauf && a.reserviert === 'Ja') { out.push(gen('reservation', 'objekt', 'Reservationsvertrag', 'weil: reserviert = Ja')); out.push(gen('reservation_zahlung', 'objekt', 'Nachweis Reservationszahlung (Bankauszug)', 'weil: reserviert = Ja')); }
+    if (proj || (kauf && a.reno === 'Ja')) { const w = proj ? 'weil: Bauprojekt' : 'weil: Renovation = Ja'; out.push(gen('baubewilligung', 'objekt', 'Baubewilligung', w)); out.push(gen('projekt', 'objekt', 'Projektpläne, Baubeschrieb und Werkvertrag inkl. Kostenzusammenzug und Kubatur', w)); }
+    if (a.lieg === 'Stockwerkeigentum') { out.push(by('stwe_regl')); out.push(by('ef')); }
+    if (a.nutz === 'Vermietet') out.push(gen('mieterspiegel', 'objekt', 'Aktueller Mieterspiegel inkl. Mietzinsaufstellung', 'weil: Renditeobjekt'));
+    if (a.baurecht === 'Ja') out.push(gen('baurecht', 'objekt', 'Baurechtsvertrag', 'weil: Baurecht = Ja'));
+    if (a.angebote === 'Ja') out.push(gen('angebote', 'objekt', 'Bestehende Finanzierungsangebote', 'weil: Angebote = Ja'));
+    // Hypothek
+    if (abl) { out.push(by('hyp_rahmen')); out.push(by('hyp_sicher')); out.push(by('hyp_zins')); }
+    // Person
+    out.push(by('vollmacht'));
+    if (jp) {
+      out.push(gen('hr', 'person', 'Aktueller Handelsregisterauszug', 'Pflicht · juristische Person'));
+      out.push(gen('wb', 'person', 'Pass / ID der zeichnungsberechtigten Person', 'Pflicht · juristische Person'));
+      out.push(gen('jahresabschluss', 'person', 'Jahresabschlüsse (Bilanz und Erfolgsrechnung) der letzten 3 Jahre', 'Pflicht · juristische Person'));
+      out.push(gen('zwischenbilanz', 'person', 'Aktuelle Zwischenbilanz', 'Falls vorhanden', true));
+      out.push(gen('betreibung', 'person', 'Aktueller Betreibungsauszug', 'Pflicht · juristische Person'));
+      out.push(gen('steuer_jp', 'person', 'Aktuelle Steuererklärung der Gesellschaft', 'Pflicht · juristische Person'));
+    } else {
+      out.push(by('id'));
+      if (a.job === 'Selbständig') {
+        out.push(gen('abschluss_se', 'person', 'Bilanz und Erfolgsrechnung (inkl. Revisionsbericht) der letzten 3 Jahre', 'weil: selbständig'));
+        if (a.pkSe === 'Ja') out.push(by('pk'));
+      } else if (a.job === 'Pensioniert') {
+        out.push(gen('rente', 'person', 'Rentenbescheinigung (PK, AHV)', 'weil: pensioniert'));
+      } else {
+        out.push(by('lohnausweise')); out.push(by('lohnabrechnungen')); out.push(by('anstellung')); out.push(by('pk'));
+      }
+      out.push(by('steuer'));
+      if (a.ab50 === 'Ja' && a.job !== 'Pensioniert') out.push(gen('ahv_voraus', 'person', 'Rentenvorausberechnung (AHV)', 'weil: Kreditnehmer ab 50'));
+      if (a.kinder === 'Ja' && a.unterhalt === 'Ja') out.push(by('unterhalt'));
+    }
+    if (a.kredite === 'Ja') out.push(by('kredit'));
+    if (a.leasing === 'Ja') out.push(by('leasing'));
+    if (a.buerge === 'Ja') { out.push(gen('b_id', 'person', 'Solidarbürge · Pass / ID', 'weil: Solidarbürgschaft = Ja')); out.push(gen('b_steuer', 'person', 'Solidarbürge · aktuelle Steuererklärung', 'weil: Solidarbürgschaft = Ja')); out.push(gen('b_lohn', 'person', 'Solidarbürge · Lohnausweise 3 Jahre', 'weil: Solidarbürgschaft = Ja')); }
+    // Eigenmittel
+    out.push(by('vermoegen'));
+    if (a.s3a === 'Ja' || (a.ab50 === 'Ja' && !jp)) { out.push(by('s3a')); out.push(by('police')); }
+    if (a.pk === 'Ja') out.push(gen('pkvorbezug', 'eigenmittel', 'Bestätigung PK-Vorbezug / Verpfändung', 'weil: Pensionskasse = Ja'));
+    if (a.schenkung === 'Ja') out.push(gen('schenkung', 'eigenmittel', 'Schenkungsvertrag', 'weil: Schenkung = Ja'));
+    if (a.erbe === 'Ja') out.push(gen('erbe', 'eigenmittel', 'Erbschaftsbestätigung', 'weil: Erbschaft = Ja'));
+    if (a.darlehen === 'Ja') out.push(gen('darlehen', 'eigenmittel', 'Darlehensvertrag', 'weil: Darlehen = Ja'));
+    return out.filter(Boolean);
+  }
+
+  // ---------- Upload ----------
+  readEntries = (items) => new Promise(resolve => {
+    const out = []; let pending = 0;
+    const done = () => { if (--pending === 0) resolve(out); };
+    const walk = (entry) => {
+      pending++;
+      if (entry.isFile) entry.file(f => { out.push(f); done(); }, done);
+      else if (entry.isDirectory) { const rd = entry.createReader(); const readAll = () => rd.readEntries(es => { if (!es.length) return done(); es.forEach(walk); readAll(); }, done); readAll(); }
+      else done();
+    };
+    let any = false;
+    for (let i = 0; i < items.length; i++) { const e = items[i].webkitGetAsEntry && items[i].webkitGetAsEntry(); if (e) { any = true; walk(e); } }
+    if (!any) resolve(null);
+  });
+  onDragOver = e => { e.preventDefault(); if (!this.state.drag) this.setState({ drag: true }); };
+  onDragLeave = () => this.setState({ drag: false });
+  onDrop = async e => {
+    e.preventDefault(); this.setState({ drag: false });
+    let files = null;
+    if (e.dataTransfer.items && e.dataTransfer.items.length) files = await this.readEntries(e.dataTransfer.items);
+    if (!files) files = Array.from(e.dataTransfer.files || []);
+    this.ingest(files);
+  };
+  pickFiles = () => { if (this.fileRef.current) this.fileRef.current.click(); };
+  onPick = e => { this.ingest(Array.from(e.target.files || [])); e.target.value = ''; };
+  stop = e => e.stopPropagation();
+
+  ingest(fileObjs) {
+    const G = window.HQ_GERBER; if (!G || !fileObjs.length) return;
+    const existing = new Set(this.state.files.map(f => f.name));
+    const fresh = fileObjs.filter(f => !existing.has(f.name) && !/^\./.test(f.name));
+    if (!fresh.length) return;
+    fresh.sort((a, b) => a.name.localeCompare(b.name));
+    const items = fresh.map(f => {
+      const c = G.classify(f.name);
+      return { name: f.name, url: f.size ? URL.createObjectURL(f) : null, kind: c.kind, reqId: c.req ? c.req.id : null, extra: c.extra || null, status: 'analysing', size: f.size };
+    });
+    this.setState(s => ({ files: s.files.concat(items), busy: true, open: {} }));
+    items.forEach((it, i) => setTimeout(() => this.resolveFile(it.name, i === items.length - 1), 520 + i * 380));
+  }
+  resolveFile(name, last) {
+    this.setState(s => {
+      const files = s.files.map(f => f.name === name ? Object.assign({}, f, { status: 'done' }) : f);
+      const f = files.find(x => x.name === name);
+      const resolved = Object.assign({}, s.resolved);
+      if (f.kind === 'req') {
+        const R = window.HQ_GERBER.REQ.find(r => r.id === f.reqId);
+        const prev = resolved[f.reqId] || { audit: [] };
+        const n = files.filter(x => x.reqId === f.reqId && x.status === 'done').length;
+        const complete = n >= (R.expect || 1);
+        resolved[f.reqId] = { status: R.outdated ? 'outdated' : (complete ? 'ok' : 'partial'), n, audit: prev.audit.concat([{ ts: this.ts(), text: 'Erkannt als «' + R.label + '» · ' + name + ' · Klassifikation ' + (90 + (name.length % 9)) + ' %' }]) };
+      }
+      return { files, resolved };
+    });
+    if (last) setTimeout(() => {
+      const st = this.state, done = st.files.filter(f => f.status === 'done');
+      const reqs = new Set(done.filter(f => f.kind === 'req').map(f => f.reqId));
+      const nFields = Array.from(reqs).reduce((a, id) => a + (window.HQ_GERBER.REQ.find(r => r.id === id).fields.length), 0);
+      const warn = done.filter(f => f.kind === 'duplicate').length + Object.keys(st.resolved).filter(k => st.resolved[k].status === 'outdated').length;
+      const nn = done.filter(f => f.kind === 'notneeded' || f.kind === 'surplus').length;
+      this.setState({ busy: false });
+      this.say([{ text: '✓ ' + done.length + ' Dateien verarbeitet, ' + reqs.size + ' Anforderungen erfüllt', big: true }, { text: '✓ ' + nFields + ' Angaben ausgelesen' }, warn ? { text: '⚠ ' + warn + ' Punkt(e) brauchen deine Kontrolle' } : null, nn ? { text: nn + ' Dateien nicht benötigt oder überzählig – behalten, nicht gewertet' } : null].filter(Boolean));
+    }, 500);
+  }
+  simulateAll = () => {
+    const G = window.HQ_GERBER;
+    this.ingest(G.FILES.concat(G.FILES_NN).map(n => ({ name: n, size: 0 })));
+  };
+
+  // ---------- Helfer ----------
+  ts() { const d = new Date(); return d.toLocaleDateString('de-CH') + ' ' + d.toLocaleTimeString('de-CH', { hour: '2-digit', minute: '2-digit' }); }
+  chf(n) { return 'CHF ' + Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "'"); }
+  storedName(r, f, i, total, T) {
+    const SHORT = { fotos: 'Fotos', verkaufsdoku: 'Verkaufsdokumentation', stwe_plan: 'Grundrissplaene', grundbuch: 'Grundbuchauszug', gvz: 'Gebaeudeversicherung', stwe_regl: 'STWE-Reglement', ef: 'Erneuerungsfonds', hyp_rahmen: 'Hypothekarvertrag', hyp_sicher: 'Sicherungsvereinbarung', hyp_zins: 'Zinsabrechnung', vollmacht: 'Auskunftsermaechtigung', id: 'ID', lohnausweise: 'Lohnausweis', lohnabrechnungen: 'Lohnabrechnungen', anstellung: 'Anstellungsvertrag', pk: 'Pensionskassenausweis', steuer: 'Steuererklaerung', unterhalt: 'Unterhaltsvereinbarung', kredit: 'Kreditvertrag', leasing: 'Leasingvertrag', vermoegen: 'Eigenmittelnachweis', s3a: 'Saeule3a-Bescheinigung', police: 'Vorsorgepolice-3a' };
+    const GRP = { person: '01', hypothek: '02', objekt: '03', eigenmittel: '04' };
+    const clean = s => (s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^A-Za-z0-9-]+/g, '');
+    const typ = SHORT[r.id] || clean(r.label.split(' ').slice(0, 2).join('-'));
+    const person = r.grp === 'person' && T.nach ? clean(T.nach) + '-' + clean(T.vor) : r.grp === 'hypothek' ? 'ZKB' : r.grp === 'objekt' ? '' : '';
+    let d = '';
+    const m1 = f.name.match(/(20\d\d)_(\d\d)_(\d\d)/), m2 = f.name.match(/(20\d\d)/), m3 = (r.date || '').match(/(\d\d)\.(\d\d)\.(20\d\d)/), m4 = (r.date || '').match(/(20\d\d)/);
+    if (m1) d = m1[1] + '-' + m1[2] + '-' + m1[3]; else if (total > 1 && m2) d = m2[1]; else if (m3) d = m3[3] + '-' + m3[2] + '-' + m3[1]; else if (m2) d = m2[1]; else if (m4) d = m4[1];
+    const ext = (f.name.split('.').pop() || 'pdf').toLowerCase();
+    return ['HQ-26-06-156283', GRP[r.grp] || '00', typ, person, d, total > 1 ? String(i + 1) : ''].filter(Boolean).join('_') + '.' + ext;
+  }
+  chfIn(n) { return n ? this.chf(n) : ''; }
+  reset = () => { this.setState({ step: 0, ans: { antrag: null, kn: 'Natürliche Person', immo: null, lieg: null, nutz: null, heizung: null, baurecht: 'Nein', aufstockung: 'Nein', angebote: 'Nein', reno: 'Nein', reserviert: 'Nein', kinder: 'Nein', unterhalt: 'Nein', kredite: 'Nein', leasing: 'Nein', buerge: 'Nein', ab50: 'Nein', pkSe: 'Nein', nbDocs: 'Nein', laufzeit: null, s3a: 'Nein', pk: 'Nein', schenkung: 'Nein', erbe: 'Nein', darlehen: 'Nein' }, fin: { old: 0, up: 0, val: 0, inc: 0 }, txt: {}, files: [], resolved: {}, open: {}, dismissed: {}, modal: null, done: false }); window.scrollTo(0, 0); };
+  num(v) { return Number(String(v).replace(/[^0-9]/g, '')) || 0; }
+  say(lines) { if (this.t) clearTimeout(this.t); this.setState({ toast: lines }); this.t = setTimeout(() => this.setState({ toast: null }), 6000); }
+  setAns(k, v) { this.setState(s => ({ ans: Object.assign({}, s.ans, { [k]: v }) })); }
+  setRes(id, patch, log) {
+    this.setState(s => { const r = Object.assign({}, s.resolved); const p = r[id] || { audit: [] }; r[id] = Object.assign({}, p, patch, log ? { audit: (p.audit || []).concat([{ ts: this.ts(), text: log }]) } : {}); return { resolved: r }; });
+  }
+  toggle = id => this.setState(s => ({ open: Object.assign({}, s.open, { [id]: !s.open[id] }) }));
+  goto = n => { this.setState({ step: n, modal: null, railOpen: false }); window.scrollTo(0, 0); };
+
+  btn(kind) {
+    const base = { display: 'inline-flex', alignItems: 'center', gap: 8, borderRadius: 'var(--radius-pill)', padding: '10px 20px', fontFamily: 'var(--font-text)', fontSize: 'var(--text-body-sm)', fontWeight: 'var(--weight-semibold)', cursor: 'pointer', lineHeight: 1.1 };
+    if (kind === 'primary') return Object.assign({}, base, { background: 'var(--lime-500)', color: 'var(--forest-800)', border: '1px solid transparent' });
+    if (kind === 'dark') return Object.assign({}, base, { background: 'var(--forest-800)', color: '#fff', border: '1px solid var(--forest-800)' });
+    return Object.assign({}, base, { background: '#fff', color: 'var(--forest-800)', border: '1px solid var(--paper-400)' });
+  }
+  chip(f, intern) {
+    const c = f.c;
+    if (c == null) return { label: 'Nicht erkannt', bg: 'var(--danger-100)', fg: 'var(--danger-500)' };
+    const pct = intern ? ' · ' + Math.round(c * 100) + ' %' : '';
+    if (c >= .9) return { label: 'Sicher' + pct, bg: 'var(--success-100)', fg: 'var(--success-500)' };
+    if (c >= .7) return { label: 'Bitte prüfen' + pct, bg: 'var(--warning-100)', fg: 'var(--warning-500)' };
+    return { label: 'Unsicher' + pct, bg: 'var(--danger-100)', fg: 'var(--danger-500)' };
+  }
+  chipStyle(t) { return { display: 'inline-flex', alignItems: 'center', background: t.bg, color: t.fg, fontSize: 'var(--text-micro)', fontWeight: 'var(--weight-semibold)', textTransform: 'uppercase', letterSpacing: 'var(--tracking-label)', padding: '3px 8px', borderRadius: 'var(--radius-xs)', whiteSpace: 'nowrap' }; }
+  q(label, key, opts, hint) {
+    const st = this.state;
+    const ICONS = { 'Neue Hypothek': 'key-round', 'Ablösung': 'repeat', 'Natürliche Person': 'user', 'Juristische Person': 'briefcase', 'Bestehende Immobilie': 'home', 'Neubau': 'hammer', 'Bauprojekt': 'ruler', 'Einfamilienhaus': 'house', 'Stockwerkeigentum': 'building-2', 'Mehrfamilienhaus': 'building', 'Ferienobjekt': 'mountain' };
+    const card = ['antrag', 'kn', 'immo', 'lieg'].indexOf(key) >= 0 && !this.isMob;
+    const ref = this.reqList(Object.assign({}, st.ans, { [key]: opts.indexOf('Nein') >= 0 ? 'Nein' : null })).length;
+    return { label, hint: hint || null, opts: opts.map(o => {
+      const sel = st.ans[key] === o;
+      const d = this.reqList(Object.assign({}, st.ans, { [key]: o })).length - ref;
+      const delta = d > 0 ? '+' + d + (card ? (d === 1 ? ' Unterlage' : ' Unterlagen') : '') : '';
+      const style = card
+        ? { display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 12, flex: '1 1 170px', minWidth: 150, textAlign: 'left', padding: sel ? '17px 17px' : '18px 18px', borderRadius: 16, border: sel ? '2px solid var(--forest-800)' : '1px solid var(--paper-300)', background: sel ? 'var(--lime-500)' : '#fff', color: 'var(--forest-800)', fontFamily: 'var(--font-text)', fontSize: 'var(--text-body)', fontWeight: 'var(--weight-semibold)', cursor: 'pointer', transition: 'var(--transition-control)', boxSizing: 'border-box' }
+        : { display: 'inline-flex', alignItems: 'center', gap: 8, border: sel ? '1px solid transparent' : '1px solid var(--paper-400)', background: sel ? 'var(--lime-500)' : '#fff', color: 'var(--forest-800)', borderRadius: 'var(--radius-pill)', padding: '10px 18px', fontFamily: 'var(--font-text)', fontSize: 'var(--text-body-sm)', fontWeight: 'var(--weight-semibold)', cursor: 'pointer', transition: 'var(--transition-control)' };
+      const deltaStyle = { fontSize: 11, letterSpacing: 'var(--tracking-label)', textTransform: 'uppercase', fontWeight: 'var(--weight-bold)', borderRadius: 999, padding: card ? '3px 9px' : '2px 7px', background: sel ? 'var(--forest-800)' : 'var(--lime-100, #EEF9D8)', color: sel ? 'var(--lime-500)' : 'var(--forest-800)' };
+      return { label: o, pick: () => this.setAns(key, o), style, icon: card ? (ICONS[o] || null) : null, delta, deltaStyle };
+    }) };
+  }
+
+
+  ST = {
+    missing: { badge: 'Fehlt', glyph: '○', bg: 'var(--paper-200)', fg: 'var(--on-light-45)', border: 'var(--paper-300)' },
+    analysing: { badge: 'Wird analysiert', glyph: '◌', bg: 'var(--lime-200)', fg: 'var(--lime-800)', border: 'var(--lime-300)' },
+    partial: { badge: 'Unvollständig', glyph: '½', bg: 'var(--warning-100)', fg: 'var(--warning-500)', border: 'var(--warning-500)' },
+    ok: { badge: 'Erkannt', glyph: '✓', bg: 'var(--success-100)', fg: 'var(--success-500)', border: 'var(--paper-300)' },
+    outdated: { badge: 'Nicht mehr aktuell', glyph: '⚠', bg: 'var(--warning-100)', fg: 'var(--warning-500)', border: 'var(--warning-500)' },
+    skipped: { badge: 'Nicht vorhanden', glyph: '–', bg: 'var(--paper-200)', fg: 'var(--on-light-70)', border: 'var(--paper-300)' },
+    duplicate: { badge: 'Duplikat', glyph: '=', bg: 'var(--info-100)', fg: 'var(--info-500)', border: 'var(--paper-300)' },
+    surplus: { badge: 'Überzählig', glyph: '+', bg: 'var(--info-100)', fg: 'var(--info-500)', border: 'var(--paper-300)' },
+    notneeded: { badge: 'Nicht benötigt', glyph: '·', bg: 'var(--paper-200)', fg: 'var(--on-light-70)', border: 'var(--paper-300)' },
+    unknown: { badge: 'Nicht erkannt', glyph: '?', bg: 'var(--danger-100)', fg: 'var(--danger-500)', border: 'var(--danger-500)' }
+  };
+
+  renderVals() {
+    const st = this.state, G = window.HQ_GERBER;
+    const vp = this.props.viewport ?? 'auto';
+    const mob = vp === 'mobile' ? true : vp === 'desktop' ? false : st.width < 900;
+    const narrow = !mob && st.width < 1240; // Sidebar da, aber Rail passt nicht mehr neben den Inhalt
+    const intern = st.role === 'intern', a = st.ans;
+    this.isMob = mob;
+    const reqs = this.reqList();
+    const reqIds = new Set(reqs.map(r => r.id));
+    const abl = a.antrag === 'Ablösung', kauf = a.antrag === 'Neue Hypothek', neuBau = a.immo === 'Neubau';
+    const T = st.txt, on = {};
+    ['bname', 'bmail', 'pvor', 'pnach', 'ptel', 'pfirma', 'vor', 'nach', 'mail', 'plz', 'ort', 'str', 'k1', 'k2'].forEach(k => { on[k] = e => { const v = e.target.value; this.setState(x => ({ txt: Object.assign({}, x.txt, { [k]: v }) })); }; });
+    // Partner-Erkennung über die E-Mail
+    const PARTNERS = { 'hypoteq.ch': 'HYPOTEQ AG', 'hypoteq.com': 'HYPOTEQ AG', 'vzch.ch': 'VZ VermögensZentrum', 'moneypark.ch': 'MoneyPark AG' };
+    const bm = (T.bmail || '').trim().toLowerCase();
+    const validMail = /^[^@\s]+@[^@\s]+\.[a-z]{2,}$/.test(bm);
+    const dom = validMail ? bm.split('@')[1] : '';
+    const known = validMail && !!PARTNERS[dom];
+    const cap = s => s ? s.charAt(0).toUpperCase() + s.slice(1) : '';
+    const derived = known ? bm.split('@')[0].split(/[._-]/).filter(Boolean).map(cap).join(' ') : '';
+    const extName = [T.pvor, T.pnach].filter(Boolean).join(' ');
+    const beraterName = known ? derived : extName;
+    const kunde = [T.vor, T.nach].filter(Boolean).join(' ');
+    const ortLine = [T.plz, T.ort].filter(Boolean).join(' ');
+
+    // Schritte
+    const labels = ['Allgemeines', 'Objekt', 'Personen', 'Finanzierung', 'Unterlagen', 'Abschluss'];
+    const steps = labels.map((l, i) => {
+      const n = i + 1, active = st.step === n, done = st.step > n;
+      return { n, label: l, sub: '', go: () => this.goto(n),
+        navStyle: { display: 'flex', alignItems: 'stretch', gap: 14, padding: 0, background: 'transparent', border: 0, cursor: 'pointer', fontFamily: 'var(--font-text)', textAlign: 'left' },
+        dotStyle: { width: 12, height: 12, flex: '0 0 auto', boxSizing: 'border-box', borderRadius: 999, marginTop: 4, background: done ? 'var(--lime-500)' : active ? '#fff' : 'transparent', border: done || active ? 0 : '1.5px solid var(--on-dark-45)', boxShadow: active ? '0 0 0 4px rgba(202,244,118,.35)' : 'none' },
+        lineStyle: { width: 2, flex: 1, marginTop: 4, borderRadius: 2, background: done ? 'var(--lime-500)' : 'var(--on-dark-14)', display: n === 6 ? 'none' : 'block' },
+        labelStyle: { fontSize: 'var(--text-body-sm)', fontWeight: active ? 'var(--weight-semibold)' : 'var(--weight-regular)', color: done ? 'var(--lime-500)' : active ? '#fff' : 'var(--on-dark-70)' },
+        subStyle: { fontSize: 12, lineHeight: 1.4, color: active ? 'var(--on-dark-70)' : 'var(--on-dark-45)', textWrap: 'pretty' },
+        barStyle: { flex: 1, height: 3, borderRadius: 999, border: 0, padding: 0, cursor: 'pointer', background: st.step >= n ? 'var(--lime-500)' : 'rgba(255,255,255,.18)' } };
+    });
+
+    // Rail (Reihenfolge: kunde ist oben definiert)
+    const GN = Object.assign({}, G ? G.GROUPS : {}, { person: a.kn === 'Juristische Person' ? 'Zur Gesellschaft' : 'Zur Person' + (kunde ? ' · ' + kunde : '') });
+    const order = ['objekt', 'hypothek', 'person', 'eigenmittel'];
+    const railGroups = order.map(g => {
+      const items = reqs.filter(r => r.grp === g);
+      return { name: GN[g] || g, count: items.length ? String(items.length) : '', items: items.map(r => {
+        const rs = st.resolved[r.id];
+        const ok = rs && (rs.status === 'ok');
+        return { label: r.label, why: r.why, color: ok ? '#fff' : 'var(--on-dark-70)', dot: { width: 8, height: 8, marginTop: 5, borderRadius: 999, flex: '0 0 auto', background: ok ? 'var(--lime-500)' : 'transparent', border: ok ? '1px solid var(--lime-500)' : '1px solid var(--on-dark-45)' } };
+      }) };
+    }).filter(g => g.items.length);
+    const showRail = st.step <= 4;
+    const railVisible = showRail && ((!mob && !narrow) || st.railOpen);
+
+    // Dateien → Zeilen
+    const fileFor = id => st.files.filter(f => f.reqId === id);
+    const rows = reqs.map(r => {
+      const fs = fileFor(r.id), rs = st.resolved[r.id] || {};
+      let status = 'missing';
+      if (fs.some(f => f.status === 'analysing')) status = 'analysing';
+      else if (rs.status) status = rs.status;
+      const S = this.ST[status];
+      const done = fs.filter(f => f.status === 'done');
+      let sub = status === 'missing' ? 'Noch nicht hochgeladen' : status === 'analysing' ? 'Wird gelesen …' : status === 'skipped' ? 'Als «nicht vorhanden» markiert' : done.map(f => f.name).join(' · ');
+      if (status === 'partial') sub = done.length + ' von ' + (r.expect || 1) + ' Dateien · ' + sub;
+      if (status === 'ok' && r.date) sub += ' · ' + r.date;
+      const showF = ['ok', 'outdated', 'partial'].indexOf(status) >= 0 && !r.generic;
+      const fields = showF ? r.fields.map(f => { const t = this.chip(f, intern); return { k: f.k, v: f.v, chip: t.label, chipStyle: this.chipStyle(t), rowStyle: { display: 'grid', gridTemplateColumns: mob ? '1fr' : '200px 1fr', gap: mob ? 4 : 16, padding: '9px 0', borderBottom: '1px solid var(--paper-200)', alignItems: 'baseline' } }; }) : [];
+      const checks = showF ? [r.check, r.check2].filter(Boolean) : [];
+      const actions = [];
+      if (status === 'missing') { actions.push({ label: 'Hochladen', kind: 'primary', act: this.pickFiles }); if (r.optionalHint) actions.push({ label: 'Habe ich nicht', kind: 'ghost', act: () => this.setRes(r.id, { status: 'skipped' }, 'Vom Benutzer als nicht vorhanden markiert') }); }
+      if (status === 'outdated') { actions.push({ label: 'Aktuellen Auszug hochladen', kind: 'primary', act: this.pickFiles }); actions.push({ label: 'Trotzdem verwenden', kind: 'ghost', act: () => this.setRes(r.id, { status: 'ok', override: true }, 'Hinweis «älter als 6 Monate» übersteuert (Benutzer)') }); }
+      if (status === 'ok' || status === 'partial') actions.push({ label: 'Dokument ansehen', kind: 'ghost', act: () => this.setState({ modal: r.id }) });
+      if (status === 'skipped') actions.push({ label: 'Doch hochladen', kind: 'ghost', act: this.pickFiles });
+      const stored = done.map((f, i) => ({ orig: f.name, stored: this.storedName(r, f, i, done.length, T) }));
+      return { id: r.id, grp: r.grp, label: r.label, why: r.why, sub, status, glyph: S.glyph, badge: S.badge, open: !!st.open[r.id],
+        hasStored: stored.length > 0, stored,
+        hasFields: fields.length > 0, fields, hasChecks: checks.length > 0, checks, note: showF ? (r.note || null) : null,
+        warn: status === 'outdated' ? r.outdated : null, showAudit: intern && !!(rs.audit && rs.audit.length), audit: rs.audit || [],
+        hasActions: actions.length > 0, actions: actions.map(x => ({ label: x.label, act: x.act, style: this.btn(x.kind) })),
+        toggle: () => this.toggle(r.id),
+        cardStyle: { border: '1px solid ' + S.border, borderRadius: 'var(--radius-lg)', background: '#fff', overflow: 'hidden', transition: 'var(--transition-control)' },
+        headStyle: { width: '100%', boxSizing: 'border-box', display: 'flex', alignItems: mob ? 'flex-start' : 'center', gap: 14, padding: '15px 18px', background: 'transparent', border: 0, cursor: 'pointer', textAlign: 'left', flexWrap: mob ? 'wrap' : 'nowrap', fontFamily: 'var(--font-text)' },
+        glyphStyle: { width: 30, height: 30, flex: '0 0 auto', borderRadius: 999, display: 'flex', alignItems: 'center', justifyContent: 'center', background: S.bg, color: S.fg, fontSize: 15, fontWeight: 700, animation: status === 'analysing' ? 'hqpulse 1.1s ease-in-out infinite' : 'none' },
+        badgeStyle: Object.assign(this.chipStyle({ bg: S.bg, fg: S.fg }), { flex: '0 0 auto' }),
+        detailLabel: st.open[r.id] ? 'Schliessen' : (['ok', 'outdated', 'partial'].indexOf(status) >= 0 && !r.generic ? 'Details' : 'Mehr'),
+        chevStyle: { display: 'inline-flex', alignItems: 'center', gap: 6, flex: '0 0 auto', border: '1px solid ' + (st.open[r.id] ? 'var(--forest-800)' : 'var(--paper-400)'), background: st.open[r.id] ? 'var(--forest-800)' : '#fff', color: st.open[r.id] ? '#fff' : 'var(--forest-800)', borderRadius: 999, padding: '6px 12px 6px 14px', fontSize: 'var(--text-caption)', fontWeight: 'var(--weight-semibold)', whiteSpace: 'nowrap', transition: 'var(--transition-control)', marginLeft: mob ? 'auto' : 0 },
+        caretStyle: { display: 'inline-block', fontSize: 10, transform: st.open[r.id] ? 'rotate(180deg)' : 'none', transition: 'transform .18s var(--ease-out)' } };
+    });
+    // Weitere Dateien (Duplikat, überzählig, nicht benötigt, unbekannt, ausserhalb der Liste)
+    const extraRows = st.files.filter(f => f.kind !== 'req' || !reqIds.has(f.reqId)).filter(f => !st.dismissed[f.name]).map(f => {
+      const kind = f.kind === 'req' ? 'unknown' : f.kind;
+      const status = f.status === 'analysing' ? 'analysing' : kind;
+      const S = this.ST[status] || this.ST.unknown;
+      const label = f.extra ? f.extra.label : f.name;
+      const sub = f.status === 'analysing' ? 'Wird gelesen …' : f.extra ? f.extra.text : (f.kind === 'req' ? 'Passt zu keiner Anforderung deiner Antworten – siehe Hinweis oben.' : 'Wir konnten den Dokumenttyp nicht bestimmen.');
+      return { id: 'x_' + f.name, grp: 'extra', label, why: f.name === label ? '' : f.name, sub, status, glyph: S.glyph, badge: S.badge, open: false, hasFields: false, fields: [], hasChecks: false, checks: [], note: null, warn: null, showAudit: false, audit: [], hasActions: false, actions: [], toggle: () => {},
+        cardStyle: { border: '1px solid ' + S.border, borderRadius: 'var(--radius-lg)', background: kind === 'notneeded' ? 'var(--paper-100)' : '#fff', overflow: 'hidden' },
+        headStyle: { width: '100%', boxSizing: 'border-box', display: 'flex', alignItems: mob ? 'flex-start' : 'center', gap: 14, padding: '13px 18px', background: 'transparent', border: 0, cursor: 'default', textAlign: 'left', flexWrap: mob ? 'wrap' : 'nowrap', fontFamily: 'var(--font-text)' },
+        glyphStyle: { width: 30, height: 30, flex: '0 0 auto', borderRadius: 999, display: 'flex', alignItems: 'center', justifyContent: 'center', background: S.bg, color: S.fg, fontSize: 15, fontWeight: 700, animation: status === 'analysing' ? 'hqpulse 1.1s ease-in-out infinite' : 'none' },
+        badgeStyle: Object.assign(this.chipStyle({ bg: S.bg, fg: S.fg }), { flex: '0 0 auto' }), chevStyle: { display: 'none' }, detailLabel: '', caretStyle: {} };
+    });
+    const groups = order.map(g => { const rs = rows.filter(r => r.grp === g); return { name: GN[g], rows: rs, count: rs.length ? rs.filter(r => r.status === 'ok').length + ' / ' + rs.length : '' }; })
+      .concat([{ name: GN.extra, rows: extraRows, count: String(extraRows.length) }]).filter(g => g.rows.length);
+
+    // C6: Dokument widerspricht Trigger-Antwort
+    const suggests = [];
+    const lk = st.files.filter(f => f.status === 'done' && (f.reqId === 'kredit' || f.reqId === 'leasing') && !reqIds.has(f.reqId) && !st.dismissed[f.name]);
+    if (lk.length) suggests.push({ title: 'Wir haben einen Kredit- oder Leasingvertrag erkannt.', text: 'Deine Angabe «Privatkredite» bzw. «Leasings» steht auf Nein. Soll sie auf Ja gesetzt werden? Die Dokumente werden dann der Anforderung zugeordnet: ' + lk.map(f => f.name).join(', '), acceptLabel: 'Ja, Antwort auf «Ja» setzen', accept: () => { if (lk.some(f => f.reqId === 'kredit')) this.setAns('kredite', 'Ja'); if (lk.some(f => f.reqId === 'leasing')) this.setAns('leasing', 'Ja'); this.say([{ text: '✓ Antwort korrigiert – Dokumente zugeordnet', big: true }]); }, dismiss: () => this.setState(s => ({ dismissed: Object.assign({}, s.dismissed, ...lk.map(f => ({ [f.name]: true }))) })), primary: this.btn('primary'), ghost: this.btn('ghost') });
+    const uh = st.files.filter(f => f.status === 'done' && f.reqId === 'unterhalt' && !reqIds.has('unterhalt') && !st.dismissed[f.name]);
+    if (uh.length) suggests.push({ title: 'Wir haben eine Unterhaltsvereinbarung erkannt.', text: 'Deine Angaben zu Kindern bzw. Unterhaltszahlungen stehen auf Nein. Sollen beide auf Ja gesetzt werden?', acceptLabel: 'Ja, Antworten korrigieren', accept: () => { this.setState(s => ({ ans: Object.assign({}, s.ans, { kinder: 'Ja', unterhalt: 'Ja' }) })); }, dismiss: () => this.setState(s => ({ dismissed: Object.assign({}, s.dismissed, { [uh[0].name]: true }) })), primary: this.btn('primary'), ghost: this.btn('ghost') });
+    const s3 = st.files.filter(f => f.status === 'done' && (f.reqId === 's3a' || f.reqId === 'police') && !reqIds.has(f.reqId) && !st.dismissed[f.name]);
+    if (s3.length) suggests.push({ title: 'Wir haben Säule-3a-Unterlagen erkannt.', text: 'Deine Angabe «Säule 3a» steht auf Nein. Soll sie auf Ja gesetzt werden?', acceptLabel: 'Ja, Antwort auf «Ja» setzen', accept: () => this.setAns('s3a', 'Ja'), dismiss: () => this.setState(s => ({ dismissed: Object.assign({}, s.dismissed, ...s3.map(f => ({ [f.name]: true }))) })), primary: this.btn('primary'), ghost: this.btn('ghost') });
+    const stwe = st.files.filter(f => f.status === 'done' && ['stwe_regl', 'stwe_plan', 'ef'].indexOf(f.reqId) >= 0 && !reqIds.has(f.reqId) && !st.dismissed[f.name]);
+    if (stwe.length) suggests.push({ title: 'Wir haben STWE-Unterlagen erkannt.', text: 'Die Liegenschaft ist nicht als Stockwerkeigentum erfasst. Soll die Art der Liegenschaft angepasst werden?', acceptLabel: 'Ja, auf «Stockwerkeigentum» setzen', accept: () => this.setAns('lieg', 'Stockwerkeigentum'), dismiss: () => this.setState(s => ({ dismissed: Object.assign({}, s.dismissed, ...stwe.map(f => ({ [f.name]: true }))) })), primary: this.btn('primary'), ghost: this.btn('ghost') });
+
+    // Fortschritt
+    const ok = rows.filter(r => r.status === 'ok' || r.status === 'skipped').length;
+    const warn = rows.filter(r => ['outdated', 'partial'].indexOf(r.status) >= 0).length;
+    const miss = rows.length - ok - warn;
+    const total = rows.length || 1;
+    const analysing = st.files.filter(f => f.status === 'analysing').length, doneN = st.files.filter(f => f.status === 'done').length;
+
+    // Finanzen
+    const fin = st.fin;
+    const need = abl ? fin.old + (a.aufstockung === 'Ja' ? fin.up : 0) : Math.max(fin.val * .8, 0);
+    const ltv = fin.val ? need / fin.val * 100 : 0;
+    const trag = fin.inc ? (need * .05 + Math.max(need - fin.val * (2 / 3), 0) / 15 + fin.val * .01) / fin.inc * 100 : 0;
+    const finVals = {
+      oldStr: this.chfIn(fin.old), upStr: this.chfIn(fin.up), valStr: this.chfIn(fin.val), incStr: this.chfIn(fin.inc), needStr: this.chf(need),
+      needLabel: abl ? 'Gesamtfinanzierung' : 'Geschätzter Hypothekbedarf',
+      needSub: abl ? this.chf(fin.old) + ' Ablösung' + (a.aufstockung === 'Ja' ? ' + ' + this.chf(fin.up) + ' Erhöhung' : '') : 'Bei 80 % Belehnung',
+      verdict: !fin.val || !fin.inc ? 'Angaben ergänzen' : ltv <= 80 && trag <= 33 ? 'Finanzierung möglich' : 'Prüfung nötig',
+      onOld: e => this.setState(x => ({ fin: Object.assign({}, x.fin, { old: this.num(e.target.value) }) })),
+      onUp: e => this.setState(x => ({ fin: Object.assign({}, x.fin, { up: this.num(e.target.value) }) })),
+      onVal: e => this.setState(x => ({ fin: Object.assign({}, x.fin, { val: this.num(e.target.value) }) })),
+      onInc: e => this.setState(x => ({ fin: Object.assign({}, x.fin, { inc: this.num(e.target.value) }) })),
+      stats: [
+        { label: 'Belehnung', value: ltv.toFixed(1) + ' %', hint: 'Maximal 80 % des Objektwerts', bar: { width: Math.min(ltv * 1.25, 100) + '%', height: '100%', background: ltv <= 80 ? 'var(--lime-500)' : 'var(--danger-500)', borderRadius: 999 } },
+        { label: 'Tragbarkeit', value: trag.toFixed(1) + ' %', hint: 'Kalkulatorisch 5 % Zins, Amortisation, 1 % Nebenkosten · max. 33 %', bar: { width: Math.min(trag * 2.5, 100) + '%', height: '100%', background: trag <= 33 ? 'var(--lime-500)' : 'var(--warning-500)', borderRadius: 999 } }
+      ]
+    };
+
+    // Modal
+    let modal = null;
+    if (st.modal) {
+      const r = reqs.find(x => x.id === st.modal);
+      if (r) {
+        const fs = fileFor(r.id).filter(f => f.status === 'done');
+        const url = fs.length && fs[0].url ? fs[0].url : null;
+        modal = { title: r.label, meta: fs.map(f => f.name).join(' · ') + (r.date ? ' · ' + r.date : ''), url, noUrl: !url, pages: r.pages || 1,
+          lines: [1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => ({ style: { display: 'block', height: i === 1 ? 16 : 9, width: (i === 1 ? 52 : (i % 3 === 0 ? 68 : 92)) + '%', borderRadius: 3, background: i === 1 ? 'var(--paper-400)' : 'var(--paper-200)' } })),
+          fields: r.fields.map(f => { const t = this.chip(f, intern); return { k: f.k, v: f.v, chip: t.label, chipStyle: this.chipStyle(t) }; }),
+          confirm: () => { this.setRes(r.id, { status: 'ok', confirmed: true }, 'Angaben vom Benutzer bestätigt'); this.setState({ modal: null }); this.say([{ text: '✓ Angaben bestätigt', big: true }]); } };
+      }
+    }
+
+    // Abschluss
+    const finalChecks = [
+      { label: 'Antrag', sub: (a.antrag || '–') + (abl ? ' · Gesamtfinanzierung ' + this.chf(need) : ''), s: a.antrag ? 'ok' : 'warn' },
+      { label: 'Objekt', sub: [[T.str, ortLine].filter(Boolean).join(', '), a.lieg, a.nutz].filter(Boolean).join(' · ') || 'Noch keine Angaben', s: a.lieg && a.nutz && ortLine ? 'ok' : 'warn' },
+      { label: 'Kreditnehmer', sub: [kunde || 'Name fehlt', fin.inc ? this.chf(fin.inc) + ' brutto' : 'Einkommen fehlt', a.kinder === 'Ja' ? 'Kinder' + (a.unterhalt === 'Ja' ? ', Unterhalt' : '') : 'keine Kinder', a.kredite === 'Ja' ? 'Kredite / Leasing' : 'keine Kredite'].join(' · '), s: kunde && fin.inc ? 'ok' : 'warn' },
+      { label: 'Tragbarkeit und Belehnung', sub: trag.toFixed(1) + ' % · ' + ltv.toFixed(1) + ' %', s: trag <= 33 && ltv <= 80 ? 'ok' : 'warn' },
+      { label: 'Unterlagen', sub: ok + ' von ' + rows.length + ' Anforderungen erfüllt' + (warn ? ' · ' + warn + ' zu prüfen' : '') + (miss ? ' · ' + miss + ' fehlen' : ''), s: miss ? 'warn' : warn ? 'warn' : 'ok' },
+      { label: 'Aus Dokumenten übernommen', sub: rows.filter(r => r.hasFields).reduce((n, r) => n + r.fields.length, 0) + ' Angaben ausgelesen statt abgefragt · ' + Object.keys(st.resolved).filter(k => st.resolved[k].confirmed).length + ' manuell bestätigt', s: 'ok' }
+    ].map(c => {
+      const map = { ok: { g: '✓', bg: 'var(--success-100)', fg: 'var(--success-500)', b: 'Bestätigt' }, warn: { g: '⚠', bg: 'var(--warning-100)', fg: 'var(--warning-500)', b: 'Offen' } }[c.s];
+      return { label: c.label, sub: c.sub, glyph: map.g, badge: map.b, rowStyle: { display: 'flex', alignItems: mob ? 'flex-start' : 'center', gap: 14, padding: '18px 20px', borderBottom: '1px solid var(--paper-300)', flexWrap: mob ? 'wrap' : 'nowrap' }, glyphStyle: { width: 28, height: 28, flex: '0 0 auto', borderRadius: 999, display: 'flex', alignItems: 'center', justifyContent: 'center', background: map.bg, color: map.fg, fontWeight: 700, fontSize: 14 }, badgeStyle: this.chipStyle({ bg: map.bg, fg: map.fg }) };
+    });
+
+    const s = {
+      layout: { display: 'flex', flexDirection: 'row', minHeight: '100vh', alignItems: 'stretch', background: st.step === 0 ? 'var(--forest-800)' : 'var(--paper)', fontFamily: 'var(--font-text)' },
+      wedge: { position: 'absolute', left: mob ? '92%' : 'max(760px, 74%)', right: '-30%', top: 0, bottom: 0, background: 'var(--lime-500)', transform: 'skewX(-16deg)', transformOrigin: 'bottom left', display: st.width < 1000 && !mob ? 'none' : 'block' },
+      startPad: { position: 'relative', flex: 1, display: 'flex', flexDirection: 'column', gap: 40, padding: mob ? '28px 22px 32px' : '44px 64px 48px', boxSizing: 'border-box', minHeight: '100vh' },
+      startCards: { display: 'grid', gridTemplateColumns: mob ? '1fr' : 'repeat(2, minmax(0, 300px))', gap: 16, position: 'relative' },
+      kpis: { display: 'grid', gridTemplateColumns: (mob || narrow) ? 'repeat(2, minmax(0,1fr))' : 'repeat(4, minmax(0,1fr))', gap: 1, background: 'var(--paper-300)', border: '1px solid var(--paper-300)', borderRadius: 'var(--radius-lg)', overflow: 'hidden' },
+      main: { flex: 1, padding: mob ? '22px 18px 40px' : '34px 52px 48px' },
+      split: { display: 'flex', flexDirection: (mob || narrow) ? 'column' : 'row', gap: mob ? 24 : narrow ? 32 : 40, alignItems: (mob || narrow) ? 'stretch' : 'flex-start', minWidth: 0 },
+      rail: { width: (mob || narrow) ? '100%' : 320, maxWidth: narrow ? 840 : 'none', boxSizing: 'border-box', flex: (mob || narrow) ? 'none' : '0 0 320px', position: (mob || narrow) ? 'static' : 'sticky', top: 24, order: (mob || narrow) ? -1 : 0 },
+      footer: { display: 'flex', gap: 12, justifyContent: 'space-between', alignItems: 'center', padding: mob ? '14px 18px 20px' : '20px 52px 40px', borderTop: '1px solid var(--paper-300)', background: 'var(--paper)', position: mob ? 'sticky' : 'static', bottom: 0, marginTop: 'auto' },
+      nextArrow: { width: 32, height: 32, borderRadius: 999, border: '1px solid var(--paper-400)', background: '#fff', color: 'var(--forest-800)', cursor: 'pointer', fontSize: 15, lineHeight: 1, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', visibility: st.step >= 6 ? 'hidden' : 'visible' },
+      prevBtn: { display: 'inline-flex', alignItems: 'center', gap: 8, background: 'transparent', color: 'var(--forest-800)', border: '1px solid var(--forest-800)', borderRadius: 'var(--radius-pill)', padding: '12px 24px', fontFamily: 'var(--font-text)', fontSize: 'var(--text-body)', fontWeight: 'var(--weight-semibold)', cursor: 'pointer' },
+      progress: { width: (st.step / 6 * 100) + '%', height: '100%', background: 'var(--lime-500)', borderRadius: 999, transition: 'width .3s var(--ease-out)' },
+      two: { display: 'grid', gridTemplateColumns: mob ? '1fr' : '1fr 1fr', gap: mob ? 16 : 20 },
+      qRow: { display: 'flex', flexDirection: mob ? 'column' : 'row', alignItems: mob ? 'flex-start' : 'center', justifyContent: 'space-between', gap: 12, padding: '6px 0', borderBottom: '1px solid var(--paper-200)' },
+      metrics: { display: 'grid', gridTemplateColumns: mob ? '1fr 1fr' : 'repeat(4,1fr)', gap: 16 },
+      statusHead: { display: 'flex', flexDirection: mob ? 'column' : 'row', gap: 14, justifyContent: 'space-between', alignItems: mob ? 'flex-start' : 'flex-end' },
+      drop: { width: '100%', boxSizing: 'border-box', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, padding: mob ? '28px 18px' : '40px 24px', border: '2px dashed ' + (st.drag || st.busy ? 'var(--lime-600)' : 'var(--paper-400)'), borderRadius: 'var(--radius-lg)', background: st.drag ? 'var(--lime-200)' : st.busy ? 'var(--lime-100)' : 'var(--paper-100)', cursor: 'pointer', color: 'var(--forest-800)', transition: 'var(--transition-control)' },
+      dropHint: { marginTop: 6, fontSize: 'var(--text-caption)', fontWeight: 'var(--weight-semibold)', color: st.busy ? 'var(--lime-800)' : 'var(--on-light-45)', letterSpacing: 'var(--tracking-label)', textTransform: 'uppercase', textAlign: 'center' },
+      busyBar: { position: 'absolute', inset: 0, width: '40%', background: 'var(--lime-600)', borderRadius: 999, animation: 'hqbar 1.2s ease-in-out infinite' },
+      barOk: { width: (ok / total * 100) + '%', background: 'var(--success-500)', transition: 'width .3s var(--ease-out)' },
+      barWarn: { width: (warn / total * 100) + '%', background: 'var(--warning-500)', transition: 'width .3s var(--ease-out)' },
+      modal: { width: mob ? '100%' : 'min(1120px,94vw)', maxHeight: '92vh', overflow: 'auto', background: 'var(--paper)', borderRadius: 'var(--radius-lg)', display: 'flex', flexDirection: 'column' },
+      modalBody: { display: 'grid', gridTemplateColumns: mob ? '1fr' : '1.1fr 1fr', gap: 0 },
+      preview: { padding: 20, background: 'var(--paper-100)', display: 'flex', flexDirection: 'column', gap: 14, borderRight: mob ? 'none' : '1px solid var(--paper-300)', minHeight: mob ? 320 : 520 },
+      fieldsCol: { padding: 24, display: 'flex', flexDirection: 'column', gap: 6 },
+      plz: { width: 120 }, ort: { width: mob ? '100%' : 240 }
+    };
+
+    const WHY = ['Antrag und Kontakt', 'Bestimmt die Objektunterlagen', 'Bestimmt die Personenunterlagen', 'Belehnung, Tragbarkeit, Eigenmittel', 'Wir lesen alles aus', 'Prüfen und abschliessen'];
+    const DONE = [[a.antrag, a.kn].filter(Boolean).join(' · '), [a.lieg, ortLine].filter(Boolean).join(' · '), [kunde, a.job].filter(Boolean).join(' · '), fin.val ? this.chf(need) + ' · ' + ltv.toFixed(1) + ' %' : '', ok + ' von ' + rows.length + ' erfüllt', st.done ? 'Abgeschlossen' : ''];
+    steps.forEach((x, i) => { const n = i + 1; x.sub = st.step > n ? (DONE[i] || 'Erledigt') : st.step === n ? 'Jetzt · ' + WHY[i] : WHY[i]; });
+    const hints = rows.filter(r => r.status === 'outdated').map(r => ({ title: r.label, text: r.warn || '' }))
+      .concat(reqs.filter(r => ['kredit', 'leasing', 'police'].indexOf(r.id) >= 0 && (st.resolved[r.id] || {}).status === 'ok' && r.note).map(r => ({ title: r.label, text: r.note })));
+    const allGood = !miss && fin.val && fin.inc && ltv <= 80 && trag <= 33;
+    return {
+      kpis: [{ label: finVals.needLabel, value: this.chf(need) }, { label: 'Belehnung', value: ltv.toFixed(1) + ' %' }, { label: 'Tragbarkeit', value: trag.toFixed(1) + ' %' }, { label: 'Unterlagen', value: ok + ' / ' + rows.length }],
+      hints, hasHints: hints.length > 0, hintCount: hints.length,
+      finalTitle: allGood ? 'Das können wir finanzieren. Jetzt zur Bank.' : 'Letzter Blick auf die Anfrage',
+      pathLine: '6 Themen · ca. 4 Minuten · ' + Math.max(0, Math.min(st.step - 1, 6)) + ' erledigt',
+      s, rootRef: this.rootRef, fileRef: this.fileRef, isDesktop: !mob, isMobile: mob, isNarrow: narrow && showRail, icoLg: 34,
+      isStep1: st.step === 1, isStep2: st.step === 2, isStep3: st.step === 3, isStep4: st.step === 4, isStep5: st.step === 5, isStep6: st.step === 6,
+      stepNo: st.step, stepTitle: labels[st.step - 1], steps,
+      T, on, reset: this.reset,
+      caseLine: [kunde, ortLine].filter(Boolean).join(' · ') || 'Neue Anfrage',
+      roleLine: st.role === 'kunde' ? 'Eigene Anfrage' : st.role === 'intern' ? 'HYPOTEQ intern · Prüfung' : (beraterName ? 'Erfasst von ' + beraterName + (known ? '' : T.pfirma ? ' · ' + T.pfirma : ' · neuer Partner') : 'Erfasst von HYPOTEQ Berater'),
+      pKnown: known, pUnknown: validMail && !known, pName: derived, pFirm: (PARTNERS[dom] || '') + ' · ' + bm,
+      pInitials: derived.split(' ').map(w => w.charAt(0)).join('').slice(0, 2),
+      pIsOpen: !!st.pOpen, pNotOpen: !st.pOpen, pOpen: () => this.setState({ pOpen: true }),
+      doneTitle: 'Anfrage HQ-26-06-156283 ist bei HYPOTEQ.',
+      doneSub: (kunde || 'Der Kunde') + ' erhält eine Bestätigung' + (T.mail ? ' an ' + T.mail : '') + '. Das Dossier ist bereit für die Bankanfrage.',
+      isIntern: intern, isBerater: st.role !== 'kunde',
+      prev: () => this.goto(Math.max(0, st.step - 1)), next: () => this.goto(Math.min(6, st.step + 1)),
+      hasNext: st.step < 6, nextLabel: st.step === 4 ? 'Zu den Unterlagen' : st.step === 5 ? 'Zum Abschluss' : 'Weiter',
+      // Rail
+      reqCount: reqs.length, railGroups, showRail, railVisible, toggleRail: () => this.setState(x => ({ railOpen: !x.railOpen })), railToggleLabel: st.railOpen ? 'Ausblenden' : 'Anzeigen',
+      // Schritt 1
+      isStart: st.step === 0, notStart: st.step > 0, showSidebar: !mob && st.step > 0,
+      qAnrede: [this.q('Anrede', 'anrede', ['Herr', 'Frau'])],
+      kontaktLabel: st.role === 'kunde' ? 'Dein Kontakt' : 'Kontakt des Kunden',
+      entries: [{ key: 'berater', eyebrow: 'Für Berater und Partner', title: 'HYPOTEQ Berater', sub: 'Ich erfasse die Anfrage im Auftrag eines Kunden.' }, { key: 'kunde', eyebrow: 'Für Eigentümer und Kaufende', title: 'Kunde selbst', sub: 'Ich stelle meine eigene Finanzierungsanfrage.' }].map(e => ({ eyebrow: e.eyebrow, title: e.title, sub: e.sub, pick: () => { this.setState({ role: e.key }); this.goto(1); },
+        cardStyle: { display: 'flex', flexDirection: 'column', gap: 10, textAlign: 'left', padding: '22px 24px', minHeight: 170, borderRadius: 'var(--radius-lg)', border: '1px solid transparent', background: e.key === 'berater' ? 'var(--lime-500)' : '#fff', cursor: 'pointer', fontFamily: 'var(--font-text)', boxSizing: 'border-box' } })),
+      q1: [this.q('Kreditantrag', 'antrag', ['Neue Hypothek', 'Ablösung']), this.q('Kreditnehmer', 'kn', ['Natürliche Person', 'Juristische Person'])],
+      // Schritt 2
+      q2a: [this.q('Art der Immobilie', 'immo', ['Bestehende Immobilie', 'Neubau', 'Bauprojekt']), this.q('Art der Liegenschaft', 'lieg', ['Einfamilienhaus', 'Stockwerkeigentum', 'Mehrfamilienhaus', 'Ferienobjekt']), this.q('Nutzung der Immobilie', 'nutz', ['Selbstbewohnt', 'Vermietet', 'Zweitwohnsitz'])],
+      q2n: neuBau ? [this.q('Liegen Grundbuchauszug und Gebäudeversicherungspolice bereits vor?', 'nbDocs', ['Ja', 'Nein'], 'Bei Neubauten oft noch nicht – dann fragen wir sie später nach.')] : [],
+      q2b: [this.q('Heizungsart', 'heizung', ['Wärmepumpe', 'Fernwärme', 'Holz / Pellets', 'Gas', 'Öl', 'Unbekannt'], 'Für mögliche Öko-Konditionen der Banken. «Unbekannt» ist erlaubt – wir prüfen es in den Unterlagen.'), this.q('Ist die Liegenschaft im Baurecht?', 'baurecht', ['Ja', 'Nein'])],
+      q2c: [this.q('Soll die Hypothek erhöht werden?', 'aufstockung', ['Ja', 'Nein'])],
+      q2k: [this.q('Gibt es Renovationen oder Mehrausgaben zum Kaufpreis?', 'reno', ['Ja', 'Nein']), this.q('Ist die Liegenschaft bereits reserviert?', 'reserviert', ['Ja', 'Nein'])],
+      q2d: [this.q('Bestehen bereits Finanzierungsangebote?', 'angebote', ['Ja', 'Nein'])],
+      isAbloesung: abl, isKauf: kauf, isAufstockung: a.aufstockung === 'Ja',
+      // Schritt 3
+      q3a: [this.q('Beschäftigung', 'job', ['Angestellt', 'Selbständig', 'Pensioniert'], 'Selbständige reichen Jahresabschlüsse statt Lohnausweise ein.')].concat(a.job === 'Selbständig' ? [this.q('Pensionskasse vorhanden?', 'pkSe', ['Ja', 'Nein'])] : []).concat([this.q('Ist ein Kreditnehmer 50 Jahre oder älter?', 'ab50', ['Ja', 'Nein'], 'Bei Ja: Rentenvorausberechnung (AHV) und Vorsorgewerte 3. Säule.')]),
+      isNP: a.kn !== 'Juristische Person', isJP: a.kn === 'Juristische Person',
+      isKunde: st.role === 'kunde',
+      q3b: [this.q('Gibt es Kinder?', 'kinder', ['Ja', 'Nein'])],
+      q3k: [this.q('Werden Unterhaltszahlungen geleistet?', 'unterhalt', ['Ja', 'Nein'])],
+      q3c: [this.q('Gibt es laufende Privatkredite?', 'kredite', ['Ja', 'Nein'], 'Privatkredite sind ZEK-relevant. Früh angegeben verhindert Rückfragen der Bank.'), this.q('Gibt es Leasings?', 'leasing', ['Ja', 'Nein']), this.q('Braucht es eine Solidarbürgschaft?', 'buerge', ['Ja', 'Nein'])],
+      hasKinder: a.kinder === 'Ja', hasBuerge: a.buerge === 'Ja',
+      // Schritt 4
+      fin: finVals,
+      q4a: [this.q('Gewünschte Laufzeit', 'laufzeit', ['SARON', '2 Jahre', '3 Jahre', '5 Jahre', '10 Jahre', 'Mix']), this.q('Vorsorgeguthaben Säule 3a vorhanden?', 's3a', ['Ja', 'Nein'], 'Bei Ja: Bescheinigung und Police inkl. Wertmitteilung.')],
+      q4b: [this.q('Schenkung', 'schenkung', ['Ja', 'Nein']), this.q('Erbschaft / Erbvorbezug', 'erbe', ['Ja', 'Nein']), this.q('Darlehen', 'darlehen', ['Ja', 'Nein']), this.q('Pensionskasse (Vorbezug oder Verpfändung)', 'pk', ['Ja', 'Nein'])],
+      // Schritt 5
+      onDrop: this.onDrop, onDragOver: this.onDragOver, onDragLeave: this.onDragLeave, pickFiles: this.pickFiles, onPick: this.onPick, stop: this.stop,
+      dropTitle: st.drag ? 'Loslassen zum Hochladen' : 'Dateien oder Ordner hier ablegen',
+      dropHint: st.busy ? analysing + ' von ' + (analysing + doneN) + ' werden gelesen …' : st.files.length ? st.files.length + ' Dateien hochgeladen · weitere hinzufügen' : 'Oder klicken, um Dateien auszuwählen',
+      busy: st.busy, busyLine: 'HYPOTEQ liest deine Dokumente', busySub: doneN + ' erkannt · ' + analysing + ' offen',
+      hasSuggest: suggests.length > 0, suggests,
+      groups, progressLine: ok + ' von ' + rows.length + ' Anforderungen erfüllt',
+      progressSub: st.busy ? 'Du kannst weiterarbeiten – die Liste aktualisiert sich.' : (warn || miss) ? (warn ? warn + ' Punkt(e) brauchen deine Kontrolle. ' : '') + (miss ? miss + ' fehlen noch.' : '') : 'Alles vollständig.',
+      tallies: [{ label: ok + ' erkannt', t: { bg: 'var(--success-100)', fg: 'var(--success-500)' } }, { label: warn + ' zu prüfen', t: { bg: 'var(--warning-100)', fg: 'var(--warning-500)' } }, { label: miss + ' fehlend', t: { bg: 'var(--paper-200)', fg: 'var(--on-light-45)' } }].map(t => ({ label: t.label, style: this.chipStyle(t.t) })),
+      internMetrics: [{ value: String(doneN), label: 'Dateien verarbeitet' }, { value: doneN ? '94 %' : '–', label: 'Ø Klassifikations-Confidence' }, { value: String(warn), label: 'Review erforderlich' }, { value: String(st.files.filter(f => f.kind === 'duplicate').length), label: 'Duplikate erkannt' }],
+      // Schritt 6
+      finalChecks, notDone: !st.done, isDone: st.done,
+      finalLead: miss ? 'Fast fertig – ' + miss + ' Dokument(e) fehlen noch. Der Fall kann trotzdem abgeschlossen werden, fehlende Unterlagen werden nachgereicht.' : 'Alle Angaben und Unterlagen sind beisammen. Nichts wurde ohne Bestätigung übernommen.',
+      finish: () => { this.setState({ done: true }); this.say([{ text: '✓ Finanzierungsanfrage abgeschlossen', big: true }, { text: 'Case 00001146 · HQ-26-06-156283' }]); },
+      // Overlays
+      modal, closeModal: () => this.setState({ modal: null }),
+      toast: st.toast ? { lines: st.toast.map(l => ({ text: l.text, style: { fontSize: l.big ? 'var(--text-body)' : 'var(--text-body-sm)', fontWeight: l.big ? 'var(--weight-semibold)' : 'var(--weight-regular)', color: l.big ? '#fff' : 'var(--on-dark-70)' } })) } : null
+    };
+  }
+}
+</script>
+
+
+</body></html>
