@@ -1,0 +1,94 @@
+/*
+ * Step 6 extras. The shared look (v3-kpis, v3-hintrow, v3-checkrow, v3-submit, v3-done,
+ * v3-btn, v3-tag, v3-busy …) is in components/funnel-v3/funnel-v3.css; only what that file
+ * does not have is here, scoped under .hqv3 and prefixed v3f-. Values follow the prototype
+ * (funnel-app.html «6 ABSCHLUSS»); the fallbacks keep it readable without the tokens.
+ */
+
+.hqv3 .v3f-head {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.hqv3 .v3f-rule {
+  width: 44px;
+  height: 3px;
+  background: var(--lime-600, #b7e455);
+}
+
+.hqv3 .v3f-title {
+  margin: 0;
+  font-family: var(--font-display, inherit);
+  font-size: clamp(28px, 4vw, 40px);
+  line-height: 1.1;
+  letter-spacing: var(--tracking-tight, -0.02em);
+  color: var(--forest-800, #132219);
+  font-weight: var(--weight-bold, 700);
+  overflow-wrap: anywhere;
+  hyphens: auto;
+  text-wrap: pretty;
+}
+
+.hqv3 .v3f-lead {
+  margin: 0;
+  font-size: var(--text-lead, 19px);
+  color: var(--on-light-70, rgba(19, 34, 25, 0.7));
+  max-width: 54ch;
+  text-wrap: pretty;
+}
+
+.hqv3 .v3f-checks {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ✓ / ! in a round chip, as the prototype's check glyph */
+.hqv3 .v3f-glyph {
+  width: 28px;
+  height: 28px;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.hqv3 .v3f-error {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--danger-100, #fde8e6);
+  color: var(--forest-800, #132219);
+  border-radius: var(--radius-md, 12px);
+  padding: 12px 16px;
+  font-size: var(--text-body-sm, 15px);
+}
+
+.hqv3 .v3f-inline-error {
+  margin: 0;
+  font-size: var(--text-caption, 13px);
+  color: var(--danger-500, #b42318);
+}
+
+.hqv3 .v3f-on-dark {
+  color: #fff;
+}
+
+.hqv3 .v3-submit button[disabled] {
+  opacity: 0.55;
+  cursor: progress;
+}
+
+.hqv3 .v3-done:focus {
+  outline: none;
+}
+
+.hqv3 .v3-done:focus-visible {
+  box-shadow: 0 0 0 3px rgba(202, 244, 118, 0.55);
+}

@@ -27,3 +27,4 @@ ALTER TABLE "Inquiry" ADD COLUMN IF NOT EXISTS "caseNumber" TEXT;
 CREATE UNIQUE INDEX IF NOT EXISTS "Inquiry_caseNumber_key" ON "Inquiry"("caseNumber");
 ALTER TABLE "Document" ADD COLUMN IF NOT EXISTS "contentHash" TEXT;
 ALTER TABLE "HoldingDocument" ADD COLUMN IF NOT EXISTS "contentHash" TEXT;
+ALTER TABLE "Document" ADD COLUMN IF NOT EXISTS "storedName" TEXT;

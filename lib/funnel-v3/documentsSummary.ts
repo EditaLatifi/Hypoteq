@@ -26,8 +26,10 @@ import { familyMembers, v3DocType } from "@/components/documentIntelligence/v3/c
 
 export interface DocumentsSummaryInput extends ReqState {
   files: FileEntry[];
-  skipped: string[];
-  dismissed: string[];
+  /** «Habe ich nicht» marks (instance ids). Optional so server-side callers can omit it. */
+  skipped?: Iterable<string>;
+  /** Files whose answer-correction suggestion was dismissed. */
+  dismissed?: Iterable<string>;
 }
 
 export interface DocumentSuggestion extends AnswerCorrection {
@@ -79,7 +81,8 @@ export function toSubmittedDocument(f: FileEntry): SubmittedDocument {
   };
 }
 
-export function documentsSummary(input: DocumentsSummaryInput, opts: { now?: Date } = {}): DocumentsSummary {
+export function documentsSummary(raw: DocumentsSummaryInput, opts: { now?: Date } = {}): DocumentsSummary {
+  const input = { ...raw, skipped: Array.from(raw.skipped ?? []), dismissed: Array.from(raw.dismissed ?? []) };
   const state: ReqState = { ans: input.ans, borrowers: input.borrowers, txt: input.txt };
   const instances = reqList(state);
   const placements = placeAll(input.files, state, { now: opts.now, dismissed: input.dismissed });
