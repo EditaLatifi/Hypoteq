@@ -6,6 +6,7 @@ import { Client } from "@microsoft/microsoft-graph-client";
 import { ClientSecretCredential } from "@azure/identity";
 import "isomorphic-fetch";
 import { randomUUID } from "crypto";
+import { v3InquiryColumns } from "@/lib/funnel-v3/nachreich";
 import {
   createNachreichToken,
   nachreichExpiry,
@@ -142,6 +143,14 @@ export async function POST(req: Request) {
     const nachreichToken = needsNachreich ? createNachreichToken() : null;
     const nachreichExpiresAt = needsNachreich ? nachreichExpiry() : null;
 
+    // === FUNNEL V3 STATE FOR THE NACHREICHUNG — v3 payloads only ===
+    // documentsMissing holds requirement instance ids for v3; the Nachreich route needs the
+    // answers they were computed from (and the «Habe ich nicht» marks) to recompute the list.
+    // Columns from prisma/sql/2026-10-05-inquiry-v3-state.sql; the cast below covers a Prisma
+    // client generated before them.
+    const v3Columns = data.v3 ? v3InquiryColumns(data, locale) : {};
+    // === END FUNNEL V3 STATE ===
+
     // === SAVE TO DATABASE ===
     // Before Salesforce, not after: a failure here returns an error and the funnel can retry
     // cleanly, whereas a Case created first would be duplicated by that retry.
@@ -149,6 +158,7 @@ export async function POST(req: Request) {
     try {
       inquiry = await prisma.inquiry.create({
         data: {
+          ...(v3Columns as {}),
           // Same value the Salesforce Case carries as its Submission-ID.
           id: submissionId,
           customerType: data.customerType,
