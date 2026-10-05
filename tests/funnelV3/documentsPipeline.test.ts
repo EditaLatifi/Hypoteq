@@ -184,7 +184,7 @@ describe("upload pipeline", () => {
     expect(rech.analysis!.extraKind).toBe("notneeded");
     expect(img.analysis!.extraKind).toBe("unknown");
     expect(S().sharepointFolderId).toBe("folder-1");
-    expect(gb.audit!.map((a) => a.key)).toEqual(["audit.added", "audit.uploaded", "audit.recognised", "audit.placed"]);
+    expect(gb.audit!.map((a) => a.key)).toEqual(["docs.audit.added", "docs.audit.uploaded", "docs.audit.recognised", "docs.audit.placed"]);
     // the same file again (same name, size, folder) is not uploaded twice
     expect(addPickedFiles([pdf("Grundbuch.pdf")])).toEqual([]);
   });
@@ -248,7 +248,7 @@ describe("upload pipeline", () => {
     acceptOutdated(id);
     saveEdits(id, { Objekt: "Etzelstrasse 52" }, true);
     expect(S().files[0]).toMatchObject({ keep: true, outdatedOverride: true, confirmed: true, humanEdits: { Objekt: "Etzelstrasse 52" } });
-    expect(S().files[0].audit!.map((a) => a.key)).toEqual(expect.arrayContaining(["audit.assigned", "audit.kept", "audit.override", "audit.edited", "audit.confirmed"]));
+    expect(S().files[0].audit!.map((a) => a.key)).toEqual(expect.arrayContaining(["docs.audit.assigned", "docs.audit.kept", "docs.audit.override", "docs.audit.edited", "docs.audit.confirmed"]));
   });
 
   it("after a reload: lost uploads fail, uploaded files fetch their stored verdict", async () => {

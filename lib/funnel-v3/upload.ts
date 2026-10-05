@@ -275,7 +275,7 @@ export function uploadFile(id: string): Promise<boolean> {
     const res = await uploadSlot(() => uploadToSharepoint(file, S().submissionId, folderEmail(), S().sharepointFolderId));
     if (!res.success) {
       if (removedWhileUploading.delete(id)) return false;
-      patch(id, { uploadState: "failed", uploadError: res.error }, auditEntry("audit.uploadFailed"));
+      patch(id, { uploadState: "failed", uploadError: res.error }, auditEntry("docs.audit.uploadFailed"));
       return false;
     }
     if (res.folderId && !S().sharepointFolderId) S().setSharepointFolderId(res.folderId);
@@ -292,7 +292,7 @@ export function uploadFile(id: string): Promise<boolean> {
         sharepointUrl: res.webUrl,
         analysisState: "pending",
       },
-      auditEntry("audit.uploaded")
+      auditEntry("docs.audit.uploaded")
     );
     void analyseFile(id);
     return true;
@@ -314,7 +314,7 @@ export function analyseFile(id: string, reuse = false): Promise<void> {
     const f = fileById(id);
     if (!f?.documentId) return;
     if (analysisDisabled) {
-      settleUnanalysed(id, "audit.aiOff");
+      settleUnanalysed(id, "docs.audit.aiOff");
       return;
     }
     patch(id, { analysisState: "analysing" });
@@ -346,20 +346,20 @@ export function analyseFile(id: string, reuse = false): Promise<void> {
     if (!fileById(id)) return; // removed meanwhile
     if (json?.disabled) {
       analysisDisabled = true;
-      settleUnanalysed(id, "audit.aiOff");
+      settleUnanalysed(id, "docs.audit.aiOff");
       return;
     }
     const analysis: V3Analysis | null = json?.analysis && typeof json.analysis === "object" ? json.analysis : null;
     if (!analysis) {
-      patch(id, { analysisState: "failed" }, auditEntry("audit.analysisFailed"));
+      patch(id, { analysisState: "failed" }, auditEntry("docs.audit.analysisFailed"));
     } else {
       const hash = analysis.contentHash ?? fileById(id)?.analysis?.contentHash ?? null;
       patch(
         id,
         { analysisState: "done", analysis: { ...analysis, contentHash: hash } },
         analysis.status === "done" && analysis.docTypeId
-          ? auditEntry("audit.recognised", { label: analysis.docTypeLabel || analysis.docTypeId, pct: Math.round(analysis.confidence * 100) })
-          : auditEntry(analysis.status === "failed" ? "audit.analysisFailed" : "audit.notRecognised")
+          ? auditEntry("docs.audit.recognised", { label: analysis.docTypeLabel || analysis.docTypeId, pct: Math.round(analysis.confidence * 100) })
+          : auditEntry(analysis.status === "failed" ? "docs.audit.analysisFailed" : "docs.audit.notRecognised")
       );
     }
     syncPlacement();
@@ -400,10 +400,10 @@ export function syncPlacement(): void {
       changed = true;
       if (g.instanceId && g.instanceId !== f.instanceId) {
         const inst = instances.get(g.instanceId);
-        return { ...g, audit: [...(g.audit ?? []), auditEntry("audit.placed", { label: inst?.labelDe ?? g.instanceId })] };
+        return { ...g, audit: [...(g.audit ?? []), auditEntry("docs.audit.placed", { label: inst?.labelDe ?? g.instanceId })] };
       }
       if (!g.instanceId && g.analysis?.extraKind && g.analysis.extraKind !== f.analysis?.extraKind) {
-        return { ...g, audit: [...(g.audit ?? []), auditEntry("audit.extra", { kind: g.analysis.extraKind })] };
+        return { ...g, audit: [...(g.audit ?? []), auditEntry("docs.audit.extra", { kind: g.analysis.extraKind })] };
       }
     }
     return g;
@@ -460,7 +460,7 @@ export function addPickedFiles(picked: PickedFile[]): FileEntry[] {
       analysisState: "pending",
       addedAt: new Date().toISOString(),
       ...(p.relativePath ? { relativePath: p.relativePath } : {}),
-      audit: [auditEntry("audit.added", { name: p.relativePath || p.file.name })],
+      audit: [auditEntry("docs.audit.added", { name: p.relativePath || p.file.name })],
     });
   }
   if (!entries.length) return [];
@@ -511,19 +511,19 @@ export function assignFile(id: string, instanceId: string, label: string): void 
     ...(f.analysisState !== "done"
       ? { analysisState: "done" as const, analysis: { status: "failed" as const, docTypeId: null, docTypeLabel: null, confidence: 0, requirementId: null, fields: {}, contentHash: f.analysis?.contentHash ?? null } }
       : {}),
-    audit: [...(f.audit ?? []), auditEntry("audit.assigned", { label })],
+    audit: [...(f.audit ?? []), auditEntry("docs.audit.assigned", { label })],
   }));
   syncPlacement();
 }
 
 /** «Trotzdem verwenden» on an outdated document. */
 export function acceptOutdated(id: string): void {
-  patch(id, { outdatedOverride: true }, auditEntry("audit.override"));
+  patch(id, { outdatedOverride: true }, auditEntry("docs.audit.override"));
 }
 
 /** «Behalten» / undo on a not-needed file. */
 export function keepFile(id: string, keep: boolean): void {
-  patch(id, { keep }, auditEntry(keep ? "audit.kept" : "audit.unkept"));
+  patch(id, { keep }, auditEntry(keep ? "docs.audit.kept" : "docs.audit.unkept"));
 }
 
 /** Detail view: corrected values and «Angaben bestätigen». */
@@ -534,8 +534,8 @@ export function saveEdits(id: string, edits: Record<string, string>, confirm: bo
     const humanEdits = { ...before, ...Object.fromEntries(changed) };
     const audit = [
       ...(f.audit ?? []),
-      ...changed.map(([field, value]) => auditEntry("audit.edited", { field, value })),
-      ...(confirm ? [auditEntry("audit.confirmed")] : []),
+      ...changed.map(([field, value]) => auditEntry("docs.audit.edited", { field, value })),
+      ...(confirm ? [auditEntry("docs.audit.confirmed")] : []),
     ];
     return { humanEdits, audit, ...(confirm ? { confirmed: true } : {}) };
   });
@@ -544,7 +544,7 @@ export function saveEdits(id: string, edits: Record<string, string>, confirm: bo
 /** Berater / intern: the stored name (spec 5.1). Empty restores the generated name. */
 export function renameFile(id: string, name: string): void {
   const v = name.trim();
-  patch(id, { nameOverride: v || undefined }, auditEntry("audit.renamed", { name: v || "–" }));
+  patch(id, { nameOverride: v || undefined }, auditEntry("docs.audit.renamed", { name: v || "–" }));
 }
 
 /** A URL to show the file: the local copy when this browser has it, else the SharePoint link. */
