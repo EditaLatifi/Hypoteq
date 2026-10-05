@@ -11,10 +11,11 @@
  * ends on the file (uploadState / analysisState), never as an exception out of here.
  */
 
-import { useFunnelV3, newId } from "./store";
+import type { StoreApi } from "zustand";
+import { useFunnelV3, newId, type FunnelV3Store } from "./store";
 import type { FileAuditEntry, FileEntry, V3Analysis } from "./files";
 import { placeAll, withPlacement } from "./placeFile";
-import { reqList } from "./requirements";
+import { reqList, type RequirementInstance } from "./requirements";
 
 // ---- Limits -------------------------------------------------------------------------------
 
@@ -63,7 +64,30 @@ const analyseSlot = limiter(ANALYSE_CONCURRENCY);
 
 // ---- Store helpers ------------------------------------------------------------------------
 
-const S = () => useFunnelV3.getState();
+/** The store the pipeline works on: the funnel's, unless a page bound its own. */
+export type PipelineStore = Pick<StoreApi<FunnelV3Store>, "getState" | "subscribe">;
+
+let pipelineStore: PipelineStore = useFunnelV3;
+/** Instances placement uses instead of reqList(state), when the bound page says so. */
+let placementInstances: (() => RequirementInstance[]) | null = null;
+
+/**
+ * Point the pipeline at another store (createFunnelV3Store) — the Nachreich page, which has no
+ * funnel answers, only the requirements the inquiry still misses (`instances`). Returns the
+ * function that restores the previous binding.
+ */
+export function bindUploadPipeline(store: PipelineStore, opts: { instances?: () => RequirementInstance[] } = {}): () => void {
+  const prev = { store: pipelineStore, instances: placementInstances };
+  pipelineStore = store;
+  placementInstances = opts.instances ?? null;
+  return () => {
+    if (pipelineStore !== store) return;
+    pipelineStore = prev.store;
+    placementInstances = prev.instances;
+  };
+}
+
+const S = () => pipelineStore.getState();
 const fileById = (id: string) => S().files.find((f) => f.id === id);
 
 export function auditEntry(key: string, params?: FileAuditEntry["params"]): FileAuditEntry {
@@ -391,9 +415,10 @@ function settleUnanalysed(id: string, key: string) {
 export function syncPlacement(): void {
   const s = S();
   if (!s.files.length) return;
-  const map = placeAll(s.files, s, { dismissed: s.dismissed });
+  const list = placementInstances?.() ?? reqList(s);
+  const map = placeAll(s.files, s, { dismissed: s.dismissed, instances: list });
   let changed = false;
-  const instances = new Map(reqList(s).map((i) => [i.instanceId, i]));
+  const instances = new Map(list.map((i) => [i.instanceId, i]));
   const next = s.files.map((f) => {
     const g = withPlacement(f, map.get(f.id));
     if (g !== f) {
@@ -421,7 +446,7 @@ let placementUnsub: (() => void) | null = null;
 export function startPlacementSync(): () => void {
   if (placementUnsub) return placementUnsub;
   let last = { ans: S().ans, borrowers: S().borrowers, txt: S().txt, dismissed: S().dismissed, n: S().files.length };
-  const unsub = useFunnelV3.subscribe((s) => {
+  const unsub = pipelineStore.subscribe((s) => {
     const cur = { ans: s.ans, borrowers: s.borrowers, txt: s.txt, dismissed: s.dismissed, n: s.files.length };
     if (cur.ans === last.ans && cur.borrowers === last.borrowers && cur.txt === last.txt && cur.dismissed === last.dismissed && cur.n === last.n) return;
     last = cur;
@@ -626,4 +651,6 @@ export function __resetUploadPipeline(): void {
   objectUrls.clear();
   analysisDisabled = false;
   placementUnsub?.();
+  pipelineStore = useFunnelV3;
+  placementInstances = null;
 }
