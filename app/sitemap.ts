@@ -8,7 +8,6 @@ const routes = [
   "/hypotheken",
   "/uber-uns",
   "/kontaktieren-sie-uns",
-  "/funnel",
   "/hypothekenrechner",
   "/faq",
   "/documents",
@@ -30,7 +29,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         url: `${baseUrl}/${locale}${route}`,
         lastModified: new Date(),
         changeFrequency: route === "" ? "daily" : "weekly",
-        priority: route === "" ? 1.0 : route === "/funnel" ? 0.9 : 0.8,
+        priority: route === "" ? 1.0 : 0.8,
         alternates: {
           languages: {
             de: `${baseUrl}/de${route}`,
