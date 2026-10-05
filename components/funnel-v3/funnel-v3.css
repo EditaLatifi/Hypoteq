@@ -383,7 +383,9 @@ body:has(.hqv3) {
 }
 .hqv3 .v3-langs--dark {
   border-color: var(--on-dark-14);
-  background: transparent;
+  /* Solid, not transparent: on the start screen the switch sits over the lime diagonal,
+     where light text on a see-through pill was unreadable. */
+  background: var(--forest-800);
 }
 .hqv3 .v3-langs--dark .v3-lang {
   color: var(--on-dark-70);
