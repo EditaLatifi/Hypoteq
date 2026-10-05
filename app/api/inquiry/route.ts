@@ -143,14 +143,6 @@ export async function POST(req: Request) {
     const nachreichToken = needsNachreich ? createNachreichToken() : null;
     const nachreichExpiresAt = needsNachreich ? nachreichExpiry() : null;
 
-    // === FUNNEL V3 STATE FOR THE NACHREICHUNG — v3 payloads only ===
-    // documentsMissing holds requirement instance ids for v3; the Nachreich route needs the
-    // answers they were computed from (and the «Habe ich nicht» marks) to recompute the list.
-    // Columns from prisma/sql/2026-10-05-inquiry-v3-state.sql; the cast below covers a Prisma
-    // client generated before them.
-    const v3Columns = data.v3 ? v3InquiryColumns(data, locale) : {};
-    // === END FUNNEL V3 STATE ===
-
     // === SAVE TO DATABASE ===
     // Before Salesforce, not after: a failure here returns an error and the funnel can retry
     // cleanly, whereas a Case created first would be duplicated by that retry.
@@ -158,7 +150,6 @@ export async function POST(req: Request) {
     try {
       inquiry = await prisma.inquiry.create({
         data: {
-          ...(v3Columns as {}),
           // Same value the Salesforce Case carries as its Submission-ID.
           id: submissionId,
           customerType: data.customerType,
@@ -279,6 +270,21 @@ export async function POST(req: Request) {
       const errorMsg = dbErr instanceof Error ? dbErr.message : 'Failed to save inquiry';
       return NextResponse.json({ success: false, error: errorMsg }, { status: 500 });
     }
+
+    // === FUNNEL V3 STATE FOR THE NACHREICHUNG — v3 payloads only ===
+    // documentsMissing holds requirement instance ids for v3; the Nachreich route needs the
+    // answers they were computed from (and the «Habe ich nicht» marks) to recompute the list.
+    // Written right after the row exists and non-fatal, like the case number below: a missing
+    // column (prisma/sql/2026-10-05-inquiry-v3-state.sql not run yet) must never cost the lead.
+    // The cast covers a Prisma client generated before the columns.
+    if (data.v3) {
+      try {
+        await (prisma.inquiry as any).update({ where: { id: inquiry.id }, data: v3InquiryColumns(data, locale), select: { id: true } });
+      } catch (v3StateErr) {
+        console.error(`⚠️ Could not store the v3 answers on inquiry ${inquiry.id} (Nachreichung falls back to the legacy page):`, v3StateErr);
+      }
+    }
+    // === END FUNNEL V3 STATE ===
 
     // === CASE NUMBER (DECISIONS D1) ===
     // Stored right after the row exists, so a failure here can never cost the lead: the
