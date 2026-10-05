@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<title>HYPOTEQ Funnel v3 · Umsetzungsstand</title>
+<style>
+  @page { size: A4; margin: 18mm 16mm 20mm 16mm; }
+  :root {
+    --forest: #132219; --lime: #CAF476; --ink: #1b2a21; --muted: #5f6b64; --rule: #dfe5e0;
+    --paper: #f5f7f3; --warn: #b7791f; --warn-bg: #fff6e5; --ok: #2f7a3a; --ok-bg: #edf7ee; --bad: #b3261e; --bad-bg: #fdecea;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; color: var(--ink); font-size: 10.5pt; line-height: 1.45; }
+  h1 { font-size: 26pt; line-height: 1.1; margin: 0 0 6px; letter-spacing: -0.01em; }
+  h2 { font-size: 15pt; margin: 26px 0 8px; padding-top: 10px; border-top: 2px solid var(--lime); break-after: avoid; }
+  h3 { font-size: 11.5pt; margin: 16px 0 6px; break-after: avoid; }
+  p { margin: 6px 0; }
+  .cover { background: var(--forest); color: #fff; padding: 28px 28px 24px; border-radius: 10px; margin-bottom: 18px; position: relative; overflow: hidden; }
+  .cover::after { content: ""; position: absolute; right: -90px; top: -40px; width: 200px; height: 400px; background: var(--lime); transform: skewX(-18deg); opacity: 0.95; }
+  .cover > * { position: relative; z-index: 1; max-width: 72%; }
+  .cover .logo { display: inline-block; border: 2.5px solid #fff; padding: 3px 9px; font-weight: 800; letter-spacing: 0.08em; font-size: 13pt; margin-bottom: 22px; }
+  .cover .rule { display: block; width: 44px; height: 4px; background: var(--lime); margin: 0 0 12px; }
+  .cover .meta { color: #cfd8d2; font-size: 10pt; margin-top: 10px; }
+  .cover .meta b { color: #fff; font-weight: 600; }
+  .eyebrow { font-size: 8pt; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 14px 0 6px; }
+  .kpi { border: 1px solid var(--rule); border-radius: 8px; padding: 10px 12px; background: #fff; }
+  .kpi .n { font-size: 20pt; font-weight: 800; line-height: 1; color: var(--forest); }
+  .kpi .l { font-size: 8.5pt; color: var(--muted); margin-top: 4px; }
+  table { width: 100%; border-collapse: collapse; margin: 8px 0 12px; font-size: 9.5pt; }
+  th, td { text-align: left; vertical-align: top; padding: 6px 8px; border-bottom: 1px solid var(--rule); }
+  th { background: var(--paper); font-weight: 700; font-size: 8.5pt; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+  tr { break-inside: avoid; }
+  .tag { display: inline-block; font-size: 8pt; font-weight: 700; letter-spacing: 0.04em; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+  .ok { background: var(--ok-bg); color: var(--ok); }
+  .warn { background: var(--warn-bg); color: var(--warn); }
+  .bad { background: var(--bad-bg); color: var(--bad); }
+  .neutral { background: var(--paper); color: var(--muted); }
+  .box { border: 1px solid var(--rule); border-left: 4px solid var(--lime); background: #fff; border-radius: 6px; padding: 10px 14px; margin: 10px 0; break-inside: avoid; }
+  .box.warn { border-left-color: var(--warn); background: var(--warn-bg); color: var(--ink); }
+  .box.bad { border-left-color: var(--bad); background: var(--bad-bg); color: var(--ink); }
+  .box h3 { margin-top: 0; }
+  ol, ul { margin: 6px 0 6px 18px; padding: 0; }
+  li { margin: 3px 0; }
+  code { font-family: ui-monospace, Consolas, Menlo, monospace; font-size: 9pt; background: var(--paper); padding: 1px 4px; border-radius: 3px; }
+  pre { font-family: ui-monospace, Consolas, Menlo, monospace; font-size: 9pt; background: var(--paper); padding: 10px 12px; border-radius: 6px; white-space: pre-wrap; }
+  .flow { counter-reset: step; margin: 10px 0; }
+  .flow .step { display: grid; grid-template-columns: 30px 1fr; gap: 10px; padding: 8px 0; border-bottom: 1px dashed var(--rule); break-inside: avoid; }
+  .flow .step::before { counter-increment: step; content: counter(step); width: 26px; height: 26px; border-radius: 999px; background: var(--forest); color: var(--lime); font-weight: 800; display: flex; align-items: center; justify-content: center; font-size: 10pt; }
+  .flow .step b { display: block; }
+  .flow .step span { color: var(--muted); font-size: 9.5pt; }
+  .small { font-size: 9pt; color: var(--muted); }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .pagebreak { break-before: page; }
+  footer.note { margin-top: 24px; padding-top: 8px; border-top: 1px solid var(--rule); font-size: 8.5pt; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="logo">HYPOTEQ</div>
+  <span class="rule"></span>
+  <h1>Finanzierungsfunnel v3<br>Umsetzungsstand und offene Punkte</h1>
+  <div class="meta">
+    Stand <b>5. Oktober 2026</b> · Branch <b>ai-document-intelligence</b> (Commit 8bb0a05, Preview-Deployment) ·
+    Grundlage: Übergabepaket «HYPOTEQ Funnel / Uebergabe» vom 05.10.2026 (Spezifikation, Prototyp, Fall-Dossier, Sprachdatei, Salesforce-Mapping)
+  </div>
+</div>
+
+<div class="kpis">
+  <div class="kpi"><div class="n">100 %</div><div class="l">der Spezifikationskapitel 1–7 umgesetzt (Abweichungen dokumentiert in DECISIONS D1–D26, S1–S10)</div></div>
+  <div class="kpi"><div class="n">736</div><div class="l">automatisierte Tests in 53 Suiten, alle grün · Typprüfung fehlerfrei</div></div>
+  <div class="kpi"><div class="n">22</div><div class="l">Lücken aus dem Audit heute behoben und auf den Branch gepusht (7 Commits)</div></div>
+  <div class="kpi"><div class="n">3</div><div class="l">Punkte brauchen eine Entscheidung oder Einstellung von HYPOTEQ vor dem Go-live</div></div>
+</div>
+
+<h2>1 · Kurzfazit</h2>
+<p>Die Spezifikation vom 05.10.2026 ist auf dem Branch vollständig umgesetzt: alle sechs Schritte, die 47 Dokumentregeln, die KI-Erkennung mit Extraktion und automatischer Umbenennung, das Fall-Dossier, der Abschluss, die Nachreichung, Salesforce-Sync und Vier-Sprachigkeit. Das Übergabepaket wurde Datei für Datei gegen den Code geprüft; die sieben gelieferten Dateien sind identisch mit den im Repository abgelegten Kopien.</p>
+<p>Ein vollständiger Audit mit fünf Prüfläufen fand 22 Lücken (drei davon echte Fehler, darunter Kauf-Anfragen, die in Salesforce als 100 % finanziert gebucht wurden). Alle sind behoben, getestet und gepusht. Der Funnel wurde zusätzlich im Browser durchlaufen (Desktop 1440 px und Smartphone 390 px, Deutsch und Französisch) – ohne Fehler.</p>
+<div class="box warn">
+  <h3>Was HYPOTEQ jetzt beisteuern muss</h3>
+  <ol>
+    <li><b>Partner-Erkennung schärfen:</b> das Salesforce-Kriterium für «aktiver VP-Berater» festlegen und als <code>SF_PARTNER_CONTACT_FILTER</code> setzen (Kapitel 6.1).</li>
+    <li><b>Feldrechte prüfen:</b> darf der Integrations-User <code>Account.Salutation</code> schreiben? Prüfskript liegt bereit (Kapitel 6.2).</li>
+    <li><b>Entscheide aus Spezifikation Kapitel 8</b> bestätigen oder ändern – bis dahin gelten die dokumentierten Defaults (Kapitel 6.3).</li>
+  </ol>
+</div>
+
+<h2>2 · Geprüftes Übergabepaket</h2>
+<table>
+  <tr><th style="width:38%">Datei</th><th>Prüfung</th><th style="width:14%">Ergebnis</th></tr>
+  <tr><td>HYPOTEQ_Funnel_Spezifikation.md</td><td>Identisch mit der Kopie im Repository. Jedes Kapitel (1–8) gegen den Code geprüft, Abweichungen mit den dokumentierten Entscheiden abgeglichen.</td><td><span class="tag ok">umgesetzt</span></td></tr>
+  <tr><td>HYPOTEQ_Salesforce_Mapping_Abgleich.csv</td><td>Alle 88 Zeilen: jede Angabe «neu umgesetzt / bleibt / fehlt» im Code verifiziert. Fünf Zeilen nach den heutigen Korrekturen aktualisiert.</td><td><span class="tag ok">verifiziert</span></td></tr>
+  <tr><td>HYPOTEQ_Salesforce_Mapping_Vorschlag.csv</td><td>Referenz für den Feld-für-Feld-Vergleich (Kapitel 6 der Spezifikation).</td><td><span class="tag ok">geprüft</span></td></tr>
+  <tr><td>HYPOTEQ_Funnel_i18n.json</td><td>300 Schlüssel (die Spezifikation nennt 297), alle vier Sprachen vollständig im Funnel; deutsche Texte unverändert; keine Platzhalter-Abweichungen.</td><td><span class="tag ok">vollständig</span></td></tr>
+  <tr><td>HYPOTEQ_Funnel_Uebersetzungen.csv</td><td>300 Zeilen, deckungsgleich mit der JSON-Datei. Spalte «Review» ist leer – fachliche Gegenlesung steht aus (Kapitel 6.3).</td><td><span class="tag warn">Review offen</span></td></tr>
+  <tr><td>HYPOTEQ_Funnel_Prototyp.html</td><td>Selbst-entpackendes Bundle desselben Prototyps, der entpackt im Repository liegt. Reihenfolge der Fragen, Dokumentregeln (reqList) und Gerber-Zähler 13 → 16 → 18 → 21 → 23 verglichen und getestet.</td><td><span class="tag ok">abgeglichen</span></td></tr>
+  <tr><td>HYPOTEQ_Fall-Dossier_Gerber.html</td><td>Bundle des Beispiel-Dossiers. Aufbau des erzeugten PDFs und die vier Beispiel-Dateinamen stimmen Byte für Byte.</td><td><span class="tag ok">abgeglichen</span></td></tr>
+</table>
+
+<h2>3 · Umsetzungsstand nach Spezifikationskapitel</h2>
+<table>
+  <tr><th style="width:26%">Kapitel</th><th>Stand</th><th style="width:14%">Status</th></tr>
+  <tr><td>1 Grundprinzipien</td><td>Ja/Nein-Fragen stehen auf «Nein», keine Pflichtsternchen, Validierung beim Klick auf «Weiter», Schweizer Zahlenformat <code>CHF 449'000</code>, Du-Anrede.</td><td><span class="tag ok">umgesetzt</span></td></tr>
+  <tr><td>2 Einstieg und Partner-Erkennung</td><td>Zwei Einstiege; Berater-E-Mail wird live in Salesforce gesucht (exakter E-Mail-Abgleich auf Contact; <code>@hypoteq.ch/.com</code> → User). Karte «Erkannt», Box «Noch kein Partner?» mit Kurzformular. Neu: «Adresse wird geprüft …» und eine ehrliche Meldung, wenn Salesforce nicht erreichbar ist.</td><td><span class="tag ok">umgesetzt</span></td></tr>
+  <tr><td>3 Schritte 1–4</td><td>Alle Felder, Optionen, Defaults und Sichtbarkeitsbedingungen gemäss Tabellen. Live-Berechnung mit den Formeln der Spezifikation (Belehnung 80 %, Tragbarkeit 33 %). Höchstens 3 Kreditnehmer (D2).</td><td><span class="tag ok">umgesetzt</span></td></tr>
+  <tr><td>3 Schritt 5 Unterlagen</td><td>Eine Drop-Zone für Dateien und Ordner, automatische Zuordnung, sechs Zustände, «Weitere Dateien» (überzählig, Duplikat, nicht benötigt, nicht erkannt), Antwort-Korrektur-Vorschläge.</td><td><span class="tag ok">umgesetzt</span></td></tr>
+  <tr><td>3 Schritt 6 Abschluss</td><td>Kennzahlen, Hinweise an die Bank, Prüfliste, «Finanzierungsanfrage abschliessen», «Fall-Dossier als PDF», danach «Neuen Antrag stellen» / «Abschliessen». Fallnummer <code>HQ-JJ-MM-NNNNNN</code>.</td><td><span class="tag ok">umgesetzt</span></td></tr>
+  <tr><td>4 Dokumentenlogik</td><td>Alle 47 Regeln (O1–O15, H1–H3, P1–P16, J1–J6, E1–E7) mit Herkunft «weil: …», erwarteten Dateizahlen und Zuständen. Neu: P16 erwartet 3 Lohnausweise; «Veraltet» wird gegen das heutige Datum beurteilt.</td><td><span class="tag ok">umgesetzt</span></td></tr>
+  <tr><td>5 Erkennung und Extraktion</td><td>Echte KI-Erkennung (OpenAI, striktes JSON-Schema), Felder pro Dokumenttyp, Konfidenz «Erkannt / Prüfen» für Kunden, Prozentwerte und Audit-Trail für die interne Rolle. Abgleich Funnel ↔ Dokument für Einkommen (auch Haushalt über mehrere Kreditnehmer) und bestehende Hypothek; Dokument ↔ Dokument für Baujahr und Ablösedatum.</td><td><span class="tag ok">umgesetzt</span></td></tr>
+  <tr><td>5.1 Automatische Umbenennung</td><td>Schema <code>{Fallnummer}_{Gruppe}_{Typ}_{Person}_{Datum}_{Nr}.{ext}</code>, Umlaute ersetzt, <code>_ZUSATZ_</code>/<code>_DUPLIKAT_</code>, Umbenennung beim Abschluss im SharePoint-Fallordner, Originalname im Audit-Trail. Neu: vom Berater geänderte Namen werden übernommen.</td><td><span class="tag ok">umgesetzt</span></td></tr>
+  <tr><td>6 Salesforce</td><td>Bestehendes Mapping bleibt (S1). Partner-Lookups, Supplied*-Felder, Vermerk «Neuer Partner», Korrespondenzsprache, Mitkreditnehmer ohne E-Mail, Dok_*-Checkboxen, Documents_completed__c, SharePoint_Doc__c, JSON nach 6.11 zusätzlich zu checked/filters/savedAt. Neu: Gesamtfinanzierung bei Kauf wie im Funnel gezeigt, Anrede → Salutation, Verpfändung PK, Ferienobjekt bewusst leer, abgelehnte Felder werden gemeldet.</td><td><span class="tag ok">umgesetzt</span></td></tr>
+  <tr><td>7 Mehrsprachigkeit</td><td>DE/EN/FR/IT, URL-Präfixe, Umschalter oben rechts, Wahl gespeichert, FR «vous» / IT «Lei», Schweizer Format überall, Korrespondenzsprache nach Salesforce. Neu: Browsersprache wird erkannt; Dossier und Mails ohne deutsche Textreste.</td><td><span class="tag ok">umgesetzt</span></td></tr>
+  <tr><td>8 Offene Punkte</td><td>Je ein dokumentierter Default (DECISIONS.md); Entscheid HYPOTEQ ändert nur diesen Default.</td><td><span class="tag warn">Entscheide</span></td></tr>
+</table>
+
+<h2 class="pagebreak">4 · Was heute Ende-zu-Ende läuft</h2>
+<p>Der folgende Ablauf ist implementiert, durch automatisierte Tests abgedeckt und – wo ohne echte Einreichung möglich – im Browser nachvollzogen.</p>
+<div class="flow">
+  <div class="step"><div><b>Start und Fragen (Schritte 1–4)</b><span>Kunde oder Berater, Partner-Erkennung live gegen Salesforce, Dokumentenliste wächst mit jeder Antwort, Live-Berechnung. Zustand überlebt ein Neuladen (sessionStorage).</span></div></div>
+  <div class="step"><div><b>Upload und KI-Erkennung (Schritt 5)</b><span>Dateien gehen sofort in den SharePoint-Ordner der Einreichung; die KI klassifiziert, ordnet zu, extrahiert Felder mit Konfidenz, prüft Aktualität (6-Monats-Regel), erkennt Duplikate per Hash.</span></div></div>
+  <div class="step"><div><b>Abschluss (Schritt 6)</b><span>Fallnummer wird vergeben, Dateien im Fallordner umbenannt, Duplikate/nicht benötigte Dateien entfernt, Fall-Dossier als PDF erzeugt und abgelegt, Download im Abschluss.</span></div></div>
+  <div class="step"><div><b>Salesforce</b><span>Person Accounts (auch Mitkreditnehmer ohne E-Mail), Case mit allen gemappten Feldern, Partner-Lookups bzw. Supplied*-Felder, Dok_*-Checkboxen, Dokumenten-Check-JSON, SharePoint-URL. Abgelehnte Felder lösen eine Notiz an info@hypoteq.ch aus; der Case wird trotzdem angelegt.</span></div></div>
+  <div class="step"><div><b>E-Mails</b><span>Bestätigung an den Kunden (Berater in Kopie) in der Funnel-Sprache mit Fallnummer und persönlichem Link; Mail 2a/2b (Dossier vollständig / fehlende Unterlagen) ebenfalls mit Fallnummer und Link; interne Benachrichtigung an HYPOTEQ.</span></div></div>
+  <div class="step"><div><b>Nachreichung über den Link</b><span>Fehlende Unterlagen hochladen oder – bei vollständigem Dossier – weitere Unterlagen hinzufügen. Gleiche Umbenennung, Dossier und Case werden aktualisiert. Link 30 Tage gültig.</span></div></div>
+</div>
+
+<h3>Wie geprüft wurde</h3>
+<table>
+  <tr><th style="width:34%">Prüfung</th><th>Ergebnis</th></tr>
+  <tr><td>Automatisierte Tests</td><td>53 Suiten, 736 Tests, alle grün (davon 43 heute neu: Salesforce-Mapping, Bestätigungsmail, Dateinamen-Override, Locale-Erkennung, Dossier-Sprache, Nachreichung, Aktualität).</td></tr>
+  <tr><td>Typprüfung (TypeScript)</td><td>Fehlerfrei auf dem gesamten Projekt.</td></tr>
+  <tr><td>Browser-Durchlauf</td><td>Alle sechs Schritte als «Kunde selbst» mit den Gerber-Antworten, Desktop 1440 px und Smartphone 390 px, Deutsch; Berater-Einstieg mit Partner-Erkennung, Französisch. Keine Konsolen- oder Laufzeitfehler. Dabei ein Darstellungsfehler auf dem Smartphone gefunden und behoben (Dokumentzeilen).</td></tr>
+  <tr><td>Spezifikations-Audit</td><td>Fünf unabhängige Prüfläufe (Schritte 1–4, Dokumentregeln, Erkennung/Dossier, Salesforce, Mehrsprachigkeit) mit Belegstelle im Code für jede Spezifikationszeile.</td></tr>
+</table>
+<div class="box">
+  <h3>Nicht in dieser Sitzung geprüft</h3>
+  <ul>
+    <li>Keine echte Einreichung mit Upload und Abschluss gegen die produktive Umgebung (es gibt keine Staging-Umgebung; jede Einreichung würde reale Daten, Salesforce und Mailboxen berühren). Dieser Teil ist durch Tests mit nachgebildeten Diensten abgedeckt.</li>
+    <li>Die Feldrechte des Salesforce-Integrations-Users (siehe 6.2).</li>
+    <li>Die Erkennungsqualität der KI auf echten französischen und italienischen Dokumenten.</li>
+  </ul>
+</div>
+
+<h2>5 · Heute behobene Lücken</h2>
+<table>
+  <tr><th style="width:30%">Thema</th><th>Vorher</th><th>Jetzt</th></tr>
+  <tr><td><b>Kauf-Anfragen in Salesforce</b></td><td>v3 sendet keine Eigenmittelbeträge; der Sync buchte Kaufpreis − 0 = 100 % Finanzierung und rechnete die Tragbarkeit darauf.</td><td>Gesamtfinanzierung wie im Funnel gezeigt (Objektwert × 80 %), Eigenmittel-% daraus; Tragbarkeitsformel bleibt (S6). Alter Funnel unverändert.</td></tr>
+  <tr><td>Anrede</td><td>Gefragt, aber nicht nach Salesforce geschrieben.</td><td><code>Salutation</code> Mr./Mrs. beim Anlegen eines Person Accounts (S7); fehlende Rechte werden toleriert.</td></tr>
+  <tr><td>Verpfändung PK, Ferienobjekt</td><td>Feld nie gesendet; Ferienobjekt verliess sich auf eine Salesforce-Ablehnung.</td><td><code>Verpf_ndung_PK__c</code> Ja/Nein (auch Oui/Non/Sì); Ferienobjekt explizit leer (S8, S9).</td></tr>
+  <tr><td><b>Dateiname des Beraters</b></td><td>Änderung in der Oberfläche wurde beim Abschluss ignoriert.</td><td>Wird übernommen, bereinigt, Kollisionen mit <code>_2</code>; nur für Berater (D19).</td></tr>
+  <tr><td><b>Bestätigungsmail</b></td><td>Ohne Fallnummer und ohne Link zurück; FR/IT per Du.</td><td>Fallnummer in Betreff und Text, Button zur Anfrage; FR «vous», IT «Lei» (D20).</td></tr>
+  <tr><td>Browsersprache</td><td>Startseite immer Deutsch.</td><td>Cookie → Accept-Language → Deutsch.</td></tr>
+  <tr><td>Abgleiche</td><td>Nur Einkommen (ein Kreditnehmer) und Hypothek.</td><td>Zusätzlich Haushaltseinkommen, Baujahr (GVZ ↔ Verkaufsdoku), Ablösedatum (Zinsabrechnung ↔ Rahmenvertrag).</td></tr>
+  <tr><td>Deutsch in fremdsprachigen Dokumenten</td><td>Begründungen im Dossier-Anhang und Audit-Daten im US-Format.</td><td>Übersetzt bzw. TT.MM.JJJJ in allen Sprachen.</td></tr>
+  <tr><td>Partner-Prüfung bei Ausfall</td><td>«Diese Adresse kennen wir noch nicht» auch bei Salesforce-Störung.</td><td>«Prüfung gerade nicht möglich», Anfrage läuft weiter, Sync prüft erneut (D25).</td></tr>
+  <tr><td>Verworfene Salesforce-Felder</td><td>Nur eine Konsolenzeile.</td><td>Notiz mit Fallnummer, Case-ID und Feldliste an info@hypoteq.ch (S10).</td></tr>
+  <tr><td>Vollständiges Dossier, Link aus der Mail</td><td>Generische Meldung, keine Uploads möglich.</td><td>Statusseite mit Fallnummer, weitere Unterlagen können hinzugefügt werden (D26).</td></tr>
+  <tr><td>Weitere</td><td colspan="2">Smartphone-Layout der Dokumentzeilen; eigener Seitentitel pro Sprache (noindex); Neubau-Zusatzfrage direkt nach «Art der Immobilie»; P16 = 3 Dateien (D22); «Veraltet» zum Anzeigezeitpunkt (D24); interne Ansicht mit Schlüssel (D23); veraltete Datei <code>FUNNEL_NEW_KEYS.json</code> entfernt.</td></tr>
+</table>
+
+<h2 class="pagebreak">6 · Offene Punkte – was wir von HYPOTEQ brauchen</h2>
+
+<h3>6.1 Partner-Erkennung: Kriterium «aktiver VP-Berater»</h3>
+<div class="box bad">
+  <p><b>Warum das wichtig ist.</b> Die Spezifikation (2.2 und 8.7) verlangt den Abgleich gegen die Whitelist der <i>aktiven</i> VP-Berater; ehemalige Partner bleiben ausgeschlossen. Heute sucht der Funnel per E-Mail auf <i>allen</i> Contacts, weil noch kein Kriterium bekannt ist. Zwei Folgen:</p>
+  <ul>
+    <li>Ein <b>ehemaliger Partner</b> wird als «Erkannt» angezeigt, als <code>Partner_Consultant__c</code> auf den Case gesetzt und sein Account wird Sales Partner.</li>
+    <li>Endkunden sind Person Accounts, und jeder Person Account hat einen verdeckten Contact mit derselben E-Mail. Eine <b>Kunden-Adresse</b> im Berater-Feld wird deshalb ebenfalls als Partner erkannt.</li>
+  </ul>
+  <p><b>Was wir brauchen.</b> Die SOQL-Bedingung, die einen aktiven VP-Berater kennzeichnet – z.B. ein Picklist-Feld auf dem Contact (Rolle / Status), der Account-Typ «Sales Partner» oder ein Record Type. Sie wird als Umgebungsvariable <code>SF_PARTNER_CONTACT_FILTER</code> gesetzt, zum Beispiel:</p>
+  <pre>SF_PARTNER_CONTACT_FILTER=Account.IsPersonAccount = false AND Account.Type = 'Sales Partner' AND Partner_Status__c = 'Aktiv'</pre>
+  <p>Das Prüfskript (6.2) listet alle Contact-Felder und Account-Record-Types der Org auf, damit das Feld schnell gefunden ist. Alternative laut Spezifikation 8.7: täglicher Export der VP-Berater-Liste statt Live-Abfrage – der Code ist auf die Live-Abfrage ausgelegt und bevorzugt sie.</p>
+</div>
+
+<h3>6.2 Feldrechte auf <code>Account.Salutation</code> und alle gemappten Felder</h3>
+<p>Die Anrede wird neu als <code>Salutation</code> geschrieben. Ob der Integrations-User das Feld schreiben darf, konnte aus dieser Sitzung heraus nicht geprüft werden (der Zugriff auf die produktiven Zugangsdaten ist dort gesperrt). Im Repository liegt ein <b>reines Lese-Skript</b>, das in der Org nichts verändert:</p>
+<pre>node scripts/salesforce-field-check.js</pre>
+<p>Es gibt für jedes Feld, das der Funnel auf Case, Account und Contact schreibt, aus: vorhanden, anlegbar, änderbar, Typ und Picklist-Werte. Damit lassen sich in einem Lauf bestätigen: <code>Salutation</code>, alle <code>Dok_*</code>-Checkboxen, <code>Documents_completed__c</code>, <code>Dokumenten_Check_State__c</code> (Länge), <code>SharePoint_Doc__c</code>, <code>Verpf_ndung_PK__c</code>, die Supplied*-Felder und die Picklist-Werte aus dem Mapping (z.B. «Juristische Personen», «Rendite-Immobilie», «Rentner», «Saron»).</p>
+<p class="small">Fällt ein Recht, wird das Feld beim Schreiben verworfen, der Case trotzdem angelegt und HYPOTEQ per Notiz informiert (S10). Datenverlust gibt es also nicht – nur Nacharbeit.</p>
+
+<h3>6.3 Entscheide aus Spezifikation Kapitel 8 und dem Mapping-Abgleich</h3>
+<table>
+  <tr><th style="width:28%">Punkt</th><th>Heute gültiger Default</th><th style="width:30%">Gewünscht von HYPOTEQ</th></tr>
+  <tr><td>8.1 Ferienobjekt</td><td>Option bleibt; <code>Art_der_Liegenschaft__c</code> bleibt leer (D8, S9).</td><td>Option streichen und Bauland/Gewerbe anbieten? Oder Picklist-Wert anlegen.</td></tr>
+  <tr><td>8.2 Nutzung</td><td>Drei Werte wie im Prototyp.</td><td>«Vermietet &amp; teilweise selbstbewohnt», «Für eigenes Geschäft» aufnehmen?</td></tr>
+  <tr><td>8.3 Geschätzter Objektwert</td><td>Kein Salesforce-Feld; Wert nur im JSON und für Belehnung.</td><td>Neues Feld <code>Geschaetzter_Objektwert__c</code> anlegen?</td></tr>
+  <tr><td>8.4 Erhöhung</td><td>Bestehendes Mapping auf <code>Erh_hung__c</code> bleibt.</td><td>Welches der beiden Felder ist aktiv?</td></tr>
+  <tr><td>8.5 Kreditnehmer</td><td>Höchstens 3 (D2).</td><td>Bestätigen.</td></tr>
+  <tr><td>8.6 Wärmepumpe</td><td>Eine Option; Salesforce-Wert «Wärmepumpe Luft-Wasser» erst nach Feldanlage.</td><td>Aufteilen oder aus Dokument lesen?</td></tr>
+  <tr><td>8.8 Neue Felder (6.5, 6.8, 6.10)</td><td>Antworten stehen im JSON-Block <code>answers</code>; Felder werden erst geschrieben, wenn sie existieren (S2).</td><td><code>Waermeerzeugung__c</code>, <code>Objekt_im_Baurecht__c</code>, <code>Wertquote__c</code>, <code>Energie_Zertifizierung__c</code> sowie 6.10 anlegen – ja/nein?</td></tr>
+  <tr><td>8.9 Anrede FR/IT</td><td>«vous» / «Lei» (D9), auch in den Mails.</td><td>Bestätigen.</td></tr>
+  <tr><td>8.10 Sprache Mail und Dossier</td><td>Funnel-Sprache (D11).</td><td>Bestätigen.</td></tr>
+  <tr><td>Origin / Status</td><td>Nicht gesetzt, <code>Stage__c</code> = «Needs Analysis» bleibt (S5).</td><td>Bestätigen, dass <code>Origin = Web</code> keine Web-to-Case-Regeln auslöst; dann aktivieren.</td></tr>
+  <tr><td>Owner-Queue</td><td>Kein Owner, ausser HYPOTEQ-User per E-Mail.</td><td>Id oder Name der Queue «Web-Anfragen».</td></tr>
+  <tr><td>Tragbarkeit</td><td>Funnel zeigt die Spezifikationsformel (Gerber 37.6 %), Salesforce rechnet die bestehende Formel (S1).</td><td>Welche Formel gilt? (Beispiel-Dossier zeigt 32.3 %.)</td></tr>
+  <tr><td>Bank / Zins / Laufzeit der bestehenden Hypothek</td><td>Felder bleiben bei Finanzierungsangebot 1; Werte der bestehenden Hypothek stehen im JSON (S4).</td><td>Zielfelder festlegen.</td></tr>
+  <tr><td><code>Dokumenten_Check_State__c</code></td><td>JSON nach 6.11 zusätzlich zu <code>checked/filters/savedAt</code> (S3).</td><td>Salesforce-Entwickler: bleiben unbekannte Schlüssel beim Speichern im Tab erhalten?</td></tr>
+  <tr><td>Übersetzungen</td><td>300 gelieferte Texte plus 178 ergänzte Oberflächentexte in vier Sprachen.</td><td>Fachliche Gegenlesung (PPE, LPP, AVS …) durch eine muttersprachliche Person vor Go-live.</td></tr>
+</table>
+
+<h3>6.4 Schalter für den Go-live</h3>
+<table>
+  <tr><th style="width:34%">Variable</th><th>Bedeutung</th></tr>
+  <tr><td><code>SF_PARTNER_CONTACT_FILTER</code></td><td>Kriterium «aktiver VP-Berater» (6.1). Leer = jeder Contact zählt.</td></tr>
+  <tr><td><code>HYPOTEQ_DOCAI_IN_PRODUCTION</code></td><td>Schaltet die KI-Erkennung in der produktiven Umgebung frei. Ungesetzt = jede Datei «Nicht erkannt», keine Umbenennung.</td></tr>
+  <tr><td><code>NEXT_PUBLIC_V3_INTERN_KEY</code></td><td>Schlüssel für die interne Prüfansicht (<code>?intern=…</code>). Ungesetzt gilt «1» (D23).</td></tr>
+  <tr><td>Test-Modus</td><td>Hält Salesforce und Mails zurück bzw. leitet sie um; nur für Testdeployments setzen.</td></tr>
+</table>
+
+<h2>7 · Anhang</h2>
+<div class="two">
+  <div>
+    <h3>Commits dieser Sitzung (Branch ai-document-intelligence)</h3>
+    <ul class="small">
+      <li>bc57c3d Sync v3 purchases at the shown Gesamtfinanzierung, write Salutation and Verpfändung PK</li>
+      <li>5b3c533 Honour the Berater's file name and link the confirmation mail back to the inquiry</li>
+      <li>71e6d7d Detect the browser language, check documents against each other, format audit dates</li>
+      <li>2aa4550 Give the funnel its own metadata, order the Neubau question, fix the phone document rows</li>
+      <li>ad97c40 Say when the partner check is unavailable, and judge «Veraltet» at status time</li>
+      <li>6007a3a Report the Salesforce fields that were dropped, and link mail 2a back to the dossier</li>
+      <li>8bb0a05 Let a complete v3 dossier take further documents from its return link</li>
+    </ul>
+  </div>
+  <div>
+    <h3>Dokumente im Repository</h3>
+    <ul class="small">
+      <li><code>docs/funnel-v3/HYPOTEQ_Funnel_Spezifikation.md</code> – die gelieferte Spezifikation</li>
+      <li><code>docs/funnel-v3/DECISIONS.md</code> – alle Umsetzungsentscheide D1–D26, S1–S10</li>
+      <li><code>docs/funnel-v3/HYPOTEQ_Salesforce_Mapping_Abgleich.csv</code> – Feld-für-Feld-Abgleich, aktualisiert</li>
+      <li><code>docs/funnel-v3/report/</code> – dieser Bericht</li>
+      <li><code>scripts/salesforce-field-check.js</code> – Lese-Skript für die Feldrechte</li>
+    </ul>
+    <h3>Technische Hinweise</h3>
+    <ul class="small">
+      <li>Fall-Dossier: serverseitig mit pdf-lib, Ablage im SharePoint-Fallordner, Download 7 Tage.</li>
+      <li>Nachreich-Link: 30 Tage gültig, pro Anfrage ein Token.</li>
+      <li>Alle Schritte des Abschlusses sind nicht-fatal: die Anfrage ist gespeichert, bevor Salesforce oder SharePoint angesprochen werden.</li>
+    </ul>
+  </div>
+</div>
+
+<footer class="note">HYPOTEQ Finanzierungsfunnel v3 · Umsetzungsstand 05.10.2026 · erstellt aus dem Code-Audit und den Tests des Branches ai-document-intelligence.</footer>
+</body>
+</html>
