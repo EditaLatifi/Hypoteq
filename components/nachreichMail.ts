@@ -2,7 +2,7 @@ import { Client } from "@microsoft/microsoft-graph-client";
 import { ClientSecretCredential } from "@azure/identity";
 import "isomorphic-fetch";
 import type { NachreichLocale } from "@/components/nachreichung";
-import { isTestMode, routeMail } from "@/components/testMode";
+import { routeMail } from "@/components/testMode";
 
 /**
  * Confirmation sent after a customer uploads through their Nachreich link.
@@ -165,14 +165,17 @@ export async function sendNachreichConfirmation(params: {
 
   const routed = routeMail(params.to, params.complete ? L.subjectComplete : L.subjectPartial);
   if (!routed) return;
+  const routedCopy = params.cc ? routeMail(params.cc, "") : null;
+  const copy = routedCopy && routedCopy.to.toLowerCase() !== routed.to.toLowerCase() ? routedCopy.to : null;
   const sendAsUser = process.env.SMTP_USER || "info@hypoteq.ch";
   await client.api(`/users/${sendAsUser}/sendMail`).post({
     message: {
       subject: routed.subject,
       body: { contentType: "HTML", content: html },
       toRecipients: [{ emailAddress: { address: routed.to } }],
-      // In test mode the mail is redirected to the test inbox; a copy to a real Berater must not leak out.
-      ...(params.cc && !isTestMode() ? { ccRecipients: [{ emailAddress: { address: params.cc } }] } : {}),
+      // The Berater's copy follows the same test-mode rule as every other recipient: redirected
+      // to the test inbox when one is set (then dropped as a duplicate), otherwise sent as entered.
+      ...(copy ? { ccRecipients: [{ emailAddress: { address: copy } }] } : {}),
     },
     saveToSentItems: true,
   });

@@ -72,11 +72,19 @@ describe('routeMail', () => {
     expect(routed?.subject).toContain('Neue Anfrage');
   });
 
-  it('sends nothing in test mode when no valid test inbox is configured', () => {
+  it('sends to the entered address, marked as test, when no test inbox is configured', () => {
+    process.env.HYPOTEQ_TEST_MODE = 'true';
+    delete process.env.HYPOTEQ_TEST_MAIL_TO;
+    expect(routeMail('tester@hypoteq.ch', 'Ihre Anfrage')).toEqual({ to: 'tester@hypoteq.ch', subject: '[TEST] Ihre Anfrage' });
+    process.env.HYPOTEQ_TEST_MAIL_TO = 'not-an-address';
+    expect(routeMail('info@hypoteq.ch', 'Neue Anfrage')).toEqual({ to: 'info@hypoteq.ch', subject: '[TEST] Neue Anfrage' });
+  });
+
+  it('never mails the reserved example domains in test mode', () => {
     process.env.HYPOTEQ_TEST_MODE = 'true';
     delete process.env.HYPOTEQ_TEST_MAIL_TO;
     expect(routeMail('kunde@example.com', 'x')).toBeNull();
-    process.env.HYPOTEQ_TEST_MAIL_TO = 'not-an-address';
-    expect(routeMail('kunde@example.com', 'x')).toBeNull();
+    expect(routeMail('max.muster@example.ch', 'x')).toBeNull();
+    expect(routeMail('a@mail.example.org', 'x')).toBeNull();
   });
 });
