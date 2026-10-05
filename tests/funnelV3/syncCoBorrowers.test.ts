@@ -24,7 +24,7 @@ function fakeSalesforce() {
     cases,
     api: {
       findAccountByEmail: jest.fn(async (_email: string) => null as any),
-      findAccountByName: jest.fn(async () => ({ Id: "001HYPOTEQ" })),
+      findAccountByName: jest.fn(async (_name: string) => ({ Id: "001HYPOTEQ" })),
       createAccount: jest.fn(async (data: any) => {
         accounts.push(data);
         return { id: `001P${++n}` };
