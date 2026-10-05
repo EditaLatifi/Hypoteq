@@ -23,3 +23,5 @@ ALTER TABLE "Financing" ADD COLUMN IF NOT EXISTS "leasingVorhanden" TEXT;
 ALTER TABLE "Property" ADD COLUMN IF NOT EXISTS "baurecht" TEXT;
 ALTER TABLE "Property" ADD COLUMN IF NOT EXISTS "neubauGrundbuchGvVorhanden" TEXT;
 ALTER TABLE "Property" ADD COLUMN IF NOT EXISTS "stockwerkeigentum" TEXT;
+ALTER TABLE "Inquiry" ADD COLUMN IF NOT EXISTS "caseNumber" TEXT;
+CREATE UNIQUE INDEX IF NOT EXISTS "Inquiry_caseNumber_key" ON "Inquiry"("caseNumber");
