@@ -13,7 +13,9 @@ import { GET as download } from "@/app/api/dossier/[inquiryId]/route";
 beforeEach(() => {
   jest.spyOn(console, "error").mockImplementation(() => {});
 });
-afterEach(() => jest.restoreAllMocks());
+afterEach(() => {
+  jest.restoreAllMocks();
+});
 
 describe("previewInput", () => {
   it("keeps the funnel state and files, as a draft without a case number", () => {

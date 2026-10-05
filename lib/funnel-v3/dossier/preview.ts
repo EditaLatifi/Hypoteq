@@ -75,7 +75,7 @@ function analysis(x: unknown): V3Analysis | null {
     confidence: typeof x.confidence === "number" ? x.confidence : 0,
     requirementId: str(x.requirementId, 60),
     ...(typeof x.extraKind === "string" && kinds.includes(x.extraKind) ? { extraKind: x.extraKind as V3Analysis["extraKind"] } : {}),
-    extraReason: str(x.extraReason),
+    extraReason: str(x.extraReason) ?? undefined,
     personName: str(x.personName),
     bank: str(x.bank),
     docDate: str(x.docDate, 40),
