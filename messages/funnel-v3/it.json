@@ -7,7 +7,11 @@
     "unknown": "Sconosciuto",
     "saved": "Salvato · il link nell’e-mail di conferma La riporta qui",
     "stepOf": "Tema {n} di {total}",
-    "language": "Lingua"
+    "language": "Lingua",
+    "stepProgress": "Passo {n} di {total}",
+    "toDocs": "Ai documenti",
+    "toFinish": "Alla conclusione",
+    "remove": "Rimuovi"
   },
   "start": {
     "title": "La Sua richiesta di finanziamento in pochi minuti.",
@@ -30,7 +34,9 @@
     "docsCount": "documenti per questa richiesta",
     "ownRequest": "Richiesta personale",
     "submittedBy": "Inserito da {name}",
-    "newPartner": "nuovo partner"
+    "newPartner": "nuovo partner",
+    "done": "Completato",
+    "fulfilled": "{ok} di {total} soddisfatti"
   },
   "step": {
     "1": "Informazioni generali",
@@ -65,7 +71,11 @@
     "company": "Azienda",
     "contactClient": "Contatto del cliente",
     "contactOwn": "I Suoi dati di contatto",
-    "contactNote": "Per ora basta così – data di nascita, indirizzo e stato civile li leggiamo dai Suoi documenti."
+    "contactNote": "Per ora basta così – data di nascita, indirizzo e stato civile li leggiamo dai Suoi documenti.",
+    "advisorEmailPh": "nome@azienda.ch",
+    "emailPh": "nome@mail.ch",
+    "phonePh": "+41 79 …",
+    "companyPh": "Nome dell’azienda"
   },
   "q": {
     "anrede": "Appellativo",
@@ -157,7 +167,9 @@
     "companyName": "Ragione sociale secondo il registro di commercio",
     "signatory": "Persona con diritto di firma",
     "jpNote": "IDI, sede e diritto di firma li leggiamo dall’estratto del registro di commercio.",
-    "guarantorName": "Fideiussore solidale · nome cognome"
+    "guarantorName": "Fideiussore solidale · nome cognome",
+    "firstNames": "Nome/i",
+    "namePh": "Nome Cognome"
   },
   "s4": {
     "title": "Finanziamento",
@@ -176,7 +188,11 @@
     "verdict.missing": "Completare i dati",
     "equityVia": "Una parte dei fondi propri proviene da …",
     "comments": "Commenti",
-    "commentsPh": "Cos’altro dovrebbe sapere la banca"
+    "commentsPh": "Cos’altro dovrebbe sapere la banca",
+    "lead": "Vede subito il grado di anticipo e la sostenibilità finanziaria. Le domande sui fondi propri restano su No finché non le modifica.",
+    "subRefinance": "{amount} rifinanziamento",
+    "subIncrease": "{amount} aumento",
+    "subPurchase": "Con un grado di anticipo dell’80 %"
   },
   "s5": {
     "title": "Caricare i documenti",
@@ -237,7 +253,9 @@
     "objekt": "Immobile",
     "hypothek": "Ipoteca esistente",
     "person": "Persone",
-    "eigenmittel": "Fondi propri & previdenza"
+    "eigenmittel": "Fondi propri & previdenza",
+    "company": "Società",
+    "personOf": "Persona · {name}"
   },
   "doc": {
     "fotos": "Foto dell’immobile (interno ed esterno)",
@@ -340,5 +358,34 @@
     "choose": "Si prega di scegliere un’opzione.",
     "email": "Si prega di inserire un indirizzo e-mail valido.",
     "amount": "Si prega di inserire un importo in CHF."
+  },
+  "qs": {
+    "antrag": "Richiesta",
+    "kn": "Mutuatario",
+    "anrede": "Appellativo",
+    "immo": "Tipo di immobile",
+    "nbDocs": "Registro fondiario e assicurazione disponibili",
+    "lieg": "Proprietà",
+    "nutz": "Utilizzo",
+    "heizung": "Riscaldamento",
+    "baurecht": "Diritto di superficie",
+    "aufstockung": "Aumento",
+    "reno": "Ristrutturazione",
+    "reserviert": "Riservato",
+    "angebote": "Offerte",
+    "job": "Attività",
+    "pkSe": "Cassa pensione presente",
+    "ab50": "50 anni o più",
+    "kinder": "Figli",
+    "unterhalt": "Alimenti",
+    "kredite": "Crediti privati",
+    "leasing": "Leasing",
+    "buerge": "Fideiussione solidale",
+    "laufzeit": "Durata",
+    "s3a": "Pilastro 3a",
+    "schenkung": "Donazione",
+    "erbe": "Eredità",
+    "darlehen": "Prestito",
+    "pk": "Cassa pensione"
   }
 }

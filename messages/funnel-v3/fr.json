@@ -7,7 +7,11 @@
     "unknown": "Inconnu",
     "saved": "Enregistré · le lien dans l’e-mail de confirmation vous ramène ici",
     "stepOf": "Thème {n} sur {total}",
-    "language": "Langue"
+    "language": "Langue",
+    "stepProgress": "Étape {n} sur {total}",
+    "toDocs": "Vers les documents",
+    "toFinish": "Vers la finalisation",
+    "remove": "Supprimer"
   },
   "start": {
     "title": "Votre demande de financement en quelques minutes.",
@@ -30,7 +34,9 @@
     "docsCount": "documents pour cette demande",
     "ownRequest": "Demande personnelle",
     "submittedBy": "Saisi par {name}",
-    "newPartner": "nouveau partenaire"
+    "newPartner": "nouveau partenaire",
+    "done": "Terminé",
+    "fulfilled": "{ok} sur {total} remplies"
   },
   "step": {
     "1": "Généralités",
@@ -65,7 +71,11 @@
     "company": "Entreprise",
     "contactClient": "Contact du client",
     "contactOwn": "Vos coordonnées",
-    "contactNote": "C’est tout pour l’instant – nous lisons la date de naissance, l’adresse et l’état civil dans vos documents."
+    "contactNote": "C’est tout pour l’instant – nous lisons la date de naissance, l’adresse et l’état civil dans vos documents.",
+    "advisorEmailPh": "nom@entreprise.ch",
+    "emailPh": "nom@mail.ch",
+    "phonePh": "+41 79 …",
+    "companyPh": "Nom de l’entreprise"
   },
   "q": {
     "anrede": "Civilité",
@@ -157,7 +167,9 @@
     "companyName": "Raison sociale selon le registre du commerce",
     "signatory": "Personne autorisée à signer",
     "jpNote": "Nous lisons l’IDE, le siège et le droit de signature dans l’extrait du registre du commerce.",
-    "guarantorName": "Caution solidaire · prénom nom"
+    "guarantorName": "Caution solidaire · prénom nom",
+    "firstNames": "Prénom(s)",
+    "namePh": "Prénom Nom"
   },
   "s4": {
     "title": "Financement",
@@ -176,7 +188,11 @@
     "verdict.missing": "Compléter les informations",
     "equityVia": "Une partie des fonds propres provient-elle de …",
     "comments": "Commentaires",
-    "commentsPh": "Ce que la banque devrait encore savoir"
+    "commentsPh": "Ce que la banque devrait encore savoir",
+    "lead": "Vous voyez immédiatement le taux d’avance et la capacité financière. Les questions sur les fonds propres restent sur Non tant que vous ne les modifiez pas.",
+    "subRefinance": "{amount} reprise",
+    "subIncrease": "{amount} augmentation",
+    "subPurchase": "Avec un taux d’avance de 80 %"
   },
   "s5": {
     "title": "Télécharger les documents",
@@ -237,7 +253,9 @@
     "objekt": "Bien immobilier",
     "hypothek": "Hypothèque existante",
     "person": "Personnes",
-    "eigenmittel": "Fonds propres & prévoyance"
+    "eigenmittel": "Fonds propres & prévoyance",
+    "company": "Société",
+    "personOf": "Personne · {name}"
   },
   "doc": {
     "fotos": "Photos du bien (intérieur et extérieur)",
@@ -340,5 +358,34 @@
     "choose": "Veuillez choisir une option.",
     "email": "Veuillez saisir une adresse e-mail valide.",
     "amount": "Veuillez saisir un montant en CHF."
+  },
+  "qs": {
+    "antrag": "Demande",
+    "kn": "Emprunteur",
+    "anrede": "Civilité",
+    "immo": "Type de bien",
+    "nbDocs": "Registre foncier et assurance disponibles",
+    "lieg": "Objet",
+    "nutz": "Utilisation",
+    "heizung": "Chauffage",
+    "baurecht": "Droit de superficie",
+    "aufstockung": "Augmentation",
+    "reno": "Rénovation",
+    "reserviert": "Réservé",
+    "angebote": "Offres",
+    "job": "Activité",
+    "pkSe": "Caisse de pension existante",
+    "ab50": "50 ans ou plus",
+    "kinder": "Enfants",
+    "unterhalt": "Pensions alimentaires",
+    "kredite": "Crédits privés",
+    "leasing": "Leasings",
+    "buerge": "Cautionnement solidaire",
+    "laufzeit": "Durée",
+    "s3a": "Pilier 3a",
+    "schenkung": "Donation",
+    "erbe": "Héritage",
+    "darlehen": "Prêt",
+    "pk": "Caisse de pension"
   }
 }

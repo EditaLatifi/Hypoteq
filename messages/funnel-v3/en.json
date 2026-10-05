@@ -7,7 +7,11 @@
     "unknown": "Unknown",
     "saved": "Saved · the link in your confirmation email brings you back here",
     "stepOf": "Topic {n} of {total}",
-    "language": "Language"
+    "language": "Language",
+    "stepProgress": "Step {n} of {total}",
+    "toDocs": "To the documents",
+    "toFinish": "To completion",
+    "remove": "Remove"
   },
   "start": {
     "title": "Your financing request in a few minutes.",
@@ -30,7 +34,9 @@
     "docsCount": "documents for this request",
     "ownRequest": "Own request",
     "submittedBy": "Submitted by {name}",
-    "newPartner": "new partner"
+    "newPartner": "new partner",
+    "done": "Done",
+    "fulfilled": "{ok} of {total} fulfilled"
   },
   "step": {
     "1": "General",
@@ -65,7 +71,11 @@
     "company": "Company",
     "contactClient": "Client contact",
     "contactOwn": "Your contact details",
-    "contactNote": "That’s all for now – we read date of birth, address and marital status from your documents."
+    "contactNote": "That’s all for now – we read date of birth, address and marital status from your documents.",
+    "advisorEmailPh": "name@company.ch",
+    "emailPh": "name@mail.ch",
+    "phonePh": "+41 79 …",
+    "companyPh": "Company name"
   },
   "q": {
     "anrede": "Salutation",
@@ -157,7 +167,9 @@
     "companyName": "Company name as per commercial register",
     "signatory": "Authorised signatory",
     "jpNote": "We read the UID, registered office and signing authority from the commercial register extract.",
-    "guarantorName": "Guarantor · first and last name"
+    "guarantorName": "Guarantor · first and last name",
+    "firstNames": "First name(s)",
+    "namePh": "First and last name"
   },
   "s4": {
     "title": "Financing",
@@ -176,7 +188,11 @@
     "verdict.missing": "Complete the details",
     "equityVia": "Does part of the equity come from …",
     "comments": "Comments",
-    "commentsPh": "Anything else the bank should know"
+    "commentsPh": "Anything else the bank should know",
+    "lead": "You see the loan-to-value and affordability right away. Equity questions stay on No until you change them.",
+    "subRefinance": "{amount} refinancing",
+    "subIncrease": "{amount} increase",
+    "subPurchase": "At 80 % loan-to-value"
   },
   "s5": {
     "title": "Upload documents",
@@ -237,7 +253,9 @@
     "objekt": "Property",
     "hypothek": "Existing mortgage",
     "person": "Borrowers",
-    "eigenmittel": "Equity & pension"
+    "eigenmittel": "Equity & pension",
+    "company": "Company",
+    "personOf": "Borrower · {name}"
   },
   "doc": {
     "fotos": "Photos of the property (interior and exterior)",
@@ -340,5 +358,34 @@
     "choose": "Please choose an option.",
     "email": "Please enter a valid email address.",
     "amount": "Please enter an amount in CHF."
+  },
+  "qs": {
+    "antrag": "Request",
+    "kn": "Borrower",
+    "anrede": "Salutation",
+    "immo": "Property type",
+    "nbDocs": "Land register and insurance available",
+    "lieg": "Ownership",
+    "nutz": "Use",
+    "heizung": "Heating",
+    "baurecht": "Building right",
+    "aufstockung": "Increase",
+    "reno": "Renovation",
+    "reserviert": "Reserved",
+    "angebote": "Offers",
+    "job": "Employment",
+    "pkSe": "Pension fund in place",
+    "ab50": "50 or older",
+    "kinder": "Children",
+    "unterhalt": "Maintenance payments",
+    "kredite": "Personal loans",
+    "leasing": "Leases",
+    "buerge": "Joint guarantee",
+    "laufzeit": "Term",
+    "s3a": "Pillar 3a",
+    "schenkung": "Gift",
+    "erbe": "Inheritance",
+    "darlehen": "Loan",
+    "pk": "Pension fund"
   }
 }

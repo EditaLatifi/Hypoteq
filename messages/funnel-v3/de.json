@@ -7,7 +7,11 @@
     "unknown": "Unbekannt",
     "saved": "Gespeichert · der Link in der Bestätigungsmail führt hierher zurück",
     "stepOf": "Thema {n} von {total}",
-    "language": "Sprache"
+    "language": "Sprache",
+    "stepProgress": "Schritt {n} von {total}",
+    "toDocs": "Zu den Unterlagen",
+    "toFinish": "Zum Abschluss",
+    "remove": "Entfernen"
   },
   "start": {
     "title": "Finanzierungsanfrage in wenigen Minuten.",
@@ -30,7 +34,9 @@
     "docsCount": "Unterlagen für diese Anfrage",
     "ownRequest": "Eigene Anfrage",
     "submittedBy": "Erfasst von {name}",
-    "newPartner": "neuer Partner"
+    "newPartner": "neuer Partner",
+    "done": "Erledigt",
+    "fulfilled": "{ok} von {total} erfüllt"
   },
   "step": {
     "1": "Allgemeines",
@@ -65,7 +71,11 @@
     "company": "Firma",
     "contactClient": "Kontakt des Kunden",
     "contactOwn": "Dein Kontakt",
-    "contactNote": "Mehr brauchen wir jetzt nicht – Geburtsdatum, Adresse und Zivilstand lesen wir aus deinen Unterlagen."
+    "contactNote": "Mehr brauchen wir jetzt nicht – Geburtsdatum, Adresse und Zivilstand lesen wir aus deinen Unterlagen.",
+    "advisorEmailPh": "name@firma.ch",
+    "emailPh": "name@mail.ch",
+    "phonePh": "+41 79 …",
+    "companyPh": "Firmenname"
   },
   "q": {
     "anrede": "Anrede",
@@ -157,7 +167,9 @@
     "companyName": "Firmenname gemäss Handelsregister",
     "signatory": "Zeichnungsberechtigte Person",
     "jpNote": "UID, Sitz und Zeichnungsberechtigung lesen wir aus dem Handelsregisterauszug.",
-    "guarantorName": "Solidarbürge · Vorname Name"
+    "guarantorName": "Solidarbürge · Vorname Name",
+    "firstNames": "Vorname(n)",
+    "namePh": "Vorname Name"
   },
   "s4": {
     "title": "Finanzierung",
@@ -176,7 +188,11 @@
     "verdict.missing": "Angaben ergänzen",
     "equityVia": "Entsteht ein Teil der Eigenmittel über …",
     "comments": "Kommentare",
-    "commentsPh": "Was die Bank sonst noch wissen sollte"
+    "commentsPh": "Was die Bank sonst noch wissen sollte",
+    "lead": "Belehnung und Tragbarkeit siehst du sofort. Eigenmittelfragen stehen auf Nein, bis du sie änderst.",
+    "subRefinance": "{amount} Ablösung",
+    "subIncrease": "{amount} Erhöhung",
+    "subPurchase": "Bei 80 % Belehnung"
   },
   "s5": {
     "title": "Unterlagen hochladen",
@@ -237,7 +253,9 @@
     "objekt": "Zum Objekt",
     "hypothek": "Bestehende Hypothek",
     "person": "Zur Person",
-    "eigenmittel": "Eigenmittel & Vorsorge"
+    "eigenmittel": "Eigenmittel & Vorsorge",
+    "company": "Zur Gesellschaft",
+    "personOf": "Zur Person · {name}"
   },
   "doc": {
     "fotos": "Fotos der Immobilie (innen und aussen)",
@@ -340,5 +358,34 @@
     "choose": "Bitte eine Option wählen.",
     "email": "Bitte eine gültige E-Mail-Adresse eingeben.",
     "amount": "Bitte einen Betrag in CHF eingeben."
+  },
+  "qs": {
+    "antrag": "Kreditantrag",
+    "kn": "Kreditnehmer",
+    "anrede": "Anrede",
+    "immo": "Art der Immobilie",
+    "nbDocs": "Grundbuch und GVZ vorhanden",
+    "lieg": "Liegenschaft",
+    "nutz": "Nutzung",
+    "heizung": "Heizung",
+    "baurecht": "Baurecht",
+    "aufstockung": "Erhöhung",
+    "reno": "Renovation",
+    "reserviert": "reserviert",
+    "angebote": "Angebote",
+    "job": "Beschäftigung",
+    "pkSe": "Pensionskasse vorhanden",
+    "ab50": "ab 50",
+    "kinder": "Kinder",
+    "unterhalt": "Unterhaltszahlungen",
+    "kredite": "Privatkredite",
+    "leasing": "Leasings",
+    "buerge": "Solidarbürgschaft",
+    "laufzeit": "Laufzeit",
+    "s3a": "Säule 3a",
+    "schenkung": "Schenkung",
+    "erbe": "Erbschaft",
+    "darlehen": "Darlehen",
+    "pk": "Pensionskasse"
   }
 }
