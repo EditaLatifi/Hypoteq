@@ -3,6 +3,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useTranslation } from "@/hooks/useTranslation";
+import NachreichV3 from "@/components/funnel-v3/nachreich/NachreichV3";
+import type { NachreichV3View } from "@/lib/funnel-v3/nachreichView";
 
 /**
  * Nachreich page (spec V2): "Link führt zu einer personalisierten Nachreich-Seite (nur
@@ -48,6 +50,8 @@ export default function NachreichenPage({
   const [error, setError] = useState<string>("");
   const [nowComplete, setNowComplete] = useState(false);
   const [stillMissing, setStillMissing] = useState<string[]>([]);
+  // Funnel v3 inquiry: its own page (requirement instances, one drop zone, AI placement).
+  const [v3View, setV3View] = useState<NachreichV3View | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -59,6 +63,11 @@ export default function NachreichenPage({
         if (!res.ok || !json.valid) {
           setReason(json?.reason || "not_found");
           setPhase("invalid");
+          return;
+        }
+        if (json.v3 === true) {
+          setV3View(json as NachreichV3View);
+          setPhase("ready");
           return;
         }
         setMissing(json.missing || []);
@@ -195,6 +204,25 @@ export default function NachreichenPage({
           <p className="text-[15px] text-[#132219]/70">{t(key as any)}</p>
         </div>
       </Shell>
+    );
+  }
+
+  if (v3View) {
+    return (
+      <NachreichV3
+        token={params.token}
+        view={v3View}
+        copy={{
+          title: t("nachreichen.title" as any),
+          intro: t("nachreichen.intro" as any),
+          send: t("nachreichen.send" as any),
+          sending: t("nachreichen.sending" as any),
+          error: t("nachreichen.error" as any),
+          doneComplete: t("nachreichen.doneComplete" as any),
+          donePartial: t("nachreichen.donePartial" as any),
+          alreadyComplete: t("nachreichen.alreadyComplete" as any),
+        }}
+      />
     );
   }
 
