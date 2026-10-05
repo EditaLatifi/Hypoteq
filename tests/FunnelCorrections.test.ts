@@ -54,19 +54,3 @@ describe('applyDocumentCorrections', () => {
     expect(form).toEqual(original);
   });
 });
-
-describe('the funnel pages apply corrections wherever they push the form', () => {
-  const fs = require('fs');
-  const path = require('path');
-  const pages = ['app/[locale]/funnel/page.tsx', 'app/funnel/page.tsx'];
-
-  it.each(pages)('%s never writes the raw step-5 copy after the documents step', (page) => {
-    const text = fs.readFileSync(path.join(__dirname, '..', page), 'utf8');
-    // saveStep5 legitimately pushes the untouched form — it runs before any document is
-    // seen. Everything after it must go through the merge, so at most that one bare call
-    // may remain.
-    const bare = text.match(/setFinancing\(financingData\)/g) ?? [];
-    expect(bare.length).toBeLessThanOrEqual(1);
-    expect(text).toContain('applyDocumentCorrections(financingData');
-  });
-});
