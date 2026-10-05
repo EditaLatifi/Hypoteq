@@ -92,3 +92,23 @@
 .hqv3 .v3-done:focus-visible {
   box-shadow: 0 0 0 3px rgba(202, 244, 118, 0.55);
 }
+
+/* The check list has its own section, so the eyebrow's negative margin (meant for a sibling
+   of the step's 34px column gap) pulled the list over it. Space it inside the section. */
+.hqv3 .v3f-checks {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.hqv3 .v3f-checks > .v3-eyebrow--tight {
+  margin-bottom: 0;
+}
+
+/* The secondary action sits on the lime panel: dark outline, not the on-dark white one. */
+.hqv3 .v3-submit .v3-btn--outline-dark {
+  color: var(--forest-800);
+  border-color: var(--forest-800);
+}
+.hqv3 .v3-submit .v3-btn--outline-dark:hover:not(:disabled) {
+  background: rgba(19, 34, 25, 0.06);
+}

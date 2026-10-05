@@ -32,15 +32,17 @@ export function MobileHeader() {
           <button type="button" className="v3-arrow--dark" aria-label={t("common.back")} onClick={goPrev}>
             ‹
           </button>
-          <button
-            type="button"
-            className="v3-arrow--dark"
-            aria-label={t(nextLabelKey(step) ?? "common.next")}
-            disabled={step >= TOTAL_STEPS}
-            onClick={goNext}
-          >
-            ›
-          </button>
+          {/* Not shown on the last step, as on desktop: the step's own actions finish it. */}
+          {step < TOTAL_STEPS && (
+            <button
+              type="button"
+              className="v3-arrow--dark"
+              aria-label={t(nextLabelKey(step) ?? "common.next")}
+              onClick={goNext}
+            >
+              ›
+            </button>
+          )}
         </div>
       </div>
       <nav className="v3-segs" aria-label={t("side.path")}>
