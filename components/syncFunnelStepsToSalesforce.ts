@@ -206,6 +206,27 @@ function resolveDocLabelsDe(keys: string[]): string[] {
   });
 }
 
+/**
+ * Funnel v3: the Dokumenten_Check_State__c of the Case createOrUpdateCase is about to update
+ * (its duplicate guard: same Account, created in the last five minutes), so a re-sync merges
+ * instead of overwriting manual ticks. Best-effort: null when there is none or it cannot be read.
+ */
+async function readRecentCaseCheckState(salesforceApi: any, accountId: unknown): Promise<string | null> {
+  if (typeof accountId !== 'string' || !accountId || typeof salesforceApi?.sfQuery !== 'function') return null;
+  try {
+    const since = new Date(Date.now() - 5 * 60 * 1000).toISOString();
+    const id = typeof salesforceApi.soqlString === 'function' ? salesforceApi.soqlString(accountId) : `'${accountId.replace(/'/g, '')}'`;
+    const rows = await salesforceApi.sfQuery(
+      `SELECT Dokumenten_Check_State__c FROM Case WHERE AccountId = ${id} AND CreatedDate >= ${since} ORDER BY CreatedDate DESC LIMIT 1`,
+      'v3 Dokumenten_Check_State__c'
+    );
+    return rows?.[0]?.Dokumenten_Check_State__c ?? null;
+  } catch (err) {
+    console.warn('[Salesforce Sync] Could not read the existing Dokumenten_Check_State__c:', err);
+    return null;
+  }
+}
+
 export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>, salesforceApi: any) {
   console.log('[Salesforce Sync] Starting sync process...');
   
@@ -760,7 +781,8 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
   // sections were rendered for this case type. Written into fields that already existed
   // on Case and had never been populated.
   const completeness = stepData.documentCompleteness;
-  if (completeness && typeof completeness === 'object') {
+  // Funnel v3 writes its own document fields further down (after the cleanup).
+  if (!stepData.v3 && completeness && typeof completeness === 'object') {
     caseData['Documents_completed__c'] = completeness.complete === true;
 
     for (const [field, provided] of Object.entries(completeness.salesforceFlags || {})) {
@@ -870,6 +892,21 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
   // Apply bank data AFTER cleanup to prevent it being removed
   console.log('[Salesforce Sync] Applying bank data after cleanup:', JSON.stringify(bankData, null, 2));
   Object.assign(caseData, bankData);
+
+  // Funnel v3 documents (spec 6.9 / 6.11, DECISIONS S3) — only for a v3 payload; the legacy
+  // completeness block above is skipped for it. Applied after the cleanup like the bank data,
+  // because SharePoint_Doc__c is not in SALESFORCE_CASE_FIELDS (a field the org lacks is
+  // dropped by writeWithFieldFallback). Dok_*__c and Documents_completed__c come from the
+  // requirement status; Dokumenten_Check_State__c is merged onto what a Case we update holds.
+  if (stepData.v3) {
+    const { v3DocumentCaseFields } = await import('@/lib/funnel-v3/completion');
+    const previous = await readRecentCaseCheckState(salesforceApi, caseData.AccountId);
+    const v3Fields = v3DocumentCaseFields(stepData, previous);
+    if (v3Fields) {
+      Object.assign(caseData, v3Fields);
+      console.log(`[Salesforce Sync] v3 documents: complete=${v3Fields.Documents_completed__c}, folder=${v3Fields.SharePoint_Doc__c ? 'yes' : 'no'}`);
+    }
+  }
 
   // Link Client lookup fields AFTER all cleanup to prevent them being overwritten
   if (mainAccountId) {
