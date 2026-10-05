@@ -362,20 +362,8 @@ export async function POST(req: Request) {
       console.error("⚠️ Could not record the Salesforce result on the inquiry:", updateErr);
     }
 
-    // Store partner email in Salesforce PartnerConsultant__c
-    if (data.customerType === 'partner' && data.client?.email) {
-      if (isTestMode()) {
-        skipped("partner contact in Salesforce", data.client.email);
-      } else {
-        try {
-          const { savePartnerConsultantEmailToSalesforce } = await import("@/components/savePartnerConsultantEmailToSalesforce");
-          await savePartnerConsultantEmailToSalesforce(data.client.email);
-          console.log("✅ PartnerConsultant__c updated in Salesforce for:", data.client.email);
-        } catch (err) {
-          console.error("❌ Failed to update PartnerConsultant__c in Salesforce:", err);
-        }
-      }
-    }
+    // The partner is linked inside the sync (components/partnerDirectory). Unknown partners
+    // are no longer created as placeholder Contacts (spec 2.2 / 6.3, DECISIONS D13).
 
     // Auto-response to the customer
     try {
