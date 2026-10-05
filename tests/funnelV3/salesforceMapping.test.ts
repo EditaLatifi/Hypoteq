@@ -262,3 +262,19 @@ describe("S9 — Ferienobjekt", () => {
     expect(sf3.calls.cases[0].Art_der_Liegenschaft__c).toBe("Mehrfamilienhaus");
   });
 });
+
+describe("fields Salesforce refused are reported, not lost silently", () => {
+  it("hands the API's dropped-field list through in the sync result", async () => {
+    const sf = fakeSalesforce();
+    const api = { ...sf.api, takeDroppedFields: jest.fn(() => ["Case.Partner_Consultant__c (INVALID_FIELD)"]) };
+    const result = await syncFunnelStepsToSalesforce(v3(kauf()), api as any);
+    expect(api.takeDroppedFields).toHaveBeenCalledTimes(1);
+    expect((result as any).droppedFields).toEqual(["Case.Partner_Consultant__c (INVALID_FIELD)"]);
+  });
+
+  it("is an empty list for an API without a collector (fakes, older builds)", async () => {
+    const sf = fakeSalesforce();
+    const result = await syncFunnelStepsToSalesforce(v3(kauf()), sf.api);
+    expect((result as any).droppedFields).toEqual([]);
+  });
+});

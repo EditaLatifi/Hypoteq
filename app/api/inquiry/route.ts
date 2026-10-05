@@ -343,6 +343,7 @@ export async function POST(req: Request) {
     // Salesforce sync (backend only)
     let salesforceError: unknown = null;
     let salesforceCaseId: string | null = null;
+    let salesforceDropped: string[] = [];
     try {
       // Ensure LastName is present for Salesforce
       if (data.client && data.client.lastName) {
@@ -379,6 +380,7 @@ export async function POST(req: Request) {
       await salesforceApi.login();
       const syncResult = await syncFunnelStepsToSalesforce(data, salesforceApi);
       salesforceCaseId = (syncResult as any)?.case?.id || (syncResult as any)?.case?.Id || null;
+      salesforceDropped = Array.isArray((syncResult as any)?.droppedFields) ? (syncResult as any).droppedFields : [];
       console.log("✅ Salesforce sync successful! Case:", salesforceCaseId);
     } catch (sfError) {
       // A deliberate skip is not a failure: recording it as one would fill the DB with
@@ -456,6 +458,10 @@ export async function POST(req: Request) {
 
     if (salesforceError) {
       await sendSalesforceFailureAlert(inquiry.id, salesforceError);
+    } else if (salesforceDropped.length) {
+      // The Case exists, but not every field reached it (unknown column, missing field right,
+      // invalid picklist value). Someone has to complete it by hand, so say so.
+      await sendSalesforceDroppedFieldsNotice(inquiry.id, salesforceCaseId, caseNumber, salesforceDropped);
     }
 
     return NextResponse.json({ success: true, inquiryId: inquiry.id, caseNumber, salesforceSynced: !salesforceError });
@@ -578,6 +584,8 @@ const DOSSIER_MAIL = {
     uploadCta: "Fehlende Unterlagen jetzt hochladen",
     uploadIntro: "Am einfachsten laden Sie die fehlenden Dokumente über Ihren persönlichen Link hoch - dort sehen Sie nur die Felder, die noch offen sind:",
     uploadNote: (d: number) => `Der Link ist ${d} Tage gültig und ausschliesslich für Ihr Dossier bestimmt. Alternativ können Sie die Unterlagen direkt per Antwort auf diese E-Mail senden.`,
+    statusIntro: "Den Stand Ihres Dossiers sehen Sie jederzeit über Ihren persönlichen Link:",
+    statusCta: "Zur Anfrage",
     signoff: 'Freundliche Grüsse',
     team: 'Ihr HYPOTEQ-Team',
   },
@@ -592,6 +600,8 @@ const DOSSIER_MAIL = {
     uploadCta: "Téléverser les documents manquants",
     uploadIntro: "Le plus simple est de téléverser les documents manquants via votre lien personnel - vous n'y verrez que les champs encore ouverts:",
     uploadNote: (d: number) => `Le lien est valable ${d} jours et concerne uniquement votre dossier. Vous pouvez également envoyer les documents en réponse à cet e-mail.`,
+    statusIntro: "Vous pouvez consulter l'état de votre dossier à tout moment via votre lien personnel :",
+    statusCta: "Voir ma demande",
     signoff: 'Meilleures salutations',
     team: 'Votre équipe HYPOTEQ',
   },
@@ -606,6 +616,8 @@ const DOSSIER_MAIL = {
     uploadCta: "Carica ora i documenti mancanti",
     uploadIntro: "Il modo più semplice è caricare i documenti mancanti tramite il suo link personale - vedrà solo i campi ancora aperti:",
     uploadNote: (d: number) => `Il link è valido ${d} giorni ed è destinato esclusivamente al suo dossier. In alternativa può inviare i documenti rispondendo a questa e-mail.`,
+    statusIntro: "Può consultare lo stato del suo dossier in qualsiasi momento tramite il suo link personale:",
+    statusCta: "Alla mia richiesta",
     signoff: 'Cordiali saluti',
     team: 'Il suo team HYPOTEQ',
   },
@@ -620,6 +632,8 @@ const DOSSIER_MAIL = {
     uploadCta: "Upload the missing documents",
     uploadIntro: "The easiest way is to upload the missing documents through your personal link - it shows only the fields that are still open:",
     uploadNote: (d: number) => `The link is valid for ${d} days and applies to your dossier only. Alternatively you can reply to this e-mail with the documents.`,
+    statusIntro: "You can see the state of your dossier at any time via your personal link:",
+    statusCta: "Open my request",
     signoff: 'Best regards',
     team: 'Your HYPOTEQ team',
   },
@@ -693,6 +707,17 @@ async function sendDossierCompletenessEmail(
     </p>
     <p style="font-size:13px;color:#132219;opacity:0.65;">${L.uploadNote(NACHREICH_TTL_DAYS)}</p>`
     : '';
+  // Mail 2a for a Funnel v3 inquiry (its token is always minted, DECISIONS D20): the same link,
+  // as a way back to the dossier's status rather than an upload prompt.
+  const statusUrl = complete && caseNumber && nachreichToken ? buildNachreichUrl(nachreichToken, locale as NachreichLocale) : null;
+  const statusHTML = statusUrl
+    ? `
+    <p style="font-size:15px;">${L.statusIntro}</p>
+    <p style="margin:22px 0;">
+      <a href="${statusUrl}"
+         style="background:#132219;color:#ffffff;text-decoration:none;padding:14px 28px;border-radius:999px;font-size:15px;font-weight:600;display:inline-block;">${L.statusCta}</a>
+    </p>`
+    : '';
 
   const html = `
 <!DOCTYPE html>
@@ -709,6 +734,7 @@ async function sendDossierCompletenessEmail(
     ${listHTML}
     ${uploadHTML}
     <p style="font-size:15px;">${complete ? L.completeBody2 : L.incompleteBody2}</p>
+    ${statusHTML}
     <div style="margin-top:30px;padding-top:20px;border-top:2px solid #CAF476;">
       <div style="font-size:15px;">${L.signoff}</div>
       <div style="font-weight:600;margin-top:15px;">${L.team}</div>
@@ -738,6 +764,57 @@ async function sendDossierCompletenessEmail(
 
 
 // Build an authenticated Graph mail client, or null when Graph mail is not configured.
+/**
+ * The Case was created, but writeWithFieldFallback had to drop or truncate fields on the way
+ * (components/salesforceApi.ts takeDroppedFields). Not a failure — the lead is in Salesforce —
+ * but the dropped values exist only in the DB and the notification mail now, so the team
+ * must know which Case to complete by hand. Never throws.
+ */
+async function sendSalesforceDroppedFieldsNotice(
+  inquiryId: string,
+  caseId: string | null,
+  caseNumber: string | null,
+  fields: string[]
+) {
+  if (isTestMode()) {
+    skipped("Salesforce dropped-fields notice", `${inquiryId}: ${fields.join(', ')}`);
+    return;
+  }
+  try {
+    const client = getGraphMailClient();
+    if (!client) {
+      console.warn(`⚠️ Salesforce fields not written for inquiry ${inquiryId} (Graph mail disabled): ${fields.join(', ')}`);
+      return;
+    }
+    const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+    const html = `
+      <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #132219;">
+        <h2 style="color: #b7791f; margin-bottom: 4px;">Salesforce: Felder nicht übernommen</h2>
+        <p>Der Case wurde angelegt, aber Salesforce hat die folgenden Felder abgelehnt
+        (unbekannte Spalte, fehlendes Feldrecht oder ungültiger Picklist-Wert). Die Werte stehen in der
+        Datenbank und in der Benachrichtigungs-E-Mail und müssen von Hand nachgetragen werden.</p>
+        <table style="border-collapse: collapse; margin: 16px 0;">
+          <tr><td style="padding: 6px 12px 6px 0; font-weight: 600;">Fallnummer:</td><td style="padding: 6px 0;">${esc(caseNumber ?? '–')}</td></tr>
+          <tr><td style="padding: 6px 12px 6px 0; font-weight: 600;">Case-ID:</td><td style="padding: 6px 0;"><code>${esc(caseId ?? '–')}</code></td></tr>
+          <tr><td style="padding: 6px 12px 6px 0; font-weight: 600;">Anfrage-ID (DB):</td><td style="padding: 6px 0;"><code>${esc(inquiryId)}</code></td></tr>
+        </table>
+        <ul>${fields.map((f) => `<li><code>${esc(f)}</code></li>`).join('')}</ul>
+      </div>`;
+    const sendAsUser = process.env.SMTP_USER || "info@hypoteq.ch";
+    await client.api(`/users/${sendAsUser}/sendMail`).post({
+      message: {
+        subject: `Salesforce: ${fields.length} Feld(er) nicht übernommen – ${caseNumber ?? inquiryId}`,
+        body: { contentType: "HTML", content: html },
+        toRecipients: [{ emailAddress: { address: "info@hypoteq.ch" } }],
+      },
+      saveToSentItems: true,
+    });
+    console.log(`📨 Salesforce dropped-fields notice sent (${fields.length})`);
+  } catch (noticeError) {
+    console.error("⚠️ Could not send the Salesforce dropped-fields notice:", noticeError);
+  }
+}
+
 function getGraphMailClient() {
   const useGraph = process.env.USE_GRAPH === "true" &&
                    process.env.GRAPH_TENANT_ID &&

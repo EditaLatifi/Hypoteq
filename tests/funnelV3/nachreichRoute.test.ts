@@ -182,6 +182,28 @@ describe("GET /api/nachreichen/[token]", () => {
     mockDb.inquiry.nachreichExpiresAt = new Date(Date.now() - 1000);
     expect((await GET(req(), ctx)).status).toBe(410);
   });
+
+  it("a complete v3 dossier answers the status view, not 410 (the confirmation mail links here, D20)", async () => {
+    seedV3();
+    mockDb.inquiry.documentsComplete = true;
+    mockDb.inquiry.documentsMissing = null;
+    const res = await GET(req(), ctx);
+    expect(res.status).toBe(200);
+    // The view judges the documents themselves, not the stored flag — what it lists is what
+    // is really still missing; the fixture's rows have gaps, so the list is honest here.
+    expect(await res.json()).toMatchObject({ valid: true, v3: true, caseNumber: CASE });
+    // A legacy complete inquiry is still rejected.
+    seedLegacy();
+    mockDb.inquiry.documentsComplete = true;
+    expect((await GET(req(), ctx)).status).toBe(410);
+  });
+
+  it("a complete v3 dossier still refuses uploads", async () => {
+    seedV3();
+    mockDb.inquiry.documentsComplete = true;
+    const res = await POST(req({ files: [] }), ctx);
+    expect(res.status).toBe(410);
+  });
 });
 
 describe("POST /api/nachreichen/[token]", () => {

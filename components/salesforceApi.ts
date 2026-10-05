@@ -179,6 +179,24 @@ export async function updatePersonAccount(id: string, fields: Record<string, any
 //   - INVALID_OR_NULL_FOR_RESTRICTED_PICKLIST: value isn't a valid picklist option
 //     (e.g. a French label not yet mapped to the German SF value). Drop and retry.
 // Any other error propagates so it surfaces in logs.
+/**
+ * Fields writeWithFieldFallback had to drop or truncate since the last takeDroppedFields().
+ * Each entry reads `Case.Partner_Consultant__c (INVALID_FIELD)`. The sync hands the list to
+ * the inquiry route, which reports it — a silently dropped field used to be visible only in
+ * a console line nobody reads.
+ */
+let droppedFields: string[] = [];
+
+export function takeDroppedFields(): string[] {
+  const out = droppedFields;
+  droppedFields = [];
+  return out;
+}
+
+function noteDropped(sobjectType: string, field: string, code: string, how: 'dropped' | 'truncated' = 'dropped') {
+  droppedFields.push(`${sobjectType}.${field} (${code}${how === 'truncated' ? ', truncated' : ''})`);
+}
+
 async function writeWithFieldFallback(
   op: (fields: Record<string, any>) => Promise<any>,
   fields: Record<string, any>,
@@ -216,6 +234,7 @@ async function writeWithFieldFallback(
         const badField = match?.[1];
         if (badField && badField in working) {
           console.warn(`[Salesforce] ${context}: dropping unknown ${sobjectType} field '${badField}' and retrying`);
+          noteDropped(sobjectType, badField, code);
           delete working[badField];
           continue;
         }
@@ -229,6 +248,7 @@ async function writeWithFieldFallback(
         if (target && max && max > 3 && typeof working[target] === 'string') {
           const original = working[target] as string;
           working[target] = original.slice(0, max - 3) + '...';
+          noteDropped(sobjectType, target, code, 'truncated');
           console.warn(`[Salesforce] ${context}: truncating '${target}' from ${original.length} -> ${max} chars and retrying`);
           continue;
         }
@@ -248,6 +268,7 @@ async function writeWithFieldFallback(
           });
         if (target) {
           console.warn(`[Salesforce] ${context}: dropping invalid lookup value for '${target}' ('${working[target]}') and retrying`);
+          noteDropped(sobjectType, target, code);
           delete working[target];
           continue;
         }
@@ -258,6 +279,7 @@ async function writeWithFieldFallback(
         const target = errFields.find(f => f in working);
         if (target) {
           console.warn(`[Salesforce] ${context}: dropping invalid picklist value for '${target}' ('${working[target]}') and retrying`);
+          noteDropped(sobjectType, target, code);
           delete working[target];
           continue;
         }
@@ -271,7 +293,10 @@ async function writeWithFieldFallback(
         const targets = errFields.filter(f => f in working);
         if (targets.length) {
           console.warn(`[Salesforce] ${context}: dropping unwritable ${sobjectType} field(s) ${targets.map(f => `'${f}'`).join(', ')} and retrying`);
-          for (const f of targets) delete working[f];
+          for (const f of targets) {
+            noteDropped(sobjectType, f, code);
+            delete working[f];
+          }
           continue;
         }
         throw error;
@@ -373,6 +398,7 @@ export async function getPersonAccountRecordTypeId(): Promise<string> {
 // named exports above when adding a function.
 export default {
   login,
+  takeDroppedFields,
   ensureSession,
   sfQuery,
   soqlString,

@@ -1098,9 +1098,15 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
 
   console.log('[Salesforce Sync] ✅ Sync completed successfully');
   
+  // Fields the API had to drop or truncate on the way (components/salesforceApi.ts). The
+  // route reports them; a fake API in tests has no collector.
+  const droppedFields: string[] = typeof (salesforceApi as any).takeDroppedFields === 'function' ? (salesforceApi as any).takeDroppedFields() : [];
+  if (droppedFields.length) console.warn(`[Salesforce Sync] fields not written: ${droppedFields.join(', ')}`);
+
   return {
     accounts,
     contacts,
     case: createdCase,
+    droppedFields,
   };
 }

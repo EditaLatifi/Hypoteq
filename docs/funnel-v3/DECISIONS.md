@@ -34,6 +34,8 @@ Beim Salesforce-Mapping gilt die Regel der Spezifikation: **das bestehende Mappi
 | D21 | P6 Pensionskassenausweis bei offener Beschäftigung | Spec 4.1 verlangt P6 nur bei «angestellt». Ist die Beschäftigung noch nicht beantwortet, wird sie wie bei P3–P5 als angestellt behandelt, P6 steht also auch dann auf der Liste (so der Prototyp; der Gerber-Zähler beginnt nur so bei 13). Mit der Antwort «Selbständig» oder «Pensioniert» verschwindet P6 wieder. | Spec 4.1 P3–P6, Prototyp |
 | D22 | P16 Solidarbürge · Lohnausweise 3 Jahre | erwartet 3 Dateien wie P3 (Spec 4.1 nennt die Anzahl nur bei P3); Dateien anderer Jahre werden wie bei P3 als «Überzählig» geführt. Bisher galt P16 mit einer Datei als vollständig. | Spec 4.1 P3 / P16 |
 | D23 | Interne Ansicht (`?intern=`) | Die interne Prüfansicht (Prozentwerte, Audit-Trail) öffnet mit `?intern=<Schlüssel>`; der Schlüssel ist `NEXT_PUBLIC_V3_INTERN_KEY`. Bis HYPOTEQ einen Schlüssel setzt, gilt `?intern=1`. Reine Ansicht im Browser — serverseitig zählt sie nicht (D19). | Spec 5 |
+| D24 | «Veraltet» zum Zeitpunkt der Anzeige | Die Frist (z.B. Grundbuchauszug max. 6 Monate) wird bei jeder Statusberechnung gegen das aktuelle Datum geprüft, nicht nur bei der Analyse: ein in der Anfrage noch frischer Auszug kann bei der Nachreichung bereits veraltet sein. | Spec 4.2 |
+| D25 | Partner-Prüfung nicht erreichbar | Antwortet Salesforce nicht (Ausfall, Rate-Limit), sagt der Funnel «Prüfung gerade nicht möglich» statt «kennen wir noch nicht»; die Anfrage läuft weiter, der Sync prüft die Adresse beim Eingang erneut. Während der Prüfung steht «Adresse wird geprüft …». | Spec 2.2 |
 
 ## Salesforce
 
@@ -48,6 +50,7 @@ Beim Salesforce-Mapping gilt die Regel der Spezifikation: **das bestehende Mappi
 | S7 | Anrede → `Salutation` | `ans.anrede` wird als `anrede` des ersten Kreditnehmers mitgeschickt; der Sync schreibt `Salutation = Mr.`/`Mrs.` nur beim Anlegen eines neuen Person Accounts, nie auf einen bestehenden. Fehlen die Feldrechte, verwirft `writeWithFieldFallback` das Feld und der Account wird ohne Anrede angelegt. |
 | S8 | `Verpf_ndung_PK__c` | `ans.pk` wird als `financing.pkVorbezug` («Ja»/«Nein») gesendet; der Picklist-Sanitizer normalisiert zusätzlich `oui`/`sì`/`si` → Ja und `non`/`no` → Nein. |
 | S9 | Ferienobjekt (D8) | wird explizit leer gesendet (`artLiegenschaft = ""`), damit `Art_der_Liegenschaft__c` leer bleibt, statt auf die Ablehnung eines unbekannten Picklist-Werts zu vertrauen; `stockwerkeigentum` und Nutzung/Zweitwohnsitz unverändert. |
+| S10 | Abgelehnte Felder | Verwirft Salesforce beim Schreiben ein Feld (unbekannte Spalte, fehlendes Feldrecht, ungültiger Picklist-Wert, gekürzter Text), geht nach dem Sync eine Notiz mit Fallnummer, Case-ID und Feldliste an info@hypoteq.ch; der Case selbst wird trotzdem angelegt. |
 
 ## Offene Fragen an HYPOTEQ
 
