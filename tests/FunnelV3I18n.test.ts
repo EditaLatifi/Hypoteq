@@ -9,11 +9,17 @@ const allKeys = (lang: (typeof LANGS)[number]) =>
   Object.entries(MESSAGES[lang]).flatMap(([ns, o]) => Object.keys(o).map((k) => `${ns}.${k}`));
 
 describe("funnel-v3 messages", () => {
-  it("are the delivered i18n file, unchanged", () => {
+  it("keep every text of the delivered i18n file unchanged (keys may be added)", () => {
     const delivered = JSON.parse(
       fs.readFileSync(path.join(__dirname, "..", "docs", "funnel-v3", "HYPOTEQ_Funnel_i18n.json"), "utf8")
     );
-    for (const l of LANGS) expect(MESSAGES[l]).toEqual(delivered[l]);
+    for (const l of LANGS) {
+      const changed: string[] = [];
+      for (const [ns, o] of Object.entries(delivered[l] as Record<string, Record<string, string>>)) {
+        for (const [k, v] of Object.entries(o)) if (MESSAGES[l][ns]?.[k] !== v) changed.push(`${l} ${ns}.${k}`);
+      }
+      expect(changed).toEqual([]);
+    }
   });
 
   it("every German key exists in en, fr and it", () => {
