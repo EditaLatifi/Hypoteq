@@ -453,6 +453,8 @@
     "newRequest": "Nouvelle demande",
     "finish": "Terminer",
     "toPortal": "Retour au portail partenaires",
+    "toDashboard": "Retour au tableau de bord",
+    "toPortalLogin": "Se connecter au portail partenaires",
     "kpi.docs": "Documents",
     "badge.ok": "Confirmé",
     "badge.open": "Ouvert",

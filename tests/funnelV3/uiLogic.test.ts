@@ -21,6 +21,7 @@ import {
   reasonLine,
   roleFromParams,
   entryFromParams,
+  portalAction,
   roleLine,
   stepSummary,
   visibleFields,
@@ -278,5 +279,13 @@ describe('entryFromParams — opened from the Partnerportal', () => {
   it('ignores a bmail that is not an address, keeps the plain presets', () => {
     expect(entryFromParams('?customer=direct&bmail=nope')).toEqual({ role: 'kunde', bmail: '', fromPortal: false });
     expect(entryFromParams('')).toEqual({ role: null, bmail: '', fromPortal: false });
+  });
+});
+
+describe("portalAction — the Berater's way back after the closing", () => {
+  it('dashboard when logged in, login when not, portal root while unknown', () => {
+    expect(portalAction('in')).toEqual({ href: '/portal/dashboard', labelKey: 's6.toDashboard' });
+    expect(portalAction('out')).toEqual({ href: '/portal/login', labelKey: 's6.toPortalLogin' });
+    expect(portalAction('unknown')).toEqual({ href: '/portal', labelKey: 's6.toPortal' });
   });
 });

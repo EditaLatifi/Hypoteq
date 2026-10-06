@@ -453,6 +453,8 @@
     "newRequest": "Neuen Antrag stellen",
     "finish": "Abschliessen",
     "toPortal": "Zum Partnerportal",
+    "toDashboard": "Zurück zum Dashboard",
+    "toPortalLogin": "Im Partnerportal anmelden",
     "kpi.docs": "Unterlagen",
     "badge.ok": "Bestätigt",
     "badge.open": "Offen",

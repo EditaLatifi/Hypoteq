@@ -420,6 +420,17 @@ export function roleFromParams(search: string | URLSearchParams | null | undefin
 }
 
 /**
+ * The closing's portal button for a Berater (spec 3 Schritt 6 names only «Abschliessen»;
+ * partners want the way back): logged in → the dashboard, not logged in → the login, not
+ * known (lookup still running or failed) → the portal root, which redirects by session.
+ */
+export function portalAction(session: "in" | "out" | "unknown"): { href: string; labelKey: string } {
+  if (session === "in") return { href: "/portal/dashboard", labelKey: "s6.toDashboard" };
+  if (session === "out") return { href: "/portal/login", labelKey: "s6.toPortalLogin" };
+  return { href: "/portal", labelKey: "s6.toPortal" };
+}
+
+/**
  * How the funnel was opened. The Partnerportal links to
  * `/{lang}/funnel?customer=partner&bmail=<e-mail>&from=portal`: the Berater entry is chosen,
  * the address is filled in (so the partner is recognised at once) and the closing offers the

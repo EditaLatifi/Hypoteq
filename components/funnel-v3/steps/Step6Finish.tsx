@@ -12,6 +12,7 @@
  */
 
 import StepHead from "../StepHead";
+import { portalAction } from "../logic";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { documentsSummary } from "@/lib/funnel-v3/documentsSummary";
 import { finishSummary } from "@/lib/funnel-v3/finishSummary";
@@ -23,7 +24,6 @@ import { downloadDraftDossier, previewBody } from "../finish/previewDossier";
 import "../finish/finish.css";
 
 const HYPOTEQ_URL = "https://hypoteq.ch";
-const PORTAL_URL = "/portal/dashboard";
 
 export default function Step6Finish() {
   const { t, lang } = useFunnelT();
@@ -55,6 +55,8 @@ export default function Step6Finish() {
   const [phase, setPhase] = useState<SubmitPhase | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [done, setDone] = useState<DoneInfo | null>(null);
+  // Berater: is this browser logged into the Partnerportal? Decides the way-back button.
+  const [portalSession, setPortalSession] = useState<"in" | "out" | "unknown">("unknown");
   const [dossierBusy, setDossierBusy] = useState(false);
   const [dossierError, setDossierError] = useState<string | null>(null);
   const running = useRef(false);
@@ -79,6 +81,23 @@ export default function Step6Finish() {
   useEffect(() => {
     if (done) doneRef.current?.focus();
   }, [done]);
+
+  // Asked once the request is through, only for a Berater (the customer never sees the portal).
+  useEffect(() => {
+    if (!done || role !== "berater" || typeof fetch !== "function") return;
+    let cancelled = false;
+    fetch("/api/portal/session", { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((j) => {
+        if (!cancelled && j && typeof j.loggedIn === "boolean") setPortalSession(j.loggedIn ? "in" : "out");
+      })
+      .catch(() => {
+        /* unknown stays: the portal root redirects by session */
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [done, role]);
 
   const submit = useCallback(async () => {
     if (running.current) return;
@@ -230,10 +249,11 @@ export default function Step6Finish() {
               {t("s6.newRequest")}
             </button>
             {/* On the dark done panel: the white outline, not the dark one meant for light panels. */}
-            {entry === "portal" ? (
-              // Opened from the Partnerportal: back to the dashboard, where the new Case appears.
-              <a className="v3-btn v3-btn--outline-dark" href={PORTAL_URL}>
-                {t("s6.toPortal")}
+            {role === "berater" || entry === "portal" ? (
+              // A Berater goes back to the portal: the dashboard when logged in (the new Case
+              // appears there), the login otherwise, the portal root while that is unknown.
+              <a className="v3-btn v3-btn--outline-dark" href={portalAction(portalSession).href}>
+                {t(portalAction(portalSession).labelKey)}
               </a>
             ) : (
               <a className="v3-btn v3-btn--outline-dark" href={HYPOTEQ_URL}>
