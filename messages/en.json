@@ -1,4 +1,19 @@
 {
+  "promoPopup": {
+    "badge": "Limited time offer",
+    "title": "What is your property worth?",
+    "text": "Find out what your property is worth – with a valuation based on the Wüest Partner valuation model.",
+    "priceCaption": "Special price",
+    "priceNew": "CHF 300.–",
+    "priceOldPrefix": "instead of",
+    "priceOld": "CHF 450.–",
+    "sealAmount": "CHF 150.–",
+    "sealLabel": "save",
+    "cta": "Learn more about the valuation",
+    "note": "Online, in a few minutes – no obligation.",
+    "dismiss": "Maybe later",
+    "close": "Close"
+  },
     "funnelCalc": {
     "notEligible": "Not eligible",
     "financingPossible": "Financing possible.",
@@ -59,6 +74,7 @@
     "mezzanine": "Mezzanine Financing"
   },
   "navigation": {
+    "immobilienBewertung": "Property Valuation",
     "partnerWerden": "Become a Partner",
     "hypothekAnfragen": "Request a Mortgage",
     "hypotheken": "Mortgages"

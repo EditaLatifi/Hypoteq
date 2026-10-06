@@ -1,5 +1,20 @@
 ﻿
 {
+  "promoPopup": {
+    "badge": "Offerta a tempo limitato",
+    "title": "Quanto vale il vostro immobile?",
+    "text": "Scoprite il valore del vostro immobile – con una valutazione basata sul modello di valutazione di Wüest Partner.",
+    "priceCaption": "Prezzo promozionale",
+    "priceNew": "CHF 300.–",
+    "priceOldPrefix": "invece di",
+    "priceOld": "CHF 450.–",
+    "sealAmount": "CHF 150.–",
+    "sealLabel": "risparmio",
+    "cta": "Scoprite di più sulla valutazione",
+    "note": "Online, in pochi minuti – senza impegno.",
+    "dismiss": "Forse più tardi",
+    "close": "Chiudi"
+  },
     "funnelCalc": {
       "financingOfferFields": "Campi dell'offerta di finanziamento",
     "notEligible": "Non idoneo",
@@ -60,6 +75,7 @@
     "mezzanine": "Finanziamento Mezzanine"
   },
   "navigation": {
+    "immobilienBewertung": "Valutazione immobiliare",
     "partnerWerden": "Diventa Partner",
     "hypothekAnfragen": "Richiedi un‘ipoteca",
     "hypotheken": "Ipoteche"

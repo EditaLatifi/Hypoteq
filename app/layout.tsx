@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "@/styles/globals.css";
 import { LanguageProvider } from "@/components/LanguageProvider";
 import StructuredData from "@/components/StructuredData";
+import PromoPopup from "@/components/PromoPopup";
 import { generateOrganizationSchema } from "@/lib/seo";
 
 export const metadata: Metadata = {
@@ -127,6 +128,7 @@ export default function RootLayout({
       >
         <LanguageProvider>
           <main className="pt-0 overflow-visible">{children}</main>
+          <PromoPopup />
         </LanguageProvider>
       </body>
     </html>

@@ -178,11 +178,11 @@ export default function Header() {
 
       {/* Full-width dropdown below header */}
       {menuOpen && (
-        <div className="absolute left-0 top-full w-full bg-white shadow-2xl border-t border-[#CAF476] z-40 animate-fadeIn">
+        <div className="absolute left-0 top-full w-full h-[calc(100dvh-70px)] sm:h-[calc(100dvh-80px)] md:h-auto md:max-h-[calc(100dvh-85px)] overflow-y-auto overscroll-contain flex flex-col bg-white shadow-2xl border-t border-[#CAF476] z-40 animate-fadeIn">
           <div className="max-w-5xl mx-auto px-4 py-6 grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-4 justify-items-center items-start">
             {/* First column */}
             <div className="flex flex-col w-full gap-2">
-              <Link href={`/${pathLocale}`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("footer.homePage")}</Link>
+              <Link href={`/${pathLocale}`} className="hidden md:block text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("footer.homePage")}</Link>
               <Link href={`/${pathLocale}/hypotheken`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("footer.hypothekenMade")}</Link>
               <Link href={`/${pathLocale}/documents`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("common.documents")}</Link>
               <Link href={`/${pathLocale}/mezzanine`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("common.mezzanine")}</Link>
@@ -199,7 +199,7 @@ export default function Header() {
               <Link href={`/${pathLocale}/hypothekenrechner`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("footer.mortgageCalc")}</Link>
               <Link href={`/${pathLocale}/faq`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("footer.faqTitle")}</Link>
               <Link href={`/${pathLocale}/beratung`} className="text-base font-medium text-[#132219] px-4 py-2 rounded hover:bg-[#CAF476]/30 transition w-full text-center" onClick={() => setMenuOpen(false)}>{t("footer.hypoteqAdvisory")}</Link>
-              <div className="flex items-center justify-center w-full mt-2">
+              <div className="hidden md:flex items-center justify-center w-full mt-2">
                 <span className="text-base font-medium text-[#132219] mr-2">{t("common.followUs")}</span>
                 <a href="https://www.linkedin.com/company/hypoteq-ag" target="_blank" rel="noopener noreferrer" className="inline-flex items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -209,14 +209,26 @@ export default function Header() {
               </div>
             </div>
           </div>
-          <div className="w-full flex justify-center items-center gap-8 py-4 border-t border-[#CAF476]">
+          <div className="w-full mt-auto md:mt-0 flex flex-col sm:flex-row sm:flex-wrap justify-center items-center gap-3 sm:gap-6 px-5 py-4 border-t border-[#CAF476]">
             <Link href={`/${pathLocale}/kontaktieren-sie-uns`} className="flex items-center gap-2 text-[#132219] text-lg font-semibold hover:opacity-80 transition">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="22" fill="none" viewBox="0 0 18 24"><path fill="#132219" d="M0.46 2.92L3.48 1.09c.22-.13.45-.15.69-.07.24.08.42.24.54.48l2.36 4.74c.19.38.14.84-.13 1.15L5.04 9.53c-.27.31-.33.75-.15 1.12 1 2.08 2.9 4.55 4.6 5.93.31.25.72.26 1.04.03l2.25-1.68c.33-.25.75-.24 1.09.06l3.86 3.34c.2.17.31.39.34.66.03.27-.04.51-.2.73l-2.15 2.96c-.21.29-.53.41-.87.35C7.66 21.63.06 11.75 0 3.79c-.01-.37.17-.69.46-.88z"/></svg>
               Contact
             </Link>
-            <Link href={`/${pathLocale}/funnel`} className="flex items-center justify-center gap-2 px-6 py-3 rounded-[58px] bg-[#CAF476] text-[#132219] text-lg font-semibold hover:opacity-90 transition">
+            <Link href={`/${pathLocale}/funnel`} className="hidden sm:flex sm:w-auto max-w-[340px] items-center justify-center gap-2 px-6 py-3 rounded-[58px] bg-[#CAF476] text-[#132219] text-lg font-semibold hover:opacity-90 transition">
               {t("navigation.hypothekAnfragen")}
             </Link>
+            <a
+              href="https://hypoteq-hedonic.wuestappraisal.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMenuOpen(false)}
+              className="w-full sm:w-auto max-w-[340px] flex items-center justify-center gap-2 px-6 py-3 rounded-[58px] bg-[#132219] text-white text-lg font-semibold hover:bg-[#1C3325] transition"
+            >
+              {t("navigation.immobilienBewertung")}
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M7 17 17 7M8 7h9v9" />
+              </svg>
+            </a>
             <div className="relative hidden">
               <button onClick={() => setOpenLang(!openLang)} className="px-4 py-2 border border-[#CAF476] rounded-lg shadow-sm hover:shadow-md transition-all text-[#132219] font-semibold text-lg min-w-[60px] bg-white/80">
                 {pathLocale.toUpperCase()}

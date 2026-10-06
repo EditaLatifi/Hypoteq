@@ -1,5 +1,20 @@
 ﻿
 {
+  "promoPopup": {
+    "badge": "Offre limitée",
+    "title": "Quelle est la valeur de votre bien ?",
+    "text": "Découvrez la valeur de votre bien immobilier – avec une évaluation basée sur le modèle d'évaluation de Wüest Partner.",
+    "priceCaption": "Prix promotionnel",
+    "priceNew": "CHF 300.–",
+    "priceOldPrefix": "au lieu de",
+    "priceOld": "CHF 450.–",
+    "sealAmount": "CHF 150.–",
+    "sealLabel": "économie",
+    "cta": "En savoir plus sur l'évaluation",
+    "note": "En ligne, en quelques minutes – sans engagement.",
+    "dismiss": "Peut-être plus tard",
+    "close": "Fermer"
+  },
     "funnelCalc": {
     "notEligible": "Non admissible",
     "financingPossible": "Financement possible.",
@@ -57,6 +72,7 @@
     "mezzanine": "Financement Mezzanine"
   },
   "navigation": {
+    "immobilienBewertung": "Évaluation immobilière",
     "partnerWerden": "Devenir partenaire",
     "hypothekAnfragen": "Demander une hypothèque",
     "hypotheken": "Hypothèques"
