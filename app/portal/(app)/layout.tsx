@@ -29,6 +29,7 @@ export default async function PortalAppLayout({ children }: { children: React.Re
     <PortalShell
       userName={user.name || user.email}
       userSub={user.company || (user.role === "admin" ? t.profile.roleAdmin : user.email)}
+      userEmail={user.email}
       userInitials={initials(user.name, user.email)}
       isAdmin={user.role === "admin"}
       hasCases={!!user.contactId}

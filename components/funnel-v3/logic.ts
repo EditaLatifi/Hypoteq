@@ -419,6 +419,22 @@ export function roleFromParams(search: string | URLSearchParams | null | undefin
   return null;
 }
 
+/**
+ * How the funnel was opened. The Partnerportal links to
+ * `/{lang}/funnel?customer=partner&bmail=<e-mail>&from=portal`: the Berater entry is chosen,
+ * the address is filled in (so the partner is recognised at once) and the closing offers the
+ * way back to the portal. A bmail that is not an address is ignored.
+ */
+export function entryFromParams(search: string | URLSearchParams | null | undefined): { role: Role | null; bmail: string; fromPortal: boolean } {
+  const p = typeof search === "string" || !search ? new URLSearchParams(search || "") : search;
+  const raw = (p.get("bmail") || "").trim();
+  const bmail = isLookupEmail(raw) ? raw : "";
+  const fromPortal = (p.get("from") || "").trim().toLowerCase() === "portal";
+  // A portal link always means the Berater entry, even without `customer=`.
+  const role = roleFromParams(p) ?? (fromPortal || bmail ? "berater" : null);
+  return { role, bmail, fromPortal };
+}
+
 /** The same page in another language: `/fr/funnel` → `/it/funnel`; a path without one gets it. */
 export function localePath(pathname: string | null | undefined, lang: Lang): string {
   const path = pathname && pathname.startsWith("/") ? pathname : `/${pathname || ""}`;

@@ -153,6 +153,7 @@ const de = {
     Abgeschlossen: "Abgeschlossen",
   } as Record<string, string>,
   dashboard: {
+    newFinancingHint: "Neue Finanzierungsanfrage für einen Kunden erfassen – Sie werden im Funnel automatisch als Berater erkannt, der Case erscheint danach hier.",
     welcome: (name: string) => (name ? `Willkommen, ${name}` : "Willkommen"),
     attention: (n: number) =>
       n === 0 ? "Keine Anfrage benötigt gerade Ihre Aufmerksamkeit." : n === 1 ? "1 Anfrage benötigt Ihre Aufmerksamkeit." : `${n} Anfragen benötigen Ihre Aufmerksamkeit.`,
@@ -545,6 +546,7 @@ const en: Dict = {
     Abgeschlossen: "Closed",
   },
   dashboard: {
+    newFinancingHint: "Enter a new financing request for a client – the funnel recognises you as the advisor, and the Case appears here afterwards.",
     welcome: (name) => (name ? `Welcome, ${name}` : "Welcome"),
     attention: (n) => (n === 0 ? "No request needs your attention right now." : n === 1 ? "1 request needs your attention." : `${n} requests need your attention.`),
     actionRequired: "Action required",
@@ -932,6 +934,7 @@ const fr: Dict = {
     Abgeschlossen: "Clôturés",
   },
   dashboard: {
+    newFinancingHint: "Saisir une nouvelle demande de financement pour un client – le funnel vous reconnaît comme conseiller, le Case apparaît ensuite ici.",
     welcome: (name) => (name ? `Bienvenue, ${name}` : "Bienvenue"),
     attention: (n) => (n === 0 ? "Aucune demande ne requiert votre attention pour le moment." : n === 1 ? "1 demande requiert votre attention." : `${n} demandes requièrent votre attention.`),
     actionRequired: "Action requise",
@@ -1319,6 +1322,7 @@ const it: Dict = {
     Abgeschlossen: "Concluse",
   },
   dashboard: {
+    newFinancingHint: "Inserire una nuova richiesta di finanziamento per un cliente – il funnel La riconosce come consulente, il Case appare poi qui.",
     welcome: (name) => (name ? `Benvenuto/a, ${name}` : "Benvenuto/a"),
     attention: (n) => (n === 0 ? "Nessuna richiesta richiede la sua attenzione al momento." : n === 1 ? "1 richiesta richiede la sua attenzione." : `${n} richieste richiedono la sua attenzione.`),
     actionRequired: "Azione richiesta",

@@ -452,6 +452,7 @@
     "doneSub": "{name} erhält eine Bestätigung an {email}. Das Dossier ist bereit für die Bankanfrage.",
     "newRequest": "Neuen Antrag stellen",
     "finish": "Abschliessen",
+    "toPortal": "Zum Partnerportal",
     "kpi.docs": "Unterlagen",
     "badge.ok": "Bestätigt",
     "badge.open": "Offen",

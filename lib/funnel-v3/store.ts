@@ -51,10 +51,13 @@ export interface FunnelV3Data extends FunnelState {
   skipped: string[];
   /** File ids whose answer-correction suggestion was turned down («Dokument nicht verwenden»). */
   dismissed: string[];
+  /** Opened from the Partnerportal (`?from=portal`): the closing offers the way back. */
+  entry: "portal" | null;
 }
 
 export interface FunnelV3Actions {
   setRole: (role: Role) => void;
+  setEntry: (entry: "portal" | null) => void;
   setAns: <K extends keyof Answers>(key: K, value: Answers[K]) => void;
   setTxt: <K extends keyof Texts>(key: K, value: string) => void;
   setFin: <K extends keyof Amounts>(key: K, value: number) => void;
@@ -115,6 +118,7 @@ export function initialFunnelV3(): FunnelV3Data {
     files: [],
     skipped: [],
     dismissed: [],
+    entry: null,
   };
 }
 
@@ -220,6 +224,8 @@ type SetState = (partial: Partial<FunnelV3Store> | ((s: FunnelV3Store) => Partia
 function funnelV3Creator(set: SetState, get: () => FunnelV3Store): FunnelV3Store {
   return {
       ...initialFunnelV3(),
+
+      setEntry: (entry) => set({ entry }),
 
       setRole: (role) =>
         set((s) => ({
@@ -351,8 +357,9 @@ export const useFunnelV3 = create<FunnelV3Store>()(
         files: serialisableFiles(s.files),
         skipped: s.skipped,
         dismissed: s.dismissed,
+        entry: s.entry,
       }),
-      // A copy saved before `skipped` / `dismissed` existed has neither: start them empty.
+      // A copy saved before `skipped` / `dismissed` / `entry` existed has none: start them empty.
       merge: (persisted, current) => {
         const p = (persisted || {}) as Partial<FunnelV3Data>;
         return {
@@ -361,6 +368,7 @@ export const useFunnelV3 = create<FunnelV3Store>()(
           files: Array.isArray(p.files) ? p.files : current.files,
           skipped: Array.isArray(p.skipped) ? p.skipped : [],
           dismissed: Array.isArray(p.dismissed) ? p.dismissed : [],
+          entry: p.entry === "portal" ? "portal" : null,
         };
       },
     }

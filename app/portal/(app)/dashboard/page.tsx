@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { AlertCircle, ArrowRight } from "lucide-react";
+import { AlertCircle, ArrowRight, Plus } from "lucide-react";
 import CaseRow from "@/components/portal/CaseRow";
+import { newFinancingHref } from "@/components/portal/PortalShell";
 import { Card, FormError, PageHeader, btn, formatLongDate } from "@/components/portal/ui";
 import { getDict } from "@/lib/portal/i18n/server";
 import { loadMyCases } from "@/lib/portal/load";
@@ -13,6 +14,21 @@ export default async function DashboardPage() {
   const who = user.viewingAs ? user.viewingAs.name.split(" · ")[0] : user.name || "";
   const firstName = who.split(" ")[0];
   const today = formatLongDate(new Date(), locale);
+  // Partners (not admins, not an admin viewing as a partner) start a new request from here:
+  // the Funnel v3 opens as Berater with their address filled in, and the Case comes back
+  // through Case.Partner_Consultant__c.
+  const canStart = user.role !== "admin" && !user.viewingAs;
+  const startCard = canStart ? (
+    <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-[#CAF476]/40 bg-[#1A2E20] p-5 md:p-6">
+      <div className="flex min-w-0 flex-col gap-1">
+        <div className="text-[13px] font-medium uppercase tracking-[.08em] text-[#CAF476]">{t.nav.newFinancing}</div>
+        <p className="m-0 max-w-[640px] text-[15px] text-white/70">{t.dashboard.newFinancingHint}</p>
+      </div>
+      <a href={newFinancingHref(locale, user.email)} className={`${btn.primary} h-11 whitespace-nowrap text-[16px]`}>
+        <Plus size={18} /> {t.nav.newFinancing}
+      </a>
+    </div>
+  ) : null;
 
   if (!user.contactId) {
     return (
@@ -26,6 +42,7 @@ export default async function DashboardPage() {
             </Link>
           ) : null}
         </Card>
+        {startCard}
       </>
     );
   }
@@ -53,6 +70,8 @@ export default async function DashboardPage() {
       </div>
 
       <FormError>{failed ? t.common.casesLoadError : null}</FormError>
+
+      {startCard}
 
       {needsAction.length > 0 ? (
         <div className="flex flex-col gap-4 rounded-xl bg-[#CAF476] p-5 text-[#132219] md:p-7">

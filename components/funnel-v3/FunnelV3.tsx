@@ -7,7 +7,7 @@ import { useFunnelT } from "@/lib/funnel-v3/useFunnelT";
 import { Footer, MobileHeader, RailBar, TopBar } from "./Chrome";
 import DocsRail from "./DocsRail";
 import { useFunnelNav } from "./hooks";
-import { RAIL_STEPS, arrowAction, roleFromParams } from "./logic";
+import { RAIL_STEPS, arrowAction, entryFromParams } from "./logic";
 import { usePartnerRecognition } from "./partner";
 import Sidebar from "./Sidebar";
 import StartScreen from "./StartScreen";
@@ -36,15 +36,22 @@ export default function FunnelV3() {
 
   usePartnerRecognition(bmail, hydrated && role === "berater");
 
-  // `?customer=partner|direct` preselects the role and skips the start screen (once).
+  // `?customer=partner|direct` preselects the role and skips the start screen (once). The
+  // Partnerportal adds `bmail=<e-mail>&from=portal`: the Berater address is filled in, so the
+  // partner is recognised at once, and the closing offers the way back (entryFromParams).
   useEffect(() => {
     if (!hydrated || paramsApplied.current) return;
     paramsApplied.current = true;
-    const preset = roleFromParams(window.location.search);
+    const entry = entryFromParams(window.location.search);
     const s = useFunnelV3.getState();
-    if (preset && s.step === 0) {
-      s.setRole(preset);
+    if (entry.fromPortal) s.setEntry("portal");
+    if (entry.role && s.step === 0) {
+      s.setRole(entry.role);
+      if (entry.role === "berater" && entry.bmail) s.setTxt("bmail", entry.bmail);
       s.next();
+    } else if (entry.role === "berater" && entry.bmail && s.role === "berater" && !s.txt.bmail.trim()) {
+      // A resumed session without an address yet: the portal's address still helps.
+      s.setTxt("bmail", entry.bmail);
     }
   }, [hydrated]);
 

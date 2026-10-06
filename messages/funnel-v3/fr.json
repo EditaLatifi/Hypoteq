@@ -452,6 +452,7 @@
     "doneSub": "{name} recevra une confirmation à {email}. Le dossier est prêt pour la demande auprès des banques.",
     "newRequest": "Nouvelle demande",
     "finish": "Terminer",
+    "toPortal": "Retour au portail partenaires",
     "kpi.docs": "Documents",
     "badge.ok": "Confirmé",
     "badge.open": "Ouvert",

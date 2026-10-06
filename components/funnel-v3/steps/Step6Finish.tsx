@@ -23,6 +23,7 @@ import { downloadDraftDossier, previewBody } from "../finish/previewDossier";
 import "../finish/finish.css";
 
 const HYPOTEQ_URL = "https://hypoteq.ch";
+const PORTAL_URL = "/portal/dashboard";
 
 export default function Step6Finish() {
   const { t, lang } = useFunnelT();
@@ -34,6 +35,7 @@ export default function Step6Finish() {
   const files = useFunnelV3((s) => s.files);
   const skipped = useFunnelV3((s) => (s as { skipped?: Iterable<string> }).skipped);
   const submissionId = useFunnelV3((s) => s.submissionId);
+  const entry = useFunnelV3((s) => s.entry);
   const reset = useFunnelV3((s) => s.reset);
 
   const docs = useMemo(() => documentsSummary({ ans, borrowers, txt, files, skipped }), [ans, borrowers, txt, files, skipped]);
@@ -228,9 +230,16 @@ export default function Step6Finish() {
               {t("s6.newRequest")}
             </button>
             {/* On the dark done panel: the white outline, not the dark one meant for light panels. */}
-            <a className="v3-btn v3-btn--outline-dark" href={HYPOTEQ_URL}>
-              {t("s6.finish")}
-            </a>
+            {entry === "portal" ? (
+              // Opened from the Partnerportal: back to the dashboard, where the new Case appears.
+              <a className="v3-btn v3-btn--outline-dark" href={PORTAL_URL}>
+                {t("s6.toPortal")}
+              </a>
+            ) : (
+              <a className="v3-btn v3-btn--outline-dark" href={HYPOTEQ_URL}>
+                {t("s6.finish")}
+              </a>
+            )}
             <a className="v3-btn v3-btn--text v3f-on-dark" href={storedDossierUrl(done)} download>
               {t("s6.dossier")}
             </a>
