@@ -7,17 +7,9 @@ import type { ReactNode } from "react";
 import { Bell, Eye, FileText, FolderOpen, LayoutGrid, LogOut, Plus, ScrollText, User, Users } from "lucide-react";
 import { endViewAsAction, logoutAction } from "@/app/portal/actions";
 import { LanguageSwitch, useLocale, useT } from "@/components/portal/I18n";
+import { newFinancingHref } from "@/lib/portal/funnelLink";
 
 type NavItem = { href: string; label: string; icon: ReactNode; badge?: number };
-
-/**
- * Where «Neue Finanzierung starten» goes: the Funnel v3 as Berater with the partner's address
- * filled in (recognised at once) and the way back to the portal in the closing.
- */
-export function newFinancingHref(locale: string, email: string): string {
-  const q = new URLSearchParams({ customer: "partner", bmail: email, from: "portal" });
-  return `/${locale}/funnel?${q.toString()}`;
-}
 
 export default function PortalShell({
   children,

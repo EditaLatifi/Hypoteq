@@ -1,0 +1,14 @@
+/**
+ * Where the portal's «Neue Finanzierung starten» goes: the Funnel v3 as Berater with the
+ * partner's address filled in (recognised at once) and the way back to the portal in the
+ * closing (components/funnel-v3/logic.ts entryFromParams).
+ *
+ * A plain module on purpose: it is called from server components (the dashboard page) and
+ * from the client shell. Exporting it from a "use client" file turned the server import into
+ * a client reference, and calling that on the server threw at request time — the build
+ * cannot see it, the deployment showed «a server-side exception has occurred».
+ */
+export function newFinancingHref(locale: string, email: string): string {
+  const q = new URLSearchParams({ customer: "partner", bmail: email, from: "portal" });
+  return `/${locale}/funnel?${q.toString()}`;
+}

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { AlertCircle, ArrowRight, Plus } from "lucide-react";
 import CaseRow from "@/components/portal/CaseRow";
-import { newFinancingHref } from "@/components/portal/PortalShell";
+import { newFinancingHref } from "@/lib/portal/funnelLink";
 import { Card, FormError, PageHeader, btn, formatLongDate } from "@/components/portal/ui";
 import { getDict } from "@/lib/portal/i18n/server";
 import { loadMyCases } from "@/lib/portal/load";
