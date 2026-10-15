@@ -71,8 +71,13 @@ async function queryWithFields<T = any>(fields: string[], build: (select: string
       const message: string = err?.data?.message || err?.message || "";
       const col = message.match(/No such column '([^']+)'/)?.[1];
       if (code === "INVALID_FIELD" && col) {
-        const hit = fields.find((f) => f.toLowerCase() === col.toLowerCase() || f.toLowerCase().endsWith("." + col.toLowerCase()));
-        if (hit && !missingFields.has(hit)) {
+        // Salesforce names the column without its relationship, so `Erwerbsstatus__c` can be
+        // `Account.Erwerbsstatus__c` or `Client_2__r.Erwerbsstatus__c`: drop the first one not
+        // dropped yet, and the next attempt drops the other if it is missing too.
+        const hit = fields.find(
+          (f) => !missingFields.has(f) && (f.toLowerCase() === col.toLowerCase() || f.toLowerCase().endsWith("." + col.toLowerCase()))
+        );
+        if (hit) {
           console.warn(`[portal] Salesforce has no field ${hit}; querying without it`);
           missingFields.add(hit);
           continue;
