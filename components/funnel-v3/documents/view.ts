@@ -75,6 +75,7 @@ export function chip(confidence: number | null | undefined, intern: boolean, t: 
 
 /** «Pflicht» / «weil: Baurecht = Ja», in the funnel language. */
 export function reasonText(reason: ReqReason, lang: Lang): string {
+  if (reason.key === "why.amount") return translate(lang, "why.amount", { field: translate(lang, `em.${reason.field}`) });
   if (reason.key !== "why.because") return translate(lang, reason.key);
   const parts = reason.conditions.map((c) => {
     // The short question names are `qs.*` once the UI texts are merged; German until then.
@@ -139,10 +140,16 @@ export interface FieldView {
   fileId: string | null;
 }
 
-/** The recognised values of a requirement's files, in catalogue order; the most confident wins. */
+/**
+ * The recognised values of a requirement's files, in catalogue order; the most confident wins.
+ * Keys an analysis holds beyond the catalogue (one stored before a catalogue change, e.g.
+ * «Bruttolohn 2025» before v5) follow, so nothing read is hidden.
+ */
 export function mergedFields(files: FileEntry[]): FieldView[] {
   const typeId = files.find((f) => f.analysis?.docTypeId)?.analysis?.docTypeId;
-  const keys = v3DocType(typeId)?.fields.map((f) => f.key) ?? [];
+  const known = v3DocType(typeId)?.fields.map((f) => f.key) ?? [];
+  const extra = files.flatMap((f) => Object.keys(f.analysis?.fields ?? {})).filter((k) => !known.includes(k));
+  const keys = [...known, ...Array.from(new Set(extra))];
   const out: FieldView[] = [];
   for (const key of keys) {
     let best: FieldView | null = null;
@@ -277,10 +284,18 @@ export function normaliseDate(v: string | null | undefined): string | null {
 
 const within = (a: number, b: number, tolerance: number) => Math.abs(a - b) <= Math.max(a, b) * tolerance;
 
-/** The most recent Bruttolohn among the merged fields of a borrower's Lohnausweise. */
+/**
+ * The Bruttolohn of a borrower's Lohnausweis (v5: the current one, field «Bruttolohn»);
+ * analyses stored before v5 carry year-keyed fields («Bruttolohn 2025») — the latest wins.
+ */
 function latestGross(fields: FieldView[]): number | null {
   const get = (k: string) => parseChf(fields.find((f) => f.key === k)?.value);
-  return get("Bruttolohn 2025") ?? get("Bruttolohn 2024") ?? get("Bruttolohn 2023");
+  const keyed = fields
+    .map((f) => f.key)
+    .filter((k) => /^Bruttolohn \d{4}$/.test(k))
+    .sort()
+    .reverse();
+  return get("Bruttolohn") ?? keyed.map(get).find((v) => v !== null) ?? null;
 }
 
 /**
@@ -290,8 +305,9 @@ function latestGross(fields: FieldView[]): number | null {
 const DOC_PAIRS: Record<string, { other: string; field: string; mine: string; theirs: string; norm: (v: string | null | undefined) => string | null }> = {
   gvz: { other: "verkaufsdoku", field: "Baujahr", mine: "Erstellungsjahr", theirs: "Baujahr", norm: parseYear },
   verkaufsdoku: { other: "gvz", field: "Baujahr", mine: "Baujahr", theirs: "Erstellungsjahr", norm: parseYear },
-  hyp_zins: { other: "hyp_rahmen", field: "Ablösedatum", mine: "Ablösedatum", theirs: "Ablösedatum", norm: normaliseDate },
-  hyp_rahmen: { other: "hyp_zins", field: "Ablösedatum", mine: "Ablösedatum", theirs: "Ablösedatum", norm: normaliseDate },
+  // v5: the Produktvereinbarung replaces the Rahmenvertrag (Handover 4.1 H1).
+  hyp_zins: { other: "produkt", field: "Ablösedatum", mine: "Ablösedatum", theirs: "Ablösedatum", norm: normaliseDate },
+  produkt: { other: "hyp_zins", field: "Ablösedatum", mine: "Ablösedatum", theirs: "Ablösedatum", norm: normaliseDate },
 };
 
 /**
@@ -310,8 +326,8 @@ export function crossChecks(inst: RequirementInstance, files: FileEntry[], fin: 
     const doc = latestGross(fields);
     if (doc) out.push({ kind: "funnel", field: "Bruttoeinkommen", funnel: fin.inc, doc, ok: within(fin.inc, doc, 0.05) });
   }
-  if ((inst.id === "hyp_zins" || inst.id === "hyp_rahmen") && fin.old > 0) {
-    const doc = get(inst.id === "hyp_zins" ? "Kapital" : "Rahmenkredit");
+  if ((inst.id === "hyp_zins" || inst.id === "produkt") && fin.old > 0) {
+    const doc = get(inst.id === "hyp_zins" ? "Kapital" : "Betrag");
     if (doc) out.push({ kind: "funnel", field: "Bestehende Hypothek", funnel: fin.old, doc, ok: within(fin.old, doc, 0.01) });
   }
   const pair = DOC_PAIRS[inst.id];
@@ -334,7 +350,9 @@ export function crossChecks(inst: RequirementInstance, files: FileEntry[], fin: 
  * the first borrower's Lohnausweise row.
  */
 export function householdIncomeCheck(instances: RequirementInstance[], files: FileEntry[], fin: Amounts, borrowerCount: number): FunnelCheck | null {
-  if (borrowerCount < 2 || fin.inc <= 0) return null;
+  // v5: Kreditnehmer 1 and 2 each give their income (fin.inc, fin.inc2).
+  const funnel = fin.inc + (fin.inc2 || 0);
+  if (borrowerCount < 2 || funnel <= 0) return null;
   const rows = instances.filter((i) => i.id === "lohnausweise");
   if (rows.length !== borrowerCount) return null;
   let sum = 0;
@@ -343,7 +361,7 @@ export function householdIncomeCheck(instances: RequirementInstance[], files: Fi
     if (!v) return null;
     sum += v;
   }
-  return { kind: "funnel", field: "Bruttoeinkommen", funnel: fin.inc, doc: sum, ok: within(fin.inc, sum, 0.05), household: true };
+  return { kind: "funnel", field: "Bruttoeinkommen", funnel, doc: sum, ok: within(funnel, sum, 0.05), household: true };
 }
 
 export function chf(n: number): string {

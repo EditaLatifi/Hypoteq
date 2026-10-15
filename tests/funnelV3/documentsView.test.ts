@@ -44,11 +44,14 @@ describe("reason lines and groups", () => {
     const inst = reqList(mkState({ baurecht: "Ja" })).find((i) => i.id === "baurecht")!;
     expect(reasonText(inst.reason, "de")).toBe("weil: Baurecht = Ja");
     expect(reasonText(reqList(mkState())[0].reason, "de")).toBe("Pflicht");
+    const s3a = reqList(mkState({}, {}, {}, undefined, { em: { s3a: 1 } })).find((i) => i.id === "s3a")!;
+    expect(reasonText(s3a.reason, "de")).toBe("weil: Säule 3a eingetragen");
+    expect(reasonText(s3a.reason, "fr")).toBe("car : Pilier 3a indiqué");
   });
 
   it("Objekt · Hypothek · Person per borrower · Eigenmittel", () => {
     const anna = { id: "b2", vor: "Anna", nach: "Muster", job: "Angestellt" as const, pkSe: "Nein" as const };
-    const state = mkState(GERBER_ANSWERS, {}, {}, [GARY, anna]);
+    const state = mkState(GERBER_ANSWERS, {}, {}, [GARY, anna], { em: { s3a: 10340 } });
     const st = requirementStatus(reqList(state), []);
     const groups = groupRows(st.requirements, state, "de");
     expect(groups.map((g) => g.title)).toEqual([
@@ -69,13 +72,13 @@ describe("reason lines and groups", () => {
 
 describe("fields, names, checks", () => {
   it("merges the files' values, most confident first, the customer's edit above all", () => {
-    const a = f({ id: "a", analysis: { status: "done", docTypeId: "lohnausweise", docTypeLabel: "", confidence: 1, requirementId: null, fields: { Arbeitgeber: { value: "Etzel AG", confidence: 0.8 }, "Bruttolohn 2024": { value: "CHF 118'900", confidence: 0.95 } } } });
-    const b = f({ id: "b", humanEdits: { "Bruttolohn 2025": "CHF 125'385" }, analysis: { status: "done", docTypeId: "lohnausweise", docTypeLabel: "", confidence: 1, requirementId: null, fields: { Arbeitgeber: { value: "Etzel Liegenschaften AG", confidence: 0.99 } } } });
+    const a = f({ id: "a", analysis: { status: "done", docTypeId: "lohnausweise", docTypeLabel: "", confidence: 1, requirementId: null, fields: { Arbeitgeber: { value: "Etzel AG", confidence: 0.8 }, Jahr: { value: "2025", confidence: 0.95 } } } });
+    const b = f({ id: "b", humanEdits: { Bruttolohn: "CHF 125'385" }, analysis: { status: "done", docTypeId: "lohnausweise", docTypeLabel: "", confidence: 1, requirementId: null, fields: { Arbeitgeber: { value: "Etzel Liegenschaften AG", confidence: 0.99 } } } });
     const m = mergedFields([a, b]);
     expect(m.map((x) => [x.key, x.value, x.edited])).toEqual([
       ["Arbeitgeber", "Etzel Liegenschaften AG", false],
-      ["Bruttolohn 2025", "CHF 125'385", true],
-      ["Bruttolohn 2024", "CHF 118'900", false],
+      ["Jahr", "2025", false],
+      ["Bruttolohn", "CHF 125'385", true],
     ]);
     const inst = reqList(mkState())!.find((i) => i.id === "lohnausweise")!;
     expect(crossChecks(inst, [a, b], { ...EMPTY_AMOUNTS, inc: 125000 }, 1)).toEqual([{ kind: "funnel", field: "Bruttoeinkommen", funnel: 125000, doc: 125385, ok: true }]);
@@ -84,7 +87,7 @@ describe("fields, names, checks", () => {
     expect(parseChf("–")).toBeNull();
   });
 
-  it("holds a document against its counterpart: Baujahr (GVZ · Verkaufsdoku), Ablösedatum (H3 · H1)", () => {
+  it("holds a document against its counterpart: Baujahr (GVZ · Verkaufsdoku), Ablösedatum (Zinsabrechnung · Produktvereinbarung)", () => {
     const list = reqList(mkState(GERBER_ANSWERS));
     const mk = (id: string, typeId: string, fields: Record<string, { value: string; confidence: number }>) =>
       f({ id, instanceId: typeId, analysis: { status: "done", docTypeId: typeId, docTypeLabel: "", confidence: 1, requirementId: typeId, fields } });
@@ -106,27 +109,28 @@ describe("fields, names, checks", () => {
     expect(crossChecks(gvz, [g], EMPTY_AMOUNTS, 1)).toEqual([]);
 
     const zins = list.find((i) => i.id === "hyp_zins")!;
-    const rahmen = list.find((i) => i.id === "hyp_rahmen")!;
+    const produkt = list.find((i) => i.id === "produkt")!;
     const z = mk("z", "hyp_zins", { Kapital: { value: "CHF 449'000.00", confidence: 1 }, Ablösedatum: { value: "31.3.2027", confidence: 0.8 } });
-    const r = mk("r", "hyp_rahmen", { Rahmenkredit: { value: "CHF 449'000", confidence: 1 }, Ablösedatum: { value: "2027-03-31", confidence: 0.8 } });
+    const r = mk("r", "produkt", { Betrag: { value: "CHF 449'000", confidence: 1 }, Ablösedatum: { value: "2027-03-31", confidence: 0.8 } });
     expect(crossChecks(zins, [z], { ...EMPTY_AMOUNTS, old: 449000 }, 1, [z, r])).toEqual([
       { kind: "funnel", field: "Bestehende Hypothek", funnel: 449000, doc: 449000, ok: true },
-      { kind: "documents", field: "Ablösedatum", left: { typeId: "hyp_zins", value: "31.03.2027" }, right: { typeId: "hyp_rahmen", value: "31.03.2027" }, ok: true },
+      { kind: "documents", field: "Ablösedatum", left: { typeId: "hyp_zins", value: "31.03.2027" }, right: { typeId: "produkt", value: "31.03.2027" }, ok: true },
     ]);
-    const r2 = mk("r2", "hyp_rahmen", { Ablösedatum: { value: "30.09.2027", confidence: 0.8 } });
-    expect(crossChecks(rahmen, [r2], EMPTY_AMOUNTS, 1, [z, r2])).toEqual([
-      { kind: "documents", field: "Ablösedatum", left: { typeId: "hyp_rahmen", value: "30.09.2027" }, right: { typeId: "hyp_zins", value: "31.03.2027" }, ok: false },
+    const r2 = mk("r2", "produkt", { Ablösedatum: { value: "30.09.2027", confidence: 0.8 } });
+    expect(crossChecks(produkt, [r2], EMPTY_AMOUNTS, 1, [z, r2])).toEqual([
+      { kind: "documents", field: "Ablösedatum", left: { typeId: "produkt", value: "30.09.2027" }, right: { typeId: "hyp_zins", value: "31.03.2027" }, ok: false },
     ]);
   });
 
-  it("sums every borrower's latest Bruttolohn against the household income", () => {
+  it("sums every borrower's Bruttolohn against the income of Kreditnehmer 1 + 2", () => {
     const anna = { id: "b2", vor: "Anna", nach: "Muster", job: "Angestellt" as const, pkSe: "Nein" as const };
     const list = reqList(mkState(GERBER_ANSWERS, {}, {}, [GARY, anna]));
     const lohn = (id: string, instanceId: string, fields: Record<string, { value: string; confidence: number }>) =>
       f({ id, instanceId, analysis: { status: "done", docTypeId: "lohnausweise", docTypeLabel: "", confidence: 1, requirementId: "lohnausweise", fields } });
-    const g = lohn("g", "lohnausweise#b1", { "Bruttolohn 2025": { value: "CHF 125'385", confidence: 0.95 }, "Bruttolohn 2024": { value: "CHF 118'900", confidence: 0.95 } });
+    const g = lohn("g", "lohnausweise#b1", { Bruttolohn: { value: "CHF 125'385", confidence: 0.95 } });
+    // An analysis stored before v5: year-keyed fields still count.
     const a = lohn("a", "lohnausweise#b2", { "Bruttolohn 2024": { value: "CHF 80'000", confidence: 0.9 } });
-    const fin = { ...EMPTY_AMOUNTS, inc: 205000 };
+    const fin = { ...EMPTY_AMOUNTS, inc: 125000, inc2: 80000 };
     expect(householdIncomeCheck(list, [g, a], fin, 2)).toEqual({ kind: "funnel", field: "Bruttoeinkommen", funnel: 205000, doc: 205385, ok: true, household: true });
     expect(householdIncomeCheck(list, [g, a], { ...EMPTY_AMOUNTS, inc: 150000 }, 2)!.ok).toBe(false);
     // a borrower without a recognised Lohnausweis → no sum

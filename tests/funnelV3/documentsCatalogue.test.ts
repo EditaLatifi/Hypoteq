@@ -15,8 +15,8 @@ import { parseV3ProviderJson } from "@/components/documentIntelligence/v3/openai
 const NOW = new Date("2026-10-05T10:00:00Z");
 
 describe("v3 recognition catalogue", () => {
-  it("has one type per REQ id (all 47) and unique ids", () => {
-    expect(REQ).toHaveLength(47);
+  it("has one type per REQ id (all 49) and unique ids", () => {
+    expect(REQ).toHaveLength(49);
     for (const r of REQ) {
       const t = v3DocType(r.id);
       expect({ id: r.id, kind: t?.kind }).toEqual({ id: r.id, kind: "requirement" });
@@ -28,7 +28,8 @@ describe("v3 recognition catalogue", () => {
 
   it("has the not-needed types of spec 4.3", () => {
     const nn = V3_DOC_TYPES.filter((t) => t.kind === "notneeded").map((t) => t.id);
-    for (const id of ["nn_steuerrechnung", "nn_nebenkosten", "nn_betriebskosten", "nn_entwurf", "nn_verpfaendung", "nn_kontoauszug"]) {
+    // v5: the Rahmenvertrag and the Schuldbrief are no longer asked for, under their old ids.
+    for (const id of ["hyp_rahmen", "hyp_sicher", "nn_steuerrechnung", "nn_nebenkosten", "nn_betriebskosten", "nn_entwurf", "nn_verpfaendung", "nn_kontoauszug"]) {
       expect(nn).toContain(id);
     }
     for (const t of V3_DOC_TYPES.filter((x) => x.kind === "notneeded")) {
@@ -68,11 +69,37 @@ describe("v3 recognition catalogue", () => {
   it("groups documents that differ only by whose they are", () => {
     expect(familyMembers("id").sort()).toEqual(["b_id", "id", "wb"]);
     expect(familyMembers("steuer").sort()).toEqual(["b_steuer", "steuer"]);
-    expect(familyMembers("lohnausweise").sort()).toEqual(["b_lohn", "lohnausweise"]);
+    expect(familyMembers("lohnausweise").sort()).toEqual(["b_lohn", "lohnausweise", "lohnausweise_alt"]);
     const heads = classifiableTypes().map((t) => t.id);
     expect(heads).not.toContain("b_id");
     expect(heads).not.toContain("wb");
+    expect(heads).not.toContain("lohnausweise_alt");
     expect(heads).toContain("steuer_jp");
+    for (const id of ["produkt", "reno_liste", "pkvorbezug", "pkverp", "hyp_rahmen", "hyp_sicher"]) expect(heads).toContain(id);
+  });
+
+  it("says why a recognised requirement off the list is not needed (prototype NN)", () => {
+    expect(v3DocType("anstellung")!.notNeededReason).toMatch(/Lohnerhöhung/);
+    expect(v3DocType("vermoegen")!.notNeededReason).toBe("Eigenmittelnachweis ist nur bei einem Kauf nötig.");
+    expect(v3DocType("hyp_rahmen")!.notNeededReason).toMatch(/Produktvereinbarung/);
+    expect(v3DocType("lohnausweise")!.notNeededReason).toBeUndefined();
+  });
+
+  it("extracts what the prefill and the 4.2 facts read (Handover 3.1, 4.2)", () => {
+    const keys = (id: string) => v3DocType(id)!.fields.map((f) => f.key);
+    expect(keys("lohnausweise")).toEqual(expect.arrayContaining(["Jahr", "Bruttolohn", "Arbeitgeber"]));
+    expect(keys("lohnabrechnungen")).toEqual(expect.arrayContaining(["Monatslohn brutto", "13. Monatslohn"]));
+    expect(keys("id")).toEqual(expect.arrayContaining(["Name", "Vornamen", "Geschlecht", "Geburtsdatum", "Nationalität"]));
+    expect(keys("kaufvertrag")).toEqual(expect.arrayContaining(["Kaufpreis", "Eigentumsübertragung", "Datum"]));
+    expect(keys("hyp_zins")).toEqual(expect.arrayContaining(["Kapital", "Zinssatz", "Laufzeit", "Ablösedatum"]));
+    expect(keys("hr")).toEqual(expect.arrayContaining(["Firma", "Zeichnungsberechtigte", "UID", "Sitz"]));
+    expect(keys("police")).toContain("Rückkaufswert");
+    expect(keys("s3a")).toEqual(expect.arrayContaining(["Guthaben", "Verpfändung"]));
+    expect(keys("steuer")).toEqual(expect.arrayContaining(["Zivilstand", "Kinder", "Eigenmietwert"]));
+    expect(keys("grundbuch")).toEqual(expect.arrayContaining(["PLZ", "Ort", "Adresse", "Wertquote", "Baurecht", "Grundpfandrechte"]));
+    expect(keys("verkaufsdoku")).toEqual(expect.arrayContaining(["Verkaufspreis", "Baujahr", "Zimmer", "Heizung"]));
+    expect(keys("vollmacht")).toEqual(expect.arrayContaining(["Vollmachtgeber", "Unterschrift"]));
+    expect(keys("b_lohn")).toEqual(keys("lohnausweise"));
   });
 });
 
@@ -96,8 +123,11 @@ describe("freshness and periods", () => {
     expect(freshnessProblem("id", null, { "Gültig bis": { value: "erkannt · gültig" } }, NOW)).toBeNull();
   });
 
-  it("Lohnausweise: the last three complete years", () => {
-    expect(requestedYears("lohnausweise", NOW)).toEqual([2025, 2024, 2023]);
+  it("Lohnausweise: the current one (P2, P16), the two before it (P5)", () => {
+    expect(requestedYears("lohnausweise", NOW)).toEqual([2025]);
+    expect(requestedYears("lohnausweise_alt", NOW)).toEqual([2024, 2023]);
+    expect(requestedYears("b_lohn", NOW)).toEqual([2025]);
+    expect(requestedYears("jahresabschluss", NOW)).toEqual([2025, 2024, 2023]);
     expect(requestedYears("grundbuch", NOW)).toBeNull();
   });
 });
@@ -111,7 +141,8 @@ describe("prompt and schema", () => {
     const item = schema.properties.fields.items;
     expect(item.required.sort()).toEqual(Object.keys(item.properties).sort());
     expect(item.properties.key.enum).toEqual(allFieldKeys());
-    expect(allFieldKeys()).toContain("Bruttolohn 2024");
+    expect(allFieldKeys()).toContain("Bruttolohn");
+    expect(allFieldKeys()).toContain("13. Monatslohn");
   });
 
   it("states the rules the model must follow", () => {
@@ -136,7 +167,7 @@ describe("applyV3Rules", () => {
         fields: [
           { key: "Eigentümer", value: "Gerber Gary", confidence: 0.8 },
           { key: "Eigentümer", value: "Gerber Gary Samuel", confidence: 0.95 },
-          { key: "Bruttolohn 2024", value: "1", confidence: 1 },
+          { key: "Bruttolohn", value: "1", confidence: 1 },
           { key: "Objekt", value: null, confidence: 0.9 },
         ],
       },

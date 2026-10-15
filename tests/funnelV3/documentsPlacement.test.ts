@@ -1,9 +1,9 @@
 import { describe, it, expect } from "@jest/globals";
 import type { FileEntry, V3Analysis } from "@/lib/funnel-v3/files";
-import { placeAll, placeFile, placedFiles, personScore } from "@/lib/funnel-v3/placeFile";
+import { OLDER_SALARY_DE, placeAll, placeFile, placedFiles, personScore } from "@/lib/funnel-v3/placeFile";
 import { reqList } from "@/lib/funnel-v3/requirements";
 import { documentsSummary, isSubmitted } from "@/lib/funnel-v3/documentsSummary";
-import { GARY, GERBER_ANSWERS, mkState } from "./helpers";
+import { GARY, GERBER_ANSWERS, GERBER_EM, mkState } from "./helpers";
 
 const NOW = new Date("2026-10-05T10:00:00Z");
 let n = 0;
@@ -34,28 +34,54 @@ function file(analysis: V3Analysis | undefined, extra: Partial<FileEntry> = {}):
   };
 }
 
-const gerber = () => mkState(GERBER_ANSWERS);
+const gerber = () => mkState(GERBER_ANSWERS, {}, {}, undefined, { em: GERBER_EM });
 
 describe("placeFile (single file)", () => {
   const inst = reqList(gerber());
 
   it("places a recognised requirement on its instance", () => {
     expect(placeFile(an("grundbuch"), inst, [], { now: NOW })).toMatchObject({ instanceId: "grundbuch", reason: "placed" });
-    expect(placeFile(an("lohnausweise", { docDate: "2024" }), inst, [], { now: NOW })).toMatchObject({ instanceId: "lohnausweise#b1" });
+    expect(placeFile(an("lohnausweise", { docDate: "2025" }), inst, [], { now: NOW })).toMatchObject({ instanceId: "lohnausweise#b1" });
   });
 
   it("surplus when the requirement already has `expect` files", () => {
     const existing = [{ id: "a", instanceId: "grundbuch" }];
     expect(placeFile(an("grundbuch"), inst, existing, { now: NOW })).toMatchObject({ instanceId: null, extraKind: "surplus", reason: "full", requirementId: "grundbuch" });
-    // Lohnausweise expect 3: the third still fits, the fourth not.
-    const two = [{ id: "a", instanceId: "lohnausweise#b1" }, { id: "b", instanceId: "lohnausweise#b1" }];
-    expect(placeFile(an("lohnausweise", { docDate: "2023" }), inst, two, { now: NOW }).reason).toBe("placed");
-    const three = [...two, { id: "c", instanceId: "lohnausweise#b1" }];
-    expect(placeFile(an("lohnausweise", { docDate: "2024" }), inst, three, { now: NOW }).extraKind).toBe("surplus");
+    // The 3a-Police expects 2: the second still fits, the third not.
+    const one = [{ id: "a", instanceId: "police" }];
+    expect(placeFile(an("police"), inst, one, { now: NOW }).reason).toBe("placed");
+    const two = [...one, { id: "b", instanceId: "police" }];
+    expect(placeFile(an("police"), inst, two, { now: NOW }).extraKind).toBe("surplus");
+    // v5 P2: one current Lohnausweis.
+    expect(placeFile(an("lohnausweise", { docDate: "2025" }), inst, [{ id: "c", instanceId: "lohnausweise#b1" }], { now: NOW }).reason).toBe("full");
   });
 
   it("surplus when the period is outside the requested years", () => {
     expect(placeFile(an("lohnausweise", { docDate: "2022" }), inst, [], { now: NOW })).toMatchObject({ extraKind: "surplus", reason: "period" });
+  });
+
+  it("older Lohnausweise are «überzählig» without a bonus, and P5 with one (Handover 4.2)", () => {
+    const older = placeFile(an("lohnausweise", { docDate: "2024" }), inst, [], { now: NOW });
+    expect(older).toMatchObject({ extraKind: "surplus", reason: "period", requirementId: "lohnausweise", extraReason: OLDER_SALARY_DE });
+    const bonus = reqList(mkState(GERBER_ANSWERS, {}, {}, undefined, { info: { bonus: true } }));
+    expect(placeFile(an("lohnausweise", { docDate: "2024" }), bonus, [], { now: NOW })).toMatchObject({ instanceId: "lohnausweise_alt#b1", reason: "placed" });
+    expect(placeFile(an("lohnausweise", { docDate: "2025" }), bonus, [], { now: NOW })).toMatchObject({ instanceId: "lohnausweise#b1" });
+    // Without a readable year the current one is meant.
+    expect(placeFile(an("lohnausweise", { docDate: null }), bonus, [], { now: NOW })).toMatchObject({ instanceId: "lohnausweise#b1" });
+  });
+
+  it("«nicht benötigt» with its reason for what v5 no longer asks (prototype NN)", () => {
+    expect(placeFile(an("hyp_rahmen"), inst, [], { now: NOW })).toMatchObject({ extraKind: "notneeded", reason: "notneeded", extraReason: "Für die Ablösung brauchen wir die aktuelle Produktvereinbarung." });
+    expect(placeFile(an("hyp_sicher"), inst, [], { now: NOW })).toMatchObject({ extraKind: "notneeded" });
+    // Anstellungsvertrag without a Lohnerhöhung, Eigenmittelnachweis at an Ablösung.
+    expect(placeFile(an("anstellung"), inst, [], { now: NOW })).toMatchObject({ extraKind: "notneeded", requirementId: "anstellung" });
+    expect(placeFile(an("vermoegen"), inst, [], { now: NOW })).toMatchObject({ extraKind: "notneeded", extraReason: "Eigenmittelnachweis ist nur bei einem Kauf nötig." });
+    const raise = reqList(mkState(GERBER_ANSWERS, {}, {}, undefined, { info: { raise: true } }));
+    expect(placeFile(an("anstellung"), raise, [], { now: NOW })).toMatchObject({ instanceId: "anstellung#b1" });
+  });
+
+  it("places the Auskunftsermächtigung found in the folder on P0 (Handover 6)", () => {
+    expect(placeFile(an("vollmacht"), inst, [], { now: NOW })).toMatchObject({ instanceId: "vollmacht", reason: "placed" });
   });
 
   it("duplicate when the content hash matches", () => {
@@ -94,7 +120,8 @@ describe("placeAll", () => {
     const lease2 = file(an("leasing", { contentHash: "L" }));
     const nn = file(an("nn_nebenkosten"));
     const map = placeAll([...lohn, st24, st25, lease1, lease2, nn], gerber(), { now: NOW });
-    expect(lohn.map((f) => map.get(f.id)!.reason)).toEqual(["period", "placed", "placed", "placed"]);
+    // v5: only the current one counts; the older ones are «überzählig» (no bonus recognised).
+    expect(lohn.map((f) => map.get(f.id)!.reason)).toEqual(["period", "period", "period", "placed"]);
     expect(map.get(st25.id)!.instanceId).toBe("steuer#b1");
     expect(map.get(st24.id)).toMatchObject({ extraKind: "surplus", reason: "full" });
     expect(map.get(lease1.id)!.instanceId).toBe("leasing");
@@ -131,7 +158,7 @@ describe("placeAll", () => {
   it("tells spouses with one family name apart by the given name", () => {
     const eva = { id: "b2", vor: "Eva", nach: "Gerber", job: "Angestellt" as const, pkSe: "Nein" as const };
     const state = mkState({}, {}, {}, [GARY, eva]);
-    const e = file(an("lohnausweise", { docDate: "2024", personName: "Gerber Eva" }));
+    const e = file(an("lohnausweise", { docDate: "2025", personName: "Gerber Eva" }));
     expect(placeAll([e], state, { now: NOW }).get(e.id)!.instanceId).toBe("lohnausweise#b2");
     expect(personScore("Gerber Eva", { kind: "borrower", first: "Gary", last: "Gerber", display: "" })).toBe(2);
     expect(personScore("Gerber Eva", { kind: "borrower", first: "Eva", last: "Gerber", display: "" })).toBe(3);

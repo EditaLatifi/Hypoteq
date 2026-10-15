@@ -13,7 +13,11 @@
  *                                           document covers a year that was not asked for
  *  - surplus    (reason "offList")          a requirement type not on the current list: kept in
  *                                           the dossier, and a suggestion to correct the answer
- *  - notneeded  (reason "notneeded")        a type the bank does not need (Steuerrechnung …)
+ *  - notneeded  (reason "notneeded")        a type the bank does not need (Steuerrechnung …, and
+ *                                           since v5 the Rahmenvertrag and the Schuldbrief), or a
+ *                                           requirement type off the list that has a reason for
+ *                                           it (Anstellungsvertrag without a Lohnerhöhung,
+ *                                           Eigenmittelnachweis at an Ablösung — Handover 4.2, 4.3)
  *               (reason "dismissed")        an off-list document whose suggestion was turned down
  *  - unknown    (reason "unknown")          not recognised
  *               (reason "failed")           could not be analysed
@@ -76,6 +80,7 @@ const REASON_DE: Record<PlaceReason, string> = {
   duplicate: "Identischer Inhalt wie eine andere Datei – wird nicht doppelt gespeichert.",
   full: "Die Anforderung ist bereits vollständig – wird im Dossier mitgeführt, zählt nicht.",
   period: "Ausserhalb der verlangten Jahre – wird im Dossier mitgeführt, zählt nicht.",
+  // (an older Lohnausweis without a recognised bonus has its own sentence: OLDER_SALARY_DE)
   notneeded: "Für die Finanzierungsprüfung nicht erforderlich.",
   offList: "Passt zu keiner Anforderung der aktuellen Antworten.",
   dismissed: "Passt zu keiner Anforderung der aktuellen Antworten (Vorschlag abgelehnt).",
@@ -129,6 +134,15 @@ function byPerson(analysis: V3Analysis, candidates: RequirementInstance[]): Requ
   return scored.filter((x) => x.s === best).map((x) => x.c);
 }
 
+/** Same person on several family members (P2 and P5 of one borrower): the family head wins. */
+function samePerson(list: RequirementInstance[]): boolean {
+  const key = (i: RequirementInstance) => i.borrowerId ?? i.person?.display ?? "";
+  return list.every((i) => key(i) === key(list[0]));
+}
+
+/** Handover 4.2: «ältere Lohnausweise sind überzählig» without a recognised bonus. */
+export const OLDER_SALARY_DE = "Älterer Lohnausweis – nur bei variablem Lohnanteil nötig. Wird im Dossier mitgeführt.";
+
 // ---- Single file ------------------------------------------------------------------------
 
 /** Where a file's type could go, ignoring how full the requirements are. */
@@ -146,15 +160,28 @@ function candidateFor(
 
   const members = new Set(familyMembers(type.id));
   const onList = instances.filter((i) => members.has(i.id));
-  if (!onList.length) return dismissed ? extra("notneeded", "dismissed", type.id) : extra("surplus", "offList", type.id);
+  if (!onList.length) {
+    if (type.notNeededReason) return extra("notneeded", "notneeded", type.id, type.notNeededReason);
+    return dismissed ? extra("notneeded", "dismissed", type.id) : extra("surplus", "offList", type.id);
+  }
 
-  const fit = byPerson(analysis, onList);
+  // The year first: a Lohnausweis 2024 belongs to P5 «zwei Vorjahre», not to P2 «aktueller».
+  const y = docYear(analysis.docDate);
+  const inPeriod = y === null ? onList : onList.filter((i) => {
+    const years = requestedYears(i.id, now);
+    return !years || years.includes(y);
+  });
+  let fit = byPerson(analysis, inPeriod.length ? inPeriod : onList);
+  if (fit.length > 1 && samePerson(fit)) fit = [fit.find((i) => i.id === type.id) ?? fit[0]];
   if (fit.length !== 1) return extra("unknown", "person", type.id);
   const inst = fit[0];
 
-  const years = requestedYears(inst.id, now);
-  const y = docYear(analysis.docDate);
-  if (years && y !== null && !years.includes(y)) return extra("surplus", "period", inst.id);
+  if (!inPeriod.length) {
+    const older = type.family === "lohnausweise" && y !== null && !onList.some((i) => i.id === "lohnausweise_alt");
+    const years = requestedYears(inst.id, now);
+    if (older && years && y < Math.min(...years)) return extra("surplus", "period", inst.id, OLDER_SALARY_DE);
+    return extra("surplus", "period", inst.id);
+  }
   return { candidate: inst };
 }
 

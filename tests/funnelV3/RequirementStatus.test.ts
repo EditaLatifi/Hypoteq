@@ -2,7 +2,7 @@ import { describe, it, expect } from '@jest/globals';
 import { reqList } from '@/lib/funnel-v3/requirements';
 import { answerCorrections, bankHints, hints, requirementStatus, type UploadedFile } from '@/lib/funnel-v3/requirementStatus';
 import type { Borrower } from '@/lib/funnel-v3/types';
-import { GERBER_ANSWERS, mkState } from './helpers';
+import { GERBER_ANSWERS, GERBER_EM, mkState } from './helpers';
 
 let n = 0;
 const file = (requirementId: string | null, extra: Partial<UploadedFile> = {}): UploadedFile => ({
@@ -12,7 +12,9 @@ const file = (requirementId: string | null, extra: Partial<UploadedFile> = {}): 
   ...extra,
 });
 
-const gerber = reqList(mkState(GERBER_ANSWERS));
+const gerberState = mkState(GERBER_ANSWERS, {}, {}, undefined, { em: GERBER_EM, info: { bonus: true } });
+/** v5 Gerber list (20) with the two older Lohnausweise of a recognised bonus (P5, 2 files): 21. */
+const gerber = reqList(gerberState);
 const stateOf = (files: UploadedFile[], skipped: string[] = [], list = gerber) => {
   const res = requirementStatus(list, files, skipped);
   return { res, st: (id: string) => res.requirements.find((r) => r.instance.instanceId === id)!.state };
@@ -25,7 +27,7 @@ const fullSet = () =>
 describe('requirementStatus (spec 4.2)', () => {
   it('starts with everything missing', () => {
     const { res } = stateOf([]);
-    expect(res.counts).toMatchObject({ total: 23, missing: 23, ok: 0, fulfilled: 0 });
+    expect(res.counts).toMatchObject({ total: 21, missing: 21, ok: 0, fulfilled: 0 });
     expect(res.completeForSalesforce).toBe(false);
   });
 
@@ -34,12 +36,13 @@ describe('requirementStatus (spec 4.2)', () => {
     expect(st('grundbuch')).toBe('analysing');
   });
 
-  it('is partial with 2 of 3 Lohnausweise, ok with 3', () => {
-    const two = [file('lohnausweise#b1'), file('lohnausweise#b1')];
-    expect(stateOf(two).st('lohnausweise#b1')).toBe('partial');
-    const res = stateOf(two).res.requirements.find((r) => r.instance.id === 'lohnausweise')!;
-    expect([res.doneFiles, res.expect]).toEqual([2, 3]);
-    expect(stateOf([...two, file('lohnausweise#b1')]).st('lohnausweise#b1')).toBe('ok');
+  it('is ok with the one current Lohnausweis (v5 P2); partial with 1 of the 2 older ones (P5)', () => {
+    expect(stateOf([file('lohnausweise#b1')]).st('lohnausweise#b1')).toBe('ok');
+    const one = [file('lohnausweise_alt#b1')];
+    expect(stateOf(one).st('lohnausweise_alt#b1')).toBe('partial');
+    const res = stateOf(one).res.requirements.find((r) => r.instance.id === 'lohnausweise_alt')!;
+    expect([res.doneFiles, res.expect]).toEqual([1, 2]);
+    expect(stateOf([...one, file('lohnausweise_alt#b1')]).st('lohnausweise_alt#b1')).toBe('ok');
   });
 
   it('accepts the bare id when there is only one instance of it', () => {
@@ -75,7 +78,7 @@ describe('requirementStatus (spec 4.2)', () => {
   it('is complete for Salesforce with every mandatory requirement ok, optional ones skipped', () => {
     const files = fullSet().filter((f) => f.requirementId !== 'verkaufsdoku');
     const { res } = stateOf(files, ['verkaufsdoku']);
-    expect(res.counts).toMatchObject({ ok: 22, skipped: 1, fulfilled: 23, missing: 0 });
+    expect(res.counts).toMatchObject({ ok: 20, skipped: 1, fulfilled: 21, missing: 0 });
     expect(res.completeForSalesforce).toBe(true);
     // An optional document may also simply be missing.
     expect(stateOf(files).res.completeForSalesforce).toBe(true);
@@ -90,7 +93,7 @@ describe('requirementStatus (spec 4.2)', () => {
 
   it('is not complete with a partial requirement', () => {
     const files = fullSet();
-    files.splice(files.findIndex((f) => f.requirementId === 'lohnausweise#b1'), 1);
+    files.splice(files.findIndex((f) => f.requirementId === 'lohnausweise_alt#b1'), 1);
     expect(stateOf(files).res.completeForSalesforce).toBe(false);
   });
 });
@@ -118,8 +121,9 @@ describe('Dok_* flags (spec 6.9)', () => {
     }
   });
 
-  it('leaves Dok_Lohnausweis__c off with 2 of 3', () => {
-    expect(stateOf([file('lohnausweise#b1'), file('lohnausweise#b1')]).res.dokFlags.Dok_Lohnausweis__c).toBe(false);
+  it('sets Dok_Lohnausweis__c with the current Lohnausweis (v5: one file)', () => {
+    expect(stateOf([]).res.dokFlags.Dok_Lohnausweis__c).toBe(false);
+    expect(stateOf([file('lohnausweise#b1')]).res.dokFlags.Dok_Lohnausweis__c).toBe(true);
   });
 
   it('sets a per-borrower flag only when every borrower supplied it', () => {
@@ -141,35 +145,43 @@ describe('Dok_* flags (spec 6.9)', () => {
   });
 });
 
-describe('answerCorrections (spec 4.4)', () => {
+describe('answerCorrections (spec 4.4, Handover 3.1: chips and amounts)', () => {
   const base = mkState({ antrag: 'Ablösung', immo: 'Bestehende Immobilie', lieg: 'Einfamilienhaus' });
 
-  it('suggests Privatkredite / Leasings = Ja for a recognised contract', () => {
+  it('suggests the Privatkredit / Leasing chips for a recognised contract', () => {
     expect(answerCorrections(base, ['kredit'])).toEqual([
-      { key: 'loan', titleKey: 'sug.loan.title', textKey: 'sug.loan.text', patch: { kredite: 'Ja' }, requirementIds: ['kredit'] },
+      { key: 'loan', titleKey: 'sug.loan.title', textKey: 'sug.loan.chipText', patch: { ans: { kredite: 'Ja' } }, requirementIds: ['kredit'] },
     ]);
-    expect(answerCorrections(base, ['kredit', 'leasing'])[0].patch).toEqual({ kredite: 'Ja', leasing: 'Ja' });
-    expect(answerCorrections(base, ['leasing'])[0].patch).toEqual({ leasing: 'Ja' });
+    expect(answerCorrections(base, ['kredit', 'leasing'])[0].patch).toEqual({ ans: { kredite: 'Ja', leasing: 'Ja' } });
+    expect(answerCorrections(base, ['leasing'])[0].patch).toEqual({ ans: { leasing: 'Ja' } });
   });
 
-  it('sets Kinder and Unterhalt for a recognised Unterhaltsvereinbarung', () => {
-    expect(answerCorrections(base, ['unterhalt'])[0]).toMatchObject({ key: 'maint', patch: { kinder: 'Ja', unterhalt: 'Ja' } });
+  it('suggests the Unterhalt chip for a recognised Unterhaltsvereinbarung (no Kinder question any more)', () => {
+    expect(answerCorrections(base, ['unterhalt'])[0]).toMatchObject({ key: 'maint', textKey: 'sug.maint.chipText', patch: { ans: { unterhalt: 'Ja' } } });
   });
 
-  it('sets Säule 3a for recognised 3a documents', () => {
-    expect(answerCorrections(base, ['police'])[0]).toMatchObject({ key: '3a', patch: { s3a: 'Ja' }, requirementIds: ['police'] });
+  it('carries the 3a amount read from the policy into the Vorsorge row (prototype suggests)', () => {
+    expect(answerCorrections(base, ['police'], { s3a: 10340 })[0]).toEqual({
+      key: '3a', titleKey: 'sug.3a.title', textKey: 'sug.3a.amountText', params: { amount: 10340 }, patch: { em: { s3a: 10340 } }, requirementIds: ['police'],
+    });
+  });
+
+  it('asks for the 3a amount by hand when none could be read', () => {
+    expect(answerCorrections(base, ['s3a'])[0]).toMatchObject({ key: '3a', textKey: 'sug.3a.enterText', patch: {}, focus: 'em.s3a', requirementIds: ['s3a'] });
   });
 
   it('proposes Stockwerkeigentum for STWE documents', () => {
-    expect(answerCorrections(base, ['stwe_regl', 'ef'])[0]).toMatchObject({ key: 'stwe', patch: { lieg: 'Stockwerkeigentum' }, requirementIds: ['stwe_regl', 'ef'] });
+    expect(answerCorrections(base, ['stwe_regl', 'ef'])[0]).toMatchObject({ key: 'stwe', patch: { ans: { lieg: 'Stockwerkeigentum' } }, requirementIds: ['stwe_regl', 'ef'] });
   });
 
   it('says nothing when the answers already ask for the document', () => {
-    expect(answerCorrections(mkState(GERBER_ANSWERS), ['kredit', 'leasing', 'unterhalt', 's3a', 'police', 'stwe_regl', 'ef', 'grundbuch'])).toEqual([]);
+    expect(answerCorrections(gerberState, ['kredit', 'leasing', 'unterhalt', 's3a', 'police', 'stwe_regl', 'ef', 'grundbuch'])).toEqual([]);
+    // From the ID (ab 50) the 3a documents are on the list without an amount.
+    expect(answerCorrections(mkState({}, {}, {}, undefined, { info: { ab50: true } }), ['police'])).toEqual([]);
   });
 
   it('does not suggest what would not bring the document onto the list', () => {
-    // A company has no Unterhalt document, whatever Kinder/Unterhalt say.
+    // A company has no Unterhalt document.
     expect(answerCorrections(mkState({ kn: 'Juristische Person' }), ['unterhalt'])).toEqual([]);
     // Plans are always asked (except Bauprojekt), so they never imply STWE.
     expect(answerCorrections(base, ['stwe_plan'])).toEqual([]);
