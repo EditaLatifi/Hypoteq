@@ -1,15 +1,23 @@
 /**
- * `Case.Dokumenten_Check_State__c` (Spezifikation 6.11, DECISIONS S3). Pure.
+ * `Case.Dokumenten_Check_State__c` (Spezifikation 6.11, DECISIONS S3; v5: Handover 8). Pure.
  *
  * Writes the spec 6.11 structure (`version, updatedAt, answers, requirements, extras, hints`)
  * AND keeps the legacy `checked` / `filters` / `savedAt` the Salesforce «Dokumenten-Check» tab
  * and the partner portal read. Like buildDokumentenCheckState it merges onto what the Case
  * already holds: manual ticks and the filters snapshot survive, nothing is ever unticked.
+ *
+ * v5 adds (Handover 8): `entry` (schnell | begleitet), `sources` (field → document, «aus
+ * Dokument»), `signature` (Auskunftsermächtigung: status, time, method) and `info` (what the
+ * documents say beyond the questions); `answers` carries the chips, the Eigenmittel amounts
+ * and the amounts without a Salesforce field (Renovationsbetrag V4, Darlehen, PK-Verpfändung).
+ * The schema stays additive, so `version` stays 1.
  */
 
 import type { DokumentenCheckState } from "@/components/dokumentenCheckState";
-import { effectiveBorrowers, reasonTextDe, type ReqState } from "./requirements";
+import { effectiveBorrowers, reasonTextDe, SIGNATURE_REQUIREMENT_ID, type ReqState } from "./requirements";
 import type { BankHint, ExtraKind, RequirementState, StatusResult } from "./requirementStatus";
+import type { SignatureJson } from "./signature";
+import type { Amounts, DocInfo, Mode, SignatureState, Sources } from "./types";
 
 /** Salesforce long text area limit of Dokumenten_Check_State__c. */
 export const CHECK_STATE_MAX_LENGTH = 131072;
@@ -61,17 +69,35 @@ export interface CheckStateRequirement {
 export interface CheckStateV3 extends DokumentenCheckState {
   version: 1;
   updatedAt: string;
+  /** Handover 8: Schnellanmeldung or Begleitete Anmeldung. */
+  entry?: Mode;
   answers: Record<string, unknown>;
   requirements: CheckStateRequirement[];
   extras: { name: string; kind: ExtraKind }[];
   hints: { title: string; text: string }[];
+  /** Handover 8: field path → the document it was read from («fin.inc»: «Lohnausweis 2025»). */
+  sources?: Record<string, string>;
+  /** Handover 8: the Auskunftsermächtigung. */
+  signature?: SignatureJson;
+  /** What the documents say beyond the questions (Handover 3.1 «Zusätzlich»). */
+  info?: DocInfo;
   /** What the size guard removed, in order. Absent when nothing was removed. */
   truncated?: string[];
 }
 
+/** The answer state plus what v5 writes beside it. */
+export interface CheckStateSource extends ReqState {
+  mode?: Mode;
+  fin?: Amounts;
+  src?: Sources;
+  sig?: SignatureState | null;
+}
+
 export interface BuildCheckStateInput {
-  state: ReqState;
+  state: CheckStateSource;
   status: StatusResult;
+  /** The Auskunftsermächtigung as signature.ts judged it; derived from P0's state when absent. */
+  signature?: SignatureJson;
   details?: Record<string, CheckStateDetail>;
   extras?: { name: string; kind: ExtraKind }[];
   hints?: (BankHint | { title: string; text: string })[];
@@ -92,7 +118,7 @@ function parsePrevious(previous?: string | null): DokumentenCheckState | null {
   return null;
 }
 
-function answersBlock(state: ReqState): Record<string, unknown> {
+function answersBlock(state: CheckStateSource): Record<string, unknown> {
   const out: Record<string, unknown> = {};
   for (const [k, v] of Object.entries(state.ans)) if (v !== undefined && v !== null) out[k] = v;
   if (state.ans.kn !== "Juristische Person") {
@@ -102,10 +128,27 @@ function answersBlock(state: ReqState): Record<string, unknown> {
     out.pkSe = bs[0]?.pkSe ?? "Nein";
     out.borrowers = bs.map((b) => ({ id: b.id, ...(b.job ? { job: b.job } : {}), pkSe: b.pkSe }));
   }
+  // Handover 8: the Eigenmittel split (only entered rows) and the amounts without a Case field.
+  const em = Object.fromEntries(Object.entries(state.em ?? {}).filter(([, v]) => typeof v === "number" && v > 0));
+  if (Object.keys(em).length) out.eigenmittel = em;
+  const fin = state.fin;
+  if (fin?.renoBetrag) out.renovationsBetrag = fin.renoBetrag;
+  if (fin?.miete) out.nettoMietertrag = fin.miete;
+  if (fin?.inc2) out.einkommenKn2 = fin.inc2;
+  if (state.txt?.kaufdatum?.trim()) out.kaufdatum = state.txt.kaufdatum.trim();
+  if (state.legacyEquity) out.legacyEquity = state.legacyEquity;
   return out;
 }
 
-const OWN_KEYS = new Set(["version", "updatedAt", "answers", "requirements", "extras", "hints", "checked", "savedAt", "truncated"]);
+/** The status of P0 when no signature view was passed: there (ok), «später» chosen, or missing. */
+function derivedSignature(state: CheckStateSource, status: StatusResult): SignatureJson {
+  const p0 = status.requirements.find((r) => r.instance.id === SIGNATURE_REQUIREMENT_ID);
+  const sig = state.sig ?? null;
+  const s = p0?.state === "ok" ? "uploaded" : sig?.choice === "later" ? "pending" : "missing";
+  return { status: s, at: sig?.at ?? null, method: sig?.method ?? "upload" };
+}
+
+const OWN_KEYS = new Set(["version", "updatedAt", "entry", "answers", "requirements", "extras", "hints", "sources", "signature", "info", "checked", "savedAt", "truncated"]);
 
 /** Build the state object (see `buildCheckState` for the string). */
 export function buildCheckStateObject(input: BuildCheckStateInput): CheckStateV3 {
@@ -141,13 +184,21 @@ export function buildCheckStateObject(input: BuildCheckStateInput): CheckStateV3
   // what this function writes is replaced.
   const rest: Record<string, unknown> = {};
   for (const [k, v] of Object.entries(base || {})) if (!OWN_KEYS.has(k)) rest[k] = v;
+  const sources = Object.fromEntries(Object.entries(input.state.src ?? {}).map(([k, m]) => [k, m!.doc]));
+  const info = Object.fromEntries(
+    (Object.entries(input.state.info ?? {}) as [string, unknown][]).filter(([, v]) => v !== undefined && v !== "")
+  ) as DocInfo;
   return {
     version: 1,
     updatedAt: now.toISOString(),
+    ...(input.state.mode ? { entry: input.state.mode } : {}),
     answers: answersBlock(input.state),
     requirements,
     extras: (input.extras || []).map((e) => ({ name: e.name, kind: e.kind })),
     hints: (input.hints || []).map((h) => ({ title: "titleDe" in h ? h.titleDe : h.title, text: h.text })),
+    sources,
+    signature: input.signature ?? derivedSignature(input.state, input.status),
+    ...(Object.keys(info).length ? { info } : {}),
     ...rest,
     checked,
     savedAt: now.toISOString(),

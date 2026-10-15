@@ -39,8 +39,9 @@ describe("NachreichV3 (server render)", () => {
     expect(html).toContain(">Personne · Gary Gerber<");
     expect(html).toContain(">Personne · Anna Muster<");
     expect(html).toContain(">Photos du bien (intérieur et extérieur)<");
-    expect(html).toContain(">Certificats de salaire des 3 dernières années<");
-    expect((html.match(/class="v3-docrow /g) || []).length).toBe(8);
+    expect(html).toContain(">Certificat de salaire actuel<");
+    expect(html).toContain(">Convention de produit actuelle<");
+    expect((html.match(/class="v3-docrow /g) || []).length).toBe(7);
     expect(html).not.toContain("registre foncier"); // the Grundbuch is not missing
     expect(html).toMatch(/<button type="button" class="v3-btn v3-btn--primary" disabled="">Envoyer les documents<\/button>/);
   });

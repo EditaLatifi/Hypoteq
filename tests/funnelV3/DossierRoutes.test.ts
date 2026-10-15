@@ -34,7 +34,9 @@ describe("previewInput", () => {
     expect(input.state.ans.kn).toBe("Natürliche Person");
     expect(input.state.txt.vor).toBe("");
     expect(input.state.txt.nach).toHaveLength(2000);
-    expect(input.state.fin).toEqual({ old: 0, up: 0, kaufpreis: 0, inc: 0, val: 0 });
+    expect(input.state.fin).toEqual({ old: 0, up: 0, kaufpreis: 0, renoBetrag: 0, val: 0, miete: 0, inc: 0, inc2: 0 });
+    expect(input.state.em).toEqual({ spar: 0, s3a: 0, pkVor: 0, pkVerp: 0, schenk: 0, erbe: 0, darl: 0 });
+    expect(input.state.info).toEqual({});
     expect(input.files.map((f) => f.id)).toEqual(["b"]);
     expect(input.files[0].analysis!.fields.k.value).toBeNull();
   });

@@ -32,24 +32,31 @@ export default function Step6Finish() {
   const txt = useFunnelV3((s) => s.txt);
   const fin = useFunnelV3((s) => s.fin);
   const borrowers = useFunnelV3((s) => s.borrowers);
+  const em = useFunnelV3((s) => s.em);
+  const info = useFunnelV3((s) => s.info);
+  const mode = useFunnelV3((s) => s.mode);
+  const sig = useFunnelV3((s) => s.sig);
   const files = useFunnelV3((s) => s.files);
   const skipped = useFunnelV3((s) => (s as { skipped?: Iterable<string> }).skipped);
   const submissionId = useFunnelV3((s) => s.submissionId);
   const entry = useFunnelV3((s) => s.entry);
   const reset = useFunnelV3((s) => s.reset);
 
-  const docs = useMemo(() => documentsSummary({ ans, borrowers, txt, files, skipped }), [ans, borrowers, txt, files, skipped]);
+  const docs = useMemo(
+    () => documentsSummary({ ans, borrowers, txt, em, info, mode, sig, files, skipped }),
+    [ans, borrowers, txt, em, info, mode, sig, files, skipped]
+  );
   const summary = useMemo(
     () =>
       finishSummary({
-        state: { role, ans, txt, fin, borrowers },
+        state: { role, ans, txt, fin, em, borrowers },
         status: docs.status,
         files: docs.files,
         hints: docs.hints,
         submittedDocuments: docs.submittedDocuments(),
         lang,
       }),
-    [role, ans, txt, fin, borrowers, docs, lang]
+    [role, ans, txt, fin, em, borrowers, docs, lang]
   );
 
   const [phase, setPhase] = useState<SubmitPhase | null>(null);

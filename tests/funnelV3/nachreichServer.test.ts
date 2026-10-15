@@ -97,7 +97,9 @@ describe("v3InquiryColumns (/api/inquiry)", () => {
     const state = gerberState({ borrowers: [GARY, ANNA] });
     const payload: any = toInquiryPayload(state, { locale: "fr", submissionId: SUBMISSION, documentCompleteness: { skipped: ["verkaufsdoku", 7] } });
     const cols = v3InquiryColumns(payload, "fr") as any;
-    expect(cols.v3State).toMatchObject({ version: 1, role: "kunde", lang: "fr", borrowers: [GARY, ANNA] });
+    // Stored in the v5 shape (legacy.ts), so it says version 2.
+    expect(cols.v3State).toMatchObject({ version: 2, role: "kunde", mode: "begleitet", lang: "fr", borrowers: [GARY, ANNA] });
+    expect(cols.v3State.em.s3a).toBe(10340);
     expect(cols.v3State.ans.antrag).toBe("Ablösung");
     expect(cols.v3State.txt.vor).toBe("Gary");
     expect(cols.v3State.fin.old).toBe(449000);
@@ -115,29 +117,34 @@ describe("v3InquiryColumns (/api/inquiry)", () => {
 describe("nachreichV3View (GET)", () => {
   const view = (lang = "de") => nachreichV3View(inquiryRow({ v3State: v3StateFor([GARY, ANNA], lang) }), existingRows())!;
 
-  it("lists what is still open, recomputed from the documents, grouped like step 5", () => {
+  it("lists what is still open by the v5 rules, recomputed from the documents, grouped like step 5", () => {
     const v = view();
     expect(v).toMatchObject({ valid: true, v3: true, lang: "de", caseNumber: CASE, folderId: "FOLDER", submissionId: INQUIRY });
     const ids = v.missing.map((m) => m.instanceId);
-    expect(ids).toEqual(["fotos", "lohnausweise#b1", "id#b2", "lohnausweise#b2", "lohnabrechnungen#b2", "anstellung#b2", "pk#b2", "steuer#b2"]);
-    // The removed duplicate does not count for the photos; the overridden Grundbuch is fine.
+    // A v3 inquiry (version 1) judged by v5 (legacy.ts): the Produktvereinbarung instead of the
+    // Rahmenvertrag, one current Lohnausweis, Kreditnehmer 2 per P17, no Anstellungsvertrag.
+    expect(ids).toEqual(["fotos", "produkt", "lohnausweise#b1", "id#b2", "lohnausweise#b2", "lohnabrechnungen#b2", "pk#b2"]);
+    // The removed duplicate does not count for the photos; the overridden Grundbuch is fine;
+    // the stored «Säule 3a = Ja» still asks for (and finds) the 3a documents.
     expect(ids).not.toContain("grundbuch");
+    expect(ids).not.toContain("police");
     const lohn = v.missing.find((m) => m.instanceId === "lohnausweise#b1")!;
-    expect(lohn).toMatchObject({ state: "partial", expect: 3, have: 2, slots: 1 });
+    expect(lohn).toMatchObject({ state: "missing", expect: 1, have: 0, slots: 1 });
     expect(v.missing.find((m) => m.instanceId === "fotos")).toMatchObject({ state: "missing", slots: 1, group: "objekt", groupLabel: "Zum Objekt" });
   });
 
   it("labels in the inquiry's language, with the person on per-borrower requirements", () => {
     const de = view("de").missing;
     expect(de.find((m) => m.instanceId === "fotos")!.label).toBe("Fotos der Immobilie (innen und aussen)");
-    expect(de.find((m) => m.instanceId === "lohnausweise#b1")!.label).toBe("Lohnausweise der letzten 3 Jahre – Gary Gerber");
+    expect(de.find((m) => m.instanceId === "lohnausweise#b1")!.label).toBe("Aktueller Lohnausweis – Gary Gerber");
+    expect(de.find((m) => m.instanceId === "produkt")!.label).toBe("Aktuelle Produktvereinbarung");
     expect(de.find((m) => m.instanceId === "id#b2")!.label).toBe("Pass / Identitätskarte – Anna Muster");
     expect(de.find((m) => m.instanceId === "id#b2")!.groupLabel).toBe("Zur Person · Anna Muster");
 
     const fr = view("fr");
     expect(fr.lang).toBe("fr");
     expect(fr.missing.find((m) => m.instanceId === "fotos")!.label).toBe("Photos du bien (intérieur et extérieur)");
-    expect(fr.missing.find((m) => m.instanceId === "lohnausweise#b2")!.label).toBe("Certificats de salaire des 3 dernières années – Anna Muster");
+    expect(fr.missing.find((m) => m.instanceId === "lohnausweise#b2")!.label).toBe("Certificat de salaire actuel – Anna Muster");
     expect(fr.missing.find((m) => m.instanceId === "id#b2")!.groupLabel).toBe("Personne · Anna Muster");
 
     const it = view("it").missing;
@@ -160,13 +167,15 @@ describe("nachreichV3View (GET)", () => {
 describe("submitV3Nachreichung (POST)", () => {
   const held = () => [
     heldRow("h-fotos", "IMG_2041 Wohnzimmer.pdf", analysis("fotos"), 1),
-    heldRow("h-lohn", "Lohnausweis 2023 Gary.pdf", analysis("lohnausweise", { docDate: "2023", personName: "Gerber Gary" }), 2),
+    heldRow("h-lohn", "Lohnausweis 2025 Gary.pdf", analysis("lohnausweise", { docDate: "2025", personName: "Gerber Gary" }), 2),
     heldRow("h-gb", "Grundbuch neu.pdf", analysis("grundbuch", { docDate: "2026-09-30" }), 3),
+    heldRow("h-prod", "Produktvereinbarung ZKB.pdf", analysis("produkt", { bank: "ZKB", docDate: "2026-02-01" }), 4),
   ];
   const body = {
     documents: [
       { documentId: "h-fotos", instanceId: "fotos", requirementId: "fotos" },
       { documentId: "h-lohn", instanceId: "lohnausweise#b1", requirementId: "lohnausweise", storedName: "selbst-gewaehlt.pdf" },
+      { documentId: "h-prod", instanceId: "produkt", requirementId: "produkt" },
       // Not open any more (the Grundbuch was accepted): kept as an extra, never counted.
       { documentId: "h-gb", instanceId: "grundbuch", requirementId: "grundbuch" },
       // Someone else's row id: never adopted.
@@ -183,27 +192,30 @@ describe("submitV3Nachreichung (POST)", () => {
     // Adoption: exactly the new files, the customer's stored-name wish dropped, the off-list claim made an extra.
     expect(w.adoptCalls).toHaveLength(1);
     const adopted = w.adoptCalls[0].documents;
-    expect(adopted.map((d: any) => d.documentId)).toEqual(["h-fotos", "h-lohn", "h-gb", "foreign-doc"]);
+    expect(adopted.map((d: any) => d.documentId)).toEqual(["h-fotos", "h-lohn", "h-prod", "h-gb", "foreign-doc"]);
     expect(adopted.find((d: any) => d.documentId === "h-lohn")).not.toHaveProperty("storedName");
     expect(adopted.find((d: any) => d.documentId === "h-gb")).toMatchObject({ instanceId: null, extraKind: "surplus" });
     expect(w.docs.some((r) => r.id === "foreign-doc")).toBe(false);
 
-    // Stored names (spec 5.1), numbered across the earlier and the new Lohnausweise.
+    // Stored names (spec 5.1).
     expect(w.nameOf("h-fotos")).toBe(`${CASE}_03_Fotos.pdf`);
-    expect(w.nameOf("h-lohn")).toBe(`${CASE}_01_Lohnausweis_Gerber-Gary_2023_1.pdf`);
-    expect(w.nameOf("doc-15")).toBe(`${CASE}_01_Lohnausweis_Gerber-Gary_2024_2.pdf`);
-    expect(w.nameOf("doc-13")).toBe(`${CASE}_01_Lohnausweis_Gerber-Gary_2025_3.pdf`);
+    expect(w.nameOf("h-lohn")).toBe(`${CASE}_01_Lohnausweis_Gerber-Gary_2025.pdf`);
+    expect(w.nameOf("h-prod")).toBe(`${CASE}_02_Produktvereinbarung_ZKB_2026-02-01.pdf`);
     expect(w.nameOf("h-gb")).toBe(`${CASE}_03_ZUSATZ_Grundbuchauszug_2026-09-30.pdf`);
+    // What v3 asked and v5 no longer does stays in the folder as «Überzählig», never deleted.
+    expect(w.nameOf("doc-8")).toMatch(/_ZUSATZ_.*Rahmenvertrag/);
+    expect(w.nameOf("doc-24")).toBe(`${CASE}_01_ZUSATZ_Anstellungsvertrag_Gerber-Gary.pdf`);
+    expect(w.docs.find((r) => r.id === "doc-26")!.driveItemId).toBe("item-doc-26");
     expect(w.docs.find((r) => r.id === "h-fotos")!.storedName).toBe(`${CASE}_03_Fotos.pdf`);
     // The decision is stored beside the AI analysis, as at submit.
     expect((w.docs.find((r) => r.id === "h-lohn")!.aiAnalysis as any).v3Submitted.instanceId).toBe("lohnausweise#b1");
 
     // Recomputed over all documents: Gary complete, Anna's documents still open.
     expect(res.complete).toBe(false);
-    expect(res.remaining).toEqual(["id#b2", "lohnausweise#b2", "lohnabrechnungen#b2", "anstellung#b2", "pk#b2", "steuer#b2"]);
+    expect(res.remaining).toEqual(["id#b2", "lohnausweise#b2", "lohnabrechnungen#b2", "pk#b2"]);
     expect(res.remainingLabels[0]).toEqual({ instanceId: "id#b2", label: "Pass / Identitätskarte – Anna Muster" });
     expect(w.inquiryUpdates).toEqual([
-      { id: INQUIRY, documentsMissing: "id#b2,lohnausweise#b2,lohnabrechnungen#b2,anstellung#b2,pk#b2,steuer#b2", documentsComplete: false, nachreichCompletedAt: null },
+      { id: INQUIRY, documentsMissing: "id#b2,lohnausweise#b2,lohnabrechnungen#b2,pk#b2", documentsComplete: false, nachreichCompletedAt: null },
     ]);
 
     // Salesforce, v3 path: Dok_* flags, completeness, folder, 6.11 state merged onto the Case's.
@@ -222,19 +234,23 @@ describe("submitV3Nachreichung (POST)", () => {
     const fotos = state.requirements.find((r: any) => r.id === "fotos");
     expect(fotos.status).toBe("ok");
     expect(fotos.files[0].storedName).toBe(`${CASE}_03_Fotos.pdf`);
-    expect(state.requirements.find((r: any) => r.id === "lohnausweise#b1").files).toHaveLength(3);
+    expect(state.requirements.find((r: any) => r.id === "lohnausweise#b1").files).toHaveLength(1);
+    // The stored v3 answers in the JSON: the Unterhalt chip from Kinder + Unterhalt, the 3a «Ja».
+    expect(state.answers).toMatchObject({ unterhalt: "Ja", legacyEquity: { s3a: "Ja" } });
+    expect(state.answers).not.toHaveProperty("kinder");
+    expect(state.entry).toBe("begleitet");
 
     // Mail in the inquiry's language with the v3 labels.
     expect(w.mails).toEqual([
       expect.objectContaining({ to: "gary.gerber@example.ch", cc: null, name: "Gary Gerber", locale: "de", complete: false }),
     ]);
-    expect(w.mails[0].remainingLabels).toContain("Lohnausweise der letzten 3 Jahre – Anna Muster");
+    expect(w.mails[0].remainingLabels).toContain("Aktueller Lohnausweis – Anna Muster");
   });
 
   it("completes the dossier: link closed, Documents_completed__c, «complete» mail", async () => {
     const w = world(existingRows(), held());
-    const row = inquiryRow({ v3State: v3StateFor([GARY]), documentsMissing: "fotos,lohnausweise#b1" });
-    const res = await submitV3Nachreichung(row, { documents: body.documents.slice(0, 2) }, w.deps);
+    const row = inquiryRow({ v3State: v3StateFor([GARY]), documentsMissing: "fotos,produkt,lohnausweise#b1" });
+    const res = await submitV3Nachreichung(row, { documents: body.documents.slice(0, 3) }, w.deps);
     expect(res.ok && res.complete).toBe(true);
     expect(w.inquiryUpdates[0]).toEqual({ id: INQUIRY, documentsMissing: null, documentsComplete: true, nachreichCompletedAt: new Date("2026-10-05T12:00:00Z") });
     expect(w.cases[0].Documents_completed__c).toBe(true);
@@ -246,10 +262,13 @@ describe("submitV3Nachreichung (POST)", () => {
     const rows = existingRows({ leaveOut: new Set(), grundbuchOverride: false });
     const row = inquiryRow({ v3State: v3StateFor([GARY]), documentsMissing: "grundbuch" });
     const before = nachreichV3View(row, rows)!.missing;
-    expect(before).toEqual([expect.objectContaining({ instanceId: "grundbuch", state: "outdated", slots: 1 })]);
+    expect(before).toEqual([
+      expect.objectContaining({ instanceId: "grundbuch", state: "outdated", slots: 1 }),
+      expect.objectContaining({ instanceId: "produkt", state: "missing" }),
+    ]);
 
-    const w = world(rows, [heldRow("h-gb", "Grundbuch neu.pdf", analysis("grundbuch", { docDate: "2026-09-30" }))]);
-    const res = await submitV3Nachreichung(row, { documents: [{ documentId: "h-gb", instanceId: "grundbuch", requirementId: "grundbuch" }] }, w.deps);
+    const w = world(rows, [heldRow("h-gb", "Grundbuch neu.pdf", analysis("grundbuch", { docDate: "2026-09-30" })), heldRow("h-prod", "Produkt.pdf", analysis("produkt", { bank: "ZKB" }), 1)]);
+    const res = await submitV3Nachreichung(row, { documents: [{ documentId: "h-gb", instanceId: "grundbuch", requirementId: "grundbuch" }, { documentId: "h-prod", instanceId: "produkt", requirementId: "produkt" }] }, w.deps);
     expect(res.ok && res.complete).toBe(true);
     expect(w.nameOf("h-gb")).toBe(`${CASE}_03_Grundbuchauszug_2026-09-30.pdf`);
     // The old extract stays in the folder as an extra.

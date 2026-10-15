@@ -3,10 +3,15 @@ import { reqList } from '@/lib/funnel-v3/requirements';
 import { bankHints, requirementStatus, type UploadedFile } from '@/lib/funnel-v3/requirementStatus';
 import { buildCheckState, CHECK_STATE_MAX_LENGTH, type CheckStateDetail } from '@/lib/funnel-v3/checkState';
 import { VERIFIED_TAB_ENTRIES } from '@/components/dokumentenCheckState';
-import { GERBER_ANSWERS, mkState } from './helpers';
+import { GERBER_ANSWERS, GERBER_EM, mkState } from './helpers';
 
 const AT = new Date('2026-10-05T12:12:00.000Z');
-const state = mkState(GERBER_ANSWERS);
+const state = {
+  ...mkState(GERBER_ANSWERS, {}, {}, undefined, { em: { ...GERBER_EM, pkVerp: 20000 }, info: { bank: 'Zuger Kantonalbank', geb: '04.01.1988', ab50: false } }),
+  mode: 'schnell' as const,
+  src: { 'fin.old': { doc: 'Zinsabrechnung', unsure: false }, 'em.s3a': { doc: '3a-Police', unsure: true } },
+  sig: { choice: 'later' as const, at: '2026-10-05T12:00:00.000Z', method: 'upload' as const },
+};
 const list = reqList(state);
 
 const files: UploadedFile[] = [
@@ -45,9 +50,12 @@ describe('Dokumenten_Check_State__c v3 (spec 6.11)', () => {
     const s = build();
     expect(s.version).toBe(1);
     expect(s.updatedAt).toBe('2026-10-05T12:12:00.000Z');
-    expect(s.answers).toMatchObject({ antrag: 'Ablösung', kn: 'Natürliche Person', lieg: 'Stockwerkeigentum', kinder: 'Ja', s3a: 'Ja', pkSe: 'Nein', nbDocs: 'Nein', job: 'Angestellt' });
+    expect(s.answers).toMatchObject({ antrag: 'Ablösung', kn: 'Natürliche Person', lieg: 'Stockwerkeigentum', unterhalt: 'Ja', kredite: 'Ja', steuer: 'Nein', pkSe: 'Nein', nbDocs: 'Nein', job: 'Angestellt' });
+    expect(s.answers).not.toHaveProperty('kinder');
+    // Handover 8: the Eigenmittel split (PK-Verpfändung only here).
+    expect(s.answers.eigenmittel).toEqual({ s3a: 10340, pkVerp: 20000 });
     expect(s.answers.borrowers).toEqual([{ id: 'b1', job: 'Angestellt', pkSe: 'Nein' }]);
-    expect(s.requirements).toHaveLength(23);
+    expect(s.requirements).toHaveLength(21);
     expect(s.requirements.find((r: any) => r.id === 'grundbuch')).toEqual({
       id: 'grundbuch', code: 'O4', label: 'Aktueller Grundbuchauszug (max. 6 Monate)', group: 'objekt', reason: 'Pflicht', status: 'outdated',
       files: details.grundbuch.files, fields: details.grundbuch.fields, audit: details.grundbuch.audit,
@@ -57,6 +65,19 @@ describe('Dokumenten_Check_State__c v3 (spec 6.11)', () => {
     expect(s.extras).toEqual([{ name: '01_Lohnausweis_Gary_Gerber_2022.pdf', kind: 'surplus' }]);
     expect(s.hints).toEqual([{ title: 'Aktueller Grundbuchauszug (max. 6 Monate)', text: 'Auszug ist älter als 6 Monate.' }]);
     expect(s).not.toHaveProperty('truncated');
+  });
+
+  it('writes entry, sources, signature and the document facts (Handover 8)', () => {
+    const s = build();
+    expect(s.entry).toBe('schnell');
+    expect(s.sources).toEqual({ 'fin.old': 'Zinsabrechnung', 'em.s3a': '3a-Police' });
+    // P0 is on file here (`v`); «später» would otherwise make it pending.
+    expect(s.signature).toEqual({ status: 'uploaded', at: '2026-10-05T12:00:00.000Z', method: 'upload' });
+    expect(s.info).toEqual({ bank: 'Zuger Kantonalbank', geb: '04.01.1988', ab50: false });
+    const without = requirementStatus(list, files.filter((f) => f.fileId !== 'v'));
+    expect(build(null, { status: without }).signature).toMatchObject({ status: 'pending' });
+    expect(build(null, { status: without, state: { ...state, sig: null } }).signature).toEqual({ status: 'missing', at: null, method: 'upload' });
+    expect(build(null, { signature: { status: 'unsigned', at: null, method: 'upload' } }).signature.status).toBe('unsigned');
   });
 
   it('only uses the spec statuses', () => {
@@ -107,9 +128,9 @@ describe('legacy keys (DECISIONS S3)', () => {
     expect(build('Fehlende Unterlagen (2): …').checked).toEqual(build().checked);
   });
 
-  it('does not tick for an outdated Grundbuch or a partial requirement', () => {
-    const partial = requirementStatus(list, files.filter((f) => f.fileId !== 'l3'));
-    expect(build(null, { status: partial }).checked).not.toHaveProperty(['Angestellte / Unselbständig Erwerbstätige|Aktueller Lohnausweis']);
+  it('does not tick for an outdated Grundbuch or a requirement that is not ok', () => {
+    const missing = requirementStatus(list, files.filter((f) => !f.fileId.startsWith('l')));
+    expect(build(null, { status: missing }).checked).not.toHaveProperty(['Angestellte / Unselbständig Erwerbstätige|Aktueller Lohnausweis']);
   });
 });
 

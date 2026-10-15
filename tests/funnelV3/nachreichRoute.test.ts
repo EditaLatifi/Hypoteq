@@ -234,7 +234,8 @@ describe("POST /api/nachreichen/[token]", () => {
     seedV3();
     mockDb.held = [
       { ...heldRow("h-fotos", "IMG_2041.pdf", analysis("fotos"), 1), submissionId: INQUIRY },
-      { ...heldRow("h-lohn", "Lohnausweis 2023.pdf", analysis("lohnausweise", { docDate: "2023" }), 2), submissionId: INQUIRY },
+      { ...heldRow("h-lohn", "Lohnausweis 2025.pdf", analysis("lohnausweise", { docDate: "2025" }), 2), submissionId: INQUIRY },
+      { ...heldRow("h-prod", "Produktvereinbarung.pdf", analysis("produkt", { bank: "ZKB", docDate: "2026-02-01" }), 4), submissionId: INQUIRY },
       { ...heldRow("h-other", "fremd.pdf", analysis("fotos"), 3), submissionId: "another-submission" },
     ];
     for (const h of mockDb.held) drive.set(h.driveItemId, { id: h.driveItemId, name: h.fileName, webUrl: h.fileUrl });
@@ -244,6 +245,7 @@ describe("POST /api/nachreichen/[token]", () => {
         documents: [
           { documentId: "h-fotos", instanceId: "fotos", requirementId: "fotos" },
           { documentId: "h-lohn", instanceId: "lohnausweise#b1", requirementId: "lohnausweise" },
+          { documentId: "h-prod", instanceId: "produkt", requirementId: "produkt" },
           { documentId: "h-other", instanceId: "id#b2", requirementId: "id" },
         ],
         locale: "en",
@@ -262,7 +264,8 @@ describe("POST /api/nachreichen/[token]", () => {
     expect(ids).toEqual(expect.arrayContaining(["h-fotos", "h-lohn"]));
     expect(ids).not.toContain("h-other");
     expect(mockDb.documents.find((d) => d.id === "h-fotos").storedName).toBe(`${CASE}_03_Fotos.pdf`);
-    expect(mockDb.documents.find((d) => d.id === "h-lohn").storedName).toBe(`${CASE}_01_Lohnausweis_Gerber-Gary_2023_1.pdf`);
+    expect(mockDb.documents.find((d) => d.id === "h-lohn").storedName).toBe(`${CASE}_01_Lohnausweis_Gerber-Gary_2025.pdf`);
+    expect(mockDb.documents.find((d) => d.id === "h-prod").storedName).toBe(`${CASE}_02_Produktvereinbarung_ZKB_2026-02-01.pdf`);
     expect(graphCalls.some((c) => c.startsWith("PATCH"))).toBe(true);
     // The refreshed Fall-Dossier.
     expect(graphCalls.some((c) => c.startsWith("PUT") && c.includes(`${CASE}_00_Fall-Dossier.pdf`))).toBe(true);
@@ -270,7 +273,7 @@ describe("POST /api/nachreichen/[token]", () => {
     // The verdict on the inquiry.
     const upd = mockDb.inquiryUpdates.find((u) => "documentsMissing" in u.data);
     expect(upd.data).toEqual({
-      documentsMissing: "id#b2,lohnausweise#b2,lohnabrechnungen#b2,anstellung#b2,pk#b2,steuer#b2",
+      documentsMissing: "id#b2,lohnausweise#b2,lohnabrechnungen#b2,pk#b2",
       documentsComplete: false,
       nachreichCompletedAt: null,
     });

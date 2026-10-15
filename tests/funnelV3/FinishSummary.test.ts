@@ -1,7 +1,7 @@
 import { describe, it, expect } from "@jest/globals";
 import { finishSummary } from "@/lib/funnel-v3/finishSummary";
 import { documentsSummary } from "@/lib/funnel-v3/documentsSummary";
-import type { FunnelState } from "@/lib/funnel-v3/types";
+import { EMPTY_AMOUNTS, type FunnelState } from "@/lib/funnel-v3/types";
 import type { FileEntry } from "@/lib/funnel-v3/files";
 import { gerberFiles, gerberState } from "./gerberCase";
 
@@ -18,7 +18,7 @@ describe("finishSummary — Fall Gerber", () => {
       ["Gesamtfinanzierung", "CHF 650'000"],
       ["Belehnung", "44.8 %"],
       ["Tragbarkeit", "37.6 %"],
-      ["Unterlagen", "23 / 23"],
+      ["Unterlagen", "20 / 20"],
     ]);
   });
 
@@ -53,9 +53,10 @@ describe("finishSummary — Fall Gerber", () => {
     const sub = Object.fromEntries(s.checks.map((c) => [c.key, c.sub]));
     expect(sub.antrag).toBe("Ablösung · Gesamtfinanzierung CHF 650'000");
     expect(sub.objekt).toBe("8820 Wädenswil · Stockwerkeigentum · Selbstbewohnt");
-    expect(sub.kreditnehmer).toBe("Gary Gerber · CHF 125'000 brutto · Kinder, Unterhalt · Kredite / Leasing");
+    // v5: the chips that were tapped (prototype finalChecks).
+    expect(sub.kreditnehmer).toBe("Gary Gerber · CHF 125'000 brutto · Unterhaltszahlungen · Privatkredit · Leasing");
     expect(sub.trag).toBe("37.6 % · 44.8 %");
-    expect(sub.docs).toBe("23 von 23 Anforderungen erfüllt");
+    expect(sub.docs).toBe("20 von 20 Anforderungen erfüllt");
     expect(sub.fromDocs).toBe(`${s.extractedFields} Angaben ausgelesen statt abgefragt · 0 manuell bestätigt`);
     expect(s.extractedFields).toBe(9);
   });
@@ -69,7 +70,7 @@ describe("finishSummary — Fall Gerber", () => {
 });
 
 describe("finishSummary — title choice and documents", () => {
-  const okState = () => gerberState({ fin: { old: 449000, up: 0, kaufpreis: 0, inc: 200000, val: 1450000 } });
+  const okState = () => gerberState({ fin: { ...EMPTY_AMOUNTS, old: 449000, inc: 200000, val: 1450000 } });
 
   it("«Das können wir finanzieren. Jetzt zur Bank.» when the verdict is ok and no required document is missing", () => {
     const s = summary(okState(), gerberFiles());
@@ -86,32 +87,32 @@ describe("finishSummary — title choice and documents", () => {
     expect(s.lead).toContain("2 Dokument(e) fehlen noch");
     const docs = s.checks.find((c) => c.key === "docs")!;
     expect(docs.ok).toBe(false);
-    expect(docs.sub).toBe("21 von 23 Anforderungen erfüllt · 2 fehlen");
-    expect(s.kpis[3].value).toBe("21 / 23");
+    expect(docs.sub).toBe("18 von 20 Anforderungen erfüllt · 2 fehlen");
+    expect(s.kpis[3].value).toBe("18 / 20");
   });
 
   it("an optional requirement marked «Habe ich nicht» counts as fulfilled and does not block", () => {
     const files = gerberFiles().filter((f) => f.instanceId !== "verkaufsdoku");
     const open = summary(okState(), files);
-    expect(open.kpis[3].value).toBe("22 / 23");
+    expect(open.kpis[3].value).toBe("19 / 20");
     expect(open.missingRequired).toBe(0);
     expect(open.allGood).toBe(true);
     const skipped = summary(okState(), files, "de", ["verkaufsdoku"]);
-    expect(skipped.kpis[3].value).toBe("23 / 23");
+    expect(skipped.kpis[3].value).toBe("20 / 20");
   });
 
   it("partial and outdated are «zu prüfen»", () => {
     const files = gerberFiles()
-      .filter((f) => !(f.instanceId === "lohnausweise#b1" && f.analysis?.docDate === "2023"))
+      .filter((f) => f.name !== "01_Versicherung_Saeule3a_Wertmitteilung_1583886.pdf")
       .map((f) => (f.instanceId === "grundbuch" ? { ...f, outdatedOverride: false } : f));
     const s = summary(okState(), files);
     expect(s.toReview).toBe(2);
-    expect(s.checks.find((c) => c.key === "docs")!.sub).toBe("21 von 23 Anforderungen erfüllt · 2 zu prüfen");
+    expect(s.checks.find((c) => c.key === "docs")!.sub).toBe("18 von 20 Anforderungen erfüllt · 2 zu prüfen");
   });
 
   it("empty answers: placeholders instead of blanks, Tragbarkeit «–»", () => {
     const base = gerberState();
-    const s = summary({ ...base, ans: { ...base.ans, antrag: undefined, lieg: undefined, nutz: undefined }, txt: { ...base.txt, vor: "", nach: "", plz: "", ort: "" }, borrowers: [{ id: "b1", vor: "", nach: "", pkSe: "Nein" }], fin: { old: 0, up: 0, kaufpreis: 0, inc: 0, val: 0 } }, []);
+    const s = summary({ ...base, ans: { ...base.ans, antrag: undefined, lieg: undefined, nutz: undefined }, txt: { ...base.txt, vor: "", nach: "", plz: "", ort: "" }, borrowers: [{ id: "b1", vor: "", nach: "", pkSe: "Nein" }], fin: { ...EMPTY_AMOUNTS } }, []);
     const sub = Object.fromEntries(s.checks.map((c) => [c.key, c.sub]));
     expect(sub.antrag).toBe("–");
     expect(sub.objekt).toBe("Noch keine Angaben");
@@ -122,10 +123,10 @@ describe("finishSummary — title choice and documents", () => {
 
   it("juristische Person: company line, Tragbarkeit does not apply", () => {
     const base = gerberState();
-    const s = summary({ ...base, ans: { ...base.ans, kn: "Juristische Person", kinder: "Nein", unterhalt: "Nein" }, txt: { ...base.txt, firma: "Muster AG", zeichner: "Anna Muster" }, fin: { ...base.fin, inc: 0 } }, []);
+    const s = summary({ ...base, ans: { ...base.ans, kn: "Juristische Person", unterhalt: "Nein" }, txt: { ...base.txt, firma: "Muster AG", zeichner: "Anna Muster" }, fin: { ...base.fin, inc: 0 } }, []);
     expect(s.kpis[2].value).toBe("–");
     const kn = s.checks.find((c) => c.key === "kreditnehmer")!;
-    expect(kn.sub).toBe("Muster AG · Anna Muster · Kredite / Leasing");
+    expect(kn.sub).toBe("Muster AG · Anna Muster · Privatkredit · Leasing");
     expect(kn.ok).toBe(true);
   });
 

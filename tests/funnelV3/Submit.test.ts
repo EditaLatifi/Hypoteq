@@ -33,9 +33,10 @@ describe("submitFunnel", () => {
     expect(body.sharepointFolderId).toBe("FOLDER1");
     expect(body.v3.ans.antrag).toBe("Ablösung");
     expect(body.documentCompleteness).toEqual({ complete: true, missing: [], missingLabels: [], missingLabelsLocale: [], skipped: [] });
-    // 31 files: the not-needed Steuerrechnung the customer did not keep is left out, so the
-    // Inquiry does not claim it and it is removed from the case folder (spec 5.1).
-    expect(body.documents).toHaveLength(29);
+    // 30 files: the not-needed ones the customer did not keep (Steuerrechnung, and what v5 no
+    // longer asks: Anstellungsvertrag, Eigenmittelnachweis at an Ablösung, Schuldbrief) are left
+    // out, so the Inquiry does not claim them (spec 5.1).
+    expect(body.documents).toHaveLength(26);
     expect(body.documents.some((d: any) => d.documentId === "doc-29")).toBe(false);
     expect(body.documents[0]).toEqual({ documentId: "doc-1", instanceId: "fotos", requirementId: "fotos" });
     const extra = body.documents.find((d: any) => d.documentId === "doc-30");

@@ -34,6 +34,7 @@ import {
 } from "./completion";
 import type { SubmittedDocument } from "./files";
 import { isLang, type Lang } from "./i18n";
+import { FUNNEL_STATE_VERSION, normaliseFunnelState } from "./legacy";
 import { baseId } from "./requirements";
 import type { RequirementStatus, StatusResult } from "./requirementStatus";
 import { groupRows } from "@/components/funnel-v3/documents/view";
@@ -48,22 +49,21 @@ export interface StoredV3State extends V3State {
 }
 
 /**
- * The Inquiry columns a v3 submission stores for a later Nachreichung: the submitted `v3`
- * block (role, ans, txt, fin, borrowers) with the funnel language, and the «Habe ich nicht»
- * marks. Only for a v3 payload.
+ * The Inquiry columns a funnel submission stores for a later Nachreichung: the submitted `v3`
+ * block in the v5 shape (role, mode, ans, txt, fin, em, info, src, sig, borrowers — legacy.ts)
+ * with its version and the funnel language, and the «Habe ich nicht» marks. Only for a v3
+ * payload. Inquiries stored before v5 hold the v3 shape; storedV3State reads both.
  */
 export function v3InquiryColumns(data: any, lang: string): { v3State: StoredV3State; v3Skipped: string[] } | Record<string, never> {
   const v3 = data?.v3;
-  if (!v3 || typeof v3 !== "object") return {};
+  const state = normaliseFunnelState(v3);
+  if (!state) return {};
   const skipped = data?.documentCompleteness?.skipped;
   return {
     v3State: {
-      version: typeof v3.version === "number" ? v3.version : 1,
-      role: v3.role ?? null,
-      ans: v3.ans ?? null,
-      txt: v3.txt ?? null,
-      fin: v3.fin ?? null,
-      borrowers: Array.isArray(v3.borrowers) ? v3.borrowers : [],
+      ...state,
+      // Stored normalised, so always in the v5 shape.
+      version: FUNNEL_STATE_VERSION,
       lang: isLang(lang) ? lang : "de",
     },
     v3Skipped: Array.isArray(skipped) ? skipped.filter((s: unknown): s is string => typeof s === "string") : [],

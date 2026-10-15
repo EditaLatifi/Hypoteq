@@ -21,7 +21,7 @@ let docSeq = 0;
 const Y = new Date().getUTCFullYear();
 const ANALYSES: Record<string, Partial<V3Analysis>> = {
   "IMG_2041.pdf": { docTypeId: "fotos" },
-  "Lohnausweis alt.pdf": { docTypeId: "lohnausweise", docDate: String(Y - 3), personName: "Gerber Gary" },
+  "Lohnausweis alt.pdf": { docTypeId: "lohnausweise", docDate: String(Y - 1), personName: "Gerber Gary" },
   "ID Anna.pdf": { docTypeId: "id", personName: "Muster Anna" },
   "Grundbuch.pdf": { docTypeId: "grundbuch", docDate: `${Y}-01-02` },
 };
@@ -110,7 +110,7 @@ describe("Nachreich page pipeline", () => {
 
   it("a second Lohnausweis for a requirement that needed one is surplus", async () => {
     const { store, instances } = page();
-    ANALYSES["Lohnausweis alt 2.pdf"] = { docTypeId: "lohnausweise", docDate: String(Y - 3), personName: "Gerber Gary", confidence: 0.5 };
+    ANALYSES["Lohnausweis alt 2.pdf"] = { docTypeId: "lohnausweise", docDate: String(Y - 1), personName: "Gerber Gary", confidence: 0.5 };
     addPickedFiles([pdf("Lohnausweis alt.pdf"), pdf("Lohnausweis alt 2.pdf")]);
     await flush();
     await settleUploads(0);

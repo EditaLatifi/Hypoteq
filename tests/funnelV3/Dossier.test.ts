@@ -2,6 +2,7 @@ import { describe, it, expect } from "@jest/globals";
 import { PDFDocument } from "pdf-lib";
 import { buildDossierModel, createDossierPdf, dossierFileName, type DossierFile } from "@/lib/funnel-v3/dossier";
 import type { FileEntry } from "@/lib/funnel-v3/files";
+import { EMPTY_AMOUNTS } from "@/lib/funnel-v3/types";
 import { gerberFiles, gerberState } from "./gerberCase";
 
 const toDossierFiles = (files: FileEntry[]): DossierFile[] =>
@@ -66,18 +67,25 @@ describe("Fall-Dossier model — Gerber", () => {
     expect(a[3][1].sub).toBe("Pflicht · Veraltet · 15.01.2026 · trotzdem verwendet");
     expect(a[3][1].warn).toBe(true);
     expect(a[5][1].sub).toBe("weil: Liegenschaft = Stockwerkeigentum");
+    // v5 P2: the current Lohnausweis; the older ones are «Weitere Dateien» (no bonus).
     const lohn = m.annex.groups[2].table.rows.find((r) => r[2].text.includes("Lohnausweis"))!;
-    expect(lohn[2].text.split("\n")).toHaveLength(3);
+    expect(lohn[2].text.split("\n")).toEqual(["01_Lohnausweis_Gary_Gerber_2025.pdf"]);
     const e = m.annex.groups[4].table.rows.map((r) => r[2].text);
     expect(e).toEqual([
+      // Handover 4.2: older Lohnausweise without a bonus; what v5 no longer asks for.
+      "Überzählig – Älterer Lohnausweis – nur bei variablem Lohnanteil nötig. Wird im Dossier mitgeführt. – mitgeführt",
+      "Überzählig – Älterer Lohnausweis – nur bei variablem Lohnanteil nötig. Wird im Dossier mitgeführt. – mitgeführt",
+      "Nicht benötigt – Nur nötig bei einer Lohnerhöhung im laufenden Jahr – keine erkannt. – nicht abgelegt",
+      "Nicht benötigt – Eigenmittelnachweis ist nur bei einem Kauf nötig. – nicht abgelegt",
+      "Nicht benötigt – Schuldbrief / Sicherungsvereinbarung wird nicht benötigt. – nicht abgelegt",
       "Überzählig – viertes Jahr – mitgeführt",
       "Duplikat – nicht doppelt gespeichert",
       "Nicht benötigt – Steuerrechnung – nicht abgelegt",
       "Nicht benötigt – Nebenkostenabrechnung – mitgeführt",
     ]);
-    expect(m.annex.completeness.value).toBe("23 von 23 Anforderungen erfüllt");
+    expect(m.annex.completeness.value).toBe("20 von 20 Anforderungen erfüllt");
     expect(m.annex.completeness.note).toMatch(/^4 Hinweis\(e\): Aktueller Grundbuchauszug/);
-    expect(m.annex.intro).toContain("26 Dateien erkannt");
+    expect(m.annex.intro).toContain("21 Dateien erkannt");
   });
 
   it("draft: «Entwurf» instead of a case number", () => {
@@ -100,7 +108,7 @@ describe("Fall-Dossier model — Gerber", () => {
     const mm = buildDossierModel(input({ files }));
     expect(mm.annex.groups[0].table.rows[0][1].sub).toBe("Pflicht · Fehlt");
     expect(mm.annex.groups[0].table.rows[0][2].text).toBe("–");
-    expect(mm.annex.completeness.value).toBe("22 von 23 Anforderungen erfüllt");
+    expect(mm.annex.completeness.value).toBe("19 von 20 Anforderungen erfüllt");
   });
 });
 
@@ -119,7 +127,9 @@ describe("Fall-Dossier annex E — the reason in the dossier language (D11)", ()
     // Free German catalogue text («Steuerrechnung», «viertes Jahr») is not printed abroad either.
     expect(e.join("\n")).not.toMatch(/Steuerrechnung|Nebenkostenabrechnung|viertes Jahr/);
     expect(e).toContain("Not needed – Not required for the financing review. – not stored");
-    expect(e[0]).toBe("Surplus – included");
+    expect(e[0]).toBe("Surplus – Older salary certificate – only needed with variable pay. Kept in the dossier. – included");
+    expect(e).toContain("Not needed – Proof of equity is only needed for a purchase. – not stored");
+    expect(e[5]).toBe("Surplus – included");
   });
 
   it("German dossier: the sentence as stored", () => {
@@ -159,7 +169,7 @@ describe("Fall-Dossier PDF", () => {
       );
       expect((await PDFDocument.load(bytes)).getPageCount()).toBeGreaterThanOrEqual(2);
     }
-    const empty = await createDossierPdf(input({ state: { ...base, ans: { ...base.ans, antrag: undefined }, txt: { ...base.txt, vor: "", nach: "", plz: "", ort: "" }, fin: { old: 0, up: 0, kaufpreis: 0, inc: 0, val: 0 } }, files: [] }));
+    const empty = await createDossierPdf(input({ state: { ...base, ans: { ...base.ans, antrag: undefined }, txt: { ...base.txt, vor: "", nach: "", plz: "", ort: "" }, fin: { ...EMPTY_AMOUNTS } }, files: [] }));
     expect(empty.length).toBeGreaterThan(2000);
   });
 
