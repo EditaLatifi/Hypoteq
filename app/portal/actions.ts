@@ -14,6 +14,7 @@ import {
   adminEmails,
   isPlausibleEmail,
   normalizeEmail,
+  teamAddress,
 } from "@/lib/portal/config";
 import { hashPassword, passwordProblem, verifyPassword } from "@/lib/portal/crypto";
 import { isLocale } from "@/lib/portal/i18n/dict";
@@ -302,8 +303,11 @@ export async function sendMessageAction(_prev: FormState, fd: FormData): Promise
     console.error("[portal] CaseComment failed (mail still goes out)", err);
   }
   try {
+    // To the configured HYPOTEQ address the Case page names (DECISIONS P4), the Case owner
+    // in copy so the message still reaches the person working on it.
     await sendTeamMail({
-      to: c.ownerEmail,
+      to: teamAddress(),
+      cc: c.ownerEmail ? [c.ownerEmail] : [],
       subject: `Partnerportal: Nachricht zu ${c.nr} (${c.kunde})`,
       lines: [`${who} schreibt zu Case ${c.nr} · ${c.kunde}:`, body, `Antwort bitte direkt an ${user.email}.`],
       origin: requestOrigin(),

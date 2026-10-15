@@ -1,56 +1,40 @@
 import { redirect } from "next/navigation";
 import DocumentList, { type DocRow } from "@/components/portal/DocumentList";
 import { FormError, PageHeader, formatDate } from "@/components/portal/ui";
-import { prisma } from "@/lib/prisma";
 import { getDict } from "@/lib/portal/i18n/server";
 import { loadMyCases } from "@/lib/portal/load";
-import { docLabel } from "@/lib/portal/salesforce";
 import { requireUser } from "@/lib/portal/session";
-import { CLOSED_STATUSES } from "@/lib/portal/status";
+import { isClosedStatus, needsDocument } from "@/lib/portal/status";
 
+/**
+ * Every document of the open Cases in one list. No longer in the navigation (handoff order,
+ * DECISIONS P8); reached from «Alle fehlenden Dokumente» on the dashboard.
+ */
 export default async function DocumentsPage() {
   const user = await requireUser();
   if (!user.contactId) redirect("/portal/dashboard");
   const { t, locale } = await getDict();
 
   const { cases, failed } = await loadMyCases(user, locale);
-  const open = cases.filter((c) => !CLOSED_STATUSES.includes(c.status));
-  const uploads = await prisma.portalUpload.findMany({
-    where: { caseId: { in: open.map((c) => c.id) } },
-    orderBy: { createdAt: "desc" },
-    take: 500,
-  });
-
   const rows: DocRow[] = [];
-  for (const c of open) {
-    for (const d of c.documents) {
+  for (const c of cases.filter((c) => !isClosedStatus(c.status))) {
+    c.documents.forEach((d, i) => {
       rows.push({
-        id: `${c.id}-${d.state}-${d.key || d.name}`,
+        id: `${c.id}-${i}`,
         caseId: c.id,
         caseNr: c.nr,
         kunde: c.kunde,
         name: d.name,
-        state: d.state,
+        status: d.status,
         docKey: d.key,
-        meta: null,
+        context: `${c.kunde} · ${c.nr} · ${t.docCats[d.category]}`,
+        meta: d.upload ? t.caseDetail.uploadedOn(formatDate(d.upload.at), d.upload.fileName) : d.person,
       });
-    }
-    for (const u of uploads.filter((u) => u.caseId === c.id)) {
-      rows.push({
-        id: u.id,
-        caseId: c.id,
-        caseNr: c.nr,
-        kunde: c.kunde,
-        name: u.docKey ? docLabel(u.docKey, locale) : t.caseDetail.otherDoc,
-        state: "hochgeladen",
-        docKey: u.docKey,
-        meta: `${u.fileName} · ${formatDate(u.createdAt)}`,
-      });
-    }
+    });
   }
-  const order = { fehlt: 0, offen: 1, hochgeladen: 2, vorhanden: 3 };
-  rows.sort((a, b) => order[a.state] - order[b.state]);
-  const action = rows.filter((r) => r.state === "fehlt" || r.state === "offen").length;
+  const order: Record<string, number> = { fehlt: 0, ungueltig: 0, neu: 1, hochgeladen: 2, pruefung: 3, vorhanden: 4 };
+  rows.sort((a, b) => order[a.status] - order[b.status]);
+  const action = rows.filter((r) => needsDocument(r.status)).length;
 
   return (
     <>

@@ -2,9 +2,11 @@
 
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { CheckCircle2, FileText, Upload, X } from "lucide-react";
+import { FileText, Image as ImageIcon, Upload } from "lucide-react";
+import Modal from "@/components/portal/Modal";
 import { useT } from "@/components/portal/I18n";
-import { btn } from "@/components/portal/ui";
+import { useToast } from "@/components/portal/Toast";
+import { ProgressBar, btn } from "@/components/portal/ui";
 
 const MAX = 20 * 1024 * 1024;
 const EXT = ["pdf", "jpg", "jpeg", "png"];
@@ -13,20 +15,35 @@ const CHUNK = 5 * 1024 * 1024;
 
 type Phase = "idle" | "uploading" | "done";
 
+function sizeLabel(bytes: number): string {
+  return bytes > 1e6 ? `${(bytes / 1e6).toFixed(1)} MB` : `${Math.max(1, Math.round(bytes / 1024))} KB`;
+}
+
+/**
+ * «Dokument hochladen» and its dialog (handoff «Case Detail» 5): drag & drop or choose a
+ * file, PDF/JPG/JPEG/PNG up to 20 MB, a progress bar, then «Hochgeladen», a toast and — once
+ * the dialog closes — the refreshed Case with the new entry under «Letzte Updates». The file
+ * goes from the browser straight into the Case's SharePoint folder; the server checks the
+ * request before and the result after (app/api/portal/upload).
+ */
 export default function UploadButton({
   caseId,
   docKey,
   label,
+  context,
   variant = "primary",
   text,
 }: {
   caseId: string;
   docKey: string | null;
   label: string;
+  /** «Kunde · Case-Nr · Kategorie» under the dialog title. */
+  context?: string;
   variant?: "primary" | "secondary";
   text?: string;
 }) {
   const t = useT();
+  const toast = useToast();
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const [open, setOpen] = useState(false);
@@ -34,6 +51,7 @@ export default function UploadButton({
   const [phase, setPhase] = useState<Phase>("idle");
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState<string | null>(null);
+  const [dragging, setDragging] = useState(false);
 
   function reset() {
     setFile(null);
@@ -61,6 +79,7 @@ export default function UploadButton({
   async function upload() {
     if (!file) return;
     setPhase("uploading");
+    setProgress(1);
     setError(null);
     try {
       const start = await fetch("/api/portal/upload/start", {
@@ -83,7 +102,7 @@ export default function UploadButton({
         if (!res.ok && res.status !== 202) throw new Error(t.uploadDlg.failed);
         if (res.status === 200 || res.status === 201) item = await res.json();
         offset = end;
-        setProgress(Math.round((offset / file.size) * 100));
+        setProgress(Math.max(1, Math.round((offset / file.size) * 100)));
       }
       if (!item?.id) throw new Error(t.uploadDlg.failed);
 
@@ -94,84 +113,84 @@ export default function UploadButton({
       });
       const f = await fin.json();
       if (!fin.ok) throw new Error(f?.error || t.uploadDlg.failed);
+      setProgress(100);
       setPhase("done");
+      toast(t.uploadDlg.toast(label));
     } catch (err: any) {
       setPhase("idle");
+      setProgress(0);
       setError(err?.message || t.uploadDlg.failed);
     }
   }
+
+  const isImage = !!file && /\.(jpe?g|png)$/i.test(file.name);
+  const meta = !file ? "" : `${sizeLabel(file.size)} · ${phase === "done" ? t.uploadDlg.done : phase === "uploading" ? t.uploadDlg.uploading : t.uploadDlg.ready}`;
 
   return (
     <>
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className={variant === "primary" ? `${btn.primary} h-9 px-4 text-[15px]` : `${btn.secondary} h-9 text-[15px]`}
+        aria-haspopup="dialog"
+        className={`${variant === "primary" ? `${btn.primary} px-4` : btn.secondary} h-11 text-[15px] min-[900px]:h-9`}
       >
-        <Upload size={17} /> {text || t.caseDetail.upload}
+        <Upload size={17} aria-hidden /> {text || t.caseDetail.upload}
       </button>
 
-      {open ? (
-        <div className="fixed inset-0 z-[60] grid place-items-center bg-black/60 p-4" role="dialog" aria-modal="true" aria-label={t.uploadDlg.title(label)} onClick={close}>
-          <div className="flex w-full max-w-[520px] flex-col gap-4 rounded-2xl border border-white/[.14] bg-[#1A2E20] p-6 text-white" onClick={(e) => e.stopPropagation()}>
-            <div className="flex items-start justify-between gap-4">
-              <h2 className="m-0 text-[21px] font-semibold leading-tight">{t.uploadDlg.title(label)}</h2>
-              <button type="button" onClick={close} aria-label={t.common.close} className="grid h-9 w-9 flex-none place-items-center rounded-full hover:bg-white/[.08]">
-                <X size={20} />
-              </button>
-            </div>
-            <p className="m-0 text-[15px] text-white/70">{t.uploadDlg.sub}</p>
+      <Modal open={open} onClose={close} title={t.uploadDlg.title(label)} sub={context}>
+        <p className="m-0 text-[15px] text-white/70">{t.uploadDlg.sub}</p>
 
-            {phase === "done" ? (
-              <div className="flex items-center gap-3 rounded-xl bg-[#CAF476]/15 p-4 text-[15px] text-[#DAF6A2]">
-                <CheckCircle2 size={22} /> {t.uploadDlg.done}
+        {file ? (
+          <div className="flex flex-col gap-3 rounded-xl bg-white/[.08] p-4">
+            <div className="flex items-center gap-3">
+              {isImage ? <ImageIcon size={22} aria-hidden className="flex-none text-[#CAF476]" /> : <FileText size={22} aria-hidden className="flex-none text-[#CAF476]" />}
+              <div className="min-w-0 flex-1">
+                <div className="truncate text-[15px] font-medium">{file.name}</div>
+                <div className="text-[13px] text-white/70">{meta}</div>
               </div>
-            ) : file ? (
-              <div className="flex flex-col gap-3 rounded-xl bg-white/[.08] p-4">
-                <div className="flex items-center gap-3">
-                  <FileText size={22} className="flex-none text-[#CAF476]" />
-                  <div className="min-w-0 flex-1">
-                    <div className="truncate text-[15px] font-medium">{file.name}</div>
-                    <div className="text-[13px] text-white/60">{(file.size / 1024 / 1024).toFixed(1)} MB</div>
-                  </div>
-                </div>
-                {phase === "uploading" ? (
-                  <div className="h-2 overflow-hidden rounded-full bg-white/[.14]" aria-label={t.uploadDlg.uploading}>
-                    <div className="h-full bg-[#CAF476] transition-[width]" style={{ width: `${progress}%` }} />
-                  </div>
-                ) : null}
-              </div>
-            ) : (
-              <label
-                onDragOver={(e) => e.preventDefault()}
-                onDrop={(e) => {
-                  e.preventDefault();
-                  pick(e.dataTransfer.files?.[0]);
-                }}
-                className="flex cursor-pointer flex-col items-center gap-2.5 rounded-xl border-[1.5px] border-dashed border-white/30 bg-white/[.04] px-5 py-8 text-center hover:border-[#CAF476] hover:bg-white/[.08]"
-              >
-                <Upload size={28} className="text-[#CAF476]" />
-                <span className="text-[17px] font-medium">{t.uploadDlg.drop}</span>
-                <span className="text-[13px] text-white/70">{t.uploadDlg.types}</span>
-                <input ref={inputRef} type="file" accept=".pdf,.jpg,.jpeg,.png" className="hidden" onChange={(e) => pick(e.target.files?.[0])} />
-              </label>
-            )}
-
-            {error ? <div className="text-[14px] text-[#F3C4BF]">{error}</div> : null}
-
-            <div className="flex flex-wrap justify-end gap-2">
-              <button type="button" onClick={close} disabled={phase === "uploading"} className={`${btn.ghost} h-10 px-3 text-[15px] disabled:opacity-50`}>
-                {phase === "done" ? t.common.close : t.common.cancel}
-              </button>
-              {phase !== "done" && file ? (
-                <button type="button" onClick={upload} disabled={phase === "uploading"} className={`${btn.primary} h-10 px-5 text-[15px]`}>
-                  <Upload size={17} /> {phase === "uploading" ? `${t.uploadDlg.uploading} ${progress}%` : t.caseDetail.upload}
-                </button>
-              ) : null}
             </div>
+            <ProgressBar value={progress} label={t.uploadDlg.uploading} showValue />
           </div>
+        ) : (
+          <label
+            onDragOver={(e) => {
+              e.preventDefault();
+              setDragging(true);
+            }}
+            onDragLeave={() => setDragging(false)}
+            onDrop={(e) => {
+              e.preventDefault();
+              setDragging(false);
+              pick(e.dataTransfer.files?.[0]);
+            }}
+            className={`flex cursor-pointer flex-col items-center gap-2.5 rounded-xl border-[1.5px] border-dashed px-5 py-8 text-center transition-colors duration-200 ease-out hover:border-[#CAF476] hover:bg-white/[.08] focus-within:border-[#CAF476] ${
+              dragging ? "border-[#CAF476] bg-white/[.08]" : "border-white/30 bg-white/[.04]"
+            }`}
+          >
+            <Upload size={28} aria-hidden className="text-[#CAF476]" />
+            <span className="text-[17px] font-medium">{t.uploadDlg.drop}</span>
+            <span className="text-[13px] text-white/70">{t.uploadDlg.types}</span>
+            <input ref={inputRef} type="file" accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png" className="sr-only" onChange={(e) => pick(e.target.files?.[0])} />
+          </label>
+        )}
+
+        {error ? (
+          <div role="alert" className="text-[14px] text-[#F3C4BF]">
+            {error}
+          </div>
+        ) : null}
+
+        <div className="flex flex-wrap justify-end gap-2">
+          <button type="button" onClick={close} disabled={phase === "uploading"} className={`${btn.ghost} h-11 rounded-full px-3 text-[15px] disabled:opacity-50 min-[900px]:h-10`}>
+            {phase === "done" ? t.common.close : t.common.cancel}
+          </button>
+          {phase !== "done" && file ? (
+            <button type="button" onClick={upload} disabled={phase === "uploading"} className={`${btn.primary} h-11 px-5 text-[15px] min-[900px]:h-10`}>
+              <Upload size={17} aria-hidden /> {phase === "uploading" ? `${t.uploadDlg.uploading} ${progress} %` : t.caseDetail.upload}
+            </button>
+          ) : null}
         </div>
-      ) : null}
+      </Modal>
     </>
   );
 }

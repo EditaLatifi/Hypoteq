@@ -19,9 +19,29 @@ const TONES: Record<Tone, string> = {
 
 export function Badge({ tone, children }: { tone: Tone; children: ReactNode }) {
   return (
-    <span className={`inline-flex items-center rounded px-2 py-[3px] text-[11px] font-semibold uppercase tracking-[.08em] leading-none ${TONES[tone]}`}>
+    <span className={`inline-flex items-center whitespace-nowrap rounded px-2 py-[3px] text-[11px] font-semibold uppercase tracking-[.08em] leading-none ${TONES[tone]}`}>
       {children}
     </span>
+  );
+}
+
+/** A thin bar with an accessible value; `label` is what a screen reader hears. */
+export function ProgressBar({ value, label, onLime = false, showValue = false }: { value: number; label: string; onLime?: boolean; showValue?: boolean }) {
+  const pct = Math.max(0, Math.min(100, Math.round(value)));
+  return (
+    <div className="flex items-center gap-3">
+      <div
+        role="progressbar"
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-valuenow={pct}
+        aria-label={label}
+        className={`h-1 min-w-0 flex-1 overflow-hidden rounded-sm ${onLime ? "bg-[#132219]/15" : "bg-white/[.14]"}`}
+      >
+        <div className={`h-full transition-[width] duration-200 ease-out ${onLime ? "bg-[#132219]" : "bg-[#CAF476]"}`} style={{ width: `${pct}%` }} />
+      </div>
+      {showValue ? <span className="w-10 flex-none text-right text-[13px] tabular-nums text-white/70">{pct} %</span> : null}
+    </div>
   );
 }
 
@@ -72,7 +92,7 @@ export function Field({
         {icon ? <span className="pointer-events-none absolute left-4 text-white/60">{icon}</span> : null}
         <input
           {...input}
-          className={`h-[50px] w-full rounded-xl border border-white/[.14] bg-white/[.08] ${icon ? "pl-12" : "pl-4"} ${trailing ? "pr-12" : "pr-4"} text-[17px] text-white placeholder:text-white/45 outline-none focus:border-[#CAF476] focus:shadow-[0_0_0_3px_rgba(202,244,118,.35)] disabled:text-white/60`}
+          className={`h-[50px] w-full rounded-xl border border-white/[.14] bg-white/[.08] ${icon ? "pl-12" : "pl-4"} ${trailing ? "pr-12" : "pr-4"} text-[17px] text-white placeholder:text-white/45 outline-none transition-[border-color,box-shadow] duration-200 ease-out focus:border-[#CAF476] focus:shadow-[0_0_0_3px_rgba(202,244,118,.55)] disabled:text-white/60`}
         />
         {trailing ? <span className="absolute right-1.5">{trailing}</span> : null}
       </span>
