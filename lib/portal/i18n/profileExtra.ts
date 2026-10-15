@@ -123,6 +123,9 @@ const de = {
     setTo: "Status setzen",
     save: "Speichern",
     unknownUser: "Unbekannter Benutzer",
+    oldValue: "Bisher",
+    newValue: "Neu",
+    note: "Bemerkung",
   },
 };
 
@@ -246,6 +249,9 @@ const en: ProfileExtra = {
     setTo: "Set status",
     save: "Save",
     unknownUser: "Unknown user",
+    oldValue: "Previously",
+    newValue: "New",
+    note: "Note",
   },
 };
 
@@ -367,6 +373,9 @@ const fr: ProfileExtra = {
     setTo: "Fixer le statut",
     save: "Enregistrer",
     unknownUser: "Utilisateur inconnu",
+    oldValue: "Jusqu'ici",
+    newValue: "Nouveau",
+    note: "Remarque",
   },
 };
 
@@ -488,6 +497,9 @@ const it: ProfileExtra = {
     setTo: "Imposta stato",
     save: "Salva",
     unknownUser: "Utente sconosciuto",
+    oldValue: "Finora",
+    newValue: "Nuovo",
+    note: "Osservazione",
   },
 };
 
