@@ -265,3 +265,34 @@ describe("upload pipeline", () => {
     expect(calls.find((c) => c.url === "/api/document-intelligence/analyse")!.body.reuse).toBe(true);
   });
 });
+
+describe("the documents fill the answers (Handover 3, 4.2)", () => {
+  const zins = (name: string): Partial<V3Analysis> | null =>
+    name === "zins.pdf" ? { docTypeId: "hyp_zins", bank: "Zuger Kantonalbank", fields: { Kapital: { value: "CHF 449'000", confidence: 0.97 } } } : null;
+
+  it("Schnellanmeldung: the Zinsabrechnung sets Ablösung and the existing mortgage, and its own placement follows", async () => {
+    S().setMode("schnell");
+    analysisFor = zins;
+    addPickedFiles([pdf("zins.pdf")]);
+    await flush();
+    await settleUploads(0);
+    await flush();
+    expect(S().ans.antrag).toBe("Ablösung");
+    expect(S().fin.old).toBe(449000);
+    expect(S().src["fin.old"]).toMatchObject({ doc: "Zinsabrechnung", unsure: false });
+    expect(S().info.bank).toBe("Zuger Kantonalbank");
+    expect(S().files[0].instanceId).toBe("hyp_zins");
+  });
+
+  it("Begleitete Anmeldung: only the facts — the answer stays the customer's", async () => {
+    analysisFor = zins;
+    addPickedFiles([pdf("zins.pdf")]);
+    await flush();
+    await settleUploads(0);
+    await flush();
+    expect(S().ans.antrag).toBeUndefined();
+    expect(S().src).toEqual({});
+    expect(S().info.bank).toBe("Zuger Kantonalbank");
+    expect(S().files[0].instanceId ?? null).toBeNull();
+  });
+});
