@@ -5,6 +5,8 @@
  * translated only for display through `status`, `filters` and `notif`.
  */
 
+import { SHELL } from "@/lib/portal/i18n/shell";
+
 export const LOCALES = ["de", "en", "fr", "it"] as const;
 export type Locale = (typeof LOCALES)[number];
 
@@ -114,8 +116,11 @@ const de = {
   nav: {
     dashboard: "Dashboard",
     cases: "Cases",
+    special: "Spezialfinanzierung",
+    specialShort: "Spezial",
     documents: "Dokumente",
     notifications: "Meldungen",
+    support: "Support",
     profile: "Profil",
     partners: "Vertriebspartner",
     audit: "Audit Log",
@@ -125,6 +130,7 @@ const de = {
     viewingAs: (name: string) => `Sie sehen das Portal als ${name}. Nur lesen – Uploads und Nachrichten sind deaktiviert.`,
     endViewing: "Partneransicht beenden",
   },
+  ...SHELL.de,
   status: {
     "Neue Anfrage": "Neue Anfrage",
     "Dokumente ausstehend": "Dokumente ausstehend",
@@ -519,8 +525,11 @@ const en: Dict = {
   nav: {
     dashboard: "Dashboard",
     cases: "Cases",
+    special: "Special financing",
+    specialShort: "Special",
     documents: "Documents",
     notifications: "Notifications",
+    support: "Support",
     profile: "Profile",
     partners: "Sales partners",
     audit: "Audit log",
@@ -530,6 +539,7 @@ const en: Dict = {
     viewingAs: (name) => `You are viewing the portal as ${name}. Read-only – uploads and messages are disabled.`,
     endViewing: "Leave partner view",
   },
+  ...SHELL.en,
   status: {
     "Neue Anfrage": "New request",
     "Dokumente ausstehend": "Documents pending",
@@ -917,8 +927,11 @@ const fr: Dict = {
   nav: {
     dashboard: "Tableau de bord",
     cases: "Dossiers",
+    special: "Financement spécial",
+    specialShort: "Spécial",
     documents: "Documents",
     notifications: "Notifications",
+    support: "Support",
     profile: "Profil",
     partners: "Partenaires de distribution",
     audit: "Journal d'audit",
@@ -928,6 +941,7 @@ const fr: Dict = {
     viewingAs: (name) => `Vous voyez le portail en tant que ${name}. Lecture seule – téléversements et messages désactivés.`,
     endViewing: "Quitter la vue partenaire",
   },
+  ...SHELL.fr,
   status: {
     "Neue Anfrage": "Nouvelle demande",
     "Dokumente ausstehend": "Documents en attente",
@@ -1315,8 +1329,11 @@ const it: Dict = {
   nav: {
     dashboard: "Dashboard",
     cases: "Pratiche",
+    special: "Finanziamento speciale",
+    specialShort: "Speciale",
     documents: "Documenti",
     notifications: "Notifiche",
+    support: "Supporto",
     profile: "Profilo",
     partners: "Partner di distribuzione",
     audit: "Registro audit",
@@ -1326,6 +1343,7 @@ const it: Dict = {
     viewingAs: (name) => `Sta visualizzando il portale come ${name}. Sola lettura – caricamenti e messaggi disattivati.`,
     endViewing: "Esci dalla vista partner",
   },
+  ...SHELL.it,
   status: {
     "Neue Anfrage": "Nuova richiesta",
     "Dokumente ausstehend": "Documenti mancanti",

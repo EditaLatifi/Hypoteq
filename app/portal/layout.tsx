@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { I18nProvider } from "@/components/portal/I18n";
 import { getLocale } from "@/lib/portal/i18n/server";
+import "./portal.css";
 
 export const metadata: Metadata = {
   title: { absolute: "HYPOTEQ Partnerportal" },
@@ -14,7 +15,7 @@ export default async function PortalRootLayout({ children }: { children: React.R
   const locale = await getLocale();
   return (
     <I18nProvider locale={locale}>
-      <div lang={locale} className="min-h-screen bg-[#132219] text-[17px] leading-[1.35] text-white antialiased">
+      <div lang={locale} className="hq-portal min-h-screen bg-[#132219] text-[17px] leading-[1.35] text-white antialiased">
         {children}
       </div>
     </I18nProvider>
