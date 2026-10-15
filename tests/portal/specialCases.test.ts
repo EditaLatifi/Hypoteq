@@ -42,7 +42,9 @@ import { listPartnerCases } from "@/lib/portal/salesforce";
 const scope = { contactId: "003000000000001AAA", accountId: null, companyWide: false };
 
 describe("Spezialfinanzierung Cases in the portal", () => {
-  beforeEach(() => mockSpecials.mockReset());
+  beforeEach(() => {
+    mockSpecials.mockReset();
+  });
 
   it("show their Art and no standard document list", async () => {
     mockSpecials.mockResolvedValue([{ sfCaseId: CASE.Id, type: "rendite" }]);
