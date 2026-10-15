@@ -67,7 +67,19 @@
     "b2": "Immobile & finanziamento",
     "b4": "Documenti & conclusione",
     "s1": "Contatto",
-    "s3": "Verificare & concludere"
+    "s3": "Verificare & concludere",
+    "anfrage": "Richiesta",
+    "missing": "Documenti mancanti & conclusione",
+    "why.guided.anfrage": "Richiesta e contatto",
+    "why.guided.objekt": "Immobile, fondi propri, grado di anticipo",
+    "why.guided.personen": "Mutuatari e punti aggiuntivi",
+    "why.guided.abschluss": "Caricare e concludere",
+    "why.fast.kontakt": "Solo gli indirizzi e-mail",
+    "why.fast.upload": "Carichi la cartella – leggiamo tutto noi",
+    "why.fast.anfrage": "Precompilato – verifichi per favore",
+    "why.fast.objekt": "Precompilato – completi ciò che manca",
+    "why.fast.personen": "Precompilato – verifichi i punti aggiuntivi",
+    "why.fast.abschluss": "Completare e concludere"
   },
   "s1": {
     "title": "Nuova richiesta di finanziamento",
@@ -286,7 +298,8 @@
     "because": "perché: {reason}",
     "bonus": "perché: componente salariale variabile rilevata",
     "raise": "perché: aumento salariale rilevato",
-    "age50": "perché: 50+ (dal documento d’identità)"
+    "age50": "perché: 50+ (dal documento d’identità)",
+    "amount": "perché: {field} indicato"
   },
   "grp": {
     "objekt": "Immobile",
@@ -348,7 +361,10 @@
     "reno_liste": "Elenco delle ristrutturazioni (importo e luogo, p. es. cucina, bagno, facciata)",
     "lohnausweis1": "Certificato di salario attuale",
     "lohnausweise_alt": "Certificati di salario dei due anni precedenti",
-    "pkverp": "Conferma della costituzione in pegno LPP"
+    "pkverp": "Conferma della costituzione in pegno LPP",
+    "b_lohn1": "Fideiussore solidale · certificato di salario attuale",
+    "pkvorbezug1": "Conferma del prelievo anticipato LPP",
+    "erbe1": "Anticipo ereditario / certificato ereditario"
   },
   "sug": {
     "loan.title": "Abbiamo riconosciuto un contratto di credito o di leasing.",
@@ -358,7 +374,11 @@
     "3a.title": "Abbiamo riconosciuto documenti del pilastro 3a.",
     "3a.text": "La Sua risposta «pilastro 3a» è No. Va impostata su Sì?",
     "stwe.title": "Abbiamo riconosciuto documenti della PPP.",
-    "stwe.text": "L’immobile non è registrato come PPP. Va modificato il tipo?"
+    "stwe.text": "L’immobile non è registrato come PPP. Va modificato il tipo?",
+    "loan.chipText": "Né «Credito privato» né «Leasing» è selezionato. Va aggiunto?",
+    "maint.chipText": "«Alimenti» non è selezionato. Va aggiunto?",
+    "3a.amountText": "Valore di riscatto secondo la polizza: {amount}. Va indicato sotto la previdenza?",
+    "3a.enterText": "Per il «Pilastro 3a» non è indicato alcun importo. Indichi l’importo sotto i fondi propri."
   },
   "toast": {
     "done": "{files} file elaborati, {req} requisiti soddisfatti",
@@ -467,7 +487,10 @@
     "audit.unkept": "Conservazione annullata",
     "audit.edited": "{field} modificato: {value}",
     "audit.confirmed": "Dati confermati dall'utente",
-    "audit.renamed": "Nome modificato: {name}"
+    "audit.renamed": "Nome modificato: {name}",
+    "nn.hyp_rahmen": "Contratto ipotecario (contratto quadro)",
+    "nn.hyp_sicher": "Convenzione di garanzia / cartella ipotecaria",
+    "x.olderSalary": "Certificato di salario precedente – necessario solo con componente variabile. Conservato nel dossier."
   },
   "s6": {
     "titleOk": "Possiamo finanziarlo. Ora alla banca.",
@@ -570,7 +593,8 @@
     "schenkung": "Donazione",
     "erbe": "Eredità",
     "darlehen": "Prestito",
-    "pk": "Cassa pensione"
+    "pk": "Cassa pensione",
+    "steuer": "Ottimizzazione fiscale"
   },
   "chip": {
     "unterhalt": "Alimenti",
@@ -627,7 +651,8 @@
   "nn": {
     "vermoegen": "La prova dei fondi propri serve solo per un acquisto.",
     "hyp_sicher": "Cartella ipotecaria / convenzione di garanzia non necessaria.",
-    "hyp_rahmen": "Per il rifinanziamento ci serve l’accordo di prodotto attuale."
+    "hyp_rahmen": "Per il rifinanziamento ci serve l’accordo di prodotto attuale.",
+    "anstellung": "Necessario solo in caso di aumento salariale nell’anno in corso – nessuno rilevato."
   },
   "sig": {
     "title": "Autorizzazione a fornire informazioni HYPOTEQ · obbligatoria",
@@ -663,7 +688,10 @@
     "laterQ": "Il cliente firma più tardi?",
     "later": "Inviare più tardi",
     "laterState": "Sarà inviata più tardi",
-    "laterSub": "La pratica viene conclusa con «firma in sospeso». Senza firma nessuna richiesta va alla banca."
+    "laterSub": "La pratica viene conclusa con «firma in sospeso». Senza firma nessuna richiesta va alla banca.",
+    "unsigned": "Firma mancante",
+    "unsignedSub": "L’autorizzazione caricata non è firmata. Carichi una copia firmata.",
+    "wrongName": "Il nome sull’autorizzazione non corrisponde al mutuatario."
   },
   "mail": {
     "subject": "La Sua richiesta di finanziamento {id} – {name}, {place}",

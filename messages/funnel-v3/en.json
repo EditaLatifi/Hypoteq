@@ -67,7 +67,19 @@
     "b2": "Property & financing",
     "b4": "Documents & summary",
     "s1": "Contact",
-    "s3": "Review & submit"
+    "s3": "Review & submit",
+    "anfrage": "Request",
+    "missing": "Missing documents & summary",
+    "why.guided.anfrage": "Request and contact",
+    "why.guided.objekt": "Property, own funds, loan-to-value",
+    "why.guided.personen": "Borrowers and additional points",
+    "why.guided.abschluss": "Upload and finish",
+    "why.fast.kontakt": "Just the e-mail addresses",
+    "why.fast.upload": "Upload the folder – we read everything",
+    "why.fast.anfrage": "Prefilled – please check",
+    "why.fast.objekt": "Prefilled – add what is missing",
+    "why.fast.personen": "Prefilled – check the additional points",
+    "why.fast.abschluss": "Submit later and finish"
   },
   "s1": {
     "title": "New financing request",
@@ -286,7 +298,8 @@
     "because": "because: {reason}",
     "bonus": "because: variable pay detected",
     "raise": "because: pay rise detected",
-    "age50": "because: 50+ (from ID)"
+    "age50": "because: 50+ (from ID)",
+    "amount": "because: {field} entered"
   },
   "grp": {
     "objekt": "Property",
@@ -348,7 +361,10 @@
     "reno_liste": "List of renovations (amount and location, e.g. kitchen, bathroom, façade)",
     "lohnausweis1": "Current salary certificate",
     "lohnausweise_alt": "Salary certificates for the two previous years",
-    "pkverp": "Confirmation of pension fund pledge"
+    "pkverp": "Confirmation of pension fund pledge",
+    "b_lohn1": "Guarantor · current salary certificate",
+    "pkvorbezug1": "Confirmation of pension fund withdrawal",
+    "erbe1": "Advance on inheritance / certificate of inheritance"
   },
   "sug": {
     "loan.title": "We recognised a loan or lease agreement.",
@@ -358,7 +374,11 @@
     "3a.title": "We recognised pillar 3a documents.",
     "3a.text": "Your answer for “pillar 3a” is No. Should it be set to Yes?",
     "stwe.title": "We recognised condominium documents.",
-    "stwe.text": "The property is not recorded as a condominium. Should the type be changed?"
+    "stwe.text": "The property is not recorded as a condominium. Should the type be changed?",
+    "loan.chipText": "Neither “Personal loan” nor “Lease” is ticked. Should it be added?",
+    "maint.chipText": "“Maintenance payments” is not ticked. Should it be added?",
+    "3a.amountText": "Surrender value according to the policy: {amount}. Should it be entered under pension assets?",
+    "3a.enterText": "No amount is entered for “Pillar 3a”. Enter the amount under own funds."
   },
   "toast": {
     "done": "{files} files processed, {req} requirements met",
@@ -467,7 +487,10 @@
     "audit.unkept": "Keep undone",
     "audit.edited": "{field} changed: {value}",
     "audit.confirmed": "Details confirmed by the user",
-    "audit.renamed": "Name changed: {name}"
+    "audit.renamed": "Name changed: {name}",
+    "nn.hyp_rahmen": "Mortgage agreement (framework agreement)",
+    "nn.hyp_sicher": "Security agreement / mortgage note",
+    "x.olderSalary": "Older salary certificate – only needed with variable pay. Kept in the dossier."
   },
   "s6": {
     "titleOk": "We can finance this. On to the bank.",
@@ -570,7 +593,8 @@
     "schenkung": "Gift",
     "erbe": "Inheritance",
     "darlehen": "Loan",
-    "pk": "Pension fund"
+    "pk": "Pension fund",
+    "steuer": "Tax optimisation"
   },
   "chip": {
     "unterhalt": "Maintenance payments",
@@ -627,7 +651,8 @@
   "nn": {
     "vermoegen": "Proof of equity is only needed for a purchase.",
     "hyp_sicher": "Mortgage note / security agreement is not needed.",
-    "hyp_rahmen": "For refinancing we need the current product agreement."
+    "hyp_rahmen": "For refinancing we need the current product agreement.",
+    "anstellung": "Only needed for a pay rise in the current year – none detected."
   },
   "sig": {
     "title": "HYPOTEQ information authorisation · required",
@@ -663,7 +688,10 @@
     "laterQ": "Client signing later?",
     "later": "Submit later",
     "laterState": "To be submitted later",
-    "laterSub": "The case is submitted as “signature pending”. No request goes to the bank without a signature."
+    "laterSub": "The case is submitted as “signature pending”. No request goes to the bank without a signature.",
+    "unsigned": "Signature missing",
+    "unsignedSub": "The uploaded authorisation is not signed. Please upload a signed copy.",
+    "wrongName": "The name on the authorisation does not match the borrower."
   },
   "mail": {
     "subject": "Your financing request {id} – {name}, {place}",

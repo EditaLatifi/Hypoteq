@@ -67,7 +67,19 @@
     "b2": "Objekt & Finanzierung",
     "b4": "Unterlagen & Abschluss",
     "s1": "Kontakt",
-    "s3": "Prüfen & abschliessen"
+    "s3": "Prüfen & abschliessen",
+    "anfrage": "Anfrage",
+    "missing": "Fehlende Unterlagen & Abschluss",
+    "why.guided.anfrage": "Antrag und Kontakt",
+    "why.guided.objekt": "Objekt, Eigenmittel, Belehnung",
+    "why.guided.personen": "Kreditnehmer und Zusatzpunkte",
+    "why.guided.abschluss": "Hochladen und abschliessen",
+    "why.fast.kontakt": "Nur die E-Mail-Adressen",
+    "why.fast.upload": "Ordner hochladen – wir lesen alles aus",
+    "why.fast.anfrage": "Vorausgefüllt – bitte prüfen",
+    "why.fast.objekt": "Vorausgefüllt – ergänzen, was fehlt",
+    "why.fast.personen": "Vorausgefüllt – Zusatzpunkte prüfen",
+    "why.fast.abschluss": "Nachreichen und abschliessen"
   },
   "s1": {
     "title": "Neue Finanzierungsanfrage",
@@ -286,7 +298,8 @@
     "because": "weil: {reason}",
     "bonus": "weil: variabler Lohnanteil erkannt",
     "raise": "weil: Lohnerhöhung erkannt",
-    "age50": "weil: ab 50 (aus ID)"
+    "age50": "weil: ab 50 (aus ID)",
+    "amount": "weil: {field} eingetragen"
   },
   "grp": {
     "objekt": "Zum Objekt",
@@ -348,7 +361,10 @@
     "reno_liste": "Aufstellung der Renovationen (Betrag und Ort, z.B. Küche, Bad, Fassade)",
     "lohnausweis1": "Aktueller Lohnausweis",
     "lohnausweise_alt": "Lohnausweise der zwei Vorjahre",
-    "pkverp": "Bestätigung PK-Verpfändung"
+    "pkverp": "Bestätigung PK-Verpfändung",
+    "b_lohn1": "Solidarbürge · aktueller Lohnausweis",
+    "pkvorbezug1": "Bestätigung PK-Vorbezug",
+    "erbe1": "Erbvorbezug / Erbschaftsbestätigung"
   },
   "sug": {
     "loan.title": "Wir haben einen Kredit- oder Leasingvertrag erkannt.",
@@ -358,7 +374,11 @@
     "3a.title": "Wir haben Säule-3a-Unterlagen erkannt.",
     "3a.text": "Deine Angabe «Säule 3a» steht auf Nein. Soll sie auf Ja gesetzt werden?",
     "stwe.title": "Wir haben STWE-Unterlagen erkannt.",
-    "stwe.text": "Die Liegenschaft ist nicht als Stockwerkeigentum erfasst. Soll die Art der Liegenschaft angepasst werden?"
+    "stwe.text": "Die Liegenschaft ist nicht als Stockwerkeigentum erfasst. Soll die Art der Liegenschaft angepasst werden?",
+    "loan.chipText": "Bei «Privatkredit» bzw. «Leasing» ist nichts angetippt. Soll es ergänzt werden?",
+    "maint.chipText": "«Unterhaltszahlungen» ist nicht angetippt. Soll es ergänzt werden?",
+    "3a.amountText": "Rückkaufswert laut Police: {amount}. Soll er bei der Vorsorge eingetragen werden?",
+    "3a.enterText": "Bei «Säule 3a» ist kein Betrag eingetragen. Trage den Betrag bei den Eigenmitteln ein."
   },
   "toast": {
     "done": "{files} Dateien verarbeitet, {req} Anforderungen erfüllt",
@@ -467,7 +487,10 @@
     "audit.unkept": "Behalten aufgehoben",
     "audit.edited": "{field} geändert: {value}",
     "audit.confirmed": "Angaben vom Benutzer bestätigt",
-    "audit.renamed": "Name geändert: {name}"
+    "audit.renamed": "Name geändert: {name}",
+    "nn.hyp_rahmen": "Hypothekarvertrag (Rahmenvertrag)",
+    "nn.hyp_sicher": "Sicherungsvereinbarung / Schuldbrief",
+    "x.olderSalary": "Älterer Lohnausweis – nur bei variablem Lohnanteil nötig. Wird im Dossier mitgeführt."
   },
   "s6": {
     "titleOk": "Das können wir finanzieren. Jetzt zur Bank.",
@@ -570,7 +593,8 @@
     "schenkung": "Schenkung",
     "erbe": "Erbschaft",
     "darlehen": "Darlehen",
-    "pk": "Pensionskasse"
+    "pk": "Pensionskasse",
+    "steuer": "Steueroptimierung"
   },
   "chip": {
     "unterhalt": "Unterhaltszahlungen",
@@ -627,7 +651,8 @@
   "nn": {
     "vermoegen": "Eigenmittelnachweis ist nur bei einem Kauf nötig.",
     "hyp_sicher": "Schuldbrief / Sicherungsvereinbarung wird nicht benötigt.",
-    "hyp_rahmen": "Für die Ablösung brauchen wir die aktuelle Produktvereinbarung."
+    "hyp_rahmen": "Für die Ablösung brauchen wir die aktuelle Produktvereinbarung.",
+    "anstellung": "Nur nötig bei einer Lohnerhöhung im laufenden Jahr – keine erkannt."
   },
   "sig": {
     "title": "HYPOTEQ Auskunftsermächtigung · Pflicht",
@@ -663,7 +688,10 @@
     "laterQ": "Kunde unterschreibt später?",
     "later": "Später nachreichen",
     "laterState": "Wird nachgereicht",
-    "laterSub": "Der Fall wird mit «Unterschrift ausstehend» abgeschlossen. Ohne Unterschrift geht keine Anfrage an die Bank."
+    "laterSub": "Der Fall wird mit «Unterschrift ausstehend» abgeschlossen. Ohne Unterschrift geht keine Anfrage an die Bank.",
+    "unsigned": "Unterschrift fehlt",
+    "unsignedSub": "Auf der hochgeladenen Auskunftsermächtigung fehlt die Unterschrift. Bitte unterzeichnet hochladen.",
+    "wrongName": "Der Name auf der Auskunftsermächtigung passt nicht zum Kreditnehmer."
   },
   "mail": {
     "subject": "Deine Finanzierungsanfrage {id} – {name}, {place}",

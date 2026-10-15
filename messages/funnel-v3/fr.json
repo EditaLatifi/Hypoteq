@@ -67,7 +67,19 @@
     "b2": "Bien & financement",
     "b4": "Documents & finalisation",
     "s1": "Contact",
-    "s3": "Vérifier & finaliser"
+    "s3": "Vérifier & finaliser",
+    "anfrage": "Demande",
+    "missing": "Documents manquants & finalisation",
+    "why.guided.anfrage": "Demande et contact",
+    "why.guided.objekt": "Bien, fonds propres, taux d’avance",
+    "why.guided.personen": "Emprunteurs et points supplémentaires",
+    "why.guided.abschluss": "Téléverser et finaliser",
+    "why.fast.kontakt": "Uniquement les adresses e-mail",
+    "why.fast.upload": "Téléversez le dossier – nous lisons tout",
+    "why.fast.anfrage": "Prérempli – veuillez vérifier",
+    "why.fast.objekt": "Prérempli – complétez ce qui manque",
+    "why.fast.personen": "Prérempli – vérifiez les points supplémentaires",
+    "why.fast.abschluss": "Compléter et finaliser"
   },
   "s1": {
     "title": "Nouvelle demande de financement",
@@ -286,7 +298,8 @@
     "because": "car : {reason}",
     "bonus": "car : part variable du salaire détectée",
     "raise": "car : augmentation de salaire détectée",
-    "age50": "car : 50 ans ou plus (pièce d’identité)"
+    "age50": "car : 50 ans ou plus (pièce d’identité)",
+    "amount": "car : {field} indiqué"
   },
   "grp": {
     "objekt": "Bien immobilier",
@@ -348,7 +361,10 @@
     "reno_liste": "Liste des rénovations (montant et emplacement, p. ex. cuisine, salle de bain, façade)",
     "lohnausweis1": "Certificat de salaire actuel",
     "lohnausweise_alt": "Certificats de salaire des deux années précédentes",
-    "pkverp": "Confirmation de mise en gage LPP"
+    "pkverp": "Confirmation de mise en gage LPP",
+    "b_lohn1": "Caution solidaire · certificat de salaire actuel",
+    "pkvorbezug1": "Confirmation du versement anticipé LPP",
+    "erbe1": "Avancement d’hoirie / certificat d’héritier"
   },
   "sug": {
     "loan.title": "Nous avons reconnu un contrat de crédit ou de leasing.",
@@ -358,7 +374,11 @@
     "3a.title": "Nous avons reconnu des documents du pilier 3a.",
     "3a.text": "Votre réponse « pilier 3a » est Non. Faut-il la mettre sur Oui ?",
     "stwe.title": "Nous avons reconnu des documents de PPE.",
-    "stwe.text": "Le bien n’est pas saisi comme PPE. Faut-il adapter le type d’objet ?"
+    "stwe.text": "Le bien n’est pas saisi comme PPE. Faut-il adapter le type d’objet ?",
+    "loan.chipText": "Ni « Crédit privé » ni « Leasing » n’est coché. Faut-il l’ajouter ?",
+    "maint.chipText": "« Pensions alimentaires » n’est pas coché. Faut-il l’ajouter ?",
+    "3a.amountText": "Valeur de rachat selon la police : {amount}. Faut-il l’inscrire sous la prévoyance ?",
+    "3a.enterText": "Aucun montant n’est indiqué pour le « Pilier 3a ». Veuillez saisir le montant sous les fonds propres."
   },
   "toast": {
     "done": "{files} fichiers traités, {req} exigences remplies",
@@ -467,7 +487,10 @@
     "audit.unkept": "Conservation annulée",
     "audit.edited": "{field} modifié : {value}",
     "audit.confirmed": "Indications confirmées par l'utilisateur",
-    "audit.renamed": "Nom modifié : {name}"
+    "audit.renamed": "Nom modifié : {name}",
+    "nn.hyp_rahmen": "Contrat hypothécaire (contrat-cadre)",
+    "nn.hyp_sicher": "Convention de garantie / cédule hypothécaire",
+    "x.olderSalary": "Certificat de salaire plus ancien – nécessaire uniquement en cas de part variable. Conservé dans le dossier."
   },
   "s6": {
     "titleOk": "Nous pouvons financer ce projet. Place à la banque.",
@@ -570,7 +593,8 @@
     "schenkung": "Donation",
     "erbe": "Héritage",
     "darlehen": "Prêt",
-    "pk": "Caisse de pension"
+    "pk": "Caisse de pension",
+    "steuer": "Optimisation fiscale"
   },
   "chip": {
     "unterhalt": "Pensions alimentaires",
@@ -627,7 +651,8 @@
   "nn": {
     "vermoegen": "Le justificatif de fonds propres n’est nécessaire que pour un achat.",
     "hyp_sicher": "La cédule hypothécaire / convention de garantie n’est pas nécessaire.",
-    "hyp_rahmen": "Pour le refinancement, il nous faut la convention de produit actuelle."
+    "hyp_rahmen": "Pour le refinancement, il nous faut la convention de produit actuelle.",
+    "anstellung": "Nécessaire uniquement en cas d’augmentation de salaire dans l’année en cours – aucune détectée."
   },
   "sig": {
     "title": "Autorisation de renseignements HYPOTEQ · obligatoire",
@@ -663,7 +688,10 @@
     "laterQ": "Le client signe plus tard ?",
     "later": "Remettre plus tard",
     "laterState": "Sera remise plus tard",
-    "laterSub": "Le dossier est finalisé avec « signature en attente ». Sans signature, aucune demande n’est transmise à la banque."
+    "laterSub": "Le dossier est finalisé avec « signature en attente ». Sans signature, aucune demande n’est transmise à la banque.",
+    "unsigned": "Signature manquante",
+    "unsignedSub": "L’autorisation téléversée n’est pas signée. Veuillez téléverser une copie signée.",
+    "wrongName": "Le nom figurant sur l’autorisation ne correspond pas à l’emprunteur."
   },
   "mail": {
     "subject": "Votre demande de financement {id} – {name}, {place}",
