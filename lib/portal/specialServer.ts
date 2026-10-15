@@ -19,7 +19,7 @@ import {
   type SpecialType,
   type ValidSpecialAnswers,
 } from "@/lib/portal/special";
-import { listSpecialFiles, specialFolder, type SpecialFile } from "@/lib/portal/specialFiles";
+import { listSpecialFiles, removeSpecialFile, specialFolder, type SpecialFile } from "@/lib/portal/specialFiles";
 import {
   createSpecialCase,
   partnerLabel,
@@ -215,12 +215,14 @@ export async function submitSpecialRequest(
   // Files: only what really lies in the request's folder, and only what the partner kept.
   let folder: { id: string; webUrl: string | null } | null = null;
   let files: SpecialFile[] = [];
+  let stray: SpecialFile[] = [];
   let row: { id: string };
   try {
     if (draft) {
       folder = await specialFolder(draft, user.email, { create: false });
       const present = folder ? await listSpecialFiles(folder.id) : [];
       files = present.filter((f) => keep.includes(f.driveItemId));
+      stray = present.filter((f) => !keep.includes(f.driveItemId));
       if (files.length < keep.length) {
         await releaseDraft(draft.id);
         return { ok: false, error: "files", step: DOCS_STEP };
@@ -245,6 +247,12 @@ export async function submitSpecialRequest(
     console.error("[portal] storing the special financing failed", err);
     if (draft) await releaseDraft(draft.id);
     return { ok: false, error: "failed" };
+  }
+
+  // What the partner removed but SharePoint still holds (a removal that did not get
+  // through, an upload that failed half-way) must not end up in the Case's dossier.
+  for (const f of stray) {
+    await removeSpecialFile(folder!.id, f.driveItemId).catch((err) => console.error("[portal] could not delete a removed upload", err));
   }
 
   const ref = specialRef(row.id);

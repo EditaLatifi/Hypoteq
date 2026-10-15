@@ -24,9 +24,11 @@ jest.mock("@/components/salesforceApi", () => ({ __esModule: true, conn: {}, soq
 
 const mockFolder = jest.fn<any>();
 const mockList = jest.fn<any>();
+const mockRemove = jest.fn<any>();
 jest.mock("@/lib/portal/specialFiles", () => ({
   specialFolder: (...a: any[]) => mockFolder(...a),
   listSpecialFiles: (...a: any[]) => mockList(...a),
+  removeSpecialFile: (...a: any[]) => mockRemove(...a),
 }));
 
 const mockMail = jest.fn<any>();
@@ -71,6 +73,7 @@ beforeEach(() => {
   mockDb.portalCaseSeen.count.mockResolvedValue(3);
   mockFolder.mockResolvedValue({ id: "folder-1", webUrl: "https://sp/folder" });
   mockList.mockResolvedValue([FILE]);
+  mockRemove.mockResolvedValue(true);
   mockCreateCase.mockResolvedValue(OK_CASE);
   mockMail.mockResolvedValue(undefined);
 });
@@ -153,10 +156,12 @@ describe("submitSpecialRequest", () => {
     expect(mockCreateCase).not.toHaveBeenCalled();
   });
 
-  it("drops files the partner removed, even if SharePoint still has them", async () => {
+  it("drops files the partner removed, and deletes them if SharePoint still has them", async () => {
     mockList.mockResolvedValue([FILE, { ...FILE, driveItemId: "01REMOVED0", fileName: "alt.pdf" }]);
     await submitSpecialRequest(USER, { requestId: DRAFT_ID, answers: ANSWERS, ack: true, itemIds: [FILE.driveItemId] }, CTX);
     expect((mockDb.portalSpecialRequest.update.mock.calls[0][0] as any).data.files).toEqual([FILE]);
+    expect(mockRemove).toHaveBeenCalledTimes(1);
+    expect(mockRemove).toHaveBeenCalledWith("folder-1", "01REMOVED0");
   });
 
   it("answers a repeated submit with the first result instead of a second Case", async () => {
