@@ -40,7 +40,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
           <div className="hq-in pointer-events-auto flex w-full max-w-[520px] items-center gap-3 rounded-xl border border-[#2F8F52]/40 bg-[#1A2E20] px-4 py-3 text-[15px] text-white shadow-[0_20px_50px_rgba(5,12,8,.5)]">
             <CheckCircle2 size={20} className="flex-none text-[#CAF476]" />
             <span className="min-w-0 flex-1">{text}</span>
-            <button type="button" onClick={() => setText("")} aria-label={t.common.close} className="-mr-1 grid h-9 w-9 flex-none place-items-center rounded-full hover:bg-white/[.08]">
+            <button type="button" onClick={() => setText("")} aria-label={t.common.close} className="-mr-1 grid h-11 w-11 flex-none place-items-center min-[900px]:h-9 min-[900px]:w-9 rounded-full hover:bg-white/[.08]">
               <X size={18} />
             </button>
           </div>
