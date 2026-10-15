@@ -204,10 +204,20 @@ select option:active {
   color: #132219 !important;
 }
 
-select:focus {
+/* The selects of the website and the old funnel were designed without a ring or border while
+   open, so a mouse click keeps that look. Keyboard focus must stay visible (WCAG 2.4.7): it
+   is exempt from the reset, and gets a ring in the select's own text colour — also where a
+   Tailwind outline-none removed the browser's. Funnel v3 and the Partnerportal style their
+   own focus and are left out. */
+select:focus:not(:focus-visible) {
   outline: none !important;
   box-shadow: none !important;
   border: none !important;
+}
+
+select:focus-visible:not(.hqv3 *, .hq-portal *) {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
 }
 
 /* -------------------------------

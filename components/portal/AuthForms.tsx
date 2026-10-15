@@ -189,10 +189,10 @@ export function ActivateForm({ token, email, name, company }: { token: string; e
         <input type="hidden" name="token" value={token} />
         <input type="hidden" name="mode" value={mode} />
         <div className="grid grid-cols-2 gap-2.5">
-          <button type="button" className={modeBtn("password")} onClick={() => setMode("password")}>
+          <button type="button" aria-pressed={mode === "password"} className={modeBtn("password")} onClick={() => setMode("password")}>
             {t.auth.modePassword}
           </button>
-          <button type="button" className={modeBtn("magic")} onClick={() => setMode("magic")}>
+          <button type="button" aria-pressed={mode === "magic"} className={modeBtn("magic")} onClick={() => setMode("magic")}>
             {t.auth.modeMagic}
           </button>
         </div>
