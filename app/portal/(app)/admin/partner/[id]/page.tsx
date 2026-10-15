@@ -6,9 +6,9 @@ import { startViewAsAction } from "@/app/portal/actions";
 import { ACCESS_TONE } from "@/components/portal/access";
 import { Badge, Card, Eyebrow, FormError, btn, formatChf, formatDate, formatDateTime } from "@/components/portal/ui";
 import { prisma } from "@/lib/prisma";
-import { partnerCaseField } from "@/lib/portal/config";
+import { PORTAL_SF_FIELDS, partnerCaseField } from "@/lib/portal/config";
 import { getDict } from "@/lib/portal/i18n/server";
-import { listPartnerCases, listUnassignedCases, type PortalCaseSummary, type UnassignedCase } from "@/lib/portal/salesforce";
+import { listPartnerCases, listUnassignedCases, portalFieldReport, type PortalCaseSummary, type PortalFieldRow, type UnassignedCase } from "@/lib/portal/salesforce";
 import { scopeOfPartner } from "@/lib/portal/scope";
 import { requireAdmin } from "@/lib/portal/session";
 
@@ -21,16 +21,32 @@ export default async function AdminPartnerDetailPage({ params }: { params: { id:
   let cases: PortalCaseSummary[] = [];
   let unassigned: UnassignedCase[] = [];
   let failed = false;
+  // The handoff's Salesforce portal fields, each only where the org has it.
+  let fields: PortalFieldRow[] | null = null;
   if (p.sfContactId) {
-    try {
-      [cases, unassigned] = await Promise.all([listPartnerCases(scopeOfPartner(p)!, locale), listUnassignedCases()]);
-    } catch (err) {
-      console.error("[portal] admin: loading partner cases failed", err);
+    const scope = scopeOfPartner(p)!;
+    const [loaded, report] = await Promise.allSettled([Promise.all([listPartnerCases(scope, locale), listUnassignedCases()]), portalFieldReport(scope)]);
+    if (loaded.status === "fulfilled") [cases, unassigned] = loaded.value;
+    else {
+      console.error("[portal] admin: loading partner cases failed", loaded.reason);
       failed = true;
     }
+    if (report.status === "fulfilled") fields = report.value;
+    else console.error("[portal] admin: reading the portal fields failed", report.reason);
   }
+  const A = t.adminPortal;
+  const fieldValue = (f: PortalFieldRow): string => {
+    if (!f.object) return A.missing;
+    if (f.counts) {
+      const n = f.field === PORTAL_SF_FIELDS.status ? A.filled(f.counts.hit, f.counts.total) : A.ticked(f.counts.hit, f.counts.total);
+      return f.counts.values.length ? `${n} · ${f.counts.values.join(", ")}` : n;
+    }
+    return `${f.value ?? A.empty} · ${A.on(f.object)}`;
+  };
 
+  // Partner mapping: the portal account and the Salesforce records it stands for.
   const facts: [string, string][] = [
+    [A.portalUserId, p.id],
     [t.admin.sfContact, p.sfContactId || "–"],
     [t.admin.sfAccount, p.sfAccountId || "–"],
     [t.admin.loginEmail, p.email],
@@ -105,17 +121,38 @@ export default async function AdminPartnerDetailPage({ params }: { params: { id:
       </div>
 
       <div className="grid grid-cols-1 items-start gap-6 xl:grid-cols-2">
-        <Card>
-          <Eyebrow accent>{t.admin.mapping}</Eyebrow>
-          <div className="flex flex-col">
-            {facts.map(([k, v]) => (
-              <div key={k} className="flex justify-between gap-4 border-t border-white/[.14] py-3">
-                <span className="text-[15px] text-white/70">{k}</span>
-                <span className="break-all text-right text-[15px] font-medium tabular-nums">{v}</span>
-              </div>
-            ))}
-          </div>
-        </Card>
+        <div className="flex min-w-0 flex-col gap-6">
+          <Card>
+            <Eyebrow accent>{t.admin.mapping}</Eyebrow>
+            <div className="flex flex-col">
+              {facts.map(([k, v]) => (
+                <div key={k} className="flex justify-between gap-4 border-t border-white/[.14] py-3">
+                  <span className="text-[15px] text-white/70">{k}</span>
+                  <span className="break-all text-right text-[15px] font-medium tabular-nums">{v}</span>
+                </div>
+              ))}
+            </div>
+          </Card>
+
+          {p.sfContactId ? (
+            <Card>
+              <Eyebrow accent>{A.fieldsTitle}</Eyebrow>
+              <p className="m-0 text-[15px] text-white/70">{A.fieldsText}</p>
+              {fields ? (
+                <div className="flex flex-col">
+                  {fields.map((f) => (
+                    <div key={f.field} className="flex flex-wrap justify-between gap-x-4 gap-y-1 border-t border-white/[.14] py-2.5 text-[15px]">
+                      <span className="font-mono text-[13px] text-white/70">{f.field}</span>
+                      <span className={`text-right text-[13px] ${f.object ? "text-white" : "text-white/45"}`}>{fieldValue(f)}</span>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="m-0 text-[15px] text-white/70">{A.failed}</p>
+              )}
+            </Card>
+          ) : null}
+        </div>
 
         <Card>
           <div className="flex items-center justify-between gap-3">

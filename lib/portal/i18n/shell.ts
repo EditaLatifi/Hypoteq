@@ -86,6 +86,17 @@ const de = {
     sample: "Beispiel: Sie haben noch keine Meldung. So sähe die E-Mail zu einem Ihrer Cases aus.",
     sampleKunde: "Familie Muster",
   },
+  adminPortal: {
+    portalUserId: "Portal User ID",
+    fieldsTitle: "Salesforce Portal-Felder",
+    fieldsText: "Status, Portal-Text und Benachrichtigungen werden in Salesforce gepflegt. Das Portal liest diese Felder, sobald es sie in der Org gibt.",
+    missing: "Feld nicht vorhanden",
+    on: (object: string) => `auf ${object}`,
+    ticked: (hit: number, total: number) => `true bei ${hit} von ${total} Cases`,
+    filled: (hit: number, total: number) => `gesetzt bei ${hit} von ${total} Cases`,
+    empty: "leer",
+    failed: "Die Felder konnten gerade nicht aus Salesforce gelesen werden.",
+  },
 };
 
 export type ShellDict = typeof de;
@@ -171,6 +182,17 @@ const en: ShellDict = {
     sample: "Example: you have no notification yet. This is what the e-mail about one of your cases would look like.",
     sampleKunde: "The Sample family",
   },
+  adminPortal: {
+    portalUserId: "Portal user ID",
+    fieldsTitle: "Salesforce portal fields",
+    fieldsText: "Status, portal text and notifications are maintained in Salesforce. The portal reads these fields as soon as the org has them.",
+    missing: "Field does not exist",
+    on: (object) => `on ${object}`,
+    ticked: (hit, total) => `true on ${hit} of ${total} cases`,
+    filled: (hit, total) => `set on ${hit} of ${total} cases`,
+    empty: "empty",
+    failed: "The fields could not be read from Salesforce right now.",
+  },
 };
 
 const fr: ShellDict = {
@@ -254,6 +276,17 @@ const fr: ShellDict = {
     sample: "Exemple : vous n'avez pas encore de notification. Voici à quoi ressemblerait l'e-mail pour l'un de vos dossiers.",
     sampleKunde: "Famille Exemple",
   },
+  adminPortal: {
+    portalUserId: "ID utilisateur du portail",
+    fieldsTitle: "Champs portail Salesforce",
+    fieldsText: "Statut, texte du portail et notifications sont gérés dans Salesforce. Le portail lit ces champs dès que l'org les possède.",
+    missing: "Champ inexistant",
+    on: (object) => `sur ${object}`,
+    ticked: (hit, total) => `true sur ${hit} de ${total} dossiers`,
+    filled: (hit, total) => `renseigné sur ${hit} de ${total} dossiers`,
+    empty: "vide",
+    failed: "Les champs n'ont pas pu être lus dans Salesforce pour le moment.",
+  },
 };
 
 const it: ShellDict = {
@@ -336,6 +369,17 @@ const it: ShellDict = {
     sender: "Portale partner HYPOTEQ",
     sample: "Esempio: non ha ancora notifiche. Ecco come sarebbe l'e-mail per una delle sue pratiche.",
     sampleKunde: "Famiglia Esempio",
+  },
+  adminPortal: {
+    portalUserId: "ID utente del portale",
+    fieldsTitle: "Campi portale Salesforce",
+    fieldsText: "Stato, testo del portale e notifiche sono gestiti in Salesforce. Il portale legge questi campi non appena l'org li possiede.",
+    missing: "Campo inesistente",
+    on: (object) => `su ${object}`,
+    ticked: (hit, total) => `true su ${hit} di ${total} pratiche`,
+    filled: (hit, total) => `impostato su ${hit} di ${total} pratiche`,
+    empty: "vuoto",
+    failed: "Non è stato possibile leggere i campi da Salesforce al momento.",
   },
 };
 
