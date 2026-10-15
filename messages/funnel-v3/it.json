@@ -11,7 +11,9 @@
     "stepProgress": "Passo {n} di {total}",
     "toDocs": "Ai documenti",
     "toFinish": "Alla conclusione",
-    "remove": "Rimuovi"
+    "remove": "Rimuovi",
+    "timeLeft": "ancora ca. {time} min",
+    "stepOfN": "Passo {n} di {total}"
   },
   "start": {
     "title": "La Sua richiesta di finanziamento in pochi minuti.",
@@ -23,7 +25,16 @@
     "client.title": "Cliente",
     "client.sub": "Inoltro la mia richiesta di finanziamento.",
     "cta": "Inizia →",
-    "claim": "Grazie a HYPOTEQ le ipoteche sono diventate confrontabili. Il Suo consulente, invece, è unico.®"
+    "claim": "Grazie a HYPOTEQ le ipoteche sono diventate confrontabili. Il Suo consulente, invece, è unico.®",
+    "mode.fast.eyebrow": "Prima i documenti",
+    "mode.fast.title": "Richiesta rapida",
+    "mode.fast.sub": "Ho già i documenti. Carichi la cartella – al resto pensiamo noi.",
+    "mode.fast.time": "ca. 1 minuto + caricamento",
+    "mode.guided.eyebrow": "Passo dopo passo",
+    "mode.guided.title": "Richiesta guidata",
+    "mode.guided.sub": "Alcune domande. Le indichiamo subito quali documenti servono.",
+    "mode.guided.time": "ca. 3 minuti",
+    "recommended": "Consigliato"
   },
   "side": {
     "request": "Richiesta",
@@ -36,7 +47,9 @@
     "submittedBy": "Inserito da {name}",
     "newPartner": "nuovo partner",
     "done": "Completato",
-    "fulfilled": "{ok} di {total} soddisfatti"
+    "fulfilled": "{ok} di {total} soddisfatti",
+    "toFast": "Documenti pronti? Passa alla richiesta rapida",
+    "toGuided": "Preferisco passo dopo passo"
   },
   "step": {
     "1": "Informazioni generali",
@@ -50,7 +63,11 @@
     "why.3": "Determina i documenti personali",
     "why.4": "Grado di anticipo, sostenibilità, fondi propri",
     "why.5": "Leggiamo tutto per Lei",
-    "why.6": "Verificare e concludere"
+    "why.6": "Verificare e concludere",
+    "b2": "Immobile & finanziamento",
+    "b4": "Documenti & conclusione",
+    "s1": "Contatto",
+    "s3": "Verificare & concludere"
   },
   "s1": {
     "title": "Nuova richiesta di finanziamento",
@@ -113,7 +130,10 @@
     "schenkung": "Donazione",
     "erbe": "Eredità / anticipo ereditario",
     "darlehen": "Prestito",
-    "pk": "Cassa pensione (prelievo anticipato o costituzione in pegno)"
+    "pk": "Cassa pensione (prelievo anticipato o costituzione in pegno)",
+    "chips": "Qualcosa di questo è pertinente?",
+    "chipsMore": "Altro di pertinente?",
+    "chips.hint": "Nessuna selezione significa: non pertinente."
   },
   "opt": {
     "anrede.Herr": "Signor",
@@ -146,7 +166,8 @@
     "laufzeit.3 Jahre": "3 anni",
     "laufzeit.5 Jahre": "5 anni",
     "laufzeit.10 Jahre": "10 anni",
-    "laufzeit.Mix": "Mix"
+    "laufzeit.Mix": "Mix",
+    "nutz.Gewerbe": "Commerciale"
   },
   "s2": {
     "title": "Che cosa finanziamo?",
@@ -159,7 +180,12 @@
     "increase": "Aumento desiderato",
     "purpose": "Scopo dell’aumento",
     "purposePh": "A che cosa servirà l’aumento?",
-    "price": "Prezzo d’acquisto"
+    "price": "Prezzo d’acquisto",
+    "rentIncome": "Reddito locativo netto annuo",
+    "purchaseDate": "Data d’acquisto",
+    "renoAmount": "Importo della ristrutturazione",
+    "valueIsPrice": "Corrisponde al prezzo d’acquisto – modificare solo se diverso",
+    "bauprojektOff": "Per un rifinanziamento un progetto di costruzione non è possibile."
   },
   "s3": {
     "title": "Chi finanzia?",
@@ -173,7 +199,9 @@
     "jpNote": "IDI, sede e diritto di firma li leggiamo dall’estratto del registro di commercio.",
     "guarantorName": "Fideiussore solidale · nome cognome",
     "firstNames": "Nome/i",
-    "namePh": "Nome Cognome"
+    "namePh": "Nome Cognome",
+    "addBorrower2": "+ Aggiungi mutuatario",
+    "remove": "Rimuovi"
   },
   "s4": {
     "title": "Finanziamento",
@@ -222,7 +250,11 @@
     "filesOf": "{n} di {total} file",
     "storedAs": "Verrà salvato come",
     "original": "Originale: {name}",
-    "rename": "Rinomina"
+    "rename": "Rinomina",
+    "drop2": "Trascini qui singoli file o un’intera cartella",
+    "dropSub2": "Singoli documenti o un’intera cartella. PDF, JPG, PNG. Non serve indicare di quale documento si tratta.",
+    "pickFiles": "Seleziona file",
+    "pickFolder": "Seleziona cartella"
   },
   "act": {
     "upload": "Carica",
@@ -251,7 +283,10 @@
     "required": "Obbligatorio",
     "perBorrower": "Obbligatorio · per mutuatario",
     "ifAvailable": "Se disponibile",
-    "because": "perché: {reason}"
+    "because": "perché: {reason}",
+    "bonus": "perché: componente salariale variabile rilevata",
+    "raise": "perché: aumento salariale rilevato",
+    "age50": "perché: 50+ (dal documento d’identità)"
   },
   "grp": {
     "objekt": "Immobile",
@@ -308,7 +343,12 @@
     "pkvorbezug": "Conferma del prelievo anticipato / della costituzione in pegno LPP",
     "schenkung": "Contratto di donazione",
     "erbe": "Certificato ereditario",
-    "darlehen": "Contratto di prestito"
+    "darlehen": "Contratto di prestito",
+    "produkt": "Accordo di prodotto attuale",
+    "reno_liste": "Elenco delle ristrutturazioni (importo e luogo, p. es. cucina, bagno, facciata)",
+    "lohnausweis1": "Certificato di salario attuale",
+    "lohnausweise_alt": "Certificati di salario dei due anni precedenti",
+    "pkverp": "Conferma della costituzione in pegno LPP"
   },
   "sug": {
     "loan.title": "Abbiamo riconosciuto un contratto di credito o di leasing.",
@@ -485,7 +525,9 @@
     "retry": "Riprova",
     "dossierLoading": "Creazione del dossier …",
     "doneTitleNoId": "La richiesta è presso HYPOTEQ.",
-    "customer": "Il cliente"
+    "customer": "Il cliente",
+    "finishBlocked": "Firmi prima l’autorizzazione",
+    "finishBlockedUpload": "Carichi prima l’autorizzazione"
   },
   "rail": {
     "title": "I Suoi documenti",
@@ -529,5 +571,110 @@
     "erbe": "Eredità",
     "darlehen": "Prestito",
     "pk": "Cassa pensione"
+  },
+  "chip": {
+    "unterhalt": "Alimenti",
+    "kredite": "Credito privato",
+    "leasing": "Leasing",
+    "buerge": "Fideiussione solidale",
+    "baurecht": "Immobile in diritto di superficie",
+    "angebote": "Offerte di finanziamento esistenti",
+    "steuer": "Interesse all’ottimizzazione fiscale",
+    "fromDoc": "dal documento"
+  },
+  "em": {
+    "title": "Fondi propri – ripartizione",
+    "titleAbl": "Previdenza",
+    "sub": "Compili solo ciò che è pertinente. Ogni importo richiede il documento corrispondente.",
+    "spar": "Risparmi / averi bancari",
+    "s3a": "Pilastro 3a",
+    "pkVor": "Prelievo anticipato LPP",
+    "pkVerp": "Costituzione in pegno LPP",
+    "pkVerp.hint": "Garanzia, non conta come fondi propri",
+    "schenk": "Donazione",
+    "erbe": "Anticipo ereditario",
+    "darl": "Prestito",
+    "total": "Fondi propri totali {amount} · di cui duri {hard}",
+    "hardMin": "almeno il 10 % del prezzo d’acquisto"
+  },
+  "calc": {
+    "byPrice": "Max. 80 % del valore più basso tra prezzo d’acquisto e valore stimato",
+    "incNote": "La sostenibilità appare non appena il reddito è inserito."
+  },
+  "fast": {
+    "s1.title": "Richiesta rapida",
+    "s1.lead": "Solo gli indirizzi e-mail. Nome, appellativo e data di nascita li leggiamo dal documento d’identità.",
+    "s2.lead": "Singoli documenti o un’intera cartella. A destra la richiesta si compila mentre leggiamo.",
+    "rail.title": "La Sua richiesta si sta compilando",
+    "rail.text": "dati ripresi dai Suoi documenti. Non serve digitarli.",
+    "s3.title": "Verificare e completare",
+    "s3.lead": "Quanto presente nei documenti è già inserito. Mancano solo i dati qui sotto.",
+    "open": "Ancora {n} dati",
+    "openSub": "Questo non è in nessun documento.",
+    "taken": "Ripreso dai Suoi documenti",
+    "extra": "Riconosciuto inoltre · per l’e-mail di conferma e Salesforce",
+    "confirm": "Conferma",
+    "edit": "Modifica",
+    "pleaseConfirm": "Si prega di confermare",
+    "prefill": "{n} dati precompilati dai Suoi documenti – contrassegnati «dal documento». Si prega di verificare e completare.",
+    "fromDocUnsure": "dal documento · da verificare",
+    "missingTitle": "Documenti mancanti",
+    "missingDrop": "Trascini qui i documenti mancanti",
+    "allComplete": "Tutti i documenti sono completi. Non manca nulla.",
+    "toRequest": "Avanti alla richiesta",
+    "toMissing": "Ai documenti mancanti"
+  },
+  "nn": {
+    "vermoegen": "La prova dei fondi propri serve solo per un acquisto.",
+    "hyp_sicher": "Cartella ipotecaria / convenzione di garanzia non necessaria.",
+    "hyp_rahmen": "Per il rifinanziamento ci serve l’accordo di prodotto attuale."
+  },
+  "sig": {
+    "title": "Autorizzazione a fornire informazioni HYPOTEQ · obbligatoria",
+    "notSigned": "Non ancora firmato",
+    "notSignedSub": "Obbligatoria per ogni pratica. L’autorizzazione è precompilata con i Suoi dati.",
+    "signNow": "Firma ora digitalmente",
+    "sendLink": "Invia link al cliente",
+    "paper": "Preferisce la carta?",
+    "download": "Scarica precompilato",
+    "uploadSigned": "Carica firmato",
+    "signedBy": "Firmato da {name}",
+    "linkSent": "Link inviato a {email}",
+    "pending": "Firma in sospeso · promemoria dopo 2 e 5 giorni",
+    "uploaded": "Autorizzazione firmata caricata",
+    "modalText": "Autorizzo HYPOTEQ a ottenere da banche, assicurazioni e autorità le informazioni necessarie per il finanziamento.",
+    "draw": "1 · Firmi qui (dito o mouse)",
+    "clear": "Cancella",
+    "code": "2 · Confermi con il codice",
+    "sendCode": "Invia codice via SMS",
+    "codePh": "Codice a 6 cifre",
+    "sign": "Firma",
+    "cancel": "Annulla",
+    "uploadTitle": "Non ancora caricata",
+    "uploadSub": "Obbligatoria per ogni pratica. Scarichi il modello, lo faccia firmare da tutti i mutuatari e lo carichi qui.",
+    "step1": "1 · Modello",
+    "step1Sub": "Precompilato con i dati di questa richiesta.",
+    "downloadBtn": "Scarica",
+    "step2": "2 · Firmare",
+    "step2Sub": "Da {name} – da tutti i mutuatari se sono più di uno.",
+    "step3": "3 · Caricare",
+    "step3Sub": "PDF o foto, ben leggibile.",
+    "received": "Autorizzazione firmata ricevuta",
+    "laterQ": "Il cliente firma più tardi?",
+    "later": "Inviare più tardi",
+    "laterState": "Sarà inviata più tardi",
+    "laterSub": "La pratica viene conclusa con «firma in sospeso». Senza firma nessuna richiesta va alla banca."
+  },
+  "mail": {
+    "subject": "La Sua richiesta di finanziamento {id} – {name}, {place}",
+    "next.sign": "Si prega di firmare l’autorizzazione",
+    "next.missing": "Mancano ancora questi documenti:",
+    "section.result": "Risultato",
+    "section.request": "Richiesta",
+    "section.borrowers": "Mutuatari",
+    "section.property": "Immobile",
+    "section.financing": "Finanziamento",
+    "section.more": "Altri dati",
+    "section.docs": "Documenti"
   }
 }

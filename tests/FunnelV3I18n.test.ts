@@ -18,6 +18,17 @@ describe("funnel-v3 messages", () => {
     for (const l of LANGS) expect(MESSAGES[l]).toMatchObject(delivered[l]);
   });
 
+  // v5 (docs/funnel-v5): a superset of the v3 delivery — mode cards, chips, Eigenmittel,
+  // Schnellanmeldung, Auskunftsermächtigung, mail sections.
+  it("contain the v5 i18n delivery, unchanged", () => {
+    const delivered = JSON.parse(
+      fs.readFileSync(path.join(__dirname, "..", "docs", "funnel-v5", "HYPOTEQ_Funnel_i18n.json"), "utf8")
+    );
+    for (const l of LANGS) expect(MESSAGES[l]).toMatchObject(delivered[l]);
+    expect(MESSAGES.de.chip.steuer).toBe("Interesse an Steueroptimierung");
+    expect(MESSAGES.fr.opt["nutz.Gewerbe"]).toBeTruthy();
+  });
+
   it("every German key exists in en, fr and it", () => {
     const de = allKeys("de");
     expect(de.length).toBeGreaterThan(250);

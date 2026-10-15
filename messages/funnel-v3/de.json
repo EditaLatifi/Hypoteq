@@ -11,7 +11,9 @@
     "stepProgress": "Schritt {n} von {total}",
     "toDocs": "Zu den Unterlagen",
     "toFinish": "Zum Abschluss",
-    "remove": "Entfernen"
+    "remove": "Entfernen",
+    "timeLeft": "noch ca. {time} Min.",
+    "stepOfN": "Schritt {n} von {total}"
   },
   "start": {
     "title": "Finanzierungsanfrage in wenigen Minuten.",
@@ -23,7 +25,16 @@
     "client.title": "Kunde selbst",
     "client.sub": "Ich stelle meine eigene Finanzierungsanfrage.",
     "cta": "Starten →",
-    "claim": "Hypotheken sind dank HYPOTEQ vergleichbar geworden. Ihr Berater ist hingegen einzigartig.®"
+    "claim": "Hypotheken sind dank HYPOTEQ vergleichbar geworden. Ihr Berater ist hingegen einzigartig.®",
+    "mode.fast.eyebrow": "Unterlagen zuerst",
+    "mode.fast.title": "Schnellanmeldung",
+    "mode.fast.sub": "Ich habe die Unterlagen schon. Ordner hochladen – wir füllen den Rest aus.",
+    "mode.fast.time": "ca. 1 Minute + Upload",
+    "mode.guided.eyebrow": "Schritt für Schritt",
+    "mode.guided.title": "Begleitete Anmeldung",
+    "mode.guided.sub": "Ein paar Fragen. Wir sagen dir sofort, welche Unterlagen es braucht.",
+    "mode.guided.time": "ca. 3 Minuten",
+    "recommended": "Empfohlen"
   },
   "side": {
     "request": "Anfrage",
@@ -36,7 +47,9 @@
     "submittedBy": "Erfasst von {name}",
     "newPartner": "neuer Partner",
     "done": "Erledigt",
-    "fulfilled": "{ok} von {total} erfüllt"
+    "fulfilled": "{ok} von {total} erfüllt",
+    "toFast": "Unterlagen schon bereit? Zur Schnellanmeldung",
+    "toGuided": "Lieber Schritt für Schritt"
   },
   "step": {
     "1": "Allgemeines",
@@ -50,7 +63,11 @@
     "why.3": "Bestimmt die Personenunterlagen",
     "why.4": "Belehnung, Tragbarkeit, Eigenmittel",
     "why.5": "Wir lesen alles aus",
-    "why.6": "Prüfen und abschliessen"
+    "why.6": "Prüfen und abschliessen",
+    "b2": "Objekt & Finanzierung",
+    "b4": "Unterlagen & Abschluss",
+    "s1": "Kontakt",
+    "s3": "Prüfen & abschliessen"
   },
   "s1": {
     "title": "Neue Finanzierungsanfrage",
@@ -113,7 +130,10 @@
     "schenkung": "Schenkung",
     "erbe": "Erbschaft / Erbvorbezug",
     "darlehen": "Darlehen",
-    "pk": "Pensionskasse (Vorbezug oder Verpfändung)"
+    "pk": "Pensionskasse (Vorbezug oder Verpfändung)",
+    "chips": "Trifft etwas davon zu?",
+    "chipsMore": "Trifft noch etwas zu?",
+    "chips.hint": "Nichts angetippt heisst: trifft nicht zu."
   },
   "opt": {
     "anrede.Herr": "Herr",
@@ -146,7 +166,8 @@
     "laufzeit.3 Jahre": "3 Jahre",
     "laufzeit.5 Jahre": "5 Jahre",
     "laufzeit.10 Jahre": "10 Jahre",
-    "laufzeit.Mix": "Mix"
+    "laufzeit.Mix": "Mix",
+    "nutz.Gewerbe": "Gewerbe"
   },
   "s2": {
     "title": "Was finanzieren wir?",
@@ -159,7 +180,12 @@
     "increase": "Gewünschte Erhöhung",
     "purpose": "Verwendungszweck der Erhöhung",
     "purposePh": "Wofür wird die Erhöhung verwendet?",
-    "price": "Kaufpreis"
+    "price": "Kaufpreis",
+    "rentIncome": "Jährlicher Netto-Mietertrag",
+    "purchaseDate": "Kaufdatum",
+    "renoAmount": "Renovationsbetrag",
+    "valueIsPrice": "Entspricht dem Kaufpreis – nur ändern, wenn er abweicht",
+    "bauprojektOff": "Bei einer Ablösung ist ein Bauprojekt nicht möglich."
   },
   "s3": {
     "title": "Wer finanziert?",
@@ -173,7 +199,9 @@
     "jpNote": "UID, Sitz und Zeichnungsberechtigung lesen wir aus dem Handelsregisterauszug.",
     "guarantorName": "Solidarbürge · Vorname Name",
     "firstNames": "Vorname(n)",
-    "namePh": "Vorname Name"
+    "namePh": "Vorname Name",
+    "addBorrower2": "+ Kreditnehmer hinzufügen",
+    "remove": "Entfernen"
   },
   "s4": {
     "title": "Finanzierung",
@@ -222,7 +250,11 @@
     "filesOf": "{n} von {total} Dateien",
     "storedAs": "Wird gespeichert als",
     "original": "Original: {name}",
-    "rename": "Namen ändern"
+    "rename": "Namen ändern",
+    "drop2": "Einzelne Dateien oder ganzen Ordner hier ablegen",
+    "dropSub2": "Einzelne Dokumente oder einen ganzen Ordner mit allen Unterlagen. PDF, JPG, PNG. Du musst nicht angeben, was welches Dokument ist.",
+    "pickFiles": "Dateien auswählen",
+    "pickFolder": "Ganzen Ordner auswählen"
   },
   "act": {
     "upload": "Hochladen",
@@ -251,7 +283,10 @@
     "required": "Pflicht",
     "perBorrower": "Pflicht · pro Kreditnehmer",
     "ifAvailable": "Falls vorhanden",
-    "because": "weil: {reason}"
+    "because": "weil: {reason}",
+    "bonus": "weil: variabler Lohnanteil erkannt",
+    "raise": "weil: Lohnerhöhung erkannt",
+    "age50": "weil: ab 50 (aus ID)"
   },
   "grp": {
     "objekt": "Zum Objekt",
@@ -308,7 +343,12 @@
     "pkvorbezug": "Bestätigung PK-Vorbezug / Verpfändung",
     "schenkung": "Schenkungsvertrag",
     "erbe": "Erbschaftsbestätigung",
-    "darlehen": "Darlehensvertrag"
+    "darlehen": "Darlehensvertrag",
+    "produkt": "Aktuelle Produktvereinbarung",
+    "reno_liste": "Aufstellung der Renovationen (Betrag und Ort, z.B. Küche, Bad, Fassade)",
+    "lohnausweis1": "Aktueller Lohnausweis",
+    "lohnausweise_alt": "Lohnausweise der zwei Vorjahre",
+    "pkverp": "Bestätigung PK-Verpfändung"
   },
   "sug": {
     "loan.title": "Wir haben einen Kredit- oder Leasingvertrag erkannt.",
@@ -485,7 +525,9 @@
     "retry": "Erneut versuchen",
     "dossierLoading": "Dossier wird erstellt …",
     "doneTitleNoId": "Die Anfrage ist bei HYPOTEQ.",
-    "customer": "Der Kunde"
+    "customer": "Der Kunde",
+    "finishBlocked": "Erst Auskunftsermächtigung unterzeichnen",
+    "finishBlockedUpload": "Erst Auskunftsermächtigung hochladen"
   },
   "rail": {
     "title": "Deine Unterlagen",
@@ -529,5 +571,110 @@
     "erbe": "Erbschaft",
     "darlehen": "Darlehen",
     "pk": "Pensionskasse"
+  },
+  "chip": {
+    "unterhalt": "Unterhaltszahlungen",
+    "kredite": "Privatkredit",
+    "leasing": "Leasing",
+    "buerge": "Solidarbürgschaft",
+    "baurecht": "Liegenschaft im Baurecht",
+    "angebote": "Bestehende Finanzierungsangebote",
+    "steuer": "Interesse an Steueroptimierung",
+    "fromDoc": "aus Dokument"
+  },
+  "em": {
+    "title": "Eigenmittel – Aufteilung",
+    "titleAbl": "Vorsorge",
+    "sub": "Nur ausfüllen, was zutrifft. Jeder Betrag fordert das passende Dokument an.",
+    "spar": "Ersparnisse / Bankguthaben",
+    "s3a": "Säule 3a",
+    "pkVor": "PK-Vorbezug",
+    "pkVerp": "PK-Verpfändung",
+    "pkVerp.hint": "Sicherheit, zählt nicht zu den Eigenmitteln",
+    "schenk": "Schenkung",
+    "erbe": "Erbvorbezug",
+    "darl": "Darlehen",
+    "total": "Eigenmittel total {amount} · davon hart {hard}",
+    "hardMin": "mind. 10 % des Kaufpreises nötig"
+  },
+  "calc": {
+    "byPrice": "Max. 80 % des tieferen Werts von Kaufpreis und Schätzwert",
+    "incNote": "Tragbarkeit erscheint, sobald das Einkommen erfasst ist."
+  },
+  "fast": {
+    "s1.title": "Schnellanmeldung",
+    "s1.lead": "Nur die E-Mail-Adressen. Name, Anrede und Geburtsdatum lesen wir aus der ID.",
+    "s2.lead": "Einzelne Dokumente oder einen ganzen Ordner mit allen Unterlagen. Rechts füllt sich die Anfrage, während wir lesen.",
+    "rail.title": "Deine Anfrage füllt sich",
+    "rail.text": "Angaben aus deinen Unterlagen übernommen. Du musst sie nicht mehr eintippen.",
+    "s3.title": "Prüfen und ergänzen",
+    "s3.lead": "Was in den Unterlagen steht, ist schon eingetragen. Es fehlen nur noch die Angaben unten.",
+    "open": "Noch {n} Angaben",
+    "openSub": "Das steht in keinem Dokument.",
+    "taken": "Aus deinen Unterlagen übernommen",
+    "extra": "Zusätzlich erkannt · für Bestätigungsmail und Salesforce",
+    "confirm": "Bestätigen",
+    "edit": "Ändern",
+    "pleaseConfirm": "Bitte bestätigen",
+    "prefill": "{n} Angaben aus deinen Unterlagen vorausgefüllt – markiert mit «aus Dokument». Bitte prüfen und ergänzen.",
+    "fromDocUnsure": "aus Dokument · bitte prüfen",
+    "missingTitle": "Fehlende Unterlagen",
+    "missingDrop": "Fehlende Unterlagen hier ablegen",
+    "allComplete": "Alle Unterlagen sind vollständig. Es fehlt nichts mehr.",
+    "toRequest": "Weiter zur Anfrage",
+    "toMissing": "Zu den fehlenden Unterlagen"
+  },
+  "nn": {
+    "vermoegen": "Eigenmittelnachweis ist nur bei einem Kauf nötig.",
+    "hyp_sicher": "Schuldbrief / Sicherungsvereinbarung wird nicht benötigt.",
+    "hyp_rahmen": "Für die Ablösung brauchen wir die aktuelle Produktvereinbarung."
+  },
+  "sig": {
+    "title": "HYPOTEQ Auskunftsermächtigung · Pflicht",
+    "notSigned": "Noch nicht unterzeichnet",
+    "notSignedSub": "Pflicht für jeden Fall. Die Ermächtigung ist mit deinen Angaben vorausgefüllt.",
+    "signNow": "Jetzt digital unterzeichnen",
+    "sendLink": "Link an Kunden senden",
+    "paper": "Lieber auf Papier?",
+    "download": "Vorausgefüllt herunterladen",
+    "uploadSigned": "Unterzeichnet hochladen",
+    "signedBy": "Unterzeichnet von {name}",
+    "linkSent": "Link an {email} gesendet",
+    "pending": "Unterschrift ausstehend · Erinnerung nach 2 und 5 Tagen",
+    "uploaded": "Unterzeichnete Auskunftsermächtigung hochgeladen",
+    "modalText": "Ich ermächtige HYPOTEQ, bei Banken, Versicherungen und Behörden die für die Finanzierung nötigen Auskünfte einzuholen.",
+    "draw": "1 · Hier unterschreiben (Finger oder Maus)",
+    "clear": "Löschen",
+    "code": "2 · Mit Code bestätigen",
+    "sendCode": "Code per SMS senden",
+    "codePh": "6-stelliger Code",
+    "sign": "Unterzeichnen",
+    "cancel": "Abbrechen",
+    "uploadTitle": "Noch nicht hochgeladen",
+    "uploadSub": "Pflicht für jeden Fall. Vorlage herunterladen, von allen Kreditnehmern unterzeichnen lassen, hier hochladen.",
+    "step1": "1 · Vorlage",
+    "step1Sub": "Mit den Angaben dieser Anfrage vorausgefüllt.",
+    "downloadBtn": "Herunterladen",
+    "step2": "2 · Unterzeichnen",
+    "step2Sub": "Von {name} – bei mehreren Kreditnehmern von allen.",
+    "step3": "3 · Hochladen",
+    "step3Sub": "PDF oder Foto, gut lesbar.",
+    "received": "Unterzeichnete Auskunftsermächtigung erhalten",
+    "laterQ": "Kunde unterschreibt später?",
+    "later": "Später nachreichen",
+    "laterState": "Wird nachgereicht",
+    "laterSub": "Der Fall wird mit «Unterschrift ausstehend» abgeschlossen. Ohne Unterschrift geht keine Anfrage an die Bank."
+  },
+  "mail": {
+    "subject": "Deine Finanzierungsanfrage {id} – {name}, {place}",
+    "next.sign": "Bitte Auskunftsermächtigung unterzeichnen",
+    "next.missing": "Diese Unterlagen fehlen noch:",
+    "section.result": "Ergebnis",
+    "section.request": "Antrag",
+    "section.borrowers": "Kreditnehmer",
+    "section.property": "Objekt",
+    "section.financing": "Finanzierung",
+    "section.more": "Weitere Angaben",
+    "section.docs": "Unterlagen"
   }
 }
