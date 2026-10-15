@@ -24,12 +24,46 @@ export function partnerCaseField(): string {
 }
 
 /**
- * Optional Case field holding a portal-specific status (e.g. Portal_Status__c). When unset,
- * the portal status is derived from Stage__c through lib/portal/status.ts.
+ * Case field holding a portal-specific status (DECISIONS P2). It is only read when the org
+ * describes it (lib/portal/salesforce.ts), so the portal runs unchanged until HYPOTEQ creates
+ * it; while it is empty on a Case, the status is derived through lib/portal/status.ts.
+ * PORTAL_SF_STATUS_FIELD renames it, "off" switches it off.
  */
 export function portalStatusField(): string | null {
-  return process.env.PORTAL_SF_STATUS_FIELD || null;
+  const v = (process.env.PORTAL_SF_STATUS_FIELD || "Portal_Status__c").trim();
+  return v && v.toLowerCase() !== "off" ? v : null;
 }
+
+/**
+ * The Salesforce fields the handoff names for the portal (admin partner detail). None exists
+ * in the org yet (checked 15.10.2026); they are described, never assumed.
+ */
+export const PORTAL_SF_FIELDS = {
+  access: "Portal_Access__c",
+  visible: "Portal_Visible__c",
+  status: "Portal_Status__c",
+  actionRequired: "Partner_Action_Required__c",
+  notify: "Send_Notification__c",
+} as const;
+
+/**
+ * Where partner messages and team notices go (DECISIONS P4). The UI names this address,
+ * so it is read in one place.
+ */
+export function teamAddress(): string {
+  return process.env.PORTAL_TEAM_EMAIL || process.env.SMTP_TO || "info@hypoteq.ch";
+}
+
+/** The mailbox portal e-mails are sent from. */
+export function mailFromAddress(): string {
+  return process.env.PORTAL_MAIL_FROM || process.env.SMTP_USER || "info@hypoteq.ch";
+}
+
+/** External tools of the sidebar and the dashboard; they open in a new tab. */
+export const PORTAL_TOOLS = {
+  valuation: "https://hypoteq-hedonic.wuestappraisal.com/",
+  academy: "https://hypoteq.talentlms.com/plus/login",
+} as const;
 
 /** Optional checkbox on Case (e.g. Portal_Visible__c); when set, only ticked Cases are shown. */
 export function portalVisibleField(): string | null {

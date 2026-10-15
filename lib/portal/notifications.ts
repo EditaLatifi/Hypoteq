@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { DICTS, isLocale, type Dict } from "@/lib/portal/i18n/dict";
 import { sendNotificationMail } from "@/lib/portal/mail";
 import type { PortalCaseSummary } from "@/lib/portal/salesforce";
+import { isRelabel } from "@/lib/portal/status";
 
 /**
  * Case notifications.
@@ -28,21 +29,43 @@ export function notifyPrefs(raw: unknown): Record<NotifyKind, boolean> {
   };
 }
 
-function variantFor(status: string): { kind: NotifyKind; variant: NotifyVariant } {
+/** Which e-mail switch governs a change to this status, and how it is worded. */
+export function variantFor(status: string): { kind: NotifyKind; variant: NotifyVariant } {
   switch (status) {
     case "Dokumente ausstehend":
       return { kind: "docs", variant: "docs" };
+    case "Nachbearbeitung notwendig":
+      return { kind: "docs", variant: "rework" };
     case "Bei Kreditgeber":
       return { kind: "lender", variant: "lender_sent" };
     case "Rückmeldung erhalten":
       return { kind: "lender", variant: "lender_answer" };
+    case "Finanzierung bestätigt":
+      return { kind: "lender", variant: "confirmed" };
     case "Abgeschlossen":
       return { kind: "status", variant: "closed" };
-    case "Nicht weiterverfolgt":
-      return { kind: "status", variant: "lost" };
+    case "Abgelehnt":
+      return { kind: "status", variant: "declined" };
+    case "Storniert":
+      return { kind: "status", variant: "cancelled" };
     default:
       return { kind: "status", variant: "status" };
   }
+}
+
+/**
+ * What a Case change is worth telling the partner: a new status (unless it only renames the
+ * old one, lib/portal/status.ts isRelabel), else more documents missing than before.
+ */
+export function changeNotice(
+  prev: { status: string; missingCount: number } | undefined,
+  c: { status: string; missingCount: number },
+  firstSync: boolean
+): { kind: NotifyKind; variant: NotifyVariant } | null {
+  if (!prev) return firstSync ? null : { kind: "new_case", variant: "new_case" };
+  if (prev.status !== c.status && !isRelabel(prev.status, c.status)) return variantFor(c.status);
+  if (c.missingCount > prev.missingCount) return { kind: "docs", variant: c.status === "Nachbearbeitung notwendig" ? "rework" : "docs" };
+  return null;
 }
 
 export function notifText(t: Dict, n: { variant: string; caseNr: string; kunde: string; status: string | null }): { title: string; text: string } {
@@ -68,13 +91,8 @@ export async function syncNotifications(
     const prev = byId.get(c.id);
     const missingCount = c.missingDocs.length;
 
-    if (!prev) {
-      if (!firstSync) created.push({ kind: "new_case", variant: "new_case", c });
-    } else if (prev.status !== c.status) {
-      created.push({ ...variantFor(c.status), c });
-    } else if (missingCount > prev.missingCount) {
-      created.push({ kind: "docs", variant: "docs", c });
-    }
+    const notice = changeNotice(prev, { status: c.status, missingCount }, firstSync);
+    if (notice) created.push({ ...notice, c });
 
     if (!prev || prev.status !== c.status || prev.missingCount !== missingCount) {
       await prisma.portalCaseSeen.upsert({

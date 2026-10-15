@@ -1,6 +1,7 @@
 import { Client } from "@microsoft/microsoft-graph-client";
 import { ClientSecretCredential } from "@azure/identity";
 import "isomorphic-fetch";
+import { mailFromAddress, teamAddress } from "@/lib/portal/config";
 import { DICTS, isLocale, type Dict } from "@/lib/portal/i18n/dict";
 
 /**
@@ -62,7 +63,7 @@ function layout(p: { lang: string; t: Dict; origin: string; heading: string; par
 </body></html>`;
 }
 
-async function send(to: string, subject: string, html: string, devLink: string): Promise<void> {
+async function send(to: string, subject: string, html: string, devLink: string, cc: string[] = []): Promise<void> {
   const client = getGraphMailClient();
   if (!client) {
     if (process.env.NODE_ENV !== "production") {
@@ -72,12 +73,13 @@ async function send(to: string, subject: string, html: string, devLink: string):
     }
     throw new Error("Portal mail cannot be sent: Microsoft Graph is not configured");
   }
-  const sendAsUser = process.env.PORTAL_MAIL_FROM || process.env.SMTP_USER || "info@hypoteq.ch";
-  await client.api(`/users/${sendAsUser}/sendMail`).post({
+  const copies = cc.filter((a) => a && a.toLowerCase() !== to.toLowerCase());
+  await client.api(`/users/${mailFromAddress()}/sendMail`).post({
     message: {
       subject,
       body: { contentType: "HTML", content: html },
       toRecipients: [{ emailAddress: { address: to } }],
+      ...(copies.length ? { ccRecipients: copies.map((address) => ({ emailAddress: { address } })) } : {}),
     },
     saveToSentItems: true,
   });
@@ -159,13 +161,13 @@ export async function sendNotificationMail(p: {
 }
 
 /** Internal mail to the HYPOTEQ team (the Case owner, or PORTAL_TEAM_EMAIL). Always German. */
-export async function sendTeamMail(p: { to: string | null; subject: string; lines: string[]; origin: string; link?: string }) {
-  const to = p.to || process.env.PORTAL_TEAM_EMAIL || process.env.SMTP_TO || "info@hypoteq.ch";
+export async function sendTeamMail(p: { to: string | null; cc?: string[]; subject: string; lines: string[]; origin: string; link?: string }) {
+  const to = p.to || teamAddress();
   const html = `<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8" /></head>
 <body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;color:#132219;padding:16px;">
   <p style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#7BA228;margin:0 0 12px;">Partnerportal</p>
   ${p.lines.map((l) => `<p style="font-size:15px;line-height:1.5;margin:0 0 10px;white-space:pre-wrap;">${esc(l)}</p>`).join("")}
   ${p.link ? `<p style="margin-top:16px;"><a href="${esc(p.link)}">${esc(p.link)}</a></p>` : ""}
 </body></html>`;
-  await send(to, p.subject, html, p.link || "");
+  await send(to, p.subject, html, p.link || "", p.cc);
 }

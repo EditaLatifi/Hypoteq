@@ -33,7 +33,7 @@ export function LanguageSwitch({ className = "" }: { className?: string }) {
           title={DICTS[l].langName}
           aria-pressed={l === locale}
           onClick={() => start(() => setLocaleAction(l))}
-          className={`h-8 min-w-[34px] rounded-full px-2 text-[12px] font-semibold uppercase tracking-[.06em] transition-colors ${
+          className={`h-11 min-w-[44px] rounded-full px-2 min-[900px]:h-8 min-[900px]:min-w-[34px] text-[12px] font-semibold uppercase tracking-[.06em] transition-colors ${
             l === locale ? "bg-white/[.14] text-white" : "text-white/60 hover:text-white"
           }`}
         >

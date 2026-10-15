@@ -1,6 +1,7 @@
 import { DOCUMENT_CATALOG } from "@/components/funnelDocumentCatalog";
 import { visibleDocumentKeys, type DocumentFlags } from "@/components/funnelDocumentSections";
 import { DOKUMENTEN_CHECK_MAP } from "@/components/dokumentenCheckState";
+import { getRequirement, requirementForLegacyKey, type ReqGroup } from "@/lib/funnel-v3/requirements";
 
 /**
  * Which documents a Case still needs, for Cases the funnel did not create.
@@ -46,7 +47,17 @@ const KEYS_BY_SF_FLAG: Map<string, string[]> = (() => {
   return m;
 })();
 
-type Checklist = { filters?: Record<string, unknown>; checked?: Record<string, boolean> } | null;
+/** The funnel documents a «Dokumenten-Check» entry ("<Sektion>|<Label>") stands for. */
+export function keysForTabEntry(entry: string): string[] {
+  return KEYS_BY_TAB_ENTRY.get(entry) || [];
+}
+
+/** The funnel documents a Dok_*__c checkbox stands for. */
+export function keysForSfFlag(field: string): string[] {
+  return KEYS_BY_SF_FLAG.get(field) || [];
+}
+
+type Checklist = { filters?: Record<string, unknown>; checked?: Record<string, boolean>; requirements?: unknown } | null;
 
 export function parseChecklist(raw: unknown): Checklist {
   if (typeof raw !== "string" || !raw) return null;
@@ -125,4 +136,43 @@ export function presentKeys(rec: any, checklist: Checklist, uploadedKeys: string
 export function outstandingKeys(rec: any, checklist: Checklist, uploadedKeys: string[]): string[] {
   const present = presentKeys(rec, checklist, uploadedKeys);
   return visibleDocumentKeys(flagsForCase(rec, checklist)).filter((k) => !IF_EXISTING.has(k) && !present.has(k));
+}
+
+export type ReworkDoc = { key: string; state: "neu" | "ungueltig"; label: string; person: string | null };
+
+/**
+ * Documents HYPOTEQ asks for again (DECISIONS P3). Only the Funnel v3 checklist
+ * (Dokumenten_Check_State__c `requirements`) can say so: an outdated document there is
+ * «Neu erforderlich»; «invalid» is read too, for when a caseworker tool starts writing it.
+ * A document the partner has uploaded again since is no longer asked for.
+ */
+export function reworkDocs(checklist: Checklist, uploadedKeys: string[] = []): ReworkDoc[] {
+  const reqs = Array.isArray(checklist?.requirements) ? (checklist!.requirements as any[]) : [];
+  const out: ReworkDoc[] = [];
+  for (const r of reqs) {
+    if (!r || typeof r.id !== "string" || !r.id) continue;
+    const s = String(r.status || "").toLowerCase();
+    const state = s === "outdated" ? "neu" : s === "invalid" || s === "ungueltig" ? "ungueltig" : null;
+    if (!state || uploadedKeys.includes(r.id)) continue;
+    out.push({ key: r.id, state, label: typeof r.label === "string" ? r.label : r.id, person: typeof r.person === "string" && r.person ? r.person : null });
+  }
+  return out;
+}
+
+/** Who a per-person document belongs to, by requirement instance id (from the v3 checklist). */
+export function personsByKey(checklist: Checklist): Map<string, string> {
+  const reqs = Array.isArray(checklist?.requirements) ? (checklist!.requirements as any[]) : [];
+  return new Map(reqs.filter((r) => r && typeof r.id === "string" && typeof r.person === "string" && r.person).map((r) => [r.id, r.person]));
+}
+
+export type DocCategory = ReqGroup | "weitere";
+export const DOC_CATEGORIES: DocCategory[] = ["person", "objekt", "hypothek", "eigenmittel", "weitere"];
+
+/**
+ * The section a document is listed under on the Case page: the Funnel v3 group of the
+ * requirement a key stands for (v3 instance id or old `funnel.*` key), else «Weitere».
+ */
+export function docCategory(key: string | null | undefined): DocCategory {
+  if (!key) return "weitere";
+  return (getRequirement(key) || requirementForLegacyKey(key))?.group ?? "weitere";
 }

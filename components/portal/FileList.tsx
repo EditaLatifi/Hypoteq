@@ -64,10 +64,10 @@ export default function FileList({ caseId, files, empty }: { caseId: string; fil
                 </span>
               </button>
               <div className="flex flex-none items-center gap-1">
-                <button type="button" onClick={() => setOpen(f)} className={`${btn.ghost} h-9 px-2 text-[15px]`}>
+                <button type="button" onClick={() => setOpen(f)} className={`${btn.ghost} h-11 rounded-full px-2 text-[15px] min-[900px]:h-9`}>
                   <Eye size={18} /> {t.caseDetail.view}
                 </button>
-                <a href={download(f)} aria-label={`${t.caseDetail.download}: ${f.name}`} title={t.caseDetail.download} className="grid h-9 w-9 place-items-center rounded-full hover:bg-white/[.08]">
+                <a href={download(f)} aria-label={`${t.caseDetail.download}: ${f.name}`} title={t.caseDetail.download} className="grid h-11 w-11 place-items-center rounded-full hover:bg-white/[.08] min-[900px]:h-9 min-[900px]:w-9">
                   <Download size={18} />
                 </a>
               </div>
@@ -90,7 +90,7 @@ export default function FileList({ caseId, files, empty }: { caseId: string; fil
                 <a href={download(open)} className={`${btn.ghost} h-9 px-2 text-[14px]`}>
                   <Download size={17} /> <span className="hidden sm:inline">{t.caseDetail.download}</span>
                 </a>
-                <button type="button" onClick={() => setOpen(null)} aria-label={t.common.close} className="grid h-9 w-9 place-items-center rounded-full hover:bg-white/[.08]">
+                <button type="button" onClick={() => setOpen(null)} aria-label={t.common.close} className="grid h-11 w-11 place-items-center rounded-full hover:bg-white/[.08]">
                   <X size={20} />
                 </button>
               </div>

@@ -1,0 +1,82 @@
+/*
+ * Partnerportal styles that Tailwind classes cannot express well. Everything is scoped to
+ * .hq-portal (the portal's root element, app/portal/layout.tsx), so the public site is
+ * untouched. Tokens: docs/partner-portal/handoff-2026-10-14/design-tokens.
+ */
+
+/* Keyboard focus is always visible (handoff «Design Tokens»: Fokus). :focus-visible keeps
+   mouse clicks ring-free; text fields match it on every focus, which is intended. The
+   :is() argument list is specific enough to win over Tailwind's outline-none and
+   focus:shadow utilities, and over the site-wide select rule in styles/globals.css. */
+.hq-portal :is(a, button, input, select, textarea, summary, [role="button"], [role="option"], [tabindex]:not([tabindex="-1"])):focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(202, 244, 118, 0.55);
+}
+
+/* On a lime or white surface a lime ring disappears; the forest ring takes over there. */
+.hq-portal :is(.hq-on-lime, .hq-on-light) :is(a, button, input, select, textarea, [role="button"], [tabindex]:not([tabindex="-1"])):focus-visible {
+  box-shadow: 0 0 0 3px rgba(19, 34, 25, 0.55);
+}
+
+/* Fade in, 10 px up (handoff «Motion»: 420 ms, no bounce, no scaling). No fill mode on
+   purpose: once it has run, nothing of it stays applied, so the page wrapper does not keep a
+   transform — that would trap the fixed dialogs inside it under the sticky header. */
+@keyframes hq-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.hq-portal .hq-in {
+  animation: hq-in 0.42s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hq-portal .hq-in {
+    animation: none;
+  }
+}
+
+/* Timeline labels break only at the soft hyphens in the dictionary. */
+.hq-portal .hq-hyphens {
+  -webkit-hyphens: manual;
+  hyphens: manual;
+  overflow-wrap: normal;
+}
+
+/* The search field clears with its own button style, not the browser's. */
+.hq-portal input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+
+/* Skip link: off-screen until it receives keyboard focus. */
+.hq-portal .hq-skip {
+  position: absolute;
+  left: 12px;
+  top: -100px;
+  z-index: 80;
+}
+.hq-portal .hq-skip:focus-visible {
+  top: 12px;
+}
+
+/* Checkboxes (activation: privacy, terms). styles/globals.css takes every input's native
+   look away, which left these as invisible boxes; they are drawn here. */
+.hq-portal input[type="checkbox"] {
+  display: inline-grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid rgba(255, 255, 255, 0.45);
+  border-radius: 6px;
+  background: transparent;
+  transition: background-color 0.18s ease-out, border-color 0.18s ease-out;
+}
+.hq-portal input[type="checkbox"]:checked {
+  border-color: #caf476;
+  background: #caf476 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23132219' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center / 14px no-repeat;
+}
