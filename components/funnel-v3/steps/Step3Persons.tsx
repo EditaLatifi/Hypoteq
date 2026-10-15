@@ -13,9 +13,11 @@ import Choice from "../ui/Choice";
 import { AmountField, TextField } from "../ui/Fields";
 
 /**
- * Schritt 3 · Personen «Wer finanziert?» (spec 3). Up to three natural-person borrowers (D2)
- * with Beschäftigung and «Pensionskasse vorhanden?» per person (D3); a juristische Person
- * replaces the borrower block with Firma and zeichnungsberechtigte Person.
+ * Schritt 3 · Personen «Wer finanziert?» (spec 3). Kreditnehmer 1 and, once added,
+ * Kreditnehmer 2 (DECISIONS V8) with Beschäftigung and «Pensionskasse vorhanden?» per person
+ * (D3); a juristische Person replaces the borrower block with Firma and zeichnungsberechtigte
+ * Person. (v3 layout; the v5 chip question «Trifft etwas davon zu?» replaces these yes/no
+ * questions in the new step components.)
  */
 export default function Step3Persons() {
   const { t, opt } = useFunnelT();
@@ -28,14 +30,20 @@ export default function Step3Persons() {
   const show = new Set(visibleFields(3, state));
   const { ans, txt, fin, borrowers } = state;
   const jp = ans.kn === "Juristische Person";
-  const single = borrowers.length <= 1;
   const set = (k: keyof Answers) => (v: string) => setAns(k, v as never);
   const choice = (k: keyof Answers) => (
     <Choice qkey={k} value={ans[k] as string | undefined} onChange={set(k)} reqState={state} error={errors[k]} />
   );
 
-  const income = (label: string, hint: string) => (
-    <AmountField field="inc" label={label} hint={hint} value={fin.inc} onChange={(n) => setFin("inc", n)} error={errors.inc} />
+  const income = (key: "inc" | "inc2") => (
+    <AmountField
+      field={key}
+      label={t("s3.income")}
+      hint={key === "inc" ? t("s3.incomeHint") : undefined}
+      value={fin[key]}
+      onChange={(n) => setFin(key, n)}
+      error={errors[key]}
+    />
   );
 
   return (
@@ -79,8 +87,7 @@ export default function Step3Persons() {
               index={i}
               state={state}
               errors={errors}
-              income={single && i === 0 ? income(t("s3.income"), t("s3.incomeHint")) : null}
-              ab50={single && i === 0 ? choice("ab50") : null}
+              income={i === 0 ? income("inc") : i === 1 ? income("inc2") : null}
             />
           ))}
           {borrowers.length < MAX_BORROWERS ? (
@@ -91,14 +98,7 @@ export default function Step3Persons() {
               </button>
             </div>
           ) : null}
-          {!single ? (
-            <>
-              <div className="v3-two">{income(t("s4.householdIncome"), t("s3.incomeHint"))}</div>
-              {choice("ab50")}
-            </>
-          ) : null}
-          {choice("kinder")}
-          {show.has("unterhalt") ? <div className="v3-sub">{choice("unterhalt")}</div> : null}
+          {show.has("unterhalt") ? choice("unterhalt") : null}
         </>
       )}
 
@@ -128,14 +128,12 @@ function BorrowerCard({
   state,
   errors,
   income,
-  ab50,
 }: {
   borrower: Borrower;
   index: number;
   state: FunnelState;
   errors: StepErrors;
   income: ReactNode;
-  ab50: ReactNode;
 }) {
   const { t, opt } = useFunnelT();
   const setTxt = useFunnelV3((s) => s.setTxt);
@@ -173,6 +171,7 @@ function BorrowerCard({
           placeholder={t("s3.firstNames")}
           value={vor}
           onChange={(v) => name("vor", v)}
+          error={errors[`borrower.${index}.vor`]}
         />
         <TextField
           field={`borrower.${index}.nach`}
@@ -181,6 +180,7 @@ function BorrowerCard({
           placeholder={t("s1.lastName")}
           value={nach}
           onChange={(v) => name("nach", v)}
+          error={errors[`borrower.${index}.nach`]}
         />
         {income}
       </div>
@@ -203,7 +203,6 @@ function BorrowerCard({
           borrowerId={borrower.id}
         />
       ) : null}
-      {ab50}
     </div>
   );
 }

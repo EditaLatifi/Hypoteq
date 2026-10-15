@@ -11,7 +11,8 @@
  * the original names, because nothing has been renamed yet.
  */
 
-import { calcFinancing, AFFORDABILITY_LIMIT, AMORTISATION_THRESHOLD, AMORTISATION_YEARS, MAINTENANCE_RATE, STRESS_RATE, type CalcResult } from "../calc";
+import { calcForState, AFFORDABILITY_LIMIT, AMORTISATION_THRESHOLD, AMORTISATION_YEARS, MAINTENANCE_RATE, STRESS_RATE, type CalcResult } from "../calc";
+import type { StoredFunnelState } from "../legacy";
 import type { V3Analysis } from "../files";
 import { chf, date as fmtDate, pct } from "../format";
 import { interpolate, optionLabel, translate, type Lang, type Params } from "../i18n";
@@ -44,7 +45,9 @@ export interface DossierInput {
   caseNumber: string | null;
   /** Date of the closing (or of the draft). */
   date: Date;
-  state: Pick<FunnelState, "role" | "ans" | "txt" | "fin" | "borrowers">;
+  /** The answers (v5 shape; legacy.ts reads a stored v3 one into it). */
+  state: Pick<FunnelState, "role" | "ans" | "txt" | "fin" | "borrowers"> &
+    Partial<Pick<StoredFunnelState, "em" | "info" | "legacyEquity" | "legacy">>;
   files: DossierFile[];
   /** Instance ids marked «Habe ich nicht». */
   skipped?: string[];
@@ -186,8 +189,10 @@ export function buildDossierModel(input: DossierInput): DossierModel {
   const filesOf = (r: RequirementStatus) => r.fileIds.map((id) => byId.get(id)).filter((f): f is DossierFile => !!f);
   const filesOfReq = (id: string) => status.requirements.filter((r) => r.instance.id === id).flatMap(filesOf);
 
-  const calc = calcFinancing({ antrag: ans.antrag, aufstockung: ans.aufstockung, old: fin.old, up: fin.up, val: fin.val, inc: fin.inc, kn: ans.kn });
-  const bank = (filesOfReq("hyp_zins").concat(filesOfReq("hyp_rahmen"), filesOfReq("hyp_sicher")).map((f) => str(f.analysis?.bank)).find(Boolean)) || "";
+  const calc = calcForState(state);
+  const info = state.info ?? {};
+  const legacy = state.legacy ?? {};
+  const bank = filesOfReq("hyp_zins").concat(filesOfReq("produkt")).map((f) => str(f.analysis?.bank)).find(Boolean) || str(info.bank);
 
   const caseLabel = input.caseNumber || (input.draft ? T.draft : "–");
   const today = fmtDate(input.date);
@@ -255,9 +260,10 @@ export function buildDossierModel(input: DossierInput): DossierModel {
     { label: T.nutz, value: opt("nutz", ans.nutz) || "–" },
   ];
   const s2Right: KeyValue[] = [
-    { label: T.heating, value: opt("heizung", ans.heizung) || "–" },
+    // v5: read from the documents, no longer asked (a v3 inquiry's answer is in `info` too).
+    { label: T.heating, value: str(info.heizung) || "–" },
     { label: T.buildingRight, value: yesNo(ans.baurecht) },
-    { label: T.value, value: fin.val > 0 ? chf(fin.val) : "–" },
+    { label: T.value, value: calc.value > 0 ? chf(calc.value) : "–" },
   ];
   const objectFacts = factRows(status, byId, "objekt", 6);
   objectFacts.forEach((kv, i) => (i % 2 ? s2Right : s2Left).push(kv));
@@ -276,9 +282,10 @@ export function buildDossierModel(input: DossierInput): DossierModel {
       s3Left.push({ label: d(T.borrower, { n: i + 1 }), value: [name, born, nat].filter(Boolean).join(" · ") });
       s3Left.push({ label: T.job, value: [opt("job", b.job) || "–", b.job === "Selbständig" ? `${T.pkSe}: ${yesNo(b.pkSe)}` : ""].filter(Boolean).join(" · ") });
     });
-    s3Left.push({ label: T.ab50, value: yesNo(ans.ab50) });
-    s3Right.push({ label: T.income, value: fin.inc > 0 ? chf(fin.inc) : "–", strong: true });
-    s3Right.push({ label: T.children, value: yesNo(ans.kinder) });
+    // v5: «ab 50» from the ID, children from the tax return (Handover 4.2, 3.1); stored v3 answers as they were.
+    s3Left.push({ label: T.ab50, value: info.ab50 ? yesNo("Ja") : legacy.ab50 ? yesNo(legacy.ab50) : info.geb ? yesNo("Nein") : "–" });
+    s3Right.push({ label: T.income, value: calc.income > 0 ? chf(calc.income) : "–", strong: true });
+    s3Right.push({ label: T.children, value: str(info.kinder) || (legacy.kinder ? yesNo(legacy.kinder) : "–") });
     s3Right.push({ label: T.maintenance, value: yesNo(ans.unterhalt) });
   }
   s3Right.push({ label: T.loans, value: yesNo(ans.kredite) });
@@ -288,8 +295,8 @@ export function buildDossierModel(input: DossierInput): DossierModel {
   // ---- 04 Finanzierung und Tragbarkeit
   const need = calc.need;
   const interest = need * STRESS_RATE;
-  const amort = Math.max(need - fin.val * AMORTISATION_THRESHOLD, 0) / AMORTISATION_YEARS;
-  const running = fin.val * MAINTENANCE_RATE;
+  const amort = Math.max(need - calc.basis * AMORTISATION_THRESHOLD, 0) / AMORTISATION_YEARS;
+  const running = calc.basis * MAINTENANCE_RATE;
   const burden = interest + amort + running;
   const costRows: TableCell[][] = [
     [{ text: d(T.interest, { need: chf(need) }) }, { text: chf(interest) }],
@@ -297,14 +304,18 @@ export function buildDossierModel(input: DossierInput): DossierModel {
     [{ text: T.maintenanceCost }, { text: chf(running) }],
     [{ text: T.totalBurden, strong: true }, { text: chf(burden), strong: true }],
   ];
-  if (!isJur) costRows.push([{ text: d(T.shareOfIncome, { inc: fin.inc > 0 ? chf(fin.inc) : "–" }), muted: true }, { text: `${pct(calc.affordability)} (max. ${AFFORDABILITY_LIMIT} %)` }]);
+  if (!isJur) costRows.push([{ text: d(T.shareOfIncome, { inc: calc.income > 0 ? chf(calc.income) : "–" }), muted: true }, { text: `${pct(calc.affordability)} (max. ${AFFORDABILITY_LIMIT} %)` }]);
   const verdictKey = calc.verdict === "ok" ? "s4.verdict.ok" : calc.verdict === "review" ? "s4.verdict.check" : "s4.verdict.missing";
+  // v5: the Eigenmittel table (entered rows with their amount); a stored v3 inquiry's yes/no answers.
+  const em = state.em;
+  const eq = state.legacyEquity ?? {};
   const sources = [
-    ans.s3a === "Ja" ? T.equity3a : "",
-    ans.pk === "Ja" ? T.equityPk : "",
-    ans.schenkung === "Ja" ? T.equityGift : "",
-    ans.erbe === "Ja" ? T.equityInheritance : "",
-    ans.darlehen === "Ja" ? T.equityLoan : "",
+    ...(em ? (["spar", "s3a", "pkVor", "pkVerp", "schenk", "erbe", "darl"] as const).filter((k) => em[k] > 0).map((k) => `${t(`em.${k}`)} ${chf(em[k])}`) : []),
+    eq.s3a === "Ja" ? T.equity3a : "",
+    eq.pk === "Ja" ? T.equityPk : "",
+    eq.schenkung === "Ja" ? T.equityGift : "",
+    eq.erbe === "Ja" ? T.equityInheritance : "",
+    eq.darlehen === "Ja" ? T.equityLoan : "",
   ].filter(Boolean);
   const s4Notes = [
     `${T.verdict}: ${t(verdictKey)}`,
@@ -328,7 +339,7 @@ export function buildDossierModel(input: DossierInput): DossierModel {
     {
       title: T.s4,
       band: [
-        { label: T.objectValue, value: fin.val > 0 ? chf(fin.val) : "–" },
+        { label: T.objectValue, value: calc.value > 0 ? chf(calc.value) : "–" },
         { label: T.newMortgage, value: chf(need), accent: true },
         { label: t("s4.ltv"), value: pct(calc.ltv) },
         { label: t("s4.aff"), value: pct(calc.affordability) },
@@ -341,6 +352,7 @@ export function buildDossierModel(input: DossierInput): DossierModel {
 
   // ---- Annex
   const reasonText = (reason: ReqReason): string => {
+    if (reason.key === "why.amount") return t("why.amount", { field: t(`em.${reason.field}`) });
     if (reason.key !== "why.because") return t(reason.key);
     const r = reason.conditions.map((c) => `${T.questions[c.question] ?? c.question} = ${opt(c.question, c.value) || c.value}`).join(" · ");
     return t("why.because", { reason: r });
@@ -421,6 +433,13 @@ const REASON_KEY_FROM_TEXT: Record<string, string> = {
   "Identischer Inhalt wie eine andere Datei – wird nicht doppelt gespeichert.": "docs.x.duplicate",
   "Die Anforderung ist bereits vollständig – wird im Dossier mitgeführt, zählt nicht.": "docs.x.full",
   "Ausserhalb der verlangten Jahre – wird im Dossier mitgeführt, zählt nicht.": "docs.x.period",
+  // placeFile.ts OLDER_SALARY_DE (Handover 4.2: older Lohnausweise without a bonus).
+  "Älterer Lohnausweis – nur bei variablem Lohnanteil nötig. Wird im Dossier mitgeführt.": "docs.x.olderSalary",
+  // The catalogue's «nicht benötigt» reasons of what v5 no longer asks (prototype NN).
+  "Nur nötig bei einer Lohnerhöhung im laufenden Jahr – keine erkannt.": "nn.anstellung",
+  "Eigenmittelnachweis ist nur bei einem Kauf nötig.": "nn.vermoegen",
+  "Schuldbrief / Sicherungsvereinbarung wird nicht benötigt.": "nn.hyp_sicher",
+  "Für die Ablösung brauchen wir die aktuelle Produktvereinbarung.": "nn.hyp_rahmen",
   "Für die Finanzierungsprüfung nicht erforderlich.": "docs.x.notneeded",
   "Passt zu keiner Anforderung der aktuellen Antworten.": "docs.x.offList",
   "Passt zu keiner Anforderung der aktuellen Antworten (Vorschlag abgelehnt).": "docs.x.dismissed",

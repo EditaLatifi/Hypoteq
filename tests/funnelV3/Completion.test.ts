@@ -102,14 +102,18 @@ describe("planFiles — stored names (spec 5.1)", () => {
 
   it("matches the spec examples", () => {
     expect(byName("03_Grundbuchauszug_Etzelstrasse_52_Waedenswil_2026_01_15.pdf").target).toBe("HQ-26-06-156283_03_Grundbuchauszug_2026-01-15.pdf");
-    expect(byName("01_Lohnausweis_Gary_Gerber_2024_Etzel_Liegenschaften_AG.pdf").target).toBe("HQ-26-06-156283_01_Lohnausweis_Gerber-Gary_2024_2.pdf");
+    // v5 P2: one current Lohnausweis, so no Nr; the spec's «_2024_2» example had three.
+    expect(byName("01_Lohnausweis_Gary_Gerber_2025.pdf").target).toBe("HQ-26-06-156283_01_Lohnausweis_Gerber-Gary_2025.pdf");
     expect(byName("03_Hypothek_Zinsabrechnung_ZKB_Gary_Gerber.pdf").target).toBe("HQ-26-06-156283_02_Zinsabrechnung_ZKB_2026-03-30.pdf");
     expect(byName("01_ID_Gary_Gerber.pdf").target).toBe("HQ-26-06-156283_01_ID_Gerber-Gary.pdf");
   });
 
   it("numbers several files of one requirement by document date", () => {
-    expect(byName("01_Lohnausweis_Gary_Gerber_2023.pdf").target).toBe("HQ-26-06-156283_01_Lohnausweis_Gerber-Gary_2023_1.pdf");
-    expect(byName("01_Lohnausweis_Gary_Gerber_2025.pdf").target).toBe("HQ-26-06-156283_01_Lohnausweis_Gerber-Gary_2025_3.pdf");
+    // E3 expects the policy and its Wertmitteilung.
+    expect(byName("01_Versicherung_Saeule3a_Police_1583886.pdf").target).toMatch(/_04_Vorsorgepolice-3a_1\.pdf$/);
+    expect(byName("01_Versicherung_Saeule3a_Wertmitteilung_1583886.pdf").target).toBe("HQ-26-06-156283_04_Vorsorgepolice-3a_2026-01-09_2.pdf");
+    // The older Lohnausweise are «überzählig» since v5 (no bonus recognised).
+    expect(byName("01_Lohnausweis_Gary_Gerber_2023.pdf").target).toBe("HQ-26-06-156283_01_ZUSATZ_Lohnausweis_Gerber-Gary_2023.pdf");
   });
 
   it("extras: _ZUSATZ_ for surplus and kept not-needed files; duplicates and not-needed are removed", () => {
@@ -137,7 +141,7 @@ describe("planFiles — stored names (spec 5.1)", () => {
     const a = planFiles(p.v3 as any, r, subs, CASE).map((x) => [x.row.id, x.target]);
     const b = planFiles(p.v3 as any, [...r].reverse(), subs, CASE).map((x) => [x.row.id, x.target]);
     expect(Object.fromEntries(a)).toEqual(Object.fromEntries(b));
-    expect(Object.fromEntries(a)["doc-twin"]).toBe("HQ-26-06-156283_01_ZUSATZ_Lohnausweis_Gerber-Gary_2022_2.pdf");
+    expect(Object.fromEntries(a)["doc-twin"]).toBe("HQ-26-06-156283_01_ZUSATZ_Lohnausweis_Gerber-Gary_2024_2.pdf");
   });
 
   it("no case number: nothing is renamed", () => {
@@ -225,10 +229,11 @@ describe("completeV3Inquiry", () => {
     expect(storedOf(f.updates, "doc-4")).toBe("HQ-26-06-156283_03_Grundbuchauszug_2026-01-15.pdf");
     expect(f.updates["doc-4"].find((u) => "storedName" in u)).toMatchObject({ fileName: "HQ-26-06-156283_03_Grundbuchauszug_2026-01-15.pdf", fileUrl: expect.stringContaining("Grundbuchauszug_2026-01-15") });
     expect(f.folder.has("hq-26-06-156283_01_id_gerber-gary.pdf")).toBe(true);
-    expect(res.files.filter((x) => x.storedName).length).toBe(28);
+    expect(res.files.filter((x) => x.storedName).length).toBe(25);
 
-    // deletes: duplicate and the not-needed Steuerrechnung; the row stays with an audit note
-    expect(f.removed.sort()).toEqual(["item-doc-28", "item-doc-29"]);
+    // deletes: duplicate and the not-needed files (Steuerrechnung; Anstellungsvertrag,
+    // Eigenmittelnachweis, Schuldbrief since v5); the row stays with an audit note
+    expect(f.removed.sort()).toEqual(["item-doc-24", "item-doc-25", "item-doc-26", "item-doc-28", "item-doc-29"]);
     const del = f.updates["doc-28"].find((u) => "driveItemId" in u);
     expect(del.driveItemId).toBeNull();
     expect(del.aiAnalysis.v3Completion).toEqual({ removed: true, reason: "duplicate", removedAt: "2026-06-02T12:00:00.000Z", driveItemId: "item-doc-28" });
@@ -323,7 +328,11 @@ describe("v3DocumentCaseFields", () => {
     expect(gb.status).toBe("ok");
     expect(gb.files[0]).toMatchObject({ originalName: "03_Grundbuchauszug_Etzelstrasse_52_Waedenswil_2026_01_15.pdf", storedName: "HQ-26-06-156283_03_Grundbuchauszug_2026-01-15.pdf", confidence: 0.95 });
     expect(gb.fields).toContainEqual({ key: "Eigentümer", value: "Gary Samuel Gerber", confidence: 0.97 });
-    expect(state.extras.map((e: any) => e.kind)).toEqual(["surplus", "duplicate", "notneeded", "notneeded"]);
+    expect(state.extras.map((e: any) => e.kind)).toEqual(["surplus", "surplus", "notneeded", "notneeded", "notneeded", "surplus", "duplicate", "notneeded", "notneeded"]);
+    // Handover 8: entry, signature (P0 on file), sources.
+    expect(state.entry).toBe("begleitet");
+    expect(state.signature).toEqual({ status: "uploaded", at: null, method: "upload" });
+    expect(state.sources).toEqual({});
     expect(state.hints).toHaveLength(4);
   });
 

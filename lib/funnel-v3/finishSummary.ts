@@ -11,12 +11,12 @@
  *     «Aus Dokumenten übernommen», each «Bestätigt» or «Offen» as in the prototype
  */
 
-import { calcFinancing, type CalcResult } from "./calc";
+import { calcForState, type CalcResult } from "./calc";
 import type { FileEntry, SubmittedDocument } from "./files";
 import { chf, pct } from "./format";
 import { optionLabel, translate, type Lang, type Params } from "./i18n";
 import type { BankHint, StatusResult } from "./requirementStatus";
-import type { FunnelState } from "./types";
+import { chipsFor, type FunnelState } from "./types";
 
 export interface FinishKpi {
   key: "need" | "ltv" | "aff" | "docs";
@@ -65,7 +65,7 @@ export interface FinishSummary {
 }
 
 export interface FinishSummaryInput {
-  state: Pick<FunnelState, "role" | "ans" | "txt" | "fin" | "borrowers">;
+  state: Pick<FunnelState, "role" | "ans" | "txt" | "fin" | "borrowers"> & Partial<Pick<FunnelState, "em">>;
   /** documentsSummary(state).status */
   status: StatusResult;
   files: FileEntry[];
@@ -97,11 +97,11 @@ export function finishSummary(input: FinishSummaryInput): FinishSummary {
   const { state, status, lang } = input;
   const t = (key: string, params?: Params) => translate(lang, key, params);
   const opt = (group: string, value: string | null | undefined) => optionLabel(lang, group, value);
-  const { ans, txt, fin } = state;
+  const { ans, txt } = state;
   const isAbl = ans.antrag === "Ablösung";
   const isJur = ans.kn === "Juristische Person";
 
-  const calc = calcFinancing({ antrag: ans.antrag, aufstockung: ans.aufstockung, old: fin.old, up: fin.up, val: fin.val, inc: fin.inc, kn: ans.kn });
+  const calc = calcForState(state);
 
   // ---- documents
   const total = status.counts.total;
@@ -137,14 +137,11 @@ export function finishSummary(input: FinishSummaryInput): FinishSummary {
     ? borrowerNames.join(" & ")
     : t(isJur ? "s6.kn.companyMissing" : "s6.kn.nameMissing");
 
+  // v5 (prototype finalChecks): name, income, then the chips that were tapped.
+  const tapped = chipsFor(ans.kn).filter((c) => ans[c] === "Ja").map((c) => t(`chip.${c}`));
   const knParts = isJur
-    ? [nameLine, txt.zeichner.trim(), ans.kredite === "Ja" || ans.leasing === "Ja" ? t("s6.kn.loans") : t("s6.kn.noLoans")].filter(Boolean)
-    : [
-        nameLine,
-        fin.inc > 0 ? t("s6.kn.gross", { amount: chf(fin.inc) }) : t("s6.kn.incomeMissing"),
-        ans.kinder === "Ja" ? t(ans.unterhalt === "Ja" ? "s6.kn.childrenMaint" : "s6.kn.children") : t("s6.kn.noChildren"),
-        ans.kredite === "Ja" || ans.leasing === "Ja" ? t("s6.kn.loans") : t("s6.kn.noLoans"),
-      ];
+    ? [nameLine, txt.zeichner.trim(), ...tapped].filter(Boolean)
+    : [nameLine, calc.income > 0 ? t("s6.kn.gross", { amount: chf(calc.income) }) : t("s6.kn.incomeMissing"), ...tapped];
 
   const docsSub = [
     t("s5.fulfilled", { ok: fulfilled, total }),
@@ -169,7 +166,7 @@ export function finishSummary(input: FinishSummaryInput): FinishSummary {
       key: "kreditnehmer",
       label: t("s6.check.kreditnehmer"),
       sub: knParts.join(" · "),
-      ok: borrowerNames.length > 0 && (isJur || fin.inc > 0),
+      ok: borrowerNames.length > 0 && (isJur || calc.income > 0),
     },
     {
       key: "trag",

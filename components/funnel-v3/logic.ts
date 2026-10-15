@@ -19,7 +19,7 @@ import {
   type ReqState,
   type RequirementInstance,
 } from "@/lib/funnel-v3/requirements";
-import { calcFinancing, type CalcInput, type CalcResult } from "@/lib/funnel-v3/calc";
+import { calcFinancing, calcInputOf as libCalcInputOf, type CalcInput, type CalcResult } from "@/lib/funnel-v3/calc";
 import { chf, pct } from "@/lib/funnel-v3/format";
 import { EMAIL_RE, type StepErrors } from "@/lib/funnel-v3/validate";
 
@@ -46,9 +46,9 @@ export const OPTIONS: Record<ChoiceKey, readonly string[]> = {
   anrede: ["Herr", "Frau"],
   immo: ["Bestehende Immobilie", "Neubau", "Bauprojekt"],
   nbDocs: YN,
-  lieg: ["Einfamilienhaus", "Stockwerkeigentum", "Mehrfamilienhaus", "Ferienobjekt"],
-  nutz: ["Selbstbewohnt", "Vermietet", "Zweitwohnsitz"],
-  heizung: ["Wärmepumpe", "Fernwärme", "Holz / Pellets", "Gas", "Öl", "Unbekannt"],
+  lieg: ["Einfamilienhaus", "Stockwerkeigentum", "Mehrfamilienhaus"],
+  // All four values; which a borrower type is offered: NUTZUNG_OPTIONS (types.ts).
+  nutz: ["Selbstbewohnt", "Vermietet", "Zweitwohnsitz", "Gewerbe"],
   baurecht: YN,
   aufstockung: YN,
   reno: YN,
@@ -56,18 +56,12 @@ export const OPTIONS: Record<ChoiceKey, readonly string[]> = {
   angebote: YN,
   job: ["Angestellt", "Selbständig", "Pensioniert"],
   pkSe: YN,
-  ab50: YN,
-  kinder: YN,
   unterhalt: YN,
   kredite: YN,
   leasing: YN,
   buerge: YN,
+  steuer: YN,
   laufzeit: ["SARON", "2 Jahre", "3 Jahre", "5 Jahre", "10 Jahre", "Mix"],
-  s3a: YN,
-  schenkung: YN,
-  erbe: YN,
-  darlehen: YN,
-  pk: YN,
 };
 
 /** Shown as large cards with an icon on desktop (chips on a phone), as in the prototype. */
@@ -76,11 +70,8 @@ export const CARD_KEYS: ReadonlySet<ChoiceKey> = new Set<ChoiceKey>(["antrag", "
 /** The hint line under a question, where the message file has one. */
 export const HINT_KEYS: Partial<Record<ChoiceKey, string>> = {
   nbDocs: "q.nbDocs.hint",
-  heizung: "q.heizung.hint",
   job: "q.job.hint",
-  ab50: "q.ab50.hint",
   kredite: "q.kredite.hint",
-  s3a: "q.s3a.hint",
 };
 
 type VisibleState = Pick<FunnelState, "role" | "ans" | "borrowers">;
@@ -96,19 +87,27 @@ export function visibleFields(step: number, state: VisibleState): string[] {
   const jp = a.kn === "Juristische Person";
   switch (step) {
     case 1:
+      // v5 (Handover 2 Schritt 1): a company gives Firma and signatory here; the phone in both roles.
       if (state.role === "berater") f.push("bmail");
-      f.push("antrag", "kn", "anrede", "vor", "nach", "mail");
-      if (state.role === "kunde") f.push("tel");
+      f.push("antrag", "kn");
+      if (jp) f.push("firma", "zeichner");
+      else f.push("anrede", "vor", "nach");
+      f.push("mail", "tel");
       break;
     case 2:
       f.push("plz", "ort", "immo", "lieg", "nutz");
       if (a.immo === "Neubau") f.push("nbDocs");
-      f.push("heizung", "baurecht");
+      if (a.nutz === "Vermietet") f.push("miete");
+      f.push("baurecht");
       if (a.antrag === "Ablösung") {
         f.push("old", "aufstockung");
         if (a.aufstockung === "Ja") f.push("up", "zweck");
       }
-      if (a.antrag === "Neue Hypothek") f.push("kaufpreis", "reno", "reserviert");
+      if (a.antrag === "Neue Hypothek") {
+        f.push("kaufpreis", "kaufdatum", "reno");
+        if (a.reno === "Ja") f.push("renoBetrag");
+        f.push("reserviert");
+      }
       f.push("angebote");
       break;
     case 3:
@@ -117,22 +116,18 @@ export function visibleFields(step: number, state: VisibleState): string[] {
         const list = state.borrowers.length ? state.borrowers : [null];
         list.forEach((b, i) => {
           f.push(`borrower.${i}.vor`, `borrower.${i}.nach`);
-          if (i === 0 && list.length === 1) f.push("inc");
+          if (i === 0) f.push("inc");
+          if (i === 1) f.push("inc2");
           f.push(`borrower.${i}.job`);
           if (b?.job === "Selbständig") f.push(`borrower.${i}.pkSe`);
-          if (i === 0 && list.length === 1) f.push("ab50");
         });
-        if (list.length > 1) f.push("inc", "ab50");
-        f.push("kinder");
-        if (a.kinder === "Ja") f.push("unterhalt");
+        f.push("unterhalt");
       }
       f.push("kredite", "leasing", "buerge");
       if (a.buerge === "Ja") f.push("buergeName");
       break;
     case 4:
-      f.push("val");
-      if (!jp) f.push("inc");
-      f.push("laufzeit", "s3a", "schenkung", "erbe", "darlehen", "pk", "kommentar");
+      f.push("val", "laufzeit", "kommentar");
       break;
   }
   return f;
@@ -186,16 +181,9 @@ export function deltaLabel(n: number, t: T): DeltaLabel | null {
 
 // ---- Calculation ----------------------------------------------------------------------------
 
-export function calcInputOf(state: Pick<FunnelState, "ans" | "fin">): CalcInput {
-  return {
-    antrag: state.ans.antrag,
-    aufstockung: state.ans.aufstockung,
-    old: state.fin.old,
-    up: state.fin.up,
-    val: state.fin.val,
-    inc: state.fin.inc,
-    kn: state.ans.kn,
-  };
+/** lib/funnel-v3/calc.ts calcInputOf — kept here for the step components. */
+export function calcInputOf(state: Pick<FunnelState, "ans" | "fin"> & Partial<Pick<FunnelState, "em" | "borrowers">>): CalcInput {
+  return libCalcInputOf(state);
 }
 
 export const VERDICT_KEY: Record<CalcResult["verdict"], string> = {
@@ -350,6 +338,7 @@ export function canOpenStep(n: number, visited: number): boolean {
 
 /** «weil: Baurecht = Ja» in the funnel language (reasonTextDe is the German one for Salesforce). */
 export function reasonLine(reason: ReqReason, t: T, opt: Opt): string {
+  if (reason.key === "why.amount") return t("why.amount", { field: t(`em.${reason.field}`) });
   if (reason.key !== "why.because") return t(reason.key);
   const text = reason.conditions.map((c) => `${t(`qs.${c.question}`)} = ${opt(c.question, c.value)}`).join(" · ");
   return t("why.because", { reason: text });

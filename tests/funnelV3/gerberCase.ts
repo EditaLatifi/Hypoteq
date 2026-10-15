@@ -1,15 +1,20 @@
 /**
- * Fall Gerber (spec header, sample dossier) as the closing step sees it: the answers of all
- * six steps and one analysed file per requirement, plus the «Weitere Dateien» of spec 4.3.
+ * Fall Gerber (Handover, sample dossier) as the closing step sees it: the answers of every
+ * screen and one analysed file per requirement of the v5 list (20, the Auskunftsermächtigung
+ * included), plus the «Weitere Dateien» of Handover 4.3 — among them what v5 no longer asks
+ * for (Schuldbrief, Anstellungsvertrag without a Lohnerhöhung, Eigenmittelnachweis at an
+ * Ablösung, the older Lohnausweise without a bonus).
  */
-import { DEFAULT_ANSWERS, EMPTY_AMOUNTS, EMPTY_TEXTS, type FunnelState } from "@/lib/funnel-v3/types";
+import { DEFAULT_ANSWERS, EMPTY_AMOUNTS, EMPTY_EM, EMPTY_TEXTS, type FunnelState } from "@/lib/funnel-v3/types";
 import type { FileEntry, V3Analysis } from "@/lib/funnel-v3/files";
+import { OLDER_SALARY_DE } from "@/lib/funnel-v3/placeFile";
 
 export const SUBMISSION = "6f1c2b9e-1d2a-4c3b-9e8f-0a1b2c3d4e5f";
 
 export function gerberState(over: Partial<FunnelState> = {}): FunnelState {
   return {
     role: "kunde",
+    mode: "begleitet",
     ans: {
       ...DEFAULT_ANSWERS,
       antrag: "Ablösung",
@@ -17,15 +22,17 @@ export function gerberState(over: Partial<FunnelState> = {}): FunnelState {
       immo: "Bestehende Immobilie",
       lieg: "Stockwerkeigentum",
       nutz: "Selbstbewohnt",
-      heizung: "Unbekannt",
       aufstockung: "Ja",
-      kinder: "Ja",
       unterhalt: "Ja",
       kredite: "Ja",
       leasing: "Ja",
       laufzeit: "3 Jahre",
-      s3a: "Ja",
     },
+    em: { ...EMPTY_EM, s3a: 10340 },
+    info: {},
+    src: {},
+    touched: {},
+    sig: null,
     borrowers: [{ id: "b1", vor: "Gary", nach: "Gerber", job: "Angestellt", pkSe: "Nein" }],
     txt: {
       ...EMPTY_TEXTS,
@@ -99,26 +106,26 @@ export function gerberFiles(): FileEntry[] {
     file("03_Gebaeudeversicherung_GVZ_Liegenschaft_2026.pdf", "gvz", analysis("gvz", { docDate: "2026-01-01", fields: { Kubatur: { value: "1497 m³", confidence: 0.9 } } })),
     file("03_STWE_Reglement_Liegenschaft_angepasst.pdf", "stwe_regl", analysis("stwe_regl")),
     file("03_Erneuerungsfonds_Auszug_Liegenschaft.pdf", "ef", analysis("ef", { docDate: "2025-12-31" })),
-    file("03_Hypothek_Rahmenvertrag_ZKB_Gary_Gerber.pdf", "hyp_rahmen", analysis("hyp_rahmen", { bank: "ZKB", docDate: "2023-01-20" })),
-    file("03_Hypothek_Sicherungsvereinbarung_ZKB_Gary_Gerber.pdf", "hyp_sicher", analysis("hyp_sicher", { bank: "ZKB" })),
+    file("03_Hypothek_Produktvereinbarung_ZKB_Gary_Gerber.pdf", "produkt", analysis("produkt", { bank: "ZKB", docDate: "2023-01-20" })),
     file("03_Hypothek_Zinsabrechnung_ZKB_Gary_Gerber.pdf", "hyp_zins", analysis("hyp_zins", { bank: "ZKB", docDate: "2026-03-30", fields: { Zinssatz: { value: "SARON 0.65 %", confidence: 0.96 } } })),
     file("01_Auskunftsermaechtigung_Gary_Gerber_unterzeichnet.pdf", "vollmacht", analysis("vollmacht", { docDate: "2026-06-02" })),
     file("01_ID_Gary_Gerber.pdf", "id#b1", analysis("id", { personName: "Gerber Gary Samuel", fields: { Geburtsdatum: { value: "04.01.1988", confidence: 0.98 } } })),
-    file("01_Lohnausweis_Gary_Gerber_2025.pdf", "lohnausweise#b1", analysis("lohnausweise", { docDate: "2025" })),
-    file("01_Lohnausweis_Gary_Gerber_2023.pdf", "lohnausweise#b1", analysis("lohnausweise", { docDate: "2023" })),
-    file("01_Lohnausweis_Gary_Gerber_2024_Etzel_Liegenschaften_AG.pdf", "lohnausweise#b1", analysis("lohnausweise", { docDate: "2024", fields: { Bruttolohn: { value: "CHF 125'385", confidence: 0.95 } } })),
+    file("01_Lohnausweis_Gary_Gerber_2025.pdf", "lohnausweise#b1", analysis("lohnausweise", { docDate: "2025", fields: { Bruttolohn: { value: "CHF 125'385", confidence: 0.95 } } })),
     file("01_Lohnabrechnung_Gary_Gerber_2026_02_03_04_05.pdf", "lohnabrechnungen#b1", analysis("lohnabrechnungen", { docDate: "2026-05" })),
-    file("01_Anstellungsvertrag_Etzel.pdf", "anstellung#b1", analysis("anstellung")),
     file("01_Pensionskassenausweis_Gary_Gerber_2026.pdf", "pk#b1", analysis("pk", { docDate: "2026-01-01" })),
     file("01_Steuererklaerung_Gary_Gerber_2025.pdf", "steuer#b1", analysis("steuer", { docDate: "Steuerjahr 2025" })),
     file("01_Unterhalt_Elternvereinbarung_Gary_Gerber_2025.pdf", "unterhalt", analysis("unterhalt", { docDate: "2025" })),
     file("01_Privatkredit_BANKnow_Gary_Gerber_21768324.pdf", "kredit", analysis("kredit", { note: "BANK-now, Restschuld CHF 24'360 – wird mit der Erhöhung abgelöst." })),
     file("01_Leasingvertrag_Cembra_Gary_Gerber.pdf", "leasing", analysis("leasing", { note: "Cembra Money Bank – wird abgelöst.", contentHash: "sha-leasing-cembra" })),
-    file("01_Vermoegen_UBS_Konten_Gary_Gerber.pdf", "vermoegen", analysis("vermoegen")),
     file("01_Saeule3a_Bescheinigung_Gary_Gerber.pdf", "s3a", analysis("s3a")),
     file("01_Versicherung_Saeule3a_Police_1583886.pdf", "police", analysis("police", { note: "Police an die ZKB verpfändet." })),
     file("01_Versicherung_Saeule3a_Wertmitteilung_1583886.pdf", "police", analysis("police", { docDate: "2026-01-09" })),
-    // spec 4.3
+    // Handover 4.3: outside the list
+    file("01_Lohnausweis_Gary_Gerber_2024_Etzel_Liegenschaften_AG.pdf", null, analysis("lohnausweise", { requirementId: "lohnausweise", extraKind: "surplus", docDate: "2024", extraReason: OLDER_SALARY_DE })),
+    file("01_Lohnausweis_Gary_Gerber_2023.pdf", null, analysis("lohnausweise", { requirementId: "lohnausweise", extraKind: "surplus", docDate: "2023", extraReason: OLDER_SALARY_DE })),
+    file("01_Anstellungsvertrag_Etzel.pdf", null, analysis("anstellung", { requirementId: "anstellung", extraKind: "notneeded", extraReason: "Nur nötig bei einer Lohnerhöhung im laufenden Jahr – keine erkannt." })),
+    file("01_Vermoegen_UBS_Konten_Gary_Gerber.pdf", null, analysis("vermoegen", { requirementId: "vermoegen", extraKind: "notneeded", extraReason: "Eigenmittelnachweis ist nur bei einem Kauf nötig." })),
+    file("03_Hypothek_Sicherungsvereinbarung_ZKB_Gary_Gerber.pdf", null, analysis("hyp_sicher", { requirementId: null, extraKind: "notneeded", extraReason: "Schuldbrief / Sicherungsvereinbarung wird nicht benötigt.", bank: "ZKB" })),
     file("01_Lohnausweis_Gary_Gerber_2022.pdf", null, analysis("lohnausweise", { requirementId: null, extraKind: "surplus", docDate: "2022", extraReason: "viertes Jahr" })),
     file("01_Leasingvertrag_Cembra_Gary_Gerbe.pdf", null, analysis("leasing", { requirementId: null, extraKind: "duplicate", contentHash: "sha-leasing-cembra" })),
     file("01_Steuerrechnung_Gary_Gerber_2023_Schlussrechnung.pdf", null, analysis("nn_steuerrechnung", { requirementId: null, extraKind: "notneeded", extraReason: "Steuerrechnung" })),

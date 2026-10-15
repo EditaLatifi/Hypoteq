@@ -1,17 +1,29 @@
 /**
- * The Funnel v3 document requirements (docs/funnel-v3/HYPOTEQ_Funnel_Spezifikation.md, chapter 4.1).
+ * The document requirements, v5 (docs/funnel-v5/HYPOTEQ_Handover_Edita.md, chapter 4.1;
+ * cross-checked against the prototype's reqList). The v3 base is
+ * docs/funnel-v3/HYPOTEQ_Funnel_Spezifikation.md, chapter 4.1.
  *
  * Pure: no React, no Prisma, no network. The UI, the AI catalogue, the renaming and the
  * Salesforce sync all read the same catalogue (`REQ`) and the same rule set (`reqList`).
  *
- * Ids are the prototype's string ids (`fotos`, `grundbuch`, `hyp_zins` …) — they are also the
- * suffix of the i18n keys `doc.<id>`. `code` is the spec's number (O4, P3 …).
+ * Ids are the prototype's string ids (`fotos`, `grundbuch`, `hyp_zins` …) — they are stored in
+ * the database and in the Salesforce JSON, so an id that still exists never changes. `code` is
+ * the handover's number (O4, P2 …).
  *
- * Where the prototype and the spec differ, the spec wins; every such place is marked
- * «spec over prototype» below.
+ * v5 changes (Handover 4.1, «Änderung»): Rahmenvertrag and Schuldbrief are no longer asked
+ * (uploaded anyway they are «nicht benötigt», components/documentIntelligence/v3/catalogue.ts);
+ * the Produktvereinbarung takes the Rahmenvertrag's place; one current Lohnausweis instead of
+ * three, the two older ones only when a bonus is recognised, the Anstellungsvertrag only on a
+ * Lohnerhöhung, the AHV-Vorausberechnung from the ID's birth date (4.2); the Eigenmittel
+ * documents follow the amounts entered, not yes/no answers; the Auskunftsermächtigung is its
+ * own block in the closing (Handover 6, `block: "signature"`).
+ *
+ * Where the prototype and the handover differ, the handover wins; every such place is marked
+ * «handover over prototype» below.
  */
 
-import type { Answers, Borrower, FunnelState, Job, YesNo } from "./types";
+import type { Answers, Borrower, DocInfo, Eigenmittel, Job, Texts } from "./types";
+import { EMPTY_EM } from "./types";
 import { tabEntriesFor } from "@/components/dokumentenCheckState";
 
 export type ReqGroup = "objekt" | "hypothek" | "person" | "eigenmittel";
@@ -41,21 +53,27 @@ export const GROUP_ORDER: readonly ReqGroup[] = ["objekt", "hypothek", "person",
 export type PersonKind = "borrower" | "guarantor" | "signatory" | "company" | "bank" | "none";
 
 export interface RequirementDef {
-  /** Prototype id; `doc.<id>` in the i18n file. Stable — stored in the DB and in Salesforce JSON. */
+  /** Prototype id. Stable — stored in the DB and in Salesforce JSON. */
   id: string;
-  /** Spec 4.1 number, e.g. "O4". P14–P16 are split into P14, P15, P16. */
+  /** Handover 4.1 number, e.g. "O4". P14–P16 are split into P14, P15, P16. */
   code: string;
   group: ReqGroup;
-  /** i18n key of the label (HYPOTEQ_Funnel_i18n.json). */
+  /** i18n key of the label (messages/funnel-v3); `doc.<id>` unless v5 renamed the document. */
   labelKey: string;
   /** German label — the Salesforce JSON and the dossier are written in German. */
   labelDe: string;
-  /** Number of files that make the requirement complete (P3 = 3, E3 = 2). */
+  /** Number of files that make the requirement complete (P5 = 2, E3 = 2). */
   expect: number;
   /** «Habe ich nicht» allowed; does not block `completeForSalesforce`. */
   optional: boolean;
-  /** Asked once per natural-person Kreditnehmer (expanded by reqList). */
+  /** Asked per natural-person Kreditnehmer (expanded by reqList; instance `id#<borrower>`). */
   perBorrower: boolean;
+  /**
+   * Shown in its own block, not in the documents list: the Auskunftsermächtigung (Handover 6,
+   * «eigener Block im Abschluss»). It is still a requirement — counted, placed, sent to
+   * Salesforce — so a signed copy found in the uploaded folder fulfils it.
+   */
+  block?: "signature";
   /** The Dok_*__c checkbox on Case, spec 6.9 exactly; null for every other requirement. */
   sfDokField: string | null;
   /** Fixed German short name for the stored file name (spec 5.1 «Dokumenttyp»). */
@@ -73,14 +91,14 @@ export interface RequirementDef {
   legacyKeys: readonly string[];
   /** VERIFIED_TAB_ENTRIES the legacy Salesforce «Dokumenten-Check» tab ticks for it. */
   tabEntries: readonly string[];
-  /** Field keys to extract (from the prototype's Gerber catalogue; empty where it had none). */
+  /** Field keys to extract (the AI catalogue reads them; prefill.ts and facts.ts use them). */
   fields: readonly string[];
-  /** The spec 4.1 rule, verbatim, for documentation and the internal view. */
+  /** The Handover 4.1 rule, verbatim, for documentation and the internal view. */
   rule: string;
 }
 
 type DefInput = Omit<RequirementDef, "labelKey" | "renameGroup" | "tabEntries" | "expect" | "optional" | "perBorrower" | "sfDokField" | "personKind" | "datedName" | "legacyKeys" | "fields"> &
-  Partial<Pick<RequirementDef, "expect" | "optional" | "perBorrower" | "sfDokField" | "personKind" | "datedName" | "legacyKeys" | "fields">>;
+  Partial<Pick<RequirementDef, "labelKey" | "expect" | "optional" | "perBorrower" | "sfDokField" | "personKind" | "datedName" | "legacyKeys" | "fields">>;
 
 function def(d: DefInput): RequirementDef {
   const legacyKeys = d.legacyKeys ?? [];
@@ -92,15 +110,15 @@ function def(d: DefInput): RequirementDef {
     personKind: d.group === "person" ? "borrower" : d.group === "hypothek" ? "bank" : "none",
     datedName: true,
     fields: [],
+    labelKey: `doc.${d.id}`,
     ...d,
     legacyKeys,
-    labelKey: `doc.${d.id}`,
     renameGroup: RENAME_GROUP[d.group],
     tabEntries: tabEntriesFor([...legacyKeys]),
   };
 }
 
-/** The catalogue, in spec order. */
+/** The catalogue, in handover order. */
 export const REQ: readonly RequirementDef[] = [
   // ---- Zum Objekt ----------------------------------------------------------------------
   def({
@@ -115,146 +133,165 @@ export const REQ: readonly RequirementDef[] = [
     id: "verkaufsdoku", code: "O2", group: "objekt", labelDe: "Verkaufsdokumentation",
     shortName: "Verkaufsdokumentation", optional: true,
     legacyKeys: ["funnel.salesDocPhotos", "funnel.oldSalesDocuments"],
-    fields: ["Anbieter", "Objekt", "Baujahr", "Verkaufspreis 2024", "Garten", "Heizung"],
+    // Prefill (Handover 3.1): Objektwert (unsicher) · Baujahr, Zimmer, Heizungsart.
+    fields: ["Anbieter", "Objekt", "Baujahr", "Verkaufspreis", "Zimmer", "Wohnfläche", "Garten", "Heizung"],
     rule: "immer, ausser Bauprojekt · «Habe ich nicht» erlaubt",
   }),
   def({
     id: "stwe_plan", code: "O3", group: "objekt", labelDe: "Bau- / Grundrisspläne inkl. Nettowohnfläche",
     shortName: "Grundrissplaene", sfDokField: "Dok_Grundrissplaene__c",
     legacyKeys: ["funnel.constructionPlansNetArea"],
-    fields: ["Objekt", "Pläne", "Einheit Nr. 1"],
+    fields: ["Objekt", "Pläne", "Einheit Nr. 1", "Nettowohnfläche"],
     rule: "immer, ausser Bauprojekt",
   }),
   def({
     id: "grundbuch", code: "O4", group: "objekt", labelDe: "Aktueller Grundbuchauszug (max. 6 Monate)",
     shortName: "Grundbuchauszug", sfDokField: "Dok_Grundbuchauszug__c",
     legacyKeys: ["funnel.landRegistryNotOlder6Months", "funnel.landRegistryIfAvailable"],
-    fields: ["Grundbuch", "Eigentümer", "Objekt", "Grundpfandrechte", "Ausstellungsdatum"],
-    rule: "immer · bei Neubau nur wenn nbDocs = Ja",
+    // Prefill: PLZ, Ort, Art der Immobilie = bestehend, Baurecht · Objektadresse, Wertquote, Grundpfandrechte.
+    fields: ["Grundbuch", "Eigentümer", "Objekt", "Adresse", "PLZ", "Ort", "Wertquote", "Baurecht", "Grundpfandrechte", "Ausstellungsdatum"],
+    rule: "immer · Neubau nur bei «vorhanden»",
   }),
   def({
     id: "gvz", code: "O5", group: "objekt", labelDe: "Aktuelle Gebäudeversicherungspolice (inkl. Kubatur)",
     shortName: "Gebaeudeversicherung", sfDokField: "Dok_Gebaeudeversicherungsausweis__c",
     legacyKeys: ["funnel.buildingInsuranceIfAvailable"],
     fields: ["Versicherung", "Policen-Nr.", "Eigentümerschaft", "Versicherungssumme", "Erstellungsjahr", "Volumen"],
-    rule: "immer, ausser Bauprojekt · bei Neubau nur wenn nbDocs = Ja",
+    rule: "wie O4, ausser Bauprojekt",
   }),
   def({
     id: "kaufvertrag", code: "O6", group: "objekt", labelDe: "Kaufvertrag (Entwurf oder Original)",
     shortName: "Kaufvertrag", sfDokField: "Dok_Kaufvertrag__c",
     legacyKeys: ["funnel.purchaseContractDraft", "funnel.purchaseOrRenovationContract"],
+    // Prefill: Kreditantrag = Neue Hypothek, Kaufpreis, Kaufdatum.
+    fields: ["Käufer", "Verkäufer", "Objekt", "Kaufpreis", "Eigentumsübertragung", "Datum"],
     rule: "Neue Hypothek, ausser Bauprojekt",
   }),
   def({
     id: "reservation", code: "O7", group: "objekt", labelDe: "Reservationsvertrag",
     shortName: "Reservationsvertrag", legacyKeys: ["funnel.reservationContractDoc"],
-    rule: "Neue Hypothek + reserviert = Ja",
+    rule: "Neue Hypothek + reserviert",
   }),
   def({
     id: "reservation_zahlung", code: "O8", group: "objekt", labelDe: "Nachweis Reservationszahlung (Bankauszug)",
     shortName: "Reservationszahlung", legacyKeys: ["funnel.bankStatementReservation"],
-    rule: "Neue Hypothek + reserviert = Ja",
+    rule: "Neue Hypothek + reserviert",
   }),
   def({
     id: "baubewilligung", code: "O9", group: "objekt", labelDe: "Baubewilligung",
     shortName: "Baubewilligung", legacyKeys: ["funnel.buildingPermitDoc2"],
-    rule: "Bauprojekt oder (Neue Hypothek + Renovation = Ja)",
+    rule: "nur Bauprojekt (v5: nicht mehr bei Renovation)",
   }),
   def({
     id: "projekt", code: "O10", group: "objekt",
     labelDe: "Projektpläne, Baubeschrieb und Werkvertrag inkl. Kostenzusammenzug und Kubatur",
     shortName: "Projektunterlagen", legacyKeys: ["funnel.projectPlanCostEstimate"],
-    rule: "wie O9",
+    rule: "nur Bauprojekt",
   }),
   def({
-    id: "stwe_regl", code: "O11", group: "objekt",
+    id: "reno_liste", code: "O11", group: "objekt",
+    labelDe: "Aufstellung der Renovationen (Betrag und Ort, z.B. Küche, Bad, Fassade)",
+    shortName: "Renovationen",
+    fields: ["Objekt", "Positionen", "Total"],
+    rule: "Neue Hypothek + Renovation",
+  }),
+  def({
+    id: "stwe_regl", code: "O12", group: "objekt",
     labelDe: "Begründungsakt mit Wertquoten · Nutzungs- und Verwaltungsreglement",
     shortName: "STWE-Reglement", legacyKeys: ["funnel.condominiumActValue", "funnel.usageRegulationsSTWE"],
     fields: ["Gemeinschaft", "Umfang", "Wertquote Einheit Nr. 1"],
-    rule: "Liegenschaft = Stockwerkeigentum",
+    rule: "STWE",
   }),
   def({
-    id: "ef", code: "O12", group: "objekt", labelDe: "Angaben zum Erneuerungsfonds",
+    id: "ef", code: "O13", group: "objekt", labelDe: "Angaben zum Erneuerungsfonds",
     shortName: "Erneuerungsfonds", legacyKeys: ["funnel.renovationFundInfoCondominium"],
     fields: ["Kontoinhaber", "IBAN", "Saldo per 31.12.2025", "Erstellt am"],
-    rule: "Liegenschaft = Stockwerkeigentum",
+    rule: "STWE",
   }),
   def({
-    id: "mieterspiegel", code: "O13", group: "objekt", labelDe: "Aktueller Mieterspiegel inkl. Mietzinsaufstellung",
+    id: "mieterspiegel", code: "O14", group: "objekt", labelDe: "Aktueller Mieterspiegel inkl. Mietzinsaufstellung",
     shortName: "Mieterspiegel", legacyKeys: ["funnel.rentalOverviewCurrent"],
+    fields: ["Objekt", "Mieteinheiten", "Mietzinseinnahmen pro Jahr", "Stichtag"],
     rule: "Nutzung = Vermietet",
   }),
   def({
-    id: "baurecht", code: "O14", group: "objekt", labelDe: "Baurechtsvertrag",
+    id: "baurecht", code: "O15", group: "objekt", labelDe: "Baurechtsvertrag",
     shortName: "Baurechtsvertrag", legacyKeys: ["funnel.baurechtsvertrag"],
-    rule: "Baurecht = Ja",
+    rule: "Chip Baurecht",
   }),
   def({
-    id: "angebote", code: "O15", group: "objekt", labelDe: "Bestehende Finanzierungsangebote",
+    id: "angebote", code: "O16", group: "objekt", labelDe: "Bestehende Finanzierungsangebote",
     shortName: "Finanzierungsangebot",
-    rule: "Angebote = Ja",
+    rule: "Chip Angebote",
   }),
 
   // ---- Bestehende Hypothek ---------------------------------------------------------------
   def({
-    id: "hyp_rahmen", code: "H1", group: "hypothek", labelDe: "Aktueller Hypothekarvertrag (Rahmenvertrag)",
-    shortName: "Hypothekarvertrag", legacyKeys: ["funnel.currentMortgageContract"],
-    fields: ["Bank", "Kunden-Nr.", "Rahmenkredit", "Vertragsbeginn", "Ablösedatum"],
-    rule: "Ablösung",
+    id: "produkt", code: "H1", group: "hypothek", labelDe: "Aktuelle Produktvereinbarung",
+    shortName: "Produktvereinbarung",
+    // It replaces the Rahmenvertrag (Rosanna): an old «aktueller Hypothekarvertrag» key means it.
+    legacyKeys: ["funnel.currentMortgageContract"],
+    fields: ["Bank", "Produkt", "Betrag", "Zinssatz", "Laufzeit", "Ablösedatum"],
+    rule: "Ablösung (ersetzt Hypothekar-/Rahmenvertrag)",
   }),
   def({
-    id: "hyp_sicher", code: "H2", group: "hypothek", labelDe: "Sicherungsvereinbarung / Schuldbrief",
-    shortName: "Sicherungsvereinbarung",
-    fields: ["Bank", "Schuldner", "Grundpfandtitel", "Lastend auf"],
-    rule: "Ablösung",
-  }),
-  def({
-    id: "hyp_zins", code: "H3", group: "hypothek", labelDe: "Letzte Zinsabrechnung",
+    id: "hyp_zins", code: "H2", group: "hypothek", labelDe: "Letzte Zinsabrechnung",
     shortName: "Zinsabrechnung",
+    // Prefill: Kreditantrag = Ablösung, bestehende Hypothek · Bank, Zins, Laufzeit, Ablösedatum.
     fields: ["Produkt", "Kapital", "Zinssatz", "Laufzeit", "Zins Q1 2026", "Ablösedatum"],
-    rule: "Ablösung",
+    rule: "Ablösung (DECISIONS V3)",
   }),
 
   // ---- Zur Person --------------------------------------------------------------------------
   def({
-    id: "vollmacht", code: "P1", group: "person", labelDe: "HYPOTEQ Auskunftsermächtigung",
-    shortName: "Auskunftsermaechtigung", legacyKeys: ["funnel.auskunftsermaechtigungDoc"],
+    id: "vollmacht", code: "P0", group: "person", labelDe: "HYPOTEQ Auskunftsermächtigung",
+    shortName: "Auskunftsermaechtigung", legacyKeys: ["funnel.auskunftsermaechtigungDoc"], block: "signature",
+    // Handover 6: the AI checks the form, the signature and the name.
     fields: ["Vollmachtgeber", "Adresse", "Unterschrift", "Unterzeichnet am"],
-    rule: "immer",
+    rule: "immer · eigener Block im Abschluss (Handover 6)",
   }),
   def({
-    id: "id", code: "P2", group: "person", labelDe: "Pass / Identitätskarte",
+    id: "id", code: "P1", group: "person", labelDe: "Pass / Identitätskarte",
     shortName: "ID", perBorrower: true, datedName: false, sfDokField: "Dok_Identitaetsdokument__c",
     legacyKeys: ["funnel.passportIDAllBorrowers"],
-    fields: ["Name", "Vornamen", "Geburtsdatum", "Nationalität", "Dokumentart", "Gültig bis"],
-    rule: "natürliche Person · pro Kreditnehmer",
+    // Prefill: Anrede, Vorname, Nachname, Kreditnehmer = natürlich · Geburtsdatum, Nationalität, ab 50.
+    fields: ["Name", "Vornamen", "Geschlecht", "Geburtsdatum", "Nationalität", "Dokumentart", "Gültig bis"],
+    rule: "pro Kreditnehmer",
   }),
   def({
-    id: "lohnausweise", code: "P3", group: "person", labelDe: "Lohnausweise der letzten 3 Jahre",
-    shortName: "Lohnausweis", perBorrower: true, expect: 3, sfDokField: "Dok_Lohnausweis__c",
+    id: "lohnausweise", code: "P2", group: "person", labelKey: "doc.lohnausweis1", labelDe: "Aktueller Lohnausweis",
+    shortName: "Lohnausweis", perBorrower: true, sfDokField: "Dok_Lohnausweis__c",
     legacyKeys: ["funnel.salaryStatementBonus"],
-    fields: ["Arbeitgeber", "AHV-Nr.", "Bruttolohn 2025", "Bruttolohn 2024", "Bruttolohn 2023", "Beschäftigungsgrad"],
-    rule: "angestellt (oder Beschäftigung offen) · erwartet 3 Dateien",
+    // Prefill: Beschäftigung = angestellt, Bruttoeinkommen · Arbeitgeber. «Jahr» and «Bruttolohn»
+    // are what 4.2 compares (facts.ts).
+    fields: ["Arbeitgeber", "AHV-Nr.", "Jahr", "Bruttolohn", "Beschäftigungsgrad"],
+    rule: "angestellt · 1 Datei (v5: statt 3 Jahre)",
   }),
   def({
-    id: "lohnabrechnungen", code: "P4", group: "person", labelDe: "Letzte 3 Monatslohnabrechnungen",
+    id: "lohnabrechnungen", code: "P3", group: "person", labelDe: "Letzte 3 Monatslohnabrechnungen",
     shortName: "Lohnabrechnungen", perBorrower: true, legacyKeys: ["funnel.monthlyPayslips3"],
-    fields: ["Arbeitgeber", "Perioden", "Monatslohn brutto", "Familienzulagen", "Nettolohn", "Pauschalspesen", "Auszahlung"],
-    rule: "wie P3",
+    fields: ["Arbeitgeber", "Perioden", "Monatslohn brutto", "13. Monatslohn", "Familienzulagen", "Nettolohn", "Pauschalspesen", "Auszahlung"],
+    rule: "angestellt",
   }),
   def({
-    id: "anstellung", code: "P5", group: "person", labelDe: "Anstellungsvertrag",
-    shortName: "Anstellungsvertrag", perBorrower: true,
-    fields: ["Arbeitgeber", "Arbeitnehmer", "Anstellung", "Jahreslohn"],
-    rule: "wie P3",
-  }),
-  def({
-    id: "pk", code: "P6", group: "person", labelDe: "Pensionskassenausweis",
+    id: "pk", code: "P4", group: "person", labelDe: "Pensionskassenausweis",
     shortName: "Pensionskassenausweis", perBorrower: true, sfDokField: "Dok_Pensionskassenausweis__c",
     // pensionFund3rdPillarBuyback is the retired combined PK + 3a document.
     legacyKeys: ["funnel.pensionFundCertificate", "funnel.pensionFund3rdPillarBuyback"],
     fields: ["Versicherte Person", "Versicherter Lohn", "Altersguthaben", "Vorbezug für Wohneigentum möglich"],
-    rule: "angestellt · oder selbständig + pkSe = Ja",
+    rule: "angestellt · selbständig mit PK",
+  }),
+  def({
+    id: "lohnausweise_alt", code: "P5", group: "person", labelDe: "Lohnausweise der zwei Vorjahre",
+    shortName: "Lohnausweis", perBorrower: true, expect: 2,
+    fields: ["Arbeitgeber", "AHV-Nr.", "Jahr", "Bruttolohn", "Beschäftigungsgrad"],
+    rule: "automatisch, wenn Bonus erkannt (4.2)",
+  }),
+  def({
+    id: "anstellung", code: "P6", group: "person", labelDe: "Anstellungsvertrag",
+    shortName: "Anstellungsvertrag", perBorrower: true,
+    fields: ["Arbeitgeber", "Arbeitnehmer", "Anstellung", "Jahreslohn"],
+    rule: "automatisch, wenn Lohnerhöhung erkannt (4.2)",
   }),
   def({
     id: "abschluss_se", code: "P7", group: "person",
@@ -269,53 +306,58 @@ export const REQ: readonly RequirementDef[] = [
   }),
   def({
     id: "steuer", code: "P9", group: "person", labelDe: "Aktuelle Steuererklärung",
+    // Per borrower in the id (`steuer#<KN1>`, as stored before v5), asked for Kreditnehmer 1:
+    // P17 does not list it for Kreditnehmer 2.
     shortName: "Steuererklaerung", perBorrower: true, sfDokField: "Dok_Steuererklaerung__c",
     legacyKeys: ["funnel.taxReturnLatest"],
-    fields: ["Steuerjahr", "Kanton", "Zivilstand", "Kinder", "Unterhaltsbeiträge", "Liegenschaft", "Hypothekarschuld"],
+    // Prefill: Nutzung = selbstbewohnt (unsicher, über Eigenmietwert) · Zivilstand, Kinder.
+    fields: ["Steuerjahr", "Kanton", "Zivilstand", "Kinder", "Unterhaltsbeiträge", "Liegenschaft", "Eigenmietwert", "Hypothekarschuld"],
     rule: "natürliche Person",
   }),
   def({
     id: "ahv_voraus", code: "P10", group: "person", labelDe: "Rentenvorausberechnung (AHV)",
     shortName: "Rentenvorausberechnung", legacyKeys: ["funnel.pensionForecastAHV"],
-    rule: "ab 50 = Ja und nicht pensioniert",
+    rule: "automatisch, wenn ID ≥ 50 Jahre zeigt (4.2)",
   }),
   def({
     id: "unterhalt", code: "P11", group: "person", labelDe: "Unterhaltsvereinbarung",
     shortName: "Unterhaltsvereinbarung",
     fields: ["Parteien", "Kinder", "Unterhaltsbeitrag", "Gültig ab"],
-    rule: "Kinder = Ja + Unterhalt = Ja",
+    rule: "Chip Unterhalt",
   }),
   def({
     id: "kredit", code: "P12", group: "person", labelDe: "Kreditverträge (Privatkredite)",
     shortName: "Kreditvertrag",
     fields: ["Kreditgeber", "Vertragsnummer", "Restschuld", "Monatsrate", "ZEK-relevant"],
-    rule: "Privatkredite = Ja",
+    rule: "Chip Privatkredit",
   }),
   def({
     id: "leasing", code: "P13", group: "person", labelDe: "Leasingverträge",
     shortName: "Leasingvertrag", legacyKeys: ["funnel.leasingContract"],
     fields: ["Leasinggeber", "Leasingnehmer", "Leasingrate", "Restlaufzeit"],
-    rule: "Leasings = Ja",
+    rule: "Chip Leasing",
   }),
   def({
     id: "b_id", code: "P14", group: "person", labelDe: "Solidarbürge · Pass / ID",
     shortName: "ID", personKind: "guarantor", datedName: false,
-    rule: "Solidarbürgschaft = Ja",
+    rule: "Chip Solidarbürgschaft",
   }),
   def({
     id: "b_steuer", code: "P15", group: "person", labelDe: "Solidarbürge · aktuelle Steuererklärung",
     shortName: "Steuererklaerung", personKind: "guarantor",
-    rule: "Solidarbürgschaft = Ja",
+    rule: "Chip Solidarbürgschaft",
   }),
   def({
-    id: "b_lohn", code: "P16", group: "person", labelDe: "Solidarbürge · Lohnausweise 3 Jahre",
-    // «3 Jahre» means three files, like P3 (DECISIONS D22); the catalogue's period rule is the same.
-    shortName: "Lohnausweis", personKind: "guarantor", expect: 3,
-    rule: "Solidarbürgschaft = Ja · erwartet 3 Dateien",
+    id: "b_lohn", code: "P16", group: "person", labelKey: "doc.b_lohn1", labelDe: "Solidarbürge · aktueller Lohnausweis",
+    // v5: the current one only, like P2 (replaces DECISIONS D22's three files).
+    shortName: "Lohnausweis", personKind: "guarantor",
+    rule: "Chip Solidarbürgschaft · aktueller Lohnausweis",
   }),
   def({
     id: "hr", code: "J1", group: "person", labelDe: "Aktueller Handelsregisterauszug",
     shortName: "Handelsregisterauszug", personKind: "company", legacyKeys: ["funnel.commercialRegisterCurrent"],
+    // Prefill: Firma, zeichnungsberechtigte Person · UID, Sitz.
+    fields: ["Firma", "UID", "Sitz", "Zeichnungsberechtigte", "Auszug vom"],
     rule: "juristische Person",
   }),
   def({
@@ -333,7 +375,7 @@ export const REQ: readonly RequirementDef[] = [
     id: "zwischenbilanz", code: "J4", group: "person", labelDe: "Aktuelle Zwischenbilanz",
     shortName: "Zwischenbilanz", personKind: "company", optional: true,
     legacyKeys: ["funnel.interimBalanceIfAvailable"],
-    rule: "juristische Person · optional («Falls vorhanden»)",
+    rule: "juristische Person · optional",
   }),
   def({
     id: "betreibung", code: "J5", group: "person", labelDe: "Aktueller Betreibungsauszug",
@@ -352,41 +394,48 @@ export const REQ: readonly RequirementDef[] = [
     id: "vermoegen", code: "E1", group: "eigenmittel", labelDe: "Aufstellung und Nachweis der Eigenmittel",
     shortName: "Eigenmittelnachweis", legacyKeys: ["funnel.ownFundsProofOfficial", "funnel.ownFundsProofJur"],
     fields: ["Bank", "Kontoinhaber", "Privatkonto", "Saldo total"],
-    rule: "immer",
+    rule: "nur Neue Hypothek",
   }),
   def({
     id: "s3a", code: "E2", group: "eigenmittel", labelDe: "Säule 3a Bescheinigung",
     shortName: "Saeule3a-Bescheinigung",
-    fields: ["Vorsorgeeinrichtung", "Versicherte Person", "Beiträge 2025", "Beginn Vorsorgeverhältnis"],
-    rule: "3a = Ja oder (ab 50 = Ja, natürliche Person)",
+    // Prefill: Säule 3a (Guthaben) · Verpfändung.
+    fields: ["Vorsorgeeinrichtung", "Versicherte Person", "Guthaben", "Beiträge 2025", "Beginn Vorsorgeverhältnis", "Verpfändung"],
+    rule: "Betrag Säule 3a > 0 oder ab 50",
   }),
   def({
     id: "police", code: "E3", group: "eigenmittel", labelDe: "Vorsorgepolice 3a inkl. Wertmitteilung",
     shortName: "Vorsorgepolice-3a", expect: 2,
     // «Rückkaufswerte 3. Säule» = the Wertmitteilung of the 3a policy.
     legacyKeys: ["funnel.pillar3BuybackValues"],
-    fields: ["Versicherer", "Police-Nr.", "Vorsorgeplan", "Versicherungsbeginn", "Monatsprämie", "Rückkaufswert per 09.01.2026", "Begünstigte Bank"],
+    // Prefill: Säule 3a (Rückkaufswert) · Verpfändung (Begünstigte Bank).
+    fields: ["Versicherer", "Police-Nr.", "Vorsorgeplan", "Versicherungsbeginn", "Monatsprämie", "Rückkaufswert", "Begünstigte Bank"],
     rule: "wie E2 · erwartet 2 Dateien",
   }),
   def({
-    id: "pkvorbezug", code: "E4", group: "eigenmittel", labelDe: "Bestätigung PK-Vorbezug / Verpfändung",
+    id: "pkvorbezug", code: "E4", group: "eigenmittel", labelKey: "doc.pkvorbezug1", labelDe: "Bestätigung PK-Vorbezug",
     shortName: "PK-Vorbezug",
-    rule: "Pensionskasse = Ja",
+    rule: "Betrag PK-Vorbezug > 0",
   }),
   def({
-    id: "schenkung", code: "E5", group: "eigenmittel", labelDe: "Schenkungsvertrag",
+    id: "pkverp", code: "E5", group: "eigenmittel", labelDe: "Bestätigung PK-Verpfändung",
+    shortName: "PK-Verpfaendung",
+    rule: "Betrag PK-Verpfändung > 0",
+  }),
+  def({
+    id: "schenkung", code: "E6", group: "eigenmittel", labelDe: "Schenkungsvertrag",
     shortName: "Schenkungsvertrag", legacyKeys: ["funnel.giftContract"],
-    rule: "Schenkung = Ja",
+    rule: "Betrag Schenkung > 0",
   }),
   def({
-    id: "erbe", code: "E6", group: "eigenmittel", labelDe: "Erbschaftsbestätigung",
+    id: "erbe", code: "E7", group: "eigenmittel", labelKey: "doc.erbe1", labelDe: "Erbvorbezug / Erbschaftsbestätigung",
     shortName: "Erbschaftsbestaetigung", legacyKeys: ["funnel.inheritanceConfirmation", "funnel.inheritanceContract"],
-    rule: "Erbschaft = Ja",
+    rule: "Betrag Erbvorbezug > 0",
   }),
   def({
-    id: "darlehen", code: "E7", group: "eigenmittel", labelDe: "Darlehensvertrag",
+    id: "darlehen", code: "E8", group: "eigenmittel", labelDe: "Darlehensvertrag",
     shortName: "Darlehensvertrag", legacyKeys: ["funnel.loanContractGift"],
-    rule: "Darlehen = Ja",
+    rule: "Betrag Darlehen > 0",
   }),
 ];
 
@@ -409,6 +458,18 @@ export function baseId(instanceId: string): string {
   return i < 0 ? instanceId : instanceId.slice(0, i);
 }
 
+/** P0: the requirement shown in its own block (Handover 6). */
+export const SIGNATURE_REQUIREMENT_ID = "vollmacht";
+
+export function isSignatureRequirement(r: { id: string } | string): boolean {
+  return baseId(typeof r === "string" ? r : r.id) === SIGNATURE_REQUIREMENT_ID;
+}
+
+/** The documents list without the Auskunftsermächtigung block (Handover 4.3 vs 6). */
+export function documentInstances<T extends { id: string }>(list: readonly T[]): T[] {
+  return list.filter((r) => !isSignatureRequirement(r));
+}
+
 // ---- Reasons ----------------------------------------------------------------------------
 
 /** Question keys a reason can point at: `q.<key>` / `opt.<key>.<value>` in the i18n file. */
@@ -426,12 +487,20 @@ export interface ReasonCondition {
  *  - why.perBorrower  «Pflicht · pro Kreditnehmer»
  *  - why.ifAvailable  «Falls vorhanden»
  *  - why.because      «weil: {reason}» — reason = the conditions, e.g. «Baurecht = Ja»
+ *  - why.bonus        «weil: variabler Lohnanteil erkannt» (4.2)
+ *  - why.raise        «weil: Lohnerhöhung erkannt» (4.2)
+ *  - why.age50        «weil: ab 50 (aus ID)» (4.2)
+ *  - why.amount       «weil: {field} eingetragen» — an Eigenmittel amount (field = `em.<field>`)
  */
 export type ReqReason =
   | { key: "why.required" }
   | { key: "why.perBorrower" }
   | { key: "why.ifAvailable" }
-  | { key: "why.because"; conditions: ReasonCondition[] };
+  | { key: "why.because"; conditions: ReasonCondition[] }
+  | { key: "why.bonus" }
+  | { key: "why.raise" }
+  | { key: "why.age50" }
+  | { key: "why.amount"; field: keyof Eigenmittel };
 
 /** Short German names of the questions, as the prototype shows them («weil: Baurecht = Ja»). */
 export const QUESTION_SHORT_DE: Record<QuestionKey, string> = {
@@ -442,26 +511,30 @@ export const QUESTION_SHORT_DE: Record<QuestionKey, string> = {
   nbDocs: "Grundbuch und GVZ vorhanden",
   lieg: "Liegenschaft",
   nutz: "Nutzung",
-  heizung: "Heizung",
-  baurecht: "Baurecht",
   aufstockung: "Erhöhung",
   reno: "Renovation",
   reserviert: "reserviert",
-  angebote: "Angebote",
+  laufzeit: "Laufzeit",
   job: "Beschäftigung",
   pkSe: "Pensionskasse vorhanden",
-  ab50: "ab 50",
-  kinder: "Kinder",
   unterhalt: "Unterhaltszahlungen",
   kredite: "Privatkredite",
   leasing: "Leasings",
   buerge: "Solidarbürgschaft",
-  laufzeit: "Laufzeit",
+  baurecht: "Baurecht",
+  angebote: "Angebote",
+  steuer: "Steueroptimierung",
+};
+
+/** German names of the Eigenmittel rows (the `em.*` labels), for «weil: Säule 3a eingetragen». */
+export const EM_LABEL_DE: Record<keyof Eigenmittel, string> = {
+  spar: "Ersparnisse",
   s3a: "Säule 3a",
-  schenkung: "Schenkung",
-  erbe: "Erbschaft",
-  darlehen: "Darlehen",
-  pk: "Pensionskasse",
+  pkVor: "PK-Vorbezug",
+  pkVerp: "PK-Verpfändung",
+  schenk: "Schenkung",
+  erbe: "Erbvorbezug",
+  darl: "Darlehen",
 };
 
 /** The German reason line, as written to Salesforce (spec 6.11 `reason`). */
@@ -473,6 +546,14 @@ export function reasonTextDe(reason: ReqReason): string {
       return "Pflicht · pro Kreditnehmer";
     case "why.ifAvailable":
       return "Falls vorhanden";
+    case "why.bonus":
+      return "weil: variabler Lohnanteil erkannt";
+    case "why.raise":
+      return "weil: Lohnerhöhung erkannt";
+    case "why.age50":
+      return "weil: ab 50 (aus ID)";
+    case "why.amount":
+      return `weil: ${EM_LABEL_DE[reason.field]} eingetragen`;
     case "why.because":
       return "weil: " + reason.conditions.map((c) => `${QUESTION_SHORT_DE[c.question]} = ${c.value}`).join(" · ");
   }
@@ -483,6 +564,7 @@ const PER_BORROWER: ReqReason = { key: "why.perBorrower" };
 const IF_AVAILABLE: ReqReason = { key: "why.ifAvailable" };
 const because = (...conditions: ReasonCondition[]): ReqReason => ({ key: "why.because", conditions });
 const cond = (question: QuestionKey, value: string): ReasonCondition => ({ question, value });
+const amountReason = (field: keyof Eigenmittel): ReqReason => ({ key: "why.amount", field });
 
 // ---- Instances --------------------------------------------------------------------------
 
@@ -516,7 +598,32 @@ export interface RequirementInstance {
   def: RequirementDef;
 }
 
-export type ReqState = Pick<FunnelState, "ans" | "borrowers" | "txt">;
+/**
+ * Inquiries stored before v5 answered the Eigenmittel sources with yes/no (DECISIONS V9).
+ * legacy.ts carries those answers here; a «Ja» asks for its document like an amount does, so
+ * an old Nachreichung still asks for what the customer said they have.
+ */
+export interface LegacyEquity {
+  s3a?: "Ja" | "Nein";
+  /** «Pensionskasse (Vorbezug oder Verpfändung)» — the combined v3 document, E4. */
+  pk?: "Ja" | "Nein";
+  schenkung?: "Ja" | "Nein";
+  erbe?: "Ja" | "Nein";
+  darlehen?: "Ja" | "Nein";
+}
+
+/** What the rules read. FunnelState is one; `em` and `info` default to «nothing entered / recognised». */
+export interface ReqState {
+  ans: Answers;
+  borrowers: Borrower[];
+  txt: Texts;
+  /** The Eigenmittel amounts (E2–E8 by amount). */
+  em?: Eigenmittel;
+  /** Facts read from the documents (4.2): bonus, raise, ab50. */
+  info?: Pick<DocInfo, "bonus" | "raise" | "ab50">;
+  /** Stored before v5 (legacy.ts). */
+  legacyEquity?: LegacyEquity;
+}
 
 /** «Vorname Name» → first / last; the last word is the family name. */
 export function splitFullName(full: string): { first: string; last: string } {
@@ -526,7 +633,7 @@ export function splitFullName(full: string): { first: string; last: string } {
   return { first: parts.slice(0, -1).join(" "), last: parts[parts.length - 1] };
 }
 
-function borrowerRef(b: Borrower): PersonRef {
+export function borrowerRef(b: Borrower): PersonRef {
   return { kind: "borrower", borrowerId: b.id, first: b.vor, last: b.nach, display: [b.vor, b.nach].filter(Boolean).join(" ") };
 }
 
@@ -535,24 +642,29 @@ function borrowerRef(b: Borrower): PersonRef {
  * one (the customer from step 1), so the list never loses its person documents.
  * The first borrower's name falls back to the step-1 contact (types.ts: they are kept in step).
  */
-export function effectiveBorrowers(state: ReqState): Borrower[] {
-  const list = state.borrowers && state.borrowers.length ? state.borrowers : [{ id: "1", vor: "", nach: "", pkSe: "Nein" as YesNo }];
+export function effectiveBorrowers(state: Pick<ReqState, "borrowers" | "txt">): Borrower[] {
+  const list = state.borrowers && state.borrowers.length ? state.borrowers : [{ id: "1", vor: "", nach: "", pkSe: "Nein" as const }];
   return list.map((b, i) =>
     i === 0 ? { ...b, vor: b.vor || state.txt?.vor || "", nach: b.nach || state.txt?.nach || "" } : b
   );
 }
 
-/** Spec P3: angestellt «oder Beschäftigung offen». */
+/** Angestellt «oder Beschäftigung offen» (DECISIONS D21) — also Kreditnehmer 2, who is not asked (P17). */
 const isEmployedOrOpen = (job: Job | undefined) => job === undefined || job === "Angestellt";
 
+const positive = (n: number | undefined) => typeof n === "number" && Number.isFinite(n) && n > 0;
+
 /**
- * The requirements for an answer state, in display order (spec 4.1).
+ * The requirements for an answer state, in display order (Handover 4.1).
  *
- * Order: Objekt O1–O15 · Hypothek H1–H3 · Person P1, then per Kreditnehmer P2–P9, then
- * P10–P13 (or J1–J6 for a juristische Person, then P12–P13), P14–P16 · Eigenmittel E1–E7.
+ * Order: Objekt O1–O16 · Hypothek H1–H2 · Person P0, then Kreditnehmer 1 (P1–P11), then
+ * Kreditnehmer 2 (P17), P12–P16 (a juristische Person: J1–J6, then P12–P16) · Eigenmittel E1–E8.
  */
 export function reqList(state: ReqState): RequirementInstance[] {
   const a = state.ans;
+  const em = state.em ?? EMPTY_EM;
+  const info = state.info ?? {};
+  const legacy = state.legacyEquity ?? {};
   const out: RequirementInstance[] = [];
   const push = (id: string, reason: ReqReason, extra?: { borrower?: Borrower; person?: PersonRef }) => {
     const d = BY_ID.get(id)!;
@@ -597,11 +709,15 @@ export function reqList(state: ReqState): RequirementInstance[] {
     push("reservation", r);
     push("reservation_zahlung", r);
   }
-  if (proj || (kauf && a.reno === "Ja")) {
-    const r = proj ? because(cond("immo", "Bauprojekt")) : because(cond("reno", "Ja"));
+  // v5: the Baubewilligung and the project documents only for a Bauprojekt, no longer for a renovation.
+  if (proj) {
+    const r = because(cond("immo", "Bauprojekt"));
     push("baubewilligung", r);
     push("projekt", r);
   }
+  // Handover over prototype: O11 is «Neue Hypothek + Renovation»; the prototype also excluded
+  // a Bauprojekt, the handover does not.
+  if (kauf && a.reno === "Ja") push("reno_liste", because(cond("reno", "Ja")));
   if (a.lieg === "Stockwerkeigentum") {
     const r = because(cond("lieg", "Stockwerkeigentum"));
     push("stwe_regl", r);
@@ -614,8 +730,7 @@ export function reqList(state: ReqState): RequirementInstance[] {
   // ---- Bestehende Hypothek
   if (abl) {
     const r = because(cond("antrag", "Ablösung"));
-    push("hyp_rahmen", r);
-    push("hyp_sicher", r);
+    push("produkt", r);
     push("hyp_zins", r);
   }
 
@@ -636,29 +751,34 @@ export function reqList(state: ReqState): RequirementInstance[] {
     push("betreibung", REQUIRED, { person: company });
     push("steuer_jp", REQUIRED, { person: company });
   } else {
-    for (const b of borrowers) {
+    borrowers.forEach((b, i) => {
+      const first = i === 0;
       push("id", PER_BORROWER, { borrower: b });
       if (isEmployedOrOpen(b.job)) {
         push("lohnausweise", PER_BORROWER, { borrower: b });
         push("lohnabrechnungen", PER_BORROWER, { borrower: b });
-        push("anstellung", PER_BORROWER, { borrower: b });
-        // Spec P6 says «angestellt»; an open Beschäftigung is treated as angestellt like P3–P5
-        // (the prototype does so, and the Gerber counter starts at 13 only that way) — DECISIONS D21.
+        // P4 says «angestellt»; an open Beschäftigung is treated as angestellt (DECISIONS D21).
         push("pk", PER_BORROWER, { borrower: b });
+        // 4.2: read from Kreditnehmer 1's Lohnausweis and payslips (facts.ts). P17 lists neither
+        // for Kreditnehmer 2.
+        if (first && info.bonus) push("lohnausweise_alt", { key: "why.bonus" }, { borrower: b });
+        if (first && info.raise) push("anstellung", { key: "why.raise" }, { borrower: b });
       } else if (b.job === "Selbständig") {
         if (b.pkSe === "Ja") push("pk", because(cond("job", "Selbständig"), cond("pkSe", "Ja")), { borrower: b });
         push("abschluss_se", because(cond("job", "Selbständig")), { borrower: b });
       } else if (b.job === "Pensioniert") {
         push("rente", because(cond("job", "Pensioniert")), { borrower: b });
       }
-      push("steuer", PER_BORROWER, { borrower: b });
-    }
-    // «Ist ein Kreditnehmer 50 Jahre oder älter?» is one question per case (DECISIONS D4), so
-    // the forecast is asked once — unless every borrower is already retired.
-    if (a.ab50 === "Ja" && borrowers.some((b) => b.job !== "Pensioniert")) push("ahv_voraus", because(cond("ab50", "Ja")), { person: main });
-    if (a.kinder === "Ja" && a.unterhalt === "Ja") push("unterhalt", because(cond("kinder", "Ja"), cond("unterhalt", "Ja")), { person: main });
+      if (first) {
+        push("steuer", REQUIRED, { borrower: b });
+        // «ab 50» is one fact per case, from the ID (4.2): the forecast is asked once — unless
+        // every borrower is already retired.
+        if (info.ab50 && borrowers.some((x) => x.job !== "Pensioniert")) push("ahv_voraus", { key: "why.age50" }, { person: main });
+        if (a.unterhalt === "Ja") push("unterhalt", because(cond("unterhalt", "Ja")), { person: main });
+      }
+    });
   }
-  // Privatkredite, Leasings and the Solidarbürgschaft are asked for both borrower types (spec 3).
+  // Privatkredit, Leasing and the Solidarbürgschaft are chips for both borrower types.
   if (a.kredite === "Ja") push("kredit", because(cond("kredite", "Ja")), { person: main });
   if (a.leasing === "Ja") push("leasing", because(cond("leasing", "Ja")), { person: main });
   if (a.buerge === "Ja") {
@@ -670,27 +790,30 @@ export function reqList(state: ReqState): RequirementInstance[] {
     push("b_lohn", r, { person: guarantor });
   }
 
-  // ---- Eigenmittel
-  push("vermoegen", REQUIRED);
-  const s3aYes = a.s3a === "Ja";
-  const ab50Nat = a.ab50 === "Ja" && !jp;
-  if (s3aYes || ab50Nat) {
-    const conds = [...(s3aYes ? [cond("s3a", "Ja")] : []), ...(ab50Nat ? [cond("ab50", "Ja")] : [])];
-    push("s3a", because(...conds));
-    push("police", because(...conds));
+  // ---- Eigenmittel (each amount asks for its document; a stored v3 «Ja» counts as one)
+  if (kauf) push("vermoegen", because(cond("antrag", "Neue Hypothek")));
+  const s3aAmount = positive(em.s3a) || legacy.s3a === "Ja";
+  if (s3aAmount || (info.ab50 && !jp)) {
+    const r: ReqReason = s3aAmount ? amountReason("s3a") : { key: "why.age50" };
+    push("s3a", r);
+    push("police", r);
   }
-  if (a.pk === "Ja") push("pkvorbezug", because(cond("pk", "Ja")));
-  if (a.schenkung === "Ja") push("schenkung", because(cond("schenkung", "Ja")));
-  if (a.erbe === "Ja") push("erbe", because(cond("erbe", "Ja")));
-  if (a.darlehen === "Ja") push("darlehen", because(cond("darlehen", "Ja")));
+  if (positive(em.pkVor) || legacy.pk === "Ja") push("pkvorbezug", amountReason("pkVor"));
+  if (positive(em.pkVerp)) push("pkverp", amountReason("pkVerp"));
+  if (positive(em.schenk) || legacy.schenkung === "Ja") push("schenkung", amountReason("schenk"));
+  if (positive(em.erbe) || legacy.erbe === "Ja") push("erbe", amountReason("erbe"));
+  if (positive(em.darl) || legacy.darlehen === "Ja") push("darlehen", amountReason("darl"));
 
   // Spec principle 4: every document is asked exactly once.
   return out;
 }
 
-/** A hypothetical change: answers, and/or one borrower's per-person answers. */
+// ---- Delta («+3») ---------------------------------------------------------------------------
+
+/** A hypothetical change: answers, Eigenmittel amounts, and/or one borrower's per-person answers. */
 export interface ReqPatch {
   ans?: Partial<Answers>;
+  em?: Partial<Eigenmittel>;
   borrower?: { id: string } & Partial<Omit<Borrower, "id">>;
 }
 
@@ -703,12 +826,13 @@ export interface ReqDelta {
   net: number;
 }
 
-/** How a hypothetical answer change would change the list (for the «+N Unterlagen» badges). */
+/** How a hypothetical change would change the list (for the «+N Unterlagen» badges). */
 export function reqDelta(state: ReqState, patch: ReqPatch): ReqDelta {
   const before = reqList(state).map((r) => r.instanceId);
   const next: ReqState = {
     ...state,
     ans: { ...state.ans, ...(patch.ans || {}) },
+    em: { ...(state.em ?? EMPTY_EM), ...(patch.em || {}) },
     borrowers: patch.borrower
       ? effectiveBorrowers(state).map((b) => (b.id === patch.borrower!.id ? { ...b, ...patch.borrower } : b))
       : state.borrowers,
@@ -719,4 +843,20 @@ export function reqDelta(state: ReqState, patch: ReqPatch): ReqDelta {
   const added = after.filter((id) => !b.has(id));
   const removed = before.filter((id) => !af.has(id));
   return { added, removed, net: added.length - removed.length };
+}
+
+/**
+ * Handover 2 «Jeder Chip zeigt, wie viele Unterlagen er auslöst (z.B. «+3»)»: the documents a
+ * chip adds, measured from «off» to «on» (so a tapped chip keeps its badge, as in the
+ * prototype). 0 for «Steueroptimierung», which asks for nothing.
+ */
+export function chipDelta(state: ReqState, chip: keyof Answers): number {
+  const off = reqDelta({ ...state, ans: { ...state.ans, [chip]: "Nein" } as Answers }, { ans: { [chip]: "Ja" } as Partial<Answers> });
+  return Math.max(0, off.net);
+}
+
+/** The documents an Eigenmittel amount adds (any amount > 0 against none): Säule 3a «+2». */
+export function emDelta(state: ReqState, key: keyof Eigenmittel): number {
+  const base: ReqState = { ...state, em: { ...(state.em ?? EMPTY_EM), [key]: 0 } };
+  return Math.max(0, reqDelta(base, { em: { [key]: 1 } as Partial<Eigenmittel> }).net);
 }

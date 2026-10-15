@@ -3,6 +3,8 @@ import { funnelToSalesforceMap } from './funnelToSalesforceMap';
 import { SALESFORCE_CASE_FIELDS, SFFieldType } from "./salesforceFieldConfig";
 import { ART_LIEGENSCHAFT_MAP, NUTZUNG_MAP, isZweitwohnsitzNutzung } from "./propertyLabels";
 import { resolvePartner, type PartnerResolution } from "./partnerDirectory";
+import { calcForState } from "@/lib/funnel-v3/calc";
+import { normaliseFunnelState } from "@/lib/funnel-v3/legacy";
 
 // Sales Partner = the partner *company* Account on the Case (HYPOTEQ AG for direct
 // leads; Betterhomes / Remax / ... for partner leads). Verified against production:
@@ -754,20 +756,22 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     return round1((affordabilityCHF / grossIncome) * 100);
   };
 
-  // === FUNNEL V3 GESAMTFINANZIERUNG (spec 6.7, DECISIONS S6) — v3 payloads only ===
-  // v3 asks for no Eigenmittel amounts (they come from the documents), so the Kauf formula
-  // below (Kaufpreis − Eigenmittel) would book every purchase as 100 % financed. The funnel
-  // showed the customer financing.hypoBetrag (lib/funnel-v3/calc.ts: Objektwert × 80 % for
-  // a Kauf, old + Erhöhung for an Ablösung); that amount is the Gesamtfinanzierung here. The
-  // Tragbarkeit keeps the existing formula (S1) — only its base changes.
+  // === FUNNEL V3 GESAMTFINANZIERUNG (spec 6.7, DECISIONS S6; v5 Handover 5) — v3 payloads only ===
+  // The Gesamtfinanzierung is the funnel's own calculation (lib/funnel-v3/calc.ts, the same
+  // the customer saw): Kauf = Kaufpreis + Renovation − Eigenmittel (none entered: 80 %),
+  // Ablösung = bestehende + Erhöhung. Computed here from the submitted answers; the payload's
+  // financing.hypoBetrag (the same number) is the fallback. The Tragbarkeit keeps the existing
+  // formula (S1) — only its base changes.
+  const v3State = stepData.v3 ? normaliseFunnelState(stepData.v3) : null;
+  const v3Need = v3State ? calcForState(v3State).need : NaN;
   const v3HypoBetragRaw = stepData.v3 ? Number(String(flatData.hypoBetrag ?? '').replace(/'/g, '')) : NaN;
-  const v3HypoBetrag = Number.isFinite(v3HypoBetragRaw) && v3HypoBetragRaw > 0 ? v3HypoBetragRaw : null;
+  const v3HypoBetrag =
+    Number.isFinite(v3Need) && v3Need > 0 ? v3Need : Number.isFinite(v3HypoBetragRaw) && v3HypoBetragRaw > 0 ? v3HypoBetragRaw : null;
 
   if (isKauf && v3HypoBetrag !== null) {
     caseData['Gesch_tzter_Hypothekenbedarf__c'] = v3HypoBetrag;
 
-    // Eigenmittel % = the part of the object value the mortgage does not cover; no
-    // Eigenmittel__c, because no amount was entered.
+    // Eigenmittel % = the part of the object value the mortgage does not cover.
     const objectValue = Number(flatData.immobilienwert || 0) || kaufpreis;
     if (objectValue > 0) caseData['EigenmittelProzent__c'] = round1(((objectValue - v3HypoBetrag) / objectValue) * 100);
 

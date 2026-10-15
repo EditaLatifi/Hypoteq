@@ -1,9 +1,9 @@
 /**
  * Requirement states, Salesforce flags, answer corrections and bank hints
- * (Spezifikation 4.2, 4.4, 6.9 and Schritt 6). Pure.
+ * (Spezifikation 4.2, 4.4, 6.9 and Schritt 6; v5: Handover 3.1). Pure.
  */
 
-import type { Answers } from "./types";
+import { EMPTY_EM, type Answers, type Eigenmittel } from "./types";
 import { REQ, baseId, reqList, type ReqState, type RequirementInstance } from "./requirements";
 
 export type FileStatus = "analysing" | "done" | "failed";
@@ -131,50 +131,92 @@ export function requirementStatus(
   return { requirements, counts, completeForSalesforce, dokFlags };
 }
 
-// ---- Answer corrections (spec 4.4) --------------------------------------------------------
+// ---- Answer corrections (spec 4.4, Handover 3.1) -------------------------------------------
+
+/** What accepting a suggestion sets: chips / answers and Eigenmittel amounts. */
+export interface CorrectionPatch {
+  ans?: Partial<Answers>;
+  em?: Partial<Eigenmittel>;
+}
 
 export interface AnswerCorrection {
-  /** i18n `sug.<key>.title` / `sug.<key>.text`. */
+  /** i18n `sug.<key>.title`. */
   key: "loan" | "maint" | "3a" | "stwe";
   titleKey: string;
+  /** i18n key of the text (v5 wording for chips and amounts); `params` fill it. */
   textKey: string;
-  /** The answers to set. */
-  patch: Partial<Answers>;
+  params?: Record<string, string | number>;
+  /** What «Ja, ergänzen» sets. Empty when the value must be typed (3a without a readable amount). */
+  patch: CorrectionPatch;
+  /** The field to fill in by hand when `patch` cannot carry the value (`em.s3a`). */
+  focus?: "em.s3a";
   /** The recognised requirement ids the correction brings onto the list. */
   requirementIds: string[];
 }
 
-const CORRECTIONS: { key: AnswerCorrection["key"]; ids: string[]; patch: (ids: Set<string>) => Partial<Answers> }[] = [
+/** Values read from the recognised documents that a suggestion can carry (prefill.ts reads them). */
+export interface CorrectionValues {
+  /** Säule 3a: the policy's Rückkaufswert or the account's Guthaben (CHF). */
+  s3a?: number;
+}
+
+const CORRECTIONS: {
+  key: AnswerCorrection["key"];
+  ids: string[];
+  build: (ids: Set<string>, values: CorrectionValues) => Pick<AnswerCorrection, "patch" | "textKey" | "params" | "focus">;
+}[] = [
   {
+    // Privatkredit / Leasing chips.
     key: "loan",
     ids: ["kredit", "leasing"],
-    patch: (ids) => ({ ...(ids.has("kredit") ? { kredite: "Ja" as const } : {}), ...(ids.has("leasing") ? { leasing: "Ja" as const } : {}) }),
+    build: (ids) => ({
+      textKey: "sug.loan.chipText",
+      patch: { ans: { ...(ids.has("kredit") ? { kredite: "Ja" as const } : {}), ...(ids.has("leasing") ? { leasing: "Ja" as const } : {}) } },
+    }),
   },
-  { key: "maint", ids: ["unterhalt"], patch: () => ({ kinder: "Ja", unterhalt: "Ja" }) },
-  { key: "3a", ids: ["s3a", "police"], patch: () => ({ s3a: "Ja" }) },
-  { key: "stwe", ids: ["stwe_regl", "ef"], patch: () => ({ lieg: "Stockwerkeigentum" }) },
+  // «Unterhaltszahlungen» chip (v5: no Kinder question any more).
+  { key: "maint", ids: ["unterhalt"], build: () => ({ textKey: "sug.maint.chipText", patch: { ans: { unterhalt: "Ja" } } }) },
+  {
+    // Säule 3a: the amount read from the policy goes into the Vorsorge row (prototype suggests).
+    key: "3a",
+    ids: ["s3a", "police"],
+    build: (_ids, values) =>
+      values.s3a && values.s3a > 0
+        ? { textKey: "sug.3a.amountText", params: { amount: values.s3a }, patch: { em: { s3a: values.s3a } } }
+        : { textKey: "sug.3a.enterText", patch: {}, focus: "em.s3a" },
+  },
+  { key: "stwe", ids: ["stwe_regl", "ef"], build: () => ({ textKey: "sug.stwe.text", patch: { ans: { lieg: "Stockwerkeigentum" } } }) },
 ];
 
 /**
- * Spec 4.4 (principle 5): a recognised document that belongs to a «Nein» answer becomes a
- * suggestion to correct the answer, not an error.
+ * Spec 4.4 (principle 5), Handover 3.1: in the Begleitete Anmeldung a recognised document that
+ * belongs to a chip not tapped, an Eigenmittel amount not entered or another Liegenschaft
+ * becomes a suggestion («Wir haben einen Kreditvertrag erkannt – ergänzen?»), never an
+ * automatic change. (The Schnellanmeldung prefills instead — prefill.ts.)
  *
  * `recognisedRequirementIds` are the requirement ids (or instance ids) the analysis assigned
  * to uploaded files. A suggestion is made only when the requirement is not on the list now
- * and the patch actually puts it there (e.g. no Unterhalt suggestion for a juristische Person).
+ * and the patch actually puts it there (e.g. no Unterhalt suggestion for a juristische Person)
+ * — or, for Säule 3a without a readable amount, would put it there once an amount is typed.
  */
-export function answerCorrections(state: ReqState, recognisedRequirementIds: Iterable<string>): AnswerCorrection[] {
+export function answerCorrections(
+  state: ReqState,
+  recognisedRequirementIds: Iterable<string>,
+  values: CorrectionValues = {}
+): AnswerCorrection[] {
   const current = new Set(reqList(state).map((r) => r.id));
   const recognised = new Set([...recognisedRequirementIds].map(baseId));
   const out: AnswerCorrection[] = [];
   for (const c of CORRECTIONS) {
     const hit = new Set(c.ids.filter((id) => recognised.has(id) && !current.has(id)));
     if (!hit.size) continue;
-    const patch = c.patch(hit);
-    const after = new Set(reqList({ ...state, ans: { ...state.ans, ...patch } }).map((r) => r.id));
+    const built = c.build(hit, values);
+    // For a value to be typed, test with a stand-in amount.
+    const em = { ...(state.em ?? EMPTY_EM), ...(built.patch.em ?? {}), ...(built.focus === "em.s3a" ? { s3a: 1 } : {}) };
+    const after = new Set(reqList({ ...state, ans: { ...state.ans, ...(built.patch.ans ?? {}) }, em }).map((r) => r.id));
     const brought = [...hit].filter((id) => after.has(id));
     if (!brought.length) continue;
-    out.push({ key: c.key, titleKey: `sug.${c.key}.title`, textKey: `sug.${c.key}.text`, patch, requirementIds: brought });
+    out.push({ key: c.key, titleKey: `sug.${c.key}.title`, ...built, requirementIds: brought });
   }
   return out;
 }

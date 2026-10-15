@@ -29,7 +29,7 @@ describe("Step6Finish (server render)", () => {
     expect(html).toContain("Letzter Blick auf die Anfrage");
     expect(html).toContain("Thema 6 von 6");
     expect(html).toContain('class="v3-kpi-value">CHF 650&#x27;000<');
-    expect(html).toContain('class="v3-kpi-value">23 / 23<');
+    expect(html).toContain('class="v3-kpi-value">20 / 20<');
     expect(html).toContain("Hinweise an die Bank · 4");
     expect((html.match(/class="v3-hintrow"/g) || []).length).toBe(4);
     expect((html.match(/class="v3-checkrow"/g) || []).length).toBe(6);

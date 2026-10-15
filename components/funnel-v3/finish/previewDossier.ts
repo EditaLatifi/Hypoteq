@@ -21,7 +21,7 @@ export function previewBody(state: FunnelState & { files: unknown[]; skipped?: I
   }));
   return {
     lang,
-    state: { role: state.role, ans: state.ans, txt: state.txt, fin: state.fin, borrowers: state.borrowers },
+    state: { role: state.role, ans: state.ans, txt: state.txt, fin: state.fin, em: state.em, info: state.info, borrowers: state.borrowers },
     files,
     skipped: state.skipped ? [...state.skipped] : [],
   };

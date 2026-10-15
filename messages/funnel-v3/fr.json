@@ -11,7 +11,9 @@
     "stepProgress": "Étape {n} sur {total}",
     "toDocs": "Vers les documents",
     "toFinish": "Vers la finalisation",
-    "remove": "Supprimer"
+    "remove": "Supprimer",
+    "timeLeft": "encore env. {time} min",
+    "stepOfN": "Étape {n} sur {total}"
   },
   "start": {
     "title": "Votre demande de financement en quelques minutes.",
@@ -23,7 +25,16 @@
     "client.title": "Client",
     "client.sub": "Je dépose ma propre demande de financement.",
     "cta": "Commencer →",
-    "claim": "Grâce à HYPOTEQ, les hypothèques sont devenues comparables. Votre conseiller, lui, est unique.®"
+    "claim": "Grâce à HYPOTEQ, les hypothèques sont devenues comparables. Votre conseiller, lui, est unique.®",
+    "mode.fast.eyebrow": "Documents d’abord",
+    "mode.fast.title": "Demande express",
+    "mode.fast.sub": "J’ai déjà les documents. Téléchargez le dossier – nous complétons le reste.",
+    "mode.fast.time": "env. 1 minute + téléchargement",
+    "mode.guided.eyebrow": "Étape par étape",
+    "mode.guided.title": "Demande guidée",
+    "mode.guided.sub": "Quelques questions. Nous vous indiquons immédiatement les documents nécessaires.",
+    "mode.guided.time": "env. 3 minutes",
+    "recommended": "Recommandé"
   },
   "side": {
     "request": "Demande",
@@ -36,7 +47,9 @@
     "submittedBy": "Saisi par {name}",
     "newPartner": "nouveau partenaire",
     "done": "Terminé",
-    "fulfilled": "{ok} sur {total} remplies"
+    "fulfilled": "{ok} sur {total} remplies",
+    "toFast": "Documents prêts ? Passer à la demande express",
+    "toGuided": "Plutôt étape par étape"
   },
   "step": {
     "1": "Généralités",
@@ -50,7 +63,23 @@
     "why.3": "Détermine les documents personnels",
     "why.4": "Taux d’avance, capacité financière, fonds propres",
     "why.5": "Nous lisons tout pour vous",
-    "why.6": "Vérifier et finaliser"
+    "why.6": "Vérifier et finaliser",
+    "b2": "Bien & financement",
+    "b4": "Documents & finalisation",
+    "s1": "Contact",
+    "s3": "Vérifier & finaliser",
+    "anfrage": "Demande",
+    "missing": "Documents manquants & finalisation",
+    "why.guided.anfrage": "Demande et contact",
+    "why.guided.objekt": "Bien, fonds propres, taux d’avance",
+    "why.guided.personen": "Emprunteurs et points supplémentaires",
+    "why.guided.abschluss": "Téléverser et finaliser",
+    "why.fast.kontakt": "Uniquement les adresses e-mail",
+    "why.fast.upload": "Téléversez le dossier – nous lisons tout",
+    "why.fast.anfrage": "Prérempli – veuillez vérifier",
+    "why.fast.objekt": "Prérempli – complétez ce qui manque",
+    "why.fast.personen": "Prérempli – vérifiez les points supplémentaires",
+    "why.fast.abschluss": "Compléter et finaliser"
   },
   "s1": {
     "title": "Nouvelle demande de financement",
@@ -113,7 +142,10 @@
     "schenkung": "Donation",
     "erbe": "Héritage / avancement d’hoirie",
     "darlehen": "Prêt",
-    "pk": "Caisse de pension (versement anticipé ou mise en gage)"
+    "pk": "Caisse de pension (versement anticipé ou mise en gage)",
+    "chips": "L’un de ces points s’applique-t-il ?",
+    "chipsMore": "Autre chose qui s’applique ?",
+    "chips.hint": "Rien de sélectionné signifie : ne s’applique pas."
   },
   "opt": {
     "anrede.Herr": "Monsieur",
@@ -146,7 +178,8 @@
     "laufzeit.3 Jahre": "3 ans",
     "laufzeit.5 Jahre": "5 ans",
     "laufzeit.10 Jahre": "10 ans",
-    "laufzeit.Mix": "Mix"
+    "laufzeit.Mix": "Mix",
+    "nutz.Gewerbe": "Commercial"
   },
   "s2": {
     "title": "Que finançons-nous ?",
@@ -159,7 +192,12 @@
     "increase": "Augmentation souhaitée",
     "purpose": "Affectation de l’augmentation",
     "purposePh": "À quoi servira l’augmentation ?",
-    "price": "Prix d’achat"
+    "price": "Prix d’achat",
+    "rentIncome": "Revenu locatif net annuel",
+    "purchaseDate": "Date d’achat",
+    "renoAmount": "Montant des rénovations",
+    "valueIsPrice": "Correspond au prix d’achat – à modifier seulement s’il diffère",
+    "bauprojektOff": "Un projet de construction n’est pas possible en cas de refinancement."
   },
   "s3": {
     "title": "Qui finance ?",
@@ -173,7 +211,9 @@
     "jpNote": "Nous lisons l’IDE, le siège et le droit de signature dans l’extrait du registre du commerce.",
     "guarantorName": "Caution solidaire · prénom nom",
     "firstNames": "Prénom(s)",
-    "namePh": "Prénom Nom"
+    "namePh": "Prénom Nom",
+    "addBorrower2": "+ Ajouter un emprunteur",
+    "remove": "Supprimer"
   },
   "s4": {
     "title": "Financement",
@@ -222,7 +262,11 @@
     "filesOf": "{n} sur {total} fichiers",
     "storedAs": "Sera enregistré sous",
     "original": "Original : {name}",
-    "rename": "Renommer"
+    "rename": "Renommer",
+    "drop2": "Déposez des fichiers individuels ou un dossier complet ici",
+    "dropSub2": "Des documents individuels ou un dossier complet. PDF, JPG, PNG. Inutile d’indiquer de quel document il s’agit.",
+    "pickFiles": "Sélectionner des fichiers",
+    "pickFolder": "Sélectionner un dossier"
   },
   "act": {
     "upload": "Télécharger",
@@ -251,7 +295,11 @@
     "required": "Obligatoire",
     "perBorrower": "Obligatoire · par emprunteur",
     "ifAvailable": "Si disponible",
-    "because": "car : {reason}"
+    "because": "car : {reason}",
+    "bonus": "car : part variable du salaire détectée",
+    "raise": "car : augmentation de salaire détectée",
+    "age50": "car : 50 ans ou plus (pièce d’identité)",
+    "amount": "car : {field} indiqué"
   },
   "grp": {
     "objekt": "Bien immobilier",
@@ -308,7 +356,15 @@
     "pkvorbezug": "Confirmation du versement anticipé / de la mise en gage LPP",
     "schenkung": "Contrat de donation",
     "erbe": "Certificat d’héritier",
-    "darlehen": "Contrat de prêt"
+    "darlehen": "Contrat de prêt",
+    "produkt": "Convention de produit actuelle",
+    "reno_liste": "Liste des rénovations (montant et emplacement, p. ex. cuisine, salle de bain, façade)",
+    "lohnausweis1": "Certificat de salaire actuel",
+    "lohnausweise_alt": "Certificats de salaire des deux années précédentes",
+    "pkverp": "Confirmation de mise en gage LPP",
+    "b_lohn1": "Caution solidaire · certificat de salaire actuel",
+    "pkvorbezug1": "Confirmation du versement anticipé LPP",
+    "erbe1": "Avancement d’hoirie / certificat d’héritier"
   },
   "sug": {
     "loan.title": "Nous avons reconnu un contrat de crédit ou de leasing.",
@@ -318,7 +374,11 @@
     "3a.title": "Nous avons reconnu des documents du pilier 3a.",
     "3a.text": "Votre réponse « pilier 3a » est Non. Faut-il la mettre sur Oui ?",
     "stwe.title": "Nous avons reconnu des documents de PPE.",
-    "stwe.text": "Le bien n’est pas saisi comme PPE. Faut-il adapter le type d’objet ?"
+    "stwe.text": "Le bien n’est pas saisi comme PPE. Faut-il adapter le type d’objet ?",
+    "loan.chipText": "Ni « Crédit privé » ni « Leasing » n’est coché. Faut-il l’ajouter ?",
+    "maint.chipText": "« Pensions alimentaires » n’est pas coché. Faut-il l’ajouter ?",
+    "3a.amountText": "Valeur de rachat selon la police : {amount}. Faut-il l’inscrire sous la prévoyance ?",
+    "3a.enterText": "Aucun montant n’est indiqué pour le « Pilier 3a ». Veuillez saisir le montant sous les fonds propres."
   },
   "toast": {
     "done": "{files} fichiers traités, {req} exigences remplies",
@@ -427,7 +487,10 @@
     "audit.unkept": "Conservation annulée",
     "audit.edited": "{field} modifié : {value}",
     "audit.confirmed": "Indications confirmées par l'utilisateur",
-    "audit.renamed": "Nom modifié : {name}"
+    "audit.renamed": "Nom modifié : {name}",
+    "nn.hyp_rahmen": "Contrat hypothécaire (contrat-cadre)",
+    "nn.hyp_sicher": "Convention de garantie / cédule hypothécaire",
+    "x.olderSalary": "Certificat de salaire plus ancien – nécessaire uniquement en cas de part variable. Conservé dans le dossier."
   },
   "s6": {
     "titleOk": "Nous pouvons financer ce projet. Place à la banque.",
@@ -485,7 +548,9 @@
     "retry": "Réessayer",
     "dossierLoading": "Création du dossier …",
     "doneTitleNoId": "La demande est chez HYPOTEQ.",
-    "customer": "Le client"
+    "customer": "Le client",
+    "finishBlocked": "Signez d’abord l’autorisation",
+    "finishBlockedUpload": "Téléchargez d’abord l’autorisation"
   },
   "rail": {
     "title": "Vos documents",
@@ -528,6 +593,116 @@
     "schenkung": "Donation",
     "erbe": "Héritage",
     "darlehen": "Prêt",
-    "pk": "Caisse de pension"
+    "pk": "Caisse de pension",
+    "steuer": "Optimisation fiscale"
+  },
+  "chip": {
+    "unterhalt": "Pensions alimentaires",
+    "kredite": "Crédit privé",
+    "leasing": "Leasing",
+    "buerge": "Cautionnement solidaire",
+    "baurecht": "Bien en droit de superficie",
+    "angebote": "Offres de financement existantes",
+    "steuer": "Intérêt pour l’optimisation fiscale",
+    "fromDoc": "tiré du document"
+  },
+  "em": {
+    "title": "Fonds propres – répartition",
+    "titleAbl": "Prévoyance",
+    "sub": "Ne remplissez que ce qui s’applique. Chaque montant demande le document correspondant.",
+    "spar": "Épargne / avoirs bancaires",
+    "s3a": "Pilier 3a",
+    "pkVor": "Versement anticipé LPP",
+    "pkVerp": "Mise en gage LPP",
+    "pkVerp.hint": "Garantie, ne compte pas comme fonds propres",
+    "schenk": "Donation",
+    "erbe": "Avancement d’hoirie",
+    "darl": "Prêt",
+    "total": "Fonds propres totaux {amount} · dont durs {hard}",
+    "hardMin": "au moins 10 % du prix d’achat requis"
+  },
+  "calc": {
+    "byPrice": "Max. 80 % de la valeur la plus basse entre prix d’achat et valeur estimée",
+    "incNote": "La capacité financière s’affiche dès que le revenu est saisi."
+  },
+  "fast": {
+    "s1.title": "Demande express",
+    "s1.lead": "Seulement les adresses e-mail. Nous lisons le nom, la civilité et la date de naissance sur la pièce d’identité.",
+    "s2.lead": "Des documents individuels ou un dossier complet. La demande se remplit à droite pendant la lecture.",
+    "rail.title": "Votre demande se remplit",
+    "rail.text": "informations reprises de vos documents. Inutile de les saisir.",
+    "s3.title": "Vérifier et compléter",
+    "s3.lead": "Tout ce qui figure dans les documents est déjà rempli. Il ne manque que les informations ci-dessous.",
+    "open": "Encore {n} informations",
+    "openSub": "Ceci ne figure dans aucun document.",
+    "taken": "Repris de vos documents",
+    "extra": "Également reconnu · pour l’e-mail de confirmation et Salesforce",
+    "confirm": "Confirmer",
+    "edit": "Modifier",
+    "pleaseConfirm": "Veuillez confirmer",
+    "prefill": "{n} informations pré-remplies à partir de vos documents – marquées « tiré du document ». Veuillez vérifier et compléter.",
+    "fromDocUnsure": "tiré du document · à vérifier",
+    "missingTitle": "Documents manquants",
+    "missingDrop": "Déposez les documents manquants ici",
+    "allComplete": "Tous les documents sont complets. Il ne manque rien.",
+    "toRequest": "Continuer vers la demande",
+    "toMissing": "Vers les documents manquants"
+  },
+  "nn": {
+    "vermoegen": "Le justificatif de fonds propres n’est nécessaire que pour un achat.",
+    "hyp_sicher": "La cédule hypothécaire / convention de garantie n’est pas nécessaire.",
+    "hyp_rahmen": "Pour le refinancement, il nous faut la convention de produit actuelle.",
+    "anstellung": "Nécessaire uniquement en cas d’augmentation de salaire dans l’année en cours – aucune détectée."
+  },
+  "sig": {
+    "title": "Autorisation de renseignements HYPOTEQ · obligatoire",
+    "notSigned": "Pas encore signé",
+    "notSignedSub": "Obligatoire pour chaque dossier. L’autorisation est pré-remplie avec vos informations.",
+    "signNow": "Signer maintenant en ligne",
+    "sendLink": "Envoyer le lien au client",
+    "paper": "Plutôt sur papier ?",
+    "download": "Télécharger pré-rempli",
+    "uploadSigned": "Télécharger signé",
+    "signedBy": "Signé par {name}",
+    "linkSent": "Lien envoyé à {email}",
+    "pending": "Signature en attente · rappel après 2 et 5 jours",
+    "uploaded": "Autorisation signée téléchargée",
+    "modalText": "J’autorise HYPOTEQ à obtenir auprès des banques, assurances et autorités les renseignements nécessaires au financement.",
+    "draw": "1 · Signez ici (doigt ou souris)",
+    "clear": "Effacer",
+    "code": "2 · Confirmer avec un code",
+    "sendCode": "Envoyer le code par SMS",
+    "codePh": "Code à 6 chiffres",
+    "sign": "Signer",
+    "cancel": "Annuler",
+    "uploadTitle": "Pas encore téléchargée",
+    "uploadSub": "Obligatoire pour chaque dossier. Téléchargez le modèle, faites-le signer par tous les emprunteurs, puis téléchargez-le ici.",
+    "step1": "1 · Modèle",
+    "step1Sub": "Pré-rempli avec les informations de cette demande.",
+    "downloadBtn": "Télécharger",
+    "step2": "2 · Signer",
+    "step2Sub": "Par {name} – par tous les emprunteurs s’il y en a plusieurs.",
+    "step3": "3 · Télécharger",
+    "step3Sub": "PDF ou photo, bien lisible.",
+    "received": "Autorisation signée reçue",
+    "laterQ": "Le client signe plus tard ?",
+    "later": "Remettre plus tard",
+    "laterState": "Sera remise plus tard",
+    "laterSub": "Le dossier est finalisé avec « signature en attente ». Sans signature, aucune demande n’est transmise à la banque.",
+    "unsigned": "Signature manquante",
+    "unsignedSub": "L’autorisation téléversée n’est pas signée. Veuillez téléverser une copie signée.",
+    "wrongName": "Le nom figurant sur l’autorisation ne correspond pas à l’emprunteur."
+  },
+  "mail": {
+    "subject": "Votre demande de financement {id} – {name}, {place}",
+    "next.sign": "Veuillez signer l’autorisation de renseignements",
+    "next.missing": "Ces documents manquent encore :",
+    "section.result": "Résultat",
+    "section.request": "Demande",
+    "section.borrowers": "Emprunteurs",
+    "section.property": "Bien",
+    "section.financing": "Financement",
+    "section.more": "Autres informations",
+    "section.docs": "Documents"
   }
 }

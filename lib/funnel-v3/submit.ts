@@ -22,6 +22,7 @@
 import { documentsSummary, type DocumentsSummary } from "./documentsSummary";
 import type { FileEntry } from "./files";
 import { translate, type Lang } from "./i18n";
+import { signatureJson } from "./signature";
 import { toInquiryPayload, type InquiryPayload } from "./toInquiryPayload";
 import type { FunnelState } from "./types";
 
@@ -113,6 +114,7 @@ export function buildSubmitPayload(state: SubmitState, lang: Lang): InquiryPaylo
     sharepointFolderId: state.sharepointFolderId,
     documents: summary.submittedDocuments(),
     documentCompleteness: documentCompleteness(summary, lang),
+    signature: signatureJson(summary.signature, state.sig),
   });
 }
 

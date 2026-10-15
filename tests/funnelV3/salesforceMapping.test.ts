@@ -1,15 +1,15 @@
 /**
  * Funnel v3 → Salesforce mapping gaps found by the audit (DECISIONS S6–S9):
- *   S6 Gesamtfinanzierung (financing.hypoBetrag) instead of Kaufpreis − 0 for a v3 Kauf
+ *   S6 Gesamtfinanzierung from the funnel calculation (v5: Kaufpreis-based, Handover 5)
  *   S7 Anrede → PersonAccount.Salutation on a NEW Account only
- *   S8 Verpf_ndung_PK__c from ans.pk, FR/IT spellings normalised
- *   S9 Ferienobjekt leaves Art_der_Liegenschaft__c unset
+ *   S8 Verpf_ndung_PK__c from the PK-Verpfändung amount (v5), FR/IT spellings normalised
+ *   S9 an old Ferienobjekt leaves Art_der_Liegenschaft__c unset
  * Every change is guarded by `stepData.v3`; the legacy payloads here pin the old behaviour.
  * The Salesforce API is faked in memory — nothing leaves the process.
  */
 import { describe, it, expect, jest, beforeEach, afterEach } from "@jest/globals";
 import { toInquiryPayload } from "@/lib/funnel-v3/toInquiryPayload";
-import { DEFAULT_ANSWERS, EMPTY_AMOUNTS, EMPTY_TEXTS, type FunnelState } from "@/lib/funnel-v3/types";
+import { DEFAULT_ANSWERS, EMPTY_AMOUNTS, EMPTY_EM, EMPTY_TEXTS, type FunnelState } from "@/lib/funnel-v3/types";
 import { syncFunnelStepsToSalesforce, toSalesforceSalutation } from "@/components/syncFunnelStepsToSalesforce";
 
 const SUBMISSION = "6f1c2b9e-1d2a-4c3b-9e8f-0a1b2c3d4e5f";
@@ -17,6 +17,12 @@ const SUBMISSION = "6f1c2b9e-1d2a-4c3b-9e8f-0a1b2c3d4e5f";
 /** v3 Kunde, Neue Hypothek: Kaufpreis 1'000'000, Objektwert 1'000'000, Einkommen 200'000. */
 const kauf = (over: Partial<FunnelState> = {}): FunnelState => ({
   role: "kunde",
+  mode: "begleitet",
+  em: { ...EMPTY_EM },
+  info: {},
+  src: {},
+  touched: {},
+  sig: null,
   ans: {
     ...DEFAULT_ANSWERS,
     antrag: "Neue Hypothek",
@@ -94,7 +100,7 @@ afterEach(() => {
 });
 
 describe("S6 — Gesamtfinanzierung of a v3 Kauf", () => {
-  it("uses hypoBetrag (Objektwert × 80 %) instead of Kaufpreis − 0", async () => {
+  it("uses the funnel's Hypothek (Kaufpreis × 80 % without Eigenmittel) instead of Kaufpreis − 0", async () => {
     const sf = fakeSalesforce();
     const p = v3();
     expect(p.financing.hypoBetrag).toBe("800000");
@@ -113,11 +119,11 @@ describe("S6 — Gesamtfinanzierung of a v3 Kauf", () => {
   it("falls back to the Kaufpreis as object value when no Objektwert was given", async () => {
     const sf = fakeSalesforce();
     const p = v3({ fin: { ...EMPTY_AMOUNTS, kaufpreis: 1000000, val: 900000, inc: 200000 } });
-    // calc.ts: need = val × 80 % = 720'000; Eigenmittel % on the Objektwert.
+    // calc.ts v5: need = Kaufpreis × 80 % = 800'000 (not the Objektwert); Eigenmittel % on the Objektwert.
     await syncFunnelStepsToSalesforce(p, sf.api);
     const c = sf.calls.cases[0];
-    expect(c.Gesch_tzter_Hypothekenbedarf__c).toBe(720000);
-    expect(c.EigenmittelProzent__c).toBe(20);
+    expect(c.Gesch_tzter_Hypothekenbedarf__c).toBe(800000);
+    expect(c.EigenmittelProzent__c).toBe(11.1);
 
     const sf2 = fakeSalesforce();
     const p2 = v3();
@@ -222,9 +228,9 @@ describe("S7 — Anrede → Salutation", () => {
 });
 
 describe("S8 — Verpf_ndung_PK__c", () => {
-  it("ans.pk = Ja → 'Ja', Nein → 'Nein'", async () => {
+  it("a PK-Verpfändung amount → 'Ja', none → 'Nein'", async () => {
     const sf = fakeSalesforce();
-    await syncFunnelStepsToSalesforce(v3({ ans: { ...kauf().ans, pk: "Ja" } }), sf.api);
+    await syncFunnelStepsToSalesforce(v3({ em: { ...EMPTY_EM, pkVerp: 50000 } }), sf.api);
     expect(sf.calls.cases[0].Verpf_ndung_PK__c).toBe("Ja");
 
     const sf2 = fakeSalesforce();
@@ -243,10 +249,10 @@ describe("S8 — Verpf_ndung_PK__c", () => {
   });
 });
 
-describe("S9 — Ferienobjekt", () => {
-  it("leaves Art_der_Liegenschaft__c unset; Stockwerkeigentum still yields Wohnung", async () => {
+describe("S9 — Ferienobjekt (no longer offered, Handover 2)", () => {
+  it("an old one leaves Art_der_Liegenschaft__c unset; Stockwerkeigentum still yields Wohnung", async () => {
     const sf = fakeSalesforce();
-    await syncFunnelStepsToSalesforce(v3({ ans: { ...kauf().ans, lieg: "Ferienobjekt", nutz: "Zweitwohnsitz" } }), sf.api);
+    await syncFunnelStepsToSalesforce(v3({ ans: { ...kauf().ans, lieg: "Ferienobjekt" as any, nutz: "Zweitwohnsitz" } }), sf.api);
     const c = sf.calls.cases[0];
     expect(c.Art_der_Liegenschaft__c ?? null).toBeNull();
     // The Nutzung and the Zweitwohnsitz rule (no amortisation in the Tragbarkeit) stay intact.

@@ -1,11 +1,17 @@
 /**
- * Funnel v3 recognition catalogue (Spezifikation 4.1, 4.3, 5 and 5.1).
+ * Funnel recognition catalogue (Spezifikation 4.1, 4.3, 5 and 5.1; v5: Handover 3.1, 4.1–4.3).
  *
- * One document type per requirement in lib/funnel-v3/requirements.ts (`REQ`, all 47), plus the
- * documents customers upload that the bank does not need (spec 4.3 «Nicht benötigt»). The
- * model classifies every file against this FULL catalogue, not only against the requirements
- * on the customer's list: a Kreditvertrag uploaded while «Privatkredite» is «Nein» has to be
- * recognised as one, or spec 4.4 (answer corrections) could never fire.
+ * One document type per requirement in lib/funnel-v3/requirements.ts (`REQ`, all 49), plus the
+ * documents customers upload that the bank does not need (spec 4.3 «Nicht benötigt») — among
+ * them the two v3 requirements v5 no longer asks for (Rahmenvertrag, Schuldbrief), under their
+ * old ids so stored analyses still resolve. The model classifies every file against this FULL
+ * catalogue, not only against the requirements on the customer's list: a Kreditvertrag
+ * uploaded while the chip «Privatkredit» is off has to be recognised as one, or spec 4.4
+ * (answer corrections) could never fire.
+ *
+ * The fields extracted per type are what the funnel prefills and the mail / Salesforce show
+ * (Handover 3.1; lib/funnel-v3/prefill.ts) and what the document facts compare (4.2;
+ * lib/funnel-v3/facts.ts).
  *
  * Pure — no SDK, no React, no Node API. The analyse route, the client-side placement
  * (lib/funnel-v3/placeFile.ts) and the step 5 UI all read the same rules, so «too old»,
@@ -58,15 +64,21 @@ export interface V3DocType {
   fields: V3FieldSpec[];
   freshness?: FreshnessRule[];
   /**
-   * The requirement asks for the last `years` complete years (Lohnausweise der letzten 3 Jahre).
-   * A file for another year is kept as «Überzählig» (spec 4.3), not counted. Placement rule.
+   * The requirement asks for `years` complete years, starting `offset` years before the last
+   * complete one: the current Lohnausweis is { years: 1 }, the two before it (P5)
+   * { years: 2, offset: 1 }. A file for another year is kept as «Überzählig» (spec 4.3), not
+   * counted. Placement rule.
    */
-  period?: { years: number };
+  period?: { years: number; offset?: number };
   /** What to read for the stored file name (spec 5.1). */
   naming: { person: boolean; bank: boolean; date: "date" | "year" | "none" };
   /** When the model should leave a remark for the bank (spec 3 Schritt 6 «Hinweise»). */
   noteWhen?: string;
-  /** German reason shown under «Weitere Dateien» for a not-needed type. */
+  /**
+   * German reason shown under «Weitere Dateien»: for a not-needed type always; for a
+   * requirement type when it is recognised but not on the list — «nicht benötigt» with this
+   * reason instead of «passt zu keiner Anforderung» (Handover 4.3, prototype NN).
+   */
   notNeededReason?: string;
 }
 
@@ -75,29 +87,66 @@ const a = (de: string[], fr: string[], it: string[], en: string[]): Record<Lang4
 const ID_FIELDS_HINTS: Record<string, string> = {
   Name: "family name as printed",
   Vornamen: "all given names as printed",
+  Geschlecht: "sex as printed: «M» or «F»",
   Geburtsdatum: "date of birth, DD.MM.YYYY",
   "Nationalität": "nationality",
   Dokumentart: "Pass, Identitätskarte or Ausländerausweis (with permit letter, e.g. «Ausweis C»)",
   "Gültig bis": "expiry date, DD.MM.YYYY",
 };
 
-/** Hints for the demo-specific keys of REQ[].fields, so they generalise beyond the Gerber case. */
+/** The fields of a Lohnausweis — what 4.2 compares (lib/funnel-v3/facts.ts). */
+const LOHNAUSWEIS_FIELDS = ["Arbeitgeber", "AHV-Nr.", "Jahr", "Bruttolohn", "Beschäftigungsgrad"];
+
+/**
+ * Hints for the keys of REQ[].fields that need one, so they generalise beyond the Gerber case.
+ * Amounts the funnel prefills or compares (Kaufpreis, Kapital, Bruttolohn, Monatslohn,
+ * Rückkaufswert …) are read as printed with CHF; prefill.ts parses them.
+ */
 const FIELD_HINTS: Record<string, string> = {
   ...ID_FIELDS_HINTS,
-  "Bruttolohn 2025": "gross salary (Bruttolohn, Ziffer 8) of 2025 — only from a certificate for 2025, else null",
-  "Bruttolohn 2024": "gross salary (Bruttolohn, Ziffer 8) of 2024 — only from a certificate for 2024, else null",
-  "Bruttolohn 2023": "gross salary (Bruttolohn, Ziffer 8) of 2023 — only from a certificate for 2023, else null",
-  "Verkaufspreis 2024": "asking or sale price as printed, with CHF",
+  // Lohnausweis / Lohnabrechnung (Handover 4.2)
+  "Jahr": "the year the salary certificate covers, YYYY",
+  "Bruttolohn": "gross salary of that year (Bruttolohn total, Ziffer 8), with CHF",
+  "Monatslohn brutto": "gross monthly base salary of the most recent month, with CHF (not the net pay, not allowances)",
+  "13. Monatslohn": "«ja» when a 13th monthly salary is paid (shown on a payslip or stated: «13 Monatslöhne», «13. Monatslohn»), «nein» when 12 salaries are stated; null when the document does not say",
+  // Objekt
+  "Adresse": "street and number of the property",
+  "PLZ": "postal code of the property",
+  "Ort": "municipality of the property",
+  "Wertquote": "value quota of the condominium unit, e.g. «45/1000»",
+  "Baurecht": "«ja» when the parcel is a building right (selbständiges und dauerndes Baurecht) or lies on one, «nein» otherwise",
+  "Verkaufspreis": "asking or sale price as printed, with CHF",
+  "Zimmer": "number of rooms",
+  "Wohnfläche": "living area in m²",
+  "Nettowohnfläche": "net living area in m²",
+  "Heizung": "heating system as described (e.g. «Wärmepumpe», «Gas», «Holzofen»)",
+  "Kaufpreis": "purchase price of the property, with CHF",
+  "Eigentumsübertragung": "planned date of the transfer of ownership (Eigentumsübertragung / Antritt), DD.MM.YYYY",
+  "Positionen": "the renovation items, each with place and amount, short",
+  "Total": "total amount, with CHF",
+  // Bestehende Hypothek
+  "Kapital": "outstanding capital of the existing mortgage (all tranches on this statement), with CHF",
+  "Zinssatz": "interest rate with the product or reference rate, e.g. «SARON + 0.65 %», «Festhypothek 1.25 %»",
   "Zins Q1 2026": "interest amount of the most recent billed period, with the period",
   "Ablösedatum": "date the current mortgage (tranche or framework) can be redeemed — end of the fixed term / maturity, DD.MM.YYYY; null when the document names none",
   "Saldo per 31.12.2025": "fund balance at the most recent closing date, with that date",
+  // Steuererklärung
+  "Eigenmietwert": "imputed rental value (Eigenmietwert) of a home the taxpayer lives in, with CHF; null when none is declared",
+  // Vorsorge
+  "Guthaben": "balance of the pillar 3a account at the most recent date, with CHF and the date",
   "Beiträge 2025": "contributions paid in the year the certificate covers, with the year",
-  "Rückkaufswert per 09.01.2026": "surrender value (Rückkaufswert) with the date it refers to",
+  "Verpfändung": "bank the 3a assets are pledged or assigned to; null when not pledged",
+  "Rückkaufswert": "surrender value (Rückkaufswert) of the policy, with CHF and the date it refers to",
   "Ausstellungsdatum": "issue date of the extract, DD.MM.YYYY",
   "Grundpfandrechte": "registered mortgage notes (Schuldbriefe) with amount and creditor",
-  "Unterschrift": "«vorhanden» when the form is signed, else «fehlt»",
+  "Unterschrift": "«vorhanden» when the form is signed by hand, else «fehlt»",
+  "Vollmachtgeber": "the person(s) or company granting the authorisation, as printed",
   "Begünstigte Bank": "bank the policy is pledged or assigned to, if any",
   "ZEK-relevant": "«ja» when the contract is a consumer credit reported to the ZEK",
+  // Handelsregister
+  "UID": "company identification number, CHE-…",
+  "Sitz": "registered seat (municipality)",
+  "Zeichnungsberechtigte": "persons with signing authority and their kind of signature, short",
 };
 
 interface ReqTypeInput {
@@ -107,9 +156,11 @@ interface ReqTypeInput {
   /** Only for requirements whose REQ[].fields is empty. */
   fields?: string[];
   freshness?: FreshnessRule[];
-  period?: { years: number };
+  period?: { years: number; offset?: number };
   naming?: Partial<V3DocType["naming"]>;
   noteWhen?: string;
+  /** Recognised but not on the list: «nicht benötigt» with this reason (prototype NN). */
+  notNeededReason?: string;
 }
 
 /**
@@ -147,7 +198,6 @@ const REQ_INPUT: Record<string, ReqTypeInput> = {
   kaufvertrag: {
     aliases: a(["Kaufvertrag", "Kaufvertragsentwurf", "öffentliche Urkunde Kauf"], ["Contrat de vente", "Acte de vente", "Projet d'acte de vente"], ["Contratto di compravendita", "Atto di compravendita", "Bozza del contratto di compravendita"], ["Purchase contract", "Sale and purchase agreement", "Draft purchase contract"]),
     describe: "Contract of sale of the property, draft or notarised original (a draft purchase contract IS this type).",
-    fields: ["Käufer", "Verkäufer", "Objekt", "Kaufpreis", "Datum"],
     naming: { date: "date" },
   },
   reservation: {
@@ -170,8 +220,13 @@ const REQ_INPUT: Record<string, ReqTypeInput> = {
   },
   projekt: {
     aliases: a(["Projektpläne", "Baubeschrieb", "Werkvertrag", "Kostenvoranschlag", "Kostenzusammenzug"], ["Plans du projet", "Descriptif de construction", "Contrat d'entreprise", "Devis général"], ["Piani di progetto", "Descrizione della costruzione", "Contratto d'appalto", "Preventivo dei costi"], ["Project plans", "Construction description", "Construction contract", "Cost estimate"]),
-    describe: "Project documents of a construction or renovation: plans, construction description, contractor agreement, cost summary, building volume.",
+    describe: "Project documents of a construction project: plans, construction description, contractor agreement, cost summary, building volume.",
     fields: ["Bauherr", "Objekt", "Gesamtkosten", "Kubatur"],
+    naming: { date: "date" },
+  },
+  reno_liste: {
+    aliases: a(["Aufstellung Renovationen", "Renovationsliste", "Kostenschätzung Renovation", "Offerte Renovation"], ["Liste des rénovations", "Devis de rénovation", "Estimation des travaux"], ["Elenco delle ristrutturazioni", "Preventivo di ristrutturazione"], ["List of renovations", "Renovation cost estimate"]),
+    describe: "A list or quote of the renovations planned with a purchase: what is renovated where (kitchen, bathroom, façade …) and for how much.",
     naming: { date: "date" },
   },
   stwe_regl: {
@@ -205,14 +260,9 @@ const REQ_INPUT: Record<string, ReqTypeInput> = {
   },
 
   // ---- Bestehende Hypothek -----------------------------------------------------------
-  hyp_rahmen: {
-    aliases: a(["Hypothekarvertrag", "Rahmenvertrag", "Kreditvertrag Hypothek"], ["Contrat hypothécaire", "Contrat-cadre"], ["Contratto ipotecario", "Contratto quadro"], ["Mortgage agreement", "Framework agreement"]),
-    describe: "Existing mortgage framework agreement with the current lender.",
-    naming: { bank: true, date: "date" },
-  },
-  hyp_sicher: {
-    aliases: a(["Sicherungsvereinbarung", "Schuldbrief", "Sicherungsübereignung", "Register-Schuldbrief"], ["Convention de sûreté", "Cédule hypothécaire", "Cédule de registre"], ["Convenzione di garanzia", "Cartella ipotecaria", "Cartella ipotecaria registrale"], ["Security agreement", "Mortgage note"]),
-    describe: "Security agreement transferring mortgage notes (Schuldbriefe / cédules / cartelle) to the current lender, or the mortgage note itself.",
+  produkt: {
+    aliases: a(["Produktvereinbarung", "Festhypothek-Vertrag", "SARON-Hypothek Vereinbarung", "Konditionenbestätigung", "Tranchenvereinbarung"], ["Convention de produit", "Confirmation des conditions", "Contrat d'hypothèque fixe"], ["Accordo di prodotto", "Conferma delle condizioni", "Contratto ipoteca fissa"], ["Product agreement", "Fixed-rate mortgage agreement", "Terms confirmation"]),
+    describe: "The current agreement of one mortgage product or tranche with the existing lender (fixed-rate or SARON mortgage: amount, rate, term, end date) — NOT the general framework agreement (Rahmenvertrag), which is «hyp_rahmen».",
     naming: { bank: true, date: "date" },
   },
   hyp_zins: {
@@ -225,7 +275,9 @@ const REQ_INPUT: Record<string, ReqTypeInput> = {
   // ---- Zur Person --------------------------------------------------------------------
   vollmacht: {
     aliases: a(["Auskunftsermächtigung", "Vollmacht HYPOTEQ", "Einwilligung Bonitätsprüfung"], ["Autorisation de renseignements", "Procuration HYPOTEQ"], ["Autorizzazione a fornire informazioni", "Procura HYPOTEQ"], ["Authorisation to obtain information", "HYPOTEQ power of attorney"]),
-    describe: "HYPOTEQ's signed form authorising it to obtain information about the applicant.",
+    // Handover 6: right form, signature present, name of the borrower — the funnel checks the
+    // last two from «Unterschrift» and «Vollmachtgeber» (signature.ts).
+    describe: "HYPOTEQ's form «Auskunftsermächtigung» authorising HYPOTEQ to obtain information about the applicant, filled in and (ideally) signed by hand — also as a photo or scan. An unsigned blank form is still this type.",
     naming: { person: true, date: "date" },
   },
   id: {
@@ -237,7 +289,15 @@ const REQ_INPUT: Record<string, ReqTypeInput> = {
   lohnausweise: {
     aliases: a(["Lohnausweis", "Lohnausweise", "Formular 11"], ["Certificat de salaire"], ["Certificato di salario"], ["Salary certificate", "Wage statement"]),
     describe: "Swiss annual salary certificate (Lohnausweis, form 11) of one year.",
-    period: { years: 3 },
+    // v5 P2: the current one (last complete year); older ones are P5 or «überzählig».
+    period: { years: 1 },
+    naming: { person: true, date: "year" },
+  },
+  lohnausweise_alt: {
+    family: "lohnausweise",
+    aliases: a(["Lohnausweise Vorjahre"], ["Certificats de salaire des années précédentes"], ["Certificati di salario degli anni precedenti"], ["Salary certificates of the previous years"]),
+    describe: "Salary certificate of one of the two years before the current one.",
+    period: { years: 2, offset: 1 },
     naming: { person: true, date: "year" },
   },
   lohnabrechnungen: {
@@ -250,6 +310,7 @@ const REQ_INPUT: Record<string, ReqTypeInput> = {
     aliases: a(["Anstellungsvertrag", "Arbeitsvertrag"], ["Contrat de travail"], ["Contratto di lavoro"], ["Employment contract"]),
     describe: "Employment contract between an employer and the person.",
     naming: { person: true, date: "date" },
+    notNeededReason: "Nur nötig bei einer Lohnerhöhung im laufenden Jahr – keine erkannt.",
   },
   pk: {
     aliases: a(["Pensionskassenausweis", "Vorsorgeausweis", "BVG-Ausweis", "Versicherungsausweis Pensionskasse"], ["Certificat de prévoyance", "Certificat LPP", "Attestation de caisse de pension"], ["Certificato di previdenza", "Certificato LPP", "Certificato della cassa pensione"], ["Pension fund certificate", "BVG certificate"]),
@@ -320,8 +381,9 @@ const REQ_INPUT: Record<string, ReqTypeInput> = {
     family: "lohnausweise",
     aliases: a(["Lohnausweis Solidarbürge"], ["Certificat de salaire de la caution solidaire"], ["Certificato di salario del fideiussore solidale"], ["Joint guarantor's salary certificate"]),
     describe: "Salary certificate of the joint and several guarantor.",
-    fields: ["Arbeitgeber", "AHV-Nr.", "Bruttolohn 2025", "Bruttolohn 2024", "Bruttolohn 2023"],
-    period: { years: 3 },
+    fields: LOHNAUSWEIS_FIELDS,
+    // v5 P16: the current one, like P2.
+    period: { years: 1 },
     naming: { person: true, date: "year" },
   },
   hr: {
@@ -376,6 +438,8 @@ const REQ_INPUT: Record<string, ReqTypeInput> = {
     // default: 3 months — own funds have to be shown as they are now.
     freshness: [{ kind: "maxAgeMonths", months: 3 }],
     naming: { date: "date" },
+    // v5 E1: only for a purchase (Rosanna).
+    notNeededReason: "Eigenmittelnachweis ist nur bei einem Kauf nötig.",
   },
   s3a: {
     aliases: a(["Säule 3a Bescheinigung", "3a-Bescheinigung", "Bescheinigung gebundene Vorsorge"], ["Attestation 3e pilier A", "Attestation de prévoyance liée 3a"], ["Attestazione pilastro 3a", "Attestazione previdenza vincolata"], ["Pillar 3a certificate"]),
@@ -392,9 +456,16 @@ const REQ_INPUT: Record<string, ReqTypeInput> = {
     noteWhen: "the policy is pledged or assigned to a bank (e.g. «Police ist an die ZKB verpfändet – bei Ablösung an die neue Bank zu übertragen»)",
   },
   pkvorbezug: {
-    aliases: a(["PK-Vorbezug", "Bestätigung Vorbezug", "Verpfändung Pensionskasse", "WEF-Vorbezug"], ["Versement anticipé EPL", "Mise en gage LPP", "Retrait anticipé caisse de pension"], ["Prelievo anticipato PPA", "Costituzione in pegno LPP"], ["Pension fund withdrawal confirmation", "Pension fund pledge"]),
-    describe: "Pension fund's confirmation of an early withdrawal or pledge for home ownership (WEF / EPL / PPA).",
+    aliases: a(["PK-Vorbezug", "Bestätigung Vorbezug", "WEF-Vorbezug", "Auszahlung Wohneigentumsförderung"], ["Versement anticipé EPL", "Retrait anticipé caisse de pension"], ["Prelievo anticipato PPA", "Versamento anticipato"], ["Pension fund withdrawal confirmation", "Early withdrawal for home ownership"]),
+    // v5: split from the pledge (E5).
+    describe: "Pension fund's confirmation of an EARLY WITHDRAWAL for home ownership (WEF / EPL / PPA) — a pledge is «pkverp».",
     fields: ["Vorsorgeeinrichtung", "Versicherte Person", "Betrag", "Art"],
+    naming: { date: "date" },
+  },
+  pkverp: {
+    aliases: a(["PK-Verpfändung", "Verpfändung Pensionskasse", "Bestätigung Verpfändung Vorsorgeguthaben"], ["Mise en gage LPP", "Nantissement de la prévoyance professionnelle"], ["Costituzione in pegno LPP", "Pegno della previdenza professionale"], ["Pension fund pledge", "Pledge of pension assets"]),
+    describe: "Pension fund's confirmation that pension assets are PLEDGED for home ownership (Verpfändung, WEF / EPL / PPA) — not an early withdrawal.",
+    fields: ["Vorsorgeeinrichtung", "Versicherte Person", "Betrag", "Pfandgläubiger"],
     naming: { date: "date" },
   },
   schenkung: {
@@ -418,8 +489,24 @@ const REQ_INPUT: Record<string, ReqTypeInput> = {
   },
 };
 
-/** Documents customers upload that the bank does not need (spec 4.3 «Nicht benötigt»). */
+/**
+ * Documents customers upload that the bank does not need (spec 4.3 «Nicht benötigt»). The first
+ * two were v3 requirements (H1, H2) that v5 no longer asks for (Rosanna; Handover 4.1); they
+ * keep their ids so an analysis stored before v5 still names them. Reasons = i18n `nn.<id>`.
+ */
 const NOT_NEEDED: Omit<V3DocType, "kind" | "family" | "naming" | "fields">[] = [
+  {
+    id: "hyp_rahmen", labelDe: "Aktueller Hypothekarvertrag (Rahmenvertrag)",
+    aliases: a(["Hypothekarvertrag", "Rahmenvertrag", "Kreditrahmenvertrag Hypothek"], ["Contrat hypothécaire", "Contrat-cadre"], ["Contratto ipotecario", "Contratto quadro"], ["Mortgage agreement", "Framework agreement"]),
+    describe: "The general mortgage FRAMEWORK agreement (Rahmenvertrag) with the current lender — not the agreement of one product or tranche («produkt»).",
+    notNeededReason: "Für die Ablösung brauchen wir die aktuelle Produktvereinbarung.",
+  },
+  {
+    id: "hyp_sicher", labelDe: "Sicherungsvereinbarung / Schuldbrief",
+    aliases: a(["Sicherungsvereinbarung", "Schuldbrief", "Sicherungsübereignung", "Register-Schuldbrief"], ["Convention de sûreté", "Cédule hypothécaire", "Cédule de registre"], ["Convenzione di garanzia", "Cartella ipotecaria", "Cartella ipotecaria registrale"], ["Security agreement", "Mortgage note"]),
+    describe: "Security agreement transferring mortgage notes (Schuldbriefe / cédules / cartelle) to the current lender, or the mortgage note itself.",
+    notNeededReason: "Schuldbrief / Sicherungsvereinbarung wird nicht benötigt.",
+  },
   {
     id: "nn_steuerrechnung", labelDe: "Steuerrechnung",
     aliases: a(["Steuerrechnung", "Schlussrechnung Steuern", "provisorische Steuerrechnung"], ["Bordereau d'impôt", "Décompte d'impôt", "Facture d'impôt"], ["Fattura d'imposta", "Conteggio d'imposta"], ["Tax bill", "Tax invoice"]),
@@ -447,7 +534,7 @@ const NOT_NEEDED: Omit<V3DocType, "kind" | "family" | "naming" | "fields">[] = [
   {
     id: "nn_verpfaendung", labelDe: "Verpfändungserklärung",
     aliases: a(["Verpfändungserklärung", "Verpfändungsvertrag", "Abtretung Vorsorge"], ["Acte de nantissement", "Déclaration de mise en gage"], ["Atto di costituzione in pegno", "Dichiarazione di pegno"], ["Pledge agreement", "Pledge declaration"]),
-    describe: "A pledge / assignment declaration of pillar 3a or insurance assets to a bank, WITHOUT the policy or certificate itself (a pension fund pledge confirmation is «pkvorbezug»).",
+    describe: "A pledge / assignment declaration of pillar 3a or insurance assets to a bank, WITHOUT the policy or certificate itself (a pension fund's pledge confirmation is «pkverp»).",
     notNeededReason: "Verpfändung zugunsten der bisherigen Bank – wird mit der Ablösung hinfällig.",
   },
   {
@@ -499,6 +586,7 @@ function reqType(def: RequirementDef): V3DocType {
       date: input.naming?.date ?? (def.datedName ? "date" : "none"),
     },
     noteWhen: input.noteWhen,
+    ...(input.notNeededReason ? { notNeededReason: input.notNeededReason } : {}),
   };
 }
 
@@ -636,12 +724,13 @@ function formatDe(iso: string): string {
 }
 
 /**
- * The years a period requirement asks for (Lohnausweise der letzten 3 Jahre → 2023–2025 in
- * 2026), or null when the type has no period. Placement rule (spec 4.3 «Überzählig»).
+ * The years a period requirement asks for (in 2026: the current Lohnausweis → 2025, the two
+ * before it → 2024, 2023; Jahresabschlüsse der letzten 3 Jahre → 2025–2023), or null when the
+ * type has no period. Placement rule (spec 4.3 «Überzählig»).
  */
 export function requestedYears(typeId: string | null | undefined, now: Date = new Date()): number[] | null {
   const t = v3DocType(typeId);
   if (!t?.period) return null;
-  const y = now.getUTCFullYear();
-  return Array.from({ length: t.period.years }, (_, i) => y - 1 - i);
+  const y = now.getUTCFullYear() - 1 - (t.period.offset ?? 0);
+  return Array.from({ length: t.period.years }, (_, i) => y - i);
 }

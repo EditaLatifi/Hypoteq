@@ -30,10 +30,11 @@ import { buildCheckState, type CheckStateDetail } from "./checkState";
 import { createDossierPdf, dossierFileName, type DossierFile, type DossierInput } from "./dossier";
 import type { SubmittedDocument, V3Analysis } from "./files";
 import { isLang, type Lang } from "./i18n";
-import { getRequirement, reqList, type RequirementDef, type RequirementInstance } from "./requirements";
+import { SIGNATURE_REQUIREMENT_ID, getRequirement, reqList, type RequirementDef, type RequirementInstance } from "./requirements";
+import { signatureJson, signatureView } from "./signature";
 import { bankHints, requirementStatus, type ExtraKind, type StatusResult, type UploadedFile } from "./requirementStatus";
 import { cleanNamePart, storedName } from "./storedName";
-import type { FunnelState } from "./types";
+import { normaliseFunnelState, type StoredFunnelState } from "./legacy";
 
 // ---- Types --------------------------------------------------------------------------------
 
@@ -124,20 +125,14 @@ export interface CompletionInput {
   data: any;
 }
 
-export type V3State = Pick<FunnelState, "role" | "ans" | "txt" | "fin" | "borrowers">;
+/** The answers of a funnel submission, in the v5 shape (legacy.ts reads a v3 one into it). */
+export type V3State = StoredFunnelState;
 
 // ---- Reading the payload ------------------------------------------------------------------
 
+/** `data.v3` of a submission or a stored inquiry, whatever version wrote it (legacy.ts). */
 export function v3StateOf(data: any): V3State | null {
-  const v3 = data?.v3;
-  if (!v3 || typeof v3 !== "object" || !v3.ans || !v3.txt) return null;
-  return {
-    role: v3.role ?? null,
-    ans: v3.ans,
-    txt: v3.txt,
-    fin: v3.fin ?? { old: 0, up: 0, kaufpreis: 0, inc: 0, val: 0 },
-    borrowers: Array.isArray(v3.borrowers) ? v3.borrowers : [],
-  };
+  return normaliseFunnelState(data?.v3);
 }
 
 export function submittedDocumentsOf(data: any): SubmittedDocument[] {
@@ -238,7 +233,11 @@ export function planFiles(
       const only = perId.get(analysis.requirementId);
       instance = byInstance.get(analysis.requirementId) ?? (only?.length === 1 ? only[0] : null);
     }
-    const extraKind: ExtraKind | undefined = instance ? undefined : sub?.extraKind ?? analysis?.extraKind ?? "unknown";
+    // A file submitted on a requirement the current rules no longer ask for (an inquiry stored
+    // before v5: Rahmenvertrag, three Lohnausweise, Anstellungsvertrag …) once counted: it stays
+    // in the folder as «Überzählig», never deleted.
+    const gone = !!sub?.instanceId && !instance;
+    const extraKind: ExtraKind | undefined = instance ? undefined : gone ? "surplus" : sub?.extraKind ?? analysis?.extraKind ?? "unknown";
     const remove = !instance && !sub?.keep && (extraKind === "duplicate" || extraKind === "notneeded");
     return { row, sub, analysis, instance, extraKind, remove, target: null };
   });
@@ -646,8 +645,17 @@ export function v3DocumentCaseFields(data: any, previous?: string | null, now: D
     .filter((f) => !f.instanceId || !status.requirements.some((r) => r.fileIds.includes(f.documentId)))
     .map((f) => ({ name: f.storedName || f.originalName, kind: (f.extraKind ?? "unknown") as ExtraKind }));
 
+  // Handover 6/8: the Auskunftsermächtigung as the AI judged the copies on P0.
+  const signer = status.requirements.find((r) => r.instance.id === SIGNATURE_REQUIREMENT_ID)?.instance.person;
+  const view = signatureView(
+    files.map((f) => ({ fileId: f.documentId, instanceId: f.instanceId, analysis: f.analysis, assignedByUser: f.assignedByUser })),
+    state.sig,
+    signer
+  );
+  const signature = signatureJson(view, state.sig);
+
   const out: Record<string, boolean | string> = { ...status.dokFlags };
-  out.Dokumenten_Check_State__c = buildCheckState({ state, status, details, extras, hints, previous, now });
+  out.Dokumenten_Check_State__c = buildCheckState({ state, status, signature, details, extras, hints, previous, now });
   const folderUrl = data?.v3Completion?.folderWebUrl;
   if (typeof folderUrl === "string" && folderUrl) out.SharePoint_Doc__c = folderUrl;
   return out;

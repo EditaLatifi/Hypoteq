@@ -6,7 +6,7 @@
 
 import type { FileEntry, V3Analysis } from "../files";
 import { isLang, type Lang } from "../i18n";
-import { DEFAULT_ANSWERS, EMPTY_AMOUNTS, EMPTY_TEXTS, MAX_BORROWERS, type Answers, type Amounts, type Borrower, type Texts } from "../types";
+import { DEFAULT_ANSWERS, EMPTY_AMOUNTS, EMPTY_EM, EMPTY_TEXTS, MAX_BORROWERS, type Answers, type Amounts, type Borrower, type DocInfo, type Eigenmittel, type Texts } from "../types";
 import type { DossierFile, DossierInput } from "./model";
 
 export const PREVIEW_MAX_FILES = 300;
@@ -15,7 +15,7 @@ const MAX_FIELDS = 40;
 
 export interface PreviewRequest {
   lang?: string;
-  state?: { role?: unknown; ans?: unknown; txt?: unknown; fin?: unknown; borrowers?: unknown };
+  state?: { role?: unknown; ans?: unknown; txt?: unknown; fin?: unknown; em?: unknown; info?: unknown; borrowers?: unknown };
   files?: unknown;
   skipped?: unknown;
 }
@@ -40,6 +40,23 @@ function amounts(x: unknown): Amounts {
   const out: Record<string, number> = { ...EMPTY_AMOUNTS };
   if (isObj(x)) for (const k of Object.keys(EMPTY_AMOUNTS)) out[k] = amount(x[k]);
   return out as unknown as Amounts;
+}
+
+function equity(x: unknown): Eigenmittel {
+  const out: Record<string, number> = { ...EMPTY_EM };
+  if (isObj(x)) for (const k of Object.keys(EMPTY_EM)) out[k] = amount(x[k]);
+  return out as unknown as Eigenmittel;
+}
+
+/** The documents' facts: short texts and the three flags of Handover 4.2. */
+function facts(x: unknown): DocInfo {
+  const out: Record<string, string | boolean> = {};
+  if (!isObj(x)) return {};
+  for (const [k, v] of Object.entries(x).slice(0, 60)) {
+    if (k === "ab50" || k === "bonus" || k === "raise") out[k] = v === true;
+    else if (typeof v === "string" && v) out[k.slice(0, 40)] = v.slice(0, 300);
+  }
+  return out as DocInfo;
 }
 
 function borrowers(x: unknown): Borrower[] {
@@ -121,6 +138,8 @@ export function previewInput(body: PreviewRequest, now: Date = new Date()): Doss
       ans: answers(s.ans),
       txt: texts(s.txt),
       fin: amounts(s.fin),
+      em: equity(s.em),
+      info: facts(s.info),
       borrowers: borrowers(s.borrowers),
     },
     files: previewFiles(body?.files),

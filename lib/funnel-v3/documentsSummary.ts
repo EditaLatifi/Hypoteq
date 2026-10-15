@@ -12,7 +12,10 @@ import { useMemo } from "react";
 import { useFunnelV3 } from "./store";
 import { toUploadedFiles, type FileEntry, type SubmittedDocument } from "./files";
 import { placeAll, withPlacement, type Placement } from "./placeFile";
-import { baseId, reqList, type ReqState, type RequirementInstance } from "./requirements";
+import { analysedFiles, correctionValues } from "./prefill";
+import { baseId, isSignatureRequirement, reqList, type ReqState, type RequirementInstance } from "./requirements";
+import { signatureView, type SignatureView } from "./signature";
+import type { Mode, SignatureState } from "./types";
 import {
   answerCorrections,
   bankHints,
@@ -30,6 +33,10 @@ export interface DocumentsSummaryInput extends ReqState {
   skipped?: Iterable<string>;
   /** Files whose answer-correction suggestion was dismissed. */
   dismissed?: Iterable<string>;
+  /** Schnellanmeldung: no suggestions — the documents fill the answers in (Handover 3.1). */
+  mode?: Mode;
+  /** The Auskunftsermächtigung choice (Handover 6). */
+  sig?: SignatureState | null;
 }
 
 export interface DocumentSuggestion extends AnswerCorrection {
@@ -46,6 +53,8 @@ export interface DocumentsSummary {
   status: StatusResult;
   hints: BankHint[];
   suggestions: DocumentSuggestion[];
+  /** The Auskunftsermächtigung block (Handover 6). */
+  signature: SignatureView;
   /** Files still uploading or being read. */
   busy: number;
   /** Recognised values on counted files («Aus Dokumenten übernommen: N Angaben»). */
@@ -83,26 +92,44 @@ export function toSubmittedDocument(f: FileEntry): SubmittedDocument {
 
 export function documentsSummary(raw: DocumentsSummaryInput, opts: { now?: Date } = {}): DocumentsSummary {
   const input = { ...raw, skipped: Array.from(raw.skipped ?? []), dismissed: Array.from(raw.dismissed ?? []) };
-  const state: ReqState = { ans: input.ans, borrowers: input.borrowers, txt: input.txt };
+  const state: ReqState = { ans: input.ans, borrowers: input.borrowers, txt: input.txt, em: input.em, info: input.info, legacyEquity: input.legacyEquity };
   const instances = reqList(state);
-  const placements = placeAll(input.files, state, { now: opts.now, dismissed: input.dismissed });
+  const placements = placeAll(input.files, state, { now: opts.now, dismissed: input.dismissed, instances });
   const files = input.files.map((f) => withPlacement(f, placements.get(f.id)));
   const uploaded = toUploadedFiles(files);
   const status = requirementStatus(instances, uploaded, input.skipped);
   const hints = bankHints(status, uploaded);
 
-  // Spec 4.4: recognised documents that are not on the list (and not turned down).
+  // Spec 4.4: recognised documents that are not on the list (and not turned down). Only in
+  // the Begleitete Anmeldung — the Schnellanmeldung takes them over (Handover 3.1).
   const dismissed = new Set(input.dismissed);
   const offList = files.filter(
     (f) => f.analysisState === "done" && placements.get(f.id)?.reason === "offList" && !dismissed.has(f.id)
   );
-  const suggestions: DocumentSuggestion[] = answerCorrections(
-    state,
-    offList.map((f) => f.analysis!.docTypeId!).filter(Boolean)
-  ).map((c) => {
-    const ids = new Set(c.requirementIds.flatMap((id) => familyMembers(id)));
-    return { ...c, fileIds: offList.filter((f) => ids.has(f.analysis!.docTypeId!)).map((f) => f.id) };
-  });
+  const suggestions: DocumentSuggestion[] =
+    input.mode === "schnell"
+      ? []
+      : answerCorrections(
+          state,
+          offList.map((f) => f.analysis!.docTypeId!).filter(Boolean),
+          correctionValues(analysedFiles(offList))
+        ).map((c) => {
+          const ids = new Set(c.requirementIds.flatMap((id) => familyMembers(id)));
+          return { ...c, fileIds: offList.filter((f) => ids.has(f.analysis!.docTypeId!)).map((f) => f.id) };
+        });
+
+  const signer = instances.find((i) => isSignatureRequirement(i))?.person;
+  const signature = signatureView(
+    files.map((f) => ({
+      fileId: f.id,
+      instanceId: f.instanceId ?? null,
+      pending: f.uploadState === "uploading" || (f.uploadState === "uploaded" && (f.analysisState === "pending" || f.analysisState === "analysing")),
+      analysis: f.analysis ?? null,
+      assignedByUser: f.assignedByUser,
+    })),
+    input.sig ?? null,
+    signer
+  );
 
   const counted = new Set(status.requirements.flatMap((r) => r.fileIds));
   const fieldsRead = files
@@ -117,6 +144,7 @@ export function documentsSummary(raw: DocumentsSummaryInput, opts: { now?: Date 
     status,
     hints,
     suggestions,
+    signature,
     busy: files.filter((f) => f.uploadState === "uploading" || (f.uploadState === "uploaded" && (f.analysisState === "pending" || f.analysisState === "analysing"))).length,
     fieldsRead,
     confirmed: files.filter((f) => f.confirmed).length,
@@ -124,17 +152,21 @@ export function documentsSummary(raw: DocumentsSummaryInput, opts: { now?: Date 
   };
 }
 
-/** React binding: recomputed when answers, borrowers, texts or files change. */
+/** React binding: recomputed when answers, borrowers, texts, amounts, facts or files change. */
 export function useDocumentsSummary(opts: { now?: Date } = {}): DocumentsSummary {
   const ans = useFunnelV3((s) => s.ans);
   const borrowers = useFunnelV3((s) => s.borrowers);
   const txt = useFunnelV3((s) => s.txt);
+  const em = useFunnelV3((s) => s.em);
+  const info = useFunnelV3((s) => s.info);
+  const mode = useFunnelV3((s) => s.mode);
+  const sig = useFunnelV3((s) => s.sig);
   const files = useFunnelV3((s) => s.files);
   const skipped = useFunnelV3((s) => s.skipped);
   const dismissed = useFunnelV3((s) => s.dismissed);
   const now = opts.now;
   return useMemo(
-    () => documentsSummary({ ans, borrowers, txt, files, skipped, dismissed }, { now }),
-    [ans, borrowers, txt, files, skipped, dismissed, now]
+    () => documentsSummary({ ans, borrowers, txt, em, info, mode, sig, files, skipped, dismissed }, { now }),
+    [ans, borrowers, txt, em, info, mode, sig, files, skipped, dismissed, now]
   );
 }

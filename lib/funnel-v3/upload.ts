@@ -15,6 +15,7 @@ import type { StoreApi } from "zustand";
 import { useFunnelV3, newId, type FunnelV3Store } from "./store";
 import type { FileAuditEntry, FileEntry, V3Analysis } from "./files";
 import { placeAll, withPlacement } from "./placeFile";
+import { analysedFiles, prefillFromDocuments } from "./prefill";
 import { reqList, type RequirementInstance } from "./requirements";
 
 // ---- Limits -------------------------------------------------------------------------------
@@ -411,8 +412,19 @@ function settleUnanalysed(id: string, key: string) {
  * Write the placement for the current answers into the stored entries (instanceId and the
  * analysis' requirementId / extraKind / extraReason). Only changed entries are replaced, so
  * calling it from a store subscription settles after one round.
+ *
+ * First the documents' facts and prefill (prefill.ts, Handover 3, 4.2) go into the store —
+ * `info` steers the list (bonus, raise, ab 50), and in the Schnellanmeldung the answers fill
+ * in — so the placement below already sees the list they make. Not on a page bound to its own
+ * requirements (the Nachreich page has no answers to fill).
  */
 export function syncPlacement(): void {
+  if (!placementInstances) {
+    const before = S();
+    if (before.files.length || Object.keys(before.src).length || Object.keys(before.info).length) {
+      before.applyDocuments(prefillFromDocuments(analysedFiles(before.files), before));
+    }
+  }
   const s = S();
   if (!s.files.length) return;
   const list = placementInstances?.() ?? reqList(s);
@@ -445,10 +457,14 @@ let placementUnsub: (() => void) | null = null;
  */
 export function startPlacementSync(): () => void {
   if (placementUnsub) return placementUnsub;
-  let last = { ans: S().ans, borrowers: S().borrowers, txt: S().txt, dismissed: S().dismissed, n: S().files.length };
+  // The list depends on the answers, the Eigenmittel amounts and the documents' facts; the
+  // prefill on the entry mode (Schnellanmeldung fills in) and on what was touched.
+  const watched = (s: FunnelV3Store) =>
+    [s.ans, s.borrowers, s.txt, s.em, s.info, s.mode, s.touched, s.dismissed, s.files.length] as const;
+  let last = watched(S());
   const unsub = pipelineStore.subscribe((s) => {
-    const cur = { ans: s.ans, borrowers: s.borrowers, txt: s.txt, dismissed: s.dismissed, n: s.files.length };
-    if (cur.ans === last.ans && cur.borrowers === last.borrowers && cur.txt === last.txt && cur.dismissed === last.dismissed && cur.n === last.n) return;
+    const cur = watched(s);
+    if (cur.every((v, i) => v === last[i])) return;
     last = cur;
     syncPlacement();
   });

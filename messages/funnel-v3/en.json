@@ -11,7 +11,9 @@
     "stepProgress": "Step {n} of {total}",
     "toDocs": "To the documents",
     "toFinish": "To completion",
-    "remove": "Remove"
+    "remove": "Remove",
+    "timeLeft": "approx. {time} min left",
+    "stepOfN": "Step {n} of {total}"
   },
   "start": {
     "title": "Your financing request in a few minutes.",
@@ -23,7 +25,16 @@
     "client.title": "Client",
     "client.sub": "I am submitting my own financing request.",
     "cta": "Start →",
-    "claim": "Thanks to HYPOTEQ, mortgages have become comparable. Your advisor, however, is unique.®"
+    "claim": "Thanks to HYPOTEQ, mortgages have become comparable. Your advisor, however, is unique.®",
+    "mode.fast.eyebrow": "Documents first",
+    "mode.fast.title": "Quick start",
+    "mode.fast.sub": "I already have the documents. Upload the folder – we fill in the rest.",
+    "mode.fast.time": "approx. 1 minute + upload",
+    "mode.guided.eyebrow": "Step by step",
+    "mode.guided.title": "Guided request",
+    "mode.guided.sub": "A few questions. We tell you right away which documents are needed.",
+    "mode.guided.time": "approx. 3 minutes",
+    "recommended": "Recommended"
   },
   "side": {
     "request": "Request",
@@ -36,7 +47,9 @@
     "submittedBy": "Submitted by {name}",
     "newPartner": "new partner",
     "done": "Done",
-    "fulfilled": "{ok} of {total} fulfilled"
+    "fulfilled": "{ok} of {total} fulfilled",
+    "toFast": "Documents ready? Switch to quick start",
+    "toGuided": "Prefer step by step"
   },
   "step": {
     "1": "General",
@@ -50,7 +63,23 @@
     "why.3": "Determines the borrower documents",
     "why.4": "Loan-to-value, affordability, equity",
     "why.5": "We read everything for you",
-    "why.6": "Review and submit"
+    "why.6": "Review and submit",
+    "b2": "Property & financing",
+    "b4": "Documents & summary",
+    "s1": "Contact",
+    "s3": "Review & submit",
+    "anfrage": "Request",
+    "missing": "Missing documents & summary",
+    "why.guided.anfrage": "Request and contact",
+    "why.guided.objekt": "Property, own funds, loan-to-value",
+    "why.guided.personen": "Borrowers and additional points",
+    "why.guided.abschluss": "Upload and finish",
+    "why.fast.kontakt": "Just the e-mail addresses",
+    "why.fast.upload": "Upload the folder – we read everything",
+    "why.fast.anfrage": "Prefilled – please check",
+    "why.fast.objekt": "Prefilled – add what is missing",
+    "why.fast.personen": "Prefilled – check the additional points",
+    "why.fast.abschluss": "Submit later and finish"
   },
   "s1": {
     "title": "New financing request",
@@ -113,7 +142,10 @@
     "schenkung": "Gift",
     "erbe": "Inheritance / advance on inheritance",
     "darlehen": "Loan",
-    "pk": "Pension fund (withdrawal or pledge)"
+    "pk": "Pension fund (withdrawal or pledge)",
+    "chips": "Does any of this apply?",
+    "chipsMore": "Anything else that applies?",
+    "chips.hint": "Nothing selected means: does not apply."
   },
   "opt": {
     "anrede.Herr": "Mr",
@@ -146,7 +178,8 @@
     "laufzeit.3 Jahre": "3 years",
     "laufzeit.5 Jahre": "5 years",
     "laufzeit.10 Jahre": "10 years",
-    "laufzeit.Mix": "Mix"
+    "laufzeit.Mix": "Mix",
+    "nutz.Gewerbe": "Commercial"
   },
   "s2": {
     "title": "What are we financing?",
@@ -159,7 +192,12 @@
     "increase": "Requested increase",
     "purpose": "Purpose of the increase",
     "purposePh": "What will the increase be used for?",
-    "price": "Purchase price"
+    "price": "Purchase price",
+    "rentIncome": "Annual net rental income",
+    "purchaseDate": "Purchase date",
+    "renoAmount": "Renovation amount",
+    "valueIsPrice": "Equals the purchase price – only change if different",
+    "bauprojektOff": "A construction project is not possible for refinancing."
   },
   "s3": {
     "title": "Who is financing?",
@@ -173,7 +211,9 @@
     "jpNote": "We read the UID, registered office and signing authority from the commercial register extract.",
     "guarantorName": "Guarantor · first and last name",
     "firstNames": "First name(s)",
-    "namePh": "First and last name"
+    "namePh": "First and last name",
+    "addBorrower2": "+ Add borrower",
+    "remove": "Remove"
   },
   "s4": {
     "title": "Financing",
@@ -222,7 +262,11 @@
     "filesOf": "{n} of {total} files",
     "storedAs": "Will be saved as",
     "original": "Original: {name}",
-    "rename": "Rename"
+    "rename": "Rename",
+    "drop2": "Drop single files or a whole folder here",
+    "dropSub2": "Single documents or a whole folder with all documents. PDF, JPG, PNG. You don’t need to say which document is which.",
+    "pickFiles": "Select files",
+    "pickFolder": "Select whole folder"
   },
   "act": {
     "upload": "Upload",
@@ -251,7 +295,11 @@
     "required": "Required",
     "perBorrower": "Required · per borrower",
     "ifAvailable": "If available",
-    "because": "because: {reason}"
+    "because": "because: {reason}",
+    "bonus": "because: variable pay detected",
+    "raise": "because: pay rise detected",
+    "age50": "because: 50+ (from ID)",
+    "amount": "because: {field} entered"
   },
   "grp": {
     "objekt": "Property",
@@ -308,7 +356,15 @@
     "pkvorbezug": "Confirmation of pension fund withdrawal / pledge",
     "schenkung": "Deed of gift",
     "erbe": "Certificate of inheritance",
-    "darlehen": "Loan agreement"
+    "darlehen": "Loan agreement",
+    "produkt": "Current product agreement",
+    "reno_liste": "List of renovations (amount and location, e.g. kitchen, bathroom, façade)",
+    "lohnausweis1": "Current salary certificate",
+    "lohnausweise_alt": "Salary certificates for the two previous years",
+    "pkverp": "Confirmation of pension fund pledge",
+    "b_lohn1": "Guarantor · current salary certificate",
+    "pkvorbezug1": "Confirmation of pension fund withdrawal",
+    "erbe1": "Advance on inheritance / certificate of inheritance"
   },
   "sug": {
     "loan.title": "We recognised a loan or lease agreement.",
@@ -318,7 +374,11 @@
     "3a.title": "We recognised pillar 3a documents.",
     "3a.text": "Your answer for “pillar 3a” is No. Should it be set to Yes?",
     "stwe.title": "We recognised condominium documents.",
-    "stwe.text": "The property is not recorded as a condominium. Should the type be changed?"
+    "stwe.text": "The property is not recorded as a condominium. Should the type be changed?",
+    "loan.chipText": "Neither “Personal loan” nor “Lease” is ticked. Should it be added?",
+    "maint.chipText": "“Maintenance payments” is not ticked. Should it be added?",
+    "3a.amountText": "Surrender value according to the policy: {amount}. Should it be entered under pension assets?",
+    "3a.enterText": "No amount is entered for “Pillar 3a”. Enter the amount under own funds."
   },
   "toast": {
     "done": "{files} files processed, {req} requirements met",
@@ -427,7 +487,10 @@
     "audit.unkept": "Keep undone",
     "audit.edited": "{field} changed: {value}",
     "audit.confirmed": "Details confirmed by the user",
-    "audit.renamed": "Name changed: {name}"
+    "audit.renamed": "Name changed: {name}",
+    "nn.hyp_rahmen": "Mortgage agreement (framework agreement)",
+    "nn.hyp_sicher": "Security agreement / mortgage note",
+    "x.olderSalary": "Older salary certificate – only needed with variable pay. Kept in the dossier."
   },
   "s6": {
     "titleOk": "We can finance this. On to the bank.",
@@ -485,7 +548,9 @@
     "retry": "Try again",
     "dossierLoading": "Creating the dossier …",
     "doneTitleNoId": "The request is with HYPOTEQ.",
-    "customer": "The customer"
+    "customer": "The customer",
+    "finishBlocked": "Sign the authorisation first",
+    "finishBlockedUpload": "Upload the authorisation first"
   },
   "rail": {
     "title": "Your documents",
@@ -528,6 +593,116 @@
     "schenkung": "Gift",
     "erbe": "Inheritance",
     "darlehen": "Loan",
-    "pk": "Pension fund"
+    "pk": "Pension fund",
+    "steuer": "Tax optimisation"
+  },
+  "chip": {
+    "unterhalt": "Maintenance payments",
+    "kredite": "Personal loan",
+    "leasing": "Lease",
+    "buerge": "Joint guarantee",
+    "baurecht": "Property under building right",
+    "angebote": "Existing financing offers",
+    "steuer": "Interested in tax optimisation",
+    "fromDoc": "from document"
+  },
+  "em": {
+    "title": "Equity – breakdown",
+    "titleAbl": "Pension savings",
+    "sub": "Only fill in what applies. Each amount requests the matching document.",
+    "spar": "Savings / bank balance",
+    "s3a": "Pillar 3a",
+    "pkVor": "Pension fund withdrawal",
+    "pkVerp": "Pension fund pledge",
+    "pkVerp.hint": "Collateral, not counted as equity",
+    "schenk": "Gift",
+    "erbe": "Advance on inheritance",
+    "darl": "Loan",
+    "total": "Total equity {amount} · of which hard {hard}",
+    "hardMin": "at least 10 % of the purchase price required"
+  },
+  "calc": {
+    "byPrice": "Max. 80 % of the lower of purchase price and estimated value",
+    "incNote": "Affordability appears once income is entered."
+  },
+  "fast": {
+    "s1.title": "Quick start",
+    "s1.lead": "Just the email addresses. We read name, salutation and date of birth from the ID.",
+    "s2.lead": "Single documents or a whole folder. The request fills itself on the right while we read.",
+    "rail.title": "Your request is filling in",
+    "rail.text": "details taken from your documents. No need to type them.",
+    "s3.title": "Review and complete",
+    "s3.lead": "Everything in the documents is already filled in. Only the details below are missing.",
+    "open": "{n} details left",
+    "openSub": "This is not in any document.",
+    "taken": "Taken from your documents",
+    "extra": "Also recognised · for confirmation email and Salesforce",
+    "confirm": "Confirm",
+    "edit": "Edit",
+    "pleaseConfirm": "Please confirm",
+    "prefill": "{n} details pre-filled from your documents – marked “from document”. Please review and complete.",
+    "fromDocUnsure": "from document · please check",
+    "missingTitle": "Missing documents",
+    "missingDrop": "Drop missing documents here",
+    "allComplete": "All documents are complete. Nothing is missing.",
+    "toRequest": "Continue to request",
+    "toMissing": "To missing documents"
+  },
+  "nn": {
+    "vermoegen": "Proof of equity is only needed for a purchase.",
+    "hyp_sicher": "Mortgage note / security agreement is not needed.",
+    "hyp_rahmen": "For refinancing we need the current product agreement.",
+    "anstellung": "Only needed for a pay rise in the current year – none detected."
+  },
+  "sig": {
+    "title": "HYPOTEQ information authorisation · required",
+    "notSigned": "Not signed yet",
+    "notSignedSub": "Required for every case. The authorisation is pre-filled with your details.",
+    "signNow": "Sign digitally now",
+    "sendLink": "Send link to client",
+    "paper": "Prefer paper?",
+    "download": "Download pre-filled",
+    "uploadSigned": "Upload signed",
+    "signedBy": "Signed by {name}",
+    "linkSent": "Link sent to {email}",
+    "pending": "Signature pending · reminder after 2 and 5 days",
+    "uploaded": "Signed authorisation uploaded",
+    "modalText": "I authorise HYPOTEQ to obtain the information required for the financing from banks, insurers and authorities.",
+    "draw": "1 · Sign here (finger or mouse)",
+    "clear": "Clear",
+    "code": "2 · Confirm with code",
+    "sendCode": "Send code by SMS",
+    "codePh": "6-digit code",
+    "sign": "Sign",
+    "cancel": "Cancel",
+    "uploadTitle": "Not uploaded yet",
+    "uploadSub": "Required for every case. Download the template, have all borrowers sign it, upload it here.",
+    "step1": "1 · Template",
+    "step1Sub": "Pre-filled with the details of this request.",
+    "downloadBtn": "Download",
+    "step2": "2 · Sign",
+    "step2Sub": "By {name} – by all borrowers if there are several.",
+    "step3": "3 · Upload",
+    "step3Sub": "PDF or photo, clearly legible.",
+    "received": "Signed authorisation received",
+    "laterQ": "Client signing later?",
+    "later": "Submit later",
+    "laterState": "To be submitted later",
+    "laterSub": "The case is submitted as “signature pending”. No request goes to the bank without a signature.",
+    "unsigned": "Signature missing",
+    "unsignedSub": "The uploaded authorisation is not signed. Please upload a signed copy.",
+    "wrongName": "The name on the authorisation does not match the borrower."
+  },
+  "mail": {
+    "subject": "Your financing request {id} – {name}, {place}",
+    "next.sign": "Please sign the information authorisation",
+    "next.missing": "These documents are still missing:",
+    "section.result": "Result",
+    "section.request": "Request",
+    "section.borrowers": "Borrowers",
+    "section.property": "Property",
+    "section.financing": "Financing",
+    "section.more": "Further details",
+    "section.docs": "Documents"
   }
 }

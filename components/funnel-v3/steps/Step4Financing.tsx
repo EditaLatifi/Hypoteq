@@ -4,14 +4,17 @@ import { useFunnelV3 } from "@/lib/funnel-v3/store";
 import { useFunnelT } from "@/lib/funnel-v3/useFunnelT";
 import { AFFORDABILITY_LIMIT, LTV_LIMIT, calcFinancing } from "@/lib/funnel-v3/calc";
 import { chf, pct } from "@/lib/funnel-v3/format";
-import type { Answers } from "@/lib/funnel-v3/types";
+import { EM_ROWS, type Answers } from "@/lib/funnel-v3/types";
 import { useFunnelState, useStepErrors } from "../hooks";
-import { VERDICT_KEY, barWidth, calcInputOf, needSubline, visibleFields } from "../logic";
+import { VERDICT_KEY, barWidth, calcInputOf, needSubline } from "../logic";
 import StepHead from "../StepHead";
 import Choice from "../ui/Choice";
 import { AmountField, TextArea } from "../ui/Fields";
 
-/** Schritt 4 · Finanzierung (spec 3) with the live calculation card (D7). */
+/**
+ * Schritt 4 · Finanzierung (spec 3) with the live calculation card (D7). v3 layout; v5 puts the
+ * Objektwert and the Eigenmittel table into «Objekt & Finanzierung» (Handover 2 Schritt 2).
+ */
 export default function Step4Financing() {
   const { t } = useFunnelT();
   const state = useFunnelState();
@@ -19,8 +22,8 @@ export default function Step4Financing() {
   const setAns = useFunnelV3((s) => s.setAns);
   const setTxt = useFunnelV3((s) => s.setTxt);
   const setFin = useFunnelV3((s) => s.setFin);
-  const show = new Set(visibleFields(4, state));
-  const { ans, txt, fin } = state;
+  const setEm = useFunnelV3((s) => s.setEm);
+  const { ans, txt, fin, em } = state;
   const set = (k: keyof Answers) => (v: string) => setAns(k, v as never);
   const choice = (k: keyof Answers, row?: boolean) => (
     <Choice qkey={k} value={ans[k] as string | undefined} onChange={set(k)} reqState={state} error={errors[k]} row={row} />
@@ -41,27 +44,28 @@ export default function Step4Financing() {
           onChange={(n) => setFin("val", n)}
           error={errors.val}
         />
-        {show.has("inc") ? (
-          <AmountField
-            field="inc"
-            label={t("s4.householdIncome")}
-            hint={t("s4.fromStep3")}
-            value={fin.inc}
-            onChange={(n) => setFin("inc", n)}
-          />
-        ) : null}
       </div>
 
       {choice("laufzeit")}
-      {choice("s3a")}
 
-      <div className="v3-panel">
-        <span className="v3-eyebrow">{t("s4.equityVia")}</span>
-        {choice("schenkung", true)}
-        {choice("erbe", true)}
-        {choice("darlehen", true)}
-        {choice("pk", true)}
-      </div>
+      {ans.antrag ? (
+        <div className="v3-panel">
+          <span className="v3-eyebrow">{t(ans.antrag === "Ablösung" ? "em.titleAbl" : "em.title")}</span>
+          <span className="v3-note">{t("em.sub")}</span>
+          <div className="v3-two">
+            {EM_ROWS[ans.antrag].map((k) => (
+              <AmountField
+                key={k}
+                field={`em.${k}`}
+                label={t(`em.${k}`)}
+                hint={k === "pkVerp" ? t("em.pkVerp.hint") : undefined}
+                value={em[k]}
+                onChange={(n) => setEm(k, n)}
+              />
+            ))}
+          </div>
+        </div>
+      ) : null}
 
       <TextArea
         field="kommentar"

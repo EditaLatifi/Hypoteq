@@ -115,7 +115,6 @@ const QUESTIONS_DE: Record<QuestionKey, string> = {
   nbDocs: "Grundbuch und GVZ vorhanden",
   lieg: "Liegenschaft",
   nutz: "Nutzung",
-  heizung: "Heizung",
   baurecht: "Baurecht",
   aufstockung: "Erhöhung",
   reno: "Renovation",
@@ -123,18 +122,12 @@ const QUESTIONS_DE: Record<QuestionKey, string> = {
   angebote: "Angebote",
   job: "Beschäftigung",
   pkSe: "Pensionskasse vorhanden",
-  ab50: "ab 50",
-  kinder: "Kinder",
   unterhalt: "Unterhaltszahlungen",
   kredite: "Privatkredite",
   leasing: "Leasings",
   buerge: "Solidarbürgschaft",
+  steuer: "Steueroptimierung",
   laufzeit: "Laufzeit",
-  s3a: "Säule 3a",
-  schenkung: "Schenkung",
-  erbe: "Erbschaft",
-  darlehen: "Darlehen",
-  pk: "Pensionskasse",
 };
 
 export const DOSSIER_TEXTS: Record<Lang, DossierTexts> = {
@@ -334,10 +327,9 @@ export const DOSSIER_TEXTS: Record<Lang, DossierTexts> = {
     used: "used anyway",
     questions: {
       antrag: "Request", kn: "Borrower", anrede: "Salutation", immo: "Type of property", nbDocs: "Land register and insurance available",
-      lieg: "Ownership", nutz: "Use", heizung: "Heating", baurecht: "Building right", aufstockung: "Increase", reno: "Renovation",
-      reserviert: "reserved", angebote: "Offers", job: "Employment", pkSe: "Pension fund in place", ab50: "50 or older", kinder: "Children",
-      unterhalt: "Maintenance payments", kredite: "Personal loans", leasing: "Leases", buerge: "Joint guarantee", laufzeit: "Term",
-      s3a: "Pillar 3a", schenkung: "Gift", erbe: "Inheritance", darlehen: "Loan", pk: "Pension fund",
+      lieg: "Ownership", nutz: "Use", baurecht: "Building right", aufstockung: "Increase", reno: "Renovation",
+      reserviert: "reserved", angebote: "Offers", job: "Employment", pkSe: "Pension fund in place",
+      unterhalt: "Maintenance payments", kredite: "Personal loans", leasing: "Leases", buerge: "Joint guarantee", steuer: "Tax optimisation", laufzeit: "Term",
     },
   },
   fr: {
@@ -438,10 +430,9 @@ export const DOSSIER_TEXTS: Record<Lang, DossierTexts> = {
     used: "utilisé malgré tout",
     questions: {
       antrag: "Demande", kn: "Emprunteur", anrede: "Civilité", immo: "Type de bien", nbDocs: "Registre foncier et assurance disponibles",
-      lieg: "Propriété", nutz: "Utilisation", heizung: "Chauffage", baurecht: "Droit de superficie", aufstockung: "Augmentation", reno: "Rénovation",
-      reserviert: "réservé", angebote: "Offres", job: "Activité", pkSe: "Caisse de pension existante", ab50: "50 ans ou plus", kinder: "Enfants",
-      unterhalt: "Pensions alimentaires", kredite: "Crédits privés", leasing: "Leasings", buerge: "Cautionnement solidaire", laufzeit: "Durée",
-      s3a: "Pilier 3a", schenkung: "Donation", erbe: "Héritage", darlehen: "Prêt", pk: "Caisse de pension",
+      lieg: "Propriété", nutz: "Utilisation", baurecht: "Droit de superficie", aufstockung: "Augmentation", reno: "Rénovation",
+      reserviert: "réservé", angebote: "Offres", job: "Activité", pkSe: "Caisse de pension existante",
+      unterhalt: "Pensions alimentaires", kredite: "Crédits privés", leasing: "Leasings", buerge: "Cautionnement solidaire", steuer: "Optimisation fiscale", laufzeit: "Durée",
     },
   },
   it: {
@@ -542,10 +533,9 @@ export const DOSSIER_TEXTS: Record<Lang, DossierTexts> = {
     used: "usato comunque",
     questions: {
       antrag: "Richiesta", kn: "Mutuatario", anrede: "Appellativo", immo: "Tipo di immobile", nbDocs: "Registro fondiario e assicurazione disponibili",
-      lieg: "Proprietà", nutz: "Utilizzo", heizung: "Riscaldamento", baurecht: "Diritto di superficie", aufstockung: "Aumento", reno: "Ristrutturazione",
-      reserviert: "riservato", angebote: "Offerte", job: "Attività", pkSe: "Cassa pensione presente", ab50: "50 anni o più", kinder: "Figli",
-      unterhalt: "Alimenti", kredite: "Crediti privati", leasing: "Leasing", buerge: "Fideiussione solidale", laufzeit: "Durata",
-      s3a: "Pilastro 3a", schenkung: "Donazione", erbe: "Eredità", darlehen: "Prestito", pk: "Cassa pensione",
+      lieg: "Proprietà", nutz: "Utilizzo", baurecht: "Diritto di superficie", aufstockung: "Aumento", reno: "Ristrutturazione",
+      reserviert: "riservato", angebote: "Offerte", job: "Attività", pkSe: "Cassa pensione presente",
+      unterhalt: "Alimenti", kredite: "Crediti privati", leasing: "Leasing", buerge: "Fideiussione solidale", steuer: "Ottimizzazione fiscale", laufzeit: "Durata",
     },
   },
 };
