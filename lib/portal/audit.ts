@@ -33,7 +33,10 @@ export type AuditAction =
   | "view_as_started"
   | "view_as_ended"
   | "case_assigned"
-  | "case_unassigned";
+  | "case_unassigned"
+  | "special_submitted"
+  | "support_ticket_created"
+  | "support_status_changed";
 
 export const AUDIT_LABELS: Record<string, string> = {
   login: "Login",
@@ -69,6 +72,9 @@ export const AUDIT_LABELS: Record<string, string> = {
   view_as_ended: "Partneransicht beendet",
   case_assigned: "Case zugeordnet",
   case_unassigned: "Zuordnung entfernt",
+  special_submitted: "Spezialfinanzierung eingereicht",
+  support_ticket_created: "Support-Meldung erstellt",
+  support_status_changed: "Status einer Support-Meldung geändert",
 };
 
 /** Never throws: a failed audit write must not break the action being audited. */

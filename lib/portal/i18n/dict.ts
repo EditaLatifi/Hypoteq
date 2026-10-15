@@ -6,6 +6,7 @@
  */
 
 import { PROFILE_EXTRA } from "./profileExtra";
+import { special, support } from "@/lib/portal/i18n/special";
 
 export const LOCALES = ["de", "en", "fr", "it"] as const;
 export type Locale = (typeof LOCALES)[number];
@@ -400,6 +401,7 @@ const de = {
     notifCta: "Case öffnen",
     notifFoot: "Sie erhalten diese E-Mail, weil Sie als Vertriebspartner bei HYPOTEQ registriert sind. Benachrichtigungen verwalten Sie im Portal unter Profil.",
   },
+  special: special.de, support: support.de,
 };
 
 export type Dict = typeof de;
@@ -791,6 +793,7 @@ const en: Dict = {
     notifCta: "Open case",
     notifFoot: "You are receiving this e-mail because you are registered as a sales partner with HYPOTEQ. Manage notifications in the portal under Profile.",
   },
+  special: special.en, support: support.en,
 };
 
 const fr: Dict = {
@@ -1180,6 +1183,7 @@ const fr: Dict = {
     notifCta: "Ouvrir le dossier",
     notifFoot: "Vous recevez cet e-mail parce que vous êtes enregistré comme partenaire de distribution chez HYPOTEQ. Gérez les notifications dans le portail sous Profil.",
   },
+  special: special.fr, support: support.fr,
 };
 
 const it: Dict = {
@@ -1569,6 +1573,7 @@ const it: Dict = {
     notifCta: "Apri pratica",
     notifFoot: "Riceve questa e-mail perché è registrato/a come partner di distribuzione presso HYPOTEQ. Gestisca le notifiche nel portale alla voce Profilo.",
   },
+  special: special.it, support: support.it,
 };
 
 export const DICTS: Record<Locale, Dict> = { de, en, fr, it };
