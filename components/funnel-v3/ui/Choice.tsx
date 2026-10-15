@@ -9,7 +9,6 @@ import {
   Home,
   House,
   KeyRound,
-  Mountain,
   Repeat,
   Ruler,
   User,
@@ -31,7 +30,6 @@ const ICONS: Record<string, LucideIcon> = {
   Einfamilienhaus: House,
   Stockwerkeigentum: Building2,
   Mehrfamilienhaus: Building,
-  Ferienobjekt: Mountain,
 };
 
 export interface ChoiceProps {
@@ -39,6 +37,8 @@ export interface ChoiceProps {
   qkey: ChoiceKey;
   value: string | undefined;
   onChange: (value: string) => void;
+  /** The options to offer when the state limits them (Nutzung per Kreditnehmer); default OPTIONS. */
+  options?: readonly string[];
   /** State the «+N Unterlagen» badges are measured on; no badges without it. */
   reqState?: ReqState;
   /** Per-borrower questions: whose answer it is. */
@@ -63,6 +63,7 @@ export default function Choice({
   qkey,
   value,
   onChange,
+  options: offered,
   reqState,
   borrowerId,
   field,
@@ -78,7 +79,7 @@ export default function Choice({
   const hintId = `${uid}-hint`;
   const errId = `${uid}-err`;
   const refs = useRef<(HTMLButtonElement | null)[]>([]);
-  const options = OPTIONS[qkey];
+  const options = offered ?? OPTIONS[qkey];
   const card = CARD_KEYS.has(qkey);
   const hintKey = HINT_KEYS[qkey];
   const name = field ?? qkey;

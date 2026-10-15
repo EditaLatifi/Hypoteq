@@ -18,6 +18,7 @@ import StepHead from "../StepHead";
 import { useFunnelT } from "@/lib/funnel-v3/useFunnelT";
 import { useFunnelV3 } from "@/lib/funnel-v3/store";
 import { useDocumentsSummary } from "@/lib/funnel-v3/documentsSummary";
+import { chf } from "@/lib/funnel-v3/format";
 import { effectiveBorrowers } from "@/lib/funnel-v3/requirements";
 import {
   addPickedFiles,
@@ -64,7 +65,7 @@ export default function Step5Documents() {
   const borrowers = useFunnelV3((s) => s.borrowers);
   const txt = useFunnelV3((s) => s.txt);
   const fin = useFunnelV3((s) => s.fin);
-  const setAns = useFunnelV3((s) => s.setAns);
+  const applyCorrection = useFunnelV3((s) => s.applyCorrection);
   const dismissSuggestion = useFunnelV3((s) => s.dismissSuggestion);
   const summary = useDocumentsSummary();
   const { lines, say } = useToast();
@@ -208,7 +209,7 @@ export default function Step5Documents() {
         <div key={sg.key} className="v3-suggest v3-rise" role="region" aria-label={t(sg.titleKey)}>
           <span className="v3-suggest-title">{t(sg.titleKey)}</span>
           <span className="v3-suggest-text">
-            {t(sg.textKey)}{" "}
+            {t(sg.textKey, sg.params?.amount !== undefined ? { amount: chf(Number(sg.params.amount)) } : undefined)}{" "}
             {sg.fileIds.length ? t("docs.sugFiles", { names: sg.fileIds.map((id) => byId.get(id)?.name ?? "").join(", ") }) : ""}
           </span>
           <div className="v3-actions">
@@ -216,7 +217,7 @@ export default function Step5Documents() {
               type="button"
               className="v3-btn v3-btn--primary"
               onClick={() => {
-                for (const [k, v] of Object.entries(sg.patch)) setAns(k as keyof typeof sg.patch, v as never);
+                applyCorrection(sg.patch);
                 say([{ text: "✓ " + t("toast.corrected"), big: true }]);
               }}
             >

@@ -28,7 +28,7 @@ import {
   isLookupEmail,
   type KeyContext,
 } from '@/components/funnel-v3/logic';
-import { GARY, GERBER_ANSWERS, mkState } from './helpers';
+import { GARY, GERBER_ANSWERS, GERBER_EM, mkState } from './helpers';
 
 const tr = (lang: Lang) => (key: string, params?: Record<string, string | number>) => translate(lang, key, params);
 const op = (lang: Lang) => (group: string, value: string | null | undefined) => optionLabel(lang, group, value);
@@ -37,18 +37,22 @@ const opt = op('de');
 
 function full(over: Partial<FunnelState> = {}, ans = {}, txt = {}): FunnelState {
   const s = mkState(ans, {}, txt);
-  return { role: 'kunde', fin: { ...EMPTY_AMOUNTS }, ...s, ...over };
+  return { role: 'kunde', mode: 'begleitet', fin: { ...EMPTY_AMOUNTS }, src: {}, touched: {}, sig: null, ...s, em: s.em!, info: s.info!, ...over };
 }
 
 describe('visibleFields', () => {
-  it('step 1 asks the advisor e-mail only for the Berater, the phone only for the Kunde', () => {
-    expect(visibleFields(1, full({ role: 'berater' }))).toEqual(['bmail', 'antrag', 'kn', 'anrede', 'vor', 'nach', 'mail']);
+  it('step 1 asks the advisor e-mail only for the Berater, the phone in both roles (v5)', () => {
+    expect(visibleFields(1, full({ role: 'berater' }))).toEqual(['bmail', 'antrag', 'kn', 'anrede', 'vor', 'nach', 'mail', 'tel']);
     expect(visibleFields(1, full({ role: 'kunde' }))).toEqual(['antrag', 'kn', 'anrede', 'vor', 'nach', 'mail', 'tel']);
+    // Handover 2: Firma and zeichnungsberechtigte Person replace Anrede and name.
+    expect(visibleFields(1, full({}, { kn: 'Juristische Person' }))).toEqual(['antrag', 'kn', 'firma', 'zeichner', 'mail', 'tel']);
   });
 
   it('step 2 follows Antrag, Neubau and Erhöhung', () => {
     const base = visibleFields(2, full());
-    expect(base).toEqual(['plz', 'ort', 'immo', 'lieg', 'nutz', 'heizung', 'baurecht', 'angebote']);
+    expect(base).toEqual(['plz', 'ort', 'immo', 'lieg', 'nutz', 'baurecht', 'angebote']);
+    expect(visibleFields(2, full({}, { nutz: 'Vermietet' }))).toContain('miete');
+    expect(visibleFields(2, full({}, { antrag: 'Neue Hypothek', reno: 'Ja' }))).toEqual(expect.arrayContaining(['kaufdatum', 'renoBetrag']));
     expect(visibleFields(2, full({}, { immo: 'Neubau' }))).toContain('nbDocs');
     const abl = visibleFields(2, full({}, { antrag: 'Ablösung' }));
     expect(abl).toEqual(expect.arrayContaining(['old', 'aufstockung']));
@@ -59,26 +63,27 @@ describe('visibleFields', () => {
     expect(kauf).not.toContain('old');
   });
 
-  it('step 3: borrower block or company, Unterhalt under Kinder, Solidarbürge name', () => {
-    const np = visibleFields(3, full({}, { kinder: 'Ja', buerge: 'Ja' }));
+  it('step 3: borrower block or company, Unterhalt (no Kinder, no ab 50 since v5), Solidarbürge name', () => {
+    const np = visibleFields(3, full({}, { buerge: 'Ja' }));
     expect(np).toEqual([
-      'borrower.0.vor', 'borrower.0.nach', 'inc', 'borrower.0.job', 'ab50',
-      'kinder', 'unterhalt', 'kredite', 'leasing', 'buerge', 'buergeName',
+      'borrower.0.vor', 'borrower.0.nach', 'inc', 'borrower.0.job',
+      'unterhalt', 'kredite', 'leasing', 'buerge', 'buergeName',
     ]);
     const jp = visibleFields(3, full({}, { kn: 'Juristische Person' }));
     expect(jp).toEqual(['firma', 'zeichner', 'kredite', 'leasing', 'buerge']);
   });
 
-  it('step 3: pkSe per self-employed borrower; household income after several borrowers', () => {
+  it('step 3: pkSe per self-employed borrower; each Kreditnehmer has their income', () => {
     const two: Borrower[] = [GARY, { id: 'b2', vor: 'Anna', nach: 'Gerber', job: 'Selbständig', pkSe: 'Nein' }];
     const f = visibleFields(3, { ...full(), borrowers: two });
     expect(f).toContain('borrower.1.pkSe');
     expect(f).not.toContain('borrower.0.pkSe');
-    expect(f.indexOf('inc')).toBeGreaterThan(f.indexOf('borrower.1.job'));
+    expect(f.indexOf('inc')).toBeLessThan(f.indexOf('borrower.1.vor'));
+    expect(f.indexOf('inc2')).toBeGreaterThan(f.indexOf('borrower.1.nach'));
   });
 
-  it('step 4 leaves out the income for a juristische Person', () => {
-    expect(visibleFields(4, full())).toContain('inc');
+  it('step 4: the income moved to the Personen (v5)', () => {
+    expect(visibleFields(4, full())).toEqual(['val', 'laufzeit', 'kommentar']);
     expect(visibleFields(4, full({}, { kn: 'Juristische Person' }))).not.toContain('inc');
   });
 
@@ -94,8 +99,9 @@ describe('«+N Unterlagen» badges', () => {
   it('count what an answer adds against its neutral answer', () => {
     expect(optionDelta(s, 'baurecht', 'Ja')).toBe(1);
     expect(optionDelta(s, 'baurecht', 'Nein')).toBe(0);
-    expect(optionDelta(s, 'antrag', 'Ablösung')).toBe(3);
-    expect(optionDelta(s, 'antrag', 'Neue Hypothek')).toBe(1);
+    // v5: Produktvereinbarung + Zinsabrechnung; Kaufvertrag + Eigenmittelnachweis.
+    expect(optionDelta(s, 'antrag', 'Ablösung')).toBe(2);
+    expect(optionDelta(s, 'antrag', 'Neue Hypothek')).toBe(2);
     expect(optionDelta(s, 'lieg', 'Stockwerkeigentum')).toBe(2);
     expect(optionDelta(s, 'nutz', 'Vermietet')).toBe(1);
   });
@@ -110,8 +116,8 @@ describe('«+N Unterlagen» badges', () => {
     expect(optionDelta(se, 'pkSe', 'Ja', GARY.id)).toBe(1);
   });
 
-  it('Unterhalt only counts with Kinder = Ja', () => {
-    expect(optionDelta(mkState({ kinder: 'Ja' }), 'unterhalt', 'Ja')).toBe(1);
+  it('the Unterhalt chip adds the Unterhaltsvereinbarung (no Kinder question since v5)', () => {
+    expect(optionDelta(mkState(), 'unterhalt', 'Ja')).toBe(1);
   });
 
   it('labels: «+2» on a chip, «+2 Unterlagen» / «+1 Unterlage» on a card, nothing for ≤ 0', () => {
@@ -141,7 +147,7 @@ describe('question path and header lines', () => {
     expect(stepSummary(3, gerber, t, opt)).toBe('Gary Gerber · Angestellt');
     expect(stepSummary(4, gerber, t, opt)).toBe("CHF 1'000'000 · 71.4 %");
     expect(stepSummary(4, { ...gerber, fin: { ...gerber.fin, val: 0 } }, t, opt)).toBe('');
-    expect(stepSummary(5, gerber, t, opt, { fulfilled: 4, total: 23 })).toBe('4 von 23 erfüllt');
+    expect(stepSummary(5, gerber, t, opt, { fulfilled: 4, total: 20 })).toBe('4 von 20 erfüllt');
     expect(stepSummary(3, full({}, { kn: 'Juristische Person' }, { firma: 'Muster AG' }), t, opt)).toBe('Muster AG · Juristische Person');
   });
 
@@ -201,7 +207,7 @@ describe('rail', () => {
   });
 
   it('groups in order with counts; the person group names the customer', () => {
-    const s = mkState(GERBER_ANSWERS);
+    const s = mkState(GERBER_ANSWERS, {}, {}, undefined, { em: GERBER_EM });
     const list = reqList(s);
     const groups = railGroups(list, s, new Set([list[0].instanceId]), t, opt);
     expect(groups.map((g) => g.group)).toEqual(['objekt', 'hypothek', 'person', 'eigenmittel']);

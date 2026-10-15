@@ -2,7 +2,7 @@
 
 import { useFunnelV3 } from "@/lib/funnel-v3/store";
 import { useFunnelT } from "@/lib/funnel-v3/useFunnelT";
-import type { Answers } from "@/lib/funnel-v3/types";
+import { NUTZUNG_OPTIONS, type Answers } from "@/lib/funnel-v3/types";
 import { useFunnelState, useStepErrors } from "../hooks";
 import { visibleFields } from "../logic";
 import StepHead from "../StepHead";
@@ -57,8 +57,12 @@ export default function Step2Object() {
       {/* Spec 3, Schritt 2: the Neubau follow-up comes right after «Art der Immobilie». */}
       {show.has("nbDocs") ? <div className="v3-sub v3-rise">{choice("nbDocs")}</div> : null}
       {choice("lieg")}
-      {choice("nutz")}
-      {choice("heizung")}
+      <Choice qkey="nutz" options={NUTZUNG_OPTIONS[ans.kn]} value={ans.nutz} onChange={set("nutz")} reqState={state} error={errors.nutz} />
+      {show.has("miete") ? (
+        <div className="v3-two v3-rise">
+          <AmountField field="miete" label={t("s2.rentIncome")} value={fin.miete} onChange={(n) => setFin("miete", n)} error={errors.miete} />
+        </div>
+      ) : null}
       {choice("baurecht")}
 
       {show.has("old") ? (
@@ -105,8 +109,40 @@ export default function Step2Object() {
             onChange={(n) => setFin("kaufpreis", n)}
             error={errors.kaufpreis}
           />
+          <TextField
+            field="kaufdatum"
+            autoComplete="off"
+            label={t("s2.purchaseDate")}
+            placeholder="TT.MM.JJJJ"
+            value={txt.kaufdatum}
+            onChange={(v) => setTxt("kaufdatum", v)}
+          />
           {choice("reno")}
+          {show.has("renoBetrag") ? (
+            <AmountField
+              field="renoBetrag"
+              label={t("s2.renoAmount")}
+              value={fin.renoBetrag}
+              onChange={(n) => setFin("renoBetrag", n)}
+              error={errors.renoBetrag}
+            />
+          ) : null}
           {choice("reserviert")}
+        </div>
+      ) : null}
+
+      {ans.antrag ? (
+        // v5 (Handover 2 Schritt 2): the Objektwert belongs to «Objekt & Finanzierung»; at a Kauf
+        // an empty one is the Kaufpreis.
+        <div className="v3-two">
+          <AmountField
+            field="val"
+            label={t("s4.value")}
+            hint={t(ans.antrag === "Neue Hypothek" ? "s2.valueIsPrice" : "s4.valueHint")}
+            value={fin.val}
+            onChange={(n) => setFin("val", n)}
+            error={errors.val}
+          />
         </div>
       ) : null}
 

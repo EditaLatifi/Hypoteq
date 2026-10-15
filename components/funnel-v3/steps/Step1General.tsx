@@ -32,26 +32,52 @@ export default function Step1General() {
 
       <div className="v3-section">
         <span className="v3-eyebrow">{t(state.role === "kunde" ? "s1.contactOwn" : "s1.contactClient")}</span>
-        <Choice qkey="anrede" value={ans.anrede} onChange={set("anrede")} hideLabel error={errors.anrede} />
+        {show.has("anrede") ? <Choice qkey="anrede" value={ans.anrede} onChange={set("anrede")} hideLabel error={errors.anrede} /> : null}
         <div className="v3-two">
-          <TextField
-            field="vor"
-            autoComplete={state.role === "kunde" ? "given-name" : "off"}
-            label={t("s1.firstName")}
-            placeholder={t("s1.firstName")}
-            value={txt.vor}
-            onChange={(v) => setTxt("vor", v)}
-            error={errors.vor}
-          />
-          <TextField
-            field="nach"
-            autoComplete={state.role === "kunde" ? "family-name" : "off"}
-            label={t("s1.lastName")}
-            placeholder={t("s1.lastName")}
-            value={txt.nach}
-            onChange={(v) => setTxt("nach", v)}
-            error={errors.nach}
-          />
+          {/* v5 (Handover 2 Schritt 1): a company gives Firma and zeichnungsberechtigte Person here. */}
+          {show.has("firma") ? (
+            <>
+              <TextField
+                field="firma"
+                autoComplete="organization"
+                label={t("s1.company")}
+                placeholder={t("s3.companyName")}
+                value={txt.firma}
+                onChange={(v) => setTxt("firma", v)}
+                error={errors.firma}
+              />
+              <TextField
+                field="zeichner"
+                autoComplete="off"
+                label={t("s3.signatory")}
+                placeholder={t("s3.namePh")}
+                value={txt.zeichner}
+                onChange={(v) => setTxt("zeichner", v)}
+                error={errors.zeichner}
+              />
+            </>
+          ) : (
+            <>
+              <TextField
+                field="vor"
+                autoComplete={state.role === "kunde" ? "given-name" : "off"}
+                label={t("s1.firstName")}
+                placeholder={t("s1.firstName")}
+                value={txt.vor}
+                onChange={(v) => setTxt("vor", v)}
+                error={errors.vor}
+              />
+              <TextField
+                field="nach"
+                autoComplete={state.role === "kunde" ? "family-name" : "off"}
+                label={t("s1.lastName")}
+                placeholder={t("s1.lastName")}
+                value={txt.nach}
+                onChange={(v) => setTxt("nach", v)}
+                error={errors.nach}
+              />
+            </>
+          )}
           <TextField
             field="mail"
             type="email"
