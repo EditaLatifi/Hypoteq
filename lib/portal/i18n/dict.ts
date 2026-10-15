@@ -5,6 +5,8 @@
  * translated only for display through `status`, `filters` and `notif`.
  */
 
+import { PROFILE_EXTRA } from "./profileExtra";
+
 export const LOCALES = ["de", "en", "fr", "it"] as const;
 export type Locale = (typeof LOCALES)[number];
 
@@ -304,6 +306,7 @@ const de = {
     firstLogin: "Erster Login",
     changePassword: "Passwort ändern",
   },
+  profileExtra: PROFILE_EXTRA.de,
   admin: {
     partnersSub: "Portalzugang kontrolliert freischalten. Partner- und Case-Daten bleiben in Salesforce.",
     kpiTotal: "Partner gesamt",
@@ -696,6 +699,7 @@ const en: Dict = {
     firstLogin: "First login",
     changePassword: "Change password",
   },
+  profileExtra: PROFILE_EXTRA.en,
   admin: {
     partnersSub: "Grant portal access in a controlled way. Partner and case data stays in Salesforce.",
     kpiTotal: "Partners total",
@@ -1084,6 +1088,7 @@ const fr: Dict = {
     firstLogin: "Première connexion",
     changePassword: "Changer le mot de passe",
   },
+  profileExtra: PROFILE_EXTRA.fr,
   admin: {
     partnersSub: "Activer l'accès au portail de manière contrôlée. Les données partenaires et dossiers restent dans Salesforce.",
     kpiTotal: "Partenaires au total",
@@ -1472,6 +1477,7 @@ const it: Dict = {
     firstLogin: "Primo accesso",
     changePassword: "Cambia password",
   },
+  profileExtra: PROFILE_EXTRA.it,
   admin: {
     partnersSub: "Attivare l'accesso al portale in modo controllato. I dati di partner e pratiche restano in Salesforce.",
     kpiTotal: "Partner totali",

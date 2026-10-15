@@ -21,6 +21,15 @@ export type AuditAction =
   | "document_viewed"
   | "message_sent"
   | "profile_confirmed"
+  | "photo_updated"
+  | "photo_removed"
+  | "logo_updated"
+  | "logo_removed"
+  | "logo_display_changed"
+  | "change_requested"
+  | "change_request_decided"
+  | "partner_document_uploaded"
+  | "partner_document_status"
   | "view_as_started"
   | "view_as_ended"
   | "case_assigned"
@@ -47,6 +56,15 @@ export const AUDIT_LABELS: Record<string, string> = {
   document_viewed: "Dokument angesehen",
   message_sent: "Nachricht gesendet",
   profile_confirmed: "Angaben bestätigt",
+  photo_updated: "Profilfoto geändert",
+  photo_removed: "Profilfoto entfernt",
+  logo_updated: "Firmenlogo geändert",
+  logo_removed: "Firmenlogo entfernt",
+  logo_display_changed: "Logo-Darstellung geändert",
+  change_requested: "Änderung Partnerdaten beantragt",
+  change_request_decided: "Änderungsantrag entschieden",
+  partner_document_uploaded: "Firmendokument hochgeladen",
+  partner_document_status: "Status Firmendokument gesetzt",
   view_as_started: "Als Partner angesehen",
   view_as_ended: "Partneransicht beendet",
   case_assigned: "Case zugeordnet",
