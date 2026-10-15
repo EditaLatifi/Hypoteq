@@ -5,10 +5,13 @@ import en from "@/messages/en.json";
 import fr from "@/messages/fr.json";
 import it from "@/messages/it.json";
 import { DOKUMENTEN_CHECK_MAP } from "@/components/dokumentenCheckState";
-import { partnerCaseField, portalVisibleField } from "@/lib/portal/config";
+import { translate } from "@/lib/funnel-v3/i18n";
+import { baseId, getRequirement } from "@/lib/funnel-v3/requirements";
+import { buildCaseDocs, type CaseDoc, type PresentDoc } from "@/lib/portal/caseDocs";
+import { PORTAL_SF_FIELDS, partnerCaseField, portalStatusField, portalVisibleField } from "@/lib/portal/config";
 import type { Locale } from "@/lib/portal/i18n/dict";
-import { outstandingKeys, parseChecklist } from "@/lib/portal/requiredDocs";
-import { CLOSED_STATUSES, portalStatus, statusDef, type Tone } from "@/lib/portal/status";
+import { keysForSfFlag, keysForTabEntry, outstandingKeys, parseChecklist, personsByKey, reworkDocs } from "@/lib/portal/requiredDocs";
+import { PORTAL_STATUSES, actionRequired, isClosedStatus, needsDocument, portalStatus, statusDef, type Tone } from "@/lib/portal/status";
 
 /**
  * Salesforce access for the Partnerportal.
@@ -79,6 +82,43 @@ async function queryWithFields<T = any>(fields: string[], build: (select: string
     }
   }
   throw new Error("Salesforce query kept failing on unknown fields");
+}
+
+// Field names per object as the org describes them (lower case): one describe per object
+// and server instance. A failed describe is not remembered, so the next request retries.
+const described = new Map<string, Promise<Set<string>>>();
+
+function describeFields(object: string): Promise<Set<string>> {
+  let fields = described.get(object);
+  if (!fields) {
+    fields = withSession(async () => (await (conn.sobject(object) as any).describe()) as any)
+      .then((d: any) => new Set<string>((d?.fields || []).map((f: any) => String(f?.name || "").toLowerCase())))
+      .catch((err) => {
+        described.delete(object);
+        throw err;
+      });
+    described.set(object, fields);
+  }
+  return fields;
+}
+
+/**
+ * Whether the org has a field. False when Salesforce cannot say: the portal then works
+ * without it rather than failing — which is how every optional Portal_* field is read.
+ */
+export async function hasField(object: string, field: string): Promise<boolean> {
+  try {
+    return (await describeFields(object)).has(field.toLowerCase());
+  } catch (err) {
+    console.warn(`[portal] could not describe ${object}; treating ${field} as absent`, (err as any)?.message || err);
+    return false;
+  }
+}
+
+/** Case.Portal_Status__c (DECISIONS P2) when the org has it, else null. */
+async function caseStatusField(): Promise<string | null> {
+  const field = portalStatusField();
+  return field && (await hasField("Case", field)) ? field : null;
 }
 
 // ---------------------------------------------------------------------------
@@ -163,12 +203,14 @@ const ART: Record<string, L10n> = {
 };
 const ART_FALLBACK: L10n = { de: "Finanzierung", en: "Financing", fr: "Financement", it: "Finanziamento" };
 const UNNAMED: L10n = { de: "Unbenannter Case", en: "Unnamed case", fr: "Dossier sans nom", it: "Pratica senza nome" };
+const OTHER_DOC: L10n = { de: "Weiteres Dokument", en: "Other document", fr: "Autre document", it: "Altro documento" };
 
 const LIST_FIELDS = [
   "Id",
   "CaseNumber",
   "CreatedDate",
   "LastModifiedDate",
+  "ClosedDate",
   "Status",
   "IsClosed",
   "Stage__c",
@@ -210,6 +252,7 @@ const DETAIL_FIELDS = Array.from(
     ...LIST_FIELDS,
     "Owner.Name",
     "Owner.Email",
+    "Partner_Consultant__r.Account.Name",
     "PLZ_Ort__c",
     "City__c",
     "Kaufpreis__c",
@@ -264,13 +307,7 @@ async function scopeClause(scope: PartnerScope): Promise<string> {
   return visible ? `${clause} AND ${visible} = true` : clause;
 }
 
-/**
- * - fehlt: confirmed missing — the funnel's verdict, or unticked in a checklist a
- *   caseworker has saved
- * - offen: required by HYPOTEQ's document list for a new Case, not confirmed yet
- * - vorhanden: on file at HYPOTEQ
- */
-export type CaseDoc = { key: string | null; name: string; state: "fehlt" | "offen" | "vorhanden" };
+export type { CaseDoc } from "@/lib/portal/caseDocs";
 
 export type PortalCaseSummary = {
   id: string;
@@ -280,6 +317,8 @@ export type PortalCaseSummary = {
   betrag: number | null;
   createdAt: string;
   updatedAt: string;
+  /** Case.ClosedDate, or the last change for a Case Portal_Status__c calls Abgeschlossen. */
+  closedAt: string | null;
   status: string;
   tone: Tone;
   step: number;
@@ -288,8 +327,14 @@ export type PortalCaseSummary = {
   missingDocs: string[];
   /** Labels of documents expected for a new Case but not confirmed missing yet. */
   openDocs: string[];
-  /** Missing, open (uploadable against their key) and present documents. */
+  /** Labels of the documents that are Fehlt, Ungültig or Neu erforderlich, most pressing first. */
+  needDocs: string[];
+  /** «Aktion erforderlich» (lib/portal/status.ts). */
+  actionRequired: boolean;
+  /** Missing, open (uploadable against their key), uploaded and present documents. */
   documents: CaseDoc[];
+  /** Salesforce Status «On Hold»: the Case page says the Case is paused. */
+  onHold: boolean;
   /** The partner consultant named on the Case (differs from the viewer for company Cases). */
   consultantId: string | null;
   consultantName: string | null;
@@ -309,8 +354,16 @@ function num(v: unknown): number | null {
 
 const MESSAGES = { de, en, fr, it } as unknown as Record<Locale, Record<string, Record<string, string> | undefined>>;
 
-/** A funnel document key ("funnel.taxReturnLatest") in the website's own wording. */
+/**
+ * A document key in the website's own wording: a funnel key ("funnel.taxReturnLatest"), or a
+ * Funnel v3 requirement instance id ("grundbuch", "lohn#b1") as v3 Cases store them.
+ */
 export function docLabel(key: string, locale: Locale = "de"): string {
+  if (!key.includes(".")) {
+    const id = baseId(key);
+    const label = translate(locale, `doc.${id}`);
+    return label && label !== `doc.${id}` ? label : getRequirement(id)?.labelDe || key;
+  }
   const [ns, name] = key.split(".");
   return MESSAGES[locale]?.[ns]?.[name] || MESSAGES.de?.[ns]?.[name] || key;
 }
@@ -320,11 +373,13 @@ type DocContext = {
   inquiry: { missing: string[]; complete: boolean | null } | null;
   /** Document keys the partner has uploaded through the portal. */
   uploaded: string[];
+  /** Every portal upload of the Case, newest first. */
+  uploads: { docKey: string | null; fileName: string; at: Date }[];
 };
 
 /** What the portal's own database knows about each Case's documents. */
 async function docContextByCase(caseIds: string[]): Promise<Map<string, DocContext>> {
-  const out = new Map<string, DocContext>(caseIds.map((id) => [id, { inquiry: null, uploaded: [] }]));
+  const out = new Map<string, DocContext>(caseIds.map((id) => [id, { inquiry: null, uploaded: [], uploads: [] }]));
   if (!caseIds.length) return out;
   const [rows, uploads] = await Promise.all([
     prisma.inquiry.findMany({
@@ -332,7 +387,11 @@ async function docContextByCase(caseIds: string[]): Promise<Map<string, DocConte
       select: { salesforceCaseId: true, documentsMissing: true, documentsComplete: true },
       orderBy: { createdAt: "desc" },
     }),
-    prisma.portalUpload.findMany({ where: { caseId: { in: caseIds }, docKey: { not: null } }, select: { caseId: true, docKey: true } }),
+    prisma.portalUpload.findMany({
+      where: { caseId: { in: caseIds } },
+      select: { caseId: true, docKey: true, fileName: true, createdAt: true },
+      orderBy: { createdAt: "desc" },
+    }),
   ]);
   for (const r of rows) {
     const ctx = r.salesforceCaseId ? out.get(r.salesforceCaseId) : undefined;
@@ -340,7 +399,12 @@ async function docContextByCase(caseIds: string[]): Promise<Map<string, DocConte
     const keys = Array.from(new Set((r.documentsMissing || "").split(",").map((k) => k.trim()).filter(Boolean)));
     ctx.inquiry = { missing: keys, complete: r.documentsComplete };
   }
-  for (const u of uploads) out.get(u.caseId)?.uploaded.push(u.docKey!);
+  for (const u of uploads) {
+    const ctx = out.get(u.caseId);
+    if (!ctx) continue;
+    if (u.docKey) ctx.uploaded.push(u.docKey);
+    ctx.uploads.push({ docKey: u.docKey, fileName: u.fileName, at: u.createdAt });
+  }
   return out;
 }
 
@@ -355,10 +419,12 @@ async function docContextByCase(caseIds: string[]): Promise<Map<string, DocConte
  * outstanding: guessing there would ask partners for paper HYPOTEQ already has.
  */
 function outstandingDocs(rec: any, ctx: DocContext, preStatus: string): { missing: string[]; open: string[] } {
-  if (CLOSED_STATUSES.includes(preStatus)) return { missing: [], open: [] };
+  if (isClosedStatus(preStatus)) return { missing: [], open: [] };
   if (ctx.inquiry) return { missing: ctx.inquiry.missing.filter((k) => !ctx.uploaded.includes(k)), open: [] };
   if (rec.Documents_completed__c === true) return { missing: [], open: [] };
-  if (!["Neue Anfrage", "In Prüfung", "Pausiert"].includes(preStatus)) return { missing: [], open: [] };
+  // Before any documents are taken into account, a Case still at the document stage is
+  // Neue Anfrage or In Prüfung (On Hold included); anything later has its paper.
+  if (!["Neue Anfrage", "In Prüfung"].includes(preStatus)) return { missing: [], open: [] };
 
   const checklist = parseChecklist(rec.Dokumenten_Check_State__c);
   const outstanding = outstandingKeys(rec, checklist, ctx.uploaded);
@@ -397,45 +463,64 @@ function customerName(rec: any): string | null {
  * "<Section>|<Label>"); the older Dok_*__c checkboxes are read as well. The tab's labels
  * are German and are shown as they are.
  */
-function presentDocs(rec: any, locale: Locale): string[] {
-  const names: string[] = DOC_FLAGS.filter((d) => rec[d.field] === true).map((d) => d.label[locale]);
+function presentDocs(rec: any, locale: Locale): PresentDoc[] {
+  const out: PresentDoc[] = DOC_FLAGS.filter((d) => rec[d.field] === true).map((d) => ({ name: d.label[locale], keys: keysForSfFlag(d.field) }));
   const raw = rec.Dokumenten_Check_State__c;
   if (typeof raw === "string" && raw) {
     try {
       const checked = JSON.parse(raw)?.checked || {};
-      for (const [key, on] of Object.entries(checked)) {
+      for (const [entry, on] of Object.entries(checked)) {
         if (on !== true) continue;
-        const label = key.includes("|") ? key.slice(key.indexOf("|") + 1) : key;
-        if (label) names.push(label);
+        const label = entry.includes("|") ? entry.slice(entry.indexOf("|") + 1) : entry;
+        if (label) out.push({ name: label, keys: keysForTabEntry(entry) });
       }
     } catch {
       // A checklist that is not JSON is ignored; the Dok_*__c flags still count.
     }
   }
-  return Array.from(new Set(names));
+  return out;
 }
 
-function summarize(rec: any, ctx: DocContext, locale: Locale): PortalCaseSummary {
+function summarize(rec: any, ctx: DocContext, locale: Locale, statusField: string | null): PortalCaseSummary {
+  const checklist = parseChecklist(rec.Dokumenten_Check_State__c);
   const statusInput = {
     stage: rec.Stage__c,
     sfStatus: rec.Status,
     isClosed: rec.IsClosed,
     banksRequested: rec.Welche_Banken_wurden_angefragt__c,
     offerDate: rec.Angebot_Datum__c,
+    portalStatus: statusField ? rec[statusField] : null,
   };
   // Where the Case stands before documents are taken into account; that decides whether
   // outstanding documents are worked out at all.
   const preStatus = portalStatus(statusInput);
-  const { missing, open } = outstandingDocs(rec, ctx, preStatus);
+  const closed = isClosedStatus(preStatus);
+  const outstanding = outstandingDocs(rec, ctx, preStatus);
+  // Asked for again: more specific than «missing», so such a key is listed once, as rework.
+  const rework = closed ? [] : reworkDocs(checklist, ctx.uploaded);
+  const reworkKeys = new Set(rework.map((r) => r.key));
+  const missing = outstanding.missing.filter((k) => !reworkKeys.has(k));
+  const missingCount = missing.length + rework.length;
   // The Salesforce checkbox is never unticked on purpose, so only a tick means anything.
   const docsComplete = ctx.inquiry?.complete ?? (rec.Documents_completed__c === true ? true : null);
-  const status = portalStatus({ ...statusInput, docsComplete: missing.length ? false : docsComplete, missingCount: missing.length });
+  const status = portalStatus({ ...statusInput, docsComplete: missingCount ? false : docsComplete, missingCount, reworkCount: rework.length });
   const def = statusDef(status);
-  const documents: CaseDoc[] = [
-    ...missing.map((key) => ({ key, name: docLabel(key, locale), state: "fehlt" as const })),
-    ...open.map((key) => ({ key, name: docLabel(key, locale), state: "offen" as const })),
-    ...presentDocs(rec, locale).map((name) => ({ key: null, name, state: "vorhanden" as const })),
-  ];
+
+  // Uploads count as checked once the Case is past HYPOTEQ's review (DECISIONS P11).
+  const documents = buildCaseDocs({
+    missing,
+    open: outstanding.open,
+    rework,
+    uploads: ctx.uploads,
+    present: presentDocs(rec, locale),
+    persons: personsByKey(checklist),
+    label: (key) => docLabel(key, locale),
+    otherLabel: OTHER_DOC[locale],
+    pastReview: def.rank >= PORTAL_STATUSES["Bereit für Kreditgeber"].rank,
+    lastChange: rec.LastModifiedDate,
+  });
+
+  const closedAt = rec.ClosedDate || (status === "Abgeschlossen" ? rec.LastModifiedDate : null) || null;
   return {
     id: rec.Id,
     nr: rec.CaseNumber || rec.Id,
@@ -444,24 +529,35 @@ function summarize(rec: any, ctx: DocContext, locale: Locale): PortalCaseSummary
     betrag: num(rec.Gesch_tzter_Hypothekenbedarf__c) ?? num(rec.Hypothekarvolumen__c) ?? num(rec.Betrag__c),
     createdAt: rec.CreatedDate,
     updatedAt: rec.LastModifiedDate,
+    closedAt,
     status,
     tone: def.tone,
     step: def.step,
     rank: def.rank,
-    missingDocs: missing.map((key) => docLabel(key, locale)),
-    openDocs: open.map((key) => docLabel(key, locale)),
+    missingDocs: [...rework.map((r) => docLabel(r.key, locale)), ...missing.map((key) => docLabel(key, locale))],
+    openDocs: outstanding.open.map((key) => docLabel(key, locale)),
+    needDocs: documents.filter((d) => needsDocument(d.status)).map((d) => d.name),
+    actionRequired: actionRequired(status, documents),
     documents,
+    onHold: (rec.Status || "").trim().toLowerCase() === "on hold",
     consultantId: rec.Partner_Consultant__c || null,
     consultantName: rec.Partner_Consultant__r?.Name || null,
   };
 }
 
+/** The list fields plus the optional ones this org has. */
+async function caseFields(base: string[]): Promise<{ fields: string[]; statusField: string | null }> {
+  const statusField = await caseStatusField();
+  return { fields: statusField && !base.includes(statusField) ? [...base, statusField] : base, statusField };
+}
+
 export async function listPartnerCases(scope: PartnerScope, locale: Locale = "de"): Promise<PortalCaseSummary[]> {
   if (!isSalesforceId(scope.contactId)) return [];
   const where = await scopeClause(scope);
-  const recs = await queryWithFields(LIST_FIELDS, (select) => `SELECT ${select} FROM Case WHERE ${where} ORDER BY CreatedDate DESC LIMIT 500`);
+  const { fields, statusField } = await caseFields(LIST_FIELDS);
+  const recs = await queryWithFields(fields, (select) => `SELECT ${select} FROM Case WHERE ${where} ORDER BY CreatedDate DESC LIMIT 500`);
   const ctx = await docContextByCase(recs.map((r: any) => r.Id));
-  return recs.map((r: any) => summarize(r, ctx.get(r.Id)!, locale));
+  return recs.map((r: any) => summarize(r, ctx.get(r.Id)!, locale, statusField));
 }
 
 function formatChf(v: unknown): string | null {
@@ -469,16 +565,25 @@ function formatChf(v: unknown): string | null {
   return n == null ? null : `CHF ${Math.round(n).toLocaleString("de-CH").replace(/’/g, "'")}`;
 }
 
+/** TT.MM.JJJJ in Zurich time, or null for a missing or unreadable date. */
+function swissDate(v: unknown): string | null {
+  if (typeof v !== "string" || !v) return null;
+  const d = new Date(v);
+  if (Number.isNaN(d.getTime())) return null;
+  return d.toLocaleDateString("de-CH", { day: "2-digit", month: "2-digit", year: "numeric", timeZone: "Europe/Zurich" });
+}
+
 /** A Case of this partner, or null when it does not exist or is not theirs. */
 export async function getPartnerCase(scope: PartnerScope, caseId: string, locale: Locale = "de"): Promise<PortalCaseDetail | null> {
   if (!isSalesforceId(scope.contactId) || !isSalesforceId(caseId)) return null;
   const where = await scopeClause(scope);
-  const recs = await queryWithFields(DETAIL_FIELDS, (select) => `SELECT ${select} FROM Case WHERE Id = ${soqlString(caseId)} AND ${where} LIMIT 1`);
+  const { fields, statusField } = await caseFields(DETAIL_FIELDS);
+  const recs = await queryWithFields(fields, (select) => `SELECT ${select} FROM Case WHERE Id = ${soqlString(caseId)} AND ${where} LIMIT 1`);
   const rec: any = recs[0];
   if (!rec) return null;
 
   const ctx = (await docContextByCase([rec.Id])).get(rec.Id)!;
-  const base = summarize(rec, ctx, locale);
+  const base = summarize(rec, ctx, locale, statusField);
 
   const ort = [rec.PLZ_Ort__c, rec.City__c].filter(Boolean).join(" ");
   const objekt = [rec.Art_der_Immobilie__c, rec.Art_der_Liegenschaft__c].filter(Boolean).join(" · ");
@@ -486,22 +591,27 @@ export async function getPartnerCase(scope: PartnerScope, caseId: string, locale
   const eigenmittelPct = num(rec.EigenmittelProzent__c);
   const tragbarkeit = num(rec.Tragbarkeit__c);
   const banks = (rec.Welche_Banken_wurden_angefragt__c || "").split(";").map((s: string) => s.trim()).filter(Boolean);
-  // Keys of the `caseDetail.facts` dictionary; the page words them.
+  const partner = [base.consultantName, rec.Partner_Consultant__r?.Account?.Name].filter(Boolean).join(" · ");
+  // Keys of the `caseDetail.facts` dictionary; the page words them. The handoff's eight
+  // facts first, in its order, then what else the Case knows.
   const facts: [string, string | null][] = [
     ["nr", base.nr],
+    ["kunde", base.kunde],
+    ["created", swissDate(base.createdAt)],
     ["art", base.art],
+    ["mortgage", base.betrag != null ? formatChf(base.betrag) : null],
+    ["object", [objekt, ort].filter(Boolean).join(", ") || null],
+    ["partner", partner || null],
+    ["updated", swissDate(base.updatedAt)],
     ["borrower", rec.Kreditnehmer__c || null],
-    ["object", objekt || null],
-    ["place", ort || null],
     ["use", rec.Nutzung_der_Immobilie__c || null],
     ["price", formatChf(rec.Kaufpreis__c)],
-    ["mortgage", base.betrag != null ? formatChf(base.betrag) : null],
     ["equity", eigenmittel ? (eigenmittelPct ? `${eigenmittel} (${eigenmittelPct.toFixed(0)} %)` : eigenmittel) : null],
     ["affordability", tragbarkeit != null ? `${tragbarkeit.toFixed(1)} %` : null],
     ["term", rec.Hypothekarlaufzeiten__c || null],
-    ["date", rec.Kaufdatum__c || null],
+    ["date", swissDate(rec.Kaufdatum__c) || rec.Kaufdatum__c || null],
     ["lenders", banks.length ? `${banks.length}` : null],
-    ["offer", rec.Angebot_Datum__c ? new Date(rec.Angebot_Datum__c).toLocaleDateString("de-CH", { timeZone: "Europe/Zurich" }) : null],
+    ["offer", swissDate(rec.Angebot_Datum__c)],
     ["owner", rec.Owner?.Name || null],
   ];
 
@@ -512,6 +622,55 @@ export async function getPartnerCase(scope: PartnerScope, caseId: string, locale
     ownerName: rec.Owner?.Name || null,
     ownerEmail: rec.Owner?.Email || null,
   };
+}
+
+export type PortalFieldRow = {
+  field: string;
+  /** Where the org has the field; null = «Feld nicht vorhanden». */
+  object: "Case" | "Contact" | "Account" | null;
+  /** The value on the partner's Contact or Account. */
+  value?: string | null;
+  /** Case fields: on how many of the partner's Cases the field is ticked or filled. */
+  counts?: { hit: number; total: number; values: string[] };
+};
+
+/**
+ * The Salesforce portal fields the handoff names, for one partner (admin partner detail).
+ * Each is described first and read only where the org has it: Portal_Access__c on the
+ * partner's Contact (else its Account), the four Case fields counted over the partner's
+ * Cases. Nothing here is assumed to exist.
+ */
+export async function portalFieldReport(scope: PartnerScope): Promise<PortalFieldRow[]> {
+  const F = PORTAL_SF_FIELDS;
+  const onCase = [F.visible, F.status, F.actionRequired, F.notify];
+  const [onContact, onAccount, ...caseHas] = await Promise.all([
+    hasField("Contact", F.access),
+    hasField("Account", F.access),
+    ...onCase.map((f) => hasField("Case", f)),
+  ]);
+
+  const access: PortalFieldRow = { field: F.access, object: null };
+  const holder = onContact && isSalesforceId(scope.contactId) ? { object: "Contact" as const, id: scope.contactId } : onAccount && isSalesforceId(scope.accountId) ? { object: "Account" as const, id: scope.accountId } : null;
+  if (holder) {
+    const rows = await queryWithFields<any>([F.access], (s) => `SELECT ${s} FROM ${holder.object} WHERE Id = ${soqlString(holder.id)} LIMIT 1`);
+    const v = rows[0]?.[F.access];
+    access.object = holder.object;
+    access.value = v == null || v === "" ? null : String(v);
+  }
+
+  const present = onCase.filter((_, i) => caseHas[i]);
+  let recs: any[] = [];
+  if (present.length && isSalesforceId(scope.contactId)) {
+    const where = await scopeClause(scope);
+    recs = await queryWithFields<any>(["Id", ...present], (s) => `SELECT ${s} FROM Case WHERE ${where} LIMIT 500`);
+  }
+  const caseRows: PortalFieldRow[] = onCase.map((field, i) => {
+    if (!caseHas[i]) return { field, object: null };
+    const set = recs.map((r) => r[field]).filter((v) => v === true || (typeof v === "string" && v.trim()));
+    const values = Array.from(new Set(set.filter((v) => typeof v === "string").map((v) => String(v).trim()))).slice(0, 4);
+    return { field, object: "Case", counts: { hit: set.length, total: recs.length, values } };
+  });
+  return [access, ...caseRows];
 }
 
 // ---------------------------------------------------------------------------
