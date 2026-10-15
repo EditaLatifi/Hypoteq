@@ -8,6 +8,8 @@ import { DOKUMENTEN_CHECK_MAP } from "@/components/dokumentenCheckState";
 import { translate } from "@/lib/funnel-v3/i18n";
 import { baseId, getRequirement } from "@/lib/funnel-v3/requirements";
 import { buildCaseDocs, type CaseDoc, type PresentDoc } from "@/lib/portal/caseDocs";
+import { special as SPECIAL_TEXTS } from "@/lib/portal/i18n/special";
+import { isSpecialType, specialArt, type SpecialType } from "@/lib/portal/special";
 import { PORTAL_SF_FIELDS, partnerCaseField, portalStatusField, portalVisibleField } from "@/lib/portal/config";
 import type { Locale } from "@/lib/portal/i18n/dict";
 import { keysForSfFlag, keysForTabEntry, outstandingKeys, parseChecklist, personsByKey, reworkDocs } from "@/lib/portal/requiredDocs";
@@ -380,13 +382,15 @@ type DocContext = {
   uploaded: string[];
   /** Every portal upload of the Case, newest first. */
   uploads: { docKey: string | null; fileName: string; at: Date }[];
+  /** A Spezialfinanzierung from the portal wizard: its Art, and no standard document list. */
+  special: SpecialType | null;
 };
 
 /** What the portal's own database knows about each Case's documents. */
 async function docContextByCase(caseIds: string[]): Promise<Map<string, DocContext>> {
-  const out = new Map<string, DocContext>(caseIds.map((id) => [id, { inquiry: null, uploaded: [], uploads: [] }]));
+  const out = new Map<string, DocContext>(caseIds.map((id) => [id, { inquiry: null, uploaded: [], uploads: [], special: null }]));
   if (!caseIds.length) return out;
-  const [rows, uploads] = await Promise.all([
+  const [rows, uploads, specials] = await Promise.all([
     prisma.inquiry.findMany({
       where: { salesforceCaseId: { in: caseIds } },
       select: { salesforceCaseId: true, documentsMissing: true, documentsComplete: true },
@@ -397,6 +401,14 @@ async function docContextByCase(caseIds: string[]): Promise<Map<string, DocConte
       select: { caseId: true, docKey: true, fileName: true, createdAt: true },
       orderBy: { createdAt: "desc" },
     }),
+    // Before prisma/sql/2026-10-15-v5-and-portal.sql has run the table does not exist; the
+    // Cases must still load, just without telling special financings apart.
+    prisma.portalSpecialRequest
+      .findMany({ where: { sfCaseId: { in: caseIds } }, select: { sfCaseId: true, type: true } })
+      .catch((err: unknown) => {
+        console.warn("[portal] special requests not readable", err);
+        return [] as { sfCaseId: string | null; type: string }[];
+      }),
   ]);
   for (const r of rows) {
     const ctx = r.salesforceCaseId ? out.get(r.salesforceCaseId) : undefined;
@@ -410,6 +422,10 @@ async function docContextByCase(caseIds: string[]): Promise<Map<string, DocConte
     if (u.docKey) ctx.uploaded.push(u.docKey);
     ctx.uploads.push({ docKey: u.docKey, fileName: u.fileName, at: u.createdAt });
   }
+  for (const r of specials) {
+    const ctx = r.sfCaseId ? out.get(r.sfCaseId) : undefined;
+    if (ctx && isSpecialType(r.type)) ctx.special = r.type;
+  }
   return out;
 }
 
@@ -421,10 +437,11 @@ async function docContextByCase(caseIds: string[]): Promise<Map<string, DocConte
  *     document it cannot tick stays "offen";
  *  3. a new Case with neither: HYPOTEQ's list, shown as expected ("offen").
  * A Case past the document stage (at the lenders, or marked complete) has nothing
- * outstanding: guessing there would ask partners for paper HYPOTEQ already has.
+ * outstanding: guessing there would ask partners for paper HYPOTEQ already has. Neither has
+ * a Spezialfinanzierung: HYPOTEQ assesses it individually, so the mortgage list does not apply.
  */
 function outstandingDocs(rec: any, ctx: DocContext, preStatus: string): { missing: string[]; open: string[] } {
-  if (isClosedStatus(preStatus)) return { missing: [], open: [] };
+  if (isClosedStatus(preStatus) || ctx.special) return { missing: [], open: [] };
   if (ctx.inquiry) return { missing: ctx.inquiry.missing.filter((k) => !ctx.uploaded.includes(k)), open: [] };
   if (rec.Documents_completed__c === true) return { missing: [], open: [] };
   // Before any documents are taken into account, a Case still at the document stage is
@@ -530,7 +547,11 @@ function summarize(rec: any, ctx: DocContext, locale: Locale, statusField: strin
     id: rec.Id,
     nr: rec.CaseNumber || rec.Id,
     kunde: customerName(rec) || rec.Case_Name__c || UNNAMED[locale],
-    art: rec.Reason ? ART[rec.Reason]?.[locale] || rec.Reason : ART_FALLBACK[locale],
+    art: ctx.special
+      ? specialArt(SPECIAL_TEXTS[locale], ctx.special)
+      : rec.Reason
+        ? ART[rec.Reason]?.[locale] || rec.Reason
+        : ART_FALLBACK[locale],
     betrag: num(rec.Gesch_tzter_Hypothekenbedarf__c) ?? num(rec.Hypothekarvolumen__c) ?? num(rec.Betrag__c),
     createdAt: rec.CreatedDate,
     updatedAt: rec.LastModifiedDate,
