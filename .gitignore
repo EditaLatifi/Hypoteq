@@ -35,6 +35,9 @@ pnpm-lock.yaml
 # TypeScript build info
 *.tsbuildinfo
 
+# Claude Code agent worktrees (full copies of the repo)
+/.claude/worktrees/
+
 # Coverage reports
 /coverage
 
