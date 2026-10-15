@@ -43,7 +43,11 @@ export async function caseFolder(
   if (state?.folderId) return state.folderId;
   if (!opts.create) return null;
 
-  const folderId = await getOrCreateSubmissionFolder(inquiry?.client?.email || opts.email!, `case-${caseId}`, opts.token!);
+  // The full id as the folder tag: cut to 8 characters, every Case id is «case-500», so all
+  // Cases a partner uploads to on one day would share one folder and list each other's files.
+  const folderId = await getOrCreateSubmissionFolder(inquiry?.client?.email || opts.email!, caseId, opts.token!, {
+    tag: `case-${caseId}`,
+  });
   if (inquiry) {
     await prisma.inquiry.update({ where: { id: inquiry.id }, data: { sharepointFolderId: folderId } });
   } else {

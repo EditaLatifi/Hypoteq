@@ -45,7 +45,13 @@ export async function getAccessToken(): Promise<string> {
 export async function getOrCreateSubmissionFolder(
   email: string,
   inquiryId: string,
-  token: string
+  token: string,
+  /**
+   * The folder name's last part, used as given instead of the first 8 characters of
+   * `inquiryId`. For ids whose first 8 characters are shared (every Salesforce Case id starts
+   * with «500»), so two of them never resolve to the same folder.
+   */
+  opts: { tag?: string } = {}
 ): Promise<string> {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!email || !emailRegex.test(email)) {
@@ -63,7 +69,7 @@ export async function getOrCreateSubmissionFolder(
   // Deterministic name per (email, date, submission): all documents of one
   // submission resolve to the exact same folder no matter how many upload
   // requests run — no timestamp, so there is nothing to make the name diverge.
-  const shortInquiryId = inquiryId.substring(0, 8);
+  const shortInquiryId = opts.tag ?? inquiryId.substring(0, 8);
   // Uploading is the part most worth testing, so a test run still creates a real folder —
   // it just says so in the name, and sorts away from customer paperwork.
   const prefix = isTestMode() ? TEST_FOLDER_PREFIX : "";
