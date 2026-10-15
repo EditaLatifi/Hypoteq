@@ -443,3 +443,136 @@ model PortalAuditLog {
   @@index([at])
   @@index([actorEmail, action, at])
 }
+
+// ---------------------------------------------------------------------------
+// Funnel v5 (docs/funnel-v5/HYPOTEQ_Handover_Edita.md, chapter 6): the signed
+// Auskunftsermächtigung. A table of its own rather than columns on Inquiry, so a
+// build that knows it still runs against a database where the SQL has not been run
+// yet (Prisma selects every scalar column of a model it reads).
+// Created by prisma/sql/2026-10-15-v5-and-portal.sql — never by `prisma migrate`.
+// ---------------------------------------------------------------------------
+
+model InquirySignature {
+  inquiryId      String    @id
+  // uploaded (in the closing) | pending («später nachreichen») | received (uploaded later)
+  status         String
+  // upload | docusign (later phase, Handover 6)
+  method         String    @default("upload")
+  fileName       String?
+  driveItemId    String?
+  // When the closing chose «später nachreichen»; the reminders count from here.
+  requestedAt    DateTime?
+  receivedAt     DateTime?
+  // Reminders sent (Handover 6 / 7.1: after 2 and after 5 days).
+  remindersSent  Int       @default(0)
+  lastReminderAt DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@index([status, requestedAt])
+}
+
+// ---------------------------------------------------------------------------
+// Partnerportal, handoff of 14.10.2026. Same rule as the tables above: Salesforce leads,
+// these hold what the portal writes back. Created by prisma/sql/2026-10-15-v5-and-portal.sql.
+// ---------------------------------------------------------------------------
+
+// A Spezialfinanzierung submitted through the portal wizard (handoff 4 «Spezialfinanzierung»).
+model PortalSpecialRequest {
+  id        String   @id @default(uuid())
+  userId    String
+  contactId String?
+  accountId String?
+  // mezzanine | bauprojekt | rendite | gewerbe | ueberbrueckung | andere
+  type      String
+  // Name of the end customer, or the company.
+  kunde     String
+  amount    Int?
+  // Every wizard answer, as entered.
+  payload   Json
+  // [{ fileName, driveItemId, webUrl, size }] — the uploads, filed in SharePoint.
+  files     Json?
+  sfCaseId  String?
+  sfError   String?
+  caseNr    String?
+  status    String   @default("new")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId, createdAt])
+}
+
+// Support & Feedback (handoff 4 «Support & Feedback»).
+model PortalSupportTicket {
+  id        String   @id @default(uuid())
+  userId    String
+  // frage | fehler | wunsch
+  type      String
+  caseId    String?
+  subject   String
+  body      String
+  // «Technische Angaben mitsenden»: browser, viewport, page, build — no case data.
+  techInfo  Json?
+  // eingegangen | in_pruefung | behoben | beantwortet
+  status    String   @default("eingegangen")
+  sfId      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId, createdAt])
+}
+
+// «Änderung beantragen» on the read-only partner data (handoff 4 «Profil»).
+model PortalChangeRequest {
+  id        String    @id @default(uuid())
+  userId    String
+  field     String
+  oldValue  String?
+  newValue  String
+  note      String?
+  // in_pruefung | uebernommen | abgelehnt
+  status    String    @default("in_pruefung")
+  sfTaskId  String?
+  decidedAt DateTime?
+  decidedBy String?
+  createdAt DateTime  @default(now())
+
+  @@index([userId, createdAt])
+}
+
+// Profile photo (per PortalUser) and partner logo (per Salesforce Account, so it applies to
+// every user of that partner — handoff 4 «Firmenlogo»). Small images (max. 2 MB) served by
+// the portal itself, so no second storage system is needed.
+model PortalImage {
+  id        String   @id @default(uuid())
+  // photo | logo
+  kind      String
+  // photo: PortalUser.id · logo: the partner's sfAccountId
+  ownerId   String
+  mime      String
+  data      Bytes
+  // Logo only: «Auf hellem Hintergrund anzeigen» (white plate behind dark logos).
+  onLight   Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([kind, ownerId])
+}
+
+// «Eigene Dokumente» in the profile: company documents of the partner (HR-Auszug,
+// Registereintrag, Verträge), filed in SharePoint, with a status HYPOTEQ sets.
+model PortalPartnerDocument {
+  id          String   @id @default(uuid())
+  userId      String
+  accountId   String?
+  name        String
+  fileName    String
+  driveItemId String
+  webUrl      String?
+  // in_pruefung | gueltig | abgelaufen | ungueltig
+  status      String   @default("in_pruefung")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([accountId, createdAt])
+}

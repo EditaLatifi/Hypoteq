@@ -1,0 +1,59 @@
+:root{
+  /* Default (dark) context — the brand's home surface */
+  --surface-page:var(--forest-800);
+  --surface-raised:var(--forest-700);
+  --surface-sunken:var(--forest-900);
+  --surface-accent:var(--lime-500);
+  --surface-card:var(--forest-700);
+  --surface-card-light:var(--paper);
+  --surface-input:var(--on-dark-08);
+
+  --text-heading:var(--white);
+  --text-body:var(--on-dark-100);
+  --text-muted:var(--on-dark-70);
+  --text-faint:var(--on-dark-45);
+  --text-accent:var(--lime-500);
+  --text-on-accent:var(--forest-800);
+  --text-link:var(--lime-500);
+  --text-link-hover:var(--lime-300);
+
+  --border-subtle:var(--on-dark-14);
+  --border-strong:var(--white);
+  --border-accent:var(--lime-500);
+
+  --action-primary-bg:var(--lime-500);
+  --action-primary-fg:var(--forest-800);
+  --action-primary-bg-hover:var(--lime-600);
+  --action-primary-bg-active:var(--lime-700);
+  --action-secondary-bg:transparent;
+  --action-secondary-fg:var(--white);
+  --action-secondary-border:var(--white);
+  --action-disabled-bg:var(--on-dark-08);
+  --action-disabled-fg:var(--on-dark-45);
+}
+
+/* Light context — website body copy, Academy content areas, print */
+.hq-light,[data-hq-theme="light"]{
+  --surface-page:var(--paper);
+  --surface-raised:var(--paper-100);
+  --surface-sunken:var(--paper-200);
+  --surface-card:var(--paper);
+  --surface-input:var(--white);
+
+  --text-heading:var(--forest-800);
+  --text-body:var(--on-light-100);
+  --text-muted:var(--on-light-70);
+  --text-faint:var(--on-light-45);
+  --text-accent:var(--lime-800);
+  --text-on-accent:var(--forest-800);
+  --text-link:var(--forest-800);
+  --text-link-hover:var(--lime-800);
+
+  --border-subtle:var(--paper-300);
+  --border-strong:var(--forest-800);
+
+  --action-secondary-fg:var(--forest-800);
+  --action-secondary-border:var(--forest-800);
+  --action-disabled-bg:var(--paper-200);
+  --action-disabled-fg:var(--on-light-45);
+}

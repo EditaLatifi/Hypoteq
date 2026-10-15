@@ -1,0 +1,25 @@
+:root{
+  --space-1:4px;
+  --space-2:8px;
+  --space-3:12px;
+  --space-4:16px;
+  --space-5:20px;
+  --space-6:24px;
+  --space-8:32px;
+  --space-10:40px;
+  --space-12:48px;
+  --space-16:64px;
+  --space-20:80px;
+  --space-24:96px;
+
+  /* Frame paddings used by the social / slide system */
+  --pad-social:64px;      /* 1080x1350 LinkedIn frame */
+  --pad-section:96px;     /* website section block */
+  --pad-card:24px;
+  --pad-control-x:20px;
+  --pad-control-y:12px;
+
+  --measure-narrow:34ch;
+  --measure-body:62ch;
+  --container-max:1200px;
+}

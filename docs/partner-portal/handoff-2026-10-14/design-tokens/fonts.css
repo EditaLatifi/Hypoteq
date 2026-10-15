@@ -1,0 +1,22 @@
+/* HYPOTEQ brand face — SF Pro Display, supplied by HYPOTEQ as OTF.
+   Roman weights 400/500/700 are the three the brand guide fixes (Regular 17 / Medium 21 / Bold 56).
+   Italics were supplied too and are declared for completeness — the brand does not use italic type. */
+
+@font-face{font-family:"SF Pro Display";src:url("../assets/fonts/SFProDisplay-Regular.otf") format("opentype");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"SF Pro Display";src:url("../assets/fonts/SFProDisplay-Medium.otf") format("opentype");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"SF Pro Display";src:url("../assets/fonts/SFProDisplay-Bold.otf") format("opentype");font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"SF Pro Display";src:url("../assets/fonts/SFProDisplay-UltralightItalic.otf") format("opentype");font-weight:200;font-style:italic;font-display:swap}
+@font-face{font-family:"SF Pro Display";src:url("../assets/fonts/SFProDisplay-ThinItalic.otf") format("opentype");font-weight:100;font-style:italic;font-display:swap}
+@font-face{font-family:"SF Pro Display";src:url("../assets/fonts/SFProDisplay-LightItalic.otf") format("opentype");font-weight:300;font-style:italic;font-display:swap}
+@font-face{font-family:"SF Pro Display";src:url("../assets/fonts/SFProDisplay-SemiboldItalic.otf") format("opentype");font-weight:600;font-style:italic;font-display:swap}
+@font-face{font-family:"SF Pro Display";src:url("../assets/fonts/SFProDisplay-BlackItalic.otf") format("opentype");font-weight:900;font-style:italic;font-display:swap}
+@font-face{font-family:"SF Pro Display";src:url("../assets/fonts/SFProDisplay-HeavyItalic.otf") format("opentype");font-weight:800;font-style:italic;font-display:swap}
+
+/* No separate SF Pro Text was supplied. Body copy uses SF Pro Display — which is what the
+   brand guide specifies anyway (Regular 17 px is called "SF Pro Display Regular"). */
+
+:root{
+  --font-display:"SF Pro Display",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  --font-text:"SF Pro Display",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  --font-mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}

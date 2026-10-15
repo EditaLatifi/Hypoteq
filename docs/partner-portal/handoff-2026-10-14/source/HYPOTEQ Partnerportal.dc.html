@@ -1,0 +1,1971 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HYPOTEQ Partnerportal</title>
+  <link rel="icon" href="assets/logos/hypoteq-favicon.png">
+  <link rel="stylesheet" href="_ds/hypoteq-design-system-c2d2bde6-4c91-4e93-ae59-36c7af22312e/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/hypoteq-design-system-c2d2bde6-4c91-4e93-ae59-36c7af22312e/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/hypoteq-design-system-c2d2bde6-4c91-4e93-ae59-36c7af22312e/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/hypoteq-design-system-c2d2bde6-4c91-4e93-ae59-36c7af22312e/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/hypoteq-design-system-c2d2bde6-4c91-4e93-ae59-36c7af22312e/tokens/radii.css">
+  <link rel="stylesheet" href="_ds/hypoteq-design-system-c2d2bde6-4c91-4e93-ae59-36c7af22312e/tokens/borders-shadows.css">
+  <link rel="stylesheet" href="_ds/hypoteq-design-system-c2d2bde6-4c91-4e93-ae59-36c7af22312e/tokens/motion.css">
+  <link rel="stylesheet" href="_ds/hypoteq-design-system-c2d2bde6-4c91-4e93-ae59-36c7af22312e/tokens/semantic.css">
+  <link rel="stylesheet" href="_ds/hypoteq-design-system-c2d2bde6-4c91-4e93-ae59-36c7af22312e/tokens/base.css">
+  <link rel="stylesheet" href="_ds/hypoteq-design-system-c2d2bde6-4c91-4e93-ae59-36c7af22312e/styles.css">
+  <script>window.__HQ_ASSET_BASE__ = 'assets/logos/';</script>
+  <script src="https://unpkg.com/lucide@0.454.0/dist/umd/lucide.js"></script>
+  <script src="_ds/hypoteq-design-system-c2d2bde6-4c91-4e93-ae59-36c7af22312e/_ds_bundle.js"></script>
+  <style>
+    html,body{margin:0;background:#132219;color:#fff;font-family:var(--font-text,"SF Pro Display"),-apple-system,BlinkMacSystemFont,sans-serif;-webkit-font-smoothing:antialiased}
+    *{box-sizing:border-box}
+    a{color:#CAF476;text-decoration:none}a:hover{color:#DAF6A2}
+    input,textarea,button{font-family:inherit}
+    @keyframes hqIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  </style>
+</helmet>
+
+<div style="min-height:100vh;background:var(--forest-800);color:#fff;font-family:var(--font-text);font-size:17px;line-height:1.35">
+
+  <!-- ============ AUTH ============ -->
+  <sc-if value="{{ isAuth }}" hint-placeholder-val="{{ true }}">
+    <div data-screen-label="Login" style="position:relative;overflow:hidden;min-height:100vh;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));align-items:center;gap:clamp(32px,5vw,80px);padding:clamp(20px,4vw,64px);background:var(--forest-900)">
+      <div style="position:absolute;width:70vmax;height:70vmax;right:-22vmax;top:-30vmax;border-radius:50%;background:radial-gradient(closest-side,rgba(202,244,118,.12),rgba(202,244,118,0));pointer-events:none"></div>
+      <div style="position:absolute;width:60vmax;height:60vmax;left:-24vmax;bottom:-32vmax;border-radius:50%;background:radial-gradient(closest-side,rgba(74,120,84,.55),rgba(74,120,84,0));pointer-events:none"></div>
+      <div style="position:absolute;top:0;right:0;bottom:0;width:22%;background:var(--lime-500);clip-path:polygon(64% 0,100% 0,100% 100%,30% 100%);pointer-events:none"></div>
+      <div style="position:absolute;left:-10%;right:-10%;top:58%;height:1px;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.12),rgba(255,255,255,0));transform:rotate(-14deg);pointer-events:none"></div>
+      <div style="position:relative;display:flex;flex-direction:column;gap:56px;justify-content:space-between;align-self:stretch;padding:8px 0">
+        <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Logo" variant="white" size="sm" hint-size="120px,40px"></x-import>
+        <div style="max-width:480px;display:flex;flex-direction:column;gap:20px">
+          <div style="width:44px;height:3px;background:var(--lime-500)"></div>
+          <h1 style="margin:0;font-family:var(--font-display);font-weight:700;font-size:clamp(34px,4.2vw,56px);line-height:1.05;letter-spacing:-0.02em">Ihre Anfragen.<br>Jederzeit im Blick.</h1>
+          <p style="margin:0;font-size:21px;font-weight:500;color:rgba(255,255,255,.7);text-wrap:pretty">Status, Dokumente und Rückmeldungen der Kreditgeber – an einem Ort. Für Ihre Kunden. Für Sie.</p>
+        </div>
+        <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45)">Partnerportal · hypoteq.com</div>
+      </div>
+      <div style="position:relative;display:flex;justify-content:center">
+        <div style="width:100%;max-width:440px;display:flex;flex-direction:column;gap:24px;padding:clamp(24px,3vw,40px);border-radius:24px;background:linear-gradient(160deg,rgba(30,52,38,.9),rgba(15,27,20,.94));border:1px solid rgba(255,255,255,.1);box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 30px 80px rgba(3,8,5,.6);backdrop-filter:blur(18px);animation:hqIn .42s ease-out">
+
+          <sc-if value="{{ authLogin }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--lime-500);font-weight:500">Partnerportal</div>
+              <h2 style="margin:0;font-family:var(--font-display);font-size:34px;font-weight:700;letter-spacing:-0.02em;line-height:1.1">Anmelden</h2>
+              <p style="margin:0;color:rgba(255,255,255,.7)">Mit Ihrer bei HYPOTEQ hinterlegten E-Mail-Adresse.</p>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:16px">
+              <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" label="E-Mail-Adresse" type="email" placeholder="name@firma.ch" icon="mail" value="{{ email }}" onChange="{{ setEmail }}" hint-size="100%,72px"></x-import>
+              <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" label="Passwort" type="password" placeholder="••••••••" icon="lock" value="{{ pw }}" onChange="{{ setPw }}" error="{{ loginError }}" onKeyDown="{{ loginKey }}" hint-size="100%,72px"></x-import>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" full-width="{{ true }}" size="lg" icon-right="arrow-right" onClick="{{ login }}" hint-size="100%,52px">Anmelden</x-import>
+              <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
+                <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" variant="ghost" size="sm" onClick="{{ goReset }}" hint-size="auto,36px">Passwort vergessen?</x-import>
+                <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" variant="ghost" size="sm" icon-left="wand-sparkles" onClick="{{ sendMagic }}" hint-size="auto,36px">Magic Link senden</x-import>
+              </div>
+            </div>
+            <div style="border-top:1px solid rgba(255,255,255,.14);padding-top:20px;font-size:15px;color:rgba(255,255,255,.7);display:flex;flex-direction:column;gap:6px">
+              <span>Noch keinen Zugang? Ihr Zugang wird durch HYPOTEQ freigeschaltet.</span>
+              <a href="#" onClick="{{ goActivate }}" style="font-size:15px">Aktivierungsseite ansehen →</a>
+            </div>
+            <div style="display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:rgba(255,255,255,.45)">
+              <a href="#" onClick="{{ loginAdmin }}" style="font-size:13px;color:rgba(255,255,255,.7)">Prototyp: als HYPOTEQ Administrator anmelden</a>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ authConfirm }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--lime-500);font-weight:500">Erster Login · Schritt 2 von 2</div>
+              <h2 style="margin:0;font-family:var(--font-display);font-size:34px;font-weight:700;letter-spacing:-0.02em;line-height:1.1">Angaben bestätigen</h2>
+              <p style="margin:0;color:rgba(255,255,255,.7)">Diese Daten stammen aus Salesforce. Stimmt etwas nicht, korrigieren Sie es hier.</p>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:16px">
+              <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" label="Name" value="{{ cfName }}" onChange="{{ setCfName }}" icon="user" hint-size="100%,72px"></x-import>
+              <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" label="Firma" value="{{ cfFirma }}" onChange="{{ setCfFirma }}" icon="building-2" hint-size="100%,72px"></x-import>
+              <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" label="Telefon" value="{{ cfTel }}" onChange="{{ setCfTel }}" icon="phone" hint-size="100%,72px"></x-import>
+              <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" label="E-Mail-Adresse" value="d.meier@meier-finanz.ch" disabled="{{ true }}" icon="mail" hint="Die E-Mail-Adresse ist Ihr Login und kann nur durch HYPOTEQ geändert werden." hint-size="100%,92px"></x-import>
+            </div>
+            <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" full-width="{{ true }}" size="lg" icon-right="arrow-right" onClick="{{ confirmProfile }}" hint-size="100%,52px">Bestätigen und starten</x-import>
+          </sc-if>
+
+          <sc-if value="{{ authExpired }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:20px">
+              <span style="width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.08);color:var(--lime-500);display:grid;place-items:center">
+                <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="timer-off" size="{{ 26 }}" hint-size="26px,26px"></x-import>
+              </span>
+              <h2 style="margin:0;font-family:var(--font-display);font-size:34px;font-weight:700;letter-spacing:-0.02em;line-height:1.1">Sitzung abgelaufen</h2>
+              <p style="margin:0;color:rgba(255,255,255,.7)">Aus Sicherheitsgründen wurden Sie nach 30 Minuten ohne Aktivität abgemeldet. Ihre Daten sind unverändert.</p>
+              <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" full-width="{{ true }}" size="lg" icon-right="arrow-right" onClick="{{ goLogin }}" hint-size="100%,52px">Erneut anmelden</x-import>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ authActivate }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--lime-500);font-weight:500">Zugang aktivieren</div>
+              <h2 style="margin:0;font-family:var(--font-display);font-size:34px;font-weight:700;letter-spacing:-0.02em;line-height:1.1">Willkommen bei HYPOTEQ</h2>
+              <p style="margin:0;color:rgba(255,255,255,.7)">Guten Tag Daniel Meier. Ihr Zugang für <strong style="color:#fff;font-weight:500">Meier Finanzberatung GmbH</strong> wurde freigeschaltet. Wählen Sie, wie Sie sich künftig anmelden.</p>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <button onClick="{{ modePw }}" style="{{ modePwStyle }}">Passwort definieren</button>
+              <button onClick="{{ modeMagic }}" style="{{ modeMagicStyle }}">Magic Link / OTP</button>
+            </div>
+            <sc-if value="{{ actPw }}" hint-placeholder-val="{{ true }}">
+              <div style="display:flex;flex-direction:column;gap:16px">
+                <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" label="E-Mail-Adresse" value="d.meier@meier-finanz.ch" disabled="{{ true }}" icon="mail" hint-size="100%,72px"></x-import>
+                <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" label="Neues Passwort" type="password" placeholder="Mindestens 10 Zeichen" icon="lock" value="{{ pw1 }}" onChange="{{ setPw1 }}" hint="Mindestens 10 Zeichen, eine Zahl." hint-size="100%,92px"></x-import>
+                <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" label="Passwort wiederholen" type="password" placeholder="••••••••" icon="lock" value="{{ pw2 }}" onChange="{{ setPw2 }}" error="{{ pwError }}" hint-size="100%,72px"></x-import>
+              </div>
+            </sc-if>
+            <sc-if value="{{ actMagic }}" hint-placeholder-val="{{ false }}">
+              <div style="padding:16px;border-radius:12px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);font-size:15px">Sie erhalten bei jeder Anmeldung einen Einmal-Link per E-Mail an <span style="color:#fff">d.meier@meier-finanz.ch</span>. Kein Passwort nötig.</div>
+            </sc-if>
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Checkbox" checked="{{ acc1 }}" onChange="{{ toggleAcc1 }}" label="Ich akzeptiere die Datenschutzerklärung." hint-size="100%,24px"></x-import>
+              <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Checkbox" checked="{{ acc2 }}" onChange="{{ toggleAcc2 }}" label="Ich akzeptiere die Nutzungsbedingungen." hint-size="100%,24px"></x-import>
+            </div>
+            <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" full-width="{{ true }}" size="lg" icon-right="arrow-right" disabled="{{ actDisabled }}" onClick="{{ activate }}" hint-size="100%,52px">Zugang aktivieren</x-import>
+            <a href="#" onClick="{{ goLogin }}" style="font-size:15px">← Zurück zur Anmeldung</a>
+          </sc-if>
+
+          <sc-if value="{{ authReset }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--lime-500);font-weight:500">Passwort zurücksetzen</div>
+              <h2 style="margin:0;font-family:var(--font-display);font-size:34px;font-weight:700;letter-spacing:-0.02em;line-height:1.1">Neues Passwort anfordern</h2>
+              <p style="margin:0;color:rgba(255,255,255,.7)">Wir senden Ihnen einen sicheren Link. Er ist 30 Minuten gültig.</p>
+            </div>
+            <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" label="E-Mail-Adresse" type="email" placeholder="name@firma.ch" icon="mail" value="{{ email }}" onChange="{{ setEmail }}" hint-size="100%,72px"></x-import>
+            <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" full-width="{{ true }}" size="lg" icon-right="arrow-right" onClick="{{ sendReset }}" hint-size="100%,52px">Link senden</x-import>
+            <a href="#" onClick="{{ goLogin }}" style="font-size:15px">← Zurück zur Anmeldung</a>
+          </sc-if>
+
+          <sc-if value="{{ authSent }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:20px">
+              <span style="width:56px;height:56px;border-radius:50%;background:var(--lime-500);color:var(--forest-800);display:grid;place-items:center">
+                <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="mail-check" size="{{ 26 }}" stroke-width="{{ 2 }}" hint-size="26px,26px"></x-import>
+              </span>
+              <h2 style="margin:0;font-family:var(--font-display);font-size:34px;font-weight:700;letter-spacing:-0.02em;line-height:1.1">E-Mail gesendet</h2>
+              <p style="margin:0;color:rgba(255,255,255,.7)">{{ sentText }}</p>
+              <div style="padding:16px;border-radius:12px;background:rgba(255,255,255,.08);font-size:15px;display:flex;flex-direction:column;gap:12px">
+                <span style="color:rgba(255,255,255,.7)">Prototyp: Link aus der E-Mail simulieren</span>
+                <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" size="sm" variant="secondary" icon-right="arrow-right" onClick="{{ enterPortal }}" hint-size="auto,36px">Link öffnen</x-import>
+              </div>
+              <a href="#" onClick="{{ goLogin }}" style="font-size:15px">← Zurück zur Anmeldung</a>
+            </div>
+          </sc-if>
+
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ============ PORTAL SHELL ============ -->
+  <sc-if value="{{ isPortal }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;min-height:100vh;align-items:stretch">
+
+      <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+        <aside style="width:250px;flex:none;position:sticky;top:0;height:100vh;background:var(--forest-900);border-right:1px solid rgba(255,255,255,.08);display:flex;flex-direction:column">
+          <div style="padding:24px 24px 16px">
+            <sc-if value="{{ hasPartnerLogo }}" hint-placeholder-val="{{ false }}">
+              <span style="{{ logoPlateStyle }}"><span role="img" aria-label="Firmenlogo" style="{{ logoImgStyle }}"></span></span>
+            </sc-if>
+            <sc-if value="{{ noPartnerLogo }}" hint-placeholder-val="{{ true }}">
+              <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Logo" variant="white" size="sm" hint-size="120px,40px"></x-import>
+            </sc-if>
+            <div style="margin-top:10px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.45)">{{ portalLabel }}</div>
+          </div>
+          <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.SidebarNav" items="{{ navItems }}" value="{{ navValue }}" onChange="{{ nav }}" style="background:transparent;border:0" hint-size="100%,240px"></x-import>
+          <sc-if value="{{ isPartner }}" hint-placeholder-val="{{ true }}">
+            <div style="padding:8px 16px 0;display:flex;flex-direction:column;gap:8px">
+              <div style="padding:8px 4px 2px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.45)">Tools</div>
+              <a href="https://hypoteq-hedonic.wuestappraisal.com/" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:#fff;text-decoration:none" style-hover="background:rgba(255,255,255,.08);border-color:rgba(202,244,118,.45);color:#fff">
+                <span style="width:32px;height:32px;border-radius:9px;background:rgba(202,244,118,.12);display:grid;place-items:center;flex:none"><x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="house" size="{{ 18 }}" style="color:var(--lime-500)" hint-size="18px,18px"></x-import></span>
+                <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:1px"><span style="font-size:14px;font-weight:500;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Immo-Bewertung</span><span style="font-size:12px;color:rgba(255,255,255,.6);line-height:1.2">Marktwert schätzen</span></span>
+                <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="arrow-up-right" size="{{ 16 }}" style="color:rgba(255,255,255,.45);flex:none" hint-size="16px,16px"></x-import>
+              </a>
+              <a href="https://hypoteq.talentlms.com/plus/login" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:#fff;text-decoration:none" style-hover="background:rgba(255,255,255,.08);border-color:rgba(202,244,118,.45);color:#fff">
+                <span style="width:32px;height:32px;border-radius:9px;background:rgba(202,244,118,.12);display:grid;place-items:center;flex:none"><x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="graduation-cap" size="{{ 18 }}" style="color:var(--lime-500)" hint-size="18px,18px"></x-import></span>
+                <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:1px"><span style="font-size:14px;font-weight:500;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">HYPOTEQ Academy</span><span style="font-size:12px;color:rgba(255,255,255,.6);line-height:1.2">Kurse & Praxisfälle</span></span>
+                <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="arrow-up-right" size="{{ 16 }}" style="color:rgba(255,255,255,.45);flex:none" hint-size="16px,16px"></x-import>
+              </a>
+            </div>
+          </sc-if>
+          <div style="margin-top:auto;padding:16px 24px 24px;border-top:1px solid rgba(255,255,255,.08);display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;align-items:center;gap:12px">
+              <span style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.14);display:grid;place-items:center;font-size:13px;font-weight:600;overflow:hidden;flex:none"><sc-if value="{{ hasPhoto }}" hint-placeholder-val="{{ false }}"><span style="{{ photoStyle }}"></span></sc-if><sc-if value="{{ noPhoto }}" hint-placeholder-val="{{ true }}">{{ userInitials }}</sc-if></span>
+              <div style="min-width:0">
+                <div style="font-size:15px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ userName }}</div>
+                <div style="font-size:13px;color:rgba(255,255,255,.7);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ userSub }}</div>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:2px;align-items:flex-start">
+              <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" variant="ghost" size="sm" icon-left="log-out" onClick="{{ logout }}" style="justify-content:flex-start;padding-left:0" hint-size="auto,36px">Abmelden</x-import>
+            </div>
+          </div>
+        </aside>
+      </sc-if>
+
+      <main style="flex:1;min-width:0;display:flex;flex-direction:column">
+        <header style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:clamp(12px,2vw,20px) clamp(16px,4vw,40px);border-bottom:1px solid rgba(255,255,255,.08);position:sticky;top:0;background:var(--forest-800);z-index:5">
+          <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+            <sc-if value="{{ hasPartnerLogo }}" hint-placeholder-val="{{ false }}">
+              <span style="{{ logoPlateStyle }}"><span role="img" aria-label="Firmenlogo" style="{{ logoImgStyle }}"></span></span>
+            </sc-if>
+            <sc-if value="{{ noPartnerLogo }}" hint-placeholder-val="{{ true }}">
+              <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Logo" variant="white" size="sm" hint-size="120px,40px"></x-import>
+            </sc-if>
+          </sc-if>
+          <sc-if value="{{ showSearchDesk }}" hint-placeholder-val="{{ true }}">
+            <div style="position:relative;flex:1;min-width:0;max-width:520px">
+              <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" placeholder="Antragsteller suchen – Vor- oder Nachname" icon="search" value="{{ search }}" onChange="{{ setSearch }}" onFocus="{{ searchFocus }}" onBlur="{{ searchBlur }}" onKeyDown="{{ searchKey }}" hint-size="100%,44px"></x-import>
+              <sc-if value="{{ showSearchDrop }}" hint-placeholder-val="{{ false }}">
+                <div style="position:absolute;left:0;right:0;top:calc(100% + 8px);z-index:30;background:var(--forest-700);border:1px solid rgba(255,255,255,.14);border-radius:12px;box-shadow:0 20px 50px rgba(5,12,8,.5);padding:6px;display:flex;flex-direction:column">
+                  <sc-for list="{{ searchResults }}" as="r" hint-placeholder-count="3">
+                    <button onMouseDown="{{ r.go }}" style="text-align:left;border:0;background:transparent;color:#fff;padding:10px 12px;border-radius:8px;display:flex;justify-content:space-between;align-items:center;gap:12px;cursor:pointer;font:inherit" style-hover="background:rgba(255,255,255,.08)">
+                      <div style="display:flex;flex-direction:column;gap:2px;min-width:0">
+                        <span style="font-size:15px;font-weight:500">{{ r.kunde }}</span>
+                        <span style="font-size:13px;color:rgba(255,255,255,.7)">{{ r.sub }}</span>
+                      </div>
+                      <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Badge" tone="{{ r.tone }}" hint-size="auto,20px">{{ r.status }}</x-import>
+                    </button>
+                  </sc-for>
+                  <sc-if value="{{ searchEmpty }}" hint-placeholder-val="{{ false }}">
+                    <div style="padding:12px;font-size:15px;color:rgba(255,255,255,.7)">Kein Antragsteller gefunden.</div>
+                  </sc-if>
+                </div>
+              </sc-if>
+            </div>
+          </sc-if>
+          <sc-if value="{{ showCrumb }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size:13px;color:rgba(255,255,255,.7);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ crumb }}</div>
+          </sc-if>
+          <div style="display:flex;align-items:center;gap:8px">
+            <sc-if value="{{ showNewCase }}" hint-placeholder-val="{{ true }}">
+              <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" variant="secondary" size="sm" icon-left="plus" onClick="{{ newCase }}" style="white-space:nowrap;flex:none" hint-size="auto,36px">Neue Finanzierung starten</x-import>
+            </sc-if>
+            
+            <button onClick="{{ goNotifications }}" aria-label="Benachrichtigungen" style="position:relative;width:44px;height:44px;border-radius:50%;border:0;background:transparent;color:#fff;display:grid;place-items:center;cursor:pointer" style-hover="background:rgba(255,255,255,.08)">
+              <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="bell" size="{{ 22 }}" hint-size="22px,22px"></x-import>
+              <sc-if value="{{ hasUnread }}" hint-placeholder-val="{{ true }}">
+                <span style="position:absolute;top:9px;right:9px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--lime-500);color:var(--forest-800);font-size:11px;font-weight:600;display:grid;place-items:center">{{ unreadCount }}</span>
+              </sc-if>
+            </button>
+            <button onClick="{{ goProfile }}" aria-label="Profil" style="width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.14);color:#fff;font-size:13px;font-weight:600;cursor:pointer;overflow:hidden;padding:0;flex:none"><sc-if value="{{ hasPhoto }}" hint-placeholder-val="{{ false }}"><span style="{{ photoStyle }}"></span></sc-if><sc-if value="{{ noPhoto }}" hint-placeholder-val="{{ true }}">{{ userInitials }}</sc-if></button>
+          </div>
+          <sc-if value="{{ showSearchMobile }}" hint-placeholder-val="{{ false }}">
+            <div style="position:relative;flex:1 1 100%;min-width:0">
+              <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" placeholder="Antragsteller suchen – Vor- oder Nachname" icon="search" value="{{ search }}" onChange="{{ setSearch }}" onFocus="{{ searchFocus }}" onBlur="{{ searchBlur }}" onKeyDown="{{ searchKey }}" hint-size="100%,44px"></x-import>
+              <sc-if value="{{ showSearchDrop }}" hint-placeholder-val="{{ false }}">
+                <div style="position:absolute;left:0;right:0;top:calc(100% + 8px);z-index:30;background:var(--forest-700);border:1px solid rgba(255,255,255,.14);border-radius:12px;box-shadow:0 20px 50px rgba(5,12,8,.5);padding:6px;display:flex;flex-direction:column">
+                  <sc-for list="{{ searchResults }}" as="r" hint-placeholder-count="3">
+                    <button onMouseDown="{{ r.go }}" style="text-align:left;border:0;background:transparent;color:#fff;padding:10px 12px;border-radius:8px;display:flex;justify-content:space-between;align-items:center;gap:12px;cursor:pointer;font:inherit" style-hover="background:rgba(255,255,255,.08)">
+                      <div style="display:flex;flex-direction:column;gap:2px;min-width:0">
+                        <span style="font-size:15px;font-weight:500">{{ r.kunde }}</span>
+                        <span style="font-size:13px;color:rgba(255,255,255,.7)">{{ r.sub }}</span>
+                      </div>
+                      <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Badge" tone="{{ r.tone }}" hint-size="auto,20px">{{ r.status }}</x-import>
+                    </button>
+                  </sc-for>
+                  <sc-if value="{{ searchEmpty }}" hint-placeholder-val="{{ false }}">
+                    <div style="padding:12px;font-size:15px;color:rgba(255,255,255,.7)">Kein Antragsteller gefunden.</div>
+                  </sc-if>
+                </div>
+              </sc-if>
+            </div>
+          </sc-if>
+        </header>
+
+        <div style="flex:1;width:100%;max-width:1180px;padding:clamp(20px,3vw,40px) clamp(16px,4vw,40px) 120px;display:flex;flex-direction:column;gap:32px;animation:hqIn .42s ease-out">
+
+          <!-- ============ DASHBOARD ============ -->
+          <sc-if value="{{ isDashboard }}" hint-placeholder-val="{{ true }}">
+            <div data-screen-label="Dashboard" style="display:flex;flex-direction:column;gap:32px">
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45);font-weight:500">{{ todayLabel }}</div>
+                <h1 style="margin:0;font-family:var(--font-display);font-size:clamp(30px,3.5vw,44px);font-weight:700;letter-spacing:-0.02em;line-height:1.1">Willkommen, Daniel</h1>
+                <p style="margin:0;font-size:21px;font-weight:500;color:rgba(255,255,255,.7)">{{ attentionText }}</p>
+              </div>
+
+              <sc-if value="{{ hasActions }}" hint-placeholder-val="{{ true }}">
+                <div style="background:var(--lime-500);color:var(--forest-800);border-radius:12px;padding:clamp(20px,3vw,28px);display:flex;flex-direction:column;gap:16px">
+                  <div style="display:flex;align-items:center;gap:10px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;font-weight:600">
+                    <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="alert-circle" size="{{ 18 }}" stroke-width="{{ 2 }}" hint-size="18px,18px"></x-import>
+                    Aktion erforderlich
+                  </div>
+                  <div style="display:flex;flex-direction:column">
+                    <sc-for list="{{ actionCases }}" as="c" hint-placeholder-count="3">
+                      <div onClick="{{ c.open }}" style="display:flex;align-items:center;gap:16px 24px;flex-wrap:wrap;padding:16px 0;border-top:1px solid rgba(19,34,25,.14);cursor:pointer">
+                        <div style="flex:1 1 300px;min-width:0;display:flex;flex-direction:column;gap:10px">
+                          <div style="font-size:17px;font-weight:600">{{ c.kunde }} <span style="font-weight:400;color:rgba(19,34,25,.7)">· {{ c.nr }}</span></div>
+                          <div style="display:flex;gap:6px;flex-wrap:wrap">
+                            <sc-for list="{{ c.chips }}" as="d" hint-placeholder-count="2">
+                              <span style="font-size:13px;line-height:1;padding:7px 11px;border-radius:999px;border:1px solid rgba(19,34,25,.3);white-space:nowrap">{{ d }}</span>
+                            </sc-for>
+                            <sc-if value="{{ c.more }}" hint-placeholder-val="{{ false }}">
+                              <span style="font-size:13px;line-height:1;padding:7px 11px;border-radius:999px;background:var(--forest-800);color:var(--lime-500);white-space:nowrap">{{ c.more }}</span>
+                            </sc-if>
+                          </div>
+                        </div>
+                        <div style="flex:none;display:flex;align-items:center;gap:24px;margin-left:auto">
+                          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;width:130px">
+                            <div style="display:flex;align-items:baseline;gap:6px"><span style="font-family:var(--font-display);font-size:28px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums">{{ c.needCount }}</span><span style="font-size:13px;color:rgba(19,34,25,.7)">{{ c.needLabel }}</span></div>
+                            <div style="width:100%;height:4px;border-radius:2px;background:rgba(19,34,25,.15);overflow:hidden"><div style="height:100%;width:{{ c.donePct }};background:var(--forest-800)"></div></div>
+                            <span style="font-size:11px;letter-spacing:.02em;color:rgba(19,34,25,.7)">{{ c.doneText }}</span>
+                          </div>
+                          <button onClick="{{ c.open }}" style="flex:none;white-space:nowrap;height:40px;padding:0 18px;border-radius:999px;border:1.5px solid var(--forest-800);background:transparent;color:var(--forest-800);font-size:15px;font-weight:500;cursor:pointer" style-hover="background:rgba(19,34,25,.08)">Case öffnen →</button>
+                        </div>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-if>
+
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px">
+                <sc-for list="{{ kpis }}" as="k" hint-placeholder-count="5">
+                  <button onClick="{{ k.open }}" style="text-align:left;background:var(--forest-700);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:6px;color:#fff;cursor:pointer;transition:background .18s ease-out" style-hover="background:rgba(255,255,255,.08)">
+                    <span style="font-family:var(--font-display);font-size:34px;font-weight:700;letter-spacing:-0.02em;line-height:1;font-variant-numeric:tabular-nums">{{ k.value }}</span>
+                    <span style="font-size:13px;color:rgba(255,255,255,.7)">{{ k.label }}</span>
+                  </button>
+                </sc-for>
+              </div>
+
+              <div style="display:flex;flex-direction:column;gap:12px">
+                <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--lime-500);font-weight:500">Ihr Portfolio</div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:12px">
+                  <sc-for list="{{ volStats }}" as="v" hint-placeholder-count="5">
+                    <div style="background:var(--forest-700);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:10px">
+                      <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.7)">
+                        <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="{{ v.icon }}" size="{{ 18 }}" style="color:var(--lime-500)" hint-size="18px,18px"></x-import>
+                        {{ v.label }}
+                      </div>
+                      <span style="font-family:var(--font-display);font-size:28px;font-weight:700;letter-spacing:-0.02em;line-height:1.05;font-variant-numeric:tabular-nums">{{ v.value }}</span>
+                      <span style="font-size:13px;color:rgba(255,255,255,.7)">{{ v.sub }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+
+              
+
+              <div style="display:flex;flex-direction:column;gap:12px">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+                  <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--lime-500);font-weight:500">Aktuelle Cases</div>
+                  <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" variant="ghost" size="sm" icon-right="arrow-right" onClick="{{ goCasesAll }}" hint-size="auto,36px">Alle Cases</x-import>
+                </div>
+                <div style="background:var(--forest-700);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:0 20px">
+                  <sc-for list="{{ recentCases }}" as="c" hint-placeholder-count="4">
+                    <div onClick="{{ c.open }}" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px 20px;align-items:center;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.14);cursor:pointer" style-hover="background:rgba(255,255,255,.03)">
+                      <div style="min-width:0">
+                        <div style="font-size:17px;font-weight:500">{{ c.kunde }}</div>
+                        <div style="font-size:13px;color:rgba(255,255,255,.7)">{{ c.nr }} · erstellt {{ c.erstellt }}</div>
+                      </div>
+                      <div style="min-width:0">
+                        <div style="font-size:15px">{{ c.art }}</div>
+                        <div style="font-size:13px;color:rgba(255,255,255,.7);font-variant-numeric:tabular-nums">{{ c.betrag }}</div>
+                      </div>
+                      <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-start">
+                        <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Badge" tone="{{ c.tone }}" hint-size="auto,20px">{{ c.status }}</x-import>
+                        <span style="font-size:13px;color:rgba(255,255,255,.7)">Aktualisiert {{ c.update }}</span>
+                      </div>
+                      <div style="display:flex;justify-content:flex-end;grid-column:-2 / -1">
+                        <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" variant="ghost" size="sm" icon-right="arrow-right" onClick="{{ c.open }}" hint-size="auto,36px">Case öffnen</x-import>
+                      </div>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            
+              <div style="display:flex;flex-direction:column;gap:12px">
+                <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--lime-500);font-weight:500">Tools &amp; Ressourcen</div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:12px">
+                  <a href="https://hypoteq-hedonic.wuestappraisal.com/" target="_blank" rel="noopener" style="background:var(--forest-700);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:20px;display:flex;gap:14px;align-items:flex-start;color:#fff;text-decoration:none;cursor:pointer;text-align:left;font:inherit;transition:background .18s ease-out" style-hover="background:rgba(255,255,255,.08);color:#fff">
+                    <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="house" size="{{ 24 }}" style="color:var(--lime-500);flex:none" hint-size="24px,24px"></x-import>
+                    <div style="flex:1;display:flex;flex-direction:column;gap:4px"><span style="font-size:17px;font-weight:500">Immo-Bewertung</span><span style="font-size:15px;color:rgba(255,255,255,.7)">Marktwert eines Objekts in wenigen Minuten schätzen.</span></div>
+                    <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="external-link" size="{{ 16 }}" style="color:var(--lime-500);flex:none;margin-top:4px" hint-size="16px,16px"></x-import>
+                  </a>
+                  <a href="https://hypoteq.talentlms.com/plus/login" target="_blank" rel="noopener" style="background:var(--forest-700);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:20px;display:flex;gap:14px;align-items:flex-start;color:#fff;text-decoration:none;cursor:pointer;text-align:left;font:inherit;transition:background .18s ease-out" style-hover="background:rgba(255,255,255,.08);color:#fff">
+                    <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="graduation-cap" size="{{ 24 }}" style="color:var(--lime-500);flex:none" hint-size="24px,24px"></x-import>
+                    <div style="flex:1;display:flex;flex-direction:column;gap:4px"><span style="font-size:17px;font-weight:500">HYPOTEQ Academy</span><span style="font-size:15px;color:rgba(255,255,255,.7)">Praxisfälle und kurze Module für Ihre Beratung.</span></div>
+                    <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="external-link" size="{{ 16 }}" style="color:var(--lime-500);flex:none;margin-top:4px" hint-size="16px,16px"></x-import>
+                  </a>
+                  <button onClick="{{ goSupport }}" style="background:var(--forest-700);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:20px;display:flex;gap:14px;align-items:flex-start;color:#fff;text-decoration:none;cursor:pointer;text-align:left;font:inherit;transition:background .18s ease-out" style-hover="background:rgba(255,255,255,.08);color:#fff">
+                    <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="life-buoy" size="{{ 24 }}" style="color:var(--lime-500);flex:none" hint-size="24px,24px"></x-import>
+                    <div style="flex:1;display:flex;flex-direction:column;gap:4px"><span style="font-size:17px;font-weight:500">Support &amp; Feedback</span><span style="font-size:15px;color:rgba(255,255,255,.7)">Frage, Fehler oder Wunsch melden.</span></div>
+                    <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="arrow-right" size="{{ 16 }}" style="color:var(--lime-500);flex:none;margin-top:4px" hint-size="16px,16px"></x-import>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- ============ CASES ============ -->
+          <sc-if value="{{ isCases }}" hint-placeholder-val="{{ false }}">
+            <div data-screen-label="Case Übersicht" style="display:flex;flex-direction:column;gap:24px">
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45);font-weight:500">Cases</div>
+                <h1 style="margin:0;font-family:var(--font-display);font-size:clamp(30px,3.5vw,44px);font-weight:700;letter-spacing:-0.02em;line-height:1.1">Case Übersicht</h1>
+                <p style="margin:0;font-size:17px;color:rgba(255,255,255,.7)">{{ casesCountText }}</p>
+              </div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <sc-for list="{{ filters }}" as="f" hint-placeholder-count="6">
+                  <span onClick="{{ f.select }}" style="cursor:pointer">
+                    <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Pill" size="sm" tone="{{ f.tone }}" hint-size="auto,32px">{{ f.label }}</x-import>
+                  </span>
+                </sc-for>
+              </div>
+              <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end">
+                <div style="flex:1;min-width:220px">
+                  <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" placeholder="Kundenname oder Case Nummer suchen" icon="search" value="{{ query }}" onChange="{{ setQuery }}" hint-size="100%,44px"></x-import>
+                </div>
+                <div style="display:flex;gap:4px">
+                  <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" variant="ghost" size="sm" icon-left="{{ sortDateIcon }}" onClick="{{ sortByDate }}" hint-size="auto,36px">Datum</x-import>
+                  <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" variant="ghost" size="sm" icon-left="{{ sortStatusIcon }}" onClick="{{ sortByStatus }}" hint-size="auto,36px">Status</x-import>
+                </div>
+              </div>
+              <div style="background:var(--forest-700);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:0 20px">
+                <sc-for list="{{ filteredCases }}" as="c" hint-placeholder-count="6">
+                  <div onClick="{{ c.open }}" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px 20px;align-items:center;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.14);cursor:pointer" style-hover="background:rgba(255,255,255,.03)">
+                    <div style="min-width:0">
+                      <div style="font-size:17px;font-weight:500">{{ c.kunde }}</div>
+                      <div style="font-size:13px;color:rgba(255,255,255,.7)">{{ c.nr }} · erstellt {{ c.erstellt }}</div>
+                    </div>
+                    <div style="min-width:0">
+                      <div style="font-size:15px">{{ c.art }}</div>
+                      <div style="font-size:13px;color:rgba(255,255,255,.7);font-variant-numeric:tabular-nums">{{ c.betrag }}</div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-start">
+                      <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Badge" tone="{{ c.tone }}" hint-size="auto,20px">{{ c.status }}</x-import>
+                      <span style="font-size:13px;color:rgba(255,255,255,.7)">{{ c.docsText }}</span>
+                    </div>
+                    <div style="display:flex;justify-content:flex-end;grid-column:-2 / -1">
+                      <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" variant="ghost" size="sm" icon-right="arrow-right" onClick="{{ c.open }}" hint-size="auto,36px">Case öffnen</x-import>
+                    </div>
+                  </div>
+                </sc-for>
+                <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+                  <div style="padding:40px 0;color:rgba(255,255,255,.7);font-size:15px">Keine Cases gefunden.</div>
+                </sc-if>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- ============ CASE DETAIL ============ -->
+          <sc-if value="{{ isCase }}" hint-placeholder-val="{{ false }}">
+            <div data-screen-label="Case Detail" style="display:flex;flex-direction:column;gap:32px">
+              <div>
+                <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" variant="ghost" size="sm" icon-left="arrow-left" onClick="{{ goCases }}" style="padding-left:0" hint-size="auto,36px">Zurück zur Übersicht</x-import>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap">
+                <div style="display:flex;flex-direction:column;gap:8px">
+                  <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45);font-weight:500">{{ cur.nr }} · {{ cur.art }}</div>
+                  <h1 style="margin:0;font-family:var(--font-display);font-size:clamp(30px,3.5vw,44px);font-weight:700;letter-spacing:-0.02em;line-height:1.1">{{ cur.kunde }}</h1>
+                  <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+                    <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Badge" tone="{{ cur.tone }}" hint-size="auto,20px">{{ cur.status }}</x-import>
+                    <span style="font-size:15px;color:rgba(255,255,255,.7)">Letzte Aktualisierung {{ cur.update }}</span>
+                  </div>
+                </div>
+                <div style="display:flex;gap:8px;flex-wrap:wrap">
+                  <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" variant="ghost" size="sm" icon-left="house" onClick="{{ valuateObject }}" hint-size="auto,36px">Objekt bewerten</x-import>
+                  <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" variant="secondary" size="sm" icon-left="download" onClick="{{ downloadSummary }}" hint-size="auto,36px">Case Zusammenfassung</x-import>
+                </div>
+              </div>
+
+              <!-- Timeline -->
+              <div style="background:var(--forest-700);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:clamp(20px,3vw,28px);display:flex;flex-direction:column;gap:20px">
+                <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
+                  <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--lime-500);font-weight:500">Bearbeitungsstand</div>
+                  <div style="font-size:13px;color:rgba(255,255,255,.7)">{{ curStepText }}</div>
+                </div>
+                <sc-if value="{{ curEnded }}" hint-placeholder-val="{{ false }}">
+                  <div style="padding:14px 16px;border-radius:12px;background:rgba(255,255,255,.08);font-size:15px;color:rgba(255,255,255,.7)">{{ curEndedText }}</div>
+                </sc-if>
+                <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+                  <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px">
+                    <sc-for list="{{ curSteps }}" as="s" hint-placeholder-count="7">
+                      <div style="position:relative;padding-top:32px">
+                        <span style="position:absolute;left:0;right:0;top:10px;height:2px;background:{{ s.line }}"></span>
+                        <span style="position:absolute;left:0;top:0;width:22px;height:22px;border-radius:50%;background:{{ s.dotBg }};border:2px solid {{ s.dotBorder }};display:grid;place-items:center;color:var(--forest-800)">
+                          <sc-if value="{{ s.done }}" hint-placeholder-val="{{ false }}">
+                            <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="check" size="{{ 13 }}" stroke-width="{{ 3 }}" hint-size="13px,13px"></x-import>
+                          </sc-if>
+                        </span>
+                        <div style="font-size:13px;line-height:1.3;padding-right:8px;overflow-wrap:normal;hyphens:manual;color:{{ s.text }};font-weight:{{ s.weight }}">{{ s.label }}</div>
+                      </div>
+                    </sc-for>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;flex-direction:column">
+                    <sc-for list="{{ curSteps }}" as="s" hint-placeholder-count="7">
+                      <div style="position:relative;display:flex;gap:14px;align-items:flex-start;padding-bottom:18px">
+                        <span style="position:absolute;left:10px;top:22px;bottom:0;width:2px;background:{{ s.line }}"></span>
+                        <span style="position:relative;flex:none;width:22px;height:22px;border-radius:50%;background:{{ s.dotBg }};border:2px solid {{ s.dotBorder }};display:grid;place-items:center;color:var(--forest-800)">
+                          <sc-if value="{{ s.done }}" hint-placeholder-val="{{ false }}">
+                            <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="check" size="{{ 13 }}" stroke-width="{{ 3 }}" hint-size="13px,13px"></x-import>
+                          </sc-if>
+                        </span>
+                        <div style="font-size:15px;padding-top:1px;color:{{ s.text }};font-weight:{{ s.weight }}">{{ s.label }}</div>
+                      </div>
+                    </sc-for>
+                  </div>
+                </sc-if>
+              </div>
+
+              <sc-if value="{{ curHasMissing }}" hint-placeholder-val="{{ true }}">
+                <div style="background:var(--forest-700);border:1px solid var(--lime-500);border-radius:12px;padding:clamp(20px,3vw,28px);display:flex;flex-direction:column;gap:16px">
+                  <div style="display:flex;flex-direction:column;gap:8px">
+                    <div style="display:flex;align-items:center;gap:10px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--lime-500)">
+                      <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="alert-circle" size="{{ 18 }}" stroke-width="{{ 2 }}" hint-size="18px,18px"></x-import>
+                      Aktion erforderlich
+                    </div>
+                    <div style="font-size:21px;font-weight:500;letter-spacing:-0.01em">Für die weitere Bearbeitung benötigen wir noch folgende Unterlagen.</div>
+                  </div>
+                  <div style="display:flex;flex-direction:column">
+                    <sc-for list="{{ curMissing }}" as="d" hint-placeholder-count="3">
+                      <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:12px 0;border-top:1px solid rgba(255,255,255,.14)">
+                        <div style="display:flex;align-items:center;gap:12px;min-width:0">
+                          <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="file-text" size="{{ 20 }}" style="color:var(--lime-500)" hint-size="20px,20px"></x-import>
+                          <div>
+                            <div style="font-size:17px;font-weight:500">{{ d.name }}</div>
+                            <div style="font-size:13px;color:rgba(255,255,255,.7)">{{ d.cat }}<sc-if value="{{ d.note }}" hint-placeholder-val="{{ false }}"> · {{ d.note }}</sc-if></div>
+                          </div>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:12px">
+                          <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Badge" tone="{{ d.tone }}" hint-size="auto,20px">{{ d.label }}</x-import>
+                          <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" size="sm" icon-left="upload" onClick="{{ d.upload }}" hint-size="auto,36px">Dokument hochladen</x-import>
+                        </div>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-if>
+
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:24px;align-items:start">
+                <!-- Documents -->
+                <div style="display:flex;flex-direction:column;gap:24px">
+                  <div style="background:var(--forest-700);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:clamp(20px,3vw,28px);display:flex;flex-direction:column;gap:20px">
+                    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+                      <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--lime-500);font-weight:500">Dokumente</div>
+                      <div style="font-size:13px;color:rgba(255,255,255,.7)">{{ curDocsSummary }}</div>
+                    </div>
+                    <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.ProgressBar" value="{{ curDocsPct }}" show-value="{{ true }}" hint-size="100%,20px"></x-import>
+                    <sc-for list="{{ curDocGroups }}" as="g" hint-placeholder-count="4">
+                      <div style="display:flex;flex-direction:column">
+                        <div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.45);padding:6px 0">{{ g.name }}</div>
+                        <sc-for list="{{ g.docs }}" as="d" hint-placeholder-count="2">
+                          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 0;border-top:1px solid rgba(255,255,255,.14)">
+                            <div style="display:flex;align-items:center;gap:12px;min-width:0">
+                              <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="{{ d.icon }}" size="{{ 20 }}" style="color:var(--lime-500)" hint-size="20px,20px"></x-import>
+                              <div>
+                                <div style="font-size:15px;font-weight:500">{{ d.name }}</div>
+                                <sc-if value="{{ d.meta }}" hint-placeholder-val="{{ false }}"><div style="font-size:13px;color:rgba(255,255,255,.7)">{{ d.meta }}</div></sc-if>
+                              </div>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:8px">
+                              <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Badge" tone="{{ d.tone }}" hint-size="auto,20px">{{ d.label }}</x-import>
+                              <sc-if value="{{ d.canUpload }}" hint-placeholder-val="{{ false }}">
+                                <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" variant="secondary" size="sm" icon-left="upload" onClick="{{ d.upload }}" hint-size="auto,36px">Hochladen</x-import>
+                              </sc-if>
+                              <sc-if value="{{ d.canDownload }}" hint-placeholder-val="{{ false }}">
+                                <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.IconButton" icon="download" label="Herunterladen" size="sm" onClick="{{ d.download }}" hint-size="36px,36px"></x-import>
+                              </sc-if>
+                            </div>
+                          </div>
+                        </sc-for>
+                      </div>
+                    </sc-for>
+                  </div>
+
+                  <div style="background:var(--forest-700);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:clamp(20px,3vw,28px);display:flex;flex-direction:column;gap:16px">
+                    <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--lime-500);font-weight:500">Freigegebene Dokumente</div>
+                    <sc-if value="{{ curHasReleased }}" hint-placeholder-val="{{ true }}">
+                      <div style="display:flex;flex-direction:column">
+                        <sc-for list="{{ curReleased }}" as="r" hint-placeholder-count="2">
+                          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-top:1px solid rgba(255,255,255,.14)">
+                            <div style="display:flex;align-items:center;gap:12px;min-width:0">
+                              <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="file-check" size="{{ 20 }}" style="color:var(--lime-500)" hint-size="20px,20px"></x-import>
+                              <div>
+                                <div style="font-size:15px;font-weight:500">{{ r.name }}</div>
+                                <div style="font-size:13px;color:rgba(255,255,255,.7)">{{ r.meta }}</div>
+                              </div>
+                            </div>
+                            <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" variant="ghost" size="sm" icon-left="download" onClick="{{ r.download }}" hint-size="auto,36px">Herunterladen</x-import>
+                          </div>
+                        </sc-for>
+                      </div>
+                    </sc-if>
+                    <sc-if value="{{ curNoReleased }}" hint-placeholder-val="{{ false }}">
+                      <div style="font-size:15px;color:rgba(255,255,255,.7)">Noch keine Dokumente freigegeben. Sobald HYPOTEQ Unterlagen freigibt, erscheinen sie hier.</div>
+                    </sc-if>
+                  </div>
+                </div>
+
+                <!-- Side: overview, updates, message -->
+                <div style="display:flex;flex-direction:column;gap:24px">
+                  
+                  <div style="background:var(--forest-700);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:clamp(20px,3vw,28px);display:flex;flex-direction:column;gap:12px">
+                    <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--lime-500);font-weight:500">Case Übersicht</div>
+                    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px 20px">
+                      <sc-for list="{{ curFacts }}" as="f" hint-placeholder-count="8">
+                        <div style="display:flex;flex-direction:column;gap:2px;padding-top:12px;border-top:1px solid rgba(255,255,255,.14)">
+                          <span style="font-size:13px;color:rgba(255,255,255,.7)">{{ f.k }}</span>
+                          <span style="font-size:15px;font-weight:500;font-variant-numeric:tabular-nums">{{ f.v }}</span>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </div>
+
+                  <div style="background:var(--forest-700);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:clamp(20px,3vw,28px);display:flex;flex-direction:column;gap:12px">
+                    <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--lime-500);font-weight:500">Letzte Updates</div>
+                    <div style="display:flex;flex-direction:column">
+                      <sc-for list="{{ curUpdates }}" as="u" hint-placeholder-count="3">
+                        <div style="display:flex;gap:16px;padding:12px 0;border-top:1px solid rgba(255,255,255,.14)">
+                          <span style="flex:none;font-size:13px;color:rgba(255,255,255,.7);font-variant-numeric:tabular-nums;width:82px;padding-top:2px">{{ u.date }}</span>
+                          <div style="display:flex;flex-direction:column;gap:2px">
+                            <span style="font-size:15px">{{ u.text }}</span>
+                            <sc-if value="{{ u.by }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:rgba(255,255,255,.45)">{{ u.by }}</span></sc-if>
+                          </div>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </div>
+
+                  <div style="background:var(--forest-700);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:clamp(20px,3vw,28px);display:flex;flex-direction:column;gap:12px">
+                    <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--lime-500);font-weight:500">Nachricht oder Information senden</div>
+                    <p style="margin:0;font-size:15px;color:rgba(255,255,255,.7)">Ihre Nachricht wird als E-Mail an <span style="color:#fff;font-weight:500">info@hypoteq.com</span> gesendet – mit Case-Nummer und Kundenname im Betreff. Zusätzlich erscheint sie unter «Letzte Updates».</p>
+                    <textarea value="{{ msg }}" onChange="{{ setMsg }}" placeholder="Ihre Nachricht an info@hypoteq.com …" rows="4" style="width:100%;resize:vertical;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.08);color:#fff;font-size:15px;line-height:1.4;outline:none" style-focus="box-shadow:0 0 0 3px rgba(202,244,118,.55);border-color:var(--lime-500)"></textarea>
+                    <div style="display:flex;justify-content:flex-end">
+                      <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" size="sm" icon-right="send" disabled="{{ msgEmpty }}" onClick="{{ sendMsg }}" hint-size="auto,36px">Als E-Mail senden</x-import>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- ============ NOTIFICATIONS ============ -->
+          <sc-if value="{{ isNotifications }}" hint-placeholder-val="{{ false }}">
+            <div data-screen-label="Benachrichtigungen" style="display:flex;flex-direction:column;gap:24px">
+              <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap">
+                <div style="display:flex;flex-direction:column;gap:8px">
+                  <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45);font-weight:500">Benachrichtigungen</div>
+                  <h1 style="margin:0;font-family:var(--font-display);font-size:clamp(30px,3.5vw,44px);font-weight:700;letter-spacing:-0.02em;line-height:1.1">Was sich getan hat</h1>
+                </div>
+                <div style="display:flex;gap:4px;flex-wrap:wrap">
+                  <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" variant="ghost" size="sm" icon-left="mail" onClick="{{ goEmail }}" hint-size="auto,36px">E-Mail-Vorschau</x-import>
+                  <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" variant="ghost" size="sm" icon-left="check-check" onClick="{{ markAllRead }}" hint-size="auto,36px">Alle als gelesen markieren</x-import>
+                </div>
+              </div>
+              <div style="background:var(--forest-700);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:0 20px">
+                <sc-for list="{{ notifs }}" as="n" hint-placeholder-count="5">
+                  <div onClick="{{ n.open }}" style="display:flex;gap:16px;align-items:flex-start;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.14);cursor:pointer" style-hover="background:rgba(255,255,255,.03)">
+                    <span style="flex:none;margin-top:7px;width:8px;height:8px;border-radius:50%;background:{{ n.dot }}"></span>
+                    <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px">
+                      <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
+                        <span style="font-size:17px;font-weight:{{ n.weight }}">{{ n.title }}</span>
+                        <span style="font-size:13px;color:rgba(255,255,255,.7)">{{ n.date }}</span>
+                      </div>
+                      <span style="font-size:15px;color:rgba(255,255,255,.7)">{{ n.text }}</span>
+                    </div>
+                    <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="chevron-right" size="{{ 20 }}" style="color:var(--lime-500);margin-top:2px" hint-size="20px,20px"></x-import>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- ============ SPEZIALFINANZIERUNG ============ -->
+          <sc-if value="{{ isSpecial }}" hint-placeholder-val="{{ false }}">
+            <div data-screen-label="Spezialfinanzierung" style="display:flex;flex-direction:column;gap:24px">
+              <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap">
+                <div style="display:flex;flex-direction:column;gap:8px">
+                  <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45);font-weight:500">Spezialfinanzierung</div>
+                  <h1 style="margin:0;font-family:var(--font-display);font-size:clamp(30px,3.5vw,44px);font-weight:700;letter-spacing:-0.02em;line-height:1.1">Spezialfinanzierung platzieren</h1>
+                  <p style="margin:0;font-size:17px;color:rgba(255,255,255,.7);max-width:720px;text-wrap:pretty">Für Vorhaben ausserhalb des Standards – Mezzanine, Bauprojekte, Renditeobjekte. Standardfinanzierungen laufen weiterhin über den Funnel.</p>
+                </div>
+                <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" variant="ghost" size="sm" icon-right="arrow-up-right" onClick="{{ openFunnel }}" hint-size="auto,36px">Zum Standard-Funnel</x-import>
+              </div>
+              <div style="display:flex;gap:14px;align-items:flex-start;padding:16px 18px;border-radius:12px;background:rgba(202,244,118,.08);border:1px solid rgba(202,244,118,.35)">
+                <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="info" size="{{ 20 }}" style="color:var(--lime-500);flex:none;margin-top:2px" hint-size="20px,20px"></x-import>
+                <div style="display:flex;flex-direction:column;gap:4px">
+                  <span style="font-size:15px;font-weight:600">Individuelle Prüfung – ausserhalb der Partnervereinbarung</span>
+                  <span style="font-size:15px;color:rgba(255,255,255,.7);text-wrap:pretty">Spezialfinanzierungen werden von HYPOTEQ einzeln beurteilt und fallen nicht unter die bestehende Partnervereinbarung. Machbarkeit, Konditionen und Vergütung vereinbaren wir pro Fall separat. Wir melden uns innert 2 Arbeitstagen bei Ihnen.</span>
+                </div>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px">
+                <sc-for list="{{ sfSteps }}" as="st" hint-placeholder-count="5">
+                  <button onClick="{{ st.go }}" style="text-align:left;background:transparent;border:0;padding:0;color:#fff;cursor:pointer;display:flex;flex-direction:column;gap:8px;font:inherit">
+                    <span style="height:3px;border-radius:2px;background:{{ st.bar }}"></span>
+                    <span style="font-size:13px;color:{{ st.color }};font-weight:{{ st.weight }};overflow-wrap:normal">{{ st.num }} · {{ st.label }}</span>
+                  </button>
+                </sc-for>
+              </div>
+              <div style="background:var(--forest-700);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:clamp(20px,3vw,32px);display:flex;flex-direction:column;gap:20px">
+                <sc-if value="{{ sf0 }}" hint-placeholder-val="{{ true }}">
+                  <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--lime-500);font-weight:500">Welche Art von Finanzierung?</div>
+                  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:12px">
+                    <sc-for list="{{ sfTypes }}" as="t" hint-placeholder-count="6">
+                      <button onClick="{{ t.select }}" style="{{ t.style }}">
+                        <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="{{ t.icon }}" size="{{ 24 }}" style="color:var(--lime-500)" hint-size="24px,24px"></x-import>
+                        <span style="font-size:17px;font-weight:500">{{ t.label }}</span>
+                        <span style="font-size:13px;color:rgba(255,255,255,.7);text-wrap:pretty">{{ t.text }}</span>
+                      </button>
+                    </sc-for>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ sf1 }}" hint-placeholder-val="{{ false }}">
+                  <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--lime-500);font-weight:500">Angaben zum Endkunden</div>
+                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:420px">
+                    <sc-for list="{{ sfKTypes }}" as="k" hint-placeholder-count="2">
+                      <button onClick="{{ k.select }}" style="{{ k.style }}">{{ k.label }}</button>
+                    </sc-for>
+                  </div>
+                  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:16px">
+                    <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" label="{{ sfNameLabel }}" placeholder="z. B. Anna Muster" value="{{ sfKName }}" onChange="{{ setSfKName }}"  hint-size="100%,72px"></x-import>
+                    <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" label="Wohnort / Sitz" placeholder="z. B. 8400 Winterthur" value="{{ sfKOrt }}" onChange="{{ setSfKOrt }}"  hint-size="100%,72px"></x-import>
+                    <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" label="Kontakt (optional)" placeholder="E-Mail oder Telefon" value="{{ sfKKontakt }}" onChange="{{ setSfKKontakt }}"  hint-size="100%,72px"></x-import>
+                    <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" label="Eigenmittel (optional)" placeholder="z. B. CHF 400'000" value="{{ sfEigen }}" onChange="{{ setSfEigen }}"  hint-size="100%,72px"></x-import>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ sf2 }}" hint-placeholder-val="{{ false }}">
+                  <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--lime-500);font-weight:500">Vorhaben</div>
+                  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:16px">
+                    <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" label="Finanzierungsbetrag (CHF)" placeholder="z. B. 2'500'000" value="{{ sfBetrag }}" onChange="{{ setSfBetrag }}"  hint-size="100%,72px"></x-import>
+                    <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" label="Objekt / Projekt & Standort" placeholder="z. B. MFH mit 8 Wohnungen, Uster" value="{{ sfObjekt }}" onChange="{{ setSfObjekt }}"  hint-size="100%,72px"></x-import>
+                  </div>
+                  <label style="display:flex;flex-direction:column;gap:6px;max-width:420px">
+                    <span style="font-size:13px;color:rgba(255,255,255,.7)">Zeitrahmen</span>
+                    <select value="{{ sfZeit }}" onChange="{{ setSfZeit }}" style="height:44px;padding:0 14px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:var(--forest-700);color:#fff;font-size:15px;outline:none">
+                      <sc-for list="{{ sfZeitOpts }}" as="o" hint-placeholder-count="4"><option value="{{ o }}">{{ o }}</option></sc-for>
+                    </select>
+                  </label>
+                  <label style="display:flex;flex-direction:column;gap:6px">
+                    <span style="font-size:13px;color:rgba(255,255,255,.7)">Beschreibung</span>
+                    <textarea value="{{ sfText }}" onChange="{{ setSfText }}" rows="7" placeholder="Ausgangslage, Vorhaben, Eigenmittel, bestehende Finanzierung, Besonderheiten, gewünschte Struktur …" style="width:100%;resize:vertical;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.08);color:#fff;font-size:15px;line-height:1.4;outline:none" style-focus="box-shadow:0 0 0 3px rgba(202,244,118,.55);border-color:var(--lime-500)"></textarea>
+                    <span style="font-size:13px;color:rgba(255,255,255,.45)">{{ sfTextHint }}</span>
+                  </label>
+                </sc-if>
+                <sc-if value="{{ sf3 }}" hint-placeholder-val="{{ false }}">
+                  <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--lime-500);font-weight:500">Dokumente</div>
+                  <div style="display:flex;flex-direction:column;gap:8px">
+                    <span style="font-size:15px;color:rgba(255,255,255,.7)">Hilfreich für {{ sfTypeLabel }}:</span>
+                    <div style="display:flex;gap:6px;flex-wrap:wrap">
+                      <sc-for list="{{ sfDocHints }}" as="d" hint-placeholder-count="4">
+                        <span style="font-size:13px;line-height:1;padding:7px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.2);white-space:nowrap">{{ d }}</span>
+                      </sc-for>
+                    </div>
+                  </div>
+                  <label onDragOver="{{ dragOver }}" onDrop="{{ sfDrop }}" style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:32px 20px;border-radius:12px;border:1.5px dashed rgba(255,255,255,.3);background:rgba(255,255,255,.04);cursor:pointer;text-align:center" style-hover="border-color:var(--lime-500);background:rgba(255,255,255,.08)">
+                    <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="upload" size="{{ 28 }}" style="color:var(--lime-500);flex:none" hint-size="28px,28px"></x-import>
+                    <span style="font-size:17px;font-weight:500">Dateien hierher ziehen oder auswählen</span>
+                    <span style="font-size:13px;color:rgba(255,255,255,.7)">Mehrere Dateien möglich · PDF, JPG, PNG, XLSX · max. 20 MB pro Datei</span>
+                    <input type="file" multiple="{{ true }}" accept=".pdf,.jpg,.jpeg,.png,.xlsx,.xls" onChange="{{ sfPick }}" style="display:none">
+                  </label>
+                  <sc-if value="{{ sfHasFiles }}" hint-placeholder-val="{{ false }}">
+                    <div style="display:flex;flex-direction:column">
+                      <sc-for list="{{ sfFiles }}" as="f" hint-placeholder-count="2">
+                        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 0;border-top:1px solid rgba(255,255,255,.14)">
+                          <div style="display:flex;align-items:center;gap:12px;min-width:0">
+                            <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="file-text" size="{{ 20 }}" style="color:var(--lime-500);flex:none" hint-size="20px,20px"></x-import>
+                            <div style="min-width:0"><div style="font-size:15px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ f.name }}</div><div style="font-size:13px;color:rgba(255,255,255,.7)">{{ f.size }}</div></div>
+                          </div>
+                          <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.IconButton" icon="x" label="Entfernen" size="sm" onClick="{{ f.remove }}" hint-size="36px,36px"></x-import>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </sc-if>
+                  <span style="font-size:13px;color:rgba(255,255,255,.45)">Fehlende Unterlagen können Sie später im Case nachreichen.</span>
+                </sc-if>
+                <sc-if value="{{ sf4 }}" hint-placeholder-val="{{ false }}">
+                  <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--lime-500);font-weight:500">Prüfen &amp; einreichen</div>
+                  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:14px 20px">
+                    <sc-for list="{{ sfSummary }}" as="r" hint-placeholder-count="8">
+                      <div style="display:flex;flex-direction:column;gap:2px;padding-top:12px;border-top:1px solid rgba(255,255,255,.14)">
+                        <span style="font-size:13px;color:rgba(255,255,255,.7)">{{ r.k }}</span>
+                        <span style="font-size:15px;font-weight:500">{{ r.v }}</span>
+                      </div>
+                    </sc-for>
+                  </div>
+                  <div style="display:flex;flex-direction:column;gap:6px;padding-top:12px;border-top:1px solid rgba(255,255,255,.14)">
+                    <span style="font-size:13px;color:rgba(255,255,255,.7)">Beschreibung</span>
+                    <span style="font-size:15px;white-space:pre-wrap;text-wrap:pretty">{{ sfText }}</span>
+                  </div>
+                  <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Checkbox" checked="{{ sfAck }}" onChange="{{ toggleSfAck }}" label="Mir ist bewusst, dass Spezialfinanzierungen individuell geprüft werden und nicht unter die bestehende Partnervereinbarung fallen." hint-size="100%,44px"></x-import>
+                </sc-if>
+                <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-top:8px;border-top:1px solid rgba(255,255,255,.14)">
+                  <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" variant="ghost" size="sm" icon-left="arrow-left" disabled="{{ sfFirst }}" onClick="{{ sfBack }}" hint-size="auto,36px">Zurück</x-import>
+                  <sc-if value="{{ sfNotLast }}" hint-placeholder-val="{{ true }}">
+                    <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" icon-right="arrow-right" disabled="{{ sfNextDisabled }}" onClick="{{ sfNext }}" hint-size="auto,44px">Weiter</x-import>
+                  </sc-if>
+                  <sc-if value="{{ sfLast }}" hint-placeholder-val="{{ false }}">
+                    <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" icon-right="send" disabled="{{ sfSubmitDisabled }}" onClick="{{ sfSubmit }}" hint-size="auto,44px">Anfrage einreichen</x-import>
+                  </sc-if>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- ============ SUPPORT ============ -->
+          <sc-if value="{{ isSupport }}" hint-placeholder-val="{{ false }}">
+            <div data-screen-label="Support" style="display:flex;flex-direction:column;gap:24px">
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45);font-weight:500">Support &amp; Feedback</div>
+                <h1 style="margin:0;font-family:var(--font-display);font-size:clamp(30px,3.5vw,44px);font-weight:700;letter-spacing:-0.02em;line-height:1.1">Wie können wir helfen?</h1>
+                <p style="margin:0;font-size:17px;color:rgba(255,255,255,.7);max-width:720px;text-wrap:pretty">Frage, Fehler oder Wunsch – jede Meldung landet direkt bei unserem Team. So wird das Portal mit jedem Feedback besser.</p>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:24px;align-items:start">
+                <div style="background:var(--forest-700);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:clamp(20px,3vw,28px);display:flex;flex-direction:column;gap:16px">
+                  <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--lime-500);font-weight:500">Neue Meldung</div>
+                  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+                    <sc-for list="{{ supportTypes }}" as="t" hint-placeholder-count="3">
+                      <button onClick="{{ t.select }}" style="{{ t.style }}">
+                        <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="{{ t.icon }}" size="{{ 16 }}" hint-size="16px,16px"></x-import>
+                        {{ t.label }}
+                      </button>
+                    </sc-for>
+                  </div>
+                  <label style="display:flex;flex-direction:column;gap:6px">
+                    <span style="font-size:13px;color:rgba(255,255,255,.7)">Bezug zu einem Case (optional)</span>
+                    <select value="{{ supportCase }}" onChange="{{ setSupportCase }}" style="height:44px;padding:0 14px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:var(--forest-700);color:#fff;font-size:15px;outline:none">
+                      <sc-for list="{{ supportCaseOpts }}" as="o" hint-placeholder-count="3">
+                        <option value="{{ o.id }}">{{ o.label }}</option>
+                      </sc-for>
+                    </select>
+                  </label>
+                  <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" label="Betreff" placeholder="{{ supportSubjectPh }}" value="{{ supportSubject }}" onChange="{{ setSupportSubject }}" hint-size="100%,72px"></x-import>
+                  <label style="display:flex;flex-direction:column;gap:6px">
+                    <span style="font-size:13px;color:rgba(255,255,255,.7)">Beschreibung</span>
+                    <textarea value="{{ supportMsg }}" onChange="{{ setSupportMsg }}" placeholder="{{ supportMsgPh }}" rows="5" style="width:100%;resize:vertical;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.08);color:#fff;font-size:15px;line-height:1.4;outline:none" style-focus="box-shadow:0 0 0 3px rgba(202,244,118,.55);border-color:var(--lime-500)"></textarea>
+                  </label>
+                  <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Checkbox" checked="{{ supportShot }}" onChange="{{ toggleSupportShot }}" label="Technische Angaben (Browser, Seite) mitsenden" hint-size="100%,24px"></x-import>
+                  <div style="display:flex;justify-content:flex-end">
+                    <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" icon-right="send" disabled="{{ supportDisabled }}" onClick="{{ sendSupport }}" hint-size="auto,44px">Meldung senden</x-import>
+                  </div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:24px">
+                  <div style="background:var(--forest-700);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:clamp(20px,3vw,28px);display:flex;flex-direction:column;gap:16px">
+                    <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--lime-500);font-weight:500">Ihr Ansprechpartner</div>
+                    <div style="display:flex;align-items:center;gap:14px">
+                      <span style="width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.14);display:grid;place-items:center;font-size:15px;font-weight:600;flex:none">LW</span>
+                      <div><div style="font-size:17px;font-weight:500">Lea Weber</div><div style="font-size:15px;color:rgba(255,255,255,.7)">Partner Management</div></div>
+                    </div>
+                    <div style="display:flex;flex-direction:column">
+                      <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid rgba(255,255,255,.14);font-size:15px"><x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="phone" size="{{ 18 }}" style="color:var(--lime-500)" hint-size="18px,18px"></x-import>+41 52 511 20 20</div>
+                      <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid rgba(255,255,255,.14);font-size:15px"><x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="mail" size="{{ 18 }}" style="color:var(--lime-500)" hint-size="18px,18px"></x-import>partner@hypoteq.com</div>
+                      <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid rgba(255,255,255,.14);font-size:15px;color:rgba(255,255,255,.7)"><x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="clock" size="{{ 18 }}" style="color:var(--lime-500)" hint-size="18px,18px"></x-import>Mo–Fr, 08:00–17:30 · Antwort innert 1 Arbeitstag</div>
+                    </div>
+                  </div>
+                  <div style="background:var(--forest-700);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:clamp(20px,3vw,28px);display:flex;flex-direction:column;gap:12px">
+                    <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--lime-500);font-weight:500">Ihre Meldungen</div>
+                    <div style="display:flex;flex-direction:column">
+                      <sc-for list="{{ tickets }}" as="t" hint-placeholder-count="3">
+                        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:12px 0;border-top:1px solid rgba(255,255,255,.14)">
+                          <div style="display:flex;flex-direction:column;gap:2px;min-width:0">
+                            <span style="font-size:13px;color:rgba(255,255,255,.7)">{{ t.nr }} · {{ t.type }} · {{ t.date }}</span>
+                            <span style="font-size:15px;font-weight:500">{{ t.title }}</span>
+                          </div>
+                          <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Badge" tone="{{ t.tone }}" hint-size="auto,20px">{{ t.status }}</x-import>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- ============ EMAIL PREVIEW ============ -->
+          <sc-if value="{{ isEmail }}" hint-placeholder-val="{{ false }}">
+            <div data-screen-label="E-Mail-Benachrichtigung" style="display:flex;flex-direction:column;gap:24px">
+              <div>
+                <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" variant="ghost" size="sm" icon-left="arrow-left" onClick="{{ goNotifications }}" style="padding-left:0" hint-size="auto,36px">Zurück zu Benachrichtigungen</x-import>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45);font-weight:500">Vorschau</div>
+                <h1 style="margin:0;font-family:var(--font-display);font-size:clamp(30px,3.5vw,44px);font-weight:700;letter-spacing:-0.02em;line-height:1.1">E-Mail-Benachrichtigung</h1>
+                <p style="margin:0;font-size:17px;color:rgba(255,255,255,.7)">So sieht die automatische E-Mail bei einem Case-Update aus. Keine sensiblen Daten – nur Kunde und Aktion.</p>
+              </div>
+              <div style="max-width:600px;background:#fff;color:var(--forest-800);border-radius:12px;overflow:hidden">
+                <div style="padding:14px 28px;border-bottom:1px solid #E1E7DC;font-size:13px;color:rgba(19,34,25,.7);display:flex;flex-direction:column;gap:2px">
+                  <span><strong style="font-weight:500;color:var(--forest-800)">Von:</strong> HYPOTEQ Partnerportal · portal@hypoteq.com</span>
+                  <span><strong style="font-weight:500;color:var(--forest-800)">An:</strong> d.meier@meier-finanz.ch</span>
+                  <span><strong style="font-weight:500;color:var(--forest-800)">Betreff:</strong> Update zu Ihrer Anfrage für Familie Steiner</span>
+                </div>
+                <div style="padding:32px 28px;display:flex;flex-direction:column;gap:20px">
+                  <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Logo" variant="black" size="sm" hint-size="120px,40px"></x-import>
+                  <div style="width:44px;height:3px;background:var(--forest-800)"></div>
+                  <h2 style="margin:0;font-family:var(--font-display);font-size:28px;font-weight:700;letter-spacing:-0.02em;line-height:1.1">Bei Ihrer Anfrage für Familie Steiner gibt es ein Update.</h2>
+                  <p style="margin:0;font-size:17px;color:rgba(19,34,25,.7)">Guten Tag Daniel Meier<br><br>Ein Kreditgeber hat sich zu Case HQ-2026-0387 zurückgemeldet. Die Details finden Sie nach dem Login im Partnerportal.</p>
+                  <div>
+                    <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" icon-right="arrow-right" onClick="{{ emailOpenCase }}" hint-size="auto,44px">Case öffnen</x-import>
+                  </div>
+                  <p style="margin:0;font-size:13px;color:rgba(19,34,25,.45)">Sie erhalten diese E-Mail, weil Sie als Vertriebspartner bei HYPOTEQ registriert sind. Benachrichtigungen verwalten Sie im Portal unter Profil.</p>
+                </div>
+                <div style="padding:14px 28px;border-top:1px solid #E1E7DC;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(19,34,25,.45)">HYPOTEQ AG · Winterthur · hypoteq.com</div>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- ============ ACCESS DENIED ============ -->
+          <sc-if value="{{ isDenied }}" hint-placeholder-val="{{ false }}">
+            <div data-screen-label="Zugriff verweigert" style="display:flex;flex-direction:column;gap:20px;max-width:560px;padding-top:24px">
+              <span style="width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.08);color:var(--lime-500);display:grid;place-items:center">
+                <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="shield-off" size="{{ 26 }}" hint-size="26px,26px"></x-import>
+              </span>
+              <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45);font-weight:500">/portal/cases/124</div>
+              <h1 style="margin:0;font-family:var(--font-display);font-size:clamp(30px,3.5vw,44px);font-weight:700;letter-spacing:-0.02em;line-height:1.1">Zugriff verweigert</h1>
+              <p style="margin:0;font-size:17px;color:rgba(255,255,255,.7)">Dieser Case ist Ihrem Partnerkonto nicht zugeordnet. Der Zugriff wurde serverseitig geprüft und protokolliert.</p>
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" icon-right="arrow-right" onClick="{{ goCasesAll }}" hint-size="auto,44px">Zur Case Übersicht</x-import>
+                <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" variant="ghost" onClick="{{ goDashboard }}" hint-size="auto,44px">Zum Dashboard</x-import>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- ============ ADMIN: PARTNERS ============ -->
+          <sc-if value="{{ isAdminPartners }}" hint-placeholder-val="{{ false }}">
+            <div data-screen-label="Admin · Partner" style="display:flex;flex-direction:column;gap:24px">
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45);font-weight:500">Administration</div>
+                <h1 style="margin:0;font-family:var(--font-display);font-size:clamp(30px,3.5vw,44px);font-weight:700;letter-spacing:-0.02em;line-height:1.1">Vertriebspartner</h1>
+                <p style="margin:0;font-size:17px;color:rgba(255,255,255,.7)">Portalzugang kontrolliert freischalten. Partner- und Case-Daten bleiben in Salesforce.</p>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px">
+                <sc-for list="{{ partnerKpis }}" as="k" hint-placeholder-count="4">
+                  <button onClick="{{ k.open }}" style="text-align:left;background:var(--forest-700);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:6px;color:#fff;cursor:pointer" style-hover="background:rgba(255,255,255,.08)">
+                    <span style="font-family:var(--font-display);font-size:34px;font-weight:700;letter-spacing:-0.02em;line-height:1;font-variant-numeric:tabular-nums">{{ k.value }}</span>
+                    <span style="font-size:13px;color:rgba(255,255,255,.7)">{{ k.label }}</span>
+                  </button>
+                </sc-for>
+              </div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <sc-for list="{{ partnerFilters }}" as="f" hint-placeholder-count="5">
+                  <span onClick="{{ f.select }}" style="cursor:pointer">
+                    <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Pill" size="sm" tone="{{ f.tone }}" hint-size="auto,32px">{{ f.label }}</x-import>
+                  </span>
+                </sc-for>
+              </div>
+              <div style="background:var(--forest-700);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:0 20px">
+                <sc-for list="{{ partnersList }}" as="p" hint-placeholder-count="5">
+                  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px 20px;align-items:center;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.14)">
+                    <div onClick="{{ p.open }}" style="min-width:0;cursor:pointer">
+                      <div style="font-size:17px;font-weight:500">{{ p.name }}</div>
+                      <div style="font-size:13px;color:rgba(255,255,255,.7)">{{ p.firma }}</div>
+                    </div>
+                    <div style="min-width:0">
+                      <div style="font-size:15px">{{ p.email }}</div>
+                      <div style="font-size:13px;color:rgba(255,255,255,.7)">{{ p.caseCount }} Cases · SF {{ p.sfId }}</div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-start">
+                      <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Badge" tone="{{ p.tone }}" hint-size="auto,20px">{{ p.access }}</x-import>
+                      <span style="font-size:13px;color:rgba(255,255,255,.7)">Letzter Login {{ p.lastLogin }}</span>
+                    </div>
+                    <div style="display:flex;justify-content:flex-end;gap:4px;grid-column:-2 / -1;flex-wrap:wrap">
+                      <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" variant="secondary" size="sm" onClick="{{ p.action }}" hint-size="auto,36px">{{ p.actionLabel }}</x-import>
+                      <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" variant="ghost" size="sm" icon-right="arrow-right" onClick="{{ p.open }}" hint-size="auto,36px">Details</x-import>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- ============ ADMIN: PARTNER DETAIL ============ -->
+          <sc-if value="{{ isAdminPartner }}" hint-placeholder-val="{{ false }}">
+            <div data-screen-label="Admin · Partner Detail" style="display:flex;flex-direction:column;gap:32px">
+              <div>
+                <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" variant="ghost" size="sm" icon-left="arrow-left" onClick="{{ goAdminPartners }}" style="padding-left:0" hint-size="auto,36px">Zurück zur Partnerliste</x-import>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap">
+                <div style="display:flex;flex-direction:column;gap:8px">
+                  <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45);font-weight:500">Vertriebspartner · {{ cp.firma }}</div>
+                  <h1 style="margin:0;font-family:var(--font-display);font-size:clamp(30px,3.5vw,44px);font-weight:700;letter-spacing:-0.02em;line-height:1.1">{{ cp.name }}</h1>
+                  <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+                    <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Badge" tone="{{ cp.tone }}" hint-size="auto,20px">{{ cp.access }}</x-import>
+                    <span style="font-size:15px;color:rgba(255,255,255,.7)">Letzter Login {{ cp.lastLogin }}</span>
+                  </div>
+                </div>
+                <div style="display:flex;gap:8px;flex-wrap:wrap">
+                  <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" size="sm" icon-left="{{ cp.actionIcon }}" onClick="{{ cp.action }}" hint-size="auto,36px">{{ cp.actionLabel }}</x-import>
+                  <sc-if value="{{ cp.canResend }}" hint-placeholder-val="{{ false }}">
+                    <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" variant="secondary" size="sm" icon-left="mail" onClick="{{ cp.resend }}" hint-size="auto,36px">Zugang erneut senden</x-import>
+                  </sc-if>
+                </div>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:24px;align-items:start">
+                <div style="display:flex;flex-direction:column;gap:24px">
+                  <div style="background:var(--forest-700);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:clamp(20px,3vw,28px);display:flex;flex-direction:column;gap:12px">
+                    <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--lime-500);font-weight:500">Partner Mapping</div>
+                    <div style="display:flex;flex-direction:column">
+                      <sc-for list="{{ cpFacts }}" as="f" hint-placeholder-count="8">
+                        <div style="display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-top:1px solid rgba(255,255,255,.14)">
+                          <span style="font-size:15px;color:rgba(255,255,255,.7)">{{ f.k }}</span>
+                          <span style="font-size:15px;font-weight:500;text-align:right;font-variant-numeric:tabular-nums">{{ f.v }}</span>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </div>
+                  <div style="background:var(--forest-700);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:clamp(20px,3vw,28px);display:flex;flex-direction:column;gap:12px">
+                    <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--lime-500);font-weight:500">Salesforce Portal-Felder</div>
+                    <p style="margin:0;font-size:15px;color:rgba(255,255,255,.7)">Status, Portal-Text und Benachrichtigungen werden ausschliesslich in Salesforce gepflegt. Das Portal liest diese Felder.</p>
+                    <div style="display:flex;flex-direction:column">
+                      <sc-for list="{{ sfFields }}" as="f" hint-placeholder-count="5">
+                        <div style="display:flex;justify-content:space-between;gap:16px;padding:10px 0;border-top:1px solid rgba(255,255,255,.14);font-size:15px">
+                          <span style="color:rgba(255,255,255,.7)">{{ f.k }}</span>
+                          <span style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;color:#fff;text-align:right">{{ f.v }}</span>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </div>
+                </div>
+                <div style="background:var(--forest-700);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:clamp(20px,3vw,28px);display:flex;flex-direction:column;gap:16px">
+                  <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+                    <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--lime-500);font-weight:500">Zugeordnete Cases</div>
+                    <span style="font-size:13px;color:rgba(255,255,255,.7)">{{ cpCaseCount }}</span>
+                  </div>
+                  <div style="display:flex;flex-direction:column">
+                    <sc-for list="{{ cpCases }}" as="c" hint-placeholder-count="4">
+                      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-top:1px solid rgba(255,255,255,.14);flex-wrap:wrap">
+                        <div style="min-width:0">
+                          <div style="font-size:15px;font-weight:500">{{ c.kunde }}</div>
+                          <div style="font-size:13px;color:rgba(255,255,255,.7)">{{ c.nr }} · {{ c.betrag }}</div>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:8px">
+                          <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Badge" tone="{{ c.tone }}" hint-size="auto,20px">{{ c.status }}</x-import>
+                          <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.IconButton" icon="x" label="Zuordnung entfernen" size="sm" onClick="{{ c.unassign }}" hint-size="36px,36px"></x-import>
+                        </div>
+                      </div>
+                    </sc-for>
+                    <sc-if value="{{ cpNoCases }}" hint-placeholder-val="{{ false }}">
+                      <div style="padding:16px 0;font-size:15px;color:rgba(255,255,255,.7);border-top:1px solid rgba(255,255,255,.14)">Noch keine Cases zugeordnet.</div>
+                    </sc-if>
+                  </div>
+                  <div style="border-top:1px solid rgba(255,255,255,.14);padding-top:16px;display:flex;flex-direction:column;gap:10px">
+                    <div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.45)">Case zuordnen</div>
+                    <sc-if value="{{ hasUnassigned }}" hint-placeholder-val="{{ true }}">
+                      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+                        <select value="{{ assignPick }}" onChange="{{ setAssignPick }}" style="flex:1;min-width:200px;height:44px;padding:0 14px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:var(--forest-700);color:#fff;font-size:15px;outline:none">
+                          <sc-for list="{{ unassignedCases }}" as="u" hint-placeholder-count="2">
+                            <option value="{{ u.id }}">{{ u.nr }} · {{ u.kunde }} · {{ u.betrag }}</option>
+                          </sc-for>
+                        </select>
+                        <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" variant="secondary" size="sm" icon-left="link" onClick="{{ assignCase }}" hint-size="auto,36px">Zuordnen</x-import>
+                      </div>
+                    </sc-if>
+                    <sc-if value="{{ noUnassigned }}" hint-placeholder-val="{{ false }}">
+                      <div style="font-size:15px;color:rgba(255,255,255,.7)">Alle Cases sind zugeordnet.</div>
+                    </sc-if>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- ============ ADMIN: AUDIT LOG ============ -->
+          <sc-if value="{{ isAdminAudit }}" hint-placeholder-val="{{ false }}">
+            <div data-screen-label="Admin · Audit Log" style="display:flex;flex-direction:column;gap:24px">
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45);font-weight:500">Administration</div>
+                <h1 style="margin:0;font-family:var(--font-display);font-size:clamp(30px,3.5vw,44px);font-weight:700;letter-spacing:-0.02em;line-height:1.1">Audit Log</h1>
+                <p style="margin:0;font-size:17px;color:rgba(255,255,255,.7)">Wer hat wann was getan. Ohne sensible Inhalte – nur Aktion, Partner und Case.</p>
+              </div>
+              <div style="background:var(--forest-700);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:0 20px">
+                <sc-for list="{{ audit }}" as="a" hint-placeholder-count="8">
+                  <div style="display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.14)">
+                    <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="{{ a.icon }}" size="{{ 18 }}" style="color:var(--lime-500);margin-top:2px" hint-size="18px,18px"></x-import>
+                    <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px">
+                      <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
+                        <span style="font-size:15px"><span style="font-weight:500">{{ a.action }}</span> · {{ a.who }}</span>
+                        <span style="font-size:13px;color:rgba(255,255,255,.7);font-variant-numeric:tabular-nums">{{ a.ts }}</span>
+                      </div>
+                      <span style="font-size:13px;color:rgba(255,255,255,.7)">{{ a.ref }}</span>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+
+          <!-- ============ PROFILE ============ -->
+          <sc-if value="{{ isProfile }}" hint-placeholder-val="{{ false }}">
+            <div data-screen-label="Profil" style="display:flex;flex-direction:column;gap:24px">
+              <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+                <label title="Foto ändern" style="position:relative;width:80px;height:80px;flex:none;cursor:pointer">
+                  <span style="width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,.14);display:grid;place-items:center;overflow:hidden;font-size:24px;font-weight:600">
+                    <sc-if value="{{ hasPhoto }}" hint-placeholder-val="{{ false }}"><span style="{{ photoStyle }}"></span></sc-if>
+                    <sc-if value="{{ noPhoto }}" hint-placeholder-val="{{ true }}">{{ userInitials }}</sc-if>
+                  </span>
+                  <span style="position:absolute;right:-2px;bottom:-2px;width:30px;height:30px;border-radius:50%;background:var(--lime-500);display:grid;place-items:center;border:2px solid var(--forest-800)"><x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="camera" size="{{ 15 }}" style="color:var(--forest-800);flex:none" hint-size="15px,15px"></x-import></span>
+                  <input type="file" accept="image/*" onChange="{{ pickPhoto }}" style="display:none">
+                </label>
+                <div style="display:flex;flex-direction:column;gap:6px;min-width:0">
+                  <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45);font-weight:500">Profil</div>
+                  <h1 style="margin:0;font-family:var(--font-display);font-size:clamp(30px,3.5vw,44px);font-weight:700;letter-spacing:-0.02em;line-height:1.1">Daniel Meier</h1>
+                  <p style="margin:0;font-size:17px;color:rgba(255,255,255,.7)">Meier Finanzberatung GmbH · Vertriebspartner seit August 2026</p>
+                </div>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:24px;align-items:start">
+                <div style="display:flex;flex-direction:column;gap:24px">
+                  <div style="background:var(--forest-700);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:clamp(20px,3vw,28px);display:flex;flex-direction:column;gap:12px">
+                    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+                      <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--lime-500);font-weight:500">Partnerdaten</div>
+                      <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" variant="secondary" size="sm" icon-left="file-pen-line" onClick="{{ openCR }}" hint-size="auto,36px">Änderung beantragen</x-import>
+                    </div>
+                    <div style="display:flex;flex-direction:column">
+                      <sc-for list="{{ profileFacts }}" as="f" hint-placeholder-count="8">
+                        <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 0;border-top:1px solid rgba(255,255,255,.14)">
+                          <span style="font-size:15px;color:rgba(255,255,255,.7);flex:none">{{ f.k }}</span>
+                          <div style="display:flex;align-items:center;gap:10px;min-width:0">
+                            <span style="font-size:15px;font-weight:500;text-align:right">{{ f.v }}</span>
+                            <sc-if value="{{ f.canEdit }}" hint-placeholder-val="{{ false }}">
+                              <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.IconButton" icon="pencil" label="Änderung beantragen" size="sm" onClick="{{ f.edit }}" hint-size="36px,36px"></x-import>
+                            </sc-if>
+                          </div>
+                        </div>
+                      </sc-for>
+                    </div>
+                    <p style="margin:0;font-size:13px;color:rgba(255,255,255,.7);text-wrap:pretty">Partnerdaten werden in Salesforce geführt und lassen sich hier nicht direkt bearbeiten. Beantragen Sie eine Änderung – wir prüfen und übernehmen sie innert 2 Arbeitstagen.</p>
+                  </div>
+                  <sc-if value="{{ hasCR }}" hint-placeholder-val="{{ false }}">
+                    <div style="background:var(--forest-700);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:clamp(20px,3vw,28px);display:flex;flex-direction:column;gap:12px">
+                      <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--lime-500);font-weight:500">Änderungsanträge</div>
+                      <div style="display:flex;flex-direction:column">
+                        <sc-for list="{{ changeReqs }}" as="r" hint-placeholder-count="1">
+                          <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 0;border-top:1px solid rgba(255,255,255,.14);align-items:flex-start">
+                            <div style="display:flex;flex-direction:column;gap:2px;min-width:0">
+                              <span style="font-size:13px;color:rgba(255,255,255,.7)">{{ r.nr }} · {{ r.date }}</span>
+                              <span style="font-size:15px;font-weight:500">{{ r.field }}: {{ r.value }}</span>
+                            </div>
+                            <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Badge" tone="{{ r.tone }}" hint-size="auto,20px">{{ r.status }}</x-import>
+                          </div>
+                        </sc-for>
+                      </div>
+                    </div>
+                  </sc-if>
+                  <div style="background:var(--forest-700);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:clamp(20px,3vw,28px);display:flex;flex-direction:column;gap:16px">
+                    <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--lime-500);font-weight:500">Firmenlogo</div>
+                    <div style="display:flex;flex-direction:column;gap:8px">
+                      <div style="background:var(--forest-900);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:24px;display:flex;flex-direction:column;align-items:flex-start;gap:10px;min-height:112px;justify-content:center">
+                        <sc-if value="{{ hasPartnerLogo }}" hint-placeholder-val="{{ false }}">
+              <span style="{{ logoPlateStyle }}"><span role="img" aria-label="Firmenlogo" style="{{ logoImgStyle }}"></span></span>
+            </sc-if>
+            <sc-if value="{{ noPartnerLogo }}" hint-placeholder-val="{{ true }}">
+              <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Logo" variant="white" size="sm" hint-size="120px,40px"></x-import>
+            </sc-if>
+                        <div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.45)">{{ portalLabel }}</div>
+                      </div>
+                      <span style="font-size:13px;color:rgba(255,255,255,.45)">Vorschau Seitenleiste</span>
+                    </div>
+                    <sc-if value="{{ noPartnerLogo }}" hint-placeholder-val="{{ true }}">
+                      <label onDragOver="{{ dragOver }}" onDrop="{{ dropLogo }}" style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:24px 20px;border-radius:12px;border:1.5px dashed rgba(255,255,255,.3);background:rgba(255,255,255,.04);cursor:pointer;text-align:center" style-hover="border-color:var(--lime-500);background:rgba(255,255,255,.08)">
+                        <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="image-up" size="{{ 26 }}" style="color:var(--lime-500);flex:none" hint-size="26px,26px"></x-import>
+                        <span style="font-size:17px;font-weight:500">Logo hochladen</span>
+                        <span style="font-size:13px;color:rgba(255,255,255,.7)">PNG, SVG oder JPG · transparenter Hintergrund empfohlen</span>
+                        <input type="file" accept=".png,.svg,.jpg,.jpeg,image/png,image/svg+xml,image/jpeg" onChange="{{ pickLogo }}" style="display:none">
+                      </label>
+                    </sc-if>
+                    <sc-if value="{{ hasPartnerLogo }}" hint-placeholder-val="{{ false }}">
+                      <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 0;border-top:1px solid rgba(255,255,255,.14)">
+                        <span style="font-size:15px">Auf hellem Hintergrund anzeigen</span>
+                        <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Switch" checked="{{ logoPlate }}" onChange="{{ toggleLogoPlate }}" hint-size="44px,24px"></x-import>
+                      </div>
+                      <div style="display:flex;gap:8px;flex-wrap:wrap">
+                        <label style="display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 16px;border-radius:999px;border:1.5px solid rgba(255,255,255,.3);color:#fff;font-size:15px;font-weight:500;cursor:pointer;white-space:nowrap" style-hover="background:rgba(255,255,255,.08)">
+                          <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="refresh-cw" size="{{ 16 }}" style="color:#fff;flex:none" hint-size="16px,16px"></x-import>Logo ersetzen
+                          <input type="file" accept=".png,.svg,.jpg,.jpeg,image/png,image/svg+xml,image/jpeg" onChange="{{ pickLogo }}" style="display:none">
+                        </label>
+                        <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" variant="ghost" size="sm" icon-left="trash-2" onClick="{{ removeLogo }}" hint-size="auto,36px">Entfernen</x-import>
+                      </div>
+                    </sc-if>
+                    <p style="margin:0;font-size:13px;color:rgba(255,255,255,.7)">Ihr Logo ersetzt das HYPOTEQ Logo im Portal – für Sie und Ihr Team.</p>
+                  </div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:24px">
+                  <div style="background:var(--forest-700);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:clamp(20px,3vw,28px);display:flex;flex-direction:column;gap:12px">
+                    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+                      <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--lime-500);font-weight:500">Eigene Dokumente</div>
+                      <label style="display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 16px;border-radius:999px;border:1.5px solid rgba(255,255,255,.3);color:#fff;font-size:15px;font-weight:500;cursor:pointer;white-space:nowrap" style-hover="background:rgba(255,255,255,.08)">
+                        <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="upload" size="{{ 16 }}" style="color:#fff;flex:none" hint-size="16px,16px"></x-import>Hinzufügen
+                        <input type="file" accept=".pdf,.jpg,.jpeg,.png" onChange="{{ pickOwnDoc }}" style="display:none">
+                      </label>
+                    </div>
+                    <p style="margin:0;font-size:15px;color:rgba(255,255,255,.7)">Unterlagen zu Ihrer Firma – z. B. Handelsregisterauszug, Registereintrag, Zertifikate.</p>
+                    <div style="display:flex;flex-direction:column">
+                      <sc-for list="{{ ownDocs }}" as="d" hint-placeholder-count="3">
+                        <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 0;border-top:1px solid rgba(255,255,255,.14)">
+                          <div style="display:flex;align-items:center;gap:12px;min-width:0">
+                            <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="file-text" size="{{ 20 }}" style="color:var(--lime-500);flex:none" hint-size="20px,20px"></x-import>
+                            <div style="min-width:0">
+                              <div style="font-size:15px;font-weight:500;overflow:hidden;text-overflow:ellipsis">{{ d.name }}</div>
+                              <div style="font-size:13px;color:rgba(255,255,255,.7)">{{ d.meta }}</div>
+                            </div>
+                          </div>
+                          <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Badge" tone="{{ d.tone }}" hint-size="auto,20px">{{ d.status }}</x-import>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </div>
+                  <div style="background:var(--forest-700);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:clamp(20px,3vw,28px);display:flex;flex-direction:column;gap:12px">
+                    <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--lime-500);font-weight:500">E-Mail-Benachrichtigungen</div>
+                    <div style="display:flex;flex-direction:column">
+                      <sc-for list="{{ notifSettings }}" as="s" hint-placeholder-count="4">
+                        <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 0;border-top:1px solid rgba(255,255,255,.14)">
+                          <span style="font-size:15px">{{ s.label }}</span>
+                          <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Switch" checked="{{ s.on }}" onChange="{{ s.toggle }}" hint-size="44px,24px"></x-import>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </div>
+                  <div style="background:var(--forest-700);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:clamp(20px,3vw,28px);display:flex;flex-direction:column;gap:12px">
+                    <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--lime-500);font-weight:500">Sicherheit</div>
+                    <div style="font-size:15px;color:rgba(255,255,255,.7)">Letzter Login 22.09.2026, 08:14 · Winterthur</div>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap">
+                      <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" variant="secondary" size="sm" icon-left="key-round" onClick="{{ goResetFromProfile }}" hint-size="auto,36px">Passwort ändern</x-import>
+                      <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" variant="ghost" size="sm" icon-left="log-out" onClick="{{ logout }}" hint-size="auto,36px">Abmelden</x-import>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+
+        </div>
+      </main>
+    </div>
+
+    <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+      <nav style="position:fixed;left:0;right:0;bottom:0;z-index:20;display:grid;grid-template-columns:repeat({{ mobileNavCount }},1fr);background:var(--forest-900);border-top:1px solid rgba(255,255,255,.08);padding:6px 8px calc(6px + env(safe-area-inset-bottom))">
+        <sc-for list="{{ mobileNav }}" as="m" hint-placeholder-count="4">
+          <button onClick="{{ m.go }}" style="height:56px;border:0;background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:11px;letter-spacing:.02em;cursor:pointer;border-radius:8px;color:{{ m.color }}">
+            <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="{{ m.icon }}" size="{{ 22 }}" style="color:{{ m.iconColor }}" hint-size="22px,22px"></x-import>
+            {{ m.label }}
+          </button>
+        </sc-for>
+      </nav>
+    </sc-if>
+  </sc-if>
+
+  <!-- ============ UPLOAD DIALOG ============ -->
+  <sc-if value="{{ dlgOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:60">
+      <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Dialog" open="{{ true }}" title="{{ dlgTitle }}" onClose="{{ closeDlg }}" width="{{ 520 }}" hint-size="100%,100%">
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div style="font-size:15px">{{ dlgSub }}</div>
+          <sc-if value="{{ dlgIdle }}" hint-placeholder-val="{{ true }}">
+            <label onDragOver="{{ dragOver }}" onDrop="{{ drop }}" style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:32px 20px;border-radius:12px;border:1.5px dashed rgba(255,255,255,.3);background:rgba(255,255,255,.04);cursor:pointer;text-align:center;color:#fff" style-hover="border-color:var(--lime-500);background:rgba(255,255,255,.08)">
+              <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="upload" size="{{ 28 }}" style="color:var(--lime-500)" hint-size="28px,28px"></x-import>
+              <span style="font-size:17px;font-weight:500">Datei hierher ziehen oder auswählen</span>
+              <span style="font-size:13px;color:rgba(255,255,255,.7)">PDF, JPG, JPEG, PNG · max. 20 MB</span>
+              <input type="file" accept=".pdf,.jpg,.jpeg,.png" onChange="{{ pickFile }}" style="display:none">
+            </label>
+            <sc-if value="{{ dlgError }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:13px;color:#E6A29C">{{ dlgError }}</div>
+            </sc-if>
+          </sc-if>
+          <sc-if value="{{ dlgHasFile }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:12px;padding:16px;border-radius:12px;background:rgba(255,255,255,.08)">
+              <div style="display:flex;align-items:center;gap:12px">
+                <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="{{ dlgIcon }}" size="{{ 22 }}" style="color:var(--lime-500)" hint-size="22px,22px"></x-import>
+                <div style="flex:1;min-width:0">
+                  <div style="font-size:15px;font-weight:500;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ dlgFile }}</div>
+                  <div style="font-size:13px">{{ dlgFileMeta }}</div>
+                </div>
+              </div>
+              <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.ProgressBar" value="{{ dlgProgress }}" show-value="{{ true }}" hint-size="100%,20px"></x-import>
+            </div>
+          </sc-if>
+          <div style="display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap">
+            <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" variant="ghost" size="sm" onClick="{{ closeDlg }}" hint-size="auto,36px">{{ dlgCancelLabel }}</x-import>
+            <sc-if value="{{ dlgCanUpload }}" hint-placeholder-val="{{ false }}">
+              <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" size="sm" icon-left="upload" onClick="{{ startUpload }}" hint-size="auto,36px">Hochladen</x-import>
+            </sc-if>
+          </div>
+        </div>
+      </x-import>
+    </div>
+  </sc-if>
+
+  <!-- ============ NEW CASE CHOICE ============ -->
+  <sc-if value="{{ ncOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:60">
+      <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Dialog" open="{{ true }}" title="Neue Finanzierung starten" onClose="{{ closeNC }}" width="{{ 560 }}" hint-size="100%,100%">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <button onClick="{{ openFunnel }}" style="text-align:left;display:flex;gap:14px;align-items:flex-start;padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);color:#fff;cursor:pointer;font:inherit" style-hover="border-color:var(--lime-500);background:rgba(255,255,255,.08)">
+            <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="house" size="{{ 24 }}" style="color:var(--lime-500);flex:none;margin-top:2px" hint-size="24px,24px"></x-import>
+            <span style="flex:1;display:flex;flex-direction:column;gap:4px"><span style="font-size:17px;font-weight:500;color:#fff">Standardfinanzierung</span><span style="font-size:15px;color:rgba(255,255,255,.7)">Kauf, Ablösung oder Aufstockung von Wohneigentum – über den HYPOTEQ Funnel mit Ihrer Partner-ID.</span><span style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--lime-500);padding-top:4px">Funnel · Partnervereinbarung</span></span>
+            <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="arrow-right" size="{{ 18 }}" style="color:var(--lime-500);flex:none;margin-top:4px" hint-size="18px,18px"></x-import>
+          </button>
+          <button onClick="{{ goSpecial }}" style="text-align:left;display:flex;gap:14px;align-items:flex-start;padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.04);color:#fff;cursor:pointer;font:inherit" style-hover="border-color:var(--lime-500);background:rgba(255,255,255,.08)">
+            <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="layers" size="{{ 24 }}" style="color:var(--lime-500);flex:none;margin-top:2px" hint-size="24px,24px"></x-import>
+            <span style="flex:1;display:flex;flex-direction:column;gap:4px"><span style="font-size:17px;font-weight:500;color:#fff">Spezialfinanzierung</span><span style="font-size:15px;color:rgba(255,255,255,.7)">Mezzanine, Bauprojekt, Renditeobjekt oder Gewerbe – direkt hier im Portal erfassen.</span><span style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--lime-500);padding-top:4px">Individuelle Prüfung</span></span>
+            <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="arrow-right" size="{{ 18 }}" style="color:var(--lime-500);flex:none;margin-top:4px" hint-size="18px,18px"></x-import>
+          </button>
+        </div>
+      </x-import>
+    </div>
+  </sc-if>
+
+  <!-- ============ CHANGE REQUEST ============ -->
+  <sc-if value="{{ crOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:60">
+      <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Dialog" open="{{ true }}" title="Änderung beantragen" onClose="{{ closeCR }}" width="{{ 520 }}" hint-size="100%,100%">
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div style="font-size:15px">Wir prüfen Ihren Antrag und übernehmen die Änderung in Salesforce. Sie erhalten eine Bestätigung per E-Mail.</div>
+          <label style="display:flex;flex-direction:column;gap:6px">
+            <span style="font-size:13px;color:rgba(255,255,255,.7)">Was soll geändert werden?</span>
+            <select value="{{ crField }}" onChange="{{ setCrField }}" style="height:44px;padding:0 14px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:var(--forest-700);color:#fff;font-size:15px;outline:none">
+              <sc-for list="{{ crFields }}" as="o" hint-placeholder-count="5">
+                <option value="{{ o }}">{{ o }}</option>
+              </sc-for>
+            </select>
+          </label>
+          <div style="font-size:13px;color:rgba(255,255,255,.7)">Aktuell: <span style="color:#fff">{{ crCurrent }}</span></div>
+          <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Input" label="Neuer Wert" placeholder="Neuer Wert" value="{{ crValue }}" onChange="{{ setCrValue }}" hint-size="100%,72px"></x-import>
+          <label style="display:flex;flex-direction:column;gap:6px">
+            <span style="font-size:13px;color:rgba(255,255,255,.7)">Bemerkung (optional)</span>
+            <textarea value="{{ crNote }}" onChange="{{ setCrNote }}" rows="3" placeholder="z. B. Umzug per 1. November" style="width:100%;resize:vertical;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.08);color:#fff;font-size:15px;line-height:1.4;outline:none"></textarea>
+          </label>
+          <div style="display:flex;justify-content:flex-end;gap:8px">
+            <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" variant="ghost" size="sm" onClick="{{ closeCR }}" hint-size="auto,36px">Abbrechen</x-import>
+            <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" size="sm" icon-right="send" disabled="{{ crDisabled }}" onClick="{{ submitCR }}" hint-size="auto,36px">Antrag senden</x-import>
+          </div>
+        </div>
+      </x-import>
+    </div>
+  </sc-if>
+
+  <!-- ============ SCREENS INDEX ============ -->
+  <sc-if value="{{ screensOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:60">
+      <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Dialog" open="{{ true }}" title="Alle Screens" onClose="{{ closeScreens }}" width="{{ 680 }}" style="max-height:calc(100vh - 48px);overflow:auto" hint-size="100%,100%">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:20px">
+          <sc-for list="{{ screenGroups }}" as="g" hint-placeholder-count="4">
+            <div style="display:flex;flex-direction:column;gap:2px">
+              <div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--lime-500);padding-bottom:8px">{{ g.name }}</div>
+              <sc-for list="{{ g.items }}" as="i" hint-placeholder-count="4">
+                <button onClick="{{ i.go }}" style="text-align:left;height:40px;padding:0 10px;border:0;border-radius:8px;background:transparent;color:#fff;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:8px" style-hover="background:rgba(255,255,255,.08)">
+                  {{ i.label }}
+                  <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="arrow-right" size="{{ 16 }}" style="color:var(--lime-500)" hint-size="16px,16px"></x-import>
+                </button>
+              </sc-for>
+            </div>
+          </sc-for>
+        </div>
+      </x-import>
+    </div>
+  </sc-if>
+
+  <!-- ============ TOAST ============ -->
+  <sc-if value="{{ toastText }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;left:16px;right:16px;bottom:calc(24px + env(safe-area-inset-bottom));z-index:70;display:flex;justify-content:center;pointer-events:none">
+      <div style="pointer-events:auto;max-width:520px;width:100%;animation:hqIn .3s ease-out">
+        <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Toast" tone="success" onDismiss="{{ hideToast }}" hint-size="100%,52px">{{ toastText }}</x-import>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;startScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;login&quot;,&quot;activate&quot;,&quot;dashboard&quot;,&quot;admin&quot;],&quot;default&quot;:&quot;login&quot;,&quot;tsType&quot;:&quot;'login'|'activate'|'dashboard'|'admin'&quot;,&quot;section&quot;:&quot;Prototyp&quot;}}">
+const STEPS = ['Anfrage eingegangen','Dokumente werden ge\u00ADprüft','Unterlagen voll\u00ADständig','Finanzierungs\u00ADanfrage vorbereitet','An Kredit\u00ADgeber übermittelt','Rück\u00ADmeldung erhalten','Finanzierung ab\u00ADgeschlossen'];
+const ST = {
+  'Neue Anfrage':{tone:'neutral',step:0,rank:0},
+  'Dokumente ausstehend':{tone:'warning',step:1,rank:1},
+  'Dokumente vollständig':{tone:'info',step:2,rank:2},
+  'In Prüfung':{tone:'info',step:2,rank:3},
+  'Bereit für Kreditgeber':{tone:'info',step:3,rank:4},
+  'Bei Kreditgeber':{tone:'info',step:4,rank:5},
+  'Rückmeldung erhalten':{tone:'accent',step:5,rank:6},
+  'Nachbearbeitung notwendig':{tone:'warning',step:5,rank:7},
+  'Finanzierung bestätigt':{tone:'success',step:5,rank:8},
+  'Abgeschlossen':{tone:'success',step:7,rank:9},
+  'Abgelehnt':{tone:'danger',step:-1,rank:10},
+  'Storniert':{tone:'danger',step:-1,rank:11},
+};
+const DOC = {
+  vorhanden:{label:'Vorhanden',tone:'success'}, fehlt:{label:'Fehlt',tone:'danger'}, pruefung:{label:'In Prüfung',tone:'info'},
+  ungueltig:{label:'Ungültig',tone:'danger'}, neu:{label:'Neu erforderlich',tone:'warning'}, hochgeladen:{label:'Hochgeladen',tone:'accent'},
+};
+const NEEDS = ['fehlt','ungueltig','neu'];
+const CLOSED = ['Abgeschlossen','Abgelehnt','Storniert'];
+const FILTERS = ['Alle','Offen','Dokumente fehlen','In Bearbeitung','Bei Kreditgeber','Abgeschlossen'];
+const CATS = [
+  ['Identifikation',['Ausweiskopie']],
+  ['Einkommensnachweise',['Lohnausweis','Lohnabrechnungen (3 Monate)']],
+  ['Steuerunterlagen',['Steuererklärung 2025','Steuerveranlagung']],
+  ['Objektdokumente',['Grundbuchauszug','Gebäudeversicherung','Verkaufsdokumentation / Schätzung']],
+  ['Finanzierungsunterlagen',['Eigenmittelnachweis','Pensionskassenausweis']],
+  ['Weitere Dokumente',['Betreibungsregisterauszug']],
+];
+function docs(over, def) {
+  const out = []; let i = 0;
+  CATS.forEach(([cat, names]) => names.forEach(name => {
+    const o = over[name] || {}; out.push({ id: 'd' + (i++), cat, name, status: o.status || def, note: o.note || '', meta: o.meta || '' });
+  }));
+  return out;
+}
+const ALL_OK = { };
+function present(names, meta) { const o = {}; names.forEach(n => o[n] = { status: 'vorhanden', meta }); return o; }
+
+const CASES = [
+  { id:'c1', nr:'HQ-2026-0412', kunde:'Sarah & Marco Brunner', erstellt:'15.09.2026', update:'21.09.2026', art:'Neufinanzierung', betrag:"CHF 850'000", objekt:'Einfamilienhaus, Winterthur-Seen', status:'Dokumente ausstehend',
+    docs: docs({ 'Lohnausweis':{status:'fehlt', note:'Marco Brunner'}, 'Steuererklärung 2025':{status:'fehlt'}, 'Grundbuchauszug':{status:'fehlt'}, 'Steuerveranlagung':{status:'pruefung'}, 'Verkaufsdokumentation / Schätzung':{status:'pruefung'}, 'Betreibungsregisterauszug':{status:'vorhanden', meta:'Hochgeladen 18.09.2026'} }, 'vorhanden'),
+    released: [{ name:'Finanzierungsübersicht', meta:'PDF · 2 Seiten · 16.09.2026' }],
+    updates: [
+      { date:'21.09.2026', text:'Zusätzlicher Lohnausweis (Marco Brunner) erforderlich.', by:'HYPOTEQ · L. Weber' },
+      { date:'18.09.2026', text:'Betreibungsregisterauszug erfolgreich hochgeladen.', by:'Daniel Meier' },
+      { date:'16.09.2026', text:'Finanzierungsübersicht freigegeben.', by:'HYPOTEQ · L. Weber' },
+      { date:'15.09.2026', text:'Anfrage eingegangen. Dokumentenliste erstellt.', by:'' },
+    ] },
+  { id:'c2', nr:'HQ-2026-0398', kunde:'Andrea Keller', erstellt:'08.09.2026', update:'20.09.2026', art:'Ablösung', betrag:"CHF 620'000", objekt:'Eigentumswohnung, Zürich-Oerlikon', status:'Bei Kreditgeber',
+    docs: docs({}, 'vorhanden'),
+    released: [{ name:'Finanzierungsübersicht', meta:'PDF · 2 Seiten · 10.09.2026' }, { name:'Case Zusammenfassung', meta:'PDF · 3 Seiten · 20.09.2026' }],
+    updates: [
+      { date:'20.09.2026', text:'Anfrage an zwei Kreditgeber übermittelt. Rückmeldung erwartet bis 27.09.2026.', by:'HYPOTEQ · P. Sutter' },
+      { date:'17.09.2026', text:'Unterlagen vollständig. Anfrage wird für Kreditgeber vorbereitet.', by:'HYPOTEQ · P. Sutter' },
+      { date:'08.09.2026', text:'Anfrage eingegangen.', by:'' },
+    ] },
+  { id:'c3', nr:'HQ-2026-0405', kunde:'Thomas Huber', erstellt:'11.09.2026', update:'19.09.2026', art:'Neufinanzierung', betrag:"CHF 1'150'000", objekt:'Einfamilienhaus, Uster', status:'In Prüfung',
+    docs: docs({ 'Pensionskassenausweis':{status:'pruefung'}, 'Eigenmittelnachweis':{status:'pruefung'} }, 'vorhanden'),
+    released: [{ name:'Finanzierungsübersicht', meta:'PDF · 2 Seiten · 12.09.2026' }],
+    updates: [
+      { date:'19.09.2026', text:'Unterlagen vollständig. Tragbarkeitsprüfung läuft.', by:'HYPOTEQ · L. Weber' },
+      { date:'11.09.2026', text:'Anfrage eingegangen.', by:'' },
+    ] },
+  { id:'c4', nr:'HQ-2026-0387', kunde:'Familie Steiner', erstellt:'01.09.2026', update:'21.09.2026', art:'Aufstockung', betrag:"CHF 180'000", objekt:'Einfamilienhaus, Frauenfeld', status:'Rückmeldung erhalten',
+    docs: docs({}, 'vorhanden'),
+    released: [{ name:'Angebot Kreditgeber A', meta:'PDF · 4 Seiten · 21.09.2026' }, { name:'Angebot Kreditgeber B', meta:'PDF · 3 Seiten · 21.09.2026' }, { name:'Finanzierungsübersicht', meta:'PDF · 2 Seiten · 03.09.2026' }],
+    updates: [
+      { date:'21.09.2026', text:'Zwei Angebote erhalten und für Sie freigegeben. Bitte mit dem Kunden besprechen.', by:'HYPOTEQ · P. Sutter' },
+      { date:'12.09.2026', text:'Anfrage an Kreditgeber übermittelt.', by:'HYPOTEQ · P. Sutter' },
+      { date:'01.09.2026', text:'Anfrage eingegangen.', by:'' },
+    ] },
+  { id:'c5', nr:'HQ-2026-0419', kunde:'Lukas Frei', erstellt:'21.09.2026', update:'21.09.2026', art:'Neufinanzierung', betrag:"CHF 720'000", objekt:'Eigentumswohnung, Winterthur', status:'Neue Anfrage',
+    docs: docs({ 'Ausweiskopie':{status:'vorhanden'}, 'Lohnausweis':{status:'vorhanden'} }, 'fehlt'),
+    released: [],
+    updates: [ { date:'21.09.2026', text:'Anfrage über den Funnel eingegangen. Dokumentenliste erstellt.', by:'' } ] },
+  { id:'c6', nr:'HQ-2026-0371', kunde:'Nadia Roth', erstellt:'18.08.2026', update:'19.09.2026', art:'Ablösung', betrag:"CHF 540'000", objekt:'Eigentumswohnung, Kloten', status:'Nachbearbeitung notwendig',
+    docs: docs({ 'Pensionskassenausweis':{status:'neu', note:'Aktueller Ausweis 2026 nötig'}, 'Lohnabrechnungen (3 Monate)':{status:'ungueltig', note:'Unleserlich'} }, 'vorhanden'),
+    released: [{ name:'Finanzierungsübersicht', meta:'PDF · 2 Seiten · 20.08.2026' }],
+    updates: [
+      { date:'19.09.2026', text:'Kreditgeber verlangt aktuellen Pensionskassenausweis. Lohnabrechnungen unleserlich – bitte erneut hochladen.', by:'HYPOTEQ · L. Weber' },
+      { date:'05.09.2026', text:'Anfrage an Kreditgeber übermittelt.', by:'HYPOTEQ · L. Weber' },
+    ] },
+  { id:'c7', nr:'HQ-2026-0342', kunde:'Peter Gasser', erstellt:'22.07.2026', update:'02.09.2026', art:'Neufinanzierung', betrag:"CHF 960'000", objekt:'Einfamilienhaus, Wil SG', status:'Abgeschlossen',
+    docs: docs({}, 'vorhanden'),
+    released: [{ name:'Finanzierungsbestätigung', meta:'PDF · 1 Seite · 02.09.2026' }, { name:'Case Zusammenfassung', meta:'PDF · 3 Seiten · 02.09.2026' }],
+    updates: [ { date:'02.09.2026', text:'Finanzierung abgeschlossen. Vertrag unterzeichnet.', by:'HYPOTEQ · P. Sutter' }, { date:'20.08.2026', text:'Finanzierung bestätigt.', by:'HYPOTEQ · P. Sutter' } ] },
+  { id:'c8', nr:'HQ-2026-0355', kunde:'Claudia Weber', erstellt:'05.08.2026', update:'28.08.2026', art:'Ablösung', betrag:"CHF 480'000", objekt:'Eigentumswohnung, Schaffhausen', status:'Storniert',
+    docs: docs({}, 'vorhanden'),
+    released: [],
+    updates: [ { date:'28.08.2026', text:'Anfrage auf Wunsch des Kunden storniert.', by:'HYPOTEQ · L. Weber' } ] },
+];
+
+CASES.forEach(c => c.partnerId = 'p1');
+CASES.push(
+  { id:'c9', partnerId:'p4', nr:'HQ-2026-0409', kunde:'Familie Zimmermann', erstellt:'12.09.2026', update:'18.09.2026', art:'Neufinanzierung', betrag:"CHF 1'020'000", objekt:'Einfamilienhaus, Bülach', status:'In Prüfung', docs: docs({}, 'vorhanden'), released: [], updates: [ { date:'18.09.2026', text:'Unterlagen vollständig.', by:'HYPOTEQ · P. Sutter' } ] },
+  { id:'c10', partnerId:null, nr:'HQ-2026-0421', kunde:'Jonas Bühler', erstellt:'22.09.2026', update:'22.09.2026', art:'Neufinanzierung', betrag:"CHF 690'000", objekt:'Eigentumswohnung, Dübendorf', status:'Neue Anfrage', docs: docs({}, 'fehlt'), released: [], updates: [ { date:'22.09.2026', text:'Anfrage über den Funnel eingegangen – ohne Partner-ID.', by:'' } ] },
+  { id:'c11', partnerId:null, nr:'HQ-2026-0420', kunde:'Elena Marti', erstellt:'21.09.2026', update:'21.09.2026', art:'Ablösung', betrag:"CHF 410'000", objekt:'Eigentumswohnung, Winterthur', status:'Neue Anfrage', docs: docs({}, 'fehlt'), released: [], updates: [ { date:'21.09.2026', text:'Anfrage eingegangen.', by:'' } ] },
+);
+const FAST = { c1: '26.09.2026', c5: '28.09.2026', c6: false };
+CASES.forEach(c => c.fast = c.id in FAST ? FAST[c.id] : true);
+const TICKETS = [
+  { nr:'T-1042', type:'Wunsch', title:'Dokumente direkt per E-Mail an HYPOTEQ weiterleiten', date:'12.09.2026', status:'In Prüfung', tone:'info' },
+  { nr:'T-1031', type:'Fehler', title:'Upload bricht bei PDFs über 15 MB ab', date:'28.08.2026', status:'Behoben', tone:'success' },
+  { nr:'T-1019', type:'Frage', title:'Wie ordne ich einen bestehenden Kunden zu?', date:'14.08.2026', status:'Beantwortet', tone:'success' },
+];
+const PFACTS = [['Name','Daniel Meier','Name'],['Firma','Meier Finanzberatung GmbH','Firma'],['Adresse','Technikumstrasse 12, 8400 Winterthur','Adresse'],['E-Mail','d.meier@meier-finanz.ch','E-Mail (Login)'],['Telefon','+41 52 203 44 10','Telefon'],['IBAN','CH93 0076 2011 6238 5295 7','Bankverbindung (IBAN)'],['Partner-Nr.','VP-0184'],['Portalzugang','Aktiv seit 01.10.2026'],['Rolle','Vertriebspartner']];
+const CR_FIELDS = ['Name','Firma','Adresse','E-Mail (Login)','Telefon','Bankverbindung (IBAN)','Sonstiges'];
+const SF0 = { step: 0, type: '', kTyp: 'Privatperson', kName: '', kOrt: '', kKontakt: '', eigen: '', betrag: '', objekt: '', zeit: 'In 1–3 Monaten', text: '', files: [], ack: false };
+const SF_TYPES = [
+  ['mezzanine', 'Mezzanine-Finanzierung', 'layers', 'Nachrangkapital, um eine Eigenmittellücke zu schliessen.', ['Finanzierungsübersicht', 'Eigenmittelnachweis', 'Bestehende Bankofferte', 'Objektdokumentation']],
+  ['bau', 'Bauprojekt / Baukredit', 'hard-hat', 'Neubau, Umbau oder Projektentwicklung mit Baukredit.', ['Baubewilligung', 'Kostenvoranschlag', 'Pläne', 'Bauprogramm', 'Landkaufvertrag']],
+  ['rendite', 'Renditeobjekt', 'building-2', 'Mehrfamilienhaus oder Portfolio als Anlageobjekt.', ['Mieterspiegel', 'Liegenschaftsrechnung', 'Schätzung', 'Grundbuchauszug']],
+  ['gewerbe', 'Gewerbeliegenschaft', 'store', 'Büro, Gewerbe, Gastro oder gemischte Nutzung.', ['Mietverträge', 'Jahresabschlüsse', 'Schätzung', 'Grundbuchauszug']],
+  ['bruecke', 'Überbrückung', 'timer', 'Kurzfristige Finanzierung, z. B. Kauf vor Verkauf.', ['Kaufvertrag', 'Verkaufsdokumentation', 'Bestehende Hypothek']],
+  ['andere', 'Andere Spezialfinanzierung', 'sparkles', 'Alles, was nicht in den Standard-Funnel passt.', ['Alle Unterlagen, die das Vorhaben erklären']],
+];
+const SF_STEPS = ['Art', 'Endkunde', 'Vorhaben', 'Dokumente', 'Prüfen & senden'];
+const PARTNERS = [
+  { id:'p1', name:'Daniel Meier', firma:'Meier Finanzberatung GmbH', email:'d.meier@meier-finanz.ch', sfId:'001…7A3K', access:'Aktiv', lastLogin:'22.09.2026, 08:14', created:'12.08.2026', supabase:'usr_…9f2c', tel:'+41 52 203 44 10' },
+  { id:'p2', name:'Simone Vogt', firma:'Vogt & Partner Vorsorge', email:'s.vogt@vogt-partner.ch', sfId:'001…2B8Q', access:'Einladung gesendet', lastLogin:'–', created:'19.09.2026', supabase:'usr_…41ab', tel:'+41 44 512 80 20' },
+  { id:'p3', name:'Reto Ambühl', firma:'Ambühl Finanz AG', email:'reto@ambuehl-finanz.ch', sfId:'001…5C1M', access:'Nicht aktiviert', lastLogin:'–', created:'–', supabase:'–', tel:'+41 71 230 11 60' },
+  { id:'p4', name:'Corinne Baumann', firma:'Baumann Beratung', email:'c.baumann@baumann-beratung.ch', sfId:'001…8D4T', access:'Aktiv', lastLogin:'21.09.2026, 17:02', created:'02.09.2026', supabase:'usr_…c77e', tel:'+41 43 888 12 34' },
+  { id:'p5', name:'Marc Lüthi', firma:'Lüthi Immobilien & Finanz', email:'m.luethi@luethi-if.ch', sfId:'001…3E9R', access:'Deaktiviert', lastLogin:'14.08.2026, 09:31', created:'05.08.2026', supabase:'usr_…0b19', tel:'+41 56 210 45 45' },
+];
+const ACCESS = { 'Aktiv':{tone:'success',label:'Deaktivieren',icon:'user-x',next:'Deaktiviert'}, 'Einladung gesendet':{tone:'info',label:'Einladung erneut senden',icon:'mail',next:null}, 'Nicht aktiviert':{tone:'neutral',label:'Aktivieren & einladen',icon:'user-check',next:'Einladung gesendet'}, 'Deaktiviert':{tone:'danger',label:'Reaktivieren',icon:'user-check',next:'Aktiv'} };
+const AUDIT = [
+  { ts:'22.09.2026 08:14', who:'Daniel Meier', action:'Login', icon:'log-in', ref:'Supabase Session · IP 85.4.…' },
+  { ts:'21.09.2026 17:31', who:'Corinne Baumann', action:'Case geöffnet', icon:'folder-open', ref:'HQ-2026-0409' },
+  { ts:'21.09.2026 17:02', who:'Corinne Baumann', action:'Login', icon:'log-in', ref:'Supabase Session' },
+  { ts:'21.09.2026 11:20', who:'Daniel Meier', action:'Zugriff verweigert', icon:'shield-off', ref:'/portal/cases/124 · fremder Case' },
+  { ts:'20.09.2026 14:48', who:'Daniel Meier', action:'Dokument heruntergeladen', icon:'download', ref:'HQ-2026-0398 · Case Zusammenfassung' },
+  { ts:'19.09.2026 09:05', who:'L. Weber (Admin)', action:'Partner aktiviert', icon:'user-check', ref:'Simone Vogt · Einladung gesendet' },
+  { ts:'18.09.2026 16:22', who:'Daniel Meier', action:'Dokument hochgeladen', icon:'upload', ref:'HQ-2026-0412 · Betreibungsregisterauszug' },
+  { ts:'18.09.2026 16:10', who:'Daniel Meier', action:'Nachricht gesendet', icon:'send', ref:'HQ-2026-0412' },
+  { ts:'15.09.2026 08:40', who:'Daniel Meier', action:'Passwort zurückgesetzt', icon:'key-round', ref:'per E-Mail-Link' },
+  { ts:'14.08.2026 10:02', who:'L. Weber (Admin)', action:'Partner deaktiviert', icon:'user-x', ref:'Marc Lüthi' },
+];
+const DOC_FILTERS = [['Alle', null], ['Fehlt', ['fehlt','ungueltig']], ['Neu erforderlich', ['neu']], ['In Prüfung', ['pruefung','hochgeladen']], ['Vorhanden', ['vorhanden']]];
+
+const NOTIFS = [
+  { id:'n1', caseId:'c4', date:'21.09.2026', title:'Rückmeldung erhalten – Familie Steiner', text:'Bei Ihrer Anfrage für Familie Steiner gibt es ein Update.', read:false },
+  { id:'n2', caseId:'c1', date:'21.09.2026', title:'Dokument erforderlich – Brunner', text:'Für HQ-2026-0412 wird ein zusätzliches Dokument benötigt.', read:false },
+  { id:'n3', caseId:'c5', date:'21.09.2026', title:'Neuer Case verfügbar', text:'HQ-2026-0419 wurde Ihnen zugeordnet.', read:false },
+  { id:'n4', caseId:'c2', date:'20.09.2026', title:'An Kreditgeber übermittelt – Keller', text:'Bei Ihrer Anfrage für Andrea Keller gibt es ein Update.', read:true },
+  { id:'n5', caseId:'c6', date:'19.09.2026', title:'Nachbearbeitung notwendig – Roth', text:'Für HQ-2026-0371 sind neue Unterlagen erforderlich.', read:true },
+  { id:'n6', caseId:'c7', date:'02.09.2026', title:'Finanzierung abgeschlossen – Gasser', text:'Bei Ihrer Anfrage für Peter Gasser gibt es ein Update.', read:true },
+];
+
+function parseD(s) { const [d, m, y] = s.split('.'); return new Date(+y, +m - 1, +d).getTime(); }
+function docNeeds(c) { return c.docs.filter(d => NEEDS.includes(d.status)); }
+function inFilter(c, f) {
+  switch (f) {
+    case 'Offen': return !CLOSED.includes(c.status);
+    case 'Dokumente fehlen': return docNeeds(c).length > 0 && !CLOSED.includes(c.status);
+    case 'In Bearbeitung': return ['Dokumente vollständig','In Prüfung','Bereit für Kreditgeber','Nachbearbeitung notwendig'].includes(c.status);
+    case 'Bei Kreditgeber': return ['Bei Kreditgeber','Rückmeldung erhalten','Finanzierung bestätigt'].includes(c.status);
+    case 'Abgeschlossen': return CLOSED.includes(c.status);
+    default: return true;
+  }
+}
+
+class Component extends DCLogic {
+  state = {
+    screen: 'login', auth: 'login', caseId: null, filter: 'Alle', query: '', sort: 'date', sortDir: -1,
+    email: 'd.meier@meier-finanz.ch', pw: '', loginError: '', sentText: '',
+    actMode: 'pw', pw1: '', pw2: '', pwError: '', acc1: false, acc2: false,
+    cases: CASES, notifs: NOTIFS, msg: '', toast: '',
+    role: 'partner', partners: PARTNERS, partnerId: 'p1', partnerFilter: 'Alle', assignPick: '', audit: AUDIT,
+    docFilter: 'Alle', screensOpen: false, tickets: TICKETS, supportType: 'frage', supportCase: '', supportSubject: '', supportMsg: '', supportShot: true,
+    search: '', searchOpen: false, ncOpen: false, sf: SF0, logo: null, logoPlate: false, photo: null, crOpen: false, crField: 'Adresse', crValue: '', crNote: '', changeReqs: [],
+    ownDocs: [
+      { name: 'Handelsregisterauszug', meta: 'PDF · hochgeladen 12.08.2026', status: 'Geprüft', tone: 'success' },
+      { name: 'Eintrag Vermittlerregister', meta: 'PDF · hochgeladen 12.08.2026', status: 'Geprüft', tone: 'success' },
+      { name: 'Zusammenarbeitsvertrag HYPOTEQ', meta: 'PDF · von HYPOTEQ bereitgestellt', status: 'Unterzeichnet', tone: 'info' },
+    ], cfName: 'Daniel Meier', cfFirma: 'Meier Finanzberatung GmbH', cfTel: '+41 52 203 44 10',
+    dlg: null, isMobile: typeof window !== 'undefined' && window.innerWidth < 900,
+    settings: { neu: true, dok: true, status: true, kg: true },
+  };
+  componentDidMount() {
+    this._rs = () => this.setState({ isMobile: window.innerWidth < 900 });
+    window.addEventListener('resize', this._rs);
+    try { const lg = localStorage.getItem('hqpp-logo'), ph = localStorage.getItem('hqpp-photo'); this.setState({ logo: lg || null, photo: ph || null, logoPlate: localStorage.getItem('hqpp-logo-plate') === '1' }); } catch (e) {}
+    const start = this.props.startScreen;
+    if (start === 'dashboard') this.setState({ screen: 'dashboard' });
+    else if (start === 'activate') this.setState({ auth: 'activate' });
+    else if (start === 'admin') this.setState({ screen: 'adminPartners', role: 'admin' });
+  }
+  componentWillUnmount() { window.removeEventListener('resize', this._rs); clearTimeout(this._tt); clearInterval(this._up); }
+  log(who, action, icon, ref) { this.setState(s => ({ audit: [{ ts: '22.09.2026 ' + new Date().toTimeString().slice(0, 5), who, action, icon, ref }, ...s.audit] })); }
+  partnerAction(id) {
+    const p = this.state.partners.find(x => x.id === id); const a = ACCESS[p.access];
+    if (!a.next) { this.log('L. Weber (Admin)', 'Einladung erneut gesendet', 'mail', p.name); return this.toast('Aktivierungs-E-Mail erneut an ' + p.email + ' gesendet.'); }
+    this.setState(s => ({ partners: s.partners.map(x => x.id === id ? { ...x, access: a.next, created: x.created === '–' ? '22.09.2026' : x.created, supabase: x.supabase === '–' ? 'usr_…neu' : x.supabase } : x) }));
+    this.log('L. Weber (Admin)', a.next === 'Deaktiviert' ? 'Partner deaktiviert' : (a.next === 'Aktiv' ? 'Partner reaktiviert' : 'Partner aktiviert'), a.next === 'Deaktiviert' ? 'user-x' : 'user-check', p.name);
+    this.toast(a.next === 'Einladung gesendet' ? 'Supabase-User erstellt. Aktivierungs-E-Mail an ' + p.email + ' gesendet.' : (a.next === 'Deaktiviert' ? p.name + ' hat keinen Portalzugang mehr.' : p.name + ' wurde reaktiviert.'));
+  }
+  readImg(file, key) {
+    if (!file || !/^image\//.test(file.type)) return this.toast('Bitte eine Bilddatei wählen (PNG, SVG, JPG).');
+    if (file.size > 2 * 1024 * 1024) return this.toast('Bild zu gross. Maximal 2 MB.');
+    const r = new FileReader();
+    r.onload = () => { this.setState({ [key]: r.result }); try { localStorage.setItem('hqpp-' + key, r.result); } catch (e) {} this.toast(key === 'logo' ? 'Firmenlogo aktualisiert. Es ersetzt jetzt das HYPOTEQ Logo.' : 'Profilfoto aktualisiert.'); };
+    r.readAsDataURL(file);
+  }
+  sfSet(p) { this.setState(s => ({ sf: { ...s.sf, ...p } })); }
+  sfAddFiles(list) {
+    const ok = [], bad = [];
+    Array.from(list || []).forEach(f => { if (!/\.(pdf|jpe?g|png|xlsx?)$/i.test(f.name) || f.size > 20 * 1024 * 1024) bad.push(f.name); else ok.push({ id: Math.random().toString(36).slice(2), name: f.name, size: f.size > 1e6 ? (f.size / 1e6).toFixed(1) + ' MB' : Math.max(1, Math.round(f.size / 1024)) + ' KB' }); });
+    if (ok.length) this.setState(s => ({ sf: { ...s.sf, files: [...s.sf.files, ...ok] } }));
+    if (bad.length) this.toast(bad.length + ' Datei(en) nicht zulässig – Format oder Grösse prüfen.');
+  }
+  sfSubmit() {
+    const f = this.state.sf; const t = SF_TYPES.find(x => x[0] === f.type);
+    const digits = f.betrag.replace(/\D/g, ''); const betrag = 'CHF ' + digits.replace(/\B(?=(\d{3})+(?!\d))/g, "'");
+    const nr = 'HQ-2026-0' + (422 + this.state.cases.filter(c => c.special).length);
+    const today = '22.09.2026';
+    const docsList = f.files.length ? f.files.map((x, i) => ({ id: 'sd' + i, cat: 'Weitere Dokumente', name: x.name, status: 'hochgeladen', note: '', meta: 'Hochgeladen ' + today + ' · ' + x.size }))
+      : [{ id: 'sd0', cat: 'Weitere Dokumente', name: 'Unterlagen zum Vorhaben', status: 'fehlt', note: '', meta: '' }];
+    const c = { id: 'cs' + Date.now(), special: true, partnerId: 'p1', fast: true, nr, kunde: f.kName.trim(), erstellt: today, update: today, art: 'Spezialfinanzierung · ' + t[1], betrag, objekt: f.objekt.trim() || '–', status: 'Neue Anfrage',
+      docs: docsList, released: [], updates: [{ date: today, text: 'Spezialfinanzierung eingereicht. HYPOTEQ prüft das Vorhaben individuell und meldet sich innert 2 Arbeitstagen.', by: 'Daniel Meier' }] };
+    this.setState(s => ({ cases: [c, ...s.cases], sf: SF0 }));
+    this.log('Daniel Meier', 'Spezialfinanzierung eingereicht', 'layers', nr + ' · ' + t[1]);
+    this.toast('Spezialfinanzierung ' + nr + ' eingereicht. Wir melden uns innert 2 Arbeitstagen.');
+    this.openCase(c.id);
+  }
+  toast(t) { clearTimeout(this._tt); this.setState({ toast: t }); this._tt = setTimeout(() => this.setState({ toast: '' }), 3800); }
+  go(screen, extra) { this.setState({ screen, ...(extra || {}) }); window.scrollTo(0, 0); }
+  openCase(id) { this.go('case', { caseId: id, msg: '' }); }
+  patchCase(id, fn) { this.setState(s => ({ cases: s.cases.map(c => c.id === id ? fn(c) : c) })); }
+  openUpload(caseId, docId) {
+    const c = this.state.cases.find(x => x.id === caseId); const d = c.docs.find(x => x.id === docId);
+    this.setState({ dlg: { caseId, docId, title: d.name, sub: c.kunde + ' · ' + c.nr + ' · ' + d.cat, file: '', size: '', progress: 0, done: false, error: '' } });
+  }
+  takeFile(file) {
+    if (!file) return;
+    const ok = /\.(pdf|jpe?g|png)$/i.test(file.name);
+    if (!ok) return this.setState(s => ({ dlg: { ...s.dlg, error: 'Format nicht erlaubt. Zulässig: PDF, JPG, JPEG, PNG.' } }));
+    if (file.size > 20 * 1024 * 1024) return this.setState(s => ({ dlg: { ...s.dlg, error: 'Datei zu gross. Maximal 20 MB.' } }));
+    const size = file.size > 1e6 ? (file.size / 1e6).toFixed(1) + ' MB' : Math.max(1, Math.round(file.size / 1024)) + ' KB';
+    this.setState(s => ({ dlg: { ...s.dlg, file: file.name, size, error: '' } }));
+  }
+  startUpload() {
+    clearInterval(this._up);
+    this._up = setInterval(() => {
+      const d = this.state.dlg; if (!d) return clearInterval(this._up);
+      const p = Math.min(100, d.progress + 9 + Math.random() * 14);
+      if (p >= 100) {
+        clearInterval(this._up);
+        const today = '22.09.2026';
+        this.patchCase(d.caseId, c => ({ ...c, update: today,
+          docs: c.docs.map(x => x.id === d.docId ? { ...x, status: 'hochgeladen', note: '', meta: 'Hochgeladen ' + today + ' · ' + d.file } : x),
+          updates: [{ date: today, text: d.title + ' wurde erfolgreich hochgeladen.', by: 'Daniel Meier' }, ...c.updates] }));
+        this.setState(s => ({ dlg: { ...s.dlg, progress: 100, done: true } }));
+        this.toast(d.title + ' hochgeladen. HYPOTEQ prüft das Dokument.');
+      } else this.setState(s => ({ dlg: { ...s.dlg, progress: Math.round(p) } }));
+    }, 160);
+  }
+  renderVals() {
+    const s = this.state;
+    const isMobile = s.isMobile, isDesktop = !isMobile;
+    const isAdmin = s.role === 'admin', isPartner = !isAdmin;
+    const allCs = s.cases.map(c => ({ ...c, tone: ST[c.status].tone }));
+    const cs = s.cases.filter(c => c.partnerId === 'p1').map(c => {
+      const need = docNeeds(c); const st = ST[c.status];
+      const actionRequired = need.length > 0 && !CLOSED.includes(c.status);
+      const actionText = need.length === 1 ? '1 Dokument fehlt: ' + need[0].name : need.length + ' Dokumente fehlen: ' + need.map(d => d.name).join(', ');
+      return { ...c, tone: st.tone, rank: st.rank, need, actionRequired, actionText,
+        chips: need.slice(0, 2).map(d => d.name), more: need.length > 2 ? '+ ' + (need.length - 2) + ' weitere' : '',
+        needCount: String(need.length), needLabel: need.length === 1 ? 'Dokument fehlt' : 'Dokumente fehlen',
+        donePct: Math.round((c.docs.length - need.length) / c.docs.length * 100) + '%', doneText: (c.docs.length - need.length) + ' von ' + c.docs.length + ' vorhanden',
+        docsText: actionRequired ? need.length + (need.length === 1 ? ' Dokument fehlt' : ' Dokumente fehlen') : 'Aktualisiert ' + c.update,
+        open: () => this.openCase(c.id) };
+    });
+    const open = cs.filter(c => !CLOSED.includes(c.status));
+    const actionCases = cs.filter(c => c.actionRequired);
+    const kpiDef = [['Offene Anfragen','Offen'],['In Bearbeitung','In Bearbeitung'],['Dokumente fehlen','Dokumente fehlen'],['Bei Kreditgeber','Bei Kreditgeber'],['Abgeschlossen','Abgeschlossen']];
+    const kpis = kpiDef.map(([label, f]) => ({ label, value: String(cs.filter(c => inFilter(c, f)).length), open: () => this.go('cases', { filter: f, query: '' }) }));
+    const q = s.query.trim().toLowerCase();
+    let filtered = cs.filter(c => inFilter(c, s.filter) && (!q || c.kunde.toLowerCase().includes(q) || c.nr.toLowerCase().includes(q)));
+    filtered.sort((a, b) => s.sort === 'date' ? (parseD(a.update) - parseD(b.update)) * s.sortDir : (a.rank - b.rank) * s.sortDir);
+    const recentCases = [...cs].filter(c => !CLOSED.includes(c.status)).sort((a, b) => parseD(b.update) - parseD(a.update)).slice(0, 5);
+
+    const cur = cs.find(c => c.id === s.caseId) || cs[0];
+    const stp = ST[cur.status].step; const ended = stp < 0;
+    const curSteps = STEPS.map((label, i) => {
+      const done = i < stp, current = i === stp;
+      return { label, done, current,
+        line: i === 0 ? 'transparent' : (i <= stp ? 'var(--lime-500)' : 'rgba(255,255,255,.14)'),
+        dotBg: done ? 'var(--lime-500)' : (current ? 'var(--forest-700)' : 'transparent'),
+        dotBorder: done || current ? 'var(--lime-500)' : 'rgba(255,255,255,.3)',
+        text: current ? '#fff' : (done ? 'rgba(255,255,255,.7)' : 'rgba(255,255,255,.45)'), weight: current ? 600 : 400 };
+    });
+    const curMissing = cur.need.map(d => ({ ...d, label: DOC[d.status].label, tone: DOC[d.status].tone, upload: () => this.openUpload(cur.id, d.id) }));
+    const curDocGroups = CATS.map(([name]) => ({ name, docs: cur.docs.filter(d => d.cat === name).map(d => ({ ...d,
+      label: DOC[d.status].label, tone: DOC[d.status].tone, icon: d.status === 'vorhanden' ? 'file-check' : (d.status === 'hochgeladen' || d.status === 'pruefung' ? 'file-clock' : 'file-text'),
+      meta: d.note || d.meta, canUpload: NEEDS.includes(d.status) && !CLOSED.includes(cur.status), canDownload: d.status === 'vorhanden' && !!d.meta,
+      upload: () => this.openUpload(cur.id, d.id), download: () => this.toast(d.name + ' wird heruntergeladen.') })) }));
+    const okCount = cur.docs.filter(d => ['vorhanden','hochgeladen','pruefung'].includes(d.status)).length;
+    const curReleased = cur.released.map(r => ({ ...r, download: () => this.toast(r.name + ' wird heruntergeladen.') }));
+    const curFacts = [['Case Nummer', cur.nr], ['Kunde', cur.kunde], ['Erstellungsdatum', cur.erstellt], ['Finanzierungsart', cur.art], ['Finanzierungsbetrag', cur.betrag], ['Objekt', cur.objekt], ['Vertriebspartner', 'Meier Finanzberatung GmbH'], ['Letzte Aktualisierung', cur.update]].map(([k, v]) => ({ k, v }));
+
+    const notifs = s.notifs.map(n => ({ ...n, dot: n.read ? 'transparent' : 'var(--lime-500)', weight: n.read ? 400 : 600,
+      open: () => { this.setState(st => ({ notifs: st.notifs.map(x => x.id === n.id ? { ...x, read: true } : x) })); this.openCase(n.caseId); } }));
+    const unread = s.notifs.filter(n => !n.read).length;
+
+    const openDocsNeed = cs.filter(c => !CLOSED.includes(c.status)).reduce((n, c) => n + c.need.length, 0);
+    const navItems = isAdmin ? [
+      { value: 'adminPartners', label: 'Vertriebspartner', icon: 'users', badge: s.partners.filter(p => p.access === 'Nicht aktiviert').length || undefined },
+      { value: 'adminAudit', label: 'Audit Log', icon: 'scroll-text' },
+    ] : [
+      { value: 'dashboard', label: 'Dashboard', icon: 'layout-dashboard' },
+      { value: 'cases', label: 'Cases', icon: 'folder-open', badge: actionCases.length || undefined },
+      { value: 'special', label: 'Spezialfinanzierung', short: 'Spezial', icon: 'layers' },
+            { value: 'notifications', label: 'Meldungen', icon: 'bell', badge: unread || undefined },
+      { value: 'support', label: 'Support', icon: 'life-buoy' },
+      { value: 'profile', label: 'Profil', icon: 'user' },
+    ];
+    const navValue = s.screen === 'case' || s.screen === 'denied' ? 'cases' : (s.screen === 'adminPartner' ? 'adminPartners' : (s.screen === 'email' ? 'notifications' : s.screen));
+    const mobileNav = navItems.filter(n => n.value !== 'support').map(n => ({ ...n, label: n.short || n.label, go: () => this.go(n.value, n.value === 'cases' ? { filter: 'Alle', query: '' } : {}),
+      color: navValue === n.value ? '#fff' : 'rgba(255,255,255,.7)', iconColor: navValue === n.value ? 'var(--lime-500)' : 'rgba(255,255,255,.45)' }));
+    const crumbs = { dashboard: 'Partnerportal · Dashboard', cases: 'Partnerportal · Cases', case: 'Partnerportal · Cases · ' + cur.nr, notifications: 'Partnerportal · Benachrichtigungen', profile: 'Partnerportal · Profil', provision: 'Partnerportal · Provision', support: 'Partnerportal · Support', special: 'Partnerportal · Spezialfinanzierung', email: 'Partnerportal · Benachrichtigungen · E-Mail-Vorschau', denied: 'Partnerportal · Cases · Zugriff verweigert', adminPartners: 'Administration · Vertriebspartner', adminPartner: 'Administration · Vertriebspartner · Detail', adminAudit: 'Administration · Audit Log' };
+
+    // Documents overview
+    const docFilterDef = DOC_FILTERS.find(f => f[0] === s.docFilter) || DOC_FILTERS[0];
+    const allDocs = [];
+    cs.filter(c => !CLOSED.includes(c.status)).forEach(c => c.docs.forEach(d => {
+      if (docFilterDef[1] && !docFilterDef[1].includes(d.status)) return;
+      allDocs.push({ ...d, kunde: c.kunde, nr: c.nr, label: DOC[d.status].label, tone: DOC[d.status].tone,
+        icon: d.status === 'vorhanden' ? 'file-check' : (d.status === 'hochgeladen' || d.status === 'pruefung' ? 'file-clock' : 'file-text'),
+        canUpload: NEEDS.includes(d.status), canDownload: d.status === 'vorhanden' && !!d.meta,
+        openCase: () => this.openCase(c.id), upload: () => this.openUpload(c.id, d.id), download: () => this.toast(d.name + ' wird heruntergeladen.') });
+    }));
+    const needOrder = { fehlt: 0, ungueltig: 0, neu: 1, hochgeladen: 2, pruefung: 3, vorhanden: 4 };
+    allDocs.sort((a, b) => needOrder[a.status] - needOrder[b.status]);
+
+    // Admin
+    const partners = s.partners.map(p => ({ ...p, tone: ACCESS[p.access].tone, actionLabel: ACCESS[p.access].label, actionIcon: ACCESS[p.access].icon,
+      canResend: p.access === 'Aktiv' || p.access === 'Einladung gesendet', caseCount: s.cases.filter(c => c.partnerId === p.id).length,
+      open: () => this.go('adminPartner', { partnerId: p.id }), action: () => this.partnerAction(p.id),
+      resend: () => { this.log('L. Weber (Admin)', 'Zugang erneut gesendet', 'mail', p.name); this.toast('Zugangs-E-Mail erneut an ' + p.email + ' gesendet.'); } }));
+    const partnerStates = ['Aktiv','Einladung gesendet','Nicht aktiviert','Deaktiviert'];
+    const cp = partners.find(p => p.id === s.partnerId) || partners[0];
+    const cpCases = allCs.filter(c => c.partnerId === cp.id).map(c => ({ ...c, unassign: () => { this.patchCase(c.id, x => ({ ...x, partnerId: null })); this.log('L. Weber (Admin)', 'Case-Zuordnung entfernt', 'unlink', c.nr + ' · ' + cp.name); this.toast(c.nr + ' von ' + cp.name + ' gelöst.'); } }));
+    const unassignedCases = allCs.filter(c => !c.partnerId);
+    const assignPick = unassignedCases.some(u => u.id === s.assignPick) ? s.assignPick : (unassignedCases[0] ? unassignedCases[0].id : '');
+
+
+    const vol = c => +String(c.betrag).replace(/\D/g, '');
+    const chf = n => 'CHF ' + String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, "'");
+    const mio = n => n >= 1e6 ? 'CHF ' + (n / 1e6).toFixed(2).replace(/0$/, '') + ' Mio.' : chf(n);
+    const prov = c => {
+      const v = vol(c), complete = c.need.length === 0, dead = c.status === 'Storniert' || c.status === 'Abgelehnt';
+      const base = v * 0.0025, bDocs = v * 0.0005, bFast = v * 0.0005;
+      const fastGot = c.fast === true && complete, fastOpen = typeof c.fast === 'string', fastMissed = c.fast === false;
+      const total = dead ? 0 : base + (complete ? bDocs : 0) + (fastGot ? bFast : 0);
+      const potential = dead ? 0 : (complete ? 0 : bDocs) + (fastOpen ? bFast : 0);
+      return { v, base, bDocs, bFast, complete, fastGot, fastOpen, fastMissed, dead, total, potential, bonus: total - (dead ? 0 : base) };
+    };
+    const openCs = cs.filter(c => !CLOSED.includes(c.status));
+    const live = cs.filter(c => !['Storniert', 'Abgelehnt'].includes(c.status));
+    const doneCs = cs.filter(c => c.status === 'Abgeschlossen');
+    const pipe = openCs.reduce((n, c) => n + vol(c), 0);
+    const doneVol = doneCs.reduce((n, c) => n + vol(c), 0);
+    const docPct = Math.round(openCs.reduce((n, c) => n + c.docs.filter(d => ['vorhanden', 'hochgeladen', 'pruefung'].includes(d.status)).length / c.docs.length, 0) / Math.max(1, openCs.length) * 100);
+    const volStats = [
+      { icon: 'trending-up', label: 'Volumen in Bearbeitung', value: mio(pipe), sub: openCs.length + ' offene Cases' },
+      { icon: 'badge-check', label: 'Finanziert 2026', value: mio(doneVol), sub: doneCs.length + (doneCs.length === 1 ? ' Finanzierung' : ' Finanzierungen') + ' abgeschlossen' },
+      { icon: 'calculator', label: 'Ø Finanzierungsbetrag', value: chf(live.reduce((n, c) => n + vol(c), 0) / Math.max(1, live.length)), sub: 'über ' + live.length + ' Cases' },
+      { icon: 'timer', label: 'Ø Durchlaufzeit', value: '23 Tage', sub: 'Eingang bis Abschluss · alle Partner Ø 31' },
+      { icon: 'file-check', label: 'Dokumenten-Quote', value: docPct + ' %', sub: 'Ø Vollständigkeit offener Cases' },
+    ];
+    const withP = openCs.map(c => ({ c, p: prov(c) })).filter(x => x.p.potential > 0).sort((a, b) => b.p.potential - a.p.potential);
+    const bonusSum = withP.reduce((n, x) => n + x.p.potential, 0);
+    const bonusRows = withP.slice(0, 3).map(({ c, p }) => ({ kunde: c.kunde, value: '+ ' + chf(p.potential), open: () => this.openCase(c.id),
+      text: (c.need.length === 1 ? '1 Dokument fehlt' : c.need.length + ' Dokumente fehlen') + (p.fastOpen ? ' · Schnell-Bonus bis ' + c.fast : '') }));
+    const paid = doneCs.reduce((n, c) => n + prov(c).total, 0);
+    const expected = openCs.reduce((n, c) => n + prov(c).total, 0);
+    const provStats = [
+      { label: 'Ausbezahlt 2026', value: chf(paid), sub: doneCs.length + ' abgeschlossene Finanzierung', color: '#fff' },
+      { label: 'Erwartet aus Pipeline', value: chf(expected), sub: 'bei Abschluss aller offenen Cases', color: '#fff' },
+      { label: 'Zusätzlich möglich', value: '+ ' + chf(bonusSum), sub: 'durch fehlende Unterlagen und Fristen', color: 'var(--lime-500)' },
+    ];
+    const provCases = cs.map(c => {
+      const p = prov(c); const closed = CLOSED.includes(c.status);
+      const st = c.status === 'Abgeschlossen' ? ['Ausbezahlt', 'success'] : (c.status === 'Finanzierung bestätigt' ? ['Bestätigt', 'info'] : (p.dead ? ['Entfällt', 'danger'] : ['Erwartet', 'neutral']));
+      return { kunde: c.kunde, nr: c.nr, betrag: c.betrag, open: () => this.openCase(c.id),
+        docsLabel: p.complete ? 'Vollständig' : 'Dokumente fehlen', docsTone: p.dead ? 'neutral' : (p.complete ? 'success' : 'warning'),
+        fastLabel: p.fastGot ? 'Schnell' : (p.fastOpen ? 'Schnell bis ' + c.fast.slice(0, 6) : 'Schnell verpasst'), fastTone: p.dead ? 'neutral' : (p.fastGot ? 'success' : (p.fastOpen ? 'warning' : 'neutral')),
+        total: chf(p.total), sub: p.dead ? 'Case ' + c.status.toLowerCase() : (p.potential > 0 ? '+ ' + chf(p.potential) + ' möglich' : (p.bonus > 0 ? 'inkl. Bonus ' + chf(p.bonus) : 'Basis')),
+        statusLabel: st[0], statusTone: st[1], canAct: !closed && c.need.length > 0, actLabel: 'Nachreichen' };
+    });
+    const cp0 = prov(cur);
+    const nNeed = cur.need.length;
+    const curProv = { total: chf(cp0.total), rate: (cp0.v ? (cp0.total / cp0.v * 100).toFixed(2) : '0') + ' % von ' + cur.betrag,
+      hint: cp0.potential > 0 && !CLOSED.includes(cur.status) ? 'Reichen Sie die fehlenden Unterlagen nach – Ihre Provision steigt um ' + chf(cp0.potential) + '.' : undefined,
+      lines: [
+        { label: 'Basis · 0.25 %', sub: 'Bei erfolgreichem Abschluss', value: chf(cp0.base), color: '#fff' },
+        cp0.complete ? { label: 'Bonus Vollständig · 0.05 %', sub: 'Erhalten – Dossier vollständig', value: '+ ' + chf(cp0.bDocs), color: 'var(--lime-500)' }
+          : { label: 'Bonus Vollständig · 0.05 %', sub: 'Noch ' + (nNeed === 1 ? '1 Dokument' : nNeed + ' Dokumente') + ' nachreichen', value: '+ ' + chf(cp0.bDocs), color: 'rgba(255,255,255,.45)' },
+        cp0.fastGot ? { label: 'Bonus Schnell · 0.05 %', sub: 'Erhalten – innert 5 Arbeitstagen', value: '+ ' + chf(cp0.bFast), color: 'var(--lime-500)' }
+          : (cp0.fastOpen ? { label: 'Bonus Schnell · 0.05 %', sub: 'Möglich bis ' + cur.fast, value: '+ ' + chf(cp0.bFast), color: 'rgba(255,255,255,.45)' }
+          : { label: 'Bonus Schnell · 0.05 %', sub: 'Frist verpasst', value: '–', color: 'rgba(255,255,255,.45)' }),
+      ] };
+    const sf = s.sf; const sfT = SF_TYPES.find(x => x[0] === sf.type);
+    const tileBase = 'text-align:left;display:flex;flex-direction:column;gap:8px;padding:18px;border-radius:12px;cursor:pointer;color:#fff;font:inherit;';
+    const sfValid = [!!sf.type, sf.kName.trim().length > 1, sf.betrag.replace(/\D/g, '').length >= 4 && sf.text.trim().length >= 20, true, sf.ack];
+    const sfMaxStep = sfValid.findIndex(v => !v); const reach = sfMaxStep < 0 ? 4 : sfMaxStep;
+    const sfBetragFmt = sf.betrag.replace(/\D/g, '') ? 'CHF ' + sf.betrag.replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, "'") : '–';
+    const sTypes = [['frage', 'Frage', 'help-circle'], ['fehler', 'Fehler', 'bug'], ['wunsch', 'Wunsch', 'lightbulb']];
+    const ph = { frage: ['Worum geht es?', 'Beschreiben Sie Ihre Frage.'], fehler: ['Was funktioniert nicht?', 'Was haben Sie gemacht, was ist passiert, was hätten Sie erwartet?'], wunsch: ['Was würde Ihnen helfen?', 'Beschreiben Sie Ihre Idee und wofür Sie sie im Alltag brauchen.'] }[s.supportType];
+    const sTypeLabel = { frage: 'Frage', fehler: 'Fehler', wunsch: 'Wunsch' };
+    const sq = s.search.trim().toLowerCase();
+    const searchResults = !sq ? [] : cs.filter(c => { const k = c.kunde.toLowerCase(); return k.split(/[\s&]+/).some(w => w.startsWith(sq)) || k.includes(sq) || c.nr.toLowerCase().includes(sq); }).slice(0, 6)
+      .map(c => ({ kunde: c.kunde, status: c.status, tone: c.tone, sub: c.nr + ' · ' + c.art + ' · ' + c.betrag, go: () => { this.setState({ search: '', searchOpen: false }); this.openCase(c.id); } }));
+    const screenGroups = [
+      { name: 'Authentifizierung', items: [['Login','login','login'],['Zugang aktivieren','login','activate'],['Angaben bestätigen','login','confirm'],['Passwort zurücksetzen','login','reset'],['E-Mail gesendet','login','sent'],['Sitzung abgelaufen','login','expired']] },
+      { name: 'Partnerportal', items: [['Dashboard','dashboard'],['Case Übersicht','cases'],['Case Detail','case'],['Spezialfinanzierung','special'],['Support & Feedback','support'],['Benachrichtigungen','notifications'],['E-Mail-Vorschau','email'],['Profil','profile'],['Zugriff verweigert','denied']] },
+      { name: 'Administration', items: [['Vertriebspartner','adminPartners'],['Partner Detail','adminPartner'],['Audit Log','adminAudit']] },
+    ].map(g => ({ ...g, items: g.items.map(([label, screen, auth]) => ({ label, go: () => this.jump(screen, auth) })) }));
+
+    const modeBtn = on => 'height:44px;border-radius:999px;font-size:15px;font-weight:500;cursor:pointer;' + (on ? 'background:var(--lime-500);color:var(--forest-800);border:1.5px solid var(--lime-500)' : 'background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.3)');
+    const styleObj = str => Object.fromEntries(str.split(';').filter(Boolean).map(p => { const i = p.indexOf(':'); const k = p.slice(0, i).trim().replace(/-([a-z])/g, (_, c) => c.toUpperCase()); return [k, p.slice(i + 1).trim()]; }));
+    const pwOk = s.actMode === 'magic' || (s.pw1.length >= 10 && /\d/.test(s.pw1) && s.pw1 === s.pw2);
+    const d = s.dlg;
+    const settingDefs = [['neu','Neuer Case verfügbar'],['dok','Dokument fehlt oder neu erforderlich'],['status','Case Status geändert'],['kg','Rückmeldung eines Kreditgebers']];
+
+    return {
+      isMobile, isDesktop, isAdmin, isPartner, showNewCase: isDesktop && isPartner,
+      userInitials: isAdmin ? 'LW' : 'DM', userName: isAdmin ? 'Lea Weber' : 'Daniel Meier', userSub: isAdmin ? 'HYPOTEQ · Administrator' : 'Meier Finanzberatung GmbH',
+      mobileNavCount: mobileNav.length,
+      openScreens: e => { e && e.preventDefault && e.preventDefault(); this.setState({ screensOpen: true }); }, closeScreens: () => this.setState({ screensOpen: false }), screensOpen: s.screensOpen, screenGroups,
+      loginAdmin: e => { e && e.preventDefault(); this.setState({ role: 'admin', partnerFilter: 'Alle' }); this.go('adminPartners'); },
+      isAuth: s.screen === 'login', isPortal: s.screen !== 'login',
+      authLogin: s.auth === 'login', authActivate: s.auth === 'activate', authReset: s.auth === 'reset', authSent: s.auth === 'sent', sentText: s.sentText,
+      authConfirm: s.auth === 'confirm', authExpired: s.auth === 'expired',
+      cfName: s.cfName, cfFirma: s.cfFirma, cfTel: s.cfTel, setCfName: e => this.setState({ cfName: e.target.value }), setCfFirma: e => this.setState({ cfFirma: e.target.value }), setCfTel: e => this.setState({ cfTel: e.target.value }),
+      confirmProfile: () => { this.go('dashboard'); this.setState({ auth: 'login' }); this.toast('Zugang aktiviert. Willkommen im Partnerportal.'); },
+      isDocuments: false, isSpecial: s.screen === 'special',
+      ncOpen: s.ncOpen, closeNC: () => this.setState({ ncOpen: false }),
+      openFunnel: () => { this.setState({ ncOpen: false }); this.toast('Weiterleitung zum Standard-Funnel mit Ihrer Partner-ID.'); },
+      goSpecial: () => { this.setState({ ncOpen: false }); this.go('special'); },
+      sf0: sf.step === 0, sf1: sf.step === 1, sf2: sf.step === 2, sf3: sf.step === 3, sf4: sf.step === 4,
+      sfSteps: SF_STEPS.map((label, i) => ({ label, num: String(i + 1), bar: i <= sf.step ? 'var(--lime-500)' : 'rgba(255,255,255,.14)', color: i === sf.step ? '#fff' : (i < sf.step ? 'rgba(255,255,255,.7)' : 'rgba(255,255,255,.45)'), weight: i === sf.step ? 600 : 400, go: () => { if (i <= reach) this.sfSet({ step: i }); } })),
+      sfTypes: SF_TYPES.map(([k, label, icon, text]) => ({ label, icon, text, select: () => this.sfSet({ type: k }),
+        style: styleObj(tileBase + (sf.type === k ? 'background:rgba(202,244,118,.1);border:1.5px solid var(--lime-500)' : 'background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.14)')) })),
+      sfKTypes: ['Privatperson', 'Unternehmen'].map(k => ({ label: k, select: () => this.sfSet({ kTyp: k }), style: styleObj(modeBtn(sf.kTyp === k)) })),
+      sfNameLabel: sf.kTyp === 'Unternehmen' ? 'Firma' : 'Vor- und Nachname',
+      sfKName: sf.kName, setSfKName: e => this.sfSet({ kName: e.target.value }), sfKOrt: sf.kOrt, setSfKOrt: e => this.sfSet({ kOrt: e.target.value }),
+      sfKKontakt: sf.kKontakt, setSfKKontakt: e => this.sfSet({ kKontakt: e.target.value }), sfEigen: sf.eigen, setSfEigen: e => this.sfSet({ eigen: e.target.value }),
+      sfBetrag: sf.betrag, setSfBetrag: e => this.sfSet({ betrag: e.target.value }), sfObjekt: sf.objekt, setSfObjekt: e => this.sfSet({ objekt: e.target.value }),
+      sfZeit: sf.zeit, setSfZeit: e => this.sfSet({ zeit: e.target.value }), sfZeitOpts: ['So rasch wie möglich', 'In 1–3 Monaten', 'In 3–6 Monaten', 'Später als 6 Monate'],
+      sfText: sf.text, setSfText: e => this.sfSet({ text: e.target.value }),
+      sfTextHint: sf.text.trim().length < 20 ? 'Mindestens 20 Zeichen · je genauer, desto schneller unsere Einschätzung' : sf.text.trim().length + ' Zeichen',
+      sfTypeLabel: sfT ? sfT[1] : 'Ihr Vorhaben', sfDocHints: sfT ? sfT[4] : [],
+      sfPick: e => { this.sfAddFiles(e.target.files); e.target.value = ''; }, sfDrop: e => { e.preventDefault(); this.sfAddFiles(e.dataTransfer.files); },
+      sfHasFiles: sf.files.length > 0, sfFiles: sf.files.map(f => ({ ...f, remove: () => this.sfSet({ files: sf.files.filter(x => x.id !== f.id) }) })),
+      sfSummary: [['Art', sfT ? sfT[1] : '–'], ['Endkunde', (sf.kName || '–') + ' · ' + sf.kTyp], ['Wohnort / Sitz', sf.kOrt || '–'], ['Kontakt', sf.kKontakt || '–'], ['Finanzierungsbetrag', sfBetragFmt], ['Eigenmittel', sf.eigen || '–'], ['Objekt / Projekt', sf.objekt || '–'], ['Zeitrahmen', sf.zeit], ['Dokumente', sf.files.length + (sf.files.length === 1 ? ' Datei' : ' Dateien')]].map(([k, v]) => ({ k, v })),
+      sfAck: sf.ack, toggleSfAck: () => this.sfSet({ ack: !sf.ack }),
+      sfFirst: sf.step === 0, sfNotLast: sf.step < 4, sfLast: sf.step === 4,
+      sfBack: () => this.sfSet({ step: Math.max(0, sf.step - 1) }), sfNext: () => { this.sfSet({ step: sf.step + 1 }); window.scrollTo(0, 0); },
+      sfNextDisabled: !sfValid[sf.step], sfSubmitDisabled: !sfValid.every(Boolean), sfSubmit: () => this.sfSubmit(), isProvision: s.screen === 'provision', isSupport: s.screen === 'support',
+      goProvision: () => this.go('provision'), goSupport: () => this.go('support'),
+      valuateObject: () => window.open('https://hypoteq-hedonic.wuestappraisal.com/', '_blank', 'noopener'),
+      volStats, bonusPotential: chf(bonusSum), bonusRows, hasBonus: bonusSum > 0, provStats, provCases, curProv, curShowProv: !cp0.dead,
+      supportTypes: sTypes.map(([k, label, icon]) => ({ label, icon, select: () => this.setState({ supportType: k }), style: styleObj(modeBtn(s.supportType === k) + ';display:flex;align-items:center;justify-content:center;gap:8px;padding:0 10px') })),
+      supportCaseOpts: [{ id: '', label: 'Kein Bezug zu einem Case' }, ...cs.map(c => ({ id: c.id, label: c.nr + ' · ' + c.kunde }))],
+      supportCase: s.supportCase, setSupportCase: e => this.setState({ supportCase: e.target.value }),
+      supportSubject: s.supportSubject, setSupportSubject: e => this.setState({ supportSubject: e.target.value }),
+      supportMsg: s.supportMsg, setSupportMsg: e => this.setState({ supportMsg: e.target.value }),
+      supportSubjectPh: ph[0], supportMsgPh: ph[1], supportShot: s.supportShot, toggleSupportShot: () => this.setState({ supportShot: !s.supportShot }),
+      supportDisabled: !s.supportSubject.trim() || !s.supportMsg.trim(), tickets: s.tickets,
+      sendSupport: () => {
+        const nr = 'T-' + (1043 + s.tickets.length - 3);
+        this.setState(st => ({ tickets: [{ nr, type: sTypeLabel[st.supportType], title: st.supportSubject.trim(), date: '22.09.2026', status: 'Eingegangen', tone: 'neutral' }, ...st.tickets], supportSubject: '', supportMsg: '', supportCase: '' }));
+        this.log('Daniel Meier', 'Support-Meldung erstellt', 'life-buoy', nr + ' · ' + sTypeLabel[s.supportType]);
+        this.toast('Danke! Meldung ' + nr + ' ist eingegangen. Wir melden uns innert 1 Arbeitstag.');
+      }, isEmail: s.screen === 'email', isDenied: s.screen === 'denied',
+      isAdminPartners: s.screen === 'adminPartners', isAdminPartner: s.screen === 'adminPartner', isAdminAudit: s.screen === 'adminAudit',
+      goEmail: () => this.go('email'), goDashboard: () => this.go('dashboard'), emailOpenCase: () => this.openCase('c4'),
+      docFilters: DOC_FILTERS.map(([f]) => ({ label: f, tone: f === s.docFilter ? 'lime' : 'outline', select: () => this.setState({ docFilter: f }) })),
+      allDocs, noDocs: allDocs.length === 0, docsCountText: allDocs.length + ' Dokumente in offenen Cases · ' + openDocsNeed + ' erfordern eine Aktion',
+      partnerKpis: partnerStates.map(st => ({ label: st, value: String(partners.filter(p => p.access === st).length), open: () => this.setState({ partnerFilter: st }) })),
+      partnerFilters: ['Alle', ...partnerStates].map(f => ({ label: f, tone: f === s.partnerFilter ? 'lime' : 'outline', select: () => this.setState({ partnerFilter: f }) })),
+      partnersList: partners.filter(p => s.partnerFilter === 'Alle' || p.access === s.partnerFilter),
+      cp, cpFacts: [['Salesforce Account ID', cp.sfId], ['Supabase User ID', cp.supabase], ['E-Mail (Login)', cp.email], ['Telefon', cp.tel], ['Portal Access', cp.access], ['Erstellt', cp.created], ['Letzter Login', cp.lastLogin], ['Rolle', 'Vertriebspartner']].map(([k, v]) => ({ k, v })),
+      sfFields: [['Portal_Access__c', cp.access], ['Portal_Visible__c', 'true'], ['Portal_Status__c', 'gemappt aus Case Status'], ['Partner_Action_Required__c', 'automatisch (fehlende Dokumente)'], ['Send_Notification__c', 'Quick Action «Portal Update veröffentlichen»']].map(([k, v]) => ({ k, v })),
+      goAdminPartners: () => this.go('adminPartners'), cpCases, cpCaseCount: cpCases.length + (cpCases.length === 1 ? ' Case' : ' Cases'), cpNoCases: cpCases.length === 0,
+      unassignedCases, hasUnassigned: unassignedCases.length > 0, noUnassigned: unassignedCases.length === 0, assignPick, setAssignPick: e => this.setState({ assignPick: e.target.value }),
+      assignCase: () => { const c = unassignedCases.find(u => u.id === assignPick); if (!c) return; this.patchCase(c.id, x => ({ ...x, partnerId: cp.id })); this.log('L. Weber (Admin)', 'Case zugeordnet', 'link', c.nr + ' → ' + cp.name); this.toast(c.nr + ' wurde ' + cp.name + ' zugeordnet. Der Partner erhält eine E-Mail.'); },
+      audit: s.audit,
+      email: s.email, pw: s.pw, loginError: s.loginError || undefined,
+      setEmail: e => this.setState({ email: e.target.value }), setPw: e => this.setState({ pw: e.target.value, loginError: '' }),
+      loginKey: e => { if (e.key === 'Enter') this.login(); },
+      login: () => this.login(),
+      goReset: () => this.setState({ auth: 'reset' }), goActivate: e => { e && e.preventDefault(); this.setState({ auth: 'activate' }); }, goLogin: e => { e && e.preventDefault(); this.setState({ auth: 'login', loginError: '' }); },
+      sendMagic: () => this.setState({ auth: 'sent', sentText: 'Wir haben einen Anmeldelink an ' + (s.email || 'Ihre E-Mail-Adresse') + ' gesendet. Er ist 15 Minuten gültig.' }),
+      sendReset: () => this.setState({ auth: 'sent', sentText: 'Falls ein Konto für ' + (s.email || 'diese Adresse') + ' existiert, erhalten Sie in Kürze einen Link zum Zurücksetzen.' }),
+      enterPortal: () => { this.go('dashboard'); this.setState({ auth: 'login' }); },
+      actPw: s.actMode === 'pw', actMagic: s.actMode === 'magic', modePw: () => this.setState({ actMode: 'pw' }), modeMagic: () => this.setState({ actMode: 'magic' }),
+      modePwStyle: styleObj(modeBtn(s.actMode === 'pw')), modeMagicStyle: styleObj(modeBtn(s.actMode === 'magic')),
+      pw1: s.pw1, pw2: s.pw2, setPw1: e => this.setState({ pw1: e.target.value, pwError: '' }), setPw2: e => this.setState({ pw2: e.target.value, pwError: '' }),
+      pwError: (s.pw2 && s.pw1 !== s.pw2) ? 'Die Passwörter stimmen nicht überein.' : undefined,
+      acc1: s.acc1, acc2: s.acc2, toggleAcc1: () => this.setState({ acc1: !s.acc1 }), toggleAcc2: () => this.setState({ acc2: !s.acc2 }),
+      actDisabled: !(s.acc1 && s.acc2 && pwOk),
+      activate: () => this.setState({ auth: 'confirm' }),
+
+      navItems, navValue, nav: v => this.go(v, v === 'cases' ? { filter: 'Alle', query: '' } : {}), mobileNav,
+      crumb: crumbs[s.screen] || 'Partnerportal',
+      logout: () => { this.go('login'); this.setState({ auth: 'login', pw: '', role: 'partner' }); },
+      newCase: () => this.setState({ ncOpen: true }),
+      goNotifications: () => this.go('notifications'), goProfile: () => this.go('profile'),
+      goCases: () => this.go('cases'), goCasesAll: () => this.go('cases', { filter: 'Alle', query: '' }),
+      hasUnread: unread > 0, unreadCount: unread,
+
+      isDashboard: s.screen === 'dashboard', isCases: s.screen === 'cases', isCase: s.screen === 'case', isNotifications: s.screen === 'notifications', isProfile: s.screen === 'profile',
+      todayLabel: 'Dienstag, 22. September 2026',
+      attentionText: actionCases.length === 0 ? open.length + ' offene Anfragen. Keine Aktion nötig.' : (actionCases.length === 1 ? '1 Anfrage benötigt Ihre Aufmerksamkeit.' : actionCases.length + ' Anfragen benötigen Ihre Aufmerksamkeit.'),
+      hasActions: actionCases.length > 0, actionCases, kpis, recentCases,
+
+      filters: FILTERS.map(f => ({ label: f, tone: f === s.filter ? 'lime' : 'outline', select: () => this.setState({ filter: f }) })),
+      query: s.query, setQuery: e => this.setState({ query: e.target.value }),
+      sortDateIcon: s.sort === 'date' ? (s.sortDir < 0 ? 'arrow-down' : 'arrow-up') : 'arrow-up-down',
+      sortStatusIcon: s.sort === 'status' ? (s.sortDir < 0 ? 'arrow-down' : 'arrow-up') : 'arrow-up-down',
+      sortByDate: () => this.setState({ sort: 'date', sortDir: s.sort === 'date' ? -s.sortDir : -1 }),
+      sortByStatus: () => this.setState({ sort: 'status', sortDir: s.sort === 'status' ? -s.sortDir : 1 }),
+      filteredCases: filtered, noResults: filtered.length === 0,
+      casesCountText: filtered.length + ' von ' + cs.length + ' Cases · Filter: ' + s.filter,
+
+      cur, curHasMissing: curMissing.length > 0 && !CLOSED.includes(cur.status), curMissing, curSteps,
+      curEnded: ended, curEndedText: cur.status === 'Storniert' ? 'Diese Anfrage wurde storniert. Der Case bleibt als Historie sichtbar.' : 'Diese Anfrage wurde abgelehnt. Der Case bleibt als Historie sichtbar.',
+      curStepText: ended ? cur.status : (stp >= 7 ? 'Alle Schritte abgeschlossen' : 'Schritt ' + (stp + 1) + ' von 7 · ' + STEPS[stp]),
+      curDocGroups, curDocsPct: Math.round(okCount / cur.docs.length * 100), curDocsSummary: okCount + ' von ' + cur.docs.length + ' Dokumenten vorhanden',
+      curReleased, curHasReleased: curReleased.length > 0, curNoReleased: curReleased.length === 0, curFacts, curUpdates: cur.updates,
+      downloadSummary: () => this.toast('Case Zusammenfassung ' + cur.nr + ' wird als PDF erstellt.'),
+      msg: s.msg, setMsg: e => this.setState({ msg: e.target.value }), msgEmpty: !s.msg.trim(),
+      sendMsg: () => { const text = s.msg.trim(); this.patchCase(cur.id, c => ({ ...c, updates: [{ date: '22.09.2026', text: 'Nachricht gesendet: „' + text + '“', by: 'Daniel Meier' }, ...c.updates] })); this.setState({ msg: '' }); this.toast('Nachricht gesendet. Sie wurde dem Case ' + cur.nr + ' zugeordnet.'); },
+
+      notifs, markAllRead: () => this.setState(st => ({ notifs: st.notifs.map(n => ({ ...n, read: true })) })),
+      profileFacts: PFACTS.map(([k, v, f]) => ({ k, v, canEdit: !!f, edit: () => this.setState({ crOpen: true, crField: f, crValue: '', crNote: '' }) })),
+      openCR: () => this.setState({ crOpen: true, crValue: '', crNote: '' }), closeCR: () => this.setState({ crOpen: false }),
+      crOpen: s.crOpen, crFields: CR_FIELDS, crField: s.crField, setCrField: e => this.setState({ crField: e.target.value }),
+      crCurrent: (PFACTS.find(p => p[2] === s.crField) || [, '–'])[1],
+      crValue: s.crValue, setCrValue: e => this.setState({ crValue: e.target.value }), crNote: s.crNote, setCrNote: e => this.setState({ crNote: e.target.value }),
+      crDisabled: !s.crValue.trim(), hasCR: s.changeReqs.length > 0, changeReqs: s.changeReqs,
+      submitCR: () => { const nr = 'AA-' + (210 + s.changeReqs.length); this.setState(st => ({ crOpen: false, changeReqs: [{ nr, field: st.crField, value: st.crValue.trim(), date: '22.09.2026', status: 'In Prüfung', tone: 'info' }, ...st.changeReqs] })); this.log('Daniel Meier', 'Änderung Partnerdaten beantragt', 'file-pen-line', nr + ' · ' + s.crField); this.toast('Antrag ' + nr + ' gesendet. Wir melden uns innert 2 Arbeitstagen.'); },
+      hasPartnerLogo: isPartner && !!s.logo, noPartnerLogo: !(isPartner && s.logo), partnerLogo: s.logo || '',
+      logoPlateStyle: s.logoPlate ? { display: 'inline-flex', background: '#fff', padding: '8px 12px', borderRadius: '8px' } : { display: 'inline-flex' },
+      portalLabel: isPartner && s.logo ? 'Partnerportal · powered by HYPOTEQ' : 'Partnerportal',
+      logoPlate: s.logoPlate, toggleLogoPlate: () => { const v = !s.logoPlate; this.setState({ logoPlate: v }); try { localStorage.setItem('hqpp-logo-plate', v ? '1' : '0'); } catch (e) {} },
+      pickLogo: e => this.readImg(e.target.files && e.target.files[0], 'logo'), dropLogo: e => { e.preventDefault(); this.readImg(e.dataTransfer.files && e.dataTransfer.files[0], 'logo'); },
+      removeLogo: () => { this.setState({ logo: null }); try { localStorage.removeItem('hqpp-logo'); } catch (e) {} this.toast('Firmenlogo entfernt. Das HYPOTEQ Logo wird wieder angezeigt.'); },
+      hasPhoto: isPartner && !!s.photo, photoStyle: { display: 'block', width: '100%', height: '100%', backgroundImage: s.photo ? 'url(' + s.photo + ')' : 'none', backgroundSize: 'cover', backgroundPosition: 'center' },
+      logoImgStyle: { display: 'block', width: '160px', height: '44px', backgroundImage: s.logo ? 'url(' + s.logo + ')' : 'none', backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'left center' }, noPhoto: !(isPartner && s.photo), userPhoto: s.photo || '',
+      pickPhoto: e => this.readImg(e.target.files && e.target.files[0], 'photo'),
+      ownDocs: s.ownDocs,
+      pickOwnDoc: e => { const f = e.target.files && e.target.files[0]; if (!f) return; const kb = f.size > 1e6 ? (f.size / 1e6).toFixed(1) + ' MB' : Math.max(1, Math.round(f.size / 1024)) + ' KB'; this.setState(st => ({ ownDocs: [{ name: f.name, meta: kb + ' · hochgeladen 22.09.2026', status: 'In Prüfung', tone: 'accent' }, ...st.ownDocs] })); this.toast(f.name + ' hochgeladen. HYPOTEQ prüft das Dokument.'); },
+      showSearchDesk: isDesktop && isPartner, showSearchMobile: isMobile && isPartner, showCrumb: isDesktop && isAdmin,
+      search: s.search, setSearch: e => this.setState({ search: e.target.value, searchOpen: true }),
+      searchFocus: () => this.setState({ searchOpen: true }), searchBlur: () => setTimeout(() => this.setState({ searchOpen: false }), 120),
+      searchKey: e => { if (e.key === 'Escape') { this.setState({ searchOpen: false }); e.target.blur && e.target.blur(); } if (e.key === 'Enter' && searchResults[0]) searchResults[0].go(); },
+      searchResults, showSearchDrop: s.searchOpen && !!sq, searchEmpty: !!sq && searchResults.length === 0,
+      notifSettings: settingDefs.map(([k, label]) => ({ label, on: s.settings[k], toggle: () => this.setState(st => ({ settings: { ...st.settings, [k]: !st.settings[k] } })) })),
+      goResetFromProfile: () => this.toast('Link zum Ändern des Passworts wurde an d.meier@meier-finanz.ch gesendet.'),
+
+      dlgOpen: !!d, dlgTitle: d ? d.title + ' hochladen' : '', dlgSub: d ? d.sub : '',
+      dlgIdle: !!d && !d.file, dlgHasFile: !!d && !!d.file, dlgFile: d ? d.file : '', dlgFileMeta: d ? (d.done ? d.size + ' · Hochgeladen · wird von HYPOTEQ geprüft' : d.size + (d.progress ? ' · wird hochgeladen' : ' · bereit')) : '',
+      dlgIcon: d && /\.(jpe?g|png)$/i.test(d.file) ? 'image' : 'file-text', dlgProgress: d ? d.progress : 0, dlgError: d && d.error ? d.error : undefined,
+      dlgCanUpload: !!d && !!d.file && !d.progress, dlgCancelLabel: d && d.done ? 'Schliessen' : 'Abbrechen',
+      closeDlg: () => { clearInterval(this._up); this.setState({ dlg: null }); },
+      pickFile: e => this.takeFile(e.target.files && e.target.files[0]),
+      dragOver: e => e.preventDefault(), drop: e => { e.preventDefault(); this.takeFile(e.dataTransfer.files && e.dataTransfer.files[0]); },
+      startUpload: () => { this.setState(st => ({ dlg: { ...st.dlg, progress: 1 } })); this.startUpload(); },
+
+      toastText: s.toast || undefined, hideToast: () => this.setState({ toast: '' }),
+    };
+  }
+  jump(screen, auth) {
+    const admin = screen.startsWith('admin');
+    const extra = { screensOpen: false, role: admin ? 'admin' : 'partner' };
+    if (auth) extra.auth = auth;
+    if (screen === 'case') extra.caseId = 'c1';
+    if (screen === 'adminPartner') extra.partnerId = 'p1';
+    this.go(screen, extra);
+  }
+  login() {
+    const { email, pw } = this.state;
+    if (!email.includes('@')) return this.setState({ loginError: 'Bitte eine gültige E-Mail-Adresse eingeben.' });
+    if (pw.length < 4) return this.setState({ loginError: 'Passwort eingeben (Prototyp: beliebig, mind. 4 Zeichen).' });
+    const admin = /@hypoteq\./i.test(email);
+    this.go(admin ? 'adminPartners' : 'dashboard'); this.setState({ pw: '', role: admin ? 'admin' : 'partner' });
+  }
+}
+</script>
+</body>
+</html>

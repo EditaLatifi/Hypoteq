@@ -1,0 +1,53 @@
+:root{
+  /* ---- Brand core (from HYPOTEQ brand guide p.2) ---- */
+  --lime-500:#CAF476;      /* "Yellow green" — the brand accent */
+  --forest-800:#132219;    /* "Forest green" — the brand dark */
+  --white:#FFFFFF;         /* "normal White" */
+
+  /* ---- Lime ramp (derived, hue-locked to #CAF476) ---- */
+  --lime-100:#F2FBDD;
+  --lime-200:#E6F8C0;
+  --lime-300:#DAF6A2;
+  --lime-400:#D2F58C;
+  --lime-600:#B7E455;
+  --lime-700:#9CC93B;
+  --lime-800:#7BA228;
+
+  /* ---- Forest ramp (derived) ---- */
+  --forest-900:#0A130D;
+  --forest-700:#1A2E20;
+  --forest-600:#223B2A;
+  --forest-500:#2E4E37;
+  --forest-400:#456A4F;
+  --forest-300:#6B8D74;
+
+  /* ---- Light neutrals (green-tinted, never pure grey) ---- */
+  --paper:#FFFFFF;
+  --paper-100:#F6F8F4;
+  --paper-200:#EDF1E9;
+  --paper-300:#E1E7DC;
+  --paper-400:#C9D2C3;
+  --ink-500:#5C6A5F;
+
+  /* ---- Alpha utilities: the brand's 70% transparency rule ---- */
+  --on-dark-100:rgba(255,255,255,1);
+  --on-dark-70:rgba(255,255,255,.70);
+  --on-dark-45:rgba(255,255,255,.45);
+  --on-dark-14:rgba(255,255,255,.14);
+  --on-dark-08:rgba(255,255,255,.08);
+  --on-light-100:#132219;
+  --on-light-70:rgba(19,34,25,.70);
+  --on-light-45:rgba(19,34,25,.45);
+  --on-light-12:rgba(19,34,25,.12);
+  --on-light-06:rgba(19,34,25,.06);
+
+  /* ---- Semantic status (kept quiet; finance context) ---- */
+  --success-500:#2F8F52;
+  --success-100:#E4F3E8;
+  --warning-500:#C98A16;
+  --warning-100:#FBF1DC;
+  --danger-500:#B23B34;
+  --danger-100:#F8E7E5;
+  --info-500:#2F6B8F;
+  --info-100:#E4EEF4;
+}
