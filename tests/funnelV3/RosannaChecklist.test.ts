@@ -73,7 +73,9 @@ beforeEach(() => {
   jest.spyOn(console, "log").mockImplementation(() => {});
   jest.spyOn(console, "warn").mockImplementation(() => {});
 });
-afterEach(() => jest.restoreAllMocks());
+afterEach(() => {
+  jest.restoreAllMocks();
+});
 
 describe("Rosanna: «Kunde erhält 2 Mails» → genau eine (7.1)", () => {
   it("per recipient exactly one mail; the customer's carries the missing documents and the signature step", async () => {
