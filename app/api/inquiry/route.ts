@@ -453,6 +453,8 @@ export async function POST(req: Request) {
     // The partner is linked inside the sync (components/partnerDirectory). Unknown partners
     // are no longer created as placeholder Contacts (spec 2.2 / 6.3, DECISIONS D13).
 
+    // v5: the internal closing mail lists the fields Salesforce dropped; it replaces the notice.
+    let droppedFieldsInClosingMail = false;
     if (v5Mails) {
       // === FUNNEL V5 CLOSING MAILS (Handover 7.1–7.3) ===
       // Exactly one mail per recipient: the customer (confirmation, summary, the
@@ -484,6 +486,7 @@ export async function POST(req: Request) {
           },
         });
         const result = await sendClosingMails(mails, closingMailTransport(getGraphMailClient()));
+        droppedFieldsInClosingMail = result.sent.includes("intern");
         console.log(`✅ Closing mails: sent ${result.sent.join(", ") || "none"}${result.failed.length ? `, failed ${result.failed.join(", ")}` : ""}`);
       } catch (closingMailError) {
         console.error("⚠️ Closing mails failed (continuing):", closingMailError);
@@ -494,8 +497,9 @@ export async function POST(req: Request) {
     }
 
     if (salesforceError) {
+      // Kept beside the v5 internal mail: the operational alarm with the error and stack.
       await sendSalesforceFailureAlert(inquiry.id, salesforceError);
-    } else if (salesforceDropped.length) {
+    } else if (salesforceDropped.length && !droppedFieldsInClosingMail) {
       // The Case exists, but not every field reached it (unknown column, missing field right,
       // invalid picklist value). Someone has to complete it by hand, so say so.
       await sendSalesforceDroppedFieldsNotice(inquiry.id, salesforceCaseId, caseNumber, salesforceDropped);

@@ -6,10 +6,11 @@
 import { describe, it, expect, jest, beforeEach, afterEach } from "@jest/globals";
 import { CASE_NO, ablState, kaufState, v5Payload } from "./v5Fixtures";
 
-const mockState: { posts: { path: string; body: any }[]; createFails: boolean; syncFails: boolean; completion: any; signature: any[]; updates: any[] } = {
+const mockState: { posts: { path: string; body: any }[]; createFails: boolean; syncFails: boolean; dropped: string[]; completion: any; signature: any[]; updates: any[] } = {
   posts: [],
   createFails: false,
   syncFails: false,
+  dropped: [],
   completion: null,
   signature: [],
   updates: [],
@@ -65,7 +66,7 @@ jest.mock("@/components/salesforceApi", () => ({
 jest.mock("@/components/syncFunnelStepsToSalesforce", () => ({
   syncFunnelStepsToSalesforce: async () => {
     if (mockState.syncFails) throw new Error("INVALID_SESSION_ID");
-    return { case: { id: "500AA000001xyzQ" }, droppedFields: [] };
+    return { case: { id: "500AA000001xyzQ" }, droppedFields: mockState.dropped };
   },
 }));
 jest.mock("@/lib/funnel-v3/signatureServer", () => ({
@@ -88,6 +89,7 @@ beforeEach(() => {
   mockState.posts = [];
   mockState.createFails = false;
   mockState.syncFails = false;
+  mockState.dropped = [];
   mockState.signature = [];
   mockState.updates = [];
   for (const [k, v] of Object.entries(ENV)) {
@@ -186,6 +188,16 @@ describe("v5 closing: exactly one mail per recipient (Handover 7.1, Rosanna «2 
       `⚠️ Salesforce-Sync fehlgeschlagen – Anfrage ${payload.submissionId}`,
     ]);
     expect(internal[0].body.message.body.content).toContain("Salesforce-Sync fehlgeschlagen – der Case muss von Hand angelegt werden");
+  });
+
+  it("fields Salesforce dropped are listed in the internal mail instead of a second notice", async () => {
+    mockState.dropped = ["Waermeerzeugung__c"];
+    const payload = v5Payload(kaufState());
+    mockState.completion = payload.v3Completion;
+    await submit(payload);
+    expect(byRecipient()).toEqual({ "lea.muster@kunde.ch": 1, "info@hypoteq.ch": 1 });
+    const intern = mockState.posts.find((p) => to(p)[0] === "info@hypoteq.ch")!;
+    expect(intern.body.message.body.content).toContain("Von Salesforce nicht übernommen (von Hand nachtragen): Waermeerzeugung__c");
   });
 
   it("the DB write fails: the internal notification still goes out as the copy of the lead", async () => {

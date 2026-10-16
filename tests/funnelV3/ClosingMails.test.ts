@@ -354,7 +354,7 @@ describe("internal mail: the Case (Handover 7.1)", () => {
     expect(text(test.html)).toContain("Testmodus – in Salesforce wurde kein Case angelegt.");
     const dropped = of(await mails(v5Payload(kaufState()), { salesforce: { caseId: "500AA000001xyzQ", url: null, failed: false, testMode: false, dropped: ["Waermeerzeugung__c"] } }), "intern");
     expect(text(dropped.html)).toContain("Case angelegt (ID 500AA000001xyzQ).");
-    expect(text(dropped.html)).toContain("Von Salesforce nicht übernommen: Waermeerzeugung__c");
+    expect(text(dropped.html)).toContain("Von Salesforce nicht übernommen (von Hand nachtragen): Waermeerzeugung__c");
   });
 
   it("the customer and the Berater never see the Salesforce block", async () => {
