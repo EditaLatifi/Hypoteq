@@ -260,3 +260,17 @@ describe("the «Entwurf» preview carries the v5 marks", () => {
     expect(buildDossierModel(input).signature).toBe("received");
   });
 });
+
+describe("stored dossier input", () => {
+  it("keeps a file the user placed by hand, as the draft does", () => {
+    const data = v5Payload(kaufState());
+    const files = [
+      { documentId: "d1", originalName: "scan.jpg", instanceId: "vollmacht", analysis: { status: "failed" }, assignedByUser: true },
+      { documentId: "d2", originalName: "other.pdf", instanceId: null, analysis: null, assignedByUser: true },
+    ] as any;
+    const input = dossierInputFor(data, normaliseFunnelState(data.v3)!, files, CASE_NO, DATE);
+    expect(input.files[0].assignedByUser).toBe(true);
+    // Without a placement there is nothing the user assigned it to.
+    expect(input.files[1].assignedByUser).toBeUndefined();
+  });
+});

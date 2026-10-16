@@ -546,6 +546,8 @@ export function dossierInputFor(data: any, state: V3State, files: CompletedFile[
         outdatedOverride: f.outdatedOverride,
         removed: f.removed,
         analysis: f.analysis ?? null,
+        // A file the user placed by hand counts even when its analysis failed, as in the draft.
+        ...(f.assignedByUser && f.instanceId ? { assignedByUser: true } : {}),
       })
     ),
   };
