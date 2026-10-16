@@ -3,7 +3,9 @@
 import { useLayoutEffect, useRef, type ChangeEvent, type HTMLInputTypeAttribute } from "react";
 import { useFunnelT } from "@/lib/funnel-v3/useFunnelT";
 import { chf, parseAmount } from "@/lib/funnel-v3/format";
+import type { FieldPath } from "@/lib/funnel-v3/types";
 import { fieldId } from "../logic";
+import FromDoc from "./FromDoc";
 
 interface BaseProps {
   /** Field name (validation key); the DOM id is derived from it. */
@@ -14,6 +16,20 @@ interface BaseProps {
   /** i18n key of the validation message, shown under the field. */
   error?: string;
   className?: string;
+  /** The value's «aus Dokument» mark (Schnellanmeldung, Handover 3). */
+  source?: FieldPath;
+}
+
+/** The label, and beside it the «aus Dokument» mark of a prefilled value. */
+function FieldLabel({ id, label, source }: { id: string; label: string; source?: FieldPath }) {
+  return (
+    <span className="v3-field-head">
+      <label className="v3-field-label" htmlFor={id}>
+        {label}
+      </label>
+      {source ? <FromDoc path={source} /> : null}
+    </span>
+  );
 }
 
 function useIds(field: string) {
@@ -54,6 +70,7 @@ export function TextField({
   type = "text",
   autoComplete,
   inputMode,
+  source,
 }: BaseProps & {
   value: string;
   onChange: (value: string) => void;
@@ -64,9 +81,7 @@ export function TextField({
   const { id, hintId, errId } = useIds(field);
   return (
     <div className={`v3-field${error ? " has-error" : ""}${className ? ` ${className}` : ""}`}>
-      <label className="v3-field-label" htmlFor={id}>
-        {label}
-      </label>
+      <FieldLabel id={id} label={label} source={source} />
       <input
         id={id}
         className="v3-input"
@@ -116,6 +131,7 @@ export function AmountField({
   value,
   onChange,
   disabled,
+  source,
 }: BaseProps & { value: number; onChange: (value: number) => void; disabled?: boolean }) {
   const { id, hintId, errId } = useIds(field);
   const ref = useRef<HTMLInputElement>(null);
@@ -140,9 +156,7 @@ export function AmountField({
 
   return (
     <div className={`v3-field${error ? " has-error" : ""}${className ? ` ${className}` : ""}`}>
-      <label className="v3-field-label" htmlFor={id}>
-        {label}
-      </label>
+      <FieldLabel id={id} label={label} source={source} />
       <input
         ref={ref}
         id={id}

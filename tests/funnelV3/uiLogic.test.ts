@@ -1,21 +1,32 @@
 import { describe, it, expect } from '@jest/globals';
-import { translate, optionLabel, type Lang } from '@/lib/funnel-v3/i18n';
+import { hasKey, translate, optionLabel, type Lang } from '@/lib/funnel-v3/i18n';
 import { reqList } from '@/lib/funnel-v3/requirements';
-import { EMPTY_AMOUNTS, EMPTY_TEXTS, type Borrower, type FunnelState } from '@/lib/funnel-v3/types';
+import { calcFinancing } from '@/lib/funnel-v3/calc';
+import { SCREENS, screenWhyKey } from '@/lib/funnel-v3/steps';
+import { EMPTY_AMOUNTS, EMPTY_EM, EMPTY_TEXTS, type Borrower, type FunnelState } from '@/lib/funnel-v3/types';
 import {
+  INFO_KEYS,
   OPTIONS,
+  PATH_LABEL,
   arrowAction,
   barWidth,
+  calcInputOf,
   canOpenStep,
   caseLine,
   deltaLabel,
-  doneCount,
+  disabledOptions,
+  emRowHint,
+  equityLine,
+  factAdditions,
+  fillRailItems,
+  finishGate,
   firstErrorField,
   localePath,
   needSubline,
   nextLabelKey,
   normalisePartner,
   optionDelta,
+  pathLine,
   pathSubtitle,
   railGroups,
   reasonLine,
@@ -23,7 +34,9 @@ import {
   entryFromParams,
   portalAction,
   roleLine,
-  stepSummary,
+  screenHead,
+  screenSummary,
+  startRole,
   visibleFields,
   isLookupEmail,
   type KeyContext,
@@ -40,56 +53,69 @@ function full(over: Partial<FunnelState> = {}, ans = {}, txt = {}): FunnelState 
   return { role: 'kunde', mode: 'begleitet', fin: { ...EMPTY_AMOUNTS }, src: {}, touched: {}, sig: null, ...s, em: s.em!, info: s.info!, ...over };
 }
 
-describe('visibleFields', () => {
-  it('step 1 asks the advisor e-mail only for the Berater, the phone in both roles (v5)', () => {
-    expect(visibleFields(1, full({ role: 'berater' }))).toEqual(['bmail', 'antrag', 'kn', 'anrede', 'vor', 'nach', 'mail', 'tel']);
-    expect(visibleFields(1, full({ role: 'kunde' }))).toEqual(['antrag', 'kn', 'anrede', 'vor', 'nach', 'mail', 'tel']);
+describe('visibleFields (v5: per screen, Handover 2, 3)', () => {
+  it('Kontakt (Schnellanmeldung): the e-mail addresses and the phone only', () => {
+    expect(visibleFields('kontakt', full({ role: 'berater' }))).toEqual(['bmail', 'mail', 'tel']);
+    expect(visibleFields('kontakt', full({ role: 'kunde' }))).toEqual(['mail', 'tel']);
+  });
+
+  it('Anfrage asks the advisor e-mail only for the Berater, the phone in both roles', () => {
+    expect(visibleFields('anfrage', full({ role: 'berater' }))).toEqual(['bmail', 'antrag', 'kn', 'anrede', 'vor', 'nach', 'mail', 'tel']);
+    expect(visibleFields('anfrage', full({ role: 'kunde' }))).toEqual(['antrag', 'kn', 'anrede', 'vor', 'nach', 'mail', 'tel']);
     // Handover 2: Firma and zeichnungsberechtigte Person replace Anrede and name.
-    expect(visibleFields(1, full({}, { kn: 'Juristische Person' }))).toEqual(['antrag', 'kn', 'firma', 'zeichner', 'mail', 'tel']);
+    expect(visibleFields('anfrage', full({}, { kn: 'Juristische Person' }))).toEqual(['antrag', 'kn', 'firma', 'zeichner', 'mail', 'tel']);
   });
 
-  it('step 2 follows Antrag, Neubau and Erhöhung', () => {
-    const base = visibleFields(2, full());
-    expect(base).toEqual(['plz', 'ort', 'immo', 'lieg', 'nutz', 'baurecht', 'angebote']);
-    expect(visibleFields(2, full({}, { nutz: 'Vermietet' }))).toContain('miete');
-    expect(visibleFields(2, full({}, { antrag: 'Neue Hypothek', reno: 'Ja' }))).toEqual(expect.arrayContaining(['kaufdatum', 'renoBetrag']));
-    expect(visibleFields(2, full({}, { immo: 'Neubau' }))).toContain('nbDocs');
-    const abl = visibleFields(2, full({}, { antrag: 'Ablösung' }));
-    expect(abl).toEqual(expect.arrayContaining(['old', 'aufstockung']));
+  it('Objekt & Finanzierung follows Antrag, Neubau, Nutzung and Erhöhung; Laufzeit and Kommentar last', () => {
+    expect(visibleFields('objekt', full())).toEqual(['plz', 'ort', 'immo', 'lieg', 'nutz', 'laufzeit', 'kommentar']);
+    expect(visibleFields('objekt', full({}, { nutz: 'Vermietet' }))).toContain('miete');
+    expect(visibleFields('objekt', full({}, { antrag: 'Neue Hypothek', reno: 'Ja' }))).toEqual(expect.arrayContaining(['kaufdatum', 'renoBetrag']));
+    expect(visibleFields('objekt', full({}, { immo: 'Neubau' }))).toEqual(['plz', 'ort', 'immo', 'nbDocs', 'lieg', 'nutz', 'laufzeit', 'kommentar']);
+    const abl = visibleFields('objekt', full({}, { antrag: 'Ablösung' }));
+    expect(abl).toEqual(expect.arrayContaining(['old', 'aufstockung', 'val', 'em.s3a', 'em.pkVerp']));
     expect(abl).not.toContain('up');
-    expect(visibleFields(2, full({}, { antrag: 'Ablösung', aufstockung: 'Ja' }))).toEqual(expect.arrayContaining(['up', 'zweck']));
-    const kauf = visibleFields(2, full({}, { antrag: 'Neue Hypothek' }));
-    expect(kauf).toEqual(expect.arrayContaining(['kaufpreis', 'reno', 'reserviert']));
+    expect(abl).not.toContain('em.spar');
+    expect(visibleFields('objekt', full({}, { antrag: 'Ablösung', aufstockung: 'Ja' }))).toEqual(expect.arrayContaining(['up', 'zweck']));
+    const kauf = visibleFields('objekt', full({}, { antrag: 'Neue Hypothek' }));
+    expect(kauf).toEqual(expect.arrayContaining(['kaufpreis', 'reno', 'reserviert', 'val', 'em.spar', 'em.darl']));
     expect(kauf).not.toContain('old');
+    // v5: Baurecht and Angebote are chips on the Personen screen.
+    expect(kauf).not.toContain('baurecht');
   });
 
-  it('step 3: borrower block or company, Unterhalt (no Kinder, no ab 50 since v5), Solidarbürge name', () => {
-    const np = visibleFields(3, full({}, { buerge: 'Ja' }));
+  it('Personen: borrower block or company, the chips (no Kinder, no ab 50 since v5), Solidarbürge name', () => {
+    const np = visibleFields('personen', full({}, { buerge: 'Ja' }));
     expect(np).toEqual([
       'borrower.0.vor', 'borrower.0.nach', 'inc', 'borrower.0.job',
-      'unterhalt', 'kredite', 'leasing', 'buerge', 'buergeName',
+      'unterhalt', 'kredite', 'leasing', 'buerge', 'baurecht', 'angebote', 'steuer', 'buergeName',
     ]);
-    const jp = visibleFields(3, full({}, { kn: 'Juristische Person' }));
-    expect(jp).toEqual(['firma', 'zeichner', 'kredite', 'leasing', 'buerge']);
+    const jp = visibleFields('personen', full({}, { kn: 'Juristische Person' }));
+    expect(jp).toEqual(['firma', 'zeichner', 'kredite', 'leasing', 'buerge', 'baurecht', 'angebote', 'steuer']);
   });
 
-  it('step 3: pkSe per self-employed borrower; each Kreditnehmer has their income', () => {
-    const two: Borrower[] = [GARY, { id: 'b2', vor: 'Anna', nach: 'Gerber', job: 'Selbständig', pkSe: 'Nein' }];
-    const f = visibleFields(3, { ...full(), borrowers: two });
-    expect(f).toContain('borrower.1.pkSe');
-    expect(f).not.toContain('borrower.0.pkSe');
+  it('Personen: pkSe for a self-employed Kreditnehmer 1; Kreditnehmer 2 has name and income', () => {
+    const two: Borrower[] = [{ ...GARY, job: 'Selbständig' }, { id: 'b2', vor: 'Anna', nach: 'Gerber', pkSe: 'Nein' }];
+    const f = visibleFields('personen', { ...full(), borrowers: two });
+    expect(f).toContain('borrower.0.pkSe');
+    expect(f).not.toContain('borrower.1.job');
     expect(f.indexOf('inc')).toBeLessThan(f.indexOf('borrower.1.vor'));
     expect(f.indexOf('inc2')).toBeGreaterThan(f.indexOf('borrower.1.nach'));
   });
 
-  it('step 4: the income moved to the Personen (v5)', () => {
-    expect(visibleFields(4, full())).toEqual(['val', 'laufzeit', 'kommentar']);
-    expect(visibleFields(4, full({}, { kn: 'Juristische Person' }))).not.toContain('inc');
+  it('upload and closing ask nothing', () => {
+    expect(visibleFields('upload', full())).toEqual([]);
+    expect(visibleFields('abschluss', full())).toEqual([]);
   });
 
   it('the first error follows the screen order', () => {
-    expect(firstErrorField({ mail: 'val.email', antrag: 'val.choose' }, visibleFields(1, full()))).toBe('antrag');
+    expect(firstErrorField({ mail: 'val.email', antrag: 'val.choose' }, visibleFields('anfrage', full()))).toBe('antrag');
     expect(firstErrorField({}, [])).toBeNull();
+  });
+
+  it('Bauprojekt is offered but disabled at an Ablösung (Handover 2)', () => {
+    expect(disabledOptions({ antrag: 'Ablösung' }, 'immo')).toEqual(['Bauprojekt']);
+    expect(disabledOptions({ antrag: 'Neue Hypothek' }, 'immo')).toEqual([]);
+    expect(disabledOptions({ antrag: 'Ablösung' }, 'lieg')).toEqual([]);
   });
 });
 
@@ -141,27 +167,45 @@ describe('«+N Unterlagen» badges', () => {
 describe('question path and header lines', () => {
   const gerber = full({ fin: { ...EMPTY_AMOUNTS, old: 900000, up: 100000, val: 1400000, inc: 180000 } }, GERBER_ANSWERS, { plz: '8820', ort: 'Wädenswil' });
 
-  it('summaries of finished topics', () => {
-    expect(stepSummary(1, gerber, t, opt)).toBe('Ablösung · Natürliche Person');
-    expect(stepSummary(2, gerber, t, opt)).toBe('Stockwerkeigentum · 8820 Wädenswil');
-    expect(stepSummary(3, gerber, t, opt)).toBe('Gary Gerber · Angestellt');
-    expect(stepSummary(4, gerber, t, opt)).toBe("CHF 1'000'000 · 71.4 %");
-    expect(stepSummary(4, { ...gerber, fin: { ...gerber.fin, val: 0 } }, t, opt)).toBe('');
-    expect(stepSummary(5, gerber, t, opt, { fulfilled: 4, total: 20 })).toBe('4 von 20 erfüllt');
-    expect(stepSummary(3, full({}, { kn: 'Juristische Person' }, { firma: 'Muster AG' }), t, opt)).toBe('Muster AG · Juristische Person');
+  it('summaries of finished screens', () => {
+    expect(screenSummary('anfrage', gerber, t, opt)).toBe('Ablösung · Natürliche Person');
+    expect(screenSummary('objekt', gerber, t, opt)).toBe('Stockwerkeigentum · 8820 Wädenswil');
+    expect(screenSummary('personen', gerber, t, opt)).toBe('Gary Gerber · Angestellt');
+    expect(screenSummary('kontakt', { ...gerber, txt: { ...gerber.txt, mail: 'gary@example.invalid' } }, t, opt)).toBe('gary@example.invalid');
+    expect(screenSummary('upload', gerber, t, opt, { fulfilled: 4, total: 20 })).toBe('4 von 20 erfüllt');
+    expect(screenSummary('abschluss', gerber, t, opt)).toBe('');
+    expect(screenSummary('personen', full({}, { kn: 'Juristische Person' }, { firma: 'Muster AG' }), t, opt)).toBe('Muster AG · Juristische Person');
   });
 
   it('subtitles: summary when done, «Jetzt · …» when current, why otherwise', () => {
-    expect(pathSubtitle(1, 3, 'Ablösung', t)).toBe('Ablösung');
-    expect(pathSubtitle(1, 3, '', t)).toBe('Erledigt');
-    expect(pathSubtitle(3, 3, '', t)).toBe('Jetzt · Bestimmt die Personenunterlagen');
-    expect(pathSubtitle(5, 3, '', t)).toBe('Wir lesen alles aus');
-    expect(doneCount(1)).toBe(0);
-    expect(doneCount(4)).toBe(3);
+    const why = t(screenWhyKey('begleitet', 'personen'));
+    expect(pathSubtitle(1, 3, 'Ablösung', why, t)).toBe('Ablösung');
+    expect(pathSubtitle(1, 3, '', why, t)).toBe('Erledigt');
+    expect(pathSubtitle(3, 3, '', why, t)).toBe('Jetzt · Kreditnehmer und Zusatzpunkte');
+    expect(pathSubtitle(4, 3, '', 'Hochladen und abschliessen', t)).toBe('Hochladen und abschliessen');
+  });
+
+  it('«Fragepfad» line: entry and time left (Handover 0)', () => {
+    expect(pathLine('begleitet', '2:30', t)).toBe('Begleitete Anmeldung · noch ca. 2:30 Min.');
+    expect(pathLine('schnell', '0:30', t)).toBe('Schnellanmeldung · noch ca. 0:30 Min.');
+  });
+
+  it('screen heads exist in all four languages', () => {
+    for (const mode of ['begleitet', 'schnell'] as const)
+      for (const s of SCREENS[mode]) {
+        const h = screenHead(mode, s);
+        for (const l of ['de', 'en', 'fr', 'it'] as const) {
+          expect([mode, s, l, hasKey(l, h.titleKey), hasKey(l, h.leadKey)]).toEqual([mode, s, l, true, true]);
+        }
+      }
+    expect(t(screenHead('schnell', 'abschluss').titleKey)).toBe('Fehlende Unterlagen');
+    expect(t(screenHead('begleitet', 'anfrage').titleKey)).toBe('Neue Finanzierungsanfrage');
+    expect(t(screenHead('schnell', 'anfrage').titleKey)).toBe('Deine Anfrage');
   });
 
   it('case line and role line', () => {
     expect(caseLine(gerber.txt, t)).toBe('Gary Gerber · 8820 Wädenswil');
+    expect(caseLine({ ...EMPTY_TEXTS, firma: 'Muster AG', vor: 'Gary' }, t, 'Juristische Person')).toBe('Muster AG');
     expect(caseLine({ ...EMPTY_TEXTS }, t)).toBe('Neue Anfrage');
     expect(roleLine('kunde', EMPTY_TEXTS, null, t)).toBe('Eigene Anfrage');
     expect(roleLine('berater', EMPTY_TEXTS, { status: 'partner', name: 'Anna Muster' }, t)).toBe('Erfasst von Anna Muster');
@@ -171,25 +215,126 @@ describe('question path and header lines', () => {
     expect(roleLine('kunde', EMPTY_TEXTS, null, tr('fr'))).toBe(translate('fr', 'side.ownRequest'));
   });
 
-  it('«Weiter» labels and D6', () => {
-    expect(nextLabelKey(1)).toBe('common.next');
-    expect(nextLabelKey(4)).toBe('common.toDocs');
-    expect(nextLabelKey(5)).toBe('common.toFinish');
-    expect(nextLabelKey(6)).toBeNull();
+  it('«Weiter» labels per screen (prototype nextLabel) and D6', () => {
+    expect(nextLabelKey('begleitet', 1)).toBe('common.next');
+    expect(nextLabelKey('begleitet', 3)).toBe('common.toDocs');
+    expect(nextLabelKey('begleitet', 4)).toBeNull();
+    expect(nextLabelKey('schnell', 1)).toBe('common.next');
+    expect(nextLabelKey('schnell', 2)).toBe('fast.toRequest');
+    expect(nextLabelKey('schnell', 5)).toBe('fast.toMissing');
+    expect(nextLabelKey('schnell', 6)).toBeNull();
     expect(t('common.toDocs')).toBe('Zu den Unterlagen');
-    expect(canOpenStep(2, 4)).toBe(true);
-    expect(canOpenStep(5, 4)).toBe(false);
+    expect(t('fast.toRequest')).toBe('Weiter zur Anfrage');
+    expect(canOpenStep(2, 4, 4)).toBe(true);
+    expect(canOpenStep(5, 4, 6)).toBe(false);
+    expect(canOpenStep(5, 6, 4)).toBe(false);
   });
 });
 
-describe('calculation card helpers', () => {
+describe('calculation card and Eigenmittel helpers', () => {
   it('sub line and bar widths', () => {
     const abl = full({ fin: { ...EMPTY_AMOUNTS, old: 900000, up: 100000 } }, { antrag: 'Ablösung', aufstockung: 'Ja' });
     expect(needSubline(abl, t)).toBe("CHF 900'000 Ablösung + CHF 100'000 Erhöhung");
     expect(needSubline(full({}, { antrag: 'Neue Hypothek' }), t)).toBe('Bei 80 % Belehnung');
+    const kauf = full({ fin: { ...EMPTY_AMOUNTS, kaufpreis: 800000 }, em: { ...EMPTY_EM, spar: 120000 } }, { antrag: 'Neue Hypothek' });
+    expect(needSubline(kauf, t)).toBe("Kaufpreis minus CHF 120'000 Eigenmittel");
+    expect(needSubline({ ...kauf, ans: { ...kauf.ans, reno: 'Ja' } }, t)).toBe("Kaufpreis + Renovation minus CHF 120'000 Eigenmittel");
     expect(barWidth(64, 1.25)).toBe(80);
     expect(barWidth(90, 1.25)).toBe(100);
     expect(barWidth(null, 2.5)).toBe(0);
+  });
+
+  it('the Eigenmittel total line with % and the 10 % warning (Handover 2)', () => {
+    const c = calcFinancing({ ...calcInputOf(full({ fin: { ...EMPTY_AMOUNTS, kaufpreis: 1000000 }, em: { ...EMPTY_EM, spar: 50000, pkVor: 150000 } }, { antrag: 'Neue Hypothek' })) });
+    const line = equityLine(c, t);
+    expect(line.text).toBe("Eigenmittel total CHF 200'000 · 20.0 % · davon hart CHF 50'000");
+    expect(line.warn).toBe('mind. 10 % des Kaufpreises nötig');
+    const ok = calcFinancing(calcInputOf(full({ fin: { ...EMPTY_AMOUNTS, kaufpreis: 1000000 }, em: { ...EMPTY_EM, spar: 200000 } }, { antrag: 'Neue Hypothek' })));
+    expect(equityLine(ok, t).warn).toBeNull();
+  });
+
+  it('each Eigenmittel row names the document it asks for', () => {
+    const kauf = mkState({ antrag: 'Neue Hypothek' });
+    expect(emRowHint(kauf, 'schenk', t)).toBe('→ Schenkungsvertrag');
+    expect(emRowHint(kauf, 's3a', t)).toBe('→ Säule 3a Bescheinigung · Vorsorgepolice 3a inkl. Wertmitteilung');
+    expect(emRowHint(kauf, 'spar', t)).toBe('');
+    // At a Kauf the PK-Verpfändung is a security, not Eigenmittel (Handover 5).
+    expect(emRowHint(kauf, 'pkVerp', t)).toBe('Sicherheit, zählt nicht zu den Eigenmitteln');
+    expect(emRowHint(mkState({ antrag: 'Ablösung' }), 'pkVerp', t)).toBe('→ Bestätigung PK-Verpfändung');
+    // «ab 50» already asks for the 3a documents: the amount adds nothing.
+    expect(emRowHint(mkState({ antrag: 'Neue Hypothek' }, {}, {}, undefined, { info: { ab50: true } }), 's3a', t)).toBe('');
+  });
+});
+
+describe('closing gate (Handover 6)', () => {
+  it('follows signatureView.canFinish: locked until the signed copy is there or «Später nachreichen» is chosen', () => {
+    expect(finishGate({ status: 'missing', canFinish: false })).toEqual({ enabled: false, labelKey: 's6.finishBlockedUpload' });
+    expect(finishGate({ status: 'analysing', canFinish: false })).toEqual({ enabled: false, labelKey: 's6.finishBlockedUpload' });
+    expect(finishGate({ status: 'received', canFinish: true })).toEqual({ enabled: true, labelKey: 's6.submitTitle' });
+    expect(finishGate({ status: 'later', canFinish: true }).enabled).toBe(true);
+    // A copy without signature keeps it locked — unless «später» was chosen.
+    expect(finishGate({ status: 'unsigned', canFinish: false })).toEqual({ enabled: false, labelKey: 's6.finishBlocked' });
+    expect(finishGate({ status: 'unsigned', canFinish: true }).enabled).toBe(true);
+    expect(t('s6.finishBlockedUpload')).toBe('Erst Auskunftsermächtigung hochladen');
+    expect(t('s6.finishBlocked')).toBe('Erst Auskunftsermächtigung unterzeichnen');
+  });
+});
+
+describe('the list grows after the upload (Handover 4.2)', () => {
+  it('names the documents the facts added, not those an answer added', () => {
+    const before = reqList(mkState());
+    const after = reqList(mkState({ baurecht: 'Ja' }, {}, {}, undefined, { info: { bonus: true, ab50: true } }));
+    const added = factAdditions(before, after).map((r) => r.id);
+    expect(added).toEqual(expect.arrayContaining(['lohnausweise_alt', 'ahv_voraus', 's3a', 'police']));
+    expect(added).not.toContain('baurecht');
+    expect(factAdditions(after, after)).toEqual([]);
+  });
+});
+
+describe('«Deine Anfrage füllt sich» (Handover 3)', () => {
+  it('lists each prefilled value with its document, then the facts for mail and Salesforce', () => {
+    const s = full(
+      {
+        fin: { ...EMPTY_AMOUNTS, inc: 125385, val: 1450000 },
+        src: {
+          'fin.inc': { doc: 'Lohnausweis 2025', unsure: false, docType: 'lohnausweise' },
+          'fin.val': { doc: 'Verkaufsdokumentation 2024', unsure: true, docType: 'verkaufsdoku' },
+          'ans.kredite': { doc: 'Kreditvertrag BANK-now', unsure: false, docType: 'kredit' },
+          'txt.ort': { doc: 'Grundbuchauszug', unsure: false, docType: 'grundbuch' },
+        },
+        info: { geb: '04.01.1988', zivil: 'ledig', bonus: false },
+      },
+      { kredite: 'Ja' },
+      { ort: '' }
+    );
+    const { items, facts } = fillRailItems(s, t, opt, 'de');
+    expect(items).toEqual([
+      { path: 'fin.inc', label: 'Bruttoeinkommen pro Jahr', value: "CHF 125'385", unsure: false, why: 'aus Lohnausweis 2025' },
+      { path: 'fin.val', label: 'Geschätzter Objektwert', value: "CHF 1'450'000", unsure: true, why: 'aus Verkaufsdokumentation 2024 · bitte bestätigen' },
+      { path: 'ans.kredite', label: 'Privatkredit', value: 'Ja', unsure: false, why: 'aus Kreditvertrag BANK-now' },
+    ]);
+    expect(facts).toEqual([
+      { key: 'geb', label: 'Geburtsdatum', value: '04.01.1988' },
+      { key: 'zivil', label: 'Zivilstand', value: 'ledig' },
+    ]);
+    // Another language names the document type.
+    expect(fillRailItems(s, tr('fr'), op('fr'), 'fr').items[0].why).toBe(
+      translate('fr', 'fast.from', { doc: translate('fr', 'doc.lohnausweis1') })
+    );
+  });
+
+  it('every fact and every prefillable field has a label in every language', () => {
+    for (const lang of ['de', 'en', 'fr', 'it'] as Lang[]) {
+      for (const k of INFO_KEYS) expect([lang, k, hasKey(lang, `info.${k}`)]).toEqual([lang, k, true]);
+      for (const [p, key] of Object.entries(PATH_LABEL)) expect([lang, p, hasKey(lang, key!)]).toEqual([lang, p, true]);
+    }
+  });
+});
+
+describe('start screen (Handover 1)', () => {
+  it('shows the preset role, «Kunde selbst» without one (DECISIONS V49)', () => {
+    expect(startRole(null)).toBe('kunde');
+    expect(startRole('berater')).toBe('berater');
   });
 });
 

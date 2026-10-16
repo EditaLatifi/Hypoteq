@@ -1,31 +1,35 @@
 "use client";
 
 /**
- * Schritt 6 · Abschluss (Spezifikation 3; prototype funnel-app.html «6 ABSCHLUSS»).
+ * The closing, under the documents of the last step of either entry (Handover 2 Schritt 4,
+ * 3 Schritt 6; Spezifikation 3 Schritt 6; prototype «ABSCHLUSS»).
  *
- * Kennzahlen, Hinweise an die Bank, Prüfliste, then the two actions: «Finanzierungsanfrage
- * abschliessen» (the only way to finish — the shell hides its own «Weiter» on this step) and
- * «Fall-Dossier als PDF». The submit waits for running uploads / analyses with a visible
- * progress state, never navigates, and shows a failure inline with «Erneut versuchen»; only a
- * successful submit shows the done state «Anfrage {Fallnummer} ist bei HYPOTEQ.» with
- * «Neuen Antrag stellen» (empty funnel, back to the start) and «Abschliessen» (hypoteq.ch).
+ * Kennzahlen, Hinweise an die Bank, Prüfliste, the Auskunftsermächtigung (<SignatureBlock />,
+ * Handover 6), then «Finanzierungsanfrage abschliessen» — locked until the signed copy is
+ * uploaded or «Später nachreichen» is chosen (logic.ts finishGate) — and «Fall-Dossier als
+ * PDF». The submit waits for running uploads / analyses with a visible progress state, never
+ * navigates, and shows a failure inline with «Erneut versuchen»; only a successful submit shows
+ * the done state «Anfrage {Fallnummer} ist bei HYPOTEQ.» with «Neuen Antrag stellen» (empty
+ * funnel, back to the start) and «Abschliessen» (hypoteq.ch) or, for a Berater, the way back to
+ * the Partnerportal.
  */
 
-import StepHead from "../StepHead";
-import { portalAction } from "../logic";
+import { finishGate, portalAction } from "../logic";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { documentsSummary } from "@/lib/funnel-v3/documentsSummary";
 import { finishSummary } from "@/lib/funnel-v3/finishSummary";
 import { useFunnelV3 } from "@/lib/funnel-v3/store";
 import { submitFunnel, SubmitError, type SubmitPhase, type SubmitState } from "@/lib/funnel-v3/submit";
 import { useFunnelT } from "@/lib/funnel-v3/useFunnelT";
-import { clearDone, readDone, saveDone, storedDossierUrl, type DoneInfo } from "../finish/doneState";
-import { downloadDraftDossier, previewBody } from "../finish/previewDossier";
-import "../finish/finish.css";
+import { clearDone, readDone, saveDone, storedDossierUrl, type DoneInfo } from "./doneState";
+import { downloadDraftDossier, previewBody } from "./previewDossier";
+import SignatureBlock from "./SignatureBlock";
+import { useFunnelUI } from "../uiStore";
+import "./finish.css";
 
 const HYPOTEQ_URL = "https://hypoteq.ch";
 
-export default function Step6Finish() {
+export default function Closing() {
   const { t, lang } = useFunnelT();
   const role = useFunnelV3((s) => s.role);
   const ans = useFunnelV3((s) => s.ans);
@@ -58,6 +62,7 @@ export default function Step6Finish() {
       }),
     [role, ans, txt, fin, em, borrowers, docs, lang]
   );
+  const gate = finishGate(docs.signature);
 
   const [phase, setPhase] = useState<SubmitPhase | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -107,7 +112,7 @@ export default function Step6Finish() {
   }, [done, role]);
 
   const submit = useCallback(async () => {
-    if (running.current) return;
+    if (running.current || !gate.enabled) return;
     running.current = true;
     setError(null);
     setPhase("sending");
@@ -118,22 +123,22 @@ export default function Step6Finish() {
         onPhase: setPhase,
       });
       const s = useFunnelV3.getState();
-      const info: DoneInfo = {
+      const doneInfo: DoneInfo = {
         submissionId: s.submissionId,
         inquiryId: res.inquiryId,
         caseNumber: res.caseNumber,
-        name: [s.txt.vor.trim(), s.txt.nach.trim()].filter(Boolean).join(" "),
+        name: s.ans.kn === "Juristische Person" ? s.txt.firma.trim() : [s.txt.vor.trim(), s.txt.nach.trim()].filter(Boolean).join(" "),
         email: s.txt.mail.trim(),
       };
-      saveDone(info);
-      setDone(info);
+      saveDone(doneInfo);
+      setDone(doneInfo);
     } catch (err) {
       setError(err instanceof SubmitError ? err.message : t("s6.err.submit"));
     } finally {
       running.current = false;
       setPhase(null);
     }
-  }, [lang, t]);
+  }, [gate.enabled, lang, t]);
 
   const dossier = useCallback(async () => {
     if (dossierBusy) return;
@@ -151,6 +156,8 @@ export default function Step6Finish() {
   const startOver = useCallback(() => {
     clearDone(submissionId);
     reset();
+    // A new request starts without the validation messages of the last one.
+    useFunnelUI.setState({ attempted: [] });
     if (typeof window !== "undefined") window.scrollTo(0, 0);
   }, [reset, submissionId]);
 
@@ -160,7 +167,12 @@ export default function Step6Finish() {
 
   return (
     <>
-      <StepHead step={6} title={summary.title} lead={summary.lead} large />
+      <div className="v3-closing-head">
+        <span className="v3-rule" aria-hidden="true" />
+        <span className="v3-eyebrow">{t("step.6")}</span>
+        <h2 className="v3-h2">{summary.title}</h2>
+        <p className="v3-lead">{summary.lead}</p>
+      </div>
 
       <div className="v3-kpis">
         {summary.kpis.map((k) => (
@@ -204,6 +216,8 @@ export default function Step6Finish() {
         </div>
       </section>
 
+      <SignatureBlock />
+
       {!done && (
         <section className="v3-submit" aria-busy={busy}>
           <h2 className="v3-submit-title">{t("s6.submitTitle")}</h2>
@@ -231,13 +245,18 @@ export default function Step6Finish() {
           )}
 
           <div className="v3-submit-actions">
-            <button type="button" className="v3-btn v3-btn--dark" onClick={submit} disabled={busy}>
-              {t("s6.submitTitle")}
+            <button type="button" className="v3-btn v3-btn--dark" onClick={submit} disabled={busy || !gate.enabled} aria-describedby={gate.enabled ? undefined : "v3-finish-blocked"}>
+              {t(gate.labelKey)}
             </button>
             <button type="button" className="v3-btn v3-btn--outline-dark" onClick={dossier} disabled={dossierBusy || busy}>
               {dossierBusy ? t("s6.dossierLoading") : t("s6.dossier")}
             </button>
           </div>
+          {!gate.enabled ? (
+            <p id="v3-finish-blocked" className="v3f-blocked">
+              {t("s6.finishBlockedHint")}
+            </p>
+          ) : null}
           {dossierError && (
             <p className="v3f-inline-error" role="alert">
               {dossierError}

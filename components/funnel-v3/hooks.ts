@@ -6,8 +6,8 @@ import { useFunnelV3, type Step } from "@/lib/funnel-v3/store";
 import { reqList, type RequirementInstance } from "@/lib/funnel-v3/requirements";
 import { requirementStatus } from "@/lib/funnel-v3/requirementStatus";
 import { toUploadedFiles, type FileEntry } from "@/lib/funnel-v3/files";
-import { validateStep, type StepErrors } from "@/lib/funnel-v3/validate";
-import { stepCount } from "@/lib/funnel-v3/steps";
+import { validateScreen, type StepErrors } from "@/lib/funnel-v3/validate";
+import { screenAt, stepCount, type Screen } from "@/lib/funnel-v3/steps";
 import type { FunnelState } from "@/lib/funnel-v3/types";
 import { fieldId, firstErrorField, visibleFields } from "./logic";
 import { useFunnelUI } from "./uiStore";
@@ -29,6 +29,12 @@ export function useFunnelState(): FunnelState {
       sig: s.sig,
     }))
   );
+}
+
+/** The current step, its screen and the mode's step count. */
+export function useScreen(): { step: number; screen: Screen | null; total: number; mode: FunnelState["mode"] } {
+  const { step, mode } = useFunnelV3(useShallow((s) => ({ step: s.step, mode: s.mode })));
+  return { step, mode, screen: screenAt(mode, step), total: stepCount(mode) };
 }
 
 export interface Requirements {
@@ -55,19 +61,18 @@ export function useRequirements(): Requirements {
         okIds = new Set(status.requirements.filter((r) => r.state === "ok").map((r) => r.instance.instanceId));
         fulfilled = status.counts.fulfilled;
       } catch {
-        // The file entries belong to the documents step; an entry this code does not understand
-        // only costs the rail its ticks.
+        // An entry this code does not understand only costs the rail its ticks.
       }
     }
     return { list, okIds, fulfilled, total: list.length };
   }, [ans, borrowers, txt, em, info, files]);
 }
 
-/** Validation errors of a step — only after «Weiter» was tried there (spec 1.6). */
-export function useStepErrors(step: number): StepErrors {
-  const shown = useFunnelUI((s) => s.attempted.includes(step));
+/** Validation errors of a screen — only after «Weiter» was tried there (spec 1.6). */
+export function useScreenErrors(screen: Screen | null): StepErrors {
+  const shown = useFunnelUI((s) => (screen ? s.attempted.includes(screen) : false));
   const state = useFunnelState();
-  return useMemo(() => (shown ? validateStep(step, state) : {}), [shown, step, state]);
+  return useMemo(() => (shown ? validateScreen(screen, state) : {}), [shown, screen, state]);
 }
 
 function focusField(field: string) {
@@ -75,8 +80,8 @@ function focusField(field: string) {
   const el = document.getElementById(fieldId(field));
   if (!el) return;
   const target =
-    el.getAttribute("role") === "radiogroup"
-      ? ((el.querySelector('[role="radio"][tabindex="0"]') || el.querySelector('[role="radio"]')) as HTMLElement | null)
+    el.getAttribute("role") === "radiogroup" || el.getAttribute("role") === "group"
+      ? ((el.querySelector('[role="radio"][tabindex="0"]') || el.querySelector("button")) as HTMLElement | null)
       : el;
   target?.focus({ preventScroll: true });
   el.scrollIntoView({ block: "center", behavior: "smooth" });
@@ -87,14 +92,13 @@ export function useFunnelNav() {
   const goNext = useCallback(() => {
     const s = useFunnelV3.getState();
     if (s.step <= 0 || s.step >= stepCount(s.mode)) return;
-    {
-      const errors = validateStep(s.step, s);
-      if (Object.keys(errors).length) {
-        useFunnelUI.getState().markAttempted(s.step);
-        const first = firstErrorField(errors, visibleFields(s.step, s));
-        if (first) requestAnimationFrame(() => focusField(first));
-        return;
-      }
+    const screen = screenAt(s.mode, s.step);
+    const errors = validateScreen(screen, s);
+    if (Object.keys(errors).length) {
+      if (screen) useFunnelUI.getState().markAttempted(screen);
+      const first = firstErrorField(errors, visibleFields(screen, s));
+      if (first) requestAnimationFrame(() => focusField(first));
+      return;
     }
     s.next();
   }, []);
@@ -104,4 +108,10 @@ export function useFunnelNav() {
   }, []);
   const goTo = useCallback((n: number) => useFunnelV3.getState().goto(n as Step), []);
   return { goNext, goPrev, goTo };
+}
+
+/** Focus a field after the screen that holds it opened (a suggestion «Betrag eintragen»). */
+export function focusFieldSoon(field: string): void {
+  if (typeof window === "undefined") return;
+  window.setTimeout(() => focusField(field), 120);
 }

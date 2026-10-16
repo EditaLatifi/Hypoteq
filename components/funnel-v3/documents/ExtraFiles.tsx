@@ -1,13 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { useFunnelT } from "@/lib/funnel-v3/useFunnelT";
+import { hasKey } from "@/lib/funnel-v3/i18n";
 import type { FileEntry } from "@/lib/funnel-v3/files";
 import type { Placement } from "@/lib/funnel-v3/placeFile";
-import type { RequirementInstance } from "@/lib/funnel-v3/requirements";
+import { getRequirement, type RequirementInstance } from "@/lib/funnel-v3/requirements";
 import { assignFile, keepFile, removeFile, retryFile } from "@/lib/funnel-v3/upload";
 import { requestedYears, v3DocType } from "@/components/documentIntelligence/v3/catalogue";
-import { rowClass, STATE_LOOK, storedNameForExtra, type RowState } from "./view";
+import { EXTRA_GROUP_LABEL, extraReasonKey, groupExtras, rowClass, STATE_LOOK, storedNameForExtra, type RowState } from "./view";
 import StoredName from "./StoredName";
 import AuditTrail from "./AuditTrail";
 
@@ -21,6 +22,13 @@ interface Props {
   canRename: boolean;
   onView: (fileId: string) => void;
   onAssigned: (label: string) => void;
+  /**
+   * The funnel (Handover 4.3): sub-headed groups überzählig · Duplikat · nicht benötigt ·
+   * nicht erkannt. The Nachreich page keeps the plain list.
+   */
+  grouped?: boolean;
+  /** Every file, so a duplicate can name the original it repeats (on the list or not). */
+  allFiles?: FileEntry[];
 }
 
 function stateOf(f: FileEntry, p: Placement | undefined): RowState {
@@ -39,17 +47,20 @@ export function isHiddenExtra(f: FileEntry, p: Placement | undefined): boolean {
  * «Weitere Dateien»: files outside the list — surplus, duplicate, not needed, not recognised —
  * plus files still uploading or being read. Only «Nicht erkannt» is assigned by hand (D15).
  */
-export default function ExtraFiles({ files, placements, instances, suggested, intern, canRename, onView, onAssigned }: Props) {
-  const { t } = useFunnelT();
+export default function ExtraFiles({ files, placements, instances, suggested, intern, canRename, onView, onAssigned, grouped, allFiles }: Props) {
+  const { t, lang } = useFunnelT();
   const [showHidden, setShowHidden] = useState(false);
-  const hidden = files.filter((f) => isHiddenExtra(f, placements.get(f.id)));
-  const visible = files.filter((f) => !isHiddenExtra(f, placements.get(f.id)) || showHidden);
-  const byId = new Map(files.map((f) => [f.id, f]));
+  // Grouped (the funnel, Handover 4.3) shows the «nicht benötigt» files with their reason;
+  // the plain list hides them behind «Anzeigen» (spec 4.3 v1).
+  const hidden = grouped ? [] : files.filter((f) => isHiddenExtra(f, placements.get(f.id)));
+  const visible = files.filter((f) => grouped || !isHiddenExtra(f, placements.get(f.id)) || showHidden);
+  const byId = new Map((allFiles ?? files).map((f) => [f.id, f]));
 
   const label = (f: FileEntry, p: Placement | undefined) => {
     const type = v3DocType(f.analysis?.docTypeId);
     if (type?.kind === "notneeded") return t(`docs.nn.${type.id}`);
-    if (p?.requirementId) return t(`doc.${p.requirementId}`);
+    // The requirement's own label key: v5 renamed some (P2 «Aktueller Lohnausweis»).
+    if (p?.requirementId) return t(getRequirement(p.requirementId)?.labelKey ?? `doc.${p.requirementId}`);
     return f.name;
   };
 
@@ -58,6 +69,9 @@ export default function ExtraFiles({ files, placements, instances, suggested, in
     if (state === "failed") return f.uploadError === "lost" ? t("docs.uploadLost") : t("docs.uploadFailed");
     if (state === "analysing") return t("s5.reading");
     if (f.keep && p?.extraKind === "notneeded") return t("docs.kept");
+    // «nicht benötigt (mit Begründung)» and the older Lohnausweis (Handover 4.2, 4.3).
+    const reasonKey = extraReasonKey(p, f.analysis?.docTypeId, (k) => hasKey(lang, k) || hasKey("de", k));
+    if (reasonKey) return t(reasonKey);
     switch (p?.reason) {
       case "full":
         return t("docs.x.full");
@@ -82,9 +96,8 @@ export default function ExtraFiles({ files, placements, instances, suggested, in
     }
   };
 
-  return (
-    <>
-      {visible.map((f) => {
+  const rows = (list: FileEntry[]) =>
+    list.map((f) => {
         const p = placements.get(f.id);
         const state = stateOf(f, p);
         const look = STATE_LOOK[state];
@@ -159,7 +172,20 @@ export default function ExtraFiles({ files, placements, instances, suggested, in
             </div>
           </div>
         );
-      })}
+      });
+
+  return (
+    <>
+      {grouped
+        ? groupExtras(visible, placements).map((g) => (
+            <Fragment key={g.key}>
+              <span className="v3-extra-group">
+                {t(EXTRA_GROUP_LABEL[g.key])} · {g.files.length}
+              </span>
+              {rows(g.files)}
+            </Fragment>
+          ))
+        : rows(visible)}
       {hidden.length ? (
         <div className="v3-hidden-toggle">
           <span>{t("docs.hiddenN", { n: hidden.length })}</span>

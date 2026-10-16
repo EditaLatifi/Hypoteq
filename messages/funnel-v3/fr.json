@@ -13,7 +13,8 @@
     "toFinish": "Vers la finalisation",
     "remove": "Supprimer",
     "timeLeft": "encore env. {time} min",
-    "stepOfN": "Étape {n} sur {total}"
+    "stepOfN": "Étape {n} sur {total}",
+    "minutes": "{time} min"
   },
   "start": {
     "title": "Votre demande de financement en quelques minutes.",
@@ -34,7 +35,11 @@
     "mode.guided.title": "Demande guidée",
     "mode.guided.sub": "Quelques questions. Nous vous indiquons immédiatement les documents nécessaires.",
     "mode.guided.time": "env. 3 minutes",
-    "recommended": "Recommandé"
+    "recommended": "Recommandé",
+    "leadModes": "Avec ou sans documents. Nous vous indiquons immédiatement ce qu’il faut – et lisons le reste pour vous.",
+    "mode.fast.text": "J’ai déjà les documents. D’abord les télécharger – la demande est ensuite en grande partie remplie.",
+    "mode.fast.duration": "env. 3 minutes · en grande partie pré-rempli",
+    "roleLabel": "Qui saisit la demande ?"
   },
   "side": {
     "request": "Demande",
@@ -107,7 +112,8 @@
     "advisorEmailPh": "nom@entreprise.ch",
     "emailPh": "nom@mail.ch",
     "phonePh": "+41 79 …",
-    "companyPh": "Nom de l’entreprise"
+    "companyPh": "Nom de l’entreprise",
+    "companyHr": "Entreprise selon le registre du commerce"
   },
   "q": {
     "anrede": "Civilité",
@@ -197,7 +203,13 @@
     "purchaseDate": "Date d’achat",
     "renoAmount": "Montant des rénovations",
     "valueIsPrice": "Correspond au prix d’achat – à modifier seulement s’il diffère",
-    "bauprojektOff": "Un projet de construction n’est pas possible en cas de refinancement."
+    "bauprojektOff": "Un projet de construction n’est pas possible en cas de refinancement.",
+    "rentHint": "Revenus locatifs nets par an",
+    "purchase": "Achat",
+    "purchaseDateHint": "Transfert de propriété prévu",
+    "datePh": "JJ.MM.AAAA",
+    "renoAmountHint": "Compte dans le financement total",
+    "more": "Autres informations (facultatif) · durée, commentaire"
   },
   "s3": {
     "title": "Qui finance ?",
@@ -383,7 +395,8 @@
   "toast": {
     "done": "{files} fichiers traités, {req} exigences remplies",
     "fields": "{n} informations extraites",
-    "corrected": "Réponse corrigée – documents attribués"
+    "corrected": "Réponse corrigée – documents attribués",
+    "prefilled": "{n} informations reprises dans la demande"
   },
   "docs": {
     "dropRelease": "Relâchez pour téléverser",
@@ -490,7 +503,11 @@
     "audit.renamed": "Nom modifié : {name}",
     "nn.hyp_rahmen": "Contrat hypothécaire (contrat-cadre)",
     "nn.hyp_sicher": "Convention de garantie / cédule hypothécaire",
-    "x.olderSalary": "Certificat de salaire plus ancien – nécessaire uniquement en cas de part variable. Conservé dans le dossier."
+    "x.olderSalary": "Certificat de salaire plus ancien – nécessaire uniquement en cas de part variable. Conservé dans le dossier.",
+    "sugAdd": "Oui, compléter",
+    "sugEnter": "Oui, l’inscrire",
+    "sugGoEnter": "Saisir le montant",
+    "toast.grew": "La liste s’est allongée : {n} document(s) issu(s) de l’analyse des documents"
   },
   "s6": {
     "titleOk": "Nous pouvons financer ce projet. Place à la banque.",
@@ -550,7 +567,8 @@
     "doneTitleNoId": "La demande est chez HYPOTEQ.",
     "customer": "Le client",
     "finishBlocked": "Signez d’abord l’autorisation",
-    "finishBlockedUpload": "Téléchargez d’abord l’autorisation"
+    "finishBlockedUpload": "Téléchargez d’abord l’autorisation",
+    "finishBlockedHint": "Téléchargez l’autorisation signée ou choisissez « Remettre plus tard »."
   },
   "rail": {
     "title": "Vos documents",
@@ -619,11 +637,15 @@
     "erbe": "Avancement d’hoirie",
     "darl": "Prêt",
     "total": "Fonds propres totaux {amount} · dont durs {hard}",
-    "hardMin": "au moins 10 % du prix d’achat requis"
+    "hardMin": "au moins 10 % du prix d’achat requis",
+    "subAbl": "Pilier 3a existant ou mise en gage – transféré à la nouvelle banque lors du remboursement.",
+    "totalPct": "Fonds propres totaux {amount} · {pct} · dont durs {hard}"
   },
   "calc": {
     "byPrice": "Max. 80 % de la valeur la plus basse entre prix d’achat et valeur estimée",
-    "incNote": "La capacité financière s’affiche dès que le revenu est saisi."
+    "incNote": "La capacité financière s’affiche dès que le revenu est saisi.",
+    "subEquity": "Prix d’achat moins {amount} de fonds propres",
+    "subEquityReno": "Prix d’achat + rénovation moins {amount} de fonds propres"
   },
   "fast": {
     "s1.title": "Demande express",
@@ -646,7 +668,12 @@
     "missingDrop": "Déposez les documents manquants ici",
     "allComplete": "Tous les documents sont complets. Il ne manque rien.",
     "toRequest": "Continuer vers la demande",
-    "toMissing": "Vers les documents manquants"
+    "toMissing": "Vers les documents manquants",
+    "from": "tiré de : {doc}",
+    "fromUnsure": "tiré de : {doc} · veuillez confirmer",
+    "forMail": "pour l’e-mail et Salesforce",
+    "rail.short": "Informations reconnues",
+    "rail.empty": "Rien lu pour l’instant – téléchargez vos documents à gauche."
   },
   "nn": {
     "vermoegen": "Le justificatif de fonds propres n’est nécessaire que pour un achat.",
@@ -748,5 +775,46 @@
     "section.financing": "Financement",
     "section.more": "Autres informations",
     "section.docs": "Documents"
+  },
+  "head": {
+    "fast.anfrage.title": "Votre demande",
+    "fast.anfrage.lead": "Pré-remplie à partir de vos documents. Vérifiez les informations et complétez ce qui manque.",
+    "guided.objekt.lead": "Le bien et le financement sur une seule page. Vous voyez immédiatement le taux d’avance et la capacité financière.",
+    "fast.objekt.lead": "Pré-rempli à partir de vos documents. Complétez ce qui ne figure dans aucun document.",
+    "guided.personen.lead": "Les mêmes documents pour chaque emprunteur. Les points supplémentaires ne complètent la liste que s’ils s’appliquent.",
+    "fast.personen.lead": "Pré-rempli à partir de la pièce d’identité, du certificat de salaire et de la déclaration d’impôt. Vérifiez les points supplémentaires.",
+    "guided.abschluss.lead": "Des documents individuels ou un dossier complet avec tous les documents – dans n’importe quel ordre. HYPOTEQ reconnaît chaque document, l’attribue et en extrait les informations.",
+    "fast.abschluss.lead": "Seulement ce qui manquait dans votre dossier – ajouté par vos réponses ou non reconnu. Téléchargez-le un par un ou remettez-le plus tard."
+  },
+  "info": {
+    "geb": "Date de naissance",
+    "nat": "Nationalité",
+    "zivil": "État civil",
+    "kinder": "Enfants",
+    "adresse": "Adresse du bien",
+    "wertquote": "Quote-part",
+    "grundpfand": "Droits de gage immobilier",
+    "efSaldo": "Solde du fonds de rénovation",
+    "baujahr": "Année de construction",
+    "zimmer": "Pièces",
+    "wohnflaeche": "Surface habitable",
+    "heizung": "Type de chauffage",
+    "kubatur": "Volume",
+    "versSumme": "Somme d’assurance",
+    "bank": "Banque actuelle",
+    "zins": "Taux actuel",
+    "laufzeit": "Durée",
+    "abl": "Date de remboursement",
+    "ag": "Employeur",
+    "unterhaltBetrag": "Contribution d’entretien",
+    "kreditRest": "Solde du crédit privé",
+    "kreditRate": "Mensualité du crédit privé",
+    "leasingRate": "Mensualité de leasing",
+    "leasingRest": "Durée restante du leasing",
+    "s3aPledge": "Mise en gage du pilier 3a",
+    "pk": "Avoir de prévoyance",
+    "pkVorbezug": "Versement anticipé possible",
+    "uid": "IDE",
+    "sitz": "Siège"
   }
 }

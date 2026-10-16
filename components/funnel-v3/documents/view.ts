@@ -17,7 +17,7 @@ import {
   type RequirementInstance,
 } from "@/lib/funnel-v3/requirements";
 import type { RequirementState, RequirementStatus } from "@/lib/funnel-v3/requirementStatus";
-import type { Placement } from "@/lib/funnel-v3/placeFile";
+import { OLDER_SALARY_DE, type Placement } from "@/lib/funnel-v3/placeFile";
 import { storedName } from "@/lib/funnel-v3/storedName";
 import { v3DocType } from "@/components/documentIntelligence/v3/catalogue";
 
@@ -128,6 +128,53 @@ export function groupRows(rows: RequirementStatus[], state: ReqState, lang: Lang
     }
   }
   return out;
+}
+
+// ---- Files outside the list (Handover 4.3) --------------------------------------------------
+
+/** The kinds of «Weitere Dateien», in display order (Handover 4.3), and files still on their way. */
+export type ExtraGroupKey = "surplus" | "duplicate" | "notneeded" | "unknown" | "pending";
+export const EXTRA_GROUP_ORDER: readonly ExtraGroupKey[] = ["pending", "unknown", "surplus", "duplicate", "notneeded"];
+
+/** Heading of an extras group: «Überzählig», «Duplikat», «Nicht benötigt», «Nicht erkannt», «Wird gelesen». */
+export const EXTRA_GROUP_LABEL: Record<ExtraGroupKey, string> = {
+  surplus: "state.surplus",
+  duplicate: "state.duplicate",
+  notneeded: "state.notneeded",
+  unknown: "state.unknown",
+  pending: "state.analysing",
+};
+
+/**
+ * «Dateien ausserhalb der Liste: überzählig · Duplikat · nicht benötigt (mit Begründung) ·
+ * nicht erkannt» (Handover 4.3): the extras grouped by kind, in upload order inside a group.
+ * Files still uploading or being read, and failed uploads, come first («Wird gelesen»).
+ */
+export function groupExtras(files: FileEntry[], placements: Map<string, Placement>): { key: ExtraGroupKey; files: FileEntry[] }[] {
+  const by = new Map<ExtraGroupKey, FileEntry[]>();
+  for (const f of files) {
+    const p = placements.get(f.id);
+    const key: ExtraGroupKey =
+      f.uploadState !== "uploaded" || !p || p.reason === "pending" ? "pending" : ((p.extraKind ?? "unknown") as ExtraGroupKey);
+    by.set(key, [...(by.get(key) ?? []), f]);
+  }
+  return EXTRA_GROUP_ORDER.filter((k) => by.has(k)).map((key) => ({ key, files: by.get(key)! }));
+}
+
+/**
+ * The i18n key of a «nicht benötigt» reason: the type's own sentence where the message file has
+ * one (`nn.<id>`: «Eigenmittelnachweis ist nur bei einem Kauf nötig.», the Rahmenvertrag, the
+ * Schuldbrief, the Anstellungsvertrag), the general one otherwise. An older Lohnausweis
+ * without a recognised bonus has its own sentence (Handover 4.2 «überzählig»).
+ */
+export function extraReasonKey(p: Placement | undefined, docTypeId: string | null | undefined, has: (key: string) => boolean): string | null {
+  if (!p) return null;
+  if (p.reason === "notneeded") {
+    for (const id of [p.requirementId, docTypeId]) if (id && has(`nn.${id}`)) return `nn.${id}`;
+    return "docs.x.notneeded";
+  }
+  if (p.reason === "period" && p.extraReason === OLDER_SALARY_DE) return "docs.x.olderSalary";
+  return null;
 }
 
 // ---- Fields ---------------------------------------------------------------------------------

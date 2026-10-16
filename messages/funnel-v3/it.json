@@ -13,7 +13,8 @@
     "toFinish": "Alla conclusione",
     "remove": "Rimuovi",
     "timeLeft": "ancora ca. {time} min",
-    "stepOfN": "Passo {n} di {total}"
+    "stepOfN": "Passo {n} di {total}",
+    "minutes": "{time} min"
   },
   "start": {
     "title": "La Sua richiesta di finanziamento in pochi minuti.",
@@ -34,7 +35,11 @@
     "mode.guided.title": "Richiesta guidata",
     "mode.guided.sub": "Alcune domande. Le indichiamo subito quali documenti servono.",
     "mode.guided.time": "ca. 3 minuti",
-    "recommended": "Consigliato"
+    "recommended": "Consigliato",
+    "leadModes": "Con o senza documenti. Le diciamo subito cosa serve – e leggiamo il resto per Lei.",
+    "mode.fast.text": "Ho già i documenti. Prima li carico – poi la richiesta è in gran parte compilata.",
+    "mode.fast.duration": "ca. 3 minuti · in gran parte precompilato",
+    "roleLabel": "Chi inserisce la richiesta?"
   },
   "side": {
     "request": "Richiesta",
@@ -107,7 +112,8 @@
     "advisorEmailPh": "nome@azienda.ch",
     "emailPh": "nome@mail.ch",
     "phonePh": "+41 79 …",
-    "companyPh": "Nome dell’azienda"
+    "companyPh": "Nome dell’azienda",
+    "companyHr": "Azienda secondo il registro di commercio"
   },
   "q": {
     "anrede": "Appellativo",
@@ -197,7 +203,13 @@
     "purchaseDate": "Data d’acquisto",
     "renoAmount": "Importo della ristrutturazione",
     "valueIsPrice": "Corrisponde al prezzo d’acquisto – modificare solo se diverso",
-    "bauprojektOff": "Per un rifinanziamento un progetto di costruzione non è possibile."
+    "bauprojektOff": "Per un rifinanziamento un progetto di costruzione non è possibile.",
+    "rentHint": "Redditi locativi netti all’anno",
+    "purchase": "Acquisto",
+    "purchaseDateHint": "Trapasso di proprietà previsto",
+    "datePh": "GG.MM.AAAA",
+    "renoAmountHint": "Rientra nel finanziamento totale",
+    "more": "Altri dati (facoltativo) · durata, commento"
   },
   "s3": {
     "title": "Chi finanzia?",
@@ -383,7 +395,8 @@
   "toast": {
     "done": "{files} file elaborati, {req} requisiti soddisfatti",
     "fields": "{n} dati estratti",
-    "corrected": "Risposta corretta – documenti assegnati"
+    "corrected": "Risposta corretta – documenti assegnati",
+    "prefilled": "{n} dati ripresi nella richiesta"
   },
   "docs": {
     "dropRelease": "Rilasci per caricare",
@@ -490,7 +503,11 @@
     "audit.renamed": "Nome modificato: {name}",
     "nn.hyp_rahmen": "Contratto ipotecario (contratto quadro)",
     "nn.hyp_sicher": "Convenzione di garanzia / cartella ipotecaria",
-    "x.olderSalary": "Certificato di salario precedente – necessario solo con componente variabile. Conservato nel dossier."
+    "x.olderSalary": "Certificato di salario precedente – necessario solo con componente variabile. Conservato nel dossier.",
+    "sugAdd": "Sì, aggiungere",
+    "sugEnter": "Sì, inserirlo",
+    "sugGoEnter": "Inserire l’importo",
+    "toast.grew": "L’elenco è cresciuto: {n} documento/i dall’analisi dei documenti"
   },
   "s6": {
     "titleOk": "Possiamo finanziarlo. Ora alla banca.",
@@ -550,7 +567,8 @@
     "doneTitleNoId": "La richiesta è presso HYPOTEQ.",
     "customer": "Il cliente",
     "finishBlocked": "Firmi prima l’autorizzazione",
-    "finishBlockedUpload": "Carichi prima l’autorizzazione"
+    "finishBlockedUpload": "Carichi prima l’autorizzazione",
+    "finishBlockedHint": "Carichi l’autorizzazione firmata o scelga «Inviare più tardi»."
   },
   "rail": {
     "title": "I Suoi documenti",
@@ -619,11 +637,15 @@
     "erbe": "Anticipo ereditario",
     "darl": "Prestito",
     "total": "Fondi propri totali {amount} · di cui duri {hard}",
-    "hardMin": "almeno il 10 % del prezzo d’acquisto"
+    "hardMin": "almeno il 10 % del prezzo d’acquisto",
+    "subAbl": "Pilastro 3a esistente o costituzione in pegno – trasferito alla nuova banca con il rimborso.",
+    "totalPct": "Fondi propri totali {amount} · {pct} · di cui duri {hard}"
   },
   "calc": {
     "byPrice": "Max. 80 % del valore più basso tra prezzo d’acquisto e valore stimato",
-    "incNote": "La sostenibilità appare non appena il reddito è inserito."
+    "incNote": "La sostenibilità appare non appena il reddito è inserito.",
+    "subEquity": "Prezzo d’acquisto meno {amount} di fondi propri",
+    "subEquityReno": "Prezzo d’acquisto + ristrutturazione meno {amount} di fondi propri"
   },
   "fast": {
     "s1.title": "Richiesta rapida",
@@ -646,7 +668,12 @@
     "missingDrop": "Trascini qui i documenti mancanti",
     "allComplete": "Tutti i documenti sono completi. Non manca nulla.",
     "toRequest": "Avanti alla richiesta",
-    "toMissing": "Ai documenti mancanti"
+    "toMissing": "Ai documenti mancanti",
+    "from": "da: {doc}",
+    "fromUnsure": "da: {doc} · si prega di confermare",
+    "forMail": "per l’e-mail e Salesforce",
+    "rail.short": "Dati riconosciuti",
+    "rail.empty": "Ancora nulla letto – carichi i Suoi documenti a sinistra."
   },
   "nn": {
     "vermoegen": "La prova dei fondi propri serve solo per un acquisto.",
@@ -748,5 +775,46 @@
     "section.financing": "Finanziamento",
     "section.more": "Altri dati",
     "section.docs": "Documenti"
+  },
+  "head": {
+    "fast.anfrage.title": "La Sua richiesta",
+    "fast.anfrage.lead": "Precompilata dai Suoi documenti. Verifichi i dati e completi ciò che manca.",
+    "guided.objekt.lead": "Immobile e finanziamento su una sola pagina. Vede subito il grado di anticipo e la sostenibilità finanziaria.",
+    "fast.objekt.lead": "Precompilato dai Suoi documenti. Completi ciò che non figura in nessun documento.",
+    "guided.personen.lead": "Gli stessi documenti per ogni mutuatario. I punti aggiuntivi ampliano l’elenco solo se pertinenti.",
+    "fast.personen.lead": "Precompilato da documento d’identità, certificato di salario e dichiarazione d’imposta. Verifichi i punti aggiuntivi.",
+    "guided.abschluss.lead": "Singoli documenti o un’intera cartella con tutti i documenti – in qualsiasi ordine. HYPOTEQ riconosce ogni documento, lo assegna e ne estrae i dati.",
+    "fast.abschluss.lead": "Solo ciò che mancava nella Sua cartella – aggiunto dalle Sue risposte o non riconosciuto. Lo carichi singolarmente o lo invii più tardi."
+  },
+  "info": {
+    "geb": "Data di nascita",
+    "nat": "Nazionalità",
+    "zivil": "Stato civile",
+    "kinder": "Figli",
+    "adresse": "Indirizzo dell’immobile",
+    "wertquote": "Quota di valore",
+    "grundpfand": "Diritti di pegno immobiliare",
+    "efSaldo": "Saldo del fondo di rinnovamento",
+    "baujahr": "Anno di costruzione",
+    "zimmer": "Locali",
+    "wohnflaeche": "Superficie abitabile",
+    "heizung": "Tipo di riscaldamento",
+    "kubatur": "Cubatura",
+    "versSumme": "Somma assicurata",
+    "bank": "Banca attuale",
+    "zins": "Tasso attuale",
+    "laufzeit": "Durata",
+    "abl": "Data di rimborso",
+    "ag": "Datore di lavoro",
+    "unterhaltBetrag": "Contributo di mantenimento",
+    "kreditRest": "Debito residuo credito privato",
+    "kreditRate": "Rata mensile credito privato",
+    "leasingRate": "Rata del leasing",
+    "leasingRest": "Durata residua del leasing",
+    "s3aPledge": "Costituzione in pegno pilastro 3a",
+    "pk": "Avere previdenziale",
+    "pkVorbezug": "Prelievo anticipato possibile",
+    "uid": "IDI",
+    "sitz": "Sede"
   }
 }

@@ -9,6 +9,9 @@
  * the browser, so nothing reaches the database, Salesforce, SharePoint or a mailbox — the
  * only safe way to run the whole flow locally while .env.local points at production. The
  * server side of those calls is covered by the jest suites (tests/funnelV3).
+ *
+ * The Kunde and Berater flows below walk the v3 screens (6 topics, Kinder, Heizung …) that v5
+ * replaced; the v5 screens are walked by funnel-v5.js. The Nachreichung flow still applies.
  */
 // Full local end-to-end run of Funnel v3 against the production build on :3005, with every
 // backend endpoint simulated in the browser (SharePoint upload, AI analysis, submit, partner

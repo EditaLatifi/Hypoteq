@@ -1,7 +1,7 @@
 import { describe, it, expect } from "@jest/globals";
 import * as fs from "fs";
 import * as path from "path";
-import { hasKey, LANGS } from "@/lib/funnel-v3/i18n";
+import { hasKey, LANGS, MESSAGES } from "@/lib/funnel-v3/i18n";
 import { reqList } from "@/lib/funnel-v3/requirements";
 import { requirementStatus } from "@/lib/funnel-v3/requirementStatus";
 import type { FileEntry } from "@/lib/funnel-v3/files";
@@ -20,7 +20,11 @@ import {
   reasonText,
   storedNameFor,
   storedNameForExtra,
+  EXTRA_GROUP_LABEL,
+  extraReasonKey,
+  groupExtras,
 } from "@/components/funnel-v3/documents/view";
+import { OLDER_SALARY_DE, type Placement } from "@/lib/funnel-v3/placeFile";
 import { EMPTY_AMOUNTS } from "@/lib/funnel-v3/types";
 import { GARY, GERBER_ANSWERS, mkState } from "./helpers";
 
@@ -176,18 +180,63 @@ describe("fields, names, checks", () => {
   });
 });
 
-describe("texts", () => {
-  it("every key the documents step uses exists in all four languages", () => {
-    const dir = path.join(__dirname, "..", "..", "components", "funnel-v3");
+describe("files outside the list (Handover 4.3)", () => {
+  const place = (extraKind: Placement["extraKind"], reason: Placement["reason"], requirementId: string | null = null, extraReason?: string): Placement => ({
+    instanceId: null,
+    requirementId,
+    extraKind,
+    reason,
+    ...(extraReason ? { extraReason } : {}),
+  });
+
+  it("groups them: being read · nicht erkannt · überzählig · Duplikat · nicht benötigt", () => {
     const files = [
-      ...fs.readdirSync(path.join(dir, "documents")).map((x) => path.join(dir, "documents", x)),
-      path.join(dir, "steps", "Step5Documents.tsx"),
-      path.join(__dirname, "..", "..", "lib", "funnel-v3", "upload.ts"),
-    ].filter((p) => /\.tsx?$/.test(p));
+      f({ id: "a" }),
+      f({ id: "b" }),
+      f({ id: "c" }),
+      f({ id: "d", uploadState: "uploading", analysisState: "pending" }),
+      f({ id: "e" }),
+    ];
+    const placements = new Map<string, Placement>([
+      ["a", place("notneeded", "notneeded", "vermoegen")],
+      ["b", place("surplus", "full", "id")],
+      ["c", place("unknown", "unknown")],
+      ["e", place("duplicate", "duplicate")],
+    ]);
+    expect(groupExtras(files, placements).map((g) => [g.key, g.files.map((x) => x.id)])).toEqual([
+      ["pending", ["d"]],
+      ["unknown", ["c"]],
+      ["surplus", ["b"]],
+      ["duplicate", ["e"]],
+      ["notneeded", ["a"]],
+    ]);
+    for (const l of LANGS) for (const k of Object.values(EXTRA_GROUP_LABEL)) expect([l, k, hasKey(l, k)]).toEqual([l, k, true]);
+  });
+
+  it("names why a file is not needed, and the older Lohnausweis", () => {
+    const has = (k: string) => hasKey("de", k);
+    expect(extraReasonKey(place("notneeded", "notneeded", "vermoegen"), "vermoegen", has)).toBe("nn.vermoegen");
+    expect(extraReasonKey(place("notneeded", "notneeded", null), "hyp_rahmen", has)).toBe("nn.hyp_rahmen");
+    expect(extraReasonKey(place("notneeded", "notneeded", null), "nn_steuerrechnung", has)).toBe("docs.x.notneeded");
+    expect(extraReasonKey(place("surplus", "period", "lohnausweise", OLDER_SALARY_DE), "lohnausweise", has)).toBe("docs.x.olderSalary");
+    expect(extraReasonKey(place("surplus", "full", "id"), "id", has)).toBeNull();
+    expect(extraReasonKey(undefined, null, has)).toBeNull();
+  });
+});
+
+describe("texts", () => {
+  // v5: every screen of the funnel (components/funnel-v3/**), not only the documents step.
+  it("every key the funnel screens use exists in all four languages", () => {
+    const dir = path.join(__dirname, "..", "..", "components", "funnel-v3");
+    const walk = (d: string): string[] =>
+      fs.readdirSync(d, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(path.join(d, e.name)) : [path.join(d, e.name)]));
+    const files = [...walk(dir), path.join(__dirname, "..", "..", "lib", "funnel-v3", "upload.ts")].filter((p) => /\.tsx?$/.test(p));
+    const namespaces = Object.keys(MESSAGES.de).join("|");
+    const literal = new RegExp(`["'\`]((?:${namespaces})\\.[A-Za-z0-9_.]+)["'\`]`, "g");
     const keys = new Set<string>();
     for (const p of files) {
       const src = fs.readFileSync(p, "utf8");
-      for (const m of src.matchAll(/["'`]((?:docs|s5|act|state|toast|sug|grp|why|common|step)\.[A-Za-z0-9_.]+)["'`]/g)) keys.add(m[1]);
+      for (const m of src.matchAll(literal)) keys.add(m[1]);
     }
     for (const id of V3_DOC_TYPES.filter((x) => x.kind === "notneeded").map((x) => x.id)) keys.add(`docs.nn.${id}`);
     expect(keys.size).toBeGreaterThan(60);

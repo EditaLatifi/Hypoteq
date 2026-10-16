@@ -85,6 +85,22 @@
   cursor: progress;
 }
 
+/* «Erst Auskunftsermächtigung hochladen» (Handover 6): locked, the prototype's «off» look. */
+.hqv3 .v3-submit .v3-btn--dark[disabled][aria-describedby] {
+  opacity: 1;
+  cursor: not-allowed;
+  background: var(--paper-200, #edf1e9);
+  color: var(--on-light-45, rgba(19, 34, 25, 0.45));
+  border-color: var(--paper-300, #e1e7dc);
+}
+.hqv3 .v3f-blocked {
+  margin: 0;
+  font-size: var(--text-caption, 13px);
+  color: var(--forest-800, #132219);
+  opacity: 0.75;
+  text-wrap: pretty;
+}
+
 .hqv3 .v3-done:focus {
   outline: none;
 }
@@ -101,6 +117,10 @@
   gap: 12px;
 }
 .hqv3 .v3f-checks > .v3-eyebrow--tight {
+  margin-bottom: 0;
+}
+/* The same for «Hinweise an die Bank»: the eyebrow pulled the first hint over itself. */
+.hqv3 .v3-hints > .v3-eyebrow--tight {
   margin-bottom: 0;
 }
 

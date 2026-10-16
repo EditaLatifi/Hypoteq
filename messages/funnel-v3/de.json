@@ -13,7 +13,8 @@
     "toFinish": "Zum Abschluss",
     "remove": "Entfernen",
     "timeLeft": "noch ca. {time} Min.",
-    "stepOfN": "Schritt {n} von {total}"
+    "stepOfN": "Schritt {n} von {total}",
+    "minutes": "{time} Min."
   },
   "start": {
     "title": "Finanzierungsanfrage in wenigen Minuten.",
@@ -34,7 +35,11 @@
     "mode.guided.title": "Begleitete Anmeldung",
     "mode.guided.sub": "Ein paar Fragen. Wir sagen dir sofort, welche Unterlagen es braucht.",
     "mode.guided.time": "ca. 3 Minuten",
-    "recommended": "Empfohlen"
+    "recommended": "Empfohlen",
+    "leadModes": "Mit Unterlagen oder ohne. Wir sagen dir sofort, was es braucht – und lesen den Rest für dich aus.",
+    "mode.fast.text": "Ich habe die Unterlagen schon. Erst hochladen – danach ist die Anfrage grösstenteils ausgefüllt.",
+    "mode.fast.duration": "ca. 3 Minuten · vieles vorausgefüllt",
+    "roleLabel": "Wer erfasst die Anfrage?"
   },
   "side": {
     "request": "Anfrage",
@@ -107,7 +112,8 @@
     "advisorEmailPh": "name@firma.ch",
     "emailPh": "name@mail.ch",
     "phonePh": "+41 79 …",
-    "companyPh": "Firmenname"
+    "companyPh": "Firmenname",
+    "companyHr": "Firma gemäss Handelsregister"
   },
   "q": {
     "anrede": "Anrede",
@@ -197,7 +203,13 @@
     "purchaseDate": "Kaufdatum",
     "renoAmount": "Renovationsbetrag",
     "valueIsPrice": "Entspricht dem Kaufpreis – nur ändern, wenn er abweicht",
-    "bauprojektOff": "Bei einer Ablösung ist ein Bauprojekt nicht möglich."
+    "bauprojektOff": "Bei einer Ablösung ist ein Bauprojekt nicht möglich.",
+    "rentHint": "Netto-Mietzinseinnahmen pro Jahr",
+    "purchase": "Kauf",
+    "purchaseDateHint": "Geplante Eigentumsübertragung",
+    "datePh": "TT.MM.JJJJ",
+    "renoAmountHint": "Wird zur Gesamtfinanzierung gerechnet",
+    "more": "Weitere Angaben (optional) · Laufzeit, Kommentar"
   },
   "s3": {
     "title": "Wer finanziert?",
@@ -383,7 +395,8 @@
   "toast": {
     "done": "{files} Dateien verarbeitet, {req} Anforderungen erfüllt",
     "fields": "{n} Angaben ausgelesen",
-    "corrected": "Antwort korrigiert – Dokumente zugeordnet"
+    "corrected": "Antwort korrigiert – Dokumente zugeordnet",
+    "prefilled": "{n} Angaben in die Anfrage übernommen"
   },
   "docs": {
     "dropRelease": "Loslassen zum Hochladen",
@@ -490,7 +503,11 @@
     "audit.renamed": "Name geändert: {name}",
     "nn.hyp_rahmen": "Hypothekarvertrag (Rahmenvertrag)",
     "nn.hyp_sicher": "Sicherungsvereinbarung / Schuldbrief",
-    "x.olderSalary": "Älterer Lohnausweis – nur bei variablem Lohnanteil nötig. Wird im Dossier mitgeführt."
+    "x.olderSalary": "Älterer Lohnausweis – nur bei variablem Lohnanteil nötig. Wird im Dossier mitgeführt.",
+    "sugAdd": "Ja, ergänzen",
+    "sugEnter": "Ja, eintragen",
+    "sugGoEnter": "Betrag eintragen",
+    "toast.grew": "Die Liste ist gewachsen: {n} Unterlage(n) aus der Dokumentenanalyse"
   },
   "s6": {
     "titleOk": "Das können wir finanzieren. Jetzt zur Bank.",
@@ -550,7 +567,8 @@
     "doneTitleNoId": "Die Anfrage ist bei HYPOTEQ.",
     "customer": "Der Kunde",
     "finishBlocked": "Erst Auskunftsermächtigung unterzeichnen",
-    "finishBlockedUpload": "Erst Auskunftsermächtigung hochladen"
+    "finishBlockedUpload": "Erst Auskunftsermächtigung hochladen",
+    "finishBlockedHint": "Lade die unterzeichnete Auskunftsermächtigung hoch oder wähle «Später nachreichen»."
   },
   "rail": {
     "title": "Deine Unterlagen",
@@ -619,11 +637,15 @@
     "erbe": "Erbvorbezug",
     "darl": "Darlehen",
     "total": "Eigenmittel total {amount} · davon hart {hard}",
-    "hardMin": "mind. 10 % des Kaufpreises nötig"
+    "hardMin": "mind. 10 % des Kaufpreises nötig",
+    "subAbl": "Bestehende Säule 3a oder Verpfändung – wird bei der Ablösung an die neue Bank übertragen.",
+    "totalPct": "Eigenmittel total {amount} · {pct} · davon hart {hard}"
   },
   "calc": {
     "byPrice": "Max. 80 % des tieferen Werts von Kaufpreis und Schätzwert",
-    "incNote": "Tragbarkeit erscheint, sobald das Einkommen erfasst ist."
+    "incNote": "Tragbarkeit erscheint, sobald das Einkommen erfasst ist.",
+    "subEquity": "Kaufpreis minus {amount} Eigenmittel",
+    "subEquityReno": "Kaufpreis + Renovation minus {amount} Eigenmittel"
   },
   "fast": {
     "s1.title": "Schnellanmeldung",
@@ -646,7 +668,12 @@
     "missingDrop": "Fehlende Unterlagen hier ablegen",
     "allComplete": "Alle Unterlagen sind vollständig. Es fehlt nichts mehr.",
     "toRequest": "Weiter zur Anfrage",
-    "toMissing": "Zu den fehlenden Unterlagen"
+    "toMissing": "Zu den fehlenden Unterlagen",
+    "from": "aus {doc}",
+    "fromUnsure": "aus {doc} · bitte bestätigen",
+    "forMail": "für Mail und Salesforce",
+    "rail.short": "Erkannte Angaben",
+    "rail.empty": "Noch nichts gelesen – lade deine Unterlagen links hoch."
   },
   "nn": {
     "vermoegen": "Eigenmittelnachweis ist nur bei einem Kauf nötig.",
@@ -748,5 +775,46 @@
     "section.financing": "Finanzierung",
     "section.more": "Weitere Angaben",
     "section.docs": "Unterlagen"
+  },
+  "head": {
+    "fast.anfrage.title": "Deine Anfrage",
+    "fast.anfrage.lead": "Aus deinen Unterlagen vorausgefüllt. Prüfe die Angaben und ergänze, was fehlt.",
+    "guided.objekt.lead": "Objekt und Finanzierung auf einer Seite. Belehnung und Tragbarkeit siehst du sofort.",
+    "fast.objekt.lead": "Vorausgefüllt aus deinen Unterlagen. Ergänze, was in keinem Dokument steht.",
+    "guided.personen.lead": "Pro Kreditnehmer dieselben Unterlagen. Zusatzpunkte erweitern die Liste nur, wenn sie zutreffen.",
+    "fast.personen.lead": "Vorausgefüllt aus ID, Lohnausweis und Steuererklärung. Prüfe die Zusatzpunkte.",
+    "guided.abschluss.lead": "Einzelne Dokumente oder einen ganzen Ordner mit allen Unterlagen – in beliebiger Reihenfolge. HYPOTEQ erkennt jedes Dokument, ordnet es zu und liest die Angaben aus.",
+    "fast.abschluss.lead": "Nur noch, was in deinem Ordner gefehlt hat – durch deine Angaben dazugekommen oder nicht erkannt. Einzeln hochladen oder nachreichen."
+  },
+  "info": {
+    "geb": "Geburtsdatum",
+    "nat": "Nationalität",
+    "zivil": "Zivilstand",
+    "kinder": "Kinder",
+    "adresse": "Objektadresse",
+    "wertquote": "Wertquote",
+    "grundpfand": "Grundpfandrechte",
+    "efSaldo": "Saldo Erneuerungsfonds",
+    "baujahr": "Baujahr",
+    "zimmer": "Zimmer",
+    "wohnflaeche": "Wohnfläche",
+    "heizung": "Heizungsart",
+    "kubatur": "Kubatur",
+    "versSumme": "Versicherungssumme",
+    "bank": "Bestehende Bank",
+    "zins": "Aktueller Zins",
+    "laufzeit": "Laufzeit",
+    "abl": "Ablösedatum",
+    "ag": "Arbeitgeber",
+    "unterhaltBetrag": "Unterhaltsbeitrag",
+    "kreditRest": "Restschuld Privatkredit",
+    "kreditRate": "Monatsrate Privatkredit",
+    "leasingRate": "Leasingrate",
+    "leasingRest": "Restlaufzeit Leasing",
+    "s3aPledge": "Verpfändung Säule 3a",
+    "pk": "PK-Guthaben",
+    "pkVorbezug": "PK-Vorbezug möglich",
+    "uid": "UID",
+    "sitz": "Sitz"
   }
 }
