@@ -126,6 +126,8 @@ export function documentsSummary(raw: DocumentsSummaryInput, opts: { now?: Date 
       pending: f.uploadState === "uploading" || (f.uploadState === "uploaded" && (f.analysisState === "pending" || f.analysisState === "analysing")),
       analysis: f.analysis ?? null,
       assignedByUser: f.assignedByUser,
+      // A failed upload placed by the block's own button keeps P0 but is not a copy.
+      failed: f.uploadState === "failed",
     })),
     input.sig ?? null,
     signer
