@@ -1,19 +1,6 @@
 /* Documents step (Funnel v3 step 5): only what funnel-v3.css (the prototype translation) has no
    class for. Scoped under .hqv3 like the rest. */
 
-.hqv3 .v3-drop-folder {
-  margin-top: 2px;
-  background: none;
-  border: 0;
-  padding: 2px 4px;
-  font: inherit;
-  font-size: var(--text-caption);
-  font-weight: var(--weight-semibold);
-  color: var(--forest-800);
-  text-decoration: underline;
-  text-underline-offset: 2px;
-  cursor: pointer;
-}
 .hqv3 .v3-drop:focus-visible {
   outline: none;
   box-shadow: var(--focus-ring);
