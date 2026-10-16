@@ -1,58 +1,89 @@
 "use client";
 
 import "./funnel-v3.css";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type ComponentType } from "react";
 import { useFunnelV3, useFunnelV3Hydration } from "@/lib/funnel-v3/store";
+import { RAIL_SCREENS, screenAt, stepCount, type Screen } from "@/lib/funnel-v3/steps";
+import { resumePipeline, startPlacementSync } from "@/lib/funnel-v3/upload";
 import { useFunnelT } from "@/lib/funnel-v3/useFunnelT";
-import { Footer, MobileHeader, RailBar, TopBar } from "./Chrome";
+import { Footer, MobileHeader, ModeSwitch, RailBar, TopBar } from "./Chrome";
 import DocsRail from "./DocsRail";
+import Toast from "./documents/Toast";
 import { useFunnelNav } from "./hooks";
-import { RAIL_STEPS, arrowAction, entryFromParams } from "./logic";
+import { arrowAction, entryFromParams } from "./logic";
 import { usePartnerRecognition } from "./partner";
+import PrefillBanner from "./PrefillBanner";
 import Sidebar from "./Sidebar";
 import StartScreen from "./StartScreen";
-import Step1General from "./steps/Step1General";
-import Step2Object from "./steps/Step2Object";
-import Step3Persons from "./steps/Step3Persons";
-import Step4Financing from "./steps/Step4Financing";
-import Step5Documents from "./steps/Step5Documents";
-import Step6Finish from "./steps/Step6Finish";
+import StepHead from "./StepHead";
+import ScreenAnfrage from "./steps/ScreenAnfrage";
+import { ScreenAbschluss, ScreenUpload } from "./steps/ScreenDocuments";
+import ScreenKontakt from "./steps/ScreenKontakt";
+import ScreenObjekt from "./steps/ScreenObjekt";
+import ScreenPersonen from "./steps/ScreenPersonen";
 import { useFunnelUI } from "./uiStore";
+import { useDocumentToasts } from "./useDocumentToasts";
 
-const STEP_COMPONENTS = [null, Step1General, Step2Object, Step3Persons, Step4Financing, Step5Documents, Step6Finish] as const;
+/** One component per screen (lib/funnel-v3/steps.ts): the two entries share them. */
+const SCREEN_COMPONENTS: Record<Screen, ComponentType> = {
+  kontakt: ScreenKontakt,
+  upload: ScreenUpload,
+  anfrage: ScreenAnfrage,
+  objekt: ScreenObjekt,
+  personen: ScreenPersonen,
+  abschluss: ScreenAbschluss,
+};
+
+/** The prefill banner stands on the prefilled screens of the Schnellanmeldung (Handover 3). */
+const PREFILLED: ReadonlySet<Screen> = new Set<Screen>(["anfrage", "objekt", "personen"]);
+
+/** The funnel's single toast (uiStore say). */
+function FunnelToast() {
+  const lines = useFunnelUI((s) => s.toast);
+  return <Toast lines={lines} />;
+}
 
 /**
- * Funnel v3 root: restores the session, applies `?customer=`, runs the partner lookup and the
- * ← / → keys, and lays out start screen or shell (path · content · rail · footer).
+ * Funnel root (Handover 1–4): restores the session, applies the entry link (`?customer=`,
+ * `?from=portal`, `bmail`), runs the partner lookup, the documents pipeline (upload,
+ * analysis, placement, prefill — upload.ts, also while no documents screen is open) and the
+ * ← / → keys, and lays out the start screen or the shell (path · content · rail · footer)
+ * for the mode's screens.
  */
 export default function FunnelV3() {
   const hydrated = useFunnelV3Hydration();
   const { lang } = useFunnelT();
   const step = useFunnelV3((s) => s.step);
+  const mode = useFunnelV3((s) => s.mode);
   const role = useFunnelV3((s) => s.role);
   const bmail = useFunnelV3((s) => s.txt.bmail);
   const { goNext, goPrev } = useFunnelNav();
   const paramsApplied = useRef(false);
 
   usePartnerRecognition(bmail, hydrated && role === "berater");
+  useDocumentToasts(hydrated);
 
-  // `?customer=partner|direct` preselects the role and skips the start screen (once). The
-  // Partnerportal adds `bmail=<e-mail>&from=portal`: the Berater address is filled in, so the
-  // partner is recognised at once, and the closing offers the way back (entryFromParams).
+  // The entry link presets the role on the start screen (once; DECISIONS V41): `?customer=
+  // partner|direct`, and from the Partnerportal `bmail=<e-mail>&from=portal` — the Berater
+  // address is filled in, so the partner is recognised at once, the start screen recommends
+  // the Schnellanmeldung, and the closing offers the way back (entryFromParams).
   useEffect(() => {
     if (!hydrated || paramsApplied.current) return;
     paramsApplied.current = true;
     const entry = entryFromParams(window.location.search);
     const s = useFunnelV3.getState();
     if (entry.fromPortal) s.setEntry("portal");
-    if (entry.role && s.step === 0) {
-      s.setRole(entry.role);
-      if (entry.role === "berater" && entry.bmail) s.setTxt("bmail", entry.bmail);
-      s.next();
-    } else if (entry.role === "berater" && entry.bmail && s.role === "berater" && !s.txt.bmail.trim()) {
-      // A resumed session without an address yet: the portal's address still helps.
+    if (entry.role && s.step === 0) s.setRole(entry.role);
+    if (entry.role === "berater" && entry.bmail && useFunnelV3.getState().role === "berater" && !useFunnelV3.getState().txt.bmail.trim()) {
       s.setTxt("bmail", entry.bmail);
     }
+  }, [hydrated]);
+
+  // Uploads and analyses a reload left, and placement + prefill in step with the answers.
+  useEffect(() => {
+    if (!hydrated) return;
+    startPlacementSync();
+    resumePipeline();
   }, [hydrated]);
 
   useEffect(() => {
@@ -69,7 +100,7 @@ export default function FunnelV3() {
       return;
     }
     window.scrollTo({ top: 0 });
-  }, [step, hydrated]);
+  }, [step, mode, hydrated]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -103,26 +134,33 @@ export default function FunnelV3() {
     );
   }
 
-  const StepComponent = STEP_COMPONENTS[step] ?? Step1General;
-  const showRail = RAIL_STEPS.includes(step);
+  const screen = screenAt(mode, Math.min(step, stepCount(mode))) ?? "anfrage";
+  const ScreenComponent = SCREEN_COMPONENTS[screen];
+  // «Deine Unterlagen» while the answers still change the list; «Deine Anfrage füllt sich»
+  // beside the Schnellanmeldung's upload.
+  const showRail = RAIL_SCREENS.has(screen) || screen === "upload";
 
   return (
-    <div className="hqv3" data-hq-theme="light" data-step={step}>
+    <div className="hqv3" data-hq-theme="light" data-step={step} data-mode={mode} data-screen={screen}>
       <Sidebar />
       <div className="v3-col">
-        <MobileHeader />
+        <MobileHeader showRail={showRail} />
         <TopBar />
         {showRail ? <RailBar /> : null}
-        <div className="v3-main">
+        <main className="v3-main">
           <div className="v3-split">
-            <div className="v3-content" key={step}>
-              <StepComponent />
+            <div className="v3-content" key={`${mode}:${step}`}>
+              <StepHead />
+              {mode === "schnell" && PREFILLED.has(screen) ? <PrefillBanner /> : null}
+              <ScreenComponent />
+              <ModeSwitch className="v3-mswitch" />
             </div>
             {showRail ? <DocsRail /> : null}
           </div>
-        </div>
+        </main>
         <Footer />
       </div>
+      <FunnelToast />
     </div>
   );
 }

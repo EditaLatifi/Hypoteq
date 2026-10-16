@@ -1172,6 +1172,9 @@ body:has(.hqv3) {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
+  /* PLZ beside Ort: an «aus Dokument» mark wraps under the narrow PLZ label — the inputs stay
+     on one line. */
+  align-items: flex-end;
 }
 
 /* ---------------------------------------------------------------- text fields */
@@ -2157,10 +2160,22 @@ body:has(.hqv3) {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  min-width: 300px;
+  min-width: min(300px, 92vw);
   max-width: min(92vw, 520px);
-  animation: v3-rise 0.3s var(--ease-out) both;
+  /* Its own keyframes: v3-rise ends on `transform: none`, which dropped the -50 % centring and
+     pushed the toast half off a phone screen. */
+  animation: v3-toast-in 0.3s var(--ease-out) both;
   box-shadow: var(--shadow-lg);
+}
+@keyframes v3-toast-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 10px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
 }
 .hqv3 .v3-toast-line {
   font-size: var(--text-body-sm);
@@ -2344,6 +2359,367 @@ body:has(.hqv3) {
   text-wrap: pretty;
 }
 
+/* =================================================================================
+ * Funnel v5 (docs/funnel-v5/HYPOTEQ_Handover_Edita.md; prototype «HYPOTEQ Funnel v5»):
+ * the start screen's entries, the mode switch, the «aus Dokument» marks, the chip question,
+ * the Eigenmittel table, «Weitere Angaben», the fill rail and the closing head.
+ * ================================================================================= */
+
+/* ---- start: role switch and the two entries (Handover 1) */
+.hqv3 .v3-start-choose {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: relative;
+}
+.hqv3 .v3-roleswitch {
+  display: inline-flex;
+  align-self: flex-start;
+  gap: 4px;
+  padding: 4px;
+  border-radius: var(--radius-pill);
+  background: var(--on-dark-08);
+  border: 1px solid var(--on-dark-14);
+  /* Solid behind the switch: on a phone it can sit over the lime wedge. */
+  background-color: var(--forest-800);
+}
+.hqv3 .v3-roleswitch-btn {
+  border: 0;
+  border-radius: var(--radius-pill);
+  padding: 9px 18px;
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+  background: transparent;
+  color: var(--on-dark-70);
+  transition: var(--transition-control);
+}
+.hqv3 .v3-roleswitch-btn:hover {
+  color: #fff;
+}
+.hqv3 .v3-roleswitch-btn[aria-pressed="true"] {
+  background: #fff;
+  color: var(--forest-800);
+}
+.hqv3 .v3-roleswitch-btn:focus-visible {
+  box-shadow: var(--focus-ring-on-dark);
+}
+.hqv3 .v3-start-cards {
+  grid-template-columns: repeat(2, minmax(0, 320px));
+}
+.hqv3 .v3-start-card {
+  min-height: 190px;
+}
+.hqv3 .v3-start-card-top,
+.hqv3 .v3-start-card-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+}
+.hqv3 .v3-start-card-foot {
+  margin-top: auto;
+}
+.hqv3 .v3-start-card-foot .v3-start-card-cta {
+  margin-top: 0;
+}
+.hqv3 .v3-start-card-rec {
+  font-size: 11px;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  font-weight: var(--weight-bold);
+  background: var(--forest-800);
+  color: var(--lime-500);
+  border-radius: 999px;
+  padding: 3px 9px;
+  white-space: nowrap;
+}
+.hqv3 .v3-start-card-time {
+  font-size: var(--text-caption);
+  color: var(--on-light-70);
+}
+
+/* ---- mode switch (Handover 1): sidebar link; on a phone at the end of the screen */
+.hqv3 .v3-side-switch,
+.hqv3 .v3-mswitch {
+  align-self: flex-start;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+  text-align: left;
+  border-radius: var(--radius-xs);
+}
+.hqv3 .v3-side-switch {
+  color: var(--lime-500);
+}
+.hqv3 .v3-side-switch:hover {
+  color: var(--lime-300);
+}
+.hqv3 .v3-side-switch:focus-visible {
+  box-shadow: var(--focus-ring-on-dark);
+}
+.hqv3 .v3-mswitch {
+  display: none;
+  color: var(--forest-800);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.hqv3 .v3-topbar-count strong {
+  color: var(--forest-800);
+  font-weight: var(--weight-semibold);
+}
+
+/* ---- «N Angaben aus deinen Unterlagen vorausgefüllt» (Handover 3) */
+.hqv3 .v3-prefill {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--success-100);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  font-size: var(--text-body-sm);
+  color: var(--forest-800);
+  text-wrap: pretty;
+}
+.hqv3 .v3-prefill svg {
+  flex: 0 0 auto;
+  color: var(--success-500);
+}
+
+/* ---- «aus Dokument» / «aus Dokument · bitte prüfen» */
+.hqv3 .v3-q-head,
+.hqv3 .v3-field-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.hqv3 .v3-field-head {
+  gap: 8px;
+}
+.hqv3 .v3-fromdoc-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.hqv3 .v3-fromdoc-label {
+  font-size: var(--text-caption);
+  font-weight: var(--weight-semibold);
+  color: var(--forest-800);
+}
+.hqv3 .v3-fromdoc {
+  font-size: 11px;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  font-weight: var(--weight-bold);
+  background: var(--success-100);
+  color: var(--success-500);
+  border-radius: 999px;
+  padding: 2px 8px;
+  white-space: nowrap;
+}
+.hqv3 .v3-fromdoc.is-unsure {
+  background: var(--warning-100);
+  color: var(--warning-500);
+}
+.hqv3 .v3-fromdoc-confirm {
+  background: transparent;
+  border: 0;
+  padding: 2px 4px;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-semibold);
+  color: var(--forest-800);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+  border-radius: var(--radius-xs);
+}
+.hqv3 .v3-fromdoc-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* ---- disabled option (Bauprojekt at an Ablösung) */
+.hqv3 .v3-card.is-off,
+.hqv3 .v3-chip.is-off {
+  background: var(--paper-100);
+  color: var(--on-light-45);
+  border-color: var(--paper-300);
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ---- «Trifft etwas davon zu?» — multiple choice (Handover 2 Schritt 3) */
+.hqv3 .v3-chip--multi {
+  padding: 10px 16px;
+}
+.hqv3 .v3-chip--multi[aria-pressed="true"] {
+  background: var(--lime-500);
+  border-color: var(--forest-800);
+}
+.hqv3 .v3-chip-mark {
+  font-size: 13px;
+  width: 14px;
+  text-align: center;
+}
+.hqv3 [aria-pressed="true"] > .v3-delta {
+  background: var(--forest-800);
+  color: var(--lime-500);
+}
+.hqv3 .v3-chip-src {
+  font-size: 11px;
+  color: var(--forest-800);
+  opacity: 0.7;
+  font-weight: var(--weight-semibold);
+}
+
+/* ---- Eigenmittel table (Handover 2 Schritt 2) */
+.hqv3 .v3-three {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 18px;
+}
+.hqv3 .v3-panel-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.hqv3 .v3-note--dark {
+  color: var(--on-light-70);
+}
+.hqv3 .v3-emtotal {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-top: 1px solid var(--paper-200);
+  padding-top: 12px;
+}
+.hqv3 .v3-emtotal-line {
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--forest-800);
+}
+.hqv3 .v3-warn--inline {
+  padding: 10px 14px;
+  font-size: var(--text-body-sm);
+}
+
+/* ---- «Weitere Angaben (optional)» */
+.hqv3 .v3-more-block {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.hqv3 .v3-moretoggle {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--forest-800);
+  cursor: pointer;
+  border-radius: var(--radius-xs);
+}
+.hqv3 .v3-moretoggle .v3-caret {
+  display: inline-block;
+  font-size: 10px;
+  transition: transform 0.18s var(--ease-out);
+}
+.hqv3 .v3-moretoggle .v3-caret.is-open {
+  transform: rotate(180deg);
+}
+.hqv3 .v3-calc-note {
+  font-size: var(--text-caption);
+  color: var(--on-dark-70);
+}
+
+/* ---- drop zone buttons, «Alle Unterlagen sind vollständig.», extras sub-heads (Handover 4.3) */
+.hqv3 .v3-drop-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 4px;
+}
+.hqv3 .v3-allok {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--success-100);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  font-size: var(--text-body-sm);
+  color: var(--forest-800);
+}
+.hqv3 .v3-allok-mark {
+  font-weight: 700;
+  color: var(--success-500);
+}
+.hqv3 .v3-extra-group {
+  font-size: var(--text-caption);
+  font-weight: var(--weight-semibold);
+  color: var(--on-light-70);
+  padding-top: 4px;
+}
+
+/* ---- fill rail «Deine Anfrage füllt sich» (Handover 3 Schritt 2) */
+.hqv3 .v3-rail-item.is-ok .v3-rail-label {
+  color: #fff;
+}
+.hqv3 .v3-rail-item.is-unsure .v3-rail-dot {
+  background: var(--warning-500);
+  border-color: var(--warning-500);
+}
+.hqv3 .v3-rail-item.is-fact .v3-rail-dot {
+  border-color: var(--lime-500);
+}
+.hqv3 .v3-rail-item .v3-rail-confirm {
+  margin-left: auto;
+  flex: 0 0 auto;
+  background: transparent;
+  border: 1px solid var(--on-dark-45);
+  border-radius: 999px;
+  color: #fff;
+  font-size: 11px;
+  font-weight: var(--weight-semibold);
+  padding: 3px 9px;
+  cursor: pointer;
+}
+.hqv3 .v3-rail-item .v3-rail-confirm:focus-visible {
+  box-shadow: var(--focus-ring-on-dark);
+}
+
+/* ---- the closing under the documents (prototype «Abschluss») */
+.hqv3 .v3-closing-head {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-top: 1px solid var(--paper-300);
+  padding-top: 34px;
+}
+.hqv3 .v3-h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(24px, 3.4vw, 34px);
+  line-height: 1.1;
+  letter-spacing: var(--tracking-tight);
+  color: var(--forest-800);
+  font-weight: var(--weight-bold);
+  overflow-wrap: anywhere;
+  hyphens: auto;
+  text-wrap: pretty;
+}
+
 /* ---------------------------------------------------------------- narrow: < 1240 px */
 @media (max-width: 1239px) {
   .hqv3 .v3-split {
@@ -2492,6 +2868,17 @@ body:has(.hqv3) {
   .hqv3 .v3-preview {
     border-right: 0;
     min-height: 320px;
+  }
+  /* v5: no sidebar on a phone — the mode switch sits at the end of the screen. */
+  .hqv3 .v3-mswitch {
+    display: inline-block;
+  }
+  .hqv3 .v3-three {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .hqv3 .v3-roleswitch-btn {
+    padding: 9px 14px;
   }
 }
 
