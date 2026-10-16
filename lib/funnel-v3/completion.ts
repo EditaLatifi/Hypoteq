@@ -5,8 +5,8 @@
  * payload (`data.v3`).
  *
  *   a. store the customer's per-file decisions beside the AI analysis (aiAnalysis.v3Submitted)
- *   b. rename every kept file in the case folder to its stored name (spec 5.1), persist
- *      `Document.storedName`; delete duplicates and not-needed files the customer did not keep
+ *   b. rename every file in the case folder to its stored name (spec 5.1) and persist
+ *      `Document.storedName`; duplicates and not-needed files are kept (Handover 4.3)
  *   c. generate the Fall-Dossier PDF and upload it as `{Fallnummer}_00_Fall-Dossier.pdf`
  *   d. hand the sync what it needs for the Case: folder URL, files with stored names
  *      (`v3DocumentCaseFields` below builds the Salesforce fields from it)
@@ -16,11 +16,10 @@
  * the uploads already went to a ZZ-TEST_ folder; only Salesforce and mail are withheld, by the
  * existing guards in the route.
  *
- * DELETED FILES KEEP THEIR ROW. A duplicate or a not-needed file is removed from SharePoint
- * (spec 4.3: «wird nicht doppelt gespeichert», «nicht abgelegt»), but its Document row stays,
- * with `driveItemId` cleared and `aiAnalysis.v3Completion.removed` recording when, why and
- * which item: the audit trail (spec section 36 / 5.1 «Der Originalname bleibt im Audit Trail»)
- * must be able to say what the customer uploaded, what the AI made of it and what became of it.
+ * NOTHING IS DELETED (Handover 4.3, over spec v1 4.3 «wird nicht doppelt gespeichert»): a
+ * duplicate or a not-needed file stays in the case folder as `_DUPLIKAT_` / named after its
+ * type, and the dossier lists it as such. The removal path below is kept for Document rows
+ * whose `aiAnalysis.v3Completion.removed` was written before v5, so their audit stays readable.
  *
  * Imports of Prisma and the Graph helpers are dynamic (default deps only), so the pure parts
  * — the naming plan and the Salesforce fields — can be used by the sync and by tests.
@@ -238,7 +237,10 @@ export function planFiles(
     // in the folder as «Überzählig», never deleted.
     const gone = !!sub?.instanceId && !instance;
     const extraKind: ExtraKind | undefined = instance ? undefined : gone ? "surplus" : sub?.extraKind ?? analysis?.extraKind ?? "unknown";
-    const remove = !instance && !sub?.keep && (extraKind === "duplicate" || extraKind === "notneeded");
+    // Handover 4.3 «Nichts wird gelöscht» (v5, over spec v1 4.3/5.1 and DECISIONS V30): a
+    // duplicate or a not-needed file stays in the case folder, named _DUPLIKAT_ or after its
+    // type below, and is listed as such. `remove` stays in the plan for the audit fields.
+    const remove = false;
     return { row, sub, analysis, instance, extraKind, remove, target: null };
   });
 

@@ -116,13 +116,17 @@ describe("planFiles — stored names (spec 5.1)", () => {
     expect(byName("01_Lohnausweis_Gary_Gerber_2023.pdf").target).toBe("HQ-26-06-156283_01_ZUSATZ_Lohnausweis_Gerber-Gary_2023.pdf");
   });
 
-  it("extras: _ZUSATZ_ for surplus and kept not-needed files; duplicates and not-needed are removed", () => {
+  it("extras: _ZUSATZ_ for surplus and not-needed files, _DUPLIKAT_ for duplicates; nothing is removed (Handover 4.3)", () => {
     expect(byName("01_Lohnausweis_Gary_Gerber_2022.pdf").target).toBe("HQ-26-06-156283_01_ZUSATZ_Lohnausweis_Gerber-Gary_2022.pdf");
     const kept = byName("03_Nebenkostenabrechnung_Etzelstrasse_52_Waedenswil_2025.PDF");
     expect(kept.remove).toBe(false);
     expect(kept.target).toBe("HQ-26-06-156283_ZUSATZ_03-Nebenkostenabrechnung-Etzelstrasse-52-Waedenswil-2025.pdf");
-    expect(byName("01_Leasingvertrag_Cembra_Gary_Gerbe.pdf").remove).toBe(true);
-    expect(byName("01_Steuerrechnung_Gary_Gerber_2023_Schlussrechnung.pdf").remove).toBe(true);
+    const dup = byName("01_Leasingvertrag_Cembra_Gary_Gerbe.pdf");
+    expect(dup.remove).toBe(false);
+    expect(dup.target).toBe("HQ-26-06-156283_01_DUPLIKAT_Leasingvertrag_Gerber-Gary.pdf");
+    const notNeeded = byName("01_Steuerrechnung_Gary_Gerber_2023_Schlussrechnung.pdf");
+    expect(notNeeded.remove).toBe(false);
+    expect(notNeeded.target).toMatch(/^HQ-26-06-156283_.+\.pdf$/);
   });
 
   it("a kept duplicate gets _DUPLIKAT_", () => {
@@ -229,15 +233,12 @@ describe("completeV3Inquiry", () => {
     expect(storedOf(f.updates, "doc-4")).toBe("HQ-26-06-156283_03_Grundbuchauszug_2026-01-15.pdf");
     expect(f.updates["doc-4"].find((u) => "storedName" in u)).toMatchObject({ fileName: "HQ-26-06-156283_03_Grundbuchauszug_2026-01-15.pdf", fileUrl: expect.stringContaining("Grundbuchauszug_2026-01-15") });
     expect(f.folder.has("hq-26-06-156283_01_id_gerber-gary.pdf")).toBe(true);
-    expect(res.files.filter((x) => x.storedName).length).toBe(25);
-
-    // deletes: duplicate and the not-needed files (Steuerrechnung; Anstellungsvertrag,
-    // Eigenmittelnachweis, Schuldbrief since v5); the row stays with an audit note
-    expect(f.removed.sort()).toEqual(["item-doc-24", "item-doc-25", "item-doc-26", "item-doc-28", "item-doc-29"]);
-    const del = f.updates["doc-28"].find((u) => "driveItemId" in u);
-    expect(del.driveItemId).toBeNull();
-    expect(del.aiAnalysis.v3Completion).toEqual({ removed: true, reason: "duplicate", removedAt: "2026-06-02T12:00:00.000Z", driveItemId: "item-doc-28" });
-    expect(res.files.find((x) => x.documentId === "doc-28")).toMatchObject({ removed: true, storedName: null, url: null });
+    // Handover 4.3 «Nichts wird gelöscht»: the duplicate and the not-needed files (Steuerrechnung;
+    // Anstellungsvertrag, Eigenmittelnachweis, Schuldbrief since v5) stay, renamed like every file.
+    expect(f.removed).toEqual([]);
+    expect(res.files.filter((x) => x.storedName).length).toBe(30);
+    expect(res.files.find((x) => x.documentId === "doc-28")).toMatchObject({ storedName: "HQ-26-06-156283_01_DUPLIKAT_Leasingvertrag_Gerber-Gary.pdf" });
+    expect(res.files.some((x) => x.removed)).toBe(false);
 
     // c. dossier
     expect(f.uploads).toHaveLength(1);
