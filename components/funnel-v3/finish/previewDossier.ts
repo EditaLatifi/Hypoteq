@@ -18,10 +18,13 @@ export function previewBody(state: FunnelState & { files: unknown[]; skipped?: I
     instanceId: f.instanceId ?? null,
     keep: f.keep,
     outdatedOverride: f.outdatedOverride,
+    // A signed Auskunftsermächtigung placed with its own button counts even unread (V21).
+    assignedByUser: f.assignedByUser,
   }));
   return {
     lang,
-    state: { role: state.role, ans: state.ans, txt: state.txt, fin: state.fin, em: state.em, info: state.info, borrowers: state.borrowers },
+    // v5: the prefill marks («aus Dokument») and the signature choice are drawn too.
+    state: { role: state.role, ans: state.ans, txt: state.txt, fin: state.fin, em: state.em, info: state.info, borrowers: state.borrowers, src: state.src, sig: state.sig },
     files,
     skipped: state.skipped ? [...state.skipped] : [],
   };
