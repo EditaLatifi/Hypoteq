@@ -11,6 +11,7 @@
  */
 
 import type { Lang } from "../i18n";
+import { SIGNATURE_BANK_NOTE_DE } from "../signature";
 
 export type Audience = "kunde" | "berater" | "intern";
 
@@ -128,7 +129,8 @@ export const MAIL_TEXTS: Record<Lang, MailTexts> = {
     signBerater:
       "Die Auskunftsermächtigung ist noch nicht unterzeichnet. Die vorausgefüllte Vorlage liegt der Bestätigung an {name} bei; unterzeichnet wird sie über den Link der Anfrage hochgeladen. Ohne Unterschrift geht keine Anfrage an die Bank.",
     signTitleIntern: "Auskunftsermächtigung ausstehend",
-    signIntern: "Unterschrift ausstehend – ohne unterzeichnete Auskunftsermächtigung keine Anfrage an die Bank.",
+    // The Case JSON's note (signature.ts), word for word.
+    signIntern: SIGNATURE_BANK_NOTE_DE,
     attachment: "Im Anhang: {file}",
     signCta: "Unterzeichnet hochladen",
     missingKunde: "Am einfachsten lädst du sie über deinen persönlichen Link hoch – dort siehst du nur, was noch offen ist.",

@@ -18,6 +18,9 @@ import {
   type OutgoingMail,
 } from "@/lib/funnel-v3/mail";
 import { MAIL_TEXTS } from "@/lib/funnel-v3/mail/texts";
+import { authorizationDataFromState } from "@/lib/funnel-v3/authorizationData";
+import { normaliseFunnelState } from "@/lib/funnel-v3/legacy";
+import { SIGNATURE_BANK_NOTE_DE } from "@/lib/funnel-v3/signature";
 import { translate } from "@/lib/funnel-v3/i18n";
 import { EMPTY_AMOUNTS, EMPTY_EM, type FunnelState } from "@/lib/funnel-v3/types";
 import { CASE_NO, RETURN_URL, ablState, jurState, kaufState, v5Payload } from "./v5Fixtures";
@@ -134,7 +137,9 @@ describe("block 2 · next step", () => {
     const list = await mails(v5Payload(s));
     const kunde = of(list, "kunde");
     expect(deps.authorizationPdf).toHaveBeenCalledTimes(1);
+    // authorizationDataFromState (the signature branch) over the payload's `v3`.
     const auth = (deps.authorizationPdf.mock.calls[0] as any)[0];
+    expect(auth).toEqual(authorizationDataFromState(normaliseFunnelState(v5Payload(s).v3)!, "de", { caseNumber: CASE_NO }));
     expect(auth).toMatchObject({ lang: "de", caseNumber: CASE_NO, zweck: "Neue Hypothek", objekt: "8001 Zürich", firma: null });
     expect(auth.signers).toHaveLength(1);
     expect(auth.signers[0]).toMatchObject({ vor: "Lea", nach: "Muster", email: "lea.muster@kunde.ch" });
@@ -149,12 +154,25 @@ describe("block 2 · next step", () => {
     expect(text(html)).toContain(`Im Anhang: ${CASE_NO}_Auskunftsermaechtigung.pdf`);
     // Only the customer mail carries the template.
     expect(of(list, "intern").attachments).toEqual([]);
-    expect(text(of(list, "intern").html)).toContain("Unterschrift ausstehend – ohne unterzeichnete Auskunftsermächtigung keine Anfrage an die Bank.");
+    // signature.ts's note (SIGNATURE_BANK_NOTE_DE), the same sentence as in the Case JSON.
+    expect(text(of(list, "intern").html)).toContain(SIGNATURE_BANK_NOTE_DE);
+    expect(of(list, "intern").summary.signature).toMatchObject({ status: "pending", note: SIGNATURE_BANK_NOTE_DE });
   });
 
-  it("signature uploaded: no block, no attachment", async () => {
+  it("company: the signatory signs the template", async () => {
+    const s = jurState({ sig: { choice: "later", at: "2026-10-15T09:00:00.000Z", method: "upload" } });
+    await mails(v5Payload(s));
+    const auth = (deps.authorizationPdf.mock.calls[0] as any)[0];
+    expect(auth).toMatchObject({ firma: "Immo Beispiel AG", zweck: "Neue Hypothek", objekt: "8400 Winterthur" });
+    expect(auth.signers[0]).toMatchObject({ vor: "Petra", nach: "Beispiel" });
+  });
+
+  it("signature uploaded: no block, no attachment, no bank note", async () => {
     const list = await mails(v5Payload(kaufState()));
     expect(deps.authorizationPdf).not.toHaveBeenCalled();
+    expect(of(list, "intern").summary.signature.status).toBe("uploaded");
+    expect(of(list, "intern").summary.signature).not.toHaveProperty("note");
+    expect(of(list, "intern").html).not.toContain(SIGNATURE_BANK_NOTE_DE);
     expect(of(list, "kunde").attachments).toEqual([]);
     expect(of(list, "kunde").html).not.toContain(translate("de", "mail.next.sign"));
   });
