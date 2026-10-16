@@ -1,5 +1,19 @@
+/**
+ * The Auskunftsermächtigung templates (de/en/fr/it). lib/funnel-v3/authorization.ts reads them
+ * with fs from public/documents; on Vercel `public` is served by the CDN and is not part of a
+ * serverless function unless it is traced in — for every route that builds the prefilled PDF:
+ * the download in the closing, the confirmation mail (/api/inquiry), the reminders (cron) and
+ * the Nachreich page.
+ */
+const AUTHORIZATION_TEMPLATES = [
+  './public/documents/Auskunftsermaechtigung-1.pdf',
+  './public/documents/20250711_HYPOTEQ-Authorisation-for-information-1.pdf',
+  './public/documents/20250711_HYPOTEQ-Pouvoir-dinformation-1-1.pdf',
+  './public/documents/20250711_HYPOTEQ-Procura-per-informazioni-1.pdf',
+];
+
 /** @type {import('next').NextConfig} */
-const nextConfig = { 
+const nextConfig = {
   reactStrictMode: true,
   
   // Image optimization
@@ -23,6 +37,13 @@ const nextConfig = {
   // Experimental features for better performance
   experimental: {
     optimizePackageImports: ['@/components', '@/hooks', '@/lib'],
+    // Route globs (matched anywhere in the route name); no `[token]` — brackets are glob syntax.
+    outputFileTracingIncludes: {
+      '/api/funnel/authorization': AUTHORIZATION_TEMPLATES,
+      '/api/inquiry': AUTHORIZATION_TEMPLATES,
+      '/api/portal/cron': AUTHORIZATION_TEMPLATES,
+      '/api/nachreichen/**': AUTHORIZATION_TEMPLATES,
+    },
   },
 
   // Compression

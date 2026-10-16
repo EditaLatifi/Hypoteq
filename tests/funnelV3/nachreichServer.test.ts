@@ -9,6 +9,7 @@ import {
 } from "@/lib/funnel-v3/nachreich";
 import { instanceFromMissing } from "@/lib/funnel-v3/nachreichView";
 import type { CompletionDocumentRow, DriveItemRef } from "@/lib/funnel-v3/completion";
+import { SIGNATURE_BANK_NOTE_DE, type SignatureServerState } from "@/lib/funnel-v3/signature";
 import { toInquiryPayload } from "@/lib/funnel-v3/toInquiryPayload";
 import { ANNA, CASE, GARY, INQUIRY, analysis, existingRows, heldRow, inquiryRow, v3StateFor } from "./nachreichFixtures";
 import { gerberState, SUBMISSION } from "./gerberCase";
@@ -22,7 +23,7 @@ beforeEach(() => {
   jest.spyOn(console, "log").mockImplementation(() => {});
 });
 
-function world(rows: CompletionDocumentRow[], held: CompletionDocumentRow[], opts: { caseState?: string | null } = {}) {
+function world(rows: CompletionDocumentRow[], held: CompletionDocumentRow[], opts: { caseState?: string | null; signature?: SignatureServerState | null } = {}) {
   const docs = rows.map((r) => ({ ...r }));
   const folder = new Map<string, string>();
   const items = new Map<string, DriveItemRef>();
@@ -85,11 +86,21 @@ function world(rows: CompletionDocumentRow[], held: CompletionDocumentRow[], opt
       return fields;
     },
     sendMail: async (p) => void mails.push(p),
+    // InquirySignature in memory (signatureServer.ts is tested in signatureServer.test.ts).
+    signature: {
+      markReceived: async (inquiryId, file, at) => {
+        received.push({ inquiryId, ...file, at });
+        sigRow = { ...(sigRow ?? {}), status: sigRow?.status === "uploaded" ? "uploaded" : "received", receivedAt: sigRow?.receivedAt ?? at };
+      },
+      state: async () => sigRow,
+    },
     now: () => new Date("2026-10-05T12:00:00Z"),
     log: { log: () => {}, warn: () => {}, error: () => {} } as any,
   };
+  const received: { inquiryId: string; fileName: string; driveItemId?: string | null; at: Date }[] = [];
+  let sigRow: SignatureServerState | null = opts.signature ?? null;
   const nameOf = (id: string) => docs.find((r) => r.id === id)?.fileName;
-  return { deps, docs, inquiryUpdates, cases, mails, adoptCalls, nameOf, folder };
+  return { deps, docs, inquiryUpdates, cases, mails, adoptCalls, nameOf, folder, received };
 }
 
 describe("v3InquiryColumns (/api/inquiry)", () => {
@@ -310,6 +321,84 @@ describe("submitV3Nachreichung (POST)", () => {
     const w = world(existingRows(), held());
     await submitV3Nachreichung(inquiryRow({ v3State: st, client: { email: "berater@partner.ch", firstName: "", lastName: "" } }), body, w.deps);
     expect(w.mails[0]).toMatchObject({ to: "gary.gerber@example.ch", cc: "berater@partner.ch", name: "Gary Gerber" });
+  });
+});
+
+describe("v5 inquiries: the Auskunftsermächtigung after the closing, no mail (Handover 6, 7.1; V37)", () => {
+  const SIG_NAME = "01_Auskunftsermaechtigung_Gary_Gerber_unterzeichnet.pdf";
+  const LATER = { choice: "later" as const, at: "2026-10-01T10:00:00.000Z", method: "upload" as const };
+  const field = (value: string) => ({ value, confidence: 0.9 });
+  const v5Row = (over: Record<string, any> = {}) => {
+    const payload: any = toInquiryPayload(gerberState({ borrowers: [GARY], sig: LATER }), { locale: "de", submissionId: SUBMISSION });
+    const v3State = (v3InquiryColumns(payload, "de") as any).v3State;
+    return inquiryRow({ v3State, ...over });
+  };
+  const withoutSig = () => existingRows({ leaveOut: new Set([SIG_NAME]) });
+  const unsignedOnP0 = () =>
+    existingRows({ leaveOut: new Set() }).map((r) =>
+      r.originalFileName === SIG_NAME
+        ? { ...r, aiAnalysis: { ...(r.aiAnalysis as any), v3: { ...(r.aiAnalysis as any).v3, fields: { Unterschrift: field("fehlt") } } } }
+        : r
+    );
+  const signed = () => heldRow("h-sig", "Scan 0042.pdf", analysis("vollmacht", { fields: { Unterschrift: field("vorhanden"), Vollmachtgeber: field("Gerber Gary") } }), 7);
+  const sigBody = { documents: [{ documentId: "h-sig", instanceId: "vollmacht", requirementId: "vollmacht", assignedByUser: true }] };
+
+  it("the view offers the Auskunftsermächtigung while it is pending", () => {
+    const v = nachreichV3View(v5Row(), withoutSig())!;
+    expect(v.missing.find((m) => m.instanceId === "vollmacht")).toMatchObject({ id: "vollmacht", state: "missing", slots: 1 });
+  });
+
+  it("a signed copy: InquirySignature received, Case JSON «uploaded» with its time — and no mail", async () => {
+    const w = world(withoutSig(), [signed()], { signature: { status: "pending", requestedAt: LATER.at, remindersSent: 1, lastReminderAt: "2026-10-03T06:00:00.000Z" } });
+    const res = await submitV3Nachreichung(v5Row(), sigBody, w.deps);
+    expect(res.ok).toBe(true);
+    if (!res.ok) return;
+    expect(res.remaining).not.toContain("vollmacht");
+    expect(w.received).toEqual([{ inquiryId: INQUIRY, fileName: expect.stringMatching(/^HQ-26-10-000123_01_Auskunftsermaechtigung/), driveItemId: "item-h-sig", at: new Date("2026-10-05T12:00:00Z") }]);
+    // Handover 7.1: documents sent later → no mail, the Case is updated.
+    expect(w.mails).toEqual([]);
+    expect(w.cases).toHaveLength(1);
+    const sig = JSON.parse(w.cases[0].Dokumenten_Check_State__c).signature;
+    expect(sig).toMatchObject({ status: "uploaded", method: "upload", receivedAt: "2026-10-05T12:00:00.000Z", reminders: 1, requestedAt: LATER.at });
+    expect(sig).not.toHaveProperty("note");
+  });
+
+  it("an unsigned copy on P0 keeps it open; the new signed copy takes its place", async () => {
+    const rows = unsignedOnP0();
+    const v = nachreichV3View(v5Row(), rows)!;
+    expect(v.missing.find((m) => m.instanceId === "vollmacht")).toMatchObject({ state: "missing", have: 1, slots: 1 });
+
+    const w = world(rows, [signed()], { signature: { status: "pending", requestedAt: LATER.at, remindersSent: 0 } });
+    const res = await submitV3Nachreichung(v5Row(), sigBody, w.deps);
+    expect(res.ok).toBe(true);
+    if (!res.ok) return;
+    expect(res.remaining).not.toContain("vollmacht");
+    expect(w.received).toHaveLength(1);
+    expect(w.received[0].driveItemId).toBe("item-h-sig");
+    // The unsigned one stays in the folder as an extra.
+    const old = rows.find((r) => r.originalFileName === SIG_NAME)!;
+    expect(w.nameOf(old.id)).toMatch(/_ZUSATZ_/);
+  });
+
+  it("while the signature is open the dossier is not complete, and the Case says why", async () => {
+    const w = world(withoutSig(), [heldRow("h-x", "Nebenkosten.pdf", analysis("nn_nebenkosten"))], { signature: { status: "pending", requestedAt: LATER.at, remindersSent: 2 } });
+    const res = await submitV3Nachreichung(v5Row(), { documents: [{ documentId: "h-x", instanceId: null, requirementId: null, extraKind: "notneeded", keep: true }] }, w.deps);
+    expect(res.ok).toBe(true);
+    if (!res.ok) return;
+    expect(res.complete).toBe(false);
+    expect(res.remaining).toContain("vollmacht");
+    expect(w.inquiryUpdates[0]).toMatchObject({ documentsComplete: false, nachreichCompletedAt: null });
+    expect(w.cases[0].Documents_completed__c).toBe(false);
+    const sig = JSON.parse(w.cases[0].Dokumenten_Check_State__c).signature;
+    expect(sig).toMatchObject({ status: "pending", reminders: 2, note: SIGNATURE_BANK_NOTE_DE });
+    expect(w.received).toEqual([]);
+    expect(w.mails).toEqual([]);
+  });
+
+  it("an inquiry stored before v5 keeps its confirmation mail", async () => {
+    const w = world(existingRows(), [heldRow("h-fotos", "IMG.pdf", analysis("fotos"))]);
+    await submitV3Nachreichung(inquiryRow(), { documents: [{ documentId: "h-fotos", instanceId: "fotos", requirementId: "fotos" }] }, w.deps);
+    expect(w.mails).toHaveLength(1);
   });
 });
 

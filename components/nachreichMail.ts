@@ -86,7 +86,8 @@ function escapeHtml(s: string): string {
   return String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
 }
 
-function getGraphMailClient(): Client | null {
+/** The Graph client mails go out through (USE_GRAPH + GRAPH_*), or null when mail is off. */
+export function getGraphMailClient(): Client | null {
   const useGraph =
     process.env.USE_GRAPH === "true" &&
     process.env.GRAPH_TENANT_ID &&

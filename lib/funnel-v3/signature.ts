@@ -27,7 +27,12 @@ import type { SignatureState } from "./types";
  */
 export type SignatureStatus = "received" | "unsigned" | "analysing" | "later" | "missing";
 
-export type SignatureProblem = "signature" | "name";
+/**
+ *  - signature  the AI found no signature («Unterschrift» = fehlt)
+ *  - name       the Vollmachtgeber printed is not the Kreditnehmer
+ *  - form       a file placed by hand on P0 is another document (Handover 6 «richtiges Formular»)
+ */
+export type SignatureProblem = "signature" | "name" | "form";
 
 /** One file as the check needs it (from the store's FileEntry or the server's CompletedFile). */
 export interface SignatureFile {
@@ -39,6 +44,8 @@ export interface SignatureFile {
   analysis?: V3Analysis | null;
   /** Placed with the block's own button. */
   assignedByUser?: boolean;
+  /** The upload failed: the file is not there and does not count (it keeps its P0 placement for «Erneut versuchen»). */
+  failed?: boolean;
 }
 
 export interface SignatureView {
@@ -54,6 +61,9 @@ export interface SignatureView {
 /** What the AI says about one copy; [] = fine. An unreadable copy placed by hand is accepted. */
 export function signatureProblems(a: V3Analysis | null | undefined, signer?: PersonRef): SignatureProblem[] {
   if (!a || a.status !== "done") return [];
+  // Recognised as another document (the block's own button places any file on P0): that is
+  // the one thing to say; an unrecognised file keeps V21 «von Hand hochgeladen = erhalten».
+  if (a.docTypeId && a.docTypeId !== SIGNATURE_REQUIREMENT_ID) return ["form"];
   const out: SignatureProblem[] = [];
   if (yesNoOf(fieldText(a, "Unterschrift")) === false) out.push("signature");
   const printed = fieldText(a, "Vollmachtgeber") || a.personName || "";
@@ -66,7 +76,7 @@ export function signatureProblems(a: V3Analysis | null | undefined, signer?: Per
  * the first one is checked), at a juristische Person the company (its signatory signs for it).
  */
 export function signatureView(files: SignatureFile[], sig: SignatureState | null, signer?: PersonRef): SignatureView {
-  const mine = files.filter((f) => f.instanceId && baseId(f.instanceId) === SIGNATURE_REQUIREMENT_ID);
+  const mine = files.filter((f) => !f.failed && f.instanceId && baseId(f.instanceId) === SIGNATURE_REQUIREMENT_ID);
   const fileIds = mine.map((f) => f.fileId);
   const later = sig?.choice === "later";
   const read = mine.filter((f) => !f.pending);
@@ -92,6 +102,61 @@ export interface SignatureJson {
   /** ISO time of the upload or of «Später nachreichen». */
   at: string | null;
   method: "upload";
+  // ---- From the server (InquirySignature, lib/funnel-v3/signatureServer.ts), after the closing ----
+  /** «Später nachreichen» chosen at (the reminders count from here). */
+  requestedAt?: string | null;
+  /** Signed copy received at (in the closing or later through the Nachreich link). */
+  receivedAt?: string | null;
+  /** Reminders sent so far (Handover 6 / 7.1: after 2 and 5 days, at most 2). */
+  reminders?: number;
+  lastReminderAt?: string | null;
+  /** While not uploaded: SIGNATURE_BANK_NOTE_DE («Ohne Unterschrift geht keine Anfrage an die Bank»). */
+  note?: string;
+}
+
+/**
+ * Handover 6 «Ohne Unterschrift geht keine Anfrage an die Bank» (DECISIONS V11): written into
+ * the Case JSON and the internal mail while the signed copy is not there.
+ */
+export const SIGNATURE_BANK_NOTE_DE = "Unterschrift ausstehend – ohne unterzeichnete Auskunftsermächtigung geht keine Anfrage an die Bank.";
+
+/** The server's row as signatureWithServer reads it (prisma InquirySignature). */
+export interface SignatureServerState {
+  status: string;
+  method?: string | null;
+  requestedAt?: Date | string | null;
+  receivedAt?: Date | string | null;
+  remindersSent?: number | null;
+  lastReminderAt?: Date | string | null;
+}
+
+const iso = (d: Date | string | null | undefined): string | null => {
+  if (!d) return null;
+  const t = d instanceof Date ? d : new Date(d);
+  return Number.isNaN(t.getTime()) ? null : t.toISOString();
+};
+
+/**
+ * The JSON block with what the server knows after the closing: a copy received through the
+ * Nachreich link makes it «uploaded» (with its time) even when the stored answers still say
+ * «später»; the reminders and their times; the bank note while it is not uploaded.
+ */
+export function signatureWithServer(json: SignatureJson, server: SignatureServerState | null | undefined): SignatureJson {
+  const out: SignatureJson = { ...json };
+  if (server) {
+    const received = server.status === "uploaded" || server.status === "received";
+    if (received && out.status !== "unsigned") {
+      out.status = "uploaded";
+      out.at = iso(server.receivedAt) ?? out.at;
+    }
+    if (server.requestedAt) out.requestedAt = iso(server.requestedAt);
+    if (server.receivedAt) out.receivedAt = iso(server.receivedAt);
+    out.reminders = Math.max(0, Number(server.remindersSent) || 0);
+    if (server.lastReminderAt) out.lastReminderAt = iso(server.lastReminderAt);
+  }
+  if (out.status !== "uploaded") out.note = SIGNATURE_BANK_NOTE_DE;
+  else delete out.note;
+  return out;
 }
 
 export function signatureJson(view: Pick<SignatureView, "status">, sig: SignatureState | null): SignatureJson {

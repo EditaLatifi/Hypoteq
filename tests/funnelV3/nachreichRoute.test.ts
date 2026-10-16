@@ -75,6 +75,13 @@ jest.mock("@/components/nachreichMail", () => ({
   sendNachreichConfirmation: async (p: any) => void mockMails.push(p),
 }));
 
+// InquirySignature (lib/funnel-v3/signatureServer.ts) — its own suite covers it.
+const mockSignatures: any[] = [];
+jest.mock("@/lib/funnel-v3/signatureServer", () => ({
+  markSignatureReceived: async (inquiryId: string, file: any) => void mockSignatures.push({ inquiryId, ...file }),
+  signatureState: async () => null,
+}));
+
 import { GET, POST } from "@/app/api/nachreichen/[token]/route";
 
 /** Graph as completion.ts calls it: item lookup, rename, dossier upload. */
@@ -290,6 +297,24 @@ describe("POST /api/nachreichen/[token]", () => {
     expect(mockMails).toHaveLength(1);
     expect(mockMails[0]).toMatchObject({ to: "gary.gerber@example.ch", locale: "de", complete: false });
     expect(mockMails[0].remainingLabels[0]).toBe("Pass / Identitätskarte – Anna Muster");
+  });
+
+  it("v5 inquiry: the signed Auskunftsermächtigung is marked received, the Case updated, no mail (Handover 7.1)", async () => {
+    seedV3();
+    mockDb.inquiry.v3State = { ...mockDb.inquiry.v3State, version: 2 };
+    mockDb.documents = mockDb.documents.filter((d) => d.originalFileName !== "01_Auskunftsermaechtigung_Gary_Gerber_unterzeichnet.pdf");
+    const signed = analysis("vollmacht", { fields: { Unterschrift: { value: "vorhanden", confidence: 0.9 }, Vollmachtgeber: { value: "Gerber Gary", confidence: 0.9 } } });
+    mockDb.held = [{ ...heldRow("h-sig", "Scan.pdf", signed, 1), submissionId: INQUIRY }];
+    drive.set("item-h-sig", { id: "item-h-sig", name: "Scan.pdf", webUrl: "https://sp.example/case/Scan.pdf" });
+    mockSignatures.length = 0;
+
+    const json = await (await POST(req({ documents: [{ documentId: "h-sig", instanceId: "vollmacht", requirementId: "vollmacht", assignedByUser: true }] }), ctx)).json();
+    expect(json.ok).toBe(true);
+    expect(json.remaining.map((r: any) => r.instanceId)).not.toContain("vollmacht");
+    expect(mockSignatures).toEqual([{ inquiryId: INQUIRY, fileName: expect.stringContaining("Auskunftsermaechtigung"), driveItemId: "item-h-sig" }]);
+    expect(mockSf.v3).toHaveLength(1);
+    expect(JSON.parse(mockSf.v3[0].fields.Dokumenten_Check_State__c).signature.status).toBe("uploaded");
+    expect(mockMails).toEqual([]);
   });
 
   it("v3 inquiry without new files: 400, nothing written", async () => {

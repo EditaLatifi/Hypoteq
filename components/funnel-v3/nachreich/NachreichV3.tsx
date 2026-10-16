@@ -10,6 +10,10 @@
  * Shown in the funnel's visual language (`.hqv3`). The page copy (title, intro, buttons) comes
  * from the site messages the legacy page uses (`nachreichen.*`); everything about documents
  * from messages/funnel-v3.
+ *
+ * While the Auskunftsermächtigung is still open (Handover 6 «Später nachreichen», or an unsigned
+ * copy), it has its own slot above the drop zone (NachreichSignature) instead of a row in the
+ * person group; a signed copy dropped into the zone is recognised there as well.
  */
 
 import "../funnel-v3.css";
@@ -30,6 +34,8 @@ import {
 import { nachreichDocuments, nachreichInstances } from "@/lib/funnel-v3/nachreichPage";
 import type { NachreichV3View, RemainingRequirement } from "@/lib/funnel-v3/nachreichView";
 import { v3DocType } from "@/components/documentIntelligence/v3/catalogue";
+import { isSignatureRequirement } from "@/lib/funnel-v3/requirements";
+import NachreichSignature from "./NachreichSignature";
 import DropZone, { type DropZoneHandle } from "../documents/DropZone";
 import RequirementRow from "../documents/RequirementRow";
 import ExtraFiles from "../documents/ExtraFiles";
@@ -84,10 +90,14 @@ export default function NachreichV3({ token, view, copy }: { token: string; view
   const statusById = useMemo(() => new Map(status.requirements.map((r) => [r.instance.instanceId, r])), [status]);
   const extras = files.filter((f) => !f.instanceId);
 
+  // The Auskunftsermächtigung has its own slot, not a row in its group.
+  const sigMissing = useMemo(() => view.missing.find((m) => isSignatureRequirement(m.id)) ?? null, [view.missing]);
+
   // Groups in the order the server sent them («Zum Objekt», «Zur Person · Name» …).
   const groups = useMemo(() => {
     const out: { key: string; title: string; ids: string[] }[] = [];
     for (const m of view.missing) {
+      if (isSignatureRequirement(m.id)) continue;
       let g = out.find((x) => x.key === m.groupKey);
       if (!g) out.push((g = { key: m.groupKey, title: m.groupLabel, ids: [] }));
       g.ids.push(m.instanceId);
@@ -199,6 +209,10 @@ export default function NachreichV3({ token, view, copy }: { token: string; view
   return shell(
     <>
       {head(copy.title, wasComplete ? `${copy.alreadyComplete} ${copy.completeIntro}` : copy.intro)}
+
+      {sigMissing && docs.signature ? (
+        <NachreichSignature store={useStore} missing={sigMissing} view={docs.signature} files={files} lang={view.lang} say={say} />
+      ) : null}
 
       <DropZone ref={drop} onFiles={onFiles} total={files.length} open={busy} />
 

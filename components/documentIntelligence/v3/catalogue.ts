@@ -139,8 +139,8 @@ const FIELD_HINTS: Record<string, string> = {
   "Rückkaufswert": "surrender value (Rückkaufswert) of the policy, with CHF and the date it refers to",
   "Ausstellungsdatum": "issue date of the extract, DD.MM.YYYY",
   "Grundpfandrechte": "registered mortgage notes (Schuldbriefe) with amount and creditor",
-  "Unterschrift": "«vorhanden» when the form is signed by hand, else «fehlt»",
-  "Vollmachtgeber": "the person(s) or company granting the authorisation, as printed",
+  "Unterschrift": "«vorhanden» when every person filled in on the form has signed by hand (with two persons: both signature lines), «fehlt» when the form is unsigned or a signature of a filled-in person is missing",
+  "Vollmachtgeber": "all persons granting the authorisation as printed or handwritten, both columns, separated by «;» — with the company when one is named on the form (e.g. «Muster AG; Hans Muster»)",
   "Begünstigte Bank": "bank the policy is pledged or assigned to, if any",
   "ZEK-relevant": "«ja» when the contract is a consumer credit reported to the ZEK",
   // Handelsregister
@@ -277,7 +277,10 @@ const REQ_INPUT: Record<string, ReqTypeInput> = {
     aliases: a(["Auskunftsermächtigung", "Vollmacht HYPOTEQ", "Einwilligung Bonitätsprüfung"], ["Autorisation de renseignements", "Procuration HYPOTEQ"], ["Autorizzazione a fornire informazioni", "Procura HYPOTEQ"], ["Authorisation to obtain information", "HYPOTEQ power of attorney"]),
     // Handover 6: right form, signature present, name of the borrower — the funnel checks the
     // last two from «Unterschrift» and «Vollmachtgeber» (signature.ts).
-    describe: "HYPOTEQ's form «Auskunftsermächtigung» authorising HYPOTEQ to obtain information about the applicant, filled in and (ideally) signed by hand — also as a photo or scan. An unsigned blank form is still this type.",
+    // The form (public/documents, four languages): two columns Vorname / Name / Adresse /
+    // PLZ-Ort / E-Mail, a small line with Anfrage-Nr., Objekt, Zweck (DECISIONS V32), and on
+    // page 2 «Datum / Ort» with two signature lines.
+    describe: "HYPOTEQ's form «Auskunftsermächtigung / Einwilligung Verarbeitung persönlicher Daten» (also «Information authorization», «Autorisation d'accès», «Autorizzazione/consenso») authorising HYPOTEQ to obtain information about the applicant: two columns of personal data (first name, name, address, postcode/place, e-mail), page 2 with «Datum / Ort» and two signature lines; filled in and (ideally) signed by hand — also as a photo or scan. An unsigned blank form is still this type.",
     naming: { person: true, date: "date" },
   },
   id: {
