@@ -13,7 +13,8 @@
     "toFinish": "To completion",
     "remove": "Remove",
     "timeLeft": "approx. {time} min left",
-    "stepOfN": "Step {n} of {total}"
+    "stepOfN": "Step {n} of {total}",
+    "minutes": "{time} min"
   },
   "start": {
     "title": "Your financing request in a few minutes.",
@@ -34,7 +35,11 @@
     "mode.guided.title": "Guided request",
     "mode.guided.sub": "A few questions. We tell you right away which documents are needed.",
     "mode.guided.time": "approx. 3 minutes",
-    "recommended": "Recommended"
+    "recommended": "Recommended",
+    "leadModes": "With or without documents. We tell you right away what is needed – and read the rest for you.",
+    "mode.fast.text": "I already have the documents. Upload first – then most of the request is filled in.",
+    "mode.fast.duration": "approx. 3 minutes · much of it pre-filled",
+    "roleLabel": "Who is entering the request?"
   },
   "side": {
     "request": "Request",
@@ -107,7 +112,8 @@
     "advisorEmailPh": "name@company.ch",
     "emailPh": "name@mail.ch",
     "phonePh": "+41 79 …",
-    "companyPh": "Company name"
+    "companyPh": "Company name",
+    "companyHr": "Company as in the commercial register"
   },
   "q": {
     "anrede": "Salutation",
@@ -197,7 +203,13 @@
     "purchaseDate": "Purchase date",
     "renoAmount": "Renovation amount",
     "valueIsPrice": "Equals the purchase price – only change if different",
-    "bauprojektOff": "A construction project is not possible for refinancing."
+    "bauprojektOff": "A construction project is not possible for refinancing.",
+    "rentHint": "Net rental income per year",
+    "purchase": "Purchase",
+    "purchaseDateHint": "Planned transfer of ownership",
+    "datePh": "DD.MM.YYYY",
+    "renoAmountHint": "Counts towards the total financing",
+    "more": "More details (optional) · term, comment"
   },
   "s3": {
     "title": "Who is financing?",
@@ -383,7 +395,8 @@
   "toast": {
     "done": "{files} files processed, {req} requirements met",
     "fields": "{n} details extracted",
-    "corrected": "Answer corrected – documents assigned"
+    "corrected": "Answer corrected – documents assigned",
+    "prefilled": "{n} details taken into the request"
   },
   "docs": {
     "dropRelease": "Release to upload",
@@ -490,7 +503,11 @@
     "audit.renamed": "Name changed: {name}",
     "nn.hyp_rahmen": "Mortgage agreement (framework agreement)",
     "nn.hyp_sicher": "Security agreement / mortgage note",
-    "x.olderSalary": "Older salary certificate – only needed with variable pay. Kept in the dossier."
+    "x.olderSalary": "Older salary certificate – only needed with variable pay. Kept in the dossier.",
+    "sugAdd": "Yes, add it",
+    "sugEnter": "Yes, enter it",
+    "sugGoEnter": "Enter the amount",
+    "toast.grew": "The list has grown: {n} document(s) from the document analysis"
   },
   "s6": {
     "titleOk": "We can finance this. On to the bank.",
@@ -550,7 +567,8 @@
     "doneTitleNoId": "The request is with HYPOTEQ.",
     "customer": "The customer",
     "finishBlocked": "Sign the authorisation first",
-    "finishBlockedUpload": "Upload the authorisation first"
+    "finishBlockedUpload": "Upload the authorisation first",
+    "finishBlockedHint": "Upload the signed authorisation or choose “Submit later”."
   },
   "rail": {
     "title": "Your documents",
@@ -619,11 +637,15 @@
     "erbe": "Advance on inheritance",
     "darl": "Loan",
     "total": "Total equity {amount} · of which hard {hard}",
-    "hardMin": "at least 10 % of the purchase price required"
+    "hardMin": "at least 10 % of the purchase price required",
+    "subAbl": "Existing pillar 3a or pledge – transferred to the new bank with the refinancing.",
+    "totalPct": "Total equity {amount} · {pct} · of which hard {hard}"
   },
   "calc": {
     "byPrice": "Max. 80 % of the lower of purchase price and estimated value",
-    "incNote": "Affordability appears once income is entered."
+    "incNote": "Affordability appears once income is entered.",
+    "subEquity": "Purchase price minus {amount} equity",
+    "subEquityReno": "Purchase price + renovation minus {amount} equity"
   },
   "fast": {
     "s1.title": "Quick start",
@@ -646,7 +668,12 @@
     "missingDrop": "Drop missing documents here",
     "allComplete": "All documents are complete. Nothing is missing.",
     "toRequest": "Continue to request",
-    "toMissing": "To missing documents"
+    "toMissing": "To missing documents",
+    "from": "from {doc}",
+    "fromUnsure": "from {doc} · please confirm",
+    "forMail": "for the email and Salesforce",
+    "rail.short": "Recognised details",
+    "rail.empty": "Nothing read yet – upload your documents on the left."
   },
   "nn": {
     "vermoegen": "Proof of equity is only needed for a purchase.",
@@ -704,5 +731,46 @@
     "section.financing": "Financing",
     "section.more": "Further details",
     "section.docs": "Documents"
+  },
+  "head": {
+    "fast.anfrage.title": "Your request",
+    "fast.anfrage.lead": "Pre-filled from your documents. Check the details and add what is missing.",
+    "guided.objekt.lead": "Property and financing on one page. You see the loan-to-value and affordability right away.",
+    "fast.objekt.lead": "Pre-filled from your documents. Add what is not in any document.",
+    "guided.personen.lead": "The same documents for each borrower. Additional points only extend the list if they apply.",
+    "fast.personen.lead": "Pre-filled from the ID, salary statement and tax return. Check the additional points.",
+    "guided.abschluss.lead": "Single documents or a whole folder with all documents – in any order. HYPOTEQ recognises every document, assigns it and reads out the details.",
+    "fast.abschluss.lead": "Only what was missing from your folder – added by your answers or not recognised. Upload it one by one or submit it later."
+  },
+  "info": {
+    "geb": "Date of birth",
+    "nat": "Nationality",
+    "zivil": "Marital status",
+    "kinder": "Children",
+    "adresse": "Property address",
+    "wertquote": "Value quota",
+    "grundpfand": "Mortgage liens",
+    "efSaldo": "Renewal fund balance",
+    "baujahr": "Year of construction",
+    "zimmer": "Rooms",
+    "wohnflaeche": "Living area",
+    "heizung": "Heating",
+    "kubatur": "Cubic volume",
+    "versSumme": "Sum insured",
+    "bank": "Current bank",
+    "zins": "Current interest rate",
+    "laufzeit": "Term",
+    "abl": "Refinancing date",
+    "ag": "Employer",
+    "unterhaltBetrag": "Maintenance payment",
+    "kreditRest": "Private loan outstanding",
+    "kreditRate": "Private loan monthly rate",
+    "leasingRate": "Leasing rate",
+    "leasingRest": "Leasing remaining term",
+    "s3aPledge": "Pillar 3a pledge",
+    "pk": "Pension fund assets",
+    "pkVorbezug": "Pension fund advance possible",
+    "uid": "UID",
+    "sitz": "Registered office"
   }
 }
