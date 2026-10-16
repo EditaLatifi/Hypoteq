@@ -122,17 +122,24 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: true, inquiryId: existing.id, caseNumber: existing.caseNumber ?? null, alreadySubmitted: true });
     }
 
+    // Funnel v5 (Handover 7): one mail per recipient at the closing — customer, Berater,
+    // HYPOTEQ intern — sent after the Salesforce sync, because the internal one links the Case.
+    // Every older payload keeps the mails below exactly as they were.
+    const v5Mails = (await import("@/lib/funnel-v3/mail/summary")).isV5Payload(data);
+
     // Internal notification first: if everything after this fails, this mail is still a
-    // copy of the lead.
-    try {
-      await sendFunnelNotificationEmail(
-        data,
-        { id: submissionId, createdAt: new Date().toISOString() },
-        locale
-      );
-      console.log("✅ Email notification sent successfully");
-    } catch (emailError) {
-      console.error("⚠️ Email notification failed (continuing):", emailError);
+    // copy of the lead. (v5: sent after the sync; its backup copy goes out if the DB write fails.)
+    if (!v5Mails) {
+      try {
+        await sendFunnelNotificationEmail(
+          data,
+          { id: submissionId, createdAt: new Date().toISOString() },
+          locale
+        );
+        console.log("✅ Email notification sent successfully");
+      } catch (emailError) {
+        console.error("⚠️ Email notification failed (continuing):", emailError);
+      }
     }
 
     // Mail 2a / 2b is NOT sent here. It used to be, but it carries the Nachreich link
@@ -275,6 +282,15 @@ export async function POST(req: Request) {
         return NextResponse.json({ success: true, inquiryId: submissionId, alreadySubmitted: true });
       }
       console.error("❌ Failed to save inquiry to DB:", dbErr);
+      // v5 sends its internal mail after the sync; with no row there is no sync, so the
+      // notification goes out here instead — the copy of the lead the early mail used to be.
+      if (v5Mails) {
+        try {
+          await sendFunnelNotificationEmail(data, { id: submissionId, createdAt: new Date().toISOString() }, locale);
+        } catch (emailError) {
+          console.error("⚠️ Email notification failed:", emailError);
+        }
+      }
       const errorMsg = dbErr instanceof Error ? dbErr.message : 'Failed to save inquiry';
       return NextResponse.json({ success: false, error: errorMsg }, { status: 500 });
     }
@@ -339,6 +355,25 @@ export async function POST(req: Request) {
       }
     }
     // === END FUNNEL V3 CLOSING ===
+
+    // === AUSKUNFTSERMÄCHTIGUNG (Handover 6) — v5 payloads only ===
+    // The state at the closing (uploaded / «später nachreichen») and the signed copy on P0, for
+    // the reminders after 2 and 5 days. After the closing, so the file has its stored name.
+    // Non-fatal: the lead is saved.
+    if (v5Mails) {
+      try {
+        const { signatureAtSubmit } = await import("@/lib/funnel-v3/mail/signatureAtSubmit");
+        const input = await signatureAtSubmit(data, async (documentId) => {
+          const row = await prisma.document.findUnique({ where: { id: documentId }, select: { driveItemId: true } });
+          return row?.driveItemId ?? null;
+        });
+        const { recordSignatureAtSubmit } = await import("@/lib/funnel-v3/signatureServer");
+        await recordSignatureAtSubmit(inquiry.id, input);
+      } catch (sigErr) {
+        console.error(`⚠️ Could not record the Auskunftsermächtigung state of inquiry ${inquiry.id}:`, sigErr);
+      }
+    }
+    // === END AUSKUNFTSERMÄCHTIGUNG ===
 
     // Salesforce sync (backend only)
     let salesforceError: unknown = null;
@@ -418,47 +453,53 @@ export async function POST(req: Request) {
     // The partner is linked inside the sync (components/partnerDirectory). Unknown partners
     // are no longer created as placeholder Contacts (spec 2.2 / 6.3, DECISIONS D13).
 
-    // Auto-response to the customer. Funnel v3 Berater submission: to the customer from
-    // step 1 with a copy to the Berater (DECISIONS D17); otherwise unchanged (client.email).
-    let confirmation: { to: string | null; cc: string | null; firstName: string } = {
-      to: data.client?.email || null,
-      cc: null,
-      firstName: data.client?.firstName || data.client?.vorname || '',
-    };
-    if (data.v3) {
+    // v5: the internal closing mail lists the fields Salesforce dropped; it replaces the notice.
+    let droppedFieldsInClosingMail = false;
+    if (v5Mails) {
+      // === FUNNEL V5 CLOSING MAILS (Handover 7.1–7.3) ===
+      // Exactly one mail per recipient: the customer (confirmation, summary, the
+      // Auskunftsermächtigung attached while it is pending, the missing documents with the
+      // link back), the Berater (same summary, neutral), HYPOTEQ intern (same summary + the
+      // Case). Replaces the auto-response, the dossier mail 2a/2b and the Berater's copy.
       try {
-        confirmation = (await import("@/lib/funnel-v3/completion")).confirmationRecipients(data);
-      } catch (recipientErr) {
-        console.error("⚠️ Could not resolve the v3 confirmation recipients (using client.email):", recipientErr);
+        const { buildClosingMails, sendClosingMails, closingMailTransport, salesforceCaseUrl } = await import("@/lib/funnel-v3/mail");
+        let instanceUrl: string | null = null;
+        if (salesforceCaseId) {
+          try {
+            instanceUrl = (await import("@/components/salesforceApi")).conn?.instanceUrl ?? null;
+          } catch { /* the link degrades to the Case id */ }
+        }
+        const mails = await buildClosingMails({
+          data,
+          lang: locale,
+          caseNumber,
+          date: new Date(),
+          inquiryId: inquiry.id,
+          returnUrl: nachreichToken ? buildNachreichUrl(nachreichToken, locale as NachreichLocale) : null,
+          linkDays: NACHREICH_TTL_DAYS,
+          salesforce: {
+            caseId: salesforceCaseId,
+            url: salesforceCaseUrl(instanceUrl, salesforceCaseId),
+            failed: Boolean(salesforceError),
+            testMode: isTestMode(),
+            dropped: salesforceDropped,
+          },
+        });
+        const result = await sendClosingMails(mails, closingMailTransport(getGraphMailClient()));
+        droppedFieldsInClosingMail = result.sent.includes("intern");
+        console.log(`✅ Closing mails: sent ${result.sent.join(", ") || "none"}${result.failed.length ? `, failed ${result.failed.join(", ")}` : ""}`);
+      } catch (closingMailError) {
+        console.error("⚠️ Closing mails failed (continuing):", closingMailError);
       }
-    }
-    // Funnel v3 (DECISIONS D20): the mail names the Fallnummer and links back to the inquiry
-    // (the Nachreich page — state of the dossier, documents can be added).
-    const autoResponseExtras: AutoResponseExtras = data.v3
-      ? { caseNumber, returnUrl: nachreichToken ? buildNachreichUrl(nachreichToken, locale as NachreichLocale) : null }
-      : {};
-    try {
-      if (confirmation.to) {
-        await sendFunnelAutoResponse(confirmation.to, confirmation.firstName, locale, confirmation.cc, autoResponseExtras);
-        console.log("✅ Auto-response sent to customer");
-      }
-    } catch (autoResponseError) {
-      console.error("⚠️ Auto-response failed (continuing):", autoResponseError);
-    }
-
-    // Mail 2a / 2b — now that the row exists, the Nachreich link in 2b is guaranteed to
-    // resolve. Non-fatal: the lead is captured either way.
-    if (documentCompleteness) {
-      try {
-        await sendDossierCompletenessEmail(data, documentCompleteness, locale, nachreichToken, confirmation, data.v3 ? caseNumber : null);
-      } catch (dossierMailError) {
-        console.error("⚠️ Dossier completeness mail failed (continuing):", dossierMailError);
-      }
+      // === END FUNNEL V5 CLOSING MAILS ===
+    } else {
+      await sendPreV5CustomerMails(data, locale, caseNumber, nachreichToken, documentCompleteness);
     }
 
     if (salesforceError) {
+      // Kept beside the v5 internal mail: the operational alarm with the error and stack.
       await sendSalesforceFailureAlert(inquiry.id, salesforceError);
-    } else if (salesforceDropped.length) {
+    } else if (salesforceDropped.length && !droppedFieldsInClosingMail) {
       // The Case exists, but not every field reached it (unknown column, missing field right,
       // invalid picklist value). Someone has to complete it by hand, so say so.
       await sendSalesforceDroppedFieldsNotice(inquiry.id, salesforceCaseId, caseNumber, salesforceDropped);
@@ -563,6 +604,56 @@ export async function GET(req: Request) {
 }
 
 type EmailLocale = AutoResponseLocale;
+
+/**
+ * The customer mails of every submission before v5 (the legacy funnel, a v3 session), as they
+ * were: the auto-response — for a v3 Berater submission to the customer from step 1 with a copy
+ * to the Berater (DECISIONS D17) — and Mail 2a / 2b. v5 sends one mail per recipient instead
+ * (lib/funnel-v3/mail, Handover 7).
+ */
+async function sendPreV5CustomerMails(
+  data: any,
+  locale: EmailLocale,
+  caseNumber: string | null,
+  nachreichToken: string | null,
+  documentCompleteness: any
+) {
+  let confirmation: { to: string | null; cc: string | null; firstName: string } = {
+    to: data.client?.email || null,
+    cc: null,
+    firstName: data.client?.firstName || data.client?.vorname || '',
+  };
+  if (data.v3) {
+    try {
+      confirmation = (await import("@/lib/funnel-v3/completion")).confirmationRecipients(data);
+    } catch (recipientErr) {
+      console.error("⚠️ Could not resolve the v3 confirmation recipients (using client.email):", recipientErr);
+    }
+  }
+  // Funnel v3 (DECISIONS D20): the mail names the Fallnummer and links back to the inquiry
+  // (the Nachreich page — state of the dossier, documents can be added).
+  const autoResponseExtras: AutoResponseExtras = data.v3
+    ? { caseNumber, returnUrl: nachreichToken ? buildNachreichUrl(nachreichToken, locale as NachreichLocale) : null }
+    : {};
+  try {
+    if (confirmation.to) {
+      await sendFunnelAutoResponse(confirmation.to, confirmation.firstName, locale, confirmation.cc, autoResponseExtras);
+      console.log("✅ Auto-response sent to customer");
+    }
+  } catch (autoResponseError) {
+    console.error("⚠️ Auto-response failed (continuing):", autoResponseError);
+  }
+
+  // Mail 2a / 2b — now that the row exists, the Nachreich link in 2b is guaranteed to
+  // resolve. Non-fatal: the lead is captured either way.
+  if (documentCompleteness) {
+    try {
+      await sendDossierCompletenessEmail(data, documentCompleteness, locale, nachreichToken, confirmation, data.v3 ? caseNumber : null);
+    } catch (dossierMailError) {
+      console.error("⚠️ Dossier completeness mail failed (continuing):", dossierMailError);
+    }
+  }
+}
 
 /* ==========================================================================
  * DOSSIER COMPLETENESS MAIL (spec: Mail 2a / Mail 2b)

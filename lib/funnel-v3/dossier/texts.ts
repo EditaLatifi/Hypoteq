@@ -539,3 +539,138 @@ export const DOSSIER_TEXTS: Record<Lang, DossierTexts> = {
     },
   },
 };
+
+/**
+ * What the v5 dossier adds (Handover 2, 3.1, 6; the v5 reference dossier): the Kauf block
+ * (Kaufdatum, Renovation, reserviert), the Ablösedatum, the Eigenmittel table, the
+ * Auskunftsermächtigung. The facts read from the documents are labelled like the mails
+ * (lib/funnel-v3/mail/texts.ts `labels`), the source mark is `chip.fromDoc`.
+ */
+export interface DossierV5Texts {
+  descDate: string;
+  descReno: string;
+  purchaseDate: string;
+  renovation: string;
+  reserved: string;
+  redemptionDate: string;
+  rent: string;
+  borrowerIncome: string;
+  taxOpt: string;
+  signature: string;
+  sigReceived: string;
+  sigLater: string;
+  sigUnsigned: string;
+  sigMissing: string;
+  historySigReceived: string;
+  historySigLater: string;
+  equityTable: string;
+  vorsorgeTable: string;
+  costTotal: string;
+  equityTotal: string;
+  equityHard: string;
+  pledgeNote: string;
+  hardTooLow: string;
+}
+
+export const DOSSIER_V5_TEXTS: Record<Lang, DossierV5Texts> = {
+  de: {
+    descDate: " per {date}",
+    descReno: " und Renovationen von {reno}",
+    purchaseDate: "Kaufdatum",
+    renovation: "Renovationsbetrag",
+    reserved: "Liegenschaft reserviert",
+    redemptionDate: "Ablösedatum",
+    rent: "Jährlicher Netto-Mietertrag",
+    borrowerIncome: "Bruttoeinkommen",
+    taxOpt: "Interesse an Steueroptimierung",
+    signature: "Auskunftsermächtigung",
+    sigReceived: "unterzeichnet erhalten",
+    sigLater: "Unterschrift ausstehend · Erinnerung nach 2 und 5 Tagen",
+    sigUnsigned: "Unterschrift fehlt",
+    sigMissing: "noch nicht hochgeladen",
+    historySigReceived: "Auskunftsermächtigung unterzeichnet erhalten",
+    historySigLater: "Auskunftsermächtigung: Unterschrift ausstehend – ohne Unterschrift keine Anfrage an die Bank",
+    equityTable: "Eigenmittel – Aufteilung",
+    vorsorgeTable: "Vorsorge",
+    costTotal: "Gesamtkosten (Kaufpreis und Renovation)",
+    equityTotal: "Eigenmittel total",
+    equityHard: "davon harte Eigenmittel",
+    pledgeNote: "Sicherheit, zählt nicht zu den Eigenmitteln",
+    hardTooLow: "Harte Eigenmittel unter 10 % des Kaufpreises.",
+  },
+  en: {
+    descDate: " as of {date}",
+    descReno: " and renovations of {reno}",
+    purchaseDate: "Purchase date",
+    renovation: "Renovation amount",
+    reserved: "Property reserved",
+    redemptionDate: "Redemption date",
+    rent: "Annual net rental income",
+    borrowerIncome: "Gross income",
+    taxOpt: "Interested in tax optimisation",
+    signature: "Information authorisation",
+    sigReceived: "signed copy received",
+    sigLater: "signature pending · reminders after 2 and 5 days",
+    sigUnsigned: "signature missing",
+    sigMissing: "not uploaded yet",
+    historySigReceived: "Signed information authorisation received",
+    historySigLater: "Information authorisation: signature pending – no request to the bank without it",
+    equityTable: "Equity – breakdown",
+    vorsorgeTable: "Pension savings",
+    costTotal: "Total cost (purchase price and renovation)",
+    equityTotal: "Total equity",
+    equityHard: "of which hard equity",
+    pledgeNote: "Collateral, not counted as equity",
+    hardTooLow: "Hard equity below 10 % of the purchase price.",
+  },
+  fr: {
+    descDate: " au {date}",
+    descReno: " et des rénovations de {reno}",
+    purchaseDate: "Date d’achat",
+    renovation: "Montant des rénovations",
+    reserved: "Bien réservé",
+    redemptionDate: "Date de remboursement",
+    rent: "Revenu locatif net annuel",
+    borrowerIncome: "Revenu brut",
+    taxOpt: "Intérêt pour l’optimisation fiscale",
+    signature: "Autorisation de renseignements",
+    sigReceived: "signée, reçue",
+    sigLater: "signature en attente · rappel après 2 et 5 jours",
+    sigUnsigned: "signature manquante",
+    sigMissing: "pas encore téléversée",
+    historySigReceived: "Autorisation de renseignements signée reçue",
+    historySigLater: "Autorisation de renseignements : signature en attente – aucune demande à la banque sans signature",
+    equityTable: "Fonds propres – répartition",
+    vorsorgeTable: "Prévoyance",
+    costTotal: "Coût total (prix d’achat et rénovation)",
+    equityTotal: "Total des fonds propres",
+    equityHard: "dont fonds propres durs",
+    pledgeNote: "Garantie, ne compte pas comme fonds propres",
+    hardTooLow: "Fonds propres durs inférieurs à 10 % du prix d’achat.",
+  },
+  it: {
+    descDate: " al {date}",
+    descReno: " e ristrutturazioni per {reno}",
+    purchaseDate: "Data d’acquisto",
+    renovation: "Importo della ristrutturazione",
+    reserved: "Immobile riservato",
+    redemptionDate: "Data di rimborso",
+    rent: "Reddito locativo netto annuo",
+    borrowerIncome: "Reddito lordo",
+    taxOpt: "Interesse per l’ottimizzazione fiscale",
+    signature: "Autorizzazione",
+    sigReceived: "firmata, ricevuta",
+    sigLater: "firma in sospeso · promemoria dopo 2 e 5 giorni",
+    sigUnsigned: "firma mancante",
+    sigMissing: "non ancora caricata",
+    historySigReceived: "Autorizzazione firmata ricevuta",
+    historySigLater: "Autorizzazione: firma in sospeso – nessuna richiesta alla banca senza firma",
+    equityTable: "Fondi propri – ripartizione",
+    vorsorgeTable: "Previdenza",
+    costTotal: "Costo totale (prezzo d’acquisto e ristrutturazione)",
+    equityTotal: "Totale fondi propri",
+    equityHard: "di cui fondi propri duri",
+    pledgeNote: "Garanzia, non conta come fondi propri",
+    hardTooLow: "Fondi propri duri inferiori al 10 % del prezzo d’acquisto.",
+  },
+};

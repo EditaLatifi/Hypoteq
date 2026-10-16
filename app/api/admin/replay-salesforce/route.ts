@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { filesFromRows, storedV3State } from "@/lib/funnel-v3/nachreich";
+import { KORRESPONDENZSPRACHE } from "@/lib/funnel-v3/toInquiryPayload";
 
 /* ==========================================================================
  * DEV-ONLY SALESFORCE REPLAY
@@ -26,6 +28,24 @@ export const dynamic = "force-dynamic";
 
 // Rebuild the shape app/api/inquiry expects from the normalised DB rows.
 function toFunnelPayload(inquiry: any) {
+  const base = legacyFunnelPayload(inquiry);
+  // Funnel v3 / v5: the stored answers ride along as `v3`, so the replay writes what the live
+  // sync writes (the funnel's calculation, Heizungsart, Eigenmittel total, the JSON blocks of
+  // Handover 8), and the documents count as the closing placed them (nachreich.ts
+  // filesFromRows — the Nachreichung's own rule). Rows without a stored state replay as before.
+  const state = storedV3State(inquiry);
+  if (!state) return base;
+  return {
+    ...base,
+    locale: state.lang,
+    korrespondenzsprache: KORRESPONDENZSPRACHE[state.lang] ?? "Deutsch",
+    v3: inquiry.v3State,
+    v3Completion: { files: filesFromRows(state, Array.isArray(inquiry.documents) ? inquiry.documents : []), folderWebUrl: null },
+    documentCompleteness: { skipped: Array.isArray(inquiry.v3Skipped) ? inquiry.v3Skipped.filter((s: unknown) => typeof s === "string") : [] },
+  };
+}
+
+function legacyFunnelPayload(inquiry: any) {
   return {
     id: inquiry.id,
     customerType: inquiry.customerType,
@@ -164,7 +184,8 @@ export async function GET(req: Request) {
 
   const inquiries = await prisma.inquiry.findMany({
     where,
-    include: { client: true, project: true, property: true, financing: true, borrowers: true },
+    // Documents for a v3 / v5 inquiry's requirement status (toFunnelPayload).
+    include: { client: true, project: true, property: true, financing: true, borrowers: true, documents: true },
     orderBy: { createdAt: "asc" },
   });
 

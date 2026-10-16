@@ -6,7 +6,21 @@
 
 import type { FileEntry, V3Analysis } from "../files";
 import { isLang, type Lang } from "../i18n";
-import { DEFAULT_ANSWERS, EMPTY_AMOUNTS, EMPTY_EM, EMPTY_TEXTS, MAX_BORROWERS, type Answers, type Amounts, type Borrower, type DocInfo, type Eigenmittel, type Texts } from "../types";
+import {
+  DEFAULT_ANSWERS,
+  EMPTY_AMOUNTS,
+  EMPTY_EM,
+  EMPTY_TEXTS,
+  MAX_BORROWERS,
+  type Answers,
+  type Amounts,
+  type Borrower,
+  type DocInfo,
+  type Eigenmittel,
+  type SignatureState,
+  type Sources,
+  type Texts,
+} from "../types";
 import type { DossierFile, DossierInput } from "./model";
 
 export const PREVIEW_MAX_FILES = 300;
@@ -15,7 +29,7 @@ const MAX_FIELDS = 40;
 
 export interface PreviewRequest {
   lang?: string;
-  state?: { role?: unknown; ans?: unknown; txt?: unknown; fin?: unknown; em?: unknown; info?: unknown; borrowers?: unknown };
+  state?: { role?: unknown; ans?: unknown; txt?: unknown; fin?: unknown; em?: unknown; info?: unknown; borrowers?: unknown; src?: unknown; sig?: unknown };
   files?: unknown;
   skipped?: unknown;
 }
@@ -57,6 +71,22 @@ function facts(x: unknown): DocInfo {
     else if (typeof v === "string" && v) out[k.slice(0, 40)] = v.slice(0, 300);
   }
   return out as DocInfo;
+}
+
+/** The prefill marks (field path → document): the path and the document name only. */
+function sources(x: unknown): Sources {
+  const out: Record<string, { doc: string; unsure: boolean }> = {};
+  if (!isObj(x)) return {};
+  for (const [k, v] of Object.entries(x).slice(0, 80)) {
+    if (!/^(ans|txt|fin|em|borrower)\.[A-Za-z0-9.]{1,40}$/.test(k) || !isObj(v)) continue;
+    out[k] = { doc: text(v.doc, 120), unsure: v.unsure === true };
+  }
+  return out as Sources;
+}
+
+function signature(x: unknown): SignatureState | null {
+  if (!isObj(x) || (x.choice !== "uploaded" && x.choice !== "later")) return null;
+  return { choice: x.choice, at: text(x.at, 40), method: "upload" };
 }
 
 function borrowers(x: unknown): Borrower[] {
@@ -120,6 +150,7 @@ export function previewFiles(x: unknown): DossierFile[] {
         extraKind: instanceId ? undefined : a?.extraKind,
         keep: f.keep === true,
         outdatedOverride: f.outdatedOverride === true,
+        ...(f.assignedByUser === true && instanceId ? { assignedByUser: true } : {}),
         analysis: f.analysisState === "done" || f.analysisState === "failed" ? a : null,
       };
     });
@@ -141,6 +172,8 @@ export function previewInput(body: PreviewRequest, now: Date = new Date()): Doss
       em: equity(s.em),
       info: facts(s.info),
       borrowers: borrowers(s.borrowers),
+      src: sources(s.src),
+      sig: signature(s.sig),
     },
     files: previewFiles(body?.files),
     skipped: Array.isArray(body?.skipped) ? body.skipped.filter((x): x is string => typeof x === "string").slice(0, 100) : [],

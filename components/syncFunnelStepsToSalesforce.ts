@@ -65,14 +65,102 @@ export async function applyPartnerToCase(
   console.log(`[Salesforce Sync] Partner not recognised (${resolved ? 'unknown' : 'lookup failed'}): ${partnerEmail}`);
 }
 
+/**
+ * Swiss date (TT.MM.JJJJ, also T.M.JJJJ) or an ISO date → Salesforce `YYYY-MM-DD`; null for
+ * anything that is not a real calendar date. Kaufdatum__c is a Date field in the existing
+ * configuration (DECISIONS V41), and the v5 Kaufdatum and the Ablösedatum read from the
+ * Zinsabrechnung are typed or printed text — «Mai 2026» or «31.02.2026» must not reach
+ * Salesforce as a broken date (it would reject the field); the value stays in the JSON.
+ */
+export function toSalesforceDate(value: unknown): string | null {
+  if (typeof value !== 'string') return null;
+  const s = value.trim();
+  let y: number, m: number, d: number;
+  let match = /^(\d{1,2})\.(\d{1,2})\.(\d{4})$/.exec(s);
+  if (match) {
+    [d, m, y] = [Number(match[1]), Number(match[2]), Number(match[3])];
+  } else if ((match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s))) {
+    [y, m, d] = [Number(match[1]), Number(match[2]), Number(match[3])];
+  } else {
+    return null;
+  }
+  const dt = new Date(Date.UTC(y, m - 1, d));
+  if (dt.getUTCFullYear() !== y || dt.getUTCMonth() !== m - 1 || dt.getUTCDate() !== d) return null;
+  return `${y}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+}
+
 // Convert Swiss date format (DD.MM.YYYY) to Salesforce format (YYYY-MM-DD)
 function convertSwissDateToSalesforce(swissDate: string): string | null {
-  if (!swissDate || swissDate.trim() === '') return null;
-  const parts = swissDate.split('.');
-  if (parts.length !== 3) return null;
-  const [day, month, year] = parts;
-  if (!day || !month || !year) return null;
-  return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+  return toSalesforceDate(swissDate);
+}
+
+/**
+ * Heizungsart read from the documents (v5 no longer asks it, Handover 0 / 8) → the
+ * Waermeerzeugung__c picklist, with the values of the mapping (HYPOTEQ_Salesforce_Mapping_Vorschlag,
+ * «Heizungsart»). Anything else — «Elektro», «unbekannt», a sentence — is not written (it stays in
+ * the JSON `info.heizung`): an unknown value on a restricted picklist would only be dropped.
+ */
+export function toWaermeerzeugung(heizung: unknown): string | null {
+  if (typeof heizung !== 'string') return null;
+  const v = heizung.trim().toLowerCase();
+  if (!v) return null;
+  if (/w(ä|ae)rmepumpe|heat pump|pompe à chaleur|pompa di calore/.test(v)) return 'Wärmepumpe Luft-Wasser';
+  if (/fernw(ä|ae)rme|district heating|chauffage à distance|teleriscaldamento/.test(v)) return 'Fernwärme';
+  if (/holz|pellet|\bbois\b|legna|\bwood\b/.test(v)) return 'Holz';
+  // Oil before gas: «gasolio» is heating oil.
+  if (/(^|[\s(/-])(heiz)?(ö|oe)l|mazout|fioul|gasolio|nafta|\boil\b/.test(v)) return 'Öl';
+  if (/(^|[\s(/-])(erd)?gas|\bgaz\b/.test(v)) return 'Gas Erdgas';
+  return null;
+}
+
+/**
+ * The blocks v5 adds to Dokumenten_Check_State__c beside the foundation's (entry, answers with
+ * the Eigenmittel rows, sources, signature, info — lib/funnel-v3/checkState.ts):
+ *
+ *   calc     the funnel's numbers (lib/funnel-v3/calc.ts): Gesamtfinanzierung, Eigenmittel total
+ *            and % (Eigenmittel_Total__c of the proposal is Eigenmittel__c here, DECISIONS V5),
+ *            harte Eigenmittel, Belehnung, Tragbarkeit — Tragbarkeit__c and EigenmittelProzent__c
+ *            keep the existing formula (S1, S6), so the funnel's own figures are here
+ *   kontakt  the phone (PersonMobilePhone of the proposal is Account.Phone here) and, for a
+ *            company, the zeichnungsberechtigte Person (no field on the Account)
+ *
+ * A Nachreichung re-writes the JSON and carries both over (unknown keys are kept).
+ */
+export function v5CheckStateBlocks(state: NonNullable<ReturnType<typeof normaliseFunnelState>>, calc: ReturnType<typeof calcForState>) {
+  const round1 = (v: number | null) => (v === null || !Number.isFinite(v) ? undefined : Math.round(v * 10) / 10);
+  const compact = (o: Record<string, unknown>) => Object.fromEntries(Object.entries(o).filter(([, v]) => v !== undefined && v !== null && v !== '' && v !== 0));
+  const isKauf = state.ans.antrag === 'Neue Hypothek';
+  const isJur = state.ans.kn === 'Juristische Person';
+  return {
+    calc: compact({
+      gesamtfinanzierung: Math.round(calc.need),
+      objektwert: Math.round(calc.value),
+      gesamtkosten: isKauf ? Math.round(calc.cost) : undefined,
+      eigenmittelTotal: isKauf ? Math.round(calc.emTotal) : undefined,
+      eigenmittelProzent: isKauf && calc.emTotal > 0 ? round1(calc.emPct) : undefined,
+      harteEigenmittel: isKauf && calc.emTotal > 0 ? Math.round(calc.hard) : undefined,
+      belehnung: round1(calc.ltv),
+      tragbarkeit: round1(calc.affordability),
+      urteil: calc.verdict,
+    }),
+    kontakt: compact({
+      telefon: state.txt.tel.trim(),
+      zeichnungsberechtigt: isJur ? state.txt.zeichner.trim() : undefined,
+    }),
+  };
+}
+
+/** Adds the v5 blocks to the JSON string; leaves it as it is when it is not JSON or would outgrow the field. */
+export function withV5CheckStateBlocks(json: string, blocks: Record<string, Record<string, unknown>>, maxLength = 131072): string {
+  try {
+    const obj = JSON.parse(json);
+    if (!obj || typeof obj !== 'object' || Array.isArray(obj)) return json;
+    for (const [k, v] of Object.entries(blocks)) if (Object.keys(v).length) obj[k] = v;
+    const out = JSON.stringify(obj);
+    return out.length <= maxLength ? out : json;
+  } catch {
+    return json;
+  }
 }
 
 // Transform German picklist values to proper Salesforce format
@@ -731,10 +819,23 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
   const eigenmittel_schenkung = Number(flatData.eigenmittel_schenkung || 0);
   const eigenmittel = eigenmittel_bar + eigenmittel_saeule3 + eigenmittel_pk + eigenmittel_schenkung;
 
+  // The funnel state of a v3 / v5 payload (legacy.ts reads either into the v5 shape) and the
+  // funnel's own calculation (lib/funnel-v3/calc.ts) — what the customer saw.
+  const v3State = stepData.v3 ? normaliseFunnelState(stepData.v3) : null;
+  const v3Calc = v3State ? calcForState(v3State) : null;
+
   // Add total Eigenmittel to Case
   if (eigenmittel > 0) {
     caseData['Eigenmittel__c'] = eigenmittel;
     console.log(`[Salesforce Sync] Total Eigenmittel: ${eigenmittel}`);
+  }
+  // === FUNNEL V5 EIGENMITTEL TOTAL (Handover 8 «Eigenmittel total», DECISIONS V41) ===
+  // Eigenmittel_Total__c of the proposal is Eigenmittel__c in the existing mapping (V5). Its value
+  // is the funnel's «Eigenmittel total»: Ersparnisse + 3a + PK-Vorbezug + Schenkung + Erbvorbezug
+  // + Darlehen (PK-Verpfändung is a security). An Ablösung has none — its Säule 3a is Vorsorge.
+  if (v3Calc) {
+    if (isKauf && v3Calc.emTotal > 0) caseData['Eigenmittel__c'] = v3Calc.emTotal;
+    else delete caseData['Eigenmittel__c'];
   }
 
   // Tragbarkeit / Eigenmittel % — MUST mirror components/funnelCalc.tsx exactly so
@@ -762,8 +863,7 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
   // Ablösung = bestehende + Erhöhung. Computed here from the submitted answers; the payload's
   // financing.hypoBetrag (the same number) is the fallback. The Tragbarkeit keeps the existing
   // formula (S1) — only its base changes.
-  const v3State = stepData.v3 ? normaliseFunnelState(stepData.v3) : null;
-  const v3Need = v3State ? calcForState(v3State).need : NaN;
+  const v3Need = v3Calc ? v3Calc.need : NaN;
   const v3HypoBetragRaw = stepData.v3 ? Number(String(flatData.hypoBetrag ?? '').replace(/'/g, '')) : NaN;
   const v3HypoBetrag =
     Number.isFinite(v3Need) && v3Need > 0 ? v3Need : Number.isFinite(v3HypoBetragRaw) && v3HypoBetragRaw > 0 ? v3HypoBetragRaw : null;
@@ -889,6 +989,23 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
   if (location) caseData['PLZ_Ort__c'] = location;
   if (ort) caseData['City__c'] = ort;
   console.log(`[Salesforce Sync] Location → PLZ_Ort__c: "${location}", City__c: "${ort}"`);
+
+  // === FUNNEL V5 VALUES FROM THE DOCUMENTS AND THE COMPANY (Handover 8) — v3 / v5 payloads only ===
+  if (v3State) {
+    // Heizungsart is no longer asked; the documents say it (Verkaufsdokumentation, GVZ).
+    const heizung = toWaermeerzeugung(v3State.info?.heizung);
+    if (heizung) caseData['Waermeerzeugung__c'] = heizung;
+    // Juristische Person: the Account is the company (a Person Account named after it, the
+    // existing mapping — no Business Account / Contact, DECISIONS V41). The zeichnungsberechtigte
+    // Person has no field there, so the Case names it (Rosanna: it stayed empty) and the JSON
+    // carries it (`kontakt`).
+    const zeichner = v3State.ans.kn === 'Juristische Person' ? v3State.txt.zeichner.trim() : '';
+    if (zeichner) {
+      const existing = typeof caseData['Kommentar__c'] === 'string' ? caseData['Kommentar__c'].trim() : '';
+      caseData['Kommentar__c'] = [`Zeichnungsberechtigte Person: ${zeichner}`, existing].filter(Boolean).join('\n\n');
+    }
+  }
+  // === END FUNNEL V5 VALUES ===
 
   // Document completeness (spec: Dokumenten-Upload & Completeness-Check).
   // The verdict is computed in the funnel, because only the client knows which document
@@ -1017,6 +1134,11 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     const previous = await readRecentCaseCheckState(salesforceApi, caseData.AccountId);
     const v3Fields = v3DocumentCaseFields(stepData, previous);
     if (v3Fields) {
+      // Handover 8 / DECISIONS V5: what the existing mapping keeps elsewhere or has no field
+      // for travels in the JSON as well — the funnel's calculation and the contact.
+      if (v3State && v3Calc && typeof v3Fields.Dokumenten_Check_State__c === 'string') {
+        v3Fields.Dokumenten_Check_State__c = withV5CheckStateBlocks(v3Fields.Dokumenten_Check_State__c, v5CheckStateBlocks(v3State, v3Calc));
+      }
       Object.assign(caseData, v3Fields);
       console.log(`[Salesforce Sync] v3 documents: complete=${v3Fields.Documents_completed__c}, folder=${v3Fields.SharePoint_Doc__c ? 'yes' : 'no'}`);
     }

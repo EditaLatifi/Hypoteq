@@ -287,11 +287,15 @@ const KV_SIZE = 8.8;
 const KV_LINE = 11.6;
 const SMALL = 7;
 
+/** «aus Dokument · …» under a value (v5: values read from the documents). */
+const SOURCE_SIZE = 6.4;
+const SOURCE_LINE = 8.4;
+
 function kvHeight(pdf: Pdf, kv: KeyValue | undefined, colW: number): number {
   if (!kv) return 0;
   const l = pdf.wrap(kv.label, KV_SIZE, colW * 0.47).length;
-  const v = pdf.wrap(kv.value, KV_SIZE, colW * 0.5, kv.strong).length;
-  return Math.max(l, v) * KV_LINE + 9;
+  const v = pdf.wrap(kv.value, KV_SIZE, colW * 0.5, kv.strong).length * KV_LINE + (kv.source ? pdf.wrap(kv.source, SOURCE_SIZE, colW * 0.5).length * SOURCE_LINE : 0);
+  return Math.max(l * KV_LINE, v) + 9;
 }
 
 function drawKv(pdf: Pdf, kv: KeyValue | undefined, x: number, top: number, colW: number, h: number) {
@@ -300,6 +304,10 @@ function drawKv(pdf: Pdf, kv: KeyValue | undefined, x: number, top: number, colW
   const values = pdf.wrap(kv.value, KV_SIZE, colW * 0.5, kv.strong);
   labels.forEach((l, i) => pdf.text(l, x, top - 13 - i * KV_LINE, { size: KV_SIZE, opacity: 0.62 }));
   values.forEach((v, i) => pdf.textRight(v, x + colW, top - 13 - i * KV_LINE, { size: KV_SIZE, bold: kv.strong }));
+  if (kv.source) {
+    const base = top - 13 - values.length * KV_LINE + 1.5;
+    pdf.wrap(kv.source, SOURCE_SIZE, colW * 0.5).forEach((s, i) => pdf.textRight(s, x + colW, base - i * SOURCE_LINE, { size: SOURCE_SIZE, opacity: 0.5 }));
+  }
   pdf.rule(x, x + colW, top - h);
 }
 
@@ -458,6 +466,7 @@ function sectionHeight(pdf: Pdf, s: DossierSection): number {
   if (s.columns) h += columnsHeight(pdf, s.columns);
   if (s.band) h += bandHeight() + 10;
   if (s.table) h += tableHeight(pdf, s.table);
+  for (const sub of s.subTables ?? []) h += 22 + tableHeight(pdf, sub.table);
   if (s.notes?.length) h += notesHeight(pdf, s.notes);
   if (s.callouts?.length) h += (s.calloutsTitle ? 22 : 10) + s.callouts.reduce((a, c) => a + calloutHeight(pdf, c), 0);
   return h;
@@ -474,6 +483,13 @@ function drawSection(pdf: Pdf, s: DossierSection) {
     pdf.y -= 10;
   }
   if (s.table) drawTable(pdf, s.table);
+  for (const sub of s.subTables ?? []) {
+    pdf.ensure(22 + (sub.table.rows[0] ? rowHeight(pdf, sub.table.rows[0], colWidths(sub.table)) : 0));
+    pdf.y -= 10;
+    pdf.text(upper(sub.title), MARGIN, pdf.y - 6, { size: 6.8, bold: true, opacity: 0.55 });
+    pdf.y -= 12;
+    drawTable(pdf, sub.table);
+  }
   if (s.notes?.length) drawNotes(pdf, s.notes);
   if (s.callouts?.length) {
     pdf.y -= 10;
