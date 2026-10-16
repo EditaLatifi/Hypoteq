@@ -88,7 +88,14 @@ export const SALESFORCE_CASE_FIELDS: Record<string, SFFieldType> = {
   Hypothekarvolumen__c: "currency",  // Mortgage volume/amount
 
   // Date fields
+  // Handover 8 names Kaufdatum__c «Text 80»; this configuration (from the org) says Date. The
+  // existing configuration wins (DECISIONS V5, V31): the sync sends YYYY-MM-DD, which a text
+  // field takes as well, and only a real calendar date (toSalesforceDate).
   Kaufdatum__c: "date",
+
+  // Heizungsart from the documents (Handover 8; v5 no longer asks it). Picklist values per the
+  // mapping: Wärmepumpe Luft-Wasser, Fernwärme, Holz, Gas Erdgas, Öl (toWaermeerzeugung).
+  Waermeerzeugung__c: "picklist",
   
   // Picklist for new construction type
   If_Neubau__c: "picklist",  // "Bereits erstellt" or "Bauprojekt"
