@@ -734,7 +734,8 @@
     "reminder.button": "Téléverser la copie signée",
     "reminder.already": "Déjà téléversée ? Ce rappel est alors sans objet.",
     "reminder.signoff": "Meilleures salutations",
-    "reminder.team": "Votre équipe HYPOTEQ"
+    "reminder.team": "Votre équipe HYPOTEQ",
+    "nr.step1Sub": "Formulaire vierge – le modèle pré-rempli est joint à notre e-mail."
   },
   "mail": {
     "subject": "Votre demande de financement {id} – {name}, {place}",

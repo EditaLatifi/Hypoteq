@@ -734,7 +734,8 @@
     "reminder.button": "Unterzeichnet hochladen",
     "reminder.already": "Schon hochgeladen? Dann ist diese Erinnerung erledigt.",
     "reminder.signoff": "Freundliche Grüsse",
-    "reminder.team": "Dein HYPOTEQ-Team"
+    "reminder.team": "Dein HYPOTEQ-Team",
+    "nr.step1Sub": "Leeres Formular – die vorausgefüllte Vorlage liegt unserer E-Mail bei."
   },
   "mail": {
     "subject": "Deine Finanzierungsanfrage {id} – {name}, {place}",

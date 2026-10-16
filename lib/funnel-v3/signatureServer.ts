@@ -16,9 +16,9 @@
  * not run), Graph may be down — a submission, a Nachreichung or the portal cron never breaks
  * over it; the miss is logged.
  *
- * DocuSign (Handover 6, later phase): `method` is stored with every row; a DocuSign flow would
- * call markSignatureReceived with its own method (SignatureMethod) where the upload calls it
- * today — nothing else here depends on how the copy was signed.
+ * DocuSign (Handover 6, later phase; DECISIONS V40): `method` is stored with every row; a
+ * DocuSign flow would call markSignatureReceivedVia with «docusign» where the upload ends today
+ * — nothing else here depends on how the copy was signed.
  *
  * Test mode (components/testMode.ts): the reminder run changes nothing in the database and mails
  * only the test inbox (HYPOTEQ_TEST_MAIL_TO); without one it only logs. The submit and the
@@ -434,6 +434,19 @@ export async function recordSignatureAtSubmit(inquiryId: string, input: Signatur
 /** A signed copy arrived after the closing (Nachreich link). Never throws. */
 export async function markSignatureReceived(inquiryId: string, file: { fileName: string; driveItemId?: string | null }, now?: Date): Promise<void> {
   return production().markSignatureReceived(inquiryId, file, now);
+}
+
+/**
+ * The DocuSign seam (Handover 6, later phase): a signing flow that does not upload a file reports
+ * its signed copy here with its own method; markSignatureReceived is this with «upload».
+ */
+export async function markSignatureReceivedVia(
+  inquiryId: string,
+  file: { fileName: string; driveItemId?: string | null },
+  method: SignatureMethod,
+  now?: Date
+): Promise<void> {
+  return production().markSignatureReceived(inquiryId, file, now, method);
 }
 
 /** The daily reminders (app/api/portal/cron). Never throws. */

@@ -120,6 +120,27 @@ describe("Nachreich page pipeline", () => {
     expect(docs.files.filter((f) => !f.instanceId && docs.placements.get(f.id)?.reason === "full")).toHaveLength(1);
   });
 
+  it("the signature slot: its file goes on P0 at once, is judged, and is posted with the others", async () => {
+    const rows = existingRows().filter((r) => r.originalFileName !== "01_Auskunftsermaechtigung_Gary_Gerber_unterzeichnet.pdf");
+    const view = nachreichV3View(inquiryRow(), rows)!;
+    const store = createFunnelV3Store({ submissionId: view.submissionId, sharepointFolderId: view.folderId, txt: { ...EMPTY_TEXTS, mail: view.email ?? "" } });
+    const instances = nachreichInstances(view.missing);
+    bindUploadPipeline(store, { instances: () => instances });
+    expect(nachreichDocuments([], instances).signature).toMatchObject({ status: "missing" });
+
+    ANALYSES["WhatsApp Image.jpeg"] = { docTypeId: "vollmacht", fields: { Unterschrift: { value: "vorhanden", confidence: 0.9 } } };
+    const { addSignatureCopy } = await import("@/components/funnel-v3/finish/signatureActions");
+    expect(addSignatureCopy(store, new File(["jpeg"], "WhatsApp Image.jpeg", { type: "image/jpeg" })).ok).toBe(true);
+    expect(nachreichDocuments(store.getState().files, instances).signature!.status).toBe("analysing");
+    await flush();
+    await settleUploads(0);
+    await flush();
+
+    const docs = nachreichDocuments(store.getState().files, instances);
+    expect(docs.signature).toMatchObject({ status: "received", canFinish: true });
+    expect(docs.submittedDocuments()).toEqual([expect.objectContaining({ instanceId: "vollmacht", requirementId: "vollmacht", assignedByUser: true })]);
+  });
+
   it("removing a file takes it back from the held upload; unbinding restores the funnel binding", async () => {
     const { store, unbind } = page();
     addPickedFiles([pdf("IMG_2041.pdf")]);

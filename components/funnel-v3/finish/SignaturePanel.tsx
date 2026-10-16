@@ -150,7 +150,7 @@ export default function SignaturePanel({ model, t, onDownload, onPick, onRemove,
           <div style={S.steps}>
             <div style={S.step}>
               <span className="v3-eyebrow">{t("sig.step1")}</span>
-              <span style={S.stepText}>{t("sig.step1Sub")}</span>
+              <span style={S.stepText}>{model.step1Sub}</span>
               <button type="button" className="v3-btn" style={S.stepBtn} onClick={download} disabled={busy} aria-busy={busy}>
                 {busy ? t("sig.downloading") : t("sig.downloadBtn")}
               </button>

@@ -734,7 +734,8 @@
     "reminder.button": "Caricare la copia firmata",
     "reminder.already": "L’ha già caricata? Allora questo promemoria è superato.",
     "reminder.signoff": "Cordiali saluti",
-    "reminder.team": "Il Suo team HYPOTEQ"
+    "reminder.team": "Il Suo team HYPOTEQ",
+    "nr.step1Sub": "Modulo vuoto – il modello precompilato è allegato alla nostra e-mail."
   },
   "mail": {
     "subject": "La Sua richiesta di finanziamento {id} – {name}, {place}",

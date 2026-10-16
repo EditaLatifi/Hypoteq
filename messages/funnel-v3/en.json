@@ -734,7 +734,8 @@
     "reminder.button": "Upload signed copy",
     "reminder.already": "Already uploaded? Then you can ignore this reminder.",
     "reminder.signoff": "Best regards",
-    "reminder.team": "Your HYPOTEQ team"
+    "reminder.team": "Your HYPOTEQ team",
+    "nr.step1Sub": "Blank form – the pre-filled template is attached to our e-mail."
   },
   "mail": {
     "subject": "Your financing request {id} – {name}, {place}",

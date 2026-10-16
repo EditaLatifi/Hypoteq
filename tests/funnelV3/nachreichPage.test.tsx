@@ -46,6 +46,25 @@ describe("NachreichV3 (server render)", () => {
     expect(html).toMatch(/<button type="button" class="v3-btn v3-btn--primary" disabled="">Envoyer les documents<\/button>/);
   });
 
+  it("a pending Auskunftsermächtigung gets its own slot, not a row (Handover 6)", () => {
+    pathname = "/fr/nachreichen/x";
+    const rows = existingRows().filter((r) => r.originalFileName !== "01_Auskunftsermaechtigung_Gary_Gerber_unterzeichnet.pdf");
+    const view = nachreichV3View(inquiryRow({ v3State: v3StateFor([GARY, ANNA], "fr") }), rows)!;
+    expect(view.missing.some((m) => m.instanceId === "vollmacht")).toBe(true);
+    const html = render(view);
+    expect(html).toContain('data-status="missing"');
+    expect(html).toContain("Autorisation de renseignements HYPOTEQ · obligatoire");
+    expect(html).toContain("Signer l’autorisation de renseignements");
+    expect(html).toContain("Formulaire vierge – le modèle pré-rempli est joint à notre e-mail.");
+    expect(html).toContain("Par Gary Gerber – par tous les emprunteurs s’il y en a plusieurs.");
+    expect(html).toContain(">Télécharger signé</button>");
+    // Not a row of the person group, and no «später» on this page.
+    expect((html.match(/class="v3-docrow /g) || []).length).toBe(7);
+    expect(html).not.toContain("Remettre plus tard");
+    // The slot comes before the drop zone.
+    expect(html.indexOf("v3-sig")).toBeLessThan(html.indexOf("v3-drop"));
+  });
+
   it("a complete dossier says so and still offers the drop zone for further documents (D26)", () => {
     const html = render({ ...nachreichV3View(inquiryRow(), existingRows())!, missing: [] });
     expect(html).toContain("Votre dossier est déjà complet.");

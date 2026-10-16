@@ -36,6 +36,8 @@ export interface SignatureModel {
   pendingTag: string | null;
   /** The three steps (download · sign · upload) and the prefill. */
   showSteps: boolean;
+  /** Under «1 · Vorlage»: prefilled in the closing, the blank form on the Nachreich page. */
+  step1Sub: string;
   signerLine: string;
   preview: { label: string; value: string }[];
   files: SignatureFileRow[];
@@ -53,6 +55,12 @@ export interface SignatureModelInput {
   later: boolean | null;
   data: AuthorizationData;
   jp: boolean;
+  /**
+   * closing (default) · nachreich: the page of the Nachreich link — its own title and lead, the
+   * blank form to download (the prefilled one came with the mail; the link alone shows no
+   * personal data), and «wird mit den Unterlagen übermittelt» once a copy is there.
+   */
+  context?: "closing" | "nachreich";
 }
 
 const PROBLEM_KEY: Record<SignatureProblem, string> = {
@@ -75,6 +83,7 @@ function rowOf(f: FileEntry): SignatureFileRow {
 
 export function signatureModel(input: SignatureModelInput, t: T, opt: Opt): SignatureModel {
   const { view, data } = input;
+  const nachreich = input.context === "nachreich";
   const files = input.files.filter((f) => f.instanceId && baseId(f.instanceId) === SIGNATURE_REQUIREMENT_ID).map(rowOf);
   const chosenLater = input.later === true;
   const names = data.signers.map((s) => [s.vor, s.nach].filter(Boolean).join(" ")).filter(Boolean);
@@ -115,10 +124,11 @@ export function signatureModel(input: SignatureModelInput, t: T, opt: Opt): Sign
       lines = [t("sig.laterSub"), t("sig.laterNote")];
       break;
     default:
-      title = t("sig.uploadTitle");
-      lines = [t("sig.uploadSub")];
+      title = nachreich ? t("sig.nr.title") : t("sig.uploadTitle");
+      lines = [nachreich ? t("sig.nr.sub") : t("sig.uploadSub")];
   }
   if (files.some((f) => f.state === "failed") && view.status !== "received") lines = [...lines, t("sig.uploadFailed")];
+  if (nachreich && view.status === "received") lines = [...lines, t("sig.nr.ready")];
 
   return {
     status: view.status,
@@ -127,6 +137,7 @@ export function signatureModel(input: SignatureModelInput, t: T, opt: Opt): Sign
     lines,
     pendingTag: chosenLater && view.status !== "received" ? t("sig.pending") : null,
     showSteps,
+    step1Sub: nachreich ? t("sig.nr.step1Sub") : t("sig.step1Sub"),
     signerLine,
     preview,
     files,

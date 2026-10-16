@@ -16,6 +16,17 @@
  * folder and on the inquiry by then, and a SharePoint, Salesforce or mail hiccup must not tell
  * the customer that their upload failed. Test mode: uploads went to the ZZ-TEST_ folder; the
  * Case update and the mail are withheld by updateCaseV3Documents / routeMail.
+ *
+ * Funnel v5 (Handover 6, 7.1; DECISIONS V37):
+ *  - The Auskunftsermächtigung stays open until a signed copy is there — also when a copy sits
+ *    on P0 that the AI found unsigned (signature.ts): the page then offers its own slot, and a new
+ *    copy takes the place of the unsigned one. A signed copy marks InquirySignature «received»
+ *    (signatureServer.ts markSignatureReceived) and the Case JSON `signature` carries the server
+ *    state (time, reminders, «ohne Unterschrift keine Anfrage an die Bank»). While it is open the
+ *    dossier does not count as complete.
+ *  - «Unterlagen nachgereicht → keine Mail; Zusammenfassung im Case aktualisieren»: an inquiry
+ *    stored by the v5 funnel (state version ≥ 2) gets no confirmation mail; the Case update
+ *    stays. Inquiries stored before v5 keep their confirmation mail.
  */
 
 import {
@@ -35,8 +46,10 @@ import {
 import type { SubmittedDocument } from "./files";
 import { isLang, type Lang } from "./i18n";
 import { FUNNEL_STATE_VERSION, normaliseFunnelState } from "./legacy";
-import { baseId } from "./requirements";
+import { baseId, isSignatureRequirement } from "./requirements";
 import type { RequirementStatus, StatusResult } from "./requirementStatus";
+import { CHECK_STATE_MAX_LENGTH } from "./checkState";
+import { signatureProblems, signatureView, signatureWithServer, type SignatureServerState, type SignatureView } from "./signature";
 import { groupRows } from "@/components/funnel-v3/documents/view";
 import { requirementLabel, type MissingRequirement, type NachreichV3View, type RemainingRequirement } from "./nachreichView";
 
@@ -155,13 +168,38 @@ function statusFor(state: V3State, files: CompletedFile[], skipped: string[]): S
   return v3DocumentStatus({ v3: state, v3Completion: { files }, documentCompleteness: { skipped } })!.status;
 }
 
-/** Required requirements that are not fulfilled — what a Nachreichung asks for. */
-export function openRequirements(status: StatusResult): RequirementStatus[] {
-  return status.requirements.filter((r) => !r.instance.optional && r.state !== "ok");
+/**
+ * The Auskunftsermächtigung as signature.ts judges the inquiry's files (Handover 6): «received»
+ * only with a signed copy on P0. Null when the list has no P0.
+ */
+export function serverSignatureView(state: V3State, status: StatusResult, files: CompletedFile[]): SignatureView | null {
+  const p0 = status.requirements.find((r) => isSignatureRequirement(r.instance));
+  if (!p0) return null;
+  return signatureView(
+    files.filter((f) => !f.removed).map((f) => ({ fileId: f.documentId, instanceId: f.instanceId, analysis: f.analysis ?? null, assignedByUser: f.assignedByUser })),
+    state.sig ?? null,
+    p0.instance.person
+  );
 }
 
-export function missingRequirements(state: V3State, status: StatusResult, lang: Lang): MissingRequirement[] {
-  const open = openRequirements(status);
+/** P0 still asks for a signed copy (no copy, or only unsigned / wrong ones). */
+export function signatureOpen(state: V3State, status: StatusResult, files: CompletedFile[]): boolean {
+  const view = serverSignatureView(state, status, files);
+  return !!view && view.status !== "received";
+}
+
+/**
+ * Required requirements that are not fulfilled — what a Nachreichung asks for. With
+ * `signatureOpen` the Auskunftsermächtigung counts as open even when an (unsigned) copy fills it.
+ */
+export function openRequirements(status: StatusResult, opts: { signatureOpen?: boolean } = {}): RequirementStatus[] {
+  return status.requirements.filter(
+    (r) => !r.instance.optional && (r.state !== "ok" || (opts.signatureOpen === true && isSignatureRequirement(r.instance)))
+  );
+}
+
+export function missingRequirements(state: V3State, status: StatusResult, lang: Lang, opts: { signatureOpen?: boolean } = {}): MissingRequirement[] {
+  const open = openRequirements(status, opts);
   const groups = groupRows(open, state, lang);
   const groupOf = new Map<string, { key: string; title: string }>();
   for (const g of groups) for (const r of g.rows) groupOf.set(r.instance.instanceId, { key: g.key, title: g.title });
@@ -192,13 +230,14 @@ export function missingRequirements(state: V3State, status: StatusResult, lang: 
 export function nachreichV3View(row: NachreichInquiryRow, documents: CompletionDocumentRow[]): NachreichV3View | null {
   const state = storedV3State(row);
   if (!state) return null;
-  const status = statusFor(state, filesFromRows(state, documents), storedSkipped(row));
+  const files = filesFromRows(state, documents);
+  const status = statusFor(state, files, storedSkipped(row));
   return {
     valid: true,
     v3: true,
     lang: state.lang,
     caseNumber: row.caseNumber ?? null,
-    missing: missingRequirements(state, status, state.lang),
+    missing: missingRequirements(state, status, state.lang, { signatureOpen: signatureOpen(state, status, files) }),
     expiresAt: row.nachreichExpiresAt ?? null,
     email: row.client?.email ?? null,
     folderId: row.sharepointFolderId ?? null,
@@ -234,7 +273,13 @@ export interface NachreichV3Deps {
   completion?: Partial<Omit<CompletionDeps, "db">>;
   /** components/updateCaseCompleteness updateCaseV3Documents (test mode guarded there). */
   updateCase(caseId: string, build: (previous: string | null) => Record<string, boolean | string> | null): Promise<unknown>;
+  /** Pre-v5 inquiries only: v5 sends no mail for documents sent later (Handover 7.1). */
   sendMail(params: NachreichMailParams): Promise<void>;
+  /** lib/funnel-v3/signatureServer.ts (InquirySignature), both fail soft. */
+  signature: {
+    markReceived(inquiryId: string, file: { fileName: string; driveItemId?: string | null }, now: Date): Promise<void>;
+    state(inquiryId: string): Promise<SignatureServerState | null>;
+  };
   now(): Date;
   log: Pick<Console, "log" | "warn" | "error">;
 }
@@ -282,7 +327,10 @@ export async function submitV3Nachreichung(row: NachreichInquiryRow, body: any, 
   const rowsBefore = liveRows(await d.db.findDocuments(row.id));
   const known = new Set(rowsBefore.map((r) => r.id));
   const filesBefore = filesFromRows(state, rowsBefore);
-  const openBefore = new Set(openRequirements(statusFor(state, filesBefore, skipped)).map((r) => r.instance.instanceId));
+  const statusBefore = statusFor(state, filesBefore, skipped);
+  // An unsigned copy on P0 does not close it: the new copy may take its place (Handover 6).
+  const sigOpenBefore = signatureOpen(state, statusBefore, filesBefore);
+  const openBefore = new Set(openRequirements(statusBefore, { signatureOpen: sigOpenBefore }).map((r) => r.instance.instanceId));
   const fresh: SubmittedDocument[] = submitted
     .filter((s) => !known.has(s.documentId))
     .map((s) => {
@@ -304,9 +352,13 @@ export async function submitV3Nachreichung(row: NachreichInquiryRow, body: any, 
   // The earlier files keep their placement — except an outdated document that a new one now
   // replaces («Aktuelles hochladen»): it stays in the dossier as an extra and stops counting.
   const receiving = new Set(freshAdopted.map((s) => s.instanceId).filter((x): x is string => !!x));
+  // The same for an Auskunftsermächtigung without a valid signature: a new copy replaces it.
   const earlier: SubmittedDocument[] = filesBefore.map((f) => {
     const prior = storedSubmission(rowsBefore.find((r) => r.id === f.documentId)!);
-    const replaced = !!f.instanceId && receiving.has(f.instanceId) && !!f.analysis?.outdated && !f.outdatedOverride;
+    const replaced =
+      !!f.instanceId &&
+      receiving.has(f.instanceId) &&
+      ((!!f.analysis?.outdated && !f.outdatedOverride) || (sigOpenBefore && isSignatureRequirement(f.instanceId)));
     const instanceId = replaced ? null : f.instanceId;
     return {
       ...(prior ?? {}),
@@ -355,13 +407,34 @@ export async function submitV3Nachreichung(row: NachreichInquiryRow, body: any, 
     errors,
   };
 
-  // The verdict over ALL documents of the inquiry.
+  // The verdict over ALL documents of the inquiry. Without a signed Auskunftsermächtigung the
+  // dossier is not complete (Handover 6: «Ohne Unterschrift geht keine Anfrage an die Bank»).
   const status = v3DocumentStatus(data)!.status;
-  const open = openRequirements(status);
+  const filesAfter: CompletedFile[] = data.v3Completion.files;
+  const sigView = serverSignatureView(state, status, filesAfter);
+  const sigOpenNow = !!sigView && sigView.status !== "received";
+  const open = openRequirements(status, { signatureOpen: sigOpenNow });
   const remaining = open.map((r) => r.instance.instanceId);
   const remainingLabels = open.map((r) => ({ instanceId: r.instance.instanceId, label: requirementLabel(r.instance, lang) }));
-  const complete = status.completeForSalesforce;
+  const complete = status.completeForSalesforce && !sigOpenNow;
   const now = d.now();
+
+  // A signed copy on P0: InquirySignature «received», the reminders stop.
+  if (sigView?.status === "received") {
+    const signer = status.requirements.find((r) => isSignatureRequirement(r.instance))?.instance.person;
+    const fresh = new Set(freshAdopted.map((s) => s.documentId));
+    const onP0 = filesAfter.filter((f) => !f.removed && sigView.fileIds.includes(f.documentId));
+    const good = onP0.filter((f) => !signatureProblems(f.analysis, signer).length);
+    const copy = good.find((f) => fresh.has(f.documentId)) ?? good[0] ?? onP0[0];
+    if (copy) {
+      try {
+        const driveItemId = rowsAfter.find((r) => r.id === copy.documentId)?.driveItemId ?? null;
+        await d.signature.markReceived(row.id, { fileName: copy.storedName || copy.originalName, driveItemId }, now);
+      } catch (err) {
+        fail("signature", err);
+      }
+    }
+  }
 
   try {
     await d.db.updateInquiry(row.id, {
@@ -376,14 +449,19 @@ export async function submitV3Nachreichung(row: NachreichInquiryRow, body: any, 
 
   if (row.salesforceCaseId) {
     try {
-      await d.updateCase(row.salesforceCaseId, (previous) => v3DocumentCaseFields(data, previous, now));
+      const server = await d.signature.state(row.id).catch(() => null);
+      await d.updateCase(row.salesforceCaseId, (previous) => caseFieldsWithSignature(v3DocumentCaseFields(data, previous, now), server, complete));
     } catch (err) {
       fail("Salesforce", err);
     }
   }
 
+  // Handover 7.1: documents sent later trigger no mail for a v5 inquiry; the Case is the update.
+  const v5 = state.version >= FUNNEL_STATE_VERSION;
   const recipients = confirmationRecipients({ v3: state, client: { email: row.client?.email ?? null, firstName: row.client?.firstName ?? "" } });
-  if (recipients.to) {
+  if (v5) {
+    d.log.log(`${tag} v5 inquiry: no confirmation mail (Handover 7.1)`);
+  } else if (recipients.to) {
     try {
       const name =
         [state.txt?.vor, state.txt?.nach].map((s) => (s || "").trim()).filter(Boolean).join(" ") ||
@@ -404,6 +482,37 @@ export async function submitV3Nachreichung(row: NachreichInquiryRow, body: any, 
 
   d.log.log(`${tag} +${freshAdopted.length} file(s), ${remaining.length} requirement(s) still open, ${errors.length} error(s)`);
   return { ok: true, complete, remaining, remainingLabels, adopted: Math.max(adopted, freshAdopted.length), errors };
+}
+
+/**
+ * The Case fields of the Nachreichung with the Auskunftsermächtigung as the server knows it
+ * (Handover 8 «signature: uploaded | pending, Zeitstempel, Methode»): the JSON block gets the
+ * InquirySignature state and, while it is open, «ohne Unterschrift keine Anfrage an die Bank»;
+ * Documents_completed__c follows `complete` (false while the signature is open). If the enriched
+ * JSON would pass the field limit, the block stays as computed.
+ */
+export function caseFieldsWithSignature(
+  fields: Record<string, boolean | string> | null,
+  server: SignatureServerState | null,
+  complete: boolean
+): Record<string, boolean | string> | null {
+  if (!fields) return fields;
+  const out = { ...fields };
+  if ("Documents_completed__c" in out) out.Documents_completed__c = complete;
+  const raw = out.Dokumenten_Check_State__c;
+  if (typeof raw === "string") {
+    try {
+      const obj = JSON.parse(raw);
+      if (obj && typeof obj === "object" && obj.signature) {
+        obj.signature = signatureWithServer(obj.signature, server);
+        const json = JSON.stringify(obj);
+        if (json.length <= CHECK_STATE_MAX_LENGTH) out.Dokumenten_Check_State__c = json;
+      }
+    } catch {
+      /* not ours to fix: written as computed */
+    }
+  }
+  return out;
 }
 
 // ---- Production dependencies ----------------------------------------------------------------
@@ -442,6 +551,16 @@ function defaultDeps(): NachreichV3Deps {
     async sendMail(params) {
       const { sendNachreichConfirmation } = await import("@/components/nachreichMail");
       await sendNachreichConfirmation(params);
+    },
+    signature: {
+      async markReceived(inquiryId, file, now) {
+        const { markSignatureReceived } = await import("./signatureServer");
+        await markSignatureReceived(inquiryId, file, now);
+      },
+      async state(inquiryId) {
+        const { signatureState } = await import("./signatureServer");
+        return signatureState(inquiryId);
+      },
     },
     now: () => new Date(),
     log: console,
