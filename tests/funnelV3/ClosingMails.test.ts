@@ -136,7 +136,8 @@ describe("block 2 · next step", () => {
     expect(deps.authorizationPdf).toHaveBeenCalledTimes(1);
     const auth = (deps.authorizationPdf.mock.calls[0] as any)[0];
     expect(auth).toMatchObject({ lang: "de", caseNumber: CASE_NO, zweck: "Neue Hypothek", objekt: "8001 Zürich", firma: null });
-    expect(auth.signers).toEqual([{ vor: "Lea", nach: "Muster", email: "lea.muster@kunde.ch" }]);
+    expect(auth.signers).toHaveLength(1);
+    expect(auth.signers[0]).toMatchObject({ vor: "Lea", nach: "Muster", email: "lea.muster@kunde.ch" });
     expect(kunde.attachments).toEqual([{ name: `${CASE_NO}_Auskunftsermaechtigung.pdf`, contentType: "application/pdf", bytes: PDF }]);
     const html = kunde.html;
     const sign = html.indexOf(translate("de", "mail.next.sign"));

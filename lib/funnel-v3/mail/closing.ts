@@ -16,12 +16,12 @@
  */
 
 import { routeMail } from "@/components/testMode";
-import { authorizationFileName, buildAuthorizationPdf, type AuthorizationData, type AuthorizationSigner } from "../authorization";
+import { authorizationFileName, buildAuthorizationPdf, type AuthorizationData } from "../authorization";
+import { authorizationDataFromState } from "../authorizationData";
 import type { Lang } from "../i18n";
 import type { StoredFunnelState } from "../legacy";
-import { splitFullName } from "../requirements";
 import { renderClosingMail, type SalesforceOutcome } from "./render";
-import { beraterEmailOf, buildCaseSummary, closingFacts, customerEmailOf, placeOf, type CaseSummary } from "./summary";
+import { beraterEmailOf, buildCaseSummary, closingFacts, customerEmailOf, type CaseSummary } from "./summary";
 import type { Audience } from "./texts";
 import type { MailTransport } from "./transport";
 
@@ -74,34 +74,12 @@ const DEFAULT_DEPS: ClosingDeps = {
 };
 
 /**
- * The prefilled Auskunftsermächtigung (Handover 6: Vollmachtgeber, Objekt, Zweck from the funnel
- * and the documents). A natural person: every Kreditnehmer signs; a company: its signatory.
+ * The prefilled Auskunftsermächtigung attached to the customer mail. The same data as the
+ * download in the closing and the reminders (lib/funnel-v3/authorizationData.ts), so the
+ * customer gets one form, whichever way it reaches them.
  */
 export function authorizationDataFor(state: StoredFunnelState, lang: Lang, caseNumber: string | null): AuthorizationData {
-  const { ans, txt } = state;
-  const isJur = ans.kn === "Juristische Person";
-  const mail = txt.mail.trim() || null;
-  let signers: AuthorizationSigner[];
-  if (isJur) {
-    const z = splitFullName(txt.zeichner);
-    signers = z.first || z.last ? [{ vor: z.first, nach: z.last, email: mail }] : [];
-  } else {
-    signers = state.borrowers
-      .map((b, i) => ({
-        vor: (i === 0 ? txt.vor || b.vor : b.vor).trim(),
-        nach: (i === 0 ? txt.nach || b.nach : b.nach).trim(),
-        email: i === 0 ? mail : null,
-      }))
-      .filter((s) => s.vor || s.nach);
-  }
-  return {
-    lang,
-    signers,
-    firma: isJur ? txt.firma.trim() || null : null,
-    caseNumber,
-    objekt: (state.info?.adresse || "").trim() || placeOf(state) || null,
-    zweck: ans.antrag ?? null,
-  };
+  return authorizationDataFromState(state, lang, { caseNumber });
 }
 
 export async function buildClosingMails(input: ClosingMailsInput, deps: Partial<ClosingDeps> = {}): Promise<ClosingMail[]> {
