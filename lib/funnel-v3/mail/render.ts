@@ -141,7 +141,9 @@ function nextStepHtml(s: CaseSummary, ctx: RenderContext, T: MailTexts): string 
   const customer = s.customer.name || s.customer.email;
   if (s.next.signature) {
     if (s.audience === "intern") {
-      parts.push(callout(`<div style="font-size:15px;font-weight:700;color:${C.bad};">${esc(T.signTitleIntern)}</div><div style="font-size:14px;margin-top:6px;">${esc(T.signIntern)}</div>`, C.bad));
+      // German: signature.ts's note, the same sentence the Case JSON carries; else its translation.
+      const note = s.lang === "de" && s.signature.note ? s.signature.note : T.signIntern;
+      parts.push(callout(`<div style="font-size:15px;font-weight:700;color:${C.bad};">${esc(T.signTitleIntern)}</div><div style="font-size:14px;margin-top:6px;">${esc(note)}</div>`, C.bad));
     } else {
       const text = s.audience === "kunde" ? T.signKunde : interpolate(T.signBerater, { name: customer });
       const attachment = s.audience === "kunde" && ctx.attachmentName ? `<div style="font-size:12px;color:${C.muted};margin-top:8px;">📎 ${esc(interpolate(T.attachment, { file: ctx.attachmentName }))}</div>` : "";

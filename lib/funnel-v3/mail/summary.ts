@@ -27,7 +27,7 @@ import { interpolate, optionLabel, translate, type Lang, type Params } from "../
 import { normaliseFunnelState, FUNNEL_STATE_VERSION, type StoredFunnelState } from "../legacy";
 import { GROUP_ORDER, SIGNATURE_REQUIREMENT_ID, type ReqGroup } from "../requirements";
 import type { RequirementState, RequirementStatus } from "../requirementStatus";
-import { signatureJson, signatureView, type SignatureJson } from "../signature";
+import { signatureJson, signatureView, signatureWithServer, type SignatureJson } from "../signature";
 import { CHIPS, EM_ROWS, type Chip, type DocInfo, type FieldPath } from "../types";
 import { MAIL_TEXTS, type Audience, type MailTexts } from "./texts";
 
@@ -135,7 +135,8 @@ export function beraterEmailOf(data: any): string | null {
 /**
  * The Auskunftsermächtigung at the closing, judged from the files on P0 like the Salesforce JSON
  * (completion.ts v3DocumentCaseFields): `uploaded`, `pending` («Später nachreichen»), `unsigned`
- * or `missing`.
+ * or `missing` — with signature.ts's bank note (SIGNATURE_BANK_NOTE_DE, DECISIONS V11) while it
+ * is not uploaded. No server row yet at the closing (`signatureWithServer(…, null)`).
  */
 export function closingSignature(computed: V3DocumentStatus): SignatureJson {
   const signer = computed.status.requirements.find((r) => r.instance.id === SIGNATURE_REQUIREMENT_ID)?.instance.person;
@@ -144,7 +145,7 @@ export function closingSignature(computed: V3DocumentStatus): SignatureJson {
     computed.state.sig,
     signer
   );
-  return signatureJson(view, computed.state.sig);
+  return signatureWithServer(signatureJson(view, computed.state.sig), null);
 }
 
 /** The required documents still open, labelled in the funnel language (P0 has its own block). */
