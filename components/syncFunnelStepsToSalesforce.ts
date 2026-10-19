@@ -5,6 +5,7 @@ import { ART_LIEGENSCHAFT_MAP, NUTZUNG_MAP, isZweitwohnsitzNutzung } from "./pro
 import { resolvePartner, type PartnerResolution } from "./partnerDirectory";
 import { calcForState } from "@/lib/funnel-v3/calc";
 import { normaliseFunnelState } from "@/lib/funnel-v3/legacy";
+import { splitFullName } from "@/lib/funnel-v3/requirements";
 
 // Sales Partner = the partner *company* Account on the Case (HYPOTEQ AG for direct
 // leads; Betterhomes / Remax / ... for partner leads). Verified against production:
@@ -60,17 +61,58 @@ export async function applyPartnerToCase(
   caseData['SuppliedEmail'] = (form.email || partnerEmail || '').trim() || null;
   if (form.telefon?.trim()) caseData['SuppliedPhone'] = form.telefon.trim();
   if (form.firma?.trim()) caseData['SuppliedCompany'] = form.firma.trim();
-  // A failed lookup is not proof the partner is new — say so, so nobody creates a duplicate.
-  prependComment(caseData, resolved ? NEW_PARTNER_NOTE : PARTNER_CHECK_FAILED_NOTE);
-  console.log(`[Salesforce Sync] Partner not recognised (${resolved ? 'unknown' : 'lookup failed'}): ${partnerEmail}`);
+  // A failed lookup is not proof the partner is new — say so, so nobody creates a duplicate. Nor
+  // is a miss from the 24-hour fallback (partnerDirectory, HYPOTEQ 19.10. B17): HYPOTEQ may have
+  // added the partner since.
+  const checked = resolved && !resolved.stale;
+  prependComment(caseData, checked ? NEW_PARTNER_NOTE : PARTNER_CHECK_FAILED_NOTE);
+  console.log(`[Salesforce Sync] Partner not recognised (${checked ? 'unknown' : resolved ? 'lookup failed, stale miss' : 'lookup failed'}): ${partnerEmail}`);
+}
+
+/**
+ * Case_Name__c of a funnel Case (HYPOTEQ 19.10. D.4, mapping «Case Name (generiert)»; DECISIONS
+ * V65): «{Nachname} {Vorname} – {PLZ} {Ort}», a company «{Firma} – {PLZ} {Ort}». A part that is
+ * missing is left out; without a name the Case still says what it is — «Unvollständige Anfrage –
+ * {PLZ} {Ort}», else «Unvollständige Anfrage – {who submitted}», else with the date — so it is never
+ * empty (the field is required) and stays chaseable.
+ */
+export function funnelCaseName(p: { firma?: string | null; nachname?: string | null; vorname?: string | null; plz?: string | null; ort?: string | null; submitter?: string | null }, today: Date = new Date()): string {
+  const s = (v: string | null | undefined) => String(v || '').trim();
+  const who = s(p.firma) || [s(p.nachname), s(p.vorname)].filter(Boolean).join(' ');
+  const place = [s(p.plz), s(p.ort)].filter(Boolean).join(' ');
+  if (who) return place ? `${who} – ${place}` : who;
+  const tail = place || s(p.submitter);
+  return tail ? `Unvollständige Anfrage – ${tail}` : `Unvollständige Anfrage ${today.toISOString().slice(0, 10)}`;
+}
+
+/**
+ * Case.OwnerId of a funnel Case (HYPOTEQ 19.10. D.2, mapping «Owner»: «Queue Web-Anfragen oder
+ * HYPOTEQ-User»; DECISIONS V64). A HYPOTEQ user as Berater is already the owner
+ * (applyPartnerToCase, by the User's e-mail); every other Case goes to the queue «Web-Anfragen»
+ * (salesforceApi.findFunnelQueueId, resolved at runtime, cached). Fails soft: no queue, a failed
+ * lookup or an API without the function leave the default owner.
+ */
+export async function applyFunnelOwner(caseData: Record<string, any>, salesforceApi: any): Promise<void> {
+  if (caseData['OwnerId']) return;
+  if (typeof salesforceApi?.findFunnelQueueId !== 'function') return;
+  try {
+    const queueId = await salesforceApi.findFunnelQueueId();
+    if (queueId) {
+      caseData['OwnerId'] = queueId;
+      console.log(`[Salesforce Sync] Owner: queue Web-Anfragen ${queueId}`);
+    } else {
+      console.warn('[Salesforce Sync] Queue «Web-Anfragen» not found — the Case keeps the default owner');
+    }
+  } catch (err) {
+    console.error('[Salesforce Sync] Queue «Web-Anfragen» could not be resolved — the Case keeps the default owner:', err);
+  }
 }
 
 /**
  * Swiss date (TT.MM.JJJJ, also T.M.JJJJ) or an ISO date → Salesforce `YYYY-MM-DD`; null for
- * anything that is not a real calendar date. Kaufdatum__c is a Date field in the existing
- * configuration (DECISIONS V41), and the v5 Kaufdatum and the Ablösedatum read from the
- * Zinsabrechnung are typed or printed text — «Mai 2026» or «31.02.2026» must not reach
- * Salesforce as a broken date (it would reject the field); the value stays in the JSON.
+ * anything that is not a real calendar date. The Kaufdatum and the Ablösedatum read from the
+ * Zinsabrechnung are typed or printed text — «Mai 2026» or «31.02.2026» must not reach the Date
+ * field Kaufdatum_Datum__c as a broken date (Salesforce would reject it).
  */
 export function toSalesforceDate(value: unknown): string | null {
   if (typeof value !== 'string') return null;
@@ -95,22 +137,49 @@ function convertSwissDateToSalesforce(swissDate: string): string | null {
 }
 
 /**
+ * Kaufdatum__c «Kauf- & Ablöse-Datum» is Text(80) (HYPOTEQ 19.10. B13 / B15, DECISIONS V41): a
+ * real calendar date as «TT.MM.JJJJ» (also from T.M.JJJJ or YYYY-MM-DD); anything else typed or
+ * printed («Ende 2026») as it is — it is a text field, and staff read it; null when empty.
+ * Kaufdatum_Datum__c gets the same date as a Date (toSalesforceDate), only when it is one.
+ */
+export function toKaufdatumText(value: unknown): string | null {
+  if (typeof value !== 'string') return null;
+  const s = value.trim();
+  if (!s) return null;
+  const iso = toSalesforceDate(s);
+  if (!iso) return s.slice(0, 80);
+  const [y, m, d] = iso.split('-');
+  return `${d}.${m}.${y}`;
+}
+
+/** «unbekannt», «keine Angabe», «–»: the document names no heating. */
+const NO_HEATING = /^(unbekannt|unknown|inconnue?|sconosciut[oa]|keine?( angaben?)?|nicht (angegeben|ersichtlich|bekannt)|none|aucune?|nessun[oa]?|k\.? ?a\.?|n\/?a|[-–—?.\s]*)$/;
+
+/**
  * Heizungsart read from the documents (v5 no longer asks it, Handover 0 / 8) → the
- * Waermeerzeugung__c picklist, with the values of the mapping (HYPOTEQ_Salesforce_Mapping_Vorschlag,
- * «Heizungsart»). Anything else — «Elektro», «unbekannt», a sentence — is not written (it stays in
- * the JSON `info.heizung`): an unknown value on a restricted picklist would only be dropped.
+ * Waermeerzeugung__c picklist (HYPOTEQ 19.10. B15): Wärmepumpe Luft-Wasser (the default for a
+ * Wärmepumpe), Wärmepumpe Wasser-Wasser (also Erdsonde, Grundwasser, Sole-Wasser), Fernwärme,
+ * Holz (Pellets), Gas Erdgas, Gas Biogas, Öl — recognised by key words in DE/FR/IT/EN. A text that
+ * names a heating but none of these («Elektroheizung», «Solar») → «Andere»; no text, or one that
+ * says there is none to read («unbekannt»), → nothing. The text stays in the JSON `info.heizung`.
  */
 export function toWaermeerzeugung(heizung: unknown): string | null {
   if (typeof heizung !== 'string') return null;
   const v = heizung.trim().toLowerCase();
-  if (!v) return null;
-  if (/w(ä|ae)rmepumpe|heat pump|pompe à chaleur|pompa di calore/.test(v)) return 'Wärmepumpe Luft-Wasser';
+  if (!v || NO_HEATING.test(v)) return null;
+  // Ground and water source first (Erdsonde = Sole-Wasser: the picklist has no own value for it).
+  if (/wasser[\s/-]*wasser|sole[\s/-]*wasser|erd(sonde|w(ä|ae)rme|reich|kollektor)|grundwasser|eau[\s/-]*eau|g[ée]otherm|sonde g|acqua[\s/-]*acqua|geotermic|water[\s/-]*(to[\s/-]*)?water|ground[\s/-]*source|brine/.test(v)) {
+    return 'Wärmepumpe Wasser-Wasser';
+  }
+  if (/w(ä|ae)rmepumpe|heat ?pump|pompe à chaleur|pompa di calore|\bwp\b|\bpac\b/.test(v)) return 'Wärmepumpe Luft-Wasser';
   if (/fernw(ä|ae)rme|district heating|chauffage à distance|teleriscaldamento/.test(v)) return 'Fernwärme';
-  if (/holz|pellet|\bbois\b|legna|\bwood\b/.test(v)) return 'Holz';
+  if (/holz|pellet|\bbois\b|legna|\bwood\b|schnitzel/.test(v)) return 'Holz';
   // Oil before gas: «gasolio» is heating oil.
   if (/(^|[\s(/-])(heiz)?(ö|oe)l|mazout|fioul|gasolio|nafta|\boil\b/.test(v)) return 'Öl';
-  if (/(^|[\s(/-])(erd)?gas|\bgaz\b/.test(v)) return 'Gas Erdgas';
-  return null;
+  // Biogas before gas.
+  if (/bio-?ga[sz]/.test(v)) return 'Gas Biogas';
+  if (/(^|[\s(/-])(erd)?gas|\bgaz\b|\bgas\b/.test(v)) return 'Gas Erdgas';
+  return 'Andere';
 }
 
 /**
@@ -119,10 +188,10 @@ export function toWaermeerzeugung(heizung: unknown): string | null {
  *
  *   calc     the funnel's numbers (lib/funnel-v3/calc.ts): Gesamtfinanzierung, Eigenmittel total
  *            and % (Eigenmittel_Total__c of the proposal is Eigenmittel__c here, DECISIONS V5),
- *            harte Eigenmittel, Belehnung, Tragbarkeit — Tragbarkeit__c and EigenmittelProzent__c
- *            keep the existing formula (S1, S6), so the funnel's own figures are here
+ *            harte Eigenmittel, Belehnung, Tragbarkeit, Urteil — Tragbarkeit__c and
+ *            EigenmittelProzent__c carry the same calculation since HYPOTEQ 19.10. B14 (v5PercentFields)
  *   kontakt  the phone (PersonMobilePhone of the proposal is Account.Phone here) and, for a
- *            company, the zeichnungsberechtigte Person (no field on the Account)
+ *            company, the zeichnungsberechtigte Person (also the Contact on the Business Account, B16)
  *
  * A Nachreichung re-writes the JSON and carries both over (unknown keys are kept).
  */
@@ -148,6 +217,32 @@ export function v5CheckStateBlocks(state: NonNullable<ReturnType<typeof normalis
       zeichnungsberechtigt: isJur ? state.txt.zeichner.trim() : undefined,
     }),
   };
+}
+
+/**
+ * Tragbarkeit__c and EigenmittelProzent__c of a funnel v5 payload (HYPOTEQ 19.10. B14: «der Funnel
+ * schreibt die v5-Werte», the Handover formula of lib/funnel-v3/calc.ts; replaces S1 / S6 for v5,
+ * DECISIONS V41):
+ *   Tragbarkeit__c         calc.affordability (Kreditnehmer 1 + 2); none for a juristische Person
+ *                          or without income — as the funnel shows «–»
+ *   EigenmittelProzent__c  Kauf: (Gesamtkosten − Hypothek) / Gesamtkosten — with Eigenmittel entered
+ *                          the funnel's «x %» (calc.emPct), without them the 20 % of its 80 % rule;
+ *                          Ablösung: 100 − Belehnung (the part of the Objektwert the mortgage leaves)
+ * Rounded to one decimal like the funnel. Testfall Rosanna: 19.6 % and 20 %.
+ */
+export function v5PercentFields(
+  state: Pick<NonNullable<ReturnType<typeof normaliseFunnelState>>, "ans">,
+  calc: ReturnType<typeof calcForState>,
+): { Tragbarkeit__c?: number; EigenmittelProzent__c?: number } {
+  const round1 = (v: number) => Math.round(v * 10) / 10;
+  const out: { Tragbarkeit__c?: number; EigenmittelProzent__c?: number } = {};
+  if (calc.affordability !== null && Number.isFinite(calc.affordability)) out.Tragbarkeit__c = round1(calc.affordability);
+  if (state.ans.antrag === 'Neue Hypothek' && calc.cost > 0) {
+    out.EigenmittelProzent__c = round1(((calc.cost - calc.need) / calc.cost) * 100);
+  } else if (state.ans.antrag === 'Ablösung' && calc.ltv !== null && Number.isFinite(calc.ltv)) {
+    out.EigenmittelProzent__c = round1(100 - calc.ltv);
+  }
+  return out;
 }
 
 /** Adds the v5 blocks to the JSON string; leaves it as it is when it is not JSON or would outgrow the field. */
@@ -276,6 +371,12 @@ function sanitizeSFAccountValue(sfField: string, value: any) {
   }
 }
 
+/** A yes in any spelling the funnels send: «Ja» (v5), «ja» (v1), yes / oui / sì, true. */
+function isYes(value: unknown): boolean {
+  if (value === true) return true;
+  return typeof value === 'string' && ['ja', 'yes', 'oui', 'sì', 'si', 'true', '1'].includes(value.trim().toLowerCase());
+}
+
 // Parse a percentage value into a plain number (handles "1.34", "1,34", "1.34%")
 function parsePercent(value: any): number | null {
   if (value === "" || value == null) return null;
@@ -361,6 +462,74 @@ async function readRecentCaseCheckState(salesforceApi: any, accountId: unknown):
   }
 }
 
+/**
+ * Juristische Person → Business Account + Contact (HYPOTEQ 19.10. B16, Handover 8; DECISIONS V63):
+ *
+ *   Account  a company Account (never a Person Account; record type resolved at runtime by
+ *            salesforceApi.getBusinessAccountRecordTypeId): Name = Firma, Phone, UID and Sitz
+ *            from the Handelsregisterauszug where read. Reused, never duplicated: the same UID
+ *            first, else exactly the same Name (salesforceApi.findBusinessAccount). A reused
+ *            Account is not changed.
+ *   Contact  the zeichnungsberechtigte Person on that Account: Vorname / Nachname, E-Mail and
+ *            Telefon of step 1 — reused when that Account already has a Contact with the e-mail
+ *            (without one: the same name). Without a name there is no Contact. A Contact that
+ *            cannot be written costs only the Contact, not the Case.
+ *
+ * Returns the Account as the Person Account loop does ({ id }) and the Contact ({ id }) or null.
+ */
+export async function syncCompanyAccount(
+  salesforceApi: any,
+  person: { lastName: string; email?: string; phone?: string; uid?: string | null; sitz?: string | null; adresse?: string; signatory?: { firstName?: string; lastName?: string } },
+): Promise<{ account: { id: string }; contact: { id: string } | null }> {
+  for (const fn of ['findBusinessAccount', 'createBusinessAccount']) {
+    // salesforceApi is the module's default export object: a function missing there is undefined
+    // with no compile error (see the note at the bottom of components/salesforceApi.ts).
+    if (typeof salesforceApi?.[fn] !== 'function') throw new Error(`salesforceApi.${fn} is not a function — it is likely missing from the default export in components/salesforceApi.ts`);
+  }
+  const name = String(person.lastName || '').trim();
+  const email = String(person.email || '').trim();
+  const phone = String(person.phone || '').trim();
+
+  const existing = await salesforceApi.findBusinessAccount({ uid: person.uid ?? null, name });
+  let accountId: string;
+  if (existing?.Id) {
+    accountId = existing.Id;
+    console.log(`[Salesforce Sync] Company «${name}»: existing Business Account ${accountId} (same ${existing.matchedBy === 'uid' ? 'UID' : 'Name'})`);
+  } else {
+    const created = await salesforceApi.createBusinessAccount({ name, phone: phone || null, uid: person.uid ?? null, sitz: person.sitz ?? null, street: person.adresse || null });
+    accountId = created?.id || created?.Id;
+    console.log(`[Salesforce Sync] Company «${name}»: Business Account created ${accountId}`);
+  }
+
+  const firstName = String(person.signatory?.firstName || '').trim();
+  const lastName = String(person.signatory?.lastName || '').trim();
+  let contact: { id: string } | null = null;
+  if (lastName && accountId) {
+    try {
+      const found =
+        existing?.Id && typeof salesforceApi.findContactOnAccount === 'function'
+          ? await salesforceApi.findContactOnAccount(accountId, { email, firstName, lastName })
+          : null;
+      if (found?.Id) {
+        contact = { id: found.Id };
+        console.log(`[Salesforce Sync] Signatory ${firstName} ${lastName}: existing Contact ${found.Id}`);
+      } else {
+        const fields: Record<string, any> = { AccountId: accountId, LastName: lastName };
+        if (firstName) fields.FirstName = firstName;
+        if (email) fields.Email = email;
+        if (phone) fields.Phone = phone;
+        const created = await salesforceApi.createContact(fields);
+        const id = created?.id || created?.Id;
+        if (id) contact = { id };
+        console.log(`[Salesforce Sync] Signatory ${firstName} ${lastName}: Contact created ${id}`);
+      }
+    } catch (err) {
+      console.error(`[Salesforce Sync] Contact for the signatory of «${name}» not written (the Case goes on without it):`, err);
+    }
+  }
+  return { account: { id: accountId }, contact };
+}
+
 export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>, salesforceApi: any) {
   console.log('[Salesforce Sync] Starting sync process...');
   
@@ -374,6 +543,10 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
   };
   // Log flatData for debugging
   console.log("Flat data for mapping:", flatData);
+
+  // The funnel state of a v3 / v5 payload (legacy.ts reads either into the v5 shape): what the
+  // customer answered and what the documents said (UID and Sitz of a company, the Heizung, …).
+  const v3State = stepData.v3 ? normaliseFunnelState(stepData.v3) : null;
 
   // Capture raw project type up front — flatData.projektArt gets rewritten to a display
   // label ("Neue Hypothek" / "Ablösung") later, which breaks downstream lowercase checks.
@@ -421,21 +594,28 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
       const isJuristicPerson = Boolean(companyName);
 
       if (isJuristicPerson) {
-        // For juristic persons - use company name as LastName, but also send contact person details
-        {
-          persons.push({
-            firstName: kn.vorname || '',
-            lastName: companyName,
-            contactLastName: kn.name || '',
-            email: kn.email || kn.emailAdresse || '',
-            phone: kn.phone || kn.telefon || '',
-            adresse: kn.adresse || '',
-            erwerbsstatus: null,
-            zivilstand: null,
-            geburtsdatum: null,
-            isJuristic: true, // Mark as juristic person for validation
-          });
-        }
+        // A company becomes a Business Account (Name = Firma) with its zeichnungsberechtigte
+        // Person as a Contact (HYPOTEQ 19.10. B16) — no Person Account named after it any more.
+        // v5 asks the signatory as one name (txt.zeichner); the old funnel as Vorname / Name.
+        const zeichner = String(kn.zeichnungsberechtigt || '').trim();
+        const signatory = zeichner
+          ? splitFullName(zeichner)
+          : { first: String(kn.vorname || '').trim(), last: String(kn.name || kn.nachname || '').trim() };
+        persons.push({
+          firstName: '',
+          lastName: companyName,
+          email: kn.email || kn.emailAdresse || '',
+          phone: kn.phone || kn.telefon || '',
+          // From the Handelsregisterauszug (v5 facts), where it was read.
+          uid: i === 0 ? v3State?.info?.uid ?? null : null,
+          sitz: i === 0 ? v3State?.info?.sitz ?? null : null,
+          adresse: kn.adresse || '',
+          signatory: { firstName: signatory.first, lastName: signatory.last },
+          erwerbsstatus: null,
+          zivilstand: null,
+          geburtsdatum: null,
+          isJuristic: true, // Mark as juristic person for validation
+        });
       } else {
         // === FUNNEL V3 CO-BORROWERS (DECISIONS D18) — v3 payloads only ===
         // v3 asks no e-mail or phone for Kreditnehmer 2 and 3, so the rule below (a natural
@@ -501,9 +681,11 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     }
   }
 
-  // VALIDATION: Maximum 3 persons
+  // At most 3 borrowers in Salesforce (Client__c, Client_2__c, Client_3__c; HYPOTEQ 19.10. B17):
+  // any further ones stay in the JSON (`answers.borrowers`) and the database — the lead is kept.
   if (persons.length > 3) {
-    throw new Error('Maximum 3 persons allowed per submission');
+    console.warn(`[Salesforce Sync] ${persons.length} borrowers — Salesforce links the first 3, the others stay in the JSON`);
+    persons.splice(3);
   }
 
   // A lead with no usable borrower name is still a lead. Partner Ablösung submissions can
@@ -553,12 +735,20 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
 
     console.log(`[Salesforce Sync] Processing person ${i + 1}: ${email} (${isJuristicPerson ? 'Company' : 'Individual'})`);
 
+    // A company: Business Account + Contact (HYPOTEQ 19.10. B16) — not the Person Account below.
+    if (isJuristicPerson) {
+      const company = await syncCompanyAccount(salesforceApi, person);
+      accounts.push(company.account);
+      contacts.push(company.contact);
+      continue;
+    }
+
     // STEP 1: Find or create Account. Only look up by email when we actually have one —
     // partner submissions often have no end-customer email, and querying with '' can match
     // unrelated empty-email Accounts from prior submissions.
     let account = email ? await salesforceApi.findAccountByEmail(email) : null;
 
-    // Prepare Account data - Person Account fields for everyone (companies and individuals)
+    // Prepare Account data - Person Account fields (natural persons; a company returned above)
     const accountData: Record<string, any> = {
       LastName: lastName,
       FirstName: firstName,
@@ -754,8 +944,8 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
   // Schenkung — family funds that count as Eigenmittel — so it is folded into the existing
   // Schenkung_usw__c figure. Done before the mapping loop so the Case field and the
   // Eigenmittel total below both see the combined amount. Darlehen is deliberately NOT
-  // added: a loan is not equity and has no Salesforce field; it reaches HYPOTEQ through
-  // the internal notification mail only.
+  // added: it has its own field, Darlehen_Eigenmittel__c (HYPOTEQ 19.10. D.1), and the legacy
+  // Eigenmittel total below leaves it out (the v5 total counts it, calc.ts).
   const schenkungOnly = Number(flatData.eigenmittel_schenkung || 0);
   const erbschaft = Number(flatData.eigenmittel_erbschaft || 0);
   if (erbschaft > 0) {
@@ -779,6 +969,9 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
       value = flatData.stage || flatData.stage__c || value;
     }
     if (Array.isArray(value)) value = value.join(", ");
+
+    // Renovationsbetrag__c only with Renovation = Ja (HYPOTEQ 19.10. B4).
+    if (funnelField === 'renovationsBetrag' && !isYes(flatData.renovation)) continue;
 
     // Special handling for erhoehung_betrag: only set if erhoehung is "Ja"
     if (funnelField === 'erhoehung_betrag') {
@@ -810,6 +1003,15 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     }
   }
 
+  // === KAUF- & ABLÖSE-DATUM (HYPOTEQ 19.10. B13 / B15, DECISIONS V41) — every payload ===
+  // Kaufdatum__c is Text(80): «TT.MM.JJJJ» (or the text as typed); Kaufdatum_Datum__c the real
+  // date, only when it is one. At an Ablösung flatData.kaufdatum is the Ablösedatum (above).
+  delete caseData['Kaufdatum__c'];
+  const kaufdatumText = toKaufdatumText(flatData.kaufdatum);
+  if (kaufdatumText) caseData['Kaufdatum__c'] = kaufdatumText;
+  const kaufdatumIso = toSalesforceDate(flatData.kaufdatum);
+  if (kaufdatumIso) caseData['Kaufdatum_Datum__c'] = kaufdatumIso;
+
   // Calculate and add Hypothekenbedarf, Eigenmittel %, Tragbarkeit %
   const kaufpreis = Number(flatData.kaufpreis || 0);
   const eigenmittel_bar = Number(flatData.eigenmittel_bar || 0);
@@ -819,9 +1021,7 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
   const eigenmittel_schenkung = Number(flatData.eigenmittel_schenkung || 0);
   const eigenmittel = eigenmittel_bar + eigenmittel_saeule3 + eigenmittel_pk + eigenmittel_schenkung;
 
-  // The funnel state of a v3 / v5 payload (legacy.ts reads either into the v5 shape) and the
-  // funnel's own calculation (lib/funnel-v3/calc.ts) — what the customer saw.
-  const v3State = stepData.v3 ? normaliseFunnelState(stepData.v3) : null;
+  // The funnel's own calculation (lib/funnel-v3/calc.ts) — what the customer saw.
   const v3Calc = v3State ? calcForState(v3State) : null;
 
   // Add total Eigenmittel to Case
@@ -861,8 +1061,9 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
   // The Gesamtfinanzierung is the funnel's own calculation (lib/funnel-v3/calc.ts, the same
   // the customer saw): Kauf = Kaufpreis + Renovation − Eigenmittel (none entered: 80 %),
   // Ablösung = bestehende + Erhöhung. Computed here from the submitted answers; the payload's
-  // financing.hypoBetrag (the same number) is the fallback. The Tragbarkeit keeps the existing
-  // formula (S1) — only its base changes.
+  // financing.hypoBetrag (the same number) is the fallback. Tragbarkeit__c and
+  // EigenmittelProzent__c of a v5 payload are replaced by the funnel's values below
+  // (v5PercentFields, HYPOTEQ 19.10. B14); the formulas here stay for legacy payloads (S1).
   const v3Need = v3Calc ? v3Calc.need : NaN;
   const v3HypoBetragRaw = stepData.v3 ? Number(String(flatData.hypoBetrag ?? '').replace(/'/g, '')) : NaN;
   const v3HypoBetrag =
@@ -908,6 +1109,15 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     if (tragb !== null) caseData['Tragbarkeit__c'] = tragb;
 
     console.log(`[Salesforce Sync] Ablösung calc: Hypothekenbedarf=${hypothekenbedarf}, Eigenmittel%=${caseData['EigenmittelProzent__c']}, Tragbarkeit%=${caseData['Tragbarkeit__c']}`);
+  }
+
+  // === FUNNEL V5 TRAGBARKEIT / EIGENMITTEL % (HYPOTEQ 19.10. B14, DECISIONS V41) — v3 / v5 payloads ===
+  // The values the funnel showed (calc.ts, Handover formula), not the S1 / S6 formulas above.
+  if (v3State && v3Calc) {
+    delete caseData['Tragbarkeit__c'];
+    delete caseData['EigenmittelProzent__c'];
+    Object.assign(caseData, v5PercentFields(v3State, v3Calc));
+    console.log(`[Salesforce Sync] v5 calc: Eigenmittel%=${caseData['EigenmittelProzent__c'] ?? '–'}, Tragbarkeit%=${caseData['Tragbarkeit__c'] ?? '–'}`);
   }
 
   // Add partner email AFTER mapping to prevent it from being overwritten
@@ -995,15 +1205,21 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     // Heizungsart is no longer asked; the documents say it (Verkaufsdokumentation, GVZ).
     const heizung = toWaermeerzeugung(v3State.info?.heizung);
     if (heizung) caseData['Waermeerzeugung__c'] = heizung;
-    // Juristische Person: the Account is the company (a Person Account named after it, the
-    // existing mapping — no Business Account / Contact, DECISIONS V41). The zeichnungsberechtigte
-    // Person has no field there, so the Case names it (Rosanna: it stayed empty) and the JSON
-    // carries it (`kontakt`).
-    const zeichner = v3State.ans.kn === 'Juristische Person' ? v3State.txt.zeichner.trim() : '';
-    if (zeichner) {
-      const existing = typeof caseData['Kommentar__c'] === 'string' ? caseData['Kommentar__c'].trim() : '';
-      caseData['Kommentar__c'] = [`Zeichnungsberechtigte Person: ${zeichner}`, existing].filter(Boolean).join('\n\n');
-    }
+    // (A company's zeichnungsberechtigte Person is its Contact since HYPOTEQ 19.10. B16 — no
+    // longer the first line of Kommentar__c; the JSON keeps it, `kontakt.zeichnungsberechtigt`.)
+
+    // HYPOTEQ 19.10. B17 / D.1: the Geschätzter Objektwert as entered — an empty one is not
+    // invented from the Kaufpreis (Kaufpreis__c has that), DECISIONS V60.
+    if (v3State.fin.val > 0) caseData['Geschaetzter_Objektwert__c'] = Math.round(v3State.fin.val);
+    // HYPOTEQ 19.10. D.1: the chips in Checkboxes as well («auswertbar»); the JSON keeps them.
+    caseData['Privatkredit__c'] = v3State.ans.kredite === 'Ja';
+    caseData['Leasing__c'] = v3State.ans.leasing === 'Ja';
+    caseData['Unterhaltspflicht__c'] = v3State.ans.unterhalt === 'Ja';
+    caseData['Solidarbuergschaft__c'] = v3State.ans.buerge === 'Ja';
+  } else {
+    // v1 «Geschätzter Objektwert» (HYPOTEQ 19.10. B17 «Reste aus v1»): the legacy funnel's value.
+    const value = Number(String(flatData.immobilienwert ?? '').replace(/CHF\s?|'/gi, '').trim());
+    if (Number.isFinite(value) && value > 0) caseData['Geschaetzter_Objektwert__c'] = value;
   }
   // === END FUNNEL V5 VALUES ===
 
@@ -1061,28 +1277,19 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     );
   }
 
-  // Set Case Name if not already set.
-  // Convention: "PLZ Ort / <borrower names>" — every borrower as "Vorname Name"
-  // (companies as Firmenname), multiple borrowers joined with " & ".
-  if (!caseData['Case_Name__c']) {
-    const { getBorrowerDisplayName } = await import('./funnelPersonNames');
-    // Fall back to the normalized persons list when the raw funnel data yields nothing
-    // (e.g. partner submissions where the name only exists on the Account).
-    const namePart =
-      getBorrowerDisplayName(stepData) ||
-      persons
-        .map((p: any) => `${p.firstName || ''} ${p.lastName || ''}`.trim())
-        .filter(Boolean)
-        .join(' & ');
-
-    // Only the name is slash-separated from the location.
-    const parts = [location, namePart].filter(Boolean);
-    // Last resort: a timestamp tells a caseworker nothing. Fall back to whoever submitted
-    // the lead so an incomplete Case is still identifiable and chaseable in Salesforce.
-    const submitter = partnerEmail || flatData.email || '';
-    caseData['Case_Name__c'] =
-      parts.join(' / ') ||
-      (submitter ? `Unvollständige Anfrage – ${submitter}` : `Unvollständige Anfrage ${new Date().toISOString().slice(0, 10)}`);
+  // Case_Name__c is required at creation (HYPOTEQ 19.10. D.4, DECISIONS V65): «{Nachname}
+  // {Vorname} – {PLZ} {Ort}», a company «{Firma} – {PLZ} {Ort}» — always set here, for every
+  // payload, whatever a payload's own caseName said. Kreditnehmer 1 names the Case.
+  {
+    const first = persons[0] as any;
+    const who = v3State
+      ? v3State.ans.kn === 'Juristische Person'
+        ? { firma: v3State.txt.firma }
+        : { nachname: v3State.txt.nach || v3State.borrowers[0]?.nach, vorname: v3State.txt.vor || v3State.borrowers[0]?.vor }
+      : first?.isJuristic
+        ? { firma: first.lastName }
+        : { nachname: first?.lastName === 'Unknown' ? '' : first?.lastName, vorname: first?.firstName };
+    caseData['Case_Name__c'] = funnelCaseName({ ...who, plz, ort, submitter: partnerEmail || flatData.email || '' });
   }
 
   // Clean up: Remove non-Case fields
@@ -1144,10 +1351,16 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     }
   }
 
-  // Link Client lookup fields AFTER all cleanup to prevent them being overwritten
+  // Link Client lookup fields AFTER all cleanup to prevent them being overwritten. A company:
+  // AccountId and Client__c are its Business Account, ContactId its signatory (HYPOTEQ 19.10. B16).
   if (mainAccountId) {
     caseData['Client__c'] = mainAccountId;
     console.log(`[Salesforce Sync] Linked Client Account: ${mainAccountId}`);
+  }
+  const mainContactId = contacts[0]?.id || contacts[0]?.Id;
+  if (mainContactId) {
+    caseData['ContactId'] = mainContactId;
+    console.log(`[Salesforce Sync] Linked Contact: ${mainContactId}`);
   }
   console.log(`[Salesforce Sync] Number of clients: ${persons.length}`);
 
@@ -1174,6 +1387,10 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
   } else {
     caseData['Client_3__c'] = null;
   }
+
+  // HYPOTEQ 19.10. B17: how many borrowers the Case links (1 / 2 / 3; a company is one).
+  const linkedClients = accounts.filter(Boolean).length;
+  if (linkedClients > 0) caseData['Wie_viele_Kunden__c'] = String(Math.min(linkedClients, 3));
 
   // Two distinct roles, two distinct Case fields — they were previously conflated:
   //   - Kundenberater / customer advisor = Partner_Consultant__c, a *Contact* lookup.
@@ -1215,6 +1432,8 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
       console.error(`[Salesforce Sync] Error resolving HYPOTEQ sales partner Account:`, err);
     }
   }
+
+  await applyFunnelOwner(caseData, salesforceApi);
 
   console.log('[Salesforce Sync] Full caseData before sending:', JSON.stringify(caseData, null, 2));
 

@@ -20,6 +20,12 @@ export const SALESFORCE_CASE_FIELDS: Record<string, SFFieldType> = {
   Gibt_es_Renovationen_oder_Zusatzkosten__c: "boolean",
   Bestehen_bereits_Finanzierungsangebote__c: "boolean",
   Steueroptimierung__c: "boolean",
+  // The chips of «Trifft etwas davon zu?» (HYPOTEQ 19.10. D.1: in Checkboxes, «auswertbar»;
+  // the answers stay in Dokumenten_Check_State__c as well). Funnel v5 payloads only.
+  Privatkredit__c: "boolean",
+  Leasing__c: "boolean",
+  Unterhaltspflicht__c: "boolean",
+  Solidarbuergschaft__c: "boolean",
 
   // Currency fields
   Betrag__c: "currency",
@@ -30,11 +36,19 @@ export const SALESFORCE_CASE_FIELDS: Record<string, SFFieldType> = {
   Schenkung_usw__c: "currency",
   Einkommen__c: "currency",
   J_hrlicher_Netto_Mietertrag__c: "currency",
-  Erh_hung__c: "currency",  // Mortgage increase amount (from erhoehung_betrag)
+  // The Erhöhung amount (erhoehung_betrag, only with Erhöhung = Ja). HYPOTEQ 19.10. B17: this is
+  // the field in use; Erh_hung_betrag__c is ignored — listed here, but nothing writes it.
+  Erh_hung__c: "currency",
   Erh_hung_betrag__c: "currency",
   Gesch_tzter_Hypothekenbedarf__c: "currency",  // Calculated mortgage need (Funnel: "geschätzter Hypothekarbedarf", Label: Hypothekarbetrag)
   Hypothekarbetrag__c: "currency",  // Direct mortgage amount input (Ablösung)
   Eigenmittel__c: "currency",  // Total equity amount
+  // HYPOTEQ 19.10. B4 / D.1: the Renovationsbetrag (only with Renovation = Ja) — not Betrag__c.
+  Renovationsbetrag__c: "currency",
+  // HYPOTEQ 19.10. B17 / D.1: the Geschätzter Objektwert as entered (DECISIONS V60).
+  Geschaetzter_Objektwert__c: "currency",
+  // HYPOTEQ 19.10. D.1: the Eigenmittel source Darlehen (it used to be in the JSON only).
+  Darlehen_Eigenmittel__c: "currency",
 
   // Picklist fields
   Hypothekarlaufzeiten__c: "picklist",
@@ -44,6 +58,9 @@ export const SALESFORCE_CASE_FIELDS: Record<string, SFFieldType> = {
   Kreditnehmer__c: "picklist",
   Reason: "picklist",
   Verpf_ndung_PK__c: "picklist",
+  // HYPOTEQ 19.10. B17: the number of borrowers linked in Salesforce, «1» / «2» / «3» (Client__c,
+  // Client_2__c, Client_3__c); more only in the JSON.
+  Wie_viele_Kunden__c: "picklist",
 
   // Document completeness. These fields already existed on Case (built before the funnel
   // was wired up, previously unused). Dokumenten_Check_State__c is a 131k textarea holding
@@ -87,14 +104,15 @@ export const SALESFORCE_CASE_FIELDS: Record<string, SFFieldType> = {
   // Currency fields for mortgage volume
   Hypothekarvolumen__c: "currency",  // Mortgage volume/amount
 
-  // Date fields
-  // Handover 8 names Kaufdatum__c «Text 80»; this configuration (from the org) says Date. The
-  // existing configuration wins (DECISIONS V5, V41): the sync sends YYYY-MM-DD, which a text
-  // field takes as well, and only a real calendar date (toSalesforceDate).
-  Kaufdatum__c: "date",
+  // Kauf- & Ablöse-Datum. HYPOTEQ 19.10. B13 / B15: Kaufdatum__c is Text(80) — the sync writes
+  // «TT.MM.JJJJ» (Kauf: the Kaufdatum, Ablösung: the Ablösedatum of the Zinsabrechnung), and the
+  // same date as a real Date in Kaufdatum_Datum__c, only when it is a calendar date (DECISIONS V41).
+  Kaufdatum__c: "string",
+  Kaufdatum_Datum__c: "date",
 
-  // Heizungsart from the documents (Handover 8; v5 no longer asks it). Picklist values per the
-  // mapping: Wärmepumpe Luft-Wasser, Fernwärme, Holz, Gas Erdgas, Öl (toWaermeerzeugung).
+  // Heizungsart from the documents (Handover 8; v5 no longer asks it). Picklist values (HYPOTEQ
+  // 19.10. B15): Wärmepumpe Luft-Wasser, Wärmepumpe Wasser-Wasser, Fernwärme, Holz, Gas Erdgas,
+  // Gas Biogas, Öl, Andere (toWaermeerzeugung).
   Waermeerzeugung__c: "picklist",
   
   // Picklist for new construction type

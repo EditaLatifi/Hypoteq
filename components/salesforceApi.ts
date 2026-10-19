@@ -148,7 +148,171 @@ export async function findContactByEmail(email: string) {
 }
 
 export async function createContact(fields: Record<string, any>) {
-  return conn.sobject('Contact').create(fields);
+  // The Account fallbacks: an optional column the org lacks or forbids must not cost the Contact.
+  return writeWithFieldFallback((f) => conn.sobject('Contact').create(f), fields, 'create Contact', 'Contact');
+}
+
+// ---- Owner of a funnel Case: the queue «Web-Anfragen» (HYPOTEQ 19.10. D.2, DECISIONS V64) ------
+
+/** The queue a funnel Case belongs to, by Name or DeveloperName (configurable, defaults per D.2). */
+export function funnelQueueNames(): { name: string; developerName: string } {
+  return {
+    name: (process.env.SF_FUNNEL_QUEUE_NAME || 'Web-Anfragen').trim(),
+    developerName: (process.env.SF_FUNNEL_QUEUE_DEVELOPER_NAME || 'Web_Anfragen').trim(),
+  };
+}
+
+// Only a found queue is cached (per warm instance), so a queue created later is picked up.
+let funnelQueueId: string | null = null;
+
+/** For tests. */
+export function clearFunnelQueueCache(): void {
+  funnelQueueId = null;
+}
+
+/**
+ * The Id of the Case queue «Web-Anfragen» (`Group WHERE Type = 'Queue' AND (Name = … OR
+ * DeveloperName = …)`), resolved at runtime and cached; null when the org has none. Errors
+ * propagate — the sync keeps the default owner then.
+ */
+export async function findFunnelQueueId(): Promise<string | null> {
+  if (funnelQueueId) return funnelQueueId;
+  const { name, developerName } = funnelQueueNames();
+  const rows = await sfQuery<any>(
+    `SELECT Id FROM Group WHERE Type = 'Queue' AND (Name = ${soqlString(name)} OR DeveloperName = ${soqlString(developerName)}) LIMIT 1`,
+    'findFunnelQueueId',
+  );
+  funnelQueueId = rows[0]?.Id || null;
+  return funnelQueueId;
+}
+
+// ---- Juristische Person: Business Account + Contact (HYPOTEQ 19.10. B16, DECISIONS V63) --------
+
+/**
+ * The Account field holding the UID (Unternehmens-Identifikationsnummer, «CHE-123.456.789»).
+ * HYPOTEQ has not named it; `UID__c` until they do. An org without it: the lookup by UID is
+ * skipped (the Name lookup remains) and writeWithFieldFallback drops it from the create.
+ */
+export function accountUidField(): string | null {
+  const raw = (process.env.SF_ACCOUNT_UID_FIELD ?? 'UID__c').trim();
+  // Interpolated into SOQL: only a plain API name is accepted.
+  return /^[A-Za-z][A-Za-z0-9_]*$/.test(raw) ? raw : null;
+}
+
+/** «CHE-123.456.789», «CHE123456789 MWST» → the two spellings an org may hold; null when it is no UID. */
+export function uidSpellings(raw: unknown): { canonical: string; compact: string } | null {
+  if (typeof raw !== 'string') return null;
+  const m = raw.toUpperCase().match(/CHE[\s.-]*(\d{3})[\s.]*(\d{3})[\s.]*(\d{3})/);
+  if (!m) return null;
+  return { canonical: `CHE-${m[1]}.${m[2]}.${m[3]}`, compact: `CHE${m[1]}${m[2]}${m[3]}` };
+}
+
+/**
+ * The non-person Account record type for a company: `RecordType WHERE SobjectType = 'Account'
+ * AND IsPersonType = false`, DeveloperName «Business_Account» first, else the running user's
+ * default among them (describe), else the first one the user may use. None → null: the create
+ * then goes without RecordTypeId and Salesforce takes the default (the Master type, a business
+ * Account). Never hardcoded; resolved once per warm instance.
+ */
+export function pickBusinessRecordType(
+  rows: { Id: string; DeveloperName?: string | null }[],
+  infos: { recordTypeId?: string; available?: boolean; defaultRecordTypeMapping?: boolean }[] = [],
+): string | null {
+  if (!rows.length) return null;
+  const same = (a?: string, b?: string) => !!a && !!b && a.slice(0, 15) === b.slice(0, 15);
+  const info = (id: string) => infos.find((i) => same(i.recordTypeId, id));
+  const usable = rows.filter((r) => info(r.Id)?.available !== false);
+  const pool = usable.length ? usable : rows;
+  const preferred = pool.find((r) => r.DeveloperName === 'Business_Account');
+  if (preferred) return preferred.Id;
+  const byDefault = pool.find((r) => info(r.Id)?.defaultRecordTypeMapping === true);
+  return (byDefault ?? pool[0]).Id;
+}
+
+let businessAccountRecordTypeId: string | null | undefined;
+
+export async function getBusinessAccountRecordTypeId(): Promise<string | null> {
+  if (businessAccountRecordTypeId !== undefined) return businessAccountRecordTypeId;
+  await ensureSession();
+  const result: any = await withSessionRetry(
+    async () =>
+      await conn.query("SELECT Id, DeveloperName FROM RecordType WHERE SobjectType = 'Account' AND IsPersonType = false AND IsActive = true"),
+    'business Account RecordType',
+  );
+  const rows = (result?.records || []) as { Id: string; DeveloperName?: string }[];
+  let infos: any[] = [];
+  if (rows.length > 1 || (rows.length === 1 && rows[0].DeveloperName !== 'Business_Account')) {
+    try {
+      infos = ((await (conn.sobject('Account') as any).describe())?.recordTypeInfos || []) as any[];
+    } catch (err) {
+      console.warn('[Salesforce] Account describe failed, taking the first business record type:', err);
+    }
+  }
+  businessAccountRecordTypeId = pickBusinessRecordType(rows, infos);
+  return businessAccountRecordTypeId;
+}
+
+/**
+ * An existing company Account (never a Person Account): by UID first, else by exactly the same
+ * Name — the oldest, so a later duplicate never takes over. Null when there is none. A lookup by
+ * UID the org cannot run (no such field) falls back to the Name; any other error propagates — a
+ * failed lookup must not end in a duplicate Account.
+ */
+export async function findBusinessAccount(opts: { uid?: string | null; name?: string | null }): Promise<{ Id: string; Name?: string; matchedBy: 'uid' | 'name' } | null> {
+  await ensureSession();
+  const uid = uidSpellings(opts.uid);
+  const field = accountUidField();
+  if (uid && field) {
+    try {
+      const rows = await sfQuery<any>(
+        `SELECT Id, Name FROM Account WHERE IsPersonAccount = false AND ${field} IN (${soqlString(uid.canonical)}, ${soqlString(uid.compact)}) ORDER BY CreatedDate ASC LIMIT 1`,
+        'findBusinessAccount:UID',
+      );
+      if (rows[0]?.Id) return { Id: rows[0].Id, Name: rows[0].Name, matchedBy: 'uid' };
+    } catch (err: any) {
+      const code = err?.errorCode || err?.data?.errorCode || '';
+      if (code !== 'INVALID_FIELD') throw err;
+      console.warn(`[Salesforce] Account has no field ${field} — looking the company up by Name only`);
+    }
+  }
+  const name = String(opts.name || '').trim();
+  if (!name) return null;
+  const rows = await sfQuery<any>(
+    `SELECT Id, Name FROM Account WHERE IsPersonAccount = false AND Name = ${soqlString(name)} ORDER BY CreatedDate ASC LIMIT 1`,
+    'findBusinessAccount:Name',
+  );
+  return rows[0]?.Id ? { Id: rows[0].Id, Name: rows[0].Name, matchedBy: 'name' } : null;
+}
+
+/** A company Account: Name = Firma, Phone, UID and Sitz (BillingCity) where known, the old funnel's street. */
+export async function createBusinessAccount(company: { name: string; phone?: string | null; uid?: string | null; sitz?: string | null; street?: string | null }) {
+  const recordTypeId = await getBusinessAccountRecordTypeId();
+  const fields: Record<string, any> = { Name: company.name };
+  if (recordTypeId) fields.RecordTypeId = recordTypeId;
+  if (company.phone) fields.Phone = company.phone;
+  const uid = uidSpellings(company.uid);
+  const field = accountUidField();
+  if (uid && field) fields[field] = uid.canonical;
+  if (company.sitz) fields.BillingCity = company.sitz;
+  if (company.street) fields.BillingStreet = company.street;
+  console.log('[Salesforce API] Creating Business Account:', JSON.stringify(fields, null, 2));
+  return writeWithFieldFallback((f) => conn.sobject('Account').create(f), fields, 'create Business Account', 'Account');
+}
+
+/** A Contact of that Account: by e-mail, or — without one — by first and last name. */
+export async function findContactOnAccount(accountId: string, person: { email?: string | null; firstName?: string | null; lastName?: string | null }): Promise<{ Id: string } | null> {
+  await ensureSession();
+  const email = String(person.email || '').trim();
+  const last = String(person.lastName || '').trim();
+  let where: string;
+  if (email) where = `Email = ${soqlString(email)}`;
+  else if (last) where = `LastName = ${soqlString(last)} AND FirstName = ${soqlString(String(person.firstName || '').trim())}`;
+  else return null;
+  const rows = await sfQuery<any>(
+    `SELECT Id FROM Contact WHERE AccountId = ${soqlString(accountId)} AND ${where} ORDER BY CreatedDate ASC LIMIT 1`,
+    'findContactOnAccount',
+  );
+  return rows[0]?.Id ? { Id: rows[0].Id } : null;
 }
 
 export async function updateContact(id: string, fields: Record<string, any>) {
@@ -258,14 +422,18 @@ async function writeWithFieldFallback(
       // A lookup/master-detail field was given something that is not a valid record Id
       // (e.g. an email address landing in a Contact lookup). Dropping the reference costs
       // one link; keeping it costs the entire lead.
-      if (code === 'MALFORMED_ID' || code === 'INVALID_CROSS_REFERENCE_KEY' || code === 'INVALID_ID_FIELD') {
+      if (code === 'MALFORMED_ID' || code === 'INVALID_CROSS_REFERENCE_KEY' || code === 'INVALID_ID_FIELD' || code === 'INSUFFICIENT_ACCESS_ON_CROSS_REFERENCE_ENTITY') {
         const target =
           errFields.find(f => f in working) ??
           Object.keys(working).find(f => {
             const v = working[f];
             // Salesforce Ids are 15 or 18 chars; anything else in a lookup is malformed.
             return typeof v === 'string' && f.endsWith('__c') && v !== '' && v.length !== 15 && v.length !== 18 && message.includes(v);
-          });
+          }) ??
+          // An owner the record cannot take (a queue not enabled for the object, a User without
+          // access) and Salesforce names no field: the owner goes, the default owner stays —
+          // HYPOTEQ 19.10. D.2 must never cost the lead.
+          (code !== 'MALFORMED_ID' && 'OwnerId' in working ? 'OwnerId' : undefined);
         if (target) {
           console.warn(`[Salesforce] ${context}: dropping invalid lookup value for '${target}' ('${working[target]}') and retrying`);
           noteDropped(sobjectType, target, code);
@@ -412,6 +580,11 @@ export default {
   createContact,
   updateContact,
   updatePersonAccount,
+  findFunnelQueueId,
+  getBusinessAccountRecordTypeId,
+  findBusinessAccount,
+  createBusinessAccount,
+  findContactOnAccount,
   createOrUpdateCase,
   updateCase,
 };

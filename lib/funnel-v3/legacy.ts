@@ -65,7 +65,7 @@ const ANSWER_VALUES: { [K in keyof Answers]?: readonly string[] } = {
   anrede: ["Herr", "Frau"],
   immo: ["Bestehende Immobilie", "Neubau", "Bauprojekt"],
   lieg: ["Einfamilienhaus", "Stockwerkeigentum", "Mehrfamilienhaus"] as readonly Liegenschaft[],
-  nutz: ["Selbstbewohnt", "Vermietet", "Zweitwohnsitz", "Gewerbe"],
+  nutz: ["Selbstbewohnt", "Vermietet", "Zweitwohnsitz", "Vermietet & teilweise selbstbewohnt", "Gewerbe"],
   laufzeit: ["SARON", "2 Jahre", "3 Jahre", "5 Jahre", "10 Jahre", "Mix"],
 };
 

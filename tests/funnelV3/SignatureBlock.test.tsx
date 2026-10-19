@@ -103,6 +103,19 @@ describe("SignatureBlock (server render)", () => {
     expect(html).toContain(">Andere Datei hochladen</button>");
   });
 
+  it("HYPOTEQ 19.10. E.4: under «Unterschrift fehlt» «Trotzdem einreichen – HYPOTEQ prüft manuell»; chosen, the block is free and says so", () => {
+    const unsigned = [...withoutSig(), sigFile({ fields: { Unterschrift: { value: "fehlt", confidence: 0.9 } } })];
+    setState(unsigned, { choice: "uploaded", at: "2026-10-19T09:00:00.000Z", method: "upload" });
+    expect(render()).toContain(">Trotzdem einreichen – HYPOTEQ prüft manuell</button>");
+    setState(unsigned, { choice: "uploaded", at: "2026-10-19T09:00:00.000Z", method: "upload", override: true, overrideAt: "2026-10-19T09:05:00.000Z" });
+    const html = render();
+    expect(html).toContain('data-status="received"');
+    expect(html).toContain("Wird von HYPOTEQ manuell geprüft");
+    expect(html).toContain(">Manuelle Prüfung<");
+    expect(html).toContain(">Doch nicht so einreichen</button>");
+    expect(html).not.toContain(">Trotzdem einreichen – HYPOTEQ prüft manuell</button>");
+  });
+
   it("in the funnel language", () => {
     pathname = "/fr/funnel";
     setState(withoutSig());

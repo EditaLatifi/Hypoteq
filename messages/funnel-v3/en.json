@@ -185,7 +185,8 @@
     "laufzeit.5 Jahre": "5 years",
     "laufzeit.10 Jahre": "10 years",
     "laufzeit.Mix": "Mix",
-    "nutz.Gewerbe": "Commercial"
+    "nutz.Gewerbe": "Commercial",
+    "nutz.Vermietet & teilweise selbstbewohnt": "Rented out & partly owner-occupied"
   },
   "s2": {
     "title": "What are we financing?",
@@ -726,6 +727,12 @@
     "analysing": "Being checked …",
     "analysingSub": "Form, signature and name are being checked.",
     "wrongForm": "The uploaded file is not a HYPOTEQ information authorisation.",
+    "override": "Submit anyway – HYPOTEQ will check it manually",
+    "overrideHint": "The AI check is only a hint. You can still finish the request – HYPOTEQ checks the authorisation by hand.",
+    "overrideUndo": "Do not submit it like this",
+    "review": "Being checked manually by HYPOTEQ",
+    "reviewSub": "Submitted anyway – HYPOTEQ checks the authorisation by hand. You can still upload a signed copy.",
+    "reviewBadge": "Manual check",
     "replace": "Upload another file",
     "downloading": "Creating …",
     "downloadError": "The template could not be created. Please try again.",

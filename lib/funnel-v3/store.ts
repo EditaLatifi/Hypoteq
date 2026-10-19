@@ -29,6 +29,7 @@ import {
   EM_ROWS,
   MAX_BORROWERS,
   NUTZUNG_OPTIONS,
+  isRentedNutzung,
   type Amounts,
   type Answers,
   type Borrower,
@@ -109,6 +110,12 @@ export interface FunnelV3Actions {
   applyDocuments: (result: PrefillResult) => void;
   /** Auskunftsermächtigung: uploaded with its own button, «Später nachreichen», or undone (null). */
   setSignature: (choice: "uploaded" | "later" | null) => void;
+  /**
+   * HYPOTEQ 19.10. E.4 «Trotzdem einreichen – HYPOTEQ prüft manuell» (on) or undone (off): the copy
+   * the AI flagged counts as received, with the time of the choice. A new copy (setSignature)
+   * starts without it — a new verdict, a new decision.
+   */
+  setSignatureOverride: (on: boolean) => void;
   /** Back always, forward only to a visited step (DECISIONS D6). Returns whether it moved. */
   goto: (step: Step) => boolean;
   /** One step forward; validation is the caller's (validateStep). */
@@ -204,7 +211,8 @@ export function answerAllowed<K extends keyof Answers>(ans: Answers, key: K, val
  *    → Neue Hypothek: the Ablösung block goes (bestehende Hypothek, Erhöhung, Zweck).
  *  - Kreditnehmer changed: Nutzung is reset (its options differ). → juristische Person: no
  *    Anrede, no income, no Kreditnehmer 2, no «Unterhaltszahlungen»; → natürliche: no Firma.
- *  - Nutzung ≠ Vermietet: no Netto-Mietertrag. Renovation = Nein: no Renovationsbetrag.
+ *  - Nutzung neither Vermietet nor «Vermietet & teilweise selbstbewohnt»: no Netto-Mietertrag.
+ *    Renovation = Nein: no Renovationsbetrag.
  *    Erhöhung = Nein: no Erhöhung, no Zweck. Solidarbürgschaft off: no Bürge name.
  * An option the state does not allow (answerAllowed) is refused: `accepted: false`.
  */
@@ -272,7 +280,8 @@ export function applyAnswer<K extends keyof Answers>(s: AnswerParts, key: K, val
       }
       break;
     case "nutz":
-      if (value !== "Vermietet") clearFin("miete");
+      // «Vermietet & teilweise selbstbewohnt» keeps it like «Vermietet» (DECISIONS V58).
+      if (!isRentedNutzung(value as Answers["nutz"])) clearFin("miete");
       break;
     case "immo":
       if (value !== "Neubau") clearAns("nbDocs", "Nein");
@@ -532,6 +541,18 @@ function funnelV3Creator(set: SetState, get: () => FunnelV3Store): FunnelV3Store
         }),
 
       setSignature: (choice) => set({ sig: choice ? { choice, at: new Date().toISOString(), method: "upload" } : null }),
+
+      setSignatureOverride: (on) =>
+        set((s) => {
+          if (!on) {
+            if (!s.sig?.override) return {};
+            const { override: _o, overrideAt: _at, ...rest } = s.sig;
+            return { sig: rest };
+          }
+          const now = new Date().toISOString();
+          const base = s.sig?.choice === "uploaded" ? s.sig : { choice: "uploaded" as const, at: now, method: "upload" as const };
+          return { sig: { ...base, override: true, overrideAt: now } };
+        }),
 
       goto: (step) => {
         const s = get();

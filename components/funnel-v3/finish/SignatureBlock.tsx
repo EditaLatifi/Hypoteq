@@ -16,6 +16,10 @@
  * the template comes with the confirmation mail, reminders after 2 and 5 days, no request to a
  * bank without it. The closing step gates its button on `documentsSummary().signature.canFinish`
  * — the same SignatureView this block shows.
+ *
+ * The AI never blocks (HYPOTEQ 19.10. A.4, E.4): over «Unterschrift fehlt» / another name / another
+ * form, «Trotzdem einreichen – HYPOTEQ prüft manuell» sets `sig.override` (with its time) and frees
+ * the closing; the AI's assessment goes to the Case, the internal mail and the dossier as a note.
  */
 
 import { useCallback, useMemo } from "react";
@@ -38,6 +42,7 @@ export default function SignatureBlock(): JSX.Element {
   const info = useFunnelV3((s) => s.info);
   const sig = useFunnelV3((s) => s.sig);
   const setSignature = useFunnelV3((s) => s.setSignature);
+  const setSignatureOverride = useFunnelV3((s) => s.setSignatureOverride);
   const docs = useDocumentsSummary();
   const { lines, say } = useToast();
 
@@ -83,6 +88,11 @@ export default function SignatureBlock(): JSX.Element {
     setSignature(sig?.choice === "later" ? (hasCopy ? "uploaded" : null) : "later");
   }, [hasCopy, setSignature, sig]);
 
+  // HYPOTEQ 19.10. E.4: the AI never blocks — submit the flagged copy anyway, or undo that.
+  const onToggleOverride = useCallback(() => {
+    setSignatureOverride(!sig?.override);
+  }, [setSignatureOverride, sig]);
+
   return (
     <>
       <SignaturePanel
@@ -93,6 +103,7 @@ export default function SignatureBlock(): JSX.Element {
         onRemove={onRemove}
         onRetry={onRetry}
         onToggleLater={onToggleLater}
+        onToggleOverride={onToggleOverride}
       />
       <Toast lines={lines} />
     </>

@@ -23,7 +23,7 @@ Beim Salesforce-Mapping gilt die Regel der Spezifikation: **das bestehende Mappi
 | D10 | Umlaute im Dateinamen | ä → a, ö → o, ü → u, é → e (Regel aus Spec 5.1) | Spec 5.1 |
 | D11 | Sprache von Bestätigungsmail und Dossier | Funnel-Sprache | Spec 8.10 |
 | D12 | Dossier-PDF | serverseitig erzeugt, im SharePoint-Fall-Ordner abgelegt, Download im Abschluss | Spec 3 Schritt 6 |
-| D13 | Partner-Erkennung | Live-Abfrage in Salesforce (exakter E-Mail-Abgleich auf Contact) mit Zwischenspeicher; `@hypoteq.ch` / `@hypoteq.com` → User. Das Kriterium «aktiver VP-Berater» ist konfigurierbar (`SF_PARTNER_CONTACT_FILTER`), bis HYPOTEQ es festlegt. Unbekannte Partner werden **nicht** mehr als Platzhalter-Kontakt angelegt. | Spec 2.2, 8.7 |
+| D13 | Partner-Erkennung | Live-Abfrage in Salesforce (exakter E-Mail-Abgleich auf Contact) mit Zwischenspeicher; `@hypoteq.ch` → User (`@hypoteq.com` entfällt: HYPOTEQ 19.10. A.2, nur hypoteq.ch existiert). Ist Salesforce nicht erreichbar, gilt die letzte erfolgreiche Antwort für die Adresse, höchstens 24 h alt (HYPOTEQ 19.10. B17, docs/funnel-v5/DECISIONS V66). Das Kriterium «aktiver VP-Berater» ist konfigurierbar (`SF_PARTNER_CONTACT_FILTER`), bis HYPOTEQ es festlegt. Unbekannte Partner werden **nicht** mehr als Platzhalter-Kontakt angelegt. | Spec 2.2, 8.7 |
 | D14 | Alter Funnel ohne Sprachpräfix (`/funnel`) | Weiterleitung auf `/{sprache}/funnel` | – |
 | D15 | Zuordnung von Dokumenten | eine Drop-Zone, automatische Zuordnung; nur «Nicht erkannt» wird manuell zugeordnet | Spec 5 |
 | D16 | Tragbarkeit Fall Gerber | Die Formel aus Spec 3 ergibt 37.6 % (Verdikt «Prüfung nötig»), das Beispiel-Dossier zeigt 32.3 %. Gebaut wird nach der Formel der Spezifikation; HYPOTEQ bestätigt, welche gilt. | Spec 3 / Fall-Dossier |

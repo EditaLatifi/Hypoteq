@@ -9,15 +9,16 @@
  *    and Kreditnehmer 2 (name only); at a juristische Person the zeichnungsberechtigte Person,
  *    with the company named in the line under the title.
  *  - Adresse / PLZ-Ort: the funnel does not ask for the home address. It is prefilled only at an
- *    Ablösung of a selbstbewohnte Liegenschaft, where the object is the home (Grundbuch address,
- *    else PLZ/Ort of step 2), for Kreditnehmer 1. Otherwise it is written by hand.
+ *    Ablösung of a selbstbewohnte Liegenschaft (also «Vermietet & teilweise selbstbewohnt», V58),
+ *    where the object is the home (Grundbuch address, else PLZ/Ort of step 2), for Kreditnehmer 1.
+ *    Otherwise it is written by hand.
  *  - Objekt: the Grundbuch address, else PLZ and Ort. Zweck: the Kreditantrag.
  */
 
 import type { AuthorizationData, AuthorizationSigner } from "./authorization";
 import { isLang, type Lang } from "./i18n";
 import { effectiveBorrowers, splitFullName } from "./requirements";
-import type { Answers, Borrower, DocInfo, Texts } from "./types";
+import { isOwnerOccupiedNutzung, type Answers, type Borrower, type DocInfo, type Texts } from "./types";
 
 /** Longest value accepted per field (route input). A form field holds ~40 characters. */
 export const MAX_FIELD_CHARS = 200;
@@ -132,7 +133,8 @@ export function authorizationDataFromState(state: AuthorizationSource, lang: Lan
   const plzOrt = [txt.plz, txt.ort].map((s) => (s || "").trim()).filter(Boolean).join(" ");
   const gb = (info.adresse || "").trim();
   const objekt = gb || plzOrt || null;
-  const home = !jp && state.ans?.antrag === "Ablösung" && state.ans?.nutz === "Selbstbewohnt";
+  // The owner lives there, also «Vermietet & teilweise selbstbewohnt» (DECISIONS V33, V58).
+  const home = !jp && state.ans?.antrag === "Ablösung" && isOwnerOccupiedNutzung(state.ans?.nutz);
   const homeAddress = home ? (gb ? splitAddress(gb) : { street: "", place: plzOrt }) : null;
   const email = (txt.mail || "").trim() || null;
 

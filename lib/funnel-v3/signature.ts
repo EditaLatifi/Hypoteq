@@ -10,6 +10,11 @@
  *
  * «Später nachreichen» lets the case be closed with «Unterschrift ausstehend»; «Finanzierungs-
  * anfrage abschliessen» stays locked until a signed copy is there or that was chosen.
+ *
+ * The AI never blocks (HYPOTEQ 19.10. A.4, E.4; DECISIONS V67): over a copy it judged unsigned,
+ * with another name or not the form, «Trotzdem einreichen – HYPOTEQ prüft manuell» (`sig.override`)
+ * counts the copy as received — for the closing, the Case and the reminders — and the AI's
+ * assessment goes along only as a note («AI-Hinweis: Unterschrift nicht erkannt – manuell prüfen»).
  */
 
 import type { V3Analysis } from "./files";
@@ -52,10 +57,33 @@ export interface SignatureView {
   status: SignatureStatus;
   /** Files on P0. */
   fileIds: string[];
-  /** Why a copy is «unsigned». */
+  /** Why a copy is «unsigned» — or, overridden, what the AI found (the note). */
   problems: SignatureProblem[];
+  /**
+   * HYPOTEQ 19.10. E.4: a copy the AI flagged was submitted anyway («Trotzdem einreichen»). The
+   * status is then «received» and `problems` holds the AI's assessment for the manual check.
+   */
+  override: boolean;
   /** «Finanzierungsanfrage abschliessen» may be pressed (Handover 6). */
   canFinish: boolean;
+}
+
+/** One sentence per AI finding, per language: the note that goes with an overridden copy. */
+const REVIEW_TEXTS: Record<"de" | "en" | "fr" | "it", { head: string; tail: string } & Record<SignatureProblem, string>> = {
+  de: { head: "AI-Hinweis:", tail: "manuell prüfen", signature: "Unterschrift nicht erkannt", name: "Name passt nicht zum Kreditnehmer", form: "keine HYPOTEQ Auskunftsermächtigung erkannt" },
+  en: { head: "AI note:", tail: "check manually", signature: "signature not recognised", name: "name does not match the borrower", form: "not recognised as the HYPOTEQ authorisation form" },
+  fr: { head: "Note IA :", tail: "à vérifier manuellement", signature: "signature non reconnue", name: "le nom ne correspond pas à l’emprunteur", form: "formulaire d’autorisation HYPOTEQ non reconnu" },
+  it: { head: "Nota IA:", tail: "da verificare manualmente", signature: "firma non riconosciuta", name: "il nome non corrisponde al mutuatario", form: "modulo di autorizzazione HYPOTEQ non riconosciuto" },
+};
+
+/**
+ * The AI's assessment of an overridden copy as a note (HYPOTEQ 19.10. E.4): «AI-Hinweis: Unterschrift
+ * nicht erkannt – manuell prüfen». German for the Case JSON; the mail and the dossier in their language.
+ */
+export function signatureReviewNote(problems: readonly SignatureProblem[], lang: string = "de"): string {
+  const T = REVIEW_TEXTS[(lang in REVIEW_TEXTS ? lang : "de") as keyof typeof REVIEW_TEXTS];
+  const list = problems.length ? Array.from(new Set(problems)) : (["signature"] as SignatureProblem[]);
+  return `${T.head} ${list.map((p) => T[p]).join(", ")} – ${T.tail}`;
 }
 
 /** What the AI says about one copy; [] = fine. An unreadable copy placed by hand is accepted. */
@@ -84,13 +112,16 @@ export function signatureView(files: SignatureFile[], sig: SignatureState | null
   const good = checked.find((c) => !c.problems.length && (c.f.analysis?.status === "done" || c.f.assignedByUser));
   let status: SignatureStatus;
   let problems: SignatureProblem[] = [];
+  let override = false;
   if (good) status = "received";
   else if (mine.some((f) => f.pending)) status = "analysing";
   else if (checked.length) {
-    status = "unsigned";
     problems = Array.from(new Set(checked.flatMap((c) => c.problems)));
+    // E.4: submitted anyway — received, flagged for the manual check; the AI's view stays as a note.
+    override = sig?.override === true;
+    status = override ? "received" : "unsigned";
   } else status = later ? "later" : "missing";
-  return { status, fileIds, problems, canFinish: status === "received" || later };
+  return { status, fileIds, problems, override, canFinish: status === "received" || later };
 }
 
 /**
@@ -112,6 +143,15 @@ export interface SignatureJson {
   lastReminderAt?: string | null;
   /** While not uploaded: SIGNATURE_BANK_NOTE_DE («Ohne Unterschrift geht keine Anfrage an die Bank»). */
   note?: string;
+  // ---- HYPOTEQ 19.10. E.4: submitted anyway over the AI's verdict ----
+  /** «Trotzdem einreichen – HYPOTEQ prüft manuell»: counts as uploaded, to be checked by hand. */
+  override?: true;
+  /** When that was chosen. */
+  overrideAt?: string | null;
+  /** What the AI found (signature · name · form) — a note, not a verdict. */
+  aiProblems?: SignatureProblem[];
+  /** signatureReviewNote, German: «AI-Hinweis: Unterschrift nicht erkannt – manuell prüfen». */
+  aiNote?: string;
 }
 
 /**
@@ -159,9 +199,18 @@ export function signatureWithServer(json: SignatureJson, server: SignatureServer
   return out;
 }
 
-export function signatureJson(view: Pick<SignatureView, "status">, sig: SignatureState | null): SignatureJson {
+export function signatureJson(view: Pick<SignatureView, "status"> & Partial<Pick<SignatureView, "override" | "problems">>, sig: SignatureState | null): SignatureJson {
   // «Später nachreichen» closes the case as «Unterschrift ausstehend», also over an unsigned copy.
   const status =
     view.status === "received" ? "uploaded" : sig?.choice === "later" ? "pending" : view.status === "unsigned" ? "unsigned" : "missing";
-  return { status, at: sig?.at ?? null, method: sig?.method ?? "upload" };
+  const out: SignatureJson = { status, at: sig?.at ?? null, method: sig?.method ?? "upload" };
+  if (status === "uploaded" && view.override) {
+    // E.4: received for the closing and the reminders, flagged for HYPOTEQ's manual check.
+    const problems = view.problems?.length ? view.problems : (["signature"] as SignatureProblem[]);
+    out.override = true;
+    out.overrideAt = sig?.overrideAt ?? null;
+    out.aiProblems = problems;
+    out.aiNote = signatureReviewNote(problems, "de");
+  }
+  return out;
 }

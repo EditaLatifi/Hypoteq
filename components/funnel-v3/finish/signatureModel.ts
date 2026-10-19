@@ -9,6 +9,11 @@
  *   later      «Wird nachgereicht» + «Unterschrift ausstehend · Erinnerung nach 2 und 5 Tagen»,
  *              the template comes with the confirmation mail, nothing goes to a bank without it
  *   missing    «Noch nicht hochgeladen» — the three steps
+ *
+ * The AI never blocks (HYPOTEQ 19.10. E.4): under «Unterschrift fehlt» the closing offers
+ * «Trotzdem einreichen – HYPOTEQ prüft manuell»; chosen, the block says «Wird von HYPOTEQ manuell
+ * geprüft» (the view is «received» with `override`), the copy can still be replaced, and the
+ * choice can be undone.
  */
 
 import type { AuthorizationData } from "@/lib/funnel-v3/authorization";
@@ -23,8 +28,11 @@ type Opt = (group: string, value: string | null | undefined) => string;
 export interface SignatureFileRow {
   id: string;
   name: string;
-  /** ok = a usable copy · problem = read, but not signed / not the form · busy = uploading or read · failed = upload failed. */
-  state: "ok" | "problem" | "busy" | "failed";
+  /**
+   * ok = a usable copy · problem = read, but not signed / not the form · review = such a copy,
+   * submitted anyway (E.4) · busy = uploading or read · failed = upload failed.
+   */
+  state: "ok" | "problem" | "review" | "busy" | "failed";
 }
 
 export interface SignatureModel {
@@ -43,6 +51,11 @@ export interface SignatureModel {
   files: SignatureFileRow[];
   /** «Kunde unterschreibt später?» — only in the closing, not on the Nachreich page. */
   later: { chosen: boolean; question: string; label: string } | null;
+  /**
+   * HYPOTEQ 19.10. E.4 «Trotzdem einreichen – HYPOTEQ prüft manuell» — in the closing, over a copy
+   * the AI flagged; `chosen` once taken (the label then undoes it). Null where it does not apply.
+   */
+  override: { chosen: boolean; hint: string; label: string } | null;
   /** «Finanzierungsanfrage abschliessen» may be pressed (as SignatureView.canFinish). */
   canFinish: boolean;
 }
@@ -69,14 +82,16 @@ const PROBLEM_KEY: Record<SignatureProblem, string> = {
   form: "sig.wrongForm",
 };
 
-function rowOf(f: FileEntry): SignatureFileRow {
+function rowOf(f: FileEntry, overridden: boolean): SignatureFileRow {
   const state: SignatureFileRow["state"] =
     f.uploadState === "failed"
       ? "failed"
       : f.uploadState === "uploading" || f.analysisState === "pending" || f.analysisState === "analysing"
         ? "busy"
         : signatureProblems(f.analysis).length
-          ? "problem"
+          ? overridden
+            ? "review"
+            : "problem"
           : "ok";
   return { id: f.id, name: f.name, state };
 }
@@ -84,7 +99,8 @@ function rowOf(f: FileEntry): SignatureFileRow {
 export function signatureModel(input: SignatureModelInput, t: T, opt: Opt): SignatureModel {
   const { view, data } = input;
   const nachreich = input.context === "nachreich";
-  const files = input.files.filter((f) => f.instanceId && baseId(f.instanceId) === SIGNATURE_REQUIREMENT_ID).map(rowOf);
+  const overridden = view.override === true;
+  const files = input.files.filter((f) => f.instanceId && baseId(f.instanceId) === SIGNATURE_REQUIREMENT_ID).map((f) => rowOf(f, overridden));
   const chosenLater = input.later === true;
   const names = data.signers.map((s) => [s.vor, s.nach].filter(Boolean).join(" ")).filter(Boolean);
   const signerLine = input.jp
@@ -99,7 +115,13 @@ export function signatureModel(input: SignatureModelInput, t: T, opt: Opt): Sign
   let title: string;
   let lines: string[];
   let showSteps = true;
-  switch (view.status) {
+  switch (overridden ? "override" : view.status) {
+    case "override":
+      // E.4: submitted anyway — HYPOTEQ checks by hand; the copy can still be replaced.
+      tone = "warn";
+      title = t("sig.review");
+      lines = [t("sig.reviewSub"), ...(view.problems.length ? view.problems : (["signature"] as SignatureProblem[])).map((p) => t(PROBLEM_KEY[p]))];
+      break;
     case "received": {
       const ok = files.find((f) => f.state === "ok");
       tone = "ok";
@@ -145,6 +167,14 @@ export function signatureModel(input: SignatureModelInput, t: T, opt: Opt): Sign
       input.later === null || view.status === "received"
         ? null
         : { chosen: chosenLater, question: t("sig.laterQ"), label: chosenLater ? t("sig.laterUndo") : t("sig.later") },
+    override:
+      nachreich || input.later === null
+        ? null
+        : overridden
+          ? { chosen: true, hint: "", label: t("sig.overrideUndo") }
+          : view.status === "unsigned"
+            ? { chosen: false, hint: t("sig.overrideHint"), label: t("sig.override") }
+            : null,
     canFinish: view.canFinish,
   };
 }

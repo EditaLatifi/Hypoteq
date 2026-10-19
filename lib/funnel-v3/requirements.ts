@@ -23,7 +23,7 @@
  */
 
 import type { Answers, Borrower, DocInfo, Eigenmittel, Job, Texts } from "./types";
-import { EMPTY_EM } from "./types";
+import { EMPTY_EM, isRentedNutzung } from "./types";
 import { tabEntriesFor } from "@/components/dokumentenCheckState";
 
 export type ReqGroup = "objekt" | "hypothek" | "person" | "eigenmittel";
@@ -212,7 +212,7 @@ export const REQ: readonly RequirementDef[] = [
     id: "mieterspiegel", code: "O14", group: "objekt", labelDe: "Aktueller Mieterspiegel inkl. Mietzinsaufstellung",
     shortName: "Mieterspiegel", legacyKeys: ["funnel.rentalOverviewCurrent"],
     fields: ["Objekt", "Mieteinheiten", "Mietzinseinnahmen pro Jahr", "Stichtag"],
-    rule: "Nutzung = Vermietet",
+    rule: "Nutzung = Vermietet (auch «Vermietet & teilweise selbstbewohnt»)",
   }),
   def({
     id: "baurecht", code: "O15", group: "objekt", labelDe: "Baurechtsvertrag",
@@ -723,7 +723,8 @@ export function reqList(state: ReqState): RequirementInstance[] {
     push("stwe_regl", r);
     push("ef", r);
   }
-  if (a.nutz === "Vermietet") push("mieterspiegel", because(cond("nutz", "Vermietet")));
+  // «Vermietet & teilweise selbstbewohnt» as well (HYPOTEQ 19.10. B5, DECISIONS V58); the reason names the answer given.
+  if (a.nutz && isRentedNutzung(a.nutz)) push("mieterspiegel", because(cond("nutz", a.nutz)));
   if (a.baurecht === "Ja") push("baurecht", because(cond("baurecht", "Ja")));
   if (a.angebote === "Ja") push("angebote", because(cond("angebote", "Ja")));
 

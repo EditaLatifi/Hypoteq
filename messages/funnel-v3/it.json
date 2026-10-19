@@ -185,7 +185,8 @@
     "laufzeit.5 Jahre": "5 anni",
     "laufzeit.10 Jahre": "10 anni",
     "laufzeit.Mix": "Mix",
-    "nutz.Gewerbe": "Commerciale"
+    "nutz.Gewerbe": "Commerciale",
+    "nutz.Vermietet & teilweise selbstbewohnt": "Locato e in parte abitato dal proprietario"
   },
   "s2": {
     "title": "Che cosa finanziamo?",
@@ -726,6 +727,12 @@
     "analysing": "Verifica in corso …",
     "analysingSub": "Vengono verificati modulo, firma e nome.",
     "wrongForm": "Il file caricato non è un’autorizzazione a fornire informazioni HYPOTEQ.",
+    "override": "Inviare comunque – HYPOTEQ verifica manualmente",
+    "overrideHint": "La verifica dell’IA è solo un’indicazione. Può comunque concludere la richiesta – HYPOTEQ verifica l’autorizzazione manualmente.",
+    "overrideUndo": "Non inviarla così",
+    "review": "In verifica manuale da parte di HYPOTEQ",
+    "reviewSub": "Inviata comunque – HYPOTEQ verifica l’autorizzazione manualmente. Può ancora caricare una copia firmata.",
+    "reviewBadge": "Verifica manuale",
     "replace": "Caricare un altro file",
     "downloading": "Creazione …",
     "downloadError": "Non è stato possibile creare il modello. Riprovi.",

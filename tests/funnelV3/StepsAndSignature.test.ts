@@ -78,13 +78,14 @@ describe("Auskunftsermächtigung (Handover 6)", () => {
   const LATER: SignatureState = { choice: "later", at: "2026-10-15T08:00:00.000Z", method: "upload" };
 
   it("missing until a copy is there or «später» is chosen; only then can the request be closed", () => {
-    expect(signatureView([], null, SIGNER)).toEqual({ status: "missing", fileIds: [], problems: [], canFinish: false });
+    // `override`: HYPOTEQ 19.10. E.4 «Trotzdem einreichen» (signatureOverride.test.ts).
+    expect(signatureView([], null, SIGNER)).toEqual({ status: "missing", fileIds: [], problems: [], override: false, canFinish: false });
     expect(signatureView([], LATER, SIGNER)).toMatchObject({ status: "later", canFinish: true });
   });
 
   it("received: right form, signature present, the borrower's name — also found in the folder", () => {
     const v = signatureView([f(an({ Unterschrift: "vorhanden", Vollmachtgeber: "Gary Samuel Gerber" }))], null, SIGNER);
-    expect(v).toEqual({ status: "received", fileIds: ["s1"], problems: [], canFinish: true });
+    expect(v).toEqual({ status: "received", fileIds: ["s1"], problems: [], override: false, canFinish: true });
   });
 
   it("«Unterschrift fehlt» when the AI finds no signature or another name", () => {

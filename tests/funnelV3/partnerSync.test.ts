@@ -63,6 +63,17 @@ describe('applyPartnerToCase', () => {
     expect(caseData.Account__c).toBeUndefined();
   });
 
+  it('a stale hit from the 24-hour fallback links the partner; a stale miss is no proof the partner is new', async () => {
+    resolve.mockResolvedValueOnce({ status: 'partner', contactId: '003AAAAAAAAAAAAAAA', accountId: '001BBBBBBBBBBBBBBB', name: 'Anna Muster', stale: true });
+    const linked: Record<string, any> = {};
+    await applyPartnerToCase(linked, 'anna@vzch.ch', null);
+    expect(linked).toEqual({ Partner_Consultant__c: '003AAAAAAAAAAAAAAA', Account__c: '001BBBBBBBBBBBBBBB' });
+    resolve.mockResolvedValueOnce({ status: 'unknown', stale: true });
+    const unknown: Record<string, any> = {};
+    await applyPartnerToCase(unknown, 'neu@makler.ch', PARTNER_FORM);
+    expect(unknown.Comments).toBe(PARTNER_CHECK_FAILED_NOTE);
+  });
+
   it('does not call a partner new when the lookup failed', async () => {
     resolve.mockRejectedValueOnce(new Error('Salesforce down'));
     const caseData: Record<string, any> = {};

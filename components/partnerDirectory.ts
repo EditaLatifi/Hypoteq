@@ -1,7 +1,8 @@
 /**
  * Who is behind a Berater e-mail (spec 2.2 / 6.3, DECISIONS D13).
  *
- *   - @hypoteq.ch / @hypoteq.com  → an active Salesforce User (Case.OwnerId)
+ *   - @hypoteq.ch                 → an active Salesforce User (Case.OwnerId). Only hypoteq.ch:
+ *                                   HYPOTEQ 19.10. A.2, there is no hypoteq.com address.
  *   - exact Contact e-mail match  → a sales-partner consultant (Case.Partner_Consultant__c,
  *                                   and the Contact's Account as the Sales Partner)
  *   - anything else               → unknown; the funnel offers «Als Partner erfassen» and
@@ -9,13 +10,19 @@
  *
  * Read-only by design. Unknown partners are NOT created as placeholder Contacts any more.
  *
+ * Live (HYPOTEQ 19.10. B17: «live per API-Abfrage … 24h-Cache als Fallback», no daily export): a
+ * Salesforce query per address, kept 15 minutes (2 for a miss). When Salesforce cannot be
+ * reached, the last successful answer for that address is used if it is younger than 24 hours,
+ * marked `stale` (DECISIONS V66). Both caches are in memory, per server instance: a cold
+ * instance has no fallback yet, and the error goes to the caller as before.
+ *
  * Which Contacts count as "active VP-Berater" is not decided yet, so the extra criterion is
  * configuration: SF_PARTNER_CONTACT_FILTER is a SOQL boolean fragment appended to the
  * Contact query (e.g. `AND Account.Type = 'Vertriebspartner'`). Empty = any Contact.
  */
 import { sfQuery, soqlString } from "@/components/salesforceApi";
 
-export type PartnerResolution =
+export type PartnerResolution = (
   | { status: "hypoteq"; userId: string; name: string }
   | {
       status: "partner";
@@ -26,20 +33,30 @@ export type PartnerResolution =
       lastName: string | null;
       company: string | null;
     }
-  | { status: "unknown" };
+  | { status: "unknown" }
+) & {
+  /** From the 24-hour fallback: Salesforce was not reachable, this is the last successful answer. */
+  stale?: true;
+};
 
-const HYPOTEQ_DOMAINS = ["hypoteq.ch", "hypoteq.com"];
+/** HYPOTEQ 19.10. A.2: hypoteq.ch is the only HYPOTEQ domain. */
+const HYPOTEQ_DOMAINS = ["hypoteq.ch"];
 
 /** Hits change rarely (a consultant leaves); misses must clear soon after HYPOTEQ adds someone. */
 export const HIT_TTL_MS = 15 * 60 * 1000;
 export const MISS_TTL_MS = 2 * 60 * 1000;
+/** HYPOTEQ 19.10. B17: the last successful answer stands in for an unreachable Salesforce this long. */
+export const FALLBACK_TTL_MS = 24 * 60 * 60 * 1000;
 
 type CacheEntry = { value: PartnerResolution; expiresAt: number };
 const cache = new Map<string, CacheEntry>();
+/** The last successful answer per address and when it came (the 24-hour fallback). */
+const lastGood = new Map<string, { value: PartnerResolution; at: number }>();
 
 /** For tests. */
 export function clearPartnerCache(): void {
   cache.clear();
+  lastGood.clear();
 }
 
 export function normalizeEmail(email: string): string {
@@ -92,8 +109,10 @@ async function lookup(email: string): Promise<PartnerResolution> {
 
 /**
  * Resolve a Berater e-mail. Cached per warm instance; `fresh: true` (used at submit, where
- * the Case is written) bypasses the cache and refreshes it. Salesforce errors propagate —
- * the caller decides how to degrade — and are never cached.
+ * the Case is written) bypasses the cache and refreshes it. A Salesforce error is never cached;
+ * it is answered from the last successful lookup of that address when that is younger than
+ * FALLBACK_TTL_MS (`stale: true`, HYPOTEQ 19.10. B17), else it propagates — the caller decides
+ * how to degrade.
  */
 export async function resolvePartner(
   email: string,
@@ -109,8 +128,19 @@ export async function resolvePartner(
     if (hit && hit.expiresAt > now) return hit.value;
   }
 
-  const value = await lookup(key);
+  let value: PartnerResolution;
+  try {
+    value = await lookup(key);
+  } catch (err) {
+    const fallback = lastGood.get(cacheKey);
+    if (fallback && now - fallback.at < FALLBACK_TTL_MS) {
+      console.warn(`[Partner] Salesforce not reachable — answering ${key} from the lookup of ${new Date(fallback.at).toISOString()}:`, err);
+      return { ...fallback.value, stale: true };
+    }
+    throw err;
+  }
   cache.set(cacheKey, { value, expiresAt: now + (value.status === "unknown" ? MISS_TTL_MS : HIT_TTL_MS) });
+  lastGood.set(cacheKey, { value, at: now });
   return value;
 }
 

@@ -1,6 +1,7 @@
 /**
  * Funnel v3 → Salesforce mapping gaps found by the audit (DECISIONS S6–S9):
- *   S6 Gesamtfinanzierung from the funnel calculation (v5: Kaufpreis-based, Handover 5)
+ *   S6 Gesamtfinanzierung from the funnel calculation (v5: Kaufpreis-based, Handover 5); since
+ *      HYPOTEQ 19.10. B14 also Tragbarkeit__c / EigenmittelProzent__c from calc.ts (v5 payloads)
  *   S7 Anrede → PersonAccount.Salutation on a NEW Account only
  *   S8 Verpf_ndung_PK__c from the PK-Verpfändung amount (v5), FR/IT spellings normalised
  *   S9 an old Ferienobjekt leaves Art_der_Liegenschaft__c unset
@@ -56,9 +57,13 @@ const legacyKauf = (financing: Record<string, string> = {}) => ({
   borrowers: [{ type: "nat" }],
 });
 
-/** The existing Tragbarkeit formula of the sync (S1), primary residence. */
+/** The existing Tragbarkeit formula of the sync (S1), primary residence — legacy payloads only. */
 const tragbarkeit = (mortgage: number, income: number) =>
   Math.round((mortgage * (0.05 + 0.008 + (0.8 - 0.6667) / 15)) / income * 100 * 10) / 10;
+
+/** The Handover formula (calc.ts) a v5 payload writes since HYPOTEQ 19.10. B14. */
+const v5Tragbarkeit = (mortgage: number, basis: number, income: number) =>
+  Math.round(((mortgage * 0.05 + Math.max(mortgage - (basis * 2) / 3, 0) / 15 + basis * 0.01) / income) * 100 * 10) / 10;
 
 /** In-memory stand-in for components/salesforceApi. */
 function fakeSalesforce(opts: { existingAccount?: any; rejectSalutationOnce?: boolean } = {}) {
@@ -108,28 +113,33 @@ describe("S6 — Gesamtfinanzierung of a v3 Kauf", () => {
     const c = sf.calls.cases[0];
     expect(c.Gesch_tzter_Hypothekenbedarf__c).toBe(800000);
     expect(c.Hypothekarvolumen__c).toBe(800000);
+    // HYPOTEQ 19.10. B14: the funnel's values (calc.ts), no longer S1 (26.8 %).
     expect(c.EigenmittelProzent__c).toBe(20);
-    expect(c.Tragbarkeit__c).toBe(tragbarkeit(800000, 200000));
-    expect(c.Tragbarkeit__c).toBe(26.8);
+    expect(c.Tragbarkeit__c).toBe(v5Tragbarkeit(800000, 1000000, 200000));
+    expect(c.Tragbarkeit__c).toBe(29.4);
     // No amount was entered, so no Eigenmittel__c.
     expect(c.Eigenmittel__c ?? null).toBeNull();
     expect(c.Kaufpreis__c).toBe(1000000);
   });
 
-  it("falls back to the Kaufpreis as object value when no Objektwert was given", async () => {
+  it("a lower Objektwert lowers the Belehnungsbasis, not the Eigenmittel % of the Gesamtkosten", async () => {
     const sf = fakeSalesforce();
     const p = v3({ fin: { ...EMPTY_AMOUNTS, kaufpreis: 1000000, val: 900000, inc: 200000 } });
-    // calc.ts v5: need = Kaufpreis × 80 % = 800'000 (not the Objektwert); Eigenmittel % on the Objektwert.
+    // calc.ts v5: need = Kaufpreis × 80 % = 800'000 (not the Objektwert). HYPOTEQ 19.10. B14:
+    // Eigenmittel % = (Gesamtkosten − Hypothek) / Gesamtkosten (was 11.1 on the Objektwert, S6).
     await syncFunnelStepsToSalesforce(p, sf.api);
     const c = sf.calls.cases[0];
     expect(c.Gesch_tzter_Hypothekenbedarf__c).toBe(800000);
-    expect(c.EigenmittelProzent__c).toBe(11.1);
+    expect(c.EigenmittelProzent__c).toBe(20);
+    expect(c.Tragbarkeit__c).toBe(v5Tragbarkeit(800000, 900000, 200000));
+    expect(c.Geschaetzter_Objektwert__c).toBe(900000);
 
+    // The payload's immobilienwert does not matter for a v5 payload: the answers are read.
     const sf2 = fakeSalesforce();
     const p2 = v3();
     p2.financing.immobilienwert = "";
     await syncFunnelStepsToSalesforce(p2, sf2.api);
-    expect(sf2.calls.cases[0].EigenmittelProzent__c).toBe(20); // (1'000'000 − 800'000) / Kaufpreis
+    expect(sf2.calls.cases[0].EigenmittelProzent__c).toBe(20); // (1'000'000 − 800'000) / Gesamtkosten
   });
 
   it("Ablösung: Gesamtfinanzierung = old + Erhöhung, as before", async () => {
@@ -142,8 +152,11 @@ describe("S6 — Gesamtfinanzierung of a v3 Kauf", () => {
     const c = sf.calls.cases[0];
     expect(c.Gesch_tzter_Hypothekenbedarf__c).toBe(650000);
     expect(c.Hypothekarvolumen__c).toBe(650000);
+    // 100 − Belehnung (650'000 / 1'450'000) — the same figure S6 wrote.
     expect(c.EigenmittelProzent__c).toBe(55.2);
-    expect(c.Tragbarkeit__c).toBe(tragbarkeit(650000, 125000));
+    // HYPOTEQ 19.10. B14: the funnel's Tragbarkeit (basis = Objektwert), not S1.
+    expect(c.Tragbarkeit__c).toBe(v5Tragbarkeit(650000, 1450000, 125000));
+    expect(c.Tragbarkeit__c).toBe(37.6);
   });
 
   it("legacy Kauf payload: Kaufpreis − Eigenmittel, hypoBetrag ignored, Eigenmittel__c written", async () => {
@@ -255,9 +268,10 @@ describe("S9 — Ferienobjekt (no longer offered, Handover 2)", () => {
     await syncFunnelStepsToSalesforce(v3({ ans: { ...kauf().ans, lieg: "Ferienobjekt" as any, nutz: "Zweitwohnsitz" } }), sf.api);
     const c = sf.calls.cases[0];
     expect(c.Art_der_Liegenschaft__c ?? null).toBeNull();
-    // The Nutzung and the Zweitwohnsitz rule (no amortisation in the Tragbarkeit) stay intact.
+    // The Nutzung stays intact. The Tragbarkeit is the funnel's (HYPOTEQ 19.10. B14): the Handover
+    // formula has no Zweitwohnsitz rule (the old S1 rule left the amortisation out).
     expect(c.Nutzung_der_Immobilie__c).toBe("Zweitwohnsitz");
-    expect(c.Tragbarkeit__c).toBe(Math.round((800000 * 0.058) / 200000 * 100 * 10) / 10);
+    expect(c.Tragbarkeit__c).toBe(v5Tragbarkeit(800000, 1000000, 200000));
 
     const sf2 = fakeSalesforce();
     await syncFunnelStepsToSalesforce(v3({ ans: { ...kauf().ans, lieg: "Stockwerkeigentum" } }), sf2.api);

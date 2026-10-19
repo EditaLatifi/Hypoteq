@@ -113,6 +113,11 @@ function dryRunApi(real: any, writes: any[]) {
       writes.push({ op: "createContact", fields });
       return { id: "DRYRUN_CONTACT_ID" };
     },
+    // A company is a Business Account + Contact (HYPOTEQ 19.10. B16): its create is a write too.
+    createBusinessAccount: async (company: any) => {
+      writes.push({ op: "createBusinessAccount", fields: company });
+      return { id: "DRYRUN_ACCOUNT_ID" };
+    },
     updateContact: async (id: string, fields: any) => {
       writes.push({ op: "updateContact", id, fields });
       return { id, success: true };
