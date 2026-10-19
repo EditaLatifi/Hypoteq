@@ -1,5 +1,6 @@
 /**
- * The Fall-Dossier as data (prototype docs/funnel-v3/prototype/dossier-app.html). Pure:
+ * The Fall-Dossier as data (HYPOTEQ's dossier prototype, dossier-app.html — no longer in the
+ * repository, it carried real customer data). Pure:
  * the sections, rows and annex the PDF renderer draws, in the funnel language (D11).
  *
  *   running header / footer · Deckblatt with KPIs · 01 Antrag · 02 Objekt · 03 Kreditnehmer ·

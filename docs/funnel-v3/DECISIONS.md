@@ -1,6 +1,6 @@
 # Funnel v3 – Umsetzungsentscheide
 
-Grundlage: `HYPOTEQ_Funnel_Spezifikation.md` (Stand 05.10.2026) und der Prototyp in `prototype/`.
+Grundlage: `HYPOTEQ_Funnel_Spezifikation.md` (Stand 05.10.2026) und der Prototyp von HYPOTEQ (nicht mehr im Repository, er enthielt echte Kundendaten).
 Wo die Spezifikation offen lässt oder einen Vorschlag macht, gilt bis zum Entscheid von HYPOTEQ der
 Default unten. Jeder Default ist so gebaut, dass er an einer Stelle geändert werden kann.
 
