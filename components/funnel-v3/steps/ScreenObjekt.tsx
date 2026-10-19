@@ -16,7 +16,8 @@ import CalcCard from "./CalcCard";
  * «Objekt & Finanzierung» (Handover 2 Schritt 2; Schnellanmeldung step 4, prefilled):
  *  - PLZ, Ort; Art der Immobilie (Bauprojekt disabled with its hint at an Ablösung); GB-Auszug
  *    und GVZ vorhanden? (Neubau); Art der Liegenschaft; Nutzung (natürliche Person Selbstbewohnt
- *    · Vermietet · Zweitwohnsitz, juristische Vermietet · Gewerbe); Netto-Mietertrag (Vermietet)
+ *    · Vermietet · Zweitwohnsitz · Vermietet & teilweise selbstbewohnt, juristische Vermietet ·
+ *    Gewerbe); Netto-Mietertrag (Vermietet, also teilweise vermietet — DECISIONS V58)
  *  - Ablösung: bestehende Hypothek, Erhöhung, Betrag, Verwendungszweck
  *  - Kauf: Kaufpreis, Kaufdatum, Renovation, Renovationsbetrag, reserviert
  *  - Geschätzter Objektwert (a Kauf: empty = Kaufpreis, shown as placeholder)

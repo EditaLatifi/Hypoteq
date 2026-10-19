@@ -17,6 +17,7 @@ import {
   EMPTY_EM,
   EM_ROWS,
   chipsFor,
+  isRentedNutzung,
   type Answers,
   type Borrower,
   type DocInfo,
@@ -67,7 +68,7 @@ export const OPTIONS: Record<ChoiceKey, readonly string[]> = {
   nbDocs: YN,
   lieg: ["Einfamilienhaus", "Stockwerkeigentum", "Mehrfamilienhaus"],
   // All four values; which a borrower type is offered: NUTZUNG_OPTIONS (types.ts).
-  nutz: ["Selbstbewohnt", "Vermietet", "Zweitwohnsitz", "Gewerbe"],
+  nutz: ["Selbstbewohnt", "Vermietet", "Zweitwohnsitz", "Vermietet & teilweise selbstbewohnt", "Gewerbe"],
   baurecht: YN,
   aufstockung: YN,
   reno: YN,
@@ -134,7 +135,8 @@ export function visibleFields(screen: Screen | null, state: VisibleState): strin
       f.push("plz", "ort", "immo");
       if (a.immo === "Neubau") f.push("nbDocs");
       f.push("lieg", "nutz");
-      if (a.nutz === "Vermietet") f.push("miete");
+      // Also «Vermietet & teilweise selbstbewohnt» (HYPOTEQ 19.10. B5, DECISIONS V58).
+      if (isRentedNutzung(a.nutz)) f.push("miete");
       if (a.antrag === "Ablösung") {
         f.push("old", "aufstockung");
         if (a.aufstockung === "Ja") f.push("up", "zweck");

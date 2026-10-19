@@ -29,7 +29,7 @@ import { GROUP_ORDER, SIGNATURE_REQUIREMENT_ID, reqList, type ReqGroup, type Req
 import { bankHints, requirementStatus, type BankHint, type ExtraKind, type RequirementStatus, type StatusResult, type UploadedFile } from "../requirementStatus";
 import { signatureView, type SignatureStatus } from "../signature";
 import { KORRESPONDENZSPRACHE } from "../toInquiryPayload";
-import { EM_ROWS, type DocInfo, type FieldPath, type FunnelState } from "../types";
+import { EM_ROWS, isRentedNutzung, type DocInfo, type FieldPath, type FunnelState } from "../types";
 import { MAIL_TEXTS } from "../mail/texts";
 import { DOSSIER_TEXTS, DOSSIER_V5_TEXTS, type DossierTexts } from "./texts";
 
@@ -327,7 +327,7 @@ export function buildDossierModel(input: DossierInput): DossierModel {
     ans.immo === "Neubau" && kv(ML.nbDocs, yesNo(ans.nbDocs), srcOf("ans.nbDocs")),
     kv(T.lieg, opt("lieg", ans.lieg) || "–", srcOf("ans.lieg")),
     kv(T.nutz, opt("nutz", ans.nutz) || "–", srcOf("ans.nutz")),
-    ans.nutz === "Vermietet" && fin.miete > 0 && kv(V.rent, chf(fin.miete), srcOf("fin.miete")),
+    isRentedNutzung(ans.nutz) && fin.miete > 0 && kv(V.rent, chf(fin.miete), srcOf("fin.miete")),
   ]);
   const s2Right: KeyValue[] = present([
     // v5: read from the documents, no longer asked (a v3 inquiry's answer is in `info` too).

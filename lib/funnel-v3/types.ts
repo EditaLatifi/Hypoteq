@@ -30,20 +30,43 @@ export type Anrede = "Herr" | "Frau";
 export type Immo = "Bestehende Immobilie" | "Neubau" | "Bauprojekt";
 /** Handover 2: «Ferienobjekt» entfällt (Ferienwohnung = Nutzung Zweitwohnsitz). */
 export type Liegenschaft = "Einfamilienhaus" | "Stockwerkeigentum" | "Mehrfamilienhaus";
-/** Handover 2: «Gewerbe» only for a juristische Person (NUTZUNG_OPTIONS). */
-export type Nutzung = "Selbstbewohnt" | "Vermietet" | "Zweitwohnsitz" | "Gewerbe";
+/**
+ * Handover 2: «Gewerbe» only for a juristische Person (NUTZUNG_OPTIONS). «Vermietet & teilweise
+ * selbstbewohnt» for a natürliche Person (HYPOTEQ 19.10. B5) — the exact Salesforce picklist value.
+ */
+export type Nutzung = "Selbstbewohnt" | "Vermietet" | "Zweitwohnsitz" | "Vermietet & teilweise selbstbewohnt" | "Gewerbe";
+
+/** HYPOTEQ 19.10. B5: the fourth Nutzung of a natürliche Person (= the Salesforce picklist value). */
+export const NUTZUNG_PARTLY_RENTED = "Vermietet & teilweise selbstbewohnt" as const;
 export type Job = "Angestellt" | "Selbständig" | "Pensioniert";
 export type Laufzeit = "SARON" | "2 Jahre" | "3 Jahre" | "5 Jahre" | "10 Jahre" | "Mix";
 
 /**
- * Handover 2 Schritt 2 «Nutzung»: natürliche Person Selbstbewohnt · Vermietet · Zweitwohnsitz,
- * juristische Person Vermietet · Gewerbe (bug from Rosanna's test: a company could pick
- * «Selbstbewohnt»).
+ * Handover 2 Schritt 2 «Nutzung»: natürliche Person Selbstbewohnt · Vermietet · Zweitwohnsitz ·
+ * Vermietet & teilweise selbstbewohnt (fourth option, HYPOTEQ 19.10. B5), juristische Person
+ * Vermietet · Gewerbe (bug from Rosanna's test: a company could pick «Selbstbewohnt»).
  */
 export const NUTZUNG_OPTIONS: Record<Kreditnehmer, readonly Nutzung[]> = {
-  "Natürliche Person": ["Selbstbewohnt", "Vermietet", "Zweitwohnsitz"],
+  "Natürliche Person": ["Selbstbewohnt", "Vermietet", "Zweitwohnsitz", NUTZUNG_PARTLY_RENTED],
   "Juristische Person": ["Vermietet", "Gewerbe"],
 };
+
+/**
+ * Rented out, in full or in part (DECISIONS V58): asks the Netto-Mietertrag and the Mieterspiegel
+ * (O14) — «Vermietet & teilweise selbstbewohnt» is treated like «Vermietet» there.
+ */
+export function isRentedNutzung(nutz: Nutzung | string | null | undefined): boolean {
+  return nutz === "Vermietet" || nutz === NUTZUNG_PARTLY_RENTED;
+}
+
+/**
+ * The owner lives there, in full or in part (DECISIONS V58): where a rule needs self-occupation
+ * (the home address on the Auskunftsermächtigung, V33) «Vermietet & teilweise selbstbewohnt»
+ * counts like «Selbstbewohnt».
+ */
+export function isOwnerOccupiedNutzung(nutz: Nutzung | string | null | undefined): boolean {
+  return nutz === "Selbstbewohnt" || nutz === NUTZUNG_PARTLY_RENTED;
+}
 
 /**
  * Handover 2 Schritt 3 «Trifft etwas davon zu?»: one multiple-choice question in place of the

@@ -29,6 +29,7 @@ import {
   EM_ROWS,
   MAX_BORROWERS,
   NUTZUNG_OPTIONS,
+  isRentedNutzung,
   type Amounts,
   type Answers,
   type Borrower,
@@ -204,7 +205,8 @@ export function answerAllowed<K extends keyof Answers>(ans: Answers, key: K, val
  *    → Neue Hypothek: the Ablösung block goes (bestehende Hypothek, Erhöhung, Zweck).
  *  - Kreditnehmer changed: Nutzung is reset (its options differ). → juristische Person: no
  *    Anrede, no income, no Kreditnehmer 2, no «Unterhaltszahlungen»; → natürliche: no Firma.
- *  - Nutzung ≠ Vermietet: no Netto-Mietertrag. Renovation = Nein: no Renovationsbetrag.
+ *  - Nutzung neither Vermietet nor «Vermietet & teilweise selbstbewohnt»: no Netto-Mietertrag.
+ *    Renovation = Nein: no Renovationsbetrag.
  *    Erhöhung = Nein: no Erhöhung, no Zweck. Solidarbürgschaft off: no Bürge name.
  * An option the state does not allow (answerAllowed) is refused: `accepted: false`.
  */
@@ -272,7 +274,8 @@ export function applyAnswer<K extends keyof Answers>(s: AnswerParts, key: K, val
       }
       break;
     case "nutz":
-      if (value !== "Vermietet") clearFin("miete");
+      // «Vermietet & teilweise selbstbewohnt» keeps it like «Vermietet» (DECISIONS V58).
+      if (!isRentedNutzung(value as Answers["nutz"])) clearFin("miete");
       break;
     case "immo":
       if (value !== "Neubau") clearAns("nbDocs", "Nein");

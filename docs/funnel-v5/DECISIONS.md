@@ -21,7 +21,7 @@ Er ist bewusst nicht im Repository, weil er echte Kundendaten enthält (README d
 | V3 | Zinsabrechnung bei Ablösung | bleibt Pflicht (wie im Prototyp); liefert Bank, Zins, Ablösedatum | Handover 4.1 H2, offen (10.1) |
 | V4 | Renovationsbetrag in Salesforce | kein Feld: nur im JSON `Dokumenten_Check_State__c`, nicht in `Betrag__c` | Handover 8, offen (10.5) |
 | V5 | Salesforce-Konflikte | Das bestehende Mapping gewinnt (README des Pakets, v3 S1). Wo ein v5-Vorschlag ein Feld nennt, das schon anders belegt ist, wird nur das bestehende geschrieben; der Wert steht zusätzlich im JSON. | README, Handover 8 |
-| V6 | Nutzung «Vermietet & teilweise selbstbewohnt» | nicht angeboten | offen (10.6) |
+| V6 | Nutzung «Vermietet & teilweise selbstbewohnt» | **HYPOTEQ 19.10. B5:** angeboten, als vierte Option der natürlichen Person (`NUTZUNG_OPTIONS`); Salesforce-Wert unverändert `Vermietet & teilweise selbstbewohnt`. Wie die Regeln sie lesen: V58. (Bis 19.10.: nicht angeboten.) | offen (10.6) → HYPOTEQ 19.10. B5 |
 | V7 | Konfidenz-Schwelle «aus Dokument · bitte prüfen» | 90 % | Handover 3 |
 | V8 | Kreditnehmer 2 | ein zweiter Kreditnehmer (Vorname, Nachname, Einkommen), nur nach «+ Kreditnehmer hinzufügen». Seine Unterlagen nach P17. | Handover 2 Schritt 3 |
 | V9 | Nicht mehr gefragt | Kinder, ab 50, Heizungsart, Ferienobjekt, Eigenmittel-Ja/Nein. «ab 50» kommt aus dem Geburtsdatum der ID, Heizungsart aus den Dokumenten. Alte Inquiries mit diesen Antworten bleiben lesbar. | Handover 0, 2 |
@@ -122,3 +122,12 @@ Die Screens beider Wege (`components/funnel-v3/**`). Nummern im Anschluss an die
 | V55 | Sperre «Finanzierungsanfrage abschliessen» | Genau `documentsSummary(…).signature.canFinish`: frei mit einem erhaltenen Exemplar oder «Später nachreichen». Ein Exemplar ohne Unterschrift, mit anderem Namen oder anderem Formular sperrt mit «Erst Auskunftsermächtigung unterzeichnen», keines (oder eines, das noch gelesen wird) mit «… hochladen»; darunter ein Satz, wie es weitergeht. | Handover 6 |
 | V56 | Meldungen zu den Dokumenten | Eine Meldung für den ganzen Funnel, wo man gerade ist: nach jedem gelesenen Stapel (Dateien, erfüllte Anforderungen, in der Schnellanmeldung die übernommenen Angaben, zu Prüfendes, Überzähliges); wächst die Liste durch Bonus, Lohnerhöhung oder ab 50, steht das in derselben Meldung, ausserhalb eines Stapels in einer eigenen. | Handover 4.2 |
 | V57 | Live-Berechnung und Eigenmittel-Hinweise | Die dunkle Karte steht am Ende von «Objekt & Finanzierung» und «Personen» (Prototyp), nicht im Abschluss (dort die Kennzahlen). Der Hinweis unter jeder Eigenmittel-Zeile nennt die Unterlagen, die der Betrag auf die Liste setzt («→ Schenkungsvertrag»), aus der Dokumentenlogik berechnet; PK-Verpfändung beim Kauf: «Sicherheit, zählt nicht zu den Eigenmitteln». «+ Kreditnehmer hinzufügen» zeigt sein «+N» (P17). | Handover 2, 5, Prototyp |
+
+## Antworten HYPOTEQ 19.10.2026 (Funnel und Salesforce)
+
+Grundlage: `HYPOTEQ_Antworten_2026-10-19.md` (verbindlich). Zeilen oben, die eine Antwort
+ändert oder bestätigt, sagen «HYPOTEQ 19.10. B<n>»; neue Ermessensentscheide stehen hier.
+
+| # | Thema | Default | Quelle |
+|---|---|---|---|
+| V58 | «Vermietet & teilweise selbstbewohnt» in den Regeln | Jede Stelle, die `ans.nutz` liest, wurde geprüft. **Wie «Vermietet»** (`isRentedNutzung`, types.ts): Feld Netto-Mietertrag (logic.ts `visibleFields`), der Store leert es beim Wechsel nicht (store.ts), Mieterspiegel O14 (requirements.ts; der Grund nennt die gegebene Antwort), `netto_mietertrag` → `J_hrlicher_Netto_Mietertrag__c` (toInquiryPayload.ts), Mietertrag in Mail und Dossier. **Wie «Selbstbewohnt»** (`isOwnerOccupiedNutzung`): Wohnadresse auf der Auskunftsermächtigung bei Ablösung (V33, authorizationData.ts). **Unverändert:** die Rechnung (calc.ts liest die Nutzung nicht), die Steuererklärung mit Eigenmietwert schlägt weiter «Selbstbewohnt» vor («bitte prüfen», prefill.ts), eine juristische Person bekommt die Option nicht (store `answerAllowed`). Salesforce: der Wert geht unverändert auf `Nutzung_der_Immobilie__c`. Labels EN/FR/IT von uns übersetzt (Durchsicht B12). | HYPOTEQ 19.10. B5 |

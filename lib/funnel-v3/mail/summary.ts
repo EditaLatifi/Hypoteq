@@ -28,7 +28,7 @@ import { normaliseFunnelState, FUNNEL_STATE_VERSION, type StoredFunnelState } fr
 import { GROUP_ORDER, SIGNATURE_REQUIREMENT_ID, type ReqGroup } from "../requirements";
 import type { RequirementState, RequirementStatus } from "../requirementStatus";
 import { signatureJson, signatureView, signatureWithServer, type SignatureJson } from "../signature";
-import { CHIPS, EM_ROWS, type Chip, type DocInfo, type FieldPath } from "../types";
+import { CHIPS, EM_ROWS, isRentedNutzung, type Chip, type DocInfo, type FieldPath } from "../types";
 import { MAIL_TEXTS, type Audience, type MailTexts } from "./texts";
 
 /** Where a value came from (Handover 3: «aus Dokument»); `doc` is the document when known. */
@@ -326,7 +326,7 @@ export function buildCaseSummary(input: SummaryInput, audience: Audience, facts?
       ans.immo === "Neubau" && ans.nbDocs === "Ja" ? r(L.nbDocs, yes, fromSrc("ans.nbDocs")) : null,
       r(t("q.lieg"), opt("lieg", ans.lieg), fromSrc("ans.lieg")),
       r(t("q.nutz"), opt("nutz", ans.nutz), fromSrc("ans.nutz")),
-      ans.nutz === "Vermietet" ? r(t("s2.rentIncome"), money(fin.miete), fromSrc("fin.miete")) : null,
+      isRentedNutzung(ans.nutz) ? r(t("s2.rentIncome"), money(fin.miete), fromSrc("fin.miete")) : null,
       fact(L.yearBuilt, "baujahr"),
       fact(L.rooms, "zimmer"),
       fact(L.livingArea, "wohnflaeche"),

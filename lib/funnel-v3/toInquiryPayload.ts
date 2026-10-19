@@ -26,7 +26,7 @@
 import { calcForState } from "./calc";
 import { FUNNEL_STATE_VERSION } from "./legacy";
 import type { SignatureJson } from "./signature";
-import { EMPTY_EM, type Anrede, type Borrower, type FunnelState, type Job, type Laufzeit, type Liegenschaft, type Nutzung, type YesNo } from "./types";
+import { EMPTY_EM, isRentedNutzung, type Anrede, type Borrower, type FunnelState, type Job, type Laufzeit, type Liegenschaft, type Nutzung, type YesNo } from "./types";
 
 export type Locale = "de" | "en" | "fr" | "it";
 
@@ -61,11 +61,15 @@ export const ANREDE: Record<Anrede, string> = {
   Frau: "Frau",
 };
 
-/** Spec 6.5; Handover 8: Gewerbe → «Für eigenes Geschäft». */
+/**
+ * Spec 6.5; Handover 8: Gewerbe → «Für eigenes Geschäft»; HYPOTEQ 19.10. B5: «Vermietet & teilweise
+ * selbstbewohnt» is its own picklist value on Nutzung_der_Immobilie__c.
+ */
 export const NUTZUNG: Record<Nutzung, string> = {
   Selbstbewohnt: "Selbstbewohnt",
   Vermietet: "Rendite-Immobilie",
   Zweitwohnsitz: "Zweitwohnsitz",
+  "Vermietet & teilweise selbstbewohnt": "Vermietet & teilweise selbstbewohnt",
   Gewerbe: "Für eigenes Geschäft",
 };
 
@@ -207,7 +211,8 @@ export function toInquiryPayload(state: FunnelState, opts: InquiryPayloadOptions
       // Bruttoeinkommen Haushalt: Kreditnehmer 1 + 2 (Handover 5).
       brutto: isJur ? "" : amount(calc.income),
       immobilienwert: amount(calc.value),
-      netto_mietertrag: ans.nutz === "Vermietet" ? amount(fin.miete) : "",
+      // Also «Vermietet & teilweise selbstbewohnt» (DECISIONS V58).
+      netto_mietertrag: isRentedNutzung(ans.nutz) ? amount(fin.miete) : "",
       // Gesamtfinanzierung as the funnel computed it; the mail shows it as Hypothekarbetrag.
       hypoBetrag: amount(calc.need),
       modell: ans.laufzeit ? MODELL[ans.laufzeit] : "",
