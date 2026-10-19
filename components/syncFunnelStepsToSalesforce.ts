@@ -67,6 +67,29 @@ export async function applyPartnerToCase(
 }
 
 /**
+ * Case.OwnerId of a funnel Case (HYPOTEQ 19.10. D.2, mapping «Owner»: «Queue Web-Anfragen oder
+ * HYPOTEQ-User»; DECISIONS V64). A HYPOTEQ user as Berater is already the owner
+ * (applyPartnerToCase, by the User's e-mail); every other Case goes to the queue «Web-Anfragen»
+ * (salesforceApi.findFunnelQueueId, resolved at runtime, cached). Fails soft: no queue, a failed
+ * lookup or an API without the function leave the default owner.
+ */
+export async function applyFunnelOwner(caseData: Record<string, any>, salesforceApi: any): Promise<void> {
+  if (caseData['OwnerId']) return;
+  if (typeof salesforceApi?.findFunnelQueueId !== 'function') return;
+  try {
+    const queueId = await salesforceApi.findFunnelQueueId();
+    if (queueId) {
+      caseData['OwnerId'] = queueId;
+      console.log(`[Salesforce Sync] Owner: queue Web-Anfragen ${queueId}`);
+    } else {
+      console.warn('[Salesforce Sync] Queue «Web-Anfragen» not found — the Case keeps the default owner');
+    }
+  } catch (err) {
+    console.error('[Salesforce Sync] Queue «Web-Anfragen» could not be resolved — the Case keeps the default owner:', err);
+  }
+}
+
+/**
  * Swiss date (TT.MM.JJJJ, also T.M.JJJJ) or an ISO date → Salesforce `YYYY-MM-DD`; null for
  * anything that is not a real calendar date. The Kaufdatum and the Ablösedatum read from the
  * Zinsabrechnung are typed or printed text — «Mai 2026» or «31.02.2026» must not reach the Date
@@ -1399,6 +1422,8 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
       console.error(`[Salesforce Sync] Error resolving HYPOTEQ sales partner Account:`, err);
     }
   }
+
+  await applyFunnelOwner(caseData, salesforceApi);
 
   console.log('[Salesforce Sync] Full caseData before sending:', JSON.stringify(caseData, null, 2));
 

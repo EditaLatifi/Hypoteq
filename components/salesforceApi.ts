@@ -152,6 +152,40 @@ export async function createContact(fields: Record<string, any>) {
   return writeWithFieldFallback((f) => conn.sobject('Contact').create(f), fields, 'create Contact', 'Contact');
 }
 
+// ---- Owner of a funnel Case: the queue «Web-Anfragen» (HYPOTEQ 19.10. D.2, DECISIONS V64) ------
+
+/** The queue a funnel Case belongs to, by Name or DeveloperName (configurable, defaults per D.2). */
+export function funnelQueueNames(): { name: string; developerName: string } {
+  return {
+    name: (process.env.SF_FUNNEL_QUEUE_NAME || 'Web-Anfragen').trim(),
+    developerName: (process.env.SF_FUNNEL_QUEUE_DEVELOPER_NAME || 'Web_Anfragen').trim(),
+  };
+}
+
+// Only a found queue is cached (per warm instance), so a queue created later is picked up.
+let funnelQueueId: string | null = null;
+
+/** For tests. */
+export function clearFunnelQueueCache(): void {
+  funnelQueueId = null;
+}
+
+/**
+ * The Id of the Case queue «Web-Anfragen» (`Group WHERE Type = 'Queue' AND (Name = … OR
+ * DeveloperName = …)`), resolved at runtime and cached; null when the org has none. Errors
+ * propagate — the sync keeps the default owner then.
+ */
+export async function findFunnelQueueId(): Promise<string | null> {
+  if (funnelQueueId) return funnelQueueId;
+  const { name, developerName } = funnelQueueNames();
+  const rows = await sfQuery<any>(
+    `SELECT Id FROM Group WHERE Type = 'Queue' AND (Name = ${soqlString(name)} OR DeveloperName = ${soqlString(developerName)}) LIMIT 1`,
+    'findFunnelQueueId',
+  );
+  funnelQueueId = rows[0]?.Id || null;
+  return funnelQueueId;
+}
+
 // ---- Juristische Person: Business Account + Contact (HYPOTEQ 19.10. B16, DECISIONS V63) --------
 
 /**
@@ -388,14 +422,18 @@ async function writeWithFieldFallback(
       // A lookup/master-detail field was given something that is not a valid record Id
       // (e.g. an email address landing in a Contact lookup). Dropping the reference costs
       // one link; keeping it costs the entire lead.
-      if (code === 'MALFORMED_ID' || code === 'INVALID_CROSS_REFERENCE_KEY' || code === 'INVALID_ID_FIELD') {
+      if (code === 'MALFORMED_ID' || code === 'INVALID_CROSS_REFERENCE_KEY' || code === 'INVALID_ID_FIELD' || code === 'INSUFFICIENT_ACCESS_ON_CROSS_REFERENCE_ENTITY') {
         const target =
           errFields.find(f => f in working) ??
           Object.keys(working).find(f => {
             const v = working[f];
             // Salesforce Ids are 15 or 18 chars; anything else in a lookup is malformed.
             return typeof v === 'string' && f.endsWith('__c') && v !== '' && v.length !== 15 && v.length !== 18 && message.includes(v);
-          });
+          }) ??
+          // An owner the record cannot take (a queue not enabled for the object, a User without
+          // access) and Salesforce names no field: the owner goes, the default owner stays —
+          // HYPOTEQ 19.10. D.2 must never cost the lead.
+          (code !== 'MALFORMED_ID' && 'OwnerId' in working ? 'OwnerId' : undefined);
         if (target) {
           console.warn(`[Salesforce] ${context}: dropping invalid lookup value for '${target}' ('${working[target]}') and retrying`);
           noteDropped(sobjectType, target, code);
@@ -542,6 +580,7 @@ export default {
   createContact,
   updateContact,
   updatePersonAccount,
+  findFunnelQueueId,
   getBusinessAccountRecordTypeId,
   findBusinessAccount,
   createBusinessAccount,
