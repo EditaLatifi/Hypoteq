@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { syncNotifications } from "@/lib/portal/notifications";
 import { isLocale } from "@/lib/portal/i18n/dict";
+import { backgroundOrigin } from "@/lib/portal/origin";
 import { listPartnerCases } from "@/lib/portal/salesforce";
 import { scopeOfPartner } from "@/lib/portal/scope";
 import { sendSignatureReminders } from "@/lib/funnel-v3/signatureServer";
@@ -26,7 +27,8 @@ export async function GET(req: Request) {
   if (!secret || req.headers.get("authorization") !== `Bearer ${secret}`) {
     return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   }
-  const origin = (process.env.PORTAL_BASE_URL || process.env.NEXT_PUBLIC_SITE_URL || "https://www.hypoteq.ch").replace(/\/$/, "");
+  // PORTAL_BASE_URL, else this deployment's own domain (lib/portal/origin.ts).
+  const origin = backgroundOrigin();
 
   let portal: { partners: number; notifications: number; failures: number };
   let signatures: { checked: number; sent: number } = { checked: 0, sent: 0 };

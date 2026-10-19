@@ -12,6 +12,10 @@ export const INVITE_TTL_HOURS = 7 * 24;
 export const RESET_TTL_MINUTES = 30;
 export const MAGIC_TTL_MINUTES = 15;
 
+/** Link mails (magic link, reset, invite) per account and purpose within the window. */
+export const LINK_MAX_PER_WINDOW = 5;
+export const LINK_WINDOW_MINUTES = 15;
+
 /** Failed logins per e-mail within the window before further attempts are refused. */
 export const LOGIN_MAX_FAILURES = 5;
 export const LOGIN_FAILURE_WINDOW_MINUTES = 15;

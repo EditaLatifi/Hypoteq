@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { newToken, sha256 } from "@/lib/portal/crypto";
 import { SESSION_COOKIE, SESSION_IDLE_MINUTES, SESSION_MAX_HOURS } from "@/lib/portal/config";
+import { linkOrigin } from "@/lib/portal/origin";
 import type { PortalUser } from "@prisma/client";
 
 export type SessionUser = Pick<
@@ -38,13 +39,13 @@ export function requestIp(): string | null {
   return (h.get("x-forwarded-for") || "").split(",")[0].trim() || h.get("x-real-ip") || null;
 }
 
-/** Absolute origin of the current request, for links in e-mails. */
+/**
+ * Origin for links in e-mails: the host of this request when it is one of ours, so a link
+ * requested on a preview leads back to that preview (lib/portal/origin.ts, B6 / E.3).
+ */
 export function requestOrigin(): string {
-  if (process.env.PORTAL_BASE_URL) return process.env.PORTAL_BASE_URL.replace(/\/$/, "");
   const h = headers();
-  const host = h.get("x-forwarded-host") || h.get("host") || "www.hypoteq.ch";
-  const proto = h.get("x-forwarded-proto") || (host.startsWith("localhost") ? "http" : "https");
-  return `${proto}://${host}`;
+  return linkOrigin({ host: h.get("host"), forwardedHost: h.get("x-forwarded-host"), forwardedProto: h.get("x-forwarded-proto") });
 }
 
 /** Only callable from a server action or route handler (it sets a cookie). */

@@ -16,13 +16,13 @@ import {
   loadPartnerData,
   mergePartnerData,
 } from "@/lib/portal/changeRequests";
-import { RESET_TTL_MINUTES } from "@/lib/portal/config";
+import { LINK_WINDOW_MINUTES, RESET_TTL_MINUTES } from "@/lib/portal/config";
 import { getDict } from "@/lib/portal/i18n/server";
 import { isImageKind, removeImage, setLogoOnLight } from "@/lib/portal/images";
-import { sendResetMail, sendTeamMail } from "@/lib/portal/mail";
+import { mailErrorText, sendResetMail, sendTeamMail } from "@/lib/portal/mail";
 import { isSalesforceId } from "@/lib/portal/salesforce";
 import { requestIp, requestOrigin, requireUser } from "@/lib/portal/session";
-import { issueToken } from "@/lib/portal/tokens";
+import { issueToken, tooManyLinks } from "@/lib/portal/tokens";
 
 /**
  * Profile actions (handoff 4 «Profil»). Uploading a photo or logo goes through
@@ -169,11 +169,13 @@ export async function sendPasswordLinkAction(_prev: FormState, _fd: FormData): P
   const { t, locale } = await getDict();
   const user = await requireUser();
   if (user.viewingAs) return { error: t.profileExtra.security.viewAs };
+  // Logged in, so it may say so: the earlier links still work (lib/portal/tokens.ts).
+  if (await tooManyLinks(user.id, "reset")) return { error: t.errors.linkLimit(LINK_WINDOW_MINUTES) };
   try {
     const token = await issueToken(user.id, "reset", RESET_TTL_MINUTES);
     await sendResetMail({ to: user.email, name: user.name, origin: requestOrigin(), token, locale: user.locale || locale });
   } catch (err) {
-    console.error("[portal] password link from the profile failed", err);
+    console.error("[portal] password link from the profile failed", mailErrorText(err));
     return { error: t.errors.mailFailed };
   }
   await audit({ action: "password_reset_requested", actorId: user.id, actorEmail: user.email, target: "aus dem Profil", ip: requestIp() });

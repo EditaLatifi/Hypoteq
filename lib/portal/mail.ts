@@ -5,8 +5,8 @@ import { isPlausibleEmail, mailFromAddress, teamAddress } from "@/lib/portal/con
 import { DICTS, isLocale, type Dict } from "@/lib/portal/i18n/dict";
 
 /**
- * Partnerportal e-mails, sent through Microsoft Graph like the rest of the site, in the
- * recipient's language. Partner e-mails carry no case data beyond the customer's name
+ * Partnerportal e-mails, sent through Microsoft Graph (else SMTP) like the rest of the site,
+ * in the recipient's language. Partner e-mails carry no case data beyond the customer's name
  * and the action — the details are behind the login.
  */
 
@@ -74,28 +74,99 @@ type Outgoing = {
   replyTo?: string | null;
 };
 
+/** «d***@meier-finanz.ch»: enough to tell in a log which mailbox it was, without the address. */
+export function maskEmail(email: string): string {
+  const [local, domain] = String(email || "").split("@");
+  if (!domain) return "***";
+  return `${local.slice(0, 1)}***@${domain}`;
+}
+
+/** What went wrong, from a Graph error (status, code, message) or anything else. */
+export function mailErrorText(err: any): string {
+  const parts = [err?.statusCode, err?.code, err?.body?.error?.message || err?.message || String(err)].filter((p) => p !== undefined && p !== null && p !== "");
+  return parts.join(" · ").slice(0, 500);
+}
+
+type Transport = { kind: "graph" | "smtp"; send(m: Outgoing, copies: string[], replyTo: string | null): Promise<void> };
+
+/**
+ * How portal mails leave: Microsoft Graph when configured (USE_GRAPH=true + GRAPH_*), else
+ * SMTP with SMTP_USER / SMTP_PASS — the same two ways the rest of the website sends, so the
+ * portal mails wherever the site does (B6 / E.3). Null when neither is set.
+ */
+function transport(): Transport | null {
+  const graph = getGraphMailClient();
+  if (graph) {
+    return {
+      kind: "graph",
+      send: async (m, copies, replyTo) => {
+        await graph.api(`/users/${mailFromAddress()}/sendMail`).post({
+          message: {
+            subject: m.subject,
+            body: { contentType: "HTML", content: m.html },
+            toRecipients: [{ emailAddress: { address: m.to } }],
+            ...(copies.length ? { ccRecipients: copies.map((address) => ({ emailAddress: { address } })) } : {}),
+            ...(replyTo ? { replyTo: [{ emailAddress: { address: replyTo } }] } : {}),
+          },
+          saveToSentItems: true,
+        });
+      },
+    };
+  }
+  const user = process.env.SMTP_USER;
+  const pass = process.env.SMTP_PASS;
+  if (user && pass) {
+    return {
+      kind: "smtp",
+      send: async (m, copies, replyTo) => {
+        const nodemailer = (await import("nodemailer")).default;
+        const transporter = nodemailer.createTransport({
+          host: process.env.SMTP_HOST || "smtp.office365.com",
+          port: parseInt(process.env.SMTP_PORT || "587", 10),
+          secure: false,
+          requireTLS: true,
+          auth: { user, pass },
+        });
+        await transporter.sendMail({
+          // SMTP sends as the authenticated mailbox; PORTAL_MAIL_FROM would need SendAs rights.
+          from: `"HYPOTEQ Partnerportal" <${user}>`,
+          to: m.to,
+          ...(copies.length ? { cc: copies } : {}),
+          ...(replyTo ? { replyTo } : {}),
+          subject: m.subject,
+          html: m.html,
+        });
+      },
+    };
+  }
+  return null;
+}
+
+/**
+ * Send one portal mail. A mail that cannot go out throws — the caller tells the user — and is
+ * logged here with the reason (console.error: production builds strip console.log). Only a
+ * developer machine (NODE_ENV=development) without a transport prints the link instead.
+ */
 async function send(m: Outgoing): Promise<void> {
-  const client = getGraphMailClient();
-  if (!client) {
-    if (process.env.NODE_ENV !== "production") {
-      // Local development without Graph: the link is the only thing a developer needs.
-      console.log(`[portal] Graph mail disabled — would send "${m.subject}" to ${m.to}:\n  ${m.devLink}`);
+  const t = transport();
+  if (!t) {
+    if (process.env.NODE_ENV === "development") {
+      // Local development without mail: the link is the only thing a developer needs.
+      console.log(`[portal] mail disabled — would send "${m.subject}" to ${m.to}:\n  ${m.devLink}`);
       return;
     }
-    throw new Error("Portal mail cannot be sent: Microsoft Graph is not configured");
+    const reason = "neither Microsoft Graph (USE_GRAPH=true, GRAPH_TENANT_ID, GRAPH_CLIENT_ID, GRAPH_CLIENT_SECRET) nor SMTP (SMTP_USER, SMTP_PASS) is configured";
+    console.error(`[portal] mail «${m.subject}» to ${maskEmail(m.to)} NOT sent: ${reason}`);
+    throw new Error(`Portal mail cannot be sent: ${reason}`);
   }
   const copies = (m.cc || []).filter((a) => a && a.toLowerCase() !== m.to.toLowerCase());
   const replyTo = m.replyTo && isPlausibleEmail(m.replyTo.trim()) ? m.replyTo.trim() : null;
-  await client.api(`/users/${mailFromAddress()}/sendMail`).post({
-    message: {
-      subject: m.subject,
-      body: { contentType: "HTML", content: m.html },
-      toRecipients: [{ emailAddress: { address: m.to } }],
-      ...(copies.length ? { ccRecipients: copies.map((address) => ({ emailAddress: { address } })) } : {}),
-      ...(replyTo ? { replyTo: [{ emailAddress: { address: replyTo } }] } : {}),
-    },
-    saveToSentItems: true,
-  });
+  try {
+    await t.send(m, copies, replyTo);
+  } catch (err) {
+    console.error(`[portal] mail «${m.subject}» to ${maskEmail(m.to)} via ${t.kind}${t.kind === "graph" ? ` as ${mailFromAddress()}` : ""} failed: ${mailErrorText(err)}`);
+    throw err;
+  }
 }
 
 export async function sendInviteMail(p: { to: string; name: string | null; company: string | null; origin: string; token: string; locale: string | null }) {

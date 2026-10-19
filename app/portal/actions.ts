@@ -5,20 +5,12 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { audit } from "@/lib/portal/audit";
-import {
-  INVITE_TTL_HOURS,
-  LOGIN_FAILURE_WINDOW_MINUTES,
-  LOGIN_MAX_FAILURES,
-  MAGIC_TTL_MINUTES,
-  RESET_TTL_MINUTES,
-  adminEmails,
-  isPlausibleEmail,
-  normalizeEmail,
-} from "@/lib/portal/config";
+import { LOGIN_FAILURE_WINDOW_MINUTES, LOGIN_MAX_FAILURES, isPlausibleEmail, normalizeEmail } from "@/lib/portal/config";
 import { hashPassword, passwordProblem, verifyPassword } from "@/lib/portal/crypto";
 import { isLocale } from "@/lib/portal/i18n/dict";
 import { LOCALE_COOKIE, getDict } from "@/lib/portal/i18n/server";
-import { sendInviteMail, sendMagicLinkMail, sendResetMail, sendTeamMail } from "@/lib/portal/mail";
+import { requestLink, type LinkKind } from "@/lib/portal/linkRequests";
+import { mailErrorText, sendTeamMail } from "@/lib/portal/mail";
 import { deliverCaseMessage } from "@/lib/portal/caseMessage";
 import { getContact, getPartnerCase, isSalesforceId, portalAccessRefused } from "@/lib/portal/salesforce";
 import {
@@ -33,7 +25,7 @@ import {
   revokeAllSessions,
 } from "@/lib/portal/session";
 import { scopeFor } from "@/lib/portal/scope";
-import { consumeToken, issueToken, peekToken } from "@/lib/portal/tokens";
+import { consumeToken, peekToken } from "@/lib/portal/tokens";
 
 export type FormState = { error?: string; sent?: string; ok?: string } | undefined;
 
@@ -104,56 +96,30 @@ export async function loginAction(_prev: FormState, fd: FormData): Promise<FormS
   redirect(await landingFor(user.id));
 }
 
-export async function requestMagicLinkAction(_prev: FormState, fd: FormData): Promise<FormState> {
+/**
+ * «Magic Link senden» / «Passwort vergessen» (lib/portal/linkRequests.ts). The answer is the
+ * same whether or not the address has an account; why no mail went out is in the server log.
+ */
+async function linkRequestAction(kind: LinkKind, fd: FormData): Promise<FormState> {
   const { t, locale } = await getDict();
   const email = normalizeEmail(field(fd, "email"));
   if (!isPlausibleEmail(email)) return { error: t.errors.enterEmail };
-
-  let user = await prisma.portalUser.findUnique({ where: { email } });
-
-  // HYPOTEQ administrators listed in PORTAL_ADMIN_EMAILS need no invite: the first magic
-  // link creates their account. This is how the very first admin gets in.
-  if (!user && adminEmails().includes(email)) {
-    user = await prisma.portalUser.create({
-      data: { email, role: "admin", status: "active", activatedAt: new Date(), company: "HYPOTEQ AG", locale },
-    });
-  }
-
   try {
-    if (user?.status === "active") {
-      const token = await issueToken(user.id, "magic", MAGIC_TTL_MINUTES);
-      await sendMagicLinkMail({ to: user.email, name: user.name, origin: requestOrigin(), token, locale: user.locale || locale });
-      await audit({ action: "magic_link_requested", actorId: user.id, actorEmail: user.email, ip: requestIp() });
-    } else if (user?.status === "invited") {
-      // Not activated yet: the invite is what they need, not a login link.
-      const token = await issueToken(user.id, "invite", INVITE_TTL_HOURS * 60);
-      await sendInviteMail({ to: user.email, name: user.name, company: user.company, origin: requestOrigin(), token, locale: user.locale || locale });
-      await audit({ action: "invite_resent", actorId: user.id, actorEmail: user.email, target: "via Login", ip: requestIp() });
-    }
+    await requestLink(kind, email, { locale, origin: requestOrigin(), ip: requestIp() });
   } catch (err) {
-    console.error("[portal] magic link mail failed", err);
+    // lib/portal/mail.ts has logged the reason; this names the step.
+    console.error(`[portal] ${kind === "magic" ? "magic link" : "password reset"} mail failed`, mailErrorText(err));
     return { error: t.errors.mailFailed };
   }
   return { sent: t.errors.sent(email) };
 }
 
-export async function requestResetAction(_prev: FormState, fd: FormData): Promise<FormState> {
-  const { t, locale } = await getDict();
-  const email = normalizeEmail(field(fd, "email"));
-  if (!isPlausibleEmail(email)) return { error: t.errors.enterEmail };
+export async function requestMagicLinkAction(_prev: FormState, fd: FormData): Promise<FormState> {
+  return linkRequestAction("magic", fd);
+}
 
-  const user = await prisma.portalUser.findUnique({ where: { email } });
-  try {
-    if (user?.status === "active") {
-      const token = await issueToken(user.id, "reset", RESET_TTL_MINUTES);
-      await sendResetMail({ to: user.email, name: user.name, origin: requestOrigin(), token, locale: user.locale || locale });
-      await audit({ action: "password_reset_requested", actorId: user.id, actorEmail: user.email, ip: requestIp() });
-    }
-  } catch (err) {
-    console.error("[portal] reset mail failed", err);
-    return { error: t.errors.mailFailed };
-  }
-  return { sent: t.errors.sent(email) };
+export async function requestResetAction(_prev: FormState, fd: FormData): Promise<FormState> {
+  return linkRequestAction("reset", fd);
 }
 
 export async function activateAction(_prev: FormState, fd: FormData): Promise<FormState> {
