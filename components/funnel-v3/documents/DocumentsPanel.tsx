@@ -27,6 +27,7 @@ import { useFunnelV3, type Step } from "@/lib/funnel-v3/store";
 import { useDocumentsSummary } from "@/lib/funnel-v3/documentsSummary";
 import { chf } from "@/lib/funnel-v3/format";
 import { effectiveBorrowers, getRequirement, isSignatureRequirement } from "@/lib/funnel-v3/requirements";
+import { documentTally } from "@/lib/funnel-v3/requirementStatus";
 import { stepOf } from "@/lib/funnel-v3/steps";
 import { addPickedFiles, MAX_FILE_BYTES, screenFiles, type PickedFile } from "@/lib/funnel-v3/upload";
 import { v3DocType } from "@/components/documentIntelligence/v3/catalogue";
@@ -105,11 +106,13 @@ export default function DocumentsPanel({ variant }: { variant: DocumentsVariant 
   );
   const suggested = useMemo(() => new Set(suggestions.flatMap((s) => s.fileIds)), [suggestions]);
 
-  // ---- counts (prototype «Vollständigkeit»), without the Auskunftsermächtigung
-  const ok = docRows.filter((r) => r.state === "ok" || r.state === "skipped").length;
-  const warn = docRows.filter((r) => r.state === "partial" || r.state === "outdated").length;
-  const miss = docRows.filter((r) => r.state === "missing" || r.state === "analysing").length;
-  const total = docRows.length || 1;
+  // ---- counts (prototype «Vollständigkeit»): the same tally as the closing, the
+  // Auskunftsermächtigung included although its row sits in its own block (DECISIONS V51).
+  const tally = documentTally(status.counts);
+  const ok = tally.fulfilled;
+  const warn = tally.review;
+  const miss = tally.missing;
+  const total = tally.total || 1;
   const busy = summary.busy;
   const doneFiles = files.filter((f) => f.analysisState === "done").length;
   const showList = variant !== "upload" || files.length > 0;
@@ -239,7 +242,7 @@ export default function DocumentsPanel({ variant }: { variant: DocumentsVariant 
           <div className="v3-status-head">
             <div className="v3-status-copy">
               <span className="v3-eyebrow">{t("s5.completeness")}</span>
-              <span className="v3-status-line">{t("s5.fulfilled", { ok, total: docRows.length })}</span>
+              <span className="v3-status-line">{t("s5.fulfilled", { ok, total: tally.total })}</span>
               <span className="v3-status-sub">
                 {busy
                   ? t("docs.progressBusy")

@@ -55,6 +55,31 @@ export interface StatusCounts {
   fulfilled: number;
 }
 
+/**
+ * The one document tally every screen shows (documents step, closing, Kennzahlen):
+ * fulfilled + review + missing = total, the Auskunftsermächtigung counted like any requirement
+ * (DECISIONS V51). «missing» includes optional documents not yet there and files still being
+ * read, so the three numbers always add up to the total shown beside them.
+ */
+export interface DocumentTally {
+  total: number;
+  /** Erkannt, or «Habe ich nicht» on an optional requirement. */
+  fulfilled: number;
+  /** Partial or outdated: a person should look at it. */
+  review: number;
+  /** Not there yet (or still being read). */
+  missing: number;
+}
+
+export function documentTally(counts: StatusCounts): DocumentTally {
+  return {
+    total: counts.total,
+    fulfilled: counts.fulfilled,
+    review: counts.partial + counts.outdated,
+    missing: counts.missing + counts.analysing,
+  };
+}
+
 export interface StatusResult {
   requirements: RequirementStatus[];
   counts: StatusCounts;

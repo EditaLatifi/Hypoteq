@@ -8,14 +8,18 @@
  *     is ok AND no required document is missing; otherwise «Letzter Blick auf die Anfrage»
  *   - Hinweise an die Bank (bankHints, each with the extraction's note)
  *   - Prüfliste: Antrag, Objekt, Kreditnehmer, Tragbarkeit und Belehnung, Unterlagen,
- *     «Aus Dokumenten übernommen», each «Bestätigt» or «Offen» as in the prototype
+ *     «Aus Dokumenten übernommen» (only once a value was read from a document), each
+ *     «Bestätigt» or «Offen» as in the prototype
+ *
+ * Every document number is the shared tally (documentTally): the documents step, the
+ * Kennzahl, the Prüfliste and the lead show the same figures, and they add up.
  */
 
 import { calcForState, type CalcResult } from "./calc";
 import type { FileEntry, SubmittedDocument } from "./files";
 import { chf, pct } from "./format";
 import { optionLabel, translate, type Lang, type Params } from "./i18n";
-import type { BankHint, StatusResult } from "./requirementStatus";
+import { documentTally, type BankHint, type StatusResult } from "./requirementStatus";
 import { chipsFor, type FunnelState } from "./types";
 
 export interface FinishKpi {
@@ -107,14 +111,15 @@ export function finishSummary(input: FinishSummaryInput): FinishSummary {
   const total = status.counts.total;
   const fulfilled = status.counts.fulfilled;
   const missingRequired = status.requirements.filter((r) => !r.instance.optional && (r.state === "missing" || r.state === "analysing")).length;
-  const toReview = status.counts.partial + status.counts.outdated;
-  // Optional requirements still open are not «fehlend» (they may be «Habe ich nicht»).
+  const tally = documentTally(status.counts);
+  const toReview = tally.review;
+  // The verdict waits only for required documents; the numbers shown are the shared tally.
   const extractedFields = countExtractedFields(status, input.files);
   const confirmedFields = countConfirmedFields(input.submittedDocuments);
 
   const allGood = calc.verdict === "ok" && missingRequired === 0;
   const title = t(allGood ? "s6.titleOk" : "s6.title");
-  const lead = missingRequired > 0 ? t("s6.leadMissing", { n: missingRequired }) : calc.verdict === "ok" ? t("s6.leadOk") : t("s6.leadReview");
+  const lead = missingRequired > 0 ? t("s6.leadMissing", { n: tally.missing }) : calc.verdict === "ok" ? t("s6.leadOk") : t("s6.leadReview");
 
   // ---- KPIs (prototype: Gesamtfinanzierung / Geschätzter Hypothekbedarf, Belehnung, Tragbarkeit, Unterlagen)
   const kpis: FinishKpi[] = [
@@ -146,7 +151,7 @@ export function finishSummary(input: FinishSummaryInput): FinishSummary {
   const docsSub = [
     t("s5.fulfilled", { ok: fulfilled, total }),
     ...(toReview ? [t("s6.docs.review", { n: toReview })] : []),
-    ...(missingRequired ? [t("s6.docs.missing", { n: missingRequired })] : []),
+    ...(tally.missing ? [t("s6.docs.missing", { n: tally.missing })] : []),
   ].join(" · ");
 
   const rows: Omit<FinishCheck, "badge">[] = [
@@ -180,12 +185,17 @@ export function finishSummary(input: FinishSummaryInput): FinishSummary {
       sub: docsSub,
       ok: missingRequired === 0 && toReview === 0,
     },
-    {
-      key: "fromDocs",
-      label: t("s6.check.fromDocs"),
-      sub: t("s6.fromDocsLine", { n: extractedFields, m: confirmedFields }),
-      ok: true,
-    },
+    // Only once something was read from a document: «0 Angaben ausgelesen · Bestätigt» said nothing.
+    ...(extractedFields > 0 || confirmedFields > 0
+      ? [
+          {
+            key: "fromDocs" as const,
+            label: t("s6.check.fromDocs"),
+            sub: t("s6.fromDocsLine", { n: extractedFields, m: confirmedFields }),
+            ok: true,
+          },
+        ]
+      : []),
   ];
   const checks = rows.map((r) => ({ ...r, badge: t(r.ok ? "s6.badge.ok" : "s6.badge.open") }));
 
