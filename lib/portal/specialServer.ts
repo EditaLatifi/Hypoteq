@@ -24,6 +24,7 @@ import {
   createSpecialCase,
   partnerLabel,
   specialCaseFields,
+  specialQueueName,
   specialSubject,
   type SpecialCaseResult,
 } from "@/lib/portal/specialSalesforce";
@@ -121,6 +122,9 @@ export function specialTeamMail(p: SpecialMailInput): { subject: string; lines: 
         r.recordType === "default" ? ", mit dem Standard-RecordType (RecordType «Spezialfinanzierung» nicht verfügbar)" : ""
       }.`
     );
+    if (r.owner === "default" && specialQueueName()) {
+      lines.push("ACHTUNG: Die Queue «Spezialfinanzierung» konnte nicht als Owner gesetzt werden. Bitte den Case der Queue zuweisen.");
+    }
     if (!r.linked) {
       lines.push(`ACHTUNG: Der Partner konnte nicht auf dem Case eingetragen werden (${partnerCaseField()}). Bitte von Hand zuordnen, sonst sieht er den Case im Portal nicht.`);
     }
@@ -154,7 +158,7 @@ async function linkToCase(caseId: string, user: SpecialUser, folderId: string | 
     if (folderId) {
       await prisma.portalCaseState.upsert({
         where: { caseId },
-        create: { caseId, contactId: user.contactId, status: "Neue Anfrage", folderId },
+        create: { caseId, contactId: user.contactId, status: "Anfrage eingegangen", folderId },
         update: { folderId },
       });
     }
@@ -177,7 +181,7 @@ async function linkToCase(caseId: string, user: SpecialUser, folderId: string | 
     if (known > 0) {
       await prisma.portalCaseSeen.upsert({
         where: { contactId_caseId: { contactId: user.contactId, caseId } },
-        create: { contactId: user.contactId, caseId, status: "Neue Anfrage", missingCount: 0 },
+        create: { contactId: user.contactId, caseId, status: "Anfrage eingegangen", missingCount: 0 },
         update: {},
       });
     }

@@ -45,8 +45,8 @@ const plain = (s: string) => s.replace(/\u00AD/g, "");
 
 /**
  * Bearbeitungsstand: seven steps in seven equal columns (desktop), vertical on phones. Long
- * words break only at the dictionary's soft hyphens. Abgelehnt and Storniert show a notice
- * instead of the steps.
+ * words break only at the dictionary's soft hyphens. Leider abgelehnt and Anfrage zurückgezogen
+ * show a notice instead of the steps.
  */
 function Timeline({ c, t }: { c: PortalCaseDetail; t: Dict }) {
   const tl = timeline(c.status);
@@ -60,7 +60,7 @@ function Timeline({ c, t }: { c: PortalCaseDetail; t: Dict }) {
       </div>
       {tl.ended ? (
         <div className="rounded-xl bg-white/[.08] px-4 py-3.5 text-[15px] text-white/70">
-          {c.status === "Storniert" ? t.caseDetail.endedCancelled : t.caseDetail.endedDeclined}
+          {c.status === "Anfrage zurückgezogen" ? t.caseDetail.endedCancelled : t.caseDetail.endedDeclined}
         </div>
       ) : (
         <>
@@ -224,6 +224,13 @@ export default async function CaseDetailPage({ params }: { params: { id: string 
             </h2>
             <div className="text-[21px] font-medium tracking-[-0.01em]">{t.caseDetail.needDocs}</div>
           </div>
+          {/* Salesforce can flag the Case (Partner_Action_Required__c) before the portal knows which paper is missing. */}
+          {!need.length && canUpload ? (
+            <div className="flex flex-wrap items-center justify-between gap-4 border-t border-white/[.14] pt-3">
+              <span className="text-[15px] text-white/70">{t.caseDetail.needDocsUnlisted}</span>
+              <UploadButton caseId={c.id} docKey={null} label={t.caseDetail.otherDoc} context={`${c.kunde} · ${c.nr} · ${t.docCats.weitere}`} text={t.caseDetail.uploadDoc} />
+            </div>
+          ) : null}
           <ul className="m-0 flex list-none flex-col p-0">
             {need.map((d) => {
               const meta = [t.docCats[d.category], docMeta(d, t)].filter(Boolean).join(" · ");

@@ -93,13 +93,14 @@ function fieldList(env: string | undefined, fallback: string[]): string[] {
 }
 
 /**
- * Where the IBAN and the partner number live is not known for this org yet. Candidates are
- * queried in order and the first filled one wins; a field the org does not have is dropped
- * (see queryTolerant). PORTAL_SF_IBAN_FIELDS / PORTAL_SF_PARTNER_NR_FIELDS correct the
- * mapping without a code change (Contact fields, or «Account.<Field>»).
+ * Where the IBAN and the partner number live (HYPOTEQ 19.10.2026 B26): `Account.IBAN_Nr__c`
+ * (Text 50, not IBAN__c) and `Account.AccountNumber`. Candidates are queried in order and the
+ * first filled one wins; a field the org does not have is dropped (see queryTolerant).
+ * PORTAL_SF_IBAN_FIELDS / PORTAL_SF_PARTNER_NR_FIELDS correct the mapping without a code
+ * change (Contact fields, or «Account.<Field>»).
  */
 export function ibanFields(): string[] {
-  return fieldList(process.env.PORTAL_SF_IBAN_FIELDS, ["Account.IBAN__c", "IBAN__c"]);
+  return fieldList(process.env.PORTAL_SF_IBAN_FIELDS, ["Account.IBAN_Nr__c"]);
 }
 
 export function partnerNrFields(): string[] {

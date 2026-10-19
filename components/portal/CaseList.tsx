@@ -8,6 +8,7 @@ import { useT } from "@/components/portal/I18n";
 import type { PortalCaseSummary } from "@/lib/portal/salesforce";
 import { matchRank } from "@/lib/portal/search";
 import { CASE_FILTERS, matchesFilter, parseFilter, type CaseFilter } from "@/lib/portal/status";
+import { filterCase } from "@/lib/portal/view";
 
 type Sort = { by: "date" | "status"; dir: 1 | -1 };
 
@@ -29,7 +30,7 @@ export default function CaseList({ cases, viewerContactId }: { cases: PortalCase
   const shown = useMemo(() => {
     const q = query.trim();
     return cases
-      .filter((c) => matchesFilter(filter, c.status, c.needDocs.length))
+      .filter((c) => matchesFilter(filter, filterCase(c)))
       .filter((c) => !q || matchRank(c, q) !== null)
       .sort((a, b) =>
         sort.by === "date"

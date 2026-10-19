@@ -20,7 +20,7 @@ export default async function MailPreviewPage() {
   const { t } = await getDict();
 
   const latest = await prisma.portalNotification.findFirst({ where: { userId: user.id }, orderBy: { createdAt: "desc" } });
-  const n = latest || { variant: "lender_answer", caseNr: "HQ-26-10-000000", kunde: t.mailPreview.sampleKunde, status: "Rückmeldung erhalten", caseId: null as string | null };
+  const n = latest || { variant: "lender_answer", caseNr: "HQ-26-10-000000", kunde: t.mailPreview.sampleKunde, status: "Angebot liegt vor", caseId: null as string | null };
   const { title, text } = notifText(t, n);
   const paragraphs = [t.mail.hello(user.name), t.mail.notifBody(text.replace(/\.$/, ""), n.caseNr)];
 

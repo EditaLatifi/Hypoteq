@@ -11,14 +11,14 @@ function c(p: Partial<PortfolioCase> & { status: string }): PortfolioCase {
 
 const CASES: PortfolioCase[] = [
   // open
-  c({ status: "Dokumente ausstehend", betrag: 850_000, documents: [{ status: "vorhanden" }, { status: "fehlt" }, { status: "fehlt" }, { status: "pruefung" }] }),
-  c({ status: "Bei Kreditgeber", betrag: 620_000, documents: [{ status: "vorhanden" }, { status: "vorhanden" }, { status: "hochgeladen", extra: true }] }),
-  c({ status: "Neue Anfrage", betrag: null }),
+  c({ status: "Unterlagen fehlen noch", betrag: 850_000, documents: [{ status: "vorhanden" }, { status: "fehlt" }, { status: "fehlt" }, { status: "pruefung" }] }),
+  c({ status: "Bei der Bank in Prüfung", betrag: 620_000, documents: [{ status: "vorhanden" }, { status: "vorhanden" }, { status: "hochgeladen", extra: true }] }),
+  c({ status: "Anfrage eingegangen", betrag: null }),
   // completed, both in 2026 by Zurich time (the second one only just)
   c({ status: "Abgeschlossen", betrag: 960_000, createdAt: "2026-07-22T08:00:00Z", closedAt: "2026-09-02T08:00:00Z" }),
   c({ status: "Abgeschlossen", betrag: 400_000, createdAt: "2025-11-01T08:00:00Z", closedAt: "2025-12-31T23:30:00Z" }),
   // ended without financing
-  c({ status: "Storniert", betrag: 480_000 }),
+  c({ status: "Anfrage zurückgezogen", betrag: 480_000 }),
 ];
 
 describe("portfolio", () => {
@@ -34,7 +34,7 @@ describe("portfolio", () => {
     expect(portfolio(CASES, new Date("2025-12-01T12:00:00Z")).financed.cases).toBe(0);
   });
 
-  it("Ø Finanzierungsbetrag: Cases with an amount, without Abgelehnt and Storniert", () => {
+  it("Ø Finanzierungsbetrag: Cases with an amount, without Leider abgelehnt and Anfrage zurückgezogen", () => {
     expect(p.average).toEqual({ amount: Math.round((850_000 + 620_000 + 960_000 + 400_000) / 4), cases: 4 });
   });
 

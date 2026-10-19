@@ -116,7 +116,7 @@ describe("buildCaseDocs", () => {
         present: [{ name: "Grundbuchauszug", keys: ["funnel.landRegistryNotOlder6Months"] }],
       })
     );
-    expect(actionRequired("Dokumente ausstehend", docs)).toBe(true);
+    expect(actionRequired("Unterlagen fehlen noch", docs)).toBe(true);
     expect(actionRequired("Abgeschlossen", docs)).toBe(false);
     expect(docProgress(docs)).toEqual({ ok: 2, total: 3, pct: 67 });
   });

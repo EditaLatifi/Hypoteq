@@ -1,52 +1,67 @@
 import { prisma } from "@/lib/prisma";
+import { statusMailsOn } from "@/lib/portal/config";
 import { DICTS, isLocale, type Dict } from "@/lib/portal/i18n/dict";
 import { sendNotificationMail } from "@/lib/portal/mail";
 import type { PortalCaseSummary } from "@/lib/portal/salesforce";
-import { isRelabel } from "@/lib/portal/status";
+import { currentStatus, isRelabel, type CaseStatus } from "@/lib/portal/status";
 
 /**
  * Case notifications.
  *
  * Salesforce does not tell us when a Case changes, so the portal keeps the last state it
- * saw per Case (PortalCaseState) and turns differences into notifications. This runs when
- * a partner opens the portal and on the cron (/api/portal/cron), so a partner who never
- * logs in still gets the e-mail. Notifications store a variant, not text, and are worded
- * in the reader's language when shown or mailed.
+ * saw per Case (PortalCaseSeen) and turns differences into notifications («Meldungen»).
+ * This runs when a partner opens the portal and on the cron (/api/portal/cron).
+ * Notifications store a variant, not text, and are worded in the reader's language.
+ *
+ * There is no opt-out (HYPOTEQ 19.10.2026 E.2): HYPOTEQ decides per partner company, with
+ * Account.Send_Notification__c. The partner e-mails on status changes will come from
+ * Salesforce flows once HYPOTEQ releases their texts (B24, F.1); until then the portal mails
+ * only with PORTAL_STATUS_MAILS=on, so nobody gets the portal's mail and later the flow's
+ * as well (DECISIONS P32).
  */
 
 export type NotifyKind = "new_case" | "docs" | "status" | "lender";
 export type NotifyVariant = keyof Dict["notif"];
 
-export const NOTIFY_KINDS: NotifyKind[] = ["new_case", "docs", "status", "lender"];
+/** The statuses D.3 marks «Auto-Mail an Partner: ja». */
+export const MAIL_STATUSES: CaseStatus[] = [
+  "Anfrage eingegangen",
+  "Unterlagen fehlen noch",
+  "Bei der Bank in Prüfung",
+  "Angebot liegt vor",
+  "Kleine Nacharbeit nötig",
+  "Finanzierung bestätigt",
+  "Abgeschlossen",
+  "Leider abgelehnt",
+];
 
-export function notifyPrefs(raw: unknown): Record<NotifyKind, boolean> {
-  const p = (raw && typeof raw === "object" ? raw : {}) as Record<string, unknown>;
-  return {
-    new_case: p.new_case !== false,
-    docs: p.docs !== false,
-    status: p.status !== false,
-    lender: p.lender !== false,
-  };
+/**
+ * Whether a notification is also mailed (with PORTAL_STATUS_MAILS on): a Case newly assigned
+ * and more missing documents always, a status change only to a D.3 «ja» status.
+ */
+export function mailsFor(n: { kind: NotifyKind; status: string }): boolean {
+  if (n.kind === "new_case" || n.kind === "docs") return true;
+  return (MAIL_STATUSES as string[]).includes(currentStatus(n.status));
 }
 
-/** Which e-mail switch governs a change to this status, and how it is worded. */
+/** What kind of change a move to this status is, and how it is worded. */
 export function variantFor(status: string): { kind: NotifyKind; variant: NotifyVariant } {
-  switch (status) {
-    case "Dokumente ausstehend":
+  switch (currentStatus(status)) {
+    case "Unterlagen fehlen noch":
       return { kind: "docs", variant: "docs" };
-    case "Nachbearbeitung notwendig":
+    case "Kleine Nacharbeit nötig":
       return { kind: "docs", variant: "rework" };
-    case "Bei Kreditgeber":
+    case "Bei der Bank in Prüfung":
       return { kind: "lender", variant: "lender_sent" };
-    case "Rückmeldung erhalten":
+    case "Angebot liegt vor":
       return { kind: "lender", variant: "lender_answer" };
     case "Finanzierung bestätigt":
       return { kind: "lender", variant: "confirmed" };
     case "Abgeschlossen":
       return { kind: "status", variant: "closed" };
-    case "Abgelehnt":
+    case "Leider abgelehnt":
       return { kind: "status", variant: "declined" };
-    case "Storniert":
+    case "Anfrage zurückgezogen":
       return { kind: "status", variant: "cancelled" };
     default:
       return { kind: "status", variant: "status" };
@@ -64,7 +79,7 @@ export function changeNotice(
 ): { kind: NotifyKind; variant: NotifyVariant } | null {
   if (!prev) return firstSync ? null : { kind: "new_case", variant: "new_case" };
   if (prev.status !== c.status && !isRelabel(prev.status, c.status)) return variantFor(c.status);
-  if (c.missingCount > prev.missingCount) return { kind: "docs", variant: c.status === "Nachbearbeitung notwendig" ? "rework" : "docs" };
+  if (c.missingCount > prev.missingCount) return { kind: "docs", variant: c.status === "Kleine Nacharbeit nötig" ? "rework" : "docs" };
   return null;
 }
 
@@ -74,11 +89,22 @@ export function notifText(t: Dict, n: { variant: string; caseNr: string; kunde: 
   return { title: v.title(n.kunde), text: v.text(n.caseNr, n.kunde, status) };
 }
 
+export type NotifyMail = {
+  origin: string;
+  /** Account.Send_Notification__c of the partner company; null = not readable or not in the org. */
+  accountNotify?: (accountId: string | null) => Promise<boolean | null>;
+};
+
+async function accountNotify(accountId: string | null): Promise<boolean | null> {
+  const { accountPortalFlags } = await import("@/lib/portal/salesforce");
+  return (await accountPortalFlags(accountId)).notify;
+}
+
 export async function syncNotifications(
-  user: { id: string; email: string; name: string | null; notifyPrefs: unknown; locale: string | null },
+  user: { id: string; email: string; name: string | null; locale: string | null; sfAccountId: string | null },
   contactId: string,
   cases: PortalCaseSummary[],
-  mail: { origin: string } | null
+  mail: NotifyMail | null
 ): Promise<number> {
   const seen = await prisma.portalCaseSeen.findMany({ where: { contactId } });
   const byId = new Map(seen.map((s) => [s.caseId, s]));
@@ -104,13 +130,17 @@ export async function syncNotifications(
   }
   if (!created.length) return 0;
 
-  const prefs = notifyPrefs(user.notifyPrefs);
+  // E-mail only when switched on, and never to a company HYPOTEQ has unticked.
+  const toMail = (n: (typeof created)[number]) => mailsFor({ kind: n.kind, status: n.c.status });
+  let mailing = !!mail && statusMailsOn() && created.some(toMail);
+  if (mailing && (await (mail!.accountNotify ?? accountNotify)(user.sfAccountId)) === false) mailing = false;
+
   const t = DICTS[isLocale(user.locale) ? user.locale : "de"];
   for (const n of created) {
     const row = await prisma.portalNotification.create({
       data: { userId: user.id, caseId: n.c.id, caseNr: n.c.nr, kunde: n.c.kunde, kind: n.kind, variant: n.variant, status: n.c.status },
     });
-    if (!mail || !prefs[n.kind]) continue;
+    if (!mailing || !mail || !toMail(n)) continue;
     const { title, text } = notifText(t, row);
     try {
       await sendNotificationMail({ to: user.email, name: user.name, origin: mail.origin, caseId: n.c.id, kunde: n.c.kunde, caseNr: n.c.nr, title, text, locale: user.locale });

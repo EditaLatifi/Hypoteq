@@ -5,23 +5,14 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { audit } from "@/lib/portal/audit";
-import {
-  INVITE_TTL_HOURS,
-  LOGIN_FAILURE_WINDOW_MINUTES,
-  LOGIN_MAX_FAILURES,
-  MAGIC_TTL_MINUTES,
-  RESET_TTL_MINUTES,
-  adminEmails,
-  isPlausibleEmail,
-  normalizeEmail,
-  teamAddress,
-} from "@/lib/portal/config";
+import { LOGIN_FAILURE_WINDOW_MINUTES, LOGIN_MAX_FAILURES, isPlausibleEmail, normalizeEmail } from "@/lib/portal/config";
 import { hashPassword, passwordProblem, verifyPassword } from "@/lib/portal/crypto";
 import { isLocale } from "@/lib/portal/i18n/dict";
 import { LOCALE_COOKIE, getDict } from "@/lib/portal/i18n/server";
-import { sendInviteMail, sendMagicLinkMail, sendResetMail, sendTeamMail } from "@/lib/portal/mail";
-import { NOTIFY_KINDS, notifyPrefs } from "@/lib/portal/notifications";
-import { addCaseComment, getContact, getPartnerCase, isSalesforceId } from "@/lib/portal/salesforce";
+import { requestLink, type LinkKind } from "@/lib/portal/linkRequests";
+import { mailErrorText, sendTeamMail } from "@/lib/portal/mail";
+import { deliverCaseMessage } from "@/lib/portal/caseMessage";
+import { getContact, getPartnerCase, isSalesforceId, portalAccessRefused } from "@/lib/portal/salesforce";
 import {
   createSession,
   destroySession,
@@ -34,7 +25,7 @@ import {
   revokeAllSessions,
 } from "@/lib/portal/session";
 import { scopeFor } from "@/lib/portal/scope";
-import { consumeToken, issueToken, peekToken } from "@/lib/portal/tokens";
+import { consumeToken, peekToken } from "@/lib/portal/tokens";
 
 export type FormState = { error?: string; sent?: string; ok?: string } | undefined;
 
@@ -95,61 +86,40 @@ export async function loginAction(_prev: FormState, fd: FormData): Promise<FormS
     return { error: t.errors.wrongCredentials };
   }
 
+  if (await portalAccessRefused(user)) {
+    await audit({ action: "login_blocked", actorId: user.id, actorEmail: email, target: "Portal_Access__c", ip });
+    return { error: t.errors.accessOff };
+  }
+
   await createSession(user.id);
   await audit({ action: "login", actorId: user.id, actorEmail: user.email, ip });
   redirect(await landingFor(user.id));
 }
 
-export async function requestMagicLinkAction(_prev: FormState, fd: FormData): Promise<FormState> {
+/**
+ * «Magic Link senden» / «Passwort vergessen» (lib/portal/linkRequests.ts). The answer is the
+ * same whether or not the address has an account; why no mail went out is in the server log.
+ */
+async function linkRequestAction(kind: LinkKind, fd: FormData): Promise<FormState> {
   const { t, locale } = await getDict();
   const email = normalizeEmail(field(fd, "email"));
   if (!isPlausibleEmail(email)) return { error: t.errors.enterEmail };
-
-  let user = await prisma.portalUser.findUnique({ where: { email } });
-
-  // HYPOTEQ administrators listed in PORTAL_ADMIN_EMAILS need no invite: the first magic
-  // link creates their account. This is how the very first admin gets in.
-  if (!user && adminEmails().includes(email)) {
-    user = await prisma.portalUser.create({
-      data: { email, role: "admin", status: "active", activatedAt: new Date(), company: "HYPOTEQ AG", locale },
-    });
-  }
-
   try {
-    if (user?.status === "active") {
-      const token = await issueToken(user.id, "magic", MAGIC_TTL_MINUTES);
-      await sendMagicLinkMail({ to: user.email, name: user.name, origin: requestOrigin(), token, locale: user.locale || locale });
-      await audit({ action: "magic_link_requested", actorId: user.id, actorEmail: user.email, ip: requestIp() });
-    } else if (user?.status === "invited") {
-      // Not activated yet: the invite is what they need, not a login link.
-      const token = await issueToken(user.id, "invite", INVITE_TTL_HOURS * 60);
-      await sendInviteMail({ to: user.email, name: user.name, company: user.company, origin: requestOrigin(), token, locale: user.locale || locale });
-      await audit({ action: "invite_resent", actorId: user.id, actorEmail: user.email, target: "via Login", ip: requestIp() });
-    }
+    await requestLink(kind, email, { locale, origin: requestOrigin(), ip: requestIp() });
   } catch (err) {
-    console.error("[portal] magic link mail failed", err);
+    // lib/portal/mail.ts has logged the reason; this names the step.
+    console.error(`[portal] ${kind === "magic" ? "magic link" : "password reset"} mail failed`, mailErrorText(err));
     return { error: t.errors.mailFailed };
   }
   return { sent: t.errors.sent(email) };
 }
 
-export async function requestResetAction(_prev: FormState, fd: FormData): Promise<FormState> {
-  const { t, locale } = await getDict();
-  const email = normalizeEmail(field(fd, "email"));
-  if (!isPlausibleEmail(email)) return { error: t.errors.enterEmail };
+export async function requestMagicLinkAction(_prev: FormState, fd: FormData): Promise<FormState> {
+  return linkRequestAction("magic", fd);
+}
 
-  const user = await prisma.portalUser.findUnique({ where: { email } });
-  try {
-    if (user?.status === "active") {
-      const token = await issueToken(user.id, "reset", RESET_TTL_MINUTES);
-      await sendResetMail({ to: user.email, name: user.name, origin: requestOrigin(), token, locale: user.locale || locale });
-      await audit({ action: "password_reset_requested", actorId: user.id, actorEmail: user.email, ip: requestIp() });
-    }
-  } catch (err) {
-    console.error("[portal] reset mail failed", err);
-    return { error: t.errors.mailFailed };
-  }
-  return { sent: t.errors.sent(email) };
+export async function requestResetAction(_prev: FormState, fd: FormData): Promise<FormState> {
+  return linkRequestAction("reset", fd);
 }
 
 export async function activateAction(_prev: FormState, fd: FormData): Promise<FormState> {
@@ -162,6 +132,7 @@ export async function activateAction(_prev: FormState, fd: FormData): Promise<Fo
   // Validate before using the token, so a typo in the password does not burn the link.
   const pending = await peekToken(token, "invite");
   if (!pending) return { error: t.errors.activationInvalid };
+  if (await portalAccessRefused(pending.user)) return { error: t.errors.accessOff };
   if (fd.get("privacy") !== "on" || fd.get("terms") !== "on") return { error: t.errors.acceptTerms };
   if (mode === "password") {
     const problem = passwordProblem(pw1);
@@ -198,6 +169,7 @@ export async function resetPasswordAction(_prev: FormState, fd: FormData): Promi
 
   const pending = await peekToken(token, "reset");
   if (!pending) return { error: t.errors.resetInvalid };
+  if (await portalAccessRefused(pending.user)) return { error: t.errors.accessOff };
   const problem = passwordProblem(pw1);
   if (problem) return { error: t.errors[problem] };
   if (pw1 !== pw2) return { error: t.errors.pwMismatch };
@@ -215,6 +187,8 @@ export async function resetPasswordAction(_prev: FormState, fd: FormData): Promi
 
 export async function magicLoginAction(_prev: FormState, fd: FormData): Promise<FormState> {
   const { t } = await getDict();
+  const pending = await peekToken(field(fd, "token"), "magic");
+  if (pending && (await portalAccessRefused(pending.user))) return { error: t.errors.accessOff };
   const row = await consumeToken(field(fd, "token"), "magic");
   if (!row || row.user.status !== "active") return { error: t.errors.magicInvalid };
   await createSession(row.userId);
@@ -294,29 +268,18 @@ export async function sendMessageAction(_prev: FormState, fd: FormData): Promise
   await prisma.portalMessage.create({ data: { userId: user.id, caseId: c.id, body } });
   await audit({ action: "message_sent", actorId: user.id, actorEmail: user.email, target: c.nr, ip: requestIp() });
 
-  const who = `${user.name || user.email}${user.company ? ` (${user.company})` : ""}`;
-  let delivered = false;
-  try {
-    await addCaseComment(c.id, `[Partnerportal] ${who}:\n\n${body}`);
-    delivered = true;
-  } catch (err) {
-    console.error("[portal] CaseComment failed (mail still goes out)", err);
-  }
-  try {
-    // To the configured HYPOTEQ address the Case page names (DECISIONS P4), the Case owner
-    // in copy so the message still reaches the person working on it.
-    await sendTeamMail({
-      to: teamAddress(),
-      cc: c.ownerEmail ? [c.ownerEmail] : [],
-      subject: `Partnerportal: Nachricht zu ${c.nr} (${c.kunde})`,
-      lines: [`${who} schreibt zu Case ${c.nr} · ${c.kunde}:`, body, `Antwort bitte direkt an ${user.email}.`],
-      origin: requestOrigin(),
-    });
-    delivered = true;
-  } catch (err) {
-    console.error("[portal] message mail failed", err);
-  }
-  if (!delivered) return { error: t.errors.messageFailed };
+  // Mail to info@hypoteq.ch (Reply-To the partner, Case owner in copy) and a completed Task on
+  // the Case, in parallel (B22, DECISIONS P25).
+  const res = await deliverCaseMessage({
+    caseId: c.id,
+    nr: c.nr,
+    kunde: c.kunde,
+    ownerEmail: c.ownerEmail,
+    body,
+    author: { name: user.name, email: user.email, company: user.company },
+    origin: requestOrigin(),
+  });
+  if (!res.mailed && !res.taskId && !res.comment) return { error: t.errors.messageFailed };
   revalidatePath(`/portal/cases/${c.id}`);
   return { ok: t.caseDetail.messageSent };
 }
@@ -326,14 +289,6 @@ export async function markAllReadAction(): Promise<void> {
   if (user.viewingAs) return;
   await prisma.portalNotification.updateMany({ where: { userId: user.id, readAt: null }, data: { readAt: new Date() } });
   revalidatePath("/portal", "layout");
-}
-
-export async function setNotifyPrefAction(kind: string, on: boolean): Promise<void> {
-  const user = await requireUser();
-  if (user.viewingAs || !(NOTIFY_KINDS as string[]).includes(kind)) return;
-  const prefs = { ...notifyPrefs(user.notifyPrefs), [kind]: on };
-  await prisma.portalUser.update({ where: { id: user.id }, data: { notifyPrefs: prefs } });
-  revalidatePath("/portal/profil");
 }
 
 // ---------------------------------------------------------------------------

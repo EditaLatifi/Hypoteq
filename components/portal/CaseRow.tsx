@@ -13,7 +13,9 @@ import { Badge, formatChf, formatDate } from "@/components/portal/ui";
  */
 export default function CaseRow({ c, meta, viewerContactId }: { c: PortalCaseSummary; meta?: "docs" | "updated"; viewerContactId?: string | null }) {
   const t = useT();
-  const sub = meta === "docs" && c.actionRequired ? t.dashboard.docsMissing(c.needDocs.length) : t.common.updated(formatDate(c.updatedAt));
+  // Flagged by Salesforce (Partner_Action_Required__c) before the portal knows which paper: no «0 Dokumente».
+  const action = c.needDocs.length ? t.dashboard.docsMissing(c.needDocs.length) : t.dashboard.actionRequired;
+  const sub = meta === "docs" && c.actionRequired ? action : t.common.updated(formatDate(c.updatedAt));
   const colleague = viewerContactId && c.consultantId && c.consultantId !== viewerContactId ? c.consultantName : null;
   return (
     <Link

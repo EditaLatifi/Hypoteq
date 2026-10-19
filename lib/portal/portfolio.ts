@@ -1,14 +1,15 @@
-import { CLOSED_STATUSES, ENDED_STATUSES, type DocStatus } from "@/lib/portal/status";
+import { currentStatus, isClosedStatus, isEndedStatus, type DocStatus } from "@/lib/portal/status";
 
 /**
  * «Ihr Portfolio» on the dashboard (handoff «Dashboard» 4). Pure; the definitions are
  * DECISIONS P22 and are computed from the partner's Cases exactly as the portal loads them:
  *
  *   Volumen in Bearbeitung  sum of the amount of every open Case (not Abgeschlossen,
- *                           Abgelehnt or Storniert)
+ *                           Leider abgelehnt or Anfrage zurückgezogen)
  *   Finanziert <Jahr>       sum of the amount of the Cases Abgeschlossen in the current
  *                           calendar year (Europe/Zurich), by Case.ClosedDate
- *   Ø Finanzierungsbetrag   mean amount of every Case not Abgelehnt or Storniert that has one
+ *   Ø Finanzierungsbetrag   mean amount of every Case not Leider abgelehnt or Anfrage
+ *                           zurückgezogen that has one
  *   Ø Durchlaufzeit         mean days from CreatedDate to ClosedDate of the Abgeschlossen Cases
  *   Dokumenten-Quote        mean share of listed documents on file (Vorhanden, In Prüfung,
  *                           Hochgeladen) over the open Cases that list documents
@@ -58,13 +59,13 @@ function listed(c: PortfolioCase) {
 
 export function portfolio(cases: PortfolioCase[], now: Date = new Date()): Portfolio {
   const year = zurichYear(now);
-  const open = cases.filter((c) => !CLOSED_STATUSES.includes(c.status));
-  const done = cases.filter((c) => c.status === "Abgeschlossen");
+  const open = cases.filter((c) => !isClosedStatus(c.status));
+  const done = cases.filter((c) => currentStatus(c.status) === "Abgeschlossen");
   const doneThisYear = done.filter((c) => {
     const t = time(c.closedAt);
     return t !== null && zurichYear(new Date(t)) === year;
   });
-  const withAmount = cases.filter((c) => !ENDED_STATUSES.includes(c.status) && amount(c) > 0);
+  const withAmount = cases.filter((c) => !isEndedStatus(c.status) && amount(c) > 0);
 
   const durations = done
     .map((c) => {

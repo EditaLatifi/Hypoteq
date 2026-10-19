@@ -10,19 +10,30 @@ import { baseId, getRequirement } from "@/lib/funnel-v3/requirements";
 import { buildCaseDocs, type CaseDoc, type PresentDoc } from "@/lib/portal/caseDocs";
 import { special as SPECIAL_TEXTS } from "@/lib/portal/i18n/special";
 import { isSpecialType, specialArt, type SpecialType } from "@/lib/portal/special";
-import { PORTAL_SF_FIELDS, partnerCaseField, portalStatusField, portalVisibleField } from "@/lib/portal/config";
+import { ACCOUNT_PORTAL_FIELDS, enforceAccountFlags, partnerActionField, partnerCaseField, portalStatusField } from "@/lib/portal/config";
 import type { Locale } from "@/lib/portal/i18n/dict";
 import { keysForSfFlag, keysForTabEntry, outstandingKeys, parseChecklist, personsByKey, reworkDocs } from "@/lib/portal/requiredDocs";
-import { PORTAL_STATUSES, actionRequired, isClosedStatus, needsDocument, portalStatus, statusDef, type Tone } from "@/lib/portal/status";
+import {
+  PORTAL_STATUSES,
+  actionRequired,
+  hasPortalStatus,
+  isClosedStatus,
+  needsDocument,
+  portalStatus,
+  statusDef,
+  type CaseStatus,
+  type Tone,
+} from "@/lib/portal/status";
 
 /**
  * Salesforce access for the Partnerportal.
  *
  * Every partner-facing Case query is scoped to the logged-in partner's Contact on the
  * server; a Case Id from the URL is only ever used together with that scope, so a partner
- * cannot read a Case by guessing its Id. The only writes are a CaseComment when a partner
- * sends a message, the document flags after an upload (via updateCaseCompleteness), and
- * the partner assignment an admin makes.
+ * cannot read a Case by guessing its Id. The writes are the Tasks of a partner's message
+ * and support report (lib/portal/caseMessage.ts, supportServer.ts; a CaseComment only when a
+ * Task is refused), the document flags after an upload (via updateCaseCompleteness), and the
+ * partner assignment an admin makes.
  */
 
 const SF_ID = /^[a-zA-Z0-9]{15}([a-zA-Z0-9]{3})?$/;
@@ -127,6 +138,15 @@ async function caseStatusField(): Promise<string | null> {
   const field = portalStatusField();
   return field && (await hasField("Case", field)) ? field : null;
 }
+
+/** Case.Partner_Action_Required__c (B25) when the org has it, else null. */
+async function caseActionField(): Promise<string | null> {
+  const field = partnerActionField();
+  return field && (await hasField("Case", field)) ? field : null;
+}
+
+/** The optional Case fields this org has: Portal_Status__c and Partner_Action_Required__c. */
+type OptionalCaseFields = { status: string | null; action: string | null };
 
 // ---------------------------------------------------------------------------
 // Contacts (partners)
@@ -310,8 +330,74 @@ async function scopeClause(scope: PartnerScope): Promise<string> {
       clause = scope.companyWide ? `(${me} OR ${company})` : `(${me} OR (${company} AND ${pc} = null))`;
     }
   }
-  const visible = portalVisibleField();
-  return visible ? `${clause} AND ${visible} = true` : clause;
+  return clause;
+}
+
+// ---------------------------------------------------------------------------
+// Partner control on the Account (HYPOTEQ 19.10.2026 B25 / D.1)
+// ---------------------------------------------------------------------------
+
+/** Each checkbox of the partner's Account; null = the org has no such field, or it could not be read. */
+export type AccountPortalFlags = { access: boolean | null; visible: boolean | null; notify: boolean | null };
+
+const NO_FLAGS: AccountPortalFlags = { access: null, visible: null, notify: null };
+const FLAG_TTL_MS = 60_000;
+const flagCache = new Map<string, { at: number; flags: AccountPortalFlags }>();
+
+/** Forget what this instance learnt about the org (describes, Account flags). For tests. */
+export function resetSalesforceCaches(): void {
+  flagCache.clear();
+  described.clear();
+}
+
+/**
+ * Account.Portal_Access__c, Portal_Visible__c and Send_Notification__c of a partner company.
+ * Every field is described first and only read where the org has it. Never throws: when
+ * Salesforce cannot say, every flag is null, and nothing is blocked or withheld for it.
+ * Kept a minute per Account, since enforcement asks on every page.
+ */
+export async function accountPortalFlags(accountId: string | null | undefined, now = Date.now()): Promise<AccountPortalFlags> {
+  if (!isSalesforceId(accountId)) return NO_FLAGS;
+  const hit = flagCache.get(accountId);
+  if (hit && now - hit.at < FLAG_TTL_MS) return hit.flags;
+  const F = ACCOUNT_PORTAL_FIELDS;
+  const keys = ["access", "visible", "notify"] as const;
+  try {
+    const has = await Promise.all(keys.map((k) => hasField("Account", F[k])));
+    const present = keys.filter((_, i) => has[i]).map((k) => F[k]);
+    let flags = NO_FLAGS;
+    if (present.length) {
+      const rows = await queryWithFields<any>(present, (s) => `SELECT ${s} FROM Account WHERE Id = ${soqlString(accountId)} LIMIT 1`);
+      const r = rows[0];
+      const val = (i: number) => (has[i] && r && typeof r[F[keys[i]]] === "boolean" ? (r[F[keys[i]]] as boolean) : null);
+      flags = { access: val(0), visible: val(1), notify: val(2) };
+    }
+    flagCache.set(accountId, { at: now, flags });
+    return flags;
+  } catch (err) {
+    console.warn(`[portal] could not read the portal flags of Account ${accountId}; not enforcing them`, (err as any)?.message || err);
+    return NO_FLAGS;
+  }
+}
+
+/**
+ * Whether the partner's Cases stay hidden: only with PORTAL_ENFORCE_ACCOUNT_FLAGS=on and an
+ * unticked Account.Portal_Visible__c. A fresh checkbox is unticked for every partner, so
+ * this is off until HYPOTEQ has set them (DECISIONS P26).
+ */
+async function casesHidden(scope: PartnerScope): Promise<boolean> {
+  if (!enforceAccountFlags()) return false;
+  return (await accountPortalFlags(scope.accountId)).visible === false;
+}
+
+/**
+ * Whether the partner company's portal access is switched off: only with
+ * PORTAL_ENFORCE_ACCOUNT_FLAGS=on and an unticked Account.Portal_Access__c. Admins are never
+ * refused, and neither is anyone when Salesforce cannot say.
+ */
+export async function portalAccessRefused(user: { role: string; sfAccountId: string | null }): Promise<boolean> {
+  if (!enforceAccountFlags() || user.role === "admin") return false;
+  return (await accountPortalFlags(user.sfAccountId)).access === false;
 }
 
 export type { CaseDoc } from "@/lib/portal/caseDocs";
@@ -375,7 +461,7 @@ export function docLabel(key: string, locale: Locale = "de"): string {
   return MESSAGES[locale]?.[ns]?.[name] || MESSAGES.de?.[ns]?.[name] || key;
 }
 
-type DocContext = {
+export type DocContext = {
   /** The funnel's verdict, when the funnel created the Case. */
   inquiry: { missing: string[]; complete: boolean | null } | null;
   /** Document keys the partner has uploaded through the portal. */
@@ -440,13 +526,18 @@ async function docContextByCase(caseIds: string[]): Promise<Map<string, DocConte
  * outstanding: guessing there would ask partners for paper HYPOTEQ already has. Neither has
  * a Spezialfinanzierung: HYPOTEQ assesses it individually, so the mortgage list does not apply.
  */
-function outstandingDocs(rec: any, ctx: DocContext, preStatus: string): { missing: string[]; open: string[] } {
+// A Case at the document stage: Anfrage eingegangen, Unterlagen fehlen noch (only Salesforce
+// says that before documents are counted) or Wir prüfen die Unterlagen (On Hold included).
+const DOC_STAGE: CaseStatus[] = ["Anfrage eingegangen", "Unterlagen fehlen noch", "Wir prüfen die Unterlagen"];
+// Of those, where HYPOTEQ's list is shown as expected when no checklist says more.
+const EXPECT_LIST: CaseStatus[] = ["Anfrage eingegangen", "Unterlagen fehlen noch"];
+
+function outstandingDocs(rec: any, ctx: DocContext, preStatus: CaseStatus): { missing: string[]; open: string[] } {
   if (isClosedStatus(preStatus) || ctx.special) return { missing: [], open: [] };
   if (ctx.inquiry) return { missing: ctx.inquiry.missing.filter((k) => !ctx.uploaded.includes(k)), open: [] };
   if (rec.Documents_completed__c === true) return { missing: [], open: [] };
-  // Before any documents are taken into account, a Case still at the document stage is
-  // Neue Anfrage or In Prüfung (On Hold included); anything later has its paper.
-  if (!["Neue Anfrage", "In Prüfung"].includes(preStatus)) return { missing: [], open: [] };
+  // Anything past the document stage has its paper.
+  if (!DOC_STAGE.includes(preStatus)) return { missing: [], open: [] };
 
   const checklist = parseChecklist(rec.Dokumenten_Check_State__c);
   const outstanding = outstandingKeys(rec, checklist, ctx.uploaded);
@@ -456,7 +547,7 @@ function outstandingDocs(rec: any, ctx: DocContext, preStatus: string): { missin
       open: outstanding.filter((k) => !DOKUMENTEN_CHECK_MAP[k]?.length),
     };
   }
-  return preStatus === "Neue Anfrage" ? { missing: [], open: outstanding } : { missing: [], open: [] };
+  return EXPECT_LIST.includes(preStatus) ? { missing: [], open: outstanding } : { missing: [], open: [] };
 }
 
 /**
@@ -503,15 +594,16 @@ function presentDocs(rec: any, locale: Locale): PresentDoc[] {
   return out;
 }
 
-function summarize(rec: any, ctx: DocContext, locale: Locale, statusField: string | null): PortalCaseSummary {
+export function summarize(rec: any, ctx: DocContext, locale: Locale, optional: OptionalCaseFields): PortalCaseSummary {
   const checklist = parseChecklist(rec.Dokumenten_Check_State__c);
+  const sfPortalStatus = optional.status ? rec[optional.status] : null;
   const statusInput = {
     stage: rec.Stage__c,
     sfStatus: rec.Status,
     isClosed: rec.IsClosed,
     banksRequested: rec.Welche_Banken_wurden_angefragt__c,
     offerDate: rec.Angebot_Datum__c,
-    portalStatus: statusField ? rec[statusField] : null,
+    portalStatus: sfPortalStatus,
   };
   // Where the Case stands before documents are taken into account; that decides whether
   // outstanding documents are worked out at all.
@@ -538,9 +630,13 @@ function summarize(rec: any, ctx: DocContext, locale: Locale, statusField: strin
     persons: personsByKey(checklist),
     label: (key) => docLabel(key, locale),
     otherLabel: OTHER_DOC[locale],
-    pastReview: def.rank >= PORTAL_STATUSES["Bereit für Kreditgeber"].rank,
+    pastReview: def.rank >= PORTAL_STATUSES["Anfrage wird für die Bank vorbereitet"].rank,
     lastChange: rec.LastModifiedDate,
   });
+
+  // Partner_Action_Required__c decides «Aktion erforderlich» where the flows manage the Case.
+  const flagValue = optional.action ? rec[optional.action] : undefined;
+  const flag = optional.action ? { value: typeof flagValue === "boolean" ? flagValue : null, managed: hasPortalStatus(sfPortalStatus) } : null;
 
   const closedAt = rec.ClosedDate || (status === "Abgeschlossen" ? rec.LastModifiedDate : null) || null;
   return {
@@ -563,7 +659,7 @@ function summarize(rec: any, ctx: DocContext, locale: Locale, statusField: strin
     missingDocs: [...rework.map((r) => docLabel(r.key, locale)), ...missing.map((key) => docLabel(key, locale))],
     openDocs: outstanding.open.map((key) => docLabel(key, locale)),
     needDocs: documents.filter((d) => needsDocument(d.status)).map((d) => d.name),
-    actionRequired: actionRequired(status, documents),
+    actionRequired: actionRequired(status, documents, flag),
     documents,
     onHold: (rec.Status || "").trim().toLowerCase() === "on hold",
     consultantId: rec.Partner_Consultant__c || null,
@@ -572,18 +668,20 @@ function summarize(rec: any, ctx: DocContext, locale: Locale, statusField: strin
 }
 
 /** The list fields plus the optional ones this org has. */
-async function caseFields(base: string[]): Promise<{ fields: string[]; statusField: string | null }> {
-  const statusField = await caseStatusField();
-  return { fields: statusField && !base.includes(statusField) ? [...base, statusField] : base, statusField };
+async function caseFields(base: string[]): Promise<{ fields: string[]; optional: OptionalCaseFields }> {
+  const [status, action] = await Promise.all([caseStatusField(), caseActionField()]);
+  const extra = [status, action].filter((f): f is string => !!f && !base.includes(f));
+  return { fields: [...base, ...extra], optional: { status, action } };
 }
 
 export async function listPartnerCases(scope: PartnerScope, locale: Locale = "de"): Promise<PortalCaseSummary[]> {
   if (!isSalesforceId(scope.contactId)) return [];
+  if (await casesHidden(scope)) return [];
   const where = await scopeClause(scope);
-  const { fields, statusField } = await caseFields(LIST_FIELDS);
+  const { fields, optional } = await caseFields(LIST_FIELDS);
   const recs = await queryWithFields(fields, (select) => `SELECT ${select} FROM Case WHERE ${where} ORDER BY CreatedDate DESC LIMIT 500`);
   const ctx = await docContextByCase(recs.map((r: any) => r.Id));
-  return recs.map((r: any) => summarize(r, ctx.get(r.Id)!, locale, statusField));
+  return recs.map((r: any) => summarize(r, ctx.get(r.Id)!, locale, optional));
 }
 
 function formatChf(v: unknown): string | null {
@@ -602,14 +700,15 @@ function swissDate(v: unknown): string | null {
 /** A Case of this partner, or null when it does not exist or is not theirs. */
 export async function getPartnerCase(scope: PartnerScope, caseId: string, locale: Locale = "de"): Promise<PortalCaseDetail | null> {
   if (!isSalesforceId(scope.contactId) || !isSalesforceId(caseId)) return null;
+  if (await casesHidden(scope)) return null;
   const where = await scopeClause(scope);
-  const { fields, statusField } = await caseFields(DETAIL_FIELDS);
+  const { fields, optional } = await caseFields(DETAIL_FIELDS);
   const recs = await queryWithFields(fields, (select) => `SELECT ${select} FROM Case WHERE Id = ${soqlString(caseId)} AND ${where} LIMIT 1`);
   const rec: any = recs[0];
   if (!rec) return null;
 
   const ctx = (await docContextByCase([rec.Id])).get(rec.Id)!;
-  const base = summarize(rec, ctx, locale, statusField);
+  const base = summarize(rec, ctx, locale, optional);
 
   const ort = [rec.PLZ_Ort__c, rec.City__c].filter(Boolean).join(" ");
   const objekt = [rec.Art_der_Immobilie__c, rec.Art_der_Liegenschaft__c].filter(Boolean).join(" · ");
@@ -653,42 +752,45 @@ export async function getPartnerCase(scope: PartnerScope, caseId: string, locale
 export type PortalFieldRow = {
   field: string;
   /** Where the org has the field; null = «Feld nicht vorhanden». */
-  object: "Case" | "Contact" | "Account" | null;
-  /** The value on the partner's Contact or Account. */
+  object: "Case" | "Account" | null;
+  /** Account fields: the value on the partner's Account (null = empty or no Account). */
   value?: string | null;
   /** Case fields: on how many of the partner's Cases the field is ticked or filled. */
   counts?: { hit: number; total: number; values: string[] };
 };
 
 /**
- * The Salesforce portal fields the handoff names, for one partner (admin partner detail).
- * Each is described first and read only where the org has it: Portal_Access__c on the
- * partner's Contact (else its Account), the four Case fields counted over the partner's
- * Cases. Nothing here is assumed to exist.
+ * The Salesforce portal fields for one partner (admin partner detail, HYPOTEQ 19.10.2026
+ * B25 / D.1): Portal_Access__c, Portal_Visible__c and Send_Notification__c on the partner's
+ * Account, Portal_Status__c and Partner_Action_Required__c counted over the partner's Cases.
+ * Each is described first and read only where the org has it; nothing is assumed to exist.
  */
 export async function portalFieldReport(scope: PartnerScope): Promise<PortalFieldRow[]> {
-  const F = PORTAL_SF_FIELDS;
-  const onCase = [F.visible, F.status, F.actionRequired, F.notify];
-  const [onContact, onAccount, ...caseHas] = await Promise.all([
-    hasField("Contact", F.access),
-    hasField("Account", F.access),
-    ...onCase.map((f) => hasField("Case", f)),
+  const A = ACCOUNT_PORTAL_FIELDS;
+  const onAccount = [A.access, A.visible, A.notify];
+  const onCase = [portalStatusField() || "Portal_Status__c", partnerActionField() || "Partner_Action_Required__c"];
+  const [accountHas, caseHas] = await Promise.all([
+    Promise.all(onAccount.map((f) => hasField("Account", f))),
+    Promise.all(onCase.map((f) => hasField("Case", f))),
   ]);
 
-  const access: PortalFieldRow = { field: F.access, object: null };
-  const holder = onContact && isSalesforceId(scope.contactId) ? { object: "Contact" as const, id: scope.contactId } : onAccount && isSalesforceId(scope.accountId) ? { object: "Account" as const, id: scope.accountId } : null;
-  if (holder) {
-    const rows = await queryWithFields<any>([F.access], (s) => `SELECT ${s} FROM ${holder.object} WHERE Id = ${soqlString(holder.id)} LIMIT 1`);
-    const v = rows[0]?.[F.access];
-    access.object = holder.object;
-    access.value = v == null || v === "" ? null : String(v);
+  const presentOnAccount = onAccount.filter((_, i) => accountHas[i]);
+  let account: any = null;
+  if (presentOnAccount.length && isSalesforceId(scope.accountId)) {
+    const rows = await queryWithFields<any>(presentOnAccount, (s) => `SELECT ${s} FROM Account WHERE Id = ${soqlString(scope.accountId!)} LIMIT 1`);
+    account = rows[0] ?? null;
   }
+  const accountRows: PortalFieldRow[] = onAccount.map((field, i) => {
+    if (!accountHas[i]) return { field, object: null };
+    const v = account?.[field];
+    return { field, object: "Account", value: v == null || v === "" ? null : String(v) };
+  });
 
-  const present = onCase.filter((_, i) => caseHas[i]);
+  const presentOnCase = onCase.filter((_, i) => caseHas[i]);
   let recs: any[] = [];
-  if (present.length && isSalesforceId(scope.contactId)) {
+  if (presentOnCase.length && isSalesforceId(scope.contactId)) {
     const where = await scopeClause(scope);
-    recs = await queryWithFields<any>(["Id", ...present], (s) => `SELECT ${s} FROM Case WHERE ${where} LIMIT 500`);
+    recs = await queryWithFields<any>(["Id", ...presentOnCase], (s) => `SELECT ${s} FROM Case WHERE ${where} LIMIT 500`);
   }
   const caseRows: PortalFieldRow[] = onCase.map((field, i) => {
     if (!caseHas[i]) return { field, object: null };
@@ -696,14 +798,14 @@ export async function portalFieldReport(scope: PartnerScope): Promise<PortalFiel
     const values = Array.from(new Set(set.filter((v) => typeof v === "string").map((v) => String(v).trim()))).slice(0, 4);
     return { field, object: "Case", counts: { hit: set.length, total: recs.length, values } };
   });
-  return [access, ...caseRows];
+  return [...accountRows, ...caseRows];
 }
 
 // ---------------------------------------------------------------------------
 // Writes
 // ---------------------------------------------------------------------------
 
-/** Post a partner's message to the Case as an internal CaseComment. */
+/** Post a partner's message to the Case as an internal CaseComment (fallback when its Task is refused). */
 export async function addCaseComment(caseId: string, body: string): Promise<void> {
   if (!isSalesforceId(caseId)) return;
   await withSession(() => (conn.sobject("CaseComment") as any).create({ ParentId: caseId, CommentBody: body.slice(0, 4000), IsPublished: false }));

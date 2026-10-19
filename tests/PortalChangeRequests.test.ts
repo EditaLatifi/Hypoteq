@@ -23,10 +23,12 @@ import {
   changeTaskPayload,
   createChangeTask,
   formatIban,
+  ibanFields,
   isValidIban,
   loadPartnerData,
   mergePartnerData,
   partnerDataFromContact,
+  partnerNrFields,
   queryTolerant,
   zurichDate,
   type PartnerData,
@@ -87,6 +89,19 @@ describe("partner data from Salesforce", () => {
     IBAN__c: "ch9300762011623852957",
   };
 
+  it("reads the IBAN from Account.IBAN_Nr__c and the partner number from Account.AccountNumber by default (B26)", () => {
+    const prev = { iban: process.env.PORTAL_SF_IBAN_FIELDS, nr: process.env.PORTAL_SF_PARTNER_NR_FIELDS };
+    delete process.env.PORTAL_SF_IBAN_FIELDS;
+    delete process.env.PORTAL_SF_PARTNER_NR_FIELDS;
+    expect(ibanFields()).toEqual(["Account.IBAN_Nr__c"]);
+    expect(partnerNrFields()).toEqual(["Account.AccountNumber"]);
+    const data = partnerDataFromContact({ ...record, IBAN__c: undefined, Account: { ...record.Account, IBAN_Nr__c: "CH9300762011623852957" } });
+    expect(data.iban).toBe("CH93 0076 2011 6238 5295 7");
+    expect(data.partnerNr).toBe("VP-0184");
+    if (prev.iban !== undefined) process.env.PORTAL_SF_IBAN_FIELDS = prev.iban;
+    if (prev.nr !== undefined) process.env.PORTAL_SF_PARTNER_NR_FIELDS = prev.nr;
+  });
+
   it("reads the company address first, the mobile number when there is no phone, and formats the IBAN", () => {
     expect(partnerDataFromContact(record, { iban: ["Account.IBAN__c", "IBAN__c"], partnerNr: ["Account.AccountNumber"] })).toEqual({
       name: "Daniel Meier",
@@ -113,7 +128,7 @@ describe("partner data from Salesforce", () => {
 
     expect(data?.name).toBe("Daniel Meier");
     expect(data?.iban).toBeNull();
-    expect(queries.length).toBe(3); // Account.IBAN__c and IBAN__c are unknown here
+    expect(queries.length).toBe(2); // Account.IBAN_Nr__c is unknown here
     expect(queries[queries.length - 1]).not.toMatch(/IBAN/);
     expect(queries[0]).toContain(`WHERE Id = '${CONTACT}'`);
   });

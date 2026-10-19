@@ -1,9 +1,14 @@
-import type { DocStatus } from "@/lib/portal/status";
+import type { DocStatus, FilterCase } from "@/lib/portal/status";
 
 /**
  * Small, pure view rules of the dashboard and the Case page, kept here so they can be
  * tested without rendering anything.
  */
+
+/** What the Case list filters and the dashboard tiles look at (lib/portal/status.ts matchesFilter). */
+export function filterCase(c: { status: string; needDocs: string[]; actionRequired: boolean }): FilterCase {
+  return { status: c.status, needCount: c.needDocs.length, actionRequired: c.actionRequired };
+}
 
 /** «Aktion erforderlich» row: at most `max` document chips, the rest as «+ N weitere». */
 export function docChips(names: string[], max = 2): { chips: string[]; more: number } {

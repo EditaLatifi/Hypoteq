@@ -28,8 +28,6 @@ export type AuditAction =
   | "logo_display_changed"
   | "change_requested"
   | "change_request_decided"
-  | "partner_document_uploaded"
-  | "partner_document_status"
   | "view_as_started"
   | "view_as_ended"
   | "case_assigned"
@@ -66,6 +64,7 @@ export const AUDIT_LABELS: Record<string, string> = {
   logo_display_changed: "Logo-Darstellung geändert",
   change_requested: "Änderung Partnerdaten beantragt",
   change_request_decided: "Änderungsantrag entschieden",
+  // «Eigene Dokumente» is gone (HYPOTEQ 19.10.2026 E.1); older log entries keep their label.
   partner_document_uploaded: "Firmendokument hochgeladen",
   partner_document_status: "Status Firmendokument gesetzt",
   view_as_started: "Als Partner angesehen",

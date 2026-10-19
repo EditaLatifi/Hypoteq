@@ -79,7 +79,7 @@ export type CaseDocsInput = {
   label: (key: string) => string;
   /** «Weiteres Dokument» in the reader's language. */
   otherLabel: string;
-  /** Whether the Case is past HYPOTEQ's review (status from «Bereit für Kreditgeber» on). */
+  /** Whether the Case is past HYPOTEQ's review (status from «Anfrage wird für die Bank vorbereitet» on). */
   pastReview: boolean;
   /** Case.LastModifiedDate. */
   lastChange: string | null | undefined;
