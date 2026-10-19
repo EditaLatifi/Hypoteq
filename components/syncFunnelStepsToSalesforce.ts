@@ -61,9 +61,12 @@ export async function applyPartnerToCase(
   caseData['SuppliedEmail'] = (form.email || partnerEmail || '').trim() || null;
   if (form.telefon?.trim()) caseData['SuppliedPhone'] = form.telefon.trim();
   if (form.firma?.trim()) caseData['SuppliedCompany'] = form.firma.trim();
-  // A failed lookup is not proof the partner is new — say so, so nobody creates a duplicate.
-  prependComment(caseData, resolved ? NEW_PARTNER_NOTE : PARTNER_CHECK_FAILED_NOTE);
-  console.log(`[Salesforce Sync] Partner not recognised (${resolved ? 'unknown' : 'lookup failed'}): ${partnerEmail}`);
+  // A failed lookup is not proof the partner is new — say so, so nobody creates a duplicate. Nor
+  // is a miss from the 24-hour fallback (partnerDirectory, HYPOTEQ 19.10. B17): HYPOTEQ may have
+  // added the partner since.
+  const checked = resolved && !resolved.stale;
+  prependComment(caseData, checked ? NEW_PARTNER_NOTE : PARTNER_CHECK_FAILED_NOTE);
+  console.log(`[Salesforce Sync] Partner not recognised (${checked ? 'unknown' : resolved ? 'lookup failed, stale miss' : 'lookup failed'}): ${partnerEmail}`);
 }
 
 /**

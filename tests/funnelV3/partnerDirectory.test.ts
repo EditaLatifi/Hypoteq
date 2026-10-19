@@ -12,6 +12,7 @@ import {
   initialsOf,
   HIT_TTL_MS,
   MISS_TTL_MS,
+  FALLBACK_TTL_MS,
 } from '@/components/partnerDirectory';
 
 const query = sfQuery as unknown as jest.Mock<(soql: string, ctx: string) => Promise<any[]>>;
@@ -58,10 +59,17 @@ describe('resolvePartner', () => {
     expect(soql).not.toContain('Contact');
   });
 
-  it('treats @hypoteq.com the same and answers unknown without a User', async () => {
+  it('answers unknown for @hypoteq.ch without an active User', async () => {
     query.mockResolvedValueOnce([]);
-    expect(await resolvePartner('nobody@hypoteq.com')).toEqual({ status: 'unknown' });
+    expect(await resolvePartner('nobody@hypoteq.ch')).toEqual({ status: 'unknown' });
     expect(query.mock.calls[0][0]).toContain('FROM User');
+  });
+
+  it('hypoteq.com is no HYPOTEQ domain (HYPOTEQ 19.10. A.2): looked up like any partner address', async () => {
+    query.mockResolvedValueOnce([]);
+    expect(await resolvePartner('someone@hypoteq.com')).toEqual({ status: 'unknown' });
+    expect(query.mock.calls[0][0]).toContain('FROM Contact');
+    expect(query.mock.calls[0][0]).not.toContain('FROM User');
   });
 
   it('recognises a partner Contact by exact e-mail, oldest first', async () => {
@@ -138,6 +146,35 @@ describe('cache', () => {
     // HYPOTEQ created the Contact in the meantime.
     query.mockResolvedValueOnce([CONTACT]);
     expect((await resolvePartner('new@partner.ch', { now: t0 + MISS_TTL_MS + 1 })).status).toBe('partner');
+  });
+
+  it('Salesforce unreachable: the last successful answer younger than 24 h, marked stale (HYPOTEQ 19.10. B17)', async () => {
+    const t0 = 3_000_000;
+    query.mockResolvedValueOnce([CONTACT]);
+    await resolvePartner('anna@vzch.ch', { now: t0 });
+    query.mockRejectedValueOnce(new Error('Salesforce down'));
+    // Past the 15-minute cache, within 24 h.
+    const r = await resolvePartner('anna@vzch.ch', { now: t0 + HIT_TTL_MS + 1 });
+    expect(r).toMatchObject({ status: 'partner', contactId: CONTACT.Id, stale: true });
+    // At submit (fresh) as well.
+    query.mockRejectedValueOnce(new Error('Salesforce down'));
+    expect((await resolvePartner('anna@vzch.ch', { fresh: true, now: t0 + 60_000 })).stale).toBe(true);
+    expect(query).toHaveBeenCalledTimes(3);
+  });
+
+  it('the fallback ends after 24 h, never answers another address, and a fresh success replaces it', async () => {
+    const t0 = 4_000_000;
+    query.mockResolvedValueOnce([CONTACT]);
+    await resolvePartner('anna@vzch.ch', { now: t0 });
+    query.mockRejectedValueOnce(new Error('down'));
+    await expect(resolvePartner('anna@vzch.ch', { now: t0 + FALLBACK_TTL_MS })).rejects.toThrow('down');
+    query.mockRejectedValueOnce(new Error('down'));
+    await expect(resolvePartner('other@vzch.ch', { now: t0 + 1 })).rejects.toThrow('down');
+    // A miss is a successful answer too; it replaces the hit.
+    query.mockResolvedValueOnce([]);
+    await resolvePartner('anna@vzch.ch', { fresh: true, now: t0 + 2 });
+    query.mockRejectedValueOnce(new Error('down'));
+    expect(await resolvePartner('anna@vzch.ch', { fresh: true, now: t0 + 3 })).toEqual({ status: 'unknown', stale: true });
   });
 
   it('fresh: true bypasses and refreshes the cache', async () => {

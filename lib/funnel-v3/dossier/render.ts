@@ -3,7 +3,7 @@
  * read at run time — it runs on Vercel serverless and in jest alike).
  *
  * Layout follows the dossier prototype: running header (wordmark, «Fall-Dossier · Nr · Name,
- * Ort») and footer («Vertraulich · für Kreditgeber», page, hypoteq.com) on every page, a dark
+ * Ort») and footer («Vertraulich · für Kreditgeber», page, hypoteq.ch) on every page, a dark
  * Deckblatt with the lime wedge and the KPIs, sections that are kept on one page where they
  * fit, the annex on a new page with tables that continue across pages (header repeated).
  *
