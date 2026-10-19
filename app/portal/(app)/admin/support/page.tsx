@@ -83,6 +83,7 @@ export default async function AdminSupportPage({ searchParams }: { searchParams:
                   </>
                 ) : null}
                 {tk.caseId ? ` · ${sp.admin.case}: ${tk.caseId}` : null}
+                {` · ${tk.sfId ? sp.admin.task(tk.sfId) : sp.admin.noTask}`}
               </div>
               <p className="m-0 whitespace-pre-wrap break-words text-[15px]">{tk.body}</p>
               {tech ? (

@@ -610,6 +610,8 @@ const supportDe = {
     status: "Status",
     save: "Status speichern",
     none: "Keine Meldungen.",
+    task: (id: string) => `Salesforce-Task ${id}`,
+    noTask: "kein Salesforce-Task",
   },
 };
 
@@ -661,6 +663,8 @@ const supportEn: SupportDict = {
     status: "Status",
     save: "Save status",
     none: "No reports.",
+    task: (id) => `Salesforce task ${id}`,
+    noTask: "no Salesforce task",
   },
 };
 
@@ -710,6 +714,8 @@ const supportFr: SupportDict = {
     status: "Statut",
     save: "Enregistrer le statut",
     none: "Aucun message.",
+    task: (id) => `Tâche Salesforce ${id}`,
+    noTask: "aucune tâche Salesforce",
   },
 };
 
@@ -759,6 +765,8 @@ const supportIt: SupportDict = {
     status: "Stato",
     save: "Salva stato",
     none: "Nessuna segnalazione.",
+    task: (id) => `Attività Salesforce ${id}`,
+    noTask: "nessuna attività Salesforce",
   },
 };
 
