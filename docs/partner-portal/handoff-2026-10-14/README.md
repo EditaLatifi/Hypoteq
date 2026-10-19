@@ -74,7 +74,7 @@ Die Dateien in diesem Paket sind **Design-Referenzen in HTML**: ein klickbarer P
 3. **Aktion erforderlich:** die fehlenden Dokumente mit Status und dem Button «Dokument hochladen».
 4. Links: Dokumente nach Kategorie (mit Fortschrittsbalken) und freigegebene Dokumente zum Download.
    Rechts: Case Übersicht (Fakten), Letzte Updates, **Nachricht senden**.
-   - **Die Nachricht geht als E-Mail an `info@hypoteq.com`**, mit Case-Nr und Kundenname im Betreff. Das steht so im UI.
+   - **Die Nachricht geht als E-Mail an `info@hypoteq.ch`**, mit Case-Nr und Kundenname im Betreff. Das steht so im UI.
    - Zusätzlich erscheint die Nachricht unter «Letzte Updates».
    - Der Button heisst «Als E-Mail senden».
 5. **Upload-Dialog:**
@@ -121,7 +121,7 @@ Liste mit Ungelesen-Punkt. Ein Klick markiert die Meldung als gelesen und öffne
   - Typ: Frage, Fehler oder Wunsch.
   - Optional ein Case-Bezug; Betreff und Beschreibung sind Pflicht.
   - Checkbox «Technische Angaben mitsenden».
-- Rechts: Ansprechpartner (Name, Telefon, partner@hypoteq.com, Zeiten) und «Ihre Meldungen» mit Status (Eingegangen, In Prüfung, Behoben, Beantwortet).
+- Rechts: Ansprechpartner (Name, Telefon, info@hypoteq.ch, Zeiten) und «Ihre Meldungen» mit Status (Eingegangen, In Prüfung, Behoben, Beantwortet).
 
 ### Profil
 - **Profilfoto:** Upload per Klick auf den Avatar, max. 2 MB. Wird auch in der Sidebar und im Header angezeigt.
@@ -170,7 +170,7 @@ Dokument-Status: Vorhanden (success), Fehlt (danger), In Prüfung (info), Ungül
 - `case` (sf_case_id, partner_id, nr, kunde, art, betrag, objekt, status, created_at, updated_at, is_special, special_type, special_payload jsonb)
 - `case_document` (case_id, kategorie, name, status, note, file_url, uploaded_at)
 - `case_update` (case_id, date, text, author)
-- `message` (case_id, partner_id, body, sent_to = 'info@hypoteq.com', sent_at)
+- `message` (case_id, partner_id, body, sent_to = 'info@hypoteq.ch', sent_at)
 - `change_request` (partner_id, field, old_value, new_value, note, status)
 - `support_ticket` (partner_id, type, case_id?, subject, body, tech_info jsonb, status)
 - `partner_document` (partner_id, name, file_url, status)
@@ -211,7 +211,7 @@ Dokument-Status: Vorhanden (success), Fehlt (danger), In Prüfung (info), Ungül
 - `assets/logos/`: Logos.
 
 ## 10. Offen / zu klären
-- Genauer Betreff und Template der Case-E-Mail an info@hypoteq.com (Reply-To = Partner?).
+- Genauer Betreff und Template der Case-E-Mail an info@hypoteq.ch (Reply-To = Partner?).
 - Salesforce-RecordType und Queue für Spezialfinanzierungen sowie die SLA von 2 Arbeitstagen bestätigen.
 - Ob «powered by HYPOTEQ» unter dem Partnerlogo bleiben soll.
 - Ob Logo und Foto pro Partner-Firma oder pro User gelten.

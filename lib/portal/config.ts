@@ -75,17 +75,21 @@ export function statusMailsOn(): boolean {
   return (process.env.PORTAL_STATUS_MAILS || "").trim().toLowerCase() === "on";
 }
 
+/** HYPOTEQ's one address (19.10.2026 A.2 / B20): «info@hypoteq.ch ist die einzig korrekte Adresse – überall». */
+export const HYPOTEQ_ADDRESS = "info@hypoteq.ch";
+
 /**
- * Where partner messages and team notices go (DECISIONS P4). The UI names this address,
- * so it is read in one place.
+ * Where partner messages, support reports and team notices go (DECISIONS P4). The UI names
+ * this address, so it is read in one place. PORTAL_TEAM_EMAIL overrides it (e.g. for a test
+ * deployment); SMTP_TO, the website's contact-form address, no longer does.
  */
 export function teamAddress(): string {
-  return process.env.PORTAL_TEAM_EMAIL || process.env.SMTP_TO || "info@hypoteq.ch";
+  return (process.env.PORTAL_TEAM_EMAIL || "").trim() || HYPOTEQ_ADDRESS;
 }
 
 /** The mailbox portal e-mails are sent from. */
 export function mailFromAddress(): string {
-  return process.env.PORTAL_MAIL_FROM || process.env.SMTP_USER || "info@hypoteq.ch";
+  return process.env.PORTAL_MAIL_FROM || process.env.SMTP_USER || HYPOTEQ_ADDRESS;
 }
 
 /** External tools of the sidebar and the dashboard; they open in a new tab. */

@@ -3,6 +3,7 @@ import { isTestMode, skipped } from "@/components/testMode";
 import { prisma } from "@/lib/prisma";
 import { audit } from "@/lib/portal/audit";
 import { support, type SupportDict } from "@/lib/portal/i18n/special";
+import { teamAddress } from "@/lib/portal/config";
 import { sendTeamMail } from "@/lib/portal/mail";
 import { ticketRef, validateSupport, type SupportError, type SupportInput, type TechInfo } from "@/lib/portal/support";
 
@@ -12,14 +13,18 @@ import { ticketRef, validateSupport, type SupportError, type SupportInput, type 
  * Nothing goes to Salesforce.
  */
 
-/** Where tickets go, and the address the contact box shows. Never hard-coded (P4). */
+/** Where tickets go, and the address the contact box shows: info@hypoteq.ch (B20 / C), unless configured. */
 export function supportEmail(): string {
-  return process.env.PORTAL_SUPPORT_EMAIL || process.env.PORTAL_TEAM_EMAIL || process.env.SMTP_TO || "info@hypoteq.ch";
+  return (process.env.PORTAL_SUPPORT_EMAIL || "").trim() || teamAddress();
 }
 
 export type SupportContact = { name: string; role: string; initials: string; phone: string; email: string; hours: string };
 
-/** «Ihr Ansprechpartner». The prototype's person is demo data; the defaults name the team. */
+/**
+ * «Ihr Ansprechpartner» (B20): Partner Management, HYPOTEQ AG · +41 44 554 41 00 · «Telefonisch
+ * Mo–Fr, 09:30–16:30 · Meldungen rund um die Uhr (24/7)» — no response-time promise. The
+ * prototype's person is demo data.
+ */
 export function supportContact(t: SupportDict): SupportContact {
   const name = (process.env.PORTAL_SUPPORT_CONTACT_NAME || "Partner Management").trim();
   const parts = name.split(/\s+/).filter(Boolean);

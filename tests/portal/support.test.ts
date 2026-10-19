@@ -91,10 +91,10 @@ describe("statuses", () => {
 });
 
 describe("contact and address", () => {
-  it("use the configured support address, else the team address (DECISIONS P4 / P18)", () => {
+  it("use info@hypoteq.ch unless configured (B20; DECISIONS P4 / P18)", () => {
     delete process.env.PORTAL_SUPPORT_EMAIL;
     delete process.env.PORTAL_TEAM_EMAIL;
-    delete process.env.SMTP_TO;
+    process.env.SMTP_TO = "kontakt@example.ch";
     expect(supportEmail()).toBe("info@hypoteq.ch");
     process.env.PORTAL_TEAM_EMAIL = "team@hypoteq.ch";
     expect(supportEmail()).toBe("team@hypoteq.ch");
@@ -105,10 +105,25 @@ describe("contact and address", () => {
   it("show the team by default and a person once configured", () => {
     delete process.env.PORTAL_SUPPORT_CONTACT_NAME;
     delete process.env.PORTAL_SUPPORT_HOURS;
-    expect(supportContact(support.de)).toMatchObject({ name: "Partner Management", role: "HYPOTEQ AG", initials: "PM", phone: "+41 44 554 41 00", hours: support.de.hours });
+    expect(supportContact(support.de)).toMatchObject({
+      name: "Partner Management",
+      role: "HYPOTEQ AG",
+      initials: "PM",
+      phone: "+41 44 554 41 00",
+      email: "info@hypoteq.ch",
+      hours: "Telefonisch Mo–Fr, 09:30–16:30 · Meldungen rund um die Uhr (24/7)",
+    });
     process.env.PORTAL_SUPPORT_CONTACT_NAME = "Lea Weber";
     process.env.PORTAL_SUPPORT_CONTACT_ROLE = "Partner Management";
-    expect(supportContact(support.en)).toMatchObject({ name: "Lea Weber", role: "Partner Management", initials: "LW", hours: "Mon–Fri, 08:00–17:30 · Reply within 1 working day" });
+    expect(supportContact(support.en)).toMatchObject({ name: "Lea Weber", role: "Partner Management", initials: "LW", hours: "By phone Mon–Fri, 09:30–16:30 · Reports around the clock (24/7)" });
+  });
+
+  it("promise no response time in any language (B20)", () => {
+    for (const t of Object.values(support)) {
+      expect(`${t.hours} ${t.sent("T-1")}`).not.toMatch(/Arbeitstag|working day|jour ouvrable|giorno lavorativo/);
+      expect(t.hours).toContain("09:30–16:30");
+      expect(t.hours).toContain("24/7");
+    }
   });
 });
 

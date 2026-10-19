@@ -49,7 +49,7 @@
           <h1 style="margin:0;font-family:var(--font-display);font-weight:700;font-size:clamp(34px,4.2vw,56px);line-height:1.05;letter-spacing:-0.02em">Ihre Anfragen.<br>Jederzeit im Blick.</h1>
           <p style="margin:0;font-size:21px;font-weight:500;color:rgba(255,255,255,.7);text-wrap:pretty">Status, Dokumente und Rückmeldungen der Kreditgeber – an einem Ort. Für Ihre Kunden. Für Sie.</p>
         </div>
-        <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45)">Partnerportal · hypoteq.com</div>
+        <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45)">Partnerportal · hypoteq.ch</div>
       </div>
       <div style="position:relative;display:flex;justify-content:center">
         <div style="width:100%;max-width:440px;display:flex;flex-direction:column;gap:24px;padding:clamp(24px,3vw,40px);border-radius:24px;background:linear-gradient(160deg,rgba(30,52,38,.9),rgba(15,27,20,.94));border:1px solid rgba(255,255,255,.1);box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 30px 80px rgba(3,8,5,.6);backdrop-filter:blur(18px);animation:hqIn .42s ease-out">
@@ -638,8 +638,8 @@
 
                   <div style="background:var(--forest-700);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:clamp(20px,3vw,28px);display:flex;flex-direction:column;gap:12px">
                     <div style="font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--lime-500);font-weight:500">Nachricht oder Information senden</div>
-                    <p style="margin:0;font-size:15px;color:rgba(255,255,255,.7)">Ihre Nachricht wird als E-Mail an <span style="color:#fff;font-weight:500">info@hypoteq.com</span> gesendet – mit Case-Nummer und Kundenname im Betreff. Zusätzlich erscheint sie unter «Letzte Updates».</p>
-                    <textarea value="{{ msg }}" onChange="{{ setMsg }}" placeholder="Ihre Nachricht an info@hypoteq.com …" rows="4" style="width:100%;resize:vertical;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.08);color:#fff;font-size:15px;line-height:1.4;outline:none" style-focus="box-shadow:0 0 0 3px rgba(202,244,118,.55);border-color:var(--lime-500)"></textarea>
+                    <p style="margin:0;font-size:15px;color:rgba(255,255,255,.7)">Ihre Nachricht wird als E-Mail an <span style="color:#fff;font-weight:500">info@hypoteq.ch</span> gesendet – mit Case-Nummer und Kundenname im Betreff. Zusätzlich erscheint sie unter «Letzte Updates».</p>
+                    <textarea value="{{ msg }}" onChange="{{ setMsg }}" placeholder="Ihre Nachricht an info@hypoteq.ch …" rows="4" style="width:100%;resize:vertical;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.08);color:#fff;font-size:15px;line-height:1.4;outline:none" style-focus="box-shadow:0 0 0 3px rgba(202,244,118,.55);border-color:var(--lime-500)"></textarea>
                     <div style="display:flex;justify-content:flex-end">
                       <x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Button" size="sm" icon-right="send" disabled="{{ msgEmpty }}" onClick="{{ sendMsg }}" hint-size="auto,36px">Als E-Mail senden</x-import>
                     </div>
@@ -857,8 +857,8 @@
                     </div>
                     <div style="display:flex;flex-direction:column">
                       <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid rgba(255,255,255,.14);font-size:15px"><x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="phone" size="{{ 18 }}" style="color:var(--lime-500)" hint-size="18px,18px"></x-import>+41 52 511 20 20</div>
-                      <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid rgba(255,255,255,.14);font-size:15px"><x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="mail" size="{{ 18 }}" style="color:var(--lime-500)" hint-size="18px,18px"></x-import>partner@hypoteq.com</div>
-                      <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid rgba(255,255,255,.14);font-size:15px;color:rgba(255,255,255,.7)"><x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="clock" size="{{ 18 }}" style="color:var(--lime-500)" hint-size="18px,18px"></x-import>Mo–Fr, 08:00–17:30 · Antwort innert 1 Arbeitstag</div>
+                      <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid rgba(255,255,255,.14);font-size:15px"><x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="mail" size="{{ 18 }}" style="color:var(--lime-500)" hint-size="18px,18px"></x-import>info@hypoteq.ch</div>
+                      <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid rgba(255,255,255,.14);font-size:15px;color:rgba(255,255,255,.7)"><x-import component-from-global-scope="HYPOTEQDesignSystem_c2d2bd.Icon" name="clock" size="{{ 18 }}" style="color:var(--lime-500)" hint-size="18px,18px"></x-import>Telefonisch Mo–Fr, 09:30–16:30 · Meldungen rund um die Uhr (24/7)</div>
                     </div>
                   </div>
                   <div style="background:var(--forest-700);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:clamp(20px,3vw,28px);display:flex;flex-direction:column;gap:12px">
@@ -893,7 +893,7 @@
               </div>
               <div style="max-width:600px;background:#fff;color:var(--forest-800);border-radius:12px;overflow:hidden">
                 <div style="padding:14px 28px;border-bottom:1px solid #E1E7DC;font-size:13px;color:rgba(19,34,25,.7);display:flex;flex-direction:column;gap:2px">
-                  <span><strong style="font-weight:500;color:var(--forest-800)">Von:</strong> HYPOTEQ Partnerportal · portal@hypoteq.com</span>
+                  <span><strong style="font-weight:500;color:var(--forest-800)">Von:</strong> HYPOTEQ Partnerportal · info@hypoteq.ch</span>
                   <span><strong style="font-weight:500;color:var(--forest-800)">An:</strong> d.meier@meier-finanz.ch</span>
                   <span><strong style="font-weight:500;color:var(--forest-800)">Betreff:</strong> Update zu Ihrer Anfrage für Familie Steiner</span>
                 </div>
@@ -907,7 +907,7 @@
                   </div>
                   <p style="margin:0;font-size:13px;color:rgba(19,34,25,.45)">Sie erhalten diese E-Mail, weil Sie als Vertriebspartner bei HYPOTEQ registriert sind. Benachrichtigungen verwalten Sie im Portal unter Profil.</p>
                 </div>
-                <div style="padding:14px 28px;border-top:1px solid #E1E7DC;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(19,34,25,.45)">HYPOTEQ AG · Winterthur · hypoteq.com</div>
+                <div style="padding:14px 28px;border-top:1px solid #E1E7DC;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(19,34,25,.45)">HYPOTEQ AG · Winterthur · hypoteq.ch</div>
               </div>
             </div>
           </sc-if>
@@ -1849,7 +1849,7 @@ class Component extends DCLogic {
         const nr = 'T-' + (1043 + s.tickets.length - 3);
         this.setState(st => ({ tickets: [{ nr, type: sTypeLabel[st.supportType], title: st.supportSubject.trim(), date: '22.09.2026', status: 'Eingegangen', tone: 'neutral' }, ...st.tickets], supportSubject: '', supportMsg: '', supportCase: '' }));
         this.log('Daniel Meier', 'Support-Meldung erstellt', 'life-buoy', nr + ' · ' + sTypeLabel[s.supportType]);
-        this.toast('Danke! Meldung ' + nr + ' ist eingegangen. Wir melden uns innert 1 Arbeitstag.');
+        this.toast('Danke! Meldung ' + nr + ' ist eingegangen.');
       }, isEmail: s.screen === 'email', isDenied: s.screen === 'denied',
       isAdminPartners: s.screen === 'adminPartners', isAdminPartner: s.screen === 'adminPartner', isAdminAudit: s.screen === 'adminAudit',
       goEmail: () => this.go('email'), goDashboard: () => this.go('dashboard'), emailOpenCase: () => this.openCase('c4'),
