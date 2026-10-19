@@ -1,19 +1,17 @@
 import Link from "next/link";
-import { Download, FileText } from "lucide-react";
 import { Badge, Card, Eyebrow, PageHeader, btn, formatDate, formatDateTime } from "@/components/portal/ui";
 import { prisma } from "@/lib/prisma";
 import { CHANGE_STATUSES, CHANGE_STATUS_TONE, changeRequestNr, isChangeStatus } from "@/lib/portal/changeRequests";
 import { getDict } from "@/lib/portal/i18n/server";
-import { PARTNER_DOC_STATUSES, PARTNER_DOC_STATUS_TONE, isPartnerDocStatus } from "@/lib/portal/partnerDocuments";
 import { requireAdmin } from "@/lib/portal/session";
-import { setChangeRequestStatusAction, setPartnerDocumentStatusAction } from "./actions";
+import { setChangeRequestStatusAction } from "./actions";
 
 const selectClass =
   "h-9 rounded-xl border border-white/[.14] bg-[#1A2E20] px-3 text-[15px] text-white outline-none focus:border-[#CAF476]";
 
 /**
- * Admin: partners' change requests and company documents, with their status. Reached at
- * /portal/admin/aenderungen (linked from the team mails); «Offen» shows what still waits.
+ * Admin: partners' change requests, with their status. Reached at /portal/admin/aenderungen
+ * (linked from the team mails); «Offen» shows what still waits.
  */
 export default async function AdminChangeRequestsPage({ searchParams }: { searchParams: { filter?: string } }) {
   await requireAdmin();
@@ -21,11 +19,8 @@ export default async function AdminChangeRequestsPage({ searchParams }: { search
   const tx = t.profileExtra;
   const all = searchParams.filter === "all";
 
-  const [requests, docs] = await Promise.all([
-    prisma.portalChangeRequest.findMany({ where: all ? undefined : { status: "in_pruefung" }, orderBy: { createdAt: "desc" }, take: 300 }),
-    prisma.portalPartnerDocument.findMany({ where: all ? undefined : { status: "in_pruefung" }, orderBy: { createdAt: "desc" }, take: 300 }),
-  ]);
-  const userIds = Array.from(new Set([...requests.map((r) => r.userId), ...docs.map((d) => d.userId)]));
+  const requests = await prisma.portalChangeRequest.findMany({ where: all ? undefined : { status: "in_pruefung" }, orderBy: { createdAt: "desc" }, take: 300 });
+  const userIds = Array.from(new Set(requests.map((r) => r.userId)));
   const users = new Map(
     (await prisma.portalUser.findMany({ where: { id: { in: userIds } }, select: { id: true, name: true, email: true, company: true } })).map((u) => [u.id, u])
   );
@@ -97,45 +92,6 @@ export default async function AdminChangeRequestsPage({ searchParams }: { search
                     {CHANGE_STATUSES.map((s) => (
                       <option key={s} value={s}>
                         {tx.change.status[s]}
-                      </option>
-                    ))}
-                  </select>
-                  <button type="submit" className={`${btn.secondary} h-9 text-[15px]`}>
-                    {tx.admin.save}
-                  </button>
-                </form>
-              </div>
-            </div>
-          ))}
-        </div>
-      </Card>
-
-      <Card className="gap-3">
-        <Eyebrow accent>{tx.admin.docsTitle}</Eyebrow>
-        {docs.length === 0 ? <p className="m-0 text-[15px] text-white/70">{tx.admin.docsNone}</p> : null}
-        <div className="flex flex-col">
-          {docs.map((d) => (
-            <div key={d.id} className="flex flex-wrap items-center justify-between gap-3 border-t border-white/[.14] py-3">
-              <a href={`/api/portal/partner-docs/${d.id}`} className="group flex min-w-0 flex-1 items-center gap-3">
-                <FileText size={20} className="flex-none text-[#CAF476]" />
-                <span className="min-w-0">
-                  <span className="block truncate text-[15px] font-medium group-hover:text-[#DAF6A2]">
-                    {tx.docs.kinds[d.name] || d.name} · {d.fileName}
-                  </span>
-                  <span className="block truncate text-[13px] text-white/70">
-                    {who(d.userId)} · {formatDate(d.createdAt)}
-                  </span>
-                </span>
-                <Download size={16} className="flex-none text-white/60" />
-              </a>
-              <div className="flex items-center gap-2">
-                <Badge tone={isPartnerDocStatus(d.status) ? PARTNER_DOC_STATUS_TONE[d.status] : "neutral"}>{tx.docs.status[d.status] || d.status}</Badge>
-                <form action={setPartnerDocumentStatusAction} className="flex items-center gap-2">
-                  <input type="hidden" name="id" value={d.id} />
-                  <select name="status" defaultValue={d.status} aria-label={tx.admin.setTo} className={selectClass}>
-                    {PARTNER_DOC_STATUSES.map((s) => (
-                      <option key={s} value={s}>
-                        {tx.docs.status[s]}
                       </option>
                     ))}
                   </select>
