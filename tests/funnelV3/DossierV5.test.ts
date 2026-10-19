@@ -56,17 +56,17 @@ describe("01 Antrag", () => {
   });
 
   it("Ablösung: Zins and Ablösedatum from the Zinsabrechnung, marked «aus Dokument»", () => {
-    const m = model(ablState({ info: { bank: "Musterbank", zins: "SARON 0.65 %", abl: "30.01.2028" } }));
+    const m = model(ablState({ info: { bank: "Musterbank", zins: "SARON 0.80 %", abl: "31.03.2028" } }));
     expect(kvs(m, 0)).toMatchObject({
       "Bestehende Bank": "Musterbank",
-      "Bestehende Hypothek": "CHF 400'000 · SARON 0.65 %",
-      Ablösedatum: "30.01.2028",
+      "Bestehende Hypothek": "CHF 400'000 · SARON 0.80 %",
+      Ablösedatum: "31.03.2028",
       "Gewünschte Erhöhung": "CHF 100'000",
       Gesamtfinanzierung: "CHF 500'000",
       Auskunftsermächtigung: "unterzeichnet erhalten",
     });
     expect(source(m, 0, "Ablösedatum")).toBe("aus Dokument");
-    expect(m.cover.description).toBe("Stockwerkeigentum, Selbstbewohnt. Ablösung der bestehenden Hypothek der Musterbank von CHF 400'000 per 30.01.2028 und Erhöhung um CHF 100'000.");
+    expect(m.cover.description).toBe("Stockwerkeigentum, Selbstbewohnt. Ablösung der bestehenden Hypothek der Musterbank von CHF 400'000 per 31.03.2028 und Erhöhung um CHF 100'000.");
     expect(kvs(m, 0)).not.toHaveProperty("Kaufpreis");
   });
 });
@@ -128,11 +128,11 @@ describe("03 Kreditnehmer", () => {
       kaufState({
         ans: { ...kaufState().ans, unterhalt: "Ja", kredite: "Ja", buerge: "Ja", steuer: "Ja" },
         txt: { ...kaufState().txt, buergeName: "Hans Bürge" },
-        info: { unterhaltBetrag: "CHF 1'400/Mt.", kreditRest: "CHF 24'000", kreditRate: "CHF 500" },
+        info: { unterhaltBetrag: "CHF 1'200/Mt.", kreditRest: "CHF 24'000", kreditRate: "CHF 500" },
       })
     );
     expect(kvs(m, 2)).toMatchObject({
-      Unterhaltszahlungen: "Ja · Betrag CHF 1'400/Mt.",
+      Unterhaltszahlungen: "Ja · Betrag CHF 1'200/Mt.",
       Privatkredite: "Ja · Restschuld CHF 24'000 · Rate CHF 500",
       Solidarbürgschaft: "Hans Bürge",
       "Interesse an Steueroptimierung": "Ja",
@@ -233,7 +233,7 @@ describe("languages and the PDF", () => {
   it("renders every v5 case to a valid PDF in every language", async () => {
     const states = [
       kaufState({ ans: { ...kaufState().ans, reno: "Ja", kredite: "Ja" }, fin: { ...kaufState().fin, renoBetrag: 80000 }, em: { ...EMPTY_EM, spar: 200000, pkVerp: 30000 }, info: { geb: "12.03.1985", heizung: "Gas → Wärmepumpe ✓" }, sig: LATER }),
-      ablState({ info: { abl: "30.01.2028", zins: "SARON 0.65 %" }, em: { ...EMPTY_EM, s3a: 25000 } }),
+      ablState({ info: { abl: "31.03.2028", zins: "SARON 0.80 %" }, em: { ...EMPTY_EM, s3a: 25000 } }),
       jurState({ info: { uid: "CHE-123.456.789" } }),
     ];
     for (const lang of ["de", "fr", "it", "en"] as const) {

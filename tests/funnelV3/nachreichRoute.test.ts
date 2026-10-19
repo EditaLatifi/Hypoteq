@@ -1,5 +1,5 @@
 import { describe, it, expect, jest, beforeEach, afterEach } from "@jest/globals";
-import { ANNA, CASE, GARY, INQUIRY, TOKEN, analysis, existingRows, heldRow, inquiryRow, v3StateFor } from "./nachreichFixtures";
+import { ANNA, CASE, MAX, INQUIRY, TOKEN, analysis, existingRows, heldRow, inquiryRow, v3StateFor } from "./nachreichFixtures";
 
 /**
  * app/api/nachreichen/[token]: v3 inquiries take the v3 path, legacy ones the unchanged one.
@@ -139,7 +139,7 @@ const req = (body?: any) =>
 const ctx = { params: { token: TOKEN } };
 
 function seedV3(lang = "de") {
-  mockDb.inquiry = { ...inquiryRow({ v3State: v3StateFor([GARY, ANNA], lang) }), nachreichToken: TOKEN };
+  mockDb.inquiry = { ...inquiryRow({ v3State: v3StateFor([MAX, ANNA], lang) }), nachreichToken: TOKEN };
   mockDb.documents = existingRows().map((r) => ({ ...r, inquiryId: INQUIRY }));
   for (const r of mockDb.documents) if (r.driveItemId) drive.set(r.driveItemId, { id: r.driveItemId, name: r.fileName, webUrl: r.fileUrl });
 }
@@ -176,7 +176,7 @@ describe("GET /api/nachreichen/[token]", () => {
     seedV3("fr");
     const res = await GET(req(), ctx);
     const json = await res.json();
-    expect(json).toMatchObject({ valid: true, v3: true, lang: "fr", caseNumber: CASE, folderId: "FOLDER", submissionId: INQUIRY, email: "gary.gerber@example.ch" });
+    expect(json).toMatchObject({ valid: true, v3: true, lang: "fr", caseNumber: CASE, folderId: "FOLDER", submissionId: INQUIRY, email: "max.mustermann@example.ch" });
     expect(json.missing[0]).toMatchObject({ instanceId: "fotos", label: "Photos du bien (intérieur et extérieur)", group: "objekt" });
     expect(json.missing.find((m: any) => m.instanceId === "id#b2")).toMatchObject({ label: "Passeport / carte d’identité – Anna Muster", group: "person" });
     // The new columns are selected.
@@ -242,7 +242,7 @@ describe("POST /api/nachreichen/[token]", () => {
     mockDb.held = [
       { ...heldRow("h-fotos", "IMG_2041.pdf", analysis("fotos"), 1), submissionId: INQUIRY },
       { ...heldRow("h-lohn", "Lohnausweis 2025.pdf", analysis("lohnausweise", { docDate: "2025" }), 2), submissionId: INQUIRY },
-      { ...heldRow("h-prod", "Produktvereinbarung.pdf", analysis("produkt", { bank: "ZKB", docDate: "2026-02-01" }), 4), submissionId: INQUIRY },
+      { ...heldRow("h-prod", "Produktvereinbarung.pdf", analysis("produkt", { bank: "Musterbank", docDate: "2026-02-01" }), 4), submissionId: INQUIRY },
       { ...heldRow("h-other", "fremd.pdf", analysis("fotos"), 3), submissionId: "another-submission" },
     ];
     for (const h of mockDb.held) drive.set(h.driveItemId, { id: h.driveItemId, name: h.fileName, webUrl: h.fileUrl });
@@ -271,8 +271,8 @@ describe("POST /api/nachreichen/[token]", () => {
     expect(ids).toEqual(expect.arrayContaining(["h-fotos", "h-lohn"]));
     expect(ids).not.toContain("h-other");
     expect(mockDb.documents.find((d) => d.id === "h-fotos").storedName).toBe(`${CASE}_03_Fotos.pdf`);
-    expect(mockDb.documents.find((d) => d.id === "h-lohn").storedName).toBe(`${CASE}_01_Lohnausweis_Gerber-Gary_2025.pdf`);
-    expect(mockDb.documents.find((d) => d.id === "h-prod").storedName).toBe(`${CASE}_02_Produktvereinbarung_ZKB_2026-02-01.pdf`);
+    expect(mockDb.documents.find((d) => d.id === "h-lohn").storedName).toBe(`${CASE}_01_Lohnausweis_Mustermann-Max_2025.pdf`);
+    expect(mockDb.documents.find((d) => d.id === "h-prod").storedName).toBe(`${CASE}_02_Produktvereinbarung_Musterbank_2026-02-01.pdf`);
     expect(graphCalls.some((c) => c.startsWith("PATCH"))).toBe(true);
     // The refreshed Fall-Dossier.
     expect(graphCalls.some((c) => c.startsWith("PUT") && c.includes(`${CASE}_00_Fall-Dossier.pdf`))).toBe(true);
@@ -295,15 +295,15 @@ describe("POST /api/nachreichen/[token]", () => {
 
     // Mail in the inquiry's language (de), not the page's.
     expect(mockMails).toHaveLength(1);
-    expect(mockMails[0]).toMatchObject({ to: "gary.gerber@example.ch", locale: "de", complete: false });
+    expect(mockMails[0]).toMatchObject({ to: "max.mustermann@example.ch", locale: "de", complete: false });
     expect(mockMails[0].remainingLabels[0]).toBe("Pass / Identitätskarte – Anna Muster");
   });
 
   it("v5 inquiry: the signed Auskunftsermächtigung is marked received, the Case updated, no mail (Handover 7.1)", async () => {
     seedV3();
     mockDb.inquiry.v3State = { ...mockDb.inquiry.v3State, version: 2 };
-    mockDb.documents = mockDb.documents.filter((d) => d.originalFileName !== "01_Auskunftsermaechtigung_Gary_Gerber_unterzeichnet.pdf");
-    const signed = analysis("vollmacht", { fields: { Unterschrift: { value: "vorhanden", confidence: 0.9 }, Vollmachtgeber: { value: "Gerber Gary", confidence: 0.9 } } });
+    mockDb.documents = mockDb.documents.filter((d) => d.originalFileName !== "01_Auskunftsermaechtigung_Max_Mustermann_unterzeichnet.pdf");
+    const signed = analysis("vollmacht", { fields: { Unterschrift: { value: "vorhanden", confidence: 0.9 }, Vollmachtgeber: { value: "Mustermann Max", confidence: 0.9 } } });
     mockDb.held = [{ ...heldRow("h-sig", "Scan.pdf", signed, 1), submissionId: INQUIRY }];
     drive.set("item-h-sig", { id: "item-h-sig", name: "Scan.pdf", webUrl: "https://sp.example/case/Scan.pdf" });
     mockSignatures.length = 0;

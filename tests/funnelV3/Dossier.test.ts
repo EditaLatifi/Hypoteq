@@ -3,7 +3,7 @@ import { PDFDocument } from "pdf-lib";
 import { buildDossierModel, createDossierPdf, dossierFileName, type DossierFile } from "@/lib/funnel-v3/dossier";
 import type { FileEntry } from "@/lib/funnel-v3/files";
 import { EMPTY_AMOUNTS } from "@/lib/funnel-v3/types";
-import { gerberFiles, gerberState } from "./gerberCase";
+import { mustermannFiles, mustermannState } from "./mustermannCase";
 
 const toDossierFiles = (files: FileEntry[]): DossierFile[] =>
   files.map((f) => ({
@@ -21,35 +21,35 @@ const toDossierFiles = (files: FileEntry[]): DossierFile[] =>
 const input = (over: Partial<Parameters<typeof buildDossierModel>[0]> = {}) => ({
   lang: "de" as const,
   draft: false,
-  caseNumber: "HQ-26-06-156283",
+  caseNumber: "HQ-26-01-000001",
   date: new Date("2026-06-02T10:00:00Z"),
-  state: gerberState(),
-  files: toDossierFiles(gerberFiles()),
+  state: mustermannState(),
+  files: toDossierFiles(mustermannFiles()),
   ...over,
 });
 
-describe("Fall-Dossier model — Gerber", () => {
+describe("Fall-Dossier model — Mustermann", () => {
   const m = buildDossierModel(input());
 
   it("header, footer and Deckblatt", () => {
-    expect(m.header.right).toBe("Fall-Dossier · HQ-26-06-156283 · Gerber, Wädenswil");
+    expect(m.header.right).toBe("Fall-Dossier · HQ-26-01-000001 · Mustermann, Zürich");
     expect(m.footer.left).toBe("Vertraulich · für Kreditgeber");
     expect(m.cover.eyebrow).toBe("Finanzierungsanfrage · Ablösung und Erhöhung");
-    expect(m.cover.title).toEqual(["Gary Gerber", "8820 Wädenswil"]);
-    expect(m.cover.description).toBe("Stockwerkeigentum, Selbstbewohnt. Ablösung der bestehenden Hypothek der ZKB von CHF 449'000 und Erhöhung um CHF 201'000.");
-    expect(m.cover.kpis.map((k) => k.value)).toEqual(["CHF 650'000", "44.8 %", "37.6 %"]);
-    expect(m.cover.right).toBe("HQ-26-06-156283 · 02.06.2026");
+    expect(m.cover.title).toEqual(["Max Mustermann", "8000 Zürich"]);
+    expect(m.cover.description).toBe("Stockwerkeigentum, Selbstbewohnt. Ablösung der bestehenden Hypothek der Musterbank von CHF 380'000 und Erhöhung um CHF 170'000.");
+    expect(m.cover.kpis.map((k) => k.value)).toEqual(["CHF 550'000", "44.4 %", "36.3 %"]);
+    expect(m.cover.right).toBe("HQ-26-01-000001 · 02.06.2026");
     expect(m.cover.left).toBe("Eigene Anfrage");
   });
 
   it("sections 01–05 in prototype order", () => {
     expect(m.sections.map((s) => s.title)).toEqual(["01 · Antrag", "02 · Objekt", "03 · Kreditnehmer", "04 · Finanzierung und Tragbarkeit", "05 · Verlauf"]);
     const antrag = Object.fromEntries([...m.sections[0].columns![0], ...m.sections[0].columns![1]].map((kv) => [kv.label, kv.value]));
-    expect(antrag).toMatchObject({ "Bestehende Bank": "ZKB", "Bestehende Hypothek": "CHF 449'000", "Gewünschte Erhöhung": "CHF 201'000", Gesamtfinanzierung: "CHF 650'000", "Gewünschte Laufzeit": "3 Jahre" });
+    expect(antrag).toMatchObject({ "Bestehende Bank": "Musterbank", "Bestehende Hypothek": "CHF 380'000", "Gewünschte Erhöhung": "CHF 170'000", Gesamtfinanzierung: "CHF 550'000", "Gewünschte Laufzeit": "3 Jahre" });
     expect(m.sections[0].callouts![0].label).toBe("Verwendungszweck der Erhöhung");
     const costs = m.sections[3].table!.rows.map((r) => r.map((c) => c.text));
-    expect(costs[0]).toEqual(["Zins 5 % auf CHF 650'000", "CHF 32'500"]);
-    expect(costs[3]).toEqual(["Total Belastung", "CHF 47'000"]);
+    expect(costs[0]).toEqual(["Zins 5 % auf CHF 550'000", "CHF 27'500"]);
+    expect(costs[3]).toEqual(["Total Belastung", "CHF 39'900"]);
     expect(m.sections[3].notes).toContain("Unterhaltszahlungen sind in der Tragbarkeit nicht enthalten; die Unterhaltsvereinbarung liegt im Annex.");
     expect(m.sections[3].callouts!.map((c) => c.label)).toHaveLength(4);
   });
@@ -58,7 +58,7 @@ describe("Fall-Dossier model — Gerber", () => {
     expect(m.annex.groups.map((g) => g.title)).toEqual([
       "A · Zum Objekt",
       "B · Bestehende Hypothek",
-      "C · Zur Person · Gary Gerber",
+      "C · Zur Person · Max Mustermann",
       "D · Eigenmittel und Vorsorge",
       "E · Weitere Dateien · nicht gewertet",
     ]);
@@ -69,7 +69,7 @@ describe("Fall-Dossier model — Gerber", () => {
     expect(a[5][1].sub).toBe("weil: Liegenschaft = Stockwerkeigentum");
     // v5 P2: the current Lohnausweis; the older ones are «Weitere Dateien» (no bonus).
     const lohn = m.annex.groups[2].table.rows.find((r) => r[2].text.includes("Lohnausweis"))!;
-    expect(lohn[2].text.split("\n")).toEqual(["01_Lohnausweis_Gary_Gerber_2025.pdf"]);
+    expect(lohn[2].text.split("\n")).toEqual(["01_Lohnausweis_Max_Mustermann_2025.pdf"]);
     const e = m.annex.groups[4].table.rows.map((r) => r[2].text);
     expect(e).toEqual([
       // Handover 4.2: older Lohnausweise without a bonus; what v5 no longer asks for.
@@ -90,7 +90,7 @@ describe("Fall-Dossier model — Gerber", () => {
 
   it("draft: «Entwurf» instead of a case number", () => {
     const d = buildDossierModel(input({ draft: true, caseNumber: null }));
-    expect(d.header.right).toBe("Fall-Dossier · Entwurf · Gerber, Wädenswil");
+    expect(d.header.right).toBe("Fall-Dossier · Entwurf · Mustermann, Zürich");
     expect(d.cover.draft).toBe("Entwurf");
     expect(d.sections[4].table!.rows[0][1].text).toBe("Entwurf aus dem Funnel – noch nicht abgeschlossen");
   });
@@ -104,7 +104,7 @@ describe("Fall-Dossier model — Gerber", () => {
   });
 
   it("missing documents show «Fehlt» as a warning", () => {
-    const files = toDossierFiles(gerberFiles().filter((f) => f.instanceId !== "fotos"));
+    const files = toDossierFiles(mustermannFiles().filter((f) => f.instanceId !== "fotos"));
     const mm = buildDossierModel(input({ files }));
     expect(mm.annex.groups[0].table.rows[0][1].sub).toBe("Pflicht · Fehlt");
     expect(mm.annex.groups[0].table.rows[0][2].text).toBe("–");
@@ -120,10 +120,10 @@ describe("Fall-Dossier annex E — the reason in the dossier language (D11)", ()
   const annexE = (m: ReturnType<typeof buildDossierModel>) => m.annex.groups.find((g) => g.title.startsWith("E"))!.table.rows.map((r) => r[2].text);
 
   it("English dossier: translated from the reason, the duplicate names its twin; no German sentence", () => {
-    const m = buildDossierModel(input({ lang: "en", files: withReason(toDossierFiles(gerberFiles())) }));
+    const m = buildDossierModel(input({ lang: "en", files: withReason(toDossierFiles(mustermannFiles())) }));
     const e = annexE(m);
     expect(JSON.stringify(m.annex)).not.toContain("Identischer Inhalt");
-    expect(e).toContain("Duplicate – Same content as 01_Leasingvertrag_Cembra_Gary_Gerber.pdf – not stored twice. – not stored twice");
+    expect(e).toContain("Duplicate – Same content as 01_Leasingvertrag_MusterLeasing_Max_Mustermann.pdf – not stored twice. – not stored twice");
     // Free German catalogue text («Steuerrechnung», «viertes Jahr») is not printed abroad either.
     expect(e.join("\n")).not.toMatch(/Steuerrechnung|Nebenkostenabrechnung|viertes Jahr/);
     expect(e).toContain("Not needed – Not required for the financing review. – not stored");
@@ -133,30 +133,30 @@ describe("Fall-Dossier annex E — the reason in the dossier language (D11)", ()
   });
 
   it("German dossier: the sentence as stored", () => {
-    const m = buildDossierModel(input({ files: withReason(toDossierFiles(gerberFiles())) }));
+    const m = buildDossierModel(input({ files: withReason(toDossierFiles(mustermannFiles())) }));
     expect(annexE(m)).toContain(`Duplikat – ${DUP_DE} – nicht doppelt gespeichert`);
   });
 
   it("French and Italian: no German either", () => {
     for (const lang of ["fr", "it"] as const) {
-      const m = buildDossierModel(input({ lang, files: withReason(toDossierFiles(gerberFiles())) }));
+      const m = buildDossierModel(input({ lang, files: withReason(toDossierFiles(mustermannFiles())) }));
       expect(JSON.stringify(annexE(m))).not.toMatch(/Identischer Inhalt|Steuerrechnung|viertes Jahr/);
     }
   });
 });
 
 describe("Fall-Dossier PDF", () => {
-  it("renders the Gerber case to a valid multi-page PDF", async () => {
+  it("renders the Mustermann case to a valid multi-page PDF", async () => {
     const bytes = await createDossierPdf(input());
     expect(bytes.length).toBeGreaterThan(5000);
     expect(Buffer.from(bytes.slice(0, 5)).toString()).toBe("%PDF-");
     const doc = await PDFDocument.load(bytes);
     expect(doc.getPageCount()).toBeGreaterThanOrEqual(3);
-    expect(doc.getTitle()).toBe("Fall-Dossier HQ-26-06-156283");
+    expect(doc.getTitle()).toBe("Fall-Dossier HQ-26-01-000001");
   });
 
   it("survives characters outside the PDF font, empty answers and every language", async () => {
-    const base = gerberState();
+    const base = mustermannState();
     for (const lang of ["de", "en", "fr", "it"] as const) {
       const bytes = await createDossierPdf(
         input({
@@ -174,6 +174,6 @@ describe("Fall-Dossier PDF", () => {
   });
 
   it("file name of the stored dossier", () => {
-    expect(dossierFileName("HQ-26-06-156283")).toBe("HQ-26-06-156283_00_Fall-Dossier.pdf");
+    expect(dossierFileName("HQ-26-01-000001")).toBe("HQ-26-01-000001_00_Fall-Dossier.pdf");
   });
 });

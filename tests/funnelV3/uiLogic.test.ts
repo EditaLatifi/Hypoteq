@@ -41,7 +41,7 @@ import {
   isLookupEmail,
   type KeyContext,
 } from '@/components/funnel-v3/logic';
-import { GARY, GERBER_ANSWERS, GERBER_EM, mkState } from './helpers';
+import { MAX, MUSTERMANN_ANSWERS, MUSTERMANN_EM, mkState } from './helpers';
 
 const tr = (lang: Lang) => (key: string, params?: Record<string, string | number>) => translate(lang, key, params);
 const op = (lang: Lang) => (group: string, value: string | null | undefined) => optionLabel(lang, group, value);
@@ -94,7 +94,7 @@ describe('visibleFields (v5: per screen, Handover 2, 3)', () => {
   });
 
   it('Personen: pkSe for a self-employed Kreditnehmer 1; Kreditnehmer 2 has name and income', () => {
-    const two: Borrower[] = [{ ...GARY, job: 'Selbständig' }, { id: 'b2', vor: 'Anna', nach: 'Gerber', pkSe: 'Nein' }];
+    const two: Borrower[] = [{ ...MAX, job: 'Selbständig' }, { id: 'b2', vor: 'Anna', nach: 'Mustermann', pkSe: 'Nein' }];
     const f = visibleFields('personen', { ...full(), borrowers: two });
     expect(f).toContain('borrower.0.pkSe');
     expect(f).not.toContain('borrower.1.job');
@@ -137,9 +137,9 @@ describe('«+N Unterlagen» badges', () => {
   });
 
   it('per borrower: Selbständig removes documents, Pensionskasse vorhanden adds one', () => {
-    expect(optionDelta(s, 'job', 'Selbständig', GARY.id)).toBeLessThan(1);
+    expect(optionDelta(s, 'job', 'Selbständig', MAX.id)).toBeLessThan(1);
     const se = mkState({}, { job: 'Selbständig' });
-    expect(optionDelta(se, 'pkSe', 'Ja', GARY.id)).toBe(1);
+    expect(optionDelta(se, 'pkSe', 'Ja', MAX.id)).toBe(1);
   });
 
   it('the Unterhalt chip adds the Unterhaltsvereinbarung (no Kinder question since v5)', () => {
@@ -165,15 +165,15 @@ describe('«+N Unterlagen» badges', () => {
 });
 
 describe('question path and header lines', () => {
-  const gerber = full({ fin: { ...EMPTY_AMOUNTS, old: 900000, up: 100000, val: 1400000, inc: 180000 } }, GERBER_ANSWERS, { plz: '8820', ort: 'Wädenswil' });
+  const mustermann = full({ fin: { ...EMPTY_AMOUNTS, old: 900000, up: 100000, val: 1400000, inc: 180000 } }, MUSTERMANN_ANSWERS, { plz: '8000', ort: 'Zürich' });
 
   it('summaries of finished screens', () => {
-    expect(screenSummary('anfrage', gerber, t, opt)).toBe('Ablösung · Natürliche Person');
-    expect(screenSummary('objekt', gerber, t, opt)).toBe('Stockwerkeigentum · 8820 Wädenswil');
-    expect(screenSummary('personen', gerber, t, opt)).toBe('Gary Gerber · Angestellt');
-    expect(screenSummary('kontakt', { ...gerber, txt: { ...gerber.txt, mail: 'gary@example.invalid' } }, t, opt)).toBe('gary@example.invalid');
-    expect(screenSummary('upload', gerber, t, opt, { fulfilled: 4, total: 20 })).toBe('4 von 20 erfüllt');
-    expect(screenSummary('abschluss', gerber, t, opt)).toBe('');
+    expect(screenSummary('anfrage', mustermann, t, opt)).toBe('Ablösung · Natürliche Person');
+    expect(screenSummary('objekt', mustermann, t, opt)).toBe('Stockwerkeigentum · 8000 Zürich');
+    expect(screenSummary('personen', mustermann, t, opt)).toBe('Max Mustermann · Angestellt');
+    expect(screenSummary('kontakt', { ...mustermann, txt: { ...mustermann.txt, mail: 'max@example.invalid' } }, t, opt)).toBe('max@example.invalid');
+    expect(screenSummary('upload', mustermann, t, opt, { fulfilled: 4, total: 20 })).toBe('4 von 20 erfüllt');
+    expect(screenSummary('abschluss', mustermann, t, opt)).toBe('');
     expect(screenSummary('personen', full({}, { kn: 'Juristische Person' }, { firma: 'Muster AG' }), t, opt)).toBe('Muster AG · Juristische Person');
   });
 
@@ -204,8 +204,8 @@ describe('question path and header lines', () => {
   });
 
   it('case line and role line', () => {
-    expect(caseLine(gerber.txt, t)).toBe('Gary Gerber · 8820 Wädenswil');
-    expect(caseLine({ ...EMPTY_TEXTS, firma: 'Muster AG', vor: 'Gary' }, t, 'Juristische Person')).toBe('Muster AG');
+    expect(caseLine(mustermann.txt, t)).toBe('Max Mustermann · 8000 Zürich');
+    expect(caseLine({ ...EMPTY_TEXTS, firma: 'Muster AG', vor: 'Max' }, t, 'Juristische Person')).toBe('Muster AG');
     expect(caseLine({ ...EMPTY_TEXTS }, t)).toBe('Neue Anfrage');
     expect(roleLine('kunde', EMPTY_TEXTS, null, t)).toBe('Eigene Anfrage');
     expect(roleLine('berater', EMPTY_TEXTS, { status: 'partner', name: 'Anna Muster' }, t)).toBe('Erfasst von Anna Muster');
@@ -295,26 +295,26 @@ describe('«Deine Anfrage füllt sich» (Handover 3)', () => {
   it('lists each prefilled value with its document, then the facts for mail and Salesforce', () => {
     const s = full(
       {
-        fin: { ...EMPTY_AMOUNTS, inc: 125385, val: 1450000 },
+        fin: { ...EMPTY_AMOUNTS, inc: 110310, val: 1240000 },
         src: {
           'fin.inc': { doc: 'Lohnausweis 2025', unsure: false, docType: 'lohnausweise' },
           'fin.val': { doc: 'Verkaufsdokumentation 2024', unsure: true, docType: 'verkaufsdoku' },
-          'ans.kredite': { doc: 'Kreditvertrag BANK-now', unsure: false, docType: 'kredit' },
+          'ans.kredite': { doc: 'Kreditvertrag Muster Kredit', unsure: false, docType: 'kredit' },
           'txt.ort': { doc: 'Grundbuchauszug', unsure: false, docType: 'grundbuch' },
         },
-        info: { geb: '04.01.1988', zivil: 'ledig', bonus: false },
+        info: { geb: '05.03.1985', zivil: 'ledig', bonus: false },
       },
       { kredite: 'Ja' },
       { ort: '' }
     );
     const { items, facts } = fillRailItems(s, t, opt, 'de');
     expect(items).toEqual([
-      { path: 'fin.inc', label: 'Bruttoeinkommen pro Jahr', value: "CHF 125'385", unsure: false, why: 'aus Lohnausweis 2025' },
-      { path: 'fin.val', label: 'Geschätzter Objektwert', value: "CHF 1'450'000", unsure: true, why: 'aus Verkaufsdokumentation 2024 · bitte bestätigen' },
-      { path: 'ans.kredite', label: 'Privatkredit', value: 'Ja', unsure: false, why: 'aus Kreditvertrag BANK-now' },
+      { path: 'fin.inc', label: 'Bruttoeinkommen pro Jahr', value: "CHF 110'310", unsure: false, why: 'aus Lohnausweis 2025' },
+      { path: 'fin.val', label: 'Geschätzter Objektwert', value: "CHF 1'240'000", unsure: true, why: 'aus Verkaufsdokumentation 2024 · bitte bestätigen' },
+      { path: 'ans.kredite', label: 'Privatkredit', value: 'Ja', unsure: false, why: 'aus Kreditvertrag Muster Kredit' },
     ]);
     expect(facts).toEqual([
-      { key: 'geb', label: 'Geburtsdatum', value: '04.01.1988' },
+      { key: 'geb', label: 'Geburtsdatum', value: '05.03.1985' },
       { key: 'zivil', label: 'Zivilstand', value: 'ledig' },
     ]);
     // Another language names the document type.
@@ -352,12 +352,12 @@ describe('rail', () => {
   });
 
   it('groups in order with counts; the person group names the customer', () => {
-    const s = mkState(GERBER_ANSWERS, {}, {}, undefined, { em: GERBER_EM });
+    const s = mkState(MUSTERMANN_ANSWERS, {}, {}, undefined, { em: MUSTERMANN_EM });
     const list = reqList(s);
     const groups = railGroups(list, s, new Set([list[0].instanceId]), t, opt);
     expect(groups.map((g) => g.group)).toEqual(['objekt', 'hypothek', 'person', 'eigenmittel']);
     expect(groups.reduce((n, g) => n + g.count, 0)).toBe(list.length);
-    expect(groups[2].name).toBe('Zur Person · Gary Gerber');
+    expect(groups[2].name).toBe('Zur Person · Max Mustermann');
     expect(groups[0].items[0].ok).toBe(true);
     expect(groups[0].items[1].ok).toBe(false);
   });
@@ -365,11 +365,11 @@ describe('rail', () => {
   it('a company is «Zur Gesellschaft»; several borrowers carry their names', () => {
     const jp = mkState({ kn: 'Juristische Person' });
     expect(railGroups(reqList(jp), jp, new Set(), t, opt).find((g) => g.group === 'person')!.name).toBe('Zur Gesellschaft');
-    const two = mkState({}, {}, {}, [GARY, { id: 'b2', vor: '', nach: '', pkSe: 'Nein' }]);
+    const two = mkState({}, {}, {}, [MAX, { id: 'b2', vor: '', nach: '', pkSe: 'Nein' }]);
     const person = railGroups(reqList(two), two, new Set(), t, opt).find((g) => g.group === 'person')!;
     expect(person.name).toBe('Zur Person');
     expect(person.items.map((i) => i.label)).toEqual(
-      expect.arrayContaining(['Pass / Identitätskarte · Gary Gerber', 'Pass / Identitätskarte · Kreditnehmer 2'])
+      expect.arrayContaining(['Pass / Identitätskarte · Max Mustermann', 'Pass / Identitätskarte · Kreditnehmer 2'])
     );
   });
 });

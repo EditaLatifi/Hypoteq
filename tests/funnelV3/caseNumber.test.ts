@@ -20,7 +20,7 @@ function store(update: (...a: any[]) => Promise<unknown>) {
 
 describe('case number format', () => {
   it('is HQ-JJ-MM-NNNNNN', () => {
-    expect(formatCaseNumber(new Date('2026-06-15T10:00:00Z'), 156283)).toBe('HQ-26-06-156283');
+    expect(formatCaseNumber(new Date('2026-06-15T10:00:00Z'), 654321)).toBe('HQ-26-06-654321');
     expect(formatCaseNumber(new Date('2026-10-05T10:00:00Z'), 42)).toBe('HQ-26-10-000042');
     for (let i = 0; i < 50; i++) expect(randomCaseNumber(new Date())).toMatch(CASE_NUMBER_RE);
   });

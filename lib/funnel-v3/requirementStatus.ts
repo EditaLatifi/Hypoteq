@@ -21,7 +21,7 @@ export interface UploadedFile {
   outdatedOverride?: boolean;
   /** Set for files outside the list (spec 4.3); such a file never counts for a requirement. */
   extraKind?: ExtraKind;
-  /** Note from the extraction («Wird mit der Erhöhung abgelöst», «Police ist an die ZKB verpfändet»). */
+  /** Note from the extraction («Wird mit der Erhöhung abgelöst», «Police ist an die Musterbank verpfändet»). */
   note?: string;
 }
 

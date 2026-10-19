@@ -33,26 +33,28 @@ const fld = (value, confidence = 0.95) => ({ value, confidence });
 function analysisFor(name) {
   const base = (docTypeId, over = {}) => ({ status: "done", docTypeId, docTypeLabel: docTypeId, confidence: 0.96, requirementId: docTypeId, fields: {}, contentHash: "sha-" + name, ...over });
   const n = name.toLowerCase();
-  // Files of the guided case (Anna Muster) carry «muster» in the name.
-  const who = n.includes("muster") ? { pn: "Muster Anna", full: "Anna Muster" } : { pn: "Gerber Gary", full: "Gary Samuel Gerber" };
+  // Files of the guided case (Anna Muster) carry «_Muster» as a word of the name
+  // (not «Mustermann», «Musterbank», «Muster-Kredit» of the fast case).
+  const anna = /_muster[._]/.test(n);
+  const who = anna ? { pn: "Muster Anna", full: "Anna Muster" } : { pn: "Mustermann Max", full: "Max Simon Mustermann" };
   if (n.includes("kopie")) return base("grundbuch", { contentHash: "sha-grundbuch", docDate: "2026-09-20" });
   if (n.includes("auskunft")) return base("vollmacht", { personName: who.pn, fields: { Vollmachtgeber: fld(who.full), Unterschrift: fld("vorhanden"), "Unterzeichnet am": fld("10.10.2026") } });
-  if (n.includes("lohnausweis") && n.includes("muster")) return base("lohnausweise", { docDate: n.includes("2023") ? "2023" : "2025", personName: who.pn, fields: { Jahr: fld(n.includes("2023") ? "2023" : "2025"), Bruttolohn: fld("CHF 180'000") } });
-  if (n.includes("pass") || n.includes("_id_")) return base("id", { personName: "Gerber Gary Samuel", fields: { Name: fld("GERBER"), Vornamen: fld("GARY SAMUEL"), Geschlecht: fld("M"), Geburtsdatum: fld("04.01.1988"), Nationalität: fld("Schweiz") } });
-  if (n.includes("grundbuch")) return base("grundbuch", { contentHash: "sha-grundbuch", docDate: "2026-09-20", fields: { PLZ: fld("8820"), Ort: fld("Wädenswil"), Adresse: fld("Etzelstrasse 52"), Baurecht: fld("Nein"), Wertquote: fld("85/1000"), Ausstellungsdatum: fld("20.09.2026") } });
-  if (n.includes("zinsabrechnung")) return base("hyp_zins", { bank: "Zuger Kantonalbank", docDate: "2026-07-01", fields: { Kapital: fld("CHF 449'000"), Zinssatz: fld("SARON 0.65 %"), Ablösedatum: fld("30.01.2028") } });
-  if (n.includes("produktvereinbarung")) return base("produkt", { bank: "Zuger Kantonalbank", docDate: "2025-01-30", fields: { Bank: fld("Zuger Kantonalbank"), Betrag: fld("CHF 449'000") } });
+  if (n.includes("lohnausweis") && anna) return base("lohnausweise", { docDate: n.includes("2023") ? "2023" : "2025", personName: who.pn, fields: { Jahr: fld(n.includes("2023") ? "2023" : "2025"), Bruttolohn: fld("CHF 180'000") } });
+  if (n.includes("pass") || n.includes("_id_")) return base("id", { personName: "Mustermann Max Simon", fields: { Name: fld("MUSTERMANN"), Vornamen: fld("MAX SIMON"), Geschlecht: fld("M"), Geburtsdatum: fld("05.03.1985"), Nationalität: fld("Schweiz") } });
+  if (n.includes("grundbuch")) return base("grundbuch", { contentHash: "sha-grundbuch", docDate: "2026-09-20", fields: { PLZ: fld("8000"), Ort: fld("Zürich"), Adresse: fld("Musterweg 1"), Baurecht: fld("Nein"), Wertquote: fld("60/1000"), Ausstellungsdatum: fld("20.09.2026") } });
+  if (n.includes("zinsabrechnung")) return base("hyp_zins", { bank: "Musterbank", docDate: "2026-07-01", fields: { Kapital: fld("CHF 380'000"), Zinssatz: fld("SARON 0.80 %"), Ablösedatum: fld("31.03.2028") } });
+  if (n.includes("produktvereinbarung")) return base("produkt", { bank: "Musterbank", docDate: "2025-01-30", fields: { Bank: fld("Musterbank"), Betrag: fld("CHF 380'000") } });
   if (n.includes("rahmenvertrag")) return base("hyp_rahmen", { requirementId: null, extraKind: "notneeded", docDate: "2019-02-01" });
-  if (n.includes("lohnausweis_2023")) return base("lohnausweise", { docDate: "2023", personName: "Gerber Gary", fields: { Jahr: fld("2023"), Bruttolohn: fld("CHF 118'000") } });
-  if (n.includes("lohnausweis")) return base("lohnausweise", { docDate: "2025", personName: "Gerber Gary", fields: { Arbeitgeber: fld("Etzel Liegenschaften AG"), Jahr: fld("2025"), Bruttolohn: fld("CHF 125'385") } });
-  if (n.includes("lohnabrechnung")) return base("lohnabrechnungen", { docDate: "2026-08-31", personName: "Gerber Gary", fields: { "Monatslohn brutto": fld("CHF 8'800"), "13. Monatslohn": fld("Ja") } });
-  if (n.includes("steuererkl")) return base("steuer", { docDate: "2025", personName: "Gerber Gary", fields: { Zivilstand: fld("ledig"), Kinder: fld("2"), Eigenmietwert: fld("CHF 21'000", 0.8) } });
+  if (n.includes("lohnausweis_2023")) return base("lohnausweise", { docDate: "2023", personName: "Mustermann Max", fields: { Jahr: fld("2023"), Bruttolohn: fld("CHF 101'800") } });
+  if (n.includes("lohnausweis")) return base("lohnausweise", { docDate: "2025", personName: "Mustermann Max", fields: { Arbeitgeber: fld("Muster Treuhand AG"), Jahr: fld("2025"), Bruttolohn: fld("CHF 110'310") } });
+  if (n.includes("lohnabrechnung")) return base("lohnabrechnungen", { docDate: "2026-08-31", personName: "Mustermann Max", fields: { "Monatslohn brutto": fld("CHF 7'750"), "13. Monatslohn": fld("Ja") } });
+  if (n.includes("steuererkl")) return base("steuer", { docDate: "2025", personName: "Mustermann Max", fields: { Zivilstand: fld("ledig"), Kinder: fld("2"), Eigenmietwert: fld("CHF 18'600", 0.8) } });
   if (n.includes("stwe")) return base("stwe_regl", { docDate: "2015-03-01" });
-  if (n.includes("kreditvertrag")) return base("kredit", { docDate: "2025-04-01", note: "Privatkredit BANK-now, Restschuld CHF 18'400", fields: { Kreditgeber: fld("BANK-now"), Restschuld: fld("CHF 18'400"), Monatsrate: fld("CHF 520") } });
+  if (n.includes("kreditvertrag")) return base("kredit", { docDate: "2025-04-01", note: "Privatkredit Muster Kredit, Restschuld CHF 21'480", fields: { Kreditgeber: fld("Muster Kredit"), Restschuld: fld("CHF 21'480"), Monatsrate: fld("CHF 610") } });
   if (n.includes("unterhalt")) return base("unterhalt", { docDate: "2021-05-01", fields: { Unterhaltsbeitrag: fld("CHF 1'200") } });
-  if (n.includes("police")) return base("police", { docDate: "2026-01-09", fields: { Rückkaufswert: fld("CHF 10'340") } });
-  if (n.includes("verkaufsdok")) return base("verkaufsdoku", { docDate: "2024", fields: { Verkaufspreis: fld("CHF 1'450'000", 0.85), Baujahr: fld("1921"), Heizung: fld("Holzofen erwähnt") } });
-  if (n.includes("gebaeudeversicherung")) return base("gvz", { docDate: "2026-01-01", fields: { Erstellungsjahr: fld("1921"), Volumen: fld("1'497 m³") } });
+  if (n.includes("police")) return base("police", { docDate: "2026-01-09", fields: { Rückkaufswert: fld("CHF 8'760") } });
+  if (n.includes("verkaufsdok")) return base("verkaufsdoku", { docDate: "2024", fields: { Verkaufspreis: fld("CHF 1'240'000", 0.85), Baujahr: fld("1964"), Heizung: fld("Holzofen erwähnt") } });
+  if (n.includes("gebaeudeversicherung")) return base("gvz", { docDate: "2026-01-01", fields: { Erstellungsjahr: fld("1964"), Volumen: fld("1'320 m³") } });
   if (n.includes("eigenmittel")) return base("vermoegen", { docDate: "2026-09-30", fields: { "Saldo total": fld("CHF 160'000") } });
   if (n.includes("fotos")) return base("fotos", { docDate: "2026-05-01" });
   if (n.includes("steuerrechnung")) return base("nn_steuerrechnung", { requirementId: null, extraKind: "notneeded", docDate: "2025-11-02" });
@@ -217,8 +219,8 @@ async function guided(browser, vp, tag) {
       "03_Kopie_Grundbuch.pdf",
       "01_Lohnausweis_2025_Muster.pdf",
       "01_Lohnausweis_2023_Muster.pdf",
-      "01_Kreditvertrag_BANK-now.pdf",
-      "02_Rahmenvertrag_ZKB.pdf",
+      "01_Kreditvertrag_Muster-Kredit.pdf",
+      "02_Rahmenvertrag_Musterbank.pdf",
       "Steuerrechnung_2025.pdf",
       "Scan_0042.pdf",
       "04_Eigenmittelnachweis.pdf",
@@ -275,7 +277,7 @@ async function fast(browser, vp, tag) {
   const k = await text(page);
   check(/Anna Muster/.test(k) && /Erkannt/.test(k), "Kontakt: partner recognised from the link's address");
   check(/Schritt 1 von 6/.test(k), "Kontakt: «Schritt 1 von 6»");
-  await fillId(page, "mail", "gary.gerber@example.invalid");
+  await fillId(page, "mail", "max.mustermann@example.invalid");
   await fillId(page, "tel", "+41 79 123 45 67");
   await shot(page, `${tag}-fast-1-kontakt`);
   await next(page);
@@ -283,13 +285,13 @@ async function fast(browser, vp, tag) {
   check((await page.locator("input.v3-docs-hidden-input[webkitdirectory]").count()) === 1, "step 2: «Ganzen Ordner auswählen» input with webkitdirectory");
   await fileInput(page).setInputFiles(
     files([
-      "01_Pass_Gary_Gerber.pdf",
+      "01_Pass_Max_Mustermann.pdf",
       "01_Lohnausweis_2025.pdf",
       "01_Lohnabrechnung_2026_08.pdf",
       "01_Steuererklaerung_2025.pdf",
-      "01_Kreditvertrag_BANK-now.pdf",
-      "02_Zinsabrechnung_ZKB.pdf",
-      "02_Produktvereinbarung_ZKB.pdf",
+      "01_Kreditvertrag_Muster-Kredit.pdf",
+      "02_Zinsabrechnung_Musterbank.pdf",
+      "02_Produktvereinbarung_Musterbank.pdf",
       "03_Grundbuchauszug_2026.pdf",
       "03_STWE_Reglement.pdf",
       "03_Verkaufsdokumentation.pdf",
@@ -313,7 +315,7 @@ async function fast(browser, vp, tag) {
   await next(page);
   const a = await text(page);
   check(/Angaben aus deinen Unterlagen vorausgefüllt/.test(a), "step 3: prefill banner");
-  check((await byId(page, "vor").inputValue()) === "Gary Samuel" && (await byId(page, "nach").inputValue()) === "Gerber", "step 3: name from the ID");
+  check((await byId(page, "vor").inputValue()) === "Max Simon" && (await byId(page, "nach").inputValue()) === "Mustermann", "step 3: name from the ID");
   check(/aus Dokument/i.test(a), "step 3: «aus Dokument» marks");
   await shot(page, `${tag}-fast-3-anfrage`);
   await next(page);

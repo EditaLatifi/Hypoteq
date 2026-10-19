@@ -177,7 +177,7 @@ function fill(form: PDFForm, font: PDFFont, name: string, value: string | null |
   field.setFontSize(fittingSize(font, text, width));
 }
 
-/** The line under the title: «Anfrage HQ-… · Objekt 8820 Wädenswil · Zweck: Ablösung · Firma: …». */
+/** The line under the title: «Anfrage HQ-… · Objekt 8000 Zürich · Zweck: Ablösung · Firma: …». */
 export function caseLineText(data: AuthorizationData): string {
   const t = (k: string) => translate(data.lang, `sig.pdf.${k}`);
   const parts: string[] = [];

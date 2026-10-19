@@ -14,10 +14,10 @@ export interface MissingRequirement {
   instanceId: string;
   /** Base requirement id (REQ[].id). */
   id: string;
-  /** In the inquiry's language; per-borrower requirements carry the person («… – Gary Gerber»). */
+  /** In the inquiry's language; per-borrower requirements carry the person («… – Max Mustermann»). */
   label: string;
   group: ReqGroup;
-  /** Display group: «Zum Objekt», «Zur Person · Gary Gerber» … (components/funnel-v3/documents/view.ts groupRows). */
+  /** Display group: «Zum Objekt», «Zur Person · Max Mustermann» … (components/funnel-v3/documents/view.ts groupRows). */
   groupKey: string;
   groupLabel: string;
   reason: ReqReason;
@@ -50,7 +50,7 @@ export interface RemainingRequirement {
   label: string;
 }
 
-/** «Lohnausweise der letzten 3 Jahre – Gary Gerber». */
+/** «Lohnausweise der letzten 3 Jahre – Max Mustermann». */
 export function requirementLabel(inst: Pick<RequirementInstance, "labelKey" | "perBorrower" | "person">, lang: Lang): string {
   const base = translate(lang, inst.labelKey);
   const who = inst.perBorrower ? inst.person?.display?.trim() : "";

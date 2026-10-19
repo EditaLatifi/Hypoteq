@@ -2,7 +2,7 @@ import { describe, it, expect, jest, beforeEach } from "@jest/globals";
 import { syncFunnelStepsToSalesforce } from "@/components/syncFunnelStepsToSalesforce";
 import { toInquiryPayload } from "@/lib/funnel-v3/toInquiryPayload";
 import type { Borrower } from "@/lib/funnel-v3/types";
-import { gerberState, SUBMISSION } from "./gerberCase";
+import { mustermannState, SUBMISSION } from "./mustermannCase";
 
 /**
  * DECISIONS D18: v3 asks no e-mail or phone for Kreditnehmer 2 and 3. The sync must still
@@ -49,7 +49,7 @@ beforeEach(() => {
 const b = (id: string, vor: string, nach: string, job: Borrower["job"] = "Angestellt"): Borrower => ({ id, vor, nach, job, pkSe: "Nein" });
 
 function v3Payload(borrowers: Borrower[], role: "kunde" | "berater" = "kunde") {
-  const state = gerberState({ borrowers, role });
+  const state = mustermannState({ borrowers, role });
   if (role === "berater") state.txt = { ...state.txt, bmail: "berater@partner.ch" };
   return toInquiryPayload(state, { locale: "de", submissionId: SUBMISSION, sharepointFolderId: "FOLDER" }) as any;
 }
@@ -58,21 +58,21 @@ describe("Salesforce sync — v3 co-borrowers without e-mail (D18)", () => {
   it("creates a Person Account for borrowers 2 and 3 and links them as Client_2__c / Client_3__c", async () => {
     const sf = fakeSalesforce();
     await syncFunnelStepsToSalesforce(
-      v3Payload([b("b1", "Gary", "Gerber"), b("b2", "Anna", "Gerber-Muster", "Selbständig"), b("b3", "Paul", "Gerber", "Pensioniert")]),
+      v3Payload([b("b1", "Max", "Mustermann"), b("b2", "Anna", "Mustermann-Muster", "Selbständig"), b("b3", "Paul", "Mustermann", "Pensioniert")]),
       sf.api
     );
     expect(sf.accounts).toHaveLength(3);
-    expect(sf.accounts[0]).toMatchObject({ FirstName: "Gary", LastName: "Gerber", PersonEmail: "gary.gerber@example.ch" });
-    expect(sf.accounts[1]).toMatchObject({ FirstName: "Anna", LastName: "Gerber-Muster" });
-    expect(sf.accounts[2]).toMatchObject({ FirstName: "Paul", LastName: "Gerber" });
+    expect(sf.accounts[0]).toMatchObject({ FirstName: "Max", LastName: "Mustermann", PersonEmail: "max.mustermann@example.ch" });
+    expect(sf.accounts[1]).toMatchObject({ FirstName: "Anna", LastName: "Mustermann-Muster" });
+    expect(sf.accounts[2]).toMatchObject({ FirstName: "Paul", LastName: "Mustermann" });
     // No e-mail, no phone invented for them.
     expect(sf.accounts[1]).not.toHaveProperty("PersonEmail");
     expect(sf.accounts[1]).not.toHaveProperty("Phone");
     expect(sf.accounts[1].Erwerbsstatus__c).toBeTruthy();
     // Only the main borrower is looked up, by e-mail; never by name.
     expect(sf.api.findAccountByEmail).toHaveBeenCalledTimes(1);
-    expect(sf.api.findAccountByEmail).toHaveBeenCalledWith("gary.gerber@example.ch");
-    expect(sf.api.findAccountByName).not.toHaveBeenCalledWith(expect.stringContaining("Gerber"));
+    expect(sf.api.findAccountByEmail).toHaveBeenCalledWith("max.mustermann@example.ch");
+    expect(sf.api.findAccountByName).not.toHaveBeenCalledWith(expect.stringContaining("Mustermann"));
     const c = sf.cases[0];
     expect(c.Client__c).toBe("001P1");
     expect(c.Client_2__c).toBe("001P2");
@@ -81,23 +81,23 @@ describe("Salesforce sync — v3 co-borrowers without e-mail (D18)", () => {
 
   it("de-duplicates only within the submission (the same name twice is one Account)", async () => {
     const sf = fakeSalesforce();
-    await syncFunnelStepsToSalesforce(v3Payload([b("b1", "Gary", "Gerber"), b("b2", "Anna", "Muster"), b("b3", " anna ", "MUSTER")]), sf.api);
-    expect(sf.accounts.map((a) => a.FirstName)).toEqual(["Gary", "Anna"]);
+    await syncFunnelStepsToSalesforce(v3Payload([b("b1", "Max", "Mustermann"), b("b2", "Anna", "Muster"), b("b3", " anna ", "MUSTER")]), sf.api);
+    expect(sf.accounts.map((a) => a.FirstName)).toEqual(["Max", "Anna"]);
     expect(sf.cases[0].Client_2__c).toBe("001P2");
     expect(sf.cases[0].Client_3__c).toBeNull();
   });
 
   it("skips a co-borrower without any name", async () => {
     const sf = fakeSalesforce();
-    await syncFunnelStepsToSalesforce(v3Payload([b("b1", "Gary", "Gerber"), b("b2", "", "")]), sf.api);
+    await syncFunnelStepsToSalesforce(v3Payload([b("b1", "Max", "Mustermann"), b("b2", "", "")]), sf.api);
     expect(sf.accounts).toHaveLength(1);
     expect(sf.cases[0].Client_2__c).toBeNull();
   });
 
   it("works for a Berater submission too", async () => {
     const sf = fakeSalesforce();
-    await syncFunnelStepsToSalesforce(v3Payload([b("b1", "Gary", "Gerber"), b("b2", "Anna", "Muster")], "berater"), sf.api);
-    expect(sf.accounts.map((a) => a.LastName)).toEqual(["Gerber", "Muster"]);
+    await syncFunnelStepsToSalesforce(v3Payload([b("b1", "Max", "Mustermann"), b("b2", "Anna", "Muster")], "berater"), sf.api);
+    expect(sf.accounts.map((a) => a.LastName)).toEqual(["Mustermann", "Muster"]);
     expect(sf.cases[0].Client_2__c).toBe("001P2");
   });
 });

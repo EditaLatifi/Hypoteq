@@ -22,7 +22,7 @@ Kunde;Rolle;–;PersonAccount;Rolle__pc;Picklist;Endkunde;System;;
 Kunde;Kunde ↔ Case;–;Case;Client__c;Lookup(Account);Person Account;System;;
 Kunde;Weitere Kreditnehmer;–;Case;Client_2__c / Client_3__c / Wie_viele_Kunden__c;Lookup / Picklist;1–3;Funnel;SF max. 3, Funnel 6 – offen;
 Kunde;Korrespondenzsprache;–;Case + PersonAccount;Korrespondenzsprache__c / Korrespondenzsprache__pc;Picklist;Browsersprache, Default Deutsch;System;keine Frage;
-Objekt;PLZ + Ort;txt.plz + txt.ort;Case;PLZ_Ort__c;Text(30);«8820 Wädenswil»;Funnel;;
+Objekt;PLZ + Ort;txt.plz + txt.ort;Case;PLZ_Ort__c;Text(30);«8000 Zürich»;Funnel;;
 Objekt;Ort;txt.ort;Case;City__c;Text(80);;Funnel;;
 Objekt;Kanton;–;Case;Kantone__c;Picklist;aus PLZ, z.B. Canton of Zurich;System;;
 Objekt;Art der Immobilie;ans.immo;Case;Art_der_Immobilie__c;Picklist;"Bestehende Immobilie → Bestehende Immobilie; Neubau → Neubau; Bauprojekt → Neubau";Funnel;;

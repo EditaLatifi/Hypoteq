@@ -25,9 +25,9 @@ describe("useFunnelV3", () => {
 
   it("switching Antrag clears what no longer applies (Handover 2)", () => {
     S().setAns("antrag", "Ablösung");
-    S().setFin("old", 449000);
+    S().setFin("old", 380000);
     S().setAns("aufstockung", "Ja");
-    S().setFin("up", 201000);
+    S().setFin("up", 170000);
     S().setTxt("zweck", "Renovation");
     S().setAns("antrag", "Neue Hypothek");
     expect(S().fin.old).toBe(0);
@@ -85,7 +85,7 @@ describe("useFunnelV3", () => {
 
   it("dependent resets", () => {
     S().setChip("buerge", true);
-    S().setTxt("buergeName", "Hans Gerber");
+    S().setTxt("buergeName", "Hans Mustermann");
     S().setChip("buerge", false);
     expect(S().txt.buergeName).toBe("");
 
@@ -123,33 +123,33 @@ describe("useFunnelV3", () => {
   });
 
   it("Kreditnehmer switch", () => {
-    S().setTxt("vor", "Gary");
+    S().setTxt("vor", "Max");
     S().setAns("anrede", "Herr");
     S().addBorrower();
-    S().setFin("inc", 125000);
+    S().setFin("inc", 110000);
     S().setFin("inc2", 60000);
     S().setChip("unterhalt", true);
     S().setAns("kn", "Juristische Person");
     expect(S().borrowers).toHaveLength(1);
-    expect(S().borrowers[0].vor).toBe("Gary");
+    expect(S().borrowers[0].vor).toBe("Max");
     expect(S().fin.inc).toBe(0);
     expect(S().fin.inc2).toBe(0);
     expect(S().ans.anrede).toBeUndefined();
     expect(S().ans.unterhalt).toBe("Nein");
     S().addBorrower();
     expect(S().borrowers).toHaveLength(1);
-    S().setTxt("firma", "Etzel AG");
+    S().setTxt("firma", "Muster AG");
     S().setAns("kn", "Natürliche Person");
     expect(S().txt.firma).toBe("");
   });
 
   it("Kreditnehmer 2 only after «+ Kreditnehmer hinzufügen» (V8); the first one synced with the contact", () => {
-    S().setTxt("vor", "Gary");
-    S().setTxt("nach", "Gerber");
-    expect(S().borrowers[0]).toMatchObject({ vor: "Gary", nach: "Gerber" });
+    S().setTxt("vor", "Max");
+    S().setTxt("nach", "Mustermann");
+    expect(S().borrowers[0]).toMatchObject({ vor: "Max", nach: "Mustermann" });
     const first = S().borrowers[0].id;
-    S().updateBorrower(first, { vor: "Gary Samuel" });
-    expect(S().txt.vor).toBe("Gary Samuel");
+    S().updateBorrower(first, { vor: "Max Simon" });
+    expect(S().txt.vor).toBe("Max Simon");
 
     for (let i = 0; i < 5; i++) S().addBorrower();
     expect(S().borrowers).toHaveLength(MAX_BORROWERS);
@@ -187,7 +187,7 @@ describe("useFunnelV3", () => {
 
   it("every edit marks its field touched and drops its «aus Dokument» mark", () => {
     useFunnelV3.setState({ src: { "txt.plz": { doc: "Grundbuchauszug", unsure: false }, "fin.old": { doc: "Zinsabrechnung", unsure: true } } });
-    S().setTxt("plz", "8820");
+    S().setTxt("plz", "8000");
     S().setFin("old", 450000);
     S().setEm("s3a", 1);
     S().setAns("antrag", "Ablösung");
@@ -210,9 +210,9 @@ describe("useFunnelV3", () => {
   });
 
   it("applyCorrection sets chips and amounts as if clicked and typed", () => {
-    S().applyCorrection({ ans: { kredite: "Ja", leasing: "Ja" }, em: { s3a: 10340 } });
+    S().applyCorrection({ ans: { kredite: "Ja", leasing: "Ja" }, em: { s3a: 8760 } });
     expect(S().ans).toMatchObject({ kredite: "Ja", leasing: "Ja" });
-    expect(S().em.s3a).toBe(10340);
+    expect(S().em.s3a).toBe(8760);
     expect(S().touched).toMatchObject({ "ans.kredite": true, "em.s3a": true });
   });
 });
@@ -243,17 +243,17 @@ describe("navigation (Handover 2, 3; DECISIONS D6)", () => {
 
   it("switching the mode keeps every answer and lands on the same topic", () => {
     S().setMode("schnell");
-    S().setTxt("mail", "gary@example.ch");
+    S().setTxt("mail", "max@example.ch");
     S().next(); // 1 Kontakt
     S().next(); // 2 Unterlagen
     S().next(); // 3 Anfrage
     S().next(); // 4 Objekt & Finanzierung
-    S().setFin("old", 449000);
+    S().setFin("old", 380000);
     S().switchMode();
     expect(S().mode).toBe("begleitet");
     expect(S().step).toBe(2); // Objekt & Finanzierung
-    expect(S().txt.mail).toBe("gary@example.ch");
-    expect(S().fin.old).toBe(449000);
+    expect(S().txt.mail).toBe("max@example.ch");
+    expect(S().fin.old).toBe(380000);
     // Without files, the Schnellanmeldung starts at Kontakt …
     S().switchMode();
     expect(S().mode).toBe("schnell");
@@ -278,7 +278,7 @@ describe("navigation (Handover 2, 3; DECISIONS D6)", () => {
 
 describe("applyDocuments (Handover 3)", () => {
   const result = (over: Partial<PrefillResult> = {}): PrefillResult => ({
-    values: { "ans.antrag": "Ablösung", "fin.old": 449000, "txt.vor": "Gary Samuel", "txt.nach": "Gerber", "borrower.0.job": "Angestellt", "em.s3a": 10340 },
+    values: { "ans.antrag": "Ablösung", "fin.old": 380000, "txt.vor": "Max Simon", "txt.nach": "Mustermann", "borrower.0.job": "Angestellt", "em.s3a": 8760 },
     src: {
       "ans.antrag": { doc: "Zinsabrechnung", unsure: false },
       "fin.old": { doc: "Zinsabrechnung", unsure: false },
@@ -287,7 +287,7 @@ describe("applyDocuments (Handover 3)", () => {
       "borrower.0.job": { doc: "Lohnausweis 2025", unsure: false },
       "em.s3a": { doc: "3a-Police", unsure: true },
     },
-    info: { bank: "Zuger Kantonalbank", bonus: false, raise: false, ab50: false },
+    info: { bank: "Musterbank", bonus: false, raise: false, ab50: false },
     facts: { bonus: false, raise: false, ab50: false },
     ...over,
   });
@@ -296,12 +296,12 @@ describe("applyDocuments (Handover 3)", () => {
     S().setMode("schnell");
     S().applyDocuments(result());
     expect(S().ans.antrag).toBe("Ablösung");
-    expect(S().fin.old).toBe(449000);
-    expect(S().txt.vor).toBe("Gary Samuel");
-    expect(S().borrowers[0]).toMatchObject({ vor: "Gary Samuel", nach: "Gerber", job: "Angestellt" });
-    expect(S().em.s3a).toBe(10340);
+    expect(S().fin.old).toBe(380000);
+    expect(S().txt.vor).toBe("Max Simon");
+    expect(S().borrowers[0]).toMatchObject({ vor: "Max Simon", nach: "Mustermann", job: "Angestellt" });
+    expect(S().em.s3a).toBe(8760);
     expect(S().src["em.s3a"]).toEqual({ doc: "3a-Police", unsure: true });
-    expect(S().info.bank).toBe("Zuger Kantonalbank");
+    expect(S().info.bank).toBe("Musterbank");
     expect(S().touched).toEqual({});
   });
 
@@ -319,7 +319,7 @@ describe("applyDocuments (Handover 3)", () => {
     expect(S().ans.antrag).toBeUndefined();
     expect(S().fin.old).toBe(0);
     expect(S().src).toEqual({});
-    expect(S().info.bank).toBe("Zuger Kantonalbank");
+    expect(S().info.bank).toBe("Musterbank");
   });
 
   it("is idempotent, and drops a mark whose document is gone (the value stays)", () => {
@@ -329,7 +329,7 @@ describe("applyDocuments (Handover 3)", () => {
     S().applyDocuments(result());
     expect(S().src).toBe(after.src);
     S().applyDocuments(result({ values: {}, src: {} }));
-    expect(S().fin.old).toBe(449000);
+    expect(S().fin.old).toBe(380000);
     expect(S().src).toEqual({});
   });
 
@@ -358,7 +358,7 @@ describe("reset", () => {
   it("empties the funnel and mints a new submission", () => {
     S().setRole("kunde");
     S().setMode("schnell");
-    S().setTxt("vor", "Gary");
+    S().setTxt("vor", "Max");
     S().setSharepointFolderId("folder-1");
     S().setFiles([{ name: "a.pdf" } as any]);
     S().next();
@@ -404,12 +404,12 @@ describe("persistence", () => {
     try {
       const store = freshStore();
       store.getState().setMode("schnell");
-      store.getState().setTxt("vor", "Gary");
-      store.getState().setEm("s3a", 10340);
+      store.getState().setTxt("vor", "Max");
+      store.getState().setEm("s3a", 8760);
       store.getState().setFiles([{ name: "a.pdf", file: new Blob(["x"]) } as any]);
       const saved = JSON.parse(data[FUNNEL_V3_STORAGE_KEY]);
       expect(saved.version).toBe(FUNNEL_V3_STORAGE_VERSION);
-      expect(saved.state.txt.vor).toBe("Gary");
+      expect(saved.state.txt.vor).toBe("Max");
       expect(saved.state.files).toEqual([{ name: "a.pdf" }]);
       const id = saved.state.submissionId;
 
@@ -417,9 +417,9 @@ describe("persistence", () => {
       const store2 = freshStore();
       expect(store2.getState().txt.vor).toBe("");
       await store2.persist.rehydrate();
-      expect(store2.getState().txt.vor).toBe("Gary");
+      expect(store2.getState().txt.vor).toBe("Max");
       expect(store2.getState().mode).toBe("schnell");
-      expect(store2.getState().em.s3a).toBe(10340);
+      expect(store2.getState().em.s3a).toBe(8760);
       expect(store2.getState().submissionId).toBe(id);
       expect(typeof store2.getState().setTxt).toBe("function");
     } finally {

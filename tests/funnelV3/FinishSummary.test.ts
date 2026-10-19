@@ -3,26 +3,26 @@ import { finishSummary } from "@/lib/funnel-v3/finishSummary";
 import { documentsSummary } from "@/lib/funnel-v3/documentsSummary";
 import { EMPTY_AMOUNTS, type FunnelState } from "@/lib/funnel-v3/types";
 import type { FileEntry } from "@/lib/funnel-v3/files";
-import { gerberFiles, gerberState } from "./gerberCase";
+import { mustermannFiles, mustermannState } from "./mustermannCase";
 
 function summary(state: FunnelState, files: FileEntry[], lang: "de" | "en" | "fr" | "it" = "de", skipped: string[] = []) {
   const docs = documentsSummary({ ...state, files, skipped });
   return finishSummary({ state, status: docs.status, files: docs.files, hints: docs.hints, submittedDocuments: docs.submittedDocuments(), lang });
 }
 
-describe("finishSummary — Fall Gerber", () => {
-  const s = summary(gerberState(), gerberFiles());
+describe("finishSummary — Fall Mustermann", () => {
+  const s = summary(mustermannState(), mustermannFiles());
 
   it("KPIs: Gesamtfinanzierung, Belehnung, Tragbarkeit (spec formula, D16) and Unterlagen", () => {
     expect(s.kpis.map((k) => [k.label, k.value])).toEqual([
-      ["Gesamtfinanzierung", "CHF 650'000"],
-      ["Belehnung", "44.8 %"],
-      ["Tragbarkeit", "37.6 %"],
+      ["Gesamtfinanzierung", "CHF 550'000"],
+      ["Belehnung", "44.4 %"],
+      ["Tragbarkeit", "36.3 %"],
       ["Unterlagen", "20 / 20"],
     ]);
   });
 
-  it("title: the verdict is «Prüfung nötig» (37.6 % > 33 %), so not the «Jetzt zur Bank» title", () => {
+  it("title: the verdict is «Prüfung nötig» (36.3 % > 33 %), so not the «Jetzt zur Bank» title", () => {
     expect(s.calc.verdict).toBe("review");
     expect(s.allGood).toBe(false);
     expect(s.title).toBe("Letzter Blick auf die Anfrage");
@@ -37,7 +37,7 @@ describe("finishSummary — Fall Gerber", () => {
       ["pledged3a", expect.any(String)],
     ]);
     expect(s.hints[0].text).toContain("15.01.2026");
-    expect(s.hints[3].text).toBe("Police an die ZKB verpfändet.");
+    expect(s.hints[3].text).toBe("Police an die Musterbank verpfändet.");
     expect(s.hintsLabel).toBe("Hinweise an die Bank · 4");
   });
 
@@ -51,18 +51,18 @@ describe("finishSummary — Fall Gerber", () => {
       ["Aus Dokumenten übernommen", "Bestätigt"],
     ]);
     const sub = Object.fromEntries(s.checks.map((c) => [c.key, c.sub]));
-    expect(sub.antrag).toBe("Ablösung · Gesamtfinanzierung CHF 650'000");
-    expect(sub.objekt).toBe("8820 Wädenswil · Stockwerkeigentum · Selbstbewohnt");
+    expect(sub.antrag).toBe("Ablösung · Gesamtfinanzierung CHF 550'000");
+    expect(sub.objekt).toBe("8000 Zürich · Stockwerkeigentum · Selbstbewohnt");
     // v5: the chips that were tapped (prototype finalChecks).
-    expect(sub.kreditnehmer).toBe("Gary Gerber · CHF 125'000 brutto · Unterhaltszahlungen · Privatkredit · Leasing");
-    expect(sub.trag).toBe("37.6 % · 44.8 %");
+    expect(sub.kreditnehmer).toBe("Max Mustermann · CHF 110'000 brutto · Unterhaltszahlungen · Privatkredit · Leasing");
+    expect(sub.trag).toBe("36.3 % · 44.4 %");
     expect(sub.docs).toBe("20 von 20 Anforderungen erfüllt");
     expect(sub.fromDocs).toBe(`${s.extractedFields} Angaben ausgelesen statt abgefragt · 0 manuell bestätigt`);
     expect(s.extractedFields).toBe(9);
   });
 
   it("translates (EN)", () => {
-    const en = summary(gerberState(), gerberFiles(), "en");
+    const en = summary(mustermannState(), mustermannFiles(), "en");
     expect(en.title).toBe("Final look at the request");
     expect(en.checks[0].badge).toBe("Confirmed");
     expect(en.kpis[3].label).toBe("Documents");
@@ -70,17 +70,17 @@ describe("finishSummary — Fall Gerber", () => {
 });
 
 describe("finishSummary — title choice and documents", () => {
-  const okState = () => gerberState({ fin: { ...EMPTY_AMOUNTS, old: 449000, inc: 200000, val: 1450000 } });
+  const okState = () => mustermannState({ fin: { ...EMPTY_AMOUNTS, old: 380000, inc: 200000, val: 1240000 } });
 
   it("«Das können wir finanzieren. Jetzt zur Bank.» when the verdict is ok and no required document is missing", () => {
-    const s = summary(okState(), gerberFiles());
+    const s = summary(okState(), mustermannFiles());
     expect(s.calc.verdict).toBe("ok");
     expect(s.title).toBe("Das können wir finanzieren. Jetzt zur Bank.");
     expect(s.lead).toBe("Alle Angaben und Unterlagen sind vollständig.");
   });
 
   it("missing required documents: other title, lead with the count, Unterlagen open", () => {
-    const files = gerberFiles().filter((f) => f.instanceId !== "fotos" && f.instanceId !== "gvz");
+    const files = mustermannFiles().filter((f) => f.instanceId !== "fotos" && f.instanceId !== "gvz");
     const s = summary(okState(), files);
     expect(s.missingRequired).toBe(2);
     expect(s.title).toBe("Letzter Blick auf die Anfrage");
@@ -92,7 +92,7 @@ describe("finishSummary — title choice and documents", () => {
   });
 
   it("an optional requirement marked «Habe ich nicht» counts as fulfilled and does not block", () => {
-    const files = gerberFiles().filter((f) => f.instanceId !== "verkaufsdoku");
+    const files = mustermannFiles().filter((f) => f.instanceId !== "verkaufsdoku");
     const open = summary(okState(), files);
     expect(open.kpis[3].value).toBe("19 / 20");
     expect(open.missingRequired).toBe(0);
@@ -102,8 +102,8 @@ describe("finishSummary — title choice and documents", () => {
   });
 
   it("partial and outdated are «zu prüfen»", () => {
-    const files = gerberFiles()
-      .filter((f) => f.name !== "01_Versicherung_Saeule3a_Wertmitteilung_1583886.pdf")
+    const files = mustermannFiles()
+      .filter((f) => f.name !== "01_Versicherung_Saeule3a_Wertmitteilung_7654321.pdf")
       .map((f) => (f.instanceId === "grundbuch" ? { ...f, outdatedOverride: false } : f));
     const s = summary(okState(), files);
     expect(s.toReview).toBe(2);
@@ -111,7 +111,7 @@ describe("finishSummary — title choice and documents", () => {
   });
 
   it("empty answers: placeholders instead of blanks, Tragbarkeit «–»", () => {
-    const base = gerberState();
+    const base = mustermannState();
     const s = summary({ ...base, ans: { ...base.ans, antrag: undefined, lieg: undefined, nutz: undefined }, txt: { ...base.txt, vor: "", nach: "", plz: "", ort: "" }, borrowers: [{ id: "b1", vor: "", nach: "", pkSe: "Nein" }], fin: { ...EMPTY_AMOUNTS } }, []);
     const sub = Object.fromEntries(s.checks.map((c) => [c.key, c.sub]));
     expect(sub.antrag).toBe("–");
@@ -122,7 +122,7 @@ describe("finishSummary — title choice and documents", () => {
   });
 
   it("juristische Person: company line, Tragbarkeit does not apply", () => {
-    const base = gerberState();
+    const base = mustermannState();
     const s = summary({ ...base, ans: { ...base.ans, kn: "Juristische Person", unterhalt: "Nein" }, txt: { ...base.txt, firma: "Muster AG", zeichner: "Anna Muster" }, fin: { ...base.fin, inc: 0 } }, []);
     expect(s.kpis[2].value).toBe("–");
     const kn = s.checks.find((c) => c.key === "kreditnehmer")!;
@@ -131,9 +131,9 @@ describe("finishSummary — title choice and documents", () => {
   });
 
   it("counts manually confirmed values from the submitted documents", () => {
-    const state = gerberState();
-    const docs = documentsSummary({ ...state, files: gerberFiles() });
-    const submitted = docs.submittedDocuments().map((d, i) => (i === 0 ? { ...d, humanEdits: { Baujahr: "1921", Zimmer: "4.5" } } : d));
+    const state = mustermannState();
+    const docs = documentsSummary({ ...state, files: mustermannFiles() });
+    const submitted = docs.submittedDocuments().map((d, i) => (i === 0 ? { ...d, humanEdits: { Baujahr: "1964", Zimmer: "4.5" } } : d));
     const s = finishSummary({ state, status: docs.status, files: docs.files, hints: docs.hints, submittedDocuments: submitted, lang: "de" });
     expect(s.confirmedFields).toBe(2);
   });

@@ -303,7 +303,7 @@ export interface DocumentsCheck {
 
 export type CrossCheck = FunnelCheck | DocumentsCheck;
 
-/** «CHF 125'385.00» → 125385. */
+/** «CHF 110'310.00» → 110310. */
 export function parseChf(v: string | null | undefined): number | null {
   if (!v) return null;
   const m = String(v).replace(/[’'\s]/g, "").match(/(\d+(?:[.,]\d{1,2})?)/);

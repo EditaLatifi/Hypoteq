@@ -18,12 +18,12 @@ const post = (body: string) => POST(new Request("http://x/api/funnel/authorizati
 
 describe("/api/funnel/authorization", () => {
   it("POST: the prefilled PDF as a download, never cached", async () => {
-    const res = await post(JSON.stringify({ lang: "de", caseNumber: "HQ-26-10-000123", signers: [{ vor: "Gary Samuel", nach: "Gerber" }], zweck: "Ablösung" }));
+    const res = await post(JSON.stringify({ lang: "de", caseNumber: "HQ-26-10-000123", signers: [{ vor: "Max Simon", nach: "Mustermann" }], zweck: "Ablösung" }));
     expect(res.status).toBe(200);
     expect(res.headers.get("content-type")).toBe("application/pdf");
-    expect(res.headers.get("content-disposition")).toBe('attachment; filename="HQ-26-10-000123_HYPOTEQ_Auskunftsermaechtigung_Gerber-Gary-Samuel.pdf"');
+    expect(res.headers.get("content-disposition")).toBe('attachment; filename="HQ-26-10-000123_HYPOTEQ_Auskunftsermaechtigung_Mustermann-Max-Simon.pdf"');
     expect(res.headers.get("cache-control")).toBe("no-store");
-    expect(await value(res, "Text2")).toBe("Gerber");
+    expect(await value(res, "Text2")).toBe("Mustermann");
   });
 
   it("POST: 400 for a broken body, 413 for an oversized one", async () => {

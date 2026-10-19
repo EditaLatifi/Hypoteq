@@ -1,18 +1,18 @@
 /**
  * Number and date display for Funnel v3 (spec chapter 7): Swiss format in every language —
- * `CHF 449'000`, `44.8 %`, `05.10.2026`. Deliberately no Intl: `toLocaleString('de-CH')`
+ * `CHF 380'000`, `44.4 %`, `05.10.2026`. Deliberately no Intl: `toLocaleString('de-CH')`
  * uses U+2019 as the group separator in current ICU data, and the browser and Node disagree
  * on it, so the output would differ between server render, client and tests.
  */
 
 const DASH = "–";
 
-/** Groups the integer digits with an ASCII apostrophe: 1450000 → "1'450'000". */
+/** Groups the integer digits with an ASCII apostrophe: 1240000 → "1'240'000". */
 function group(intDigits: string): string {
   return intDigits.replace(/\B(?=(\d{3})+(?!\d))/g, "'");
 }
 
-/** `CHF 449'000`. Rounded to whole francs. Not a finite number → "–". */
+/** `CHF 380'000`. Rounded to whole francs. Not a finite number → "–". */
 export function chf(n: number | null | undefined): string {
   if (n === null || n === undefined || !Number.isFinite(n)) return DASH;
   const rounded = Math.round(n);
@@ -20,15 +20,15 @@ export function chf(n: number | null | undefined): string {
   return `CHF ${sign}${group(String(Math.abs(rounded)))}`;
 }
 
-/** `44.8 %` for 44.827…. The argument is already a percentage, not a ratio. */
+/** `44.4 %` for 44.354…. The argument is already a percentage, not a ratio. */
 export function pct(x: number | null | undefined, digits = 1): string {
   if (x === null || x === undefined || !Number.isFinite(x)) return DASH;
   return `${x.toFixed(digits)} %`;
 }
 
 /**
- * The amount typed into a CHF field: "449'000", "CHF 1’450’000", "449 000", "125000.50",
- * "449'000.–". Returns 0 for empty or unreadable input (amounts default to 0, types.ts).
+ * The amount typed into a CHF field: "380'000", "CHF 1’240’000", "380 000", "110000.50",
+ * "380'000.–". Returns 0 for empty or unreadable input (amounts default to 0, types.ts).
  *
  * A "." or "," followed by one or two digits at the end is a decimal part; every other
  * separator is a thousands separator. Negative input is read as its absolute value.
@@ -36,7 +36,7 @@ export function pct(x: number | null | undefined, digits = 1): string {
 export function parseAmount(input: string | number | null | undefined): number {
   if (typeof input === "number") return Number.isFinite(input) ? Math.abs(input) : 0;
   if (!input) return 0;
-  let s = String(input).replace(/\.[–-]$/, ""); // "449'000.–"
+  let s = String(input).replace(/\.[–-]$/, ""); // "380'000.–"
   s = s.replace(/[^0-9.,]/g, "");
   if (!s) return 0;
   const dec = s.match(/[.,](\d{1,2})$/);

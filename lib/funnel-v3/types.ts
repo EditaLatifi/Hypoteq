@@ -258,7 +258,7 @@ export interface DocInfo {
   /** A Kreditnehmer is 50 or older at today (4.2). */
   ab50?: boolean;
   // Grundbuchauszug
-  /** Objektadresse («Etzelstrasse 52, 8820 Wädenswil»). */
+  /** Objektadresse («Musterweg 1, 8000 Zürich»). */
   adresse?: string;
   wertquote?: string;
   /** Grundpfandrechte. */
@@ -268,7 +268,7 @@ export interface DocInfo {
   // Zinsabrechnung
   /** Bestehende Bank. */
   bank?: string;
-  /** Aktueller Zins («SARON 0.65 %»). */
+  /** Aktueller Zins («SARON 0.80 %»). */
   zins?: string;
   laufzeit?: string;
   /** Ablösedatum. */

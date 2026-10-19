@@ -101,7 +101,7 @@ function asciiPart(s: string): string {
     .slice(0, 40);
 }
 
-/** «HQ-26-10-000123_HYPOTEQ_Auskunftsermaechtigung_Gerber-Gary.pdf» (company at a JP). */
+/** «HQ-26-10-000123_HYPOTEQ_Auskunftsermaechtigung_Mustermann-Max.pdf» (company at a JP). */
 export function authorizationFileName(data: Pick<AuthorizationData, "lang" | "signers" | "firma" | "caseNumber">): string {
   const lang: Lang = isLang(data.lang) ? data.lang : "de";
   const first = data.signers?.[0];
@@ -120,7 +120,7 @@ export interface AuthorizationSource {
   info?: Pick<DocInfo, "geb" | "adresse">;
 }
 
-/** «Etzelstrasse 52, 8820 Wädenswil» → street and «8820 Wädenswil». */
+/** «Musterweg 1, 8000 Zürich» → street and «8000 Zürich». */
 function splitAddress(adresse: string): { street: string; place: string } {
   const m = adresse.match(/^(.*?),\s*(\d{4}\s+.+)$/);
   return m ? { street: m[1].trim(), place: m[2].trim() } : { street: adresse.trim(), place: "" };

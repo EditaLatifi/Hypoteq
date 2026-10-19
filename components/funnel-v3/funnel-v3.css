@@ -1,5 +1,6 @@
 /*
- * HYPOTEQ Funnel v3 — the visual design of docs/funnel-v3/prototype/funnel-app.html.
+ * HYPOTEQ Funnel v3 — the visual design of HYPOTEQ's v3 prototype (funnel-app.html; no longer
+ * in the repository, it carried real customer data).
  *
  * The prototype draws almost everything with inline styles computed in its script. They are
  * translated here, value for value, into classes so React components (steps 1–4 here, the

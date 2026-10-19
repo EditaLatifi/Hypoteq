@@ -11,21 +11,21 @@ import { reqList } from "@/lib/funnel-v3/requirements";
 import { calcForState } from "@/lib/funnel-v3/calc";
 import { buildDossierModel } from "@/lib/funnel-v3/dossier";
 import { EMPTY_EM } from "@/lib/funnel-v3/types";
-import { ANNA, GARY, v3StateFor } from "./nachreichFixtures";
+import { ANNA, MAX, v3StateFor } from "./nachreichFixtures";
 
 describe("normaliseFunnelState — a v3-shaped stored state", () => {
-  const raw = v3StateFor([GARY, ANNA]);
+  const raw = v3StateFor([MAX, ANNA]);
   const s = normaliseFunnelState(raw)!;
 
   it("keeps every answer v5 still asks, with its value", () => {
     expect(s.role).toBe("kunde");
     expect(s.mode).toBe("begleitet");
     expect(s.ans).toMatchObject({ antrag: "Ablösung", kn: "Natürliche Person", anrede: "Herr", immo: "Bestehende Immobilie", lieg: "Stockwerkeigentum", nutz: "Selbstbewohnt", aufstockung: "Ja", kredite: "Ja", leasing: "Ja", buerge: "Nein", baurecht: "Nein", angebote: "Nein", steuer: "Nein", laufzeit: "3 Jahre" });
-    expect(s.txt.vor).toBe("Gary");
+    expect(s.txt.vor).toBe("Max");
     expect(s.txt.kaufdatum).toBe("");
-    expect(s.fin).toEqual({ old: 449000, up: 201000, kaufpreis: 0, renoBetrag: 0, val: 1450000, miete: 0, inc: 125000, inc2: 0 });
+    expect(s.fin).toEqual({ old: 380000, up: 170000, kaufpreis: 0, renoBetrag: 0, val: 1240000, miete: 0, inc: 110000, inc2: 0 });
     expect(s.em).toEqual(EMPTY_EM);
-    expect(s.borrowers).toEqual([GARY, ANNA]);
+    expect(s.borrowers).toEqual([MAX, ANNA]);
     expect(s.src).toEqual({});
     expect(s.sig).toBeNull();
   });
@@ -60,8 +60,8 @@ describe("normaliseFunnelState — a v3-shaped stored state", () => {
     // What v5 dropped is not asked any more.
     expect(ids).not.toEqual(expect.arrayContaining(["hyp_rahmen"]));
     expect(ids.some((id) => id.startsWith("anstellung") || id.startsWith("steuer#b2"))).toBe(false);
-    // The calculation runs on the v5 shape: Ablösung 449'000 + 201'000.
-    expect(calcForState(s).need).toBe(650000);
+    // The calculation runs on the v5 shape: Ablösung 380'000 + 170'000.
+    expect(calcForState(s).need).toBe(550000);
   });
 
   it("a stored v3 «Pensionskasse = Ja» asks for the PK-Vorbezug confirmation (the old combined document)", () => {
@@ -91,7 +91,7 @@ describe("normaliseFunnelState — a v3-shaped stored state", () => {
 
 describe("the v5 shape round-trips", () => {
   it("stored by v3InquiryColumns, read by storedV3State / v3StateOf, legacy marks kept", () => {
-    const cols = v3InquiryColumns({ v3: v3StateFor([GARY]) }, "it") as any;
+    const cols = v3InquiryColumns({ v3: v3StateFor([MAX]) }, "it") as any;
     expect(cols.v3State.version).toBe(FUNNEL_STATE_VERSION);
     expect(cols.v3State.legacyEquity).toEqual({ s3a: "Ja", pk: "Nein", schenkung: "Nein", erbe: "Nein", darlehen: "Nein" });
     const back = storedV3State({ v3State: JSON.parse(JSON.stringify(cols.v3State)) })!;
@@ -103,9 +103,9 @@ describe("the v5 shape round-trips", () => {
   });
 
   it("a v5 state passes through unchanged", () => {
-    const v5 = { version: 2, role: "berater", mode: "schnell", ans: { antrag: "Neue Hypothek", kn: "Natürliche Person", steuer: "Ja" }, txt: { kaufdatum: "1.4.2027" }, fin: { kaufpreis: 900000, renoBetrag: 50000 }, em: { spar: 100000 }, info: { geb: "04.01.1988" }, src: { "fin.kaufpreis": { doc: "Kaufvertrag", unsure: false } }, sig: { choice: "later", at: "2026-10-15T08:00:00Z", method: "upload" }, borrowers: [] };
+    const v5 = { version: 2, role: "berater", mode: "schnell", ans: { antrag: "Neue Hypothek", kn: "Natürliche Person", steuer: "Ja" }, txt: { kaufdatum: "1.4.2027" }, fin: { kaufpreis: 900000, renoBetrag: 50000 }, em: { spar: 100000 }, info: { geb: "05.03.1985" }, src: { "fin.kaufpreis": { doc: "Kaufvertrag", unsure: false } }, sig: { choice: "later", at: "2026-10-15T08:00:00Z", method: "upload" }, borrowers: [] };
     const s = normaliseFunnelState(v5)!;
-    expect(s).toMatchObject({ role: "berater", mode: "schnell", ans: { steuer: "Ja" }, txt: { kaufdatum: "1.4.2027" }, fin: { kaufpreis: 900000, renoBetrag: 50000 }, em: { spar: 100000 }, info: { geb: "04.01.1988" }, sig: { choice: "later" } });
+    expect(s).toMatchObject({ role: "berater", mode: "schnell", ans: { steuer: "Ja" }, txt: { kaufdatum: "1.4.2027" }, fin: { kaufpreis: 900000, renoBetrag: 50000 }, em: { spar: 100000 }, info: { geb: "05.03.1985" }, sig: { choice: "later" } });
     expect(s.src["fin.kaufpreis"]).toEqual({ doc: "Kaufvertrag", unsure: false });
     expect(s.legacyEquity).toBeUndefined();
   });

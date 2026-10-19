@@ -1,7 +1,7 @@
 import { randomInt } from "crypto";
 
 /**
- * The HYPOTEQ case number, `HQ-JJ-MM-NNNNNN` (DECISIONS D1, spec 5.1 example HQ-26-06-156283).
+ * The HYPOTEQ case number, `HQ-JJ-MM-NNNNNN` (DECISIONS D1, spec 5.1 example HQ-26-01-000001).
  *
  * Minted by the funnel at submit and stored on the Inquiry, not taken from Salesforce: the
  * sync is allowed to fail, and file names and the dossier need the number regardless.

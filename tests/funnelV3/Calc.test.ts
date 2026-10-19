@@ -106,27 +106,28 @@ describe("Kauf", () => {
 });
 
 describe("Ablösung", () => {
-  it("Gerber: bestehende CHF 449'000 + Erhöhung CHF 201'000, Objektwert CHF 1'450'000, Einkommen CHF 125'000", () => {
-    const r = calcFinancing(abl({ aufstockung: "Ja", old: 449000, up: 201000, val: 1450000, inc: 125000 }));
-    expect(r.need).toBe(650000);
-    expect(r.basis).toBe(1450000);
-    expect(pct(r.ltv)).toBe("44.8 %");
-    // 32'500 + 0 + 14'500 = 47'000 / 125'000 (DECISIONS D16: the sample dossier prints 32.3 %).
-    expect(r.affordability).toBeCloseTo(37.6, 6);
+  it("Mustermann: bestehende CHF 380'000 + Erhöhung CHF 170'000, Objektwert CHF 1'240'000, Einkommen CHF 110'000", () => {
+    const r = calcFinancing(abl({ aufstockung: "Ja", old: 380000, up: 170000, val: 1240000, inc: 110000 }));
+    expect(r.need).toBe(550000);
+    expect(r.basis).toBe(1240000);
+    expect(pct(r.ltv)).toBe("44.4 %");
+    // 27'500 + 0 + 12'400 = 39'900 / 110'000 = 36.3 %, the formula of the spec (DECISIONS D16).
+    expect(r.affordability).toBeCloseTo((39900 / 110000) * 100, 6);
     expect(r.verdict).toBe("review");
     // Eigenmittel play no part.
-    expect(calcFinancing(abl({ aufstockung: "Ja", old: 449000, up: 201000, val: 1450000, inc: 125000, em: { ...EMPTY_EM, s3a: 10340 } })).need).toBe(650000);
+    expect(calcFinancing(abl({ aufstockung: "Ja", old: 380000, up: 170000, val: 1240000, inc: 110000, em: { ...EMPTY_EM, s3a: 8760 } })).need).toBe(550000);
   });
 
   it("ignores the Erhöhung when it is Nein", () => {
-    const r = calcFinancing(abl({ aufstockung: "Nein", old: 449000, up: 201000, val: 1450000, inc: 125000 }));
-    expect(r.need).toBe(449000);
-    expect(r.affordability).toBeCloseTo(29.56, 6);
+    const r = calcFinancing(abl({ aufstockung: "Nein", old: 380000, up: 170000, val: 1240000, inc: 110000 }));
+    expect(r.need).toBe(380000);
+    // 19'000 + 0 + 12'400 = 31'400 / 110'000 = 28.5 %.
+    expect(r.affordability).toBeCloseTo((31400 / 110000) * 100, 6);
     expect(r.verdict).toBe("ok");
   });
 
   it("needs the Objektwert as basis", () => {
-    const r = calcFinancing(abl({ old: 449000, inc: 125000 }));
+    const r = calcFinancing(abl({ old: 380000, inc: 110000 }));
     expect(r.basis).toBe(0);
     expect(r.ltv).toBeNull();
     expect(r.verdict).toBe("incomplete");

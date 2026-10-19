@@ -10,7 +10,7 @@ Dieses Dokument beantwortet alle offenen Fragen aus «Offene Fragen zur Umsetzun
 
 1. **Hosting/Datenhaltung:** Zielarchitektur ist **komplett AWS auf Schweizer Servern — und nur dort**. Supabase (Auth, Storage, Audit) ist als Übergangslösung erlaubt, bis die internen Tests abgeschlossen sind; danach **sofortiger Transfer auf AWS**. Bitte Storage-Zugriffe im Code von Anfang an abstrahieren, damit der Wechsel kein Umbau wird.
 2. **E-Mail-Adresse:** **info@hypoteq.ch ist die einzig korrekte Adresse — überall.** Alle Vorkommen von hypoteq.com in UI, Mails und Doku bitte ersetzen.
-3. **Testdaten:** Alle echten Kundendaten (Fall Gerber u.a.) **komplett aus Prototyp und Code entfernen**. Der Funnel startet leer. Gebaut wird nur kunden- und vertriebspartnerseitig.
+3. **Testdaten:** Alle echten Kundendaten (Referenz-Testfall u.a.) **komplett aus Prototyp und Code entfernen**. Der Funnel startet leer. Gebaut wird nur kunden- und vertriebspartnerseitig.
 4. **AI-Philosophie:** Die AI **unterstützt, sie ersetzt nicht**. Extraktion/Zuordnung muss «ungefähr gut» sein — nichts blockiert je den Nutzer (siehe E.4 Signatur-Override). Umbenennung + Vorbefüllung sind der Kernnutzen.
 
 ---

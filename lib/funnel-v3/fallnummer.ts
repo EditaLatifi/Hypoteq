@@ -14,7 +14,7 @@ function zurichYearMonth(date: Date): { year: number; month: number } {
   return { year: get("year"), month: get("month") };
 }
 
-/** `formatCaseNumber(new Date("2026-06-10"), 156283)` → `HQ-26-06-156283`. */
+/** `formatCaseNumber(new Date("2026-06-10"), 654321)` → `HQ-26-06-654321`. */
 export function formatCaseNumber(date: Date, n: number): string {
   if (!(date instanceof Date) || isNaN(date.getTime())) throw new Error("formatCaseNumber: invalid date");
   if (!Number.isInteger(n) || n < 0 || n > CASE_NUMBER_MAX_SERIAL) throw new Error(`formatCaseNumber: serial out of range: ${n}`);

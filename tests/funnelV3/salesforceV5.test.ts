@@ -83,8 +83,8 @@ describe("Objekt", () => {
     expect(typo.c.Kaufdatum__c).toBe("Ende 2026");
     expect(typo.c).not.toHaveProperty("Kaufdatum_Datum__c");
     expect(typo.json.answers.kaufdatum).toBe("Ende 2026");
-    const abl = await sync(ablState({ info: { abl: "30.01.2028" } }));
-    expect(abl.c).toMatchObject({ Kaufdatum__c: "30.01.2028", Kaufdatum_Datum__c: "2028-01-30" });
+    const abl = await sync(ablState({ info: { abl: "31.03.2028" } }));
+    expect(abl.c).toMatchObject({ Kaufdatum__c: "31.03.2028", Kaufdatum_Datum__c: "2028-03-31" });
     const none = await sync(kaufState());
     expect(none.c).not.toHaveProperty("Kaufdatum__c");
     expect(none.c).not.toHaveProperty("Kaufdatum_Datum__c");

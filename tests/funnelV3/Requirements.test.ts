@@ -16,16 +16,16 @@ import type { Answers, Borrower, DocInfo, Eigenmittel } from '@/lib/funnel-v3/ty
 import { DOCUMENT_CATALOG } from '@/components/funnelDocumentCatalog';
 import { VERIFIED_TAB_ENTRIES } from '@/components/dokumentenCheckState';
 import { MESSAGES } from '@/lib/funnel-v3/i18n';
-import { GERBER_ANSWERS, GERBER_EM, mkState } from './helpers';
+import { MUSTERMANN_ANSWERS, MUSTERMANN_EM, mkState } from './helpers';
 
 const codes = (s: ReqState) => reqList(s).map((r) => r.code);
 const has = (s: ReqState, code: string) => codes(s).includes(code);
 const docs = (s: ReqState) => documentInstances(reqList(s));
 
-describe('Gerber progression (Handover 4.1, v5)', () => {
+describe('Mustermann progression (Handover 4.1, v5)', () => {
   // v5: the Auskunftsermächtigung is its own block (Handover 6) — the documents list starts at 10.
   it('counts 10 → 12 → 14 → 17 → 19 documents, plus the Auskunftsermächtigung', () => {
-    // Fresh funnel: nothing tapped, Gary angestellt, no amounts.
+    // Fresh funnel: nothing tapped, Max angestellt, no amounts.
     let ans: Partial<Answers> = {};
     expect(docs(mkState(ans))).toHaveLength(10);
     expect(reqList(mkState(ans))).toHaveLength(11);
@@ -41,14 +41,14 @@ describe('Gerber progression (Handover 4.1, v5)', () => {
     // Chips: Unterhalt, Privatkredit, Leasing.
     ans = { ...ans, unterhalt: 'Ja', kredite: 'Ja', leasing: 'Ja' };
     expect(docs(mkState(ans))).toHaveLength(17);
-    expect(ans).toEqual(GERBER_ANSWERS);
+    expect(ans).toEqual(MUSTERMANN_ANSWERS);
 
     // Vorsorge: Säule 3a amount → Bescheinigung + Police.
-    expect(docs(mkState(ans, {}, {}, undefined, { em: GERBER_EM }))).toHaveLength(19);
+    expect(docs(mkState(ans, {}, {}, undefined, { em: MUSTERMANN_EM }))).toHaveLength(19);
   });
 
-  it('is the 20 requirements of the v5 Gerber list', () => {
-    const ids = reqList(mkState(GERBER_ANSWERS, {}, {}, undefined, { em: GERBER_EM })).map((r) => r.id).sort();
+  it('is the 20 requirements of the v5 Mustermann list', () => {
+    const ids = reqList(mkState(MUSTERMANN_ANSWERS, {}, {}, undefined, { em: MUSTERMANN_EM })).map((r) => r.id).sort();
     expect(ids).toEqual(
       ['vollmacht', 'id', 'lohnausweise', 'lohnabrechnungen', 'pk', 'steuer', 's3a', 'police',
         'unterhalt', 'kredit', 'leasing', 'fotos', 'grundbuch', 'gvz', 'verkaufsdoku', 'stwe_regl', 'stwe_plan', 'ef',
@@ -57,7 +57,7 @@ describe('Gerber progression (Handover 4.1, v5)', () => {
   });
 
   it('asks every document exactly once', () => {
-    const ids = reqList(mkState(GERBER_ANSWERS, {}, {}, undefined, { em: GERBER_EM })).map((r) => r.instanceId);
+    const ids = reqList(mkState(MUSTERMANN_ANSWERS, {}, {}, undefined, { em: MUSTERMANN_EM })).map((r) => r.instanceId);
     expect(new Set(ids).size).toBe(ids.length);
   });
 
@@ -72,9 +72,9 @@ describe('Gerber progression (Handover 4.1, v5)', () => {
 });
 
 type Case = { ans?: Partial<Answers>; b?: Partial<Borrower>; em?: Partial<Eigenmittel>; info?: DocInfo; kn2?: boolean };
-const KN2: Borrower = { id: 'b2', vor: 'Lea', nach: 'Gerber', pkSe: 'Nein' };
+const KN2: Borrower = { id: 'b2', vor: 'Lea', nach: 'Mustermann', pkSe: 'Nein' };
 const state = (c: Case) =>
-  mkState(c.ans, c.b, {}, c.kn2 ? [{ id: 'b1', vor: 'Gary', nach: 'Gerber', job: 'Angestellt', pkSe: 'Nein', ...(c.b || {}) }, KN2] : undefined, { em: c.em, info: c.info });
+  mkState(c.ans, c.b, {}, c.kn2 ? [{ id: 'b1', vor: 'Max', nach: 'Mustermann', job: 'Angestellt', pkSe: 'Nein', ...(c.b || {}) }, KN2] : undefined, { em: c.em, info: c.info });
 const JP: Partial<Answers> = { kn: 'Juristische Person' };
 
 const RULES: [string, Case[], Case[]][] = [
@@ -140,8 +140,8 @@ describe('rules O1–O16, H1–H2, P0–P16, J1–J6, E1–E8 (Handover 4.1)', (
 
 describe('P17 · Kreditnehmer 2', () => {
   const two: Borrower[] = [
-    { id: 'b1', vor: 'Gary', nach: 'Gerber', job: 'Angestellt', pkSe: 'Nein' },
-    { id: 'b2', vor: 'Lea', nach: 'Gerber', pkSe: 'Nein' },
+    { id: 'b1', vor: 'Max', nach: 'Mustermann', job: 'Angestellt', pkSe: 'Nein' },
+    { id: 'b2', vor: 'Lea', nach: 'Mustermann', pkSe: 'Nein' },
   ];
   it('gives Kreditnehmer 2 ID, Lohnausweis, Lohnabrechnungen and PK-Ausweis — no tax return, no 4.2 documents', () => {
     const list = reqList(mkState({}, {}, {}, two, { info: { bonus: true, raise: true } }));
@@ -153,7 +153,7 @@ describe('P17 · Kreditnehmer 2', () => {
   });
   it('names the documents after the person', () => {
     const id2 = reqList(mkState({}, {}, {}, two)).find((r) => r.instanceId === 'id#b2')!;
-    expect(id2.person).toMatchObject({ kind: 'borrower', first: 'Lea', last: 'Gerber', display: 'Lea Gerber' });
+    expect(id2.person).toMatchObject({ kind: 'borrower', first: 'Lea', last: 'Mustermann', display: 'Lea Mustermann' });
     expect(id2.reason).toEqual({ key: 'why.perBorrower' });
   });
   it('still reads a stored v3 Kreditnehmer 2 with a Beschäftigung by it', () => {
@@ -226,16 +226,16 @@ describe('per-borrower expansion', () => {
   });
   it('still lists one borrower before any is entered, named from step 1', () => {
     const l = reqList({ ...mkState(), borrowers: [] });
-    expect(l.find((r) => r.id === 'id')!.person?.display).toBe('Gary Gerber');
+    expect(l.find((r) => r.id === 'id')!.person?.display).toBe('Max Mustermann');
     expect(l).toHaveLength(11);
   });
   it('gives case-level person documents to the first borrower', () => {
-    expect(reqList(mkState()).find((r) => r.id === 'vollmacht')!.person?.display).toBe('Gary Gerber');
+    expect(reqList(mkState()).find((r) => r.id === 'vollmacht')!.person?.display).toBe('Max Mustermann');
   });
 });
 
 describe('reasons', () => {
-  const list = reqList(mkState({ ...GERBER_ANSWERS, baurecht: 'Ja' }, {}, {}, undefined, { em: GERBER_EM, info: { bonus: true, raise: true } }));
+  const list = reqList(mkState({ ...MUSTERMANN_ANSWERS, baurecht: 'Ja' }, {}, {}, undefined, { em: MUSTERMANN_EM, info: { bonus: true, raise: true } }));
   const why = (id: string) => reasonTextDe(list.find((r) => r.id === id)!.reason);
   it('says Pflicht, pro Kreditnehmer, Falls vorhanden, weil: … and the 4.2 / amount reasons', () => {
     expect(why('fotos')).toBe('Pflicht');
@@ -255,7 +255,7 @@ describe('reasons', () => {
   });
   it('points at real keys of the message files', () => {
     const de = MESSAGES.de as any;
-    const all = reqList(mkState({ ...GERBER_ANSWERS, baurecht: 'Ja', buerge: 'Ja', reno: 'Ja', reserviert: 'Ja', nutz: 'Vermietet' }, { job: 'Selbständig', pkSe: 'Ja' }, {}, undefined, { em: { s3a: 1, pkVor: 1, pkVerp: 1, schenk: 1, erbe: 1, darl: 1 }, info: { ab50: true } }));
+    const all = reqList(mkState({ ...MUSTERMANN_ANSWERS, baurecht: 'Ja', buerge: 'Ja', reno: 'Ja', reserviert: 'Ja', nutz: 'Vermietet' }, { job: 'Selbständig', pkSe: 'Ja' }, {}, undefined, { em: { s3a: 1, pkVor: 1, pkVerp: 1, schenk: 1, erbe: 1, darl: 1 }, info: { ab50: true } }));
     for (const r of all) {
       expect([r.id, de.why[r.reason.key.slice(4)]]).not.toContain(undefined);
       if (r.reason.key === 'why.amount') expect(de.em[r.reason.field]).toBeDefined();

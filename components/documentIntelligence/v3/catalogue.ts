@@ -98,7 +98,7 @@ const ID_FIELDS_HINTS: Record<string, string> = {
 const LOHNAUSWEIS_FIELDS = ["Arbeitgeber", "AHV-Nr.", "Jahr", "Bruttolohn", "Beschäftigungsgrad"];
 
 /**
- * Hints for the keys of REQ[].fields that need one, so they generalise beyond the Gerber case.
+ * Hints for the keys of REQ[].fields that need one, so they generalise beyond the reference case.
  * Amounts the funnel prefills or compares (Kaufpreis, Kapital, Bruttolohn, Monatslohn,
  * Rückkaufswert …) are read as printed with CHF; prefill.ts parses them.
  */
@@ -113,7 +113,7 @@ const FIELD_HINTS: Record<string, string> = {
   "Adresse": "street and number of the property",
   "PLZ": "postal code of the property",
   "Ort": "municipality of the property",
-  "Wertquote": "value quota of the condominium unit, e.g. «45/1000»",
+  "Wertquote": "value quota of the condominium unit, e.g. «60/1000»",
   "Baurecht": "«ja» when the parcel is a building right (selbständiges und dauerndes Baurecht) or lies on one, «nein» otherwise",
   "Verkaufspreis": "asking or sale price as printed, with CHF",
   "Zimmer": "number of rooms",
@@ -126,7 +126,7 @@ const FIELD_HINTS: Record<string, string> = {
   "Total": "total amount, with CHF",
   // Bestehende Hypothek
   "Kapital": "outstanding capital of the existing mortgage (all tranches on this statement), with CHF",
-  "Zinssatz": "interest rate with the product or reference rate, e.g. «SARON + 0.65 %», «Festhypothek 1.25 %»",
+  "Zinssatz": "interest rate with the product or reference rate, e.g. «SARON + 0.80 %», «Festhypothek 1.25 %»",
   "Zins Q1 2026": "interest amount of the most recent billed period, with the period",
   "Ablösedatum": "date the current mortgage (tranche or framework) can be redeemed — end of the fixed term / maturity, DD.MM.YYYY; null when the document names none",
   "Saldo per 31.12.2025": "fund balance at the most recent closing date, with that date",
@@ -350,7 +350,7 @@ const REQ_INPUT: Record<string, ReqTypeInput> = {
     aliases: a(["Unterhaltsvereinbarung", "Elternvereinbarung", "Scheidungskonvention", "Unterhaltsvertrag"], ["Convention d'entretien", "Convention parentale", "Convention de divorce"], ["Convenzione di mantenimento", "Accordo parentale", "Convenzione di divorzio"], ["Maintenance agreement", "Child support agreement", "Divorce settlement"]),
     describe: "Agreement or court decision about maintenance (alimony / child support) payments.",
     naming: { person: true, date: "year" },
-    noteWhen: "the agreement states monthly amounts that affect affordability (e.g. «CHF 1'400 pro Monat für zwei Kinder»)",
+    noteWhen: "the agreement states monthly amounts that affect affordability (e.g. «CHF 1'200 pro Monat für zwei Kinder»)",
   },
   kredit: {
     aliases: a(["Kreditvertrag", "Privatkredit", "Konsumkredit", "Kleinkredit"], ["Contrat de crédit", "Crédit privé", "Crédit à la consommation"], ["Contratto di credito", "Credito privato", "Credito al consumo"], ["Loan agreement", "Personal loan", "Consumer credit"]),
@@ -449,14 +449,14 @@ const REQ_INPUT: Record<string, ReqTypeInput> = {
     describe: "Annual certificate of a pillar 3a account or policy (contributions of a year), as used for taxes.",
     freshness: [{ kind: "minYear", yearsBack: 2 }],
     naming: { date: "year" },
-    noteWhen: "the 3a assets are pledged or assigned to a bank (e.g. «3a-Konto an ZKB verpfändet»)",
+    noteWhen: "the 3a assets are pledged or assigned to a bank (e.g. «3a-Konto an die Musterbank verpfändet»)",
   },
   police: {
     aliases: a(["Vorsorgepolice 3a", "Lebensversicherung 3a", "Wertmitteilung", "Rückkaufswert"], ["Police de prévoyance 3a", "Assurance vie 3a", "Valeur de rachat"], ["Polizza di previdenza 3a", "Assicurazione vita 3a", "Valore di riscatto"], ["Pillar 3a insurance policy", "Surrender value statement"]),
     describe: "A pillar 3a life insurance policy, or its annual statement of value (Wertmitteilung / surrender value).",
     freshness: [{ kind: "maxAgeMonths", months: 15 }],
     naming: { date: "date" },
-    noteWhen: "the policy is pledged or assigned to a bank (e.g. «Police ist an die ZKB verpfändet – bei Ablösung an die neue Bank zu übertragen»)",
+    noteWhen: "the policy is pledged or assigned to a bank (e.g. «Police ist an die Musterbank verpfändet – bei Ablösung an die neue Bank zu übertragen»)",
   },
   pkvorbezug: {
     aliases: a(["PK-Vorbezug", "Bestätigung Vorbezug", "WEF-Vorbezug", "Auszahlung Wohneigentumsförderung"], ["Versement anticipé EPL", "Retrait anticipé caisse de pension"], ["Prelievo anticipato PPA", "Versamento anticipato"], ["Pension fund withdrawal confirmation", "Early withdrawal for home ownership"]),

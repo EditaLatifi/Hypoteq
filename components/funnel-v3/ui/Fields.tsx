@@ -118,7 +118,7 @@ function caretAfterDigits(s: string, n: number): number {
 }
 
 /**
- * A CHF amount, formatted while typing (`CHF 449'000`, spec 1.7). The caret stays behind the
+ * A CHF amount, formatted while typing (`CHF 380'000`, spec 1.7). The caret stays behind the
  * same digit when the grouping changes. 0 shows as empty (amounts default to 0, types.ts).
  */
 export function AmountField({

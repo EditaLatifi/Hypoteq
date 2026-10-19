@@ -45,7 +45,7 @@ export interface V3Analysis {
   /** Too old for its purpose (e.g. Grundbuchauszug older than 6 months). */
   outdated?: boolean;
   outdatedReason?: string | null;
-  /** Remark for the bank, e.g. «3a-Police an ZKB verpfändet» (spec 3 Schritt 6). */
+  /** Remark for the bank, e.g. «3a-Police an Musterbank verpfändet» (spec 3 Schritt 6). */
   note?: string | null;
   fields: Record<string, ExtractedField>;
   /** SHA-256 of the file content, for duplicate detection. */

@@ -7,12 +7,12 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { createElement } from "react";
 import type { FileEntry, V3Analysis } from "@/lib/funnel-v3/files";
 import type { SignatureState } from "@/lib/funnel-v3/types";
-import { gerberFiles, gerberState } from "./gerberCase";
+import { mustermannFiles, mustermannState } from "./mustermannCase";
 
 let pathname = "/de/funnel";
 jest.mock("next/navigation", () => ({ usePathname: () => pathname }));
 
-// A server render only sees a store's state: a plain hook over a mutable Gerber state.
+// A server render only sees a store's state: a plain hook over a mutable Mustermann state.
 const mockState: { current: any } = { current: null };
 jest.mock("@/lib/funnel-v3/store", () => {
   const hook: any = (sel: (x: any) => unknown) => sel(mockState.current);
@@ -27,7 +27,7 @@ import { authorizationDataFromState } from "@/lib/funnel-v3/authorizationData";
 import { optionLabel, translate } from "@/lib/funnel-v3/i18n";
 
 const LATER: SignatureState = { choice: "later", at: "2026-10-15T14:30:00.000Z", method: "upload" };
-const withoutSig = () => gerberFiles().filter((f) => f.analysis?.docTypeId !== "vollmacht");
+const withoutSig = () => mustermannFiles().filter((f) => f.analysis?.docTypeId !== "vollmacht");
 const sigFile = (a: Partial<V3Analysis> | null, over: Partial<FileEntry> = {}): FileEntry => ({
   id: "sig-1",
   name: "Scan_0042.jpg",
@@ -42,7 +42,7 @@ const sigFile = (a: Partial<V3Analysis> | null, over: Partial<FileEntry> = {}): 
 });
 
 function setState(files: FileEntry[], sig: SignatureState | null = null, over: Record<string, unknown> = {}) {
-  mockState.current = { ...gerberState({ sig, info: { geb: "1988-01-04", adresse: "Etzelstrasse 52, 8820 Wädenswil" } }), files, skipped: [], dismissed: [], setSignature: () => {}, ...over };
+  mockState.current = { ...mustermannState({ sig, info: { geb: "1985-03-05", adresse: "Musterweg 1, 8000 Zürich" } }), files, skipped: [], dismissed: [], setSignature: () => {}, ...over };
 }
 const render = () => renderToStaticMarkup(createElement(SignatureBlock));
 
@@ -59,24 +59,24 @@ describe("SignatureBlock (server render)", () => {
     expect(html).toContain("Noch nicht hochgeladen");
     expect(html).toContain("1 · Vorlage");
     expect(html).toContain(">Herunterladen</button>");
-    expect(html).toContain("Von Gary Gerber – bei mehreren Kreditnehmern von allen.");
+    expect(html).toContain("Von Max Mustermann – bei mehreren Kreditnehmern von allen.");
     expect(html).toContain(">Unterzeichnet hochladen</button>");
     expect(html).toContain('type="file"');
     // Prefill: Vollmachtgeber, Geburtsdatum, Adresse (Ablösung of the home), Objekt, Zweck.
     expect(html).toContain("<dt");
-    expect(html).toContain(">04.01.1988<");
-    expect(html).toContain(">Etzelstrasse 52, 8820 Wädenswil<");
+    expect(html).toContain(">05.03.1985<");
+    expect(html).toContain(">Musterweg 1, 8000 Zürich<");
     expect(html).toContain(">Ablösung<");
     expect(html).toContain("Kunde unterschreibt später?");
     expect(html).toContain(">Später nachreichen</button>");
   });
 
   it("a signed copy in the folder: «erhalten», no steps", () => {
-    setState(gerberFiles());
+    setState(mustermannFiles());
     const html = render();
     expect(html).toContain('data-status="received"');
     expect(html).toContain("Unterzeichnete Auskunftsermächtigung erhalten");
-    expect(html).toContain("01_Auskunftsermaechtigung_Gary_Gerber_unterzeichnet.pdf · Unterschrift vorhanden");
+    expect(html).toContain("01_Auskunftsermaechtigung_Max_Mustermann_unterzeichnet.pdf · Unterschrift vorhanden");
     expect(html).not.toContain("1 · Vorlage");
     expect(html).not.toContain("Später nachreichen");
   });
@@ -129,9 +129,9 @@ describe("SignatureBlock (server render)", () => {
 describe("signatureModel", () => {
   const t = (k: string, p?: Record<string, string | number>) => translate("de", k, p);
   const opt = (g: string, v: string | null | undefined) => optionLabel("de", g, v);
-  const SIGNER = { kind: "borrower" as const, first: "Gary", last: "Gerber", display: "Gary Gerber" };
+  const SIGNER = { kind: "borrower" as const, first: "Max", last: "Mustermann", display: "Max Mustermann" };
   const model = (files: FileEntry[], sig: SignatureState | null = null, extra: { jp?: boolean; later?: boolean | null } = {}) => {
-    const st = gerberState({ sig });
+    const st = mustermannState({ sig });
     const view = signatureView(
       files.map((f) => ({ fileId: f.id, instanceId: f.instanceId ?? null, analysis: f.analysis ?? null, assignedByUser: f.assignedByUser, failed: f.uploadState === "failed", pending: f.uploadState === "uploading" || f.analysisState === "analysing" })),
       sig,
@@ -167,7 +167,7 @@ describe("signatureModel", () => {
   });
 
   it("a juristische Person: signed by the signatory; no «später» where it is not offered", () => {
-    const st = gerberState({ ans: { ...gerberState().ans, kn: "Juristische Person" }, txt: { ...gerberState().txt, firma: "Muster AG", zeichner: "Hans Muster" } });
+    const st = mustermannState({ ans: { ...mustermannState().ans, kn: "Juristische Person" }, txt: { ...mustermannState().txt, firma: "Muster AG", zeichner: "Hans Muster" } });
     const view = signatureView([], null, undefined);
     const m = signatureModel({ view, files: [], later: null, data: authorizationDataFromState(st, "de"), jp: true }, t, opt);
     expect(m.signerLine).toBe("Von Hans Muster – zeichnungsberechtigt für die Firma.");

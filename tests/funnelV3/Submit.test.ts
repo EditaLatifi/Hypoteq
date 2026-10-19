@@ -1,10 +1,10 @@
 import { describe, it, expect, jest } from "@jest/globals";
 import { submitFunnel, SubmitError, buildSubmitPayload, type SubmitState } from "@/lib/funnel-v3/submit";
 import type { FileEntry } from "@/lib/funnel-v3/files";
-import { gerberFiles, gerberState, SUBMISSION } from "./gerberCase";
+import { mustermannFiles, mustermannState, SUBMISSION } from "./mustermannCase";
 
 function stateWith(files: FileEntry[], over: Partial<SubmitState> = {}): SubmitState {
-  return { ...gerberState(), submissionId: SUBMISSION, sharepointFolderId: "FOLDER1", files, ...over };
+  return { ...mustermannState(), submissionId: SUBMISSION, sharepointFolderId: "FOLDER1", files, ...over };
 }
 
 function okFetch(body: any = { success: true, inquiryId: SUBMISSION, caseNumber: "HQ-26-10-000123" }, status = 200) {
@@ -21,7 +21,7 @@ describe("submitFunnel", () => {
   it("posts the v3 payload with the documents and the completeness verdict", async () => {
     const fetchImpl = okFetch();
     const phases: string[] = [];
-    const res = await submitFunnel({ getState: () => stateWith(gerberFiles()), lang: "fr", fetchImpl: fetchImpl as any, onPhase: (p) => phases.push(p) });
+    const res = await submitFunnel({ getState: () => stateWith(mustermannFiles()), lang: "fr", fetchImpl: fetchImpl as any, onPhase: (p) => phases.push(p) });
     expect(res).toEqual({ inquiryId: SUBMISSION, caseNumber: "HQ-26-10-000123", alreadySubmitted: false });
     expect(phases).toEqual(["sending"]);
     const [url, init] = fetchImpl.mock.calls[0] as [string, any];
@@ -46,20 +46,20 @@ describe("submitFunnel", () => {
   });
 
   it("missing required requirements: instance ids, German and localized labels", () => {
-    const files = gerberFiles().filter((f) => f.instanceId !== "id#b1" && f.instanceId !== "fotos");
+    const files = mustermannFiles().filter((f) => f.instanceId !== "id#b1" && f.instanceId !== "fotos");
     const body = buildSubmitPayload(stateWith(files), "en");
     expect(body.documentCompleteness).toMatchObject({
       complete: false,
       missing: ["fotos", "id#b1"],
-      missingLabels: ["Fotos der Immobilie (innen und aussen)", "Pass / Identitätskarte – Gary Gerber"],
+      missingLabels: ["Fotos der Immobilie (innen und aussen)", "Pass / Identitätskarte – Max Mustermann"],
     });
-    expect((body.documentCompleteness as any).missingLabelsLocale[1]).toMatch(/– Gary Gerber$/);
+    expect((body.documentCompleteness as any).missingLabelsLocale[1]).toMatch(/– Max Mustermann$/);
   });
 
   it("waits for running uploads and analyses, then sends", async () => {
     const c = clock();
     let calls = 0;
-    const base = gerberFiles();
+    const base = mustermannFiles();
     const getState = () => {
       calls++;
       const files = base.map((f, i) =>
@@ -74,7 +74,7 @@ describe("submitFunnel", () => {
 
   it("caps the analysis wait at 20 s and submits anyway", async () => {
     const c = clock();
-    const files = gerberFiles().map((f, i) => (i === 0 ? { ...f, analysisState: "analysing" as const } : f));
+    const files = mustermannFiles().map((f, i) => (i === 0 ? { ...f, analysisState: "analysing" as const } : f));
     const fetchImpl = okFetch();
     await submitFunnel({ getState: () => stateWith(files), lang: "de", fetchImpl: fetchImpl as any, ...c });
     expect(c.now()).toBeGreaterThanOrEqual(20_000);
@@ -83,25 +83,25 @@ describe("submitFunnel", () => {
   });
 
   it("a failed upload stops the submit with the file name, nothing is sent", async () => {
-    const files = gerberFiles().map((f, i) => (i === 3 ? { ...f, uploadState: "failed" as const } : f));
+    const files = mustermannFiles().map((f, i) => (i === 3 ? { ...f, uploadState: "failed" as const } : f));
     const fetchImpl = okFetch();
     const err = await submitFunnel({ getState: () => stateWith(files), lang: "de", fetchImpl: fetchImpl as any }).catch((e) => e);
     expect(err).toBeInstanceOf(SubmitError);
     expect(err.code).toBe("upload");
-    expect(err.message).toBe("«03_Grundbuchauszug_Etzelstrasse_52_Waedenswil_2026_01_15.pdf» konnte nicht hochgeladen werden. Bitte lade die Datei unter «Unterlagen» erneut hoch oder entferne sie.");
+    expect(err.message).toBe("«03_Grundbuchauszug_Musterweg_1_Zuerich_2026_01_15.pdf» konnte nicht hochgeladen werden. Bitte lade die Datei unter «Unterlagen» erneut hoch oder entferne sie.");
     expect(fetchImpl).not.toHaveBeenCalled();
   });
 
   it("an upload that never finishes gives up after the upload cap", async () => {
     const c = clock();
-    const files = gerberFiles().map((f, i) => (i === 0 ? { ...f, uploadState: "uploading" as const } : f));
+    const files = mustermannFiles().map((f, i) => (i === 0 ? { ...f, uploadState: "uploading" as const } : f));
     const err = await submitFunnel({ getState: () => stateWith(files), lang: "it", fetchImpl: okFetch() as any, uploadWaitMs: 5000, ...c }).catch((e) => e);
     expect(err.code).toBe("uploadPending");
     expect(err.message).toContain("in caricamento");
   });
 
   it("translated errors: network, 400, 500 and success:false", async () => {
-    const st = () => stateWith(gerberFiles());
+    const st = () => stateWith(mustermannFiles());
     const net = await submitFunnel({ getState: st, lang: "de", fetchImpl: (async () => { throw new TypeError("Failed to fetch"); }) as any }).catch((e) => e);
     expect([net.code, net.message]).toEqual(["network", expect.stringContaining("Keine Verbindung")]);
     const bad = await submitFunnel({ getState: st, lang: "en", fetchImpl: okFetch({ success: false, error: "Valid email is required." }, 400) as any }).catch((e) => e);
@@ -114,7 +114,7 @@ describe("submitFunnel", () => {
   });
 
   it("a retry sends the same submissionId and accepts «alreadySubmitted»", async () => {
-    const st = () => stateWith(gerberFiles());
+    const st = () => stateWith(mustermannFiles());
     const first = okFetch({ success: false }, 500);
     await submitFunnel({ getState: st, lang: "de", fetchImpl: first as any }).catch(() => null);
     const second = okFetch({ success: true, inquiryId: SUBMISSION, alreadySubmitted: true, caseNumber: "HQ-26-10-000123" });

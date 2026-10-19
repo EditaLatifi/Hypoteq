@@ -11,8 +11,8 @@ import { instanceFromMissing } from "@/lib/funnel-v3/nachreichView";
 import type { CompletionDocumentRow, DriveItemRef } from "@/lib/funnel-v3/completion";
 import { SIGNATURE_BANK_NOTE_DE, type SignatureServerState } from "@/lib/funnel-v3/signature";
 import { toInquiryPayload } from "@/lib/funnel-v3/toInquiryPayload";
-import { ANNA, CASE, GARY, INQUIRY, analysis, existingRows, heldRow, inquiryRow, v3StateFor } from "./nachreichFixtures";
-import { gerberState, SUBMISSION } from "./gerberCase";
+import { ANNA, CASE, MAX, INQUIRY, analysis, existingRows, heldRow, inquiryRow, v3StateFor } from "./nachreichFixtures";
+import { mustermannState, SUBMISSION } from "./mustermannCase";
 
 /**
  * The v3 Nachreichung on the server (lib/funnel-v3/nachreich.ts) with an in-memory Document
@@ -105,15 +105,15 @@ function world(rows: CompletionDocumentRow[], held: CompletionDocumentRow[], opt
 
 describe("v3InquiryColumns (/api/inquiry)", () => {
   it("stores the submitted v3 block with the language, and the «Habe ich nicht» marks", () => {
-    const state = gerberState({ borrowers: [GARY, ANNA] });
+    const state = mustermannState({ borrowers: [MAX, ANNA] });
     const payload: any = toInquiryPayload(state, { locale: "fr", submissionId: SUBMISSION, documentCompleteness: { skipped: ["verkaufsdoku", 7] } });
     const cols = v3InquiryColumns(payload, "fr") as any;
     // Stored in the v5 shape (legacy.ts), so it says version 2.
-    expect(cols.v3State).toMatchObject({ version: 2, role: "kunde", mode: "begleitet", lang: "fr", borrowers: [GARY, ANNA] });
-    expect(cols.v3State.em.s3a).toBe(10340);
+    expect(cols.v3State).toMatchObject({ version: 2, role: "kunde", mode: "begleitet", lang: "fr", borrowers: [MAX, ANNA] });
+    expect(cols.v3State.em.s3a).toBe(8760);
     expect(cols.v3State.ans.antrag).toBe("Ablösung");
-    expect(cols.v3State.txt.vor).toBe("Gary");
-    expect(cols.v3State.fin.old).toBe(449000);
+    expect(cols.v3State.txt.vor).toBe("Max");
+    expect(cols.v3State.fin.old).toBe(380000);
     expect(cols.v3State).not.toHaveProperty("calc");
     expect(cols.v3Skipped).toEqual(["verkaufsdoku"]);
     expect(storedV3State({ v3State: cols.v3State })!.lang).toBe("fr");
@@ -126,7 +126,7 @@ describe("v3InquiryColumns (/api/inquiry)", () => {
 });
 
 describe("nachreichV3View (GET)", () => {
-  const view = (lang = "de") => nachreichV3View(inquiryRow({ v3State: v3StateFor([GARY, ANNA], lang) }), existingRows())!;
+  const view = (lang = "de") => nachreichV3View(inquiryRow({ v3State: v3StateFor([MAX, ANNA], lang) }), existingRows())!;
 
   it("lists what is still open by the v5 rules, recomputed from the documents, grouped like step 5", () => {
     const v = view();
@@ -147,7 +147,7 @@ describe("nachreichV3View (GET)", () => {
   it("labels in the inquiry's language, with the person on per-borrower requirements", () => {
     const de = view("de").missing;
     expect(de.find((m) => m.instanceId === "fotos")!.label).toBe("Fotos der Immobilie (innen und aussen)");
-    expect(de.find((m) => m.instanceId === "lohnausweise#b1")!.label).toBe("Aktueller Lohnausweis – Gary Gerber");
+    expect(de.find((m) => m.instanceId === "lohnausweise#b1")!.label).toBe("Aktueller Lohnausweis – Max Mustermann");
     expect(de.find((m) => m.instanceId === "produkt")!.label).toBe("Aktuelle Produktvereinbarung");
     expect(de.find((m) => m.instanceId === "id#b2")!.label).toBe("Pass / Identitätskarte – Anna Muster");
     expect(de.find((m) => m.instanceId === "id#b2")!.groupLabel).toBe("Zur Person · Anna Muster");
@@ -167,7 +167,7 @@ describe("nachreichV3View (GET)", () => {
   it("gives the page instances to place files on, sized to what is still to come", () => {
     const lohn = instanceFromMissing(view().missing.find((m) => m.instanceId === "lohnausweise#b1")!)!;
     expect(lohn).toMatchObject({ id: "lohnausweise", borrowerId: "b1", expect: 1, perBorrower: true });
-    expect(lohn.person?.display).toBe("Gary Gerber");
+    expect(lohn.person?.display).toBe("Max Mustermann");
   });
 
   it("is null for a legacy inquiry", () => {
@@ -178,9 +178,9 @@ describe("nachreichV3View (GET)", () => {
 describe("submitV3Nachreichung (POST)", () => {
   const held = () => [
     heldRow("h-fotos", "IMG_2041 Wohnzimmer.pdf", analysis("fotos"), 1),
-    heldRow("h-lohn", "Lohnausweis 2025 Gary.pdf", analysis("lohnausweise", { docDate: "2025", personName: "Gerber Gary" }), 2),
+    heldRow("h-lohn", "Lohnausweis 2025 Max.pdf", analysis("lohnausweise", { docDate: "2025", personName: "Mustermann Max" }), 2),
     heldRow("h-gb", "Grundbuch neu.pdf", analysis("grundbuch", { docDate: "2026-09-30" }), 3),
-    heldRow("h-prod", "Produktvereinbarung ZKB.pdf", analysis("produkt", { bank: "ZKB", docDate: "2026-02-01" }), 4),
+    heldRow("h-prod", "Produktvereinbarung Musterbank.pdf", analysis("produkt", { bank: "Musterbank", docDate: "2026-02-01" }), 4),
   ];
   const body = {
     documents: [
@@ -210,18 +210,18 @@ describe("submitV3Nachreichung (POST)", () => {
 
     // Stored names (spec 5.1).
     expect(w.nameOf("h-fotos")).toBe(`${CASE}_03_Fotos.pdf`);
-    expect(w.nameOf("h-lohn")).toBe(`${CASE}_01_Lohnausweis_Gerber-Gary_2025.pdf`);
-    expect(w.nameOf("h-prod")).toBe(`${CASE}_02_Produktvereinbarung_ZKB_2026-02-01.pdf`);
+    expect(w.nameOf("h-lohn")).toBe(`${CASE}_01_Lohnausweis_Mustermann-Max_2025.pdf`);
+    expect(w.nameOf("h-prod")).toBe(`${CASE}_02_Produktvereinbarung_Musterbank_2026-02-01.pdf`);
     expect(w.nameOf("h-gb")).toBe(`${CASE}_03_ZUSATZ_Grundbuchauszug_2026-09-30.pdf`);
     // What v3 asked and v5 no longer does stays in the folder as «Überzählig», never deleted.
     expect(w.nameOf("doc-8")).toMatch(/_ZUSATZ_.*Rahmenvertrag/);
-    expect(w.nameOf("doc-24")).toBe(`${CASE}_01_ZUSATZ_Anstellungsvertrag_Gerber-Gary.pdf`);
+    expect(w.nameOf("doc-24")).toBe(`${CASE}_01_ZUSATZ_Anstellungsvertrag_Mustermann-Max.pdf`);
     expect(w.docs.find((r) => r.id === "doc-26")!.driveItemId).toBe("item-doc-26");
     expect(w.docs.find((r) => r.id === "h-fotos")!.storedName).toBe(`${CASE}_03_Fotos.pdf`);
     // The decision is stored beside the AI analysis, as at submit.
     expect((w.docs.find((r) => r.id === "h-lohn")!.aiAnalysis as any).v3Submitted.instanceId).toBe("lohnausweise#b1");
 
-    // Recomputed over all documents: Gary complete, Anna's documents still open.
+    // Recomputed over all documents: Max complete, Anna's documents still open.
     expect(res.complete).toBe(false);
     expect(res.remaining).toEqual(["id#b2", "lohnausweise#b2", "lohnabrechnungen#b2", "pk#b2"]);
     expect(res.remainingLabels[0]).toEqual({ instanceId: "id#b2", label: "Pass / Identitätskarte – Anna Muster" });
@@ -253,14 +253,14 @@ describe("submitV3Nachreichung (POST)", () => {
 
     // Mail in the inquiry's language with the v3 labels.
     expect(w.mails).toEqual([
-      expect.objectContaining({ to: "gary.gerber@example.ch", cc: null, name: "Gary Gerber", locale: "de", complete: false }),
+      expect.objectContaining({ to: "max.mustermann@example.ch", cc: null, name: "Max Mustermann", locale: "de", complete: false }),
     ]);
     expect(w.mails[0].remainingLabels).toContain("Aktueller Lohnausweis – Anna Muster");
   });
 
   it("completes the dossier: link closed, Documents_completed__c, «complete» mail", async () => {
     const w = world(existingRows(), held());
-    const row = inquiryRow({ v3State: v3StateFor([GARY]), documentsMissing: "fotos,produkt,lohnausweise#b1" });
+    const row = inquiryRow({ v3State: v3StateFor([MAX]), documentsMissing: "fotos,produkt,lohnausweise#b1" });
     const res = await submitV3Nachreichung(row, { documents: body.documents.slice(0, 3) }, w.deps);
     expect(res.ok && res.complete).toBe(true);
     expect(w.inquiryUpdates[0]).toEqual({ id: INQUIRY, documentsMissing: null, documentsComplete: true, nachreichCompletedAt: new Date("2026-10-05T12:00:00Z") });
@@ -271,14 +271,14 @@ describe("submitV3Nachreichung (POST)", () => {
 
   it("an up-to-date document replaces an outdated one («Aktuelles hochladen»)", async () => {
     const rows = existingRows({ leaveOut: new Set(), grundbuchOverride: false });
-    const row = inquiryRow({ v3State: v3StateFor([GARY]), documentsMissing: "grundbuch" });
+    const row = inquiryRow({ v3State: v3StateFor([MAX]), documentsMissing: "grundbuch" });
     const before = nachreichV3View(row, rows)!.missing;
     expect(before).toEqual([
       expect.objectContaining({ instanceId: "grundbuch", state: "outdated", slots: 1 }),
       expect.objectContaining({ instanceId: "produkt", state: "missing" }),
     ]);
 
-    const w = world(rows, [heldRow("h-gb", "Grundbuch neu.pdf", analysis("grundbuch", { docDate: "2026-09-30" })), heldRow("h-prod", "Produkt.pdf", analysis("produkt", { bank: "ZKB" }), 1)]);
+    const w = world(rows, [heldRow("h-gb", "Grundbuch neu.pdf", analysis("grundbuch", { docDate: "2026-09-30" })), heldRow("h-prod", "Produkt.pdf", analysis("produkt", { bank: "Musterbank" }), 1)]);
     const res = await submitV3Nachreichung(row, { documents: [{ documentId: "h-gb", instanceId: "grundbuch", requirementId: "grundbuch" }, { documentId: "h-prod", instanceId: "produkt", requirementId: "produkt" }] }, w.deps);
     expect(res.ok && res.complete).toBe(true);
     expect(w.nameOf("h-gb")).toBe(`${CASE}_03_Grundbuchauszug_2026-09-30.pdf`);
@@ -315,21 +315,21 @@ describe("submitV3Nachreichung (POST)", () => {
   });
 
   it("Berater inquiry: the customer gets the confirmation, the Berater a copy (D17)", async () => {
-    const st = v3StateFor([GARY]);
+    const st = v3StateFor([MAX]);
     st.role = "berater";
     st.txt = { ...st.txt, bmail: "berater@partner.ch" };
     const w = world(existingRows(), held());
     await submitV3Nachreichung(inquiryRow({ v3State: st, client: { email: "berater@partner.ch", firstName: "", lastName: "" } }), body, w.deps);
-    expect(w.mails[0]).toMatchObject({ to: "gary.gerber@example.ch", cc: "berater@partner.ch", name: "Gary Gerber" });
+    expect(w.mails[0]).toMatchObject({ to: "max.mustermann@example.ch", cc: "berater@partner.ch", name: "Max Mustermann" });
   });
 });
 
 describe("v5 inquiries: the Auskunftsermächtigung after the closing, no mail (Handover 6, 7.1; V37)", () => {
-  const SIG_NAME = "01_Auskunftsermaechtigung_Gary_Gerber_unterzeichnet.pdf";
+  const SIG_NAME = "01_Auskunftsermaechtigung_Max_Mustermann_unterzeichnet.pdf";
   const LATER = { choice: "later" as const, at: "2026-10-01T10:00:00.000Z", method: "upload" as const };
   const field = (value: string) => ({ value, confidence: 0.9 });
   const v5Row = (over: Record<string, any> = {}) => {
-    const payload: any = toInquiryPayload(gerberState({ borrowers: [GARY], sig: LATER }), { locale: "de", submissionId: SUBMISSION });
+    const payload: any = toInquiryPayload(mustermannState({ borrowers: [MAX], sig: LATER }), { locale: "de", submissionId: SUBMISSION });
     const v3State = (v3InquiryColumns(payload, "de") as any).v3State;
     return inquiryRow({ v3State, ...over });
   };
@@ -340,7 +340,7 @@ describe("v5 inquiries: the Auskunftsermächtigung after the closing, no mail (H
         ? { ...r, aiAnalysis: { ...(r.aiAnalysis as any), v3: { ...(r.aiAnalysis as any).v3, fields: { Unterschrift: field("fehlt") } } } }
         : r
     );
-  const signed = () => heldRow("h-sig", "Scan 0042.pdf", analysis("vollmacht", { fields: { Unterschrift: field("vorhanden"), Vollmachtgeber: field("Gerber Gary") } }), 7);
+  const signed = () => heldRow("h-sig", "Scan 0042.pdf", analysis("vollmacht", { fields: { Unterschrift: field("vorhanden"), Vollmachtgeber: field("Mustermann Max") } }), 7);
   const sigBody = { documents: [{ documentId: "h-sig", instanceId: "vollmacht", requirementId: "vollmacht", assignedByUser: true }] };
 
   it("the view offers the Auskunftsermächtigung while it is pending", () => {
@@ -405,7 +405,7 @@ describe("v5 inquiries: the Auskunftsermächtigung after the closing, no mail (H
 describe("filesFromRows", () => {
   it("places rows without stored detail by the AI's verdict and ignores removed rows", () => {
     const rows = existingRows().map((r) => ({ ...r, aiAnalysis: { v3: (r.aiAnalysis as any).v3, ...((r.aiAnalysis as any).v3Completion ? { v3Completion: { removed: true } } : {}) } }));
-    const files = filesFromRows(v3StateFor([GARY]) as any, rows);
+    const files = filesFromRows(v3StateFor([MAX]) as any, rows);
     expect(files.find((f) => f.documentId === "doc-removed")).toBeUndefined();
     expect(files.find((f) => f.documentId === "doc-2")!.instanceId).toBe("verkaufsdoku");
   });

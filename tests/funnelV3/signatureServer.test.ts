@@ -16,7 +16,7 @@ import {
 import { signatureReminderContent } from "@/lib/funnel-v3/signatureReminderMail";
 import { signatureJson, signatureWithServer, SIGNATURE_BANK_NOTE_DE } from "@/lib/funnel-v3/signature";
 import type { CompletionDocumentRow } from "@/lib/funnel-v3/completion";
-import { CASE, INQUIRY, TOKEN, v3StateFor, GARY } from "./nachreichFixtures";
+import { CASE, INQUIRY, TOKEN, v3StateFor, MAX } from "./nachreichFixtures";
 
 const quiet = { log: () => {}, warn: () => {}, error: () => {} };
 
@@ -31,7 +31,7 @@ const CLOSED = new Date("2026-10-15T14:30:00Z");
 const cron = (day: number) => new Date(Date.UTC(2026, 9, day, 6, 0, 0));
 
 function v5State(lang = "de") {
-  return { ...v3StateFor([GARY], lang), version: 2, em: { spar: 0, s3a: 0, pkVor: 0, pkVerp: 0, schenk: 0, erbe: 0, darl: 0 }, info: { geb: "1979-03-12" }, sig: { choice: "later", at: CLOSED.toISOString(), method: "upload" } };
+  return { ...v3StateFor([MAX], lang), version: 2, em: { spar: 0, s3a: 0, pkVor: 0, pkVerp: 0, schenk: 0, erbe: 0, darl: 0 }, info: { geb: "1979-03-12" }, sig: { choice: "later", at: CLOSED.toISOString(), method: "upload" } };
 }
 
 function world(opts: { inquiry?: Partial<ReminderInquiry>; documents?: CompletionDocumentRow[]; test?: boolean; inbox?: string | null; mailFails?: number; pdfFails?: boolean } = {}) {
@@ -45,7 +45,7 @@ function world(opts: { inquiry?: Partial<ReminderInquiry>; documents?: Completio
     nachreichToken: TOKEN,
     nachreichExpiresAt: new Date("2026-11-14T14:30:00Z"),
     v3State: v5State(),
-    client: { email: "gary.gerber@example.ch", firstName: "Gary", lastName: "Gerber" },
+    client: { email: "max.mustermann@example.ch", firstName: "Max", lastName: "Mustermann" },
     ...opts.inquiry,
   };
   const deps: SignatureServerDeps = {
@@ -81,7 +81,7 @@ function world(opts: { inquiry?: Partial<ReminderInquiry>; documents?: Completio
     },
     buildPdf: async () => {
       if (opts.pdfFails) throw new Error("template missing");
-      return { name: "HQ-26-10-000123_HYPOTEQ_Auskunftsermaechtigung_Gerber-Gary.pdf", bytes: new Uint8Array([37, 80, 68, 70]) };
+      return { name: "HQ-26-10-000123_HYPOTEQ_Auskunftsermaechtigung_Mustermann-Max.pdf", bytes: new Uint8Array([37, 80, 68, 70]) };
     },
     sendMail: async (m) => {
       if (failures > 0) {
@@ -185,9 +185,9 @@ describe("sendSignatureReminders (daily cron)", () => {
     expect(await w.server.sendSignatureReminders(cron(16))).toEqual({ checked: 1, sent: 0 });
     expect(await w.server.sendSignatureReminders(cron(17))).toEqual({ checked: 1, sent: 1 });
     expect(w.mails[0]).toMatchObject({
-      to: "gary.gerber@example.ch",
+      to: "max.mustermann@example.ch",
       lang: "fr",
-      name: "Gary",
+      name: "Max",
       caseNumber: CASE,
       reminder: 1,
       uploadUrl: `https://hypoteq.com/fr/nachreichen/${TOKEN}`,
@@ -243,12 +243,12 @@ describe("sendSignatureReminders (daily cron)", () => {
       driveItemId: "item-sig",
       uploadedAt: cron(16),
       aiAnalysis: { v3: { status: "done", docTypeId: "vollmacht", docTypeLabel: "x", confidence: 0.9, requirementId: "vollmacht", fields: { Unterschrift: { value: "vorhanden", confidence: 0.9 } } } },
-      storedName: `${CASE}_01_Auskunftsermaechtigung_Gerber-Gary.pdf`,
+      storedName: `${CASE}_01_Auskunftsermaechtigung_Mustermann-Max.pdf`,
     };
     const w = world({ documents: [signed] });
     await w.server.recordSignatureAtSubmit(INQUIRY, { state: "later" }, CLOSED);
     expect(await w.server.sendSignatureReminders(cron(17))).toEqual({ checked: 1, sent: 0 });
-    expect(w.table.get(INQUIRY)).toMatchObject({ status: "received", fileName: `${CASE}_01_Auskunftsermaechtigung_Gerber-Gary.pdf`, driveItemId: "item-sig" });
+    expect(w.table.get(INQUIRY)).toMatchObject({ status: "received", fileName: `${CASE}_01_Auskunftsermaechtigung_Mustermann-Max.pdf`, driveItemId: "item-sig" });
     // An unsigned copy does not count.
     const unsigned = { ...signed, aiAnalysis: { v3: { ...(signed.aiAnalysis as any).v3, fields: { Unterschrift: { value: "fehlt", confidence: 0.9 } } } } };
     const w2 = world({ documents: [unsigned] });
@@ -317,12 +317,12 @@ describe("sendSignatureReminders (daily cron)", () => {
 });
 
 describe("the reminder mail (Handover 7.1: Vorlage + Upload-Link, keine Zusammenfassung)", () => {
-  const base = { lang: "de" as const, name: "Gary", caseNumber: CASE, uploadUrl: `https://hypoteq.com/de/nachreichen/${TOKEN}`, reminder: 1 as const, attachment: { name: "x.pdf", bytes: new Uint8Array() } };
+  const base = { lang: "de" as const, name: "Max", caseNumber: CASE, uploadUrl: `https://hypoteq.com/de/nachreichen/${TOKEN}`, reminder: 1 as const, attachment: { name: "x.pdf", bytes: new Uint8Array() } };
 
   it("German, «du», the link as the one button, no summary", () => {
     const c = signatureReminderContent(base);
     expect(c.subject).toBe(`Erinnerung: Bitte Auskunftsermächtigung unterzeichnen – ${CASE}`);
-    expect(c.text).toContain("Hallo Gary");
+    expect(c.text).toContain("Hallo Max");
     expect(c.text).toContain(`Für deine Finanzierungsanfrage ${CASE} fehlt noch die unterzeichnete Auskunftsermächtigung.`);
     expect(c.text).toContain("liegt dieser Mail bei");
     expect(c.html).toContain(`href="https://hypoteq.com/de/nachreichen/${TOKEN}"`);

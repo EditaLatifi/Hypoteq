@@ -2,7 +2,7 @@
  * Step 6 extras. The shared look (v3-kpis, v3-hintrow, v3-checkrow, v3-submit, v3-done,
  * v3-btn, v3-tag, v3-busy …) is in components/funnel-v3/funnel-v3.css; only what that file
  * does not have is here, scoped under .hqv3 and prefixed v3f-. Values follow the prototype
- * (funnel-app.html «6 ABSCHLUSS»); the fallbacks keep it readable without the tokens.
+ * («6 ABSCHLUSS»); the fallbacks keep it readable without the tokens.
  */
 
 .hqv3 .v3f-head {
