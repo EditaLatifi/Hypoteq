@@ -188,7 +188,10 @@ async function guided(browser, vp, tag) {
   await radio(page, "laufzeit", /^10 Jahre/);
   const s2 = await text(page);
   check(/Eigenmittel total CHF 240'000 · 18\.8 % · davon hart CHF 180'000/.test(s2), "step 2: Eigenmittel total line with % and hart");
-  check((await byId(page, "val").getAttribute("placeholder")) === "CHF 1'200'000", "step 2: Objektwert placeholder = Kaufpreis");
+  // V20: an empty Objektwert stands for the Gesamtkosten — Kaufpreis plus the renovation.
+  check((await byId(page, "val").getAttribute("placeholder")) === "CHF 1'280'000", "step 2: Objektwert placeholder = Kaufpreis + Renovation");
+  check(/Kaufpreis plus Renovation/.test(s2), "step 2: Objektwert hint names the renovation");
+  check(/81\.3 %/.test(s2) && !/86\.7 %/.test(s2), "step 2: Belehnung against Kaufpreis + Renovation (81.3 %)");
   check(/→ Schenkungsvertrag/.test(s2) && /→ Bestätigung PK-Vorbezug/.test(s2), "step 2: each Eigenmittel row names its document");
   check(/Finanzierung möglich|Prüfung nötig|Angaben ergänzen/.test(s2), "step 2: live calculation card");
   await page.evaluate(() => window.scrollTo(0, 0));
