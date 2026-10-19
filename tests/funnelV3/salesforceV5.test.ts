@@ -233,7 +233,8 @@ describe("Person", () => {
     // The signatory is no longer the first line of the Kommentar (V41).
     expect(c.Kommentar__c ?? null).toBeNull();
     expect(json.kontakt).toEqual({ telefon: "044 555 66 77", zeichnungsberechtigt: "Petra Beispiel" });
-    expect(c.Case_Name__c).toBe("8400 Winterthur / Immo Beispiel AG");
+    // HYPOTEQ 19.10. D.4: «{Firma} – {PLZ} {Ort}».
+    expect(c.Case_Name__c).toBe("Immo Beispiel AG – 8400 Winterthur");
   });
 
   it("company with Gewerbe → Nutzung «Für eigenes Geschäft»; the Kommentar is the customer's text", async () => {

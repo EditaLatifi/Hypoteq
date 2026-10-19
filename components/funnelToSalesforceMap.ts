@@ -64,6 +64,7 @@ export const funnelToSalesforceMap = {
   hypothekarbetrag: { salesforceField: "Hypothekarbetrag__c", salesforceObject: "case" },
   erhoehung_betrag: { salesforceField: "Erh_hung__c", salesforceObject: "case" }, // Mortgage increase amount (only sent if erhoehung=Ja)
 
+  // The sync always replaces it with «{Nachname} {Vorname} – {PLZ} {Ort}» (HYPOTEQ 19.10. D.4, funnelCaseName).
   caseName: { salesforceField: "Case_Name__c", salesforceObject: "case" },
   // NOTE: Partner_Consultant__c (Kundenberater) is deliberately NOT mapped here. It is a
   // Contact *lookup*, so it needs a record Id — writing the raw partner email into it makes

@@ -67,6 +67,22 @@ export async function applyPartnerToCase(
 }
 
 /**
+ * Case_Name__c of a funnel Case (HYPOTEQ 19.10. D.4, mapping «Case Name (generiert)»; DECISIONS
+ * V65): «{Nachname} {Vorname} – {PLZ} {Ort}», a company «{Firma} – {PLZ} {Ort}». A part that is
+ * missing is left out; without a name the Case still says what it is — «Unvollständige Anfrage –
+ * {PLZ} {Ort}», else «Unvollständige Anfrage – {who submitted}», else with the date — so it is never
+ * empty (the field is required) and stays chaseable.
+ */
+export function funnelCaseName(p: { firma?: string | null; nachname?: string | null; vorname?: string | null; plz?: string | null; ort?: string | null; submitter?: string | null }, today: Date = new Date()): string {
+  const s = (v: string | null | undefined) => String(v || '').trim();
+  const who = s(p.firma) || [s(p.nachname), s(p.vorname)].filter(Boolean).join(' ');
+  const place = [s(p.plz), s(p.ort)].filter(Boolean).join(' ');
+  if (who) return place ? `${who} – ${place}` : who;
+  const tail = place || s(p.submitter);
+  return tail ? `Unvollständige Anfrage – ${tail}` : `Unvollständige Anfrage ${today.toISOString().slice(0, 10)}`;
+}
+
+/**
  * Case.OwnerId of a funnel Case (HYPOTEQ 19.10. D.2, mapping «Owner»: «Queue Web-Anfragen oder
  * HYPOTEQ-User»; DECISIONS V64). A HYPOTEQ user as Berater is already the owner
  * (applyPartnerToCase, by the User's e-mail); every other Case goes to the queue «Web-Anfragen»
@@ -1258,28 +1274,19 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     );
   }
 
-  // Set Case Name if not already set.
-  // Convention: "PLZ Ort / <borrower names>" — every borrower as "Vorname Name"
-  // (companies as Firmenname), multiple borrowers joined with " & ".
-  if (!caseData['Case_Name__c']) {
-    const { getBorrowerDisplayName } = await import('./funnelPersonNames');
-    // Fall back to the normalized persons list when the raw funnel data yields nothing
-    // (e.g. partner submissions where the name only exists on the Account).
-    const namePart =
-      getBorrowerDisplayName(stepData) ||
-      persons
-        .map((p: any) => `${p.firstName || ''} ${p.lastName || ''}`.trim())
-        .filter(Boolean)
-        .join(' & ');
-
-    // Only the name is slash-separated from the location.
-    const parts = [location, namePart].filter(Boolean);
-    // Last resort: a timestamp tells a caseworker nothing. Fall back to whoever submitted
-    // the lead so an incomplete Case is still identifiable and chaseable in Salesforce.
-    const submitter = partnerEmail || flatData.email || '';
-    caseData['Case_Name__c'] =
-      parts.join(' / ') ||
-      (submitter ? `Unvollständige Anfrage – ${submitter}` : `Unvollständige Anfrage ${new Date().toISOString().slice(0, 10)}`);
+  // Case_Name__c is required at creation (HYPOTEQ 19.10. D.4, DECISIONS V65): «{Nachname}
+  // {Vorname} – {PLZ} {Ort}», a company «{Firma} – {PLZ} {Ort}» — always set here, for every
+  // payload, whatever a payload's own caseName said. Kreditnehmer 1 names the Case.
+  {
+    const first = persons[0] as any;
+    const who = v3State
+      ? v3State.ans.kn === 'Juristische Person'
+        ? { firma: v3State.txt.firma }
+        : { nachname: v3State.txt.nach || v3State.borrowers[0]?.nach, vorname: v3State.txt.vor || v3State.borrowers[0]?.vor }
+      : first?.isJuristic
+        ? { firma: first.lastName }
+        : { nachname: first?.lastName === 'Unknown' ? '' : first?.lastName, vorname: first?.firstName };
+    caseData['Case_Name__c'] = funnelCaseName({ ...who, plz, ort, submitter: partnerEmail || flatData.email || '' });
   }
 
   // Clean up: Remove non-Case fields

@@ -369,7 +369,8 @@ describe("the existing Salesforce sync accepts v3 payloads (fake API, nothing is
       Hypothekarvolumen__c: 650000,
       PLZ_Ort__c: "8820 Wädenswil",
       City__c: "Wädenswil",
-      Case_Name__c: "8820 Wädenswil / Gary Gerber",
+      // HYPOTEQ 19.10. D.4: «{Nachname} {Vorname} – {PLZ} {Ort}».
+      Case_Name__c: "Gerber Gary – 8820 Wädenswil",
       Client__c: "0011",
       If_nat_rliche_person__c: "Angestellt",
       Bestehen_bereits_Finanzierungsangebote__c: false,
@@ -391,7 +392,7 @@ describe("the existing Salesforce sync accepts v3 payloads (fake API, nothing is
     expect(sf.calls.accounts).toHaveLength(0);
     expect(sf.calls.companies[0]).toMatchObject({ name: "Etzel AG" });
     expect(sf.calls.contacts[0]).toMatchObject({ AccountId: "001COMPANY", FirstName: "Gary", LastName: "Gerber", Email: "gary.gerber@example.ch" });
-    expect(sf.calls.cases[0]).toMatchObject({ AccountId: "001COMPANY", ContactId: "003SIGNER", Kreditnehmer__c: "Juristische Personen", Partner_Consultant__c: "003PARTNER", Korrespondenzsprache__c: "Italienisch", Case_Name__c: "8820 Wädenswil / Etzel AG" });
+    expect(sf.calls.cases[0]).toMatchObject({ AccountId: "001COMPANY", ContactId: "003SIGNER", Kreditnehmer__c: "Juristische Personen", Partner_Consultant__c: "003PARTNER", Korrespondenzsprache__c: "Italienisch", Case_Name__c: "Etzel AG – 8820 Wädenswil" });
     jest.restoreAllMocks();
   });
 });
