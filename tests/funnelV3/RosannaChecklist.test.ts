@@ -42,7 +42,7 @@ const rowMap = (m: ClosingMail) => Object.fromEntries(rows(m).map((r) => [r.labe
 const of = (list: ClosingMail[], a: string) => list.find((m) => m.audience === a)!;
 
 function fakeSalesforce() {
-  const calls: { accounts: any[]; cases: any[] } = { accounts: [], cases: [] };
+  const calls: { accounts: any[]; cases: any[]; contacts: any[] } = { accounts: [], cases: [], contacts: [] };
   let n = 0;
   return {
     calls,
@@ -51,6 +51,17 @@ function fakeSalesforce() {
       createAccount: jest.fn(async (d: any) => {
         calls.accounts.push(d);
         return { id: `001${++n}` };
+      }),
+      // A company: Business Account + Contact (HYPOTEQ 19.10. B16).
+      findBusinessAccount: jest.fn(async () => null),
+      createBusinessAccount: jest.fn(async (d: any) => {
+        calls.accounts.push({ Name: d.name, Phone: d.phone });
+        return { id: `001${++n}` };
+      }),
+      findContactOnAccount: jest.fn(async () => null),
+      createContact: jest.fn(async (d: any) => {
+        calls.contacts.push(d);
+        return { id: "003SIGNER" };
       }),
       updatePersonAccount: jest.fn(async () => ({})),
       findContactByEmail: jest.fn(async () => null),
@@ -65,7 +76,7 @@ function fakeSalesforce() {
 async function caseOf(state: FunnelState) {
   const sf = fakeSalesforce();
   await syncFunnelStepsToSalesforce(v5Payload(state), sf.api);
-  return { c: sf.calls.cases[0], accounts: sf.calls.accounts };
+  return { c: sf.calls.cases[0], accounts: sf.calls.accounts, contacts: sf.calls.contacts };
 }
 
 beforeEach(() => {
@@ -162,9 +173,11 @@ describe("Rosanna: «JP: Name/Telefon leer» → Felder in Schritt 1 (2)", () =>
     const s = jurState();
     const m = rowMap(of(await mailsFor(s), "intern"));
     expect(m).toMatchObject({ "Firmenname gemäss Handelsregister": "Immo Beispiel AG", "Zeichnungsberechtigte Person": "Petra Beispiel", Telefon: "044 555 66 77" });
-    const { c, accounts } = await caseOf(s);
-    expect(accounts[0]).toMatchObject({ LastName: "Immo Beispiel AG", Phone: "044 555 66 77" });
-    expect(c.Kommentar__c).toContain("Zeichnungsberechtigte Person: Petra Beispiel");
+    const { c, accounts, contacts } = await caseOf(s);
+    // HYPOTEQ 19.10. B16: a Business Account for the company, the signatory as its Contact.
+    expect(accounts[0]).toMatchObject({ Name: "Immo Beispiel AG", Phone: "044 555 66 77" });
+    expect(contacts[0]).toMatchObject({ FirstName: "Petra", LastName: "Beispiel", Phone: "044 555 66 77" });
+    expect(c.ContactId).toBe("003SIGNER");
   });
 });
 

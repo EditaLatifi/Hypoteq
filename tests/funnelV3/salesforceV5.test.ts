@@ -17,7 +17,7 @@ import { EMPTY_AMOUNTS, EMPTY_EM, type FunnelState } from "@/lib/funnel-v3/types
 import { ablState, jurState, kaufState, v5Payload } from "./v5Fixtures";
 
 function fakeSalesforce() {
-  const calls: { accounts: any[]; updates: any[]; cases: any[] } = { accounts: [], updates: [], cases: [] };
+  const calls: { accounts: any[]; updates: any[]; cases: any[]; companies: any[]; contacts: any[] } = { accounts: [], updates: [], cases: [], companies: [], contacts: [] };
   let n = 0;
   return {
     calls,
@@ -26,6 +26,16 @@ function fakeSalesforce() {
       createAccount: jest.fn(async (data: any) => {
         calls.accounts.push(data);
         return { id: `001${++n}` };
+      }),
+      findBusinessAccount: jest.fn(async () => null),
+      createBusinessAccount: jest.fn(async (company: any) => {
+        calls.companies.push(company);
+        return { id: "001COMPANY" };
+      }),
+      findContactOnAccount: jest.fn(async () => null),
+      createContact: jest.fn(async (data: any) => {
+        calls.contacts.push(data);
+        return { id: "003SIGNER" };
       }),
       updatePersonAccount: jest.fn(async (_id: string, data: any) => void calls.updates.push(data)),
       findContactByEmail: jest.fn(async () => null),
@@ -214,21 +224,23 @@ describe("Person", () => {
     }
   });
 
-  it("company: Account named after the Firma with its phone; the zeichnungsberechtigte Person on the Case and in the JSON", async () => {
+  it("company: a Business Account named after the Firma, the zeichnungsberechtigte Person as its Contact (HYPOTEQ 19.10. B16); the JSON as before", async () => {
     const { sf, c, json } = await sync(jurState());
-    expect(sf.calls.accounts).toHaveLength(1);
-    expect(sf.calls.accounts[0]).toMatchObject({ LastName: "Immo Beispiel AG", PersonEmail: "info@immo-ag.ch", Phone: "044 555 66 77" });
-    expect(c.Kreditnehmer__c).toBe("Juristische Personen");
-    expect(c.Kommentar__c).toBe("Zeichnungsberechtigte Person: Petra Beispiel");
+    expect(sf.calls.accounts).toHaveLength(0); // no Person Account named after the company
+    expect(sf.calls.companies).toEqual([{ name: "Immo Beispiel AG", phone: "044 555 66 77", uid: null, sitz: null, street: null }]);
+    expect(sf.calls.contacts).toEqual([{ AccountId: "001COMPANY", FirstName: "Petra", LastName: "Beispiel", Email: "info@immo-ag.ch", Phone: "044 555 66 77" }]);
+    expect(c).toMatchObject({ AccountId: "001COMPANY", Client__c: "001COMPANY", ContactId: "003SIGNER", Kreditnehmer__c: "Juristische Personen" });
+    // The signatory is no longer the first line of the Kommentar (V41).
+    expect(c.Kommentar__c ?? null).toBeNull();
     expect(json.kontakt).toEqual({ telefon: "044 555 66 77", zeichnungsberechtigt: "Petra Beispiel" });
     expect(c.Case_Name__c).toBe("8400 Winterthur / Immo Beispiel AG");
   });
 
-  it("company with Gewerbe → Nutzung «Für eigenes Geschäft»; the Kommentar keeps the customer's text", async () => {
+  it("company with Gewerbe → Nutzung «Für eigenes Geschäft»; the Kommentar is the customer's text", async () => {
     const s = jurState({ ans: { ...jurState().ans, nutz: "Gewerbe" }, txt: { ...jurState().txt, kommentar: "Eigene Werkstatt" } });
     const { c } = await sync(s);
     expect(c.Nutzung_der_Immobilie__c).toBe("Für eigenes Geschäft");
-    expect(c.Kommentar__c).toBe("Zeichnungsberechtigte Person: Petra Beispiel\n\nEigene Werkstatt");
+    expect(c.Kommentar__c).toBe("Eigene Werkstatt");
   });
 
   it("Kreditnehmer 2 → Client_2__c only when captured", async () => {

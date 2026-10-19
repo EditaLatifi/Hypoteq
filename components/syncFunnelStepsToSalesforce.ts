@@ -5,6 +5,7 @@ import { ART_LIEGENSCHAFT_MAP, NUTZUNG_MAP, isZweitwohnsitzNutzung } from "./pro
 import { resolvePartner, type PartnerResolution } from "./partnerDirectory";
 import { calcForState } from "@/lib/funnel-v3/calc";
 import { normaliseFunnelState } from "@/lib/funnel-v3/legacy";
+import { splitFullName } from "@/lib/funnel-v3/requirements";
 
 // Sales Partner = the partner *company* Account on the Case (HYPOTEQ AG for direct
 // leads; Betterhomes / Remax / ... for partner leads). Verified against production:
@@ -419,6 +420,74 @@ async function readRecentCaseCheckState(salesforceApi: any, accountId: unknown):
   }
 }
 
+/**
+ * Juristische Person → Business Account + Contact (HYPOTEQ 19.10. B16, Handover 8; DECISIONS V63):
+ *
+ *   Account  a company Account (never a Person Account; record type resolved at runtime by
+ *            salesforceApi.getBusinessAccountRecordTypeId): Name = Firma, Phone, UID and Sitz
+ *            from the Handelsregisterauszug where read. Reused, never duplicated: the same UID
+ *            first, else exactly the same Name (salesforceApi.findBusinessAccount). A reused
+ *            Account is not changed.
+ *   Contact  the zeichnungsberechtigte Person on that Account: Vorname / Nachname, E-Mail and
+ *            Telefon of step 1 — reused when that Account already has a Contact with the e-mail
+ *            (without one: the same name). Without a name there is no Contact. A Contact that
+ *            cannot be written costs only the Contact, not the Case.
+ *
+ * Returns the Account as the Person Account loop does ({ id }) and the Contact ({ id }) or null.
+ */
+export async function syncCompanyAccount(
+  salesforceApi: any,
+  person: { lastName: string; email?: string; phone?: string; uid?: string | null; sitz?: string | null; adresse?: string; signatory?: { firstName?: string; lastName?: string } },
+): Promise<{ account: { id: string }; contact: { id: string } | null }> {
+  for (const fn of ['findBusinessAccount', 'createBusinessAccount']) {
+    // salesforceApi is the module's default export object: a function missing there is undefined
+    // with no compile error (see the note at the bottom of components/salesforceApi.ts).
+    if (typeof salesforceApi?.[fn] !== 'function') throw new Error(`salesforceApi.${fn} is not a function — it is likely missing from the default export in components/salesforceApi.ts`);
+  }
+  const name = String(person.lastName || '').trim();
+  const email = String(person.email || '').trim();
+  const phone = String(person.phone || '').trim();
+
+  const existing = await salesforceApi.findBusinessAccount({ uid: person.uid ?? null, name });
+  let accountId: string;
+  if (existing?.Id) {
+    accountId = existing.Id;
+    console.log(`[Salesforce Sync] Company «${name}»: existing Business Account ${accountId} (same ${existing.matchedBy === 'uid' ? 'UID' : 'Name'})`);
+  } else {
+    const created = await salesforceApi.createBusinessAccount({ name, phone: phone || null, uid: person.uid ?? null, sitz: person.sitz ?? null, street: person.adresse || null });
+    accountId = created?.id || created?.Id;
+    console.log(`[Salesforce Sync] Company «${name}»: Business Account created ${accountId}`);
+  }
+
+  const firstName = String(person.signatory?.firstName || '').trim();
+  const lastName = String(person.signatory?.lastName || '').trim();
+  let contact: { id: string } | null = null;
+  if (lastName && accountId) {
+    try {
+      const found =
+        existing?.Id && typeof salesforceApi.findContactOnAccount === 'function'
+          ? await salesforceApi.findContactOnAccount(accountId, { email, firstName, lastName })
+          : null;
+      if (found?.Id) {
+        contact = { id: found.Id };
+        console.log(`[Salesforce Sync] Signatory ${firstName} ${lastName}: existing Contact ${found.Id}`);
+      } else {
+        const fields: Record<string, any> = { AccountId: accountId, LastName: lastName };
+        if (firstName) fields.FirstName = firstName;
+        if (email) fields.Email = email;
+        if (phone) fields.Phone = phone;
+        const created = await salesforceApi.createContact(fields);
+        const id = created?.id || created?.Id;
+        if (id) contact = { id };
+        console.log(`[Salesforce Sync] Signatory ${firstName} ${lastName}: Contact created ${id}`);
+      }
+    } catch (err) {
+      console.error(`[Salesforce Sync] Contact for the signatory of «${name}» not written (the Case goes on without it):`, err);
+    }
+  }
+  return { account: { id: accountId }, contact };
+}
+
 export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>, salesforceApi: any) {
   console.log('[Salesforce Sync] Starting sync process...');
   
@@ -432,6 +501,10 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
   };
   // Log flatData for debugging
   console.log("Flat data for mapping:", flatData);
+
+  // The funnel state of a v3 / v5 payload (legacy.ts reads either into the v5 shape): what the
+  // customer answered and what the documents said (UID and Sitz of a company, the Heizung, …).
+  const v3State = stepData.v3 ? normaliseFunnelState(stepData.v3) : null;
 
   // Capture raw project type up front — flatData.projektArt gets rewritten to a display
   // label ("Neue Hypothek" / "Ablösung") later, which breaks downstream lowercase checks.
@@ -479,21 +552,28 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
       const isJuristicPerson = Boolean(companyName);
 
       if (isJuristicPerson) {
-        // For juristic persons - use company name as LastName, but also send contact person details
-        {
-          persons.push({
-            firstName: kn.vorname || '',
-            lastName: companyName,
-            contactLastName: kn.name || '',
-            email: kn.email || kn.emailAdresse || '',
-            phone: kn.phone || kn.telefon || '',
-            adresse: kn.adresse || '',
-            erwerbsstatus: null,
-            zivilstand: null,
-            geburtsdatum: null,
-            isJuristic: true, // Mark as juristic person for validation
-          });
-        }
+        // A company becomes a Business Account (Name = Firma) with its zeichnungsberechtigte
+        // Person as a Contact (HYPOTEQ 19.10. B16) — no Person Account named after it any more.
+        // v5 asks the signatory as one name (txt.zeichner); the old funnel as Vorname / Name.
+        const zeichner = String(kn.zeichnungsberechtigt || '').trim();
+        const signatory = zeichner
+          ? splitFullName(zeichner)
+          : { first: String(kn.vorname || '').trim(), last: String(kn.name || kn.nachname || '').trim() };
+        persons.push({
+          firstName: '',
+          lastName: companyName,
+          email: kn.email || kn.emailAdresse || '',
+          phone: kn.phone || kn.telefon || '',
+          // From the Handelsregisterauszug (v5 facts), where it was read.
+          uid: i === 0 ? v3State?.info?.uid ?? null : null,
+          sitz: i === 0 ? v3State?.info?.sitz ?? null : null,
+          adresse: kn.adresse || '',
+          signatory: { firstName: signatory.first, lastName: signatory.last },
+          erwerbsstatus: null,
+          zivilstand: null,
+          geburtsdatum: null,
+          isJuristic: true, // Mark as juristic person for validation
+        });
       } else {
         // === FUNNEL V3 CO-BORROWERS (DECISIONS D18) — v3 payloads only ===
         // v3 asks no e-mail or phone for Kreditnehmer 2 and 3, so the rule below (a natural
@@ -613,12 +693,20 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
 
     console.log(`[Salesforce Sync] Processing person ${i + 1}: ${email} (${isJuristicPerson ? 'Company' : 'Individual'})`);
 
+    // A company: Business Account + Contact (HYPOTEQ 19.10. B16) — not the Person Account below.
+    if (isJuristicPerson) {
+      const company = await syncCompanyAccount(salesforceApi, person);
+      accounts.push(company.account);
+      contacts.push(company.contact);
+      continue;
+    }
+
     // STEP 1: Find or create Account. Only look up by email when we actually have one —
     // partner submissions often have no end-customer email, and querying with '' can match
     // unrelated empty-email Accounts from prior submissions.
     let account = email ? await salesforceApi.findAccountByEmail(email) : null;
 
-    // Prepare Account data - Person Account fields for everyone (companies and individuals)
+    // Prepare Account data - Person Account fields (natural persons; a company returned above)
     const accountData: Record<string, any> = {
       LastName: lastName,
       FirstName: firstName,
@@ -891,9 +979,7 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
   const eigenmittel_schenkung = Number(flatData.eigenmittel_schenkung || 0);
   const eigenmittel = eigenmittel_bar + eigenmittel_saeule3 + eigenmittel_pk + eigenmittel_schenkung;
 
-  // The funnel state of a v3 / v5 payload (legacy.ts reads either into the v5 shape) and the
-  // funnel's own calculation (lib/funnel-v3/calc.ts) — what the customer saw.
-  const v3State = stepData.v3 ? normaliseFunnelState(stepData.v3) : null;
+  // The funnel's own calculation (lib/funnel-v3/calc.ts) — what the customer saw.
   const v3Calc = v3State ? calcForState(v3State) : null;
 
   // Add total Eigenmittel to Case
@@ -1077,6 +1163,9 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     // Heizungsart is no longer asked; the documents say it (Verkaufsdokumentation, GVZ).
     const heizung = toWaermeerzeugung(v3State.info?.heizung);
     if (heizung) caseData['Waermeerzeugung__c'] = heizung;
+    // (A company's zeichnungsberechtigte Person is its Contact since HYPOTEQ 19.10. B16 — no
+    // longer the first line of Kommentar__c; the JSON keeps it, `kontakt.zeichnungsberechtigt`.)
+
     // HYPOTEQ 19.10. B17 / D.1: the Geschätzter Objektwert as entered — an empty one is not
     // invented from the Kaufpreis (Kaufpreis__c has that), DECISIONS V60.
     if (v3State.fin.val > 0) caseData['Geschaetzter_Objektwert__c'] = Math.round(v3State.fin.val);
@@ -1085,15 +1174,6 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     caseData['Leasing__c'] = v3State.ans.leasing === 'Ja';
     caseData['Unterhaltspflicht__c'] = v3State.ans.unterhalt === 'Ja';
     caseData['Solidarbuergschaft__c'] = v3State.ans.buerge === 'Ja';
-    // Juristische Person: the Account is the company (a Person Account named after it, the
-    // existing mapping — no Business Account / Contact, DECISIONS V41). The zeichnungsberechtigte
-    // Person has no field there, so the Case names it (Rosanna: it stayed empty) and the JSON
-    // carries it (`kontakt`).
-    const zeichner = v3State.ans.kn === 'Juristische Person' ? v3State.txt.zeichner.trim() : '';
-    if (zeichner) {
-      const existing = typeof caseData['Kommentar__c'] === 'string' ? caseData['Kommentar__c'].trim() : '';
-      caseData['Kommentar__c'] = [`Zeichnungsberechtigte Person: ${zeichner}`, existing].filter(Boolean).join('\n\n');
-    }
   } else {
     // v1 «Geschätzter Objektwert» (HYPOTEQ 19.10. B17 «Reste aus v1»): the legacy funnel's value.
     const value = Number(String(flatData.immobilienwert ?? '').replace(/CHF\s?|'/gi, '').trim());
@@ -1238,10 +1318,16 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     }
   }
 
-  // Link Client lookup fields AFTER all cleanup to prevent them being overwritten
+  // Link Client lookup fields AFTER all cleanup to prevent them being overwritten. A company:
+  // AccountId and Client__c are its Business Account, ContactId its signatory (HYPOTEQ 19.10. B16).
   if (mainAccountId) {
     caseData['Client__c'] = mainAccountId;
     console.log(`[Salesforce Sync] Linked Client Account: ${mainAccountId}`);
+  }
+  const mainContactId = contacts[0]?.id || contacts[0]?.Id;
+  if (mainContactId) {
+    caseData['ContactId'] = mainContactId;
+    console.log(`[Salesforce Sync] Linked Contact: ${mainContactId}`);
   }
   console.log(`[Salesforce Sync] Number of clients: ${persons.length}`);
 

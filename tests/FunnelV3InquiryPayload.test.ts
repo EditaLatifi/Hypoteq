@@ -73,7 +73,7 @@ function serverRejects(p: any): string | null {
 
 /** In-memory stand-in for components/salesforceApi — nothing leaves the process. */
 function fakeSalesforce() {
-  const calls: { accounts: any[]; cases: any[] } = { accounts: [], cases: [] };
+  const calls: { accounts: any[]; cases: any[]; companies: any[]; contacts: any[] } = { accounts: [], cases: [], companies: [], contacts: [] };
   let n = 0;
   return {
     calls,
@@ -82,6 +82,15 @@ function fakeSalesforce() {
       createAccount: jest.fn(async (data: any) => {
         calls.accounts.push(data);
         return { id: `001${++n}` };
+      }),
+      findBusinessAccount: jest.fn(async () => null),
+      createBusinessAccount: jest.fn(async (company: any) => {
+        calls.companies.push(company);
+        return { id: "001COMPANY" };
+      }),
+      createContact: jest.fn(async (data: any) => {
+        calls.contacts.push(data);
+        return { id: "003SIGNER" };
       }),
       updatePersonAccount: jest.fn(async () => ({})),
       findContactByEmail: jest.fn(async () => ({ Id: "003PARTNER" })),
@@ -378,8 +387,11 @@ describe("the existing Salesforce sync accepts v3 payloads (fake API, nothing is
       txt: { ...gerber().txt, bmail: "berater@vzch.ch", tel: "", firma: "Etzel AG", zeichner: "Gary Gerber" },
     });
     await syncFunnelStepsToSalesforce(toInquiryPayload(state, { locale: "it", submissionId: SUBMISSION }), sf.api);
-    expect(sf.calls.accounts[0]).toMatchObject({ LastName: "Etzel AG", PersonEmail: "gary.gerber@example.ch" });
-    expect(sf.calls.cases[0]).toMatchObject({ Kreditnehmer__c: "Juristische Personen", Partner_Consultant__c: "003PARTNER", Korrespondenzsprache__c: "Italienisch", Case_Name__c: "8820 Wädenswil / Etzel AG" });
+    // HYPOTEQ 19.10. B16: a Business Account and the signatory as its Contact, no Person Account.
+    expect(sf.calls.accounts).toHaveLength(0);
+    expect(sf.calls.companies[0]).toMatchObject({ name: "Etzel AG" });
+    expect(sf.calls.contacts[0]).toMatchObject({ AccountId: "001COMPANY", FirstName: "Gary", LastName: "Gerber", Email: "gary.gerber@example.ch" });
+    expect(sf.calls.cases[0]).toMatchObject({ AccountId: "001COMPANY", ContactId: "003SIGNER", Kreditnehmer__c: "Juristische Personen", Partner_Consultant__c: "003PARTNER", Korrespondenzsprache__c: "Italienisch", Case_Name__c: "8820 Wädenswil / Etzel AG" });
     jest.restoreAllMocks();
   });
 });
