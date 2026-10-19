@@ -16,8 +16,8 @@ describe("confirmation mail (spec 3 Schritt 6, DECISIONS D9 / D20)", () => {
     expect(autoResponseSubject("it", CASE)).toContain("Numero di pratica HQ-26-10-123456");
     expect(autoResponseSubject("en", CASE)).toContain("Case number HQ-26-10-123456");
 
-    const html = generateFunnelAutoResponseHTML("Gary", "de", { caseNumber: CASE, returnUrl: URL });
-    expect(html).toContain("Hi Gary,");
+    const html = generateFunnelAutoResponseHTML("Max", "de", { caseNumber: CASE, returnUrl: URL });
+    expect(html).toContain("Hi Max,");
     expect(html).toContain("Fallnummer <strong>HQ-26-10-123456</strong>");
     expect(html).toContain(`href="${URL}"`);
     expect(html).toContain("Zur Anfrage");
@@ -25,11 +25,11 @@ describe("confirmation mail (spec 3 Schritt 6, DECISIONS D9 / D20)", () => {
 
   it("legacy call: unchanged — no case line, no link", () => {
     expect(autoResponseSubject("de")).toBe(AUTO_RESPONSE_SUBJECT.de);
-    const html = generateFunnelAutoResponseHTML("Gary", "de");
+    const html = generateFunnelAutoResponseHTML("Max", "de");
     expect(html).not.toContain("Fallnummer");
     expect(html).not.toContain("href=");
     // A case number without a link (token not minted) still names the case.
-    expect(generateFunnelAutoResponseHTML("Gary", "en", { caseNumber: CASE })).toContain("Case number <strong>HQ-26-10-123456</strong>");
+    expect(generateFunnelAutoResponseHTML("Max", "en", { caseNumber: CASE })).toContain("Case number <strong>HQ-26-10-123456</strong>");
   });
 
   it("D9: FR «vous», IT «Lei», DE «du»", () => {
@@ -47,12 +47,12 @@ describe("confirmation mail (spec 3 Schritt 6, DECISIONS D9 / D20)", () => {
     expect(it_).toContain("Il Suo team HYPOTEQ");
     expect(it_).toContain("I Suoi esperti ipotecari");
 
-    expect(generateFunnelAutoResponseHTML("Gary", "de")).toContain("Danke für deine Anfrage");
+    expect(generateFunnelAutoResponseHTML("Max", "de")).toContain("Danke für deine Anfrage");
     expect(AUTO_RESPONSE_CONTENT.en.body).toBe("Thanks for your request and your trust in HYPOTEQ. We've received all the information and will get back to you soon (business days) to discuss the next steps.");
   });
 
   it("escapes what the customer typed", () => {
     expect(generateFunnelAutoResponseHTML("<b>x</b>", "en")).toContain("Hi &lt;b&gt;x&lt;/b&gt;,");
-    expect(generateFunnelAutoResponseHTML("Gary", "en", { returnUrl: 'https://x/"><script>' })).toContain('href="https://x/&quot;&gt;&lt;script&gt;"');
+    expect(generateFunnelAutoResponseHTML("Max", "en", { returnUrl: 'https://x/"><script>' })).toContain('href="https://x/&quot;&gt;&lt;script&gt;"');
   });
 });

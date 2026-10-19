@@ -273,14 +273,14 @@ describe("block 3–9 · only what applies (Handover 7.3)", () => {
   });
 
   it("Ablösung: Bank, Hypothek, Zins, Ablösedatum from the Zinsabrechnung, Erhöhung + Zweck, Vorsorge", async () => {
-    const s = ablState({ info: { bank: "Musterbank", zins: "SARON 0.65 %", abl: "30.01.2028" }, em: { ...EMPTY_EM, s3a: 25000 } });
+    const s = ablState({ info: { bank: "Musterbank", zins: "SARON 0.80 %", abl: "31.03.2028" }, em: { ...EMPTY_EM, s3a: 25000 } });
     const rows = rowsOf(of(await mails(v5Payload(s)), "berater"));
     expect(rows).toEqual(
       expect.arrayContaining([
         "Bestehende Bank: Musterbank",
         "Bestehende Hypothek: CHF 400'000",
-        "Zins: SARON 0.65 %",
-        "Ablösedatum: 30.01.2028",
+        "Zins: SARON 0.80 %",
+        "Ablösedatum: 31.03.2028",
         "Gewünschte Erhöhung: CHF 100'000",
         "Verwendungszweck der Erhöhung: Renovation Küche",
         "Säule 3a: CHF 25'000",

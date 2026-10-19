@@ -2,8 +2,8 @@ import { describe, it, expect } from '@jest/globals';
 import { formatCaseNumber, isCaseNumber, parseCaseNumber } from '@/lib/funnel-v3/fallnummer';
 
 describe('Fallnummer HQ-JJ-MM-NNNNNN', () => {
-  it('formats the spec example', () => {
-    expect(formatCaseNumber(new Date('2026-06-10T12:00:00Z'), 156283)).toBe('HQ-26-06-156283');
+  it('formats a six-digit serial', () => {
+    expect(formatCaseNumber(new Date('2026-06-10T12:00:00Z'), 654321)).toBe('HQ-26-06-654321');
   });
   it('pads the serial', () => {
     expect(formatCaseNumber(new Date('2026-10-05T12:00:00Z'), 7)).toBe('HQ-26-10-000007');
@@ -19,12 +19,12 @@ describe('Fallnummer HQ-JJ-MM-NNNNNN', () => {
     expect(() => formatCaseNumber(new Date('nope'), 1)).toThrow();
   });
   it('parses and validates', () => {
-    expect(parseCaseNumber('HQ-26-06-156283')).toEqual({ year: 2026, month: 6, serial: 156283 });
+    expect(parseCaseNumber('HQ-26-06-654321')).toEqual({ year: 2026, month: 6, serial: 654321 });
     expect(parseCaseNumber(' HQ-26-06-000001 ')).toEqual({ year: 2026, month: 6, serial: 1 });
-    for (const bad of ['HQ-26-13-156283', 'HQ-26-00-156283', 'HQ-26-6-156283', 'HQ-26-06-15628', 'hq-26-06-156283', 'HQ-2026-06-156283', '', null, undefined]) {
+    for (const bad of ['HQ-26-13-654321', 'HQ-26-00-654321', 'HQ-26-6-654321', 'HQ-26-06-65432', 'hq-26-06-654321', 'HQ-2026-06-654321', '', null, undefined]) {
       expect([bad, isCaseNumber(bad)]).toEqual([bad, false]);
     }
-    expect(isCaseNumber('HQ-26-06-156283')).toBe(true);
+    expect(isCaseNumber('HQ-26-06-654321')).toBe(true);
   });
   it('round-trips', () => {
     const s = formatCaseNumber(new Date('2027-03-15T12:00:00Z'), 42);

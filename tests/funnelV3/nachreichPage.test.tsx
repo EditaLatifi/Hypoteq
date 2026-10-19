@@ -2,7 +2,7 @@ import { describe, it, expect, jest } from "@jest/globals";
 import { renderToStaticMarkup } from "react-dom/server";
 import { createElement } from "react";
 import { nachreichV3View } from "@/lib/funnel-v3/nachreich";
-import { existingRows, inquiryRow, v3StateFor, GARY, ANNA, TOKEN } from "./nachreichFixtures";
+import { existingRows, inquiryRow, v3StateFor, MAX, ANNA, TOKEN } from "./nachreichFixtures";
 
 jest.mock("@/components/funnel-v3/funnel-v3.css", () => ({}));
 jest.mock("@/components/funnel-v3/documents/documents.css", () => ({}));
@@ -30,13 +30,13 @@ const render = (view: any) => renderToStaticMarkup(createElement(NachreichV3, { 
 describe("NachreichV3 (server render)", () => {
   it("shows only the missing requirements, grouped, in the funnel look, with one drop zone", () => {
     pathname = "/fr/nachreichen/x";
-    const html = render(nachreichV3View(inquiryRow({ v3State: v3StateFor([GARY, ANNA], "fr") }), existingRows()));
+    const html = render(nachreichV3View(inquiryRow({ v3State: v3StateFor([MAX, ANNA], "fr") }), existingRows()));
     expect(html).toContain('class="hqv3 v3-nachreich"');
     expect(html).toContain(">Transmettre les documents manquants</h1>");
     expect(html).toContain("HQ-26-10-000123");
     expect((html.match(/class="v3-drop[ "]/g) || []).length).toBe(1);
     expect(html).toContain(">Bien immobilier<");
-    expect(html).toContain(">Personne · Gary Gerber<");
+    expect(html).toContain(">Personne · Max Mustermann<");
     expect(html).toContain(">Personne · Anna Muster<");
     expect(html).toContain(">Photos du bien (intérieur et extérieur)<");
     expect(html).toContain(">Certificat de salaire actuel<");
@@ -48,15 +48,15 @@ describe("NachreichV3 (server render)", () => {
 
   it("a pending Auskunftsermächtigung gets its own slot, not a row (Handover 6)", () => {
     pathname = "/fr/nachreichen/x";
-    const rows = existingRows().filter((r) => r.originalFileName !== "01_Auskunftsermaechtigung_Gary_Gerber_unterzeichnet.pdf");
-    const view = nachreichV3View(inquiryRow({ v3State: v3StateFor([GARY, ANNA], "fr") }), rows)!;
+    const rows = existingRows().filter((r) => r.originalFileName !== "01_Auskunftsermaechtigung_Max_Mustermann_unterzeichnet.pdf");
+    const view = nachreichV3View(inquiryRow({ v3State: v3StateFor([MAX, ANNA], "fr") }), rows)!;
     expect(view.missing.some((m) => m.instanceId === "vollmacht")).toBe(true);
     const html = render(view);
     expect(html).toContain('data-status="missing"');
     expect(html).toContain("Autorisation de renseignements HYPOTEQ · obligatoire");
     expect(html).toContain("Signer l’autorisation de renseignements");
     expect(html).toContain("Formulaire vierge – le modèle pré-rempli est joint à notre e-mail.");
-    expect(html).toContain("Par Gary Gerber – par tous les emprunteurs s’il y en a plusieurs.");
+    expect(html).toContain("Par Max Mustermann – par tous les emprunteurs s’il y en a plusieurs.");
     expect(html).toContain(">Télécharger signé</button>");
     // Not a row of the person group, and no «später» on this page.
     expect((html.match(/class="v3-docrow /g) || []).length).toBe(7);

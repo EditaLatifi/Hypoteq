@@ -60,7 +60,7 @@ const analyseV3 = jest.fn(async (_input: any): Promise<any> => ({
   bank: null,
   docDate: "15.01.2026",
   note: null,
-  fields: [{ key: "Eigentümer", value: "Gerber Gary Samuel", confidence: 0.97 }],
+  fields: [{ key: "Eigentümer", value: "Mustermann Max Simon", confidence: 0.97 }],
   durationMs: 7,
 }));
 jest.mock("@/components/documentIntelligence/v3/openaiProvider", () => ({
@@ -172,7 +172,7 @@ describe("analyse v3", () => {
       docDate: "2026-01-15",
       contentHash,
     });
-    expect(body.analysis.fields["Eigentümer"]).toEqual({ value: "Gerber Gary Samuel", confidence: 0.97 });
+    expect(body.analysis.fields["Eigentümer"]).toEqual({ value: "Mustermann Max Simon", confidence: 0.97 });
     const row = db.holding[0];
     expect(row.aiDocType).toBe("grundbuch");
     expect(row.aiAnalysis.v3).toEqual(body.analysis);

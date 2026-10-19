@@ -9,7 +9,7 @@ import type { V3Analysis } from "@/lib/funnel-v3/files";
 import { __resetUploadPipeline, startPlacementSync, addPickedFiles } from "@/lib/funnel-v3/upload";
 import { documentsSummary } from "@/lib/funnel-v3/documentsSummary";
 import { addSignatureCopy, downloadAuthorization } from "@/components/funnel-v3/finish/signatureActions";
-import { gerberState } from "./gerberCase";
+import { mustermannState } from "./mustermannCase";
 
 const S = () => useFunnelV3.getState();
 const flush = async (n = 40) => {
@@ -47,7 +47,7 @@ const summary = () => documentsSummary({ ...S(), files: S().files });
 beforeEach(() => {
   __resetUploadPipeline();
   S().reset();
-  const st = gerberState();
+  const st = mustermannState();
   useFunnelV3.setState({ ans: st.ans, txt: st.txt, borrowers: st.borrowers, em: st.em, fin: st.fin });
   calls.length = 0;
   docSeq = 0;
@@ -56,7 +56,7 @@ beforeEach(() => {
 
 describe("addSignatureCopy", () => {
   it("places any file name on P0 at once; the signed form with the borrower's name is «erhalten»", async () => {
-    analysisFor = () => ({ fields: { Unterschrift: { value: "vorhanden", confidence: 0.9 }, Vollmachtgeber: { value: "Gerber Gary", confidence: 0.9 } } });
+    analysisFor = () => ({ fields: { Unterschrift: { value: "vorhanden", confidence: 0.9 }, Vollmachtgeber: { value: "Mustermann Max", confidence: 0.9 } } });
     const res = addSignatureCopy(useFunnelV3, file("IMG_4711.pdf"));
     expect(res.ok).toBe(true);
     const f = S().files[0];
@@ -115,7 +115,7 @@ describe("addSignatureCopy", () => {
 
 describe("downloadAuthorization", () => {
   it("posts the prefill to the route and fails visibly when it fails", async () => {
-    const data = { lang: "de" as const, signers: [{ vor: "Gary", nach: "Gerber" }], objekt: "8820 Wädenswil", zweck: "Ablösung" as const };
+    const data = { lang: "de" as const, signers: [{ vor: "Max", nach: "Mustermann" }], objekt: "8000 Zürich", zweck: "Ablösung" as const };
     await expect(downloadAuthorization(data)).rejects.toThrow("HTTP 500");
     expect(calls.at(-1)).toEqual({ url: "/api/funnel/authorization", body: data });
   });

@@ -23,8 +23,8 @@ jest.mock("@/components/partnerDirectory", () => {
 
 const SUBMISSION = "6f1c2b9e-1d2a-4c3b-9e8f-0a1b2c3d4e5f";
 
-/** Fall Gerber (Handover, sample dossier): Ablösung + Erhöhung, STWE, Wädenswil. */
-const gerber = (over: Partial<FunnelState> = {}): FunnelState => ({
+/** Fall Mustermann (fictional, tests/funnelV3/mustermannCase.ts): Ablösung + Erhöhung, STWE, Zürich. */
+const mustermann = (over: Partial<FunnelState> = {}): FunnelState => ({
   role: "kunde",
   mode: "schnell",
   ans: {
@@ -40,21 +40,21 @@ const gerber = (over: Partial<FunnelState> = {}): FunnelState => ({
     leasing: "Ja",
     laufzeit: "5 Jahre",
   },
-  borrowers: [{ id: "b1", vor: "Gary", nach: "Gerber", job: "Angestellt", pkSe: "Nein" }],
+  borrowers: [{ id: "b1", vor: "Max", nach: "Mustermann", job: "Angestellt", pkSe: "Nein" }],
   txt: {
     ...EMPTY_TEXTS,
-    vor: "Gary",
-    nach: "Gerber",
-    mail: "gary.gerber@example.ch",
+    vor: "Max",
+    nach: "Mustermann",
+    mail: "max.mustermann@example.ch",
     tel: "079 123 45 67",
-    plz: "8820",
-    ort: "Wädenswil",
+    plz: "8000",
+    ort: "Zürich",
     zweck: "Ablösung Privatkredit und Leasing",
     kommentar: "Bitte Rückruf am Vormittag.",
   },
-  fin: { ...EMPTY_AMOUNTS, old: 449000, up: 201000, inc: 125000, val: 1450000 },
-  em: { ...EMPTY_EM, s3a: 10340 },
-  info: { geb: "04.01.1988", nat: "Schweiz", zivil: "ledig", bank: "Zuger Kantonalbank", abl: "30.01.2028", heizung: "Holzofen" },
+  fin: { ...EMPTY_AMOUNTS, old: 380000, up: 170000, inc: 110000, val: 1240000 },
+  em: { ...EMPTY_EM, s3a: 8760 },
+  info: { geb: "05.03.1985", nat: "Schweiz", zivil: "ledig", bank: "Musterbank", abl: "31.03.2028", heizung: "Holzofen" },
   src: { "fin.old": { doc: "Zinsabrechnung", unsure: false }, "em.s3a": { doc: "3a-Police", unsure: true } },
   touched: {},
   sig: { choice: "later", at: "2026-10-15T08:00:00.000Z", method: "upload" },
@@ -108,8 +108,8 @@ const quiet = () => {
   jest.spyOn(console, "warn").mockImplementation(() => {});
 };
 
-describe("toInquiryPayload — Gerber, Kunde", () => {
-  const p = toInquiryPayload(gerber(), { locale: "fr", submissionId: SUBMISSION, sharepointFolderId: "F1", documents: [{ id: "d" }], documentCompleteness: { complete: false, missing: [] } });
+describe("toInquiryPayload — Mustermann, Kunde", () => {
+  const p = toInquiryPayload(mustermann(), { locale: "fr", submissionId: SUBMISSION, sharepointFolderId: "F1", documents: [{ id: "d" }], documentCompleteness: { complete: false, missing: [] } });
 
   it("envelope", () => {
     expect(p.customerType).toBe("direct");
@@ -120,14 +120,14 @@ describe("toInquiryPayload — Gerber, Kunde", () => {
     expect(p.documents).toEqual([{ id: "d" }]);
     expect(p.documentCompleteness).toEqual({ complete: false, missing: [] });
     expect(p.partner).toBeNull();
-    expect(p.client).toEqual({ firstName: "Gary", lastName: "Gerber", email: "gary.gerber@example.ch", phone: "079 123 45 67", anrede: "Herr" });
+    expect(p.client).toEqual({ firstName: "Max", lastName: "Mustermann", email: "max.mustermann@example.ch", phone: "079 123 45 67", anrede: "Herr" });
   });
 
   it("project and property in the values the server maps", () => {
-    expect(p.project).toEqual({ projektArt: "abloesung", kreditnehmerTyp: "nat", borrowerType: "nat", liegenschaftZip: "8820", neubauArt: "" });
+    expect(p.project).toEqual({ projektArt: "abloesung", kreditnehmerTyp: "nat", borrowerType: "nat", liegenschaftZip: "8000", neubauArt: "" });
     expect(p.property).toMatchObject({
-      zip: "8820",
-      ort: "Wädenswil",
+      zip: "8000",
+      ort: "Zürich",
       artImmobilie: "bestehend",
       neubauArt: "",
       artLiegenschaft: "Wohnung",
@@ -142,7 +142,7 @@ describe("toInquiryPayload — Gerber, Kunde", () => {
     });
     // Birth date and Zivilstand of Kreditnehmer 1 come from the documents (Handover 3.1).
     expect(p.property.kreditnehmer).toEqual([
-      { id: "b1", vorname: "Gary", name: "Gerber", anrede: "Herr", email: "gary.gerber@example.ch", telefon: "079 123 45 67", geburtsdatum: "04.01.1988", erwerb: "angestellt", zivilstand: "ledig", pkVorhanden: "", einkommen: "125000" },
+      { id: "b1", vorname: "Max", name: "Mustermann", anrede: "Herr", email: "max.mustermann@example.ch", telefon: "079 123 45 67", geburtsdatum: "05.03.1985", erwerb: "angestellt", zivilstand: "ledig", pkVorhanden: "", einkommen: "110000" },
     ]);
   });
 
@@ -151,18 +151,18 @@ describe("toInquiryPayload — Gerber, Kunde", () => {
       kaufpreis: "",
       kaufdatum: "",
       // Handover 8: at an Ablösung Kaufdatum__c takes the Ablösedatum.
-      abloesedatum: "30.01.2028",
-      abloesung_betrag: "449000",
+      abloesedatum: "31.03.2028",
+      abloesung_betrag: "380000",
       erhoehung: "Ja",
-      erhoehung_betrag: "201000",
-      brutto: "125000",
-      immobilienwert: "1450000",
+      erhoehung_betrag: "170000",
+      brutto: "110000",
+      immobilienwert: "1240000",
       netto_mietertrag: "",
-      hypoBetrag: "650000",
+      hypoBetrag: "550000",
       modell: "5",
       // «Vorsorge» at an Ablösung: Säule 3a only; no Kauf rows.
       eigenmittel_bar: "",
-      eigenmittel_saeule3: "10340",
+      eigenmittel_saeule3: "8760",
       eigenmittel_pk: "",
       eigenmittel_schenkung: "",
       eigenmittel_erbschaft: "",
@@ -180,28 +180,28 @@ describe("toInquiryPayload — Gerber, Kunde", () => {
     expect(p.v3.mode).toBe("schnell");
     expect(p.v3.ans.lieg).toBe("Stockwerkeigentum");
     expect(p.v3.txt.zweck).toBe("Ablösung Privatkredit und Leasing");
-    expect(p.v3.fin.val).toBe(1450000);
-    expect(p.v3.em.s3a).toBe(10340);
-    expect(p.v3.info.bank).toBe("Zuger Kantonalbank");
+    expect(p.v3.fin.val).toBe(1240000);
+    expect(p.v3.em.s3a).toBe(8760);
+    expect(p.v3.info.bank).toBe("Musterbank");
     expect(p.v3.src["em.s3a"]).toEqual({ doc: "3a-Police", unsure: true });
     expect(p.v3.sig).toMatchObject({ choice: "later" });
     expect(p.v3.borrowers).toHaveLength(1);
-    expect(p.v3.calc.need).toBe(650000);
+    expect(p.v3.calc.need).toBe(550000);
     expect((p.v3.ans as any).kinder).toBeUndefined();
-    const withSig = toInquiryPayload(gerber(), { locale: "de", submissionId: SUBMISSION, signature: { status: "pending", at: "2026-10-15T08:00:00.000Z", method: "upload" } });
+    const withSig = toInquiryPayload(mustermann(), { locale: "de", submissionId: SUBMISSION, signature: { status: "pending", at: "2026-10-15T08:00:00.000Z", method: "upload" } });
     expect(withSig.v3.signature).toEqual({ status: "pending", at: "2026-10-15T08:00:00.000Z", method: "upload" });
   });
 
   it("Kauf: the Eigenmittel table, Kaufdatum, Miete, Steueroptimierung, PK-Verpfändung (DECISIONS V4, V5)", () => {
     const k = toInquiryPayload(
-      gerber({
-        ans: { ...gerber().ans, antrag: "Neue Hypothek", aufstockung: "Nein", nutz: "Vermietet", reno: "Ja", steuer: "Ja" },
-        txt: { ...gerber().txt, kaufdatum: "01.04.2027", zweck: "" },
+      mustermann({
+        ans: { ...mustermann().ans, antrag: "Neue Hypothek", aufstockung: "Nein", nutz: "Vermietet", reno: "Ja", steuer: "Ja" },
+        txt: { ...mustermann().txt, kaufdatum: "01.04.2027", zweck: "" },
         fin: { ...EMPTY_AMOUNTS, kaufpreis: 1000000, renoBetrag: 100000, miete: 36000, inc: 150000, inc2: 50000 },
         em: { spar: 150000, s3a: 20000, pkVor: 30000, pkVerp: 40000, schenk: 10000, erbe: 5000, darl: 15000 },
         borrowers: [
-          { id: "b1", vor: "Gary", nach: "Gerber", job: "Angestellt", pkSe: "Nein" },
-          { id: "b2", vor: "Lea", nach: "Gerber", pkSe: "Nein" },
+          { id: "b1", vor: "Max", nach: "Mustermann", job: "Angestellt", pkSe: "Nein" },
+          { id: "b2", vor: "Lea", nach: "Mustermann", pkSe: "Nein" },
         ],
       }),
       { locale: "de", submissionId: SUBMISSION }
@@ -228,7 +228,7 @@ describe("toInquiryPayload — Gerber, Kunde", () => {
     expect(k.property.renovationsBetrag).toBe("100000");
     expect(k.v3.fin.renoBetrag).toBe(100000);
     expect(k.property.kreditnehmer.map((x: any) => [x.vorname, x.einkommen, x.geburtsdatum])).toEqual([
-      ["Gary", "150000", "04.01.1988"],
+      ["Max", "150000", "05.03.1985"],
       ["Lea", "50000", ""],
     ]);
     expect(serverRejects(k)).toBeNull();
@@ -237,7 +237,7 @@ describe("toInquiryPayload — Gerber, Kunde", () => {
   it("passes the server's request validation", () => {
     expect(serverRejects(p)).toBeNull();
     const withReno = toInquiryPayload(
-      gerber({ ans: { ...gerber().ans, antrag: "Neue Hypothek", reno: "Ja", angebote: "Ja" }, fin: { ...EMPTY_AMOUNTS, kaufpreis: 900000, val: 1000000, inc: 200000 } }),
+      mustermann({ ans: { ...mustermann().ans, antrag: "Neue Hypothek", reno: "Ja", angebote: "Ja" }, fin: { ...EMPTY_AMOUNTS, kaufpreis: 900000, val: 1000000, inc: 200000 } }),
       { locale: "de", submissionId: SUBMISSION }
     );
     expect(withReno.property.renovation).toBe("Ja");
@@ -252,7 +252,7 @@ describe("toInquiryPayload — Gerber, Kunde", () => {
 
 describe("toInquiryPayload — mapping tables", () => {
   const map = (over: Partial<FunnelState["ans"]>) =>
-    toInquiryPayload(gerber({ ans: { ...gerber().ans, ...over } }), { locale: "de", submissionId: SUBMISSION });
+    toInquiryPayload(mustermann({ ans: { ...mustermann().ans, ...over } }), { locale: "de", submissionId: SUBMISSION });
 
   it("Art der Immobilie / Neubau", () => {
     expect(map({ immo: "Neubau", nbDocs: "Ja" }).property).toMatchObject({ artImmobilie: "neubau", neubauArt: "bereits_erstellt", neubauGrundbuchGvVorhanden: "ja" });
@@ -291,16 +291,16 @@ describe("toInquiryPayload — mapping tables", () => {
 
   it("Kreditnehmer 1 and 2, Selbständig with PK, Pensioniert", () => {
     const p = toInquiryPayload(
-      gerber({
+      mustermann({
         borrowers: [
-          { id: "b1", vor: "Gary", nach: "Gerber", job: "Selbständig", pkSe: "Ja" },
-          { id: "b2", vor: "Anna", nach: "Gerber", job: "Pensioniert", pkSe: "Nein" },
+          { id: "b1", vor: "Max", nach: "Mustermann", job: "Selbständig", pkSe: "Ja" },
+          { id: "b2", vor: "Anna", nach: "Mustermann", job: "Pensioniert", pkSe: "Nein" },
         ],
       }),
       { locale: "de", submissionId: SUBMISSION }
     );
     expect(p.property.kreditnehmer.map((k: any) => [k.vorname, k.erwerb, k.pkVorhanden, k.email, k.anrede])).toEqual([
-      ["Gary", "selbständig", "ja", "gary.gerber@example.ch", "Herr"],
+      ["Max", "selbständig", "ja", "max.mustermann@example.ch", "Herr"],
       ["Anna", "rentner", "", "", ""],
     ]);
   });
@@ -308,18 +308,18 @@ describe("toInquiryPayload — mapping tables", () => {
   it("Anrede and PK-Verpfändung (from the amount, Handover 8)", () => {
     expect(map({ anrede: "Frau" }).client).toMatchObject({ anrede: "Frau" });
     expect(map({ anrede: undefined }).client).toMatchObject({ anrede: "" });
-    const pledged = toInquiryPayload(gerber({ em: { ...EMPTY_EM, pkVerp: 60000 } }), { locale: "de", submissionId: SUBMISSION });
+    const pledged = toInquiryPayload(mustermann({ em: { ...EMPTY_EM, pkVerp: 60000 } }), { locale: "de", submissionId: SUBMISSION });
     expect(pledged.financing.pkVorbezug).toBe("Ja");
     expect(map({}).financing.pkVorbezug).toBe("Nein");
   });
 });
 
 describe("toInquiryPayload — Berater, Neue Hypothek, juristische Person", () => {
-  const state = gerber({
+  const state = mustermann({
     role: "berater",
     ans: { ...DEFAULT_ANSWERS, antrag: "Neue Hypothek", kn: "Juristische Person", anrede: "Frau", immo: "Bestehende Immobilie", lieg: "Mehrfamilienhaus", nutz: "Vermietet", reserviert: "Ja", laufzeit: "SARON" },
     borrowers: [{ id: "b1", vor: "Petra", nach: "Muster", pkSe: "Nein" }],
-    txt: { ...EMPTY_TEXTS, bmail: "berater@vzch.ch", pvor: "Bea", pnach: "Rater", ptel: "044 000 00 00", pfirma: "VZ", vor: "Petra", nach: "Muster", mail: "petra@etzel.ch", tel: "044 111 11 11", plz: "8001", ort: "Zürich", firma: "Etzel Liegenschaften AG", zeichner: "Petra Muster" },
+    txt: { ...EMPTY_TEXTS, bmail: "berater@vzch.ch", pvor: "Bea", pnach: "Rater", ptel: "044 000 00 00", pfirma: "VZ", vor: "Petra", nach: "Muster", mail: "petra@muster-treuhand.ch", tel: "044 111 11 11", plz: "8001", ort: "Zürich", firma: "Muster Treuhand AG", zeichner: "Petra Muster" },
     fin: { ...EMPTY_AMOUNTS, kaufpreis: 2000000, val: 2100000 },
     em: { ...EMPTY_EM },
     info: {},
@@ -335,25 +335,25 @@ describe("toInquiryPayload — Berater, Neue Hypothek, juristische Person", () =
     expect(p.project.borrowerType).toBe("jur");
     expect(p.property.reserviert).toBe("ja");
     expect(p.property.renovation).toBe("Nein");
-    expect(p.property.firmen).toEqual([{ firmenname: "Etzel Liegenschaften AG" }]);
+    expect(p.property.firmen).toEqual([{ firmenname: "Muster Treuhand AG" }]);
     // The phone is asked in both roles since v5 (Rosanna: it stayed empty for a company).
-    expect(p.property.kreditnehmer).toEqual([{ vorname: "Petra", name: "Muster", firmenname: "Etzel Liegenschaften AG", zeichnungsberechtigt: "Petra Muster", email: "petra@etzel.ch", telefon: "044 111 11 11" }]);
+    expect(p.property.kreditnehmer).toEqual([{ vorname: "Petra", name: "Muster", firmenname: "Muster Treuhand AG", zeichnungsberechtigt: "Petra Muster", email: "petra@muster-treuhand.ch", telefon: "044 111 11 11" }]);
     // v5: 80 % of the Kaufpreis, not of the Objektwert (Handover 5).
     expect(p.financing).toMatchObject({ kaufpreis: "2000000", abloesung_betrag: "", erhoehung: "", brutto: "", immobilienwert: "2100000", hypoBetrag: "1600000", modell: "saron" });
-    expect(p.borrowers).toEqual([{ type: "jur", firmaName: "Etzel Liegenschaften AG" }]);
+    expect(p.borrowers).toEqual([{ type: "jur", firmaName: "Muster Treuhand AG" }]);
     expect(serverRejects(p)).toBeNull();
   });
 });
 
 describe("the existing Salesforce sync accepts v3 payloads (fake API, nothing is sent)", () => {
-  it("Gerber, Kunde", async () => {
+  it("Mustermann, Kunde", async () => {
     quiet();
     const sf = fakeSalesforce();
-    const p: any = toInquiryPayload(gerber(), { locale: "de", submissionId: SUBMISSION });
+    const p: any = toInquiryPayload(mustermann(), { locale: "de", submissionId: SUBMISSION });
     p.stage = "Needs Analysis";
     await syncFunnelStepsToSalesforce(p, sf.api);
     expect(sf.calls.accounts).toHaveLength(1);
-    expect(sf.calls.accounts[0]).toMatchObject({ FirstName: "Gary", LastName: "Gerber", PersonEmail: "gary.gerber@example.ch", Phone: "079 123 45 67", Erwerbsstatus__c: "Angestellt" });
+    expect(sf.calls.accounts[0]).toMatchObject({ FirstName: "Max", LastName: "Mustermann", PersonEmail: "max.mustermann@example.ch", Phone: "079 123 45 67", Erwerbsstatus__c: "Angestellt" });
     const c = sf.calls.cases[0];
     expect(c).toMatchObject({
       Reason: "Ablösung",
@@ -363,14 +363,14 @@ describe("the existing Salesforce sync accepts v3 payloads (fake API, nothing is
       Art_der_Liegenschaft__c: "Wohnung",
       Nutzung_der_Immobilie__c: "Selbstbewohnt",
       Hypothekarlaufzeiten__c: "5 Jahre",
-      Einkommen__c: 125000,
-      Erh_hung__c: 201000,
-      Gesch_tzter_Hypothekenbedarf__c: 650000,
-      Hypothekarvolumen__c: 650000,
-      PLZ_Ort__c: "8820 Wädenswil",
-      City__c: "Wädenswil",
+      Einkommen__c: 110000,
+      Erh_hung__c: 170000,
+      Gesch_tzter_Hypothekenbedarf__c: 550000,
+      Hypothekarvolumen__c: 550000,
+      PLZ_Ort__c: "8000 Zürich",
+      City__c: "Zürich",
       // HYPOTEQ 19.10. D.4: «{Nachname} {Vorname} – {PLZ} {Ort}».
-      Case_Name__c: "Gerber Gary – 8820 Wädenswil",
+      Case_Name__c: "Mustermann Max – 8000 Zürich",
       Client__c: "0011",
       If_nat_rliche_person__c: "Angestellt",
       Bestehen_bereits_Finanzierungsangebote__c: false,
@@ -382,17 +382,17 @@ describe("the existing Salesforce sync accepts v3 payloads (fake API, nothing is
   it("Berater, juristische Person", async () => {
     quiet();
     const sf = fakeSalesforce();
-    const state = gerber({
+    const state = mustermann({
       role: "berater",
-      ans: { ...gerber().ans, kn: "Juristische Person" },
-      txt: { ...gerber().txt, bmail: "berater@vzch.ch", tel: "", firma: "Etzel AG", zeichner: "Gary Gerber" },
+      ans: { ...mustermann().ans, kn: "Juristische Person" },
+      txt: { ...mustermann().txt, bmail: "berater@vzch.ch", tel: "", firma: "Muster AG", zeichner: "Max Mustermann" },
     });
     await syncFunnelStepsToSalesforce(toInquiryPayload(state, { locale: "it", submissionId: SUBMISSION }), sf.api);
     // HYPOTEQ 19.10. B16: a Business Account and the signatory as its Contact, no Person Account.
     expect(sf.calls.accounts).toHaveLength(0);
-    expect(sf.calls.companies[0]).toMatchObject({ name: "Etzel AG" });
-    expect(sf.calls.contacts[0]).toMatchObject({ AccountId: "001COMPANY", FirstName: "Gary", LastName: "Gerber", Email: "gary.gerber@example.ch" });
-    expect(sf.calls.cases[0]).toMatchObject({ AccountId: "001COMPANY", ContactId: "003SIGNER", Kreditnehmer__c: "Juristische Personen", Partner_Consultant__c: "003PARTNER", Korrespondenzsprache__c: "Italienisch", Case_Name__c: "Etzel AG – 8820 Wädenswil" });
+    expect(sf.calls.companies[0]).toMatchObject({ name: "Muster AG" });
+    expect(sf.calls.contacts[0]).toMatchObject({ AccountId: "001COMPANY", FirstName: "Max", LastName: "Mustermann", Email: "max.mustermann@example.ch" });
+    expect(sf.calls.cases[0]).toMatchObject({ AccountId: "001COMPANY", ContactId: "003SIGNER", Kreditnehmer__c: "Juristische Personen", Partner_Consultant__c: "003PARTNER", Korrespondenzsprache__c: "Italienisch", Case_Name__c: "Muster AG – 8000 Zürich" });
     jest.restoreAllMocks();
   });
 });

@@ -3,11 +3,11 @@ import { reqList } from '@/lib/funnel-v3/requirements';
 import { bankHints, requirementStatus, type UploadedFile } from '@/lib/funnel-v3/requirementStatus';
 import { buildCheckState, CHECK_STATE_MAX_LENGTH, type CheckStateDetail } from '@/lib/funnel-v3/checkState';
 import { VERIFIED_TAB_ENTRIES } from '@/components/dokumentenCheckState';
-import { GERBER_ANSWERS, GERBER_EM, mkState } from './helpers';
+import { MUSTERMANN_ANSWERS, MUSTERMANN_EM, mkState } from './helpers';
 
 const AT = new Date('2026-10-05T12:12:00.000Z');
 const state = {
-  ...mkState(GERBER_ANSWERS, {}, {}, undefined, { em: { ...GERBER_EM, pkVerp: 20000 }, info: { bank: 'Zuger Kantonalbank', geb: '04.01.1988', ab50: false } }),
+  ...mkState(MUSTERMANN_ANSWERS, {}, {}, undefined, { em: { ...MUSTERMANN_EM, pkVerp: 20000 }, info: { bank: 'Musterbank', geb: '05.03.1985', ab50: false } }),
   mode: 'schnell' as const,
   src: { 'fin.old': { doc: 'Zinsabrechnung', unsure: false }, 'em.s3a': { doc: '3a-Police', unsure: true } },
   sig: { choice: 'later' as const, at: '2026-10-05T12:00:00.000Z', method: 'upload' as const },
@@ -25,8 +25,8 @@ const files: UploadedFile[] = [
 const status = requirementStatus(list, files);
 const details: Record<string, CheckStateDetail> = {
   grundbuch: {
-    files: [{ originalName: '03_Grundbuchauszug_Etzelstrasse_52_Waedenswil_2026_01_15.pdf', storedName: 'HQ-26-06-156283_03_Grundbuchauszug_2026-01-15.pdf', url: 'https://example.sharepoint.com/x.pdf', confidence: 0.97 }],
-    fields: [{ key: 'Eigentümer', value: 'Gary Samuel Gerber', confidence: 0.97 }],
+    files: [{ originalName: '03_Grundbuchauszug_Musterweg_1_Zuerich_2026_01_15.pdf', storedName: 'HQ-26-01-000001_03_Grundbuchauszug_2026-01-15.pdf', url: 'https://example.sharepoint.com/x.pdf', confidence: 0.97 }],
+    fields: [{ key: 'Eigentümer', value: 'Max Simon Mustermann', confidence: 0.97 }],
     audit: [{ ts: '05.10.2026 14:03', text: 'Erkannt als «Grundbuchauszug» · Konfidenz 97 %' }],
   },
 };
@@ -37,7 +37,7 @@ const build = (previous?: string | null, extra: Partial<Parameters<typeof buildC
       state,
       status,
       details,
-      extras: [{ name: '01_Lohnausweis_Gary_Gerber_2022.pdf', kind: 'surplus' }],
+      extras: [{ name: '01_Lohnausweis_Max_Mustermann_2022.pdf', kind: 'surplus' }],
       hints: bankHints(status, files),
       previous,
       now: AT,
@@ -53,16 +53,16 @@ describe('Dokumenten_Check_State__c v3 (spec 6.11)', () => {
     expect(s.answers).toMatchObject({ antrag: 'Ablösung', kn: 'Natürliche Person', lieg: 'Stockwerkeigentum', unterhalt: 'Ja', kredite: 'Ja', steuer: 'Nein', pkSe: 'Nein', nbDocs: 'Nein', job: 'Angestellt' });
     expect(s.answers).not.toHaveProperty('kinder');
     // Handover 8: the Eigenmittel split (PK-Verpfändung only here).
-    expect(s.answers.eigenmittel).toEqual({ s3a: 10340, pkVerp: 20000 });
+    expect(s.answers.eigenmittel).toEqual({ s3a: 8760, pkVerp: 20000 });
     expect(s.answers.borrowers).toEqual([{ id: 'b1', job: 'Angestellt', pkSe: 'Nein' }]);
     expect(s.requirements).toHaveLength(21);
     expect(s.requirements.find((r: any) => r.id === 'grundbuch')).toEqual({
       id: 'grundbuch', code: 'O4', label: 'Aktueller Grundbuchauszug (max. 6 Monate)', group: 'objekt', reason: 'Pflicht', status: 'outdated',
       files: details.grundbuch.files, fields: details.grundbuch.fields, audit: details.grundbuch.audit,
     });
-    expect(s.requirements.find((r: any) => r.id === 'lohnausweise#b1')).toMatchObject({ requirementId: 'lohnausweise', status: 'ok', person: 'Gary Gerber', reason: 'Pflicht · pro Kreditnehmer' });
+    expect(s.requirements.find((r: any) => r.id === 'lohnausweise#b1')).toMatchObject({ requirementId: 'lohnausweise', status: 'ok', person: 'Max Mustermann', reason: 'Pflicht · pro Kreditnehmer' });
     expect(s.requirements.find((r: any) => r.id === 'kredit')).toMatchObject({ status: 'missing', reason: 'weil: Privatkredite = Ja' });
-    expect(s.extras).toEqual([{ name: '01_Lohnausweis_Gary_Gerber_2022.pdf', kind: 'surplus' }]);
+    expect(s.extras).toEqual([{ name: '01_Lohnausweis_Max_Mustermann_2022.pdf', kind: 'surplus' }]);
     expect(s.hints).toEqual([{ title: 'Aktueller Grundbuchauszug (max. 6 Monate)', text: 'Auszug ist älter als 6 Monate.' }]);
     expect(s).not.toHaveProperty('truncated');
   });
@@ -73,7 +73,7 @@ describe('Dokumenten_Check_State__c v3 (spec 6.11)', () => {
     expect(s.sources).toEqual({ 'fin.old': 'Zinsabrechnung', 'em.s3a': '3a-Police' });
     // P0 is on file here (`v`); «später» would otherwise make it pending.
     expect(s.signature).toEqual({ status: 'uploaded', at: '2026-10-05T12:00:00.000Z', method: 'upload' });
-    expect(s.info).toEqual({ bank: 'Zuger Kantonalbank', geb: '04.01.1988', ab50: false });
+    expect(s.info).toEqual({ bank: 'Musterbank', geb: '05.03.1985', ab50: false });
     const without = requirementStatus(list, files.filter((f) => f.fileId !== 'v'));
     expect(build(null, { status: without }).signature).toMatchObject({ status: 'pending' });
     expect(build(null, { status: without, state: { ...state, sig: null } }).signature).toEqual({ status: 'missing', at: null, method: 'upload' });

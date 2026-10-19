@@ -2,7 +2,7 @@ import { describe, it, expect } from '@jest/globals';
 import { reqList } from '@/lib/funnel-v3/requirements';
 import { answerCorrections, bankHints, hints, requirementStatus, type UploadedFile } from '@/lib/funnel-v3/requirementStatus';
 import type { Borrower } from '@/lib/funnel-v3/types';
-import { GERBER_ANSWERS, GERBER_EM, mkState } from './helpers';
+import { MUSTERMANN_ANSWERS, MUSTERMANN_EM, mkState } from './helpers';
 
 let n = 0;
 const file = (requirementId: string | null, extra: Partial<UploadedFile> = {}): UploadedFile => ({
@@ -12,17 +12,17 @@ const file = (requirementId: string | null, extra: Partial<UploadedFile> = {}): 
   ...extra,
 });
 
-const gerberState = mkState(GERBER_ANSWERS, {}, {}, undefined, { em: GERBER_EM, info: { bonus: true } });
-/** v5 Gerber list (20) with the two older Lohnausweise of a recognised bonus (P5, 2 files): 21. */
-const gerber = reqList(gerberState);
-const stateOf = (files: UploadedFile[], skipped: string[] = [], list = gerber) => {
+const mustermannState = mkState(MUSTERMANN_ANSWERS, {}, {}, undefined, { em: MUSTERMANN_EM, info: { bonus: true } });
+/** v5 Mustermann list (20) with the two older Lohnausweise of a recognised bonus (P5, 2 files): 21. */
+const mustermann = reqList(mustermannState);
+const stateOf = (files: UploadedFile[], skipped: string[] = [], list = mustermann) => {
   const res = requirementStatus(list, files, skipped);
   return { res, st: (id: string) => res.requirements.find((r) => r.instance.instanceId === id)!.state };
 };
 
-/** One complete file set for every Gerber requirement. */
+/** One complete file set for every Mustermann requirement. */
 const fullSet = () =>
-  gerber.flatMap((r) => Array.from({ length: r.expect }, () => file(r.instanceId)));
+  mustermann.flatMap((r) => Array.from({ length: r.expect }, () => file(r.instanceId)));
 
 describe('requirementStatus (spec 4.2)', () => {
   it('starts with everything missing', () => {
@@ -128,8 +128,8 @@ describe('Dok_* flags (spec 6.9)', () => {
 
   it('sets a per-borrower flag only when every borrower supplied it', () => {
     const bs: Borrower[] = [
-      { id: 'b1', vor: 'Gary', nach: 'Gerber', job: 'Angestellt', pkSe: 'Nein' },
-      { id: 'b2', vor: 'Lea', nach: 'Gerber', job: 'Angestellt', pkSe: 'Nein' },
+      { id: 'b1', vor: 'Max', nach: 'Mustermann', job: 'Angestellt', pkSe: 'Nein' },
+      { id: 'b2', vor: 'Lea', nach: 'Mustermann', job: 'Angestellt', pkSe: 'Nein' },
     ];
     const list = reqList(mkState({}, {}, {}, bs));
     expect(requirementStatus(list, [file('id#b1')]).dokFlags.Dok_Identitaetsdokument__c).toBe(false);
@@ -161,8 +161,8 @@ describe('answerCorrections (spec 4.4, Handover 3.1: chips and amounts)', () => 
   });
 
   it('carries the 3a amount read from the policy into the Vorsorge row (prototype suggests)', () => {
-    expect(answerCorrections(base, ['police'], { s3a: 10340 })[0]).toEqual({
-      key: '3a', titleKey: 'sug.3a.title', textKey: 'sug.3a.amountText', params: { amount: 10340 }, patch: { em: { s3a: 10340 } }, requirementIds: ['police'],
+    expect(answerCorrections(base, ['police'], { s3a: 8760 })[0]).toEqual({
+      key: '3a', titleKey: 'sug.3a.title', textKey: 'sug.3a.amountText', params: { amount: 8760 }, patch: { em: { s3a: 8760 } }, requirementIds: ['police'],
     });
   });
 
@@ -175,7 +175,7 @@ describe('answerCorrections (spec 4.4, Handover 3.1: chips and amounts)', () => 
   });
 
   it('says nothing when the answers already ask for the document', () => {
-    expect(answerCorrections(gerberState, ['kredit', 'leasing', 'unterhalt', 's3a', 'police', 'stwe_regl', 'ef', 'grundbuch'])).toEqual([]);
+    expect(answerCorrections(mustermannState, ['kredit', 'leasing', 'unterhalt', 's3a', 'police', 'stwe_regl', 'ef', 'grundbuch'])).toEqual([]);
     // From the ID (ab 50) the 3a documents are on the list without an amount.
     expect(answerCorrections(mkState({}, {}, {}, undefined, { info: { ab50: true } }), ['police'])).toEqual([]);
   });
@@ -198,26 +198,26 @@ describe('hints to the bank (spec Schritt 6)', () => {
       file('grundbuch', { outdated: true, note: 'Auszug ist älter als 6 Monate (15.01.2026).' }),
       file('kredit', { note: 'Wird mit der Erhöhung abgelöst.' }),
       file('leasing'),
-      file('police', { note: 'Police ist an die ZKB verpfändet.' }),
+      file('police', { note: 'Police ist an die Musterbank verpfändet.' }),
       file('police'),
       file('s3a'),
     ];
-    const res = requirementStatus(gerber, files);
+    const res = requirementStatus(mustermann, files);
     expect(bankHints(res, files)).toEqual([
       { kind: 'outdated', instanceId: 'grundbuch', titleKey: 'doc.grundbuch', titleDe: 'Aktueller Grundbuchauszug (max. 6 Monate)', text: 'Auszug ist älter als 6 Monate (15.01.2026).' },
       { kind: 'kredit', instanceId: 'kredit', titleKey: 'doc.kredit', titleDe: 'Kreditverträge (Privatkredite)', text: 'Wird mit der Erhöhung abgelöst.' },
       { kind: 'leasing', instanceId: 'leasing', titleKey: 'doc.leasing', titleDe: 'Leasingverträge', text: '' },
-      { kind: 'pledged3a', instanceId: 'police', titleKey: 'doc.police', titleDe: 'Vorsorgepolice 3a inkl. Wertmitteilung', text: 'Police ist an die ZKB verpfändet.' },
+      { kind: 'pledged3a', instanceId: 'police', titleKey: 'doc.police', titleDe: 'Vorsorgepolice 3a inkl. Wertmitteilung', text: 'Police ist an die Musterbank verpfändet.' },
     ]);
     expect(hints).toBe(bankHints);
   });
 
   it('keeps the outdated hint when the extract is used anyway', () => {
     const files = [file('grundbuch', { outdated: true, outdatedOverride: true, note: 'alt' })];
-    expect(bankHints(requirementStatus(gerber, files), files).map((h) => h.kind)).toEqual(['outdated']);
+    expect(bankHints(requirementStatus(mustermann, files), files).map((h) => h.kind)).toEqual(['outdated']);
   });
 
   it('has nothing to say without files', () => {
-    expect(bankHints(requirementStatus(gerber, []), [])).toEqual([]);
+    expect(bankHints(requirementStatus(mustermann, []), [])).toEqual([]);
   });
 });

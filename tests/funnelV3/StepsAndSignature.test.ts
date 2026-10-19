@@ -9,7 +9,7 @@ import { documentsSummary } from "@/lib/funnel-v3/documentsSummary";
 import { hasKey, translate } from "@/lib/funnel-v3/i18n";
 import type { V3Analysis } from "@/lib/funnel-v3/files";
 import type { SignatureState } from "@/lib/funnel-v3/types";
-import { gerberFiles, gerberState } from "./gerberCase";
+import { mustermannFiles, mustermannState } from "./mustermannCase";
 
 describe("steps (Handover 2, 3)", () => {
   it("Begleitet: 4 steps, Schnell: 6 — the same screens, the upload in front", () => {
@@ -64,7 +64,7 @@ describe("steps (Handover 2, 3)", () => {
 });
 
 describe("Auskunftsermächtigung (Handover 6)", () => {
-  const SIGNER = { kind: "borrower" as const, first: "Gary", last: "Gerber", display: "Gary Gerber" };
+  const SIGNER = { kind: "borrower" as const, first: "Max", last: "Mustermann", display: "Max Mustermann" };
   const an = (fields: Record<string, string>, over: Partial<V3Analysis> = {}): V3Analysis => ({
     status: "done",
     docTypeId: "vollmacht",
@@ -84,7 +84,7 @@ describe("Auskunftsermächtigung (Handover 6)", () => {
   });
 
   it("received: right form, signature present, the borrower's name — also found in the folder", () => {
-    const v = signatureView([f(an({ Unterschrift: "vorhanden", Vollmachtgeber: "Gary Samuel Gerber" }))], null, SIGNER);
+    const v = signatureView([f(an({ Unterschrift: "vorhanden", Vollmachtgeber: "Max Simon Mustermann" }))], null, SIGNER);
     expect(v).toEqual({ status: "received", fileIds: ["s1"], problems: [], override: false, canFinish: true });
   });
 
@@ -111,16 +111,16 @@ describe("Auskunftsermächtigung (Handover 6)", () => {
     expect(signatureJson({ status: "missing" }, null).status).toBe("missing");
   });
 
-  it("the documents summary carries the block; Gerber's signed copy is in the folder", () => {
-    const s = documentsSummary({ ...gerberState(), files: gerberFiles() });
+  it("the documents summary carries the block; Mustermann's signed copy is in the folder", () => {
+    const s = documentsSummary({ ...mustermannState(), files: mustermannFiles() });
     expect(s.signature).toMatchObject({ status: "received", canFinish: true });
-    const without = documentsSummary({ ...gerberState(), files: gerberFiles().filter((x) => x.instanceId !== "vollmacht") });
+    const without = documentsSummary({ ...mustermannState(), files: mustermannFiles().filter((x) => x.instanceId !== "vollmacht") });
     expect(without.signature.status).toBe("missing");
     // The Schnellanmeldung makes no suggestions (it prefills); the Begleitete does.
-    const off = gerberFiles().filter((x) => x.instanceId === "kredit");
-    const guided = documentsSummary({ ...gerberState({ ans: { ...gerberState().ans, kredite: "Nein" } }), files: off });
+    const off = mustermannFiles().filter((x) => x.instanceId === "kredit");
+    const guided = documentsSummary({ ...mustermannState({ ans: { ...mustermannState().ans, kredite: "Nein" } }), files: off });
     expect(guided.suggestions.map((x) => x.key)).toEqual(["loan"]);
-    const fast = documentsSummary({ ...gerberState({ ans: { ...gerberState().ans, kredite: "Nein" } }), mode: "schnell", files: off });
+    const fast = documentsSummary({ ...mustermannState({ ans: { ...mustermannState().ans, kredite: "Nein" } }), mode: "schnell", files: off });
     expect(fast.suggestions).toEqual([]);
   });
 });

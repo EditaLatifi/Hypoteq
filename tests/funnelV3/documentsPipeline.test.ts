@@ -22,7 +22,7 @@ import {
   startPlacementSync,
   MAX_FILE_BYTES,
 } from "@/lib/funnel-v3/upload";
-import { GERBER_ANSWERS } from "./helpers";
+import { MUSTERMANN_ANSWERS } from "./helpers";
 
 const S = () => useFunnelV3.getState();
 const flush = async (n = 30) => {
@@ -81,9 +81,9 @@ beforeEach(() => {
   failStart = 0;
   namesByDoc.clear();
   analysisFor = () => null;
-  S().setTxt("vor", "Gary");
-  S().setTxt("nach", "Gerber");
-  S().setTxt("mail", "gary@example.com");
+  S().setTxt("vor", "Max");
+  S().setTxt("nach", "Mustermann");
+  S().setTxt("mail", "max@example.com");
 });
 
 describe("store file actions", () => {
@@ -172,7 +172,7 @@ describe("screening dropped files", () => {
 
 describe("upload pipeline", () => {
   it("uploads, analyses and places each file", async () => {
-    for (const [k, v] of Object.entries(GERBER_ANSWERS)) S().setAns(k as any, v as any);
+    for (const [k, v] of Object.entries(MUSTERMANN_ANSWERS)) S().setAns(k as any, v as any);
     analysisFor = (name) => (name.startsWith("Grundbuch") ? { docTypeId: "grundbuch", docDate: "2026-09-01" } : name.startsWith("Rechnung") ? { docTypeId: "nn_rechnung", extraKind: "notneeded" } : null);
     addPickedFiles([pdf("Grundbuch.pdf"), pdf("Rechnung.pdf"), pdf("IMG_1.pdf")]);
     expect(S().files.map((f) => f.uploadState)).toEqual(["uploading", "uploading", "uploading"]);
@@ -246,8 +246,8 @@ describe("upload pipeline", () => {
     expect(S().files[0]).toMatchObject({ instanceId: "fotos", assignedByUser: true });
     keepFile(id, true);
     acceptOutdated(id);
-    saveEdits(id, { Objekt: "Etzelstrasse 52" }, true);
-    expect(S().files[0]).toMatchObject({ keep: true, outdatedOverride: true, confirmed: true, humanEdits: { Objekt: "Etzelstrasse 52" } });
+    saveEdits(id, { Objekt: "Musterweg 1" }, true);
+    expect(S().files[0]).toMatchObject({ keep: true, outdatedOverride: true, confirmed: true, humanEdits: { Objekt: "Musterweg 1" } });
     expect(S().files[0].audit!.map((a) => a.key)).toEqual(expect.arrayContaining(["docs.audit.assigned", "docs.audit.kept", "docs.audit.override", "docs.audit.edited", "docs.audit.confirmed"]));
   });
 
@@ -268,7 +268,7 @@ describe("upload pipeline", () => {
 
 describe("the documents fill the answers (Handover 3, 4.2)", () => {
   const zins = (name: string): Partial<V3Analysis> | null =>
-    name === "zins.pdf" ? { docTypeId: "hyp_zins", bank: "Zuger Kantonalbank", fields: { Kapital: { value: "CHF 449'000", confidence: 0.97 } } } : null;
+    name === "zins.pdf" ? { docTypeId: "hyp_zins", bank: "Musterbank", fields: { Kapital: { value: "CHF 380'000", confidence: 0.97 } } } : null;
 
   it("Schnellanmeldung: the Zinsabrechnung sets Ablösung and the existing mortgage, and its own placement follows", async () => {
     S().setMode("schnell");
@@ -278,9 +278,9 @@ describe("the documents fill the answers (Handover 3, 4.2)", () => {
     await settleUploads(0);
     await flush();
     expect(S().ans.antrag).toBe("Ablösung");
-    expect(S().fin.old).toBe(449000);
+    expect(S().fin.old).toBe(380000);
     expect(S().src["fin.old"]).toMatchObject({ doc: "Zinsabrechnung", unsure: false });
-    expect(S().info.bank).toBe("Zuger Kantonalbank");
+    expect(S().info.bank).toBe("Musterbank");
     expect(S().files[0].instanceId).toBe("hyp_zins");
   });
 
@@ -292,7 +292,7 @@ describe("the documents fill the answers (Handover 3, 4.2)", () => {
     await flush();
     expect(S().ans.antrag).toBeUndefined();
     expect(S().src).toEqual({});
-    expect(S().info.bank).toBe("Zuger Kantonalbank");
+    expect(S().info.bank).toBe("Musterbank");
     expect(S().files[0].instanceId ?? null).toBeNull();
   });
 });

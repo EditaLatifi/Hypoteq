@@ -21,7 +21,7 @@ let docSeq = 0;
 const Y = new Date().getUTCFullYear();
 const ANALYSES: Record<string, Partial<V3Analysis>> = {
   "IMG_2041.pdf": { docTypeId: "fotos" },
-  "Lohnausweis alt.pdf": { docTypeId: "lohnausweise", docDate: String(Y - 1), personName: "Gerber Gary" },
+  "Lohnausweis alt.pdf": { docTypeId: "lohnausweise", docDate: String(Y - 1), personName: "Mustermann Max" },
   "ID Anna.pdf": { docTypeId: "id", personName: "Muster Anna" },
   "Grundbuch.pdf": { docTypeId: "grundbuch", docDate: `${Y}-01-02` },
 };
@@ -80,7 +80,7 @@ describe("Nachreich page pipeline", () => {
 
     // Filed under the inquiry: its id as submission, its folder, its address.
     const start = calls.find((c) => c.url === "/api/upload-doc/start")!;
-    expect(start.body).toMatchObject({ inquiryId: INQUIRY, folderId: "FOLDER", email: "gary.gerber@example.ch" });
+    expect(start.body).toMatchObject({ inquiryId: INQUIRY, folderId: "FOLDER", email: "max.mustermann@example.ch" });
     expect(calls.find((c) => c.url === "/api/upload-doc/finalize")!.body).toMatchObject({ submissionId: INQUIRY, folderId: "FOLDER" });
     expect(calls.filter((c) => c.url === "/api/document-intelligence/analyse").every((c) => c.body.v3 === true && c.body.submissionId === INQUIRY)).toBe(true);
 
@@ -110,7 +110,7 @@ describe("Nachreich page pipeline", () => {
 
   it("a second Lohnausweis for a requirement that needed one is surplus", async () => {
     const { store, instances } = page();
-    ANALYSES["Lohnausweis alt 2.pdf"] = { docTypeId: "lohnausweise", docDate: String(Y - 1), personName: "Gerber Gary", confidence: 0.5 };
+    ANALYSES["Lohnausweis alt 2.pdf"] = { docTypeId: "lohnausweise", docDate: String(Y - 1), personName: "Mustermann Max", confidence: 0.5 };
     addPickedFiles([pdf("Lohnausweis alt.pdf"), pdf("Lohnausweis alt 2.pdf")]);
     await flush();
     await settleUploads(0);
@@ -121,7 +121,7 @@ describe("Nachreich page pipeline", () => {
   });
 
   it("the signature slot: its file goes on P0 at once, is judged, and is posted with the others", async () => {
-    const rows = existingRows().filter((r) => r.originalFileName !== "01_Auskunftsermaechtigung_Gary_Gerber_unterzeichnet.pdf");
+    const rows = existingRows().filter((r) => r.originalFileName !== "01_Auskunftsermaechtigung_Max_Mustermann_unterzeichnet.pdf");
     const view = nachreichV3View(inquiryRow(), rows)!;
     const store = createFunnelV3Store({ submissionId: view.submissionId, sharepointFolderId: view.folderId, txt: { ...EMPTY_TEXTS, mail: view.email ?? "" } });
     const instances = nachreichInstances(view.missing);

@@ -56,9 +56,9 @@ describe("updateCaseV3Documents", () => {
 describe("sendNachreichConfirmation — v3 labels", () => {
   it("lists the given labels (escaped) instead of resolving funnel.* keys, with the Berater in copy", async () => {
     await sendNachreichConfirmation({
-      to: "gary@example.ch",
+      to: "max@example.ch",
       cc: "berater@partner.ch",
-      name: "Gary Gerber",
+      name: "Max Mustermann",
       locale: "fr",
       complete: false,
       remaining: ["id#b2"],
@@ -81,7 +81,7 @@ describe("sendNachreichConfirmation — v3 labels", () => {
   it("test mode: redirected, and no copy to the real Berater", async () => {
     process.env.HYPOTEQ_TEST_MODE = "1";
     process.env.HYPOTEQ_TEST_MAIL_TO = "test@hypoteq.ch";
-    await sendNachreichConfirmation({ to: "gary@example.ch", cc: "berater@partner.ch", name: "Gary", locale: "de", complete: true, remaining: [], remainingLabels: [] });
+    await sendNachreichConfirmation({ to: "max@example.ch", cc: "berater@partner.ch", name: "Max", locale: "de", complete: true, remaining: [], remainingLabels: [] });
     const msg = mockPosts[0].body.message;
     expect(msg.toRecipients).toEqual([{ emailAddress: { address: "test@hypoteq.ch" } }]);
     expect(msg).not.toHaveProperty("ccRecipients");

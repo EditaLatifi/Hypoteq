@@ -3,7 +3,7 @@ import { syncFunnelStepsToSalesforce } from "@/components/syncFunnelStepsToSales
 import { documentsSummary } from "@/lib/funnel-v3/documentsSummary";
 import { toInquiryPayload } from "@/lib/funnel-v3/toInquiryPayload";
 import { buildDokumentenCheckState } from "@/components/dokumentenCheckState";
-import { gerberFiles, gerberState, SUBMISSION } from "./gerberCase";
+import { mustermannFiles, mustermannState, SUBMISSION } from "./mustermannCase";
 
 jest.mock("@/components/partnerDirectory", () => {
   const actual = jest.requireActual("@/components/partnerDirectory") as object;
@@ -42,8 +42,8 @@ beforeEach(() => {
   jest.spyOn(console, "warn").mockImplementation(() => {});
 });
 
-function v3Payload(files = gerberFiles()) {
-  const state = gerberState();
+function v3Payload(files = mustermannFiles()) {
+  const state = mustermannState();
   const docs = documentsSummary({ ...state, files });
   return toInquiryPayload(state, {
     locale: "de",
@@ -59,10 +59,10 @@ describe("Salesforce sync — v3 document fields", () => {
     const data = v3Payload();
     data.v3Completion = {
       folderWebUrl: "https://hypoteq.sharepoint.com/sites/x/ZZ-TEST_folder",
-      files: gerberFiles().map((f) => ({
+      files: mustermannFiles().map((f) => ({
         documentId: f.documentId,
         originalName: f.name,
-        storedName: f.instanceId === "grundbuch" ? "HQ-26-06-156283_03_Grundbuchauszug_2026-01-15.pdf" : null,
+        storedName: f.instanceId === "grundbuch" ? "HQ-26-01-000001_03_Grundbuchauszug_2026-01-15.pdf" : null,
         url: null,
         instanceId: f.instanceId ?? null,
         requirementId: f.analysis?.requirementId ?? null,
@@ -87,12 +87,12 @@ describe("Salesforce sync — v3 document fields", () => {
     expect(state.answers.antrag).toBe("Ablösung");
     expect(state.checked["Ausweis Kopie"]).toBe(true); // a caseworker's tick survives
     expect(state.filters).toEqual({ x: 1 });
-    expect(state.requirements.find((r: any) => r.id === "grundbuch").files[0].storedName).toBe("HQ-26-06-156283_03_Grundbuchauszug_2026-01-15.pdf");
+    expect(state.requirements.find((r: any) => r.id === "grundbuch").files[0].storedName).toBe("HQ-26-01-000001_03_Grundbuchauszug_2026-01-15.pdf");
     expect(sf.queries[0]).toMatch(/SELECT Dokumenten_Check_State__c FROM Case WHERE AccountId = '0011'/);
   });
 
   it("without the closing result: from the submitted detail; incomplete when a required document is missing", async () => {
-    const data = v3Payload(gerberFiles().filter((f) => f.instanceId !== "fotos"));
+    const data = v3Payload(mustermannFiles().filter((f) => f.instanceId !== "fotos"));
     const sf = fakeSalesforce();
     await syncFunnelStepsToSalesforce(data, sf.api);
     const c = sf.cases[0];

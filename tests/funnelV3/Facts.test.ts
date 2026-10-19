@@ -22,20 +22,20 @@ const file = (docTypeId: string, fields: Record<string, string>, over: Partial<V
   },
 });
 const person = (first: string, last: string, kind: PersonRef["kind"] = "borrower"): PersonRef => ({ kind, first, last, display: `${first} ${last}` });
-const GARY = person("Gary", "Gerber");
-const people = { kn1: GARY, others: [] as PersonRef[] };
+const MAX = person("Max", "Mustermann");
+const people = { kn1: MAX, others: [] as PersonRef[] };
 
-const lohnausweis = (annual: string, year = "2025", name = "Gerber Gary") => file("lohnausweise", { Jahr: year, Bruttolohn: annual }, { docDate: year, personName: name });
-const payslip = (monthly: string, thirteenth?: string, date = "2026-05", name = "Gerber Gary") =>
+const lohnausweis = (annual: string, year = "2025", name = "Mustermann Max") => file("lohnausweise", { Jahr: year, Bruttolohn: annual }, { docDate: year, personName: name });
+const payslip = (monthly: string, thirteenth?: string, date = "2026-05", name = "Mustermann Max") =>
   file("lohnabrechnungen", { "Monatslohn brutto": monthly, ...(thirteenth ? { "13. Monatslohn": thirteenth } : {}) }, { docDate: date, personName: name });
 
-describe("Fall Gerber (Handover 4.2)", () => {
-  it("Lohnausweis 2025 CHF 125'385 vs. 13 × CHF 9'615 = CHF 124'995 → +0.3 %: neither bonus nor raise", () => {
-    const f = docFacts([lohnausweis("CHF 125'385"), payslip("CHF 9'615", "ja")], people, NOW);
+describe("Fall Mustermann (Handover 4.2)", () => {
+  it("Lohnausweis 2025 CHF 110'310 vs. 13 × CHF 8'460 = CHF 109'980 → +0.3 %: neither bonus nor raise", () => {
+    const f = docFacts([lohnausweis("CHF 110'310"), payslip("CHF 8'460", "ja")], people, NOW);
     expect(f.bonus).toBe(false);
     expect(f.raise).toBe(false);
-    expect(f.salary).toMatchObject({ year: 2025, annual: 125385, monthly: 9615, thirteenth: true });
-    expect(f.salary!.bonusDelta).toBeCloseTo(125385 / 124995 - 1, 9);
+    expect(f.salary).toMatchObject({ year: 2025, annual: 110310, monthly: 8460, thirteenth: true });
+    expect(f.salary!.bonusDelta).toBeCloseTo(110310 / 109980 - 1, 9);
     expect((f.salary!.bonusDelta * 100).toFixed(1)).toBe("0.3");
   });
 
@@ -84,34 +84,34 @@ describe("Lohnerhöhung", () => {
 
 describe("whose documents", () => {
   it("only Kreditnehmer 1's salary documents count (P17: none for Kreditnehmer 2)", () => {
-    const lea = person("Lea", "Gerber");
-    const f = docFacts([lohnausweis("200'000", "2025", "Gerber Lea"), payslip("5'000", "ja", "2026-05", "Gerber Lea"), lohnausweis("125'385"), payslip("9'615", "ja")], { kn1: GARY, kn2: lea, others: [] }, NOW);
-    expect(f.salary).toMatchObject({ annual: 125385, monthly: 9615 });
+    const lea = person("Lea", "Mustermann");
+    const f = docFacts([lohnausweis("200'000", "2025", "Mustermann Lea"), payslip("5'000", "ja", "2026-05", "Mustermann Lea"), lohnausweis("110'310"), payslip("8'460", "ja")], { kn1: MAX, kn2: lea, others: [] }, NOW);
+    expect(f.salary).toMatchObject({ annual: 110310, monthly: 8460 });
     expect(f.bonus).toBe(false);
   });
   it("the Solidarbürge's Lohnausweis never counts", () => {
     const peter = person("Peter", "Bürgi", "guarantor");
-    expect(docFacts([lohnausweis("300'000", "2025", "Buergi Peter"), payslip("9'000", "ja")], { kn1: GARY, others: [peter] }, NOW).salary).toBeUndefined();
+    expect(docFacts([lohnausweis("300'000", "2025", "Buergi Peter"), payslip("9'000", "ja")], { kn1: MAX, others: [peter] }, NOW).salary).toBeUndefined();
   });
   it("without a printed name a document is Kreditnehmer 1's only when nobody else could own it", () => {
     const a = lohnausweis("1", "2025", "").analysis;
-    expect(belongsTo(a, GARY, [])).toBe(true);
-    expect(belongsTo(a, GARY, [person("Lea", "Gerber")])).toBe(false);
-    expect(belongsTo(lohnausweis("1", "2025", "Gerber Gary").analysis, undefined, [])).toBe(true);
+    expect(belongsTo(a, MAX, [])).toBe(true);
+    expect(belongsTo(a, MAX, [person("Lea", "Mustermann")])).toBe(false);
+    expect(belongsTo(lohnausweis("1", "2025", "Mustermann Max").analysis, undefined, [])).toBe(true);
   });
 });
 
 describe("ab 50", () => {
-  const id = (birth: string, name = "Gerber Gary") => file("id", { Geburtsdatum: birth }, { personName: name, docDate: null });
+  const id = (birth: string, name = "Mustermann Max") => file("id", { Geburtsdatum: birth }, { personName: name, docDate: null });
   it("from the ID's birth date, at today", () => {
-    expect(docFacts([id("04.01.1988")], people, NOW)).toMatchObject({ ab50: false, age: 38 });
+    expect(docFacts([id("05.03.1985")], people, NOW)).toMatchObject({ ab50: false, age: 41 });
     expect(docFacts([id("15.10.1976")], people, NOW)).toMatchObject({ ab50: true, age: 50 });
     expect(docFacts([id("16.10.1976")], people, NOW)).toMatchObject({ ab50: false, age: 49 });
   });
   it("any Kreditnehmer, not the Solidarbürge", () => {
-    const lea = person("Lea", "Gerber");
-    expect(docFacts([id("04.01.1988"), id("01.01.1960", "Gerber Lea")], { kn1: GARY, kn2: lea, others: [] }, NOW).ab50).toBe(true);
-    expect(docFacts([id("01.01.1960", "Buergi Peter")], { kn1: GARY, others: [person("Peter", "Bürgi", "guarantor")] }, NOW).ab50).toBe(false);
+    const lea = person("Lea", "Mustermann");
+    expect(docFacts([id("05.03.1985"), id("01.01.1960", "Mustermann Lea")], { kn1: MAX, kn2: lea, others: [] }, NOW).ab50).toBe(true);
+    expect(docFacts([id("01.01.1960", "Buergi Peter")], { kn1: MAX, others: [person("Peter", "Bürgi", "guarantor")] }, NOW).ab50).toBe(false);
   });
   it("an unreadable birth date says nothing", () => {
     expect(docFacts([id("unbekannt")], people, NOW)).toEqual({ bonus: false, raise: false, ab50: false });
@@ -120,22 +120,22 @@ describe("ab 50", () => {
 
 describe("reading values", () => {
   it("amounts as printed", () => {
-    expect(amountOf("CHF 125'385")).toBe(125385);
-    expect(amountOf("9'615.–")).toBe(9615);
-    expect(amountOf("CHF 10'340 per 09.01.2026")).toBe(10340);
-    expect(amountOf("CHF 1’450’000")).toBe(1450000);
-    expect(amountOf("CHF 125'385.50")).toBe(125385.5);
+    expect(amountOf("CHF 110'310")).toBe(110310);
+    expect(amountOf("8'460.–")).toBe(8460);
+    expect(amountOf("CHF 8'760 per 09.01.2026")).toBe(8760);
+    expect(amountOf("CHF 1’240’000")).toBe(1240000);
+    expect(amountOf("CHF 110'310.50")).toBe(110310.5);
     expect(amountOf("")).toBe(0);
     expect(amountOf(null)).toBe(0);
   });
   it("dates and ages", () => {
-    expect(dateOf("4.1.1988")).toBe("04.01.1988");
-    expect(dateOf("1988-01-04")).toBe("04.01.1988");
+    expect(dateOf("5.3.1985")).toBe("05.03.1985");
+    expect(dateOf("1985-03-05")).toBe("05.03.1985");
     expect(dateOf("x")).toBe("");
-    expect(ageAt("04.01.1988", NOW)).toBe(38);
+    expect(ageAt("05.03.1985", NOW)).toBe(41);
     expect(ageAt("", NOW)).toBeNull();
   });
   it("the Jahreslohn also from an analysis stored before v5 («Bruttolohn 2025»)", () => {
-    expect(annualSalary(file("lohnausweise", { "Bruttolohn 2024": "118'900", "Bruttolohn 2025": "125'385" }, { docDate: "2025" }).analysis)).toBe(125385);
+    expect(annualSalary(file("lohnausweise", { "Bruttolohn 2024": "105'200", "Bruttolohn 2025": "110'310" }, { docDate: "2025" }).analysis)).toBe(110310);
   });
 });

@@ -13,9 +13,9 @@ import {
 import { documentsSummary } from "@/lib/funnel-v3/documentsSummary";
 import { toInquiryPayload } from "@/lib/funnel-v3/toInquiryPayload";
 import type { FileEntry } from "@/lib/funnel-v3/files";
-import { gerberFiles, gerberState, SUBMISSION } from "./gerberCase";
+import { mustermannFiles, mustermannState, SUBMISSION } from "./mustermannCase";
 
-const CASE = "HQ-26-06-156283";
+const CASE = "HQ-26-01-000001";
 
 /** Document rows as /api/inquiry adopts them: the AI analysis under aiAnalysis.v3. */
 function rowsFor(files: FileEntry[]): CompletionDocumentRow[] {
@@ -32,7 +32,7 @@ function rowsFor(files: FileEntry[]): CompletionDocumentRow[] {
 }
 
 function payload(files: FileEntry[], over: any = {}) {
-  const state = gerberState(over.state);
+  const state = mustermannState(over.state);
   const docs = documentsSummary({ ...state, files });
   return {
     ...toInquiryPayload(state, { locale: "de", submissionId: SUBMISSION, sharepointFolderId: "FOLDER", documents: docs.submittedDocuments(), documentCompleteness: { complete: true, missing: [], skipped: [] } }),
@@ -94,58 +94,58 @@ function fakes(rows: CompletionDocumentRow[], opts: { existing?: string[]; failR
 const storedOf = (updates: Record<string, any[]>, id: string) => updates[id]?.find((u) => "storedName" in u)?.storedName;
 
 describe("planFiles — stored names (spec 5.1)", () => {
-  const files = gerberFiles();
+  const files = mustermannFiles();
   const rows = rowsFor(files);
   const p = payload(files);
   const plans = planFiles(p.v3 as any, rows, p.documents as any, CASE);
   const byName = (orig: string) => plans.find((x) => x.row.originalFileName === orig)!;
 
   it("matches the spec examples", () => {
-    expect(byName("03_Grundbuchauszug_Etzelstrasse_52_Waedenswil_2026_01_15.pdf").target).toBe("HQ-26-06-156283_03_Grundbuchauszug_2026-01-15.pdf");
+    expect(byName("03_Grundbuchauszug_Musterweg_1_Zuerich_2026_01_15.pdf").target).toBe("HQ-26-01-000001_03_Grundbuchauszug_2026-01-15.pdf");
     // v5 P2: one current Lohnausweis, so no Nr; the spec's «_2024_2» example had three.
-    expect(byName("01_Lohnausweis_Gary_Gerber_2025.pdf").target).toBe("HQ-26-06-156283_01_Lohnausweis_Gerber-Gary_2025.pdf");
-    expect(byName("03_Hypothek_Zinsabrechnung_ZKB_Gary_Gerber.pdf").target).toBe("HQ-26-06-156283_02_Zinsabrechnung_ZKB_2026-03-30.pdf");
-    expect(byName("01_ID_Gary_Gerber.pdf").target).toBe("HQ-26-06-156283_01_ID_Gerber-Gary.pdf");
+    expect(byName("01_Lohnausweis_Max_Mustermann_2025.pdf").target).toBe("HQ-26-01-000001_01_Lohnausweis_Mustermann-Max_2025.pdf");
+    expect(byName("03_Hypothek_Zinsabrechnung_Musterbank_Max_Mustermann.pdf").target).toBe("HQ-26-01-000001_02_Zinsabrechnung_Musterbank_2026-03-30.pdf");
+    expect(byName("01_ID_Max_Mustermann.pdf").target).toBe("HQ-26-01-000001_01_ID_Mustermann-Max.pdf");
   });
 
   it("numbers several files of one requirement by document date", () => {
     // E3 expects the policy and its Wertmitteilung.
-    expect(byName("01_Versicherung_Saeule3a_Police_1583886.pdf").target).toMatch(/_04_Vorsorgepolice-3a_1\.pdf$/);
-    expect(byName("01_Versicherung_Saeule3a_Wertmitteilung_1583886.pdf").target).toBe("HQ-26-06-156283_04_Vorsorgepolice-3a_2026-01-09_2.pdf");
+    expect(byName("01_Versicherung_Saeule3a_Police_7654321.pdf").target).toMatch(/_04_Vorsorgepolice-3a_1\.pdf$/);
+    expect(byName("01_Versicherung_Saeule3a_Wertmitteilung_7654321.pdf").target).toBe("HQ-26-01-000001_04_Vorsorgepolice-3a_2026-01-09_2.pdf");
     // The older Lohnausweise are «überzählig» since v5 (no bonus recognised).
-    expect(byName("01_Lohnausweis_Gary_Gerber_2023.pdf").target).toBe("HQ-26-06-156283_01_ZUSATZ_Lohnausweis_Gerber-Gary_2023.pdf");
+    expect(byName("01_Lohnausweis_Max_Mustermann_2023.pdf").target).toBe("HQ-26-01-000001_01_ZUSATZ_Lohnausweis_Mustermann-Max_2023.pdf");
   });
 
   it("extras: _ZUSATZ_ for surplus and not-needed files, _DUPLIKAT_ for duplicates; nothing is removed (Handover 4.3)", () => {
-    expect(byName("01_Lohnausweis_Gary_Gerber_2022.pdf").target).toBe("HQ-26-06-156283_01_ZUSATZ_Lohnausweis_Gerber-Gary_2022.pdf");
-    const kept = byName("03_Nebenkostenabrechnung_Etzelstrasse_52_Waedenswil_2025.PDF");
+    expect(byName("01_Lohnausweis_Max_Mustermann_2022.pdf").target).toBe("HQ-26-01-000001_01_ZUSATZ_Lohnausweis_Mustermann-Max_2022.pdf");
+    const kept = byName("03_Nebenkostenabrechnung_Musterweg_1_Zuerich_2025.PDF");
     expect(kept.remove).toBe(false);
-    expect(kept.target).toBe("HQ-26-06-156283_ZUSATZ_03-Nebenkostenabrechnung-Etzelstrasse-52-Waedenswil-2025.pdf");
-    const dup = byName("01_Leasingvertrag_Cembra_Gary_Gerbe.pdf");
+    expect(kept.target).toBe("HQ-26-01-000001_ZUSATZ_03-Nebenkostenabrechnung-Musterweg-1-Zuerich-2025.pdf");
+    const dup = byName("01_Leasingvertrag_MusterLeasing_Max_Musterman.pdf");
     expect(dup.remove).toBe(false);
-    expect(dup.target).toBe("HQ-26-06-156283_01_DUPLIKAT_Leasingvertrag_Gerber-Gary.pdf");
-    const notNeeded = byName("01_Steuerrechnung_Gary_Gerber_2023_Schlussrechnung.pdf");
+    expect(dup.target).toBe("HQ-26-01-000001_01_DUPLIKAT_Leasingvertrag_Mustermann-Max.pdf");
+    const notNeeded = byName("01_Steuerrechnung_Max_Mustermann_2023_Schlussrechnung.pdf");
     expect(notNeeded.remove).toBe(false);
-    expect(notNeeded.target).toMatch(/^HQ-26-06-156283_.+\.pdf$/);
+    expect(notNeeded.target).toMatch(/^HQ-26-01-000001_.+\.pdf$/);
   });
 
   it("a kept duplicate gets _DUPLIKAT_", () => {
     const subs = (p.documents as any[]).map((d) => (d.extraKind === "duplicate" ? { ...d, keep: true } : d));
-    const pl = planFiles(p.v3 as any, rows, subs, CASE).find((x) => x.row.originalFileName === "01_Leasingvertrag_Cembra_Gary_Gerbe.pdf")!;
+    const pl = planFiles(p.v3 as any, rows, subs, CASE).find((x) => x.row.originalFileName === "01_Leasingvertrag_MusterLeasing_Max_Musterman.pdf")!;
     expect(pl.remove).toBe(false);
-    expect(pl.target).toBe("HQ-26-06-156283_01_DUPLIKAT_Leasingvertrag_Gerber-Gary.pdf");
+    expect(pl.target).toBe("HQ-26-01-000001_01_DUPLIKAT_Leasingvertrag_Mustermann-Max.pdf");
   });
 
   it("names within the batch are unique, deterministically, whatever the row order", () => {
-    const two = gerberFiles().filter((f) => f.analysis?.extraKind === "surplus");
-    const twin = { ...two[0], id: "fx", documentId: "doc-twin", name: "01_Lohnausweis_Gary_Gerber_2022 (1).pdf" };
+    const two = mustermannFiles().filter((f) => f.analysis?.extraKind === "surplus");
+    const twin = { ...two[0], id: "fx", documentId: "doc-twin", name: "01_Lohnausweis_Max_Mustermann_2022 (1).pdf" };
     const r = rowsFor([two[0], twin]);
     r[1].uploadedAt = new Date(Date.UTC(2026, 5, 2, 11));
     const subs = [{ documentId: two[0].documentId!, instanceId: null, requirementId: "lohnausweise", extraKind: "surplus" as const }, { documentId: "doc-twin", instanceId: null, requirementId: "lohnausweise", extraKind: "surplus" as const }];
     const a = planFiles(p.v3 as any, r, subs, CASE).map((x) => [x.row.id, x.target]);
     const b = planFiles(p.v3 as any, [...r].reverse(), subs, CASE).map((x) => [x.row.id, x.target]);
     expect(Object.fromEntries(a)).toEqual(Object.fromEntries(b));
-    expect(Object.fromEntries(a)["doc-twin"]).toBe("HQ-26-06-156283_01_ZUSATZ_Lohnausweis_Gerber-Gary_2024_2.pdf");
+    expect(Object.fromEntries(a)["doc-twin"]).toBe("HQ-26-01-000001_01_ZUSATZ_Lohnausweis_Mustermann-Max_2024_2.pdf");
   });
 
   it("no case number: nothing is renamed", () => {
@@ -159,11 +159,11 @@ describe("planFiles — stored names (spec 5.1)", () => {
 });
 
 describe("planFiles — stored name set by hand (spec 5.1, DECISIONS D19)", () => {
-  const files = gerberFiles();
+  const files = mustermannFiles();
   const rows = rowsFor(files);
-  const ID_FILE = "01_ID_Gary_Gerber.pdf";
-  const GB_FILE = "03_Grundbuchauszug_Etzelstrasse_52_Waedenswil_2026_01_15.pdf";
-  const GB_NAME = "HQ-26-06-156283_03_Grundbuchauszug_2026-01-15.pdf";
+  const ID_FILE = "01_ID_Max_Mustermann.pdf";
+  const GB_FILE = "03_Grundbuchauszug_Musterweg_1_Zuerich_2026_01_15.pdf";
+  const GB_NAME = "HQ-26-01-000001_03_Grundbuchauszug_2026-01-15.pdf";
   const idOf = (orig: string) => files.find((f) => f.name === orig)!.documentId!;
   const withOverride = (docs: any[], orig: string, storedName: string) => docs.map((d) => (d.documentId === idOf(orig) ? { ...d, storedName } : d));
   const targetOf = (plans: ReturnType<typeof planFiles>, orig: string) => plans.find((x) => x.row.originalFileName === orig)!.target;
@@ -171,9 +171,9 @@ describe("planFiles — stored name set by hand (spec 5.1, DECISIONS D19)", () =
   it("Berater: the typed name is used, sanitised like the automatic ones, with the file's lower-case extension", () => {
     const p = payload(files, { state: { role: "berater" } });
     expect(p.v3.role).toBe("berater");
-    const subs = withOverride(p.documents as any[], ID_FILE, "  Pass Gäry Gerber (Kopie).PDF ");
+    const subs = withOverride(p.documents as any[], ID_FILE, "  Pass Mäx Mustermann (Kopie).PDF ");
     const plans = planFiles(p.v3 as any, rows, subs, CASE);
-    expect(targetOf(plans, ID_FILE)).toBe("Pass_Gary_Gerber_Kopie.pdf");
+    expect(targetOf(plans, ID_FILE)).toBe("Pass_Max_Mustermann_Kopie.pdf");
     // The others keep their automatic names.
     expect(targetOf(plans, GB_FILE)).toBe(GB_NAME);
   });
@@ -182,14 +182,14 @@ describe("planFiles — stored name set by hand (spec 5.1, DECISIONS D19)", () =
     const p = payload(files);
     expect(p.v3.role).toBe("kunde");
     const subs = withOverride(p.documents as any[], ID_FILE, "Pass.pdf");
-    expect(targetOf(planFiles(p.v3 as any, rows, subs, CASE), ID_FILE)).toBe("HQ-26-06-156283_01_ID_Gerber-Gary.pdf");
+    expect(targetOf(planFiles(p.v3 as any, rows, subs, CASE), ID_FILE)).toBe("HQ-26-01-000001_01_ID_Mustermann-Max.pdf");
   });
 
   it("extension: the file's own, lower-case; appended when none was typed, replacing a foreign one", () => {
     expect(overrideName("Lohnausweis 2024", "PDF")).toBe("Lohnausweis_2024.pdf");
     expect(overrideName("Scan.jpg", "pdf")).toBe("Scan.pdf");
     expect(overrideName("Steuern.2024", "pdf")).toBe("Steuern2024.pdf");
-    expect(overrideName("HQ-26-06-156283_01_ID_Gerber-Gary.pdf", "pdf")).toBe("HQ-26-06-156283_01_ID_Gerber-Gary.pdf");
+    expect(overrideName("HQ-26-01-000001_01_ID_Mustermann-Max.pdf", "pdf")).toBe("HQ-26-01-000001_01_ID_Mustermann-Max.pdf");
     expect(overrideName("Überweisung_Müller", "png")).toBe("Uberweisung_Muller.png");
     expect(overrideName("   ", "pdf")).toBeNull();
     expect(overrideName("***.pdf", "pdf")).toBeNull();
@@ -199,7 +199,7 @@ describe("planFiles — stored name set by hand (spec 5.1, DECISIONS D19)", () =
   it("an empty or unusable override leaves the automatic name", () => {
     const p = payload(files, { state: { role: "berater" } });
     const subs = withOverride(p.documents as any[], ID_FILE, "   ");
-    expect(targetOf(planFiles(p.v3 as any, rows, subs, CASE), ID_FILE)).toBe("HQ-26-06-156283_01_ID_Gerber-Gary.pdf");
+    expect(targetOf(planFiles(p.v3 as any, rows, subs, CASE), ID_FILE)).toBe("HQ-26-01-000001_01_ID_Mustermann-Max.pdf");
   });
 
   it("a hand-picked name that collides with another file's name gets _2", () => {
@@ -207,7 +207,7 @@ describe("planFiles — stored name set by hand (spec 5.1, DECISIONS D19)", () =
     const subs = withOverride(p.documents as any[], ID_FILE, GB_NAME);
     const plans = planFiles(p.v3 as any, rows, subs, CASE);
     const names = [targetOf(plans, ID_FILE), targetOf(plans, GB_FILE)];
-    expect(new Set(names)).toEqual(new Set([GB_NAME, "HQ-26-06-156283_03_Grundbuchauszug_2026-01-15_2.pdf"]));
+    expect(new Set(names)).toEqual(new Set([GB_NAME, "HQ-26-01-000001_03_Grundbuchauszug_2026-01-15_2.pdf"]));
     const all = plans.filter((x) => x.target).map((x) => x.target!.toLowerCase());
     expect(new Set(all).size).toBe(all.length);
   });
@@ -215,7 +215,7 @@ describe("planFiles — stored name set by hand (spec 5.1, DECISIONS D19)", () =
 
 describe("completeV3Inquiry", () => {
   it("stores the submitted detail, renames, deletes, persists storedName and uploads the dossier", async () => {
-    const files = gerberFiles();
+    const files = mustermannFiles();
     const rows = rowsFor(files);
     const f = fakes(rows);
     const res = (await completeV3Inquiry({ inquiryId: SUBMISSION, submissionId: SUBMISSION, caseNumber: CASE, data: payload(files) }, f.deps))!;
@@ -230,57 +230,57 @@ describe("completeV3Inquiry", () => {
     expect(first.v3Submitted).toMatchObject({ instanceId: "fotos", requirementId: "fotos", submittedAt: "2026-06-02T12:00:00.000Z" });
 
     // b. renames and persisted names
-    expect(storedOf(f.updates, "doc-4")).toBe("HQ-26-06-156283_03_Grundbuchauszug_2026-01-15.pdf");
-    expect(f.updates["doc-4"].find((u) => "storedName" in u)).toMatchObject({ fileName: "HQ-26-06-156283_03_Grundbuchauszug_2026-01-15.pdf", fileUrl: expect.stringContaining("Grundbuchauszug_2026-01-15") });
-    expect(f.folder.has("hq-26-06-156283_01_id_gerber-gary.pdf")).toBe(true);
+    expect(storedOf(f.updates, "doc-4")).toBe("HQ-26-01-000001_03_Grundbuchauszug_2026-01-15.pdf");
+    expect(f.updates["doc-4"].find((u) => "storedName" in u)).toMatchObject({ fileName: "HQ-26-01-000001_03_Grundbuchauszug_2026-01-15.pdf", fileUrl: expect.stringContaining("Grundbuchauszug_2026-01-15") });
+    expect(f.folder.has("hq-26-01-000001_01_id_mustermann-max.pdf")).toBe(true);
     // Handover 4.3 «Nichts wird gelöscht»: the duplicate and the not-needed files (Steuerrechnung;
     // Anstellungsvertrag, Eigenmittelnachweis, Schuldbrief since v5) stay, renamed like every file.
     expect(f.removed).toEqual([]);
     expect(res.files.filter((x) => x.storedName).length).toBe(30);
-    expect(res.files.find((x) => x.documentId === "doc-28")).toMatchObject({ storedName: "HQ-26-06-156283_01_DUPLIKAT_Leasingvertrag_Gerber-Gary.pdf" });
+    expect(res.files.find((x) => x.documentId === "doc-28")).toMatchObject({ storedName: "HQ-26-01-000001_01_DUPLIKAT_Leasingvertrag_Mustermann-Max.pdf" });
     expect(res.files.some((x) => x.removed)).toBe(false);
 
     // c. dossier
     expect(f.uploads).toHaveLength(1);
-    expect(f.uploads[0]).toMatchObject({ folderId: "FOLDER", name: "HQ-26-06-156283_00_Fall-Dossier.pdf", contentType: "application/pdf" });
+    expect(f.uploads[0]).toMatchObject({ folderId: "FOLDER", name: "HQ-26-01-000001_00_Fall-Dossier.pdf", contentType: "application/pdf" });
     expect(Buffer.from(f.uploads[0].bytes.slice(0, 5)).toString()).toBe("%PDF-");
-    expect(res.dossier).toEqual({ name: "HQ-26-06-156283_00_Fall-Dossier.pdf", webUrl: "https://sp.example/case/HQ-26-06-156283_00_Fall-Dossier.pdf", driveItemId: "dossier-item" });
+    expect(res.dossier).toEqual({ name: "HQ-26-01-000001_00_Fall-Dossier.pdf", webUrl: "https://sp.example/case/HQ-26-01-000001_00_Fall-Dossier.pdf", driveItemId: "dossier-item" });
   });
 
   it("a name taken in the folder by another file gets the next free suffix", async () => {
-    const files = gerberFiles();
+    const files = mustermannFiles();
     const rows = rowsFor(files);
-    const f = fakes(rows, { existing: ["HQ-26-06-156283_03_Grundbuchauszug_2026-01-15.pdf", "HQ-26-06-156283_03_Grundbuchauszug_2026-01-15_2.pdf"] });
+    const f = fakes(rows, { existing: ["HQ-26-01-000001_03_Grundbuchauszug_2026-01-15.pdf", "HQ-26-01-000001_03_Grundbuchauszug_2026-01-15_2.pdf"] });
     const res = (await completeV3Inquiry({ inquiryId: SUBMISSION, submissionId: SUBMISSION, caseNumber: CASE, data: payload(files) }, f.deps))!;
     expect(res.errors).toEqual([]);
-    expect(storedOf(f.updates, "doc-4")).toBe("HQ-26-06-156283_03_Grundbuchauszug_2026-01-15_3.pdf");
+    expect(storedOf(f.updates, "doc-4")).toBe("HQ-26-01-000001_03_Grundbuchauszug_2026-01-15_3.pdf");
   });
 
   it("a conflict with a batch file that is renamed away resolves to the planned name", async () => {
-    const files = gerberFiles();
+    const files = mustermannFiles();
     const rows = rowsFor(files);
     // doc-4 currently carries the name doc-1 (Fotos) is meant to get.
-    rows[3].fileName = "HQ-26-06-156283_03_Fotos.pdf";
+    rows[3].fileName = "HQ-26-01-000001_03_Fotos.pdf";
     const f = fakes(rows);
     await completeV3Inquiry({ inquiryId: SUBMISSION, submissionId: SUBMISSION, caseNumber: CASE, data: payload(files) }, f.deps);
-    expect(storedOf(f.updates, "doc-1")).toBe("HQ-26-06-156283_03_Fotos.pdf");
-    expect(storedOf(f.updates, "doc-4")).toBe("HQ-26-06-156283_03_Grundbuchauszug_2026-01-15.pdf");
+    expect(storedOf(f.updates, "doc-1")).toBe("HQ-26-01-000001_03_Fotos.pdf");
+    expect(storedOf(f.updates, "doc-4")).toBe("HQ-26-01-000001_03_Grundbuchauszug_2026-01-15.pdf");
   });
 
   it("one failing rename is logged and does not stop the others or the dossier", async () => {
-    const files = gerberFiles();
+    const files = mustermannFiles();
     const f = fakes(rowsFor(files), { failRename: "Grundbuchauszug" });
     const res = (await completeV3Inquiry({ inquiryId: SUBMISSION, submissionId: SUBMISSION, caseNumber: CASE, data: payload(files) }, f.deps))!;
     expect(res.errors).toHaveLength(1);
     expect(res.errors[0]).toMatch(/^rename doc-4/);
     expect(storedOf(f.updates, "doc-4")).toBeUndefined();
     expect(res.files.find((x) => x.documentId === "doc-4")!.storedName).toBeNull();
-    expect(storedOf(f.updates, "doc-1")).toBe("HQ-26-06-156283_03_Fotos.pdf");
+    expect(storedOf(f.updates, "doc-1")).toBe("HQ-26-01-000001_03_Fotos.pdf");
     expect(f.uploads).toHaveLength(1);
   });
 
   it("no SharePoint: nothing renamed, the dossier is still rendered, errors reported", async () => {
-    const files = gerberFiles();
+    const files = mustermannFiles();
     const f = fakes(rowsFor(files));
     (f.deps.graph as any).token = async () => {
       throw new Error("Could not get SharePoint token");
@@ -310,7 +310,7 @@ describe("completeV3Inquiry", () => {
 
 describe("v3DocumentCaseFields", () => {
   it("Dok flags, Documents_completed__c, the 6.11 state with stored names and the folder URL", async () => {
-    const files = gerberFiles();
+    const files = mustermannFiles();
     const f = fakes(rowsFor(files));
     const data: any = payload(files);
     data.v3Completion = await completeV3Inquiry({ inquiryId: SUBMISSION, submissionId: SUBMISSION, caseNumber: CASE, data }, f.deps);
@@ -327,8 +327,8 @@ describe("v3DocumentCaseFields", () => {
     expect(state.filters).toEqual({ a: 1 });
     const gb = state.requirements.find((r: any) => r.id === "grundbuch");
     expect(gb.status).toBe("ok");
-    expect(gb.files[0]).toMatchObject({ originalName: "03_Grundbuchauszug_Etzelstrasse_52_Waedenswil_2026_01_15.pdf", storedName: "HQ-26-06-156283_03_Grundbuchauszug_2026-01-15.pdf", confidence: 0.95 });
-    expect(gb.fields).toContainEqual({ key: "Eigentümer", value: "Gary Samuel Gerber", confidence: 0.97 });
+    expect(gb.files[0]).toMatchObject({ originalName: "03_Grundbuchauszug_Musterweg_1_Zuerich_2026_01_15.pdf", storedName: "HQ-26-01-000001_03_Grundbuchauszug_2026-01-15.pdf", confidence: 0.95 });
+    expect(gb.fields).toContainEqual({ key: "Eigentümer", value: "Max Simon Mustermann", confidence: 0.97 });
     expect(state.extras.map((e: any) => e.kind)).toEqual(["surplus", "surplus", "notneeded", "notneeded", "notneeded", "surplus", "duplicate", "notneeded", "notneeded"]);
     // Handover 8: entry, signature (P0 on file), sources.
     expect(state.entry).toBe("begleitet");
@@ -338,7 +338,7 @@ describe("v3DocumentCaseFields", () => {
   });
 
   it("without the closing result: from the submitted detail, no folder URL", () => {
-    const data: any = payload(gerberFiles().filter((f) => f.instanceId !== "id#b1"));
+    const data: any = payload(mustermannFiles().filter((f) => f.instanceId !== "id#b1"));
     const out = v3DocumentCaseFields(data)!;
     expect(out.Documents_completed__c).toBe(false);
     expect(out.Dok_Identitaetsdokument__c).toBe(false);
@@ -352,12 +352,12 @@ describe("v3DocumentCaseFields", () => {
 
 describe("confirmationRecipients (D17)", () => {
   it("Berater: to the customer, copy to the Berater", () => {
-    const data = payload([], { state: { role: "berater", txt: { ...gerberState().txt, bmail: "petra@partner.ch" } } });
+    const data = payload([], { state: { role: "berater", txt: { ...mustermannState().txt, bmail: "petra@partner.ch" } } });
     expect(data.client.email).toBe("petra@partner.ch");
-    expect(confirmationRecipients(data)).toEqual({ to: "gary.gerber@example.ch", cc: "petra@partner.ch", firstName: "Gary" });
+    expect(confirmationRecipients(data)).toEqual({ to: "max.mustermann@example.ch", cc: "petra@partner.ch", firstName: "Max" });
   });
   it("Kunde and legacy payloads: unchanged", () => {
-    expect(confirmationRecipients(payload([]))).toEqual({ to: "gary.gerber@example.ch", cc: null, firstName: "Gary" });
+    expect(confirmationRecipients(payload([]))).toEqual({ to: "max.mustermann@example.ch", cc: null, firstName: "Max" });
     expect(confirmationRecipients({ client: { email: "p@x.ch", firstName: "" } })).toEqual({ to: "p@x.ch", cc: null, firstName: "" });
   });
 });

@@ -165,8 +165,8 @@ describe("applyV3Rules", () => {
         confidence: 0.97,
         docDate: "15.01.2026",
         fields: [
-          { key: "Eigentümer", value: "Gerber Gary", confidence: 0.8 },
-          { key: "Eigentümer", value: "Gerber Gary Samuel", confidence: 0.95 },
+          { key: "Eigentümer", value: "Mustermann Max", confidence: 0.8 },
+          { key: "Eigentümer", value: "Mustermann Max Simon", confidence: 0.95 },
           { key: "Bruttolohn", value: "1", confidence: 1 },
           { key: "Objekt", value: null, confidence: 0.9 },
         ],
@@ -176,7 +176,7 @@ describe("applyV3Rules", () => {
     expect(a.docTypeId).toBe("grundbuch");
     expect(a.requirementId).toBe("grundbuch");
     expect(Object.keys(a.fields)).toEqual(["Eigentümer"]);
-    expect(a.fields["Eigentümer"]).toEqual({ value: "Gerber Gary Samuel", confidence: 0.95 });
+    expect(a.fields["Eigentümer"]).toEqual({ value: "Mustermann Max Simon", confidence: 0.95 });
     expect(a.docDate).toBe("2026-01-15");
     expect(a.outdated).toBe(true);
     expect(a.outdatedReason).toContain("6 Monate");
@@ -196,20 +196,20 @@ describe("applyV3Rules", () => {
   });
 
   it("reads the year for period documents, no date for IDs, the bank for mortgage documents", () => {
-    expect(applyV3Rules({ ...base, docType: "lohnausweise", confidence: 0.95, docDate: "2024-12-31", personName: "Gerber Gary" }, { now: NOW })).toMatchObject({ docDate: "2024", personName: "Gerber Gary" });
-    expect(applyV3Rules({ ...base, docType: "id", confidence: 0.95, docDate: "04.01.1988" }, { now: NOW }).docDate).toBeNull();
-    expect(applyV3Rules({ ...base, docType: "hyp_zins", confidence: 0.95, bank: "ZKB", personName: "x" }, { now: NOW })).toMatchObject({ bank: "ZKB", personName: null });
+    expect(applyV3Rules({ ...base, docType: "lohnausweise", confidence: 0.95, docDate: "2024-12-31", personName: "Mustermann Max" }, { now: NOW })).toMatchObject({ docDate: "2024", personName: "Mustermann Max" });
+    expect(applyV3Rules({ ...base, docType: "id", confidence: 0.95, docDate: "05.03.1985" }, { now: NOW }).docDate).toBeNull();
+    expect(applyV3Rules({ ...base, docType: "hyp_zins", confidence: 0.95, bank: "Musterbank", personName: "x" }, { now: NOW })).toMatchObject({ bank: "Musterbank", personName: null });
   });
 
   it("keeps a note only where the type asks for one", () => {
-    expect(applyV3Rules({ ...base, docType: "police", confidence: 0.95, note: "Police ist an die ZKB verpfändet." }, { now: NOW }).note).toBe("Police ist an die ZKB verpfändet.");
+    expect(applyV3Rules({ ...base, docType: "police", confidence: 0.95, note: "Police ist an die Musterbank verpfändet." }, { now: NOW }).note).toBe("Police ist an die Musterbank verpfändet.");
     expect(applyV3Rules({ ...base, docType: "fotos", confidence: 0.95, note: "Schönes Haus." }, { now: NOW }).note).toBeNull();
   });
 
   it("parses the provider JSON defensively", () => {
-    const r = parseV3ProviderJson({ docType: "kredit", confidence: "0.9", fields: [{ key: "Restschuld", value: 24360, confidence: 0.9 }, { nope: 1 }], note: "  " }, 5);
+    const r = parseV3ProviderJson({ docType: "kredit", confidence: "0.9", fields: [{ key: "Restschuld", value: 21480, confidence: 0.9 }, { nope: 1 }], note: "  " }, 5);
     expect(r).toMatchObject({ docType: "kredit", confidence: 0.9, note: null, durationMs: 5 });
-    expect(r.fields).toEqual([{ key: "Restschuld", value: "24360", confidence: 0.9 }]);
+    expect(r.fields).toEqual([{ key: "Restschuld", value: "21480", confidence: 0.9 }]);
     expect(parseV3ProviderJson(null, 1).docType).toBe("unknown");
   });
 });

@@ -35,19 +35,19 @@ const check = (cond, msg) => { if (!cond) failures.push(msg); console.log((cond 
 /** Simulated AI answer per uploaded file name. */
 function analysisFor(name) {
   const base = (docTypeId, over = {}) => ({ status: "done", docTypeId, docTypeLabel: docTypeId, confidence: 0.96, requirementId: docTypeId, fields: {}, ...over });
-  if (/Grundbuch/i.test(name)) return base("grundbuch", { docDate: "2026-01-15", outdated: true, outdatedReason: "älter als 6 Monate", fields: { Eigentümer: { value: "Gary Samuel Gerber", confidence: 0.97 }, Ausstellungsdatum: { value: "15.01.2026", confidence: 0.98 } } });
-  if (/Lohnausweis/i.test(name)) return base("lohnausweise", { docDate: "2025", personName: "Gerber Gary", fields: { Arbeitgeber: { value: "Etzel Liegenschaften AG", confidence: 0.95 }, "Bruttolohn 2025": { value: "CHF 125'385", confidence: 0.95 } } });
-  if (/Leasing/i.test(name)) return base("leasing", { docDate: "2025-03-01", note: "Leasing CHF 420/Monat bis 2028", fields: { Leasinggeber: { value: "Cembra", confidence: 0.9 } } });
+  if (/Grundbuch/i.test(name)) return base("grundbuch", { docDate: "2026-01-15", outdated: true, outdatedReason: "älter als 6 Monate", fields: { Eigentümer: { value: "Max Simon Mustermann", confidence: 0.97 }, Ausstellungsdatum: { value: "15.01.2026", confidence: 0.98 } } });
+  if (/Lohnausweis/i.test(name)) return base("lohnausweise", { docDate: "2025", personName: "Mustermann Max", fields: { Arbeitgeber: { value: "Muster Treuhand AG", confidence: 0.95 }, "Bruttolohn 2025": { value: "CHF 110'310", confidence: 0.95 } } });
+  if (/Leasing/i.test(name)) return base("leasing", { docDate: "2025-03-01", note: "Leasing CHF 455/Monat bis 2028", fields: { Leasinggeber: { value: "Muster Leasing", confidence: 0.9 } } });
   if (/Steuerrechnung/i.test(name)) return base("nn_steuerrechnung", { requirementId: null, extraKind: "notneeded", extraReason: "Steuerrechnung", docDate: "2025-11-02" });
-  if (/Gebaeudeversicherung|GVZ/i.test(name)) return base("gvz", { docDate: "2026-01-01", fields: { Erstellungsjahr: { value: "1921", confidence: 0.9 }, Volumen: { value: "1497 m³", confidence: 0.9 } } });
-  if (/Verkaufsdok/i.test(name)) return base("verkaufsdoku", { docDate: "2024", fields: { Baujahr: { value: "1921", confidence: 0.92 } } });
+  if (/Gebaeudeversicherung|GVZ/i.test(name)) return base("gvz", { docDate: "2026-01-01", fields: { Erstellungsjahr: { value: "1964", confidence: 0.9 }, Volumen: { value: "1320 m³", confidence: 0.9 } } });
+  if (/Verkaufsdok/i.test(name)) return base("verkaufsdoku", { docDate: "2024", fields: { Baujahr: { value: "1964", confidence: 0.92 } } });
   return { status: "failed", docTypeId: null, docTypeLabel: null, confidence: 0, requirementId: null, extraKind: "unknown", fields: {} };
 }
 
 async function mockBackend(page, opts = {}) {
   let n = 0;
   const docs = new Map(); // documentId → file name
-  const nachreichView = (missing) => ({ valid: true, v3: true, lang: "de", caseNumber: CASE, missing, expiresAt: new Date(Date.now() + 86400000).toISOString(), email: "gary.gerber@example.invalid", folderId: "FOLDER", submissionId: "inq-e2e" });
+  const nachreichView = (missing) => ({ valid: true, v3: true, lang: "de", caseNumber: CASE, missing, expiresAt: new Date(Date.now() + 86400000).toISOString(), email: "max.mustermann@example.invalid", folderId: "FOLDER", submissionId: "inq-e2e" });
   await page.route("**/__mock-upload/**", (route) => {
     const id = route.request().url().split("/__mock-upload/")[1];
     route.fulfill({ status: 201, contentType: "application/json", body: JSON.stringify({ id: `drive-${id}`, name: `f${id}.pdf`, webUrl: `https://sharepoint.invalid/f${id}.pdf` }) });
@@ -114,14 +114,14 @@ async function kundeFlow(browser, vpName, viewport) {
   check(await page.getByText("Bitte eine Option wählen.").count() > 0, "step 1: validation messages appear on «Weiter»");
   await radio(page, /^Ablösung/);
   await radio(page, /^Herr$/);
-  await fill(page, /^Vorname/, "Gary");
-  await fill(page, /^Nachname/, "Gerber");
-  await fill(page, /^E-Mail/, "gary.gerber@example.invalid");
+  await fill(page, /^Vorname/, "Max");
+  await fill(page, /^Nachname/, "Mustermann");
+  await fill(page, /^E-Mail/, "max.mustermann@example.invalid");
   await fill(page, /^Telefon/, "+41 79 123 45 67");
   await next(page);
   // Step 2
-  await fill(page, /^PLZ/, "8820");
-  await fill(page, /^Ort/, "Wädenswil");
+  await fill(page, /^PLZ/, "8000");
+  await fill(page, /^Ort/, "Zürich");
   await radio(page, /^Bestehende Immobilie/);
   await radio(page, /^Stockwerkeigentum/);
   await radio(page, /^Selbstbewohnt/);
@@ -133,7 +133,7 @@ async function kundeFlow(browser, vpName, viewport) {
   await up.fill(""); await up.type("80000", { delay: 5 });
   await next(page);
   // Step 3
-  await fill(page, /^Bruttoeinkommen/, "125000");
+  await fill(page, /^Bruttoeinkommen/, "110000");
   await radio(page, /^Angestellt/);
   const kinder = page.getByRole("radiogroup", { name: /Kinder/ });
   await kinder.getByRole("radio", { name: /^Ja/ }).click();
@@ -149,14 +149,14 @@ async function kundeFlow(browser, vpName, viewport) {
   await next(page);
   // Step 5
   const total = Number(await page.locator(".v3-side-count-n, .v3-railbar-n").first().innerText());
-  check(total === 22, `step 5: 22 requirements (Gerber with Leasings still on Nein; got ${total})`);
+  check(total === 22, `step 5: 22 requirements (Mustermann with Leasings still on Nein; got ${total})`);
   await uploadInput(page).setInputFiles(files([
-    "03_Grundbuchauszug_Etzelstrasse_52_Waedenswil_2026_01_15.pdf",
-    "01_Lohnausweis_Gary_Gerber_2025.pdf",
-    "01_Leasingvertrag_Cembra_Gary_Gerber.pdf",
+    "03_Grundbuchauszug_Musterweg_1_Zuerich_2026_01_15.pdf",
+    "01_Lohnausweis_Max_Mustermann_2025.pdf",
+    "01_Leasingvertrag_MusterLeasing_Max_Mustermann.pdf",
     "Steuerrechnung_2025_Gemeinde.pdf",
     "03_Gebaeudeversicherung_GVZ_2026.pdf",
-    "03_Verkaufsdokumentation_Etzelstrasse_52.pdf",
+    "03_Verkaufsdokumentation_Musterweg_1.pdf",
   ]));
   await page.waitForTimeout(1500);
   await page.waitForFunction(() => !document.querySelector(".v3-busy") && !document.querySelector(".v3-docrow.is-analysing") && !/Wird gelesen/.test(document.body.innerText), null, { timeout: 40000 });
@@ -185,13 +185,13 @@ async function kundeFlow(browser, vpName, viewport) {
   await gvzRow.locator(".v3-docrow-head").click();
   await page.waitForTimeout(300);
   const gvzText = await gvzRow.innerText();
-  check(/Baujahr/.test(gvzText) && /1921/.test(gvzText) && /stimmt überein|übereinstimm|✓/i.test(gvzText), "step 5: Baujahr cross-check GVZ ↔ Verkaufsdoku shown as matching");
-  // Lohnausweis row → income cross-check 125'000 vs 125'385
+  check(/Baujahr/.test(gvzText) && /1964/.test(gvzText) && /stimmt überein|übereinstimm|✓/i.test(gvzText), "step 5: Baujahr cross-check GVZ ↔ Verkaufsdoku shown as matching");
+  // Lohnausweis row → income cross-check 110'000 vs 110'310
   const lohnRow = page.locator(".v3-docrow", { hasText: "Lohnausweise" }).first();
   await lohnRow.locator(".v3-docrow-head").click();
   await page.waitForTimeout(300);
   const lohnText = await lohnRow.innerText();
-  check(/Bruttoeinkommen/.test(lohnText) && /125'385/.test(lohnText), "step 5: income cross-check funnel vs Lohnausweis shown");
+  check(/Bruttoeinkommen/.test(lohnText) && /110'310/.test(lohnText), "step 5: income cross-check funnel vs Lohnausweis shown");
   await shot(page, `${vpName}-05-details`);
   const fulfilled = await page.locator(".v3-status-title, .v3-status h2, [class*=status]").first().innerText().catch(() => "");
   console.log("  status line:", fulfilled.replace(/\s+/g, " ").slice(0, 80));
@@ -210,7 +210,7 @@ async function kundeFlow(browser, vpName, viewport) {
   await page.waitForSelector(".v3-done", { timeout: 20000 });
   const done = await page.locator(".v3-done").innerText();
   check(done.includes(CASE), `step 6: done state names the Fallnummer ${CASE}`);
-  check(/gary.gerber@example.invalid/.test(done), "step 6: done state names the confirmation address");
+  check(/max.mustermann@example.invalid/.test(done), "step 6: done state names the confirmation address");
   await shot(page, `${vpName}-06-done`);
   // Reload keeps the done state
   await page.reload({ waitUntil: "networkidle" });
@@ -275,7 +275,7 @@ async function nachreichFlow(browser) {
   check(/bereits vollständig/.test(t) && /weitere Unterlagen hinzufügen/.test(t), "complete dossier: status text + invitation to add documents");
   check(t.includes(CASE), "complete dossier: Fallnummer shown");
   check((await page.locator(".v3-drop").count()) === 1, "complete dossier: drop zone present");
-  await uploadInput(page).setInputFiles(files(["01_Lohnausweis_Gary_Gerber_2022.pdf"]));
+  await uploadInput(page).setInputFiles(files(["01_Lohnausweis_Max_Mustermann_2022.pdf"]));
   await page.waitForTimeout(1500);
   check(/Weitere Dateien/i.test(await page.locator("body").innerText()), "added file listed under «Weitere Dateien»");
   await shot(page, "nachreich-complete");

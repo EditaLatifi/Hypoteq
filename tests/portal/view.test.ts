@@ -31,11 +31,11 @@ describe("docProgress — «x von y vorhanden»", () => {
 describe("summaryFile — «Case Zusammenfassung»", () => {
   const f = (id: string, name: string) => ({ id, name });
   it("is the Fall-Dossier of the case folder", () => {
-    expect(summaryFile([f("a", "HQ-26-06-156283_01_Person_Ausweis.pdf"), f("b", "HQ-26-06-156283_00_Fall-Dossier.pdf")], [])?.id).toBe("b");
+    expect(summaryFile([f("a", "HQ-26-01-000001_01_Person_Ausweis.pdf"), f("b", "HQ-26-01-000001_00_Fall-Dossier.pdf")], [])?.id).toBe("b");
     expect(summaryFile([f("c", "00_Fall-Dossier.pdf")], [])?.id).toBe("c");
   });
   it("else a released PDF named Case Zusammenfassung", () => {
-    expect(summaryFile([], [f("r1", "Finanzierungsübersicht.pdf"), f("r2", "Case Zusammenfassung HQ-26-06-156283.pdf")])?.id).toBe("r2");
+    expect(summaryFile([], [f("r1", "Finanzierungsübersicht.pdf"), f("r2", "Case Zusammenfassung HQ-26-01-000001.pdf")])?.id).toBe("r2");
   });
   it("else nothing, and the button is hidden", () => {
     expect(summaryFile([f("a", "Fall-Dossier-Entwurf.docx")], [f("r", "Zusammenfassung.docx")])).toBeNull();

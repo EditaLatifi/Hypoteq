@@ -6,9 +6,9 @@ import { describe, it, expect } from "@jest/globals";
 import { signatureProblems, signatureView, type SignatureFile } from "@/lib/funnel-v3/signature";
 import { documentsSummary } from "@/lib/funnel-v3/documentsSummary";
 import type { V3Analysis } from "@/lib/funnel-v3/files";
-import { gerberFiles, gerberState } from "./gerberCase";
+import { mustermannFiles, mustermannState } from "./mustermannCase";
 
-const SIGNER = { kind: "borrower" as const, first: "Gary", last: "Gerber", display: "Gary Gerber" };
+const SIGNER = { kind: "borrower" as const, first: "Max", last: "Mustermann", display: "Max Mustermann" };
 const an = (docTypeId: string | null, fields: Record<string, string> = {}, status: "done" | "failed" = "done"): V3Analysis => ({
   status,
   docTypeId,
@@ -31,7 +31,7 @@ describe("the right form", () => {
   });
 
   it("the signed form with the borrower's name: received", () => {
-    expect(signatureView([onP0(an("vollmacht", { Unterschrift: "vorhanden", Vollmachtgeber: "Gerber Gary; Muster Anna" }))], null, SIGNER).status).toBe("received");
+    expect(signatureView([onP0(an("vollmacht", { Unterschrift: "vorhanden", Vollmachtgeber: "Mustermann Max; Muster Anna" }))], null, SIGNER).status).toBe("received");
   });
 });
 
@@ -42,8 +42,8 @@ describe("a failed upload on P0", () => {
   });
 
   it("documentsSummary passes the upload state on", () => {
-    const st = gerberState();
-    const files = gerberFiles().filter((f) => f.analysis?.docTypeId !== "vollmacht");
+    const st = mustermannState();
+    const files = mustermannFiles().filter((f) => f.analysis?.docTypeId !== "vollmacht");
     const failed = { id: "sig", name: "scan.jpg", size: 10, uploadState: "failed" as const, analysisState: "pending" as const, instanceId: "vollmacht", assignedByUser: true };
     expect(documentsSummary({ ...st, files: [...files, failed] }).signature.status).toBe("missing");
   });

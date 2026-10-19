@@ -1,7 +1,7 @@
 import { describe, it, expect, jest, beforeEach, afterEach } from "@jest/globals";
 import { PDFDocument } from "pdf-lib";
 import { previewInput } from "@/lib/funnel-v3/dossier/preview";
-import { gerberFiles, gerberState, SUBMISSION } from "./gerberCase";
+import { mustermannFiles, mustermannState, SUBMISSION } from "./mustermannCase";
 
 const findUnique = jest.fn<(args: any) => Promise<any>>();
 jest.mock("@/lib/prisma", () => ({ prisma: { inquiry: { findUnique: (args: any) => findUnique(args) } } }));
@@ -19,11 +19,11 @@ afterEach(() => {
 
 describe("previewInput", () => {
   it("keeps the funnel state and files, as a draft without a case number", () => {
-    const s = gerberState();
-    const input = previewInput({ lang: "it", state: s as any, files: gerberFiles(), skipped: ["verkaufsdoku"] });
+    const s = mustermannState();
+    const input = previewInput({ lang: "it", state: s as any, files: mustermannFiles(), skipped: ["verkaufsdoku"] });
     expect(input).toMatchObject({ lang: "it", draft: true, caseNumber: null, skipped: ["verkaufsdoku"] });
     expect(input.state.ans.antrag).toBe("Ablösung");
-    expect(input.state.fin.val).toBe(1450000);
+    expect(input.state.fin.val).toBe(1240000);
     expect(input.files).toHaveLength(30);
     expect(input.files[3]).toMatchObject({ instanceId: "grundbuch", outdatedOverride: true });
   });
@@ -44,7 +44,7 @@ describe("previewInput", () => {
 
 describe("POST /api/dossier/preview", () => {
   it("returns an «Entwurf» PDF", async () => {
-    const res = await preview(new Request("http://x/api/dossier/preview", { method: "POST", body: JSON.stringify({ lang: "de", state: gerberState(), files: gerberFiles() }) }));
+    const res = await preview(new Request("http://x/api/dossier/preview", { method: "POST", body: JSON.stringify({ lang: "de", state: mustermannState(), files: mustermannFiles() }) }));
     expect(res.status).toBe(200);
     expect(res.headers.get("Content-Type")).toBe("application/pdf");
     expect(res.headers.get("Content-Disposition")).toContain("Fall-Dossier_Entwurf.pdf");

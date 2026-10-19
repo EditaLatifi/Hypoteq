@@ -33,8 +33,8 @@ const kauf = (over: Partial<FunnelState> = {}): FunnelState => ({
     nutz: "Selbstbewohnt",
     laufzeit: "10 Jahre",
   },
-  borrowers: [{ id: "b1", vor: "Gary", nach: "Gerber", job: "Angestellt", pkSe: "Nein" }],
-  txt: { ...EMPTY_TEXTS, vor: "Gary", nach: "Gerber", mail: "gary.gerber@example.ch", tel: "079 123 45 67", plz: "8820", ort: "Wädenswil" },
+  borrowers: [{ id: "b1", vor: "Max", nach: "Mustermann", job: "Angestellt", pkSe: "Nein" }],
+  txt: { ...EMPTY_TEXTS, vor: "Max", nach: "Mustermann", mail: "max.mustermann@example.ch", tel: "079 123 45 67", plz: "8000", ort: "Zürich" },
   fin: { ...EMPTY_AMOUNTS, kaufpreis: 1000000, val: 1000000, inc: 200000 },
   ...over,
 });
@@ -146,17 +146,17 @@ describe("S6 — Gesamtfinanzierung of a v3 Kauf", () => {
     const sf = fakeSalesforce();
     const p = v3({
       ans: { ...kauf().ans, antrag: "Ablösung", aufstockung: "Ja" },
-      fin: { ...EMPTY_AMOUNTS, old: 449000, up: 201000, inc: 125000, val: 1450000 },
+      fin: { ...EMPTY_AMOUNTS, old: 380000, up: 170000, inc: 110000, val: 1240000 },
     });
     await syncFunnelStepsToSalesforce(p, sf.api);
     const c = sf.calls.cases[0];
-    expect(c.Gesch_tzter_Hypothekenbedarf__c).toBe(650000);
-    expect(c.Hypothekarvolumen__c).toBe(650000);
-    // 100 − Belehnung (650'000 / 1'450'000) — the same figure S6 wrote.
-    expect(c.EigenmittelProzent__c).toBe(55.2);
+    expect(c.Gesch_tzter_Hypothekenbedarf__c).toBe(550000);
+    expect(c.Hypothekarvolumen__c).toBe(550000);
+    // 100 − Belehnung (550'000 / 1'240'000) — the same figure S6 wrote.
+    expect(c.EigenmittelProzent__c).toBe(55.6);
     // HYPOTEQ 19.10. B14: the funnel's Tragbarkeit (basis = Objektwert), not S1.
-    expect(c.Tragbarkeit__c).toBe(v5Tragbarkeit(650000, 1450000, 125000));
-    expect(c.Tragbarkeit__c).toBe(37.6);
+    expect(c.Tragbarkeit__c).toBe(v5Tragbarkeit(550000, 1240000, 110000));
+    expect(c.Tragbarkeit__c).toBe(36.3);
   });
 
   it("legacy Kauf payload: Kaufpreis − Eigenmittel, hypoBetrag ignored, Eigenmittel__c written", async () => {
@@ -194,7 +194,7 @@ describe("S7 — Anrede → Salutation", () => {
     const sf = fakeSalesforce();
     await syncFunnelStepsToSalesforce(v3(), sf.api);
     expect(sf.calls.accounts).toHaveLength(1);
-    expect(sf.calls.accounts[0]).toMatchObject({ FirstName: "Gary", LastName: "Gerber", Salutation: "Mr." });
+    expect(sf.calls.accounts[0]).toMatchObject({ FirstName: "Max", LastName: "Mustermann", Salutation: "Mr." });
   });
 
   it("writes Mrs. for Frau", async () => {
@@ -204,7 +204,7 @@ describe("S7 — Anrede → Salutation", () => {
   });
 
   it("does not touch the salutation of an existing Account", async () => {
-    const sf = fakeSalesforce({ existingAccount: { Id: "001EXIST", PersonEmail: "gary.gerber@example.ch", IsPersonAccount: true } });
+    const sf = fakeSalesforce({ existingAccount: { Id: "001EXIST", PersonEmail: "max.mustermann@example.ch", IsPersonAccount: true } });
     await syncFunnelStepsToSalesforce(v3(), sf.api);
     expect(sf.api.createAccount).not.toHaveBeenCalled();
     expect(sf.calls.updates).toHaveLength(1);
@@ -219,7 +219,7 @@ describe("S7 — Anrede → Salutation", () => {
     expect(sf.api.createAccount).toHaveBeenCalledTimes(2);
     expect(sf.calls.accounts).toHaveLength(1);
     expect(sf.calls.accounts[0]).not.toHaveProperty("Salutation");
-    expect(sf.calls.accounts[0]).toMatchObject({ FirstName: "Gary", LastName: "Gerber" });
+    expect(sf.calls.accounts[0]).toMatchObject({ FirstName: "Max", LastName: "Mustermann" });
     expect(sf.calls.cases[0].Client__c).toBe("0011");
     expect(result.case).toEqual({ id: "500CASE" });
   });
@@ -227,7 +227,7 @@ describe("S7 — Anrede → Salutation", () => {
   it("co-borrowers and legacy payloads get no Salutation", async () => {
     const sf = fakeSalesforce();
     await syncFunnelStepsToSalesforce(
-      v3({ borrowers: [...kauf().borrowers, { id: "b2", vor: "Anna", nach: "Gerber", job: "Angestellt", pkSe: "Nein" }] }),
+      v3({ borrowers: [...kauf().borrowers, { id: "b2", vor: "Anna", nach: "Mustermann", job: "Angestellt", pkSe: "Nein" }] }),
       sf.api
     );
     expect(sf.calls.accounts).toHaveLength(2);
