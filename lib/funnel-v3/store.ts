@@ -110,6 +110,12 @@ export interface FunnelV3Actions {
   applyDocuments: (result: PrefillResult) => void;
   /** Auskunftsermächtigung: uploaded with its own button, «Später nachreichen», or undone (null). */
   setSignature: (choice: "uploaded" | "later" | null) => void;
+  /**
+   * HYPOTEQ 19.10. E.4 «Trotzdem einreichen – HYPOTEQ prüft manuell» (on) or undone (off): the copy
+   * the AI flagged counts as received, with the time of the choice. A new copy (setSignature)
+   * starts without it — a new verdict, a new decision.
+   */
+  setSignatureOverride: (on: boolean) => void;
   /** Back always, forward only to a visited step (DECISIONS D6). Returns whether it moved. */
   goto: (step: Step) => boolean;
   /** One step forward; validation is the caller's (validateStep). */
@@ -535,6 +541,18 @@ function funnelV3Creator(set: SetState, get: () => FunnelV3Store): FunnelV3Store
         }),
 
       setSignature: (choice) => set({ sig: choice ? { choice, at: new Date().toISOString(), method: "upload" } : null }),
+
+      setSignatureOverride: (on) =>
+        set((s) => {
+          if (!on) {
+            if (!s.sig?.override) return {};
+            const { override: _o, overrideAt: _at, ...rest } = s.sig;
+            return { sig: rest };
+          }
+          const now = new Date().toISOString();
+          const base = s.sig?.choice === "uploaded" ? s.sig : { choice: "uploaded" as const, at: now, method: "upload" as const };
+          return { sig: { ...base, override: true, overrideAt: now } };
+        }),
 
       goto: (step) => {
         const s = get();

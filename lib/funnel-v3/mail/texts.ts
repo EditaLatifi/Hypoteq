@@ -85,6 +85,8 @@ export interface MailTexts {
   /** Internal mail: the block title and text (DECISIONS V11 «keine Anfrage an die Bank»). */
   signTitleIntern: string;
   signIntern: string;
+  /** HYPOTEQ 19.10. E.4: submitted over the AI's verdict — the internal mail asks for the manual check. */
+  signReviewTitle: string;
   attachment: string;
   signCta: string;
   missingKunde: string;
@@ -131,6 +133,7 @@ export const MAIL_TEXTS: Record<Lang, MailTexts> = {
     signTitleIntern: "Auskunftsermächtigung ausstehend",
     // The Case JSON's note (signature.ts), word for word.
     signIntern: SIGNATURE_BANK_NOTE_DE,
+    signReviewTitle: "Auskunftsermächtigung: manuell prüfen",
     attachment: "Im Anhang: {file}",
     signCta: "Unterzeichnet hochladen",
     missingKunde: "Am einfachsten lädst du sie über deinen persönlichen Link hoch – dort siehst du nur, was noch offen ist.",
@@ -222,6 +225,7 @@ export const MAIL_TEXTS: Record<Lang, MailTexts> = {
       "The information authorisation is not signed yet. The prefilled template is attached to the confirmation sent to {name}; once signed, it is uploaded via the request's link. Without a signature no request goes to the bank.",
     signTitleIntern: "Information authorisation pending",
     signIntern: "Signature pending – no request to the bank without the signed authorisation.",
+    signReviewTitle: "Information authorisation: check manually",
     attachment: "Attached: {file}",
     signCta: "Upload signed copy",
     missingKunde: "The easiest way is to upload them via your personal link – it shows only what is still open.",
@@ -313,6 +317,7 @@ export const MAIL_TEXTS: Record<Lang, MailTexts> = {
       "L'autorisation de renseignements n'est pas encore signée. Le modèle prérempli est joint à la confirmation envoyée à {name} ; une fois signé, il se téléverse via le lien de la demande. Sans signature, aucune demande n'est transmise à la banque.",
     signTitleIntern: "Autorisation de renseignements en attente",
     signIntern: "Signature en attente – aucune demande à la banque sans autorisation signée.",
+    signReviewTitle: "Autorisation de renseignements : à vérifier manuellement",
     attachment: "En pièce jointe : {file}",
     signCta: "Téléverser le document signé",
     missingKunde: "Le plus simple est de les téléverser via votre lien personnel – vous n'y verrez que ce qui manque encore.",
@@ -404,6 +409,7 @@ export const MAIL_TEXTS: Record<Lang, MailTexts> = {
       "L'autorizzazione non è ancora firmata. Il modello precompilato è allegato alla conferma inviata a {name}; una volta firmato si carica tramite il link della richiesta. Senza firma nessuna richiesta viene inoltrata alla banca.",
     signTitleIntern: "Autorizzazione in sospeso",
     signIntern: "Firma in sospeso – nessuna richiesta alla banca senza autorizzazione firmata.",
+    signReviewTitle: "Autorizzazione: da verificare manualmente",
     attachment: "In allegato: {file}",
     signCta: "Carica il documento firmato",
     missingKunde: "Il modo più semplice è caricarli tramite il Suo link personale – vedrà solo ciò che manca ancora.",

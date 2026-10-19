@@ -86,7 +86,9 @@ function sources(x: unknown): Sources {
 
 function signature(x: unknown): SignatureState | null {
   if (!isObj(x) || (x.choice !== "uploaded" && x.choice !== "later")) return null;
-  return { choice: x.choice, at: text(x.at, 40), method: "upload" };
+  // HYPOTEQ 19.10. E.4: «Trotzdem einreichen» shows in the draft as the AI note.
+  const override = x.override === true ? { override: true as const, overrideAt: text(x.overrideAt, 40) } : {};
+  return { choice: x.choice, at: text(x.at, 40), method: "upload", ...override };
 }
 
 function borrowers(x: unknown): Borrower[] {

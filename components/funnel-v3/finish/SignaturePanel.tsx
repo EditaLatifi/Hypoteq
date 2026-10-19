@@ -27,6 +27,8 @@ export interface SignaturePanelProps {
   onRemove?: (fileId: string) => void;
   onRetry?: (fileId: string) => void;
   onToggleLater?: () => void;
+  /** HYPOTEQ 19.10. E.4: «Trotzdem einreichen – HYPOTEQ prüft manuell» and its undo. */
+  onToggleOverride?: () => void;
   /** Heading level text; defaults to «HYPOTEQ Auskunftsermächtigung · Pflicht». */
   eyebrow?: string;
 }
@@ -66,11 +68,12 @@ const TONE = {
 const ROW_TAG: Record<SignatureModel["files"][number]["state"], { key: string; tone: string }> = {
   ok: { key: "s6.badge.ok", tone: "success" },
   problem: { key: "s6.badge.open", tone: "warning" },
+  review: { key: "sig.reviewBadge", tone: "warning" },
   busy: { key: "s5.reading", tone: "neutral" },
   failed: { key: "docs.failedBadge", tone: "danger" },
 };
 
-export default function SignaturePanel({ model, t, onDownload, onPick, onRemove, onRetry, onToggleLater, eyebrow }: SignaturePanelProps) {
+export default function SignaturePanel({ model, t, onDownload, onPick, onRemove, onRetry, onToggleLater, onToggleOverride, eyebrow }: SignaturePanelProps) {
   const input = useRef<HTMLInputElement>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState(false);
@@ -183,6 +186,21 @@ export default function SignaturePanel({ model, t, onDownload, onPick, onRemove,
             </dl>
           ) : null}
         </>
+      ) : null}
+
+      {model.override && onToggleOverride ? (
+        <div style={S.later}>
+          {model.override.hint ? <span style={S.line}>{model.override.hint}</span> : null}
+          {model.override.chosen ? (
+            <button type="button" style={S.linkBtn} onClick={onToggleOverride} aria-pressed={true}>
+              {model.override.label}
+            </button>
+          ) : (
+            <button type="button" className="v3-btn" style={S.stepBtn} onClick={onToggleOverride} aria-pressed={false}>
+              {model.override.label}
+            </button>
+          )}
+        </div>
       ) : null}
 
       {model.later && onToggleLater ? (

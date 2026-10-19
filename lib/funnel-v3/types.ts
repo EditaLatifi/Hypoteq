@@ -324,6 +324,14 @@ export interface SignatureState {
   /** ISO time of the choice. */
   at: string;
   method: "upload";
+  /**
+   * HYPOTEQ 19.10. E.4: «Trotzdem einreichen – HYPOTEQ prüft manuell» — the copy on P0 is submitted
+   * although the AI found it unsigned, with another name or not the form. The AI never blocks;
+   * its assessment travels as a note (signature.ts `signatureJson`, DECISIONS V67).
+   */
+  override?: true;
+  /** ISO time of that choice. */
+  overrideAt?: string;
 }
 
 export interface FunnelState {

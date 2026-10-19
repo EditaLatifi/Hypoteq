@@ -14,6 +14,7 @@
  */
 
 import { interpolate, translate, type Params } from "../i18n";
+import { signatureReviewNote } from "../signature";
 import type { CaseSummary, SummaryBlock, SummaryRow } from "./summary";
 import { closingSubject } from "./summary";
 import { MAIL_TEXTS, type Audience, type MailTexts } from "./texts";
@@ -139,6 +140,11 @@ function nextStepHtml(s: CaseSummary, ctx: RenderContext, T: MailTexts): string 
   const t = (key: string, params?: Params) => translate(s.lang, key, params);
   const parts: string[] = [];
   const customer = s.customer.name || s.customer.email;
+  // HYPOTEQ 19.10. E.4: submitted anyway over the AI's verdict — internally only, as a note.
+  if (s.audience === "intern" && s.signature.override) {
+    const note = signatureReviewNote(s.signature.aiProblems ?? [], s.lang);
+    parts.push(callout(`<div style="font-size:15px;font-weight:700;color:${C.warn};">${esc(T.signReviewTitle)}</div><div style="font-size:14px;margin-top:6px;">${esc(note)}</div>`, C.warn));
+  }
   if (s.next.signature) {
     if (s.audience === "intern") {
       // German: signature.ts's note, the same sentence the Case JSON carries; else its translation.

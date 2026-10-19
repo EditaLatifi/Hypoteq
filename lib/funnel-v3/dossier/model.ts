@@ -27,7 +27,7 @@ import { chf, date as fmtDate, pct } from "../format";
 import { interpolate, optionLabel, translate, type Lang, type Params } from "../i18n";
 import { GROUP_ORDER, SIGNATURE_REQUIREMENT_ID, reqList, type ReqGroup, type ReqReason } from "../requirements";
 import { bankHints, requirementStatus, type BankHint, type ExtraKind, type RequirementStatus, type StatusResult, type UploadedFile } from "../requirementStatus";
-import { signatureView, type SignatureStatus } from "../signature";
+import { signatureReviewNote, signatureView, type SignatureStatus } from "../signature";
 import { KORRESPONDENZSPRACHE } from "../toInquiryPayload";
 import { EM_ROWS, isRentedNutzung, type DocInfo, type FieldPath, type FunnelState } from "../types";
 import { MAIL_TEXTS } from "../mail/texts";
@@ -241,8 +241,10 @@ export function buildDossierModel(input: DossierInput): DossierModel {
     state.sig ?? null,
     p0?.instance.person
   );
-  const sigLabel =
-    sigView.status === "received" ? V.sigReceived : sigView.status === "later" ? V.sigLater : sigView.status === "unsigned" ? V.sigUnsigned : V.sigMissing;
+  // HYPOTEQ 19.10. E.4: submitted anyway — the AI's assessment as a note for the manual check.
+  const sigLabel = sigView.override
+    ? signatureReviewNote(sigView.problems, lang)
+    : sigView.status === "received" ? V.sigReceived : sigView.status === "later" ? V.sigLater : sigView.status === "unsigned" ? V.sigUnsigned : V.sigMissing;
 
   const caseLabel = input.caseNumber || (input.draft ? T.draft : "–");
   const today = fmtDate(input.date);
@@ -447,7 +449,8 @@ export function buildDossierModel(input: DossierInput): DossierModel {
     [{ text: today, muted: true }, { text: input.draft ? T.historyDraft : d(T.historySubmitted, { case: input.caseNumber ? ` · ${input.caseNumber}` : "" }) }],
     [{ text: today, muted: true }, { text: d(T.historyFiles, { n: storedFiles.length, ok: status.counts.fulfilled, total: status.counts.total }) }],
   ];
-  if (sigView.status === "received") history.push([{ text: today, muted: true }, { text: V.historySigReceived }]);
+  if (sigView.override) history.push([{ text: today, muted: true }, { text: `${V.signature}: ${sigLabel}` }]);
+  else if (sigView.status === "received") history.push([{ text: today, muted: true }, { text: V.historySigReceived }]);
   else if (sigView.status === "later") history.push([{ text: today, muted: true }, { text: V.historySigLater }]);
   if (hints.length) history.push([{ text: today, muted: true }, { text: d(T.historyHints, { n: hints.length }) }]);
 
