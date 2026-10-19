@@ -66,6 +66,13 @@ export default function NachreichSignature({ store, missing, view, files, lang, 
     [say, store, t]
   );
 
+  // HYPOTEQ 19.10. E.4: the AI never blocks — here too the doubted copy can go to HYPOTEQ's
+  // manual check; the page posts the choice (`signatureOverride`) and the reminders stop.
+  const onToggleOverride = useCallback(() => {
+    const s = store.getState();
+    s.setSignatureOverride(!s.sig?.override);
+  }, [store]);
+
   const blank: AuthorizationData = { lang, signers: [] };
   return (
     <SignaturePanel
@@ -75,6 +82,7 @@ export default function NachreichSignature({ store, missing, view, files, lang, 
       onPick={onPick}
       onRemove={(id) => removeFile(id)}
       onRetry={(id) => void retryFile(id)}
+      onToggleOverride={onToggleOverride}
     />
   );
 }

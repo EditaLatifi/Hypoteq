@@ -266,7 +266,13 @@ export interface NachreichV3Deps {
     setInquiryFolder: CompletionDeps["db"]["setInquiryFolder"];
     updateInquiry(
       id: string,
-      data: { documentsMissing: string | null; documentsComplete: boolean; nachreichCompletedAt: Date | null }
+      data: {
+        documentsMissing: string | null;
+        documentsComplete: boolean;
+        nachreichCompletedAt: Date | null;
+        /** The stored answers with «Trotzdem einreichen» added (E.4), only when it was chosen here. */
+        v3State?: StoredV3State;
+      }
     ): Promise<void>;
   };
   /** Graph, dossier renderer, clock and log of the closing (completion.ts); its db is the one above. */
@@ -301,7 +307,8 @@ export type NachreichV3Result =
 const MAX_DOCUMENTS = 200;
 
 /**
- * Adopt, rename, recompute, report. `body` is the page's POST: `{ documents: SubmittedDocument[] }`.
+ * Adopt, rename, recompute, report. `body` is the page's POST: `{ documents: SubmittedDocument[],
+ * signatureOverride?: true }` (the second: «Trotzdem einreichen» on the Auskunftsermächtigung).
  * The caller has checked the token (rejectNachreich) and that the row is a v3 inquiry.
  */
 export async function submitV3Nachreichung(row: NachreichInquiryRow, body: any, deps?: Partial<NachreichV3Deps>): Promise<NachreichV3Result> {
@@ -371,11 +378,23 @@ export async function submitV3Nachreichung(row: NachreichInquiryRow, body: any, 
     };
   });
   const documents = [...earlier, ...freshAdopted];
+  const now = d.now();
+
+  // HYPOTEQ 19.10. E.4 on this page too: «Trotzdem einreichen – HYPOTEQ prüft manuell» over a
+  // copy the AI doubts. Honoured only with a copy that arrives now on P0 (the page posts the
+  // choice with it) and kept on the inquiry like the closing's: the page, the dossier, the Case
+  // and the reminders then agree that it is received, flagged for the manual check.
+  let sigState: StoredV3State = state;
+  if (body?.signatureOverride === true && freshAdopted.some((s) => !!s.instanceId && isSignatureRequirement(s.instanceId))) {
+    const at = now.toISOString();
+    const base = state.sig?.choice === "uploaded" ? state.sig : { choice: "uploaded" as const, at, method: "upload" as const };
+    sigState = { ...state, sig: { ...base, override: true, overrideAt: at } };
+  }
 
   // The closing of the submit, run again over every file: stored names (collision-safe,
   // numbered across old and new files), removal of new duplicates, a refreshed Fall-Dossier.
   const data: any = {
-    v3: state,
+    v3: sigState,
     locale: lang,
     documents,
     documentCompleteness: { skipped },
@@ -411,21 +430,20 @@ export async function submitV3Nachreichung(row: NachreichInquiryRow, body: any, 
   // dossier is not complete (Handover 6: «Ohne Unterschrift geht keine Anfrage an die Bank»).
   const status = v3DocumentStatus(data)!.status;
   const filesAfter: CompletedFile[] = data.v3Completion.files;
-  const sigView = serverSignatureView(state, status, filesAfter);
+  const sigView = serverSignatureView(sigState, status, filesAfter);
   const sigOpenNow = !!sigView && sigView.status !== "received";
   const open = openRequirements(status, { signatureOpen: sigOpenNow });
   const remaining = open.map((r) => r.instance.instanceId);
   const remainingLabels = open.map((r) => ({ instanceId: r.instance.instanceId, label: requirementLabel(r.instance, lang) }));
   const complete = status.completeForSalesforce && !sigOpenNow;
-  const now = d.now();
 
-  // A signed copy on P0: InquirySignature «received», the reminders stop.
+  // A signed copy on P0 (or one submitted anyway, E.4): InquirySignature «received», the reminders stop.
   if (sigView?.status === "received") {
     const signer = status.requirements.find((r) => isSignatureRequirement(r.instance))?.instance.person;
     const fresh = new Set(freshAdopted.map((s) => s.documentId));
     const onP0 = filesAfter.filter((f) => !f.removed && sigView.fileIds.includes(f.documentId));
     const good = onP0.filter((f) => !signatureProblems(f.analysis, signer).length);
-    const copy = good.find((f) => fresh.has(f.documentId)) ?? good[0] ?? onP0[0];
+    const copy = good.find((f) => fresh.has(f.documentId)) ?? good[0] ?? onP0.find((f) => fresh.has(f.documentId)) ?? onP0[0];
     if (copy) {
       try {
         const driveItemId = rowsAfter.find((r) => r.id === copy.documentId)?.driveItemId ?? null;
@@ -442,6 +460,7 @@ export async function submitV3Nachreichung(row: NachreichInquiryRow, body: any, 
       documentsComplete: complete,
       // The link dies the moment the dossier is whole (as for legacy inquiries).
       nachreichCompletedAt: complete ? now : null,
+      ...(sigState !== state ? { v3State: sigState } : {}),
     });
   } catch (err) {
     fail("store verdict", err);

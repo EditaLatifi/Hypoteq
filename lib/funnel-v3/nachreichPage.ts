@@ -10,7 +10,7 @@ import { placeAll, withPlacement, type Placement } from "./placeFile";
 import { isSignatureRequirement, type ReqState, type RequirementInstance } from "./requirements";
 import { requirementStatus, type StatusResult } from "./requirementStatus";
 import { signatureView, type SignatureView } from "./signature";
-import { DEFAULT_ANSWERS, EMPTY_TEXTS } from "./types";
+import { DEFAULT_ANSWERS, EMPTY_TEXTS, type SignatureState } from "./types";
 import { instanceFromMissing, type MissingRequirement } from "./nachreichView";
 
 /** placeAll's answer state; unused when the instances are given, as they are here. */
@@ -37,7 +37,11 @@ export interface NachreichDocuments {
 
 const pendingOf = (f: FileEntry) => f.uploadState === "uploading" || (f.uploadState === "uploaded" && (f.analysisState === "pending" || f.analysisState === "analysing"));
 
-export function nachreichDocuments(raw: FileEntry[], instances: RequirementInstance[], opts: { now?: Date } = {}): NachreichDocuments {
+/**
+ * `sig`: the page's own signature state — only ever «Trotzdem einreichen» (HYPOTEQ 19.10. E.4)
+ * over a copy uploaded here that the AI doubts; it is posted along (`signatureOverride`).
+ */
+export function nachreichDocuments(raw: FileEntry[], instances: RequirementInstance[], opts: { now?: Date; sig?: SignatureState | null } = {}): NachreichDocuments {
   const placements = placeAll(raw, NO_ANSWERS, { instances, now: opts.now });
   const files = raw.map((f) => withPlacement(f, placements.get(f.id)));
   const status = requirementStatus(instances, toUploadedFiles(files));
@@ -45,7 +49,7 @@ export function nachreichDocuments(raw: FileEntry[], instances: RequirementInsta
   const signature = p0
     ? signatureView(
         files.map((f) => ({ fileId: f.id, instanceId: f.instanceId ?? null, pending: pendingOf(f), analysis: f.analysis ?? null, assignedByUser: f.assignedByUser, failed: f.uploadState === "failed" })),
-        null,
+        opts.sig ?? null,
         p0.person
       )
     : null;

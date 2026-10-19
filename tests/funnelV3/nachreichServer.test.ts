@@ -380,6 +380,44 @@ describe("v5 inquiries: the Auskunftsermächtigung after the closing, no mail (H
     expect(w.nameOf(old.id)).toMatch(/_ZUSATZ_/);
   });
 
+  // HYPOTEQ 19.10. E.4 on the Nachreich page: the AI never blocks.
+  const doubted = () => heldRow("h-sig", "Scan 0042.pdf", analysis("vollmacht", { fields: { Unterschrift: field("fehlt"), Vollmachtgeber: field("Mustermann Max") } }), 7);
+
+  it("a doubted copy without «Trotzdem einreichen» stays open and the reminders go on", async () => {
+    const w = world(withoutSig(), [doubted()], { signature: { status: "pending", requestedAt: LATER.at, remindersSent: 0 } });
+    const res = await submitV3Nachreichung(v5Row(), sigBody, w.deps);
+    expect(res.ok).toBe(true);
+    if (!res.ok) return;
+    expect(res.remaining).toContain("vollmacht");
+    expect(w.received).toEqual([]);
+    expect(w.inquiryUpdates[0]).not.toHaveProperty("v3State");
+  });
+
+  it("a doubted copy submitted anyway: received, the choice stored, the Case flags it for the manual check", async () => {
+    const w = world(withoutSig(), [doubted()], { signature: { status: "pending", requestedAt: LATER.at, remindersSent: 1 } });
+    const res = await submitV3Nachreichung(v5Row(), { ...sigBody, signatureOverride: true }, w.deps);
+    expect(res.ok).toBe(true);
+    if (!res.ok) return;
+    expect(res.remaining).not.toContain("vollmacht");
+    expect(w.received).toEqual([{ inquiryId: INQUIRY, fileName: expect.stringMatching(/^HQ-26-10-000123_01_Auskunftsermaechtigung/), driveItemId: "item-h-sig", at: new Date("2026-10-05T12:00:00Z") }]);
+    expect(w.inquiryUpdates[0].v3State.sig).toMatchObject({ choice: "uploaded", override: true, overrideAt: "2026-10-05T12:00:00.000Z" });
+    // Read back, the page no longer asks for it.
+    const after = nachreichV3View(v5Row({ v3State: w.inquiryUpdates[0].v3State }), w.docs)!;
+    expect(after.missing.map((m) => m.instanceId)).not.toContain("vollmacht");
+    const sig = JSON.parse(w.cases[0].Dokumenten_Check_State__c).signature;
+    expect(sig).toMatchObject({ status: "uploaded", override: true, aiProblems: ["signature"], aiNote: expect.stringContaining("manuell prüfen") });
+  });
+
+  it("«Trotzdem einreichen» without a new copy on the Auskunftsermächtigung changes nothing", async () => {
+    const w = world(withoutSig(), [heldRow("h-x", "Nebenkosten.pdf", analysis("nn_nebenkosten"))], { signature: { status: "pending", requestedAt: LATER.at, remindersSent: 0 } });
+    const res = await submitV3Nachreichung(v5Row(), { documents: [{ documentId: "h-x", instanceId: null, requirementId: null, extraKind: "notneeded", keep: true }], signatureOverride: true }, w.deps);
+    expect(res.ok).toBe(true);
+    if (!res.ok) return;
+    expect(res.remaining).toContain("vollmacht");
+    expect(w.received).toEqual([]);
+    expect(w.inquiryUpdates[0]).not.toHaveProperty("v3State");
+  });
+
   it("while the signature is open the dossier is not complete, and the Case says why", async () => {
     const w = world(withoutSig(), [heldRow("h-x", "Nebenkosten.pdf", analysis("nn_nebenkosten"))], { signature: { status: "pending", requestedAt: LATER.at, remindersSent: 2 } });
     const res = await submitV3Nachreichung(v5Row(), { documents: [{ documentId: "h-x", instanceId: null, requirementId: null, extraKind: "notneeded", keep: true }] }, w.deps);

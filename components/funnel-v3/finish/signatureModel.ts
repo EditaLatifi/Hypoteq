@@ -82,13 +82,19 @@ const PROBLEM_KEY: Record<SignatureProblem, string> = {
   form: "sig.wrongForm",
 };
 
-function rowOf(f: FileEntry, overridden: boolean): SignatureFileRow {
+/**
+ * `blockOk`: the block found a good copy (received, not overridden). The row checks signature
+ * and form itself; the name needs the Kreditnehmer, so a copy with neither problem counts as
+ * good only when the block agrees — else it is the copy with another name, and «Bestätigt»
+ * beside «Name passt nicht» would contradict the block.
+ */
+function rowOf(f: FileEntry, overridden: boolean, blockOk: boolean): SignatureFileRow {
   const state: SignatureFileRow["state"] =
     f.uploadState === "failed"
       ? "failed"
       : f.uploadState === "uploading" || f.analysisState === "pending" || f.analysisState === "analysing"
         ? "busy"
-        : signatureProblems(f.analysis).length
+        : signatureProblems(f.analysis).length || !blockOk
           ? overridden
             ? "review"
             : "problem"
@@ -100,7 +106,8 @@ export function signatureModel(input: SignatureModelInput, t: T, opt: Opt): Sign
   const { view, data } = input;
   const nachreich = input.context === "nachreich";
   const overridden = view.override === true;
-  const files = input.files.filter((f) => f.instanceId && baseId(f.instanceId) === SIGNATURE_REQUIREMENT_ID).map((f) => rowOf(f, overridden));
+  const blockOk = view.status === "received" && !overridden;
+  const files = input.files.filter((f) => f.instanceId && baseId(f.instanceId) === SIGNATURE_REQUIREMENT_ID).map((f) => rowOf(f, overridden, blockOk));
   const chosenLater = input.later === true;
   const names = data.signers.map((s) => [s.vor, s.nach].filter(Boolean).join(" ")).filter(Boolean);
   const signerLine = input.jp
@@ -167,8 +174,9 @@ export function signatureModel(input: SignatureModelInput, t: T, opt: Opt): Sign
       input.later === null || view.status === "received"
         ? null
         : { chosen: chosenLater, question: t("sig.laterQ"), label: chosenLater ? t("sig.laterUndo") : t("sig.later") },
+    // Offered in the closing and on the Nachreich page alike (HYPOTEQ 19.10. E.4: never blocks).
     override:
-      nachreich || input.later === null
+      !nachreich && input.later === null
         ? null
         : overridden
           ? { chosen: true, hint: "", label: t("sig.overrideUndo") }

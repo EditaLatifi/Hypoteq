@@ -84,7 +84,9 @@ export default function NachreichV3({ token, view, copy }: { token: string; view
   useEffect(() => bindUploadPipeline(useStore, { instances: () => instances }), [useStore, instances]);
 
   const rawFiles = useStore((s) => s.files);
-  const docs = useMemo(() => nachreichDocuments(rawFiles, instances), [rawFiles, instances]);
+  // Only «Trotzdem einreichen» over a copy uploaded here ever sets it (NachreichSignature).
+  const sig = useStore((s) => s.sig);
+  const docs = useMemo(() => nachreichDocuments(rawFiles, instances, { sig }), [rawFiles, instances, sig]);
   const { files, placements, status, busy } = docs;
   const byId = useMemo(() => new Map(files.map((f) => [f.id, f])), [files]);
   const statusById = useMemo(() => new Map(status.requirements.map((r) => [r.instance.instanceId, r])), [status]);
@@ -143,7 +145,7 @@ export default function NachreichV3({ token, view, copy }: { token: string; view
       const res = await fetch(`/api/nachreichen/${encodeURIComponent(token)}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ documents, locale: lang }),
+        body: JSON.stringify({ documents, locale: lang, signatureOverride: useStore.getState().sig?.override === true }),
       });
       const json = await res.json().catch(() => null);
       if (!res.ok || !json?.ok) throw new Error(json?.error || json?.reason || `HTTP ${res.status}`);

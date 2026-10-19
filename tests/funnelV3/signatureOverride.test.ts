@@ -114,8 +114,29 @@ describe("the closing block (SignatureBlock / signatureModel)", () => {
     expect(m.files).toEqual([{ id: "sig-1", name: "Scan.jpg", state: "review" }]);
   });
 
-  it("not on the Nachreich page", () => {
-    expect(model(UPLOADED, "nachreich").override).toBeNull();
+  it("a signed copy with another name is no «Bestätigt» row while the block says «Name passt nicht»", () => {
+    const wrongNameAnalysis = { ...unsignedAnalysis, fields: { Unterschrift: { value: "vorhanden", confidence: 0.9 }, Vollmachtgeber: { value: "Hans Anders", confidence: 0.9 } } };
+    const wrongFiles: FileEntry[] = [{ ...files[0], analysis: wrongNameAnalysis as any }];
+    const wrongFile: SignatureFile = { ...unsignedFile, analysis: wrongNameAnalysis as any };
+    const m = (sig: SignatureState) =>
+      signatureModel({ view: signatureView([wrongFile], sig, SIGNER), files: wrongFiles, later: false, data: authorizationDataFromState(kaufState(), "de"), jp: false }, t, opt);
+    expect(m(UPLOADED).files).toEqual([{ id: "sig-1", name: "Scan.jpg", state: "problem" }]);
+    expect(m(OVERRIDE).files).toEqual([{ id: "sig-1", name: "Scan.jpg", state: "review" }]);
+    // A good copy stays «Bestätigt».
+    const goodAnalysis = { ...wrongNameAnalysis, fields: { Unterschrift: { value: "vorhanden", confidence: 0.9 }, Vollmachtgeber: { value: "Lea Muster", confidence: 0.9 } } };
+    const good = signatureModel(
+      { view: signatureView([{ ...unsignedFile, analysis: goodAnalysis as any }], UPLOADED, SIGNER), files: [{ ...files[0], analysis: goodAnalysis as any }], later: false, data: authorizationDataFromState(kaufState(), "de"), jp: false },
+      t,
+      opt
+    );
+    expect(good.files).toEqual([{ id: "sig-1", name: "Scan.jpg", state: "ok" }]);
+  });
+
+  it("on the Nachreich page as well, and chosen there the copy is received for the manual check", () => {
+    expect(model(UPLOADED, "nachreich").override).toEqual({ chosen: false, hint: expect.stringContaining("nur ein Hinweis"), label: "Trotzdem einreichen – HYPOTEQ prüft manuell" });
+    const m = model(OVERRIDE, "nachreich");
+    expect(m).toMatchObject({ title: "Wird von HYPOTEQ manuell geprüft", later: null });
+    expect(m.override).toEqual({ chosen: true, hint: "", label: "Doch nicht so einreichen" });
   });
 
   it("in all four languages", () => {
@@ -175,6 +196,15 @@ describe("after the submit", () => {
     const plain = fakeSalesforce();
     await syncFunnelStepsToSalesforce(unsignedPayload(UPLOADED), plain.api);
     expect(JSON.parse(plain.cases[0].Dokumenten_Check_State__c).signature).toMatchObject({ status: "unsigned" });
+  });
+
+  it("the AI note is also in the Case's Comments, where someone opening the Case reads it", async () => {
+    const sf = fakeSalesforce();
+    await syncFunnelStepsToSalesforce(unsignedPayload(OVERRIDE), sf.api);
+    expect(sf.cases[0].Comments).toContain(`Auskunftsermächtigung trotzdem eingereicht – ${NOTE}`);
+    const plain = fakeSalesforce();
+    await syncFunnelStepsToSalesforce(unsignedPayload(UPLOADED), plain.api);
+    expect(String(plain.cases[0].Comments ?? "")).not.toContain("trotzdem eingereicht");
   });
 
   it("recordSignatureAtSubmit gets «uploaded»: the row is received, no reminders follow", async () => {

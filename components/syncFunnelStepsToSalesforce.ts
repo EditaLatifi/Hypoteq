@@ -17,6 +17,22 @@ const HYPOTEQ_ACCOUNT_NAME = process.env.HYPOTEQ_ACCOUNT_NAME || 'HYPOTEQ AG';
 export const NEW_PARTNER_NOTE = 'Neuer Partner – bitte prüfen und anlegen';
 export const PARTNER_CHECK_FAILED_NOTE = 'Partner konnte nicht geprüft werden – bitte prüfen';
 
+/**
+ * The Comments line for an Auskunftsermächtigung submitted anyway over the AI's verdict
+ * (HYPOTEQ 19.10. E.4): «Auskunftsermächtigung trotzdem eingereicht – AI-Hinweis: … – manuell
+ * prüfen», read from the signature block of Dokumenten_Check_State__c. Null otherwise.
+ */
+export function signatureCaseNote(checkState: unknown): string | null {
+  if (typeof checkState !== 'string') return null;
+  try {
+    const sig = JSON.parse(checkState)?.signature;
+    if (sig?.override !== true || typeof sig.aiNote !== 'string' || !sig.aiNote.trim()) return null;
+    return `Auskunftsermächtigung trotzdem eingereicht – ${sig.aiNote.trim()}`;
+  } catch {
+    return null;
+  }
+}
+
 function prependComment(caseData: Record<string, any>, note: string) {
   const existing = typeof caseData['Comments'] === 'string' ? caseData['Comments'].trim() : '';
   caseData['Comments'] = existing ? `${note}\n\n${existing}` : note;
@@ -1347,6 +1363,10 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
         v3Fields.Dokumenten_Check_State__c = withV5CheckStateBlocks(v3Fields.Dokumenten_Check_State__c, v5CheckStateBlocks(v3State, v3Calc));
       }
       Object.assign(caseData, v3Fields);
+      // HYPOTEQ 19.10. E.4: «die AI-Einschätzung nur als Hinweis am Case vermerken» — beside the
+      // JSON, where someone opening the Case reads it.
+      const sigNote = signatureCaseNote(v3Fields.Dokumenten_Check_State__c);
+      if (sigNote) prependComment(caseData, sigNote);
       console.log(`[Salesforce Sync] v3 documents: complete=${v3Fields.Documents_completed__c}, folder=${v3Fields.SharePoint_Doc__c ? 'yes' : 'no'}`);
     }
   }
