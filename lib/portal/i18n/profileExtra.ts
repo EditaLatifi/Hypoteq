@@ -45,7 +45,7 @@ const de = {
     iban: "IBAN",
     partnerNr: "Partner-Nr.",
     requestChange: "Änderung beantragen",
-    note: "Partnerdaten werden in Salesforce geführt und lassen sich hier nicht direkt bearbeiten. Beantragen Sie eine Änderung – wir prüfen und übernehmen sie innert 2 Arbeitstagen.",
+    note: "Partnerdaten werden in Salesforce geführt und lassen sich hier nicht direkt bearbeiten. Beantragen Sie eine Änderung – wir prüfen und übernehmen sie; den Stand sehen Sie unter «Änderungsanträge».",
     loadError: "Die Partnerdaten konnten gerade nicht aus Salesforce geladen werden. Angezeigt werden die bei der Einladung übernommenen Angaben.",
   },
   change: {
@@ -68,7 +68,7 @@ const de = {
     } as Record<string, string>,
     listTitle: "Änderungsanträge",
     status: { in_pruefung: "In Prüfung", uebernommen: "Übernommen", abgelehnt: "Abgelehnt" } as Record<string, string>,
-    sent: (nr: string) => `Antrag ${nr} gesendet. Wir melden uns innert 2 Arbeitstagen.`,
+    sent: (nr: string) => `Antrag ${nr} gesendet. Den Stand sehen Sie unter «Änderungsanträge».`,
     err: {
       field: "Bitte wählen Sie, was geändert werden soll.",
       empty: "Bitte geben Sie den neuen Wert ein.",
@@ -144,7 +144,7 @@ const en: ProfileExtra = {
     iban: "IBAN",
     partnerNr: "Partner no.",
     requestChange: "Request a change",
-    note: "Partner data is kept in Salesforce and cannot be edited here directly. Request a change – we review it and apply it within 2 working days.",
+    note: "Partner data is kept in Salesforce and cannot be edited here directly. Request a change – we review and apply it; you can follow it under «Change requests».",
     loadError: "The partner data could not be loaded from Salesforce just now. Shown are the details taken over at the invitation.",
   },
   change: {
@@ -167,7 +167,7 @@ const en: ProfileExtra = {
     },
     listTitle: "Change requests",
     status: { in_pruefung: "Under review", uebernommen: "Applied", abgelehnt: "Declined" },
-    sent: (nr) => `Request ${nr} sent. We will get back to you within 2 working days.`,
+    sent: (nr) => `Request ${nr} sent. You can follow it under «Change requests».`,
     err: {
       field: "Please choose what should be changed.",
       empty: "Please enter the new value.",
@@ -241,7 +241,7 @@ const fr: ProfileExtra = {
     iban: "IBAN",
     partnerNr: "N° de partenaire",
     requestChange: "Demander une modification",
-    note: "Les données partenaire sont gérées dans Salesforce et ne peuvent pas être modifiées ici directement. Demandez une modification – nous la vérifions et l'appliquons dans les 2 jours ouvrables.",
+    note: "Les données partenaire sont gérées dans Salesforce et ne peuvent pas être modifiées ici directement. Demandez une modification – nous la vérifions et l'appliquons ; vous en suivez l'état sous «Demandes de modification».",
     loadError: "Les données partenaire n'ont pas pu être chargées depuis Salesforce. Les informations reprises lors de l'invitation sont affichées.",
   },
   change: {
@@ -264,7 +264,7 @@ const fr: ProfileExtra = {
     },
     listTitle: "Demandes de modification",
     status: { in_pruefung: "En vérification", uebernommen: "Appliquée", abgelehnt: "Refusée" },
-    sent: (nr) => `Demande ${nr} envoyée. Nous vous répondons dans les 2 jours ouvrables.`,
+    sent: (nr) => `Demande ${nr} envoyée. Vous en suivez l'état sous «Demandes de modification».`,
     err: {
       field: "Veuillez choisir ce qu'il faut modifier.",
       empty: "Veuillez saisir la nouvelle valeur.",
@@ -338,7 +338,7 @@ const it: ProfileExtra = {
     iban: "IBAN",
     partnerNr: "N. partner",
     requestChange: "Richiedi una modifica",
-    note: "I dati del partner sono gestiti in Salesforce e non possono essere modificati qui direttamente. Richieda una modifica – la verifichiamo e la applichiamo entro 2 giorni lavorativi.",
+    note: "I dati del partner sono gestiti in Salesforce e non possono essere modificati qui direttamente. Richieda una modifica – la verifichiamo e la applichiamo; lo stato è visibile sotto «Richieste di modifica».",
     loadError: "Non è stato possibile caricare i dati del partner da Salesforce. Sono mostrati i dati ripresi al momento dell'invito.",
   },
   change: {
@@ -361,7 +361,7 @@ const it: ProfileExtra = {
     },
     listTitle: "Richieste di modifica",
     status: { in_pruefung: "In verifica", uebernommen: "Applicata", abgelehnt: "Respinta" },
-    sent: (nr) => `Richiesta ${nr} inviata. Le rispondiamo entro 2 giorni lavorativi.`,
+    sent: (nr) => `Richiesta ${nr} inviata. Lo stato è visibile sotto «Richieste di modifica».`,
     err: {
       field: "Scelga che cosa va modificato.",
       empty: "Inserisca il nuovo valore.",
