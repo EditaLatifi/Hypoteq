@@ -30,9 +30,10 @@ import {
  *
  * Every partner-facing Case query is scoped to the logged-in partner's Contact on the
  * server; a Case Id from the URL is only ever used together with that scope, so a partner
- * cannot read a Case by guessing its Id. The only writes are a CaseComment when a partner
- * sends a message, the document flags after an upload (via updateCaseCompleteness), and
- * the partner assignment an admin makes.
+ * cannot read a Case by guessing its Id. The writes are the Tasks of a partner's message
+ * and support report (lib/portal/caseMessage.ts, supportServer.ts; a CaseComment only when a
+ * Task is refused), the document flags after an upload (via updateCaseCompleteness), and the
+ * partner assignment an admin makes.
  */
 
 const SF_ID = /^[a-zA-Z0-9]{15}([a-zA-Z0-9]{3})?$/;
@@ -804,7 +805,7 @@ export async function portalFieldReport(scope: PartnerScope): Promise<PortalFiel
 // Writes
 // ---------------------------------------------------------------------------
 
-/** Post a partner's message to the Case as an internal CaseComment. */
+/** Post a partner's message to the Case as an internal CaseComment (fallback when its Task is refused). */
 export async function addCaseComment(caseId: string, body: string): Promise<void> {
   if (!isSalesforceId(caseId)) return;
   await withSession(() => (conn.sobject("CaseComment") as any).create({ ParentId: caseId, CommentBody: body.slice(0, 4000), IsPublished: false }));

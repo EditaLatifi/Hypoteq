@@ -14,13 +14,13 @@ import {
   adminEmails,
   isPlausibleEmail,
   normalizeEmail,
-  teamAddress,
 } from "@/lib/portal/config";
 import { hashPassword, passwordProblem, verifyPassword } from "@/lib/portal/crypto";
 import { isLocale } from "@/lib/portal/i18n/dict";
 import { LOCALE_COOKIE, getDict } from "@/lib/portal/i18n/server";
 import { sendInviteMail, sendMagicLinkMail, sendResetMail, sendTeamMail } from "@/lib/portal/mail";
-import { addCaseComment, getContact, getPartnerCase, isSalesforceId, portalAccessRefused } from "@/lib/portal/salesforce";
+import { deliverCaseMessage } from "@/lib/portal/caseMessage";
+import { getContact, getPartnerCase, isSalesforceId, portalAccessRefused } from "@/lib/portal/salesforce";
 import {
   createSession,
   destroySession,
@@ -302,29 +302,18 @@ export async function sendMessageAction(_prev: FormState, fd: FormData): Promise
   await prisma.portalMessage.create({ data: { userId: user.id, caseId: c.id, body } });
   await audit({ action: "message_sent", actorId: user.id, actorEmail: user.email, target: c.nr, ip: requestIp() });
 
-  const who = `${user.name || user.email}${user.company ? ` (${user.company})` : ""}`;
-  let delivered = false;
-  try {
-    await addCaseComment(c.id, `[Partnerportal] ${who}:\n\n${body}`);
-    delivered = true;
-  } catch (err) {
-    console.error("[portal] CaseComment failed (mail still goes out)", err);
-  }
-  try {
-    // To the configured HYPOTEQ address the Case page names (DECISIONS P4), the Case owner
-    // in copy so the message still reaches the person working on it.
-    await sendTeamMail({
-      to: teamAddress(),
-      cc: c.ownerEmail ? [c.ownerEmail] : [],
-      subject: `Partnerportal: Nachricht zu ${c.nr} (${c.kunde})`,
-      lines: [`${who} schreibt zu Case ${c.nr} · ${c.kunde}:`, body, `Antwort bitte direkt an ${user.email}.`],
-      origin: requestOrigin(),
-    });
-    delivered = true;
-  } catch (err) {
-    console.error("[portal] message mail failed", err);
-  }
-  if (!delivered) return { error: t.errors.messageFailed };
+  // Mail to info@hypoteq.ch (Reply-To the partner, Case owner in copy) and a completed Task on
+  // the Case, in parallel (B22, DECISIONS P25).
+  const res = await deliverCaseMessage({
+    caseId: c.id,
+    nr: c.nr,
+    kunde: c.kunde,
+    ownerEmail: c.ownerEmail,
+    body,
+    author: { name: user.name, email: user.email, company: user.company },
+    origin: requestOrigin(),
+  });
+  if (!res.mailed && !res.taskId && !res.comment) return { error: t.errors.messageFailed };
   revalidatePath(`/portal/cases/${c.id}`);
   return { ok: t.caseDetail.messageSent };
 }

@@ -1,7 +1,7 @@
 import { Client } from "@microsoft/microsoft-graph-client";
 import { ClientSecretCredential } from "@azure/identity";
 import "isomorphic-fetch";
-import { mailFromAddress, teamAddress } from "@/lib/portal/config";
+import { isPlausibleEmail, mailFromAddress, teamAddress } from "@/lib/portal/config";
 import { DICTS, isLocale, type Dict } from "@/lib/portal/i18n/dict";
 
 /**
@@ -63,23 +63,36 @@ function layout(p: { lang: string; t: Dict; origin: string; heading: string; par
 </body></html>`;
 }
 
-async function send(to: string, subject: string, html: string, devLink: string, cc: string[] = []): Promise<void> {
+type Outgoing = {
+  to: string;
+  subject: string;
+  html: string;
+  /** What a developer without Graph needs from the mail (its link). */
+  devLink: string;
+  cc?: string[];
+  /** Where «Antworten» goes, e.g. the partner who wrote (B22). Ignored unless an e-mail address. */
+  replyTo?: string | null;
+};
+
+async function send(m: Outgoing): Promise<void> {
   const client = getGraphMailClient();
   if (!client) {
     if (process.env.NODE_ENV !== "production") {
       // Local development without Graph: the link is the only thing a developer needs.
-      console.log(`[portal] Graph mail disabled — would send "${subject}" to ${to}:\n  ${devLink}`);
+      console.log(`[portal] Graph mail disabled — would send "${m.subject}" to ${m.to}:\n  ${m.devLink}`);
       return;
     }
     throw new Error("Portal mail cannot be sent: Microsoft Graph is not configured");
   }
-  const copies = cc.filter((a) => a && a.toLowerCase() !== to.toLowerCase());
+  const copies = (m.cc || []).filter((a) => a && a.toLowerCase() !== m.to.toLowerCase());
+  const replyTo = m.replyTo && isPlausibleEmail(m.replyTo.trim()) ? m.replyTo.trim() : null;
   await client.api(`/users/${mailFromAddress()}/sendMail`).post({
     message: {
-      subject,
-      body: { contentType: "HTML", content: html },
-      toRecipients: [{ emailAddress: { address: to } }],
+      subject: m.subject,
+      body: { contentType: "HTML", content: m.html },
+      toRecipients: [{ emailAddress: { address: m.to } }],
       ...(copies.length ? { ccRecipients: copies.map((address) => ({ emailAddress: { address } })) } : {}),
+      ...(replyTo ? { replyTo: [{ emailAddress: { address: replyTo } }] } : {}),
     },
     saveToSentItems: true,
   });
@@ -98,7 +111,7 @@ export async function sendInviteMail(p: { to: string; name: string | null; compa
     url,
     footnote: t.mail.inviteFoot,
   });
-  await send(p.to, t.mail.inviteSubject, html, url);
+  await send({ to: p.to, subject: t.mail.inviteSubject, html, devLink: url });
 }
 
 export async function sendResetMail(p: { to: string; name: string | null; origin: string; token: string; locale: string | null }) {
@@ -114,7 +127,7 @@ export async function sendResetMail(p: { to: string; name: string | null; origin
     url,
     footnote: t.mail.resetFoot,
   });
-  await send(p.to, t.mail.resetSubject, html, url);
+  await send({ to: p.to, subject: t.mail.resetSubject, html, devLink: url });
 }
 
 export async function sendMagicLinkMail(p: { to: string; name: string | null; origin: string; token: string; locale: string | null }) {
@@ -130,7 +143,7 @@ export async function sendMagicLinkMail(p: { to: string; name: string | null; or
     url,
     footnote: t.mail.magicFoot,
   });
-  await send(p.to, t.mail.magicSubject, html, url);
+  await send({ to: p.to, subject: t.mail.magicSubject, html, devLink: url });
 }
 
 /** Case update to a partner: customer name and action only, details behind the login. */
@@ -157,11 +170,14 @@ export async function sendNotificationMail(p: {
     url,
     footnote: t.mail.notifFoot,
   });
-  await send(p.to, t.mail.notifSubject(p.kunde), html, url);
+  await send({ to: p.to, subject: t.mail.notifSubject(p.kunde), html, devLink: url });
 }
 
-/** Internal mail to the HYPOTEQ team (the Case owner, or PORTAL_TEAM_EMAIL). Always German. */
-export async function sendTeamMail(p: { to: string | null; cc?: string[]; subject: string; lines: string[]; origin: string; link?: string }) {
+/**
+ * Internal mail to the HYPOTEQ team (info@hypoteq.ch unless `to` says otherwise). Always German.
+ * `replyTo`: the partner, so «Antworten» reaches them directly.
+ */
+export async function sendTeamMail(p: { to: string | null; cc?: string[]; replyTo?: string | null; subject: string; lines: string[]; origin: string; link?: string }) {
   const to = p.to || teamAddress();
   const html = `<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8" /></head>
 <body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;color:#132219;padding:16px;">
@@ -169,5 +185,5 @@ export async function sendTeamMail(p: { to: string | null; cc?: string[]; subjec
   ${p.lines.map((l) => `<p style="font-size:15px;line-height:1.5;margin:0 0 10px;white-space:pre-wrap;">${esc(l)}</p>`).join("")}
   ${p.link ? `<p style="margin-top:16px;"><a href="${esc(p.link)}">${esc(p.link)}</a></p>` : ""}
 </body></html>`;
-  await send(to, p.subject, html, p.link || "", p.cc);
+  await send({ to, subject: p.subject, html, devLink: p.link || "", cc: p.cc, replyTo: p.replyTo });
 }
