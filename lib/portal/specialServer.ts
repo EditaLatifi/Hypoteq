@@ -24,6 +24,7 @@ import {
   createSpecialCase,
   partnerLabel,
   specialCaseFields,
+  specialQueueName,
   specialSubject,
   type SpecialCaseResult,
 } from "@/lib/portal/specialSalesforce";
@@ -121,6 +122,9 @@ export function specialTeamMail(p: SpecialMailInput): { subject: string; lines: 
         r.recordType === "default" ? ", mit dem Standard-RecordType (RecordType «Spezialfinanzierung» nicht verfügbar)" : ""
       }.`
     );
+    if (r.owner === "default" && specialQueueName()) {
+      lines.push("ACHTUNG: Die Queue «Spezialfinanzierung» konnte nicht als Owner gesetzt werden. Bitte den Case der Queue zuweisen.");
+    }
     if (!r.linked) {
       lines.push(`ACHTUNG: Der Partner konnte nicht auf dem Case eingetragen werden (${partnerCaseField()}). Bitte von Hand zuordnen, sonst sieht er den Case im Portal nicht.`);
     }

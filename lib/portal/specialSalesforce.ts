@@ -9,8 +9,9 @@ import { parseEigenmittel, specialRef, summaryRows, type ValidSpecialAnswers } f
  *
  * The Case belongs to the partner the way a funnel Case does: their Contact in
  * Partner_Consultant__c (what the portal's scope reads), their company in the Sales
- * Partner field. RecordType «Spezialfinanzierung» when the org has one the integration
- * user may use, otherwise the default record type — the Subject says what it is either way.
+ * Partner field. RecordType `Case.Spezialfinanzierung` and the queue «Spezialfinanzierung» as
+ * owner (HYPOTEQ 19.10.2026 B21 / D.2), both resolved at runtime; without them the default
+ * record type and owner — the Subject says what it is either way.
  * No customer Account is created: the wizard has too little for one (no e-mail, no birth
  * date); HYPOTEQ creates it when it takes the Case on. Texts are German, like every other
  * internal record.
@@ -93,6 +94,48 @@ export async function specialRecordTypeId(api: SpecialSfApi = liveSfApi, now = D
   return id;
 }
 
+/**
+ * Name or DeveloperName of the Case queue that owns special financings (HYPOTEQ 19.10.2026
+ * B21 / D.2: «Spezialfinanzierung», with e-mail to its members). "off" leaves the owner to the
+ * org's default. PORTAL_SF_SPECIAL_OWNER_ID (a User or queue Id) still wins over it.
+ */
+export function specialQueueName(): string | null {
+  const v = (process.env.PORTAL_SF_SPECIAL_QUEUE || "Spezialfinanzierung").trim();
+  return v && v.toLowerCase() !== "off" ? v : null;
+}
+
+let queueCache: { id: string | null; at: number } | null = null;
+
+export function resetSpecialQueueCache(): void {
+  queueCache = null;
+}
+
+/**
+ * Id of the «Spezialfinanzierung» queue, or null (then the org's default owner). Looked up at
+ * runtime — `Group WHERE Type = 'Queue'` by DeveloperName or Name — and cached like the record
+ * type: a hit for the life of the instance, a miss for ten minutes, a failure not at all.
+ */
+export async function specialQueueId(api: SpecialSfApi = liveSfApi, now = Date.now()): Promise<string | null> {
+  const name = specialQueueName();
+  if (!name) return null;
+  if (queueCache && (queueCache.id || now - queueCache.at < MISS_TTL_MS)) return queueCache.id;
+  const devName = name.replace(/[^A-Za-z0-9]+/g, "_").replace(/^_+|_+$/g, "");
+  let id: string | null = null;
+  try {
+    const rows = await api.query(
+      `SELECT Id, DeveloperName, Name FROM Group WHERE Type = 'Queue' AND (DeveloperName = ${soqlString(devName)} OR Name = ${soqlString(name)}) LIMIT 1`
+    );
+    id = isSalesforceId(rows[0]?.Id) ? rows[0].Id : null;
+    if (!id) console.warn(`[portal] no Case queue «${name}»; special financings keep the default owner`);
+  } catch (err) {
+    // Not cached: the next request asks again.
+    console.error("[portal] queue lookup failed; using the default owner", err);
+    return null;
+  }
+  queueCache = { id, at: now };
+  return id;
+}
+
 export type SpecialCaseInput = {
   requestId: string;
   answers: ValidSpecialAnswers;
@@ -101,6 +144,16 @@ export type SpecialCaseInput = {
   fileNames: string[];
   folderUrl: string | null;
 };
+
+/**
+ * Case_Name__c, required on every Case (D.4): «{Kunde} – {PLZ/Ort}» from the wizard's
+ * Wohnort/Sitz, or «{Kunde}» alone when the partner left it empty (DECISIONS P33).
+ */
+export function specialCaseName(a: Pick<ValidSpecialAnswers, "kunde" | "ort">): string {
+  const kunde = a.kunde.replace(/\s+/g, " ").trim();
+  const ort = (a.ort || "").replace(/\s+/g, " ").trim();
+  return (ort ? `${kunde} – ${ort}` : kunde).slice(0, 255);
+}
 
 export function specialSubject(a: ValidSpecialAnswers): string {
   return `Spezialfinanzierung · ${special.de.types[a.type].short} – ${a.kunde}`.slice(0, 255);
@@ -134,8 +187,8 @@ export function specialCaseFields(p: SpecialCaseInput): Record<string, unknown> 
   const fields: Record<string, unknown> = {
     Subject: specialSubject(a),
     Description: specialDescription(p),
-    // Shown as the customer in the portal while the Case has no customer Account.
-    Case_Name__c: a.kunde.slice(0, 255),
+    // Required (D.4); shown as the customer in the portal while the Case has no customer Account.
+    Case_Name__c: specialCaseName(a),
     Status: "New",
     Stage__c: "Needs Analysis",
     Gesch_tzter_Hypothekenbedarf__c: p.amount,
@@ -154,39 +207,57 @@ export type SpecialCaseResult = {
   caseId: string;
   caseNr: string | null;
   recordType: "special" | "default";
+  /** Who owns the Case: the «Spezialfinanzierung» queue, PORTAL_SF_SPECIAL_OWNER_ID, or the org's default. */
+  owner: "queue" | "configured" | "default";
   /** Fields Salesforce did not take (dropped or truncated). */
   dropped: string[];
   /** False when the partner lookup did not make it onto the Case: the partner cannot see it. */
   linked: boolean;
 };
 
-/** Create the Case. Throws when Salesforce refuses it; the caller keeps the request. */
+/**
+ * Create the Case: with the «Spezialfinanzierung» record type and the queue of the same name
+ * as owner (B21 / D.2), both found at runtime. A record type or queue the org refuses must not
+ * cost the Case (DECISIONS P5): the create is retried without the queue, then without the
+ * record type. Throws only when Salesforce refuses the Case itself; the caller keeps the request.
+ */
 export async function createSpecialCase(fields: Record<string, unknown>, api: SpecialSfApi = liveSfApi): Promise<SpecialCaseResult> {
-  const rt = await specialRecordTypeId(api);
-  let res: { id: string | null };
-  let usedRecordType = !!rt;
-  try {
-    res = await api.createCase(rt ? { ...fields, RecordTypeId: rt } : { ...fields });
-  } catch (err) {
-    if (!rt) throw err;
-    // A record type the org refuses for this user must not cost the Case (DECISIONS P5).
-    console.warn("[portal] Case create with the special record type failed; retrying with the default", err);
-    api.dropped();
-    usedRecordType = false;
-    res = await api.createCase({ ...fields });
+  const configuredOwner = isSalesforceId(fields.OwnerId as string | undefined);
+  const [rt, queue] = await Promise.all([specialRecordTypeId(api), configuredOwner ? Promise.resolve(null) : specialQueueId(api)]);
+
+  const attempts: { record: Record<string, unknown>; rt: boolean; queue: boolean }[] = [];
+  if (rt && queue) attempts.push({ record: { ...fields, RecordTypeId: rt, OwnerId: queue }, rt: true, queue: true });
+  if (rt) attempts.push({ record: { ...fields, RecordTypeId: rt }, rt: true, queue: false });
+  if (!rt && queue) attempts.push({ record: { ...fields, OwnerId: queue }, rt: false, queue: true });
+  attempts.push({ record: { ...fields }, rt: false, queue: false });
+
+  let res: { id: string | null } | null = null;
+  let used = attempts[attempts.length - 1];
+  for (let i = 0; i < attempts.length; i++) {
+    try {
+      res = await api.createCase(attempts[i].record);
+      used = attempts[i];
+      break;
+    } catch (err) {
+      if (i === attempts.length - 1) throw err;
+      console.warn(`[portal] Case create ${attempts[i].queue ? "with the queue as owner" : "with the special record type"} failed; retrying without it`, err);
+      api.dropped();
+    }
   }
   const dropped = api.dropped();
-  if (!isSalesforceId(res.id)) throw new Error("Salesforce returned no Case Id");
-  if (dropped.some((d) => d.startsWith("Case.RecordTypeId "))) usedRecordType = false;
-
-  const linked = !dropped.some((d) => d.startsWith(`Case.${partnerCaseField()} `));
+  const caseId = res?.id;
+  if (!isSalesforceId(caseId)) throw new Error("Salesforce returned no Case Id");
+  const lost = (field: string) => dropped.some((d) => d.startsWith(`Case.${field} `));
+  const recordType = used.rt && !lost("RecordTypeId") ? "special" : "default";
+  const owner = lost("OwnerId") ? "default" : used.queue ? "queue" : configuredOwner ? "configured" : "default";
+  const linked = !lost(partnerCaseField());
 
   let caseNr: string | null = null;
   try {
-    const rows = await api.query(`SELECT CaseNumber FROM Case WHERE Id = ${soqlString(res.id)} LIMIT 1`);
+    const rows = await api.query(`SELECT CaseNumber FROM Case WHERE Id = ${soqlString(caseId)} LIMIT 1`);
     caseNr = rows[0]?.CaseNumber ?? null;
   } catch (err) {
     console.error("[portal] reading the new CaseNumber failed", err);
   }
-  return { caseId: res.id, caseNr, recordType: usedRecordType ? "special" : "default", dropped, linked };
+  return { caseId, caseNr, recordType, owner, dropped, linked };
 }

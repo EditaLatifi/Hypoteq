@@ -60,7 +60,7 @@ const DRAFT_ID = "3f9a1c2b-0000-4000-8000-000000000000";
 const CASE_ID = "500DDDDDDDDDDDDDDD";
 const CTX = { origin: "https://www.hypoteq.ch", ip: "1.2.3.4" };
 const FILE = { fileName: "Baubewilligung.pdf", driveItemId: "01ABCDEFGH", webUrl: "https://sp/file", size: 1234 };
-const OK_CASE = { caseId: CASE_ID, caseNr: "00001422", recordType: "special", dropped: [], linked: true };
+const OK_CASE = { caseId: CASE_ID, caseNr: "00001422", recordType: "special", owner: "queue", dropped: [], linked: true };
 
 beforeEach(() => {
   jest.clearAllMocks();
@@ -208,5 +208,12 @@ describe("specialTeamMail", () => {
     expect(m.lines[1]).toBe("Salesforce-Case 00001422 wurde angelegt, mit dem Standard-RecordType (RecordType «Spezialfinanzierung» nicht verfügbar).");
     expect(m.lines.join("\n")).toContain("Keine Dokumente hochgeladen.");
     expect(m.lines[m.lines.length - 1]).toBe("Antwort bitte direkt an d.meier@meier-finanz.ch.");
+  });
+
+  it("asks to assign the Case to the queue when Salesforce would not take it as owner (B21)", () => {
+    const withQueue = specialTeamMail({ requestId: DRAFT_ID, answers: ANSWERS, partner: USER, files: [], result: OK_CASE as any, sfError: null });
+    expect(withQueue.lines.join("\n")).not.toContain("Queue");
+    const without = specialTeamMail({ requestId: DRAFT_ID, answers: ANSWERS, partner: USER, files: [], result: { ...OK_CASE, owner: "default" } as any, sfError: null });
+    expect(without.lines.join("\n")).toContain("Die Queue «Spezialfinanzierung» konnte nicht als Owner gesetzt werden.");
   });
 });
