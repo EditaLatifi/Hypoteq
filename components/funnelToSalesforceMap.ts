@@ -27,7 +27,9 @@ export const funnelToSalesforceMap = {
   reserviert: { salesforceField: "Ist_die_Liegenschaft_bereits_reserviert__c", salesforceObject: "case" },
 
   renovation: { salesforceField: "Gibt_es_Renovationen_oder_Zusatzkosten__c", salesforceObject: "case" },
-  renovationsBetrag: { salesforceField: "Betrag__c", salesforceObject: "case" },
+  // HYPOTEQ 19.10. B4: its own Currency field — «Betrag__c nicht verwenden». Only sent with
+  // Renovation = Ja (the sync skips it otherwise).
+  renovationsBetrag: { salesforceField: "Renovationsbetrag__c", salesforceObject: "case" },
 
   // Financing fields
   finanzierungsangebote: { salesforceField: "Bestehen_bereits_Finanzierungsangebote__c", salesforceObject: "case" },
@@ -41,9 +43,10 @@ export const funnelToSalesforceMap = {
   eigenmittel_saeule3: { salesforceField: "X3_Saeule__c", salesforceObject: "case" },
   eigenmittel_pk: { salesforceField: "PK_Betrag__c", salesforceObject: "case" },
   // Carries Schenkung + Erbvorbezug/Erbschaft: the sync folds eigenmittel_erbschaft into this
-  // value before mapping, as Case has no field of its own for it. eigenmittel_darlehen has
-  // no Case field and is not equity — it is deliberately not mapped.
+  // value before mapping, as Case has no field of its own for it.
   eigenmittel_schenkung: { salesforceField: "Schenkung_usw__c", salesforceObject: "case" },
+  // HYPOTEQ 19.10. D.1: the Darlehen has its own Currency field now (it used to be JSON only).
+  eigenmittel_darlehen: { salesforceField: "Darlehen_Eigenmittel__c", salesforceObject: "case" },
 
   pkVorbezug: { salesforceField: "Verpf_ndung_PK__c", salesforceObject: "case" },
 

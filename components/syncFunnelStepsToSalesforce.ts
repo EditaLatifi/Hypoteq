@@ -67,10 +67,9 @@ export async function applyPartnerToCase(
 
 /**
  * Swiss date (TT.MM.JJJJ, also T.M.JJJJ) or an ISO date → Salesforce `YYYY-MM-DD`; null for
- * anything that is not a real calendar date. Kaufdatum__c is a Date field in the existing
- * configuration (DECISIONS V41), and the v5 Kaufdatum and the Ablösedatum read from the
- * Zinsabrechnung are typed or printed text — «Mai 2026» or «31.02.2026» must not reach
- * Salesforce as a broken date (it would reject the field); the value stays in the JSON.
+ * anything that is not a real calendar date. The Kaufdatum and the Ablösedatum read from the
+ * Zinsabrechnung are typed or printed text — «Mai 2026» or «31.02.2026» must not reach the Date
+ * field Kaufdatum_Datum__c as a broken date (Salesforce would reject it).
  */
 export function toSalesforceDate(value: unknown): string | null {
   if (typeof value !== 'string') return null;
@@ -95,22 +94,49 @@ function convertSwissDateToSalesforce(swissDate: string): string | null {
 }
 
 /**
+ * Kaufdatum__c «Kauf- & Ablöse-Datum» is Text(80) (HYPOTEQ 19.10. B13 / B15, DECISIONS V41): a
+ * real calendar date as «TT.MM.JJJJ» (also from T.M.JJJJ or YYYY-MM-DD); anything else typed or
+ * printed («Ende 2026») as it is — it is a text field, and staff read it; null when empty.
+ * Kaufdatum_Datum__c gets the same date as a Date (toSalesforceDate), only when it is one.
+ */
+export function toKaufdatumText(value: unknown): string | null {
+  if (typeof value !== 'string') return null;
+  const s = value.trim();
+  if (!s) return null;
+  const iso = toSalesforceDate(s);
+  if (!iso) return s.slice(0, 80);
+  const [y, m, d] = iso.split('-');
+  return `${d}.${m}.${y}`;
+}
+
+/** «unbekannt», «keine Angabe», «–»: the document names no heating. */
+const NO_HEATING = /^(unbekannt|unknown|inconnue?|sconosciut[oa]|keine?( angaben?)?|nicht (angegeben|ersichtlich|bekannt)|none|aucune?|nessun[oa]?|k\.? ?a\.?|n\/?a|[-–—?.\s]*)$/;
+
+/**
  * Heizungsart read from the documents (v5 no longer asks it, Handover 0 / 8) → the
- * Waermeerzeugung__c picklist, with the values of the mapping (HYPOTEQ_Salesforce_Mapping_Vorschlag,
- * «Heizungsart»). Anything else — «Elektro», «unbekannt», a sentence — is not written (it stays in
- * the JSON `info.heizung`): an unknown value on a restricted picklist would only be dropped.
+ * Waermeerzeugung__c picklist (HYPOTEQ 19.10. B15): Wärmepumpe Luft-Wasser (the default for a
+ * Wärmepumpe), Wärmepumpe Wasser-Wasser (also Erdsonde, Grundwasser, Sole-Wasser), Fernwärme,
+ * Holz (Pellets), Gas Erdgas, Gas Biogas, Öl — recognised by key words in DE/FR/IT/EN. A text that
+ * names a heating but none of these («Elektroheizung», «Solar») → «Andere»; no text, or one that
+ * says there is none to read («unbekannt»), → nothing. The text stays in the JSON `info.heizung`.
  */
 export function toWaermeerzeugung(heizung: unknown): string | null {
   if (typeof heizung !== 'string') return null;
   const v = heizung.trim().toLowerCase();
-  if (!v) return null;
-  if (/w(ä|ae)rmepumpe|heat pump|pompe à chaleur|pompa di calore/.test(v)) return 'Wärmepumpe Luft-Wasser';
+  if (!v || NO_HEATING.test(v)) return null;
+  // Ground and water source first (Erdsonde = Sole-Wasser: the picklist has no own value for it).
+  if (/wasser[\s/-]*wasser|sole[\s/-]*wasser|erd(sonde|w(ä|ae)rme|reich|kollektor)|grundwasser|eau[\s/-]*eau|g[ée]otherm|sonde g|acqua[\s/-]*acqua|geotermic|water[\s/-]*(to[\s/-]*)?water|ground[\s/-]*source|brine/.test(v)) {
+    return 'Wärmepumpe Wasser-Wasser';
+  }
+  if (/w(ä|ae)rmepumpe|heat ?pump|pompe à chaleur|pompa di calore|\bwp\b|\bpac\b/.test(v)) return 'Wärmepumpe Luft-Wasser';
   if (/fernw(ä|ae)rme|district heating|chauffage à distance|teleriscaldamento/.test(v)) return 'Fernwärme';
-  if (/holz|pellet|\bbois\b|legna|\bwood\b/.test(v)) return 'Holz';
+  if (/holz|pellet|\bbois\b|legna|\bwood\b|schnitzel/.test(v)) return 'Holz';
   // Oil before gas: «gasolio» is heating oil.
   if (/(^|[\s(/-])(heiz)?(ö|oe)l|mazout|fioul|gasolio|nafta|\boil\b/.test(v)) return 'Öl';
-  if (/(^|[\s(/-])(erd)?gas|\bgaz\b/.test(v)) return 'Gas Erdgas';
-  return null;
+  // Biogas before gas.
+  if (/bio-?ga[sz]/.test(v)) return 'Gas Biogas';
+  if (/(^|[\s(/-])(erd)?gas|\bgaz\b|\bgas\b/.test(v)) return 'Gas Erdgas';
+  return 'Andere';
 }
 
 /**
@@ -119,10 +145,10 @@ export function toWaermeerzeugung(heizung: unknown): string | null {
  *
  *   calc     the funnel's numbers (lib/funnel-v3/calc.ts): Gesamtfinanzierung, Eigenmittel total
  *            and % (Eigenmittel_Total__c of the proposal is Eigenmittel__c here, DECISIONS V5),
- *            harte Eigenmittel, Belehnung, Tragbarkeit — Tragbarkeit__c and EigenmittelProzent__c
- *            keep the existing formula (S1, S6), so the funnel's own figures are here
+ *            harte Eigenmittel, Belehnung, Tragbarkeit, Urteil — Tragbarkeit__c and
+ *            EigenmittelProzent__c carry the same calculation since HYPOTEQ 19.10. B14 (v5PercentFields)
  *   kontakt  the phone (PersonMobilePhone of the proposal is Account.Phone here) and, for a
- *            company, the zeichnungsberechtigte Person (no field on the Account)
+ *            company, the zeichnungsberechtigte Person (also the Contact on the Business Account, B16)
  *
  * A Nachreichung re-writes the JSON and carries both over (unknown keys are kept).
  */
@@ -148,6 +174,32 @@ export function v5CheckStateBlocks(state: NonNullable<ReturnType<typeof normalis
       zeichnungsberechtigt: isJur ? state.txt.zeichner.trim() : undefined,
     }),
   };
+}
+
+/**
+ * Tragbarkeit__c and EigenmittelProzent__c of a funnel v5 payload (HYPOTEQ 19.10. B14: «der Funnel
+ * schreibt die v5-Werte», the Handover formula of lib/funnel-v3/calc.ts; replaces S1 / S6 for v5,
+ * DECISIONS V41):
+ *   Tragbarkeit__c         calc.affordability (Kreditnehmer 1 + 2); none for a juristische Person
+ *                          or without income — as the funnel shows «–»
+ *   EigenmittelProzent__c  Kauf: (Gesamtkosten − Hypothek) / Gesamtkosten — with Eigenmittel entered
+ *                          the funnel's «x %» (calc.emPct), without them the 20 % of its 80 % rule;
+ *                          Ablösung: 100 − Belehnung (the part of the Objektwert the mortgage leaves)
+ * Rounded to one decimal like the funnel. Testfall Rosanna: 19.6 % and 20 %.
+ */
+export function v5PercentFields(
+  state: Pick<NonNullable<ReturnType<typeof normaliseFunnelState>>, "ans">,
+  calc: ReturnType<typeof calcForState>,
+): { Tragbarkeit__c?: number; EigenmittelProzent__c?: number } {
+  const round1 = (v: number) => Math.round(v * 10) / 10;
+  const out: { Tragbarkeit__c?: number; EigenmittelProzent__c?: number } = {};
+  if (calc.affordability !== null && Number.isFinite(calc.affordability)) out.Tragbarkeit__c = round1(calc.affordability);
+  if (state.ans.antrag === 'Neue Hypothek' && calc.cost > 0) {
+    out.EigenmittelProzent__c = round1(((calc.cost - calc.need) / calc.cost) * 100);
+  } else if (state.ans.antrag === 'Ablösung' && calc.ltv !== null && Number.isFinite(calc.ltv)) {
+    out.EigenmittelProzent__c = round1(100 - calc.ltv);
+  }
+  return out;
 }
 
 /** Adds the v5 blocks to the JSON string; leaves it as it is when it is not JSON or would outgrow the field. */
@@ -274,6 +326,12 @@ function sanitizeSFAccountValue(sfField: string, value: any) {
     default:
       return value ?? null;
   }
+}
+
+/** A yes in any spelling the funnels send: «Ja» (v5), «ja» (v1), yes / oui / sì, true. */
+function isYes(value: unknown): boolean {
+  if (value === true) return true;
+  return typeof value === 'string' && ['ja', 'yes', 'oui', 'sì', 'si', 'true', '1'].includes(value.trim().toLowerCase());
 }
 
 // Parse a percentage value into a plain number (handles "1.34", "1,34", "1.34%")
@@ -501,9 +559,11 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     }
   }
 
-  // VALIDATION: Maximum 3 persons
+  // At most 3 borrowers in Salesforce (Client__c, Client_2__c, Client_3__c; HYPOTEQ 19.10. B17):
+  // any further ones stay in the JSON (`answers.borrowers`) and the database — the lead is kept.
   if (persons.length > 3) {
-    throw new Error('Maximum 3 persons allowed per submission');
+    console.warn(`[Salesforce Sync] ${persons.length} borrowers — Salesforce links the first 3, the others stay in the JSON`);
+    persons.splice(3);
   }
 
   // A lead with no usable borrower name is still a lead. Partner Ablösung submissions can
@@ -754,8 +814,8 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
   // Schenkung — family funds that count as Eigenmittel — so it is folded into the existing
   // Schenkung_usw__c figure. Done before the mapping loop so the Case field and the
   // Eigenmittel total below both see the combined amount. Darlehen is deliberately NOT
-  // added: a loan is not equity and has no Salesforce field; it reaches HYPOTEQ through
-  // the internal notification mail only.
+  // added: it has its own field, Darlehen_Eigenmittel__c (HYPOTEQ 19.10. D.1), and the legacy
+  // Eigenmittel total below leaves it out (the v5 total counts it, calc.ts).
   const schenkungOnly = Number(flatData.eigenmittel_schenkung || 0);
   const erbschaft = Number(flatData.eigenmittel_erbschaft || 0);
   if (erbschaft > 0) {
@@ -779,6 +839,9 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
       value = flatData.stage || flatData.stage__c || value;
     }
     if (Array.isArray(value)) value = value.join(", ");
+
+    // Renovationsbetrag__c only with Renovation = Ja (HYPOTEQ 19.10. B4).
+    if (funnelField === 'renovationsBetrag' && !isYes(flatData.renovation)) continue;
 
     // Special handling for erhoehung_betrag: only set if erhoehung is "Ja"
     if (funnelField === 'erhoehung_betrag') {
@@ -809,6 +872,15 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
       }
     }
   }
+
+  // === KAUF- & ABLÖSE-DATUM (HYPOTEQ 19.10. B13 / B15, DECISIONS V41) — every payload ===
+  // Kaufdatum__c is Text(80): «TT.MM.JJJJ» (or the text as typed); Kaufdatum_Datum__c the real
+  // date, only when it is one. At an Ablösung flatData.kaufdatum is the Ablösedatum (above).
+  delete caseData['Kaufdatum__c'];
+  const kaufdatumText = toKaufdatumText(flatData.kaufdatum);
+  if (kaufdatumText) caseData['Kaufdatum__c'] = kaufdatumText;
+  const kaufdatumIso = toSalesforceDate(flatData.kaufdatum);
+  if (kaufdatumIso) caseData['Kaufdatum_Datum__c'] = kaufdatumIso;
 
   // Calculate and add Hypothekenbedarf, Eigenmittel %, Tragbarkeit %
   const kaufpreis = Number(flatData.kaufpreis || 0);
@@ -861,8 +933,9 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
   // The Gesamtfinanzierung is the funnel's own calculation (lib/funnel-v3/calc.ts, the same
   // the customer saw): Kauf = Kaufpreis + Renovation − Eigenmittel (none entered: 80 %),
   // Ablösung = bestehende + Erhöhung. Computed here from the submitted answers; the payload's
-  // financing.hypoBetrag (the same number) is the fallback. The Tragbarkeit keeps the existing
-  // formula (S1) — only its base changes.
+  // financing.hypoBetrag (the same number) is the fallback. Tragbarkeit__c and
+  // EigenmittelProzent__c of a v5 payload are replaced by the funnel's values below
+  // (v5PercentFields, HYPOTEQ 19.10. B14); the formulas here stay for legacy payloads (S1).
   const v3Need = v3Calc ? v3Calc.need : NaN;
   const v3HypoBetragRaw = stepData.v3 ? Number(String(flatData.hypoBetrag ?? '').replace(/'/g, '')) : NaN;
   const v3HypoBetrag =
@@ -908,6 +981,15 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     if (tragb !== null) caseData['Tragbarkeit__c'] = tragb;
 
     console.log(`[Salesforce Sync] Ablösung calc: Hypothekenbedarf=${hypothekenbedarf}, Eigenmittel%=${caseData['EigenmittelProzent__c']}, Tragbarkeit%=${caseData['Tragbarkeit__c']}`);
+  }
+
+  // === FUNNEL V5 TRAGBARKEIT / EIGENMITTEL % (HYPOTEQ 19.10. B14, DECISIONS V41) — v3 / v5 payloads ===
+  // The values the funnel showed (calc.ts, Handover formula), not the S1 / S6 formulas above.
+  if (v3State && v3Calc) {
+    delete caseData['Tragbarkeit__c'];
+    delete caseData['EigenmittelProzent__c'];
+    Object.assign(caseData, v5PercentFields(v3State, v3Calc));
+    console.log(`[Salesforce Sync] v5 calc: Eigenmittel%=${caseData['EigenmittelProzent__c'] ?? '–'}, Tragbarkeit%=${caseData['Tragbarkeit__c'] ?? '–'}`);
   }
 
   // Add partner email AFTER mapping to prevent it from being overwritten
@@ -995,6 +1077,14 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     // Heizungsart is no longer asked; the documents say it (Verkaufsdokumentation, GVZ).
     const heizung = toWaermeerzeugung(v3State.info?.heizung);
     if (heizung) caseData['Waermeerzeugung__c'] = heizung;
+    // HYPOTEQ 19.10. B17 / D.1: the Geschätzter Objektwert as entered — an empty one is not
+    // invented from the Kaufpreis (Kaufpreis__c has that), DECISIONS V60.
+    if (v3State.fin.val > 0) caseData['Geschaetzter_Objektwert__c'] = Math.round(v3State.fin.val);
+    // HYPOTEQ 19.10. D.1: the chips in Checkboxes as well («auswertbar»); the JSON keeps them.
+    caseData['Privatkredit__c'] = v3State.ans.kredite === 'Ja';
+    caseData['Leasing__c'] = v3State.ans.leasing === 'Ja';
+    caseData['Unterhaltspflicht__c'] = v3State.ans.unterhalt === 'Ja';
+    caseData['Solidarbuergschaft__c'] = v3State.ans.buerge === 'Ja';
     // Juristische Person: the Account is the company (a Person Account named after it, the
     // existing mapping — no Business Account / Contact, DECISIONS V41). The zeichnungsberechtigte
     // Person has no field there, so the Case names it (Rosanna: it stayed empty) and the JSON
@@ -1004,6 +1094,10 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
       const existing = typeof caseData['Kommentar__c'] === 'string' ? caseData['Kommentar__c'].trim() : '';
       caseData['Kommentar__c'] = [`Zeichnungsberechtigte Person: ${zeichner}`, existing].filter(Boolean).join('\n\n');
     }
+  } else {
+    // v1 «Geschätzter Objektwert» (HYPOTEQ 19.10. B17 «Reste aus v1»): the legacy funnel's value.
+    const value = Number(String(flatData.immobilienwert ?? '').replace(/CHF\s?|'/gi, '').trim());
+    if (Number.isFinite(value) && value > 0) caseData['Geschaetzter_Objektwert__c'] = value;
   }
   // === END FUNNEL V5 VALUES ===
 
@@ -1174,6 +1268,10 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
   } else {
     caseData['Client_3__c'] = null;
   }
+
+  // HYPOTEQ 19.10. B17: how many borrowers the Case links (1 / 2 / 3; a company is one).
+  const linkedClients = accounts.filter(Boolean).length;
+  if (linkedClients > 0) caseData['Wie_viele_Kunden__c'] = String(Math.min(linkedClients, 3));
 
   // Two distinct roles, two distinct Case fields — they were previously conflated:
   //   - Kundenberater / customer advisor = Partner_Consultant__c, a *Contact* lookup.

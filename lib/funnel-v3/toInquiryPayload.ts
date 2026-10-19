@@ -12,10 +12,10 @@
  *
  * v5 fills the legacy fields the existing mapping already reads where v5 now asks the value
  * (DECISIONS V5: the existing mapping wins, the value is in the JSON as well): the Eigenmittel
- * table (eigenmittel_*), Kaufdatum, Netto-Mietertrag, Steueroptimierung, PK-Verpfändung, the
- * household income, Kreditnehmer 2, and of Kreditnehmer 1 the birth date and Zivilstand read
- * from the documents. The Renovationsbetrag stays out of `renovationsBetrag` (that is
- * Betrag__c, DECISIONS V4) and travels in `v3` only.
+ * table (eigenmittel_*, the Darlehen → Darlehen_Eigenmittel__c), Kaufdatum, Netto-Mietertrag,
+ * Steueroptimierung, PK-Verpfändung, the household income, Kreditnehmer 2, the
+ * Renovationsbetrag (→ Renovationsbetrag__c, HYPOTEQ 19.10. B4), and of Kreditnehmer 1 the
+ * birth date and Zivilstand read from the documents.
  *
  * Two yes/no answers are sent as «Ja»/«Nein» on purpose, not the old funnel's lowercase
  * «ja»: /api/inquiry rejects `renovation === "ja"` without a Renovationsbetrag and
@@ -191,8 +191,8 @@ export function toInquiryPayload(state: FunnelState, opts: InquiryPayloadOptions
       neubauGrundbuchGvVorhanden: ans.immo === "Neubau" ? jn(ans.nbDocs) : "",
       reserviert: isKauf ? jn(ans.reserviert) : "",
       renovation: isKauf ? ans.reno : "", // «Ja»/«Nein», see the header
-      // Betrag__c in the existing mapping — not the Renovationsbetrag (DECISIONS V4).
-      renovationsBetrag: "",
+      // Renovationsbetrag__c (HYPOTEQ 19.10. B4, DECISIONS V4), only with Renovation = Ja.
+      renovationsBetrag: isKauf && ans.reno === "Ja" ? amount(fin.renoBetrag) : "",
       finanzierungsangebote: ans.angebote, // «Ja»/«Nein», see the header
       angebote: [] as { bank?: string; zins?: string; laufzeit?: string }[],
       angeboteListe: [] as string[],

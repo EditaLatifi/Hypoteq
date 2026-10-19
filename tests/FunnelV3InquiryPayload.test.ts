@@ -215,8 +215,8 @@ describe("toInquiryPayload — Gerber, Kunde", () => {
       pkVorbezug: "Ja",
       steueroptimierung: "Ja",
     });
-    // The Renovationsbetrag is not Betrag__c (V4): only in v3.
-    expect(k.property.renovationsBetrag).toBe("");
+    // HYPOTEQ 19.10. B4: the Renovationsbetrag goes to Renovationsbetrag__c (V4), and stays in v3.
+    expect(k.property.renovationsBetrag).toBe("100000");
     expect(k.v3.fin.renoBetrag).toBe(100000);
     expect(k.property.kreditnehmer.map((x: any) => [x.vorname, x.einkommen, x.geburtsdatum])).toEqual([
       ["Gary", "150000", "04.01.1988"],
