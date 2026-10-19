@@ -1269,17 +1269,17 @@
   },
   "nachreichen": {
     "title": "Fehlende Unterlagen nachreichen",
-    "intro": "Hier sehen Sie nur die Dokumente, die uns für Ihr Dossier noch fehlen. Laden Sie diese hoch und senden Sie sie ab.",
+    "intro": "Hier siehst du nur die Dokumente, die uns für dein Dossier noch fehlen. Lade sie hoch und sende sie ab.",
     "loading": "Wird geladen …",
-    "notFound": "Dieser Link ist ungültig. Bitte antworten Sie auf unsere E-Mail, damit wir Ihnen einen neuen Link senden können.",
-    "expired": "Dieser Link ist abgelaufen. Bitte antworten Sie auf unsere E-Mail, damit wir Ihnen einen neuen Link senden können.",
-    "alreadyComplete": "Ihr Dossier ist bereits vollständig. Es fehlen keine Unterlagen mehr.",
+    "notFound": "Dieser Link ist ungültig. Bitte antworte auf unsere E-Mail, damit wir dir einen neuen Link senden können.",
+    "expired": "Dieser Link ist abgelaufen. Bitte antworte auf unsere E-Mail, damit wir dir einen neuen Link senden können.",
+    "alreadyComplete": "Dein Dossier ist bereits vollständig. Es fehlen keine Unterlagen mehr.",
     "send": "Unterlagen senden",
     "sending": "Wird gesendet …",
     "error": "Das Hochladen ist fehlgeschlagen:",
-    "doneComplete": "Vielen Dank – Ihr Dossier ist jetzt vollständig.",
-    "donePartial": "Vielen Dank – wir haben Ihre Unterlagen erhalten. Es fehlen noch:",
-    "completeIntro": "Sie können hier jederzeit weitere Unterlagen hinzufügen – wir ordnen sie Ihrem Dossier zu.",
-    "doneExtras": "Vielen Dank – wir haben Ihre zusätzlichen Unterlagen erhalten und Ihrem Dossier beigefügt."
+    "doneComplete": "Vielen Dank – dein Dossier ist jetzt vollständig.",
+    "donePartial": "Vielen Dank – wir haben deine Unterlagen erhalten. Es fehlen noch:",
+    "completeIntro": "Du kannst hier jederzeit weitere Unterlagen hinzufügen – wir ordnen sie deinem Dossier zu.",
+    "doneExtras": "Vielen Dank – wir haben deine zusätzlichen Unterlagen erhalten und deinem Dossier beigefügt."
   }
 }
