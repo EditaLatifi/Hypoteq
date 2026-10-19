@@ -66,7 +66,7 @@ export interface CalcInput {
   /** Gewünschte Erhöhung. */
   up: number;
   // Both
-  /** Geschätzter Objektwert (Kauf: empty = Kaufpreis). */
+  /** Geschätzter Objektwert (Kauf: empty = Kaufpreis + Renovation, DECISIONS V20). */
   val: number;
   /** Bruttoeinkommen of Kreditnehmer 1 and 2. */
   inc: number;
@@ -88,7 +88,7 @@ export interface CalcResult {
   hard: number;
   /** Harte Eigenmittel ≥ 10 % of the Kaufpreis — true when it does not apply (Ablösung, none entered). */
   hardOk: boolean;
-  /** The Objektwert the calculation used (Kauf: the Kaufpreis when none was given). */
+  /** The Objektwert the calculation used (Kauf: Kaufpreis + Renovation when none was given). */
   value: number;
   /** Belehnungsbasis. */
   basis: number;
@@ -118,8 +118,9 @@ export function calcFinancing(input: CalcInput): CalcResult {
   const cost = isAbl ? 0 : price + (input.reno === "Ja" ? num(input.renoBetrag) : 0);
   const emTotal = isAbl ? 0 : equityTotal(input.em);
   const hard = isAbl ? 0 : emTotal - num(input.em.pkVor);
-  // «Bei Kauf leer = Kaufpreis» (Handover 2). Handover over prototype: the prototype took the
-  // Gesamtkosten for an empty Objektwert, which counts a renovation as value.
+  // An empty Objektwert at a Kauf stands for the Gesamtkosten, Kaufpreis plus Renovation
+  // (DECISIONS V20, as in the prototype). Handover 2 says «leer = Kaufpreis», which would never
+  // count a renovation as value (86.7 % instead of 81.3 % in the preview test); for HYPOTEQ to confirm.
   const value = num(input.val) || (isAbl ? 0 : cost);
   const basis = isAbl ? value : value ? Math.min(cost, value) : cost;
   const need = isAbl

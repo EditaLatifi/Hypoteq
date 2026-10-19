@@ -55,3 +55,7 @@ pnpm-lock.yaml
 # the PDFs it produces — and a folder of documents in the repo invites someone to drop a
 # real customer file next to them.
 /test-documents
+
+# Prototype exports from HYPOTEQ (root of the repo): design references with demo or customer
+# data, never part of the build — the handoff copy lives in docs/partner-portal/.
+/HYPOTEQ Partnerportal_*.html

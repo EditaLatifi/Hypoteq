@@ -346,7 +346,7 @@ export function changeRequestLines(c: ChangeRequestContext): string[] {
   ];
 }
 
-/** The Task on the partner's Contact, due in 2 working days (the promise in the dialog). */
+/** The Task on the partner's Contact, due in 2 working days (internal only: the dialog promises no time, B20). */
 export function changeTaskPayload(
   c: ChangeRequestContext & { contactId: string; accountId: string | null; now?: Date }
 ): Record<string, unknown> {

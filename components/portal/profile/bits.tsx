@@ -5,8 +5,7 @@ import { X } from "lucide-react";
 import { useT } from "@/components/portal/I18n";
 
 /*
- * Small pieces the profile cards share, in the style of the portal's upload dialog and
- * notification switches.
+ * Small pieces the profile cards share, in the style of the portal's upload dialog.
  */
 
 export function Dialog({ title, onClose, children }: { title: string; onClose: () => void; children: ReactNode }) {
