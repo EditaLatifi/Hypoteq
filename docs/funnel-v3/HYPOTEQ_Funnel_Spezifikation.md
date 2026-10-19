@@ -1,13 +1,15 @@
 # HYPOTEQ Finanzierungsfunnel – Spezifikation für die Umsetzung
 
-Stand: 05.10.2026 · Referenz-Prototyp: `HYPOTEQ_Funnel_Prototyp.html` (= *HYPOTEQ Funnel v3*) · Demo-Fall: Gary Gerber, 8820 Wädenswil (Ablösung mit Erhöhung, STWE)
+Stand: 05.10.2026 · Referenz-Prototyp: `HYPOTEQ_Funnel_Prototyp.html` (= *HYPOTEQ Funnel v3*) · Demo-Fall: Referenz-Testfall (Ablösung mit Erhöhung, STWE)
+
+> **Hinweis zur Fassung im Repository:** Die Angaben des echten Referenz-Testfalls (Name, Adresse, Beträge, Bank, Dateinamen) sind in dieser Kopie durch den fiktiven Fall Mustermann ersetzt (Max Mustermann, Musterweg 1, 8000 Zürich; alle Zahlen erfunden). Das Original liegt bei HYPOTEQ.
 
 Beilagen in diesem Paket:
 
 | Datei | Inhalt |
 |---|---|
 | `HYPOTEQ_Funnel_Prototyp.html` | Klickbarer Prototyp, offline lauffähig (Desktop + Mobile) |
-| `HYPOTEQ_Fall-Dossier_Gerber.html` | Beispiel des PDF-Dossiers, das beim Abschluss erzeugt wird |
+| `HYPOTEQ_Fall-Dossier_….html` (Referenz-Testfall) | Beispiel des PDF-Dossiers, das beim Abschluss erzeugt wird |
 | `HYPOTEQ_Salesforce_Mapping_Vorschlag.csv` | Feld-Mapping Funnel → Salesforce als Tabelle (Excel, `;`-getrennt) |
 | `HYPOTEQ_Funnel_i18n.json` | Alle Texte DE / EN / FR / IT als Sprachdatei (297 Keys) |
 | `HYPOTEQ_Funnel_Uebersetzungen.csv` | Dieselben Texte als Tabelle zum Gegenlesen, mit Spalte «Review» |
@@ -23,7 +25,7 @@ Beilagen in diesem Paket:
 4. **Jedes Dokument wird genau einmal verlangt** – ausgelöst von genau einer Regel. Jedes bedingte Dokument zeigt seine Herkunft («weil: Baurecht = Ja»).
 5. **Widerspricht ein hochgeladenes Dokument einer Antwort**, schlägt das System die Korrektur der Antwort vor, statt das Dokument abzulehnen.
 6. **Keine Pflichtfeld-Sternchen.** Validierung beim Klick auf «Weiter».
-7. Anrede «du», Sprache Deutsch (CH-Schreibweise, `CHF 449'000`).
+7. Anrede «du», Sprache Deutsch (CH-Schreibweise, `CHF 380'000`).
 
 ---
 
@@ -198,7 +200,7 @@ Die Liste wird bei jeder Antwort neu berechnet (`reqList()` im Prototyp). Gruppe
 | E6 | Erbschaftsbestätigung | Eigenmittel | Erbschaft = Ja |
 | E7 | Darlehensvertrag | Eigenmittel | Darlehen = Ja |
 
-Fall Gerber: Zähler 13 → 16 (Ablösung) → 18 (STWE) → 21 (Unterhalt, Privatkredit, Leasing) → 23 (Säule 3a).
+Referenz-Testfall: Zähler 13 → 16 (Ablösung) → 18 (STWE) → 21 (Unterhalt, Privatkredit, Leasing) → 23 (Säule 3a).
 
 ### 4.2 Zustände pro Anforderung
 
@@ -213,7 +215,7 @@ Fall Gerber: Zähler 13 → 16 (Ablösung) → 18 (STWE) → 21 (Unterhalt, Priv
 
 ### 4.3 Dateien ausserhalb der Liste («Weitere Dateien»)
 
-| Art | Beispiel Gerber | Verhalten |
+| Art | Beispiel Referenz-Testfall | Verhalten |
 |---|---|---|
 | Überzählig | 4. Lohnausweis (2022), Steuererklärung Vorjahr | wird im Dossier mitgeführt, zählt nicht |
 | Duplikat | Leasingvertrag zweimal | wird nicht doppelt gespeichert |
@@ -238,8 +240,8 @@ Wird ein Dokument erkannt, das zu einer «Nein»-Antwort gehört, erscheint ein 
 - Upload: eine Drop-Zone für Dateien und ganze Ordner (PDF, JPG, PNG). Keine manuelle Zuordnung durch den Nutzer.
 - Pro Datei: Klassifikation → Zuordnung zur Anforderung → Extraktion der Felder mit Konfidenz → Abgleich mit Funnel-Angaben.
 - Konfidenz: Kunde/Berater sehen «Erkannt / Prüfen»; die interne Rolle sieht Prozentwerte und den Audit Trail pro Dokument.
-- Abgleich-Beispiele: Bruttoeinkommen (Funnel CHF 125'000 / Lohnausweis CHF 125'385 → ok), Bestehende Hypothek, Ablösedatum, Baujahr.
-- Der Prototyp verwendet für den Fall Gerber vorbereitete Extrakte (`data/gerber.js`), damit die Demo deterministisch läuft. Für die Umsetzung definiert `REQ[].fields` pro Dokumenttyp die zu extrahierenden Felder.
+- Abgleich-Beispiele: Bruttoeinkommen (Funnel CHF 110'000 / Lohnausweis CHF 110'310 → ok), Bestehende Hypothek, Ablösedatum, Baujahr.
+- Der Prototyp verwendet für den Referenz-Testfall vorbereitete Extrakte (`data/….js`), damit die Demo deterministisch läuft. Für die Umsetzung definiert `REQ[].fields` pro Dokumenttyp die zu extrahierenden Felder.
 
 ### 5.1 Automatische Umbenennung
 
@@ -249,7 +251,7 @@ Jede erkannte Datei bekommt einen einheitlichen Namen. Die AI schlägt ihn vor, 
 
 | Teil | Regel |
 |---|---|
-| Fallnummer | z.B. `HQ-26-06-156283` |
+| Fallnummer | z.B. `HQ-26-01-000001` |
 | Gruppe | `01` Person · `02` Hypothek · `03` Objekt · `04` Eigenmittel – damit sortiert sich der Ordner von selbst |
 | Dokumenttyp | fester deutscher Kurzname pro Anforderung (z.B. `Grundbuchauszug`, `Lohnausweis`), unabhängig von der Funnel-Sprache |
 | Person | `Nachname-Vorname` bei Personendokumenten (Kreditnehmer, Solidarbürge); bei Hypothek-Dokumenten die Bank; bei Objekt-Dokumenten leer |
@@ -265,14 +267,14 @@ Weitere Regeln:
 - Der Originalname bleibt im Audit Trail und im JSON (`files[].originalName`) erhalten.
 - Das Fall-Dossier und sein Annex verwenden die neuen Namen.
 
-Beispiele Fall Gerber:
+Beispiele (fiktiver Fall Mustermann):
 
 | Original | Gespeichert als |
 |---|---|
-| `03_Grundbuchauszug_Etzelstrasse_52_Waedenswil_2026_01_15.pdf` | `HQ-26-06-156283_03_Grundbuchauszug_2026-01-15.pdf` |
-| `01_Lohnausweis_Gary_Gerber_2024_Etzel_Liegenschaften_AG.pdf` | `HQ-26-06-156283_01_Lohnausweis_Gerber-Gary_2024_2.pdf` |
-| `03_Hypothek_Zinsabrechnung_ZKB_Gary_Gerber.pdf` | `HQ-26-06-156283_02_Zinsabrechnung_ZKB_2026-03-30.pdf` |
-| `01_ID_Gary_Gerber.pdf` | `HQ-26-06-156283_01_ID_Gerber-Gary.pdf` (ohne Datum – Geburtsdatum ist kein Dokumentdatum) |
+| `03_Grundbuchauszug_Musterweg_1_Zuerich_2026_01_15.pdf` | `HQ-26-01-000001_03_Grundbuchauszug_2026-01-15.pdf` |
+| `01_Lohnausweis_Max_Mustermann_2024_Muster_Treuhand_AG.pdf` | `HQ-26-01-000001_01_Lohnausweis_Mustermann-Max_2024_2.pdf` |
+| `03_Hypothek_Zinsabrechnung_Musterbank_Max_Mustermann.pdf` | `HQ-26-01-000001_02_Zinsabrechnung_Musterbank_2026-03-30.pdf` |
+| `01_ID_Max_Mustermann.pdf` | `HQ-26-01-000001_01_ID_Mustermann-Max.pdf` (ohne Datum – Geburtsdatum ist kein Dokumentdatum) |
 
 
 ---
@@ -293,7 +295,7 @@ Beispiele Fall Gerber:
 
 | Feld | API | Vorschlag |
 |---|---|---|
-| Case Name | `Case_Name__c` (Text 50) | `{Nachname} {Vorname} – {PLZ} {Ort}` → «Gerber Gary – 8820 Wädenswil» |
+| Case Name | `Case_Name__c` (Text 50) | `{Nachname} {Vorname} – {PLZ} {Ort}` → «Mustermann Max – 8000 Zürich» |
 | Owner | `OwnerId` | Default-Queue «Web-Anfragen»; bei Login mit HYPOTEQ-User dieser User |
 | Status | `Status` | `New` (Qualifizierung macht HYPOTEQ manuell) |
 | Origin | `Origin` | `Web` |
@@ -328,7 +330,7 @@ Beispiele Fall Gerber:
 
 | Funnel | Salesforce | Werte-Mapping / Hinweis |
 |---|---|---|
-| PLZ, Ort | `Case.PLZ_Ort__c` («8820 Wädenswil»), `Case.City__c` (Ort) | `PLZ_Ort__c` ist Text 30 |
+| PLZ, Ort | `Case.PLZ_Ort__c` («8000 Zürich»), `Case.City__c` (Ort) | `PLZ_Ort__c` ist Text 30 |
 | Kanton | `Case.Kantone__c` | aus PLZ ableiten (z.B. `Canton of Zurich`) |
 | Art der Immobilie | `Case.Art_der_Immobilie__c` + `Case.If_Neubau__c` | Bestehende → `Bestehende Immobilie` · Neubau → `Neubau` + `Bereits erstellt` · Bauprojekt → `Neubau` + `Bauprojekt` |
 | Art der Liegenschaft | `Case.Art_der_Liegenschaft__c` | EFH → `Einfamilienhaus` · STWE → `Wohnung` · MFH → `Mehrfamilienhaus` · Ferienobjekt → **kein Wert** (siehe offene Punkte) |
@@ -415,7 +417,7 @@ Ohne neue Felder funktioniert alles über `Dokumenten_Check_State__c`. Für Repo
 | Vorschlag | Typ | Grund |
 |---|---|---|
 | `Case.Unterhaltspflicht__c` | Checkbox | tragbarkeitsrelevant |
-| `Case.Privatkredit__c` | Checkbox | ZEK-relevant; im Fall Gerber hätte das den 5-Wochen-Umweg vermieden |
+| `Case.Privatkredit__c` | Checkbox | ZEK-relevant; im Referenz-Testfall hätte das den 5-Wochen-Umweg vermieden |
 | `Case.Leasing__c` | Checkbox | heute nur als Text auf dem Person Account |
 | `Case.Solidarbuergschaft__c` | Checkbox | – |
 | `Case.Darlehen_Eigenmittel__c` | Währung | Eigenmittelquelle ohne eigenes Feld |
@@ -435,11 +437,11 @@ Ohne neue Felder funktioniert alles über `Dokumenten_Check_State__c`. Für Repo
   "requirements": [
     { "id": "grundbuch", "label": "Aktueller Grundbuchauszug (max. 6 Monate)", "group": "objekt",
       "reason": "Pflicht", "status": "outdated",
-      "files": [ { "originalName": "03_Grundbuchauszug_..._2026_01_15.pdf", "storedName": "HQ-26-06-156283_03_Grundbuchauszug_2026-01-15.pdf", "url": "https://…sharepoint…", "confidence": 0.97 } ],
-      "fields": [ { "key": "Eigentümer", "value": "Gary Samuel Gerber", "confidence": 0.97 } ],
+      "files": [ { "originalName": "03_Grundbuchauszug_..._2026_01_15.pdf", "storedName": "HQ-26-01-000001_03_Grundbuchauszug_2026-01-15.pdf", "url": "https://…sharepoint…", "confidence": 0.97 } ],
+      "fields": [ { "key": "Eigentümer", "value": "Max Simon Mustermann", "confidence": 0.97 } ],
       "audit": [ { "ts": "05.10.2026 14:03", "text": "Erkannt als «Grundbuchauszug» · Konfidenz 97 %" } ] }
   ],
-  "extras": [ { "name": "01_Lohnausweis_Gary_Gerber_2022.pdf", "kind": "surplus" } ],
+  "extras": [ { "name": "01_Lohnausweis_Max_Mustermann_2022.pdf", "kind": "surplus" } ],
   "hints": [ { "title": "Kreditverträge (Privatkredite)", "text": "Wird mit der Erhöhung abgelöst …" } ]
 }
 ```
@@ -454,7 +456,7 @@ Ohne neue Felder funktioniert alles über `Dokumenten_Check_State__c`. Für Repo
 - **Sprachwahl:** automatisch aus der Browsersprache bzw. der URL (`/de`, `/en`, `/fr`, `/it`), umschaltbar oben rechts. Die Wahl wird gespeichert.
 - **Anrede:** DE «du», EN «you», FR «vous», IT «Lei». In der Romandie und im Tessin ist «tu» bei Finanzthemen unüblich. Für ein durchgehendes «du» müssten FR und IT angepasst werden.
 - **Platzhalter:** `{name}`, `{n}`, `{total}` usw. werden zur Laufzeit ersetzt. Die Reihenfolge darf je Sprache abweichen.
-- **Zahlen:** in allen Sprachen Schweizer Format `CHF 449'000` und `44.8 %`. Datum `TT.MM.JJJJ`.
+- **Zahlen:** in allen Sprachen Schweizer Format `CHF 380'000` und `44.4 %`. Datum `TT.MM.JJJJ`.
 - **Auswahlwerte:** Die Keys bleiben deutsch (`opt.lieg.Stockwerkeigentum`). Nur die Anzeige wird übersetzt. In Salesforce wird immer der deutsche Wert bzw. das Werte-Mapping aus Kapitel 6 geschrieben, unabhängig von der Anzeigesprache.
 - **Korrespondenzsprache:** Die Funnel-Sprache wird nach `Case.Korrespondenzsprache__c` und `PersonAccount.Korrespondenzsprache__pc` geschrieben: de → `Deutsch`, en → `Englisch`, fr → `Französisch`, it → `Italienisch`.
 - **Dokumentenerkennung:** Die Erkennung muss Dokumente in allen vier Landessprachen lesen (z.B. «Extrait du registre foncier», «Estratto del registro fondiario»). Die Anforderungen selbst sind sprachunabhängig (`REQ.id`).

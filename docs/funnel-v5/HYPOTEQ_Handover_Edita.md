@@ -1,6 +1,8 @@
 # HYPOTEQ Finanzierungsfunnel – Handover an Edita
 
-Stand: 14.10.2026 · Referenz-Prototyp: `HYPOTEQ_Funnel_Prototyp.html` (= *HYPOTEQ Funnel v5*) · Demo-Fall: Gary Gerber, 8820 Wädenswil
+Stand: 14.10.2026 · Referenz-Prototyp: `HYPOTEQ_Funnel_Prototyp.html` (= *HYPOTEQ Funnel v5*) · Demo-Fall: Referenz-Testfall
+
+> **Hinweis zur Fassung im Repository:** Die Angaben des echten Referenz-Testfalls (Name, Adresse, Beträge, Bank, Dateinamen) sind in dieser Kopie durch den fiktiven Fall Mustermann ersetzt (Max Mustermann, Musterweg 1, 8000 Zürich; alle Zahlen erfunden). Das Original liegt bei HYPOTEQ.
 
 Dieses Dokument ist die verbindliche Grundlage für die Umsetzung. Es ersetzt die Funnel- und Dokumentenlogik aus `HYPOTEQ_Funnel_Spezifikation.md` (v1). Aus v1 gelten weiter: Partner-Erkennung, Dokument-Zustände, Umbenennung (Kap. 5.1), Mehrsprachigkeit (Kap. 7) und das JSON-Schema `Dokumenten_Check_State__c` (Kap. 6.11).
 
@@ -208,7 +210,7 @@ In der begleiteten Anmeldung werden Funnel-Felder **nicht** automatisch übersch
 
 Schwellwert 5 % ist ein Vorschlag – Marco bestätigt. Die Liste wächst nach dem Upload; der Nutzer sieht eine kurze Meldung.
 
-Fall Gerber: Lohnausweis 2025 CHF 125'385 vs. 13 × CHF 9'615 = CHF 124'995 → +0.3 %. Kein Bonus, keine Erhöhung → ältere Lohnausweise sind «überzählig», Anstellungsvertrag ist «nicht benötigt».
+Referenz-Testfall (Zahlen des fiktiven Falls Mustermann): Lohnausweis 2025 CHF 110'310 vs. 13 × CHF 8'460 = CHF 109'980 → +0.3 %. Kein Bonus, keine Erhöhung → ältere Lohnausweise sind «überzählig», Anstellungsvertrag ist «nicht benötigt».
 
 ### 4.3 Upload
 

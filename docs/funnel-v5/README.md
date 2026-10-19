@@ -2,6 +2,8 @@
 
 Stand: 14.10.2026 · Prototyp v5 · Für: Edita · Freigabe: Marco Circelli
 
+> **Hinweis zur Fassung im Repository:** Die Angaben des echten Referenz-Testfalls (Name, Adresse, Beträge, Bank, Dateinamen) sind in dieser Kopie durch den fiktiven Fall Mustermann ersetzt (Max Mustermann, Musterweg 1, 8000 Zürich; alle Zahlen erfunden). Das Original liegt bei HYPOTEQ.
+
 ## Ordner
 
 | Ordner | Inhalt | Verbindlich? |
@@ -14,16 +16,16 @@ Stand: 14.10.2026 · Prototyp v5 · Für: Edita · Freigabe: Marco Circelli
 
 Reihenfolge zum Lesen: README → Prototyp einmal durchklicken → Handover → Spezifikation → Mapping.
 
-## Zum Testfall Gary Gerber
+## Zum Referenz-Testfall
 
-Der Prototyp ist mit einem echten Fall (Gary Gerber, Ablösung mit Erhöhung, STWE Wädenswil) vorbereitet.
+Der Prototyp ist mit einem echten Fall (Ablösung mit Erhöhung, STWE) vorbereitet. Im Repository liegen weder Prototyp noch Dossier; die Tests bilden den Fall mit dem fiktiven Fall Mustermann nach (`tests/funnelV3/mustermannCase.ts`).
 
 - **Für das Produkt:** nicht nötig. Der Funnel startet leer; es gibt keine Demo-Daten im Code.
 - **Für die Entwicklung:** nützlich als **Referenz-Testfall** – er deckt Ablösung, Erhöhung, STWE, Unterhalt, Privatkredit, Leasing, Säule 3a, veralteten Grundbuchauszug, Duplikate und überzählige Dateien ab. Erwartete Ergebnisse:
   - Dokumentenliste wächst 13 → 16 → 18 → 21 → 23 (Handover Kap. 4)
-  - Gesamtfinanzierung CHF 650'000 · Belehnung und Tragbarkeit gemäss Homepage-Rechner
+  - Gesamtfinanzierung CHF 550'000 (fiktiver Fall Mustermann) · Belehnung und Tragbarkeit gemäss Homepage-Rechner
   - Hinweise an die Bank: veralteter Grundbuchauszug, Privatkredit, Leasing, verpfändete 3a-Police
-  - Ausgabe: Fall-Dossier wie `04_Prototyp/HYPOTEQ_Fall-Dossier_Gerber.html`
+  - Ausgabe: Fall-Dossier wie `04_Prototyp/HYPOTEQ_Fall-Dossier_….html` (im Paket von HYPOTEQ, nicht im Repository)
 - Die Extraktion im Prototyp ist für diesen Fall **vorbereitet, nicht echt**. Die echte Erkennung muss beliebige Dokumente lesen.
 
 **Datenschutz:** Prototyp und Dossier enthalten echte Kundendaten. Nur intern weitergeben. Die Original-Dokumente des Falls sind bewusst nicht im Paket – bei Bedarf separat und gesichert übergeben.
