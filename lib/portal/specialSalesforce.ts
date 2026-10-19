@@ -1,5 +1,5 @@
 import { conn, createOrUpdateCase, ensureSession, sfQuery, soqlString, takeDroppedFields, withSessionRetry } from "@/components/salesforceApi";
-import { partnerCaseField, portalVisibleField } from "@/lib/portal/config";
+import { partnerCaseField } from "@/lib/portal/config";
 import { special } from "@/lib/portal/i18n/special";
 import { isSalesforceId } from "@/lib/portal/salesforce";
 import { parseEigenmittel, specialRef, summaryRows, type ValidSpecialAnswers } from "@/lib/portal/special";
@@ -145,8 +145,6 @@ export function specialCaseFields(p: SpecialCaseInput): Record<string, unknown> 
   const eigen = parseEigenmittel(a.eigenmittel);
   if (eigen != null) fields.Eigenmittel__c = eigen;
   if (p.folderUrl) fields.SharePoint_Doc__c = p.folderUrl;
-  const visible = portalVisibleField();
-  if (visible) fields[visible] = true;
   const owner = process.env.PORTAL_SF_SPECIAL_OWNER_ID;
   if (isSalesforceId(owner)) fields.OwnerId = owner;
   return fields;
@@ -181,9 +179,7 @@ export async function createSpecialCase(fields: Record<string, unknown>, api: Sp
   if (!isSalesforceId(res.id)) throw new Error("Salesforce returned no Case Id");
   if (dropped.some((d) => d.startsWith("Case.RecordTypeId "))) usedRecordType = false;
 
-  const visible = portalVisibleField();
-  const lost = (field: string) => dropped.some((d) => d.startsWith(`Case.${field} `));
-  const linked = !lost(partnerCaseField()) && !(visible && lost(visible));
+  const linked = !dropped.some((d) => d.startsWith(`Case.${partnerCaseField()} `));
 
   let caseNr: string | null = null;
   try {

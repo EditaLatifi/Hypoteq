@@ -89,13 +89,18 @@ const de = {
   adminPortal: {
     portalUserId: "Portal User ID",
     fieldsTitle: "Salesforce Portal-Felder",
-    fieldsText: "Status, Portal-Text und Benachrichtigungen werden in Salesforce gepflegt. Das Portal liest diese Felder, sobald es sie in der Org gibt.",
+    fieldsText: "Die Partnersteuerung (Account) und den Status (Case) pflegt HYPOTEQ in Salesforce. Das Portal liest jedes Feld nur, wenn es in der Org vorhanden ist.",
     missing: "Feld nicht vorhanden",
     on: (object: string) => `auf ${object}`,
     ticked: (hit: number, total: number) => `true bei ${hit} von ${total} Cases`,
     filled: (hit: number, total: number) => `gesetzt bei ${hit} von ${total} Cases`,
     empty: "leer",
     failed: "Die Felder konnten gerade nicht aus Salesforce gelesen werden.",
+    enforce: (on: boolean): string =>
+      on
+        ? "Zugang und Sichtbarkeit werden durchgesetzt (PORTAL_ENFORCE_ACCOUNT_FLAGS=on)."
+        : "Zugang und Sichtbarkeit werden nur angezeigt, noch nicht durchgesetzt (PORTAL_ENFORCE_ACCOUNT_FLAGS).",
+    mails: (on: boolean): string => (on ? "Status-Mails des Portals: ein (PORTAL_STATUS_MAILS)." : "Status-Mails des Portals: aus (PORTAL_STATUS_MAILS)."),
   },
 };
 
@@ -185,13 +190,18 @@ const en: ShellDict = {
   adminPortal: {
     portalUserId: "Portal user ID",
     fieldsTitle: "Salesforce portal fields",
-    fieldsText: "Status, portal text and notifications are maintained in Salesforce. The portal reads these fields as soon as the org has them.",
+    fieldsText: "HYPOTEQ maintains the partner control (Account) and the status (Case) in Salesforce. The portal reads each field only where the org has it.",
     missing: "Field does not exist",
     on: (object) => `on ${object}`,
     ticked: (hit, total) => `true on ${hit} of ${total} cases`,
     filled: (hit, total) => `set on ${hit} of ${total} cases`,
     empty: "empty",
     failed: "The fields could not be read from Salesforce right now.",
+    enforce: (on) =>
+      on
+        ? "Access and visibility are enforced (PORTAL_ENFORCE_ACCOUNT_FLAGS=on)."
+        : "Access and visibility are only shown, not enforced yet (PORTAL_ENFORCE_ACCOUNT_FLAGS).",
+    mails: (on) => (on ? "Portal status e-mails: on (PORTAL_STATUS_MAILS)." : "Portal status e-mails: off (PORTAL_STATUS_MAILS)."),
   },
 };
 
@@ -279,13 +289,18 @@ const fr: ShellDict = {
   adminPortal: {
     portalUserId: "ID utilisateur du portail",
     fieldsTitle: "Champs portail Salesforce",
-    fieldsText: "Statut, texte du portail et notifications sont gérés dans Salesforce. Le portail lit ces champs dès que l'org les possède.",
+    fieldsText: "HYPOTEQ gère le pilotage du partenaire (Account) et le statut (Case) dans Salesforce. Le portail ne lit chaque champ que si l'org le possède.",
     missing: "Champ inexistant",
     on: (object) => `sur ${object}`,
     ticked: (hit, total) => `true sur ${hit} de ${total} dossiers`,
     filled: (hit, total) => `renseigné sur ${hit} de ${total} dossiers`,
     empty: "vide",
     failed: "Les champs n'ont pas pu être lus dans Salesforce pour le moment.",
+    enforce: (on) =>
+      on
+        ? "L'accès et la visibilité sont appliqués (PORTAL_ENFORCE_ACCOUNT_FLAGS=on)."
+        : "L'accès et la visibilité sont seulement affichés, pas encore appliqués (PORTAL_ENFORCE_ACCOUNT_FLAGS).",
+    mails: (on) => (on ? "E-mails de statut du portail : activés (PORTAL_STATUS_MAILS)." : "E-mails de statut du portail : désactivés (PORTAL_STATUS_MAILS)."),
   },
 };
 
@@ -373,13 +388,18 @@ const it: ShellDict = {
   adminPortal: {
     portalUserId: "ID utente del portale",
     fieldsTitle: "Campi portale Salesforce",
-    fieldsText: "Stato, testo del portale e notifiche sono gestiti in Salesforce. Il portale legge questi campi non appena l'org li possiede.",
+    fieldsText: "HYPOTEQ gestisce il controllo del partner (Account) e lo stato (Case) in Salesforce. Il portale legge ogni campo solo se l'org lo possiede.",
     missing: "Campo inesistente",
     on: (object) => `su ${object}`,
     ticked: (hit, total) => `true su ${hit} di ${total} pratiche`,
     filled: (hit, total) => `impostato su ${hit} di ${total} pratiche`,
     empty: "vuoto",
     failed: "Non è stato possibile leggere i campi da Salesforce al momento.",
+    enforce: (on) =>
+      on
+        ? "Accesso e visibilità vengono applicati (PORTAL_ENFORCE_ACCOUNT_FLAGS=on)."
+        : "Accesso e visibilità vengono solo mostrati, non ancora applicati (PORTAL_ENFORCE_ACCOUNT_FLAGS).",
+    mails: (on) => (on ? "E-mail di stato del portale: attive (PORTAL_STATUS_MAILS)." : "E-mail di stato del portale: disattivate (PORTAL_STATUS_MAILS)."),
   },
 };
 

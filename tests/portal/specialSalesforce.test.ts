@@ -85,7 +85,6 @@ beforeEach(() => {
   jest.spyOn(console, "error").mockImplementation(() => {});
   resetSpecialRecordTypeCache();
   delete process.env.PORTAL_SF_PARTNER_FIELD;
-  delete process.env.PORTAL_SF_VISIBLE_FIELD;
   delete process.env.PORTAL_SF_SPECIAL_RECORD_TYPE;
   delete process.env.PORTAL_SF_SPECIAL_OWNER_ID;
   delete process.env.SF_SALES_PARTNER_FIELD;
@@ -121,7 +120,7 @@ describe("specialCaseFields", () => {
     expect(f).not.toHaveProperty("SharePoint_Doc__c");
   });
 
-  it("follows the configured field names, visibility checkbox and owner", () => {
+  it("follows the configured field names and owner; Portal_Visible__c is an Account field, never set on the Case", () => {
     process.env.PORTAL_SF_PARTNER_FIELD = "Berater__c";
     process.env.SF_SALES_PARTNER_FIELD = "Sales_Partner__c";
     process.env.PORTAL_SF_VISIBLE_FIELD = "Portal_Visible__c";
@@ -129,7 +128,7 @@ describe("specialCaseFields", () => {
     const f = specialCaseFields(INPUT);
     expect(f.Berater__c).toBe(CONTACT);
     expect(f.Sales_Partner__c).toBe(ACCOUNT);
-    expect(f.Portal_Visible__c).toBe(true);
+    expect(f).not.toHaveProperty("Portal_Visible__c");
     expect(f.OwnerId).toBe("00GEEEEEEEEEEEEEEE");
     expect(f).not.toHaveProperty("Partner_Consultant__c");
   });

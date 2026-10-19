@@ -10,7 +10,7 @@ import { baseId, getRequirement } from "@/lib/funnel-v3/requirements";
 import { buildCaseDocs, type CaseDoc, type PresentDoc } from "@/lib/portal/caseDocs";
 import { special as SPECIAL_TEXTS } from "@/lib/portal/i18n/special";
 import { isSpecialType, specialArt, type SpecialType } from "@/lib/portal/special";
-import { PORTAL_SF_FIELDS, partnerActionField, partnerCaseField, portalStatusField, portalVisibleField } from "@/lib/portal/config";
+import { ACCOUNT_PORTAL_FIELDS, enforceAccountFlags, partnerActionField, partnerCaseField, portalStatusField } from "@/lib/portal/config";
 import type { Locale } from "@/lib/portal/i18n/dict";
 import { keysForSfFlag, keysForTabEntry, outstandingKeys, parseChecklist, personsByKey, reworkDocs } from "@/lib/portal/requiredDocs";
 import {
@@ -329,8 +329,74 @@ async function scopeClause(scope: PartnerScope): Promise<string> {
       clause = scope.companyWide ? `(${me} OR ${company})` : `(${me} OR (${company} AND ${pc} = null))`;
     }
   }
-  const visible = portalVisibleField();
-  return visible ? `${clause} AND ${visible} = true` : clause;
+  return clause;
+}
+
+// ---------------------------------------------------------------------------
+// Partner control on the Account (HYPOTEQ 19.10.2026 B25 / D.1)
+// ---------------------------------------------------------------------------
+
+/** Each checkbox of the partner's Account; null = the org has no such field, or it could not be read. */
+export type AccountPortalFlags = { access: boolean | null; visible: boolean | null; notify: boolean | null };
+
+const NO_FLAGS: AccountPortalFlags = { access: null, visible: null, notify: null };
+const FLAG_TTL_MS = 60_000;
+const flagCache = new Map<string, { at: number; flags: AccountPortalFlags }>();
+
+/** Forget what this instance learnt about the org (describes, Account flags). For tests. */
+export function resetSalesforceCaches(): void {
+  flagCache.clear();
+  described.clear();
+}
+
+/**
+ * Account.Portal_Access__c, Portal_Visible__c and Send_Notification__c of a partner company.
+ * Every field is described first and only read where the org has it. Never throws: when
+ * Salesforce cannot say, every flag is null, and nothing is blocked or withheld for it.
+ * Kept a minute per Account, since enforcement asks on every page.
+ */
+export async function accountPortalFlags(accountId: string | null | undefined, now = Date.now()): Promise<AccountPortalFlags> {
+  if (!isSalesforceId(accountId)) return NO_FLAGS;
+  const hit = flagCache.get(accountId);
+  if (hit && now - hit.at < FLAG_TTL_MS) return hit.flags;
+  const F = ACCOUNT_PORTAL_FIELDS;
+  const keys = ["access", "visible", "notify"] as const;
+  try {
+    const has = await Promise.all(keys.map((k) => hasField("Account", F[k])));
+    const present = keys.filter((_, i) => has[i]).map((k) => F[k]);
+    let flags = NO_FLAGS;
+    if (present.length) {
+      const rows = await queryWithFields<any>(present, (s) => `SELECT ${s} FROM Account WHERE Id = ${soqlString(accountId)} LIMIT 1`);
+      const r = rows[0];
+      const val = (i: number) => (has[i] && r && typeof r[F[keys[i]]] === "boolean" ? (r[F[keys[i]]] as boolean) : null);
+      flags = { access: val(0), visible: val(1), notify: val(2) };
+    }
+    flagCache.set(accountId, { at: now, flags });
+    return flags;
+  } catch (err) {
+    console.warn(`[portal] could not read the portal flags of Account ${accountId}; not enforcing them`, (err as any)?.message || err);
+    return NO_FLAGS;
+  }
+}
+
+/**
+ * Whether the partner's Cases stay hidden: only with PORTAL_ENFORCE_ACCOUNT_FLAGS=on and an
+ * unticked Account.Portal_Visible__c. A fresh checkbox is unticked for every partner, so
+ * this is off until HYPOTEQ has set them (DECISIONS P26).
+ */
+async function casesHidden(scope: PartnerScope): Promise<boolean> {
+  if (!enforceAccountFlags()) return false;
+  return (await accountPortalFlags(scope.accountId)).visible === false;
+}
+
+/**
+ * Whether the partner company's portal access is switched off: only with
+ * PORTAL_ENFORCE_ACCOUNT_FLAGS=on and an unticked Account.Portal_Access__c. Admins are never
+ * refused, and neither is anyone when Salesforce cannot say.
+ */
+export async function portalAccessRefused(user: { role: string; sfAccountId: string | null }): Promise<boolean> {
+  if (!enforceAccountFlags() || user.role === "admin") return false;
+  return (await accountPortalFlags(user.sfAccountId)).access === false;
 }
 
 export type { CaseDoc } from "@/lib/portal/caseDocs";
@@ -609,6 +675,7 @@ async function caseFields(base: string[]): Promise<{ fields: string[]; optional:
 
 export async function listPartnerCases(scope: PartnerScope, locale: Locale = "de"): Promise<PortalCaseSummary[]> {
   if (!isSalesforceId(scope.contactId)) return [];
+  if (await casesHidden(scope)) return [];
   const where = await scopeClause(scope);
   const { fields, optional } = await caseFields(LIST_FIELDS);
   const recs = await queryWithFields(fields, (select) => `SELECT ${select} FROM Case WHERE ${where} ORDER BY CreatedDate DESC LIMIT 500`);
@@ -632,6 +699,7 @@ function swissDate(v: unknown): string | null {
 /** A Case of this partner, or null when it does not exist or is not theirs. */
 export async function getPartnerCase(scope: PartnerScope, caseId: string, locale: Locale = "de"): Promise<PortalCaseDetail | null> {
   if (!isSalesforceId(scope.contactId) || !isSalesforceId(caseId)) return null;
+  if (await casesHidden(scope)) return null;
   const where = await scopeClause(scope);
   const { fields, optional } = await caseFields(DETAIL_FIELDS);
   const recs = await queryWithFields(fields, (select) => `SELECT ${select} FROM Case WHERE Id = ${soqlString(caseId)} AND ${where} LIMIT 1`);
@@ -683,42 +751,45 @@ export async function getPartnerCase(scope: PartnerScope, caseId: string, locale
 export type PortalFieldRow = {
   field: string;
   /** Where the org has the field; null = «Feld nicht vorhanden». */
-  object: "Case" | "Contact" | "Account" | null;
-  /** The value on the partner's Contact or Account. */
+  object: "Case" | "Account" | null;
+  /** Account fields: the value on the partner's Account (null = empty or no Account). */
   value?: string | null;
   /** Case fields: on how many of the partner's Cases the field is ticked or filled. */
   counts?: { hit: number; total: number; values: string[] };
 };
 
 /**
- * The Salesforce portal fields the handoff names, for one partner (admin partner detail).
- * Each is described first and read only where the org has it: Portal_Access__c on the
- * partner's Contact (else its Account), the four Case fields counted over the partner's
- * Cases. Nothing here is assumed to exist.
+ * The Salesforce portal fields for one partner (admin partner detail, HYPOTEQ 19.10.2026
+ * B25 / D.1): Portal_Access__c, Portal_Visible__c and Send_Notification__c on the partner's
+ * Account, Portal_Status__c and Partner_Action_Required__c counted over the partner's Cases.
+ * Each is described first and read only where the org has it; nothing is assumed to exist.
  */
 export async function portalFieldReport(scope: PartnerScope): Promise<PortalFieldRow[]> {
-  const F = PORTAL_SF_FIELDS;
-  const onCase = [F.visible, F.status, F.actionRequired, F.notify];
-  const [onContact, onAccount, ...caseHas] = await Promise.all([
-    hasField("Contact", F.access),
-    hasField("Account", F.access),
-    ...onCase.map((f) => hasField("Case", f)),
+  const A = ACCOUNT_PORTAL_FIELDS;
+  const onAccount = [A.access, A.visible, A.notify];
+  const onCase = [portalStatusField() || "Portal_Status__c", partnerActionField() || "Partner_Action_Required__c"];
+  const [accountHas, caseHas] = await Promise.all([
+    Promise.all(onAccount.map((f) => hasField("Account", f))),
+    Promise.all(onCase.map((f) => hasField("Case", f))),
   ]);
 
-  const access: PortalFieldRow = { field: F.access, object: null };
-  const holder = onContact && isSalesforceId(scope.contactId) ? { object: "Contact" as const, id: scope.contactId } : onAccount && isSalesforceId(scope.accountId) ? { object: "Account" as const, id: scope.accountId } : null;
-  if (holder) {
-    const rows = await queryWithFields<any>([F.access], (s) => `SELECT ${s} FROM ${holder.object} WHERE Id = ${soqlString(holder.id)} LIMIT 1`);
-    const v = rows[0]?.[F.access];
-    access.object = holder.object;
-    access.value = v == null || v === "" ? null : String(v);
+  const presentOnAccount = onAccount.filter((_, i) => accountHas[i]);
+  let account: any = null;
+  if (presentOnAccount.length && isSalesforceId(scope.accountId)) {
+    const rows = await queryWithFields<any>(presentOnAccount, (s) => `SELECT ${s} FROM Account WHERE Id = ${soqlString(scope.accountId!)} LIMIT 1`);
+    account = rows[0] ?? null;
   }
+  const accountRows: PortalFieldRow[] = onAccount.map((field, i) => {
+    if (!accountHas[i]) return { field, object: null };
+    const v = account?.[field];
+    return { field, object: "Account", value: v == null || v === "" ? null : String(v) };
+  });
 
-  const present = onCase.filter((_, i) => caseHas[i]);
+  const presentOnCase = onCase.filter((_, i) => caseHas[i]);
   let recs: any[] = [];
-  if (present.length && isSalesforceId(scope.contactId)) {
+  if (presentOnCase.length && isSalesforceId(scope.contactId)) {
     const where = await scopeClause(scope);
-    recs = await queryWithFields<any>(["Id", ...present], (s) => `SELECT ${s} FROM Case WHERE ${where} LIMIT 500`);
+    recs = await queryWithFields<any>(["Id", ...presentOnCase], (s) => `SELECT ${s} FROM Case WHERE ${where} LIMIT 500`);
   }
   const caseRows: PortalFieldRow[] = onCase.map((field, i) => {
     if (!caseHas[i]) return { field, object: null };
@@ -726,7 +797,7 @@ export async function portalFieldReport(scope: PartnerScope): Promise<PortalFiel
     const values = Array.from(new Set(set.filter((v) => typeof v === "string").map((v) => String(v).trim()))).slice(0, 4);
     return { field, object: "Case", counts: { hit: set.length, total: recs.length, values } };
   });
-  return [access, ...caseRows];
+  return [...accountRows, ...caseRows];
 }
 
 // ---------------------------------------------------------------------------

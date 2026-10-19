@@ -6,7 +6,7 @@ import { startViewAsAction } from "@/app/portal/actions";
 import { ACCESS_TONE } from "@/components/portal/access";
 import { Badge, Card, Eyebrow, FormError, btn, formatChf, formatDate, formatDateTime } from "@/components/portal/ui";
 import { prisma } from "@/lib/prisma";
-import { PORTAL_SF_FIELDS, partnerCaseField } from "@/lib/portal/config";
+import { enforceAccountFlags, partnerCaseField, portalStatusField, statusMailsOn } from "@/lib/portal/config";
 import { getDict } from "@/lib/portal/i18n/server";
 import { listPartnerCases, listUnassignedCases, portalFieldReport, type PortalCaseSummary, type PortalFieldRow, type UnassignedCase } from "@/lib/portal/salesforce";
 import { scopeOfPartner } from "@/lib/portal/scope";
@@ -38,7 +38,7 @@ export default async function AdminPartnerDetailPage({ params }: { params: { id:
   const fieldValue = (f: PortalFieldRow): string => {
     if (!f.object) return A.missing;
     if (f.counts) {
-      const n = f.field === PORTAL_SF_FIELDS.status ? A.filled(f.counts.hit, f.counts.total) : A.ticked(f.counts.hit, f.counts.total);
+      const n = f.field === portalStatusField() ? A.filled(f.counts.hit, f.counts.total) : A.ticked(f.counts.hit, f.counts.total);
       return f.counts.values.length ? `${n} · ${f.counts.values.join(", ")}` : n;
     }
     return `${f.value ?? A.empty} · ${A.on(f.object)}`;
@@ -138,6 +138,9 @@ export default async function AdminPartnerDetailPage({ params }: { params: { id:
             <Card>
               <Eyebrow accent>{A.fieldsTitle}</Eyebrow>
               <p className="m-0 text-[15px] text-white/70">{A.fieldsText}</p>
+              <p className="m-0 text-[13px] text-white/60">
+                {A.enforce(enforceAccountFlags())} {A.mails(statusMailsOn())}
+              </p>
               {fields ? (
                 <div className="flex flex-col">
                   {fields.map((f) => (

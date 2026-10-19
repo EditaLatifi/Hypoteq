@@ -21,7 +21,7 @@ import { isLocale } from "@/lib/portal/i18n/dict";
 import { LOCALE_COOKIE, getDict } from "@/lib/portal/i18n/server";
 import { sendInviteMail, sendMagicLinkMail, sendResetMail, sendTeamMail } from "@/lib/portal/mail";
 import { NOTIFY_KINDS, notifyPrefs } from "@/lib/portal/notifications";
-import { addCaseComment, getContact, getPartnerCase, isSalesforceId } from "@/lib/portal/salesforce";
+import { addCaseComment, getContact, getPartnerCase, isSalesforceId, portalAccessRefused } from "@/lib/portal/salesforce";
 import {
   createSession,
   destroySession,
@@ -95,6 +95,11 @@ export async function loginAction(_prev: FormState, fd: FormData): Promise<FormS
     return { error: t.errors.wrongCredentials };
   }
 
+  if (await portalAccessRefused(user)) {
+    await audit({ action: "login_blocked", actorId: user.id, actorEmail: email, target: "Portal_Access__c", ip });
+    return { error: t.errors.accessOff };
+  }
+
   await createSession(user.id);
   await audit({ action: "login", actorId: user.id, actorEmail: user.email, ip });
   redirect(await landingFor(user.id));
@@ -162,6 +167,7 @@ export async function activateAction(_prev: FormState, fd: FormData): Promise<Fo
   // Validate before using the token, so a typo in the password does not burn the link.
   const pending = await peekToken(token, "invite");
   if (!pending) return { error: t.errors.activationInvalid };
+  if (await portalAccessRefused(pending.user)) return { error: t.errors.accessOff };
   if (fd.get("privacy") !== "on" || fd.get("terms") !== "on") return { error: t.errors.acceptTerms };
   if (mode === "password") {
     const problem = passwordProblem(pw1);
@@ -198,6 +204,7 @@ export async function resetPasswordAction(_prev: FormState, fd: FormData): Promi
 
   const pending = await peekToken(token, "reset");
   if (!pending) return { error: t.errors.resetInvalid };
+  if (await portalAccessRefused(pending.user)) return { error: t.errors.accessOff };
   const problem = passwordProblem(pw1);
   if (problem) return { error: t.errors[problem] };
   if (pw1 !== pw2) return { error: t.errors.pwMismatch };
@@ -215,6 +222,8 @@ export async function resetPasswordAction(_prev: FormState, fd: FormData): Promi
 
 export async function magicLoginAction(_prev: FormState, fd: FormData): Promise<FormState> {
   const { t } = await getDict();
+  const pending = await peekToken(field(fd, "token"), "magic");
+  if (pending && (await portalAccessRefused(pending.user))) return { error: t.errors.accessOff };
   const row = await consumeToken(field(fd, "token"), "magic");
   if (!row || row.user.status !== "active") return { error: t.errors.magicInvalid };
   await createSession(row.userId);

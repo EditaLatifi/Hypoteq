@@ -45,16 +45,35 @@ export function partnerActionField(): string | null {
 }
 
 /**
- * The Salesforce fields the handoff names for the portal (admin partner detail). None exists
- * in the org yet (checked 15.10.2026); they are described, never assumed.
+ * The partner-control checkboxes on the partner's Account (HYPOTEQ 19.10.2026 B25 / D.1):
+ * portal access, Cases visible in the portal, status e-mails. A new checkbox is false for
+ * every partner until HYPOTEQ ticks it, so they are always described before they are read
+ * and only enforced when PORTAL_ENFORCE_ACCOUNT_FLAGS is on (DECISIONS P26).
  */
-export const PORTAL_SF_FIELDS = {
+export const ACCOUNT_PORTAL_FIELDS = {
   access: "Portal_Access__c",
   visible: "Portal_Visible__c",
-  status: "Portal_Status__c",
-  actionRequired: "Partner_Action_Required__c",
   notify: "Send_Notification__c",
 } as const;
+
+/**
+ * PORTAL_ENFORCE_ACCOUNT_FLAGS=on: an unticked Portal_Access__c refuses the login and an
+ * unticked Portal_Visible__c hides the partner's Cases. Anything else (the default): the
+ * admin partner page only shows them.
+ */
+export function enforceAccountFlags(): boolean {
+  return (process.env.PORTAL_ENFORCE_ACCOUNT_FLAGS || "").trim().toLowerCase() === "on";
+}
+
+/**
+ * PORTAL_STATUS_MAILS=on: the portal mails partners about Case changes itself (and respects
+ * Account.Send_Notification__c). Default off: HYPOTEQ's Salesforce flows will send those
+ * mails once the texts are released (B24 / F.1), and a partner must not get both. The
+ * in-portal «Meldungen» are kept either way (DECISIONS P32).
+ */
+export function statusMailsOn(): boolean {
+  return (process.env.PORTAL_STATUS_MAILS || "").trim().toLowerCase() === "on";
+}
 
 /**
  * Where partner messages and team notices go (DECISIONS P4). The UI names this address,
@@ -74,11 +93,6 @@ export const PORTAL_TOOLS = {
   valuation: "https://hypoteq-hedonic.wuestappraisal.com/",
   academy: "https://hypoteq.talentlms.com/plus/login",
 } as const;
-
-/** Optional checkbox on Case (e.g. Portal_Visible__c); when set, only ticked Cases are shown. */
-export function portalVisibleField(): string | null {
-  return process.env.PORTAL_SF_VISIBLE_FIELD || null;
-}
 
 /** E-mails that are HYPOTEQ administrators. They can log in by magic link without an invite. */
 export function adminEmails(): string[] {
