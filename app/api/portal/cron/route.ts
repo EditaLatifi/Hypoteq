@@ -41,7 +41,7 @@ export async function GET(req: Request) {
 async function syncPartners(origin: string) {
   const partners = await prisma.portalUser.findMany({
     where: { status: "active", sfContactId: { not: null } },
-    select: { id: true, email: true, name: true, notifyPrefs: true, locale: true, sfContactId: true, sfAccountId: true, companyScope: true },
+    select: { id: true, email: true, name: true, locale: true, sfContactId: true, sfAccountId: true, companyScope: true },
   });
 
   let notifications = 0;

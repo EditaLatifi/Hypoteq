@@ -20,7 +20,6 @@ import { hashPassword, passwordProblem, verifyPassword } from "@/lib/portal/cryp
 import { isLocale } from "@/lib/portal/i18n/dict";
 import { LOCALE_COOKIE, getDict } from "@/lib/portal/i18n/server";
 import { sendInviteMail, sendMagicLinkMail, sendResetMail, sendTeamMail } from "@/lib/portal/mail";
-import { NOTIFY_KINDS, notifyPrefs } from "@/lib/portal/notifications";
 import { addCaseComment, getContact, getPartnerCase, isSalesforceId, portalAccessRefused } from "@/lib/portal/salesforce";
 import {
   createSession,
@@ -335,14 +334,6 @@ export async function markAllReadAction(): Promise<void> {
   if (user.viewingAs) return;
   await prisma.portalNotification.updateMany({ where: { userId: user.id, readAt: null }, data: { readAt: new Date() } });
   revalidatePath("/portal", "layout");
-}
-
-export async function setNotifyPrefAction(kind: string, on: boolean): Promise<void> {
-  const user = await requireUser();
-  if (user.viewingAs || !(NOTIFY_KINDS as string[]).includes(kind)) return;
-  const prefs = { ...notifyPrefs(user.notifyPrefs), [kind]: on };
-  await prisma.portalUser.update({ where: { id: user.id }, data: { notifyPrefs: prefs } });
-  revalidatePath("/portal/profil");
 }
 
 // ---------------------------------------------------------------------------

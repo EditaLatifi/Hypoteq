@@ -1,4 +1,3 @@
-import NotifySwitches from "@/components/portal/NotifySwitches";
 import LogoCard from "@/components/portal/profile/LogoCard";
 import PartnerDataCard, { type PartnerDataRow } from "@/components/portal/profile/PartnerDataCard";
 import PartnerDocsCard, { type PartnerDocRow } from "@/components/portal/profile/PartnerDocsCard";
@@ -9,13 +8,13 @@ import { prisma } from "@/lib/prisma";
 import { CHANGE_STATUS_TONE, changeRequestNr, isChangeStatus, loadPartnerData, mergePartnerData, type PartnerData } from "@/lib/portal/changeRequests";
 import { getDict } from "@/lib/portal/i18n/server";
 import { imageMeta, sessionAccountFor } from "@/lib/portal/images";
-import { notifyPrefs } from "@/lib/portal/notifications";
 import { PARTNER_DOC_STATUS_TONE, isPartnerDocStatus, listPartnerDocuments } from "@/lib/portal/partnerDocuments";
 import { requireUser } from "@/lib/portal/session";
 
 /**
  * Profil (handoff 4): photo, partner data from Salesforce with change requests, the
- * company logo, the company's own documents, e-mail notifications and security.
+ * company logo, the company's own documents and security. No e-mail switches: HYPOTEQ
+ * decides who is notified (19.10.2026 E.2, Account.Send_Notification__c).
  *
  * While an admin views the portal as a partner, the page shows that partner's profile —
  * their data, logo, documents and requests — and nothing can be changed.
@@ -38,7 +37,6 @@ export default async function ProfilePage() {
         role: "partner",
         activatedAt: viewed?.activatedAt ?? null,
         lastLoginAt: viewed?.lastLoginAt ?? null,
-        notifyPrefs: viewed?.notifyPrefs ?? null,
       }
     : user;
   const contactId = user.contactId;
@@ -153,13 +151,6 @@ export default async function ProfilePage() {
 
         <div className="flex min-w-0 flex-col gap-6">
           {contactId ? <PartnerDocsCard docs={docRows} canUpload={!viewing && !!accountId} noAccount={!accountId} /> : null}
-
-          {contactId && (!viewing || viewed) ? (
-            <Card className="gap-3">
-              <Eyebrow accent>{t.profile.notifTitle}</Eyebrow>
-              <NotifySwitches prefs={notifyPrefs(person.notifyPrefs)} readOnly={viewing} />
-            </Card>
-          ) : null}
 
           <SecurityCard lastLogin={person.lastLoginAt ? t.common.lastLogin(formatDateTime(person.lastLoginAt)) : viewing ? "–" : t.profile.firstLogin} readOnly={viewing} />
         </div>
