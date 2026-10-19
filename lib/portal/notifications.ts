@@ -2,7 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { DICTS, isLocale, type Dict } from "@/lib/portal/i18n/dict";
 import { sendNotificationMail } from "@/lib/portal/mail";
 import type { PortalCaseSummary } from "@/lib/portal/salesforce";
-import { isRelabel } from "@/lib/portal/status";
+import { currentStatus, isRelabel } from "@/lib/portal/status";
 
 /**
  * Case notifications.
@@ -29,24 +29,24 @@ export function notifyPrefs(raw: unknown): Record<NotifyKind, boolean> {
   };
 }
 
-/** Which e-mail switch governs a change to this status, and how it is worded. */
+/** What kind of change a move to this status is, and how it is worded. */
 export function variantFor(status: string): { kind: NotifyKind; variant: NotifyVariant } {
-  switch (status) {
-    case "Dokumente ausstehend":
+  switch (currentStatus(status)) {
+    case "Unterlagen fehlen noch":
       return { kind: "docs", variant: "docs" };
-    case "Nachbearbeitung notwendig":
+    case "Kleine Nacharbeit nötig":
       return { kind: "docs", variant: "rework" };
-    case "Bei Kreditgeber":
+    case "Bei der Bank in Prüfung":
       return { kind: "lender", variant: "lender_sent" };
-    case "Rückmeldung erhalten":
+    case "Angebot liegt vor":
       return { kind: "lender", variant: "lender_answer" };
     case "Finanzierung bestätigt":
       return { kind: "lender", variant: "confirmed" };
     case "Abgeschlossen":
       return { kind: "status", variant: "closed" };
-    case "Abgelehnt":
+    case "Leider abgelehnt":
       return { kind: "status", variant: "declined" };
-    case "Storniert":
+    case "Anfrage zurückgezogen":
       return { kind: "status", variant: "cancelled" };
     default:
       return { kind: "status", variant: "status" };
@@ -64,7 +64,7 @@ export function changeNotice(
 ): { kind: NotifyKind; variant: NotifyVariant } | null {
   if (!prev) return firstSync ? null : { kind: "new_case", variant: "new_case" };
   if (prev.status !== c.status && !isRelabel(prev.status, c.status)) return variantFor(c.status);
-  if (c.missingCount > prev.missingCount) return { kind: "docs", variant: c.status === "Nachbearbeitung notwendig" ? "rework" : "docs" };
+  if (c.missingCount > prev.missingCount) return { kind: "docs", variant: c.status === "Kleine Nacharbeit nötig" ? "rework" : "docs" };
   return null;
 }
 

@@ -10,7 +10,7 @@ import { loadMyCases } from "@/lib/portal/load";
 import { chf, chfShort, percent, portfolio } from "@/lib/portal/portfolio";
 import { requireUser } from "@/lib/portal/session";
 import { isClosedStatus, matchesFilter, type CaseFilter } from "@/lib/portal/status";
-import { docChips, docProgress } from "@/lib/portal/view";
+import { docChips, docProgress, filterCase } from "@/lib/portal/view";
 
 const EYEBROW_LIME = "text-[13px] font-medium uppercase tracking-[.08em] text-[#CAF476]";
 const TILE = "rounded-xl border border-white/[.08] bg-[#1A2E20] p-5";
@@ -86,7 +86,7 @@ export default async function DashboardPage() {
   const { cases, failed } = await loadMyCases(user, locale);
   const open = cases.filter((c) => !isClosedStatus(c.status));
   const action = cases.filter((c) => c.actionRequired);
-  const count = (f: CaseFilter) => cases.filter((c) => matchesFilter(f, c.status, c.needDocs.length)).length;
+  const count = (f: CaseFilter) => cases.filter((c) => matchesFilter(f, filterCase(c))).length;
   const kpis: { label: string; filter: CaseFilter }[] = [
     { label: t.dashboard.kpiOpen, filter: "Offen" },
     { label: t.dashboard.kpiInProgress, filter: "In Bearbeitung" },
@@ -145,6 +145,10 @@ export default async function DashboardPage() {
                         {c.kunde} <span className="font-normal text-[#132219]/70">· {c.nr}</span>
                       </div>
                       <div className="flex flex-wrap gap-1.5">
+                        {/* Flagged by Salesforce before the portal knows which paper: the status says it. */}
+                        {!chips.length ? (
+                          <span className="whitespace-nowrap rounded-full border border-[#132219]/30 px-[11px] py-[7px] text-[13px] leading-none">{t.status[c.status] || c.status}</span>
+                        ) : null}
                         {chips.map((d) => (
                           <span key={d} className="whitespace-nowrap rounded-full border border-[#132219]/30 px-[11px] py-[7px] text-[13px] leading-none">
                             {d}
@@ -157,10 +161,12 @@ export default async function DashboardPage() {
                     </div>
                     <div className="ml-auto flex flex-none items-center gap-6">
                       <div className="flex w-[130px] flex-col items-end gap-1.5">
-                        <div className="flex items-baseline gap-1.5">
-                          <span className="text-[28px] font-bold leading-none tabular-nums">{c.needDocs.length}</span>
-                          <span className="text-[13px] text-[#132219]/70">{t.dashboard.needLabel(c.needDocs.length)}</span>
-                        </div>
+                        {c.needDocs.length ? (
+                          <div className="flex items-baseline gap-1.5">
+                            <span className="text-[28px] font-bold leading-none tabular-nums">{c.needDocs.length}</span>
+                            <span className="text-[13px] text-[#132219]/70">{t.dashboard.needLabel(c.needDocs.length)}</span>
+                          </div>
+                        ) : null}
                         {/* The text below says the same; inside a link the bar is decoration. */}
                         <div className="w-full" aria-hidden>
                           <ProgressBar value={progress.pct} label={t.dashboard.docsDone(progress.ok, progress.total)} onLime />

@@ -35,6 +35,16 @@ export function portalStatusField(): string | null {
 }
 
 /**
+ * Case checkbox HYPOTEQ's status flow ticks while documents are missing (B25 / D.3); it
+ * drives «Aktion erforderlich» (lib/portal/status.ts actionRequired). Read only when the org
+ * describes it. PORTAL_SF_ACTION_FIELD renames it, "off" switches it off.
+ */
+export function partnerActionField(): string | null {
+  const v = (process.env.PORTAL_SF_ACTION_FIELD || "Partner_Action_Required__c").trim();
+  return v && v.toLowerCase() !== "off" ? v : null;
+}
+
+/**
  * The Salesforce fields the handoff names for the portal (admin partner detail). None exists
  * in the org yet (checked 15.10.2026); they are described, never assumed.
  */

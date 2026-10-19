@@ -53,7 +53,7 @@ export async function caseFolder(
   } else {
     await prisma.portalCaseState.upsert({
       where: { caseId },
-      create: { caseId, contactId: opts.contactId!, status: "Neue Anfrage", folderId },
+      create: { caseId, contactId: opts.contactId!, status: "Anfrage eingegangen", folderId },
       update: { folderId },
     });
   }

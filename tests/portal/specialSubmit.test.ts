@@ -100,7 +100,7 @@ describe("submitSpecialRequest", () => {
 
     expect(mockDb.portalSpecialRequest.update).toHaveBeenLastCalledWith({ where: { id: "new-1" }, data: { sfCaseId: CASE_ID, caseNr: "00001422", sfError: null } });
     // A Case the partner made themselves is no «new case» notification.
-    expect(mockDb.portalCaseSeen.upsert).toHaveBeenCalledWith(expect.objectContaining({ create: expect.objectContaining({ caseId: CASE_ID, status: "Neue Anfrage" }) }));
+    expect(mockDb.portalCaseSeen.upsert).toHaveBeenCalledWith(expect.objectContaining({ create: expect.objectContaining({ caseId: CASE_ID, status: "Anfrage eingegangen" }) }));
 
     const mail = mockMail.mock.calls[0][0] as any;
     expect(mail.to).toBeNull();
@@ -140,7 +140,7 @@ describe("submitSpecialRequest", () => {
     expect(mockFolder).toHaveBeenCalledWith({ id: DRAFT_ID, createdAt: expect.any(Date) }, USER.email, { create: false });
     expect((mockDb.portalSpecialRequest.update.mock.calls[0][0] as any).data.files).toEqual([FILE]);
     expect((mockCreateCase.mock.calls[0][0] as any).SharePoint_Doc__c).toBe("https://sp/folder");
-    expect(mockDb.portalCaseState.upsert).toHaveBeenCalledWith(expect.objectContaining({ create: { caseId: CASE_ID, contactId: USER.contactId, status: "Neue Anfrage", folderId: "folder-1" } }));
+    expect(mockDb.portalCaseState.upsert).toHaveBeenCalledWith(expect.objectContaining({ create: { caseId: CASE_ID, contactId: USER.contactId, status: "Anfrage eingegangen", folderId: "folder-1" } }));
     expect(mockDb.portalUpload.createMany).toHaveBeenCalledWith({
       data: [{ userId: "u-1", caseId: CASE_ID, docKey: null, docLabel: "Spezialfinanzierung", fileName: "Baubewilligung.pdf", driveItemId: "01ABCDEFGH", webUrl: "https://sp/file" }],
     });
