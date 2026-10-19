@@ -108,7 +108,7 @@ function tokens(s: string | null | undefined): string[] {
 }
 
 /**
- * How well a printed name («Gerber Gary Samuel») fits a person: 0 = not at all. The family
+ * How well a printed name («Mustermann Max Simon») fits a person: 0 = not at all. The family
  * name must be there (word order does not matter — documents print both orders); each matching
  * given name adds to the score so spouses with one family name are told apart.
  */

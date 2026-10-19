@@ -576,7 +576,7 @@ export interface PersonRef {
   last: string;
   /** Set for kind = company. */
   company?: string;
-  /** «Gary Gerber» / «Muster AG». */
+  /** «Max Mustermann» / «Muster AG». */
   display: string;
 }
 

@@ -288,7 +288,7 @@ export function placeLine(txt: Pick<Texts, "plz" | "ort">): string {
   return [txt.plz, txt.ort].map((s) => (s || "").trim()).filter(Boolean).join(" ");
 }
 
-/** «Gary Gerber · 8820 Wädenswil» (a company: its Firma), or «Neue Anfrage». */
+/** «Max Mustermann · 8000 Zürich» (a company: its Firma), or «Neue Anfrage». */
 export function caseLine(txt: Texts, t: T, kn?: Answers["kn"]): string {
   const who = kn === "Juristische Person" ? (txt.firma || "").trim() : customerName(txt);
   return [who, placeLine(txt)].filter(Boolean).join(" · ") || t("side.newRequest");

@@ -26,7 +26,7 @@
  * Every parameter is a named constant below: the homepage calculator's formula may replace
  * this one (Handover 5, 10.3; DECISIONS V1) — here, in one place.
  *
- * Percentages are returned as percentages (44.8), not ratios, matching what is displayed.
+ * Percentages are returned as percentages (44.4), not ratios, matching what is displayed.
  */
 
 import type { Antrag, Eigenmittel, Kreditnehmer, YesNo } from "./types";

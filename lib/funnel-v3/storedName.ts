@@ -38,7 +38,7 @@ export function formatDocDate(d: string | Date | null | undefined): string {
 }
 
 export interface StoredNameInput {
-  /** `HQ-26-06-156283`. */
+  /** `HQ-26-01-000001`. */
   caseNumber: string;
   /** The requirement (catalogue entry or list instance) the file belongs to. */
   requirement: RequirementDef | RequirementInstance;

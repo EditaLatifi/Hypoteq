@@ -166,7 +166,7 @@ export function toUploadedFile(f: DossierFile): UploadedFile {
 
 const str = (v: unknown) => (v === null || v === undefined ? "" : String(v).trim());
 
-/** «Eigentümer: Gary Samuel Gerber · Blatt: 7357 / 7361» from the extracted fields. */
+/** «Eigentümer: Max Simon Mustermann · Blatt: 1001 / 1002» from the extracted fields. */
 function facts(files: DossierFile[], max = MAX_FACTS): string {
   const out: string[] = [];
   for (const f of files) {
@@ -353,7 +353,7 @@ export function buildDossierModel(input: DossierInput): DossierModel {
   // ---- 03 Kreditnehmer
   const s3Left: KeyValue[] = [];
   const s3Right: KeyValue[] = [];
-  /** A chip's answer with what its documents say («Ja · Restschuld CHF 24'360»). */
+  /** A chip's answer with what its documents say («Ja · Restschuld CHF 21'480»). */
   const withFacts = (answer: string, facts: [string, keyof DocInfo][]) => {
     const extra = facts.map(([label, key]) => (str(info[key]) ? `${label} ${str(info[key])}` : "")).filter(Boolean);
     return { value: [answer, ...extra].join(" · "), source: extra.length ? fromDoc : undefined };

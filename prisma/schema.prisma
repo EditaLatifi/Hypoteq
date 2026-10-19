@@ -213,7 +213,7 @@ model Document {
   originalFileName String?
 
   /// Name in the case folder after the Funnel v3 closing (spec 5.1), e.g.
-  /// HQ-26-06-156283_01_Lohnausweis_Gerber-Gary_2024_2.pdf. Null when not renamed.
+  /// HQ-26-01-000001_01_Lohnausweis_Mustermann-Max_2024_2.pdf. Null when not renamed.
   /// prisma/sql/2026-10-05-document-stored-name.sql
   storedName String?
 

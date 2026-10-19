@@ -7,7 +7,7 @@
  *                  → P6 «Anstellungsvertrag», reason «Lohnerhöhung erkannt»
  *   Ab 50          Geburtsdatum (ID) → Alter ≥ 50 at today → P10 and E2/E3
  *
- * Fall Gerber: Lohnausweis 2025 CHF 125'385 vs. 13 × CHF 9'615 = CHF 124'995 → +0.3 %: neither.
+ * Fall Mustermann: Lohnausweis 2025 CHF 110'310 vs. 13 × CHF 8'460 = CHF 109'980 → +0.3 %: neither.
  *
  * The threshold is one constant (DECISIONS V2). Whether a 13th salary is paid is read from the
  * payslips; when they do not say, each rule takes the reading that does NOT add a document
@@ -76,7 +76,7 @@ export interface DocFacts {
 const DATE_RE = /\b\d{1,2}\.\d{1,2}\.\d{4}\b|\b\d{4}-\d{2}-\d{2}\b/g;
 
 /**
- * The amount in a field as printed: «CHF 125'385», «9'615.–», «CHF 10'340 per 09.01.2026»
+ * The amount in a field as printed: «CHF 110'310», «8'460.–», «CHF 8'760 per 09.01.2026»
  * (the date is not part of it). 0 when there is none.
  */
 export function amountOf(v: string | number | null | undefined): number {
@@ -86,7 +86,7 @@ export function amountOf(v: string | number | null | undefined): number {
   return m ? parseAmount(m[0]) : 0;
 }
 
-/** «4.1.1988», «04.01.1988», «1988-01-04» → «04.01.1988»; nothing readable → "". */
+/** «5.3.1985», «05.03.1985», «1985-03-05» → «05.03.1985»; nothing readable → "". */
 export function dateOf(v: string | number | null | undefined): string {
   const s = String(v ?? "").trim();
   const dmy = s.match(/(\d{1,2})\.(\d{1,2})\.(\d{4})/);

@@ -15,7 +15,7 @@ export async function createDossierPdf(input: DossierInput): Promise<Uint8Array>
   return renderDossierPdf(buildDossierModel(input), { date: input.date });
 }
 
-/** `HQ-26-06-156283_00_Fall-Dossier.pdf` (group 00 sorts it first in the case folder). */
+/** `HQ-26-01-000001_00_Fall-Dossier.pdf` (group 00 sorts it first in the case folder). */
 export function dossierFileName(caseNumber: string | null): string {
   return caseNumber ? `${caseNumber}_00_Fall-Dossier.pdf` : "00_Fall-Dossier.pdf";
 }
