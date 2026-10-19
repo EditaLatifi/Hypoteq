@@ -20,7 +20,7 @@ import CalcCard from "./CalcCard";
  *    Gewerbe); Netto-Mietertrag (Vermietet, also teilweise vermietet — DECISIONS V58)
  *  - Ablösung: bestehende Hypothek, Erhöhung, Betrag, Verwendungszweck
  *  - Kauf: Kaufpreis, Kaufdatum, Renovation, Renovationsbetrag, reserviert
- *  - Geschätzter Objektwert (a Kauf: empty = Kaufpreis, shown as placeholder)
+ *  - Geschätzter Objektwert (a Kauf: empty = Kaufpreis + Renovation, shown as placeholder; V20)
  *  - Eigenmittel – Aufteilung (Kauf) or Vorsorge (Ablösung), each row naming the document it
  *    asks for, with «Eigenmittel total … · x % · davon hart …» and the 10 % warning
  *  - «Weitere Angaben (optional)», collapsed: Laufzeit, Kommentar
@@ -175,8 +175,8 @@ export default function ScreenObjekt() {
               field="val"
               label={t("s4.value")}
               // Handover 2: «Bei Kauf leer = Kaufpreis (Platzhalter zeigt den Kaufpreis)».
-              placeholder={kauf && fin.kaufpreis > 0 ? chf(fin.kaufpreis) : "CHF"}
-              hint={t(kauf ? "s2.valueIsPrice" : "s4.valueHint")}
+              placeholder={kauf && fin.kaufpreis > 0 ? chf(fin.kaufpreis + (ans.reno === "Ja" ? fin.renoBetrag || 0 : 0)) : "CHF"}
+              hint={t(kauf ? (ans.reno === "Ja" && (fin.renoBetrag || 0) > 0 ? "s2.valueIsCost" : "s2.valueIsPrice") : "s4.valueHint")}
               value={fin.val}
               onChange={(n) => setFin("val", n)}
               source="fin.val"

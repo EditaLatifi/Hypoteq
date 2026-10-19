@@ -89,12 +89,15 @@ describe("Kauf", () => {
     expect(r.verdict).toBe("review");
   });
 
-  it("an empty Objektwert is the Kaufpreis, also with a renovation (handover over prototype)", () => {
+  it("an empty Objektwert is the Gesamtkosten, so a renovation counts as value (prototype, V20)", () => {
     const r = calcFinancing(kauf({ kaufpreis: 800000, reno: "Ja", renoBetrag: 100000, inc: 200000 }));
-    expect(r.value).toBe(800000);
-    expect(r.basis).toBe(800000);
+    expect(r.value).toBe(900000);
+    expect(r.basis).toBe(900000);
     expect(r.need).toBe(720000);
-    expect(r.ltv).toBeCloseTo(90, 9);
+    expect(r.ltv).toBeCloseTo(80, 9);
+    // An Objektwert typed in still caps the basis (Niederstwertprinzip).
+    const typed = calcFinancing(kauf({ kaufpreis: 800000, reno: "Ja", renoBetrag: 100000, val: 850000, inc: 200000 }));
+    expect(typed.basis).toBe(850000);
   });
 
   it("the household income is Kreditnehmer 1 + 2", () => {

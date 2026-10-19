@@ -7,7 +7,7 @@
  *     Eigenmittel total   Ersparnisse + 3a + PK-Vorbezug + Schenkung + Erbvorbezug + Darlehen
  *                         (PK-Verpfändung is a security, not Eigenmittel)
  *     Hypothek            Gesamtkosten − Eigenmittel total · none entered: 80 % of the Gesamtkosten
- *     Belehnungsbasis     min(Gesamtkosten, Objektwert) — Niederstwertprinzip; empty Objektwert = Kaufpreis
+ *     Belehnungsbasis     min(Gesamtkosten, Objektwert) — Niederstwertprinzip; empty Objektwert = Gesamtkosten (V20)
  *     harte Eigenmittel   Eigenmittel total − PK-Vorbezug · at least 10 % of the Kaufpreis
  *   Ablösung
  *     Hypothek            bestehende Hypothek + Erhöhung · Belehnungsbasis = Objektwert
@@ -120,7 +120,7 @@ export function calcFinancing(input: CalcInput): CalcResult {
   const hard = isAbl ? 0 : emTotal - num(input.em.pkVor);
   // «Bei Kauf leer = Kaufpreis» (Handover 2). Handover over prototype: the prototype took the
   // Gesamtkosten for an empty Objektwert, which counts a renovation as value.
-  const value = num(input.val) || (isAbl ? 0 : price);
+  const value = num(input.val) || (isAbl ? 0 : cost);
   const basis = isAbl ? value : value ? Math.min(cost, value) : cost;
   const need = isAbl
     ? num(input.old) + (input.aufstockung === "Ja" ? num(input.up) : 0)

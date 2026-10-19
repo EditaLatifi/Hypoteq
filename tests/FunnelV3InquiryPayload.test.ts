@@ -213,7 +213,8 @@ describe("toInquiryPayload — Mustermann, Kunde", () => {
       brutto: "200000",
       // Gesamtkosten 1'100'000 − Eigenmittel 230'000 (PK-Verpfändung does not count).
       hypoBetrag: "870000",
-      immobilienwert: "1000000",
+      // Objektwert empty: Kaufpreis + Renovation (V20); Salesforce's Geschaetzter_Objektwert__c stays empty (V60).
+      immobilienwert: "1100000",
       netto_mietertrag: "36000",
       eigenmittel_bar: "150000",
       eigenmittel_saeule3: "20000",
