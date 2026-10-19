@@ -13,17 +13,7 @@ import { isSpecialType, specialArt, type SpecialType } from "@/lib/portal/specia
 import { ACCOUNT_PORTAL_FIELDS, enforceAccountFlags, partnerActionField, partnerCaseField, portalStatusField } from "@/lib/portal/config";
 import type { Locale } from "@/lib/portal/i18n/dict";
 import { keysForSfFlag, keysForTabEntry, outstandingKeys, parseChecklist, personsByKey, reworkDocs } from "@/lib/portal/requiredDocs";
-import {
-  PORTAL_STATUSES,
-  actionRequired,
-  hasPortalStatus,
-  isClosedStatus,
-  needsDocument,
-  portalStatus,
-  statusDef,
-  type CaseStatus,
-  type Tone,
-} from "@/lib/portal/status";
+import { isCaseStatus, PORTAL_STATUSES, actionRequired, hasPortalStatus, isClosedStatus, needsDocument, portalStatus, statusDef, type CaseStatus, type Tone } from "@/lib/portal/status";
 
 /**
  * Salesforce access for the Partnerportal.
@@ -137,6 +127,34 @@ export async function hasField(object: string, field: string): Promise<boolean> 
 async function caseStatusField(): Promise<string | null> {
   const field = portalStatusField();
   return field && (await hasField("Case", field)) ? field : null;
+}
+
+export type StatusChange = { at: string; status: CaseStatus };
+
+/**
+ * The Case's Portal_Status__c changes, newest first, from Salesforce's field history (HYPOTEQ
+ * 19.10. B18: the field is tracked) — for «Letzte Updates», which otherwise only knew the
+ * changes the portal happened to notice. Empty when the org has no such field or refuses the
+ * history query; the Case page must never fail on it.
+ */
+export async function caseStatusHistory(caseId: string): Promise<StatusChange[]> {
+  if (!isSalesforceId(caseId)) return [];
+  try {
+    const field = await caseStatusField();
+    if (!field) return [];
+    const res: any = await withSession(
+      async () =>
+        await conn.query(
+          `SELECT CreatedDate, NewValue FROM CaseHistory WHERE CaseId = ${soqlString(caseId)} AND Field = ${soqlString(field)} ORDER BY CreatedDate DESC LIMIT 30`
+        )
+    );
+    return ((res?.records || []) as any[])
+      .map((r) => ({ at: String(r.CreatedDate || ""), status: String(r.NewValue ?? "").trim() }))
+      .filter((r): r is StatusChange => !!r.at && isCaseStatus(r.status));
+  } catch (err) {
+    console.warn("[portal] status history unavailable", err);
+    return [];
+  }
 }
 
 /** Case.Partner_Action_Required__c (B25) when the org has it, else null. */
@@ -534,10 +552,11 @@ const EXPECT_LIST: CaseStatus[] = ["Anfrage eingegangen", "Unterlagen fehlen noc
 
 function outstandingDocs(rec: any, ctx: DocContext, preStatus: CaseStatus): { missing: string[]; open: string[] } {
   if (isClosedStatus(preStatus) || ctx.special) return { missing: [], open: [] };
-  if (ctx.inquiry) return { missing: ctx.inquiry.missing.filter((k) => !ctx.uploaded.includes(k)), open: [] };
   if (rec.Documents_completed__c === true) return { missing: [], open: [] };
-  // Anything past the document stage has its paper.
+  // Anything past the document stage has its paper — a funnel Case too: its list is the one
+  // from the day it was submitted, and at the bank it only asked partners for paper again.
   if (!DOC_STAGE.includes(preStatus)) return { missing: [], open: [] };
+  if (ctx.inquiry) return { missing: ctx.inquiry.missing.filter((k) => !ctx.uploaded.includes(k)), open: [] };
 
   const checklist = parseChecklist(rec.Dokumenten_Check_State__c);
   const outstanding = outstandingKeys(rec, checklist, ctx.uploaded);

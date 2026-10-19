@@ -13,7 +13,7 @@ import type { Dict } from "@/lib/portal/i18n/dict";
 import { getDict } from "@/lib/portal/i18n/server";
 import { notifText } from "@/lib/portal/notifications";
 import { DOC_CATEGORIES } from "@/lib/portal/requiredDocs";
-import { docLabel, getPartnerCase, type CaseDoc, type PortalCaseDetail } from "@/lib/portal/salesforce";
+import { caseStatusHistory, docLabel, getPartnerCase, type CaseDoc, type PortalCaseDetail } from "@/lib/portal/salesforce";
 import { scopeFor } from "@/lib/portal/scope";
 import { requestIp, requireUser } from "@/lib/portal/session";
 import { DOC_TONES, STEPS, isClosedStatus, needsDocument, timeline } from "@/lib/portal/status";
@@ -141,10 +141,12 @@ export default async function CaseDetailPage({ params }: { params: { id: string 
   const readOnly = !!user.viewingAs;
   const closed = isClosedStatus(c.status);
 
-  const [uploads, messages, notifs, dossier] = await Promise.all([
+  const [uploads, messages, notifs, history, dossier] = await Promise.all([
     prisma.portalUpload.findMany({ where: { caseId: c.id }, orderBy: { createdAt: "desc" }, take: 50 }),
     prisma.portalMessage.findMany({ where: { caseId: c.id }, orderBy: { createdAt: "desc" }, take: 20 }),
     readOnly ? Promise.resolve([]) : prisma.portalNotification.findMany({ where: { userId: user.id, caseId: c.id }, orderBy: { createdAt: "desc" }, take: 20 }),
+    // Every status change, from Salesforce's field history of Portal_Status__c (B18).
+    caseStatusHistory(c.id),
     // The client's SharePoint dossier: what was submitted, and what HYPOTEQ released.
     (async (): Promise<{ files: DriveFile[]; released: DriveFile[]; failed: boolean }> => {
       try {
@@ -175,8 +177,13 @@ export default async function CaseDetailPage({ params }: { params: { id: string 
   const canUpload = !readOnly && !closed;
   const uploadContext = (d: CaseDoc) => `${c!.kunde} · ${c!.nr} · ${t.docCats[d.category]}`;
   const uploadLabel = (key: string | null) => (key ? docLabel(key, locale) : t.caseDetail.otherDoc);
+  // With the field history, the status notifications would only repeat some of its entries.
+  const statusNotifs = new Set(["status", "lender"]);
   const updates = [
-    ...notifs.map((n) => ({ at: n.createdAt, text: notifText(t, n).text, by: "HYPOTEQ" })),
+    ...history.map((h) => ({ at: new Date(h.at), text: t.caseDetail.evStatus(t.status[h.status] || h.status), by: "HYPOTEQ" })),
+    ...notifs
+      .filter((n) => !history.length || !statusNotifs.has(n.kind))
+      .map((n) => ({ at: n.createdAt, text: notifText(t, n).text, by: "HYPOTEQ" })),
     ...uploads.map((u) => ({ at: u.createdAt, text: t.caseDetail.evUploaded(uploadLabel(u.docKey), u.fileName), by: authors.get(u.userId) || "" })),
     ...messages.map((m) => ({ at: m.createdAt, text: `${t.caseDetail.evMessage} «${m.body.length > 140 ? m.body.slice(0, 140) + " …" : m.body}»`, by: authors.get(m.userId) || "" })),
     { at: new Date(c.createdAt), text: t.caseDetail.evReceived, by: "" },
