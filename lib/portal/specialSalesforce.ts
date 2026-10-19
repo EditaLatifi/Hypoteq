@@ -1,4 +1,5 @@
 import { conn, createOrUpdateCase, ensureSession, sfQuery, soqlString, takeDroppedFields, withSessionRetry } from "@/components/salesforceApi";
+import { ALL_QUEUES_SOQL, pickQueue, queueList } from "@/components/salesforceQueues";
 import { partnerCaseField } from "@/lib/portal/config";
 import { special } from "@/lib/portal/i18n/special";
 import { isSalesforceId } from "@/lib/portal/salesforce";
@@ -126,7 +127,15 @@ export async function specialQueueId(api: SpecialSfApi = liveSfApi, now = Date.n
       `SELECT Id, DeveloperName, Name FROM Group WHERE Type = 'Queue' AND (DeveloperName = ${soqlString(devName)} OR Name = ${soqlString(name)}) LIMIT 1`
     );
     id = isSalesforceId(rows[0]?.Id) ? rows[0].Id : null;
-    if (!id) console.warn(`[portal] no Case queue «${name}»; special financings keep the default owner`);
+    if (!id) {
+      // A spelling apart from the exact name («Spezial-Finanzierung», another DeveloperName):
+      // every queue, matched loosely, like the funnel's «Web-Anfragen» (salesforceApi.pickQueue).
+      const all = await api.query(ALL_QUEUES_SOQL);
+      const hit = pickQueue(all, [name, devName]);
+      id = hit && isSalesforceId(hit.Id) ? hit.Id : null;
+      if (id) console.log(`[portal] Case queue «${name}» found as «${hit!.Name}»`);
+      else console.warn(`[portal] no Case queue «${name}» among ${queueList(all)}; special financings keep the default owner`);
+    }
   } catch (err) {
     // Not cached: the next request asks again.
     console.error("[portal] queue lookup failed; using the default owner", err);

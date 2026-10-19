@@ -1,4 +1,5 @@
 import { Connection } from 'jsforce';
+import { ALL_QUEUES_SOQL, pickQueue, queueList, type QueueRow } from './salesforceQueues';
 
 const SF_CLIENT_ID = process.env.SF_CLIENT_ID || '';
 const SF_CLIENT_SECRET = process.env.SF_CLIENT_SECRET || '';
@@ -171,9 +172,12 @@ export function clearFunnelQueueCache(): void {
 }
 
 /**
- * The Id of the Case queue «Web-Anfragen» (`Group WHERE Type = 'Queue' AND (Name = … OR
- * DeveloperName = …)`), resolved at runtime and cached; null when the org has none. Errors
- * propagate — the sync keeps the default owner then.
+ * The Id of the Case queue «Web-Anfragen», resolved at runtime and cached; null when the org has
+ * none. First `Group WHERE Type = 'Queue' AND (Name = … OR DeveloperName = …)`; on a miss every
+ * queue is read and matched by queueKey — on 19.10. the exact names missed although HYPOTEQ
+ * says the queue exists (D.2) — and a miss there too logs the queues the integration user sees,
+ * so the real name can be configured (SF_FUNNEL_QUEUE_NAME). Errors propagate — the sync keeps
+ * the default owner then.
  */
 export async function findFunnelQueueId(): Promise<string | null> {
   if (funnelQueueId) return funnelQueueId;
@@ -182,8 +186,19 @@ export async function findFunnelQueueId(): Promise<string | null> {
     `SELECT Id FROM Group WHERE Type = 'Queue' AND (Name = ${soqlString(name)} OR DeveloperName = ${soqlString(developerName)}) LIMIT 1`,
     'findFunnelQueueId',
   );
-  funnelQueueId = rows[0]?.Id || null;
-  return funnelQueueId;
+  if (rows[0]?.Id) {
+    funnelQueueId = rows[0].Id;
+    return funnelQueueId;
+  }
+  const all = await sfQuery<QueueRow>(ALL_QUEUES_SOQL, 'findFunnelQueueId:all');
+  const hit = pickQueue(all, [name, developerName]);
+  if (hit) {
+    console.log(`[Salesforce] queue «${name}» found as «${hit.Name}» (${hit.Id})`);
+    funnelQueueId = hit.Id;
+    return funnelQueueId;
+  }
+  console.warn(`[Salesforce] no queue «${name}» / ${developerName} among the queues the integration user sees: ${queueList(all)}`);
+  return null;
 }
 
 // ---- Juristische Person: Business Account + Contact (HYPOTEQ 19.10. B16, DECISIONS V63) --------
@@ -342,6 +357,8 @@ export async function updatePersonAccount(id: string, fields: Record<string, any
 //   - STRING_TOO_LONG: value exceeds the SF field's max length. Truncate and retry.
 //   - INVALID_OR_NULL_FOR_RESTRICTED_PICKLIST: value isn't a valid picklist option
 //     (e.g. a French label not yet mapped to the German SF value). Drop and retry.
+//   - FIELD_FILTER_VALIDATION_EXCEPTION: a lookup filter refused the linked record. Drop the
+//     link and retry.
 // Any other error propagates so it surfaces in logs.
 /**
  * Fields writeWithFieldFallback had to drop or truncate since the last takeDroppedFields().
@@ -356,6 +373,9 @@ export function takeDroppedFields(): string[] {
   droppedFields = [];
   return out;
 }
+
+/** The links a refused lookup filter may cost when Salesforce names no field, likeliest first. */
+export const LOOKUP_FILTER_FALLBACK = ['Client__c', 'Client_2__c', 'Client_3__c', 'ContactId', 'Partner_Consultant__c', 'Account__c', 'OwnerId'];
 
 function noteDropped(sobjectType: string, field: string, code: string, how: 'dropped' | 'truncated' = 'dropped') {
   droppedFields.push(`${sobjectType}.${field} (${code}${how === 'truncated' ? ', truncated' : ''})`);
@@ -436,6 +456,21 @@ async function writeWithFieldFallback(
           (code !== 'MALFORMED_ID' && 'OwnerId' in working ? 'OwnerId' : undefined);
         if (target) {
           console.warn(`[Salesforce] ${context}: dropping invalid lookup value for '${target}' ('${working[target]}') and retrying`);
+          noteDropped(sobjectType, target, code);
+          delete working[target];
+          continue;
+        }
+        throw error;
+      }
+
+      // A lookup filter refused the record a lookup points at. On 19.10. a company Case was lost
+      // whole this way (its Business Account in a lookup that admits Person Accounts only).
+      // Salesforce names the field; without a name the optional links go, one per retry, in
+      // LOOKUP_FILTER_FALLBACK order — AccountId stays unless named: it carries the Case.
+      if (code === 'FIELD_FILTER_VALIDATION_EXCEPTION') {
+        const target = errFields.find(f => f in working) ?? LOOKUP_FILTER_FALLBACK.find(f => f in working && working[f]);
+        if (target) {
+          console.warn(`[Salesforce] ${context}: lookup filter refused '${target}' ('${working[target]}'), dropping it and retrying`);
           noteDropped(sobjectType, target, code);
           delete working[target];
           continue;

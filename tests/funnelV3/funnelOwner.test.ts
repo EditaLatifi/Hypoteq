@@ -130,9 +130,62 @@ describe("salesforceApi", () => {
   });
 
   it("a miss is not cached: a queue created later is found", async () => {
-    mockConn.answers.push(() => ({ records: [] }), () => ({ records: [{ Id: "00GLATER000000AAA" }] }));
+    mockConn.answers.push(
+      () => ({ records: [] }),
+      () => ({ records: [] }),
+      () => ({ records: [{ Id: "00GLATER000000AAA" }] })
+    );
     expect(await findFunnelQueueId()).toBeNull();
     expect(await findFunnelQueueId()).toBe("00GLATER000000AAA");
+  });
+
+  it("exact names miss: every queue is read and «Web Anfragen» / WebAnfragen / «Web–Anfragen» match", async () => {
+    for (const row of [
+      { Id: "00GSPACE00000000AA", Name: "Web Anfragen", DeveloperName: "Web_Anfragen_Q" },
+      { Id: "00GDEVNAME0000000A", Name: "Eingang Web", DeveloperName: "WebAnfragen" },
+      { Id: "00GDASH0000000000A", Name: "Web–Anfragen", DeveloperName: "Eingang" },
+    ]) {
+      clearFunnelQueueCache();
+      mockConn.queries = [];
+      mockConn.answers.push(
+        () => ({ records: [] }),
+        () => ({ records: [{ Id: "00GOTHER000000000A", Name: "Spezialfinanzierung", DeveloperName: "Spezialfinanzierung" }, row] })
+      );
+      expect(await findFunnelQueueId()).toBe(row.Id);
+      expect(mockConn.queries[1]).toBe("SELECT Id, Name, DeveloperName FROM Group WHERE Type = 'Queue' ORDER BY Name LIMIT 500");
+    }
+  });
+
+  it("no queue under any spelling: null, and the log names the queues the user sees", async () => {
+    const warn = console.warn as unknown as jest.Mock;
+    mockConn.answers.push(
+      () => ({ records: [] }),
+      () => ({ records: [{ Id: "00GOTHER000000000A", Name: "Spezialfinanzierung", DeveloperName: "Spezialfinanzierung" }] })
+    );
+    expect(await findFunnelQueueId()).toBeNull();
+    expect(String(warn.mock.calls.at(-1)?.[0])).toContain("Spezialfinanzierung (Spezialfinanzierung)");
+  });
+
+  it("a lookup filter refusing the named field costs that link, not the Case", async () => {
+    mockConn.createErrors.push(
+      Object.assign(new Error("Wert ist nicht vorhanden bzw. stimmt nicht mit Filterkriterien überein."), {
+        errorCode: "FIELD_FILTER_VALIDATION_EXCEPTION",
+        data: { fields: ["Client__c"] },
+      })
+    );
+    const res = await createOrUpdateCase({ AccountId: "001BUSINESS000AAAA", Client__c: "001BUSINESS000AAAA", ContactId: "003SIGNER00000AAAA" });
+    expect(res).toMatchObject({ id: "500NEW" });
+    expect(mockConn.creates).toEqual([{ type: "Case", fields: { AccountId: "001BUSINESS000AAAA", ContactId: "003SIGNER00000AAAA" } }]);
+    expect(takeDroppedFields()).toEqual(["Case.Client__c (FIELD_FILTER_VALIDATION_EXCEPTION)"]);
+  });
+
+  it("a lookup filter naming no field: the client links go first, AccountId stays", async () => {
+    const filter = () => Object.assign(new Error("Wert ist nicht vorhanden bzw. stimmt nicht mit Filterkriterien überein."), { errorCode: "FIELD_FILTER_VALIDATION_EXCEPTION", fields: [] });
+    mockConn.createErrors.push(filter(), filter());
+    const res = await createOrUpdateCase({ AccountId: "001BUSINESS000AAAA", Client__c: "001BUSINESS000AAAA", ContactId: "003SIGNER00000AAAA" });
+    expect(res).toMatchObject({ id: "500NEW" });
+    expect(mockConn.creates).toEqual([{ type: "Case", fields: { AccountId: "001BUSINESS000AAAA" } }]);
+    expect(takeDroppedFields()).toEqual(["Case.Client__c (FIELD_FILTER_VALIDATION_EXCEPTION)", "Case.ContactId (FIELD_FILTER_VALIDATION_EXCEPTION)"]);
   });
 
   it("an owner Salesforce refuses without naming a field is dropped, not the Case", async () => {

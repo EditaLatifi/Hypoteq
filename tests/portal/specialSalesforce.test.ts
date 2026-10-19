@@ -240,6 +240,19 @@ describe("specialQueueId (B21 / D.2)", () => {
     fail = false;
     expect(await specialQueueId(flaky.api)).toBe(QUEUE);
   });
+  it("the exact names miss: every queue is read and «Spezial-Finanzierung» matches", async () => {
+    resetSpecialQueueCache();
+    const { api, calls } = fakeApi({
+      query: async (soql) => {
+        calls.queries.push(soql);
+        if (soql.includes("DeveloperName =")) return [];
+        if (soql.includes("ORDER BY Name")) return [{ Id: "00GOTHER000000000A", Name: "Web-Anfragen", DeveloperName: "Web_Anfragen" }, { Id: QUEUE, Name: "Spezial-Finanzierung", DeveloperName: "Spezial_Finanzierung" }];
+        return [];
+      },
+    });
+    expect(await specialQueueId(api)).toBe(QUEUE);
+    expect(calls.queries).toHaveLength(2);
+  });
 });
 
 describe("createSpecialCase", () => {
