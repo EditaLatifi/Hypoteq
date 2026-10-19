@@ -557,6 +557,8 @@ export function buildDossierModel(input: DossierInput): DossierModel {
  * not store the PlaceReason on the analysis.
  */
 const REASON_KEY_FROM_TEXT: Record<string, string> = {
+  "Identischer Inhalt wie eine andere Datei – wird als Duplikat abgelegt.": "docs.x.duplicate",
+  // Stored with files analysed before nothing was deleted (Handover 4.3).
   "Identischer Inhalt wie eine andere Datei – wird nicht doppelt gespeichert.": "docs.x.duplicate",
   "Die Anforderung ist bereits vollständig – wird im Dossier mitgeführt, zählt nicht.": "docs.x.full",
   "Ausserhalb der verlangten Jahre – wird im Dossier mitgeführt, zählt nicht.": "docs.x.period",

@@ -32,7 +32,7 @@ import { isLang, type Lang } from "./i18n";
 import { SIGNATURE_REQUIREMENT_ID, getRequirement, reqList, type RequirementDef, type RequirementInstance } from "./requirements";
 import { signatureJson, signatureView } from "./signature";
 import { bankHints, requirementStatus, type ExtraKind, type StatusResult, type UploadedFile } from "./requirementStatus";
-import { cleanNamePart, storedName } from "./storedName";
+import { cleanNamePart, extraStoredName, storedName } from "./storedName";
 import { normaliseFunnelState, type StoredFunnelState } from "./legacy";
 
 // ---- Types --------------------------------------------------------------------------------
@@ -159,9 +159,7 @@ const extOf = (name: string) => {
   return m ? m[1].toLowerCase() : "pdf";
 };
 
-const baseOf = (name: string) => (name || "").replace(/\.[A-Za-z0-9]{1,8}$/, "");
-
-const time = (d: Date | string) => {
+const time =(d: Date | string) => {
   const t = new Date(d).getTime();
   return Number.isFinite(t) ? t : 0;
 };
@@ -280,9 +278,7 @@ export function planFiles(
         : fromAnalysis;
       p.target = storedName({ caseNumber, requirement: def, person, bank: p.analysis?.bank ?? undefined, docDate: p.analysis?.docDate ?? null, ext, extraKind: p.extraKind });
     } else {
-      const marker = p.extraKind === "duplicate" ? "DUPLIKAT" : "ZUSATZ";
-      const base = cleanNamePart(baseOf(p.row.originalFileName || p.row.fileName).replace(/[\s_]+/g, "-")).slice(0, 80) || "Datei";
-      p.target = `${caseNumber}_${marker}_${base}.${ext}`;
+      p.target = extraStoredName(caseNumber, p.row.originalFileName || p.row.fileName, p.extraKind);
     }
   }
 

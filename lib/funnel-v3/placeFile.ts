@@ -77,7 +77,7 @@ const REASON_DE: Record<PlaceReason, string> = {
   placed: "",
   manual: "",
   pending: "",
-  duplicate: "Identischer Inhalt wie eine andere Datei – wird nicht doppelt gespeichert.",
+  duplicate: "Identischer Inhalt wie eine andere Datei – wird als Duplikat abgelegt.",
   full: "Die Anforderung ist bereits vollständig – wird im Dossier mitgeführt, zählt nicht.",
   period: "Ausserhalb der verlangten Jahre – wird im Dossier mitgeführt, zählt nicht.",
   // (an older Lohnausweis without a recognised bonus has its own sentence: OLDER_SALARY_DE)

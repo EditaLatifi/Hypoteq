@@ -14,7 +14,7 @@ const toDossierFiles = (files: FileEntry[]): DossierFile[] =>
     extraKind: f.analysis?.extraKind,
     keep: f.keep,
     outdatedOverride: f.outdatedOverride,
-    removed: !f.instanceId && (f.analysis?.extraKind === "duplicate" || (f.analysis?.extraKind === "notneeded" && !f.keep)),
+    // Handover 4.3 «Nichts wird gelöscht»: the closing keeps every file (completion.ts planFiles).
     analysis: f.analysis,
   }));
 
@@ -75,12 +75,12 @@ describe("Fall-Dossier model — Mustermann", () => {
       // Handover 4.2: older Lohnausweise without a bonus; what v5 no longer asks for.
       "Überzählig – Älterer Lohnausweis – nur bei variablem Lohnanteil nötig. Wird im Dossier mitgeführt. – mitgeführt",
       "Überzählig – Älterer Lohnausweis – nur bei variablem Lohnanteil nötig. Wird im Dossier mitgeführt. – mitgeführt",
-      "Nicht benötigt – Nur nötig bei einer Lohnerhöhung im laufenden Jahr – keine erkannt. – nicht abgelegt",
-      "Nicht benötigt – Eigenmittelnachweis ist nur bei einem Kauf nötig. – nicht abgelegt",
-      "Nicht benötigt – Schuldbrief / Sicherungsvereinbarung wird nicht benötigt. – nicht abgelegt",
+      "Nicht benötigt – Nur nötig bei einer Lohnerhöhung im laufenden Jahr – keine erkannt. – mitgeführt",
+      "Nicht benötigt – Eigenmittelnachweis ist nur bei einem Kauf nötig. – mitgeführt",
+      "Nicht benötigt – Schuldbrief / Sicherungsvereinbarung wird nicht benötigt. – mitgeführt",
       "Überzählig – viertes Jahr – mitgeführt",
-      "Duplikat – nicht doppelt gespeichert",
-      "Nicht benötigt – Steuerrechnung – nicht abgelegt",
+      "Duplikat – mitgeführt",
+      "Nicht benötigt – Steuerrechnung – mitgeführt",
       "Nicht benötigt – Nebenkostenabrechnung – mitgeführt",
     ]);
     expect(m.annex.completeness.value).toBe("20 von 20 Anforderungen erfüllt");
@@ -114,7 +114,7 @@ describe("Fall-Dossier model — Mustermann", () => {
 
 describe("Fall-Dossier annex E — the reason in the dossier language (D11)", () => {
   // placeFile.ts stores its reason as a German sentence (REASON_DE); the dossier must not print it abroad.
-  const DUP_DE = "Identischer Inhalt wie eine andere Datei – wird nicht doppelt gespeichert.";
+  const DUP_DE = "Identischer Inhalt wie eine andere Datei – wird als Duplikat abgelegt.";
   const withReason = (files: DossierFile[]) =>
     files.map((f) => (f.analysis?.extraKind === "duplicate" ? { ...f, analysis: { ...f.analysis!, extraReason: DUP_DE } } : f));
   const annexE = (m: ReturnType<typeof buildDossierModel>) => m.annex.groups.find((g) => g.title.startsWith("E"))!.table.rows.map((r) => r[2].text);
@@ -123,18 +123,24 @@ describe("Fall-Dossier annex E — the reason in the dossier language (D11)", ()
     const m = buildDossierModel(input({ lang: "en", files: withReason(toDossierFiles(mustermannFiles())) }));
     const e = annexE(m);
     expect(JSON.stringify(m.annex)).not.toContain("Identischer Inhalt");
-    expect(e).toContain("Duplicate – Same content as 01_Leasingvertrag_MusterLeasing_Max_Mustermann.pdf – not stored twice. – not stored twice");
+    expect(e).toContain("Duplicate – Same content as 01_Leasingvertrag_MusterLeasing_Max_Mustermann.pdf – filed as a duplicate. – included");
     // Free German catalogue text («Steuerrechnung», «viertes Jahr») is not printed abroad either.
     expect(e.join("\n")).not.toMatch(/Steuerrechnung|Nebenkostenabrechnung|viertes Jahr/);
-    expect(e).toContain("Not needed – Not required for the financing review. – not stored");
+    expect(e).toContain("Not needed – Not required for the financing review. – included");
     expect(e[0]).toBe("Surplus – Older salary certificate – only needed with variable pay. Kept in the dossier. – included");
-    expect(e).toContain("Not needed – Proof of equity is only needed for a purchase. – not stored");
+    expect(e).toContain("Not needed – Proof of equity is only needed for a purchase. – included");
     expect(e[5]).toBe("Surplus – included");
   });
 
   it("German dossier: the sentence as stored", () => {
     const m = buildDossierModel(input({ files: withReason(toDossierFiles(mustermannFiles())) }));
-    expect(annexE(m)).toContain(`Duplikat – ${DUP_DE} – nicht doppelt gespeichert`);
+    expect(annexE(m)).toContain(`Duplikat – ${DUP_DE} – mitgeführt`);
+  });
+
+  it("a file deleted before v5 (row flagged removed) still says it was not stored", () => {
+    const files = toDossierFiles(mustermannFiles()).map((f) => (f.extraKind === "duplicate" ? { ...f, removed: true } : f));
+    const m = buildDossierModel(input({ files }));
+    expect(annexE(m)).toContain("Duplikat – nicht doppelt gespeichert");
   });
 
   it("French and Italian: no German either", () => {

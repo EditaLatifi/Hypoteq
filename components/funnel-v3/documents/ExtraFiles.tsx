@@ -6,7 +6,7 @@ import { hasKey } from "@/lib/funnel-v3/i18n";
 import type { FileEntry } from "@/lib/funnel-v3/files";
 import type { Placement } from "@/lib/funnel-v3/placeFile";
 import { getRequirement, type RequirementInstance } from "@/lib/funnel-v3/requirements";
-import { assignFile, keepFile, removeFile, retryFile } from "@/lib/funnel-v3/upload";
+import { assignFile, removeFile, retryFile } from "@/lib/funnel-v3/upload";
 import { requestedYears, v3DocType } from "@/components/documentIntelligence/v3/catalogue";
 import { EXTRA_GROUP_LABEL, extraReasonKey, groupExtras, rowClass, STATE_LOOK, storedNameForExtra, type RowState } from "./view";
 import StoredName from "./StoredName";
@@ -102,7 +102,8 @@ export default function ExtraFiles({ files, placements, instances, suggested, in
         const state = stateOf(f, p);
         const look = STATE_LOOK[state];
         const title = label(f, p);
-        const stored = state === "surplus" || state === "duplicate" || (state === "notneeded" && f.keep) ? storedNameForExtra(f, p) : null;
+        // Every kept file outside the list is filed under a stored name; nothing is deleted (Handover 4.3).
+        const stored = state === "surplus" || state === "duplicate" || state === "notneeded" ? storedNameForExtra(f, p) : null;
         return (
           <div key={f.id} className={`v3-docrow ${rowClass(state)}`}>
             <div className="v3-docrow-head v3-docrow-head--static">
@@ -154,11 +155,6 @@ export default function ExtraFiles({ files, placements, instances, suggested, in
               {state === "failed" && f.uploadError !== "lost" ? (
                 <button type="button" className="v3-btn v3-btn--primary v3-btn--sm" onClick={() => void retryFile(f.id)}>
                   {t("docs.retry")}
-                </button>
-              ) : null}
-              {state === "notneeded" ? (
-                <button type="button" className="v3-btn v3-btn--ghost v3-btn--sm" onClick={() => keepFile(f.id, !f.keep)}>
-                  {f.keep ? t("docs.unkeep") : t("docs.keep")}
                 </button>
               ) : null}
               {f.uploadState === "uploaded" ? (

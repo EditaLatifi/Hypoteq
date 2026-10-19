@@ -18,7 +18,7 @@ import {
 } from "@/lib/funnel-v3/requirements";
 import type { RequirementState, RequirementStatus } from "@/lib/funnel-v3/requirementStatus";
 import { OLDER_SALARY_DE, type Placement } from "@/lib/funnel-v3/placeFile";
-import { storedName } from "@/lib/funnel-v3/storedName";
+import { extraStoredName, storedName } from "@/lib/funnel-v3/storedName";
 import { v3DocType } from "@/components/documentIntelligence/v3/catalogue";
 
 export type RowState = RequirementState | "surplus" | "duplicate" | "notneeded" | "unknown" | "uploading" | "failed";
@@ -265,8 +265,10 @@ function printedPerson(name: string | null | undefined): { first: string; last: 
 /** Stored name of an extra (ZUSATZ / DUPLIKAT), or null when it is not filed under a requirement. */
 export function storedNameForExtra(f: FileEntry, p: Placement | undefined): string | null {
   if (f.nameOverride) return f.nameOverride;
-  const req = p?.requirementId ? getRequirement(p.requirementId) : undefined;
-  if (!req || !p?.extraKind) return null;
+  if (!p?.extraKind) return null;
+  const req = p.requirementId ? getRequirement(p.requirementId) : undefined;
+  // A type that is no requirement (not needed, unknown) is kept under its own name (Handover 4.3).
+  if (!req) return extraStoredName(CASE_PLACEHOLDER, f.name, p.extraKind);
   return storedName({
     caseNumber: CASE_PLACEHOLDER,
     requirement: req,

@@ -19,6 +19,20 @@ export function cleanNamePart(s: string | null | undefined): string {
 }
 
 /**
+ * The stored name of a kept file outside the list whose type is no requirement (a not-needed
+ * or unknown document): `{Fallnummer}_ZUSATZ_{Originalname}` or `_DUPLIKAT_` for a duplicate.
+ * Nothing is deleted (Handover 4.3), so the closing names these too — and the documents step
+ * shows the same name in advance.
+ */
+export function extraStoredName(caseNumber: string, originalName: string, kind: ExtraKind | undefined): string {
+  const m = /\.([A-Za-z0-9]{1,8})$/.exec(originalName || "");
+  const ext = m ? m[1].toLowerCase() : "pdf";
+  const marker = kind === "duplicate" ? "DUPLIKAT" : "ZUSATZ";
+  const base = cleanNamePart((originalName || "").replace(/\.[A-Za-z0-9]{1,8}$/, "").replace(/[\s_]+/g, "-")).slice(0, 80) || "Datei";
+  return `${caseNumber}_${marker}_${base}.${ext}`;
+}
+
+/**
  * Document date as `JJJJ-MM-TT` or `JJJJ`. Accepts a Date, `2026-01-15`, `15.01.2026`,
  * `2026`, or any text containing one of those (`Steuerjahr 2025`). Anything else → "".
  */
