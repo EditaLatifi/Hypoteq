@@ -211,14 +211,19 @@ describe("Case list filters and KPI tiles", () => {
     expect(matchesFilter("Dokumente fehlen", c("Unterlagen fehlen noch", 0, false))).toBe(true);
     expect(matchesFilter("Dokumente fehlen", c("Anfrage zurückgezogen", 2, true))).toBe(false);
   });
-  it("Offen and Abgeschlossen split the Cases; Abgeschlossen holds the ended ones too", () => {
-    for (const s of CASE_STATUSES) expect(matchesFilter("Offen", c(s))).toBe(!matchesFilter("Abgeschlossen", c(s)));
-    expect(matchesFilter("Abgeschlossen", c("Leider abgelehnt"))).toBe(true);
-    expect(matchesFilter("Abgeschlossen", c("Anfrage zurückgezogen"))).toBe(true);
+  it("Abgeschlossen is only a finished financing; withdrawn and rejected ones are neither open nor Abgeschlossen (P35)", () => {
+    for (const s of CASE_STATUSES) expect(matchesFilter("Offen", c(s)) && matchesFilter("Abgeschlossen", c(s))).toBe(false);
+    expect(matchesFilter("Abgeschlossen", c("Abgeschlossen"))).toBe(true);
+    for (const ended of ["Leider abgelehnt", "Anfrage zurückgezogen"]) {
+      expect(matchesFilter("Abgeschlossen", c(ended))).toBe(false);
+      expect(matchesFilter("Offen", c(ended))).toBe(false);
+      expect(matchesFilter("Alle", c(ended))).toBe(true);
+    }
   });
   it("reads older status names too", () => {
     expect(matchesFilter("Bei Kreditgeber", c("Rückmeldung erhalten"))).toBe(true);
-    expect(matchesFilter("Abgeschlossen", c("Storniert"))).toBe(true);
+    expect(matchesFilter("Abgeschlossen", c("Storniert"))).toBe(false);
+    expect(matchesFilter("Alle", c("Storniert"))).toBe(true);
   });
 });
 

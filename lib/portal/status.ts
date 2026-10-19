@@ -314,7 +314,9 @@ export function matchesFilter(filter: CaseFilter, c: FilterCase): boolean {
     case "Bei Kreditgeber":
       return AT_LENDER.includes(status);
     case "Abgeschlossen":
-      return closed;
+      // Only a finished financing. A withdrawn or rejected request is closed too, but counting
+      // it here contradicted «Finanziert»; it stays under «Alle» (DECISIONS P35).
+      return status === "Abgeschlossen";
   }
 }
 

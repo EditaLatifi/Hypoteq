@@ -99,7 +99,7 @@ export default async function DashboardPage() {
   const P = t.portfolio;
   const stats: { icon: ReactNode; label: string; value: string; sub: string }[] = [
     { icon: <TrendingUp size={18} />, label: P.pipeline, value: chfShort(pf.pipeline.volume), sub: P.pipelineSub(pf.pipeline.cases) },
-    { icon: <BadgeCheck size={18} />, label: P.financed(pf.financed.year), value: chfShort(pf.financed.volume), sub: P.financedSub(pf.financed.cases) },
+    { icon: <BadgeCheck size={18} />, label: P.financed(pf.financed.year), value: chfShort(pf.financed.volume), sub: P.financedSub(pf.financed.cases, pf.financed.year) },
     { icon: <Calculator size={18} />, label: P.average, value: pf.average.amount === null ? "–" : chf(pf.average.amount), sub: P.averageSub(pf.average.cases) },
     {
       icon: <Timer size={18} />,
