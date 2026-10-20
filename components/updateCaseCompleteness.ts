@@ -1,6 +1,7 @@
 import { conn, login, updateCase } from "@/components/salesforceApi";
 import { isTestMode, skipped } from "@/components/testMode";
 import { DOCUMENT_CATALOG } from "@/components/funnelDocumentCatalog";
+import { getRequirement } from "@/lib/funnel-v3/requirements";
 
 /**
  * Push a revised completeness verdict onto an existing Case (spec V2: "Uploads werden dem
@@ -14,11 +15,24 @@ import { DOCUMENT_CATALOG } from "@/components/funnelDocumentCatalog";
 
 interface CompletenessUpdate {
   complete: boolean;
-  /** i18n keys still missing after this Nachreichung. */
+  /** Document keys still missing after this Nachreichung. */
   missing: string[];
-  /** i18n keys supplied by this Nachreichung. */
+  /**
+   * Document keys supplied by this Nachreichung: legacy i18n keys (`funnel.*`) from the old
+   * Nachreichung, Funnel v3 requirement ids («grundbuch», «wb#…») from a portal upload.
+   */
   supplied: string[];
   submissionId: string;
+}
+
+/**
+ * The legacy keys the Dokumenten-Check table (dokumentenCheckState.ts) is keyed by. A Funnel v3
+ * requirement id stands for its legacyKeys — the same entries the v3 sync ticks
+ * (RequirementDef.tabEntries); before this a portal upload on a v3 Case ticked nothing.
+ */
+function legacyKeys(key: string): string[] {
+  const req = getRequirement(key);
+  return req ? [...req.legacyKeys] : [key];
 }
 
 /**
@@ -68,12 +82,12 @@ export async function updateCaseCompleteness(
   // edited by a caseworker since — and replacing it would silently undo their ticks. Reading
   // first costs one query on a path that runs once per Nachreichung.
   try {
-    const { buildDokumentenCheckState, unmappedSupplied } = await import("./dokumentenCheckState");
+    const { buildDokumentenCheckState, tabEntriesFor } = await import("./dokumentenCheckState");
     const existing = await readDokumentenCheckState(caseId);
-    const merged = buildDokumentenCheckState(update.supplied, existing);
+    const merged = buildDokumentenCheckState(update.supplied.flatMap(legacyKeys), existing);
     if (merged) fields.Dokumenten_Check_State__c = merged;
 
-    const notShown = unmappedSupplied(update.supplied);
+    const notShown = update.supplied.filter((key) => !tabEntriesFor(legacyKeys(key)).length);
     if (notShown.length) {
       console.warn(
         `[Salesforce] Case ${caseId}: ${notShown.length} nachgereichte document(s) have no ` +
@@ -90,7 +104,7 @@ export async function updateCaseCompleteness(
   // a Nachreichung adds documents, it never withdraws one, so clearing a flag that some
   // other path set would lose information.
   for (const key of update.supplied) {
-    const field = DOCUMENT_CATALOG[key]?.salesforceField;
+    const field = getRequirement(key)?.sfDokField ?? DOCUMENT_CATALOG[key]?.salesforceField;
     if (field) fields[field] = true;
   }
 
