@@ -65,6 +65,9 @@ export interface MailLabels {
   uploadPage: string;
 }
 
+/** HYPOTEQ Mail-Texte 20.10.2026: the same footer line in every mail and language. */
+export const MAIL_FOOTER = "HYPOTEQ AG · +41 44 554 41 00 · info@hypoteq.ch · www.hypoteq.ch";
+
 export interface MailTexts {
   /** Berater mail: the subject without «Deine» (mail.subject is the customer's). */
   subjectNeutral: string;
@@ -75,10 +78,21 @@ export interface MailTexts {
   taglineNeutral: string;
   greeting: string;
   introKunde: string;
-  /** Customer mail of a case a Berater entered. */
-  introKundeByBerater: string;
   summaryIntro: string;
   introBerater: string;
+  /** Berater mail (HYPOTEQ Mail-Texte 20.10.2026, M2): «Sie», greeting with the Berater's name. */
+  introBeraterSent: string;
+  introBeraterOverview: string;
+  greetingBerater: string;
+  greetingBeraterNoName: string;
+  closingBerater: string;
+  signoffBerater: string;
+  teamBerater: string;
+  /** Internal mail (M3, always German): «({entry}, {by})». */
+  internGuided: string;
+  internFast: string;
+  internByBerater: string;
+  internOwn: string;
   introIntern: string;
   signKunde: string;
   signBerater: string;
@@ -109,7 +123,6 @@ export interface MailTexts {
   advisorNeutral: string;
   signoff: string;
   team: string;
-  teamNeutral: string;
   autoIntern: string;
   rights: string;
   labels: MailLabels;
@@ -123,14 +136,23 @@ export const MAIL_TEXTS: Record<Lang, MailTexts> = {
     taglineNeutral: "Hypotheken-Experten",
     greeting: "Hi {name},",
     introKunde:
-      "Danke für deine Anfrage und dein Vertrauen in HYPOTEQ. Wir haben alle Informationen erhalten und melden uns bald (werktags), um die nächsten Schritte zu besprechen.",
-    introKundeByBerater:
-      "{berater} hat deine Finanzierungsanfrage bei HYPOTEQ erfasst. Wir haben alle Informationen erhalten und melden uns bald (werktags), um die nächsten Schritte zu besprechen.",
+      "deine Finanzierungsanfrage ist bei HYPOTEQ eingegangen — danke für dein Vertrauen. Wir haben alle Angaben erhalten und melden uns werktags innert kurzer Zeit mit den nächsten Schritten.",
     summaryIntro: "Hier die Zusammenfassung deiner Anfrage.",
-    introBerater: "Die Finanzierungsanfrage für {name} ist bei HYPOTEQ eingegangen. Die Bestätigung mit der Zusammenfassung ging an {email}.",
-    introIntern: "Neue Finanzierungsanfrage über den Funnel.",
+    introBerater: "Die Finanzierungsanfrage für {name} ist bei HYPOTEQ eingegangen.",
+    introBeraterSent: "Die Bestätigung mit der Zusammenfassung ging an {email}.",
+    introBeraterOverview: "Unten finden Sie die vollständige Übersicht inklusive Dokumentenstatus — Werte aus hochgeladenen Dokumenten sind mit «aus Dokument» markiert.",
+    greetingBerater: "Guten Tag {name}",
+    greetingBeraterNoName: "Guten Tag",
+    closingBerater: "Den Stand des Dossiers sehen Sie jederzeit im Partnerportal. Bei Fragen erreichen Sie uns unter +41 44 554 41 00.",
+    signoffBerater: "Freundliche Grüsse",
+    teamBerater: "HYPOTEQ AG",
+    internGuided: "Begleitete Anmeldung",
+    internFast: "Schnellanmeldung",
+    internByBerater: "Berater {name}",
+    internOwn: "eigene Anfrage",
+    introIntern: "Neue Finanzierungsanfrage über den Funnel ({entry}, {by}). Vollständige Zusammenfassung unten. Werte «aus Dokument» sind markiert.",
     signKunde:
-      "Die Vorlage liegt dieser E-Mail bei und ist mit deinen Angaben vorausgefüllt. Bitte von allen Kreditnehmern unterzeichnen lassen und über deinen persönlichen Link hochladen. Ohne Unterschrift können wir die Anfrage nicht an die Bank weiterleiten.",
+      "Die vorausgefüllte Vorlage liegt dieser Mail bei. Unterschreibe sie und lade sie über deinen persönlichen Link hoch — ohne Unterschrift können wir keine Anfrage an die Bank stellen.",
     signBerater:
       "Die Auskunftsermächtigung ist noch nicht unterzeichnet. Die vorausgefüllte Vorlage liegt der Bestätigung an {name} bei; unterzeichnet wird sie über den Link der Anfrage hochgeladen. Ohne Unterschrift geht keine Anfrage an die Bank.",
     signTitleIntern: "Auskunftsermächtigung ausstehend",
@@ -139,14 +161,14 @@ export const MAIL_TEXTS: Record<Lang, MailTexts> = {
     signReviewTitle: "Auskunftsermächtigung: manuell prüfen",
     attachment: "Im Anhang: {file}",
     signCta: "Unterzeichnet hochladen",
-    missingKunde: "Am einfachsten lädst du sie über deinen persönlichen Link hoch – dort siehst du nur, was noch offen ist.",
-    missingMoreOne: "und 1 weitere – alle unter deinem persönlichen Link",
-    missingMore: "und {n} weitere – alle unter deinem persönlichen Link",
+    missingKunde: "Alles Weitere siehst du unter deinem persönlichen Link; dort kannst du direkt nachreichen.",
+    missingMoreOne: "und 1 weitere.",
+    missingMore: "und {n} weitere.",
     missingBerater: "Fehlende Unterlagen können über den Link der Anfrage nachgereicht werden.",
     missingCtaKunde: "Fehlende Unterlagen hochladen",
     missingCtaBerater: "Unterlagen nachreichen",
-    linkNote: "Der Link ist {days} Tage gültig und nur für diese Anfrage bestimmt.",
-    linkIntro: "Deine Anfrage findest du jederzeit über deinen persönlichen Link – dort siehst du den Stand deines Dossiers und kannst Unterlagen nachreichen:",
+    linkNote: "Der Link ist {days} Tage gültig.",
+    linkIntro: "Deine Anfrage findest du jederzeit unter deinem persönlichen Link — dort siehst du den Stand deines Dossiers.",
     linkCta: "Zur Anfrage",
     sfOpen: "Case in Salesforce öffnen",
     sfFailed: "Salesforce-Sync fehlgeschlagen – der Case muss von Hand angelegt werden (Anfrage-ID {id}).",
@@ -158,7 +180,6 @@ export const MAIL_TEXTS: Record<Lang, MailTexts> = {
     advisorNeutral: "Berater",
     signoff: "Beste Grüsse",
     team: "Dein HYPOTEQ Team",
-    teamNeutral: "HYPOTEQ Team",
     autoIntern: "Automatisch erzeugt durch den HYPOTEQ Funnel.",
     rights: "Alle Rechte vorbehalten",
     labels: {
@@ -218,14 +239,23 @@ export const MAIL_TEXTS: Record<Lang, MailTexts> = {
     taglineNeutral: "Mortgage experts",
     greeting: "Hi {name},",
     introKunde:
-      "Thanks for your request and your trust in HYPOTEQ. We've received all the information and will get back to you soon (business days) to discuss the next steps.",
-    introKundeByBerater:
-      "{berater} has entered your financing request with HYPOTEQ. We've received all the information and will get back to you soon (business days) to discuss the next steps.",
+      "Your financing request has reached HYPOTEQ — thank you for your trust. We have received all your details and will get back to you shortly on business days with the next steps.",
     summaryIntro: "Here is the summary of your request.",
-    introBerater: "The financing request for {name} has reached HYPOTEQ. The confirmation with the summary was sent to {email}.",
-    introIntern: "New financing request via the funnel.",
+    introBerater: "The financing request for {name} has been received by HYPOTEQ.",
+    introBeraterSent: "The confirmation with the summary was sent to {email}.",
+    introBeraterOverview: "Below you find the complete overview including document status — values extracted from documents are marked “from document”.",
+    greetingBerater: "Dear {name},",
+    greetingBeraterNoName: "Hello,",
+    closingBerater: "You can follow the file anytime in the partner portal. For questions, call us on +41 44 554 41 00.",
+    signoffBerater: "Kind regards",
+    teamBerater: "HYPOTEQ AG",
+    internGuided: "guided registration",
+    internFast: "quick registration",
+    internByBerater: "advisor {name}",
+    internOwn: "own request",
+    introIntern: "New financing request via the funnel ({entry}, {by}). Full summary below. Values “from document” are marked.",
     signKunde:
-      "The template is attached to this e-mail, prefilled with your details. Please have it signed by all borrowers and upload it via your personal link. Without a signature we cannot pass the request on to the bank.",
+      "The pre-filled form is attached. Sign it and upload it via your personal link — without your signature we cannot submit your request to any bank.",
     signBerater:
       "The information authorisation is not signed yet. The prefilled template is attached to the confirmation sent to {name}; once signed, it is uploaded via the request's link. Without a signature no request goes to the bank.",
     signTitleIntern: "Information authorisation pending",
@@ -233,26 +263,25 @@ export const MAIL_TEXTS: Record<Lang, MailTexts> = {
     signReviewTitle: "Information authorisation: check manually",
     attachment: "Attached: {file}",
     signCta: "Upload signed copy",
-    missingKunde: "The easiest way is to upload them via your personal link – it shows only what is still open.",
-    missingMoreOne: "and 1 more – all of them under your personal link",
-    missingMore: "and {n} more – all of them under your personal link",
+    missingKunde: "You can see and upload everything via your personal link.",
+    missingMoreOne: "and 1 more.",
+    missingMore: "and {n} more.",
     missingBerater: "Missing documents can be added via the request's link.",
     missingCtaKunde: "Upload missing documents",
     missingCtaBerater: "Add documents",
-    linkNote: "The link is valid for {days} days and applies to this request only.",
-    linkIntro: "You can return to your request at any time via your personal link – it shows the state of your dossier and lets you add documents:",
+    linkNote: "The link is valid for {days} days.",
+    linkIntro: "You can check the status of your file anytime via your personal link.",
     linkCta: "Open my request",
     sfOpen: "Open the case in Salesforce",
     sfFailed: "Salesforce sync failed – the case must be created by hand (inquiry ID {id}).",
     sfTest: "Test mode – no case was created in Salesforce.",
     sfNoLink: "Case created (ID {caseId}).",
     sfDropped: "Not written by Salesforce (complete by hand): {list}",
-    questions: "Questions? Simply reply to this e-mail.",
+    questions: "Questions? Just reply to this email.",
     yourAdvisor: "Your advisor",
     advisorNeutral: "Advisor",
     signoff: "Best regards",
     team: "Your HYPOTEQ team",
-    teamNeutral: "HYPOTEQ team",
     autoIntern: "Generated automatically by the HYPOTEQ funnel.",
     rights: "All rights reserved",
     labels: {
@@ -312,14 +341,23 @@ export const MAIL_TEXTS: Record<Lang, MailTexts> = {
     taglineNeutral: "Experts hypothécaires",
     greeting: "Bonjour {name},",
     introKunde:
-      "Merci pour votre demande et votre confiance envers HYPOTEQ. Nous avons bien reçu toutes les informations et vous recontacterons prochainement (jours ouvrables) pour discuter des prochaines étapes.",
-    introKundeByBerater:
-      "{berater} a saisi votre demande de financement auprès d'HYPOTEQ. Nous avons bien reçu toutes les informations et vous recontacterons prochainement (jours ouvrables) pour discuter des prochaines étapes.",
+      "Votre demande de financement est bien arrivée chez HYPOTEQ — merci de votre confiance. Nous avons reçu toutes vos informations et reviendrons vers vous rapidement (jours ouvrables) avec les prochaines étapes.",
     summaryIntro: "Voici le récapitulatif de votre demande.",
-    introBerater: "La demande de financement pour {name} est parvenue à HYPOTEQ. La confirmation avec le récapitulatif a été envoyée à {email}.",
-    introIntern: "Nouvelle demande de financement via le funnel.",
+    introBerater: "La demande de financement pour {name} est bien arrivée chez HYPOTEQ.",
+    introBeraterSent: "La confirmation avec le récapitulatif a été envoyée à {email}.",
+    introBeraterOverview: "Vous trouvez ci-dessous l'aperçu complet, y compris l'état des documents — les valeurs extraites de documents sont marquées « du document ».",
+    greetingBerater: "Bonjour {name},",
+    greetingBeraterNoName: "Bonjour,",
+    closingBerater: "Vous suivez le dossier à tout moment dans le portail partenaires. Questions : +41 44 554 41 00.",
+    signoffBerater: "Meilleures salutations",
+    teamBerater: "HYPOTEQ AG",
+    internGuided: "inscription accompagnée",
+    internFast: "inscription rapide",
+    internByBerater: "conseiller {name}",
+    internOwn: "demande propre",
+    introIntern: "Nouvelle demande de financement via le funnel ({entry}, {by}). Récapitulatif complet ci-dessous. Les valeurs « du document » sont marquées.",
     signKunde:
-      "Le modèle est joint à cet e-mail, prérempli avec vos informations. Veuillez le faire signer par tous les emprunteurs et le téléverser via votre lien personnel. Sans signature, nous ne pouvons pas transmettre la demande à la banque.",
+      "Le formulaire prérempli est joint à cet e-mail. Signez-le et téléversez-le via votre lien personnel — sans signature, aucune demande ne peut être transmise à la banque.",
     signBerater:
       "L'autorisation de renseignements n'est pas encore signée. Le modèle prérempli est joint à la confirmation envoyée à {name} ; une fois signé, il se téléverse via le lien de la demande. Sans signature, aucune demande n'est transmise à la banque.",
     signTitleIntern: "Autorisation de renseignements en attente",
@@ -327,14 +365,14 @@ export const MAIL_TEXTS: Record<Lang, MailTexts> = {
     signReviewTitle: "Autorisation de renseignements : à vérifier manuellement",
     attachment: "En pièce jointe : {file}",
     signCta: "Téléverser le document signé",
-    missingKunde: "Le plus simple est de les téléverser via votre lien personnel – vous n'y verrez que ce qui manque encore.",
-    missingMoreOne: "et 1 autre – tous via votre lien personnel",
-    missingMore: "et {n} autres – tous via votre lien personnel",
+    missingKunde: "Vous trouvez tout sous votre lien personnel, où vous pouvez les déposer directement.",
+    missingMoreOne: "et 1 autre.",
+    missingMore: "et {n} autres.",
     missingBerater: "Les documents manquants peuvent être ajoutés via le lien de la demande.",
     missingCtaKunde: "Téléverser les documents manquants",
     missingCtaBerater: "Ajouter des documents",
-    linkNote: "Le lien est valable {days} jours et concerne uniquement cette demande.",
-    linkIntro: "Vous pouvez revenir à votre demande à tout moment via votre lien personnel – vous y verrez l'état de votre dossier et pourrez ajouter des documents :",
+    linkNote: "Le lien est valable {days} jours.",
+    linkIntro: "Vous pouvez consulter l'état de votre dossier à tout moment via votre lien personnel.",
     linkCta: "Voir ma demande",
     sfOpen: "Ouvrir le case dans Salesforce",
     sfFailed: "Échec de la synchronisation Salesforce – le case doit être créé manuellement (ID de la demande {id}).",
@@ -346,7 +384,6 @@ export const MAIL_TEXTS: Record<Lang, MailTexts> = {
     advisorNeutral: "Conseiller",
     signoff: "Meilleures salutations",
     team: "Votre équipe HYPOTEQ",
-    teamNeutral: "L'équipe HYPOTEQ",
     autoIntern: "Généré automatiquement par le funnel HYPOTEQ.",
     rights: "Tous droits réservés",
     labels: {
@@ -406,14 +443,23 @@ export const MAIL_TEXTS: Record<Lang, MailTexts> = {
     taglineNeutral: "Esperti ipotecari",
     greeting: "Buongiorno {name},",
     introKunde:
-      "Grazie per la Sua richiesta e per la fiducia in HYPOTEQ. Abbiamo ricevuto tutte le informazioni e La ricontatteremo presto (giorni lavorativi) per discutere i prossimi passi.",
-    introKundeByBerater:
-      "{berater} ha registrato la Sua richiesta di finanziamento presso HYPOTEQ. Abbiamo ricevuto tutte le informazioni e La ricontatteremo presto (giorni lavorativi) per discutere i prossimi passi.",
+      "La Sua richiesta di finanziamento è arrivata da HYPOTEQ — grazie per la fiducia. Abbiamo ricevuto tutti i dati e La ricontatteremo a breve (giorni feriali) con i prossimi passi.",
     summaryIntro: "Ecco il riepilogo della Sua richiesta.",
-    introBerater: "La richiesta di finanziamento per {name} è pervenuta a HYPOTEQ. La conferma con il riepilogo è stata inviata a {email}.",
-    introIntern: "Nuova richiesta di finanziamento tramite il funnel.",
+    introBerater: "La richiesta di finanziamento per {name} è arrivata da HYPOTEQ.",
+    introBeraterSent: "La conferma con il riepilogo è stata inviata a {email}.",
+    introBeraterOverview: "Di seguito trova la panoramica completa, incluso lo stato dei documenti — i valori estratti dai documenti sono contrassegnati con «dal documento».",
+    greetingBerater: "Buongiorno {name},",
+    greetingBeraterNoName: "Buongiorno,",
+    closingBerater: "Può seguire il dossier in qualsiasi momento nel portale partner. Domande: +41 44 554 41 00.",
+    signoffBerater: "Cordiali saluti",
+    teamBerater: "HYPOTEQ AG",
+    internGuided: "registrazione accompagnata",
+    internFast: "registrazione rapida",
+    internByBerater: "consulente {name}",
+    internOwn: "richiesta propria",
+    introIntern: "Nuova richiesta di finanziamento tramite il funnel ({entry}, {by}). Riepilogo completo qui sotto. I valori «dal documento» sono contrassegnati.",
     signKunde:
-      "Il modello è allegato a questa e-mail, precompilato con i Suoi dati. La preghiamo di farlo firmare da tutti i mutuatari e di caricarlo tramite il Suo link personale. Senza firma non possiamo inoltrare la richiesta alla banca.",
+      "Il modulo precompilato è allegato. Lo firmi e lo carichi tramite il Suo link personale — senza firma non possiamo inoltrare la richiesta alla banca.",
     signBerater:
       "L'autorizzazione non è ancora firmata. Il modello precompilato è allegato alla conferma inviata a {name}; una volta firmato si carica tramite il link della richiesta. Senza firma nessuna richiesta viene inoltrata alla banca.",
     signTitleIntern: "Autorizzazione in sospeso",
@@ -421,14 +467,14 @@ export const MAIL_TEXTS: Record<Lang, MailTexts> = {
     signReviewTitle: "Autorizzazione: da verificare manualmente",
     attachment: "In allegato: {file}",
     signCta: "Carica il documento firmato",
-    missingKunde: "Il modo più semplice è caricarli tramite il Suo link personale – vedrà solo ciò che manca ancora.",
-    missingMoreOne: "e 1 altro – tutti tramite il Suo link personale",
-    missingMore: "e altri {n} – tutti tramite il Suo link personale",
+    missingKunde: "Trova tutto nel Suo link personale, dove può caricarli direttamente.",
+    missingMoreOne: "e 1 altro.",
+    missingMore: "e altri {n}.",
     missingBerater: "I documenti mancanti possono essere aggiunti tramite il link della richiesta.",
     missingCtaKunde: "Carica i documenti mancanti",
     missingCtaBerater: "Aggiungere documenti",
-    linkNote: "Il link è valido {days} giorni ed è destinato esclusivamente a questa richiesta.",
-    linkIntro: "Può tornare alla Sua richiesta in qualsiasi momento tramite il Suo link personale – lì vede lo stato del Suo dossier e può aggiungere documenti:",
+    linkNote: "Il link è valido {days} giorni.",
+    linkIntro: "Può consultare lo stato del Suo dossier in qualsiasi momento tramite il Suo link personale.",
     linkCta: "Alla mia richiesta",
     sfOpen: "Apri il case in Salesforce",
     sfFailed: "Sincronizzazione Salesforce non riuscita – il case deve essere creato manualmente (ID richiesta {id}).",
@@ -440,7 +486,6 @@ export const MAIL_TEXTS: Record<Lang, MailTexts> = {
     advisorNeutral: "Consulente",
     signoff: "Cordiali saluti",
     team: "Il Suo team HYPOTEQ",
-    teamNeutral: "Il team HYPOTEQ",
     autoIntern: "Generato automaticamente dal funnel HYPOTEQ.",
     rights: "Tutti i diritti riservati",
     labels: {

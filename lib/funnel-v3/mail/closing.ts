@@ -140,7 +140,8 @@ export async function buildClosingMails(input: ClosingMailsInput, deps: Partial<
     mails.push({ audience: "berater", to: berater, subject, html, replyTo: null, attachments: [], summary });
   }
 
-  const summary = buildCaseSummary(summaryInput, "intern", facts)!;
+  // HYPOTEQ Mail-Texte 20.10.2026, M3: the internal mail is German, whatever language the funnel ran in.
+  const summary = buildCaseSummary({ ...summaryInput, lang: "de" }, "intern", facts)!;
   const completion = input.data?.v3Completion;
   const { subject, html } = renderClosingMail(summary, {
     returnUrl: input.returnUrl,

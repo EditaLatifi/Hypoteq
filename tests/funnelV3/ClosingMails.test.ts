@@ -387,13 +387,29 @@ describe("internal mail: the Case (Handover 7.1)", () => {
 });
 
 describe("language and address (Handover 7.3, DECISIONS D9)", () => {
-  it("DE «du» for the customer, neutral for the Berater", async () => {
+  // HYPOTEQ Mail-Texte 20.10.2026: M1 «du», M2 «Sie» with «Guten Tag {Berater}», M3 German.
+  it("DE «du» for the customer, «Sie» for the Berater", async () => {
     const list = await mails(v5Payload(ablState({ sig: { choice: "later", at: "x", method: "upload" } })));
-    expect(text(of(list, "kunde").html)).toContain("Hi Marco,");
-    expect(text(of(list, "kunde").html)).toContain("hat deine Finanzierungsanfrage bei HYPOTEQ erfasst");
+    const k = text(of(list, "kunde").html);
+    expect(k).toContain("Hi Marco,");
+    expect(k).toContain("deine Finanzierungsanfrage ist bei HYPOTEQ eingegangen — danke für dein Vertrauen.");
+    expect(k).toContain("Fragen? Antworte einfach auf diese E-Mail. Beste Grüsse Dein HYPOTEQ Team");
     const b = text(of(list, "berater").html);
     expect(b).not.toMatch(/\b(du|dein|deine|deinen|dir|dich)\b/i);
-    expect(b).toContain("Die Finanzierungsanfrage für Marco Beispiel ist bei HYPOTEQ eingegangen.");
+    expect(b).toContain("Guten Tag Bea Rater");
+    expect(b).toContain(
+      "Die Finanzierungsanfrage für Marco Beispiel ist bei HYPOTEQ eingegangen. Die Bestätigung mit der Zusammenfassung ging an marco.beispiel@kunde.ch. Unten finden Sie die vollständige Übersicht inklusive Dokumentenstatus"
+    );
+    expect(b).toContain("Den Stand des Dossiers sehen Sie jederzeit im Partnerportal. Bei Fragen erreichen Sie uns unter +41 44 554 41 00. Freundliche Grüsse HYPOTEQ AG");
+    for (const who of ["kunde", "berater"]) expect(text(of(list, who).html)).toContain("HYPOTEQ AG · +41 44 554 41 00 · info@hypoteq.ch · www.hypoteq.ch");
+  });
+
+  it("the internal mail is German with entry and submitter, whatever the funnel language", async () => {
+    const i = of(await mails(v5Payload(ablState(), { locale: "fr" }), { lang: "fr" }), "intern");
+    expect(i.subject).toMatch(/^Neue Finanzierungsanfrage /);
+    expect(text(i.html)).toContain("Neue Finanzierungsanfrage über den Funnel (Begleitete Anmeldung, Berater Bea Rater). Vollständige Zusammenfassung unten.");
+    const own = of(await mails(v5Payload(kaufState({ mode: "schnell" }))), "intern");
+    expect(text(own.html)).toContain("(Schnellanmeldung, eigene Anfrage)");
   });
 
   it("FR «vous», IT «Lei», EN — mail in the funnel language", async () => {

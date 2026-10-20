@@ -319,27 +319,39 @@ describe("sendSignatureReminders (daily cron)", () => {
 describe("the reminder mail (Handover 7.1: Vorlage + Upload-Link, keine Zusammenfassung)", () => {
   const base = { lang: "de" as const, name: "Max", caseNumber: CASE, uploadUrl: `https://hypoteq.com/de/nachreichen/${TOKEN}`, reminder: 1 as const, attachment: { name: "x.pdf", bytes: new Uint8Array() } };
 
-  it("German, «du», the link as the one button, no summary", () => {
+  // HYPOTEQ Mail-Texte 20.10.2026: M4 on day 2, M5 (the last) on day 5.
+  it("M4: German, «du», the steps, the link as the one button, no summary", () => {
     const c = signatureReminderContent(base);
-    expect(c.subject).toBe(`Erinnerung: Bitte Auskunftsermächtigung unterzeichnen – ${CASE}`);
-    expect(c.text).toContain("Hallo Max");
-    expect(c.text).toContain(`Für deine Finanzierungsanfrage ${CASE} fehlt noch die unterzeichnete Auskunftsermächtigung.`);
-    expect(c.text).toContain("liegt dieser Mail bei");
+    expect(c.subject).toBe(`Erinnerung: Auskunftsermächtigung für deine Anfrage ${CASE}`);
+    expect(c.text).toContain("Hi Max,");
+    expect(c.text).toContain("kleiner Reminder: Für deine Finanzierungsanfrage fehlt noch die unterzeichnete Auskunftsermächtigung.");
+    expect(c.text).toContain("Die Vorlage liegt nochmals bei: ausdrucken, unterschreiben, über deinen Link hochladen");
+    expect(c.text).toContain("Beste Grüsse\nDein HYPOTEQ Team");
+    expect(c.text).toContain("HYPOTEQ AG · +41 44 554 41 00 · info@hypoteq.ch · www.hypoteq.ch");
     expect(c.html).toContain(`href="https://hypoteq.com/de/nachreichen/${TOKEN}"`);
     expect(c.html).not.toMatch(/Belehnung|Tragbarkeit|CHF/);
-    expect(signatureReminderContent({ ...base, reminder: 2 }).subject).toMatch(/^Zweite Erinnerung/);
+  });
+
+  it("M5: its own subject and text — the request is ready, help offered", () => {
+    const c = signatureReminderContent({ ...base, reminder: 2 });
+    expect(c.subject).toBe(`Letzte Erinnerung: Deine Anfrage ${CASE} wartet auf deine Unterschrift`);
+    expect(c.text).toContain("deine Finanzierungsanfrage liegt bereit — es fehlt nur noch deine Unterschrift auf der Auskunftsermächtigung.");
+    expect(c.text).toContain("ruf uns an unter +41 44 554 41 00");
+    expect(c.text).not.toContain("kleiner Reminder");
+    expect(c.html).toContain(`href="https://hypoteq.com/de/nachreichen/${TOKEN}"`);
   });
 
   it("in the funnel language, without attachment and name, escaped", () => {
     const fr = signatureReminderContent({ ...base, lang: "fr", attachment: null, name: "<b>Zoé</b>" });
-    expect(fr.subject).toMatch(/^Rappel/);
-    expect(fr.html).toContain("Bonjour &lt;b&gt;Zoé&lt;/b&gt;");
-    expect(fr.text).toContain("via le lien");
+    expect(fr.subject).toBe(`Rappel : procuration de renseignements pour votre demande ${CASE}`);
+    expect(fr.html).toContain("Bonjour &lt;b&gt;Zoé&lt;/b&gt;,");
+    expect(fr.text).toContain("via votre lien");
     const it = signatureReminderContent({ ...base, lang: "it", name: "", caseNumber: null });
-    expect(it.subject).toBe("Promemoria: firmi l’autorizzazione a fornire informazioni");
-    expect(it.text.startsWith("Buongiorno\n")).toBe(true);
-    expect(it.text).toContain("Per la Sua richiesta di finanziamento manca ancora");
-    expect(signatureReminderContent({ ...base, lang: "en" }).subject).toMatch(/^Reminder: please sign/);
+    expect(it.subject).toBe("Promemoria: autorizzazione alle informazioni per la Sua richiesta");
+    expect(it.text.startsWith("Buongiorno,\n")).toBe(true);
+    expect(it.text).toContain("un breve promemoria: per la Sua richiesta di finanziamento manca ancora");
+    expect(signatureReminderContent({ ...base, lang: "en" }).subject).toBe(`Reminder: information authorisation for your request ${CASE}`);
+    expect(signatureReminderContent({ ...base, lang: "en", reminder: 2 }).subject).toBe(`Final reminder: your request ${CASE} is waiting for your signature`);
   });
 });
 

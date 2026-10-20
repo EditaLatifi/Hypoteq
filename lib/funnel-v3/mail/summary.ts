@@ -83,6 +83,8 @@ export interface CaseSummary {
   /** «Erfasst von …» / «Eigene Anfrage» (7.2 block 1). */
   submitter: string;
   role: "berater" | "kunde" | null;
+  /** Begleitet or Schnell — the internal mail names it (HYPOTEQ Mail-Texte 20.10.2026, M3). */
+  mode: "begleitet" | "schnell";
   /** `greetingName`: the first name the customer mail greets (a company: its signatory's). */
   customer: { name: string; email: string; isJur: boolean; greetingName: string };
   place: string;
@@ -443,6 +445,7 @@ export function buildCaseSummary(input: SummaryInput, audience: Audience, facts?
     date: fmtDate(input.date),
     submitter,
     role,
+    mode: state.mode === "schnell" ? "schnell" : "begleitet",
     customer: {
       name: customerNameOf(state),
       email: customerEmailOf(input.data) ?? "",

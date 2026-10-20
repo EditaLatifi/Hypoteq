@@ -20,11 +20,20 @@ describe("funnel-v3 messages", () => {
 
   // v5 (docs/funnel-v5): a superset of the v3 delivery — mode cards, chips, Eigenmittel,
   // Schnellanmeldung, Auskunftsermächtigung, mail sections.
-  it("contain the v5 i18n delivery, unchanged", () => {
+  it("contain the v5 i18n delivery, unchanged — apart from what HYPOTEQ's Mail-Texte of 20.10.2026 replaced", () => {
     const delivered = JSON.parse(
       fs.readFileSync(path.join(__dirname, "..", "docs", "funnel-v5", "HYPOTEQ_Funnel_i18n.json"), "utf8")
     );
-    for (const l of LANGS) expect(MESSAGES[l]).toMatchObject(delivered[l]);
+    // M4/M5 (the Auskunftsermächtigung reminders) and the M1 signature heading in FR/IT.
+    const replaced: Record<string, string[]> = {
+      sig: ["reminder.subject", "reminder.subject2", "reminder.greeting", "reminder.greetingNoName", "reminder.body", "reminder.steps", "reminder.stepsNoAttachment", "reminder.signoff", "reminder.team"],
+      mail: ["next.sign"],
+    };
+    for (const l of LANGS) {
+      const expected = JSON.parse(JSON.stringify(delivered[l]));
+      for (const [ns, keys] of Object.entries(replaced)) for (const k of keys) if (expected[ns]) delete expected[ns][k];
+      expect(MESSAGES[l]).toMatchObject(expected);
+    }
     expect(MESSAGES.de.chip.steuer).toBe("Interesse an Steueroptimierung");
     expect(MESSAGES.fr.opt["nutz.Gewerbe"]).toBeTruthy();
   });

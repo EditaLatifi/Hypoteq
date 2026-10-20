@@ -6,6 +6,7 @@
  */
 
 import { translate, type Lang } from "./i18n";
+import { MAIL_FOOTER } from "./mail/texts";
 import type { SignatureReminderSend } from "./signatureServer";
 
 function escapeHtml(s: string): string {
@@ -18,16 +19,20 @@ export interface SignatureReminderContent {
   text: string;
 }
 
-/** Subject and body (pure). */
+/**
+ * Subject and body (pure). HYPOTEQ Mail-Texte 20.10.2026: M4 (day 2) asks again with the steps,
+ * M5 (day 5, the last) says the request is ready and offers help instead.
+ */
 export function signatureReminderContent(m: Omit<SignatureReminderSend, "to">): SignatureReminderContent {
   const lang: Lang = m.lang;
   const t = (k: string, p?: Record<string, string>) => translate(lang, `sig.reminder.${k}`, p);
   const ref = m.caseNumber ? ` ${m.caseNumber}` : "";
-  const subject = `${t(m.reminder === 2 ? "subject2" : "subject")}${m.caseNumber ? ` – ${m.caseNumber}` : ""}`;
+  const last = m.reminder === 2;
+  const subject = t(last ? "subject2" : "subject", { ref });
   const greeting = m.name ? t("greeting", { name: m.name }) : t("greetingNoName");
   const lines = {
-    body: t("body", { ref }),
-    steps: m.attachment ? t("steps") : t("stepsNoAttachment"),
+    body: t(last ? "body2" : "body"),
+    steps: last ? t("help2") : m.attachment ? t("steps") : t("stepsNoAttachment"),
     button: t("button"),
     already: t("already"),
     signoff: t("signoff"),
@@ -51,11 +56,12 @@ export function signatureReminderContent(m: Omit<SignatureReminderSend, "to">): 
     <div style="padding-top:18px;border-top:2px solid #CAF476;">
       <div style="font-size:15px;">${escapeHtml(lines.signoff)}</div>
       <div style="font-weight:600;margin-top:10px;">${escapeHtml(lines.team)}</div>
+      <div style="margin-top:12px;font-size:12px;color:#132219;opacity:.6;">${escapeHtml(MAIL_FOOTER)}</div>
     </div>
   </div>
 </body>
 </html>`;
-  const text = [greeting, "", lines.body, "", lines.steps, "", `${lines.button}: ${m.uploadUrl}`, "", lines.already, "", lines.signoff, lines.team].join("\n");
+  const text = [greeting, "", lines.body, "", lines.steps, "", `${lines.button}: ${m.uploadUrl}`, "", lines.already, "", lines.signoff, lines.team, "", MAIL_FOOTER].join("\n");
   return { subject, html, text };
 }
 

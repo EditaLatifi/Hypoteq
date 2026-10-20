@@ -35,23 +35,27 @@ const recognised = () => {
 };
 
 describe("closing mails: the recognised partner's name", () => {
-  it("names the partner and the company in the customer mail", async () => {
+  // The customer intro is one text for all (HYPOTEQ Mail-Texte 20.10.2026, M1); the partner stands
+  // in the head («Erfasst von») and under «Dein Berater», and the Berater mail greets them.
+  it("names the partner and the company in the customer mail and greets them in theirs", async () => {
     const list = await buildClosingMails(input(recognised(), { partner: { name: "Bea Rater", company: "Partner AG" } }), deps);
     const k = text(of(list, "kunde").html);
-    expect(k).toContain("Bea Rater hat deine Finanzierungsanfrage bei HYPOTEQ erfasst");
     expect(k).toMatch(/Dein Berater Bea Rater Partner AG bea\.rater@partner\.ch/);
-    expect(k).toContain("Bea Rater · bea.rater@partner.ch");
+    expect(k).toContain("Erfasst von Bea Rater · bea.rater@partner.ch");
+    expect(text(of(list, "berater").html)).toContain("Guten Tag Bea Rater");
   });
 
   it("falls back to the address without a Salesforce answer", async () => {
-    const k = text(of(await buildClosingMails(input(recognised()), deps), "kunde").html);
-    expect(k).toContain("bea.rater@partner.ch hat deine Finanzierungsanfrage bei HYPOTEQ erfasst");
+    const list = await buildClosingMails(input(recognised()), deps);
+    expect(text(of(list, "kunde").html)).toContain("Erfasst von bea.rater@partner.ch");
+    // No name: the Berater mail greets without one.
+    expect(text(of(list, "berater").html)).toMatch(/Guten Tag Die Finanzierungsanfrage/);
   });
 
   it("keeps what a new partner typed over the lookup", async () => {
     const list = await buildClosingMails(input(v5Payload(ablState()), { partner: { name: "Other Name", company: "Other AG" } }), deps);
     const k = text(of(list, "kunde").html);
-    expect(k).toContain("Bea Rater hat deine Finanzierungsanfrage");
+    expect(k).toContain("Erfasst von Bea Rater · bea.rater@partner.ch");
     expect(k).toContain("Partner AG");
     expect(k).not.toContain("Other");
   });
@@ -100,7 +104,8 @@ describe("the shorter customer mail (HYPOTEQ 20.10.2026)", () => {
     expect(k.summary.next.missing.length).toBeGreaterThan(5);
     const more = k.summary.next.missing.length - 5;
     expect(lis(k.html, "Diese Unterlagen fehlen noch")).toBe(5);
-    expect(text(k.html)).toContain(more === 1 ? "und 1 weitere – alle unter deinem persönlichen Link" : `und ${more} weitere – alle unter deinem persönlichen Link`);
+    expect(text(k.html)).toContain(more === 1 ? "und 1 weitere." : `und ${more} weitere.`);
+    expect(text(k.html)).toContain("Alles Weitere siehst du unter deinem persönlichen Link; dort kannst du direkt nachreichen.");
     // «X von Y Anforderungen erfüllt», then the «Zur Anfrage» button; no Erkannt / Fehlt rows.
     expect(text(k.html)).toContain(k.summary.docs.line);
     expect(text(k.html)).toContain("Zur Anfrage");
@@ -113,7 +118,7 @@ describe("the shorter customer mail (HYPOTEQ 20.10.2026)", () => {
     for (const who of ["berater", "intern"]) {
       const m = of(list, who);
       expect(lis(m.html, "Diese Unterlagen fehlen noch")).toBe(m.summary.next.missing.length);
-      expect(text(m.html)).not.toContain("weitere – alle unter");
+      expect(text(m.html)).not.toMatch(/und \d+ weitere\./);
       expect(m.html).toMatch(/>\s*(Erkannt|Fehlt)\s*</);
     }
   });
@@ -121,6 +126,6 @@ describe("the shorter customer mail (HYPOTEQ 20.10.2026)", () => {
   it("five or fewer: all listed, no «weitere» line", async () => {
     const k = of(await buildClosingMails(input(v5Payload(kaufState(), { missing: ["fotos", "gvz"] })), deps), "kunde");
     expect(lis(k.html, "Diese Unterlagen fehlen noch")).toBe(k.summary.next.missing.length);
-    expect(text(k.html)).not.toContain("weitere – alle unter");
+    expect(text(k.html)).not.toMatch(/und \d+ weitere\./);
   });
 });

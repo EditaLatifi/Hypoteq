@@ -17,7 +17,7 @@ import { interpolate, translate, type Params } from "../i18n";
 import { signatureReviewNote } from "../signature";
 import type { CaseSummary, SummaryBlock, SummaryRow } from "./summary";
 import { closingSubject } from "./summary";
-import { MAIL_TEXTS, type Audience, type MailTexts } from "./texts";
+import { MAIL_FOOTER, MAIL_TEXTS, type Audience, type MailTexts } from "./texts";
 
 export interface SalesforceOutcome {
   caseId: string | null;
@@ -210,15 +210,30 @@ function salesforceHtml(s: CaseSummary, ctx: RenderContext, T: MailTexts): strin
   return callout(`<div style="font-size:12px;letter-spacing:0.04em;text-transform:uppercase;color:${C.muted};margin-bottom:4px;">${esc(L.salesforceCase)}</div>${lines.join("")}`, sf?.failed ? C.bad : C.lime);
 }
 
+// HYPOTEQ Mail-Texte 20.10.2026: M1 one intro for every customer (who entered the request stands
+// in the head and under «Dein Berater»), M2 «Guten Tag {Berater}» in «Sie», M3 entry and submitter.
 function introHtml(s: CaseSummary, T: MailTexts): string {
+  const greetingHtml = (g: string) => `<p style="font-size:17px;font-weight:600;margin:22px 0 6px 0;">${esc(g)}</p>`;
   if (s.audience === "kunde") {
     const greeting = interpolate(T.greeting, { name: s.customer.greetingName }).replace(" ,", ",");
-    const by = s.berater ? s.berater.name || s.berater.email : "";
-    const intro = by ? interpolate(T.introKundeByBerater, { berater: by }) : T.introKunde;
-    return `<p style="font-size:17px;font-weight:600;margin:22px 0 6px 0;">${esc(greeting)}</p>
-    <p style="font-size:14px;line-height:1.7;margin:0 0 4px 0;">${esc(intro)}</p>`;
+    return `${greetingHtml(greeting)}
+    <p style="font-size:14px;line-height:1.7;margin:0 0 4px 0;">${esc(T.introKunde)}</p>`;
   }
-  const text = s.audience === "berater" ? interpolate(T.introBerater, { name: s.customer.name || "–", email: s.customer.email || "–" }) : T.introIntern;
+  if (s.audience === "berater") {
+    const name = s.berater?.name.trim();
+    const greeting = name ? interpolate(T.greetingBerater, { name }) : T.greetingBeraterNoName;
+    const text = [
+      interpolate(T.introBerater, { name: s.customer.name || "–" }),
+      s.customer.email ? interpolate(T.introBeraterSent, { email: s.customer.email }) : "",
+      T.introBeraterOverview,
+    ]
+      .filter(Boolean)
+      .join(" ");
+    return `${greetingHtml(greeting)}
+    <p style="font-size:14px;line-height:1.7;margin:0 0 4px 0;">${esc(text)}</p>`;
+  }
+  const by = s.role === "berater" ? interpolate(T.internByBerater, { name: s.berater?.name || s.berater?.email || "–" }) : T.internOwn;
+  const text = interpolate(T.introIntern, { entry: s.mode === "schnell" ? T.internFast : T.internGuided, by });
   return `<p style="font-size:14px;line-height:1.7;margin:22px 0 4px 0;">${esc(text)}</p>`;
 }
 
@@ -238,14 +253,12 @@ function footerHtml(s: CaseSummary, ctx: RenderContext, T: MailTexts): string {
   if (s.audience === "intern") {
     out.push(`<div style="margin-top:26px;font-size:12px;color:${C.muted};">${esc(T.autoIntern)}</div>`);
   } else {
+    const kunde = s.audience === "kunde";
     out.push(`<div style="margin-top:26px;padding-top:16px;border-top:2px solid ${C.lime};font-size:14px;">
-      ${s.audience === "kunde" ? `<div>${esc(T.questions)}</div>` : ""}
-      <div style="margin-top:10px;">${esc(T.signoff)}</div>
-      <div style="font-weight:600;margin-top:8px;">${esc(s.audience === "kunde" ? T.team : T.teamNeutral)}</div>
-      <div style="margin-top:12px;font-size:12px;color:${C.muted};line-height:1.6;">
-        <div>HYPOTEQ AG</div>
-        <div>+41 44 554 41 00 · info@hypoteq.ch · www.hypoteq.ch</div>
-      </div>
+      <div>${esc(kunde ? T.questions : T.closingBerater)}</div>
+      <div style="margin-top:10px;">${esc(kunde ? T.signoff : T.signoffBerater)}</div>
+      <div style="font-weight:600;margin-top:8px;">${esc(kunde ? T.team : T.teamBerater)}</div>
+      <div style="margin-top:12px;font-size:12px;color:${C.muted};line-height:1.6;">${esc(MAIL_FOOTER)}</div>
     </div>`);
   }
   return out.join("");
