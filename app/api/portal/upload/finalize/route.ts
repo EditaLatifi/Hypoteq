@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { isV3Inquiry, placedByHand } from "@/lib/funnel-v3/nachreich";
 import { audit } from "@/lib/portal/audit";
 import { caseFolder, verifyUploadedItem } from "@/lib/portal/files";
 import { sendTeamMail } from "@/lib/portal/mail";
@@ -49,12 +50,21 @@ export async function POST(req: Request) {
   const inquiry = await prisma.inquiry.findFirst({
     where: { salesforceCaseId: c.id },
     orderBy: { createdAt: "desc" },
-    select: { id: true, documentsMissing: true, client: { select: { email: true } } },
+    select: { id: true, documentsMissing: true, v3State: true, client: { select: { email: true } } },
   });
   if (inquiry) {
+    // On a Funnel v3 inquiry the file is placed on its requirement; without that the Nachreich
+    // page counted a portal upload nowhere and asked the customer for it again.
+    const placed = doc?.key && isV3Inquiry(inquiry) ? placedByHand(doc.key) : null;
     try {
       await prisma.document.create({
-        data: { inquiryId: inquiry.id, email: inquiry.client?.email || user.email, fileName: item.name.slice(0, 500), fileUrl: (item.webUrl || "").slice(0, 2000) },
+        data: {
+          inquiryId: inquiry.id,
+          email: inquiry.client?.email || user.email,
+          fileName: item.name.slice(0, 500),
+          fileUrl: (item.webUrl || "").slice(0, 2000),
+          ...(placed ? { originalFileName: item.name.slice(0, 500), aiAnalysis: placed } : {}),
+        },
       });
     } catch (err) {
       console.error("[portal] could not record document row", err);

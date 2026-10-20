@@ -129,6 +129,15 @@ export function storedSubmission(row: CompletionDocumentRow): SubmittedDocument 
   return { ...rest, documentId: row.id, instanceId: rest.instanceId ?? null, requirementId: rest.requirementId ?? null };
 }
 
+/**
+ * `aiAnalysis` for a file a partner uploaded in the portal for one requirement of a v3 inquiry
+ * (app/api/portal/upload/finalize): placed by hand, like the funnel's «manuell zuordnen», so
+ * the Nachreich page and its sync count it instead of asking for it again.
+ */
+export function placedByHand(instanceId: string, now: Date = new Date()) {
+  return { v3Submitted: { instanceId, requirementId: baseId(instanceId), assignedByUser: true, submittedAt: now.toISOString() } };
+}
+
 /** Rows with `aiAnalysis.v3Submitted` replaced by the given detail (for files the closing could not process). */
 function withSubmissions(rows: CompletionDocumentRow[], subs: SubmittedDocument[]): CompletionDocumentRow[] {
   const byId = new Map(subs.map((s) => [s.documentId, s]));
