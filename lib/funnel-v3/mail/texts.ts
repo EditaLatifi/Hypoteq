@@ -90,6 +90,9 @@ export interface MailTexts {
   attachment: string;
   signCta: string;
   missingKunde: string;
+  /** Customer mail, more than five missing (HYPOTEQ 20.10.2026): the line under the first five. */
+  missingMoreOne: string;
+  missingMore: string;
   missingBerater: string;
   missingCtaKunde: string;
   missingCtaBerater: string;
@@ -137,6 +140,8 @@ export const MAIL_TEXTS: Record<Lang, MailTexts> = {
     attachment: "Im Anhang: {file}",
     signCta: "Unterzeichnet hochladen",
     missingKunde: "Am einfachsten lädst du sie über deinen persönlichen Link hoch – dort siehst du nur, was noch offen ist.",
+    missingMoreOne: "und 1 weitere – alle unter deinem persönlichen Link",
+    missingMore: "und {n} weitere – alle unter deinem persönlichen Link",
     missingBerater: "Fehlende Unterlagen können über den Link der Anfrage nachgereicht werden.",
     missingCtaKunde: "Fehlende Unterlagen hochladen",
     missingCtaBerater: "Unterlagen nachreichen",
@@ -229,6 +234,8 @@ export const MAIL_TEXTS: Record<Lang, MailTexts> = {
     attachment: "Attached: {file}",
     signCta: "Upload signed copy",
     missingKunde: "The easiest way is to upload them via your personal link – it shows only what is still open.",
+    missingMoreOne: "and 1 more – all of them under your personal link",
+    missingMore: "and {n} more – all of them under your personal link",
     missingBerater: "Missing documents can be added via the request's link.",
     missingCtaKunde: "Upload missing documents",
     missingCtaBerater: "Add documents",
@@ -321,6 +328,8 @@ export const MAIL_TEXTS: Record<Lang, MailTexts> = {
     attachment: "En pièce jointe : {file}",
     signCta: "Téléverser le document signé",
     missingKunde: "Le plus simple est de les téléverser via votre lien personnel – vous n'y verrez que ce qui manque encore.",
+    missingMoreOne: "et 1 autre – tous via votre lien personnel",
+    missingMore: "et {n} autres – tous via votre lien personnel",
     missingBerater: "Les documents manquants peuvent être ajoutés via le lien de la demande.",
     missingCtaKunde: "Téléverser les documents manquants",
     missingCtaBerater: "Ajouter des documents",
@@ -413,6 +422,8 @@ export const MAIL_TEXTS: Record<Lang, MailTexts> = {
     attachment: "In allegato: {file}",
     signCta: "Carica il documento firmato",
     missingKunde: "Il modo più semplice è caricarli tramite il Suo link personale – vedrà solo ciò che manca ancora.",
+    missingMoreOne: "e 1 altro – tutti tramite il Suo link personale",
+    missingMore: "e altri {n} – tutti tramite il Suo link personale",
     missingBerater: "I documenti mancanti possono essere aggiunti tramite il link della richiesta.",
     missingCtaKunde: "Carica i documenti mancanti",
     missingCtaBerater: "Aggiungere documenti",

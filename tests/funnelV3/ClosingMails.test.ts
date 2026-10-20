@@ -324,7 +324,11 @@ describe("block 3–9 · only what applies (Handover 7.3)", () => {
     expect(m.summary.docs.line).toBe(`${m.summary.docs.fulfilled} von ${m.summary.docs.total} Anforderungen erfüllt`);
     const fotos = m.summary.docs.groups.flatMap((g) => g.lines).find((l) => l.label === translate("de", "doc.fotos"))!;
     expect(fotos).toMatchObject({ state: "missing", stateLabel: "Fehlt", warn: true });
-    expect(text(m.html)).toContain(translate("de", "doc.vollmacht"));
+    // HYPOTEQ 20.10.2026: the full list is for the internal (and the Berater) mail; the customer
+    // mail keeps only the line.
+    expect(text(of(await mails(v5Payload(kaufState(), { missing: ["fotos"] })), "intern").html)).toContain(translate("de", "doc.vollmacht"));
+    expect(text(m.html)).toContain(m.summary.docs.line);
+    expect(text(m.html)).not.toContain(translate("de", "doc.vollmacht"));
   });
 });
 

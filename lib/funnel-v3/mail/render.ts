@@ -111,8 +111,17 @@ function blockHtml(block: SummaryBlock, lang: CaseSummary["lang"]): string {
   return sectionTitle(block.title) + body;
 }
 
+/** The customer mail lists at most this many missing documents; the rest are behind the link (HYPOTEQ 20.10.2026). */
+const CUSTOMER_MISSING_MAX = 5;
+
 function docsHtml(s: CaseSummary): string {
   if (!s.docs.total) return "";
+  // HYPOTEQ 20.10.2026: the customer mail keeps only «X von Y Anforderungen erfüllt»; the
+  // footer's «Zur Anfrage» button follows. Berater and intern keep the full list.
+  if (s.audience === "kunde") {
+    return `${sectionTitle(s.docs.title)}
+    <div style="font-size:14px;font-weight:600;">${esc(s.docs.line)}</div>`;
+  }
   const groups = s.docs.groups
     .map(
       (g) => `<div style="margin:12px 0 2px 0;font-size:13px;font-weight:600;">${esc(g.title)}</div>
@@ -162,7 +171,10 @@ function nextStepHtml(s: CaseSummary, ctx: RenderContext, T: MailTexts): string 
     }
   }
   if (s.next.missing.length) {
-    const list = `<ul style="margin:8px 0 0 0;padding-left:20px;font-size:14px;">${s.next.missing.map((m) => `<li style="margin-bottom:3px;">${esc(m)}</li>`).join("")}</ul>`;
+    const shown = s.audience === "kunde" ? s.next.missing.slice(0, CUSTOMER_MISSING_MAX) : s.next.missing;
+    const more = s.next.missing.length - shown.length;
+    const moreLine = more > 0 ? `<div style="font-size:14px;margin-top:4px;">${esc(more === 1 ? T.missingMoreOne : interpolate(T.missingMore, { n: more }))}</div>` : "";
+    const list = `<ul style="margin:8px 0 0 0;padding-left:20px;font-size:14px;">${shown.map((m) => `<li style="margin-bottom:3px;">${esc(m)}</li>`).join("")}</ul>${moreLine}`;
     const hint = s.audience === "kunde" ? T.missingKunde : s.audience === "berater" ? T.missingBerater : "";
     const cta = s.audience === "intern" || !ctx.returnUrl ? "" : button(ctx.returnUrl, s.audience === "kunde" ? T.missingCtaKunde : T.missingCtaBerater);
     const note = cta ? `<div style="font-size:12px;color:${C.muted};margin-top:6px;">${esc(interpolate(T.linkNote, { days: ctx.linkDays }))}</div>` : "";

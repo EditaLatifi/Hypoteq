@@ -84,3 +84,43 @@ describe("closing mails: optional documents", () => {
     expect(summary.next.missing).not.toContain("Verkaufsdokumentation");
   });
 });
+
+describe("the shorter customer mail (HYPOTEQ 20.10.2026)", () => {
+  // Seven required documents of the Kauf fixture (completedFiles matches the base id).
+  const MISSING7 = ["fotos", "stwe_plan", "grundbuch", "gvz", "kaufvertrag", "lohnausweise", "steuer"];
+  const lis = (html: string, after: string) => {
+    const at = html.indexOf(after);
+    const ul = html.slice(at, html.indexOf("</ul>", at));
+    return (ul.match(/<li/g) || []).length;
+  };
+
+  it("lists at most five missing documents, then «und N weitere»; the document table is gone", async () => {
+    const list = await buildClosingMails(input(v5Payload(kaufState(), { missing: MISSING7 })), deps);
+    const k = of(list, "kunde");
+    expect(k.summary.next.missing.length).toBeGreaterThan(5);
+    const more = k.summary.next.missing.length - 5;
+    expect(lis(k.html, "Diese Unterlagen fehlen noch")).toBe(5);
+    expect(text(k.html)).toContain(more === 1 ? "und 1 weitere – alle unter deinem persönlichen Link" : `und ${more} weitere – alle unter deinem persönlichen Link`);
+    // «X von Y Anforderungen erfüllt», then the «Zur Anfrage» button; no Erkannt / Fehlt rows.
+    expect(text(k.html)).toContain(k.summary.docs.line);
+    expect(text(k.html)).toContain("Zur Anfrage");
+    expect(k.html).not.toMatch(/>\s*(Erkannt|Fehlt)\s*</);
+  });
+
+  it("the Berater and the internal mail keep the full list and the table", async () => {
+    const s = ablState();
+    const list = await buildClosingMails(input(v5Payload(s, { missing: MISSING7 })), deps);
+    for (const who of ["berater", "intern"]) {
+      const m = of(list, who);
+      expect(lis(m.html, "Diese Unterlagen fehlen noch")).toBe(m.summary.next.missing.length);
+      expect(text(m.html)).not.toContain("weitere – alle unter");
+      expect(m.html).toMatch(/>\s*(Erkannt|Fehlt)\s*</);
+    }
+  });
+
+  it("five or fewer: all listed, no «weitere» line", async () => {
+    const k = of(await buildClosingMails(input(v5Payload(kaufState(), { missing: ["fotos", "gvz"] })), deps), "kunde");
+    expect(lis(k.html, "Diese Unterlagen fehlen noch")).toBe(k.summary.next.missing.length);
+    expect(text(k.html)).not.toContain("weitere – alle unter");
+  });
+});
