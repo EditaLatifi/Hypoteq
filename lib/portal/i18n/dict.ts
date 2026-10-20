@@ -23,6 +23,19 @@ function statusTexts(texts: Record<CaseStatus, string>): Record<string, string> 
   return out;
 }
 
+/** The bar under every portal mail, the same in all four languages (HYPOTEQ Mail-Texte 20.10.2026). */
+const MAIL_FOOTER = "HYPOTEQ AG · +41 44 554 41 00 · info@hypoteq.ch · www.hypoteq.ch";
+
+/**
+ * HYPOTEQ's partner mails on a Case change (Mail-Texte 20.10.2026 M6–M13), as
+ * lib/portal/notifications.ts mailTemplateFor picks them: received M6, missing M7, lender M8,
+ * offer M9, rework M10, confirmed M11, closed M12, declined M13.
+ */
+export const CASE_MAILS = ["received", "missing", "lender", "offer", "rework", "confirmed", "closed", "declined"] as const;
+export type CaseMail = (typeof CASE_MAILS)[number];
+/** `line`: the status line after «Case {{case_nr}}:» in the subject. `missing`: {{n_fehlend}}, null when unknown (M7 only). */
+type CaseMailTexts = Record<CaseMail, { line: string; text: (kunde: string, missing: number | null) => string }>;
+
 const de = {
   langName: "Deutsch",
   common: {
@@ -431,8 +444,10 @@ const de = {
   },
   mail: {
     buttonFallback: "Falls der Button nicht funktioniert, kopieren Sie diesen Link in Ihren Browser:",
-    footer: "HYPOTEQ AG · Winterthur · hypoteq.ch",
+    footer: MAIL_FOOTER,
     hello: (name: string | null) => (name ? `Guten Tag ${name}` : "Guten Tag"),
+    /** M6–M14: «Guten Tag {{partner_vorname}},» — the first name only. */
+    greeting: (first: string | null) => (first ? `Guten Tag ${first},` : "Guten Tag,"),
     inviteSubject: "Ihr Zugang zum HYPOTEQ Partnerportal",
     inviteHeading: "Ihr Zugang zum HYPOTEQ Partnerportal",
     inviteBody: (company: string | null) =>
@@ -450,10 +465,50 @@ const de = {
     magicBody: "Mit dem folgenden Link melden Sie sich ohne Passwort im HYPOTEQ Partnerportal an. Der Link ist 15 Minuten gültig und kann nur einmal verwendet werden.",
     magicCta: "Jetzt anmelden",
     magicFoot: "Falls Sie keinen Anmeldelink angefordert haben, ignorieren Sie diese E-Mail.",
-    notifSubject: (kunde: string) => `Update zu Ihrer Anfrage für ${kunde}`,
-    notifBody: (text: string, nr: string) => `${text} (Case ${nr}). Die Details finden Sie nach dem Login im Partnerportal.`,
+    caseSubject: (kunde: string, nr: string, line: string) => `${kunde} · Case ${nr}: ${line}`,
+    caseMails: {
+      received: {
+        line: "Anfrage eingegangen",
+        text: (k) => `die Finanzierungsanfrage für ${k} ist bei uns eingegangen und wird jetzt bearbeitet. Alle Details und den Verlauf sehen Sie im Portal.`,
+      },
+      missing: {
+        line: "Unterlagen fehlen",
+        text: (k, n) =>
+          `${n === 1 ? `Für ${k} fehlt noch 1 Unterlage.` : n ? `Für ${k} fehlen noch ${n} Unterlagen.` : `Für ${k} fehlen noch Unterlagen.`} Bitte laden Sie die markierten Dokumente im Portal hoch, damit wir das Dossier vervollständigen können.`,
+      },
+      lender: {
+        line: "bei der Bank in Prüfung",
+        text: (k) => `Gute Nachricht: Die Anfrage für ${k} liegt beim Kreditgeber. Wir informieren Sie, sobald eine Rückmeldung da ist.`,
+      },
+      offer: {
+        line: "Angebot liegt vor",
+        text: (k) => `Für ${k} liegt ein Finanzierungsangebot vor. Die Details besprechen wir direkt — melden Sie sich bei Fragen, wir begleiten den Abschluss.`,
+      },
+      rework: {
+        line: "kleine Nacharbeit nötig",
+        text: (k) => `Beim Dossier von ${k} braucht es eine Ergänzung. Die Details stehen im Case — bitte kurz reinschauen, dann geht es direkt weiter.`,
+      },
+      confirmed: {
+        line: "Finanzierung bestätigt",
+        text: (k) => `Die Bank hat die Finanzierung für ${k} bestätigt — der Vertrag läuft. Wir halten Sie über den Abschluss auf dem Laufenden.`,
+      },
+      closed: {
+        line: "abgeschlossen",
+        text: (k) => `Geschafft: Die Finanzierung für ${k} ist erfolgreich abgeschlossen. Danke für die Zusammenarbeit — das Dossier bleibt im Portal einsehbar.`,
+      },
+      declined: {
+        line: "Rückmeldung der Bank",
+        text: (k) =>
+          `Die Bank hat die Anfrage für ${k} leider abgelehnt. Das heisst nicht, dass es keine Lösung gibt: Wir prüfen Alternativen und melden uns bei Ihnen, um das weitere Vorgehen zu besprechen.`,
+      },
+    } satisfies CaseMailTexts as CaseMailTexts,
     notifCta: "Case öffnen",
     notifFoot: "Sie erhalten diese E-Mail, weil Sie als Vertriebspartner bei HYPOTEQ registriert sind.",
+    // M14: a change request decided in /portal/admin/aenderungen.
+    changeSubject: (nr: string, approved: boolean) => `Ihr Änderungsantrag ${nr}: ${approved ? "übernommen" : "nicht übernommen"}`,
+    changeText: (feld: string, approved: boolean) =>
+      `Ihr Änderungsantrag zu «${feld}» wurde ${approved ? "übernommen. Die Angabe ist ab sofort aktualisiert." : "nicht übernommen. Den Grund finden Sie im Portal unter Änderungsanträge."} Danke für die Meldung.`,
+    changeCta: "Profil öffnen",
   },
   special: special.de, support: support.de,
 };
@@ -864,8 +919,9 @@ const en: Dict = {
   },
   mail: {
     buttonFallback: "If the button does not work, copy this link into your browser:",
-    footer: "HYPOTEQ AG · Winterthur · hypoteq.ch",
+    footer: MAIL_FOOTER,
     hello: (name) => (name ? `Hello ${name}` : "Hello"),
+    greeting: (first) => (first ? `Hello ${first},` : "Hello,"),
     inviteSubject: "Your access to the HYPOTEQ partner portal",
     inviteHeading: "Your access to the HYPOTEQ partner portal",
     inviteBody: (company) =>
@@ -883,10 +939,49 @@ const en: Dict = {
     magicBody: "Use the following link to sign in to the HYPOTEQ partner portal without a password. The link is valid for 15 minutes and can only be used once.",
     magicCta: "Sign in now",
     magicFoot: "If you did not request a sign-in link, ignore this e-mail.",
-    notifSubject: (kunde) => `Update on your request for ${kunde}`,
-    notifBody: (text, nr) => `${text} (Case ${nr}). You will find the details in the partner portal after signing in.`,
+    caseSubject: (kunde, nr, line) => `${kunde} · Case ${nr}: ${line}`,
+    caseMails: {
+      received: {
+        line: "request received",
+        text: (k) => `the financing request for ${k} has been received and is now being processed. You can follow all details in the portal.`,
+      },
+      missing: {
+        line: "documents missing",
+        text: (k, n) =>
+          `${n === 1 ? `1 document is still missing for ${k}.` : n ? `${n} documents are still missing for ${k}.` : `Documents are still missing for ${k}.`} Please upload the marked documents in the portal so we can complete the file.`,
+      },
+      lender: {
+        line: "under review by the bank",
+        text: (k) => `Good news: the request for ${k} is with the lender. We will inform you as soon as we receive feedback.`,
+      },
+      offer: {
+        line: "offer available",
+        text: (k) => `A financing offer is available for ${k}. We will discuss the details directly — get in touch with any questions, we will accompany the closing.`,
+      },
+      rework: {
+        line: "small follow-up needed",
+        text: (k) => `The file of ${k} needs one addition. Details are in the case — please have a quick look, then we continue right away.`,
+      },
+      confirmed: {
+        line: "financing confirmed",
+        text: (k) => `The bank has confirmed the financing for ${k} — the contract is underway. We will keep you posted until completion.`,
+      },
+      closed: {
+        line: "completed",
+        text: (k) => `Done: the financing for ${k} has been successfully completed. Thank you for the collaboration — the file remains available in the portal.`,
+      },
+      declined: {
+        line: "feedback from the bank",
+        text: (k) =>
+          `Unfortunately the bank has declined the request for ${k}. This does not mean there is no solution: we are reviewing alternatives and will contact you to discuss the next steps.`,
+      },
+    },
     notifCta: "Open case",
     notifFoot: "You are receiving this e-mail because you are registered as a sales partner with HYPOTEQ.",
+    changeSubject: (nr, approved) => `Your change request ${nr}: ${approved ? "approved" : "declined"}`,
+    changeText: (feld, approved) =>
+      `your change request for "${feld}" has been ${approved ? "approved. The information is updated as of now." : "declined. You find the reason in the portal under change requests."} Thank you for the notice.`,
+    changeCta: "Open profile",
   },
   special: special.en, support: support.en,
 };
@@ -1295,8 +1390,9 @@ const fr: Dict = {
   },
   mail: {
     buttonFallback: "Si le bouton ne fonctionne pas, copiez ce lien dans votre navigateur :",
-    footer: "HYPOTEQ AG · Winterthur · hypoteq.ch",
+    footer: MAIL_FOOTER,
     hello: (name) => (name ? `Bonjour ${name}` : "Bonjour"),
+    greeting: (first) => (first ? `Bonjour ${first},` : "Bonjour,"),
     inviteSubject: "Votre accès au portail partenaires HYPOTEQ",
     inviteHeading: "Votre accès au portail partenaires HYPOTEQ",
     inviteBody: (company) =>
@@ -1314,10 +1410,49 @@ const fr: Dict = {
     magicBody: "Ce lien vous permet de vous connecter au portail partenaires HYPOTEQ sans mot de passe. Il est valable 15 minutes et ne peut être utilisé qu'une seule fois.",
     magicCta: "Se connecter",
     magicFoot: "Si vous n'avez pas demandé de lien de connexion, ignorez cet e-mail.",
-    notifSubject: (kunde) => `Mise à jour de votre demande pour ${kunde}`,
-    notifBody: (text, nr) => `${text} (Dossier ${nr}). Vous trouverez les détails dans le portail partenaires après connexion.`,
+    caseSubject: (kunde, nr, line) => `${kunde} · Dossier ${nr} : ${line}`,
+    caseMails: {
+      received: {
+        line: "demande reçue",
+        text: (k) => `la demande de financement pour ${k} est bien arrivée et est en cours de traitement. Suivez tous les détails dans le portail.`,
+      },
+      missing: {
+        line: "documents manquants",
+        text: (k, n) =>
+          `${n === 1 ? `Il manque encore 1 document pour ${k}.` : n ? `Il manque encore ${n} documents pour ${k}.` : `Il manque encore des documents pour ${k}.`} Merci de téléverser les documents marqués dans le portail afin que nous puissions compléter le dossier.`,
+      },
+      lender: {
+        line: "en examen auprès de la banque",
+        text: (k) => `Bonne nouvelle : la demande pour ${k} est chez le prêteur. Nous vous informons dès réception d'un retour.`,
+      },
+      offer: {
+        line: "offre disponible",
+        text: (k) => `Une offre de financement est disponible pour ${k}. Nous discutons les détails directement — contactez-nous pour toute question, nous accompagnons la conclusion.`,
+      },
+      rework: {
+        line: "petit complément requis",
+        text: (k) => `Le dossier de ${k} nécessite un complément. Les détails sont dans le dossier — un coup d'œil rapide et nous poursuivons aussitôt.`,
+      },
+      confirmed: {
+        line: "financement confirmé",
+        text: (k) => `La banque a confirmé le financement pour ${k} — le contrat est en cours. Nous vous tenons informé jusqu'à la finalisation.`,
+      },
+      closed: {
+        line: "finalisé",
+        text: (k) => `C'est fait : le financement pour ${k} est conclu avec succès. Merci de votre collaboration — le dossier reste consultable dans le portail.`,
+      },
+      declined: {
+        line: "retour de la banque",
+        text: (k) =>
+          `La banque a malheureusement refusé la demande pour ${k}. Cela ne veut pas dire qu'il n'y a pas de solution : nous examinons des alternatives et vous contacterons pour discuter de la suite.`,
+      },
+    },
     notifCta: "Ouvrir le dossier",
     notifFoot: "Vous recevez cet e-mail parce que vous êtes enregistré comme partenaire de distribution chez HYPOTEQ.",
+    changeSubject: (nr, approved) => `Votre demande de modification ${nr} : ${approved ? "acceptée" : "refusée"}`,
+    changeText: (feld, approved) =>
+      `votre demande de modification concernant « ${feld} » a été ${approved ? "acceptée. L'information est mise à jour dès maintenant." : "refusée. Vous trouvez le motif dans le portail, sous Demandes de modification."} Merci pour votre signalement.`,
+    changeCta: "Ouvrir le profil",
   },
   special: special.fr, support: support.fr,
 };
@@ -1726,8 +1861,9 @@ const it: Dict = {
   },
   mail: {
     buttonFallback: "Se il pulsante non funziona, copi questo link nel browser:",
-    footer: "HYPOTEQ AG · Winterthur · hypoteq.ch",
+    footer: MAIL_FOOTER,
     hello: (name) => (name ? `Buongiorno ${name}` : "Buongiorno"),
+    greeting: (first) => (first ? `Buongiorno ${first},` : "Buongiorno,"),
     inviteSubject: "Il suo accesso al portale partner HYPOTEQ",
     inviteHeading: "Il suo accesso al portale partner HYPOTEQ",
     inviteBody: (company) =>
@@ -1745,10 +1881,49 @@ const it: Dict = {
     magicBody: "Con il link seguente accede al portale partner HYPOTEQ senza password. Il link è valido 15 minuti e può essere usato una sola volta.",
     magicCta: "Accedi ora",
     magicFoot: "Se non ha richiesto un link di accesso, ignori questa e-mail.",
-    notifSubject: (kunde) => `Aggiornamento sulla sua richiesta per ${kunde}`,
-    notifBody: (text, nr) => `${text} (Pratica ${nr}). Trova i dettagli nel portale partner dopo l'accesso.`,
+    caseSubject: (kunde, nr, line) => `${kunde} · Caso ${nr}: ${line}`,
+    caseMails: {
+      received: {
+        line: "richiesta ricevuta",
+        text: (k) => `la richiesta di finanziamento per ${k} è arrivata ed è ora in elaborazione. Segua tutti i dettagli nel portale.`,
+      },
+      missing: {
+        line: "documenti mancanti",
+        text: (k, n) =>
+          `${n === 1 ? `Manca ancora 1 documento per ${k}.` : n ? `Mancano ancora ${n} documenti per ${k}.` : `Mancano ancora dei documenti per ${k}.`} La preghiamo di caricare i documenti contrassegnati nel portale per completare il dossier.`,
+      },
+      lender: {
+        line: "in esame presso la banca",
+        text: (k) => `Buone notizie: la richiesta per ${k} è presso il creditore. La informeremo non appena riceviamo un riscontro.`,
+      },
+      offer: {
+        line: "offerta disponibile",
+        text: (k) => `Per ${k} è disponibile un'offerta di finanziamento. Discuteremo i dettagli direttamente — ci contatti per qualsiasi domanda, accompagniamo la conclusione.`,
+      },
+      rework: {
+        line: "piccola integrazione necessaria",
+        text: (k) => `Il dossier di ${k} richiede un'integrazione. I dettagli sono nel caso — dia un'occhiata e proseguiamo subito.`,
+      },
+      confirmed: {
+        line: "finanziamento confermato",
+        text: (k) => `La banca ha confermato il finanziamento per ${k} — il contratto è in corso. La terremo aggiornata fino alla conclusione.`,
+      },
+      closed: {
+        line: "concluso",
+        text: (k) => `Fatto: il finanziamento per ${k} è stato concluso con successo. Grazie per la collaborazione — il dossier resta consultabile nel portale.`,
+      },
+      declined: {
+        line: "riscontro della banca",
+        text: (k) =>
+          `Purtroppo la banca ha rifiutato la richiesta per ${k}. Ciò non significa che non ci sia una soluzione: stiamo valutando alternative e La contatteremo per discutere i prossimi passi.`,
+      },
+    },
     notifCta: "Apri pratica",
     notifFoot: "Riceve questa e-mail perché è registrato/a come partner di distribuzione presso HYPOTEQ.",
+    changeSubject: (nr, approved) => `La Sua richiesta di modifica ${nr}: ${approved ? "accettata" : "rifiutata"}`,
+    changeText: (feld, approved) =>
+      `la Sua richiesta di modifica per «${feld}» è stata ${approved ? "accettata. Il dato è aggiornato da subito." : "rifiutata. Trova la motivazione nel portale, sotto Richieste di modifica."} Grazie per la segnalazione.`,
+    changeCta: "Apri profilo",
   },
   special: special.it, support: support.it,
 };

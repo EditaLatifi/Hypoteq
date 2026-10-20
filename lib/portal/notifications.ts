@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { statusMailsOn } from "@/lib/portal/config";
-import { DICTS, isLocale, type Dict } from "@/lib/portal/i18n/dict";
+import type { CaseMail, Dict } from "@/lib/portal/i18n/dict";
 import { sendNotificationMail } from "@/lib/portal/mail";
 import type { PortalCaseSummary } from "@/lib/portal/salesforce";
 import { currentStatus, isRelabel, type CaseStatus } from "@/lib/portal/status";
@@ -14,16 +14,15 @@ import { currentStatus, isRelabel, type CaseStatus } from "@/lib/portal/status";
  * Notifications store a variant, not text, and are worded in the reader's language.
  *
  * There is no opt-out (HYPOTEQ 19.10.2026 E.2): HYPOTEQ decides per partner company, with
- * Account.Send_Notification__c. The partner e-mails on status changes will come from
- * Salesforce flows once HYPOTEQ releases their texts (B24, F.1); until then the portal mails
- * only with PORTAL_STATUS_MAILS=on, so nobody gets the portal's mail and later the flow's
- * as well (DECISIONS P32).
+ * Account.Send_Notification__c. The mails carry HYPOTEQ's texts (Mail-Texte 20.10.2026
+ * M6–M13, lib/portal/mail.ts). They still go out only with PORTAL_STATUS_MAILS=on, so nobody
+ * gets the portal's mail and a Salesforce flow's as well (B24, F.1, DECISIONS P32).
  */
 
 export type NotifyKind = "new_case" | "docs" | "status" | "lender";
 export type NotifyVariant = keyof Dict["notif"];
 
-/** The statuses D.3 marks «Auto-Mail an Partner: ja». */
+/** The statuses D.3 marks «Auto-Mail an Partner: ja»; mailTemplateFor mails exactly these (tested). */
 export const MAIL_STATUSES: CaseStatus[] = [
   "Anfrage eingegangen",
   "Unterlagen fehlen noch",
@@ -36,12 +35,29 @@ export const MAIL_STATUSES: CaseStatus[] = [
 ];
 
 /**
- * Whether a notification is also mailed (with PORTAL_STATUS_MAILS on): a Case newly assigned
- * and more missing documents always, a status change only to a D.3 «ja» status.
+ * Which of HYPOTEQ's mails M6–M13 a notification sends (with PORTAL_STATUS_MAILS on), or null:
+ * a Case newly assigned is M6 like the status «Anfrage eingegangen», more missing documents
+ * M7 (M10 under «Kleine Nacharbeit nötig»), a status change only to a D.3 «ja» status.
  */
-export function mailsFor(n: { kind: NotifyKind; status: string }): boolean {
-  if (n.kind === "new_case" || n.kind === "docs") return true;
-  return (MAIL_STATUSES as string[]).includes(currentStatus(n.status));
+export function mailTemplateFor(n: { kind: NotifyKind; variant: string; status: string }): CaseMail | null {
+  if (n.kind === "new_case") return "received";
+  switch (n.variant) {
+    case "docs":
+      return "missing";
+    case "rework":
+      return "rework";
+    case "lender_sent":
+      return "lender";
+    case "lender_answer":
+      return "offer";
+    case "confirmed":
+      return "confirmed";
+    case "closed":
+      return "closed";
+    case "declined":
+      return "declined";
+  }
+  return currentStatus(n.status) === "Anfrage eingegangen" ? "received" : null;
 }
 
 /** What kind of change a move to this status is, and how it is worded. */
@@ -131,19 +147,31 @@ export async function syncNotifications(
   if (!created.length) return 0;
 
   // E-mail only when switched on, and never to a company HYPOTEQ has unticked.
-  const toMail = (n: (typeof created)[number]) => mailsFor({ kind: n.kind, status: n.c.status });
+  const toMail = (n: (typeof created)[number]) => mailTemplateFor({ kind: n.kind, variant: n.variant, status: n.c.status });
   let mailing = !!mail && statusMailsOn() && created.some(toMail);
   if (mailing && (await (mail!.accountNotify ?? accountNotify)(user.sfAccountId)) === false) mailing = false;
 
-  const t = DICTS[isLocale(user.locale) ? user.locale : "de"];
+  // One event, one mail: never two for the same Case in one sync (HYPOTEQ Mail-Texte 20.10.2026).
+  const mailed = new Set<string>();
   for (const n of created) {
     const row = await prisma.portalNotification.create({
       data: { userId: user.id, caseId: n.c.id, caseNr: n.c.nr, kunde: n.c.kunde, kind: n.kind, variant: n.variant, status: n.c.status },
     });
-    if (!mailing || !mail || !toMail(n)) continue;
-    const { title, text } = notifText(t, row);
+    const template = mailing ? toMail(n) : null;
+    if (!mail || !template || mailed.has(n.c.id)) continue;
+    mailed.add(n.c.id);
     try {
-      await sendNotificationMail({ to: user.email, name: user.name, origin: mail.origin, caseId: n.c.id, kunde: n.c.kunde, caseNr: n.c.nr, title, text, locale: user.locale });
+      await sendNotificationMail({
+        to: user.email,
+        name: user.name,
+        origin: mail.origin,
+        caseId: n.c.id,
+        kunde: n.c.kunde,
+        caseNr: n.c.nr,
+        mail: template,
+        missing: n.c.missingDocs.length,
+        locale: user.locale,
+      });
       await prisma.portalNotification.update({ where: { id: row.id }, data: { emailedAt: new Date() } });
     } catch (err) {
       console.error("[portal] notification mail failed", err);

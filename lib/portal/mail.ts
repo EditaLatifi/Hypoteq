@@ -2,7 +2,7 @@ import { Client } from "@microsoft/microsoft-graph-client";
 import { ClientSecretCredential } from "@azure/identity";
 import "isomorphic-fetch";
 import { isPlausibleEmail, mailFromAddress, teamAddress } from "@/lib/portal/config";
-import { DICTS, isLocale, type Dict } from "@/lib/portal/i18n/dict";
+import { DICTS, isLocale, type CaseMail, type Dict } from "@/lib/portal/i18n/dict";
 
 /**
  * Partnerportal e-mails, sent through Microsoft Graph (else SMTP) like the rest of the site,
@@ -42,6 +42,8 @@ function dict(locale: string | null | undefined): { t: Dict; lang: string } {
   return { t: DICTS[lang], lang };
 }
 
+// The footer bar is not upper-cased: HYPOTEQ's footer line carries an e-mail address and a
+// web address that should read as written (Mail-Texte 20.10.2026).
 function layout(p: { lang: string; t: Dict; origin: string; heading: string; paragraphs: string[]; cta: string; url: string; footnote: string }) {
   return `<!DOCTYPE html>
 <html lang="${p.lang}"><head><meta charset="UTF-8" /></head>
@@ -58,7 +60,7 @@ function layout(p: { lang: string; t: Dict; origin: string; heading: string; par
       <p style="margin:0 0 8px;font-size:13px;line-height:1.5;color:rgba(19,34,25,.55);">${esc(p.t.mail.buttonFallback)}<br /><span style="word-break:break-all;">${p.url}</span></p>
       <p style="margin:16px 0 0;font-size:13px;line-height:1.5;color:rgba(19,34,25,.45);">${esc(p.footnote)}</p>
     </div>
-    <div style="padding:14px 28px;border-top:1px solid #E1E7DC;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(19,34,25,.45);">${esc(p.t.mail.footer)}</div>
+    <div style="padding:14px 28px;border-top:1px solid #E1E7DC;font-size:11px;color:rgba(19,34,25,.45);">${esc(p.t.mail.footer)}</div>
   </div>
 </body></html>`;
 }
@@ -129,7 +131,8 @@ function transport(): Transport | null {
         });
         await transporter.sendMail({
           // SMTP sends as the authenticated mailbox; PORTAL_MAIL_FROM would need SendAs rights.
-          from: `"HYPOTEQ Partnerportal" <${user}>`,
+          // The sender is always «HYPOTEQ AG» (HYPOTEQ Mail-Texte 20.10.2026).
+          from: `"HYPOTEQ AG" <${user}>`,
           to: m.to,
           ...(copies.length ? { cc: copies } : {}),
           ...(replyTo ? { replyTo } : {}),
@@ -217,7 +220,28 @@ export async function sendMagicLinkMail(p: { to: string; name: string | null; or
   await send({ to: p.to, subject: t.mail.magicSubject, html, devLink: url });
 }
 
-/** Case update to a partner: customer name and action only, details behind the login. */
+/** {{partner_vorname}}: the first word of PortalUser.name (HYPOTEQ Mail-Texte 20.10.2026), else null. */
+export function firstName(name: string | null | undefined): string | null {
+  return (name || "").trim().split(/\s+/)[0] || null;
+}
+
+const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+
+/**
+ * HYPOTEQ's mail on a Case change (Mail-Texte 20.10.2026 M6–M13): subject «{{kunde}} · Case
+ * {{case_nr}}: <status line>», the status line as heading, greeting, HYPOTEQ's text. Customer
+ * name and status only. Also renders the preview at /portal/meldungen/vorschau.
+ */
+export function caseMail(t: Dict, p: { mail: CaseMail; kunde: string; caseNr: string; name: string | null; missing?: number | null }) {
+  const m = t.mail.caseMails[p.mail];
+  return {
+    subject: t.mail.caseSubject(p.kunde, p.caseNr, m.line),
+    heading: capitalize(m.line),
+    paragraphs: [t.mail.greeting(firstName(p.name)), m.text(p.kunde, p.missing || null)],
+  };
+}
+
+/** Case update to a partner (M6–M13); the button opens the Case in the portal. */
 export async function sendNotificationMail(p: {
   to: string;
   name: string | null;
@@ -225,23 +249,39 @@ export async function sendNotificationMail(p: {
   caseId: string;
   kunde: string;
   caseNr: string;
-  title: string;
-  text: string;
+  mail: CaseMail;
+  /** {{n_fehlend}} for M7: the documents missing now. */
+  missing?: number | null;
   locale: string | null;
 }) {
   const { t, lang } = dict(p.locale);
   const url = `${p.origin}/portal/cases/${p.caseId}`;
+  const { subject, heading, paragraphs } = caseMail(t, p);
+  const html = layout({ lang, t, origin: p.origin, heading, paragraphs, cta: t.mail.notifCta, url, footnote: t.mail.notifFoot });
+  await send({ to: p.to, subject, html, devLink: url });
+}
+
+/**
+ * M14 (HYPOTEQ Mail-Texte 20.10.2026): HYPOTEQ decided the partner's change request. The field
+ * is worded as the partner saw it in their profile; the button leads there, to the list of
+ * their requests.
+ */
+export async function sendChangeDecisionMail(p: { to: string; name: string | null; origin: string; locale: string | null; nr: string; field: string; approved: boolean }) {
+  const { t, lang } = dict(p.locale);
+  const url = `${p.origin}/portal/profil`;
+  const subject = t.mail.changeSubject(p.nr, p.approved);
+  const feld = t.profileExtra.change.fields[p.field] || p.field;
   const html = layout({
     lang,
     t,
     origin: p.origin,
-    heading: p.title,
-    paragraphs: [t.mail.hello(p.name), t.mail.notifBody(p.text.replace(/\.$/, ""), p.caseNr)],
-    cta: t.mail.notifCta,
+    heading: subject,
+    paragraphs: [t.mail.greeting(firstName(p.name)), t.mail.changeText(feld, p.approved)],
+    cta: t.mail.changeCta,
     url,
     footnote: t.mail.notifFoot,
   });
-  await send({ to: p.to, subject: t.mail.notifSubject(p.kunde), html, devLink: url });
+  await send({ to: p.to, subject, html, devLink: url });
 }
 
 /**

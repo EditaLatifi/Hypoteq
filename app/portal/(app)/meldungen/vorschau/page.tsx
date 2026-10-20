@@ -6,23 +6,27 @@ import { PageHeader, btn } from "@/components/portal/ui";
 import { prisma } from "@/lib/prisma";
 import { mailFromAddress } from "@/lib/portal/config";
 import { getDict } from "@/lib/portal/i18n/server";
-import { notifText } from "@/lib/portal/notifications";
+import { caseMail } from "@/lib/portal/mail";
+import { mailTemplateFor, type NotifyKind } from "@/lib/portal/notifications";
 import { requireUser } from "@/lib/portal/session";
 
 /**
- * E-Mail-Vorschau (handoff «Meldungen»): the e-mail a Case update sends, rendered from the
- * same texts lib/portal/mail.ts uses, for the partner's latest notification (or an example).
- * It carries the customer's name and the action only — no amounts, no documents.
+ * E-Mail-Vorschau (handoff «Meldungen»): the e-mail a Case update sends, rendered with
+ * lib/portal/mail.ts caseMail, for the partner's latest notification that is mailed (or an
+ * example). It carries the customer's name and the status only — no amounts, no documents.
  */
 export default async function MailPreviewPage() {
   const user = await requireUser();
   if (!user.contactId || user.viewingAs) redirect("/portal/dashboard");
   const { t } = await getDict();
 
-  const latest = await prisma.portalNotification.findFirst({ where: { userId: user.id }, orderBy: { createdAt: "desc" } });
-  const n = latest || { variant: "lender_answer", caseNr: "HQ-26-10-000000", kunde: t.mailPreview.sampleKunde, status: "Angebot liegt vor", caseId: null as string | null };
-  const { title, text } = notifText(t, n);
-  const paragraphs = [t.mail.hello(user.name), t.mail.notifBody(text.replace(/\.$/, ""), n.caseNr)];
+  // Not every Meldung is mailed (D.3); the preview shows the latest one that is.
+  const recent = await prisma.portalNotification.findMany({ where: { userId: user.id }, orderBy: { createdAt: "desc" }, take: 20 });
+  const latest = recent.find((r) => mailTemplateFor({ kind: r.kind as NotifyKind, variant: r.variant, status: r.status || "" }));
+  const n = latest || { kind: "lender", variant: "lender_answer", caseNr: "HQ-26-10-000000", kunde: t.mailPreview.sampleKunde, status: "Angebot liegt vor", caseId: null as string | null };
+  const template = mailTemplateFor({ kind: n.kind as NotifyKind, variant: n.variant, status: n.status || "" }) || "offer";
+  // The missing count is not stored with a Meldung: M7 shows its wording without the number.
+  const { subject, heading: title, paragraphs } = caseMail(t, { mail: template, kunde: n.kunde, caseNr: n.caseNr, name: user.name });
 
   return (
     <>
@@ -43,7 +47,7 @@ export default async function MailPreviewPage() {
             <strong className="font-medium text-[#132219]">{t.mailPreview.to}:</strong> {user.email}
           </span>
           <span>
-            <strong className="font-medium text-[#132219]">{t.mailPreview.subject}:</strong> {t.mail.notifSubject(n.kunde)}
+            <strong className="font-medium text-[#132219]">{t.mailPreview.subject}:</strong> {subject}
           </span>
         </div>
         <div className="flex flex-col gap-5 px-7 py-8">
@@ -65,7 +69,7 @@ export default async function MailPreviewPage() {
           </div>
           <p className="m-0 text-[13px] text-[#132219]/45">{t.mail.notifFoot}</p>
         </div>
-        <div className="border-t border-[#E1E7DC] px-7 py-3.5 text-[11px] uppercase tracking-[.08em] text-[#132219]/45">{t.mail.footer}</div>
+        <div className="border-t border-[#E1E7DC] px-7 py-3.5 text-[11px] text-[#132219]/45">{t.mail.footer}</div>
       </div>
     </>
   );
