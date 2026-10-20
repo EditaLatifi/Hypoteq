@@ -481,27 +481,6 @@ function resolveDocLabelsDe(keys: string[]): string[] {
 }
 
 /**
- * Funnel v3: the Dokumenten_Check_State__c of the Case createOrUpdateCase is about to update
- * (its duplicate guard: same Account, created in the last five minutes), so a re-sync merges
- * instead of overwriting manual ticks. Best-effort: null when there is none or it cannot be read.
- */
-async function readRecentCaseCheckState(salesforceApi: any, accountId: unknown): Promise<string | null> {
-  if (typeof accountId !== 'string' || !accountId || typeof salesforceApi?.sfQuery !== 'function') return null;
-  try {
-    const since = new Date(Date.now() - 5 * 60 * 1000).toISOString();
-    const id = typeof salesforceApi.soqlString === 'function' ? salesforceApi.soqlString(accountId) : `'${accountId.replace(/'/g, '')}'`;
-    const rows = await salesforceApi.sfQuery(
-      `SELECT Dokumenten_Check_State__c FROM Case WHERE AccountId = ${id} AND CreatedDate >= ${since} ORDER BY CreatedDate DESC LIMIT 1`,
-      'v3 Dokumenten_Check_State__c'
-    );
-    return rows?.[0]?.Dokumenten_Check_State__c ?? null;
-  } catch (err) {
-    console.warn('[Salesforce Sync] Could not read the existing Dokumenten_Check_State__c:', err);
-    return null;
-  }
-}
-
-/**
  * Juristische Person → Business Account + Contact (HYPOTEQ 19.10. B16, Handover 8; DECISIONS V63):
  *
  *   Account  a company Account (never a Person Account; record type resolved at runtime by
@@ -1377,8 +1356,9 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
   // requirement status; Dokumenten_Check_State__c is merged onto what a Case we update holds.
   if (stepData.v3) {
     const { v3DocumentCaseFields } = await import('@/lib/funnel-v3/completion');
-    const previous = await readRecentCaseCheckState(salesforceApi, caseData.AccountId);
-    const v3Fields = v3DocumentCaseFields(stepData, previous);
+    // A new Case every time (createOrUpdateCase): no earlier JSON to merge — another Case of the
+    // same customer is another request, not this one.
+    const v3Fields = v3DocumentCaseFields(stepData, null);
     if (v3Fields) {
       // Handover 8 / DECISIONS V5: what the existing mapping keeps elsewhere or has no field
       // for travels in the JSON as well — the funnel's calculation and the contact.

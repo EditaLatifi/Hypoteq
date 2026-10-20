@@ -55,7 +55,7 @@ function v3Payload(files = mustermannFiles()) {
 }
 
 describe("Salesforce sync — v3 document fields", () => {
-  it("writes Dok_*, Documents_completed__c, the 6.11 state merged onto the Case's and SharePoint_Doc__c", async () => {
+  it("writes Dok_*, Documents_completed__c, the 6.11 state and SharePoint_Doc__c — on a new Case, nothing merged from another", async () => {
     const data = v3Payload();
     data.v3Completion = {
       folderWebUrl: "https://hypoteq.sharepoint.com/sites/x/ZZ-TEST_folder",
@@ -85,10 +85,12 @@ describe("Salesforce sync — v3 document fields", () => {
     const state = JSON.parse(c.Dokumenten_Check_State__c);
     expect(state.version).toBe(1);
     expect(state.answers.antrag).toBe("Ablösung");
-    expect(state.checked["Ausweis Kopie"]).toBe(true); // a caseworker's tick survives
-    expect(state.filters).toEqual({ x: 1 });
+    // Another recent Case of the same customer is another request (retest 20.10.2026): its
+    // caseworker's ticks are not read into this one.
+    expect(state.checked?.["Ausweis Kopie"]).toBeUndefined();
+    expect(state.filters).toBeUndefined();
     expect(state.requirements.find((r: any) => r.id === "grundbuch").files[0].storedName).toBe("HQ-26-01-000001_03_Grundbuchauszug_2026-01-15.pdf");
-    expect(sf.queries[0]).toMatch(/SELECT Dokumenten_Check_State__c FROM Case WHERE AccountId = '0011'/);
+    expect(sf.queries.some((q: string) => /Dokumenten_Check_State__c FROM Case/.test(q))).toBe(false);
   });
 
   it("without the closing result: from the submitted detail; incomplete when a required document is missing", async () => {

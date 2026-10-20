@@ -562,32 +562,14 @@ async function writeWithFieldFallback(
   throw new Error(`[Salesforce] ${context}: exceeded retry limit`);
 }
 
+/**
+ * Create a Case. Always a new one: a duplicate submission never gets here — /api/inquiry stops a
+ * retry by its submission id before Salesforce, and the replay only takes rows that never
+ * synced. The former guard («a Case of the same Account created in the last five minutes is
+ * updated instead») merged two different requests of one customer: in the retest of 20.10.2026
+ * the second overwrote the first.
+ */
 export async function createOrUpdateCase(fields: Record<string, any>) {
-  // Check if a case already exists for this account to prevent duplicates
-  // Look for recent cases (created in last 5 minutes) with same AccountId
-  const accountId = fields.AccountId;
-  if (accountId) {
-    const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000).toISOString();
-    const query = `SELECT Id FROM Case WHERE AccountId = '${accountId}' AND CreatedDate >= ${fiveMinutesAgo} ORDER BY CreatedDate DESC LIMIT 1`;
-
-    try {
-      const result = await conn.query(query);
-      if (result.records && result.records.length > 0) {
-        const existingCaseId = result.records[0].Id as string;
-        console.log(`[Salesforce] Found recent case ${existingCaseId}, updating instead of creating duplicate`);
-        const updateFields = { ...fields, Id: existingCaseId };
-        return writeWithFieldFallback(
-          (f) => (conn.sobject('Case') as any).update(f),
-          updateFields,
-          `update ${existingCaseId}`,
-        );
-      }
-    } catch (err) {
-      console.log('[Salesforce] No recent case found, creating new one');
-    }
-  }
-
-  // Create new case if no recent one exists
   return writeWithFieldFallback(
     (f) => conn.sobject('Case').create(f),
     fields,
