@@ -5,8 +5,10 @@
  * translated label: labels differ per locale, so a French submission would otherwise
  * produce French identifiers that neither Salesforce nor the completeness check could match.
  *
- * `salesforceField` is one of the ten Dok_*__c booleans that already exist on Case. They
- * were created before this feature was wired up and were entirely unused. Several funnel
+ * `salesforceField` is one of the Dok_*__c booleans on Case: ten that existed before this
+ * feature was wired up, and five HYPOTEQ added on 20.10.2026 for the company documents and the
+ * Eigenmittelnachweis (Handelsregister, Jahresabschlüsse, Steuererklärung Gesellschaft, ID
+ * Zeichnungsberechtigte, Eigenmittelnachweis). Several funnel
  * documents legitimately map onto the same flag (every pension document feeds
  * Dok_Pensionskassenausweis__c), and several have no flag at all.
  *
@@ -53,12 +55,12 @@ export const DOCUMENT_CATALOG: Record<string, DocCatalogEntry> = {
 
   // ---- Identity -------------------------------------------------------------
   "funnel.passportIDAllBorrowers":        { salesforceField: "Dok_Identitaetsdokument__c", requirement: "optional" },
-  "funnel.passportAuthorizedPersonJur":   { salesforceField: "Dok_Identitaetsdokument__c", requirement: "optional" },
+  "funnel.passportAuthorizedPersonJur":   { salesforceField: "Dok_ID_Zeichnungsberechtigte__c", requirement: "optional" },
 
   // ---- Income / tax ---------------------------------------------------------
   "funnel.salaryStatementBonus":          { salesforceField: "Dok_Lohnausweis__c",         requirement: "optional" },
   "funnel.taxReturnLatest":               { salesforceField: "Dok_Steuererklaerung__c",    requirement: "optional" },
-  "funnel.taxReturnLatestJur":            { salesforceField: "Dok_Steuererklaerung__c",    requirement: "optional" },
+  "funnel.taxReturnLatestJur":            { salesforceField: "Dok_Steuererklaerung_Gesellschaft__c", requirement: "optional" },
 
   // ---- Pension --------------------------------------------------------------
   // Retired: the combined "PK-Ausweis und Rückkaufswerte 3. Säule" was split in two. No
@@ -89,11 +91,13 @@ export const DOCUMENT_CATALOG: Record<string, DocCatalogEntry> = {
   "funnel.oldSalesDocuments":             { salesforceField: "Dok_Fotos_der_Immobilie__c", requirement: "optional" },
   "funnel.constructionPlansNetArea":      { salesforceField: "Dok_Grundrissplaene__c",     requirement: "optional" },
 
+  // ---- Eigenmittel and company documents (flags added by HYPOTEQ on 20.10.2026) ---
+  "funnel.ownFundsProofOfficial":         { salesforceField: "Dok_Eigenmittelnachweis__c", requirement: "optional" },
+  "funnel.ownFundsProofJur":              { salesforceField: "Dok_Eigenmittelnachweis__c", requirement: "optional" },
+  "funnel.commercialRegisterCurrent":     { salesforceField: "Dok_Handelsregisterauszug__c", requirement: "optional" },
+  "funnel.annualFinancialStatementsJur":  { salesforceField: "Dok_Jahresabschluesse__c", requirement: "optional" },
+
   // ---- No Dok_*__c flag exists for these ------------------------------------
-  "funnel.ownFundsProofOfficial":         { salesforceField: null, requirement: "optional" },
-  "funnel.ownFundsProofJur":              { salesforceField: null, requirement: "optional" },
-  "funnel.commercialRegisterCurrent":     { salesforceField: null, requirement: "optional" },
-  "funnel.annualFinancialStatementsJur":  { salesforceField: null, requirement: "optional" },
   "funnel.balanceSheetAudit3Years":       { salesforceField: null, requirement: "optional" },
   "funnel.interimBalanceIfAvailable":     { salesforceField: null, requirement: "optional" }, // "falls vorhanden"
   "funnel.currentMortgageContract":       { salesforceField: null, requirement: "optional" },

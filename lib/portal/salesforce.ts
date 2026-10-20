@@ -239,6 +239,12 @@ export const DOC_FLAGS: { field: string; label: L10n }[] = [
   { field: "Dok_Gebaeudeversicherungsausweis__c", label: { de: "Gebäudeversicherung", en: "Building insurance", fr: "Assurance bâtiment", it: "Assicurazione stabili" } },
   { field: "Dok_Fotos_der_Immobilie__c", label: { de: "Fotos der Immobilie", en: "Photos of the property", fr: "Photos du bien", it: "Foto dell'immobile" } },
   { field: "Dok_Grundrissplaene__c", label: { de: "Grundrisspläne", en: "Floor plans", fr: "Plans", it: "Planimetrie" } },
+  // Added by HYPOTEQ on 20.10.2026; an org without them is queried without them (queryWithFields).
+  { field: "Dok_Eigenmittelnachweis__c", label: { de: "Eigenmittelnachweis", en: "Proof of own funds", fr: "Justificatif des fonds propres", it: "Prova dei fondi propri" } },
+  { field: "Dok_Handelsregisterauszug__c", label: { de: "Handelsregisterauszug", en: "Commercial register extract", fr: "Extrait du registre du commerce", it: "Estratto del registro di commercio" } },
+  { field: "Dok_Jahresabschluesse__c", label: { de: "Jahresabschlüsse", en: "Annual financial statements", fr: "Comptes annuels", it: "Conti annuali" } },
+  { field: "Dok_Steuererklaerung_Gesellschaft__c", label: { de: "Steuererklärung der Gesellschaft", en: "Company tax return", fr: "Déclaration d'impôt de la société", it: "Dichiarazione d'imposta della società" } },
+  { field: "Dok_ID_Zeichnungsberechtigte__c", label: { de: "ID der zeichnungsberechtigten Person", en: "ID of the authorised signatory", fr: "Pièce d'identité du signataire autorisé", it: "Documento d'identità del firmatario autorizzato" } },
 ];
 
 // Case.Reason picklist values (read from the org).

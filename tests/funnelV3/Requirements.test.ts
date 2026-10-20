@@ -346,7 +346,8 @@ describe('catalogue', () => {
   it('allows «Habe ich nicht» only for O2 and J4', () => {
     expect(REQ.filter((r) => r.optional).map((r) => r.code)).toEqual(['O2', 'J4']);
   });
-  it('maps exactly the spec 6.9 Dok_* checkboxes', () => {
+  // Spec 6.9's ten, plus the five HYPOTEQ added on 20.10.2026 (company documents, Eigenmittelnachweis).
+  it('maps exactly the spec 6.9 Dok_* checkboxes and the five added on 20.10.2026', () => {
     const map = Object.fromEntries(REQ.filter((r) => r.sfDokField).map((r) => [r.id, r.sfDokField]));
     expect(map).toEqual({
       id: 'Dok_Identitaetsdokument__c',
@@ -359,6 +360,11 @@ describe('catalogue', () => {
       gvz: 'Dok_Gebaeudeversicherungsausweis__c',
       kaufvertrag: 'Dok_Kaufvertrag__c',
       betreibung: 'Dok_Betreibungsregisterauszug__c',
+      hr: 'Dok_Handelsregisterauszug__c',
+      wb: 'Dok_ID_Zeichnungsberechtigte__c',
+      jahresabschluss: 'Dok_Jahresabschluesse__c',
+      steuer_jp: 'Dok_Steuererklaerung_Gesellschaft__c',
+      vermoegen: 'Dok_Eigenmittelnachweis__c',
     });
   });
   it('uses the rename groups 01 Person · 02 Hypothek · 03 Objekt · 04 Eigenmittel', () => {

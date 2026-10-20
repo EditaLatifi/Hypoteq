@@ -9,9 +9,9 @@ import { describe, it, expect, beforeEach, jest } from "@jest/globals";
 const mockQuery = jest.fn<any>();
 const mockUpdate = jest.fn<any>();
 jest.mock("@/components/salesforceApi", () => ({
-  conn: { accessToken: "token", query: (soql: string) => mockQuery(soql), sobject: () => ({ update: (f: unknown) => mockUpdate(f) }) },
+  conn: { accessToken: "token", query: (soql: string) => mockQuery(soql) },
   login: async () => {},
-  updateCase: async () => {},
+  updateCase: async (id: string, f: Record<string, unknown>) => mockUpdate({ ...f, Id: id }),
 }));
 
 import { updateCaseCompleteness } from "@/components/updateCaseCompleteness";
@@ -44,6 +44,19 @@ describe("updateCaseCompleteness", () => {
   it("reports a v3 document the tab has no entry for by its own id", async () => {
     await updateCaseCompleteness(CASE, { complete: false, missing: [], supplied: ["hr"], submissionId: "inq" });
     expect(console.warn).toHaveBeenCalledWith(expect.stringMatching(/will not appear in the tab: hr$/));
+  });
+
+  it("sets the company and Eigenmittel flags HYPOTEQ added on 20.10.2026", async () => {
+    await updateCaseCompleteness(CASE, { complete: false, missing: [], supplied: ["hr", "wb", "jahresabschluss", "steuer_jp", "vermoegen"], submissionId: "inq" });
+    expect(written()).toMatchObject({
+      Dok_Handelsregisterauszug__c: true,
+      Dok_ID_Zeichnungsberechtigte__c: true,
+      Dok_Jahresabschluesse__c: true,
+      Dok_Steuererklaerung_Gesellschaft__c: true,
+      Dok_Eigenmittelnachweis__c: true,
+    });
+    expect(written()).not.toHaveProperty("Dok_Identitaetsdokument__c");
+    expect(written()).not.toHaveProperty("Dok_Steuererklaerung__c");
   });
 
   it("still takes the legacy funnel.* keys of the old Nachreichung", async () => {

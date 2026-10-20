@@ -108,29 +108,10 @@ export async function updateCaseCompleteness(
     if (field) fields[field] = true;
   }
 
-  const run = async () => (conn.sobject("Case") as any).update(fields);
-
-  try {
-    await run();
-  } catch (error: any) {
-    const code: string = error?.errorCode || error?.data?.errorCode || "";
-    const message: string = error?.data?.message || error?.message || "";
-    // The module-level connection may have no session yet in this process, or a stale one.
-    // Re-authenticate once and retry — the same lazy strategy the read path uses, because
-    // each client-credentials token opens a new session and eager logins retire the one
-    // currently in flight.
-    if (
-      code === "INVALID_SESSION_ID" ||
-      /session expired or invalid/i.test(message) ||
-      /INVALID_SESSION_ID/i.test(message) ||
-      !conn.accessToken
-    ) {
-      await login();
-      await run();
-    } else {
-      throw error;
-    }
-  }
+  // updateCase re-authenticates once on an expired session and drops a field the org does not
+  // have (an org without the Dok_*__c flags HYPOTEQ added on 20.10.2026) instead of losing the
+  // whole update, Documents_completed__c with it.
+  await updateCase(caseId, fields);
 
   console.log(
     `[Salesforce] Case ${caseId} completeness updated: complete=${update.complete}, ` +

@@ -355,20 +355,20 @@ export const REQ: readonly RequirementDef[] = [
   }),
   def({
     id: "hr", code: "J1", group: "person", labelDe: "Aktueller Handelsregisterauszug",
-    shortName: "Handelsregisterauszug", personKind: "company", legacyKeys: ["funnel.commercialRegisterCurrent"],
+    shortName: "Handelsregisterauszug", personKind: "company", sfDokField: "Dok_Handelsregisterauszug__c", legacyKeys: ["funnel.commercialRegisterCurrent"],
     // Prefill: Firma, zeichnungsberechtigte Person · UID, Sitz.
     fields: ["Firma", "UID", "Sitz", "Zeichnungsberechtigte", "Auszug vom"],
     rule: "juristische Person",
   }),
   def({
     id: "wb", code: "J2", group: "person", labelDe: "Pass / ID der zeichnungsberechtigten Person",
-    shortName: "ID", personKind: "signatory", datedName: false, legacyKeys: ["funnel.passportAuthorizedPersonJur"],
+    shortName: "ID", personKind: "signatory", datedName: false, sfDokField: "Dok_ID_Zeichnungsberechtigte__c", legacyKeys: ["funnel.passportAuthorizedPersonJur"],
     rule: "juristische Person",
   }),
   def({
     id: "jahresabschluss", code: "J3", group: "person",
     labelDe: "Jahresabschlüsse (Bilanz und Erfolgsrechnung) der letzten 3 Jahre",
-    shortName: "Jahresabschluss", personKind: "company", legacyKeys: ["funnel.annualFinancialStatementsJur"],
+    shortName: "Jahresabschluss", personKind: "company", sfDokField: "Dok_Jahresabschluesse__c", legacyKeys: ["funnel.annualFinancialStatementsJur"],
     rule: "juristische Person",
   }),
   def({
@@ -385,14 +385,14 @@ export const REQ: readonly RequirementDef[] = [
   }),
   def({
     id: "steuer_jp", code: "J6", group: "person", labelDe: "Aktuelle Steuererklärung der Gesellschaft",
-    shortName: "Steuererklaerung", personKind: "company", legacyKeys: ["funnel.taxReturnLatestJur"],
+    shortName: "Steuererklaerung", personKind: "company", sfDokField: "Dok_Steuererklaerung_Gesellschaft__c", legacyKeys: ["funnel.taxReturnLatestJur"],
     rule: "juristische Person",
   }),
 
   // ---- Eigenmittel & Vorsorge ------------------------------------------------------------
   def({
     id: "vermoegen", code: "E1", group: "eigenmittel", labelDe: "Aufstellung und Nachweis der Eigenmittel",
-    shortName: "Eigenmittelnachweis", legacyKeys: ["funnel.ownFundsProofOfficial", "funnel.ownFundsProofJur"],
+    shortName: "Eigenmittelnachweis", sfDokField: "Dok_Eigenmittelnachweis__c", legacyKeys: ["funnel.ownFundsProofOfficial", "funnel.ownFundsProofJur"],
     fields: ["Bank", "Kontoinhaber", "Privatkonto", "Saldo total"],
     rule: "nur Neue Hypothek",
   }),
