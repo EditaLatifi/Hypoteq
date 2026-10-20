@@ -33,8 +33,15 @@ jest.mock("jsforce", () => ({ Connection: jest.fn(() => mockConn) }));
 jest.mock("@/components/partnerDirectory", () => ({ __esModule: true, resolvePartner: jest.fn() }));
 
 import { resolvePartner } from "@/components/partnerDirectory";
-import { clearFunnelQueueCache, createOrUpdateCase, findFunnelQueueId, takeDroppedFields } from "@/components/salesforceApi";
-import { applyFunnelOwner, syncFunnelStepsToSalesforce } from "@/components/syncFunnelStepsToSalesforce";
+import {
+  clearFunnelCaseRecordTypeCache,
+  clearFunnelQueueCache,
+  createOrUpdateCase,
+  findFunnelCaseRecordTypeId,
+  findFunnelQueueId,
+  takeDroppedFields,
+} from "@/components/salesforceApi";
+import { applyFunnelOwner, applyFunnelRecordType, syncFunnelStepsToSalesforce } from "@/components/syncFunnelStepsToSalesforce";
 import { ablState, kaufState, v5Payload } from "./v5Fixtures";
 
 const resolve = resolvePartner as unknown as jest.Mock<(...a: any[]) => Promise<any>>;
@@ -49,6 +56,7 @@ function fakeApi(queue: () => Promise<string | null>) {
       updatePersonAccount: jest.fn(async () => ({})),
       findAccountByName: jest.fn(async () => ({ Id: "001HYPOTEQ" })),
       findFunnelQueueId: jest.fn(queue),
+      findFunnelCaseRecordTypeId: jest.fn(async () => "012STANDARD000AAAA"),
       createOrUpdateCase: jest.fn(async (d: any) => {
         cases.push(d);
         return { id: "500CASE" };
@@ -117,7 +125,27 @@ describe("the sync", () => {
   it("an API without the function (older builds, fakes) changes nothing", async () => {
     const caseData: Record<string, any> = {};
     await applyFunnelOwner(caseData, {});
+    await applyFunnelRecordType(caseData, {});
     expect(caseData).toEqual({});
+  });
+
+  it("every funnel Case gets the record type «Standardfinanzierung» explicitly (HYPOTEQ 20.10.2026)", async () => {
+    const sf = fakeApi(async () => "00GQUEUE0000000AAA");
+    await syncFunnelStepsToSalesforce(v5Payload(kaufState()), sf.api);
+    expect(sf.cases[0].RecordTypeId).toBe("012STANDARD000AAAA");
+  });
+
+  it("no such record type, or a failed lookup: the default record type, and the Case is still written", async () => {
+    const none = fakeApi(async () => null);
+    none.api.findFunnelCaseRecordTypeId.mockImplementation(async () => null as any);
+    await syncFunnelStepsToSalesforce(v5Payload(kaufState()), none.api);
+    expect(none.cases[0]).not.toHaveProperty("RecordTypeId");
+    const down = fakeApi(async () => null);
+    down.api.findFunnelCaseRecordTypeId.mockImplementation(async () => {
+      throw new Error("Salesforce down");
+    });
+    await syncFunnelStepsToSalesforce(v5Payload(kaufState()), down.api);
+    expect(down.cases[0]).not.toHaveProperty("RecordTypeId");
   });
 });
 
@@ -127,6 +155,23 @@ describe("salesforceApi", () => {
     expect(await findFunnelQueueId()).toBe("00GQUEUE0000000AAA");
     expect(await findFunnelQueueId()).toBe("00GQUEUE0000000AAA");
     expect(mockConn.queries).toEqual(["SELECT Id FROM Group WHERE Type = 'Queue' AND (Name = 'Web-Anfragen' OR DeveloperName = 'Web_Anfragen') LIMIT 1"]);
+  });
+
+  it("findFunnelCaseRecordTypeId: «Standard» / «Standardfinanzierung», never «Spezialfinanzierung», cached once found", async () => {
+    clearFunnelCaseRecordTypeCache();
+    mockConn.answers.push(() => ({
+      records: [
+        { Id: "012SPEZIAL0000AAAA", DeveloperName: "Spezialfinanzierung", Name: "Spezialfinanzierung" },
+        { Id: "012STANDARD000AAAA", DeveloperName: "Standard", Name: "Standardfinanzierung" },
+      ],
+    }));
+    expect(await findFunnelCaseRecordTypeId()).toBe("012STANDARD000AAAA");
+    expect(await findFunnelCaseRecordTypeId()).toBe("012STANDARD000AAAA");
+    expect(mockConn.queries).toEqual(["SELECT Id, DeveloperName, Name FROM RecordType WHERE SobjectType = 'Case' AND IsActive = true"]);
+    // None: null, asked again next time.
+    clearFunnelCaseRecordTypeCache();
+    mockConn.answers.push(() => ({ records: [{ Id: "012SPEZIAL0000AAAA", DeveloperName: "Spezialfinanzierung", Name: "Spezialfinanzierung" }] }));
+    expect(await findFunnelCaseRecordTypeId()).toBeNull();
   });
 
   it("a miss is not cached: a queue created later is found", async () => {

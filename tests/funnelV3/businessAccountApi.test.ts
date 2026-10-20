@@ -68,7 +68,19 @@ describe("pickBusinessRecordType", () => {
     { Id: "012A00000000001AAA", DeveloperName: "Partner" },
     { Id: "012A00000000002AAA", DeveloperName: "Business_Account" },
   ];
-  it("prefers DeveloperName Business_Account", () => {
+  it("«Firmenkunde» first (HYPOTEQ 20.10.2026), over Business_Account and over the user's default «Kreditgeber»", () => {
+    const org = [
+      { Id: "012A00000000004AAA", DeveloperName: "Kreditgeber", Name: "Kreditgeber" },
+      { Id: "012A00000000005AAA", DeveloperName: "Firmenkunde", Name: "Firmenkunde" },
+      ...rows,
+    ];
+    expect(pickBusinessRecordType(org, [{ recordTypeId: "012A00000000004AAA", available: true, defaultRecordTypeMapping: true }])).toBe("012A00000000005AAA");
+    // Matched by the label as well.
+    expect(pickBusinessRecordType([{ Id: "012A00000000006AAA", DeveloperName: "End_Customer_Company", Name: "Firmenkunde" }, ...rows])).toBe("012A00000000006AAA");
+    // Configurable.
+    expect(pickBusinessRecordType(rows, [], ["Partner"])).toBe("012A00000000001AAA");
+  });
+  it("without «Firmenkunde»: DeveloperName Business_Account", () => {
     expect(pickBusinessRecordType(rows)).toBe("012A00000000002AAA");
   });
   it("else the running user's default among them, else the first one the user may use", () => {
@@ -111,7 +123,7 @@ describe("findBusinessAccount", () => {
 describe("createBusinessAccount", () => {
   it("resolves the non-person record type at runtime and writes Name, Phone, UID, Sitz", async () => {
     mockConn.answers.push((soql: string) => {
-      expect(soql).toBe("SELECT Id, DeveloperName FROM RecordType WHERE SobjectType = 'Account' AND IsPersonType = false AND IsActive = true");
+      expect(soql).toBe("SELECT Id, DeveloperName, Name FROM RecordType WHERE SobjectType = 'Account' AND IsPersonType = false AND IsActive = true");
       return { records: [{ Id: "012BUSINESS0000AAA", DeveloperName: "Business_Account" }] };
     });
     const res = await createBusinessAccount({ name: "Immo Beispiel AG", phone: "044 555 66 77", uid: "che123456789", sitz: "Winterthur" });

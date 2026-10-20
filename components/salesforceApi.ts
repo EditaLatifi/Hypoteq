@@ -201,6 +201,43 @@ export async function findFunnelQueueId(): Promise<string | null> {
   return null;
 }
 
+// ---- Record type of a funnel Case: «Standardfinanzierung» (HYPOTEQ 20.10.2026) ---------------
+
+/**
+ * The Case record type of a funnel request: DeveloperName «Standard», label «Standardfinanzierung».
+ * Set on every create — without it the integration user's default applied, and that became
+ * «Spezialfinanzierung» on 19.10. SF_FUNNEL_CASE_RECORD_TYPE overrides it.
+ */
+export function funnelCaseRecordTypeNames(): string[] {
+  const configured = (process.env.SF_FUNNEL_CASE_RECORD_TYPE || '').trim();
+  return configured ? [configured] : ['Standard', 'Standardfinanzierung'];
+}
+
+// Only a found record type is cached (per warm instance), so one created later is picked up.
+let funnelCaseRecordTypeId: string | null = null;
+
+/** For tests. */
+export function clearFunnelCaseRecordTypeCache(): void {
+  funnelCaseRecordTypeId = null;
+}
+
+/**
+ * The Id of that record type among the active Case record types (Name or DeveloperName, matched
+ * loosely); null when the org has none — the Case then takes the user's default, and the log says
+ * so. Errors propagate; the sync keeps the default then.
+ */
+export async function findFunnelCaseRecordTypeId(): Promise<string | null> {
+  if (funnelCaseRecordTypeId) return funnelCaseRecordTypeId;
+  const rows = await sfQuery<QueueRow>("SELECT Id, DeveloperName, Name FROM RecordType WHERE SobjectType = 'Case' AND IsActive = true", 'findFunnelCaseRecordTypeId');
+  const hit = pickQueue(rows, funnelCaseRecordTypeNames());
+  if (!hit) {
+    console.warn(`[Salesforce] no Case record type «${funnelCaseRecordTypeNames().join(' / ')}» among: ${queueList(rows)}`);
+    return null;
+  }
+  funnelCaseRecordTypeId = hit.Id;
+  return funnelCaseRecordTypeId;
+}
+
 // ---- Juristische Person: Business Account + Contact (HYPOTEQ 19.10. B16, DECISIONS V63) --------
 
 /**
@@ -223,21 +260,35 @@ export function uidSpellings(raw: unknown): { canonical: string; compact: string
 }
 
 /**
+ * The record type of an end customer's company (HYPOTEQ 20.10.2026): «Firmenkunde». Set on every
+ * create — the integration user's default is «Kreditgeber», and a lender Account in Case.Client__c
+ * is what the lookup filter refused on 19.10. SF_COMPANY_ACCOUNT_RECORD_TYPE overrides it.
+ */
+export function companyAccountRecordTypeNames(): string[] {
+  const configured = (process.env.SF_COMPANY_ACCOUNT_RECORD_TYPE || '').trim();
+  return configured ? [configured] : ['Firmenkunde'];
+}
+
+/**
  * The non-person Account record type for a company: `RecordType WHERE SobjectType = 'Account'
- * AND IsPersonType = false`, DeveloperName «Business_Account» first, else the running user's
- * default among them (describe), else the first one the user may use. None → null: the create
- * then goes without RecordTypeId and Salesforce takes the default (the Master type, a business
- * Account). Never hardcoded; resolved once per warm instance.
+ * AND IsPersonType = false`, «Firmenkunde» first (Name or DeveloperName, matched loosely), else
+ * DeveloperName «Business_Account», else the running user's default among them (describe), else
+ * the first one the user may use. None → null: the create then goes without RecordTypeId and
+ * Salesforce takes the default. Never hardcoded; resolved once per warm instance.
  */
 export function pickBusinessRecordType(
-  rows: { Id: string; DeveloperName?: string | null }[],
+  rows: { Id: string; DeveloperName?: string | null; Name?: string | null }[],
   infos: { recordTypeId?: string; available?: boolean; defaultRecordTypeMapping?: boolean }[] = [],
+  preferredNames: string[] = companyAccountRecordTypeNames(),
 ): string | null {
   if (!rows.length) return null;
   const same = (a?: string, b?: string) => !!a && !!b && a.slice(0, 15) === b.slice(0, 15);
   const info = (id: string) => infos.find((i) => same(i.recordTypeId, id));
   const usable = rows.filter((r) => info(r.Id)?.available !== false);
   const pool = usable.length ? usable : rows;
+  const company = pickQueue(pool, preferredNames);
+  if (company) return company.Id;
+  console.warn(`[Salesforce] no Account record type «${preferredNames.join(' / ')}» — the company gets the next best one`);
   const preferred = pool.find((r) => r.DeveloperName === 'Business_Account');
   if (preferred) return preferred.Id;
   const byDefault = pool.find((r) => info(r.Id)?.defaultRecordTypeMapping === true);
@@ -251,10 +302,10 @@ export async function getBusinessAccountRecordTypeId(): Promise<string | null> {
   await ensureSession();
   const result: any = await withSessionRetry(
     async () =>
-      await conn.query("SELECT Id, DeveloperName FROM RecordType WHERE SobjectType = 'Account' AND IsPersonType = false AND IsActive = true"),
+      await conn.query("SELECT Id, DeveloperName, Name FROM RecordType WHERE SobjectType = 'Account' AND IsPersonType = false AND IsActive = true"),
     'business Account RecordType',
   );
-  const rows = (result?.records || []) as { Id: string; DeveloperName?: string }[];
+  const rows = (result?.records || []) as { Id: string; DeveloperName?: string; Name?: string }[];
   let infos: any[] = [];
   if (rows.length > 1 || (rows.length === 1 && rows[0].DeveloperName !== 'Business_Account')) {
     try {
@@ -616,6 +667,7 @@ export default {
   updateContact,
   updatePersonAccount,
   findFunnelQueueId,
+  findFunnelCaseRecordTypeId,
   getBusinessAccountRecordTypeId,
   findBusinessAccount,
   createBusinessAccount,

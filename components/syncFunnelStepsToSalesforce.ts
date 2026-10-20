@@ -125,6 +125,29 @@ export async function applyFunnelOwner(caseData: Record<string, any>, salesforce
 }
 
 /**
+ * Case.RecordTypeId of a funnel Case: «Standardfinanzierung» (HYPOTEQ 20.10.2026), set
+ * explicitly — without it the integration user's default applied («Spezialfinanzierung» on
+ * 19.10.). Resolved at runtime (salesforceApi.findFunnelCaseRecordTypeId, cached once found).
+ * Fails soft like the owner: no record type, a failed lookup or an API without the function
+ * leave the default.
+ */
+export async function applyFunnelRecordType(caseData: Record<string, any>, salesforceApi: any): Promise<void> {
+  if (caseData['RecordTypeId']) return;
+  if (typeof salesforceApi?.findFunnelCaseRecordTypeId !== 'function') return;
+  try {
+    const recordTypeId = await salesforceApi.findFunnelCaseRecordTypeId();
+    if (recordTypeId) {
+      caseData['RecordTypeId'] = recordTypeId;
+      console.log(`[Salesforce Sync] Record type: Standardfinanzierung ${recordTypeId}`);
+    } else {
+      console.warn('[Salesforce Sync] Record type «Standardfinanzierung» not found — the Case takes the default record type');
+    }
+  } catch (err) {
+    console.error('[Salesforce Sync] Record type «Standardfinanzierung» could not be resolved — the Case takes the default:', err);
+  }
+}
+
+/**
  * Swiss date (TT.MM.JJJJ, also T.M.JJJJ) or an ISO date → Salesforce `YYYY-MM-DD`; null for
  * anything that is not a real calendar date. The Kaufdatum and the Ablösedatum read from the
  * Zinsabrechnung are typed or printed text — «Mai 2026» or «31.02.2026» must not reach the Date
@@ -1454,6 +1477,7 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
   }
 
   await applyFunnelOwner(caseData, salesforceApi);
+  await applyFunnelRecordType(caseData, salesforceApi);
 
   console.log('[Salesforce Sync] Full caseData before sending:', JSON.stringify(caseData, null, 2));
 
