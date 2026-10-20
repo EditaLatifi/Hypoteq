@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, CheckCircle2, FileText, Plus, ShieldOff } from "lucide-react";
+import { notFound } from "next/navigation";
+import { ArrowLeft, ArrowRight, CheckCircle2, FileText, Plus } from "lucide-react";
 import { Badge, Card, Eyebrow, FormError, btn, formatDate } from "@/components/portal/ui";
 import { audit } from "@/lib/portal/audit";
 import { getDict } from "@/lib/portal/i18n/server";
@@ -33,22 +34,12 @@ export default async function SpecialRequestPage({ params }: { params: { id: str
     </div>
   );
 
+  // Not this partner's: refused, logged, and answered with a 404 (not-found.tsx), like a
+  // foreign Case.
   if (!r) {
     const path = `/portal/spezialfinanzierung/${params.id.slice(0, 40)}`;
     await audit({ action: "access_denied", actorId: user.id, actorEmail: user.email, target: path, ip: requestIp() });
-    return (
-      <>
-        {back}
-        <div className="flex max-w-[560px] flex-col gap-5">
-          <span className="grid h-14 w-14 place-items-center rounded-full bg-white/[.08] text-[#CAF476]">
-            <ShieldOff size={26} />
-          </span>
-          <Eyebrow>{path}</Eyebrow>
-          <h1 className="m-0 text-[clamp(30px,3.5vw,44px)] font-bold leading-[1.1] tracking-[-0.02em]">{t.caseDetail.deniedTitle}</h1>
-          <p className="m-0 text-[17px] text-white/70">{s.deniedText}</p>
-        </div>
-      </>
-    );
+    notFound();
   }
 
   return (

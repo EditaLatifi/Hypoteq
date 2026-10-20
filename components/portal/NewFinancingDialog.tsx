@@ -4,8 +4,8 @@ import Link from "next/link";
 import { useState } from "react";
 import { ArrowRight, House, Layers, Plus } from "lucide-react";
 import Modal from "@/components/portal/Modal";
-import { useLocale, useT } from "@/components/portal/I18n";
-import { newFinancingHref } from "@/lib/portal/funnelLink";
+import { useT } from "@/components/portal/I18n";
+import { NEW_FINANCING_PATH } from "@/lib/portal/funnelLink";
 
 const OPTION =
   "flex w-full items-start gap-3.5 rounded-xl border border-white/[.14] bg-white/[.04] p-[18px] text-left text-white transition-colors duration-200 ease-out hover:border-[#CAF476] hover:bg-white/[.08]";
@@ -15,9 +15,8 @@ const OPTION =
  * the Standardfinanzierung — the existing funnel as Berater, recognised by the partner's
  * e-mail — and the Spezialfinanzierung captured in the portal.
  */
-export default function NewFinancingDialog({ email }: { email: string }) {
+export default function NewFinancingDialog() {
   const t = useT();
-  const locale = useLocale();
   const [open, setOpen] = useState(false);
   const nf = t.shell.newFinancing;
 
@@ -36,7 +35,7 @@ export default function NewFinancingDialog({ email }: { email: string }) {
 
       <Modal open={open} onClose={() => setOpen(false)} title={nf.title} width={560}>
         <div className="flex flex-col gap-3">
-          <a href={newFinancingHref(locale, email)} className={OPTION} onClick={() => setOpen(false)}>
+          <a href={NEW_FINANCING_PATH} className={OPTION} onClick={() => setOpen(false)}>
             <House size={24} aria-hidden className="mt-0.5 flex-none text-[#CAF476]" />
             <span className="flex flex-1 flex-col gap-1">
               <span className="text-[17px] font-medium">{nf.standard}</span>

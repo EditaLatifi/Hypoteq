@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
-import { AlertCircle, ArrowLeft, ArrowRight, Check, Download, FileCheck, FileClock, FileText, House, ShieldOff } from "lucide-react";
+import { notFound, redirect } from "next/navigation";
+import { AlertCircle, ArrowLeft, ArrowRight, Check, Download, FileCheck, FileClock, FileText, House } from "lucide-react";
 import FileList from "@/components/portal/FileList";
 import MessageForm from "@/components/portal/MessageForm";
 import UploadButton from "@/components/portal/UploadButton";
@@ -18,28 +18,6 @@ import { scopeFor } from "@/lib/portal/scope";
 import { requestIp, requireUser } from "@/lib/portal/session";
 import { DOC_TONES, STEPS, isClosedStatus, needsDocument, timeline } from "@/lib/portal/status";
 import { docProgress, summaryFile } from "@/lib/portal/view";
-
-/** Zugriff verweigert (handoff): the Case is not this partner's. Checked and logged on the server. */
-function Denied({ path, t }: { path: string; t: Dict }) {
-  return (
-    <div className="flex max-w-[560px] flex-col gap-5 pt-6">
-      <span className="grid h-14 w-14 place-items-center rounded-full bg-white/[.08] text-[#CAF476]">
-        <ShieldOff size={26} aria-hidden />
-      </span>
-      <Eyebrow>{path}</Eyebrow>
-      <h1 className="m-0 text-[clamp(30px,3.5vw,44px)] font-bold leading-[1.1] tracking-[-0.02em]">{t.caseDetail.deniedTitle}</h1>
-      <p className="m-0 text-[17px] text-white/70">{t.caseDetail.deniedText}</p>
-      <div className="flex flex-wrap gap-3">
-        <Link href="/portal/cases" className={`${btn.primary} h-11 text-[16px]`}>
-          {t.caseDetail.toOverview} <ArrowRight size={18} aria-hidden />
-        </Link>
-        <Link href="/portal/dashboard" className={`${btn.ghost} h-11 rounded-full px-2 text-[16px]`}>
-          {t.caseDetail.toDashboard}
-        </Link>
-      </div>
-    </div>
-  );
-}
 
 const plain = (s: string) => s.replace(/\u00AD/g, "");
 
@@ -123,7 +101,9 @@ export default async function CaseDetailPage({ params }: { params: { id: string 
   const path = `/portal/cases/${params.id.slice(0, 40)}`;
 
   // The Case is read only together with the partner's scope (lib/portal/salesforce.ts): a
-  // foreign or guessed Id finds nothing, and that is refused and logged right here.
+  // foreign or guessed Id finds nothing, and that is refused and logged right here. The answer
+  // is a 404 (not-found.tsx): Next 14 cannot send a 403 from a page, and a 404 does not tell
+  // whether the Case exists — as the file route does for a foreign Case.
   let c: PortalCaseDetail | null = null;
   try {
     const scope = await scopeFor(user);
@@ -134,7 +114,7 @@ export default async function CaseDetailPage({ params }: { params: { id: string 
   }
   if (!c) {
     await audit({ action: "access_denied", actorId: user.id, actorEmail: user.email, target: `${path} · fremder Case`, ip: requestIp() });
-    return <Denied path={path} t={t} />;
+    notFound();
   }
   await audit({ action: "case_opened", actorId: user.id, actorEmail: user.email, target: `${c.nr} · ${c.id}${user.viewingAs ? " (Partneransicht)" : ""}`, ip: requestIp() });
 

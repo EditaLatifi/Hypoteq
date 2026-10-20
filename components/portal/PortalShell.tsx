@@ -70,7 +70,6 @@ export default function PortalShell({
   children,
   userName,
   userSub,
-  userEmail,
   userInitials,
   isAdmin,
   hasCases,
@@ -83,8 +82,6 @@ export default function PortalShell({
   children: ReactNode;
   userName: string;
   userSub: string;
-  /** The login address — the funnel recognises the partner by it. */
-  userEmail: string;
   userInitials: string;
   isAdmin: boolean;
   hasCases: boolean;
@@ -232,7 +229,7 @@ export default function PortalShell({
               <div className="hidden min-w-0 truncate text-[13px] text-white/70 min-[900px]:block">{crumb}</div>
             )}
             <div className="flex items-center gap-1.5 md:gap-2">
-              {partner ? <NewFinancingDialog email={userEmail} /> : null}
+              {partner ? <NewFinancingDialog /> : null}
               {hasCases && !viewingAs ? (
                 <Link
                   href="/portal/meldungen"

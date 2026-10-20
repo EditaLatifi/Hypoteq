@@ -3,7 +3,7 @@ import SpecialNotice from "@/components/portal/special/SpecialNotice";
 import SpecialRequestList from "@/components/portal/special/SpecialRequestList";
 import SpecialWizard from "@/components/portal/special/SpecialWizard";
 import { Card, PageHeader, btn } from "@/components/portal/ui";
-import { newFinancingHref } from "@/lib/portal/funnelLink";
+import { NEW_FINANCING_PATH } from "@/lib/portal/funnelLink";
 import { getDict } from "@/lib/portal/i18n/server";
 import { requireUser } from "@/lib/portal/session";
 import { listSpecialRequests, type SpecialRequestView } from "@/lib/portal/specialServer";
@@ -15,7 +15,7 @@ import { listSpecialRequests, type SpecialRequestView } from "@/lib/portal/speci
  */
 export default async function SpecialFinancingPage() {
   const user = await requireUser();
-  const { t, locale } = await getDict();
+  const { t } = await getDict();
   const s = t.special;
   const canSubmit = !user.viewingAs && !!user.contactId;
 
@@ -31,7 +31,7 @@ export default async function SpecialFinancingPage() {
     <>
       <PageHeader eyebrow={s.eyebrow} title={s.title} sub={<span className="block max-w-[720px]">{s.sub}</span>}>
         {canSubmit && user.role !== "admin" ? (
-          <a href={newFinancingHref(locale, user.email)} className={`${btn.ghost} h-9 text-[16px]`}>
+          <a href={NEW_FINANCING_PATH} className={`${btn.ghost} h-9 text-[16px]`}>
             {s.toFunnel} <ArrowUpRight size={18} />
           </a>
         ) : null}
