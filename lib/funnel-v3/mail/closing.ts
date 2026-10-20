@@ -15,13 +15,14 @@
  * routed inbox) and hands it to a transport. A failed mail never stops the others.
  */
 
+import type { PartnerResolution } from "@/components/partnerDirectory";
 import { routeMail } from "@/components/testMode";
 import { authorizationFileName, buildAuthorizationPdf, type AuthorizationData } from "../authorization";
 import { authorizationDataFromState } from "../authorizationData";
 import type { Lang } from "../i18n";
 import type { StoredFunnelState } from "../legacy";
 import { renderClosingMail, type SalesforceOutcome } from "./render";
-import { beraterEmailOf, buildCaseSummary, closingFacts, customerEmailOf, type CaseSummary } from "./summary";
+import { beraterEmailOf, buildCaseSummary, closingFacts, customerEmailOf, type CaseSummary, type SummaryInput } from "./summary";
 import type { Audience } from "./texts";
 import type { MailTransport } from "./transport";
 
@@ -58,6 +59,8 @@ export interface ClosingMailsInput {
   returnUrl: string | null;
   linkDays: number;
   salesforce: SalesforceOutcome;
+  /** The recognised partner (name, company) for a Berater submission; the mails show the address otherwise. */
+  partner?: SummaryInput["partner"];
 }
 
 export interface ClosingDeps {
@@ -82,11 +85,29 @@ export function authorizationDataFor(state: StoredFunnelState, lang: Lang, caseN
   return authorizationDataFromState(state, lang, { caseNumber });
 }
 
+/**
+ * The submitting partner as Salesforce knows them, for «Erfasst von» and «Dein Berater»: the
+ * lookup the sync just made for the Case (cached in components/partnerDirectory). Null for a
+ * customer's own request, an unknown address or no Salesforce — the mails then show the address.
+ */
+export async function closingPartner(data: any, resolve: (email: string) => Promise<PartnerResolution>): Promise<SummaryInput["partner"]> {
+  const email = beraterEmailOf(data);
+  if (!email) return null;
+  try {
+    const r = await resolve(email);
+    if (r.status === "partner") return { name: r.name || null, company: r.company };
+    if (r.status === "hypoteq") return { name: r.name || null, company: null };
+  } catch {
+    /* the address stands in */
+  }
+  return null;
+}
+
 export async function buildClosingMails(input: ClosingMailsInput, deps: Partial<ClosingDeps> = {}): Promise<ClosingMail[]> {
   const d: ClosingDeps = { ...DEFAULT_DEPS, ...deps };
   const facts = closingFacts(input.data);
   if (!facts) return [];
-  const summaryInput = { data: input.data, lang: input.lang, caseNumber: input.caseNumber, date: input.date };
+  const summaryInput: SummaryInput = { data: input.data, lang: input.lang, caseNumber: input.caseNumber, date: input.date, partner: input.partner ?? null };
   const customer = customerEmailOf(input.data);
   const berater = beraterEmailOf(input.data);
   const mails: ClosingMail[] = [];

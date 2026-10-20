@@ -611,7 +611,7 @@ function stateNote(r: RequirementStatus, files: DossierFile[], lang: Lang, T: Do
   switch (r.state) {
     case "missing":
     case "analysing":
-      return { text: t("state.missing"), warn: !r.instance.optional };
+      return { text: t(r.instance.optional ? "state.missingOptional" : "state.missing"), warn: !r.instance.optional };
     case "skipped":
       return { text: t("state.skipped"), warn: false };
     case "partial":

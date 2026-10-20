@@ -102,6 +102,8 @@ export interface SummaryInput {
   lang: Lang;
   caseNumber: string | null;
   date: Date;
+  /** The recognised partner's Salesforce Contact (components/partnerDirectory), when known. */
+  partner?: { name: string | null; company: string | null } | null;
 }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -414,7 +416,9 @@ export function buildCaseSummary(input: SummaryInput, audience: Audience, facts?
         ? t("sig.laterState")
         : st === "partial"
           ? `${t("state.partial")} · ${t("s5.filesOf", { n: x.doneFiles, total: x.expect })}`
-          : t(`state.${st}`);
+          : st === "missing" && x.instance.optional
+            ? t("state.missingOptional")
+            : t(`state.${st}`);
     return { label: t(x.instance.labelKey) + person, state: st, stateLabel, warn: st === "missing" ? !x.instance.optional : st === "outdated" || st === "partial" };
   };
   const docGroups: DocGroup[] = [];
@@ -425,7 +429,10 @@ export function buildCaseSummary(input: SummaryInput, audience: Audience, facts?
   }
 
   const role = state.role;
-  const partnerName = [txt.pvor.trim(), txt.pnach.trim()].filter(Boolean).join(" ");
+  // A recognised partner types no name (only the new-partner form asks): Salesforce's Contact
+  // gives it, so the customer reads who submitted, not just an address (retest 20.10.2026).
+  const partnerName = [txt.pvor.trim(), txt.pnach.trim()].filter(Boolean).join(" ") || str(input.partner?.name);
+  const partnerFirm = txt.pfirma.trim() || str(input.partner?.company);
   const submitter =
     role === "berater" ? t("side.submittedBy", { name: [partnerName, txt.bmail.trim()].filter(Boolean).join(" · ") || "HYPOTEQ" }) : t("side.ownRequest");
 
@@ -443,7 +450,7 @@ export function buildCaseSummary(input: SummaryInput, audience: Audience, facts?
       greetingName: (isJur ? txt.zeichner : txt.vor || state.borrowers[0]?.vor || "").trim().split(/\s+/)[0] ?? "",
     },
     place: placeOf(state),
-    berater: role === "berater" ? { name: partnerName, email: txt.bmail.trim(), phone: txt.ptel.trim(), firma: txt.pfirma.trim() } : null,
+    berater: role === "berater" ? { name: partnerName, email: txt.bmail.trim(), phone: txt.ptel.trim(), firma: partnerFirm } : null,
     next: { signature: signature.status !== "uploaded", missing: missingDocuments(status, lang) },
     blocks,
     docs: {

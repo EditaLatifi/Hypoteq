@@ -3,7 +3,7 @@
  * Used by /api/inquiry for v5 submissions; older payloads keep the mails in the route.
  */
 
-export { buildClosingMails, sendClosingMails, internalMailTo, authorizationDataFor } from "./closing";
+export { buildClosingMails, sendClosingMails, internalMailTo, authorizationDataFor, closingPartner } from "./closing";
 export type { ClosingMail, ClosingMailsInput, ClosingSendResult, MailAttachment } from "./closing";
 export { buildCaseSummary, closingFacts, closingSignature, closingSubject, isV5Payload, missingDocuments } from "./summary";
 export type { CaseSummary, SummaryBlock, SummaryRow } from "./summary";

@@ -462,7 +462,8 @@ export async function POST(req: Request) {
       // link back), the Berater (same summary, neutral), HYPOTEQ intern (same summary + the
       // Case). Replaces the auto-response, the dossier mail 2a/2b and the Berater's copy.
       try {
-        const { buildClosingMails, sendClosingMails, closingMailTransport, salesforceCaseUrl } = await import("@/lib/funnel-v3/mail");
+        const { buildClosingMails, closingPartner, sendClosingMails, closingMailTransport, salesforceCaseUrl } = await import("@/lib/funnel-v3/mail");
+        const { resolvePartner } = await import("@/components/partnerDirectory");
         let instanceUrl: string | null = null;
         if (salesforceCaseId) {
           try {
@@ -484,6 +485,7 @@ export async function POST(req: Request) {
             testMode: isTestMode(),
             dropped: salesforceDropped,
           },
+          partner: await closingPartner(data, (email) => resolvePartner(email)),
         });
         const result = await sendClosingMails(mails, closingMailTransport(getGraphMailClient()));
         droppedFieldsInClosingMail = result.sent.includes("intern");

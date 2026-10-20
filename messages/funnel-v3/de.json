@@ -294,6 +294,7 @@
   },
   "state": {
     "missing": "Fehlt",
+    "missingOptional": "Fehlt (optional)",
     "analysing": "Wird gelesen",
     "partial": "Teilweise",
     "ok": "Erkannt",

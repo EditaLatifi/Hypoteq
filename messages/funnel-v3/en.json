@@ -294,6 +294,7 @@
   },
   "state": {
     "missing": "Missing",
+    "missingOptional": "Missing (optional)",
     "analysing": "Reading",
     "partial": "Partial",
     "ok": "Recognised",
