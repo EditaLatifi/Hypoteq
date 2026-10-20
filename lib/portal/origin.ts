@@ -12,7 +12,8 @@
  *
  * Without a trusted request host (and for the cron, which has none) the link goes to
  * PORTAL_BASE_URL, else to the deployment itself (its branch URL on a preview, the production
- * domain on production), else to www.hypoteq.ch.
+ * domain on production), else to hypoteq.com — where the app runs. www.hypoteq.ch forwards only
+ * its home page: /portal/… and the mails' logo (/images/…) are a 404 there (retest 20.10.2026).
  */
 
 export type OriginHeaders = { host?: string | null; forwardedHost?: string | null; forwardedProto?: string | null };
@@ -66,7 +67,7 @@ export function linkOrigin(h: OriginHeaders, env: NodeJS.ProcessEnv = process.en
     const host = hostOf(own);
     if (host) return `https://${host}`;
   }
-  return "https://www.hypoteq.ch";
+  return "https://hypoteq.com";
 }
 
 /** For links built outside a request (the cron): no headers to trust. */

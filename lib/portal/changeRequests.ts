@@ -327,7 +327,7 @@ export type ChangeRequestContext = {
   nr: string;
   request: ChangeRequestInput;
   partner: { name: string | null; email: string; company: string | null };
-  /** Where HYPOTEQ sets the status, e.g. https://www.hypoteq.ch/portal/admin/aenderungen */
+  /** Where HYPOTEQ sets the status, e.g. https://hypoteq.com/portal/admin/aenderungen */
   adminUrl: string;
 };
 

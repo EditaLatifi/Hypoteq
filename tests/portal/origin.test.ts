@@ -11,12 +11,12 @@ const PREVIEW = {
   VERCEL_ENV: "preview",
   VERCEL_URL: "hypoteq-abc123-hypoteq.vercel.app",
   VERCEL_BRANCH_URL: "hypoteq-git-ai-document-intelligence-hypoteq.vercel.app",
-  VERCEL_PROJECT_PRODUCTION_URL: "www.hypoteq.ch",
+  VERCEL_PROJECT_PRODUCTION_URL: "hypoteq.com",
 } as unknown as NodeJS.ProcessEnv;
 
 describe("linkOrigin", () => {
   it("a reset requested on the preview links to that preview, even with PORTAL_BASE_URL set to production", () => {
-    const env = { ...PREVIEW, PORTAL_BASE_URL: "https://www.hypoteq.ch" };
+    const env = { ...PREVIEW, PORTAL_BASE_URL: "https://hypoteq.com" };
     expect(linkOrigin({ host: PREVIEW.VERCEL_BRANCH_URL }, env)).toBe(`https://${PREVIEW.VERCEL_BRANCH_URL}`);
     expect(linkOrigin({ forwardedHost: PREVIEW.VERCEL_URL, host: "internal" }, env)).toBe(`https://${PREVIEW.VERCEL_URL}`);
   });
@@ -24,13 +24,13 @@ describe("linkOrigin", () => {
   it("never uses a host nobody vouches for (a forged Host header must not receive a token)", () => {
     expect(linkOrigin({ host: "evil.example" }, { ...PREVIEW, PORTAL_BASE_URL: "https://portal.hypoteq.ch" })).toBe("https://portal.hypoteq.ch");
     expect(linkOrigin({ forwardedHost: "evil.example" }, PREVIEW)).toBe(`https://${PREVIEW.VERCEL_BRANCH_URL}`);
-    expect(linkOrigin({ forwardedHost: "evil.example" }, { ...PREVIEW, VERCEL_ENV: "production" })).toBe("https://www.hypoteq.ch");
+    expect(linkOrigin({ forwardedHost: "evil.example" }, { ...PREVIEW, VERCEL_ENV: "production" })).toBe("https://hypoteq.com");
     expect(linkOrigin({ host: "localhost:3000" }, PREVIEW)).toBe(`https://${PREVIEW.VERCEL_BRANCH_URL}`);
   });
 
   it("trusts PORTAL_BASE_URL, NEXT_PUBLIC_SITE_URL and PORTAL_TRUSTED_HOSTS", () => {
     const env = { ...PREVIEW, PORTAL_TRUSTED_HOSTS: "partner.hypoteq.ch, Test.Hypoteq.ch", NEXT_PUBLIC_SITE_URL: "https://hypoteq.ch/" };
-    expect(trustedHosts(env)).toEqual(expect.arrayContaining(["partner.hypoteq.ch", "test.hypoteq.ch", "hypoteq.ch", PREVIEW.VERCEL_URL!, "www.hypoteq.ch"]));
+    expect(trustedHosts(env)).toEqual(expect.arrayContaining(["partner.hypoteq.ch", "test.hypoteq.ch", "hypoteq.ch", PREVIEW.VERCEL_URL!, "hypoteq.com"]));
     expect(linkOrigin({ host: "partner.hypoteq.ch" }, env)).toBe("https://partner.hypoteq.ch");
   });
 
@@ -45,8 +45,9 @@ describe("linkOrigin", () => {
 
   it("the cron has no request: PORTAL_BASE_URL, else the deployment's own domain", () => {
     expect(backgroundOrigin({ ...PREVIEW, PORTAL_BASE_URL: "https://portal.hypoteq.ch/" })).toBe("https://portal.hypoteq.ch");
-    expect(backgroundOrigin({ ...PREVIEW, VERCEL_ENV: "production" })).toBe("https://www.hypoteq.ch");
+    expect(backgroundOrigin({ ...PREVIEW, VERCEL_ENV: "production" })).toBe("https://hypoteq.com");
     expect(backgroundOrigin(PREVIEW)).toBe(`https://${PREVIEW.VERCEL_BRANCH_URL}`);
-    expect(backgroundOrigin({} as NodeJS.ProcessEnv)).toBe("https://www.hypoteq.ch");
+    // No environment at all: the production app, never www.hypoteq.ch (no /portal, no /images there).
+    expect(backgroundOrigin({} as NodeJS.ProcessEnv)).toBe("https://hypoteq.com");
   });
 });
