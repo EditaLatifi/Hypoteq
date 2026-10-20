@@ -1,6 +1,7 @@
 import { teamAddress } from "@/lib/portal/config";
-import { defaultConnection, zurichDate, type SfConnection } from "@/lib/portal/changeRequests";
+import { defaultConnection, type SfConnection } from "@/lib/portal/changeRequests";
 import { sendTeamMail } from "@/lib/portal/mail";
+import { createPortalMeldung, type MeldungInput } from "@/lib/portal/meldung";
 import { addCaseComment, isSalesforceId } from "@/lib/portal/salesforce";
 
 /**
@@ -9,11 +10,12 @@ import { addCaseComment, isSalesforceId } from "@/lib/portal/salesforce";
  * Two things at once:
  *  1. an e-mail to info@hypoteq.ch, subject «Portal-Nachricht · {Case-Nr} · {Kundenname}»,
  *     Reply-To the partner, the Case owner in copy;
- *  2. a completed Task on the Case (WhatId = Case, Status Completed, Subject «Portal-Nachricht:
- *     {erste Worte}», the full text in Description), so it is in the Case's activity timeline.
- * The Task replaces the CaseComment the portal wrote before; a CaseComment is written only
- * when Salesforce refuses the Task, so the message is in Salesforce once, not twice. The
- * portal's own copy (PortalMessage) is what «Letzte Updates» lists.
+ *  2. a Portal_Meldung__c of type Case-Nachricht with Case__c (HYPOTEQ 20.10.2026,
+ *     lib/portal/meldung.ts): HYPOTEQ's Flow makes the completed Task on the Case from it (owner
+ *     = Case owner, «Portal-Nachricht: {erste Worte}», the full text), so it is in the Case's
+ *     activity timeline. The integration user's licence cannot create the Task itself.
+ * A CaseComment is written only when Salesforce refuses the Meldung, so the message is in
+ * Salesforce once, not twice. The portal's own copy (PortalMessage) is what «Letzte Updates» lists.
  */
 
 export const SUBJECT_WORDS_MAX = 80;
@@ -31,20 +33,21 @@ export function caseMessageSubject(nr: string, kunde: string): string {
   return `Portal-Nachricht · ${nr} · ${kunde}`.slice(0, 250);
 }
 
-export type MessageAuthor = { name: string | null; email: string; company: string | null };
+export type MessageAuthor = { name: string | null; email: string; company: string | null; accountId?: string | null };
 
 export function authorLabel(u: MessageAuthor): string {
   return `${u.name || u.email}${u.company ? ` (${u.company})` : ""}`;
 }
 
-/** The completed Task on the Case. Description: the full message, then who sent it. */
-export function caseMessageTask(p: { caseId: string; body: string; author: MessageAuthor; now?: Date }): Record<string, unknown> {
+/** The Meldung on the Case. Beschreibung: the full message, then who sent it. */
+export function caseMessageMeldung(p: { caseId: string; body: string; author: MessageAuthor }): MeldungInput {
   return {
-    WhatId: p.caseId,
-    Status: "Completed",
-    Subject: `Portal-Nachricht: ${firstWords(p.body)}`.slice(0, 255),
-    Description: `${p.body}\n\n— ${authorLabel(p.author)}, ${p.author.email} (Partnerportal)`.slice(0, 32000),
-    ActivityDate: zurichDate(p.now ?? new Date()),
+    typ: "case_nachricht",
+    betreff: `Portal-Nachricht: ${firstWords(p.body)}`,
+    beschreibung: `${p.body}\n\n— ${authorLabel(p.author)}, ${p.author.email} (Partnerportal)`,
+    partnerEmail: p.author.email,
+    partnerAccountId: p.author.accountId ?? null,
+    caseId: p.caseId,
   };
 }
 
@@ -65,22 +68,16 @@ export type CaseMessageDeps = {
   comment: (caseId: string, body: string) => Promise<void>;
 };
 
-export type CaseMessageResult = { taskId: string | null; comment: boolean; mailed: boolean };
+/** `meldungId`: the Portal_Meldung__c; `comment`: the CaseComment written when it was refused. */
+export type CaseMessageResult = { meldungId: string | null; comment: boolean; mailed: boolean };
 
 function errorText(err: any): string {
   if (Array.isArray(err?.errors) && err.errors.length) return err.errors.map((e: any) => e?.message || String(e)).join("; ");
   return err?.data?.message || err?.message || String(err);
 }
 
-async function createTask(sf: SfConnection, record: Record<string, unknown>): Promise<string> {
-  const res = await sf.sobject("Task").create(record);
-  const r = Array.isArray(res) ? res[0] : res;
-  if (!r?.id || r?.success === false) throw r;
-  return String(r.id);
-}
-
 /**
- * Deliver a partner's message: the mail and the Task in parallel; neither waits for or
+ * Deliver a partner's message: the mail and the Meldung in parallel; neither waits for or
  * stops the other. Never throws — the caller says «sent» when anything got through.
  */
 export async function deliverCaseMessage(
@@ -91,19 +88,17 @@ export async function deliverCaseMessage(
   const mail = deps.mail ?? sendTeamMail;
   const comment = deps.comment ?? addCaseComment;
 
-  const inSalesforce = (async (): Promise<{ taskId: string | null; comment: boolean }> => {
-    if (!isSalesforceId(p.caseId)) return { taskId: null, comment: false };
-    try {
-      return { taskId: await createTask(sf, caseMessageTask(p)), comment: false };
-    } catch (err) {
-      console.error("[portal] Task for the Case message refused; writing a CaseComment instead", errorText(err));
-    }
+  const inSalesforce = (async (): Promise<{ meldungId: string | null; comment: boolean }> => {
+    if (!isSalesforceId(p.caseId)) return { meldungId: null, comment: false };
+    const meldung = await createPortalMeldung(sf, caseMessageMeldung(p));
+    if (meldung.id) return { meldungId: meldung.id, comment: false };
+    console.error("[portal] Portal_Meldung for the Case message refused; writing a CaseComment instead", meldung.error);
     try {
       await comment(p.caseId, `[Partnerportal] ${authorLabel(p.author)}:\n\n${p.body}`);
-      return { taskId: null, comment: true };
+      return { meldungId: null, comment: true };
     } catch (err) {
       console.error("[portal] CaseComment for the Case message failed too (the mail still goes out)", errorText(err));
-      return { taskId: null, comment: false };
+      return { meldungId: null, comment: false };
     }
   })();
 

@@ -268,18 +268,18 @@ export async function sendMessageAction(_prev: FormState, fd: FormData): Promise
   await prisma.portalMessage.create({ data: { userId: user.id, caseId: c.id, body } });
   await audit({ action: "message_sent", actorId: user.id, actorEmail: user.email, target: c.nr, ip: requestIp() });
 
-  // Mail to info@hypoteq.ch (Reply-To the partner, Case owner in copy) and a completed Task on
-  // the Case, in parallel (B22, DECISIONS P25).
+  // Mail to info@hypoteq.ch (Reply-To the partner, Case owner in copy) and a Portal_Meldung__c
+  // that HYPOTEQ's Flow turns into a completed Task on the Case, in parallel (B22, DECISIONS P25).
   const res = await deliverCaseMessage({
     caseId: c.id,
     nr: c.nr,
     kunde: c.kunde,
     ownerEmail: c.ownerEmail,
     body,
-    author: { name: user.name, email: user.email, company: user.company },
+    author: { name: user.name, email: user.email, company: user.company, accountId: user.sfAccountId },
     origin: requestOrigin(),
   });
-  if (!res.mailed && !res.taskId && !res.comment) return { error: t.errors.messageFailed };
+  if (!res.mailed && !res.meldungId && !res.comment) return { error: t.errors.messageFailed };
   revalidatePath(`/portal/cases/${c.id}`);
   return { ok: t.caseDetail.messageSent };
 }

@@ -6,13 +6,15 @@ import { support, type SupportDict } from "@/lib/portal/i18n/special";
 import { teamAddress } from "@/lib/portal/config";
 import { defaultConnection, type SfConnection } from "@/lib/portal/changeRequests";
 import { sendTeamMail } from "@/lib/portal/mail";
+import { createPortalMeldung, type MeldungInput } from "@/lib/portal/meldung";
 import { ticketRef, validateSupport, type SupportError, type SupportInput, type TechInfo } from "@/lib/portal/support";
 
 /**
  * Support & Feedback on the server (HYPOTEQ 19.10.2026 C, DECISIONS P18 / P19). A ticket is
- * stored, then two things happen in parallel: a mail to info@hypoteq.ch and an open Task in
- * Salesforce for Fisnik Salihu, created by the integration user. Either may fail without the
- * other; the ticket stays. HYPOTEQ sets its status in /portal/admin/support.
+ * stored, then two things happen in parallel: a mail to info@hypoteq.ch and a Portal_Meldung__c
+ * in Salesforce, which HYPOTEQ's Flow turns into an open Task for Fisnik Salihu (20.10.2026: the
+ * integration user's licence cannot create Tasks). Either may fail without the other; the
+ * ticket stays. HYPOTEQ sets its status in /portal/admin/support.
  */
 
 /** Where tickets go, and the address the contact box shows: info@hypoteq.ch (B20 / C), unless configured. */
@@ -57,14 +59,7 @@ export function techLines(tech: TechInfo | null): string[] {
   ];
 }
 
-export type SupportUser = { id: string; email: string; name: string | null; company: string | null };
-
-/** Owner of the support Tasks: Fisnik Salihu (C). PORTAL_SUPPORT_TASK_OWNER_ID overrides it. */
-export const SUPPORT_TASK_OWNER_DEFAULT = "005TG000004Ogi9YAC";
-
-export function supportTaskOwner(): string {
-  return (process.env.PORTAL_SUPPORT_TASK_OWNER_ID || "").trim() || SUPPORT_TASK_OWNER_DEFAULT;
-}
+export type SupportUser = { id: string; email: string; name: string | null; company: string | null; sfAccountId?: string | null };
 
 /** The Case a ticket names, once checked against the partner's Cases. */
 export type LinkedCase = { id: string; nr: string; kunde: string } | null;
@@ -99,59 +94,29 @@ export function supportMail(p: TicketParts): { subject: string; lines: string[] 
   };
 }
 
-/** The open Task: «Portal-Support: {Betreff}», for Fisnik Salihu, on the Case when one is linked. */
-export function supportTask(p: TicketParts): Record<string, unknown> {
-  const description = [
+/**
+ * The Portal_Meldung__c of the ticket (HYPOTEQ 20.10.2026; lib/portal/meldung.ts): Typ = Frage /
+ * Fehler / Wunsch, Betreff «Portal-Support: {Betreff}», the Case when one is linked. HYPOTEQ's
+ * Flow turns it into the open Task (High) for Fisnik Salihu.
+ */
+export function supportMeldung(p: TicketParts): MeldungInput {
+  const beschreibung = [
     p.input.body,
     "",
     `Partner: ${partnerLine(p.user)} · ${p.user.email}`,
     `Typ: ${support.de.types[p.input.type]}`,
     `Meldung: ${p.ref} (Status im Partnerportal unter Administration › Support)`,
     ...(p.caseLine ? [p.caseLine] : []),
-    ...(p.tech ? ["", ...techLines(p.tech)] : []),
   ].join("\n");
   return {
-    Subject: `Portal-Support: ${p.input.subject}`.slice(0, 255),
-    Description: description.slice(0, 32000),
-    OwnerId: supportTaskOwner(),
-    Status: "Open",
-    ...(p.linked ? { WhatId: p.linked.id } : {}),
+    typ: p.input.type,
+    betreff: `Portal-Support: ${p.input.subject}`,
+    beschreibung,
+    technischeAngaben: p.tech ? techLines(p.tech).join("\n") : null,
+    partnerEmail: p.user.email,
+    partnerAccountId: p.user.sfAccountId ?? null,
+    caseId: p.linked?.id ?? null,
   };
-}
-
-function errorText(err: any): string {
-  if (Array.isArray(err?.errors) && err.errors.length) return err.errors.map((e: any) => e?.message || String(e)).join("; ");
-  return err?.data?.message || err?.message || String(err);
-}
-
-/**
- * Create the support Task. Never throws. Should the org refuse the agreed values it tries
- * again without Status «Open» (Task.Status is a restricted picklist; the org's default open
- * status then applies), then also without the owner (the Task stays with the integration
- * user). The description names the Case either way.
- */
-export async function createSupportTask(sf: SfConnection, record: Record<string, unknown>): Promise<{ id: string | null; error: string | null }> {
-  const attempt = async (r: Record<string, unknown>): Promise<string> => {
-    const res = await sf.sobject("Task").create(r);
-    const out = Array.isArray(res) ? res[0] : res;
-    if (!out?.id || out?.success === false) throw out;
-    return String(out.id);
-  };
-  const withoutStatus = { ...record };
-  delete withoutStatus.Status;
-  const withoutOwner = { ...withoutStatus };
-  delete withoutOwner.OwnerId;
-  const tries = [record, withoutStatus, withoutOwner];
-  let last: unknown = null;
-  for (let i = 0; i < tries.length; i++) {
-    try {
-      return { id: await attempt(tries[i]), error: null };
-    } catch (err) {
-      last = err;
-      if (i < tries.length - 1) console.warn("[portal] support Task refused, retrying with less", errorText(err));
-    }
-  }
-  return { id: null, error: errorText(last) };
 }
 
 /** Result of checking the optional Case reference against the partner's own Cases. */
@@ -201,9 +166,9 @@ export async function createSupportTicket(
 
   const mail = supportMail(parts);
   if (isTestMode()) {
-    skipped("support mail and Salesforce Task", mail.subject);
+    skipped("support mail and Portal_Meldung__c", mail.subject);
   } else {
-    // Mail and Task in parallel; the ticket is kept whatever happens to either.
+    // Mail and Meldung in parallel; the ticket is kept whatever happens to either.
     const mailed = sendTeamMail({
       to: supportEmail(),
       replyTo: user.email,
@@ -212,12 +177,12 @@ export async function createSupportTicket(
       origin: ctx.origin,
       link: `${ctx.origin}/portal/admin/support`,
     }).catch((err) => console.error("[portal] support mail failed", err));
-    const task = createSupportTask(ctx.sf ?? defaultConnection(), supportTask(parts)).then(async (t) => {
+    const task = createPortalMeldung(ctx.sf ?? defaultConnection(), supportMeldung(parts)).then(async (t) => {
       if (!t.id) {
-        console.error(`[portal] support Task for ${ref} failed`, t.error);
+        console.error(`[portal] support Portal_Meldung for ${ref} failed`, t.error);
         return;
       }
-      await prisma.portalSupportTicket.update({ where: { id }, data: { sfId: t.id } }).catch((err) => console.error("[portal] could not store the support Task id", err));
+      await prisma.portalSupportTicket.update({ where: { id }, data: { sfId: t.id } }).catch((err) => console.error("[portal] could not store the Portal_Meldung id", err));
     });
     await Promise.all([mailed, task]);
   }

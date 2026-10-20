@@ -14,7 +14,8 @@ jest.mock("@/components/testMode", () => ({ isTestMode: () => false, skipped: ()
 import { support } from "@/lib/portal/i18n/special";
 import { SUPPORT_TONE, sanitizePagePath, sanitizeTechInfo, supportStatusLabel, ticketRef, validateSupport } from "@/lib/portal/support";
 import type { SfConnection } from "@/lib/portal/changeRequests";
-import { appVersion, createSupportTask, createSupportTicket, supportContact, supportEmail, supportTask } from "@/lib/portal/supportServer";
+import { appVersion, createSupportTicket, supportContact, supportEmail, supportMeldung } from "@/lib/portal/supportServer";
+import { resetMeldungTypCache } from "@/lib/portal/meldung";
 
 /**
  * Support & Feedback (handoff 4): Typ, optional Case, Betreff and Beschreibung required,
@@ -30,7 +31,7 @@ const SF: SfConnection = {
   query: async () => ({ records: [] }),
   sobject: (name) => ({
     create: async (record) => {
-      if (name !== "Task") throw new Error(`unexpected ${name}`);
+      if (name !== "Portal_Meldung__c") throw new Error(`unexpected ${name}`);
       taskCreates.push(record);
       const r = taskAnswer(record);
       if (r instanceof Error) throw r;
@@ -51,7 +52,7 @@ beforeEach(() => {
   mockMail.mockResolvedValue(undefined);
   taskCreates = [];
   taskAnswer = () => ({ id: TASK, success: true });
-  delete process.env.PORTAL_SUPPORT_TASK_OWNER_ID;
+  resetMeldungTypCache();
 });
 afterEach(() => {
   process.env = { ...ENV };
@@ -152,7 +153,7 @@ describe("contact and address", () => {
 });
 
 describe("createSupportTicket", () => {
-  it("stores the ticket, mails info@hypoteq.ch, opens a Task for Fisnik Salihu and audits (C)", async () => {
+  it("stores the ticket, mails info@hypoteq.ch, writes the Portal_Meldung__c for Fisnik's Task and audits (C)", async () => {
     const r = await createSupportTicket(USER, INPUT, CTX);
     expect(r).toEqual({ ok: true, ref: "T-3F9A1C" });
     expect(mockCreate).toHaveBeenCalledWith({
@@ -166,47 +167,47 @@ describe("createSupportTicket", () => {
     expect(mail.lines[0]).toBe("Daniel Meier (Meier Finanzberatung GmbH) hat eine Support-Meldung erfasst (T-3F9A1C).");
     expect(taskCreates).toEqual([
       {
-        Subject: "Portal-Support: Upload bricht ab",
-        Description: expect.stringContaining("PDF über 15 MB bricht bei 80 % ab."),
-        OwnerId: "005TG000004Ogi9YAC",
-        Status: "Open",
+        Typ__c: "Fehler",
+        Betreff__c: "Portal-Support: Upload bricht ab",
+        Beschreibung__c: expect.stringContaining("PDF über 15 MB bricht bei 80 % ab."),
+        Partner_Email__c: USER.email,
       },
     ]);
-    const description = String(taskCreates[0].Description);
+    const description = String(taskCreates[0].Beschreibung__c);
     expect(description).toContain("Partner: Daniel Meier (Meier Finanzberatung GmbH) · d.meier@meier-finanz.ch");
     expect(description).toContain("Typ: Fehler");
     expect(mockUpdate).toHaveBeenCalledWith({ where: { id: "3f9a1c2b-0000-4000-8000-000000000000" }, data: { sfId: TASK } });
     expect(mockAudit).toHaveBeenCalledWith(expect.objectContaining({ action: "support_ticket_created", target: "T-3F9A1C · Fehler" }));
   });
 
-  it("links one of the partner's Cases: Case-Nr in the subject and the mail, WhatId on the Task", async () => {
+  it("links one of the partner's Cases: Case-Nr in the subject and the mail, Case__c on the Meldung", async () => {
     await createSupportTicket(USER, { ...INPUT, caseId: CASE }, CTX);
     expect((mockCreate.mock.calls[0][0] as any).data.caseId).toBe(CASE);
     const mail = mockMail.mock.calls[0][0] as any;
     expect(mail.subject).toBe("Portal-Support · Fehler · Upload bricht ab · Case 00001350");
     expect(mail.lines).toContain("Case: 00001350 · Sarah & Marco Brunner");
-    expect(taskCreates[0].WhatId).toBe(CASE);
+    expect(taskCreates[0].Case__c).toBe(CASE);
   });
 
-  it("takes the Task owner from PORTAL_SUPPORT_TASK_OWNER_ID", () => {
-    process.env.PORTAL_SUPPORT_TASK_OWNER_ID = "005XXXXXXXXXXXXXXX";
-    const t = supportTask({ ref: "T-1", user: USER, input: { type: "frage", subject: "S", body: "B", caseId: null, sendTech: false, tech: null }, caseLine: null, tech: null });
-    expect(t.OwnerId).toBe("005XXXXXXXXXXXXXXX");
+  it("carries the type and the partner's Account; no owner (the Flow gives the Task to Fisnik)", () => {
+    const m = supportMeldung({ ref: "T-1", user: { ...USER, sfAccountId: "001PPPPPPPPPPPPPPP" }, input: { type: "wunsch", subject: "S", body: "B", caseId: null, sendTech: false, tech: null }, caseLine: null, tech: null });
+    expect(m).toMatchObject({ typ: "wunsch", betreff: "Portal-Support: S", partnerAccountId: "001PPPPPPPPPPPPPPP", caseId: null, technischeAngaben: null });
   });
 
-  it("puts the technical details into the Task when they were sent", async () => {
+  it("puts the technical details into Technische_Angaben__c when they were sent", async () => {
     await createSupportTicket(USER, { ...INPUT, sendTech: true, tech: { browser: "Mozilla/5.0", viewport: "390×844", page: "/portal/cases" } }, CTX);
-    expect(String(taskCreates[0].Description)).toContain("Technische Angaben:\nBrowser: Mozilla/5.0");
+    expect(String(taskCreates[0].Technische_Angaben__c)).toContain("Browser: Mozilla/5.0");
+    expect(String(taskCreates[0].Beschreibung__c)).not.toContain("Browser:");
   });
 
-  it("keeps the ticket and the mail when Salesforce refuses the Task (fail soft)", async () => {
+  it("keeps the ticket and the mail when Salesforce refuses the Meldung (fail soft)", async () => {
     jest.spyOn(console, "error").mockImplementation(() => {});
     taskAnswer = () => new Error("Salesforce down");
     const r = await createSupportTicket(USER, INPUT, CTX);
     expect(r.ok).toBe(true);
     expect(mockMail).toHaveBeenCalled();
     expect(mockUpdate).not.toHaveBeenCalled();
-    expect(taskCreates).toHaveLength(3);
+    expect(taskCreates).toHaveLength(1);
   });
 
   it("refuses a Case that is not the partner's", async () => {
@@ -228,7 +229,7 @@ describe("createSupportTicket", () => {
     expect(tech).toEqual({ browser: "Mozilla/5.0", viewport: "390×844", page: "/portal/cases/:id", appVersion: appVersion() });
   });
 
-  it("keeps the ticket and the Task when the mail fails", async () => {
+  it("keeps the ticket and the Meldung when the mail fails", async () => {
     mockMail.mockRejectedValue(new Error("Graph down"));
     const r = await createSupportTicket(USER, INPUT, CTX);
     expect(r.ok).toBe(true);
@@ -237,21 +238,3 @@ describe("createSupportTicket", () => {
   });
 });
 
-describe("createSupportTask", () => {
-  it("retries without Status «Open», then without the owner, when the org refuses them", async () => {
-    const seen: Record<string, unknown>[] = [];
-    const sf: SfConnection = {
-      query: async () => ({ records: [] }),
-      sobject: () => ({
-        create: async (record) => {
-          seen.push(record);
-          if ("Status" in record || "OwnerId" in record) throw Object.assign(new Error("bad value"), { errorCode: "INVALID_OR_NULL_FOR_RESTRICTED_PICKLIST" });
-          return { id: TASK, success: true };
-        },
-      }),
-    };
-    const r = await createSupportTask(sf, { Subject: "S", Description: "D", OwnerId: "005TG000004Ogi9YAC", Status: "Open", WhatId: CASE });
-    expect(r).toEqual({ id: TASK, error: null });
-    expect(seen.map((x) => Object.keys(x).sort().join(","))).toEqual(["Description,OwnerId,Status,Subject,WhatId", "Description,OwnerId,Subject,WhatId", "Description,Subject,WhatId"]);
-  });
-});

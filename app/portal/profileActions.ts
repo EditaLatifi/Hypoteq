@@ -10,8 +10,7 @@ import {
   buildChangeRequest,
   changeRequestLines,
   changeRequestNr,
-  changeTaskPayload,
-  createChangeTask,
+  changeMeldung,
   defaultConnection,
   loadPartnerData,
   mergePartnerData,
@@ -20,6 +19,7 @@ import { LINK_WINDOW_MINUTES, RESET_TTL_MINUTES } from "@/lib/portal/config";
 import { getDict } from "@/lib/portal/i18n/server";
 import { isImageKind, removeImage, setLogoOnLight } from "@/lib/portal/images";
 import { mailErrorText, sendResetMail, sendTeamMail } from "@/lib/portal/mail";
+import { createPortalMeldung } from "@/lib/portal/meldung";
 import { isSalesforceId } from "@/lib/portal/salesforce";
 import { requestIp, requestOrigin, requireUser } from "@/lib/portal/session";
 import { issueToken, tooManyLinks } from "@/lib/portal/tokens";
@@ -84,9 +84,10 @@ export async function setLogoOnLightAction(on: boolean): Promise<{ error?: strin
 // ---------------------------------------------------------------------------
 
 /**
- * Store the request, put a Task on the partner's Contact in Salesforce and tell the team.
- * The Task may fail (an org rule, Salesforce down): the request is kept anyway, without
- * sfTaskId, and the mail asks HYPOTEQ to record it by hand.
+ * Store the request, write a Portal_Meldung__c in Salesforce (HYPOTEQ's Flow makes the Task)
+ * and tell the team. The Meldung may fail (an org rule, Salesforce down): the request is kept
+ * anyway, without sfTaskId (it holds the Meldung's Id), and the mail asks HYPOTEQ to record it
+ * by hand.
  */
 export async function submitChangeRequestAction(_prev: FormState, fd: FormData): Promise<FormState> {
   const { t } = await getDict();
@@ -124,13 +125,14 @@ export async function submitChangeRequestAction(_prev: FormState, fd: FormData):
     adminUrl: `${origin}/portal/admin/aenderungen`,
   };
 
-  const task = await createChangeTask(defaultConnection(), changeTaskPayload({ ...ctx, contactId, accountId: user.sfAccountId }));
-  if (task.id) {
-    await prisma.portalChangeRequest.update({ where: { id: row.id }, data: { sfTaskId: task.id } }).catch((err) => {
-      console.error("[portal] could not store the Task id", err);
+  // A Portal_Meldung__c; HYPOTEQ's Flow makes the open Task for Fisnik (lib/portal/meldung.ts).
+  const meldung = await createPortalMeldung(defaultConnection(), changeMeldung({ ...ctx, contactId, accountId: user.sfAccountId }));
+  if (meldung.id) {
+    await prisma.portalChangeRequest.update({ where: { id: row.id }, data: { sfTaskId: meldung.id } }).catch((err) => {
+      console.error("[portal] could not store the Portal_Meldung id", err);
     });
   } else {
-    console.error("[portal] change request Task failed", nr, task.error);
+    console.error("[portal] change request Portal_Meldung failed", nr, meldung.error);
   }
 
   // No values in the audit log: an IBAN is not something to keep in a log.
@@ -141,9 +143,9 @@ export async function submitChangeRequestAction(_prev: FormState, fd: FormData):
       subject: `Partnerportal: Änderungsantrag ${nr} – ${CHANGE_FIELD_DE[request.field]} (${current.name || user.email})`,
       lines: [
         ...changeRequestLines(ctx),
-        task.id
-          ? `Salesforce-Task ${task.id} ist auf dem Kontakt ${contactId} angelegt.`
-          : `Der Salesforce-Task konnte nicht angelegt werden (${task.error || "unbekannter Fehler"}). Bitte manuell auf dem Kontakt ${contactId} erfassen.`,
+        meldung.id
+          ? `In Salesforce als Portal-Meldung ${meldung.id} erfasst (die Aufgabe legt der Flow an).`
+          : `Die Portal-Meldung konnte in Salesforce nicht angelegt werden (${meldung.error || "unbekannter Fehler"}). Bitte manuell als Aufgabe auf dem Kontakt ${contactId} erfassen.`,
       ],
       origin,
       link: ctx.adminUrl,

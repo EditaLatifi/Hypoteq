@@ -5,8 +5,8 @@ import { describe, it, expect, jest } from "@jest/globals";
  *
  * Salesforce stays the master of the partner's data. What is asserted here is the part
  * HYPOTEQ relies on: the request is validated on the server against the value Salesforce
- * holds, the Task lands on the partner's Contact with the agreed subject and everything
- * needed to act on it, and a Task Salesforce refuses never loses the request.
+ * holds, the Portal_Meldung__c (HYPOTEQ's Flow makes the Task) carries the agreed subject and
+ * everything needed to act on it, and a Meldung Salesforce refuses never loses the request.
  */
 
 // The real connection would log in to the production org: never loaded here.
@@ -19,9 +19,8 @@ import {
   addBusinessDays,
   buildChangeRequest,
   changeRequestLines,
+  changeMeldung,
   changeRequestNr,
-  changeTaskPayload,
-  createChangeTask,
   formatIban,
   ibanFields,
   isValidIban,
@@ -34,6 +33,7 @@ import {
   type PartnerData,
   type SfConnection,
 } from "@/lib/portal/changeRequests";
+import { createPortalMeldung, meldungRecord, resetMeldungTypCache } from "@/lib/portal/meldung";
 
 const CONTACT = "003AB00000abcdEFGH";
 const ACCOUNT = "001AB00000abcdEFGH";
@@ -221,7 +221,7 @@ describe("IBAN", () => {
   });
 });
 
-describe("the Salesforce Task", () => {
+describe("the Portal_Meldung__c", () => {
   const ctx = {
     nr: changeRequestNr("3f9c2a10-0000-4000-8000-000000000000"),
     request: { field: "address" as const, oldValue: "Technikumstrasse 12, 8400 Winterthur", newValue: "Bahnhofstrasse 1, 8001 Zürich", note: "Umzug per 1. November" },
@@ -233,24 +233,22 @@ describe("the Salesforce Task", () => {
     expect(ctx.nr).toBe("AA-3F9C2A");
   });
 
-  it("sits on the partner's Contact and Account, with the agreed subject, the values and the note", () => {
-    const payload = changeTaskPayload({ ...ctx, contactId: CONTACT, accountId: ACCOUNT, now: new Date("2026-10-15T10:00:00+02:00") });
-    expect(payload.WhoId).toBe(CONTACT);
-    expect(payload.WhatId).toBe(ACCOUNT);
-    expect(payload.Subject).toBe("Änderungsantrag Partnerportal: Adresse");
-    const d = String(payload.Description);
+  it("is an Änderungsantrag with the agreed subject, old and new value, the note and the partner's Contact", () => {
+    const m = changeMeldung({ ...ctx, contactId: CONTACT, accountId: ACCOUNT });
+    expect(m).toMatchObject({ typ: "aenderungsantrag", partnerEmail: "d.meier@meier-finanz.ch", partnerAccountId: ACCOUNT });
+    expect(m.betreff).toBe("Änderungsantrag Partnerportal: Adresse");
+    const d = m.beschreibung;
     expect(d).toContain("AA-3F9C2A");
     expect(d).toContain("Daniel Meier (Meier Finanzberatung GmbH) · d.meier@meier-finanz.ch");
     expect(d).toContain("Aktueller Wert: Technikumstrasse 12, 8400 Winterthur");
     expect(d).toContain("Neuer Wert: Bahnhofstrasse 1, 8001 Zürich");
     expect(d).toContain("Bemerkung: Umzug per 1. November");
     expect(d).toContain(ctx.adminUrl);
-    // Thursday 15.10. + 2 working days = Monday 19.10.
-    expect(payload.ActivityDate).toBe("2026-10-19");
+    expect(d).toContain(`Salesforce-Kontakt: ${CONTACT}`);
   });
 
   it("leaves out an Account that is not a Salesforce id", () => {
-    expect(changeTaskPayload({ ...ctx, contactId: CONTACT, accountId: null })).not.toHaveProperty("WhatId");
+    expect(meldungRecord(changeMeldung({ ...ctx, contactId: CONTACT, accountId: null }), "Änderungsantrag")).not.toHaveProperty("Partner_Account__c");
   });
 
   it("warns that a new e-mail address does not move the login", () => {
@@ -259,31 +257,35 @@ describe("the Salesforce Task", () => {
     expect(lines).toContain("Bemerkung: –");
   });
 
-  it("returns the id of the created Task", async () => {
+  it("returns the id of the created Portal_Meldung__c", async () => {
+    resetMeldungTypCache();
     const { sf, created } = fakeSf();
-    const payload = changeTaskPayload({ ...ctx, contactId: CONTACT, accountId: ACCOUNT });
-    expect(await createChangeTask(sf, payload)).toEqual({ id: "00TAB00000task0001", error: null });
-    expect(created).toEqual([{ name: "Task", rec: payload }]);
+    expect(await createPortalMeldung(sf, changeMeldung({ ...ctx, contactId: CONTACT, accountId: ACCOUNT }))).toEqual({ id: "00TAB00000task0001", error: null });
+    expect(created).toHaveLength(1);
+    expect(created[0].name).toBe("Portal_Meldung__c");
+    expect(created[0].rec).toMatchObject({ Typ__c: "Änderungsantrag", Betreff__c: "Änderungsantrag Partnerportal: Adresse", Partner_Email__c: "d.meier@meier-finanz.ch", Partner_Account__c: ACCOUNT });
   });
 
-  it("retries with only the Contact, subject and description when the full Task is refused", async () => {
+  it("retries without the partner's Account when Salesforce refuses it", async () => {
+    resetMeldungTypCache();
     const { sf, created } = fakeSf({
       create: (rec) => {
-        if (rec.WhatId) throw Object.assign(new Error("FIELD_INTEGRITY_EXCEPTION: Related To ID"), { errorCode: "FIELD_INTEGRITY_EXCEPTION" });
+        if (rec.Partner_Account__c) throw Object.assign(new Error("FIELD_FILTER_VALIDATION_EXCEPTION"), { errorCode: "FIELD_FILTER_VALIDATION_EXCEPTION" });
         return { id: "00TAB00000task0002", success: true };
       },
     });
     const warn = jest.spyOn(console, "warn").mockImplementation(() => {});
-    const res = await createChangeTask(sf, changeTaskPayload({ ...ctx, contactId: CONTACT, accountId: ACCOUNT }));
+    const res = await createPortalMeldung(sf, changeMeldung({ ...ctx, contactId: CONTACT, accountId: ACCOUNT }));
     warn.mockRestore();
     expect(res).toEqual({ id: "00TAB00000task0002", error: null });
-    expect(Object.keys(created[1].rec).sort()).toEqual(["Description", "Subject", "WhoId"]);
+    expect(created[1].rec).not.toHaveProperty("Partner_Account__c");
   });
 
-  it("never throws when Salesforce refuses the Task: the request survives without a Task id", async () => {
+  it("never throws when Salesforce refuses the Meldung: the request survives without an id", async () => {
+    resetMeldungTypCache();
     const { sf } = fakeSf({ create: () => ({ success: false, errors: [{ message: "Kein Zugriff" }] }) });
     const warn = jest.spyOn(console, "warn").mockImplementation(() => {});
-    const res = await createChangeTask(sf, changeTaskPayload({ ...ctx, contactId: CONTACT, accountId: ACCOUNT }));
+    const res = await createPortalMeldung(sf, changeMeldung({ ...ctx, contactId: CONTACT, accountId: ACCOUNT }));
     warn.mockRestore();
     expect(res).toEqual({ id: null, error: "Kein Zugriff" });
   });

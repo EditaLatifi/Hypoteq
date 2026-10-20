@@ -1,5 +1,6 @@
 import { conn, login, withSessionRetry } from "@/components/salesforceApi";
 import { isPlausibleEmail } from "@/lib/portal/config";
+import type { MeldungInput } from "@/lib/portal/meldung";
 import { isSalesforceId } from "@/lib/portal/salesforce";
 import type { Tone } from "@/lib/portal/status";
 
@@ -155,7 +156,7 @@ export function mergePartnerData(
 /** The bit of a jsforce connection this module needs. */
 export type SfConnection = {
   query(soql: string): Promise<{ records?: any[] }>;
-  sobject(name: string): { create(record: Record<string, unknown>): Promise<any> };
+  sobject(name: string): { create(record: Record<string, unknown>): Promise<any>; describe?(): Promise<any> };
 };
 
 /** The site's Salesforce connection: logged in on first use, once more if the session died. */
@@ -168,6 +169,7 @@ export function defaultConnection(): SfConnection {
     query: (soql) => run(async () => (await conn.query(soql)) as any, "portal profile query"),
     sobject: (name) => ({
       create: (record) => run(async () => await (conn.sobject(name) as any).create(record), `portal ${name} create`),
+      describe: () => run(async () => await (conn.sobject(name) as any).describe(), `portal ${name} describe`),
     }),
   };
 }
@@ -300,7 +302,7 @@ export function buildChangeRequest(
 }
 
 // ---------------------------------------------------------------------------
-// The Salesforce Task
+// The Portal_Meldung__c (HYPOTEQ's Flow makes the Task)
 // ---------------------------------------------------------------------------
 
 /** Calendar date in Zurich, as Salesforce date fields want it (YYYY-MM-DD). */
@@ -346,45 +348,17 @@ export function changeRequestLines(c: ChangeRequestContext): string[] {
   ];
 }
 
-/** The Task on the partner's Contact, due in 2 working days (internal only: the dialog promises no time, B20). */
-export function changeTaskPayload(
-  c: ChangeRequestContext & { contactId: string; accountId: string | null; now?: Date }
-): Record<string, unknown> {
-  return {
-    WhoId: c.contactId,
-    ...(isSalesforceId(c.accountId) ? { WhatId: c.accountId } : {}),
-    Subject: `Änderungsantrag Partnerportal: ${CHANGE_FIELD_DE[c.request.field]}`.slice(0, 255),
-    Description: changeRequestLines(c).join("\n").slice(0, 32000),
-    ActivityDate: zurichDate(addBusinessDays(c.now ?? new Date(), 2)),
-  };
-}
-
-function errorText(err: any): string {
-  if (Array.isArray(err?.errors) && err.errors.length) return err.errors.map((e: any) => e?.message || String(e)).join("; ");
-  return err?.data?.message || err?.message || String(err);
-}
-
 /**
- * Create the Task. Never throws: the request is already stored and the team mail goes out
- * either way; without a Task id the mail asks HYPOTEQ to record it by hand. When the full
- * Task is refused (a WhatId this Contact cannot carry, a validation rule on the due date)
- * it is tried once more with only the Contact, subject and description.
+ * The Portal_Meldung__c of type Änderungsantrag (HYPOTEQ 20.10.2026; lib/portal/meldung.ts):
+ * HYPOTEQ's Flow turns it into an open Task for Fisnik. The description carries the old and the
+ * new value and the partner's Contact, which a Meldung has no field for.
  */
-export async function createChangeTask(sf: SfConnection, payload: Record<string, unknown>): Promise<{ id: string | null; error: string | null }> {
-  const attempt = async (record: Record<string, unknown>): Promise<string> => {
-    const res = await sf.sobject("Task").create(record);
-    const r = Array.isArray(res) ? res[0] : res;
-    if (!r?.id || r?.success === false) throw r;
-    return String(r.id);
+export function changeMeldung(c: ChangeRequestContext & { contactId: string; accountId: string | null }): MeldungInput {
+  return {
+    typ: "aenderungsantrag",
+    betreff: `Änderungsantrag Partnerportal: ${CHANGE_FIELD_DE[c.request.field]}`,
+    beschreibung: [...changeRequestLines(c), `Salesforce-Kontakt: ${c.contactId}`].join("\n"),
+    partnerEmail: c.partner.email,
+    partnerAccountId: c.accountId,
   };
-  try {
-    return { id: await attempt(payload), error: null };
-  } catch (first) {
-    console.warn("[portal] change request Task refused, retrying with the minimum", errorText(first));
-    try {
-      return { id: await attempt({ WhoId: payload.WhoId, Subject: payload.Subject, Description: payload.Description }), error: null };
-    } catch (second) {
-      return { id: null, error: errorText(second) };
-    }
-  }
 }
