@@ -16,3 +16,63 @@
 .hqv3 .v3-nachreich-submit {
   justify-content: flex-end;
 }
+
+/* HYPOTEQ frame (Brand.tsx): the funnel's dark bar with the logo, the mail's contact line.
+   Not scoped to .hqv3: the page's loading and invalid states use it as well. The bar lines up
+   with the centred column (.v3-content, 840px, inside .v3-main's padding). */
+.hq-nr-bar {
+  max-width: calc(840px + 104px);
+  margin: 0 auto;
+  padding: 0 52px;
+  box-sizing: border-box;
+}
+.hq-nr-head {
+  background: #132219;
+}
+.hq-nr-head .hq-nr-bar {
+  display: flex;
+  align-items: center;
+  height: 68px;
+}
+.hq-nr-logo {
+  height: 26px;
+  width: auto;
+  display: block;
+}
+.hq-nr-foot {
+  border-top: 2px solid #caf476;
+  color: rgba(19, 34, 25, 0.7);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.hq-nr-foot .hq-nr-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+  padding-top: 18px;
+  padding-bottom: 24px;
+}
+.hq-nr-foot span {
+  color: #132219;
+  font-weight: 600;
+}
+.hq-nr-foot a {
+  color: inherit;
+  text-decoration: none;
+}
+.hq-nr-foot a:hover,
+.hq-nr-foot a:focus-visible {
+  color: #132219;
+  text-decoration: underline;
+}
+@media (max-width: 899px) {
+  .hq-nr-bar {
+    padding: 0 18px;
+  }
+  .hq-nr-head .hq-nr-bar {
+    height: 56px;
+  }
+  .hq-nr-logo {
+    height: 22px;
+  }
+}

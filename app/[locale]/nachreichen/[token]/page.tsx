@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useTranslation } from "@/hooks/useTranslation";
 import NachreichV3 from "@/components/funnel-v3/nachreich/NachreichV3";
+import { NachreichFooter, NachreichHeader } from "@/components/funnel-v3/nachreich/Brand";
 import type { NachreichV3View } from "@/lib/funnel-v3/nachreichView";
 
 /**
@@ -175,8 +176,12 @@ export default function NachreichenPage({
   };
 
   const Shell = ({ children }: { children: React.ReactNode }) => (
-    <div className="w-full min-h-screen flex justify-center px-4 py-12 md:py-20 font-sfpro">
-      <div className="w-full max-w-[760px]">{children}</div>
+    <div className="w-full min-h-screen flex flex-col font-sfpro">
+      <NachreichHeader />
+      <div className="flex-1 flex justify-center px-4 py-12 md:py-20">
+        <div className="w-full max-w-[760px]">{children}</div>
+      </div>
+      <NachreichFooter />
     </div>
   );
 

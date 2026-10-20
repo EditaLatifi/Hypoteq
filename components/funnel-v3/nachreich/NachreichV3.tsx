@@ -36,6 +36,7 @@ import type { NachreichV3View, RemainingRequirement } from "@/lib/funnel-v3/nach
 import { v3DocType } from "@/components/documentIntelligence/v3/catalogue";
 import { isSignatureRequirement } from "@/lib/funnel-v3/requirements";
 import NachreichSignature from "./NachreichSignature";
+import { NachreichFooter, NachreichHeader } from "./Brand";
 import DropZone, { type DropZoneHandle } from "../documents/DropZone";
 import RequirementRow from "../documents/RequirementRow";
 import ExtraFiles from "../documents/ExtraFiles";
@@ -171,9 +172,11 @@ export default function NachreichV3({ token, view, copy }: { token: string; view
   const shell = (children: React.ReactNode) => (
     <div className="hqv3 v3-nachreich" data-hq-theme="light">
       <div className="v3-col">
+        <NachreichHeader />
         <div className="v3-main">
           <div className="v3-content">{children}</div>
         </div>
+        <NachreichFooter />
       </div>
     </div>
   );
