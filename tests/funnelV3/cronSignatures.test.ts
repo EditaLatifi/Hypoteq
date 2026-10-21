@@ -18,6 +18,7 @@ jest.mock("@/lib/prisma", () => ({
   },
 }));
 jest.mock("@/lib/portal/notifications", () => ({ syncNotifications: async () => 0 }));
+jest.mock("@/lib/portal/changeDecisions", () => ({ syncOpenChangeDecisions: async () => 0 }));
 jest.mock("@/lib/portal/i18n/dict", () => ({ isLocale: () => true }));
 jest.mock("@/lib/portal/salesforce", () => ({ listPartnerCases: async () => [] }));
 jest.mock("@/lib/portal/scope", () => ({ scopeOfPartner: () => ({}) }));
@@ -36,7 +37,7 @@ beforeEach(() => {
 describe("/api/portal/cron", () => {
   it("runs the partner sync and the signature reminders", async () => {
     const res = await call();
-    expect(await res.json()).toEqual({ partners: 0, notifications: 0, failures: 0, signatures: { checked: 3, sent: 1 } });
+    expect(await res.json()).toEqual({ partners: 0, notifications: 0, failures: 0, signatures: { checked: 3, sent: 1 }, changeDecisions: 0 });
     expect(mockReminders).toHaveBeenCalledTimes(1);
   });
 

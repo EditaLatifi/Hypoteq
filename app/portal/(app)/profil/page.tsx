@@ -4,10 +4,11 @@ import ProfileAvatar from "@/components/portal/profile/ProfileAvatar";
 import SecurityCard from "@/components/portal/profile/SecurityCard";
 import { Badge, Card, Eyebrow, formatDate, formatDateTime, initials } from "@/components/portal/ui";
 import { prisma } from "@/lib/prisma";
+import { syncChangeDecisions } from "@/lib/portal/changeDecisions";
 import { CHANGE_STATUS_TONE, changeRequestNr, isChangeStatus, loadPartnerData, mergePartnerData, type PartnerData } from "@/lib/portal/changeRequests";
 import { getDict } from "@/lib/portal/i18n/server";
 import { imageMeta, sessionAccountFor } from "@/lib/portal/images";
-import { requireUser } from "@/lib/portal/session";
+import { requestOrigin, requireUser } from "@/lib/portal/session";
 
 /**
  * Profil (handoff 4): photo, partner data from Salesforce with change requests, the
@@ -59,6 +60,9 @@ export default async function ProfilePage() {
         return [];
       })
     : [];
+  // HYPOTEQ's decision and its reason from Salesforce (Portal_Meldung__c); a new decision is
+  // taken over here and mailed once (lib/portal/changeDecisions.ts).
+  const decisions = await syncChangeDecisions(requests, { origin: requestOrigin() });
 
   const isAdmin = person.role === "admin";
   const access = person.activatedAt ? t.profile.activeSince(formatDate(person.activatedAt)) : viewing && !viewed ? "–" : t.profile.active;
@@ -119,6 +123,11 @@ export default async function ProfilePage() {
                       <span className="break-words text-[15px] font-medium">
                         {tx.change.fields[r.field] || r.field}: {r.newValue}
                       </span>
+                      {decisions.get(r.id)?.reason ? (
+                        <span className="whitespace-pre-wrap break-words text-[14px] text-white/70">
+                          {tx.change.reason}: {decisions.get(r.id)!.reason}
+                        </span>
+                      ) : null}
                     </div>
                     <Badge tone={isChangeStatus(r.status) ? CHANGE_STATUS_TONE[r.status] : "neutral"}>{tx.change.status[r.status] || r.status}</Badge>
                   </div>

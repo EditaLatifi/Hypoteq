@@ -507,7 +507,7 @@ const de = {
     // M14: a change request decided in /portal/admin/aenderungen.
     changeSubject: (nr: string, approved: boolean) => `Ihr Änderungsantrag ${nr}: ${approved ? "übernommen" : "nicht übernommen"}`,
     changeText: (feld: string, approved: boolean) =>
-      `Ihr Änderungsantrag zu «${feld}» wurde ${approved ? "übernommen. Die Angabe ist ab sofort aktualisiert." : "nicht übernommen. Den Grund finden Sie im Portal unter Änderungsanträge."} Danke für die Meldung.`,
+      `Ihr Änderungsantrag zu «${feld}» wurde ${approved ? "übernommen. Die Angabe ist ab sofort aktualisiert." : "nicht übernommen. Die Details zum Entscheid finden Sie im Portal."} Danke für die Meldung.`,
     changeCta: "Profil öffnen",
   },
   special: special.de, support: support.de,
@@ -980,7 +980,7 @@ const en: Dict = {
     notifFoot: "You are receiving this e-mail because you are registered as a sales partner with HYPOTEQ.",
     changeSubject: (nr, approved) => `Your change request ${nr}: ${approved ? "approved" : "declined"}`,
     changeText: (feld, approved) =>
-      `your change request for "${feld}" has been ${approved ? "approved. The information is updated as of now." : "declined. You find the reason in the portal under change requests."} Thank you for the notice.`,
+      `your change request for "${feld}" has been ${approved ? "approved. The information is updated as of now." : "declined. You find the details of the decision in the portal."} Thank you for the notice.`,
     changeCta: "Open profile",
   },
   special: special.en, support: support.en,
@@ -1451,7 +1451,7 @@ const fr: Dict = {
     notifFoot: "Vous recevez cet e-mail parce que vous êtes enregistré comme partenaire de distribution chez HYPOTEQ.",
     changeSubject: (nr, approved) => `Votre demande de modification ${nr} : ${approved ? "acceptée" : "refusée"}`,
     changeText: (feld, approved) =>
-      `votre demande de modification concernant « ${feld} » a été ${approved ? "acceptée. L'information est mise à jour dès maintenant." : "refusée. Vous trouvez le motif dans le portail, sous Demandes de modification."} Merci pour votre signalement.`,
+      `votre demande de modification concernant « ${feld} » a été ${approved ? "acceptée. L'information est mise à jour dès maintenant." : "refusée. Vous trouvez les détails de la décision dans le portail."} Merci pour votre signalement.`,
     changeCta: "Ouvrir le profil",
   },
   special: special.fr, support: support.fr,
@@ -1922,7 +1922,7 @@ const it: Dict = {
     notifFoot: "Riceve questa e-mail perché è registrato/a come partner di distribuzione presso HYPOTEQ.",
     changeSubject: (nr, approved) => `La Sua richiesta di modifica ${nr}: ${approved ? "accettata" : "rifiutata"}`,
     changeText: (feld, approved) =>
-      `la Sua richiesta di modifica per «${feld}» è stata ${approved ? "accettata. Il dato è aggiornato da subito." : "rifiutata. Trova la motivazione nel portale, sotto Richieste di modifica."} Grazie per la segnalazione.`,
+      `la Sua richiesta di modifica per «${feld}» è stata ${approved ? "accettata. Il dato è aggiornato da subito." : "rifiutata. Trova i dettagli della decisione nel portale."} Grazie per la segnalazione.`,
     changeCta: "Apri profilo",
   },
   special: special.it, support: support.it,

@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { Badge, Card, Eyebrow, PageHeader, btn, formatDate, formatDateTime } from "@/components/portal/ui";
 import { prisma } from "@/lib/prisma";
+import { syncChangeDecisions } from "@/lib/portal/changeDecisions";
 import { CHANGE_STATUSES, CHANGE_STATUS_TONE, changeRequestNr, isChangeStatus } from "@/lib/portal/changeRequests";
 import { getDict } from "@/lib/portal/i18n/server";
-import { requireAdmin } from "@/lib/portal/session";
+import { requestOrigin, requireAdmin } from "@/lib/portal/session";
 import { setChangeRequestStatusAction } from "./actions";
 
 const selectClass =
@@ -20,6 +21,8 @@ export default async function AdminChangeRequestsPage({ searchParams }: { search
   const all = searchParams.filter === "all";
 
   const requests = await prisma.portalChangeRequest.findMany({ where: all ? undefined : { status: "in_pruefung" }, orderBy: { createdAt: "desc" }, take: 300 });
+  // Decisions made in Salesforce are taken over (and mailed) before the list is shown.
+  const decisions = await syncChangeDecisions(requests, { origin: requestOrigin() });
   const userIds = Array.from(new Set(requests.map((r) => r.userId)));
   const users = new Map(
     (await prisma.portalUser.findMany({ where: { id: { in: userIds } }, select: { id: true, name: true, email: true, company: true } })).map((u) => [u.id, u])
@@ -78,6 +81,12 @@ export default async function AdminChangeRequestsPage({ searchParams }: { search
                   <>
                     <span className="text-white/70">{tx.admin.note}</span>
                     <span className="whitespace-pre-wrap break-words">{r.note}</span>
+                  </>
+                ) : null}
+                {decisions.get(r.id)?.reason ? (
+                  <>
+                    <span className="text-white/70">{tx.change.reason}</span>
+                    <span className="whitespace-pre-wrap break-words">{decisions.get(r.id)!.reason}</span>
                   </>
                 ) : null}
               </div>

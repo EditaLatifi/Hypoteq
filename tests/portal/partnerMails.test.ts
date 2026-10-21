@@ -211,7 +211,7 @@ describe("M14 change request decided", () => {
     const msg = sent();
     expect(msg.subject).toBe("Ihr Änderungsantrag AA-D6D33B: nicht übernommen");
     expect(plain(msg.body.content)).toContain(
-      "Ihr Änderungsantrag zu «Bankverbindung (IBAN)» wurde nicht übernommen. Den Grund finden Sie im Portal unter Änderungsanträge. Danke für die Meldung."
+      "Ihr Änderungsantrag zu «Bankverbindung (IBAN)» wurde nicht übernommen. Die Details zum Entscheid finden Sie im Portal. Danke für die Meldung."
     );
   });
 
@@ -228,7 +228,7 @@ describe("M14 change request decided", () => {
     msg = sent();
     expect(msg.subject).toBe("Votre demande de modification AA-D6D33B : refusée");
     expect(plain(msg.body.content)).toContain(
-      "votre demande de modification concernant « Téléphone » a été refusée. Vous trouvez le motif dans le portail, sous Demandes de modification. Merci pour votre signalement."
+      "votre demande de modification concernant « Téléphone » a été refusée. Vous trouvez les détails de la décision dans le portail. Merci pour votre signalement."
     );
   });
 

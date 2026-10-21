@@ -68,6 +68,8 @@ const de = {
     } as Record<string, string>,
     listTitle: "Änderungsanträge",
     status: { in_pruefung: "In Prüfung", uebernommen: "Übernommen", abgelehnt: "Abgelehnt" } as Record<string, string>,
+    /** Entscheid_Begruendung__c of the request's Portal_Meldung__c (HYPOTEQ 21.10.2026). */
+    reason: "Begründung",
     sent: (nr: string) => `Antrag ${nr} gesendet. Den Stand sehen Sie unter «Änderungsanträge».`,
     err: {
       field: "Bitte wählen Sie, was geändert werden soll.",
@@ -86,7 +88,7 @@ const de = {
   },
   admin: {
     title: "Änderungsanträge",
-    sub: "Anträge der Partner auf Änderung ihrer Salesforce-Daten. Übernehmen Sie eine Änderung in Salesforce und setzen Sie danach den Status – der Partner sieht ihn im Profil.",
+    sub: "Anträge der Partner auf Änderung ihrer Salesforce-Daten. Entschieden wird in Salesforce an der Portal-Meldung (Entscheid und Begründung): das Portal übernimmt den Entscheid, zeigt ihn dem Partner im Profil und informiert ihn per Mail. Ohne Salesforce lässt sich der Status hier setzen.",
     filterOpen: "Offen",
     filterAll: "Alle",
     none: "Keine Anträge in dieser Ansicht.",
@@ -167,6 +169,7 @@ const en: ProfileExtra = {
     },
     listTitle: "Change requests",
     status: { in_pruefung: "Under review", uebernommen: "Applied", abgelehnt: "Declined" },
+    reason: "Reason",
     sent: (nr) => `Request ${nr} sent. You can follow it under «Change requests».`,
     err: {
       field: "Please choose what should be changed.",
@@ -185,7 +188,7 @@ const en: ProfileExtra = {
   },
   admin: {
     title: "Change requests",
-    sub: "Partners' requests to change their Salesforce data. Apply a change in Salesforce, then set the status – the partner sees it in their profile.",
+    sub: "Partners' requests to change their Salesforce data. The decision is made in Salesforce on the portal message (decision and reason): the portal takes it over, shows it in the partner's profile and e-mails them. Without Salesforce, set the status here.",
     filterOpen: "Open",
     filterAll: "All",
     none: "No requests in this view.",
@@ -264,6 +267,7 @@ const fr: ProfileExtra = {
     },
     listTitle: "Demandes de modification",
     status: { in_pruefung: "En vérification", uebernommen: "Appliquée", abgelehnt: "Refusée" },
+    reason: "Motif",
     sent: (nr) => `Demande ${nr} envoyée. Vous en suivez l'état sous «Demandes de modification».`,
     err: {
       field: "Veuillez choisir ce qu'il faut modifier.",
@@ -282,7 +286,7 @@ const fr: ProfileExtra = {
   },
   admin: {
     title: "Demandes de modification",
-    sub: "Demandes des partenaires de modifier leurs données Salesforce. Appliquez une modification dans Salesforce, puis fixez le statut – le partenaire le voit dans son profil.",
+    sub: "Demandes des partenaires de modifier leurs données Salesforce. La décision se prend dans Salesforce sur le message du portail (décision et motif) : le portail la reprend, l'affiche dans le profil du partenaire et l'en informe par e-mail. Sans Salesforce, fixez le statut ici.",
     filterOpen: "Ouvertes",
     filterAll: "Toutes",
     none: "Aucune demande dans cette vue.",
@@ -361,6 +365,7 @@ const it: ProfileExtra = {
     },
     listTitle: "Richieste di modifica",
     status: { in_pruefung: "In verifica", uebernommen: "Applicata", abgelehnt: "Respinta" },
+    reason: "Motivazione",
     sent: (nr) => `Richiesta ${nr} inviata. Lo stato è visibile sotto «Richieste di modifica».`,
     err: {
       field: "Scelga che cosa va modificato.",
@@ -379,7 +384,7 @@ const it: ProfileExtra = {
   },
   admin: {
     title: "Richieste di modifica",
-    sub: "Richieste dei partner di modificare i loro dati Salesforce. Applichi una modifica in Salesforce e imposti poi lo stato – il partner lo vede nel suo profilo.",
+    sub: "Richieste dei partner di modificare i loro dati Salesforce. La decisione si prende in Salesforce sul messaggio del portale (decisione e motivazione): il portale la riprende, la mostra nel profilo del partner e lo informa via e-mail. Senza Salesforce, imposti lo stato qui.",
     filterOpen: "Aperte",
     filterAll: "Tutte",
     none: "Nessuna richiesta in questa vista.",

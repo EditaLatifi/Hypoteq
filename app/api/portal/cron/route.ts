@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { syncOpenChangeDecisions } from "@/lib/portal/changeDecisions";
 import { syncNotifications } from "@/lib/portal/notifications";
 import { isLocale } from "@/lib/portal/i18n/dict";
 import { backgroundOrigin } from "@/lib/portal/origin";
@@ -32,12 +33,20 @@ export async function GET(req: Request) {
 
   let portal: { partners: number; notifications: number; failures: number };
   let signatures: { checked: number; sent: number } = { checked: 0, sent: 0 };
+  let changeDecisions = 0;
   try {
     portal = await syncPartners(origin);
   } finally {
     signatures = await sendSignatureReminders();
+    // Change requests HYPOTEQ decided in Salesforce: taken over and mailed (M14) even when the
+    // partner does not open the profile (lib/portal/changeDecisions.ts).
+    try {
+      changeDecisions = await syncOpenChangeDecisions(origin);
+    } catch (err: any) {
+      console.error("[portal] cron: change request decisions failed", err?.message || err);
+    }
   }
-  return NextResponse.json({ ...portal, signatures });
+  return NextResponse.json({ ...portal, signatures, changeDecisions });
 }
 
 async function syncPartners(origin: string) {
