@@ -140,7 +140,7 @@ const FIELD_HINTS: Record<string, string> = {
   "Ausstellungsdatum": "issue date of the extract, DD.MM.YYYY",
   "Grundpfandrechte": "registered mortgage notes (Schuldbriefe) with amount and creditor",
   "Unterschrift": "«vorhanden» when every person filled in on the form has signed by hand (with two persons: both signature lines), «fehlt» when the form is unsigned or a signature of a filled-in person is missing",
-  "Vollmachtgeber": "all persons granting the authorisation as printed or handwritten, both columns, separated by «;» — with the company when one is named on the form (e.g. «Muster AG; Hans Muster»)",
+  "Vollmachtgeber": "all persons granting the authorisation as printed or handwritten, both columns («Kreditnehmer/in 1 / 2», «Emprunteur/-euse», «Mutuatario/a», «Borrower» on the current form; «Vollmachtgeber» on older ones), separated by «;» — with the company when one is named on the form (e.g. «Muster AG; Hans Muster»)",
   "Begünstigte Bank": "bank the policy is pledged or assigned to, if any",
   "ZEK-relevant": "«ja» when the contract is a consumer credit reported to the ZEK",
   // Handelsregister
@@ -274,13 +274,20 @@ const REQ_INPUT: Record<string, ReqTypeInput> = {
 
   // ---- Zur Person --------------------------------------------------------------------
   vollmacht: {
-    aliases: a(["Auskunftsermächtigung", "Vollmacht HYPOTEQ", "Einwilligung Bonitätsprüfung"], ["Autorisation de renseignements", "Procuration HYPOTEQ"], ["Autorizzazione a fornire informazioni", "Procura HYPOTEQ"], ["Authorisation to obtain information", "HYPOTEQ power of attorney"]),
+    aliases: a(
+      ["Auskunftsermächtigung", "Einwilligung Verarbeitung persönlicher Daten", "Vollmacht HYPOTEQ", "Einwilligung Bonitätsprüfung"],
+      ["Autorisation de renseignement", "Consentement au traitement des données personnelles", "Autorisation de renseignements", "Procuration HYPOTEQ"],
+      ["Autorizzazione all'ottenimento di informazioni", "Consenso al trattamento dei dati personali", "Autorizzazione a fornire informazioni", "Procura HYPOTEQ"],
+      ["Authorization to Obtain Information", "Consent to the Processing of Personal Data", "Authorisation to obtain information", "HYPOTEQ power of attorney"]
+    ),
     // Handover 6: right form, signature present, name of the borrower — the funnel checks the
     // last two from «Unterschrift» and «Vollmachtgeber» (signature.ts).
-    // The form (public/documents, four languages): two columns Vorname / Name / Adresse /
-    // PLZ-Ort / E-Mail, a small line with Anfrage-Nr., Objekt, Zweck (DECISIONS V32), and on
-    // page 2 «Datum / Ort» with two signature lines.
-    describe: "HYPOTEQ's form «Auskunftsermächtigung / Einwilligung Verarbeitung persönlicher Daten» (also «Information authorization», «Autorisation d'accès», «Autorizzazione/consenso») authorising HYPOTEQ to obtain information about the applicant: two columns of personal data (first name, name, address, postcode/place, e-mail), page 2 with «Datum / Ort» and two signature lines; filled in and (ideally) signed by hand — also as a photo or scan. An unsigned blank form is still this type.",
+    // The form (public/documents, four languages, HYPOTEQ's templates of 21.10.2026): two columns
+    // Kreditnehmer/in 1 / 2 with Vorname / Name / Geburtsdatum / Adresse / PLZ-Ort / E-Mail,
+    // Objekt and Zweck below, a small line with the Anfrage-Nr. under the title (DECISIONS V32,
+    // V81), and on page 2 «Datum / Ort» with two signature lines. Older signed forms (columns
+    // without Geburtsdatum, other titles) still count.
+    describe: "HYPOTEQ's form «Auskunftsermächtigung / Einwilligung Verarbeitung persönlicher Daten» (FR «Autorisation de renseignement / Consentement au traitement des données personnelles», IT «Autorizzazione all'ottenimento di informazioni / Consenso al trattamento dei dati personali», EN «Authorization to Obtain Information / Consent to the Processing of Personal Data»; older versions «Autorisation de renseignements», «Procura per informazioni», «Authorisation for information») authorising HYPOTEQ to obtain information about the applicant: dark header with the HYPOTEQ logo, two columns «Kreditnehmer/in 1 / 2» (Borrower, Emprunteur/-euse, Mutuatario/a) with first name, name, date of birth, address, postcode/place, e-mail, then object address and purpose; page 2 with «Datum / Ort» and two signature lines; filled in and (ideally) signed by hand — also as a photo or scan. An unsigned blank form is still this type.",
     naming: { person: true, date: "date" },
   },
   id: {

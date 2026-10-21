@@ -1,22 +1,20 @@
 /**
  * The HYPOTEQ Auskunftsermächtigung as a prefilled PDF (Handover 6 «Vorlage herunterladen –
  * PDF, vorausgefüllt mit Vollmachtgeber, Geburtsdatum, Adresse, Objekt und Zweck»; DECISIONS
- * V12, V31–V33). Server only: it reads the template from `public/documents` with node `fs`.
+ * V12, V31–V33, V81). Server only: it reads the template from `public/documents` with node `fs`.
  * Browser code takes the data and the file name from ./authorizationData (no `fs`, no pdf-lib).
  *
- * The four templates (de/en/fr/it, HYPOTEQ's own forms, Version 2.0) carry twelve text fields,
- * read from the PDFs with their printed labels:
+ * HYPOTEQ's templates of 21.10.2026 (de/en/fr/it, one layout) carry sixteen text fields:
  *
- *   page 1, left column    Text1 Vorname · Text2 Name · Text3 Adresse · Text4 PLZ/Ort · Text5 E-Mail   (Vollmachtgeber 1)
- *   page 1, right column   Text6 … Text10, the same                                                (Vollmachtgeber 2)
+ *   page 1, left column    Text1 Vorname · Text2 Name · Geburtsdatum1 · Text3 Adresse · Text4 PLZ/Ort · Text5 E-Mail   (Kreditnehmer/in 1)
+ *   page 1, right column   Text6 · Text7 · Geburtsdatum2 · Text8 · Text9 · Text10, the same                            (Kreditnehmer/in 2)
+ *   page 1, below          Objekt (Adresse der Liegenschaft) · Zweck
  *   page 2                 Text11 / Text12 «Datum / Ort» beside signature 1 / 2
  *
- * The form has no field for the birth date, the object or the purpose. They are drawn as two
- * small lines into free space of page 1 (V32): under the title «Anfrage HQ-… · Objekt … ·
- * Zweck … · Firma …», under the person table «Geburtsdatum …» per column. The positions per
- * language are in TEMPLATES, measured from the PDFs (tests/funnelV3/authorization.test.ts
- * keeps them between the printed text). «Datum / Ort» stays empty and the form stays editable
- * (not flattened): signed by hand, dated by hand or typed (V31).
+ * Only the request number and, for a juristische Person, the company have no field: they are
+ * drawn as one small line under the title (V32), positioned per language in TEMPLATES.
+ * «Datum / Ort» stays empty and the form stays editable (not flattened): signed by hand, dated
+ * by hand or typed (V31).
  *
  * Kreditnehmer 1 and 2 fill the two columns; a juristische Person signs through its
  * zeichnungsberechtigte Person (left column), the company is named in the line under the title.
@@ -54,37 +52,34 @@ export interface AuthorizationData {
 
 // ---- Templates --------------------------------------------------------------------------------
 
-/** Where the extra lines go, in points from the TOP of page 1 (pdf-lib counts from the bottom). */
+/** Where the case line goes, in points from the TOP of page 1 (pdf-lib counts from the bottom). */
 export interface TemplateLayout {
   file: string;
-  /** Line under the title: Anfrage · Objekt · Zweck · Firma. Baseline. */
+  /** Line under the title: Anfrage · Firma. Baseline. */
   caseLine: { x: number; top: number };
-  /** Line under the person table: «Geburtsdatum …» at each column's label. Baseline. */
-  birthLine: { top: number; x: [number, number] };
 }
 
 /**
- * Measured with the printed text and the table rules of each template (page 1, A4 595 × 842):
- * the case line sits in the empty line between the title and the first field row, the birth
- * line between the last table rule and the heading «Vollmacht» / «Power of attorney» /
- * «Procuration» / «Procura».
+ * Measured from each template (page 1, A4 595 × 842): the case line sits between the title and
+ * the first card, at the title's left edge.
  */
 export const TEMPLATES: Record<Lang, TemplateLayout> = {
-  // Title ends 172.2, Text1 starts 199.8 · last rule 316.3, «Vollmacht» 335.2 · labels at 72.5 / 296.4.
-  de: { file: "Auskunftsermaechtigung-1.pdf", caseLine: { x: 72.5, top: 189 }, birthLine: { top: 327.5, x: [72.5, 296.4] } },
-  // Title ends 172.9, Text1 starts 202.0 · last rule 317.0, «Power of attorney» 335.9 · labels at 73.0 / 297.4.
-  en: { file: "20250711_HYPOTEQ-Authorisation-for-information-1.pdf", caseLine: { x: 73, top: 190.5 }, birthLine: { top: 328.2, x: [73, 297.4] } },
-  // Title (two lines) ends 189.4, Text1 starts 220.0 · last rule 352.8, «Procuration» 371.6 · labels at 81.1 / 305.0.
-  fr: { file: "20250711_HYPOTEQ-Pouvoir-dinformation-1-1.pdf", caseLine: { x: 72, top: 207.5 }, birthLine: { top: 364.5, x: [81.1, 305] } },
-  // Title ends 162.8, Text1 starts 190.0 · last rule 321.1, «Procura» 352.9 · labels at 81.1 / 305.0.
-  it: { file: "20250711_HYPOTEQ-Procura-per-informazioni-1.pdf", caseLine: { x: 72, top: 179 }, birthLine: { top: 333, x: [81.1, 305] } },
+  // One-line title ends 116.4, the first card starts 141.7.
+  de: { file: "HYPOTEQ_Auskunftsermaechtigung_DE.pdf", caseLine: { x: 51, top: 132 } },
+  // Two-line title ends 134.5, the first card starts 160.2 (en, fr, it alike).
+  en: { file: "HYPOTEQ_Auskunftsermaechtigung_EN.pdf", caseLine: { x: 51, top: 150.5 } },
+  fr: { file: "HYPOTEQ_Auskunftsermaechtigung_FR.pdf", caseLine: { x: 51, top: 150.5 } },
+  it: { file: "HYPOTEQ_Auskunftsermaechtigung_IT.pdf", caseLine: { x: 51, top: 150.5 } },
 };
 
-/** The form fields of one column, top to bottom. */
+/** The form fields of one column, top to bottom: Vorname, Name, Geburtsdatum, Adresse, PLZ/Ort, E-Mail. */
 export const SIGNER_FIELDS: readonly [readonly string[], readonly string[]] = [
-  ["Text1", "Text2", "Text3", "Text4", "Text5"],
-  ["Text6", "Text7", "Text8", "Text9", "Text10"],
+  ["Text1", "Text2", "Geburtsdatum1", "Text3", "Text4", "Text5"],
+  ["Text6", "Text7", "Geburtsdatum2", "Text8", "Text9", "Text10"],
 ];
+/** «Objekt (Adresse der Liegenschaft)» and «Zweck» under the two columns (multi-line fields). */
+export const OBJECT_FIELD = "Objekt";
+export const PURPOSE_FIELD = "Zweck";
 /** «Datum / Ort» beside signature 1 / 2 (page 2) — left empty, filled in by hand. */
 export const DATE_PLACE_FIELDS = ["Text11", "Text12"] as const;
 
@@ -177,20 +172,18 @@ function fill(form: PDFForm, font: PDFFont, name: string, value: string | null |
   field.setFontSize(fittingSize(font, text, width));
 }
 
-/** The line under the title: «Anfrage HQ-… · Objekt 8000 Zürich · Zweck: Ablösung · Firma: …». */
+/** The line under the title: «Anfrage HQ-… · Firma: …» — what the form has no field for. */
 export function caseLineText(data: AuthorizationData): string {
   const t = (k: string) => translate(data.lang, `sig.pdf.${k}`);
   const parts: string[] = [];
   if (data.caseNumber) parts.push(`${t("case")} ${data.caseNumber}`);
-  if (data.objekt) parts.push(`${t("object")}: ${data.objekt}`);
-  if (data.zweck) parts.push(`${t("purpose")}: ${translate(data.lang, `opt.antrag.${data.zweck}`)}`);
   if (data.firma) parts.push(`${t("company")}: ${data.firma}`);
   return parts.join(" · ");
 }
 
-/** «Geburtsdatum: 12.03.1980» for one column, or "" without a date. */
-export function birthLineText(lang: Lang, geburtsdatum: string | null | undefined): string {
-  return geburtsdatum ? `${translate(lang, "sig.pdf.birth")}: ${geburtsdatum}` : "";
+/** The «Zweck» field: the Kreditantrag in the form's language («Ablösung», «Refinancing» …). */
+export function purposeText(data: AuthorizationData): string {
+  return data.zweck ? translate(data.lang, `opt.antrag.${data.zweck}`) : "";
 }
 
 // ---- Build -------------------------------------------------------------------------------------
@@ -207,13 +200,16 @@ export async function buildAuthorizationPdf(input: AuthorizationData): Promise<U
   const form = doc.getForm();
 
   data.signers.slice(0, MAX_SIGNERS).forEach((s, col) => {
-    const [vor, nach, adresse, plzOrt, email] = SIGNER_FIELDS[col];
+    const [vor, nach, geburtsdatum, adresse, plzOrt, email] = SIGNER_FIELDS[col];
     fill(form, font, vor, s.vor);
     fill(form, font, nach, s.nach);
+    fill(form, font, geburtsdatum, s.geburtsdatum);
     fill(form, font, adresse, s.adresse);
     fill(form, font, plzOrt, s.plzOrt);
     fill(form, font, email, s.email);
   });
+  fill(form, font, OBJECT_FIELD, data.objekt);
+  fill(form, font, PURPOSE_FIELD, purposeText(data));
 
   const page = doc.getPage(0);
   const height = page.getHeight();
@@ -224,11 +220,7 @@ export async function buildAuthorizationPdf(input: AuthorizationData): Promise<U
     while (size > 6 && font.widthOfTextAtSize(t, size) > maxWidth) size -= 0.5;
     page.drawText(t, { x, y: height - top, size, font, color: INK, opacity: 0.85 });
   };
-  draw(caseLineText(data), layout.caseLine.x, layout.caseLine.top, page.getWidth() - layout.caseLine.x - 60);
-  data.signers.slice(0, MAX_SIGNERS).forEach((s, col) => {
-    const x = layout.birthLine.x[col];
-    draw(birthLineText(data.lang, s.geburtsdatum), x, layout.birthLine.top, col === 0 ? layout.birthLine.x[1] - x - 8 : page.getWidth() - x - 60);
-  });
+  draw(caseLineText(data), layout.caseLine.x, layout.caseLine.top, page.getWidth() - layout.caseLine.x - 51);
 
   doc.setTitle(safeText(font, authorizationFileName(data).replace(/\.pdf$/, "").replace(/_/g, " ")));
   doc.setProducer("HYPOTEQ Funnel");

@@ -6,11 +6,23 @@
  * the Nachreich page.
  */
 const AUTHORIZATION_TEMPLATES = [
-  './public/documents/Auskunftsermaechtigung-1.pdf',
-  './public/documents/20250711_HYPOTEQ-Authorisation-for-information-1.pdf',
-  './public/documents/20250711_HYPOTEQ-Pouvoir-dinformation-1-1.pdf',
-  './public/documents/20250711_HYPOTEQ-Procura-per-informazioni-1.pdf',
+  './public/documents/HYPOTEQ_Auskunftsermaechtigung_DE.pdf',
+  './public/documents/HYPOTEQ_Auskunftsermaechtigung_EN.pdf',
+  './public/documents/HYPOTEQ_Auskunftsermaechtigung_FR.pdf',
+  './public/documents/HYPOTEQ_Auskunftsermaechtigung_IT.pdf',
 ];
+
+/**
+ * The forms before HYPOTEQ's templates of 21.10.2026: links in older mails and on other sites
+ * lead to the current form instead of a 404 or an outdated one.
+ */
+const AUTHORIZATION_LEGACY = {
+  '/documents/Auskunftsermaechtigung-1.pdf': '/documents/HYPOTEQ_Auskunftsermaechtigung_DE.pdf',
+  '/documents/20250711_HYPOTEQ-Authorisation-for-information-1.pdf': '/documents/HYPOTEQ_Auskunftsermaechtigung_EN.pdf',
+  '/documents/20250711_HYPOTEQ-Pouvoir-dinformation-1-1.pdf': '/documents/HYPOTEQ_Auskunftsermaechtigung_FR.pdf',
+  '/documents/HYPOTEQ-Pouvoir-dinformation-1-1.pdf': '/documents/HYPOTEQ_Auskunftsermaechtigung_FR.pdf',
+  '/documents/20250711_HYPOTEQ-Procura-per-informazioni-1.pdf': '/documents/HYPOTEQ_Auskunftsermaechtigung_IT.pdf',
+};
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -75,6 +87,7 @@ const nextConfig = {
         destination: "/de/kuehnis_geldberatung",
         permanent: true,
       },
+      ...Object.entries(AUTHORIZATION_LEGACY).map(([source, destination]) => ({ source, destination, permanent: true })),
     ];
   },
 

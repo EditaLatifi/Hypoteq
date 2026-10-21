@@ -8,11 +8,14 @@ import path from "path";
 import { PDFDocument, PDFPage, PDFTextField } from "pdf-lib";
 import {
   DATE_PLACE_FIELDS,
+  OBJECT_FIELD,
+  PURPOSE_FIELD,
   SIGNER_FIELDS,
   TEMPLATES,
   buildAuthorizationPdf,
   authorizationFileName,
   caseLineText,
+  purposeText,
   type AuthorizationData,
 } from "@/lib/funnel-v3/authorization";
 import {
@@ -59,26 +62,32 @@ afterEach(() => {
   jest.restoreAllMocks();
 });
 
-describe("the four templates (field map read from the PDFs)", () => {
-  it.each(LANGS)("%s: Text1–5 left and Text6–10 right on page 1, Text11/12 «Datum / Ort» on page 2", async (lang) => {
+describe("the four templates (HYPOTEQ 21.10.2026, field map read from the PDFs)", () => {
+  it.each(LANGS)("%s: two columns of six fields, Objekt and Zweck below, «Datum / Ort» on page 2", async (lang) => {
     const bytes = readFileSync(path.join(process.cwd(), "public", "documents", TEMPLATES[lang].file));
     const doc = await PDFDocument.load(bytes);
     const pages = doc.getPages().map((p) => p.ref);
     const where = (name: string) => {
       const w = doc.getForm().getTextField(name).acroField.getWidgets()[0];
-      return { page: pages.findIndex((r) => r === w.P()) , rect: w.getRectangle() };
+      return { page: pages.findIndex((r) => r === w.P()), rect: w.getRectangle() };
     };
-    expect(doc.getForm().getFields()).toHaveLength(12);
+    expect(doc.getForm().getFields()).toHaveLength(16);
+    let lowest = Infinity;
     for (const [col, names] of SIGNER_FIELDS.entries()) {
       const rows = names.map(where);
       for (const r of rows) {
         expect(r.page).toBe(0);
         expect(col === 0 ? r.rect.x < 300 : r.rect.x > 300).toBe(true);
+        lowest = Math.min(lowest, r.rect.y);
       }
-      // Top to bottom: Vorname, Name, Adresse, PLZ/Ort, E-Mail.
+      // Top to bottom: Vorname, Name, Geburtsdatum, Adresse, PLZ/Ort, E-Mail.
       const ys = rows.map((r) => r.rect.y);
       expect([...ys].sort((a, b) => b - a)).toEqual(ys);
     }
+    const [objekt, zweck] = [OBJECT_FIELD, PURPOSE_FIELD].map(where);
+    expect([objekt.page, zweck.page]).toEqual([0, 0]);
+    expect(objekt.rect.y + objekt.rect.height).toBeLessThan(lowest);
+    expect(zweck.rect.y).toBeLessThan(objekt.rect.y);
     const [d1, d2] = DATE_PLACE_FIELDS.map(where);
     expect([d1.page, d2.page]).toEqual([1, 1]);
     expect(d1.rect.x).toBeLessThan(d2.rect.x);
@@ -86,50 +95,41 @@ describe("the four templates (field map read from the PDFs)", () => {
 });
 
 describe("buildAuthorizationPdf", () => {
-  it("fills both Vollmachtgeber, leaves «Datum / Ort» empty and the form editable", async () => {
-    const { form, value } = await load(await buildAuthorizationPdf(MUSTERMANN));
-    expect(["Text1", "Text2", "Text3", "Text4", "Text5"].map(value)).toEqual(["Max Simon", "Mustermann", "Musterweg 1", "8000 Zürich", "max.mustermann@example.ch"]);
-    expect(["Text6", "Text7", "Text8", "Text9", "Text10"].map(value)).toEqual(["Anna", "Muster", "", "", ""]);
+  it("fills both Kreditnehmer with birth dates, Objekt and Zweck; «Datum / Ort» stays empty, the form editable", async () => {
+    const { form, value } = await load(await buildAuthorizationPdf({ ...MUSTERMANN, signers: [MUSTERMANN.signers[0], { ...MUSTERMANN.signers[1], geburtsdatum: "1982-11-04" }] }));
+    expect(["Text1", "Text2", "Geburtsdatum1", "Text3", "Text4", "Text5"].map(value)).toEqual(["Max Simon", "Mustermann", "12.03.1979", "Musterweg 1", "8000 Zürich", "max.mustermann@example.ch"]);
+    expect(["Text6", "Text7", "Geburtsdatum2", "Text8", "Text9", "Text10"].map(value)).toEqual(["Anna", "Muster", "04.11.1982", "", "", ""]);
+    expect(value(OBJECT_FIELD)).toBe("Musterweg 1, 8000 Zürich");
+    expect(value(PURPOSE_FIELD)).toBe("Ablösung");
     expect(value("Text11")).toBe("");
     expect(value("Text12")).toBe("");
-    // Not flattened: the twelve fields are still there and writable.
-    expect(form.getFields()).toHaveLength(12);
+    // Not flattened: the sixteen fields are still there and writable.
+    expect(form.getFields()).toHaveLength(16);
     expect(form.getFields().every((f) => f instanceof PDFTextField && !f.isReadOnly())).toBe(true);
   });
 
-  it.each(LANGS)("%s: draws the case line above the first field row and the birth dates under the table", async (lang) => {
+  it.each(LANGS)("%s: draws only the case line, between the title and the first card", async (lang) => {
     const { calls } = spyText();
-    const bytes = await buildAuthorizationPdf({ ...MUSTERMANN, lang, firma: null, signers: [MUSTERMANN.signers[0], { ...MUSTERMANN.signers[1], geburtsdatum: "1982-11-04" }] });
-    const doc = await PDFDocument.load(bytes);
-    const h = doc.getPage(0).getHeight();
-    const top = (name: string) => {
-      const r = doc.getForm().getTextField(name).acroField.getWidgets()[0].getRectangle();
-      return { top: h - (r.y + r.height), bottom: h - r.y };
-    };
-    expect(calls).toHaveLength(3);
-    const [line, b1, b2] = calls;
+    await buildAuthorizationPdf({ ...MUSTERMANN, lang, firma: "Mustermann Immobilien AG" });
+    expect(calls).toHaveLength(1);
+    const [line] = calls;
     expect(line.text).toContain("HQ-26-10-000123");
-    expect(line.text).toContain("8000 Z");
-    // Between the title and the first row; under the logo.
-    expect(line.top).toBeLessThan(Math.min(top("Text1").top, top("Text6").top) - 4);
-    expect(line.top).toBeGreaterThan(150);
-    // Under the last row of both columns, in the left / right column.
-    expect(b1.text).toMatch(/12\.03\.1979$/);
-    expect(b2.text).toMatch(/04\.11\.1982$/);
-    for (const b of [b1, b2]) expect(b.top).toBeGreaterThan(Math.max(top("Text5").bottom, top("Text10").bottom) + 4);
-    expect(b1.x).toBeLessThan(200);
-    expect(b2.x).toBeGreaterThan(280);
-    // Small and never wider than the page.
-    for (const c of calls) expect(c.size).toBeLessThanOrEqual(8);
+    expect(line.text).toContain("Mustermann Immobilien AG");
+    // Measured in the templates: the title ends at 116.4 (de, one line) / 134.5 (two lines), the
+    // first card starts at 141.7 / 160.2. The baseline sits clear of both.
+    const [titleEnd, cardTop] = lang === "de" ? [116.4, 141.7] : [134.5, 160.2];
+    expect(line.top).toBeGreaterThan(titleEnd + line.size);
+    expect(line.top).toBeLessThan(cardTop - 2);
+    expect(line.size).toBeLessThanOrEqual(8);
   });
 
-  it("the case line in each language: Anfrage, Objekt, Zweck, Firma", () => {
-    expect(caseLineText({ ...MUSTERMANN, firma: "Mustermann Immobilien AG" })).toBe(
-      "Anfrage HQ-26-10-000123 · Objekt: Musterweg 1, 8000 Zürich · Zweck: Ablösung · Firma: Mustermann Immobilien AG"
-    );
-    expect(caseLineText({ ...MUSTERMANN, lang: "fr", zweck: "Neue Hypothek" })).toBe("Demande HQ-26-10-000123 · Objet: Musterweg 1, 8000 Zürich · But: Nouvelle hypothèque");
-    expect(caseLineText({ lang: "en", signers: [], zweck: "Ablösung" })).toBe("Purpose: Refinancing");
-    expect(caseLineText({ lang: "it", signers: [] })).toBe("");
+  it("the case line names what has no field: Anfrage and Firma; Zweck in the form's language", () => {
+    expect(caseLineText({ ...MUSTERMANN, firma: "Mustermann Immobilien AG" })).toBe("Anfrage HQ-26-10-000123 · Firma: Mustermann Immobilien AG");
+    expect(caseLineText({ ...MUSTERMANN, lang: "fr" })).toBe("Demande HQ-26-10-000123");
+    expect(caseLineText({ lang: "en", signers: [], zweck: "Ablösung" })).toBe("");
+    expect(purposeText({ lang: "en", signers: [], zweck: "Ablösung" })).toBe("Refinancing");
+    expect(purposeText({ lang: "fr", signers: [], zweck: "Neue Hypothek" })).toBe("Nouvelle hypothèque");
+    expect(purposeText({ lang: "it", signers: [] })).toBe("");
   });
 
   it("a juristische Person: the signatory in the left column, the company in the case line", async () => {
@@ -140,7 +140,8 @@ describe("buildAuthorizationPdf", () => {
     );
     const { value } = await load(await buildAuthorizationPdf(data));
     expect(["Text1", "Text2", "Text5", "Text6"].map(value)).toEqual(["Hans Peter", "Muster", "hp@muster.ch", ""]);
-    expect(calls[0].text).toBe("Objekt: 8001 Zürich · Zweck: Neue Hypothek · Firma: Muster Immobilien AG");
+    expect([value(OBJECT_FIELD), value(PURPOSE_FIELD)]).toEqual(["8001 Zürich", "Neue Hypothek"]);
+    expect(calls[0].text).toBe("Firma: Muster Immobilien AG");
   });
 
   it("shrinks a long value to fit its field and draws characters Helvetica lacks as ASCII", async () => {

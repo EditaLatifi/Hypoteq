@@ -1316,22 +1316,22 @@ return (
             {
               flag: "/images/HYPOTEQ_documents_flag_german.png",
               label: t("documents.section2Doc1"),
-              file: "/documents/Auskunftsermaechtigung-1.pdf",
+              file: "/documents/HYPOTEQ_Auskunftsermaechtigung_DE.pdf",
             },
             {
               flag: "/images/HYPOTEQ_documents_flag_french.png",
               label: t("documents.section2Doc2"),
-              file: "/documents/20250711_HYPOTEQ-Pouvoir-dinformation-1-1.pdf",
+              file: "/documents/HYPOTEQ_Auskunftsermaechtigung_FR.pdf",
             },
             {
               flag: "/images/HYPOTEQ_documents_flag_italian.png",
               label: t("documents.section2Doc3"),
-              file: "/documents/20250711_HYPOTEQ-Procura-per-informazioni-1.pdf",
+              file: "/documents/HYPOTEQ_Auskunftsermaechtigung_IT.pdf",
             },
             {
               flag: "/images/HYPOTEQ_documents_flag_english.png",
               label: t("documents.section2Doc4"),
-              file: "/documents/20250711_HYPOTEQ-Authorisation-for-information-1.pdf",
+              file: "/documents/HYPOTEQ_Auskunftsermaechtigung_EN.pdf",
             },
           ].map((doc, i) => (
             <a
