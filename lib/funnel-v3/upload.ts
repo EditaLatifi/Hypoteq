@@ -557,6 +557,27 @@ export function assignFile(id: string, instanceId: string, label: string): void 
   syncPlacement();
 }
 
+/**
+ * «Ersetzen» on a placed file (HYPOTEQ, 21.10.2026): the picked file takes the old one's place
+ * on the same requirement — placed by hand, so its own reading cannot move it elsewhere — and
+ * the old one is removed (SharePoint and database too). Null, with nothing changed, when the
+ * old file is not on a requirement or the picked file is already in the list.
+ */
+export function replaceFile(oldId: string, picked: PickedFile): FileEntry | null {
+  const old = fileById(oldId);
+  if (!old?.instanceId) return null;
+  const [entry] = addPickedFiles([picked]);
+  if (!entry) return null;
+  const instanceId = old.instanceId;
+  S().updateFile(entry.id, (f) => ({
+    instanceId,
+    assignedByUser: true,
+    audit: [...(f.audit ?? []), auditEntry("docs.audit.replaces", { name: old.name })],
+  }));
+  removeFile(oldId);
+  return fileById(entry.id) ?? entry;
+}
+
 /** «Trotzdem verwenden» on an outdated document. */
 export function acceptOutdated(id: string): void {
   patch(id, { outdatedOverride: true }, auditEntry("docs.audit.override"));

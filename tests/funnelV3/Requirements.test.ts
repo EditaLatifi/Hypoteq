@@ -328,7 +328,7 @@ describe('catalogue', () => {
       expect(getRequirement(id)).toBeDefined();
     for (const id of ['produkt', 'reno_liste', 'lohnausweise_alt', 'pkverp']) expect(getRequirement(id)).toBeDefined();
   });
-  it('has every label in all four languages, and the German one verbatim', () => {
+  it('has every label in all four languages, and the German one verbatim — the label of the Salesforce Dok-Checkliste (V84)', () => {
     for (const r of REQ) {
       for (const l of langs) expect([r.labelKey, l, typeof lookup(l, r.labelKey)]).toEqual([r.labelKey, l, 'string']);
       expect(lookup('de', r.labelKey)).toBe(r.labelDe);

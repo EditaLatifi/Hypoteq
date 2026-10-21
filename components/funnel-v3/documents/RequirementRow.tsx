@@ -17,6 +17,8 @@ interface Props {
   onToggle: () => void;
   onPick: () => void;
   onView: (fileId: string) => void;
+  /** «Ersetzen» on a stored file: a new file takes its place on this requirement (the funnel only). */
+  onReplace?: (fileId: string) => void;
   intern: boolean;
   canRename: boolean;
   borrowerCount: number;
@@ -34,7 +36,7 @@ interface Props {
 }
 
 /** One requirement (spec 4.2): state, reason, files, recognised values, actions. */
-export default function RequirementRow({ status: r, files, open, onToggle, onPick, onView, intern, canRename, borrowerCount, caseNumber, priorFiles = 0, allFiles, extraChecks }: Props) {
+export default function RequirementRow({ status: r, files, open, onToggle, onPick, onView, onReplace, intern, canRename, borrowerCount, caseNumber, priorFiles = 0, allFiles, extraChecks }: Props) {
   const { t, lang } = useFunnelT();
   const fin = useFunnelV3((s) => s.fin);
   const setSkipped = useFunnelV3((s) => s.setSkipped);
@@ -97,6 +99,11 @@ export default function RequirementRow({ status: r, files, open, onToggle, onPic
                   <button type="button" className="v3-btn v3-btn--ghost v3-btn--sm" onClick={() => onView(f.id)}>
                     {t("act.view")}
                   </button>
+                  {onReplace ? (
+                    <button type="button" className="v3-btn v3-btn--ghost v3-btn--sm" onClick={() => onReplace(f.id)}>
+                      {t("docs.replace")}
+                    </button>
+                  ) : null}
                   <button type="button" className="v3-btn v3-btn--text v3-btn--sm" onClick={() => removeFile(f.id)}>
                     {t("docs.remove")}
                   </button>

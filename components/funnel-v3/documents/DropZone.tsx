@@ -9,7 +9,7 @@ export interface DropZoneHandle {
   pick: () => void;
 }
 
-const ACCEPT = ".pdf,.jpg,.jpeg,.png,.heic,.heif,.webp,application/pdf,image/jpeg,image/png,image/heic,image/heif,image/webp";
+export const ACCEPT = ".pdf,.jpg,.jpeg,.png,.heic,.heif,.webp,application/pdf,image/jpeg,image/png,image/heic,image/heif,image/webp";
 
 interface Props {
   onFiles: (files: PickedFile[]) => void;

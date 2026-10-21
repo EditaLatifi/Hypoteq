@@ -6,9 +6,13 @@
  *  - «guided»   Begleitete Anmeldung step 4 «Unterlagen & Abschluss»: the whole list, the
  *               answer-correction suggestions («Wir haben einen Kreditvertrag erkannt –
  *               ergänzen?», requirementStatus.ts answerCorrections)
- *  - «missing»  Schnellanmeldung step 6: only what is still missing — added by the answers of
- *               steps 3–5 or not found in the folder — with «Fehlende Unterlagen hier ablegen»
- *               and «Alle Unterlagen sind vollständig.» (Handover 3)
+ *  - «missing»  Schnellanmeldung step 6: the whole list again — what is there with its file,
+ *               what is still open (added by the answers of steps 3–5 or not in the folder) —
+ *               with «Fehlende Unterlagen hier ablegen» and «Alle Unterlagen sind vollständig.»
+ *               (Handover 3; HYPOTEQ 21.10.2026: the full picture instead of only the gaps)
+ *
+ * A stored file can be replaced on its row («Ersetzen», HYPOTEQ 21.10.2026): the new file takes
+ * its place on that requirement, so a wrong file from step 2 needs no step back.
  *
  * One drop zone for files and folders (Handover 4.3, DECISIONS D15). Every file is uploaded at
  * once, read by HYPOTEQ's analysis and placed on the list automatically; only files nobody
@@ -29,9 +33,9 @@ import { chf } from "@/lib/funnel-v3/format";
 import { effectiveBorrowers, getRequirement, isSignatureRequirement } from "@/lib/funnel-v3/requirements";
 import { documentTally } from "@/lib/funnel-v3/requirementStatus";
 import { stepOf } from "@/lib/funnel-v3/steps";
-import { addPickedFiles, MAX_FILE_BYTES, screenFiles, type PickedFile } from "@/lib/funnel-v3/upload";
+import { addPickedFiles, filesFromInput, MAX_FILE_BYTES, replaceFile, screenFiles, type PickedFile, type Rejected } from "@/lib/funnel-v3/upload";
 import { v3DocType } from "@/components/documentIntelligence/v3/catalogue";
-import DropZone, { type DropZoneHandle } from "./DropZone";
+import DropZone, { ACCEPT, type DropZoneHandle } from "./DropZone";
 import RequirementRow from "./RequirementRow";
 import ExtraFiles from "./ExtraFiles";
 import FileDetail from "./FileDetail";
@@ -77,6 +81,8 @@ export default function DocumentsPanel({ variant }: { variant: DocumentsVariant 
   const say = useFunnelUI((s) => s.say);
   const summary = useDocumentsSummary();
   const drop = useRef<DropZoneHandle>(null);
+  const replaceInput = useRef<HTMLInputElement>(null);
+  const replacing = useRef<string | null>(null);
   const [open, setOpen] = useState<Record<string, boolean>>({});
   const [detail, setDetail] = useState<string | null>(null);
 
@@ -92,18 +98,9 @@ export default function DocumentsPanel({ variant }: { variant: DocumentsVariant 
   const byId = useMemo(() => new Map(files.map((f) => [f.id, f])), [files]);
   // The Auskunftsermächtigung has its own block (Handover 6).
   const docRows = useMemo(() => status.requirements.filter((r) => !isSignatureRequirement(r.instance)), [status.requirements]);
-  const shownRows = useMemo(
-    () => (missingOnly ? docRows.filter((r) => r.state !== "ok" && r.state !== "skipped") : docRows),
-    [docRows, missingOnly]
-  );
-  const groups = useMemo(() => groupRows(shownRows, state, lang), [shownRows, state, lang]);
-  // Off the list: everything; on «Fehlende Unterlagen» only what was not recognised (it must
-  // be assigned) and what is still on its way.
-  const extras = files.filter(
-    (f) =>
-      !f.instanceId &&
-      (!missingOnly || f.uploadState !== "uploaded" || !placements.get(f.id) || ["unknown", undefined].includes(placements.get(f.id)?.extraKind))
-  );
+  const openRows = useMemo(() => docRows.filter((r) => r.state !== "ok" && r.state !== "skipped"), [docRows]);
+  const groups = useMemo(() => groupRows(docRows, state, lang), [docRows, state, lang]);
+  const extras = files.filter((f) => !f.instanceId);
   const suggested = useMemo(() => new Set(suggestions.flatMap((s) => s.fileIds)), [suggestions]);
 
   // ---- counts (prototype «Vollständigkeit»): the same tally as the closing, the
@@ -116,7 +113,23 @@ export default function DocumentsPanel({ variant }: { variant: DocumentsVariant 
   const busy = summary.busy;
   const doneFiles = files.filter((f) => f.analysisState === "done").length;
   const showList = variant !== "upload" || files.length > 0;
-  const allComplete = missingOnly && !shownRows.length && !busy;
+  const allComplete = missingOnly && !openRows.length && !busy;
+
+  const sayRejected = useCallback(
+    (rejected: Rejected[]) =>
+      say([
+        { text: t("docs.toast.rejected", { n: rejected.length }), big: true },
+        ...rejected.slice(0, 4).map((r) => ({
+          text:
+            r.reason === "size"
+              ? t("docs.toast.size", { name: r.name, mb: Math.round(MAX_FILE_BYTES / (1024 * 1024)) })
+              : r.reason === "empty"
+                ? t("docs.toast.empty", { name: r.name })
+                : t("docs.toast.type", { name: r.name }),
+        })),
+      ]),
+    [say, t]
+  );
 
   const onFiles = useCallback(
     (picked: PickedFile[]) => {
@@ -125,24 +138,36 @@ export default function DocumentsPanel({ variant }: { variant: DocumentsVariant 
         addPickedFiles(accepted);
         setOpen({});
       }
-      if (rejected.length) {
-        say([
-          { text: t("docs.toast.rejected", { n: rejected.length }), big: true },
-          ...rejected.slice(0, 4).map((r) => ({
-            text:
-              r.reason === "size"
-                ? t("docs.toast.size", { name: r.name, mb: Math.round(MAX_FILE_BYTES / (1024 * 1024)) })
-                : r.reason === "empty"
-                  ? t("docs.toast.empty", { name: r.name })
-                  : t("docs.toast.type", { name: r.name }),
-          })),
-        ]);
-      }
+      if (rejected.length) sayRejected(rejected);
     },
-    [say, t]
+    [sayRejected]
   );
 
   const pick = useCallback(() => drop.current?.pick(), []);
+
+  // «Ersetzen»: one file from the picker takes the place of the file the row named.
+  const startReplace = useCallback((fileId: string) => {
+    replacing.current = fileId;
+    replaceInput.current?.click();
+  }, []);
+  const onReplacePicked = useCallback(
+    (list: FileList | null) => {
+      const oldId = replacing.current;
+      replacing.current = null;
+      const [first] = filesFromInput(list);
+      if (!oldId || !first) return;
+      const { accepted, rejected } = screenFiles([first]);
+      if (rejected.length) return sayRejected(rejected);
+      const inst = instances.find((i) => i.instanceId === byId.get(oldId)?.instanceId);
+      if (replaceFile(oldId, accepted[0])) {
+        const label = inst ? t(inst.labelKey) + (inst.perBorrower && inst.person?.display ? ` · ${inst.person.display}` : "") : accepted[0].file.name;
+        say([{ text: "✓ " + t("docs.toast.replaced", { label }), big: true }]);
+      } else {
+        say([{ text: t("docs.toast.already", { name: accepted[0].file.name }), big: true }]);
+      }
+    },
+    [byId, instances, say, sayRejected, t]
+  );
   const detailFile = detail ? byId.get(detail) : undefined;
   const detailTitle = (() => {
     if (!detailFile) return "";
@@ -185,6 +210,18 @@ export default function DocumentsPanel({ variant }: { variant: DocumentsVariant 
       ) : null}
 
       <DropZone ref={drop} onFiles={onFiles} total={files.length} open={busy} title={missingOnly ? t("fast.missingDrop") : undefined} />
+      <input
+        ref={replaceInput}
+        type="file"
+        className="v3-docs-hidden-input"
+        accept={ACCEPT}
+        tabIndex={-1}
+        aria-hidden="true"
+        onChange={(e) => {
+          onReplacePicked(e.target.files);
+          e.target.value = "";
+        }}
+      />
 
       {busy > 0 ? (
         <div className="v3-busy v3-rise" aria-live="polite">
@@ -292,6 +329,7 @@ export default function DocumentsPanel({ variant }: { variant: DocumentsVariant 
                   onToggle={() => setOpen((o) => ({ ...o, [r.instance.instanceId]: !o[r.instance.instanceId] }))}
                   onPick={pick}
                   onView={setDetail}
+                  onReplace={startReplace}
                   intern={intern}
                   canRename={canRename}
                   borrowerCount={borrowerCount}

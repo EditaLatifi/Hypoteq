@@ -14,6 +14,7 @@ import {
   isSystemFile,
   keepFile,
   removeFile,
+  replaceFile,
   resumePipeline,
   retryFile,
   saveEdits,
@@ -249,6 +250,32 @@ describe("upload pipeline", () => {
     saveEdits(id, { Objekt: "Musterweg 1" }, true);
     expect(S().files[0]).toMatchObject({ keep: true, outdatedOverride: true, confirmed: true, humanEdits: { Objekt: "Musterweg 1" } });
     expect(S().files[0].audit!.map((a) => a.key)).toEqual(expect.arrayContaining(["docs.audit.assigned", "docs.audit.kept", "docs.audit.override", "docs.audit.edited", "docs.audit.confirmed"]));
+  });
+
+  it("«Ersetzen»: the new file takes the old one's place on the requirement, the old one is deleted (V83)", async () => {
+    startPlacementSync();
+    for (const [k, v] of Object.entries(MUSTERMANN_ANSWERS)) S().setAns(k as any, v as any);
+    analysisFor = (name) => (name.startsWith("Grundbuch") ? { docTypeId: "grundbuch", docDate: "2026-09-01" } : name.startsWith("Police") ? { docTypeId: "gvz" } : null);
+    addPickedFiles([pdf("Grundbuch_falsch.pdf"), pdf("Police.pdf")]);
+    await flush();
+    const old = S().files.find((f) => f.name === "Grundbuch_falsch.pdf")!;
+    expect(old.instanceId).toBe("grundbuch");
+
+    // The replacement is read as something else (or not at all): it still goes where it was put.
+    const entry = replaceFile(old.id, pdf("Scan_0001.pdf", "%PDF-1.4 neu"));
+    expect(entry).toMatchObject({ name: "Scan_0001.pdf", instanceId: "grundbuch", assignedByUser: true });
+    await flush();
+    expect(S().files.map((f) => f.name).sort()).toEqual(["Police.pdf", "Scan_0001.pdf"]);
+    const now = S().files.find((f) => f.name === "Scan_0001.pdf")!;
+    expect(now).toMatchObject({ uploadState: "uploaded", analysisState: "done", instanceId: "grundbuch", assignedByUser: true });
+    expect(now.audit!.map((a) => a.key)).toContain("docs.audit.replaces");
+    expect(calls.some((c) => c.method === "DELETE" && c.url.includes(old.documentId!))).toBe(true);
+
+    // The same file once more, or a file that is not on a requirement: nothing changes.
+    const before = S().files;
+    expect(replaceFile(now.id, pdf("Police.pdf"))).toBeNull();
+    expect(replaceFile("nope", pdf("x.pdf"))).toBeNull();
+    expect(S().files).toBe(before);
   });
 
   it("after a reload: lost uploads fail, uploaded files fetch their stored verdict", async () => {

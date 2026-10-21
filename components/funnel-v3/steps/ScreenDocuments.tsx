@@ -14,9 +14,10 @@ export function ScreenUpload() {
 
 /**
  * The last step: «Unterlagen & Abschluss» (Begleitet, Handover 2 Schritt 4) — the upload with
- * the whole list — or «Fehlende Unterlagen & Abschluss» (Schnell, Handover 3 Schritt 6) — only
- * what is still missing. The closing follows in both (Kennzahlen, Hinweise, Prüfliste,
- * Auskunftsermächtigung, «Finanzierungsanfrage abschliessen»).
+ * the whole list — or «Fehlende Unterlagen & Abschluss» (Schnell, Handover 3 Schritt 6) — the
+ * whole list too, what is there and what is still open (HYPOTEQ 21.10.2026). The closing
+ * follows in both (Kennzahlen, Hinweise, Prüfliste, Auskunftsermächtigung,
+ * «Finanzierungsanfrage abschliessen»).
  */
 export function ScreenAbschluss() {
   const { mode } = useScreen();
