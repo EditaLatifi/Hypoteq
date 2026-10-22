@@ -150,7 +150,7 @@ export async function sendNachreichConfirmation(params: {
 <body style="font-family:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;line-height:1.8;color:#132219;max-width:600px;margin:0 auto;padding:20px;background-color:#f5f5f5;">
   <div style="background:#fff;border-radius:10px;padding:40px;box-shadow:0 2px 10px rgba(0,0,0,0.1);">
     <div style="text-align:center;margin-bottom:30px;padding-bottom:20px;border-bottom:2px solid #CAF476;">
-      <div style="font-size:32px;font-weight:700;color:#132219;">HYPOTEQ</div>
+      <img src="https://www.hypoteq.com/images/HYPOTEQ_layout_logo.png" alt="HYPOTEQ" width="140" style="display:block;margin:0 auto;width:140px;height:auto;border:0;" />
     </div>
     <p style="font-size:18px;font-weight:600;">${L.greeting(params.name)}</p>
     <p style="font-size:15px;">${params.complete ? L.completeBody : L.partialBody}</p>
