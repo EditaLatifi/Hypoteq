@@ -593,7 +593,7 @@ async function sendDossierCompletenessEmail(
 <body style="font-family:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;line-height:1.8;color:#132219;max-width:600px;margin:0 auto;padding:20px;background-color:#f5f5f5;">
   <div style="background:#fff;border-radius:10px;padding:40px;box-shadow:0 2px 10px rgba(0,0,0,0.1);">
     <div style="text-align:center;margin-bottom:30px;padding-bottom:20px;border-bottom:2px solid #CAF476;">
-      <div style="font-size:32px;font-weight:700;color:#132219;">HYPOTEQ</div>
+      <img src="https://www.hypoteq.com/images/HYPOTEQ_layout_logo.png" alt="HYPOTEQ" width="140" style="display:block;margin:0 auto;width:140px;height:auto;border:0;" />
     </div>
     <p style="font-size:18px;font-weight:600;">${L.greeting(name)}</p>
     <p style="font-size:15px;">${complete ? L.completeBody : L.incompleteBody}</p>
@@ -1750,35 +1750,30 @@ const AUTO_RESPONSE_SUBJECT: Record<EmailLocale, string> = {
 };
 
 const AUTO_RESPONSE_CONTENT: Record<EmailLocale, {
-  tagline: string;
   greetingFn: (name: string) => string;
   body: string;
   signoff: string;
   team: string;
 }> = {
   de: {
-    tagline: 'Deine Hypotheken-Experten',
     greetingFn: (n) => `Hi${n ? ' ' + n : ''},`,
     body: 'Danke für deine Anfrage und dein Vertrauen in HYPOTEQ. Wir haben alle Informationen erhalten und melden uns bald (werktags), um die nächsten Schritte zu besprechen.',
     signoff: 'Beste Grüsse',
     team: 'Dein HYPOTEQ Team',
   },
   fr: {
-    tagline: 'Tes experts hypothécaires',
     greetingFn: (n) => `Salut${n ? ' ' + n : ''},`,
     body: "Merci pour ta demande et pour ta confiance envers HYPOTEQ. Nous avons bien reçu toutes les informations et te recontactons bientôt (jours ouvrables) pour discuter des prochaines étapes.",
     signoff: 'Meilleures salutations',
     team: 'Ton équipe HYPOTEQ',
   },
   it: {
-    tagline: 'I tuoi esperti ipotecari',
     greetingFn: (n) => `Ciao${n ? ' ' + n : ''},`,
     body: 'Grazie per la tua richiesta e per la fiducia in HYPOTEQ. Abbiamo ricevuto tutte le informazioni e ti ricontatteremo presto (giorni lavorativi) per discutere i prossimi passi.',
     signoff: 'Cordiali saluti',
     team: 'Il tuo team HYPOTEQ',
   },
   en: {
-    tagline: 'Your mortgage experts',
     greetingFn: (n) => `Hi${n ? ' ' + n : ''},`,
     body: "Thanks for your request and your trust in HYPOTEQ. We've received all the information and will get back to you soon (business days) to discuss the next steps.",
     signoff: 'Best regards',
@@ -1822,12 +1817,6 @@ function generateFunnelAutoResponseHTML(firstName: string, locale: EmailLocale =
       padding-bottom: 20px;
       border-bottom: 2px solid #CAF476;
     }
-    .logo {
-      font-size: 32px;
-      font-weight: 700;
-      color: #132219;
-      margin-bottom: 10px;
-    }
     .section {
       margin-bottom: 25px;
       padding-bottom: 20px;
@@ -1870,8 +1859,7 @@ function generateFunnelAutoResponseHTML(firstName: string, locale: EmailLocale =
 <body>
   <div class="container">
     <div class="header">
-      <div class="logo">HYPOTEQ</div>
-      <div style="color: #666; font-size: 14px;">${c.tagline}</div>
+      <img src="https://www.hypoteq.com/images/HYPOTEQ_layout_logo.png" alt="HYPOTEQ" width="140" style="display:block;margin:0 auto;width:140px;height:auto;border:0;" />
     </div>
 
     <div class="section">

@@ -381,12 +381,6 @@ function generatePartnerAutoResponseHTML(firstName: string): string {
       padding-bottom: 20px;
       border-bottom: 2px solid #CAF476;
     }
-    .logo {
-      font-size: 32px;
-      font-weight: 700;
-      color: #132219;
-      margin-bottom: 10px;
-    }
     .section {
       margin-bottom: 25px;
       padding-bottom: 20px;
@@ -429,8 +423,7 @@ function generatePartnerAutoResponseHTML(firstName: string): string {
 <body>
   <div class="container">
     <div class="header">
-      <div class="logo">HYPOTEQ</div>
-      <div style="color: #666; font-size: 14px;">Deine Hypotheken-Experten</div>
+      <img src="https://www.hypoteq.com/images/HYPOTEQ_layout_logo.png" alt="HYPOTEQ" width="140" style="display:block;margin:0 auto;width:140px;height:auto;border:0;" />
     </div>
 
     <!-- German -->
