@@ -45,7 +45,7 @@ export function signatureReminderContent(m: Omit<SignatureReminderSend, "to">): 
 <body style="font-family:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;line-height:1.7;color:#132219;max-width:600px;margin:0 auto;padding:20px;background-color:#f5f5f5;">
   <div style="background:#fff;border-radius:10px;padding:36px;box-shadow:0 2px 10px rgba(0,0,0,0.1);">
     <div style="margin-bottom:26px;padding-bottom:18px;border-bottom:2px solid #CAF476;">
-      <div style="font-size:28px;font-weight:700;color:#132219;">HYPOTEQ</div>
+      <img src="https://www.hypoteq.com/images/HYPOTEQ_layout_logo.png" alt="HYPOTEQ" width="140" style="display:block;width:140px;height:auto;border:0;" />
       ${m.caseNumber ? `<div style="font-size:13px;color:#132219;opacity:.65;margin-top:4px;">${escapeHtml(m.caseNumber)}</div>` : ""}
     </div>
     <p style="font-size:17px;font-weight:600;margin:0 0 14px 0;">${escapeHtml(greeting)}</p>

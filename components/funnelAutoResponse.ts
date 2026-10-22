@@ -35,7 +35,6 @@ export const CASE_NUMBER_LABEL: Record<AutoResponseLocale, string> = {
 export const AUTO_RESPONSE_CONTENT: Record<
   AutoResponseLocale,
   {
-    tagline: string;
     greetingFn: (name: string) => string;
     body: string;
     linkIntro: string;
@@ -46,7 +45,6 @@ export const AUTO_RESPONSE_CONTENT: Record<
   }
 > = {
   de: {
-    tagline: "Deine Hypotheken-Experten",
     greetingFn: (n) => `Hi${n ? " " + n : ""},`,
     body: "Danke für deine Anfrage und dein Vertrauen in HYPOTEQ. Wir haben alle Informationen erhalten und melden uns bald (werktags), um die nächsten Schritte zu besprechen.",
     linkIntro: "Deine Anfrage findest du jederzeit über deinen persönlichen Link – dort siehst du den Stand deines Dossiers und kannst jederzeit Unterlagen nachreichen:",
@@ -56,7 +54,6 @@ export const AUTO_RESPONSE_CONTENT: Record<
     rights: "Alle Rechte vorbehalten",
   },
   fr: {
-    tagline: "Vos experts hypothécaires",
     greetingFn: (n) => `Bonjour${n ? " " + n : ""},`,
     body: "Merci pour votre demande et votre confiance envers HYPOTEQ. Nous avons bien reçu toutes les informations et vous recontacterons prochainement (jours ouvrables) pour discuter des prochaines étapes.",
     linkIntro: "Vous pouvez revenir à votre demande à tout moment via votre lien personnel – vous y verrez l'état de votre dossier et pourrez ajouter des documents à tout moment :",
@@ -66,7 +63,6 @@ export const AUTO_RESPONSE_CONTENT: Record<
     rights: "Tous droits réservés",
   },
   it: {
-    tagline: "I Suoi esperti ipotecari",
     greetingFn: (n) => `Buongiorno${n ? " " + n : ""},`,
     body: "Grazie per la Sua richiesta e per la fiducia in HYPOTEQ. Abbiamo ricevuto tutte le informazioni e La ricontatteremo presto (giorni lavorativi) per discutere i prossimi passi.",
     linkIntro: "Può tornare alla Sua richiesta in qualsiasi momento tramite il Suo link personale – lì vede lo stato del Suo dossier e può aggiungere documenti in qualsiasi momento:",
@@ -76,7 +72,6 @@ export const AUTO_RESPONSE_CONTENT: Record<
     rights: "Tutti i diritti riservati",
   },
   en: {
-    tagline: "Your mortgage experts",
     greetingFn: (n) => `Hi${n ? " " + n : ""},`,
     body: "Thanks for your request and your trust in HYPOTEQ. We've received all the information and will get back to you soon (business days) to discuss the next steps.",
     linkIntro: "You can return to your request at any time via your personal link – it shows the state of your dossier and lets you add documents at any time:",
@@ -139,12 +134,6 @@ export function generateFunnelAutoResponseHTML(firstName: string, locale: AutoRe
       padding-bottom: 20px;
       border-bottom: 2px solid #CAF476;
     }
-    .logo {
-      font-size: 32px;
-      font-weight: 700;
-      color: #132219;
-      margin-bottom: 10px;
-    }
     .section {
       margin-bottom: 25px;
       padding-bottom: 20px;
@@ -192,8 +181,7 @@ export function generateFunnelAutoResponseHTML(firstName: string, locale: AutoRe
 <body>
   <div class="container">
     <div class="header">
-      <div class="logo">HYPOTEQ</div>
-      <div style="color: #666; font-size: 14px;">${c.tagline}</div>
+      <img src="https://www.hypoteq.com/images/HYPOTEQ_layout_logo.png" alt="HYPOTEQ" width="140" style="display:block;margin:0 auto;width:140px;height:auto;border:0;" />
     </div>
 
     <div class="section">

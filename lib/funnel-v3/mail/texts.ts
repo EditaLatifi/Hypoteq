@@ -73,9 +73,6 @@ export interface MailTexts {
   subjectNeutral: string;
   /** Internal mail. */
   subjectIntern: string;
-  tagline: string;
-  /** Berater and internal mail. */
-  taglineNeutral: string;
   greeting: string;
   introKunde: string;
   summaryIntro: string;
@@ -132,8 +129,6 @@ export const MAIL_TEXTS: Record<Lang, MailTexts> = {
   de: {
     subjectNeutral: "Finanzierungsanfrage {id} – {name}, {place}",
     subjectIntern: "Neue Finanzierungsanfrage {id} – {name}, {place}",
-    tagline: "Deine Hypotheken-Experten",
-    taglineNeutral: "Hypotheken-Experten",
     greeting: "Hi {name},",
     introKunde:
       "deine Finanzierungsanfrage ist bei HYPOTEQ eingegangen — danke für dein Vertrauen. Wir haben alle Angaben erhalten und melden uns werktags innert kurzer Zeit mit den nächsten Schritten.",
@@ -235,8 +230,6 @@ export const MAIL_TEXTS: Record<Lang, MailTexts> = {
   en: {
     subjectNeutral: "Financing request {id} – {name}, {place}",
     subjectIntern: "New financing request {id} – {name}, {place}",
-    tagline: "Your mortgage experts",
-    taglineNeutral: "Mortgage experts",
     greeting: "Hi {name},",
     introKunde:
       "Your financing request has reached HYPOTEQ — thank you for your trust. We have received all your details and will get back to you shortly on business days with the next steps.",
@@ -337,8 +330,6 @@ export const MAIL_TEXTS: Record<Lang, MailTexts> = {
   fr: {
     subjectNeutral: "Demande de financement {id} – {name}, {place}",
     subjectIntern: "Nouvelle demande de financement {id} – {name}, {place}",
-    tagline: "Vos experts hypothécaires",
-    taglineNeutral: "Experts hypothécaires",
     greeting: "Bonjour {name},",
     introKunde:
       "Votre demande de financement est bien arrivée chez HYPOTEQ — merci de votre confiance. Nous avons reçu toutes vos informations et reviendrons vers vous rapidement (jours ouvrables) avec les prochaines étapes.",
@@ -439,8 +430,6 @@ export const MAIL_TEXTS: Record<Lang, MailTexts> = {
   it: {
     subjectNeutral: "Richiesta di finanziamento {id} – {name}, {place}",
     subjectIntern: "Nuova richiesta di finanziamento {id} – {name}, {place}",
-    tagline: "I Suoi esperti ipotecari",
-    taglineNeutral: "Esperti ipotecari",
     greeting: "Buongiorno {name},",
     introKunde:
       "La Sua richiesta di finanziamento è arrivata da HYPOTEQ — grazie per la fiducia. Abbiamo ricevuto tutti i dati e La ricontatteremo a breve (giorni feriali) con i prossimi passi.",

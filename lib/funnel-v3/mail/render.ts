@@ -278,8 +278,7 @@ export function renderClosingMail(s: CaseSummary, ctx: RenderContext): RenderedM
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-bottom:2px solid ${C.lime};">
       <tr>
         <td style="padding-bottom:14px;vertical-align:bottom;">
-          <div style="font-size:26px;font-weight:700;letter-spacing:0.02em;">HYPOTEQ</div>
-          <div style="font-size:12px;color:${C.muted};">${esc(s.audience === "kunde" ? T.tagline : T.taglineNeutral)}</div>
+          <img src="https://www.hypoteq.com/images/HYPOTEQ_layout_logo.png" alt="HYPOTEQ" width="140" style="display:block;width:140px;height:auto;border:0;" />
         </td>
         <td style="padding-bottom:14px;vertical-align:bottom;text-align:right;font-size:12px;color:${C.muted};line-height:1.6;">${head.map((h) => `<div>${esc(h)}</div>`).join("")}</td>
       </tr>
