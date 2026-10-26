@@ -71,7 +71,9 @@ export function buildAbgleichState(input: AbgleichStateInput): AbgleichStateJson
       ...(idx >= 0 ? { borrower: idx + 1 } : {}),
       ...(f.person ? { person: f.person } : {}),
       label: fieldLabel(f),
-      funnelValue: f.customerChoice?.original ?? f.funnelValue,
+      // 6.2: «der gewählte Wert ist zugleich der übermittelte Funnel-Wert» — the value submitted;
+      // what the customer had typed before taking a document value stays in customerChoice.original.
+      funnelValue: f.funnelValue,
       extracted: f.extracted.map((e) => ({ docType: e.docType, docId: e.docId, value: e.value, confidence: e.confidence, sourceRef: e.sourceRef, role: e.role, ampel: e.ampel, field: e.field })),
       result: f.result,
       ...(f.customerChoice ? { customerChoice: f.customerChoice } : {}),

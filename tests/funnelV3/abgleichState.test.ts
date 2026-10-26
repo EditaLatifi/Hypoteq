@@ -37,11 +37,11 @@ describe("the Abgleich JSON (6.2)", () => {
     expect(json.summary).toMatchObject({ ok: expect.any(Number), conflict: 0, identityConflict: 0 });
   });
 
-  it("a document value taken over: the original funnel value is what the JSON reports", () => {
+  it("a document value taken over: funnelValue is the value submitted, the original stays in the choice (6.2)", () => {
     const result = evaluateAbgleich({ state: { ...state, fin: { ...state.fin, inc: 100000 } }, docs, choices: { "jahreseinkommen:b1": { value: 100000, chosenSource: "document", at: "x", original: 120000 } } });
     const json = buildAbgleichState({ result, submittedAt: new Date(), mode: "begleitet", role: "kunde", rulesFrom: "fallback", borrowerIds: ["b1"] });
     expect(json.funnelPath).toBe("begleitete_anmeldung");
-    expect(json.fields.find((f) => f.key === "jahreseinkommen")).toMatchObject({ funnelValue: 120000, result: "ok", customerChoice: { chosenSource: "document", value: 100000 } });
+    expect(json.fields.find((f) => f.key === "jahreseinkommen")).toMatchObject({ funnelValue: 100000, result: "ok", customerChoice: { chosenSource: "document", value: 100000, original: 120000 } });
   });
 
   it("stays within the Long Text field: the secondary readings go first", () => {
