@@ -54,21 +54,22 @@ describe("Fall-Dossier model — Mustermann", () => {
     expect(m.sections[3].callouts!.map((c) => c.label)).toHaveLength(4);
   });
 
-  it("annex A–E with stored names and origins, opened by one plain sentence, no Vollständigkeit box", () => {
+  it("annex by Kat (Spezifikation Datenabgleich 8.2) with stored names and origins, opened by one plain sentence, no Vollständigkeit box", () => {
     expect(m.annex.groups.map((g) => g.title)).toEqual([
-      "A · Zum Objekt",
-      "B · Bestehende Hypothek",
-      "C · Zur Person · Max Mustermann",
-      "D · Eigenmittel und Vorsorge",
+      "00 · HYPOTEQ-Formulare",
+      "01 · Kreditnehmer 1 · Max Mustermann",
+      "03 · Zum Objekt",
+      "04 · Finanzierung und bestehende Hypothek",
       "E · Weitere Dateien · nicht gewertet",
     ]);
-    const a = m.annex.groups[0].table.rows;
-    expect(a[3][0].text).toBe("A4");
+    expect(m.annex.groups[0].table.rows.map((r) => r[1].text)).toEqual(["HYPOTEQ Auskunftsermächtigung"]);
+    const a = m.annex.groups[2].table.rows;
+    expect(a[3][0].text).toBe("03.4");
     expect(a[3][1].sub).toBe("Pflicht · Veraltet · 15.01.2026 · trotzdem verwendet");
     expect(a[3][1].warn).toBe(true);
     expect(a[5][1].sub).toBe("weil: Liegenschaft = Stockwerkeigentum");
     // v5 P2: the current Lohnausweis; the older ones are «Weitere Dateien» (no bonus).
-    const lohn = m.annex.groups[2].table.rows.find((r) => r[2].text.includes("Lohnausweis"))!;
+    const lohn = m.annex.groups[1].table.rows.find((r) => r[2].text.includes("Lohnausweis"))!;
     expect(lohn[2].text.split("\n")).toEqual(["01_Lohnausweis_Max_Mustermann_2025.pdf"]);
     const e = m.annex.groups[4].table.rows.map((r) => r[2].text);
     expect(e).toEqual([
@@ -103,7 +104,7 @@ describe("Fall-Dossier model — Mustermann", () => {
   it("funnel language (D11): French", () => {
     const fr = buildDossierModel(input({ lang: "fr" }));
     expect(fr.sections[0].title).toBe("01 · Demande");
-    expect(fr.annex.groups[0].table.rows[0][1].text).not.toBe(m.annex.groups[0].table.rows[0][1].text);
+    expect(fr.annex.groups[2].table.rows[0][1].text).not.toBe(m.annex.groups[2].table.rows[0][1].text);
     expect(fr.annex.intro).toBe("Les 30 documents suivants sont disponibles pour ce dossier hypothécaire.");
     expect(fr.footer.left).toBe("Confidentiel · pour les prêteurs");
   });
@@ -111,8 +112,8 @@ describe("Fall-Dossier model — Mustermann", () => {
   it("missing documents show «Fehlt» as a warning", () => {
     const files = toDossierFiles(mustermannFiles().filter((f) => f.instanceId !== "fotos"));
     const mm = buildDossierModel(input({ files }));
-    expect(mm.annex.groups[0].table.rows[0][1].sub).toBe("Pflicht · Fehlt");
-    expect(mm.annex.groups[0].table.rows[0][2].text).toBe("–");
+    expect(mm.annex.groups[2].table.rows[0][1].sub).toBe("Pflicht · Fehlt");
+    expect(mm.annex.groups[2].table.rows[0][2].text).toBe("–");
     expect(mm.annex.intro).toBe(`Folgende ${files.length} Dokumente stehen zum Hypothekarfall zur Verfügung.`);
   });
 });

@@ -86,7 +86,9 @@ export interface DossierTexts {
   colFacts: string;
   colKind: string;
   grpE: string;
-  grpD: string;
+  /** Annex Kat 00 and 04 (Spezifikation Datenabgleich 8.1). */
+  kat00: string;
+  kat04: string;
   kept: string;
   notStored: string;
   duplicateOf: string;
@@ -197,7 +199,8 @@ export const DOSSIER_TEXTS: Record<Lang, DossierTexts> = {
     colFile: "Datei",
     colFacts: "Kernangaben",
     colKind: "Einordnung",
-    grpD: "Eigenmittel und Vorsorge",
+    kat00: "HYPOTEQ-Formulare",
+    kat04: "Finanzierung und bestehende Hypothek",
     grpE: "Weitere Dateien · nicht gewertet",
     kept: "mitgeführt",
     notStored: "nicht abgelegt",
@@ -284,7 +287,8 @@ export const DOSSIER_TEXTS: Record<Lang, DossierTexts> = {
     colFile: "File",
     colFacts: "Key details",
     colKind: "Classification",
-    grpD: "Equity and pension provision",
+    kat00: "HYPOTEQ forms",
+    kat04: "Financing and existing mortgage",
     grpE: "Further files · not counted",
     kept: "included",
     notStored: "not stored",
@@ -376,7 +380,8 @@ export const DOSSIER_TEXTS: Record<Lang, DossierTexts> = {
     colFile: "Fichier",
     colFacts: "Informations clés",
     colKind: "Classement",
-    grpD: "Fonds propres et prévoyance",
+    kat00: "Formulaires HYPOTEQ",
+    kat04: "Financement et hypothèque existante",
     grpE: "Autres fichiers · non comptés",
     kept: "joint",
     notStored: "non enregistré",
@@ -468,7 +473,8 @@ export const DOSSIER_TEXTS: Record<Lang, DossierTexts> = {
     colFile: "File",
     colFacts: "Dati principali",
     colKind: "Classificazione",
-    grpD: "Fondi propri e previdenza",
+    kat00: "Moduli HYPOTEQ",
+    kat04: "Finanziamento e ipoteca esistente",
     grpE: "Altri file · non conteggiati",
     kept: "allegato",
     notStored: "non archiviato",

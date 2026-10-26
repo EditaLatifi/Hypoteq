@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useFunnelT } from "@/lib/funnel-v3/useFunnelT";
+import { useFunnelV3 } from "@/lib/funnel-v3/store";
 import { hasKey } from "@/lib/funnel-v3/i18n";
 import type { FileEntry } from "@/lib/funnel-v3/files";
 import type { Placement } from "@/lib/funnel-v3/placeFile";
@@ -51,6 +52,9 @@ export function isHiddenExtra(f: FileEntry, p: Placement | undefined): boolean {
  */
 export default function ExtraFiles({ files, placements, instances, suggested, intern, canRename, onView, onAssigned, grouped, allFiles }: Props) {
   const { t, lang } = useFunnelT();
+  const street = useFunnelV3((s) => s.info?.adresse);
+  const place = useFunnelV3((s) => [s.txt.plz, s.txt.ort].filter(Boolean).join(" "));
+  const nameCtx = { object: { street, place } };
   const [showHidden, setShowHidden] = useState(false);
   // Grouped (the funnel, Handover 4.3) shows the «nicht benötigt» files with their reason;
   // the plain list hides them behind «Anzeigen» (spec 4.3 v1).
@@ -105,7 +109,7 @@ export default function ExtraFiles({ files, placements, instances, suggested, in
         const look = STATE_LOOK[state];
         const title = label(f, p);
         // Every kept file outside the list is filed under a stored name; nothing is deleted (Handover 4.3).
-        const stored = state === "surplus" || state === "duplicate" || state === "notneeded" ? storedNameForExtra(f, p) : null;
+        const stored = state === "surplus" || state === "duplicate" || state === "notneeded" ? storedNameForExtra(f, p, nameCtx) : null;
         return (
           <div key={f.id} className={`v3-docrow ${rowClass(state)}`}>
             <div className="v3-docrow-head v3-docrow-head--static">

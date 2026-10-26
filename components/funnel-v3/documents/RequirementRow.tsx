@@ -41,7 +41,12 @@ export default function RequirementRow({ status: r, files, open, onToggle, onPic
   const { t, lang } = useFunnelT();
   const fin = useFunnelV3((s) => s.fin);
   const setSkipped = useFunnelV3((s) => s.setSkipped);
+  const borrowers = useFunnelV3((s) => s.borrowers);
+  const street = useFunnelV3((s) => s.info?.adresse);
+  const place = useFunnelV3((s) => [s.txt.plz, s.txt.ort].filter(Boolean).join(" "));
   const inst = r.instance;
+  // The stored name's Kat and «Strasse-Nr-Ort» (Spezifikation Datenabgleich 8.1).
+  const nameCtx = { borrowerIndex: inst.borrowerId ? borrowers.findIndex((b) => b.id === inst.borrowerId) : undefined, object: { street, place } };
   const look = STATE_LOOK[r.state];
   const done = files.filter((f) => f.analysisState === "done");
   const names = done.map((f) => f.name).join(" · ");
@@ -96,7 +101,7 @@ export default function RequirementRow({ status: r, files, open, onToggle, onPic
               <span className="v3-eyebrow">{t("s5.storedAs")}</span>
               {done.map((f, i) => (
                 <div key={f.id} className="v3-stored-row">
-                  <StoredName file={f} name={storedNameFor(f, inst, priorFiles + i + 1, priorFiles + done.length, caseNumber)} canRename={canRename} />
+                  <StoredName file={f} name={storedNameFor(f, inst, priorFiles + i + 1, priorFiles + done.length, caseNumber, nameCtx)} canRename={canRename} />
                   <button type="button" className="v3-btn v3-btn--ghost v3-btn--sm" onClick={() => onView(f.id)}>
                     {t("act.view")}
                   </button>

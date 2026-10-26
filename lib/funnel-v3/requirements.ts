@@ -28,12 +28,16 @@ import { tabEntriesFor } from "@/components/dokumentenCheckState";
 
 export type ReqGroup = "objekt" | "hypothek" | "person" | "eigenmittel";
 
-/** Spec 5.1: the folder sorts itself — 01 Person · 02 Hypothek · 03 Objekt · 04 Eigenmittel. */
-export type RenameGroup = "01" | "02" | "03" | "04";
+/**
+ * The «<Kat>» of the stored name (HYPOTEQ 23.10.2026, Spezifikation Datenabgleich 8.1): 00
+ * HYPOTEQ-Formulare · 01 Kreditnehmer 1 (02 for Kreditnehmer 2, storedName.ts katOf) · 03 Objekt
+ * · 04 Finanzierung / bestehende Hypothek, the Eigenmittel with it.
+ */
+export type RenameGroup = "00" | "01" | "02" | "03" | "04";
 
 export const RENAME_GROUP: Record<ReqGroup, RenameGroup> = {
   person: "01",
-  hypothek: "02",
+  hypothek: "04",
   objekt: "03",
   eigenmittel: "04",
 };
@@ -113,7 +117,7 @@ function def(d: DefInput): RequirementDef {
     labelKey: `doc.${d.id}`,
     ...d,
     legacyKeys,
-    renameGroup: RENAME_GROUP[d.group],
+    renameGroup: d.id === "vollmacht" ? "00" : RENAME_GROUP[d.group],
     tabEntries: tabEntriesFor([...legacyKeys]),
   };
 }

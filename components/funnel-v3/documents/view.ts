@@ -273,14 +273,27 @@ export function extOf(name: string): string {
   return i < 0 ? "pdf" : name.slice(i + 1);
 }
 
-/** «Wird gespeichert als» for a file on a requirement (index 1-based among its files). */
-export function storedNameFor(f: FileEntry, inst: RequirementInstance, index: number, total: number, caseNumber?: string | null): string {
+/** What the name needs beyond the file (Spezifikation Datenabgleich 8.1): the Kreditnehmer's place and the object. */
+export interface NameContext {
+  /** 0 = Kreditnehmer 1, 1 = Kreditnehmer 2. */
+  borrowerIndex?: number;
+  object?: { street?: string | null; place?: string | null };
+}
+
+/**
+ * «Wird gespeichert als» for a file on a requirement (index 1-based among its files). Several
+ * files that come out alike get their _2, _3 at the closing.
+ */
+export function storedNameFor(f: FileEntry, inst: RequirementInstance, index: number, total: number, caseNumber?: string | null, ctx: NameContext = {}): string {
   if (f.nameOverride) return f.nameOverride;
   return storedName({
     caseNumber: caseNumber || CASE_PLACEHOLDER,
     requirement: inst,
+    borrowerIndex: ctx.borrowerIndex,
+    object: ctx.object,
     bank: f.analysis?.bank ?? undefined,
     docDate: f.analysis?.docDate ?? null,
+    uploadedAt: f.addedAt ?? null,
     index,
     total,
     ext: extOf(f.name),
@@ -293,19 +306,25 @@ function printedPerson(name: string | null | undefined): { first: string; last: 
 }
 
 /** Stored name of an extra (ZUSATZ / DUPLIKAT), or null when it is not filed under a requirement. */
-export function storedNameForExtra(f: FileEntry, p: Placement | undefined): string | null {
+export function storedNameForExtra(f: FileEntry, p: Placement | undefined, ctx: NameContext = {}): string | null {
   if (f.nameOverride) return f.nameOverride;
   if (!p?.extraKind) return null;
   const req = p.requirementId ? getRequirement(p.requirementId) : undefined;
-  // A type that is no requirement (not needed, unknown) is kept under its own name (Handover 4.3).
-  if (!req) return extraStoredName(CASE_PLACEHOLDER, f.name, p.extraKind);
+  // A type that is no requirement (not needed): named after the type; an unknown file keeps its own name.
+  if (!req) {
+    const type = v3DocType(f.analysis?.docTypeId);
+    return extraStoredName(CASE_PLACEHOLDER, f.name, p.extraKind, { type: type?.labelDe ?? null, personName: f.analysis?.personName ?? null, docDate: f.analysis?.docDate ?? null, uploadedAt: f.addedAt ?? null });
+  }
   return storedName({
     caseNumber: CASE_PLACEHOLDER,
     requirement: req,
     // V3Analysis.personName is «Nachname Vorname» as printed.
     person: printedPerson(f.analysis?.personName),
+    borrowerIndex: ctx.borrowerIndex,
+    object: ctx.object,
     bank: f.analysis?.bank ?? undefined,
     docDate: f.analysis?.docDate ?? null,
+    uploadedAt: f.addedAt ?? null,
     ext: extOf(f.name),
     extraKind: p.extraKind,
   });

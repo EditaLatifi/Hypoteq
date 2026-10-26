@@ -199,7 +199,7 @@ describe("the annex: the Auskunftsermächtigung and the v5 list («Verlauf» is 
   it("signed: P0 in annex C with its state", () => {
     const m = model(kaufState());
     expect(m.sections).toHaveLength(4);
-    const c = m.annex.groups.find((g) => g.title.startsWith("C · "))!;
+    const c = m.annex.groups.find((g) => g.title.startsWith("00 · "))!;
     const p0 = c.table.rows.find((r) => r[1].text === "HYPOTEQ Auskunftsermächtigung")!;
     expect(p0[3].text).toBe("Auskunftsermächtigung: unterzeichnet erhalten");
     expect(m.status.counts.fulfilled).toBe(m.status.counts.total);

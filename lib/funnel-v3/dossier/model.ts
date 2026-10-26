@@ -29,13 +29,14 @@ import type { StoredFunnelState } from "../legacy";
 import type { V3Analysis } from "../files";
 import { chf, date as fmtDate, pct } from "../format";
 import { interpolate, optionLabel, translate, type Lang, type Params } from "../i18n";
-import { GROUP_ORDER, SIGNATURE_REQUIREMENT_ID, reqList, type ReqGroup, type ReqReason } from "../requirements";
+import { SIGNATURE_REQUIREMENT_ID, reqList, type ReqGroup, type ReqReason } from "../requirements";
 import { bankHints, requirementStatus, type BankHint, type ExtraKind, type RequirementStatus, type StatusResult, type UploadedFile } from "../requirementStatus";
 import { signatureReviewNote, signatureView, type SignatureStatus } from "../signature";
 import { KORRESPONDENZSPRACHE } from "../toInquiryPayload";
 import { EM_ROWS, isRentedNutzung, type DocInfo, type FieldPath, type FunnelState } from "../types";
 import { MAIL_TEXTS } from "../mail/texts";
 import { DOSSIER_TEXTS, DOSSIER_V5_TEXTS, type DossierTexts } from "./texts";
+import type { Kat } from "../storedName";
 
 /** One uploaded file as the dossier sees it. */
 export interface DossierFile {
@@ -479,29 +480,41 @@ export function buildDossierModel(input: DossierInput): DossierModel {
     const r = reason.conditions.map((c) => `${T.questions[c.question] ?? c.question} = ${opt(c.question, c.value) || c.value}`).join(" · ");
     return t("why.because", { reason: r });
   };
-  const letters: Record<ReqGroup, string> = { objekt: "A", hypothek: "B", person: "C", eigenmittel: "D" };
-  const groupTitle: Record<ReqGroup, string> = { objekt: t("grp.objekt"), hypothek: t("grp.hypothek"), person: t("grp.person"), eigenmittel: T.grpD };
+  // The order of the case folder (HYPOTEQ 23.10.2026, Spezifikation Datenabgleich 8.1/8.2):
+  // Kat 00 HYPOTEQ-Formulare · 01 Kreditnehmer 1 · 02 Kreditnehmer 2 · 03 Objekt · 04
+  // Finanzierung und bestehende Hypothek; inside a Kat the requirements in list order.
   const reqHead = [T.colNo, T.colReq, T.colFile, T.colFacts];
   const groups: AnnexGroup[] = [];
-  const personNames = new Set(status.requirements.filter((r) => r.instance.group === "person").map((r) => r.instance.person?.display).filter(Boolean));
-  for (const g of GROUP_ORDER) {
-    const rs = status.requirements.filter((r) => r.instance.group === g);
+  const second = isJur ? undefined : borrowers[1];
+  const katOfReq = (r: RequirementStatus): Kat =>
+    r.instance.id === SIGNATURE_REQUIREMENT_ID ? "00" : r.instance.group === "objekt" ? "03" : r.instance.group === "person" ? (second && r.instance.borrowerId === second.id ? "02" : "01") : "04";
+  const katTitle: Record<Kat, string> = {
+    "00": T.kat00,
+    "01": [t("s3.borrower", { n: 1 }), names[0]].filter(Boolean).join(" · "),
+    "02": [t("s3.borrower", { n: 2 }), names[1]].filter(Boolean).join(" · "),
+    "03": t("grp.objekt"),
+    "04": T.kat04,
+  };
+  const katPerson: Partial<Record<Kat, string>> = { "01": names[0], "02": names[1] };
+  for (const kat of ["00", "01", "02", "03", "04"] as const) {
+    const rs = status.requirements.filter((r) => katOfReq(r) === kat);
     if (!rs.length) continue;
     const rows = rs.map((r, i): TableCell[] => {
       const fs = filesOf(r);
-      const label = t(r.instance.labelKey) + (r.instance.person?.display && personNames.size > 1 ? ` · ${r.instance.person.display}` : "");
+      // A Solidarbürge's or signatory's document among Kreditnehmer 1's says whose it is.
+      const who = r.instance.person?.display;
+      const label = t(r.instance.labelKey) + (who && who !== katPerson[kat] && kat !== "00" ? ` · ${who}` : "");
       const stateLine = stateNote(r, fs, lang, T);
       // P0 (Handover 6): the signature's state is its key fact.
       const keyFacts = r.instance.id === SIGNATURE_REQUIREMENT_ID ? [`${V.signature}: ${sigLabel}`, facts(fs)].filter(Boolean).join(" · ") : facts(fs);
       return [
-        { text: `${letters[g]}${i + 1}` },
+        { text: `${kat}.${i + 1}` },
         { text: label, sub: [reasonText(r.instance.reason), stateLine.text].filter(Boolean).join(" · "), warn: stateLine.warn },
         { text: fs.length ? fs.map((f) => f.name).join("\n") : T.noFile },
         { text: keyFacts },
       ];
     });
-    const single = g === "person" && personNames.size === 1 ? ` · ${[...personNames][0]}` : "";
-    groups.push({ title: `${letters[g]} · ${groupTitle[g]}${single}`, table: { head: reqHead, widths: [0.45, 2.1, 2.6, 2.5], rows } });
+    groups.push({ title: `${kat} · ${katTitle[kat]}`, table: { head: reqHead, widths: [0.5, 2.1, 2.6, 2.5], rows } });
   }
   const extras = input.files.filter((f) => !f.instanceId || !status.requirements.some((r) => r.fileIds.includes(f.id)));
   if (extras.length) {

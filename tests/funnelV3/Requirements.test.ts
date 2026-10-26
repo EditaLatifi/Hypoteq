@@ -368,7 +368,8 @@ describe('catalogue', () => {
     });
   });
   it('uses the rename groups 01 Person · 02 Hypothek · 03 Objekt · 04 Eigenmittel', () => {
-    for (const r of REQ) expect(r.renameGroup).toBe({ person: '01', hypothek: '02', objekt: '03', eigenmittel: '04' }[r.group]);
+    // Spezifikation Datenabgleich 8.1: 00 Formulare · 01/02 Kreditnehmer · 03 Objekt · 04 Finanzierung.
+    for (const r of REQ) expect(r.renameGroup).toBe(r.id === 'vollmacht' ? '00' : { person: '01', hypothek: '04', objekt: '03', eigenmittel: '04' }[r.group]);
   });
   it('keeps the prototype short names', () => {
     const SHORT = { fotos: 'Fotos', verkaufsdoku: 'Verkaufsdokumentation', stwe_plan: 'Grundrissplaene', grundbuch: 'Grundbuchauszug', gvz: 'Gebaeudeversicherung', stwe_regl: 'STWE-Reglement', ef: 'Erneuerungsfonds', produkt: 'Produktvereinbarung', hyp_zins: 'Zinsabrechnung', vollmacht: 'Auskunftsermaechtigung', id: 'ID', lohnausweise: 'Lohnausweis', lohnabrechnungen: 'Lohnabrechnungen', anstellung: 'Anstellungsvertrag', pk: 'Pensionskassenausweis', steuer: 'Steuererklaerung', unterhalt: 'Unterhaltsvereinbarung', kredit: 'Kreditvertrag', leasing: 'Leasingvertrag', vermoegen: 'Eigenmittelnachweis', s3a: 'Saeule3a-Bescheinigung', police: 'Vorsorgepolice-3a' };

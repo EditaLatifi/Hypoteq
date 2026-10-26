@@ -34,6 +34,7 @@ import { signatureJson, signatureView } from "./signature";
 import { bankHints, requirementStatus, type ExtraKind, type StatusResult, type UploadedFile } from "./requirementStatus";
 import { cleanNamePart, extraStoredName, storedName } from "./storedName";
 import { normaliseFunnelState, type StoredFunnelState } from "./legacy";
+import { v3DocType } from "@/components/documentIntelligence/v3/catalogue";
 import { evaluateAbgleich } from "./abgleich/evaluate";
 import type { PruefRegel } from "./abgleich/rules";
 import { abgleichStateText, buildAbgleichState, choicesOf } from "./abgleich/state";
@@ -247,24 +248,28 @@ export function planFiles(
 
   if (!caseNumber) return plans;
 
-  // Files on a requirement: Nr only when the requirement has several (spec 5.1).
+  // Spezifikation Datenabgleich 8: Kat by Kreditnehmer, «Strasse-Nr-Ort» for the object, the
+  // document's date (the upload's when it has none); several alike get _2, _3 below.
+  const borrowerIndex = (id: string | undefined) => (id ? state.borrowers.findIndex((b) => b.id === id) : -1);
+  const object = { street: state.info?.adresse ?? null, place: [state.txt.plz, state.txt.ort].filter(Boolean).join(" ") };
   const groups = new Map<string, FilePlan[]>();
   for (const p of plans) if (p.instance) groups.set(p.instance.instanceId, [...(groups.get(p.instance.instanceId) || []), p]);
   for (const list of groups.values()) {
     list.sort(fileOrder);
-    list.forEach((p, i) => {
+    for (const p of list) {
       const inst = p.instance!;
       p.target = storedName({
         caseNumber,
         requirement: inst,
         ...(hasPersonName(inst) ? {} : { person: personFromAnalysis(p.analysis?.personName) }),
+        borrowerIndex: borrowerIndex(inst.borrowerId),
+        object,
         bank: p.analysis?.bank ?? undefined,
         docDate: p.analysis?.docDate ?? null,
-        index: i + 1,
-        total: list.length,
+        uploadedAt: p.row.uploadedAt,
         ext: extOf(p.row.originalFileName || p.row.fileName),
       });
-    });
+    }
   }
 
   // Kept files outside the list: _ZUSATZ_ / _DUPLIKAT_ after the group.
@@ -279,9 +284,18 @@ export function planFiles(
         def.personKind === "borrower" ? fromAnalysis ?? (mainBorrower ? { first: mainBorrower.vor || state.txt.vor, last: mainBorrower.nach || state.txt.nach } : undefined)
         : def.personKind === "company" ? { company: state.txt.firma }
         : fromAnalysis;
-      p.target = storedName({ caseNumber, requirement: def, person, bank: p.analysis?.bank ?? undefined, docDate: p.analysis?.docDate ?? null, ext, extraKind: p.extraKind });
+      // Kreditnehmer 2's when the printed name is his (Kat 02).
+      const second = state.borrowers[1];
+      const isSecond = !!second && !!fromAnalysis && cleanNamePart(fromAnalysis.last).toLowerCase() === cleanNamePart(second.nach).toLowerCase() && !!second.nach.trim();
+      p.target = storedName({ caseNumber, requirement: def, person, borrowerIndex: isSecond ? 1 : 0, object, bank: p.analysis?.bank ?? undefined, docDate: p.analysis?.docDate ?? null, uploadedAt: p.row.uploadedAt, ext, extraKind: p.extraKind });
     } else {
-      p.target = extraStoredName(caseNumber, p.row.originalFileName || p.row.fileName, p.extraKind);
+      const type = v3DocType(p.analysis?.docTypeId);
+      p.target = extraStoredName(caseNumber, p.row.originalFileName || p.row.fileName, p.extraKind, {
+        type: type?.labelDe ?? null,
+        personName: p.analysis?.personName ?? null,
+        docDate: p.analysis?.docDate ?? null,
+        uploadedAt: p.row.uploadedAt,
+      });
     }
   }
 

@@ -209,15 +209,15 @@ describe("submitV3Nachreichung (POST)", () => {
     expect(w.docs.some((r) => r.id === "foreign-doc")).toBe(false);
 
     // Stored names (spec 5.1).
-    expect(w.nameOf("h-fotos")).toBe(`${CASE}_03_Fotos.pdf`);
-    expect(w.nameOf("h-lohn")).toBe(`${CASE}_01_Lohnausweis_Mustermann-Max_2025.pdf`);
-    expect(w.nameOf("h-prod")).toBe(`${CASE}_02_Produktvereinbarung_Musterbank_2026-02-01.pdf`);
-    expect(w.nameOf("h-gb")).toBe(`${CASE}_03_ZUSATZ_Grundbuchauszug_2026-09-30.pdf`);
+    expect(w.nameOf("h-fotos")).toBe(`${CASE}_03_Fotos_Zuerich_2026-10-05.pdf`);
+    expect(w.nameOf("h-lohn")).toBe(`${CASE}_01_Lohnausweis_Mustermann-Max_2025-12-31.pdf`);
+    expect(w.nameOf("h-prod")).toBe(`${CASE}_04_Produktvereinbarung_Musterbank_2026-02-01.pdf`);
+    expect(w.nameOf("h-gb")).toBe(`${CASE}_03_ZUSATZ_Grundbuchauszug_Zuerich_2026-09-30.pdf`);
     // What v3 asked and v5 no longer does stays in the folder as «Überzählig», never deleted.
     expect(w.nameOf("doc-8")).toMatch(/_ZUSATZ_.*Rahmenvertrag/);
-    expect(w.nameOf("doc-24")).toBe(`${CASE}_01_ZUSATZ_Anstellungsvertrag_Mustermann-Max.pdf`);
+    expect(w.nameOf("doc-24")).toBe(`${CASE}_01_ZUSATZ_Anstellungsvertrag_Mustermann-Max_2026-10-01.pdf`);
     expect(w.docs.find((r) => r.id === "doc-26")!.driveItemId).toBe("item-doc-26");
-    expect(w.docs.find((r) => r.id === "h-fotos")!.storedName).toBe(`${CASE}_03_Fotos.pdf`);
+    expect(w.docs.find((r) => r.id === "h-fotos")!.storedName).toBe(`${CASE}_03_Fotos_Zuerich_2026-10-05.pdf`);
     // The decision is stored beside the AI analysis, as at submit.
     expect((w.docs.find((r) => r.id === "h-lohn")!.aiAnalysis as any).v3Submitted.instanceId).toBe("lohnausweise#b1");
 
@@ -244,7 +244,7 @@ describe("submitV3Nachreichung (POST)", () => {
     expect(state.filters).toEqual({ a: 1 });
     const fotos = state.requirements.find((r: any) => r.id === "fotos");
     expect(fotos.status).toBe("ok");
-    expect(fotos.files[0].storedName).toBe(`${CASE}_03_Fotos.pdf`);
+    expect(fotos.files[0].storedName).toBe(`${CASE}_03_Fotos_Zuerich_2026-10-05.pdf`);
     expect(state.requirements.find((r: any) => r.id === "lohnausweise#b1").files).toHaveLength(1);
     // The stored v3 answers in the JSON: the Unterhalt chip from Kinder + Unterhalt, the 3a «Ja».
     expect(state.answers).toMatchObject({ unterhalt: "Ja", legacyEquity: { s3a: "Ja" } });
@@ -281,9 +281,9 @@ describe("submitV3Nachreichung (POST)", () => {
     const w = world(rows, [heldRow("h-gb", "Grundbuch neu.pdf", analysis("grundbuch", { docDate: "2026-09-30" })), heldRow("h-prod", "Produkt.pdf", analysis("produkt", { bank: "Musterbank" }), 1)]);
     const res = await submitV3Nachreichung(row, { documents: [{ documentId: "h-gb", instanceId: "grundbuch", requirementId: "grundbuch" }, { documentId: "h-prod", instanceId: "produkt", requirementId: "produkt" }] }, w.deps);
     expect(res.ok && res.complete).toBe(true);
-    expect(w.nameOf("h-gb")).toBe(`${CASE}_03_Grundbuchauszug_2026-09-30.pdf`);
+    expect(w.nameOf("h-gb")).toBe(`${CASE}_03_Grundbuchauszug_Zuerich_2026-09-30.pdf`);
     // The old extract stays in the folder as an extra.
-    expect(w.nameOf("doc-4")).toBe(`${CASE}_03_ZUSATZ_Grundbuchauszug_2026-01-15.pdf`);
+    expect(w.nameOf("doc-4")).toBe(`${CASE}_03_ZUSATZ_Grundbuchauszug_Zuerich_2026-01-15.pdf`);
     expect(w.cases[0].Dok_Grundbuchauszug__c).toBe(true);
   });
 
@@ -354,7 +354,7 @@ describe("v5 inquiries: the Auskunftsermächtigung after the closing, no mail (H
     expect(res.ok).toBe(true);
     if (!res.ok) return;
     expect(res.remaining).not.toContain("vollmacht");
-    expect(w.received).toEqual([{ inquiryId: INQUIRY, fileName: expect.stringMatching(/^HQ-26-10-000123_01_Auskunftsermaechtigung/), driveItemId: "item-h-sig", at: new Date("2026-10-05T12:00:00Z") }]);
+    expect(w.received).toEqual([{ inquiryId: INQUIRY, fileName: expect.stringMatching(/^HQ-26-10-000123_00_Auskunftsermaechtigung/), driveItemId: "item-h-sig", at: new Date("2026-10-05T12:00:00Z") }]);
     // Handover 7.1: documents sent later → no mail, the Case is updated.
     expect(w.mails).toEqual([]);
     expect(w.cases).toHaveLength(1);
@@ -399,7 +399,7 @@ describe("v5 inquiries: the Auskunftsermächtigung after the closing, no mail (H
     expect(res.ok).toBe(true);
     if (!res.ok) return;
     expect(res.remaining).not.toContain("vollmacht");
-    expect(w.received).toEqual([{ inquiryId: INQUIRY, fileName: expect.stringMatching(/^HQ-26-10-000123_01_Auskunftsermaechtigung/), driveItemId: "item-h-sig", at: new Date("2026-10-05T12:00:00Z") }]);
+    expect(w.received).toEqual([{ inquiryId: INQUIRY, fileName: expect.stringMatching(/^HQ-26-10-000123_00_Auskunftsermaechtigung/), driveItemId: "item-h-sig", at: new Date("2026-10-05T12:00:00Z") }]);
     expect(w.inquiryUpdates[0].v3State.sig).toMatchObject({ choice: "uploaded", override: true, overrideAt: "2026-10-05T12:00:00.000Z" });
     // Read back, the page no longer asks for it.
     const after = nachreichV3View(v5Row({ v3State: w.inquiryUpdates[0].v3State }), w.docs)!;

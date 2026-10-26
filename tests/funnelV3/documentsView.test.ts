@@ -167,13 +167,13 @@ describe("fields, names, checks", () => {
   it("previews the stored name with the case number placeholder", () => {
     const inst = reqList(mkState())!.find((i) => i.id === "lohnausweise")!;
     const file = f({ name: "Lohnausweis.PDF", analysis: { status: "done", docTypeId: "lohnausweise", docTypeLabel: "", confidence: 1, requirementId: null, docDate: "2024", fields: {} } });
-    expect(storedNameFor(file, inst, 2, 3)).toBe("HQ-…_01_Lohnausweis_Mustermann-Max_2024_2.pdf");
+    expect(storedNameFor(file, inst, 2, 3)).toBe("HQ-…_01_Lohnausweis_Mustermann-Max_2024-12-31.pdf");
     expect(storedNameFor({ ...file, nameOverride: "X.pdf" }, inst, 2, 3)).toBe("X.pdf");
     const extra = storedNameForExtra(
       { ...file, analysis: { ...file.analysis!, docDate: "2022", personName: "Mustermann Max" } },
       { instanceId: null, requirementId: "lohnausweise", extraKind: "surplus", reason: "period" }
     );
-    expect(extra).toBe("HQ-…_01_ZUSATZ_Lohnausweis_Mustermann-Max_2022.pdf");
+    expect(extra).toBe("HQ-…_01_ZUSATZ_Lohnausweis_Mustermann-Max_2022-12-31.pdf");
   });
 
   it("explains an outdated document", () => {

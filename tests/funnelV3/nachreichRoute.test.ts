@@ -270,9 +270,9 @@ describe("POST /api/nachreichen/[token]", () => {
     const ids = mockDb.documents.map((d) => d.id);
     expect(ids).toEqual(expect.arrayContaining(["h-fotos", "h-lohn"]));
     expect(ids).not.toContain("h-other");
-    expect(mockDb.documents.find((d) => d.id === "h-fotos").storedName).toBe(`${CASE}_03_Fotos.pdf`);
-    expect(mockDb.documents.find((d) => d.id === "h-lohn").storedName).toBe(`${CASE}_01_Lohnausweis_Mustermann-Max_2025.pdf`);
-    expect(mockDb.documents.find((d) => d.id === "h-prod").storedName).toBe(`${CASE}_02_Produktvereinbarung_Musterbank_2026-02-01.pdf`);
+    expect(mockDb.documents.find((d) => d.id === "h-fotos").storedName).toBe(`${CASE}_03_Fotos_Zuerich_2026-10-05.pdf`);
+    expect(mockDb.documents.find((d) => d.id === "h-lohn").storedName).toBe(`${CASE}_01_Lohnausweis_Mustermann-Max_2025-12-31.pdf`);
+    expect(mockDb.documents.find((d) => d.id === "h-prod").storedName).toBe(`${CASE}_04_Produktvereinbarung_Musterbank_2026-02-01.pdf`);
     expect(graphCalls.some((c) => c.startsWith("PATCH"))).toBe(true);
     // The refreshed Fall-Dossier.
     expect(graphCalls.some((c) => c.startsWith("PUT") && c.includes(`${CASE}_00_Fall-Dossier.pdf`))).toBe(true);
