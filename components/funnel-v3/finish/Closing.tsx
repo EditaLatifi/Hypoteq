@@ -6,8 +6,8 @@
  *
  * Kennzahlen, Hinweise an die Bank, Prüfliste, the Auskunftsermächtigung (<SignatureBlock />,
  * Handover 6), then the lime block (HYPOTEQ 23.10.2026, Spezifikation Datenabgleich 2.4): on the
- * left the white «Fall-Dossier herunterladen» card — the number of documents and the PDF's size,
- * read from a preview prepared in the background — on the right «Finanzierungsanfrage
+ * left the white «Fall-Dossier herunterladen» card with «Alle Angaben & {n} Unterlagen im
+ * Überblick · PDF» (no size, HYPOTEQ 26.10.2026), on the right «Finanzierungsanfrage
  * abschliessen →», locked until the signed copy is uploaded or «Später nachreichen» is chosen
  * (logic.ts finishGate). The submit waits for running uploads / analyses with a visible progress
  * state and shows a failure inline with «Erneut versuchen»; a successful submit opens the
@@ -22,19 +22,10 @@ import { useFunnelV3 } from "@/lib/funnel-v3/store";
 import { submitFunnel, SubmitError, type SubmitPhase, type SubmitState } from "@/lib/funnel-v3/submit";
 import { useFunnelT } from "@/lib/funnel-v3/useFunnelT";
 import { saveDone, type DoneInfo } from "./doneState";
-import { draftDossierName, fetchDraftDossier, previewBody, saveBlob } from "./previewDossier";
+import { downloadDraftDossier, previewBody } from "./previewDossier";
 import SignatureBlock from "./SignatureBlock";
 import { useFunnelUI } from "../uiStore";
 import "./finish.css";
-
-/** «48 KB» / «1.2 MB». */
-function fileSize(bytes: number): string {
-  if (bytes < 1024 * 1024) return `${Math.max(1, Math.round(bytes / 1024))} KB`;
-  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
-}
-
-/** How long the answers rest before the dossier preview is prepared again. */
-const PREPARE_MS = 1200;
 
 export default function Closing() {
   const { t, lang } = useFunnelT();
@@ -49,7 +40,6 @@ export default function Closing() {
   const sig = useFunnelV3((s) => s.sig);
   const files = useFunnelV3((s) => s.files);
   const skipped = useFunnelV3((s) => (s as { skipped?: Iterable<string> }).skipped);
-  const src = useFunnelV3((s) => s.src);
 
   const docs = useMemo(
     () => documentsSummary({ ans, borrowers, txt, em, info, mode, sig, files, skipped }),
@@ -75,35 +65,10 @@ export default function Closing() {
   const [dossierError, setDossierError] = useState<string | null>(null);
   const running = useRef(false);
 
-  // The dossier card names the size of the PDF: the preview is prepared once the answers rest
-  // and no file is still being read, and the download reuses it while nothing has changed.
-  const body = useMemo(
-    () => previewBody({ role, ans, txt, fin, em, info, borrowers, src, sig, files, skipped } as never, lang),
-    [role, ans, txt, fin, em, info, borrowers, src, sig, files, skipped, lang]
-  );
-  const bodyKey = useMemo(() => JSON.stringify(body), [body]);
-  const [prepared, setPrepared] = useState<{ key: string; blob: Blob } | null>(null);
-  const reading = docs.busy > 0;
-  const ready = prepared && prepared.key === bodyKey ? prepared.blob : null;
-  useEffect(() => {
-    // Only a changed content asks again (a file's progress re-renders without changing it).
-    if (ready || reading || typeof fetch !== "function") return;
-    const ctrl = new AbortController();
-    const timer = setTimeout(() => {
-      fetchDraftDossier(JSON.parse(bodyKey), fetch, ctrl.signal)
-        .then((blob) => setPrepared({ key: bodyKey, blob }))
-        .catch(() => {
-          /* the card shows no size; the download asks again */
-        });
-    }, PREPARE_MS);
-    return () => {
-      clearTimeout(timer);
-      ctrl.abort();
-    };
-  }, [bodyKey, reading, ready]);
+  // «Alle Angaben & 28 Unterlagen im Überblick · PDF» — no size: the PDF does not carry the
+  // documents themselves (HYPOTEQ 26.10.2026).
   const docCount = docs.files.filter((f) => f.uploadState === "uploaded").length;
-  const dossierMeta =
-    [docCount === 1 ? t("close.docs1") : t("close.docsN", { n: docCount }), "PDF"].join(" · ") + (ready ? `, ${t("close.approx", { size: fileSize(ready.size) })}` : "");
+  const dossierMeta = docCount === 1 ? t("close.overview1") : t("close.overviewN", { n: docCount });
 
   // Leaving the page while the request is on its way would leave the customer guessing.
   useEffect(() => {
@@ -147,19 +112,16 @@ export default function Closing() {
 
   const dossier = useCallback(async () => {
     if (dossierBusy) return;
-    setDossierError(null);
-    if (ready) return saveBlob(ready, draftDossierName(body));
     setDossierBusy(true);
+    setDossierError(null);
     try {
-      const blob = await fetchDraftDossier(body);
-      setPrepared({ key: bodyKey, blob });
-      saveBlob(blob, draftDossierName(body));
+      await downloadDraftDossier(previewBody(useFunnelV3.getState() as never, lang));
     } catch {
       setDossierError(t("s6.err.dossier"));
     } finally {
       setDossierBusy(false);
     }
-  }, [body, bodyKey, dossierBusy, ready, t]);
+  }, [dossierBusy, lang, t]);
 
   const busy = phase !== null;
   const progressTitle =

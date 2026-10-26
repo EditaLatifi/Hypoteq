@@ -842,9 +842,8 @@
   },
   "close": {
     "dossierTitle": "Download case dossier",
-    "docsN": "{n} documents",
-    "docs1": "1 document",
-    "approx": "approx. {size}",
+    "overviewN": "All details & {n} documents at a glance · PDF",
+    "overview1": "All details & 1 document at a glance · PDF",
     "download": "Download",
     "after": "HYPOTEQ then reviews the case — you will be informed by e-mail."
   },

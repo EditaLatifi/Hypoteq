@@ -842,9 +842,8 @@
   },
   "close": {
     "dossierTitle": "Télécharger le dossier",
-    "docsN": "{n} documents",
-    "docs1": "1 document",
-    "approx": "env. {size}",
+    "overviewN": "Toutes les données & {n} documents en un coup d'œil · PDF",
+    "overview1": "Toutes les données & 1 document en un coup d'œil · PDF",
     "download": "Télécharger",
     "after": "HYPOTEQ examine ensuite le dossier — vous serez informé(e) par e-mail."
   },

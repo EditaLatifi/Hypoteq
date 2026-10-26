@@ -842,9 +842,8 @@
   },
   "close": {
     "dossierTitle": "Fall-Dossier herunterladen",
-    "docsN": "{n} Unterlagen",
-    "docs1": "1 Unterlage",
-    "approx": "ca. {size}",
+    "overviewN": "Alle Angaben & {n} Unterlagen im Überblick · PDF",
+    "overview1": "Alle Angaben & 1 Unterlage im Überblick · PDF",
     "download": "Herunterladen",
     "after": "Danach prüft HYPOTEQ den Fall durch — du wirst per E-Mail informiert."
   },

@@ -44,8 +44,8 @@ describe("Closing (server render)", () => {
     expect(html).not.toContain("v3-finish-blocked");
     // Spezifikation Datenabgleich 2.4: the dossier card on the left, before the submit.
     expect(html).toContain('class="v3-dossier-title">Fall-Dossier herunterladen<');
-    // The size follows once the preview is prepared (in the browser, after the answers rest).
-    expect(html).toContain('class="v3-dossier-meta">30 Unterlagen · PDF<');
+    // No size: the PDF does not carry the documents (HYPOTEQ 26.10.2026).
+    expect(html).toContain('class="v3-dossier-meta">Alle Angaben &amp; 30 Unterlagen im Überblick · PDF<');
     expect(html).toContain(">Herunterladen</button>");
     expect(html.indexOf('class="v3-dossier"')).toBeLessThan(html.indexOf("v3-submit-go"));
     // The confirmation is a page of its own now (Confirmation.tsx), never part of the closing.
