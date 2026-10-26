@@ -119,6 +119,8 @@ const FIELD_HINTS: Record<string, string> = {
   "Zimmer": "number of rooms",
   "Wohnfläche": "living area in m²",
   "Nettowohnfläche": "net living area in m²",
+  "Kubatur": "building volume (Kubatur) in m³ as printed, SIA 416 where stated; null when the document names none",
+  "Volumen": "building volume (Kubatur) insured, in m³",
   "Heizung": "heating system as described (e.g. «Wärmepumpe», «Gas», «Holzofen»)",
   "Kaufpreis": "purchase price of the property, with CHF",
   "Eigentumsübertragung": "planned date of the transfer of ownership (Eigentumsübertragung / Antritt), DD.MM.YYYY",
@@ -213,7 +215,7 @@ const REQ_INPUT: Record<string, ReqTypeInput> = {
   reservation: {
     aliases: a(["Reservationsvertrag", "Reservationsvereinbarung"], ["Contrat de réservation", "Convention de réservation"], ["Contratto di riservazione", "Accordo di prenotazione"], ["Reservation agreement", "Reservation contract"]),
     describe: "Reservation agreement for a property or unit, usually with a reservation fee.",
-    fields: ["Verkäufer", "Käufer", "Objekt", "Reservationsbetrag", "Datum"],
+    fields: ["Verkäufer", "Käufer", "Objekt", "Kaufpreis", "Reservationsbetrag", "Datum"],
     naming: { date: "date" },
   },
   reservation_zahlung: {

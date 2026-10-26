@@ -229,10 +229,20 @@ const placeOf: Reader = (p) => {
 /** Free text that should name the object's PLZ (Kaufvertrag «Objekt», Verkaufsdokumentation). */
 const objectText = (key: string): Reader => text(key);
 
+/** A building volume in m³ (Kubatur). */
+const volume = (key: string): Reader => (p) => {
+  const n = amountOf(fieldText(p.analysis, key));
+  if (!n) return null;
+  return { value: n, display: `${n.toLocaleString("de-CH").replace(/’/g, "'")} m³`, field: key, confidence: conf(p.analysis, [key]), sourceRef: refOf(p.analysis, [key]) };
+};
+
+/** The Kubatur of the same rule (baujahr_kubatur): Gebäudeversicherung «Volumen» against the Verkaufsdokumentation. */
+const KUBATUR: Record<string, Reader> = { gvz: volume("Volumen"), verkaufsdoku: volume("Kubatur") };
+
 /** What each rule reads from each catalogue type. */
 const READERS: Record<string, Record<string, Reader>> = {
   name_kreditnehmer: { id: printedName, lohnausweise: printedName, steuer: printedName, betreibung: printedName },
-  geburtsdatum: { id: date("Geburtsdatum") },
+  geburtsdatum: { id: date("Geburtsdatum"), pk: date("Geburtsdatum") },
   nationalitaet_bewilligung: { id: text("Nationalität") },
   jahreseinkommen: { lohnausweise: amount("Bruttolohn"), lohnabrechnungen: payslipYear, steuer: amount("Einkünfte unselbständig") },
   einkommen_selbstaendig: { abschluss_se: amount("Reingewinn"), steuer: amount("Einkünfte selbständig") },
@@ -241,8 +251,8 @@ const READERS: Record<string, Record<string, Reader>> = {
   eigenmittel_3a: { s3a: amount("Guthaben"), police: amount("Rückkaufswert") },
   eigenmittel_pk_vorbezug: { pkvorbezug: amount("Betrag"), pk: amount("Vorbezug für Wohneigentum möglich") },
   eigenmittel_schenkung_darlehen_erbe: { schenkung: amount("Betrag"), darlehen: amount("Betrag"), erbe: amount("Betrag") },
-  kaufpreis: { kaufvertrag: amount("Kaufpreis"), verkaufsdoku: amount("Verkaufspreis") },
-  objekt_adresse: { grundbuch: placeOf, kaufvertrag: objectText("Objekt"), verkaufsdoku: objectText("Objekt") },
+  kaufpreis: { kaufvertrag: amount("Kaufpreis"), reservation: amount("Kaufpreis"), verkaufsdoku: amount("Verkaufspreis") },
+  objekt_adresse: { grundbuch: placeOf, kaufvertrag: objectText("Objekt"), gvz: placeOf, verkaufsdoku: objectText("Objekt") },
   bestehende_hypothek_betrag: { produkt: amount("Betrag"), hyp_zins: amount("Kapital"), steuer: amount("Hypothekarschuld") },
   mietzins_rendite: { mieterspiegel: amount("Mietzinseinnahmen pro Jahr") },
   verpflichtungen: { leasing: amount("Leasingrate"), kredit: amount("Monatsrate"), unterhalt: amount("Unterhaltsbeitrag"), steuer: amount("Unterhaltsbeiträge"), betreibung: text("Betreibungen") },
@@ -260,10 +270,10 @@ interface Ctx {
   choices: Readonly<Record<string, CustomerChoice>>;
 }
 
-function extract(ctx: Ctx, rule: PruefRegel, role: "primary" | "secondary", filter: (p: Placed) => boolean, only?: readonly string[]): ExtractedValue[] {
+function extract(ctx: Ctx, rule: PruefRegel, role: "primary" | "secondary", filter: (p: Placed) => boolean, only?: readonly string[], readersOf?: Record<string, Reader>): ExtractedValue[] {
   const sources = role === "primary" ? rule.primary : rule.secondary;
   const types = sourceTypes(rule.key, sources).filter((t) => !only || only.includes(t));
-  const readers = READERS[rule.key] ?? {};
+  const readers = readersOf ?? READERS[rule.key] ?? {};
   const out: ExtractedValue[] = [];
   for (const p of ctx.placed) {
     if (!types.includes(p.typeId) || !filter(p)) continue;
@@ -528,6 +538,10 @@ function specs(ctx: Ctx): { rule: PruefRegel; spec: Spec }[] {
     const primary = extract(ctx, rb, "primary", caseLevel).map((v) => ({ ...v, value: String(v.value).match(/\b(1[89]\d{2}|20\d{2})\b/)?.[1] ?? v.value }));
     const secondary = extract(ctx, rb, "secondary", caseLevel).map((v) => ({ ...v, value: String(v.value).match(/\b(1[89]\d{2}|20\d{2})\b/)?.[1] ?? v.value }));
     add(rb, { id: sid(rb.key, "baujahr"), key: rb.key, part: "baujahr", kind: "text", funnel: null, funnelDisplay: "", primary, secondary, choosable: false });
+    // HYPOTEQ 26.10. (Abnahme Feldschlüssel): the Kubatur too, within the rule's tolerance.
+    const kp = extract(ctx, rb, "primary", caseLevel, undefined, KUBATUR);
+    const ks = extract(ctx, rb, "secondary", caseLevel, undefined, KUBATUR);
+    add(rb, { id: sid(rb.key, "kubatur"), key: rb.key, part: "kubatur", kind: "amount", funnel: null, funnelDisplay: "", primary: kp, secondary: ks, choosable: false });
   }
 
   return out;

@@ -10,7 +10,7 @@ import { classifiableTypes, V3_DOC_TYPES, type V3DocType } from "./catalogue";
  * Datenabgleich 4.1 «versioniert»). Raise it whenever a type's fields, a hint or a rule below
  * changes, so an analysis can be told apart from one made under other instructions.
  */
-export const PROMPT_VERSION = "2026-10-26";
+export const PROMPT_VERSION = "2026-10-26.2";
 
 /** Every field key any type defines (the schema's `fields[].key` enum). */
 export function allFieldKeys(): string[] {

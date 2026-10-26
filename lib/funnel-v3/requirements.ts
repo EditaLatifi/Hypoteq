@@ -138,7 +138,7 @@ export const REQ: readonly RequirementDef[] = [
     shortName: "Verkaufsdokumentation", optional: true,
     legacyKeys: ["funnel.salesDocPhotos", "funnel.oldSalesDocuments"],
     // Prefill (Handover 3.1): Objektwert (unsicher) · Baujahr, Zimmer, Heizungsart.
-    fields: ["Anbieter", "Objekt", "Baujahr", "Verkaufspreis", "Zimmer", "Wohnfläche", "Garten", "Heizung"],
+    fields: ["Anbieter", "Objekt", "Baujahr", "Verkaufspreis", "Zimmer", "Wohnfläche", "Garten", "Heizung", "Kubatur"],
     rule: "immer, ausser Bauprojekt · «Habe ich nicht» erlaubt",
   }),
   def({
@@ -160,7 +160,7 @@ export const REQ: readonly RequirementDef[] = [
     id: "gvz", code: "O5", group: "objekt", labelDe: "Aktuelle Gebäudeversicherungspolice (inkl. Kubatur)",
     shortName: "Gebaeudeversicherung", sfDokField: "Dok_Gebaeudeversicherungsausweis__c",
     legacyKeys: ["funnel.buildingInsuranceIfAvailable"],
-    fields: ["Versicherung", "Policen-Nr.", "Eigentümerschaft", "Versicherungssumme", "Erstellungsjahr", "Volumen"],
+    fields: ["Versicherung", "Policen-Nr.", "Eigentümerschaft", "Versicherungssumme", "Erstellungsjahr", "Volumen", "Adresse", "PLZ", "Ort"],
     rule: "wie O4, ausser Bauprojekt",
   }),
   def({
@@ -282,7 +282,7 @@ export const REQ: readonly RequirementDef[] = [
     shortName: "Pensionskassenausweis", perBorrower: true, sfDokField: "Dok_Pensionskassenausweis__c",
     // pensionFund3rdPillarBuyback is the retired combined PK + 3a document.
     legacyKeys: ["funnel.pensionFundCertificate", "funnel.pensionFund3rdPillarBuyback"],
-    fields: ["Versicherte Person", "Versicherter Lohn", "Altersguthaben", "Vorbezug für Wohneigentum möglich"],
+    fields: ["Versicherte Person", "Geburtsdatum", "Versicherter Lohn", "Altersguthaben", "Vorbezug für Wohneigentum möglich"],
     rule: "angestellt · selbständig mit PK",
   }),
   def({

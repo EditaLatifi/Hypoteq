@@ -198,3 +198,43 @@ describe("rules from Salesforce (Pruefregel__c)", () => {
     expect(sourceTypes("eigenmittel_schenkung_darlehen_erbe", ["darlehensvertrag"])).toEqual(["darlehen"]);
   });
 });
+
+describe("the four extra fields HYPOTEQ accepted on 26.10. (Abnahme Feldschlüssel)", () => {
+  const s = kaufState();
+
+  it("Geburtsdatum on the PK-Ausweis against the Pass: a hint when they differ", () => {
+    const id = doc(inst(s, "id", "b1"), analysis("id", { Geburtsdatum: field("01.02.1980") }));
+    const pk = (v: string) => doc(inst(s, "pk", "b1"), analysis("pk", { Geburtsdatum: field(v) }));
+    expect(byId(evaluateAbgleich({ state: s, docs: [id, pk("01.02.1980")] }), "geburtsdatum:b1")!.result).toBe("unverified");
+    const off = byId(evaluateAbgleich({ state: s, docs: [id, pk("02.02.1980")] }), "geburtsdatum:b1")!;
+    expect(off.result).toBe("hint");
+    expect(off.extracted.map((v) => v.docType)).toEqual(["pass_id", "pensionskassenausweis"]);
+  });
+
+  it("Kaufpreis on the Reservationsvertrag beside the Kaufvertrag", () => {
+    const k = doc(inst(s, "kaufvertrag"), analysis("kaufvertrag", { Kaufpreis: field("CHF 1'000'000") }));
+    const r = (v: string) => doc(null, analysis("reservation", { Kaufpreis: field(v) }));
+    expect(byId(evaluateAbgleich({ state: s, docs: [k, r("CHF 1'000'000")] }), "kaufpreis")!.result).toBe("ok");
+    const off = byId(evaluateAbgleich({ state: s, docs: [k, r("CHF 980'000")] }), "kaufpreis")!;
+    expect(off.result).toBe("hint");
+    expect(off.extracted.find((v) => v.typeId === "reservation")).toMatchObject({ docType: "reservationsvertrag", value: 980000, role: "secondary" });
+  });
+
+  it("the address on the Gebäudeversicherung beside the Grundbuchauszug", () => {
+    const gb = doc(inst(s, "grundbuch"), analysis("grundbuch", { PLZ: field("8001"), Ort: field("Zürich") }));
+    const gvz = (adresse: string) => doc(inst(s, "gvz"), analysis("gvz", { Adresse: field(adresse) }));
+    expect(byId(evaluateAbgleich({ state: s, docs: [gb, gvz("Musterweg 1, 8001 Zürich")] }), "objekt_adresse")!.result).toBe("ok");
+    const off = byId(evaluateAbgleich({ state: s, docs: [gb, gvz("Musterweg 1, 8400 Winterthur")] }), "objekt_adresse")!;
+    expect(off.result).toBe("hint");
+    expect(off.extracted.find((v) => v.typeId === "gvz")).toMatchObject({ docType: "gebaeudeversicherung", value: "8400 Winterthur" });
+  });
+
+  it("Kubatur: the Gebäudeversicherung's Volumen against the Verkaufsdokumentation (±10 %)", () => {
+    const gvz = doc(inst(s, "gvz"), analysis("gvz", { Volumen: field("1'250 m³") }));
+    const vd = (v: string) => doc(inst(s, "verkaufsdoku"), analysis("verkaufsdoku", { Kubatur: field(v) }));
+    const near = byId(evaluateAbgleich({ state: s, docs: [gvz, vd("1'200 m³")] }), "baujahr_kubatur:kubatur")!;
+    expect(near).toMatchObject({ result: "unverified", part: "kubatur", kind: "amount" });
+    expect(near.extracted[0]).toMatchObject({ docType: "gebaeudeversicherung", value: 1250, display: "1'250 m³" });
+    expect(byId(evaluateAbgleich({ state: s, docs: [gvz, vd("1'000 m³")] }), "baujahr_kubatur:kubatur")!.result).toBe("hint");
+  });
+});
