@@ -6,8 +6,9 @@ import type { FileEntry } from "@/lib/funnel-v3/files";
 import type { RequirementStatus } from "@/lib/funnel-v3/requirementStatus";
 import { acceptOutdated, removeFile } from "@/lib/funnel-v3/upload";
 import { freshnessProblem } from "@/components/documentIntelligence/v3/catalogue";
-import { chf, chip, crossChecks, mergedFields, outdatedText, reasonText, rowClass, STATE_LOOK, storedNameFor, type CrossCheck } from "./view";
+import { chf, crossChecks, mergedFields, outdatedText, reasonText, rowClass, STATE_LOOK, storedNameFor, type CrossCheck } from "./view";
 import StoredName from "./StoredName";
+import Ampel from "./Ampel";
 import AuditTrail from "./AuditTrail";
 
 interface Props {
@@ -116,18 +117,16 @@ export default function RequirementRow({ status: r, files, open, onToggle, onPic
           {fields.length ? (
             <div className="v3-docrow-section">
               <span className="v3-eyebrow">{t("s5.recognisedFields")}</span>
-              {fields.map((f) => {
-                const c = chip(f.confidence, intern, t, f.edited);
-                return (
-                  <div key={f.key} className="v3-fieldrow">
-                    <span className="v3-fieldrow-k">{f.key}</span>
-                    <span className="v3-fieldrow-v">
-                      <span>{f.value}</span>
-                      <span className={`v3-tag v3-tone--${c.tone}`}>{c.label}</span>
-                    </span>
-                  </div>
-                );
-              })}
+              {fields.map((f) => (
+                <div key={f.key} className="v3-fieldrow">
+                  <span className="v3-fieldrow-k">{f.key}</span>
+                  <span className="v3-fieldrow-v">
+                    <span>{f.value}</span>
+                    {/* Spezifikation Datenabgleich 4.2: the confidence as a traffic light. */}
+                    <Ampel confidence={f.confidence} edited={f.edited} intern={intern} />
+                  </span>
+                </div>
+              ))}
             </div>
           ) : null}
 

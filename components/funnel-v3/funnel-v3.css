@@ -2537,6 +2537,249 @@ body:has(.hqv3) {
   }
 }
 
+/* ---- the Abgleich page (Spezifikation Datenabgleich 3) */
+.hqv3 .v3-abg {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.hqv3 .v3-abg-card,
+.hqv3 .v3-abg-confirmed {
+  border: 1px solid var(--paper-300);
+  border-radius: var(--radius-lg);
+  background: #fff;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.hqv3 .v3-abg-card.is-identity {
+  border-color: var(--danger-500);
+}
+.hqv3 .v3-abg-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.hqv3 .v3-abg-card-title {
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  color: var(--forest-800);
+}
+/* A long name in «Anna Beispiel als 2. Kreditnehmer/in erfassen» wraps instead of overflowing. */
+.hqv3 .v3-abg-card .v3-actions .v3-btn {
+  max-width: 100%;
+  white-space: normal;
+  text-align: center;
+}
+.hqv3 .v3-abg-text {
+  font-size: var(--text-body-sm);
+  color: var(--forest-800);
+  text-wrap: pretty;
+}
+.hqv3 .v3-abg-pills {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  align-items: start;
+}
+.hqv3 .v3-abg-pill-col {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.hqv3 .v3-abg-pill {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 40px 14px 16px;
+  border: 1px solid var(--paper-300);
+  border-radius: var(--radius-md);
+  background: #fff;
+  color: var(--forest-800);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: var(--transition-control);
+}
+.hqv3 .v3-abg-pill:hover:not(:disabled) {
+  border-color: var(--paper-400);
+}
+.hqv3 .v3-abg-pill:focus-visible {
+  outline: 2px solid var(--forest-800);
+  outline-offset: 2px;
+}
+.hqv3 .v3-abg-pill:disabled {
+  cursor: default;
+}
+.hqv3 .v3-abg-pill.is-selected {
+  border: 2px solid var(--forest-800);
+  padding: 13px 39px 13px 15px;
+  background: var(--lime-100);
+}
+.hqv3 .v3-abg-pill-label {
+  font-size: var(--text-micro);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--on-light-45);
+}
+.hqv3 .v3-abg-pill-value {
+  font-size: var(--text-body);
+  font-weight: var(--weight-bold);
+  overflow-wrap: anywhere;
+}
+.hqv3 .v3-abg-pill-check {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: var(--forest-800);
+  color: var(--lime-500);
+  font-size: 12px;
+  font-weight: var(--weight-bold);
+}
+.hqv3 .v3-abg-pill.is-selected .v3-abg-pill-check {
+  display: inline-flex;
+}
+.hqv3 .v3-abg-view {
+  align-self: flex-start;
+}
+.hqv3 .v3-abg-why {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  background: var(--paper-100);
+  border-left: 3px solid var(--lime-500);
+  font-size: var(--text-caption);
+  color: var(--on-light-70);
+  text-wrap: pretty;
+}
+.hqv3 .v3-abg-row {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 8px 0;
+  border-top: 1px solid var(--paper-200);
+  font-size: var(--text-body-sm);
+}
+.hqv3 .v3-abg-row-k {
+  flex: 1;
+  color: var(--on-light-70);
+}
+.hqv3 .v3-abg-row-v {
+  font-weight: var(--weight-semibold);
+  color: var(--forest-800);
+  text-align: right;
+}
+.hqv3 .v3-abg-row-ok {
+  color: var(--success-500);
+  font-weight: var(--weight-bold);
+}
+.hqv3 .v3-abg-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+@media (max-width: 899px) {
+  .hqv3 .v3-abg-pills {
+    grid-template-columns: 1fr;
+  }
+  .hqv3 .v3-abg-actions {
+    flex-direction: column-reverse;
+  }
+  .hqv3 .v3-abg-actions .v3-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ---- the confidence as a traffic light (Spezifikation Datenabgleich 4.2) */
+.hqv3 .v3-ampel {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 4px;
+  border: 0;
+  border-radius: var(--radius-xs);
+  background: none;
+  font: inherit;
+  font-size: var(--text-micro);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--on-light-70);
+  cursor: help;
+  white-space: nowrap;
+}
+.hqv3 .v3-ampel:focus-visible {
+  outline: 2px solid var(--forest-800);
+  outline-offset: 1px;
+}
+.hqv3 .v3-ampel-lights {
+  display: inline-flex;
+  gap: 3px;
+  padding: 3px 4px;
+  border-radius: 999px;
+  background: var(--forest-800);
+}
+.hqv3 .v3-ampel-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+}
+.hqv3 .v3-ampel-dot.is-red.is-on {
+  background: #e5584f;
+}
+.hqv3 .v3-ampel-dot.is-yellow.is-on {
+  background: #f2b632;
+}
+.hqv3 .v3-ampel-dot.is-green.is-on {
+  background: #5ccb7d;
+}
+.hqv3 .v3-ampel-tip {
+  position: absolute;
+  z-index: 20;
+  right: 0;
+  top: calc(100% + 6px);
+  width: max-content;
+  max-width: 260px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--forest-800);
+  color: #fff;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-regular);
+  letter-spacing: normal;
+  text-transform: none;
+  line-height: var(--leading-normal);
+  white-space: normal;
+  text-align: left;
+  box-shadow: 0 6px 18px rgba(19, 34, 25, 0.18);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s var(--ease-out);
+  pointer-events: none;
+}
+.hqv3 .v3-ampel:hover .v3-ampel-tip,
+.hqv3 .v3-ampel:focus-visible .v3-ampel-tip,
+.hqv3 .v3-ampel.is-open .v3-ampel-tip {
+  opacity: 1;
+  visibility: visible;
+}
+
 /* ---- the confirmation page (Spezifikation Datenabgleich 2.5), in the start screen's look */
 .hqv3 .v3-confirm .v3-start-hero {
   margin-top: 40px;

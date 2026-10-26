@@ -8,7 +8,7 @@ import {
   requestedYears,
   v3DocType,
 } from "@/components/documentIntelligence/v3/catalogue";
-import { buildV3Instructions, buildV3Schema, allFieldKeys } from "@/components/documentIntelligence/v3/prompt";
+import { buildV3Instructions, buildV3Schema, allFieldKeys, PROMPT_VERSION } from "@/components/documentIntelligence/v3/prompt";
 import { applyV3Rules, MIN_CLASSIFICATION_CONFIDENCE } from "@/components/documentIntelligence/v3/analyse";
 import { parseV3ProviderJson } from "@/components/documentIntelligence/v3/openaiProvider";
 
@@ -209,7 +209,18 @@ describe("applyV3Rules", () => {
   it("parses the provider JSON defensively", () => {
     const r = parseV3ProviderJson({ docType: "kredit", confidence: "0.9", fields: [{ key: "Restschuld", value: 21480, confidence: 0.9 }, { nope: 1 }], note: "  " }, 5);
     expect(r).toMatchObject({ docType: "kredit", confidence: 0.9, note: null, durationMs: 5 });
-    expect(r.fields).toEqual([{ key: "Restschuld", value: "21480", confidence: 0.9 }]);
+    expect(r.fields).toEqual([{ key: "Restschuld", value: "21480", confidence: 0.9, sourceRef: null }]);
     expect(parseV3ProviderJson(null, 1).docType).toBe("unknown");
+  });
+
+  it("keeps where a value stands and the instructions it was read under (Spezifikation Datenabgleich 4.1)", () => {
+    const r = parseV3ProviderJson({ docType: "lohnausweise", confidence: 0.95, fields: [{ key: "Bruttolohn", value: "CHF 100'000", confidence: 0.95, sourceRef: " Seite 1, Ziffer 8 " }] }, 5);
+    expect(r.fields[0].sourceRef).toBe("Seite 1, Ziffer 8");
+    const a = applyV3Rules(r, { contentHash: null });
+    expect(a.fields.Bruttolohn).toEqual({ value: "CHF 100'000", confidence: 0.95, sourceRef: "Seite 1, Ziffer 8" });
+    expect(a.promptVersion).toBe(PROMPT_VERSION);
+    const item = (buildV3Schema().properties.fields as any).items;
+    expect(item.required).toContain("sourceRef");
+    expect(buildV3Instructions()).toContain("sourceRef");
   });
 });

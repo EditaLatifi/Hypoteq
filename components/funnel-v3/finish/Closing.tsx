@@ -9,21 +9,23 @@
  * left the white «Fall-Dossier herunterladen» card with «Alle Angaben & {n} Unterlagen im
  * Überblick · PDF» (no size, HYPOTEQ 26.10.2026), on the right «Finanzierungsanfrage
  * abschliessen →», locked until the signed copy is uploaded or «Später nachreichen» is chosen
- * (logic.ts finishGate). The submit waits for running uploads / analyses with a visible progress
- * state and shows a failure inline with «Erneut versuchen»; a successful submit opens the
- * confirmation page (Confirmation.tsx, through uiStore `done`).
+ * (logic.ts finishGate). When the documents disagree with the answers the click opens the
+ * Abgleich page first (Abgleich.tsx; Spezifikation Datenabgleich 3: only with a difference),
+ * otherwise it submits (useSubmit.ts): it waits for running uploads / analyses with a visible
+ * progress state, shows a failure inline with «Erneut versuchen», and a successful submit opens
+ * the confirmation page (Confirmation.tsx, through uiStore `done`).
  */
 
 import { finishGate } from "../logic";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { documentsSummary } from "@/lib/funnel-v3/documentsSummary";
 import { finishSummary } from "@/lib/funnel-v3/finishSummary";
 import { useFunnelV3 } from "@/lib/funnel-v3/store";
-import { submitFunnel, SubmitError, type SubmitPhase, type SubmitState } from "@/lib/funnel-v3/submit";
 import { useFunnelT } from "@/lib/funnel-v3/useFunnelT";
-import { saveDone, type DoneInfo } from "./doneState";
 import { downloadDraftDossier, previewBody } from "./previewDossier";
 import SignatureBlock from "./SignatureBlock";
+import { useAbgleich } from "./useAbgleich";
+import { useSubmit } from "./useSubmit";
 import { useFunnelUI } from "../uiStore";
 import "./finish.css";
 
@@ -59,56 +61,27 @@ export default function Closing() {
   );
   const gate = finishGate(docs.signature);
 
-  const [phase, setPhase] = useState<SubmitPhase | null>(null);
-  const [error, setError] = useState<string | null>(null);
   const [dossierBusy, setDossierBusy] = useState(false);
   const [dossierError, setDossierError] = useState<string | null>(null);
-  const running = useRef(false);
+  const { submit, busy, error, progressTitle } = useSubmit(gate.enabled);
+  const abgleich = useAbgleich();
 
   // «Alle Angaben & 28 Unterlagen im Überblick · PDF» — no size: the PDF does not carry the
   // documents themselves (HYPOTEQ 26.10.2026).
   const docCount = docs.files.filter((f) => f.uploadState === "uploaded").length;
   const dossierMeta = docCount === 1 ? t("close.overview1") : t("close.overviewN", { n: docCount });
 
-  // Leaving the page while the request is on its way would leave the customer guessing.
-  useEffect(() => {
-    if (!phase) return;
-    const warn = (e: BeforeUnloadEvent) => {
-      e.preventDefault();
-      e.returnValue = "";
-    };
-    window.addEventListener("beforeunload", warn);
-    return () => window.removeEventListener("beforeunload", warn);
-  }, [phase]);
-
-  const submit = useCallback(async () => {
-    if (running.current || !gate.enabled) return;
-    running.current = true;
-    setError(null);
-    setPhase("sending");
-    try {
-      const res = await submitFunnel({
-        getState: () => useFunnelV3.getState() as unknown as SubmitState,
-        lang,
-        onPhase: setPhase,
-      });
-      const s = useFunnelV3.getState();
-      const doneInfo: DoneInfo = {
-        submissionId: s.submissionId,
-        inquiryId: res.inquiryId,
-        caseNumber: res.caseNumber,
-        name: s.ans.kn === "Juristische Person" ? s.txt.firma.trim() : [s.txt.vor.trim(), s.txt.nach.trim()].filter(Boolean).join(" "),
-        email: s.txt.mail.trim(),
-      };
-      saveDone(doneInfo);
-      useFunnelUI.getState().setDone(doneInfo);
-    } catch (err) {
-      setError(err instanceof SubmitError ? err.message : t("s6.err.submit"));
-    } finally {
-      running.current = false;
-      setPhase(null);
+  // A difference between the answers and the documents (once they are read): the Abgleich
+  // page first, where the customer chooses; without one the request goes at once.
+  const finish = useCallback(() => {
+    if (!gate.enabled) return;
+    if (!abgleich.reading && abgleich.conflicts.length) {
+      useFunnelUI.setState({ reviewing: true });
+      if (typeof window !== "undefined") window.scrollTo({ top: 0 });
+      return;
     }
-  }, [gate.enabled, lang, t]);
+    void submit();
+  }, [abgleich.conflicts.length, abgleich.reading, gate.enabled, submit]);
 
   const dossier = useCallback(async () => {
     if (dossierBusy) return;
@@ -123,9 +96,6 @@ export default function Closing() {
     }
   }, [dossierBusy, lang, t]);
 
-  const busy = phase !== null;
-  const progressTitle =
-    phase === "uploading" ? t("s6.progress.uploading") : phase === "analysing" ? t("s6.progress.analysing") : t("s6.progress.sending");
 
   return (
     <>
@@ -231,7 +201,7 @@ export default function Closing() {
           <button
             type="button"
             className="v3-btn v3-btn--dark v3-btn--lg v3-submit-go"
-            onClick={submit}
+            onClick={finish}
             disabled={busy || !gate.enabled}
             aria-describedby={gate.enabled ? undefined : "v3-finish-blocked"}
           >

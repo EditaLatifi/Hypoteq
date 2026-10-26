@@ -62,6 +62,7 @@ export default function FunnelV3() {
   const submissionId = useFunnelV3((s) => s.submissionId);
   const done = useFunnelUI((s) => s.done);
   const returnTo = useFunnelUI((s) => s.returnTo);
+  const reviewing = useFunnelUI((s) => s.reviewing);
   const { goNext, goPrev } = useFunnelNav();
   const paramsApplied = useRef(false);
 
@@ -101,6 +102,10 @@ export default function FunnelV3() {
   useEffect(() => {
     if (returnTo && (current === returnTo || current === null)) useFunnelUI.getState().setReturnTo(null);
   }, [current, returnTo]);
+  // The Abgleich page belongs to the last step: leaving it ends the review.
+  useEffect(() => {
+    if (reviewing && current !== "abschluss") useFunnelUI.setState({ reviewing: false });
+  }, [current, reviewing]);
 
   // A reload after the closing opens the confirmation page again (sessionStorage, per submission).
   useEffect(() => {
@@ -166,6 +171,8 @@ export default function FunnelV3() {
   // «Deine Unterlagen» while the answers still change the list; «Deine Anfrage füllt sich»
   // beside the Schnellanmeldung's upload.
   const showRail = RAIL_SCREENS.has(screen) || screen === "upload";
+  // The Abgleich page has its own heading and its own «Zurück» (back to the step, not before it).
+  const review = reviewing && screen === "abschluss";
 
   return (
     <div className="hqv3" data-hq-theme="light" data-step={step} data-mode={mode} data-screen={screen}>
@@ -177,7 +184,7 @@ export default function FunnelV3() {
         <main className="v3-main">
           <div className="v3-split">
             <div className="v3-content" key={`${mode}:${step}`}>
-              <StepHead />
+              {review ? null : <StepHead />}
               {mode === "schnell" && PREFILLED.has(screen) ? <PrefillBanner /> : null}
               <ScreenComponent />
               <ModeSwitch className="v3-mswitch" />
@@ -185,7 +192,7 @@ export default function FunnelV3() {
             {showRail ? <DocsRail /> : null}
           </div>
         </main>
-        <Footer />
+        {review ? null : <Footer />}
       </div>
       <FunnelToast />
     </div>

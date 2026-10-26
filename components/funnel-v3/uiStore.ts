@@ -27,6 +27,8 @@ interface FunnelUIState {
   returnTo: Screen | null;
   /** The closing went through: the confirmation page shows (doneState.ts keeps it per submission). */
   done: DoneInfo | null;
+  /** «Abschliessen» found differences: the Abgleich page shows before the submit (Spezifikation Datenabgleich 3). */
+  reviewing: boolean;
   markAttempted: (screen: Screen) => void;
   setReturnTo: (screen: Screen | null) => void;
   setDone: (done: DoneInfo | null) => void;
@@ -44,6 +46,7 @@ export const useFunnelUI = create<FunnelUIState>((set) => ({
   toast: null,
   returnTo: null,
   done: null,
+  reviewing: false,
   markAttempted: (screen) => set((s) => (s.attempted.includes(screen) ? {} : { attempted: [...s.attempted, screen] })),
   setReturnTo: (returnTo) => set((s) => (s.returnTo === returnTo ? {} : { returnTo })),
   setDone: (done) => set({ done }),

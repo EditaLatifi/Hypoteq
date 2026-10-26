@@ -15,6 +15,8 @@ export interface V3ProviderField {
   key: string;
   value: string | null;
   confidence: number;
+  /** Where on the document the value stands («Seite 1, Ziffer 8»), Spezifikation Datenabgleich 4.1. */
+  sourceRef?: string | null;
 }
 
 /** The model's answer, before HYPOTEQ rules are applied. */

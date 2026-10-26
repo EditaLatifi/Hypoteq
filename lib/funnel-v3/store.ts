@@ -47,6 +47,7 @@ import type { FileEntry } from "./files";
 import { mapVisited, stepCount, switchTarget } from "./steps";
 import type { PrefillResult } from "./prefill";
 import type { CorrectionPatch } from "./requirementStatus";
+import { choicePatch, type AbgleichField, type CustomerChoice } from "./abgleich/evaluate";
 
 /** 0 = Start; then the screens of the mode (steps.ts): Begleitet 1–4, Schnell 1–6. */
 export type Step = 0 | 1 | 2 | 3 | 4 | 5 | 6;
@@ -73,6 +74,11 @@ export interface FunnelV3Data extends FunnelState {
   dismissed: string[];
   /** Opened from the Partnerportal (`?from=portal`): the closing offers the way back. */
   entry: "portal" | null;
+  /**
+   * What the customer picked on the Abgleich page, per field id (Spezifikation Datenabgleich 3,
+   * 6.2 `customerChoice`); a document value chosen also changed the answer, `original` keeps it.
+   */
+  choices: Record<string, CustomerChoice>;
 }
 
 export interface FunnelV3Actions {
@@ -133,6 +139,11 @@ export interface FunnelV3Actions {
   setSkipped: (instanceId: string, skipped: boolean) => void;
   /** «Dokument nicht verwenden» on an answer-correction suggestion. */
   dismissSuggestion: (fileIds: string[]) => void;
+  /**
+   * A pill on the Abgleich page: the funnel's value (as entered — a document value taken
+   * before is undone) or the document's (the answer changes, the original is kept).
+   */
+  chooseAbgleich: (field: AbgleichField, source: "funnel" | "document") => void;
   /** «Neuen Antrag stellen»: empty funnel, new submission id. */
   reset: () => void;
 }
@@ -177,6 +188,7 @@ export function initialFunnelV3(): FunnelV3Data {
     skipped: [],
     dismissed: [],
     entry: null,
+    choices: {},
   };
 }
 
@@ -609,6 +621,24 @@ function funnelV3Creator(set: SetState, get: () => FunnelV3Store): FunnelV3Store
           return add.length ? { dismissed: [...s.dismissed, ...add] } : {};
         }),
 
+      chooseAbgleich: (field, source) =>
+        set((s) => {
+          const before = s.choices[field.id];
+          const original = before?.original ?? before?.value ?? field.funnelValue;
+          if (original === null || original === undefined) return {};
+          const docValue = field.against?.value;
+          if (source === "document" && (docValue === undefined || !field.choosable)) return {};
+          const value = source === "document" ? docValue! : original;
+          const patch = choicePatch(field, value, s);
+          const choice: CustomerChoice = { value, chosenSource: source, at: new Date().toISOString(), ...(source === "document" ? { original } : {}) };
+          return {
+            ...(patch.fin ? { fin: { ...s.fin, ...patch.fin } } : {}),
+            ...(patch.em ? { em: { ...s.em, ...patch.em } } : {}),
+            ...(patch.txt ? { txt: { ...s.txt, ...patch.txt } } : {}),
+            choices: { ...s.choices, [field.id]: choice },
+          };
+        }),
+
       reset: () => set(initialFunnelV3()),
   };
 }
@@ -650,6 +680,7 @@ export const useFunnelV3 = create<FunnelV3Store>()(
         skipped: s.skipped,
         dismissed: s.dismissed,
         entry: s.entry,
+        choices: s.choices,
       }),
       // An older copy (a v3 session, version 1) is dropped, not reshaped: the funnel starts empty.
       migrate: () => ({}) as FunnelV3Store,
@@ -672,6 +703,7 @@ export const useFunnelV3 = create<FunnelV3Store>()(
           skipped: Array.isArray(p.skipped) ? p.skipped : [],
           dismissed: Array.isArray(p.dismissed) ? p.dismissed : [],
           entry: p.entry === "portal" ? "portal" : null,
+          choices: isObj(p.choices) ? (p.choices as FunnelV3Data["choices"]) : {},
         };
       },
     }

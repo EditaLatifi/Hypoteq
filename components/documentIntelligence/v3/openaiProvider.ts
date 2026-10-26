@@ -78,6 +78,7 @@ export function parseV3ProviderJson(parsed: any, durationMs: number): V3Provider
             key: f.key,
             value: f.value === null || f.value === undefined ? null : String(f.value),
             confidence: Number(f.confidence) || 0,
+            sourceRef: str(f.sourceRef)?.slice(0, 120) ?? null,
           }))
       : [],
     durationMs,

@@ -132,6 +132,16 @@ const FIELD_HINTS: Record<string, string> = {
   "Saldo per 31.12.2025": "fund balance at the most recent closing date, with that date",
   // Steuererklärung
   "Eigenmietwert": "imputed rental value (Eigenmietwert) of a home the taxpayer lives in, with CHF; null when none is declared",
+  "Hypothekarschuld": "mortgage debt in the list of debts (Schuldenverzeichnis), with CHF",
+  "Einkünfte unselbständig": "income from employment (Einkünfte aus unselbständiger Erwerbstätigkeit, Haupt- und Nebenerwerb) of the taxpayer, per year, with CHF",
+  "Einkünfte selbständig": "income from self-employment (Einkünfte aus selbständiger Erwerbstätigkeit), per year, with CHF",
+  "Renteneinkünfte": "pension income (AHV/IV, Pensionskasse, other pensions), per year, with CHF",
+  "Vermögen": "total assets before debts (Total Vermögen / Wertschriften- und Guthabenverzeichnis), with CHF",
+  // Einkommen (Abgleich, Spezifikation Datenabgleich 4)
+  "Reingewinn": "net profit (Reingewinn / Jahresgewinn) of the business year the document covers, with CHF",
+  "Rente pro Monat": "monthly pension amount, with CHF",
+  "Saldo total": "total balance of the accounts listed, with CHF and the date",
+  "Vorbezug für Wohneigentum möglich": "amount available for a withdrawal for home ownership (WEF-Vorbezug), with CHF; null when the statement names none",
   // Vorsorge
   "Guthaben": "balance of the pillar 3a account at the most recent date, with CHF and the date",
   "Beiträge 2025": "contributions paid in the year the certificate covers, with the year",

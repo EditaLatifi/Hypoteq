@@ -13,8 +13,10 @@ import { freshnessProblem } from "@/components/documentIntelligence/v3/catalogue
 /** Extraction of one value from a document. */
 export interface ExtractedField {
   value: string | number | null;
-  /** 0–1. Shown as «Erkannt / Prüfen» to customers, as a percentage to the internal role. */
+  /** 0–1. Shown as the Ampel (Spezifikation Datenabgleich 4.2); a percentage for the internal role. */
   confidence: number;
+  /** Where on the document the value stands, as the recognition says (4.1). */
+  sourceRef?: string | null;
 }
 
 /**
@@ -50,6 +52,8 @@ export interface V3Analysis {
   fields: Record<string, ExtractedField>;
   /** SHA-256 of the file content, for duplicate detection. */
   contentHash?: string | null;
+  /** The instructions the reading was made under (components/documentIntelligence/v3/prompt.ts PROMPT_VERSION). */
+  promptVersion?: string;
 }
 
 /** One file in the funnel store. */

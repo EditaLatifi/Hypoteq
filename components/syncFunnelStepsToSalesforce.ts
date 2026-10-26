@@ -1366,6 +1366,15 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
         v3Fields.Dokumenten_Check_State__c = withV5CheckStateBlocks(v3Fields.Dokumenten_Check_State__c, v5CheckStateBlocks(v3State, v3Calc));
       }
       Object.assign(caseData, v3Fields);
+      // Spezifikation Datenabgleich 6: the Abgleich JSON beside the funnel values (they stay leading).
+      try {
+        const { abgleichCaseField } = await import('@/lib/funnel-v3/completion');
+        const { loadPruefregeln } = await import('@/lib/funnel-v3/abgleich/config');
+        const abgleich = abgleichCaseField(stepData, await loadPruefregeln(), new Date());
+        if (abgleich) caseData.Funnel_Abgleich_State__c = abgleich;
+      } catch (err) {
+        console.error('[Salesforce Sync] Abgleich JSON not built:', err);
+      }
       // HYPOTEQ 19.10. E.4: «die AI-Einschätzung nur als Hinweis am Case vermerken» — beside the
       // JSON, where someone opening the Case reads it.
       const sigNote = signatureCaseNote(v3Fields.Dokumenten_Check_State__c);

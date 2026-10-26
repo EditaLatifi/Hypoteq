@@ -53,6 +53,8 @@ export interface SubmitState extends FunnelState {
   files: FileEntry[];
   skipped?: Iterable<string>;
   dismissed?: Iterable<string>;
+  /** The Abgleich page's choices (store `choices`). */
+  choices?: Record<string, unknown>;
 }
 
 export interface SubmitOptions {
@@ -115,6 +117,7 @@ export function buildSubmitPayload(state: SubmitState, lang: Lang): InquiryPaylo
     documents: summary.submittedDocuments(),
     documentCompleteness: documentCompleteness(summary, lang),
     signature: signatureJson(summary.signature, state.sig),
+    choices: state.choices,
   });
 }
 

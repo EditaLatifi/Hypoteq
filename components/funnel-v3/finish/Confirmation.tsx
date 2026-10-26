@@ -72,7 +72,7 @@ export default function Confirmation({ done }: { done: DoneInfo }) {
     clearDone(done.submissionId);
     reset();
     // A new request starts without the validation messages and the outcome of the last one.
-    useFunnelUI.setState({ attempted: [], done: null, returnTo: null });
+    useFunnelUI.setState({ attempted: [], done: null, returnTo: null, reviewing: false });
     if (typeof window !== "undefined") window.scrollTo(0, 0);
   }, [done.submissionId, reset]);
 

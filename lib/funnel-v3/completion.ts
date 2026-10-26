@@ -34,6 +34,9 @@ import { signatureJson, signatureView } from "./signature";
 import { bankHints, requirementStatus, type ExtraKind, type StatusResult, type UploadedFile } from "./requirementStatus";
 import { cleanNamePart, extraStoredName, storedName } from "./storedName";
 import { normaliseFunnelState, type StoredFunnelState } from "./legacy";
+import { evaluateAbgleich } from "./abgleich/evaluate";
+import type { PruefRegel } from "./abgleich/rules";
+import { abgleichStateText, buildAbgleichState, choicesOf } from "./abgleich/state";
 
 // ---- Types --------------------------------------------------------------------------------
 
@@ -659,6 +662,24 @@ export function v3DocumentCaseFields(data: any, previous?: string | null, now: D
   const folderUrl = data?.v3Completion?.folderWebUrl;
   if (typeof folderUrl === "string" && folderUrl) out.SharePoint_Doc__c = folderUrl;
   return out;
+}
+
+/**
+ * `Case.Funnel_Abgleich_State__c` (HYPOTEQ 23.10.2026, Spezifikation Datenabgleich 6): the
+ * submitted answers against what the documents of the case folder say, with the customer's
+ * choices on the Abgleich page; corrections made in the document detail win over the reading.
+ * Null when the payload is not v3.
+ */
+export function abgleichCaseField(data: any, rules: { rules: readonly PruefRegel[]; from: "salesforce" | "fallback" }, now: Date = new Date()): string | null {
+  const computed = v3DocumentStatus(data);
+  if (!computed) return null;
+  const { state, files } = computed;
+  const edits = new Map(submittedDocumentsOf(data).map((s) => [s.documentId, s.humanEdits ?? null]));
+  const docs = files.map((f) => ({ id: f.documentId, instanceId: f.instanceId ?? null, analysis: f.analysis, extraKind: f.extraKind ?? null, humanEdits: edits.get(f.documentId) ?? null }));
+  const result = evaluateAbgleich({ state, docs, rules: rules.rules, choices: choicesOf(data) });
+  return abgleichStateText(
+    buildAbgleichState({ result, submittedAt: now, mode: state.mode, role: state.role, rulesFrom: rules.from, borrowerIds: state.borrowers.map((b) => b.id) })
+  );
 }
 
 function formatTs(d: Date): string {

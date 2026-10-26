@@ -5,6 +5,13 @@
 
 import { classifiableTypes, V3_DOC_TYPES, type V3DocType } from "./catalogue";
 
+/**
+ * Version of the instructions and the schema, stored with every analysis (Spezifikation
+ * Datenabgleich 4.1 «versioniert»). Raise it whenever a type's fields, a hint or a rule below
+ * changes, so an analysis can be told apart from one made under other instructions.
+ */
+export const PROMPT_VERSION = "2026-10-26";
+
 /** Every field key any type defines (the schema's `fields[].key` enum). */
 export function allFieldKeys(): string[] {
   const keys = new Set<string>();
@@ -53,6 +60,8 @@ export function buildV3Instructions(): string {
     "   the document does not state it; never calculate, infer or average a value.",
     "3. confidence (0–1) is your probability that the type / the value is right. Keep values",
     "   above 0.9 for what you read directly off the page.",
+    "   sourceRef: where on the document each value stands, short and readable for a person",
+    "   (e.g. «Seite 1, Ziffer 8», «Seite 2, Total Vermögen»); null when it cannot be said.",
     "4. personName: the person the document belongs to, «Nachname Vorname» as printed",
     "   (for a company document, the company name). null when there is none.",
     "5. bank: on mortgage documents the lender, in its usual short form (ZKB, UBS, Raiffeisen,",
@@ -89,8 +98,9 @@ export function buildV3Schema() {
             key: { type: "string", enum: allFieldKeys() },
             value: { type: ["string", "null"] },
             confidence: { type: "number" },
+            sourceRef: { type: ["string", "null"] },
           },
-          required: ["key", "value", "confidence"],
+          required: ["key", "value", "confidence", "sourceRef"],
           additionalProperties: false,
         },
       },

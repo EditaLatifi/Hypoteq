@@ -1,3 +1,4 @@
+import { PROMPT_VERSION } from "./prompt";
 import type { ExtractedField, V3Analysis } from "@/lib/funnel-v3/files";
 import { formatDocDate } from "@/lib/funnel-v3/storedName";
 import { classifiableTypes, freshnessProblem, outdatedReasonDe, v3DocType } from "./catalogue";
@@ -75,7 +76,7 @@ export function applyV3Rules(
   for (const f of result.fields) {
     if (!allowed.has(f.key) || f.value === null || f.value === "") continue;
     const c = clamp01(f.confidence);
-    if (!fields[f.key] || fields[f.key].confidence < c) fields[f.key] = { value: f.value, confidence: c };
+    if (!fields[f.key] || fields[f.key].confidence < c) fields[f.key] = { value: f.value, confidence: c, ...(f.sourceRef ? { sourceRef: f.sourceRef } : {}) };
   }
 
   let docDate: string | null = type.naming.date === "none" ? null : formatDocDate(result.docDate) || null;
@@ -99,6 +100,7 @@ export function applyV3Rules(
     note,
     fields,
     contentHash: opts.contentHash ?? null,
+    promptVersion: PROMPT_VERSION,
   };
 }
 

@@ -311,7 +311,8 @@ export const REQ: readonly RequirementDef[] = [
     shortName: "Steuererklaerung", perBorrower: true, sfDokField: "Dok_Steuererklaerung__c",
     legacyKeys: ["funnel.taxReturnLatest"],
     // Prefill: Nutzung = selbstbewohnt (unsicher, über Eigenmietwert) · Zivilstand, Kinder.
-    fields: ["Steuerjahr", "Kanton", "Zivilstand", "Kinder", "Unterhaltsbeiträge", "Liegenschaft", "Eigenmietwert", "Hypothekarschuld"],
+    // Abgleich (Spezifikation Datenabgleich 4): the income and the assets as secondary sources.
+    fields: ["Steuerjahr", "Kanton", "Zivilstand", "Kinder", "Unterhaltsbeiträge", "Liegenschaft", "Eigenmietwert", "Hypothekarschuld", "Einkünfte unselbständig", "Einkünfte selbständig", "Renteneinkünfte", "Vermögen"],
     rule: "natürliche Person",
   }),
   def({

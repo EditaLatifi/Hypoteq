@@ -38,6 +38,8 @@ export interface InquiryPayloadOptions {
   sharepointFolderId?: string | null;
   /** The Auskunftsermächtigung as signature.ts judged it (Handover 6, 8). */
   signature?: SignatureJson;
+  /** The customer's choices on the Abgleich page (Spezifikation Datenabgleich 3, 6.2). */
+  choices?: Record<string, unknown>;
 }
 
 /** Korrespondenzsprache = funnel language (spec 7). */
@@ -248,6 +250,7 @@ export function toInquiryPayload(state: FunnelState, opts: InquiryPayloadOptions
       src: state.src ?? {},
       sig: state.sig ?? null,
       ...(opts.signature ? { signature: opts.signature } : {}),
+      ...(opts.choices && Object.keys(opts.choices).length ? { abgleich: { choices: opts.choices } } : {}),
       calc,
     },
   };

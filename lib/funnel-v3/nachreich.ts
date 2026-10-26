@@ -30,6 +30,7 @@
  */
 
 import {
+  abgleichCaseField,
   completeV3Inquiry,
   confirmationRecipients,
   planFiles,
@@ -288,6 +289,8 @@ export interface NachreichV3Deps {
   completion?: Partial<Omit<CompletionDeps, "db">>;
   /** components/updateCaseCompleteness updateCaseV3Documents (test mode guarded there). */
   updateCase(caseId: string, build: (previous: string | null) => Record<string, boolean | string> | null): Promise<unknown>;
+  /** lib/funnel-v3/abgleich/config.ts loadPruefregeln: the Abgleich JSON follows the new documents (Spezifikation Datenabgleich 5.4). */
+  pruefregeln(): Promise<{ rules: readonly import("./abgleich/rules").PruefRegel[]; from: "salesforce" | "fallback" }>;
   /** Pre-v5 inquiries only: v5 sends no mail for documents sent later (Handover 7.1). */
   sendMail(params: NachreichMailParams): Promise<void>;
   /** lib/funnel-v3/signatureServer.ts (InquirySignature), both fail soft. */
@@ -478,7 +481,12 @@ export async function submitV3Nachreichung(row: NachreichInquiryRow, body: any, 
   if (row.salesforceCaseId) {
     try {
       const server = await d.signature.state(row.id).catch(() => null);
-      await d.updateCase(row.salesforceCaseId, (previous) => caseFieldsWithSignature(v3DocumentCaseFields(data, previous, now), server, complete));
+      const rules = await d.pruefregeln().catch(() => null);
+      await d.updateCase(row.salesforceCaseId, (previous) => {
+        const fields = caseFieldsWithSignature(v3DocumentCaseFields(data, previous, now), server, complete);
+        const abgleich = fields && rules ? abgleichCaseField(data, rules, now) : null;
+        return abgleich ? { ...fields, Funnel_Abgleich_State__c: abgleich } : fields;
+      });
     } catch (err) {
       fail("Salesforce", err);
     }
@@ -575,6 +583,10 @@ function defaultDeps(): NachreichV3Deps {
     async updateCase(caseId, build) {
       const { updateCaseV3Documents } = await import("@/components/updateCaseCompleteness");
       return updateCaseV3Documents(caseId, build);
+    },
+    async pruefregeln() {
+      const { loadPruefregeln } = await import("./abgleich/config");
+      return loadPruefregeln();
     },
     async sendMail(params) {
       const { sendNachreichConfirmation } = await import("@/components/nachreichMail");

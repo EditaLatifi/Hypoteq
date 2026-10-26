@@ -4,7 +4,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useFunnelT } from "@/lib/funnel-v3/useFunnelT";
 import type { FileEntry } from "@/lib/funnel-v3/files";
 import { hasLocalFile, saveEdits, viewUrl } from "@/lib/funnel-v3/upload";
-import { chip, extOf, fileFields } from "./view";
+import { extOf, fileFields } from "./view";
+import Ampel from "./Ampel";
 import AuditTrail from "./AuditTrail";
 
 interface Props {
@@ -16,7 +17,8 @@ interface Props {
 }
 
 /**
- * Document detail (spec 4.2 «Erkannt → Details», 5): the document beside its recognised values,
+ * Document detail (spec 4.2 «Erkannt → Details», 5): the document beside its recognised values —
+ * each with its traffic light (Spezifikation Datenabgleich 4.2) —
  * editable. Corrections are kept as humanEdits next to the AI's reading, never over it.
  */
 export default function FileDetail({ file, title, intern, onClose, onConfirmed }: Props) {
@@ -90,12 +92,13 @@ export default function FileDetail({ file, title, intern, onClose, onConfirmed }
             {fields.length ? (
               fields.map((f) => {
                 const edited = values[f.key] !== f.value || f.edited;
-                const c = chip(f.confidence, intern, t, edited && values[f.key] !== "");
+                const read = f.value !== "" || f.edited;
                 return (
                   <label key={f.key} className="v3-modal-field">
                     <span className="v3-modal-field-head">
                       <span>{f.key}</span>
-                      <span className={`v3-tag v3-tone--${c.tone}`}>{c.label}</span>
+                      {/* Spezifikation Datenabgleich 4.2: the confidence as a traffic light. */}
+                      {read || edited ? <Ampel confidence={f.confidence} edited={edited && values[f.key] !== ""} intern={intern} /> : <span className="v3-tag v3-tone--danger">{t("state.unknown")}</span>}
                     </span>
                     <input
                       className="v3-input"
