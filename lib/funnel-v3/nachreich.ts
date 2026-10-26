@@ -491,11 +491,19 @@ export async function submitV3Nachreichung(row: NachreichInquiryRow, body: any, 
     fail("store verdict", err);
   }
 
+  // Spezifikation Datenabgleich 5.4: the Re-Upload requests this upload answers are resolved with
+  // or without a Case (test mode, a failed sync), so their reminders stop either way.
+  let reuploads: Awaited<ReturnType<NachreichV3Deps["resolveReuploads"]>> = [];
+  try {
+    reuploads = await d.resolveReuploads(row.id, state, rowsAfter, now);
+  } catch (err) {
+    fail("Re-Upload", err);
+  }
+
   if (row.salesforceCaseId) {
     try {
       const server = await d.signature.state(row.id).catch(() => null);
       const rules = await d.pruefregeln().catch(() => null);
-      const reuploads = await d.resolveReuploads(row.id, state, rowsAfter, now).catch(() => []);
       await d.updateCase(row.salesforceCaseId, (previous) => {
         const fields = caseFieldsWithSignature(v3DocumentCaseFields(data, previous, now), server, complete);
         const abgleich = fields && rules ? abgleichCaseField(data, rules, now, reuploadsForState(reuploads)) : null;

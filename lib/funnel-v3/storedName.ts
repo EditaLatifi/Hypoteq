@@ -40,7 +40,12 @@ export function cleanNamePart(s: string | null | undefined): string {
 
 /** «Musterweg 1», «8000 Zürich» → «Musterweg-1-Zuerich». */
 export function objectNamePart(street: string | null | undefined, place: string | null | undefined): string {
-  const words = [street, String(place ?? "").replace(/\b\d{4}\b/, "")]
+  // The Grundbuch's address («Seestrasse 118, 8038 Zürich») carries PLZ and place itself: the
+  // place is named once, the funnel's where there is one.
+  const m = String(street ?? "").match(/^(.*?)(?:,\s*|\s+)\d{4}\s+(\S.*)$/);
+  const road = m ? m[1] : street;
+  const town = String(place ?? "").replace(/\b\d{4}\b/, "").trim() || (m ? m[2] : "");
+  const words = [road, town]
     .flatMap((s) => String(s ?? "").split(/[\s,/]+/))
     .map(cleanNamePart)
     .filter(Boolean);

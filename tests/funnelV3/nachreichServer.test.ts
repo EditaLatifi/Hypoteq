@@ -86,6 +86,11 @@ function world(rows: CompletionDocumentRow[], held: CompletionDocumentRow[], opt
       return fields;
     },
     sendMail: async (p) => void mails.push(p),
+    // InquiryReupload in memory (reuploadServer.ts is tested in reupload.test.ts).
+    resolveReuploads: async (inquiryId, _state, rows) => {
+      reuploadCalls.push({ inquiryId, documents: rows.map((r) => r.id) });
+      return [];
+    },
     // InquirySignature in memory (signatureServer.ts is tested in signatureServer.test.ts).
     signature: {
       markReceived: async (inquiryId, file, at) => {
@@ -98,9 +103,10 @@ function world(rows: CompletionDocumentRow[], held: CompletionDocumentRow[], opt
     log: { log: () => {}, warn: () => {}, error: () => {} } as any,
   };
   const received: { inquiryId: string; fileName: string; driveItemId?: string | null; at: Date }[] = [];
+  const reuploadCalls: { inquiryId: string; documents: string[] }[] = [];
   let sigRow: SignatureServerState | null = opts.signature ?? null;
   const nameOf = (id: string) => docs.find((r) => r.id === id)?.fileName;
-  return { deps, docs, inquiryUpdates, cases, mails, adoptCalls, nameOf, folder, received };
+  return { deps, docs, inquiryUpdates, cases, mails, adoptCalls, nameOf, folder, received, reuploadCalls };
 }
 
 describe("v3InquiryColumns (/api/inquiry)", () => {
@@ -267,6 +273,19 @@ describe("submitV3Nachreichung (POST)", () => {
     expect(w.cases[0].Documents_completed__c).toBe(true);
     expect(w.cases[0].Dok_Lohnausweis__c).toBe(true);
     expect(w.mails[0]).toMatchObject({ complete: true, remaining: [], remainingLabels: [] });
+  });
+
+  // Found in the preview E2E of 26.10.: the new document was there, the request stayed open.
+  it("resolves the Re-Upload requests with every upload, also without a Salesforce Case (5.4)", async () => {
+    const withCase = world(existingRows(), held());
+    await submitV3Nachreichung(inquiryRow(), body, withCase.deps);
+    expect(withCase.reuploadCalls).toEqual([{ inquiryId: INQUIRY, documents: expect.arrayContaining(["h-fotos", "h-lohn"]) }]);
+
+    const noCase = world(existingRows(), held());
+    const res = await submitV3Nachreichung(inquiryRow({ salesforceCaseId: null }), body, noCase.deps);
+    expect(res.ok).toBe(true);
+    expect(noCase.cases).toEqual([]);
+    expect(noCase.reuploadCalls).toEqual([{ inquiryId: INQUIRY, documents: expect.arrayContaining(["h-fotos", "h-lohn"]) }]);
   });
 
   it("an up-to-date document replaces an outdated one («Aktuelles hochladen»)", async () => {

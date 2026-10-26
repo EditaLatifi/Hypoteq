@@ -54,6 +54,10 @@ describe('storedName rules (8.1, 8.2)', () => {
   it('transcribes umlauts (ä → ae), drops accents and every other character', () => {
     expect(cleanNamePart('Müller-Lüdenscheid Zoë Élodie')).toBe('Mueller-LuedenscheidZoeElodie');
     expect(objectNamePart('Hauptstrasse 12a', '8820 Wädenswil')).toBe('Hauptstrasse-12a-Waedenswil');
+    // The Grundbuch's address brings PLZ and place along (preview E2E 26.10.: «…-8038-Zuerich-Zuerich»).
+    expect(objectNamePart('Seestrasse 118, 8038 Zürich', '8002 Zürich')).toBe('Seestrasse-118-Zuerich');
+    expect(objectNamePart('Seestrasse 118 8038 Zürich', '')).toBe('Seestrasse-118-Zuerich');
+    expect(objectNamePart('Route 1234', '1000 Lausanne')).toBe('Route-1234-Lausanne');
     expect(storedName({ caseNumber: CASE, requirement: req('steuer'), person: { first: 'Anna Lena', last: 'Bächtold' }, docDate: '2025', ext: '.pdf' })).toBe('HQ-26-10-000123_01_Steuererklaerung_Baechtold-Anna-Lena_2025-12-31.pdf');
   });
   it('no person for Eigenmittel documents; several alike are told apart at the closing, not here', () => {
