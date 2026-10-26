@@ -136,7 +136,7 @@ export function reuploadMail(m: ReuploadMailInput): ReuploadMail {
   const button = t("button");
 
   const text = [...paragraphs, ...(hasLink ? [] : [m.link]), ...(signoff ? [signoff] : []), MAIL_FOOTER].join("\n\n");
-  const para = (p: string) => `<p style="font-size:15px;margin:0 0 14px 0;white-space:pre-line;">${linkify(escapeHtml(p), m.link)}</p>`;
+  const para = (p: string) => `<p style="font-size:15px;margin:0 0 14px 0;white-space:pre-line;">${bold(linkify(escapeHtml(p), m.link), m.document)}</p>`;
   const html = `<!DOCTYPE html>
 <html lang="${m.lang}">
 <head><meta charset="UTF-8" /></head>
@@ -166,6 +166,13 @@ export function reuploadMail(m: ReuploadMailInput): ReuploadMail {
 function linkify(escaped: string, link: string): string {
   const e = escapeHtml(link);
   return escaped.split(e).join(`<a href="${e}" style="color:#132219;font-weight:600;">${e}</a>`);
+}
+
+/** «{dokument}» in bold, with its quotation marks (10.1 / 10.2: **«{dokument}»**). */
+function bold(escaped: string, document: string): string {
+  const e = escapeHtml(document);
+  if (!e) return escaped;
+  return escaped.split(`«${e}»`).join(`<strong>«${e}»</strong>`).split(`“${e}”`).join(`<strong>“${e}”</strong>`);
 }
 
 /** The requirement's name in the case language, «– Max Mustermann» for a borrower's. */

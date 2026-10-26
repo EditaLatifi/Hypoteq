@@ -63,6 +63,10 @@ describe("the mails (10.1, 10.2): customers «du», partners «Sie»", () => {
     expect(m.html).toContain('href="https://hypoteq.com/de/nachreichen/T"');
     expect(m.html).toContain(">Dokument hochladen</a>");
     expect(m.html).toContain("HYPOTEQ_layout_logo.png");
+    // 10.1: **«{dokument}»** — bold in the HTML part, also in the reminders and in English.
+    expect(m.html).toContain("<strong>«Aktueller Lohnausweis – Lea Muster»</strong>");
+    expect(reuploadMail({ ...base, recipient: "kunde", reminder: 1 }).html).toContain("<strong>«Aktueller Lohnausweis – Lea Muster»</strong>");
+    expect(reuploadMail({ ...base, lang: "en", recipient: "kunde" }).html).toContain("<strong>“Aktueller Lohnausweis – Lea Muster”</strong>");
   });
 
   it("the partner: «Sie» and the case", () => {
