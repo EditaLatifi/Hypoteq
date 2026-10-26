@@ -514,7 +514,8 @@
     "sugAdd": "Ja, ergänzen",
     "sugEnter": "Ja, eintragen",
     "sugGoEnter": "Betrag eintragen",
-    "toast.grew": "Die Liste ist gewachsen: {n} Unterlage(n) aus der Dokumentenanalyse"
+    "toast.grew": "Die Liste ist gewachsen: {n} Unterlage(n) aus der Dokumentenanalyse",
+    "unknownN": "{n} nicht erkannt"
   },
   "s6": {
     "titleOk": "Das können wir finanzieren. Jetzt zur Bank.",
@@ -831,5 +832,31 @@
     "pkVorbezug": "PK-Vorbezug möglich",
     "uid": "UID",
     "sitz": "Sitz"
+  },
+  "sum": {
+    "title": "Deine Angaben aus dem Fragepfad",
+    "edit": "Bearbeiten",
+    "editAria": "{label} bearbeiten",
+    "equity": "Eigenmittel",
+    "backTo": "Zurück zu «{step}»"
+  },
+  "close": {
+    "dossierTitle": "Fall-Dossier herunterladen",
+    "docsN": "{n} Unterlagen",
+    "docs1": "1 Unterlage",
+    "approx": "ca. {size}",
+    "download": "Herunterladen",
+    "after": "Danach prüft HYPOTEQ den Fall durch — du wirst per E-Mail informiert."
+  },
+  "conf": {
+    "title": "Anfrage eingereicht – vielen Dank!",
+    "lead": "Dein Fall {fall} ist bei HYPOTEQ eingegangen. Eine Bestätigung mit dem Link zu dieser Übersicht ist unterwegs an deine E-Mail.",
+    "leadNoCase": "Dein Fall ist bei HYPOTEQ eingegangen. Eine Bestätigung mit dem Link zu dieser Übersicht ist unterwegs an deine E-Mail.",
+    "next": "Nächste Schritte",
+    "step1": "Fall-Durchsicht durch HYPOTEQ – bei Rückfragen melden wir uns innert 1 Arbeitstag.",
+    "step2": "Bankanfrage bei den passenden Finanzierungspartnern.",
+    "step3": "Fehlende Unterlagen nachreichen – der Link in der E-Mail führt jederzeit hierher zurück.",
+    "dossier": "Fall-Dossier herunterladen (PDF)",
+    "home": "Zur HYPOTEQ-Startseite"
   }
 }

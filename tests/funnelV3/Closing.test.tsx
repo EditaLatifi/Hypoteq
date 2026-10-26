@@ -37,12 +37,19 @@ describe("Closing (server render)", () => {
     expect((html.match(/class="v3-checkrow"/g) || []).length).toBe(6);
     // The block of the signature branch (a stub in this branch) sits before the submit.
     expect(html).toContain("HYPOTEQ Auskunftsermächtigung · Pflicht");
-    expect(html.indexOf("HYPOTEQ Auskunftsermächtigung · Pflicht")).toBeLessThan(html.indexOf('class="v3-submit"'));
+    expect(html.indexOf("HYPOTEQ Auskunftsermächtigung · Pflicht")).toBeLessThan(html.indexOf('class="v3-submit '));
     // Mustermann's signed copy is in the folder: the request may be closed.
-    expect(html).toContain(">Finanzierungsanfrage abschliessen</button>");
+    expect(html).toContain(">Finanzierungsanfrage abschliessen →</button>");
+    expect(html).toContain("Danach prüft HYPOTEQ den Fall durch — du wirst per E-Mail informiert.");
     expect(html).not.toContain("v3-finish-blocked");
-    expect(html).toContain(">Fall-Dossier als PDF</button>");
-    expect(html).not.toContain("v3-done");
+    // Spezifikation Datenabgleich 2.4: the dossier card on the left, before the submit.
+    expect(html).toContain('class="v3-dossier-title">Fall-Dossier herunterladen<');
+    // The size follows once the preview is prepared (in the browser, after the answers rest).
+    expect(html).toContain('class="v3-dossier-meta">30 Unterlagen · PDF<');
+    expect(html).toContain(">Herunterladen</button>");
+    expect(html.indexOf('class="v3-dossier"')).toBeLessThan(html.indexOf("v3-submit-go"));
+    // The confirmation is a page of its own now (Confirmation.tsx), never part of the closing.
+    expect(html).not.toContain("v3-confirm");
     expect(html).not.toContain("v3-busy");
     expect(html).not.toContain('role="alert"');
   });
@@ -51,7 +58,8 @@ describe("Closing (server render)", () => {
     withoutSignature = true;
     const html = render();
     withoutSignature = false;
-    expect(html).toMatch(/<button type="button" class="v3-btn v3-btn--dark" disabled=""[^>]*>Erst Auskunftsermächtigung hochladen<\/button>/);
+    expect(html).toMatch(/<button type="button" class="v3-btn v3-btn--dark v3-btn--lg v3-submit-go" disabled=""[^>]*>Erst Auskunftsermächtigung hochladen<\/button>/);
+    expect(html).not.toContain("Danach prüft HYPOTEQ");
     expect(html).toContain('id="v3-finish-blocked"');
   });
 

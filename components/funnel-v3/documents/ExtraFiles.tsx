@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import { useFunnelT } from "@/lib/funnel-v3/useFunnelT";
 import { hasKey } from "@/lib/funnel-v3/i18n";
 import type { FileEntry } from "@/lib/funnel-v3/files";
@@ -8,7 +8,7 @@ import type { Placement } from "@/lib/funnel-v3/placeFile";
 import { getRequirement, type RequirementInstance } from "@/lib/funnel-v3/requirements";
 import { assignFile, removeFile, retryFile } from "@/lib/funnel-v3/upload";
 import { requestedYears, v3DocType } from "@/components/documentIntelligence/v3/catalogue";
-import { EXTRA_GROUP_LABEL, extraReasonKey, groupExtras, rowClass, STATE_LOOK, storedNameForExtra, type RowState } from "./view";
+import { extraReasonKey, groupExtras, rowClass, STATE_LOOK, storedNameForExtra, type RowState } from "./view";
 import StoredName from "./StoredName";
 import AuditTrail from "./AuditTrail";
 
@@ -23,8 +23,10 @@ interface Props {
   onView: (fileId: string) => void;
   onAssigned: (label: string) => void;
   /**
-   * The funnel (Handover 4.3): sub-headed groups überzählig · Duplikat · nicht benötigt ·
-   * nicht erkannt. The Nachreich page keeps the plain list.
+   * The funnel: every file shown, ordered by kind (Wird gelesen · nicht erkannt · überzählig ·
+   * Duplikat · nicht benötigt), each with its tag and reason. No sub-heading per kind: «Nicht
+   * benötigt» is no category of its own (HYPOTEQ 23.10.2026, Spezifikation Datenabgleich 2.3).
+   * The Nachreich page keeps the plain list.
    */
   grouped?: boolean;
   /** Every file, so a duplicate can name the original it repeats (on the list or not). */
@@ -172,16 +174,7 @@ export default function ExtraFiles({ files, placements, instances, suggested, in
 
   return (
     <>
-      {grouped
-        ? groupExtras(visible, placements).map((g) => (
-            <Fragment key={g.key}>
-              <span className="v3-extra-group">
-                {t(EXTRA_GROUP_LABEL[g.key])} · {g.files.length}
-              </span>
-              {rows(g.files)}
-            </Fragment>
-          ))
-        : rows(visible)}
+      {rows(grouped ? groupExtras(visible, placements).flatMap((g) => g.files) : visible)}
       {hidden.length ? (
         <div className="v3-hidden-toggle">
           <span>{t("docs.hiddenN", { n: hidden.length })}</span>

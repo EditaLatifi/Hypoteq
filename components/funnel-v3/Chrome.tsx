@@ -158,18 +158,28 @@ export function RailBar() {
   );
 }
 
-/** Zurück / Weiter. The last step has its own action, so only «Zurück» stays there. */
+/**
+ * Zurück / Weiter. The last step has its own action, so only «Zurück» stays there. A screen
+ * opened by «Bearbeiten» on the last step offers «Zurück zu «Unterlagen & Abschluss»» in place
+ * of «Weiter» (Spezifikation Datenabgleich 2.1).
+ */
 export function Footer() {
   const { t } = useFunnelT();
-  const { step, mode } = useScreen();
-  const { goNext, goPrev } = useFunnelNav();
+  const { step, mode, screen } = useScreen();
+  const { goNext, goPrev, goReturn } = useFunnelNav();
+  const returnTo = useFunnelUI((s) => s.returnTo);
   const nextKey = nextLabelKey(mode, step);
+  const back = returnTo && screen && screen !== returnTo ? returnTo : null;
   return (
     <footer className="v3-footer">
       <button type="button" className="v3-btn v3-btn--outline v3-btn--back" onClick={goPrev}>
         {t("common.back")}
       </button>
-      {nextKey ? (
+      {back ? (
+        <button type="button" className="v3-btn v3-btn--primary v3-btn--lg" onClick={goReturn}>
+          {t("sum.backTo", { step: t(screenLabelKey(mode, back)) })}
+        </button>
+      ) : nextKey ? (
         <button type="button" className="v3-btn v3-btn--primary v3-btn--lg" onClick={goNext}>
           {t(nextKey)}
         </button>

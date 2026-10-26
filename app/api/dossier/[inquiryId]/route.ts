@@ -1,4 +1,4 @@
-import { dossierFileName } from "@/lib/funnel-v3/dossier";
+import { attachmentDisposition, dossierDownloadName, dossierFileName, dossierPersonName } from "@/lib/funnel-v3/dossier";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -32,7 +32,7 @@ export async function GET(req: Request, { params }: { params: { inquiryId: strin
     const { prisma } = await import("@/lib/prisma");
     const inquiry = await prisma.inquiry.findUnique({
       where: { id: inquiryId },
-      select: { id: true, caseNumber: true, sharepointFolderId: true, createdAt: true },
+      select: { id: true, caseNumber: true, sharepointFolderId: true, createdAt: true, v3State: true },
     });
     if (!inquiry || !inquiry.sharepointFolderId) return notFound();
     if (Date.now() - new Date(inquiry.createdAt).getTime() > DOSSIER_DOWNLOAD_DAYS * 86_400_000) {
@@ -53,7 +53,8 @@ export async function GET(req: Request, { params }: { params: { inquiryId: strin
       status: 200,
       headers: {
         "Content-Type": "application/pdf",
-        "Content-Disposition": `attachment; filename="${name}"`,
+        // Saved as «HYPOTEQ Fall-Dossier – Max Mustermann.pdf»; the case folder keeps `name`.
+        "Content-Disposition": attachmentDisposition(dossierDownloadName(dossierPersonName(inquiry.v3State as any))),
         "Cache-Control": "private, no-store",
       },
     });

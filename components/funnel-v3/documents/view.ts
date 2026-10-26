@@ -130,6 +130,36 @@ export function groupRows(rows: RequirementStatus[], state: ReqState, lang: Lang
   return out;
 }
 
+/** What a section's head says while it is closed (Spezifikation Datenabgleich 2.2). */
+export interface GroupSummary {
+  /** «5 / 10»: ok or «Habe ich nicht». */
+  done: number;
+  total: number;
+  /** «1 zu prüfen»: partial or outdated — the same split as the completeness card (documentTally). */
+  review: number;
+  /** Nothing (finished) on it yet. */
+  missing: number;
+  /** The rows still open, in list order. */
+  open: RequirementStatus[];
+}
+
+export function groupSummary(rows: RequirementStatus[]): GroupSummary {
+  const has = (...states: RequirementState[]) => rows.filter((r) => states.includes(r.state)).length;
+  return {
+    done: has("ok", "skipped"),
+    total: rows.length,
+    review: has("partial", "outdated"),
+    missing: has("missing", "analysing"),
+    open: rows.filter((r) => r.state !== "ok" && r.state !== "skipped"),
+  };
+}
+
+/** «Grundbuchauszug, GVZ-Police +2»: the first names and how many more. */
+export function shortList(names: string[], max = 2): string {
+  const shown = names.slice(0, max).join(", ");
+  return names.length > max ? `${shown} +${names.length - max}` : shown;
+}
+
 // ---- Files outside the list (Handover 4.3) --------------------------------------------------
 
 /** The kinds of «Weitere Dateien», in display order (Handover 4.3), and files still on their way. */

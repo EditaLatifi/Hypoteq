@@ -1,6 +1,6 @@
 import { describe, it, expect } from "@jest/globals";
 import { PDFDocument } from "pdf-lib";
-import { buildDossierModel, createDossierPdf, dossierFileName, type DossierFile } from "@/lib/funnel-v3/dossier";
+import { attachmentDisposition, buildDossierModel, createDossierPdf, dossierDownloadName, dossierFileName, dossierPersonName, type DossierFile } from "@/lib/funnel-v3/dossier";
 import type { FileEntry } from "@/lib/funnel-v3/files";
 import { EMPTY_AMOUNTS } from "@/lib/funnel-v3/types";
 import { mustermannFiles, mustermannState } from "./mustermannCase";
@@ -42,8 +42,8 @@ describe("Fall-Dossier model — Mustermann", () => {
     expect(m.cover.left).toBe("Eigene Anfrage");
   });
 
-  it("sections 01–05 in prototype order", () => {
-    expect(m.sections.map((s) => s.title)).toEqual(["01 · Antrag", "02 · Objekt", "03 · Kreditnehmer", "04 · Finanzierung und Tragbarkeit", "05 · Verlauf"]);
+  it("sections 01–04 in prototype order, no «Verlauf» (HYPOTEQ 23.10.2026)", () => {
+    expect(m.sections.map((s) => s.title)).toEqual(["01 · Antrag", "02 · Objekt", "03 · Kreditnehmer", "04 · Finanzierung und Tragbarkeit"]);
     const antrag = Object.fromEntries([...m.sections[0].columns![0], ...m.sections[0].columns![1]].map((kv) => [kv.label, kv.value]));
     expect(antrag).toMatchObject({ "Bestehende Bank": "Musterbank", "Bestehende Hypothek": "CHF 380'000", "Gewünschte Erhöhung": "CHF 170'000", Gesamtfinanzierung: "CHF 550'000", "Gewünschte Laufzeit": "3 Jahre" });
     expect(m.sections[0].callouts![0].label).toBe("Verwendungszweck der Erhöhung");
@@ -54,7 +54,7 @@ describe("Fall-Dossier model — Mustermann", () => {
     expect(m.sections[3].callouts!.map((c) => c.label)).toHaveLength(4);
   });
 
-  it("annex A–E with stored names, origins and the Vollständigkeit box", () => {
+  it("annex A–E with stored names and origins, opened by one plain sentence, no Vollständigkeit box", () => {
     expect(m.annex.groups.map((g) => g.title)).toEqual([
       "A · Zum Objekt",
       "B · Bestehende Hypothek",
@@ -83,23 +83,28 @@ describe("Fall-Dossier model — Mustermann", () => {
       "Nicht benötigt – Steuerrechnung – mitgeführt",
       "Nicht benötigt – Nebenkostenabrechnung – mitgeführt",
     ]);
-    expect(m.annex.completeness.value).toBe("20 von 20 Anforderungen erfüllt");
-    expect(m.annex.completeness.note).toMatch(/^4 Hinweis\(e\): Aktueller Grundbuchauszug/);
-    expect(m.annex.intro).toContain("21 Dateien erkannt");
+    // Every document the case carries, the further files included (Kap. 9.5).
+    expect(m.annex.intro).toBe("Folgende 30 Dokumente stehen zum Hypothekarfall zur Verfügung.");
+    expect(m.annex).not.toHaveProperty("completeness");
   });
 
-  it("draft: «Entwurf» instead of a case number", () => {
+  it("before the closing: no «Entwurf» anywhere, the date without a case number (HYPOTEQ 23.10.2026)", () => {
     const d = buildDossierModel(input({ draft: true, caseNumber: null }));
-    expect(d.header.right).toBe("Fall-Dossier · Entwurf · Mustermann, Zürich");
-    expect(d.cover.draft).toBe("Entwurf");
-    expect(d.sections[4].table!.rows[0][1].text).toBe("Entwurf aus dem Funnel – noch nicht abgeschlossen");
+    expect(d.header.right).toBe("Fall-Dossier · Mustermann, Zürich");
+    expect(d.cover.right).toBe("02.06.2026");
+    expect(d.documentTitle).toBe("Fall-Dossier");
+    expect(JSON.stringify({ header: d.header, footer: d.footer, cover: d.cover, sections: d.sections, annex: d.annex })).not.toMatch(/Entwurf/);
+  });
+
+  it("footer: «HYPOTEQ» instead of hypoteq.ch", () => {
+    expect(m.footer).toEqual({ left: "Vertraulich · für Kreditgeber", right: "HYPOTEQ", page: "Seite {n} von {total}" });
   });
 
   it("funnel language (D11): French", () => {
     const fr = buildDossierModel(input({ lang: "fr" }));
     expect(fr.sections[0].title).toBe("01 · Demande");
     expect(fr.annex.groups[0].table.rows[0][1].text).not.toBe(m.annex.groups[0].table.rows[0][1].text);
-    expect(fr.annex.completeness.label).toBe("Exhaustivité");
+    expect(fr.annex.intro).toBe("Les 30 documents suivants sont disponibles pour ce dossier hypothécaire.");
     expect(fr.footer.left).toBe("Confidentiel · pour les prêteurs");
   });
 
@@ -108,7 +113,7 @@ describe("Fall-Dossier model — Mustermann", () => {
     const mm = buildDossierModel(input({ files }));
     expect(mm.annex.groups[0].table.rows[0][1].sub).toBe("Pflicht · Fehlt");
     expect(mm.annex.groups[0].table.rows[0][2].text).toBe("–");
-    expect(mm.annex.completeness.value).toBe("19 von 20 Anforderungen erfüllt");
+    expect(mm.annex.intro).toBe(`Folgende ${files.length} Dokumente stehen zum Hypothekarfall zur Verfügung.`);
   });
 });
 
@@ -181,5 +186,16 @@ describe("Fall-Dossier PDF", () => {
 
   it("file name of the stored dossier", () => {
     expect(dossierFileName("HQ-26-01-000001")).toBe("HQ-26-01-000001_00_Fall-Dossier.pdf");
+  });
+
+  it("name of the download: «HYPOTEQ Fall-Dossier – Vorname Nachname.pdf» (Kap. 9.1)", () => {
+    expect(dossierDownloadName(dossierPersonName(mustermannState()))).toBe("HYPOTEQ Fall-Dossier – Max Mustermann.pdf");
+    const company = { ans: { kn: "Juristische Person" }, txt: { vor: "Max", nach: "Muster", firma: "Immo: Beispiel/AG" } };
+    expect(dossierDownloadName(dossierPersonName(company))).toBe("HYPOTEQ Fall-Dossier – Immo BeispielAG.pdf");
+    expect(dossierDownloadName(dossierPersonName({ txt: { vor: "", nach: "" }, borrowers: [{ vor: "Lea", nach: "Müller" }] }))).toBe("HYPOTEQ Fall-Dossier – Lea Müller.pdf");
+    expect(dossierDownloadName("  ")).toBe("HYPOTEQ Fall-Dossier.pdf");
+    expect(attachmentDisposition("HYPOTEQ Fall-Dossier – Lea Müller.pdf")).toBe(
+      `attachment; filename="HYPOTEQ Fall-Dossier - Lea Muller.pdf"; filename*=UTF-8''HYPOTEQ%20Fall-Dossier%20%E2%80%93%20Lea%20M%C3%BCller.pdf`
+    );
   });
 });

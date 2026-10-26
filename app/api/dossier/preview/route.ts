@@ -1,4 +1,4 @@
-import { createDossierPdf } from "@/lib/funnel-v3/dossier";
+import { attachmentDisposition, createDossierPdf, dossierDownloadName, dossierPersonName } from "@/lib/funnel-v3/dossier";
 import { previewInput } from "@/lib/funnel-v3/dossier/preview";
 
 export const runtime = "nodejs";
@@ -9,10 +9,10 @@ export const maxDuration = 30;
 const MAX_BODY_BYTES = 2_000_000;
 
 /**
- * «Fall-Dossier als PDF» before the closing (Spezifikation 3 Schritt 6): the funnel state and
- * the files summary in, the dossier as an «Entwurf» PDF out. No database, no Salesforce, no
- * SharePoint, no case number — it only draws what the browser already holds. After the closing
- * the stored dossier is downloaded from /api/dossier/[inquiryId] instead.
+ * «Fall-Dossier herunterladen» before the closing (Spezifikation 3 Schritt 6): the funnel state
+ * and the files summary in, the dossier as a PDF out — without a case number, which the closing
+ * assigns. No database, no Salesforce, no SharePoint — it only draws what the browser already
+ * holds. After the closing the stored dossier is downloaded from /api/dossier/[inquiryId].
  */
 export async function POST(req: Request) {
   try {
@@ -30,7 +30,7 @@ export async function POST(req: Request) {
       status: 200,
       headers: {
         "Content-Type": "application/pdf",
-        "Content-Disposition": `attachment; filename="Fall-Dossier_Entwurf.pdf"`,
+        "Content-Disposition": attachmentDisposition(dossierDownloadName(dossierPersonName(input.state))),
         "Cache-Control": "no-store",
       },
     });

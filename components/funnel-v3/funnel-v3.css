@@ -2305,59 +2305,315 @@ body:has(.hqv3) {
   color: var(--on-light-70);
   text-wrap: pretty;
 }
+/* ---- the lime closing block (HYPOTEQ 23.10.2026, Spezifikation Datenabgleich 2.4): the
+   dossier card on the left is the dominant element, the submit on the right */
 .hqv3 .v3-submit {
   background: var(--lime-500);
   border-radius: var(--radius-lg);
   padding: 26px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: 22px;
+  align-items: center;
+}
+.hqv3 .v3-dossier {
+  background: #fff;
+  border: 1px solid var(--forest-800);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas:
+    "icon copy"
+    "icon action"
+    "error error";
+  column-gap: 16px;
+  row-gap: 14px;
+  align-items: center;
+  color: var(--forest-800);
+}
+.hqv3 .v3-dossier-icon {
+  grid-area: icon;
+  align-self: start;
+  display: flex;
+}
+.hqv3 .v3-dossier-copy {
+  grid-area: copy;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 4px;
 }
-.hqv3 .v3-submit-title,
-.hqv3 .v3-done-title {
+.hqv3 .v3-dossier-title {
   font-family: var(--font-display);
-  font-size: var(--text-title);
+  font-size: var(--text-heading);
   font-weight: var(--weight-bold);
-  color: var(--forest-800);
   line-height: var(--leading-snug);
   text-wrap: pretty;
 }
-.hqv3 .v3-submit-text {
-  font-size: var(--text-body-sm);
-  color: var(--forest-800);
-  opacity: 0.75;
-  max-width: 58ch;
-  text-wrap: pretty;
+.hqv3 .v3-dossier-meta {
+  font-size: var(--text-caption);
+  color: var(--on-light-70);
 }
-.hqv3 .v3-submit-actions {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  padding-top: 4px;
+.hqv3 .v3-dossier > .v3-btn {
+  grid-area: action;
+  justify-self: start;
 }
-.hqv3 .v3-done {
-  background: var(--forest-800);
-  border-radius: var(--radius-lg);
-  padding: 28px;
+.hqv3 .v3-dossier-error {
+  grid-area: error;
+}
+.hqv3 .v3-submit-side {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  animation: v3-rise 0.3s var(--ease-out) both;
+  gap: 10px;
+  align-items: flex-start;
 }
-.hqv3 .v3-done-eyebrow {
+.hqv3 .v3-submit-go {
+  width: 100%;
+  justify-content: center;
+}
+.hqv3 .v3-submit-after {
+  margin: 0;
+  font-size: var(--text-caption);
+  color: var(--forest-800);
+  opacity: 0.75;
+  text-wrap: pretty;
+}
+@media (max-width: 899px) {
+  .hqv3 .v3-submit {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+}
+
+/* ---- «Deine Angaben aus dem Fragepfad» (Spezifikation Datenabgleich 2.1) */
+.hqv3 .v3-answers {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.hqv3 .v3-answers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 10px;
+}
+.hqv3 .v3-answer {
+  border: 1px solid var(--paper-300);
+  border-radius: var(--radius-lg);
+  background: #fff;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.hqv3 .v3-answer-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+.hqv3 .v3-answer-label {
+  font-size: var(--text-micro);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--on-light-45);
+}
+.hqv3 .v3-answer-edit {
+  border: 0;
+  background: none;
+  padding: 0;
+  font: inherit;
+  font-size: var(--text-caption);
+  font-weight: var(--weight-semibold);
+  color: var(--forest-800);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.hqv3 .v3-answer-edit:hover {
+  text-decoration-thickness: 2px;
+}
+.hqv3 .v3-answer-edit:focus-visible {
+  outline: 2px solid var(--forest-800);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+.hqv3 .v3-answer-value {
+  font-size: var(--text-body);
+  font-weight: var(--weight-bold);
+  color: var(--forest-800);
+  overflow-wrap: anywhere;
+}
+.hqv3 .v3-answer.is-empty .v3-answer-value {
+  color: var(--on-light-45);
+}
+.hqv3 .v3-answer-detail {
+  font-size: var(--text-caption);
+  color: var(--on-light-70);
+  text-wrap: pretty;
+}
+
+/* ---- closed document sections (Spezifikation Datenabgleich 2.2): closed ones stack as a list */
+.hqv3 .v3-docgroup.is-collapsible + .v3-docgroup.is-collapsible {
+  margin-top: -24px;
+}
+.hqv3 .v3-docgroup-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  border: 1px solid var(--paper-300);
+  border-radius: var(--radius-lg);
+  background: #fff;
+  color: var(--forest-800);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: var(--transition-control);
+}
+.hqv3 .v3-docgroup-toggle:hover {
+  border-color: var(--paper-400);
+}
+.hqv3 .v3-docgroup-toggle:focus-visible {
+  outline: 2px solid var(--forest-800);
+  outline-offset: 2px;
+}
+.hqv3 .v3-docgroup.is-open > .v3-docgroup-toggle {
+  background: var(--paper-100);
+}
+.hqv3 .v3-docgroup-titles {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.hqv3 .v3-docgroup-title {
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-semibold);
+}
+.hqv3 .v3-docgroup-info {
+  font-size: var(--text-caption);
+  color: var(--on-light-70);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.hqv3 .v3-docgroup-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.hqv3 .v3-docgroup-progress {
+  font-size: var(--text-caption);
+  font-weight: var(--weight-semibold);
+  color: var(--on-light-70);
+  min-width: 42px;
+  text-align: right;
+}
+.hqv3 .v3-docgroup-chev {
+  font-size: 14px;
+  color: var(--on-light-45);
+  transition: transform 0.2s var(--ease-out);
+}
+.hqv3 .v3-docgroup-chev.is-open {
+  transform: rotate(180deg);
+}
+@media (max-width: 899px) {
+  .hqv3 .v3-docgroup-toggle {
+    flex-wrap: wrap;
+    padding: 12px 14px;
+  }
+  .hqv3 .v3-docgroup-meta {
+    width: 100%;
+    justify-content: flex-start;
+  }
+  .hqv3 .v3-docgroup-progress {
+    margin-left: auto;
+  }
+}
+
+/* ---- the confirmation page (Spezifikation Datenabgleich 2.5), in the start screen's look */
+.hqv3 .v3-confirm .v3-start-hero {
+  margin-top: 40px;
+}
+/* The heading takes focus when the page opens (screen readers); it is not a control. */
+.hqv3 .v3-confirm .v3-start-title:focus,
+.hqv3 .v3-confirm .v3-start-title:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+.hqv3 .v3-confirm-eyebrow {
   font-size: var(--text-micro);
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
   color: var(--lime-500);
+  font-weight: var(--weight-semibold);
 }
-.hqv3 .v3-done-title {
-  color: #fff;
+.hqv3 .v3-confirm-next {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 640px;
 }
-.hqv3 .v3-done-text {
+.hqv3 .v3-confirm-next-title {
+  font-size: var(--text-micro);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--on-dark-45);
+  font-weight: var(--weight-semibold);
+}
+.hqv3 .v3-confirm-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.hqv3 .v3-confirm-step {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  background: var(--on-dark-08);
+  border: 1px solid var(--on-dark-14);
+}
+.hqv3 .v3-confirm-n {
+  flex: 0 0 auto;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--lime-500);
+  color: var(--forest-800);
+  font-size: var(--text-caption);
+  font-weight: var(--weight-bold);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.hqv3 .v3-confirm-text {
   font-size: var(--text-body-sm);
-  color: var(--on-dark-70);
-  max-width: 58ch;
+  line-height: var(--leading-normal);
+  color: #fff;
   text-wrap: pretty;
+}
+.hqv3 .v3-confirm-count {
+  margin-left: 8px;
+  vertical-align: 1px;
+}
+.hqv3 .v3-confirm-actions {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
 }
 
 /* =================================================================================
@@ -2665,12 +2921,6 @@ body:has(.hqv3) {
 .hqv3 .v3-allok-mark {
   font-weight: 700;
   color: var(--success-500);
-}
-.hqv3 .v3-extra-group {
-  font-size: var(--text-caption);
-  font-weight: var(--weight-semibold);
-  color: var(--on-light-70);
-  padding-top: 4px;
 }
 
 /* ---- fill rail «Deine Anfrage füllt sich» (Handover 3 Schritt 2) */

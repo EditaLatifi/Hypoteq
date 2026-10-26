@@ -5,29 +5,36 @@
  * 3 Schritt 6; Spezifikation 3 Schritt 6; prototype «ABSCHLUSS»).
  *
  * Kennzahlen, Hinweise an die Bank, Prüfliste, the Auskunftsermächtigung (<SignatureBlock />,
- * Handover 6), then «Finanzierungsanfrage abschliessen» — locked until the signed copy is
- * uploaded or «Später nachreichen» is chosen (logic.ts finishGate) — and «Fall-Dossier als
- * PDF». The submit waits for running uploads / analyses with a visible progress state, never
- * navigates, and shows a failure inline with «Erneut versuchen»; only a successful submit shows
- * the done state «Anfrage {Fallnummer} ist bei HYPOTEQ.» with «Neuen Antrag stellen» (empty
- * funnel, back to the start) and «Abschliessen» (hypoteq.ch) or, for a Berater, the way back to
- * the Partnerportal.
+ * Handover 6), then the lime block (HYPOTEQ 23.10.2026, Spezifikation Datenabgleich 2.4): on the
+ * left the white «Fall-Dossier herunterladen» card — the number of documents and the PDF's size,
+ * read from a preview prepared in the background — on the right «Finanzierungsanfrage
+ * abschliessen →», locked until the signed copy is uploaded or «Später nachreichen» is chosen
+ * (logic.ts finishGate). The submit waits for running uploads / analyses with a visible progress
+ * state and shows a failure inline with «Erneut versuchen»; a successful submit opens the
+ * confirmation page (Confirmation.tsx, through uiStore `done`).
  */
 
-import { finishGate, portalAction } from "../logic";
+import { finishGate } from "../logic";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { documentsSummary } from "@/lib/funnel-v3/documentsSummary";
 import { finishSummary } from "@/lib/funnel-v3/finishSummary";
 import { useFunnelV3 } from "@/lib/funnel-v3/store";
 import { submitFunnel, SubmitError, type SubmitPhase, type SubmitState } from "@/lib/funnel-v3/submit";
 import { useFunnelT } from "@/lib/funnel-v3/useFunnelT";
-import { clearDone, readDone, saveDone, storedDossierUrl, type DoneInfo } from "./doneState";
-import { downloadDraftDossier, previewBody } from "./previewDossier";
+import { saveDone, type DoneInfo } from "./doneState";
+import { draftDossierName, fetchDraftDossier, previewBody, saveBlob } from "./previewDossier";
 import SignatureBlock from "./SignatureBlock";
 import { useFunnelUI } from "../uiStore";
 import "./finish.css";
 
-const HYPOTEQ_URL = "https://hypoteq.ch";
+/** «48 KB» / «1.2 MB». */
+function fileSize(bytes: number): string {
+  if (bytes < 1024 * 1024) return `${Math.max(1, Math.round(bytes / 1024))} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
+
+/** How long the answers rest before the dossier preview is prepared again. */
+const PREPARE_MS = 1200;
 
 export default function Closing() {
   const { t, lang } = useFunnelT();
@@ -42,9 +49,7 @@ export default function Closing() {
   const sig = useFunnelV3((s) => s.sig);
   const files = useFunnelV3((s) => s.files);
   const skipped = useFunnelV3((s) => (s as { skipped?: Iterable<string> }).skipped);
-  const submissionId = useFunnelV3((s) => s.submissionId);
-  const entry = useFunnelV3((s) => s.entry);
-  const reset = useFunnelV3((s) => s.reset);
+  const src = useFunnelV3((s) => s.src);
 
   const docs = useMemo(
     () => documentsSummary({ ans, borrowers, txt, em, info, mode, sig, files, skipped }),
@@ -66,18 +71,39 @@ export default function Closing() {
 
   const [phase, setPhase] = useState<SubmitPhase | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [done, setDone] = useState<DoneInfo | null>(null);
-  // Berater: is this browser logged into the Partnerportal? Decides the way-back button.
-  const [portalSession, setPortalSession] = useState<"in" | "out" | "unknown">("unknown");
   const [dossierBusy, setDossierBusy] = useState(false);
   const [dossierError, setDossierError] = useState<string | null>(null);
   const running = useRef(false);
-  const doneRef = useRef<HTMLElement | null>(null);
 
-  // A reload after the closing shows the done state again (sessionStorage, per submission).
+  // The dossier card names the size of the PDF: the preview is prepared once the answers rest
+  // and no file is still being read, and the download reuses it while nothing has changed.
+  const body = useMemo(
+    () => previewBody({ role, ans, txt, fin, em, info, borrowers, src, sig, files, skipped } as never, lang),
+    [role, ans, txt, fin, em, info, borrowers, src, sig, files, skipped, lang]
+  );
+  const bodyKey = useMemo(() => JSON.stringify(body), [body]);
+  const [prepared, setPrepared] = useState<{ key: string; blob: Blob } | null>(null);
+  const reading = docs.busy > 0;
+  const ready = prepared && prepared.key === bodyKey ? prepared.blob : null;
   useEffect(() => {
-    setDone(readDone(submissionId));
-  }, [submissionId]);
+    // Only a changed content asks again (a file's progress re-renders without changing it).
+    if (ready || reading || typeof fetch !== "function") return;
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => {
+      fetchDraftDossier(JSON.parse(bodyKey), fetch, ctrl.signal)
+        .then((blob) => setPrepared({ key: bodyKey, blob }))
+        .catch(() => {
+          /* the card shows no size; the download asks again */
+        });
+    }, PREPARE_MS);
+    return () => {
+      clearTimeout(timer);
+      ctrl.abort();
+    };
+  }, [bodyKey, reading, ready]);
+  const docCount = docs.files.filter((f) => f.uploadState === "uploaded").length;
+  const dossierMeta =
+    [docCount === 1 ? t("close.docs1") : t("close.docsN", { n: docCount }), "PDF"].join(" · ") + (ready ? `, ${t("close.approx", { size: fileSize(ready.size) })}` : "");
 
   // Leaving the page while the request is on its way would leave the customer guessing.
   useEffect(() => {
@@ -89,27 +115,6 @@ export default function Closing() {
     window.addEventListener("beforeunload", warn);
     return () => window.removeEventListener("beforeunload", warn);
   }, [phase]);
-
-  useEffect(() => {
-    if (done) doneRef.current?.focus();
-  }, [done]);
-
-  // Asked once the request is through, only for a Berater (the customer never sees the portal).
-  useEffect(() => {
-    if (!done || role !== "berater" || typeof fetch !== "function") return;
-    let cancelled = false;
-    fetch("/api/portal/session", { cache: "no-store" })
-      .then((r) => (r.ok ? r.json() : null))
-      .then((j) => {
-        if (!cancelled && j && typeof j.loggedIn === "boolean") setPortalSession(j.loggedIn ? "in" : "out");
-      })
-      .catch(() => {
-        /* unknown stays: the portal root redirects by session */
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [done, role]);
 
   const submit = useCallback(async () => {
     if (running.current || !gate.enabled) return;
@@ -131,7 +136,7 @@ export default function Closing() {
         email: s.txt.mail.trim(),
       };
       saveDone(doneInfo);
-      setDone(doneInfo);
+      useFunnelUI.getState().setDone(doneInfo);
     } catch (err) {
       setError(err instanceof SubmitError ? err.message : t("s6.err.submit"));
     } finally {
@@ -142,24 +147,19 @@ export default function Closing() {
 
   const dossier = useCallback(async () => {
     if (dossierBusy) return;
-    setDossierBusy(true);
     setDossierError(null);
+    if (ready) return saveBlob(ready, draftDossierName(body));
+    setDossierBusy(true);
     try {
-      await downloadDraftDossier(previewBody(useFunnelV3.getState() as any, lang));
+      const blob = await fetchDraftDossier(body);
+      setPrepared({ key: bodyKey, blob });
+      saveBlob(blob, draftDossierName(body));
     } catch {
       setDossierError(t("s6.err.dossier"));
     } finally {
       setDossierBusy(false);
     }
-  }, [dossierBusy, lang, t]);
-
-  const startOver = useCallback(() => {
-    clearDone(submissionId);
-    reset();
-    // A new request starts without the validation messages of the last one.
-    useFunnelUI.setState({ attempted: [] });
-    if (typeof window !== "undefined") window.scrollTo(0, 0);
-  }, [reset, submissionId]);
+  }, [body, bodyKey, dossierBusy, ready, t]);
 
   const busy = phase !== null;
   const progressTitle =
@@ -218,11 +218,33 @@ export default function Closing() {
 
       <SignatureBlock />
 
-      {!done && (
-        <section className="v3-submit" aria-busy={busy}>
-          <h2 className="v3-submit-title">{t("s6.submitTitle")}</h2>
-          <p className="v3-submit-text">{t("s6.submitText")}</p>
+      <section className="v3-submit v3-submit--split" aria-busy={busy}>
+        <div className="v3-dossier">
+          <span className="v3-dossier-icon" aria-hidden="true">
+            <svg viewBox="0 0 32 40" width="32" height="40" focusable="false">
+              <path d="M3 1h18l8 8v28a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2z" fill="#fff" stroke="currentColor" strokeWidth="1.6" />
+              <path d="M21 1v8h8" fill="none" stroke="currentColor" strokeWidth="1.6" />
+              <rect x="1" y="22" width="22" height="11" rx="2" fill="currentColor" />
+              <text x="12" y="30.4" textAnchor="middle" fontSize="7.4" fontWeight="700" fill="#caf476" fontFamily="Arial, sans-serif">
+                PDF
+              </text>
+            </svg>
+          </span>
+          <span className="v3-dossier-copy">
+            <span className="v3-dossier-title">{t("close.dossierTitle")}</span>
+            <span className="v3-dossier-meta">{dossierMeta}</span>
+          </span>
+          <button type="button" className="v3-btn v3-btn--dark" onClick={dossier} disabled={dossierBusy || busy}>
+            {dossierBusy ? t("s6.dossierLoading") : t("close.download")}
+          </button>
+          {dossierError && (
+            <p className="v3f-inline-error v3-dossier-error" role="alert">
+              {dossierError}
+            </p>
+          )}
+        </div>
 
+        <div className="v3-submit-side">
           {busy && (
             <div className="v3-busy" role="status" aria-live="polite">
               <div className="v3-busy-head">
@@ -244,54 +266,26 @@ export default function Closing() {
             </div>
           )}
 
-          <div className="v3-submit-actions">
-            <button type="button" className="v3-btn v3-btn--dark" onClick={submit} disabled={busy || !gate.enabled} aria-describedby={gate.enabled ? undefined : "v3-finish-blocked"}>
-              {t(gate.labelKey)}
-            </button>
-            <button type="button" className="v3-btn v3-btn--outline-dark" onClick={dossier} disabled={dossierBusy || busy}>
-              {dossierBusy ? t("s6.dossierLoading") : t("s6.dossier")}
-            </button>
-          </div>
-          {!gate.enabled ? (
+          <button
+            type="button"
+            className="v3-btn v3-btn--dark v3-btn--lg v3-submit-go"
+            onClick={submit}
+            disabled={busy || !gate.enabled}
+            aria-describedby={gate.enabled ? undefined : "v3-finish-blocked"}
+          >
+            {t(gate.labelKey) + (gate.enabled ? " →" : "")}
+          </button>
+          {gate.enabled ? (
+            <p id="v3-finish-after" className="v3-submit-after">
+              {t("close.after")}
+            </p>
+          ) : (
             <p id="v3-finish-blocked" className="v3f-blocked">
               {t("s6.finishBlockedHint")}
             </p>
-          ) : null}
-          {dossierError && (
-            <p className="v3f-inline-error" role="alert">
-              {dossierError}
-            </p>
           )}
-        </section>
-      )}
-
-      {done && (
-        <section className="v3-done v3-rise" ref={doneRef} tabIndex={-1} aria-live="polite">
-          <span className="v3-done-eyebrow">{t("s6.done")}</span>
-          <h2 className="v3-done-title">{done.caseNumber ? t("s6.doneTitle", { id: done.caseNumber }) : t("s6.doneTitleNoId")}</h2>
-          <p className="v3-done-text">{t("s6.doneSub", { name: done.name || t("s6.customer"), email: done.email })}</p>
-          <div className="v3-submit-actions">
-            <button type="button" className="v3-btn v3-btn--primary" onClick={startOver}>
-              {t("s6.newRequest")}
-            </button>
-            {/* On the dark done panel: the white outline, not the dark one meant for light panels. */}
-            {role === "berater" || entry === "portal" ? (
-              // A Berater goes back to the portal: the dashboard when logged in (the new Case
-              // appears there), the login otherwise, the portal root while that is unknown.
-              <a className="v3-btn v3-btn--outline-dark" href={portalAction(portalSession).href}>
-                {t(portalAction(portalSession).labelKey)}
-              </a>
-            ) : (
-              <a className="v3-btn v3-btn--outline-dark" href={HYPOTEQ_URL}>
-                {t("s6.finish")}
-              </a>
-            )}
-            <a className="v3-btn v3-btn--text v3f-on-dark" href={storedDossierUrl(done)} download>
-              {t("s6.dossier")}
-            </a>
-          </div>
-        </section>
-      )}
+        </div>
+      </section>
     </>
   );
 }

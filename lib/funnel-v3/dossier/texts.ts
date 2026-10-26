@@ -9,7 +9,6 @@ import type { QuestionKey } from "../requirements";
 
 export interface DossierTexts {
   title: string;
-  draft: string;
   confidential: string;
   site: string;
   page: string;
@@ -24,7 +23,6 @@ export interface DossierTexts {
   s2: string;
   s3: string;
   s4: string;
-  s5: string;
   antrag: string;
   kreditnehmer: string;
   natBorrowers: string;
@@ -80,15 +78,8 @@ export interface DossierTexts {
   equityInheritance: string;
   equityLoan: string;
   hintsTitle: string;
-  historySubmitted: string;
-  historyDraft: string;
-  historyFiles: string;
-  historyHints: string;
   annex: string;
   annexIntro: string;
-  annexExtras: string;
-  /** Same sentence when nothing was removed, so the annex never states «0 … nicht abgelegt». */
-  annexExtrasKept: string;
   colNo: string;
   colReq: string;
   colFile: string;
@@ -100,9 +91,6 @@ export interface DossierTexts {
   notStored: string;
   duplicateOf: string;
   noFile: string;
-  completeness: string;
-  noHints: string;
-  hintsCount: string;
   used: string;
   questions: Record<QuestionKey, string>;
 }
@@ -133,9 +121,8 @@ const QUESTIONS_DE: Record<QuestionKey, string> = {
 export const DOSSIER_TEXTS: Record<Lang, DossierTexts> = {
   de: {
     title: "Fall-Dossier",
-    draft: "Entwurf",
     confidential: "Vertraulich · für Kreditgeber",
-    site: "hypoteq.ch",
+    site: "HYPOTEQ",
     page: "Seite {n} von {total}",
     eyebrow: "Finanzierungsanfrage · {antrag}",
     withIncrease: "{antrag} und Erhöhung",
@@ -148,7 +135,6 @@ export const DOSSIER_TEXTS: Record<Lang, DossierTexts> = {
     s2: "02 · Objekt",
     s3: "03 · Kreditnehmer",
     s4: "04 · Finanzierung und Tragbarkeit",
-    s5: "05 · Verlauf",
     antrag: "Kreditantrag",
     kreditnehmer: "Kreditnehmer",
     natBorrowers: "{kn}, {n} Kreditnehmer",
@@ -204,14 +190,8 @@ export const DOSSIER_TEXTS: Record<Lang, DossierTexts> = {
     equityInheritance: "Erbschaft / Erbvorbezug",
     equityLoan: "Darlehen",
     hintsTitle: "Hinweise an die Bank",
-    historySubmitted: "Anfrage über den Funnel abgeschlossen{case}",
-    historyDraft: "Entwurf aus dem Funnel – noch nicht abgeschlossen",
-    historyFiles: "{n} Dateien hochgeladen · {ok} von {total} Anforderungen erfüllt",
-    historyHints: "{n} Hinweis(e) an die Bank",
     annex: "Annex · Dokumentenverzeichnis",
-    annexIntro: "{n} Dateien erkannt, zugeordnet und ausgelesen. Jede Anforderung zeigt ihre Herkunft (Trigger-Antwort) und die extrahierten Kernangaben.",
-    annexExtras: "{kept} weitere Datei(en) mitgeführt, {removed} nicht benötigte Datei(en) bzw. Duplikat(e) nicht abgelegt.",
-    annexExtrasKept: "{kept} weitere Datei(en) mitgeführt.",
+    annexIntro: "Folgende {n} Dokumente stehen zum Hypothekarfall zur Verfügung.",
     colNo: "#",
     colReq: "Anforderung · Herkunft",
     colFile: "Datei",
@@ -223,17 +203,13 @@ export const DOSSIER_TEXTS: Record<Lang, DossierTexts> = {
     notStored: "nicht abgelegt",
     duplicateOf: "nicht doppelt gespeichert",
     noFile: "–",
-    completeness: "Vollständigkeit",
-    noHints: "Keine Hinweise an die Bank.",
-    hintsCount: "{n} Hinweis(e): {list}",
     used: "trotzdem verwendet",
     questions: QUESTIONS_DE,
   },
   en: {
     title: "Case dossier",
-    draft: "Draft",
     confidential: "Confidential · for lenders",
-    site: "hypoteq.ch",
+    site: "HYPOTEQ",
     page: "Page {n} of {total}",
     eyebrow: "Financing request · {antrag}",
     withIncrease: "{antrag} and increase",
@@ -246,7 +222,6 @@ export const DOSSIER_TEXTS: Record<Lang, DossierTexts> = {
     s2: "02 · Property",
     s3: "03 · Borrowers",
     s4: "04 · Financing and affordability",
-    s5: "05 · History",
     antrag: "Type of request",
     kreditnehmer: "Borrower",
     natBorrowers: "{kn}, {n} borrower(s)",
@@ -302,14 +277,8 @@ export const DOSSIER_TEXTS: Record<Lang, DossierTexts> = {
     equityInheritance: "Inheritance / advance on inheritance",
     equityLoan: "Loan",
     hintsTitle: "Notes for the bank",
-    historySubmitted: "Request submitted through the funnel{case}",
-    historyDraft: "Draft from the funnel – not yet submitted",
-    historyFiles: "{n} files uploaded · {ok} of {total} requirements met",
-    historyHints: "{n} note(s) for the bank",
     annex: "Annex · Document index",
-    annexIntro: "{n} files recognised, assigned and read. Each requirement shows its origin (triggering answer) and the key extracted details.",
-    annexExtras: "{kept} further file(s) included, {removed} file(s) not needed or duplicate not stored.",
-    annexExtrasKept: "{kept} further file(s) included.",
+    annexIntro: "The following {n} documents are available for this mortgage case.",
     colNo: "#",
     colReq: "Requirement · origin",
     colFile: "File",
@@ -321,9 +290,6 @@ export const DOSSIER_TEXTS: Record<Lang, DossierTexts> = {
     notStored: "not stored",
     duplicateOf: "not stored twice",
     noFile: "–",
-    completeness: "Completeness",
-    noHints: "No notes for the bank.",
-    hintsCount: "{n} note(s): {list}",
     used: "used anyway",
     questions: {
       antrag: "Request", kn: "Borrower", anrede: "Salutation", immo: "Type of property", nbDocs: "Land register and insurance available",
@@ -334,9 +300,8 @@ export const DOSSIER_TEXTS: Record<Lang, DossierTexts> = {
   },
   fr: {
     title: "Dossier",
-    draft: "Brouillon",
     confidential: "Confidentiel · pour les prêteurs",
-    site: "hypoteq.ch",
+    site: "HYPOTEQ",
     page: "Page {n} sur {total}",
     eyebrow: "Demande de financement · {antrag}",
     withIncrease: "{antrag} et augmentation",
@@ -349,7 +314,6 @@ export const DOSSIER_TEXTS: Record<Lang, DossierTexts> = {
     s2: "02 · Bien immobilier",
     s3: "03 · Emprunteurs",
     s4: "04 · Financement et capacité financière",
-    s5: "05 · Historique",
     antrag: "Type de demande",
     kreditnehmer: "Emprunteur",
     natBorrowers: "{kn}, {n} emprunteur(s)",
@@ -405,14 +369,8 @@ export const DOSSIER_TEXTS: Record<Lang, DossierTexts> = {
     equityInheritance: "Héritage / avancement d’hoirie",
     equityLoan: "Prêt",
     hintsTitle: "Remarques pour la banque",
-    historySubmitted: "Demande finalisée via le funnel{case}",
-    historyDraft: "Brouillon du funnel – pas encore finalisé",
-    historyFiles: "{n} fichiers téléversés · {ok} sur {total} exigences remplies",
-    historyHints: "{n} remarque(s) pour la banque",
     annex: "Annexe · Liste des documents",
-    annexIntro: "{n} fichiers reconnus, attribués et lus. Chaque exigence indique son origine (réponse déclenchante) et les informations clés extraites.",
-    annexExtras: "{kept} autre(s) fichier(s) joint(s), {removed} fichier(s) non requis ou doublon(s) non enregistré(s).",
-    annexExtrasKept: "{kept} autre(s) fichier(s) joint(s).",
+    annexIntro: "Les {n} documents suivants sont disponibles pour ce dossier hypothécaire.",
     colNo: "#",
     colReq: "Exigence · origine",
     colFile: "Fichier",
@@ -424,9 +382,6 @@ export const DOSSIER_TEXTS: Record<Lang, DossierTexts> = {
     notStored: "non enregistré",
     duplicateOf: "non enregistré deux fois",
     noFile: "–",
-    completeness: "Exhaustivité",
-    noHints: "Aucune remarque pour la banque.",
-    hintsCount: "{n} remarque(s) : {list}",
     used: "utilisé malgré tout",
     questions: {
       antrag: "Demande", kn: "Emprunteur", anrede: "Civilité", immo: "Type de bien", nbDocs: "Registre foncier et assurance disponibles",
@@ -437,9 +392,8 @@ export const DOSSIER_TEXTS: Record<Lang, DossierTexts> = {
   },
   it: {
     title: "Dossier",
-    draft: "Bozza",
     confidential: "Confidenziale · per i creditori",
-    site: "hypoteq.ch",
+    site: "HYPOTEQ",
     page: "Pagina {n} di {total}",
     eyebrow: "Richiesta di finanziamento · {antrag}",
     withIncrease: "{antrag} e aumento",
@@ -452,7 +406,6 @@ export const DOSSIER_TEXTS: Record<Lang, DossierTexts> = {
     s2: "02 · Immobile",
     s3: "03 · Mutuatari",
     s4: "04 · Finanziamento e sostenibilità",
-    s5: "05 · Cronologia",
     antrag: "Tipo di richiesta",
     kreditnehmer: "Mutuatario",
     natBorrowers: "{kn}, {n} mutuatario/i",
@@ -508,14 +461,8 @@ export const DOSSIER_TEXTS: Record<Lang, DossierTexts> = {
     equityInheritance: "Eredità / anticipo ereditario",
     equityLoan: "Prestito",
     hintsTitle: "Note per la banca",
-    historySubmitted: "Richiesta conclusa tramite il funnel{case}",
-    historyDraft: "Bozza dal funnel – non ancora conclusa",
-    historyFiles: "{n} file caricati · {ok} di {total} requisiti soddisfatti",
-    historyHints: "{n} nota/e per la banca",
     annex: "Allegato · Elenco dei documenti",
-    annexIntro: "{n} file riconosciuti, assegnati e letti. Ogni requisito indica la sua origine (risposta che lo attiva) e i dati principali estratti.",
-    annexExtras: "{kept} ulteriore/i file allegato/i, {removed} file non necessario/i o duplicato/i non archiviato/i.",
-    annexExtrasKept: "{kept} ulteriore/i file allegato/i.",
+    annexIntro: "I seguenti {n} documenti sono disponibili per questa pratica ipotecaria.",
     colNo: "#",
     colReq: "Requisito · origine",
     colFile: "File",
@@ -527,9 +474,6 @@ export const DOSSIER_TEXTS: Record<Lang, DossierTexts> = {
     notStored: "non archiviato",
     duplicateOf: "non archiviato due volte",
     noFile: "–",
-    completeness: "Completezza",
-    noHints: "Nessuna nota per la banca.",
-    hintsCount: "{n} nota/e: {list}",
     used: "usato comunque",
     questions: {
       antrag: "Richiesta", kn: "Mutuatario", anrede: "Appellativo", immo: "Tipo di immobile", nbDocs: "Registro fondiario e assicurazione disponibili",
@@ -561,8 +505,6 @@ export interface DossierV5Texts {
   sigLater: string;
   sigUnsigned: string;
   sigMissing: string;
-  historySigReceived: string;
-  historySigLater: string;
   equityTable: string;
   vorsorgeTable: string;
   costTotal: string;
@@ -588,8 +530,6 @@ export const DOSSIER_V5_TEXTS: Record<Lang, DossierV5Texts> = {
     sigLater: "Unterschrift ausstehend · Erinnerung nach 2 und 5 Tagen",
     sigUnsigned: "Unterschrift fehlt",
     sigMissing: "noch nicht hochgeladen",
-    historySigReceived: "Auskunftsermächtigung unterzeichnet erhalten",
-    historySigLater: "Auskunftsermächtigung: Unterschrift ausstehend – ohne Unterschrift keine Anfrage an die Bank",
     equityTable: "Eigenmittel – Aufteilung",
     vorsorgeTable: "Vorsorge",
     costTotal: "Gesamtkosten (Kaufpreis und Renovation)",
@@ -613,8 +553,6 @@ export const DOSSIER_V5_TEXTS: Record<Lang, DossierV5Texts> = {
     sigLater: "signature pending · reminders after 2 and 5 days",
     sigUnsigned: "signature missing",
     sigMissing: "not uploaded yet",
-    historySigReceived: "Signed information authorisation received",
-    historySigLater: "Information authorisation: signature pending – no request to the bank without it",
     equityTable: "Equity – breakdown",
     vorsorgeTable: "Pension savings",
     costTotal: "Total cost (purchase price and renovation)",
@@ -638,8 +576,6 @@ export const DOSSIER_V5_TEXTS: Record<Lang, DossierV5Texts> = {
     sigLater: "signature en attente · rappel après 2 et 5 jours",
     sigUnsigned: "signature manquante",
     sigMissing: "pas encore téléversée",
-    historySigReceived: "Autorisation de renseignements signée reçue",
-    historySigLater: "Autorisation de renseignements : signature en attente – aucune demande à la banque sans signature",
     equityTable: "Fonds propres – répartition",
     vorsorgeTable: "Prévoyance",
     costTotal: "Coût total (prix d’achat et rénovation)",
@@ -663,8 +599,6 @@ export const DOSSIER_V5_TEXTS: Record<Lang, DossierV5Texts> = {
     sigLater: "firma in sospeso · promemoria dopo 2 e 5 giorni",
     sigUnsigned: "firma mancante",
     sigMissing: "non ancora caricata",
-    historySigReceived: "Autorizzazione firmata ricevuta",
-    historySigLater: "Autorizzazione: firma in sospeso – nessuna richiesta alla banca senza firma",
     equityTable: "Fondi propri – ripartizione",
     vorsorgeTable: "Previdenza",
     costTotal: "Costo totale (prezzo d’acquisto e ristrutturazione)",

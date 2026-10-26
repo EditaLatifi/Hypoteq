@@ -23,6 +23,8 @@ import {
   EXTRA_GROUP_LABEL,
   extraReasonKey,
   groupExtras,
+  groupSummary,
+  shortList,
 } from "@/components/funnel-v3/documents/view";
 import { OLDER_SALARY_DE, type Placement } from "@/lib/funnel-v3/placeFile";
 import { EMPTY_AMOUNTS } from "@/lib/funnel-v3/types";
@@ -221,6 +223,23 @@ describe("files outside the list (Handover 4.3)", () => {
     expect(extraReasonKey(place("surplus", "period", "lohnausweise", OLDER_SALARY_DE), "lohnausweise", has)).toBe("docs.x.olderSalary");
     expect(extraReasonKey(place("surplus", "full", "id"), "id", has)).toBeNull();
     expect(extraReasonKey(undefined, null, has)).toBeNull();
+  });
+});
+
+describe("closed sections on the last step (Spezifikation Datenabgleich 2.2)", () => {
+  const row = (id: string, state: string) => ({ instance: { instanceId: id, labelKey: `doc.${id}` }, state }) as any;
+
+  it("counts like the completeness card: ok and «Habe ich nicht» done, partial and outdated to check, the rest missing", () => {
+    const s = groupSummary([row("a", "ok"), row("b", "skipped"), row("c", "partial"), row("d", "outdated"), row("e", "missing"), row("f", "analysing")]);
+    expect({ done: s.done, total: s.total, review: s.review, missing: s.missing }).toEqual({ done: 2, total: 6, review: 2, missing: 2 });
+    expect(s.open.map((r) => r.instance.instanceId)).toEqual(["c", "d", "e", "f"]);
+  });
+
+  it("names the first two open documents and how many more", () => {
+    expect(shortList(["Grundbuchauszug"])).toBe("Grundbuchauszug");
+    expect(shortList(["Grundbuchauszug", "GVZ-Police"])).toBe("Grundbuchauszug, GVZ-Police");
+    expect(shortList(["Grundbuchauszug", "GVZ-Police", "Pläne", "Fotos"])).toBe("Grundbuchauszug, GVZ-Police +2");
+    expect(shortList([])).toBe("");
   });
 });
 

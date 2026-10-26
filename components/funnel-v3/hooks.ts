@@ -7,7 +7,7 @@ import { reqList, type RequirementInstance } from "@/lib/funnel-v3/requirements"
 import { requirementStatus } from "@/lib/funnel-v3/requirementStatus";
 import { toUploadedFiles, type FileEntry } from "@/lib/funnel-v3/files";
 import { validateScreen, type StepErrors } from "@/lib/funnel-v3/validate";
-import { screenAt, stepCount, type Screen } from "@/lib/funnel-v3/steps";
+import { screenAt, stepCount, stepOf, type Screen } from "@/lib/funnel-v3/steps";
 import type { FunnelState } from "@/lib/funnel-v3/types";
 import { fieldId, firstErrorField, visibleFields } from "./logic";
 import { useFunnelUI } from "./uiStore";
@@ -107,7 +107,37 @@ export function useFunnelNav() {
     if (s.step > 0) s.back();
   }, []);
   const goTo = useCallback((n: number) => useFunnelV3.getState().goto(n as Step), []);
-  return { goNext, goPrev, goTo };
+  // «Bearbeiten» on the last step (Spezifikation Datenabgleich 2.1): back there in one go once
+  // this screen and every screen before it are complete — an answer that asks for more on a
+  // later screen (a second borrower, a company) stops on that screen first.
+  const goReturn = useCallback(() => {
+    const s = useFunnelV3.getState();
+    const target = useFunnelUI.getState().returnTo;
+    const to = target ? stepOf(s.mode, target) : 0;
+    if (to <= 0) return;
+    for (let n = Math.max(1, s.step); n < to; n++) {
+      const screen = screenAt(s.mode, n);
+      const errors = validateScreen(screen, s);
+      if (!Object.keys(errors).length) continue;
+      if (screen) useFunnelUI.getState().markAttempted(screen);
+      if (n !== s.step) s.goto(n as Step);
+      const first = firstErrorField(errors, visibleFields(screen, s));
+      if (first) n === s.step ? requestAnimationFrame(() => focusField(first)) : focusFieldSoon(first);
+      return;
+    }
+    useFunnelUI.getState().setReturnTo(null);
+    s.goto(to as Step);
+  }, []);
+  return { goNext, goPrev, goTo, goReturn };
+}
+
+/** «Bearbeiten» from the last step: open `screen`, with the way back to `from` (goReturn). */
+export function editFrom(from: Screen, screen: Screen): void {
+  const s = useFunnelV3.getState();
+  const step = stepOf(s.mode, screen);
+  if (step <= 0) return;
+  useFunnelUI.getState().setReturnTo(from);
+  s.goto(step as Step);
 }
 
 /** Focus a field after the screen that holds it opened (a suggestion «Betrag eintragen»). */

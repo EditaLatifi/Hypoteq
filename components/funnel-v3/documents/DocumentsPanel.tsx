@@ -14,6 +14,12 @@
  * A stored file can be replaced on its row («Ersetzen», HYPOTEQ 21.10.2026): the new file takes
  * its place on that requirement, so a wrong file from step 2 needs no step back.
  *
+ * On the last step (guided, missing; HYPOTEQ 23.10.2026, Spezifikation Datenabgleich 2.1–2.3)
+ * «Deine Angaben aus dem Fragepfad» follows the completeness card, and the sections start
+ * closed: the head shows title, the open documents, «5 / 10» and «1 zu prüfen» / «2 fehlend».
+ * A section with something to check (or a file nobody recognised) starts open. The state is
+ * not kept — the Nachreich page and a reload start closed again.
+ *
  * One drop zone for files and folders (Handover 4.3, DECISIONS D15). Every file is uploaded at
  * once, read by HYPOTEQ's analysis and placed on the list automatically; only files nobody
  * could recognise are assigned by hand. The work runs in lib/funnel-v3/upload.ts (started at
@@ -37,9 +43,10 @@ import { addPickedFiles, filesFromInput, MAX_FILE_BYTES, replaceFile, screenFile
 import { v3DocType } from "@/components/documentIntelligence/v3/catalogue";
 import DropZone, { ACCEPT, type DropZoneHandle } from "./DropZone";
 import RequirementRow from "./RequirementRow";
+import AnswersSummary from "./AnswersSummary";
 import ExtraFiles from "./ExtraFiles";
 import FileDetail from "./FileDetail";
-import { groupRows, householdIncomeCheck } from "./view";
+import { EXTRA_GROUP_LABEL, groupExtras, groupRows, groupSummary, householdIncomeCheck, shortList } from "./view";
 import { focusFieldSoon } from "../hooks";
 import { useFunnelUI } from "../uiStore";
 
@@ -84,6 +91,8 @@ export default function DocumentsPanel({ variant }: { variant: DocumentsVariant 
   const replaceInput = useRef<HTMLInputElement>(null);
   const replacing = useRef<string | null>(null);
   const [open, setOpen] = useState<Record<string, boolean>>({});
+  // Sections toggled by hand; the others follow their default (closed unless something to check).
+  const [groupOpen, setGroupOpen] = useState<Record<string, boolean>>({});
   const [detail, setDetail] = useState<string | null>(null);
 
   const state = useMemo(() => ({ ans, borrowers, txt }), [ans, borrowers, txt]);
@@ -102,6 +111,9 @@ export default function DocumentsPanel({ variant }: { variant: DocumentsVariant 
   const groups = useMemo(() => groupRows(docRows, state, lang), [docRows, state, lang]);
   const extras = files.filter((f) => !f.instanceId);
   const suggested = useMemo(() => new Set(suggestions.flatMap((s) => s.fileIds)), [suggestions]);
+  // «Weitere Dateien»: the kinds it holds as its short line; a file nobody recognised needs a hand.
+  const extraGroups = groupExtras(extras, placements);
+  const unknownExtras = extraGroups.find((g) => g.key === "unknown")?.files.length ?? 0;
 
   // ---- counts (prototype «Vollständigkeit»): the same tally as the closing, the
   // Auskunftsermächtigung included although its row sits in its own block (DECISIONS V51).
@@ -114,6 +126,44 @@ export default function DocumentsPanel({ variant }: { variant: DocumentsVariant 
   const doneFiles = files.filter((f) => f.analysisState === "done").length;
   const showList = variant !== "upload" || files.length > 0;
   const allComplete = missingOnly && !openRows.length && !busy;
+  // The last step (Spezifikation Datenabgleich 2.1, 2.2); the upload of step 2 stays as it was.
+  const lastStep = variant !== "upload";
+  const isGroupOpen = (key: string, attention: boolean) => !lastStep || (groupOpen[key] ?? attention);
+  const toggleGroup = (key: string, now: boolean) => setGroupOpen((o) => ({ ...o, [key]: !now }));
+  const extrasOpen = isGroupOpen("extras", unknownExtras > 0);
+  const extrasInfo = extraGroups.map((g) => t(EXTRA_GROUP_LABEL[g.key])).join(" · ");
+
+  /** A section head: a plain heading on step 2, a toggle with its state on the last step. */
+  const groupHead = (key: string, title: string, info: string, progress: string, badges: { text: string; tone: string }[], isOpen: boolean) => {
+    if (!lastStep) {
+      return (
+        <div className="v3-docgroup-head">
+          <span className="v3-docgroup-name">{title}</span>
+          <span className="v3-docgroup-rule" />
+          <span className="v3-docgroup-count">{progress}</span>
+        </div>
+      );
+    }
+    return (
+      <button type="button" className="v3-docgroup-toggle" aria-expanded={isOpen} aria-controls={`v3-docgroup-${key.replace(/[^\w-]/g, "-")}`} onClick={() => toggleGroup(key, isOpen)}>
+        <span className="v3-docgroup-titles">
+          <span className="v3-docgroup-title">{title}</span>
+          {info ? <span className="v3-docgroup-info">{info}</span> : null}
+        </span>
+        <span className="v3-docgroup-meta">
+          {badges.map((b) => (
+            <span key={b.text} className={`v3-tag v3-tone--${b.tone}`}>
+              {b.text}
+            </span>
+          ))}
+          <span className="v3-docgroup-progress">{progress}</span>
+          <span className={`v3-docgroup-chev${isOpen ? " is-open" : ""}`} aria-hidden="true">
+            ▾
+          </span>
+        </span>
+      </button>
+    );
+  };
 
   const sayRejected = useCallback(
     (rejected: Rejected[]) =>
@@ -310,17 +360,21 @@ export default function DocumentsPanel({ variant }: { variant: DocumentsVariant 
         </div>
       ) : null}
 
+      {lastStep ? <AnswersSummary /> : null}
+
       {showList
-        ? groups.map((g) => (
-            <section key={g.key} className="v3-docgroup" aria-label={g.title}>
-              <div className="v3-docgroup-head">
-                <span className="v3-docgroup-name">{g.title}</span>
-                <span className="v3-docgroup-rule" />
-                <span className="v3-docgroup-count">
-                  {g.rows.filter((r) => r.state === "ok" || r.state === "skipped").length} / {g.rows.length}
-                </span>
-              </div>
-              {g.rows.map((r) => (
+        ? groups.map((g) => {
+            const sum = groupSummary(g.rows);
+            const isOpen = isGroupOpen(g.key, sum.review > 0);
+            const badges = [
+              ...(sum.review ? [{ text: t("docs.tallyCheck", { n: sum.review }), tone: "warning" }] : []),
+              ...(sum.missing ? [{ text: t("docs.tallyMissing", { n: sum.missing }), tone: "neutral" }] : []),
+            ];
+            const info = sum.open.length ? shortList(sum.open.map((r) => t(r.instance.labelKey))) : t("docs.allDone");
+            return (
+            <section key={g.key} id={`v3-docgroup-${g.key.replace(/[^\w-]/g, "-")}`} className={`v3-docgroup${lastStep ? " is-collapsible" : ""}${isOpen ? " is-open" : ""}`} aria-label={g.title}>
+              {groupHead(g.key, g.title, info, `${sum.done} / ${sum.total}`, badges, isOpen)}
+              {isOpen && g.rows.map((r) => (
                 <RequirementRow
                   key={r.instance.instanceId}
                   status={r}
@@ -338,16 +392,14 @@ export default function DocumentsPanel({ variant }: { variant: DocumentsVariant 
                 />
               ))}
             </section>
-          ))
+            );
+          })
         : null}
 
       {extras.length ? (
-        <section className="v3-docgroup" aria-label={t("s5.otherFiles")}>
-          <div className="v3-docgroup-head">
-            <span className="v3-docgroup-name">{t("s5.otherFiles")}</span>
-            <span className="v3-docgroup-rule" />
-            <span className="v3-docgroup-count">{extras.length}</span>
-          </div>
+        <section id="v3-docgroup-extras" className={`v3-docgroup${lastStep ? " is-collapsible" : ""}${extrasOpen ? " is-open" : ""}`} aria-label={t("s5.otherFiles")}>
+          {groupHead("extras", t("s5.otherFiles"), extrasInfo, String(extras.length), unknownExtras ? [{ text: t("docs.unknownN", { n: unknownExtras }), tone: "danger" }] : [], extrasOpen)}
+          {extrasOpen ? (
           <ExtraFiles
             files={extras}
             placements={placements}
@@ -360,6 +412,7 @@ export default function DocumentsPanel({ variant }: { variant: DocumentsVariant 
             grouped
             allFiles={files}
           />
+          ) : null}
         </section>
       ) : null}
 

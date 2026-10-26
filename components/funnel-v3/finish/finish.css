@@ -101,14 +101,6 @@
   text-wrap: pretty;
 }
 
-.hqv3 .v3-done:focus {
-  outline: none;
-}
-
-.hqv3 .v3-done:focus-visible {
-  box-shadow: 0 0 0 3px rgba(202, 244, 118, 0.55);
-}
-
 /* The check list has its own section, so the eyebrow's negative margin (meant for a sibling
    of the step's 34px column gap) pulled the list over it. Space it inside the section. */
 .hqv3 .v3f-checks {

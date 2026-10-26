@@ -16,6 +16,8 @@ import PrefillBanner from "./PrefillBanner";
 import Sidebar from "./Sidebar";
 import StartScreen from "./StartScreen";
 import StepHead from "./StepHead";
+import Confirmation from "./finish/Confirmation";
+import { readDone } from "./finish/doneState";
 import ScreenAnfrage from "./steps/ScreenAnfrage";
 import { ScreenAbschluss, ScreenUpload } from "./steps/ScreenDocuments";
 import ScreenKontakt from "./steps/ScreenKontakt";
@@ -57,6 +59,9 @@ export default function FunnelV3() {
   const mode = useFunnelV3((s) => s.mode);
   const role = useFunnelV3((s) => s.role);
   const bmail = useFunnelV3((s) => s.txt.bmail);
+  const submissionId = useFunnelV3((s) => s.submissionId);
+  const done = useFunnelUI((s) => s.done);
+  const returnTo = useFunnelUI((s) => s.returnTo);
   const { goNext, goPrev } = useFunnelNav();
   const paramsApplied = useRef(false);
 
@@ -89,6 +94,18 @@ export default function FunnelV3() {
   useEffect(() => {
     document.documentElement.lang = lang;
   }, [lang]);
+
+  // «Bearbeiten» from the last step: the way back ends once that step is open again, however
+  // it was reached (the footer, the path, the arrows).
+  const current = step > 0 ? screenAt(mode, Math.min(step, stepCount(mode))) : null;
+  useEffect(() => {
+    if (returnTo && (current === returnTo || current === null)) useFunnelUI.getState().setReturnTo(null);
+  }, [current, returnTo]);
+
+  // A reload after the closing opens the confirmation page again (sessionStorage, per submission).
+  useEffect(() => {
+    if (hydrated) useFunnelUI.getState().setDone(readDone(submissionId));
+  }, [hydrated, submissionId]);
 
   // A new topic starts at the top, with the rail collapsed (prototype goto).
   const firstStep = useRef(true);
@@ -135,6 +152,16 @@ export default function FunnelV3() {
   }
 
   const screen = screenAt(mode, Math.min(step, stepCount(mode))) ?? "anfrage";
+
+  // After the closing: the confirmation page, on its own (Spezifikation Datenabgleich 2.5).
+  if (screen === "abschluss" && done && done.submissionId === submissionId) {
+    return (
+      <div className="hqv3 is-start">
+        <Confirmation done={done} />
+      </div>
+    );
+  }
+
   const ScreenComponent = SCREEN_COMPONENTS[screen];
   // «Deine Unterlagen» while the answers still change the list; «Deine Anfrage füllt sich»
   // beside the Schnellanmeldung's upload.

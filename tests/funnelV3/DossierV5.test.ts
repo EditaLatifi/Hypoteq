@@ -195,23 +195,22 @@ describe("04 Finanzierung — the Eigenmittel table", () => {
   });
 });
 
-describe("05 Verlauf and the annex: the Auskunftsermächtigung and the v5 list", () => {
-  it("signed: history line, P0 in annex C with its state", () => {
+describe("the annex: the Auskunftsermächtigung and the v5 list («Verlauf» is gone, HYPOTEQ 23.10.2026)", () => {
+  it("signed: P0 in annex C with its state", () => {
     const m = model(kaufState());
-    expect(m.sections[4].table!.rows.map((r) => r[1].text)).toContain("Auskunftsermächtigung unterzeichnet erhalten");
+    expect(m.sections).toHaveLength(4);
     const c = m.annex.groups.find((g) => g.title.startsWith("C · "))!;
     const p0 = c.table.rows.find((r) => r[1].text === "HYPOTEQ Auskunftsermächtigung")!;
     expect(p0[3].text).toBe("Auskunftsermächtigung: unterzeichnet erhalten");
-    expect(m.annex.completeness.value).toBe(`${m.status.counts.total} von ${m.status.counts.total} Anforderungen erfüllt`);
+    expect(m.status.counts.fulfilled).toBe(m.status.counts.total);
   });
 
-  it("pending: «Unterschrift ausstehend» in the history and the annex; P0 missing counts", () => {
+  it("pending: «Unterschrift ausstehend» in the annex; P0 missing counts", () => {
     const m = model(kaufState({ sig: LATER }));
-    expect(m.sections[4].table!.rows.map((r) => r[1].text)).toContain("Auskunftsermächtigung: Unterschrift ausstehend – ohne Unterschrift keine Anfrage an die Bank");
     const p0 = m.annex.groups.flatMap((g) => g.table.rows).find((r) => r[1].text === "HYPOTEQ Auskunftsermächtigung")!;
     expect(p0[1].sub).toContain("Fehlt");
     expect(p0[3].text).toBe("Auskunftsermächtigung: Unterschrift ausstehend · Erinnerung nach 2 und 5 Tagen");
-    expect(m.annex.completeness.value).toBe(`${m.status.counts.total - 1} von ${m.status.counts.total} Anforderungen erfüllt`);
+    expect(m.status.counts.fulfilled).toBe(m.status.counts.total - 1);
   });
 
   it("the v5 list: Renovationsliste with a renovation, Produktvereinbarung at an Ablösung, no Rahmenvertrag", () => {

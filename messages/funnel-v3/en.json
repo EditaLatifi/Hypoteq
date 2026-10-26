@@ -514,7 +514,8 @@
     "sugAdd": "Yes, add it",
     "sugEnter": "Yes, enter it",
     "sugGoEnter": "Enter the amount",
-    "toast.grew": "The list has grown: {n} document(s) from the document analysis"
+    "toast.grew": "The list has grown: {n} document(s) from the document analysis",
+    "unknownN": "{n} not recognised"
   },
   "s6": {
     "titleOk": "We can finance this. On to the bank.",
@@ -831,5 +832,31 @@
     "pkVorbezug": "Pension fund advance possible",
     "uid": "UID",
     "sitz": "Registered office"
+  },
+  "sum": {
+    "title": "Your answers from the question path",
+    "edit": "Edit",
+    "editAria": "Edit {label}",
+    "equity": "Own funds",
+    "backTo": "Back to “{step}”"
+  },
+  "close": {
+    "dossierTitle": "Download case dossier",
+    "docsN": "{n} documents",
+    "docs1": "1 document",
+    "approx": "approx. {size}",
+    "download": "Download",
+    "after": "HYPOTEQ then reviews the case — you will be informed by e-mail."
+  },
+  "conf": {
+    "title": "Request submitted – thank you!",
+    "lead": "Your case {fall} has been received by HYPOTEQ. A confirmation with the link to this overview is on its way to your e-mail.",
+    "leadNoCase": "Your case has been received by HYPOTEQ. A confirmation with the link to this overview is on its way to your e-mail.",
+    "next": "Next steps",
+    "step1": "Case review by HYPOTEQ – we will contact you within 1 working day if we have questions.",
+    "step2": "Bank enquiry with the suitable financing partners.",
+    "step3": "Submit missing documents – the link in the e-mail brings you back here at any time.",
+    "dossier": "Download case dossier (PDF)",
+    "home": "Go to HYPOTEQ homepage"
   }
 }

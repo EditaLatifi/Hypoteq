@@ -3,7 +3,7 @@
  * read at run time — it runs on Vercel serverless and in jest alike).
  *
  * Layout follows the dossier prototype: running header (wordmark, «Fall-Dossier · Nr · Name,
- * Ort») and footer («Vertraulich · für Kreditgeber», page, hypoteq.ch) on every page, a dark
+ * Ort») and footer («Vertraulich · für Kreditgeber», page, HYPOTEQ) on every page, a dark
  * Deckblatt with the lime wedge and the KPIs, sections that are kept on one page where they
  * fit, the annex on a new page with tables that continue across pages (header repeated).
  *
@@ -237,12 +237,6 @@ function drawCover(pdf: Pdf, c: DossierModel["cover"]) {
   const inner = x + pad;
   const textW = CONTENT_W * 0.6;
   pdf.text("HYPOTEQ", inner, top - pad - 16, { size: 20, bold: true, color: COLOR.white });
-  if (c.draft) {
-    const label = upper(c.draft);
-    const w = pdf.width(label, 7.5, true) + 16;
-    pdf.roundRect(inner + 120, top - pad - 20, w, 17, 8.5, COLOR.lime);
-    pdf.text(label, inner + 128, top - pad - 14.5, { size: 7.5, bold: true });
-  }
 
   // Bottom-up: footer line, KPIs, rule, description, title, eyebrow, lime bar.
   let yb = bottom + pad;
@@ -530,17 +524,6 @@ function drawAnnex(pdf: Pdf, a: DossierModel["annex"]) {
     pdf.y -= 10;
     drawTable(pdf, g.table);
   }
-
-  // Vollständigkeit
-  const noteLines = pdf.wrap(a.completeness.note, 8.2, CONTENT_W * 0.46);
-  const h = Math.max(60, noteLines.length * 10.6 + 30);
-  pdf.ensure(h + 22);
-  pdf.y -= 22;
-  pdf.roundRect(MARGIN, pdf.y - h, CONTENT_W, h, 10, COLOR.forest);
-  pdf.text(upper(a.completeness.label), MARGIN + 20, pdf.y - 22, { size: 6.6, color: COLOR.white, opacity: 0.6 });
-  pdf.text(a.completeness.value, MARGIN + 20, pdf.y - 42, { size: 14, bold: true, color: COLOR.lime });
-  noteLines.forEach((l, i) => pdf.textRight(l, MARGIN + CONTENT_W - 20, pdf.y - 22 - i * 10.6, { size: 8.2, color: COLOR.white, opacity: 0.72 }));
-  pdf.y -= h;
 }
 
 // ---- Running header and footer --------------------------------------------------------------

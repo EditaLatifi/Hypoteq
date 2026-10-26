@@ -514,7 +514,8 @@
     "sugAdd": "Sì, aggiungere",
     "sugEnter": "Sì, inserirlo",
     "sugGoEnter": "Inserire l’importo",
-    "toast.grew": "L’elenco è cresciuto: {n} documento/i dall’analisi dei documenti"
+    "toast.grew": "L’elenco è cresciuto: {n} documento/i dall’analisi dei documenti",
+    "unknownN": "{n} non riconosciuto/i"
   },
   "s6": {
     "titleOk": "Possiamo finanziarlo. Ora alla banca.",
@@ -831,5 +832,31 @@
     "pkVorbezug": "Prelievo anticipato possibile",
     "uid": "IDI",
     "sitz": "Sede"
+  },
+  "sum": {
+    "title": "Le Sue risposte del percorso di domande",
+    "edit": "Modifica",
+    "editAria": "Modifica: {label}",
+    "equity": "Mezzi propri",
+    "backTo": "Torna a «{step}»"
+  },
+  "close": {
+    "dossierTitle": "Scaricare il dossier",
+    "docsN": "{n} documenti",
+    "docs1": "1 documento",
+    "approx": "ca. {size}",
+    "download": "Scarica",
+    "after": "HYPOTEQ esamina poi la pratica — sarà informato/a via e-mail."
+  },
+  "conf": {
+    "title": "Richiesta inviata – grazie!",
+    "lead": "La sua pratica {fall} è stata ricevuta da HYPOTEQ. Una conferma con il link a questa panoramica è in arrivo via e-mail.",
+    "leadNoCase": "La sua pratica è stata ricevuta da HYPOTEQ. Una conferma con il link a questa panoramica è in arrivo via e-mail.",
+    "next": "Prossimi passi",
+    "step1": "Verifica della pratica da parte di HYPOTEQ – in caso di domande la contattiamo entro 1 giorno lavorativo.",
+    "step2": "Richiesta alle banche partner più adatte.",
+    "step3": "Inviare i documenti mancanti – il link nell'e-mail la riporta qui in qualsiasi momento.",
+    "dossier": "Scaricare il dossier (PDF)",
+    "home": "Alla homepage HYPOTEQ"
   }
 }

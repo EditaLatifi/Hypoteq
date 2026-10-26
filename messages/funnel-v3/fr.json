@@ -514,7 +514,8 @@
     "sugAdd": "Oui, compléter",
     "sugEnter": "Oui, l’inscrire",
     "sugGoEnter": "Saisir le montant",
-    "toast.grew": "La liste s’est allongée : {n} document(s) issu(s) de l’analyse des documents"
+    "toast.grew": "La liste s’est allongée : {n} document(s) issu(s) de l’analyse des documents",
+    "unknownN": "{n} non reconnu(s)"
   },
   "s6": {
     "titleOk": "Nous pouvons financer ce projet. Place à la banque.",
@@ -831,5 +832,31 @@
     "pkVorbezug": "Versement anticipé possible",
     "uid": "IDE",
     "sitz": "Siège"
+  },
+  "sum": {
+    "title": "Vos réponses du parcours de questions",
+    "edit": "Modifier",
+    "editAria": "Modifier : {label}",
+    "equity": "Fonds propres",
+    "backTo": "Retour à « {step} »"
+  },
+  "close": {
+    "dossierTitle": "Télécharger le dossier",
+    "docsN": "{n} documents",
+    "docs1": "1 document",
+    "approx": "env. {size}",
+    "download": "Télécharger",
+    "after": "HYPOTEQ examine ensuite le dossier — vous serez informé(e) par e-mail."
+  },
+  "conf": {
+    "title": "Demande envoyée – merci !",
+    "lead": "Votre dossier {fall} a bien été reçu par HYPOTEQ. Une confirmation avec le lien vers cet aperçu vous est envoyée par e-mail.",
+    "leadNoCase": "Votre dossier a bien été reçu par HYPOTEQ. Une confirmation avec le lien vers cet aperçu vous est envoyée par e-mail.",
+    "next": "Prochaines étapes",
+    "step1": "Examen du dossier par HYPOTEQ – nous vous contactons sous 1 jour ouvrable en cas de questions.",
+    "step2": "Demande auprès des partenaires de financement appropriés.",
+    "step3": "Compléter les documents manquants – le lien dans l'e-mail vous ramène ici à tout moment.",
+    "dossier": "Télécharger le dossier (PDF)",
+    "home": "Vers la page d'accueil HYPOTEQ"
   }
 }

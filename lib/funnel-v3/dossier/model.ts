@@ -4,8 +4,11 @@
  * the sections, rows and annex the PDF renderer draws, in the funnel language (D11).
  *
  *   running header / footer · Deckblatt with KPIs · 01 Antrag · 02 Objekt · 03 Kreditnehmer ·
- *   04 Finanzierung und Tragbarkeit · 05 Verlauf · Annex Dokumentenverzeichnis A Objekt /
- *   B Hypothek / C Person / D Eigenmittel / E Weitere Dateien · Vollständigkeit
+ *   04 Finanzierung und Tragbarkeit · Annex Dokumentenverzeichnis A Objekt / B Hypothek /
+ *   C Person / D Eigenmittel / E Weitere Dateien
+ *
+ * HYPOTEQ 23.10.2026 (Spezifikation Datenabgleich, Kap. 9): no «Entwurf» anywhere, no
+ * «Verlauf», no Vollständigkeit band at the end, the annex opens with one plain sentence.
  *
  * The annex lists files under the name they have in the case folder (spec 5.1: «Das
  * Fall-Dossier und sein Annex verwenden die neuen Namen»); a draft before the closing uses
@@ -52,9 +55,18 @@ export interface DossierFile {
   analysis?: V3Analysis | null;
 }
 
+/**
+ * «Folgende {n} Dokumente stehen zum Hypothekarfall zur Verfügung» (HYPOTEQ 23.10.2026): every
+ * file the case carries — on the list or further files. Nothing is deleted at the closing
+ * (Handover 4.3); a file the case folder lost before v5 does not count.
+ */
+export function dossierDocumentCount(files: Pick<DossierFile, "removed">[]): number {
+  return files.filter((f) => !f.removed).length;
+}
+
 export interface DossierInput {
   lang: Lang;
-  /** Before the closing: no case number, «Entwurf» everywhere. */
+  /** Before the closing: no case number yet, original file names (the document says nothing of a draft). */
   draft: boolean;
   caseNumber: string | null;
   /** Date of the closing (or of the draft). */
@@ -133,14 +145,12 @@ export interface DossierModel {
     kpis: Kpi[];
     left: string;
     right: string;
-    draft?: string;
   };
   sections: DossierSection[];
   annex: {
     title: string;
     intro: string;
     groups: AnnexGroup[];
-    completeness: { label: string; value: string; note: string };
   };
   /** For callers and tests. */
   status: StatusResult;
@@ -247,7 +257,8 @@ export function buildDossierModel(input: DossierInput): DossierModel {
     ? signatureReviewNote(sigView.problems, lang)
     : sigView.status === "received" ? V.sigReceived : sigView.status === "later" ? V.sigLater : sigView.status === "unsigned" ? V.sigUnsigned : V.sigMissing;
 
-  const caseLabel = input.caseNumber || (input.draft ? T.draft : "–");
+  // Before the closing there is no case number yet; the header and the cover leave it out.
+  const caseLabel = input.caseNumber || "";
   const today = fmtDate(input.date);
   const place = [txt.plz.trim(), txt.ort.trim()].filter(Boolean).join(" ");
   // Kreditnehmer 2 exists only once added and named (Handover 2 Schritt 3).
@@ -288,8 +299,7 @@ export function buildDossierModel(input: DossierInput): DossierModel {
     description: descParts.length ? descParts.join(". ") + "." : "",
     kpis: [kpiNeed, kpiLtv, kpiAff],
     left: submitter,
-    right: d(T.dateLine, { case: caseLabel, date: today }),
-    ...(input.draft ? { draft: T.draft } : {}),
+    right: caseLabel ? d(T.dateLine, { case: caseLabel, date: today }) : today,
   };
 
   // ---- 01 Antrag
@@ -444,17 +454,6 @@ export function buildDossierModel(input: DossierInput): DossierModel {
     ...(vorsorgeFacts.length ? [`${vorsorgeFacts.join(" · ")} (${fromDoc})`] : []),
   ];
 
-  // ---- 05 Verlauf
-  const storedFiles = input.files.filter((f) => !f.removed);
-  const history: TableCell[][] = [
-    [{ text: today, muted: true }, { text: input.draft ? T.historyDraft : d(T.historySubmitted, { case: input.caseNumber ? ` · ${input.caseNumber}` : "" }) }],
-    [{ text: today, muted: true }, { text: d(T.historyFiles, { n: storedFiles.length, ok: status.counts.fulfilled, total: status.counts.total }) }],
-  ];
-  if (sigView.override) history.push([{ text: today, muted: true }, { text: `${V.signature}: ${sigLabel}` }]);
-  else if (sigView.status === "received") history.push([{ text: today, muted: true }, { text: V.historySigReceived }]);
-  else if (sigView.status === "later") history.push([{ text: today, muted: true }, { text: V.historySigLater }]);
-  if (hints.length) history.push([{ text: today, muted: true }, { text: d(T.historyHints, { n: hints.length }) }]);
-
   const sections: DossierSection[] = [
     { title: T.s1, columns: [s1Left, s1Right], callouts },
     { title: T.s2, columns: [s2Left, s2Right] },
@@ -471,7 +470,6 @@ export function buildDossierModel(input: DossierInput): DossierModel {
       ...(subTables.length ? { subTables } : {}),
       notes: s4Notes,
     },
-    { title: T.s5, table: { head: [], widths: [0.9, 5], rows: history } },
   ];
 
   // ---- Annex
@@ -515,19 +513,8 @@ export function buildDossierModel(input: DossierInput): DossierModel {
     groups.push({ title: `E · ${T.grpE}`, table: { head: [T.colNo, T.colFile, T.colKind], widths: [0.45, 4.5, 2.7], rows } });
   }
 
-  const counted = new Set(status.requirements.flatMap((r) => r.fileIds));
-  const recognised = input.files.filter((f) => counted.has(f.id)).length;
-  const keptExtras = extras.filter((f) => !f.removed).length;
-  const removedExtras = extras.filter((f) => f.removed).length;
-  const extrasLine = removedExtras > 0 ? T.annexExtras : T.annexExtrasKept;
-  const intro = d(T.annexIntro, { n: recognised }) + (extras.length ? " " + d(extrasLine, { kept: keptExtras, removed: removedExtras }) : "");
-
-  const hintTitles = hints.map((h) => t(h.titleKey) + (h.kind === "outdated" ? ` (${t("state.outdated")})` : ""));
-  const completeness = {
-    label: T.completeness,
-    value: t("s5.fulfilled", { ok: status.counts.fulfilled, total: status.counts.total }),
-    note: hints.length ? d(T.hintsCount, { n: hints.length, list: hintTitles.join("; ") }) : T.noHints,
-  };
+  // Every document the case carries: the files on the list and the further files kept.
+  const intro = d(T.annexIntro, { n: dossierDocumentCount(input.files) });
 
   // Hinweise an die Bank also stand in section 04, with the extraction's note.
   if (hints.length) {
@@ -537,12 +524,12 @@ export function buildDossierModel(input: DossierInput): DossierModel {
 
   return {
     lang,
-    documentTitle: `${T.title} ${caseLabel}`,
+    documentTitle: [T.title, caseLabel].filter(Boolean).join(" "),
     header: { brand: "HYPOTEQ", right: [T.title, caseLabel, [lastName, txt.ort.trim()].filter(Boolean).join(", ")].filter(Boolean).join(" · ") },
     footer: { left: T.confidential, right: T.site, page: T.page },
     cover,
     sections,
-    annex: { title: T.annex, intro, groups, completeness },
+    annex: { title: T.annex, intro, groups },
     status,
     hints,
     calc,

@@ -43,13 +43,15 @@ describe("previewInput", () => {
 });
 
 describe("POST /api/dossier/preview", () => {
-  it("returns an «Entwurf» PDF", async () => {
+  it("returns the PDF, saved as «HYPOTEQ Fall-Dossier – Max Mustermann.pdf», without «Entwurf»", async () => {
     const res = await preview(new Request("http://x/api/dossier/preview", { method: "POST", body: JSON.stringify({ lang: "de", state: mustermannState(), files: mustermannFiles() }) }));
     expect(res.status).toBe(200);
     expect(res.headers.get("Content-Type")).toBe("application/pdf");
-    expect(res.headers.get("Content-Disposition")).toContain("Fall-Dossier_Entwurf.pdf");
+    expect(res.headers.get("Content-Disposition")).toBe(
+      "attachment; filename=\"HYPOTEQ Fall-Dossier - Max Mustermann.pdf\"; filename*=UTF-8''HYPOTEQ%20Fall-Dossier%20%E2%80%93%20Max%20Mustermann.pdf"
+    );
     const doc = await PDFDocument.load(new Uint8Array(await res.arrayBuffer()));
-    expect(doc.getTitle()).toBe("Fall-Dossier Entwurf");
+    expect(doc.getTitle()).toBe("Fall-Dossier");
   });
 
   it("400 on invalid JSON, 413 on a huge body", async () => {
@@ -70,11 +72,12 @@ describe("GET /api/dossier/[inquiryId]", () => {
   });
 
   it("streams the stored dossier from the case folder", async () => {
-    findUnique.mockResolvedValueOnce({ id: SUBMISSION, caseNumber: "HQ-26-10-000123", sharepointFolderId: "FOLDER", createdAt: new Date() });
+    findUnique.mockResolvedValueOnce({ id: SUBMISSION, caseNumber: "HQ-26-10-000123", sharepointFolderId: "FOLDER", createdAt: new Date(), v3State: { ans: { kn: "Natürliche Person" }, txt: { vor: "Max", nach: "Mustermann" } } });
     const fetchMock = jest.spyOn(globalThis, "fetch").mockResolvedValue(new Response(new Uint8Array([37, 80, 68, 70]), { status: 200 }) as any);
     const res = await call(SUBMISSION, SUBMISSION);
     expect(res.status).toBe(200);
-    expect(res.headers.get("Content-Disposition")).toContain("HQ-26-10-000123_00_Fall-Dossier.pdf");
+    // The case folder keeps its name; the browser saves it under the person's (Kap. 9.1).
+    expect(res.headers.get("Content-Disposition")).toContain('filename="HYPOTEQ Fall-Dossier - Max Mustermann.pdf"');
     expect(String(fetchMock.mock.calls[0][0])).toContain("/items/FOLDER:/HQ-26-10-000123_00_Fall-Dossier.pdf:/content");
     expect(Buffer.from(await res.arrayBuffer()).toString()).toBe("%PDF");
   });
