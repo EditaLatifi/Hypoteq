@@ -13,7 +13,8 @@ Authorization: Bearer <Token>
 Content-Type: application/json
 ```
 
-- **Umgebung:** Die Schnittstelle ist auf dem Branch `ai-document-intelligence` gebaut und läuft vorerst auf der Preview. Dort gilt der Test-Modus: kein Salesforce-Update, Mails nur an die Test-Inbox. Auf `www.hypoteq.com` gibt es sie mit dem Go-live.
+- **Umgebung:** Die Schnittstelle ist auf dem Branch `ai-document-intelligence` gebaut und läuft vorerst auf der Preview (Adresse in der Begleitmail). Dort gilt der Test-Modus: kein Salesforce-Update, Mails nur an die Test-Inbox. Auf `www.hypoteq.com` gibt es sie mit dem Go-live.
+- **Testen auf der Preview:** Die Preview arbeitet auf derselben Datenbank wie die Produktion. Ein Aufruf ohne `preview: true` verschiebt die Dokumente des Falls also wirklich nach «Weitere Dateien» – auf der Preview deshalb nur Testfälle (z. B. «ZZTEST») oder `preview: true`. Fälle aus der Preview haben keinen Salesforce-Case: dort mit `caseNumber` aufrufen. Die Erinnerungen nach 2 und 5 Tagen laufen im täglichen Cron, den Vercel nur in der Produktion ausführt; auf der Preview kommen sie nicht.
 - **Token:** Wir erzeugen einen zufälligen Token (mindestens 24 Zeichen), hinterlegen ihn bei uns als `REUPLOAD_API_TOKEN` und geben ihn euch über einen sicheren Kanal. Bei euch liegt er in einer Named Credential, nie im Code oder in einer Mail.
 - **Ohne Token-Konfiguration** antwortet die Schnittstelle mit 503, **mit falschem Token** mit 401.
 
