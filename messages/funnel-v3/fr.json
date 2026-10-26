@@ -906,5 +906,31 @@
     "label.verpflichtungen.unterhalt": "Pensions alimentaires",
     "label.verpflichtungen.betreibung": "Poursuites",
     "label.baujahr_kubatur.baujahr": "Année de construction"
+  },
+  "reup": {
+    "kunde.subject": "Votre demande de financement – un document doit être rechargé",
+    "kunde.greeting": "Bonjour {vorname} {nachname}",
+    "kunde.intro": "Nous avons examiné vos documents. Un point est à clarifier concernant «{dokument}» : {grund}",
+    "kunde.ask": "Merci de recharger le document via le lien suivant – cela ne prend qu'une minute :",
+    "kunde.signoff": "Merci et meilleures salutations",
+    "kunde.team": "Votre équipe HYPOTEQ",
+    "kunde.reminder1": "Rappel : un document manque encore",
+    "kunde.reminder2": "Deuxième rappel : votre demande de financement est en attente",
+    "kunde.reminderBody": "Le document «{dokument}» manque encore pour votre demande de financement. Dès réception, nous pourrons poursuivre la demande auprès des banques.",
+    "kunde.reminderSignoff": "Meilleures salutations",
+    "partner.subject": "Votre demande de financement – un document doit être rechargé",
+    "partner.greeting": "Bonjour {vorname} {nachname}",
+    "partner.greetingNoName": "Bonjour",
+    "partner.intro": "Nous avons examiné les documents du dossier {fall}. Un point est à clarifier concernant «{dokument}» : {grund}",
+    "partner.ask": "Merci de recharger le document via le lien suivant – cela ne prend qu'une minute :",
+    "partner.signoff": "Merci et meilleures salutations",
+    "partner.team": "Votre équipe HYPOTEQ",
+    "partner.reminder1": "Rappel : un document manque encore",
+    "partner.reminder2": "Deuxième rappel : votre demande de financement est en attente",
+    "partner.reminderBody": "Le document «{dokument}» manque encore pour le dossier {fall}. Dès réception, nous pourrons poursuivre la demande auprès des banques.",
+    "partner.reminderSignoff": "Meilleures salutations",
+    "button": "Charger le document",
+    "reminderAsk": "Charger ici :",
+    "requested": "Nouveau document demandé : {grund}"
   }
 }

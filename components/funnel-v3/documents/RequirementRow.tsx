@@ -34,10 +34,12 @@ interface Props {
   allFiles?: FileEntry[];
   /** Checks computed outside the row (the household income over all borrowers). */
   extraChecks?: CrossCheck[];
+  /** A line of its own under the state — the Nachreich page's «Neues Dokument angefordert: …» (Spezifikation Datenabgleich 5.2). */
+  note?: string;
 }
 
 /** One requirement (spec 4.2): state, reason, files, recognised values, actions. */
-export default function RequirementRow({ status: r, files, open, onToggle, onPick, onView, onReplace, intern, canRename, borrowerCount, caseNumber, priorFiles = 0, allFiles, extraChecks }: Props) {
+export default function RequirementRow({ status: r, files, open, onToggle, onPick, onView, onReplace, intern, canRename, borrowerCount, caseNumber, priorFiles = 0, allFiles, extraChecks, note }: Props) {
   const { t, lang } = useFunnelT();
   const fin = useFunnelV3((s) => s.fin);
   const setSkipped = useFunnelV3((s) => s.setSkipped);
@@ -84,6 +86,7 @@ export default function RequirementRow({ status: r, files, open, onToggle, onPic
             <span className="v3-docrow-why">{reasonText(inst.reason, lang)}</span>
           </span>
           {sub ? <span className="v3-docrow-sub">{sub}</span> : null}
+          {note ? <span className="v3-docrow-sub v3-docrow-note">{note}</span> : null}
         </span>
         <span className={`v3-tag v3-tone--${look.tone}`}>{badge}</span>
         <span className={`v3-more${open ? " is-open" : ""}`}>

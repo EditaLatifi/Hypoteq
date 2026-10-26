@@ -261,6 +261,7 @@ export default function NachreichV3({ token, view, copy }: { token: string; view
                 borrowerCount={0}
                 caseNumber={view.caseNumber}
                 priorFiles={m.state === "partial" ? m.have : 0}
+                note={m.requested ? t("reup.requested", { grund: m.requested }) : undefined}
               />
             );
           })}

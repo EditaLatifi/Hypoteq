@@ -1889,6 +1889,11 @@ body:has(.hqv3) {
   text-wrap: pretty;
   word-break: break-word;
 }
+/* «Neues Dokument angefordert: …» (Re-Upload, Spezifikation Datenabgleich 5.2). */
+.hqv3 .v3-docrow-note {
+  color: var(--warning-500);
+  font-weight: var(--weight-semibold);
+}
 .hqv3 .v3-more {
   display: inline-flex;
   align-items: center;

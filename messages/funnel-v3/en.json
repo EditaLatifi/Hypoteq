@@ -906,5 +906,31 @@
     "label.verpflichtungen.unterhalt": "Maintenance payments",
     "label.verpflichtungen.betreibung": "Debt collection entries",
     "label.baujahr_kubatur.baujahr": "Year of construction"
+  },
+  "reup": {
+    "kunde.subject": "Your financing request – one document needs to be re-uploaded",
+    "kunde.greeting": "Dear {vorname} {nachname}",
+    "kunde.intro": "We have reviewed your documents. One item needs clarification for “{dokument}”: {grund}",
+    "kunde.ask": "Please re-upload the document via the following link – it only takes a minute:",
+    "kunde.signoff": "Thank you and kind regards",
+    "kunde.team": "Your HYPOTEQ team",
+    "kunde.reminder1": "Reminder: one document is still missing",
+    "kunde.reminder2": "Second reminder: your financing request is waiting",
+    "kunde.reminderBody": "The document “{dokument}” is still missing for your financing request. As soon as we receive it, we can proceed with the bank enquiry.",
+    "kunde.reminderSignoff": "Kind regards",
+    "partner.subject": "Your financing request – one document needs to be re-uploaded",
+    "partner.greeting": "Dear {vorname} {nachname}",
+    "partner.greetingNoName": "Hello",
+    "partner.intro": "We have reviewed the documents for case {fall}. One item needs clarification for “{dokument}”: {grund}",
+    "partner.ask": "Please re-upload the document via the following link – it only takes a minute:",
+    "partner.signoff": "Thank you and kind regards",
+    "partner.team": "Your HYPOTEQ team",
+    "partner.reminder1": "Reminder: one document is still missing",
+    "partner.reminder2": "Second reminder: your financing request is waiting",
+    "partner.reminderBody": "The document “{dokument}” is still missing for case {fall}. As soon as we receive it, we can proceed with the bank enquiry.",
+    "partner.reminderSignoff": "Kind regards",
+    "button": "Upload document",
+    "reminderAsk": "Upload here:",
+    "requested": "New document requested: {grund}"
   }
 }

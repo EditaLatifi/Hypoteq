@@ -684,7 +684,12 @@ export function v3DocumentCaseFields(data: any, previous?: string | null, now: D
  * choices on the Abgleich page; corrections made in the document detail win over the reading.
  * Null when the payload is not v3.
  */
-export function abgleichCaseField(data: any, rules: { rules: readonly PruefRegel[]; from: "salesforce" | "fallback" }, now: Date = new Date()): string | null {
+export function abgleichCaseField(
+  data: any,
+  rules: { rules: readonly PruefRegel[]; from: "salesforce" | "fallback" },
+  now: Date = new Date(),
+  reuploads: { requirement: string; requestedAt: string | null; resolvedAt: string | null }[] = []
+): string | null {
   const computed = v3DocumentStatus(data);
   if (!computed) return null;
   const { state, files } = computed;
@@ -692,7 +697,7 @@ export function abgleichCaseField(data: any, rules: { rules: readonly PruefRegel
   const docs = files.map((f) => ({ id: f.documentId, instanceId: f.instanceId ?? null, analysis: f.analysis, extraKind: f.extraKind ?? null, humanEdits: edits.get(f.documentId) ?? null }));
   const result = evaluateAbgleich({ state, docs, rules: rules.rules, choices: choicesOf(data) });
   return abgleichStateText(
-    buildAbgleichState({ result, submittedAt: now, mode: state.mode, role: state.role, rulesFrom: rules.from, borrowerIds: state.borrowers.map((b) => b.id) })
+    buildAbgleichState({ result, submittedAt: now, mode: state.mode, role: state.role, rulesFrom: rules.from, borrowerIds: state.borrowers.map((b) => b.id), reuploads })
   );
 }
 

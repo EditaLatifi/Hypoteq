@@ -906,5 +906,31 @@
     "label.verpflichtungen.unterhalt": "Alimenti",
     "label.verpflichtungen.betreibung": "Esecuzioni",
     "label.baujahr_kubatur.baujahr": "Anno di costruzione"
+  },
+  "reup": {
+    "kunde.subject": "La sua richiesta di finanziamento – un documento deve essere ricaricato",
+    "kunde.greeting": "Buongiorno {vorname} {nachname}",
+    "kunde.intro": "Abbiamo esaminato i suoi documenti. Per il documento «{dokument}» c'è un punto da chiarire: {grund}",
+    "kunde.ask": "La preghiamo di ricaricare il documento tramite il seguente link – richiede solo un minuto:",
+    "kunde.signoff": "Grazie e cordiali saluti",
+    "kunde.team": "Il suo team HYPOTEQ",
+    "kunde.reminder1": "Promemoria: manca ancora un documento",
+    "kunde.reminder2": "Secondo promemoria: la sua richiesta di finanziamento è in attesa",
+    "kunde.reminderBody": "Per la sua richiesta di finanziamento manca ancora il documento «{dokument}». Non appena lo riceveremo, potremo procedere con la richiesta alle banche.",
+    "kunde.reminderSignoff": "Cordiali saluti",
+    "partner.subject": "La sua richiesta di finanziamento – un documento deve essere ricaricato",
+    "partner.greeting": "Buongiorno {vorname} {nachname}",
+    "partner.greetingNoName": "Buongiorno",
+    "partner.intro": "Abbiamo esaminato i documenti della pratica {fall}. Per il documento «{dokument}» c'è un punto da chiarire: {grund}",
+    "partner.ask": "La preghiamo di ricaricare il documento tramite il seguente link – richiede solo un minuto:",
+    "partner.signoff": "Grazie e cordiali saluti",
+    "partner.team": "Il suo team HYPOTEQ",
+    "partner.reminder1": "Promemoria: manca ancora un documento",
+    "partner.reminder2": "Secondo promemoria: la sua richiesta di finanziamento è in attesa",
+    "partner.reminderBody": "Per la pratica {fall} manca ancora il documento «{dokument}». Non appena lo riceveremo, potremo procedere con la richiesta alle banche.",
+    "partner.reminderSignoff": "Cordiali saluti",
+    "button": "Caricare il documento",
+    "reminderAsk": "Caricare qui:",
+    "requested": "Nuovo documento richiesto: {grund}"
   }
 }

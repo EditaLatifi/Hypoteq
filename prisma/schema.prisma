@@ -452,6 +452,37 @@ model PortalAuditLog {
 // Created by prisma/sql/2026-10-15-v5-and-portal.sql — never by `prisma migrate`.
 // ---------------------------------------------------------------------------
 
+/// Re-Upload requests from Salesforce (Spezifikation Datenabgleich Kap. 5).
+/// prisma/sql/2026-10-26-inquiry-reupload.sql
+model InquiryReupload {
+  id                  String    @id @default(uuid())
+  inquiryId           String
+  /// The requirement instance, as in Dokumenten_Check_State__c requirements[].id.
+  requirement         String
+  reason              String
+  /// HYPOTEQ's edited mail text; null = the funnel's text (Kap. 10.1).
+  mailText            String?
+  /// kunde | partner
+  recipient           String
+  recipientEmail      String?
+  lang                String    @default("de")
+  /// The Salesforce Task closed when the new document arrives.
+  taskId              String?
+  /// open | resolved
+  status              String    @default("open")
+  requestedAt         DateTime  @default(now())
+  remindersSent       Int       @default(0)
+  lastReminderAt      DateTime?
+  resolvedAt          DateTime?
+  /// Documents moved to «Weitere Dateien» by this request (never deleted).
+  previousDocumentIds Json?
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+
+  @@index([status, requestedAt])
+  @@index([inquiryId])
+}
+
 model InquirySignature {
   inquiryId      String    @id
   // uploaded (in the closing) | pending («später nachreichen») | received (uploaded later)

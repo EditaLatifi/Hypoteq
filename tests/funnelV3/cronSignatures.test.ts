@@ -23,6 +23,9 @@ jest.mock("@/lib/portal/i18n/dict", () => ({ isLocale: () => true }));
 jest.mock("@/lib/portal/salesforce", () => ({ listPartnerCases: async () => [] }));
 jest.mock("@/lib/portal/scope", () => ({ scopeOfPartner: () => ({}) }));
 jest.mock("@/lib/funnel-v3/signatureServer", () => ({ sendSignatureReminders: () => mockReminders() }));
+// Spezifikation Datenabgleich 5.3: the Re-Upload reminders run in the same daily job.
+const mockReuploads = jest.fn(async () => ({ checked: 2, sent: 1, resolved: 1 }));
+jest.mock("@/lib/funnel-v3/reuploadServer", () => ({ sendReuploadReminders: () => mockReuploads() }));
 
 import { GET } from "@/app/api/portal/cron/route";
 
@@ -35,10 +38,11 @@ beforeEach(() => {
 });
 
 describe("/api/portal/cron", () => {
-  it("runs the partner sync and the signature reminders", async () => {
+  it("runs the partner sync, the signature reminders and the Re-Upload reminders", async () => {
     const res = await call();
-    expect(await res.json()).toEqual({ partners: 0, notifications: 0, failures: 0, signatures: { checked: 3, sent: 1 }, changeDecisions: 0 });
+    expect(await res.json()).toEqual({ partners: 0, notifications: 0, failures: 0, signatures: { checked: 3, sent: 1 }, reuploads: { checked: 2, sent: 1, resolved: 1 }, changeDecisions: 0 });
     expect(mockReminders).toHaveBeenCalledTimes(1);
+    expect(mockReuploads).toHaveBeenCalledTimes(1);
   });
 
   it("the reminders still run when the partner sync fails (which keeps failing as before)", async () => {

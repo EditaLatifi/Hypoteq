@@ -49,7 +49,10 @@ async function findByToken(token: string) {
 
 async function v3Get(row: InquiryRow) {
   const documents = await prisma.document.findMany({ where: { inquiryId: row.id }, orderBy: { uploadedAt: "asc" } });
-  return NextResponse.json(nachreichV3View(row, documents as any));
+  // HYPOTEQ's Re-Upload requests (Spezifikation Datenabgleich 5.2); none without the table.
+  const { listReuploads } = await import("@/lib/funnel-v3/reuploadServer");
+  const reuploads = await listReuploads(row.id);
+  return NextResponse.json(nachreichV3View(row, documents as any, reuploads));
 }
 
 async function v3Post(row: InquiryRow, body: any) {

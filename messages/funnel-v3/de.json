@@ -906,5 +906,31 @@
     "label.verpflichtungen.unterhalt": "Unterhaltszahlungen",
     "label.verpflichtungen.betreibung": "Betreibungen",
     "label.baujahr_kubatur.baujahr": "Baujahr"
+  },
+  "reup": {
+    "kunde.subject": "Deine Finanzierungsanfrage – ein Dokument wird neu benötigt",
+    "kunde.greeting": "Hi {vorname},",
+    "kunde.intro": "Wir haben deine Unterlagen geprüft. Beim Dokument «{dokument}» gibt es einen Punkt zu klären: {grund}",
+    "kunde.ask": "Bitte lade das Dokument über folgenden Link neu hoch – es dauert nur eine Minute:",
+    "kunde.signoff": "Vielen Dank und freundliche Grüsse",
+    "kunde.team": "Dein HYPOTEQ-Team",
+    "kunde.reminder1": "Erinnerung: ein Dokument fehlt noch",
+    "kunde.reminder2": "Zweite Erinnerung: Deine Finanzierungsanfrage wartet",
+    "kunde.reminderBody": "Für deine Finanzierungsanfrage fehlt noch das Dokument «{dokument}». Sobald es vorliegt, können wir mit der Bankanfrage weiterfahren.",
+    "kunde.reminderSignoff": "Freundliche Grüsse",
+    "partner.subject": "Ihre Finanzierungsanfrage – ein Dokument wird neu benötigt",
+    "partner.greeting": "Guten Tag {vorname} {nachname}",
+    "partner.greetingNoName": "Guten Tag",
+    "partner.intro": "Zum Fall {fall} haben wir die Unterlagen geprüft. Beim Dokument «{dokument}» gibt es einen Punkt zu klären: {grund}",
+    "partner.ask": "Bitte laden Sie das Dokument über folgenden Link neu hoch – es dauert nur eine Minute:",
+    "partner.signoff": "Vielen Dank und freundliche Grüsse",
+    "partner.team": "Ihr HYPOTEQ-Team",
+    "partner.reminder1": "Erinnerung: ein Dokument fehlt noch",
+    "partner.reminder2": "Zweite Erinnerung: Ihre Finanzierungsanfrage wartet",
+    "partner.reminderBody": "Zum Fall {fall} fehlt noch das Dokument «{dokument}». Sobald es vorliegt, können wir mit der Bankanfrage weiterfahren.",
+    "partner.reminderSignoff": "Freundliche Grüsse",
+    "button": "Dokument hochladen",
+    "reminderAsk": "Hier hochladen:",
+    "requested": "Neues Dokument angefordert: {grund}"
   }
 }

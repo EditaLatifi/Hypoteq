@@ -45,6 +45,7 @@ import {
   type V3State,
 } from "./completion";
 import type { SubmittedDocument } from "./files";
+import { reuploadsForState } from "./reupload";
 import { isLang, type Lang } from "./i18n";
 import { FUNNEL_STATE_VERSION, normaliseFunnelState } from "./legacy";
 import { baseId, isSignatureRequirement } from "./requirements";
@@ -236,18 +237,28 @@ export function missingRequirements(state: V3State, status: StatusResult, lang: 
   );
 }
 
-/** GET for a v3 inquiry. Null when the row is not a v3 inquiry. */
-export function nachreichV3View(row: NachreichInquiryRow, documents: CompletionDocumentRow[]): NachreichV3View | null {
+/**
+ * GET for a v3 inquiry. Null when the row is not a v3 inquiry. `reuploads`: HYPOTEQ's open
+ * Re-Upload requests — their requirement shows «Neues Dokument angefordert: {Grund}» (5.2).
+ */
+export function nachreichV3View(
+  row: NachreichInquiryRow,
+  documents: CompletionDocumentRow[],
+  reuploads: readonly { requirement: string; reason: string; status: string }[] = []
+): NachreichV3View | null {
   const state = storedV3State(row);
   if (!state) return null;
   const files = filesFromRows(state, documents);
   const status = statusFor(state, files, storedSkipped(row));
+  const requested = new Map(reuploads.filter((r) => r.status === "open").map((r) => [r.requirement, r.reason]));
   return {
     valid: true,
     v3: true,
     lang: state.lang,
     caseNumber: row.caseNumber ?? null,
-    missing: missingRequirements(state, status, state.lang, { signatureOpen: signatureOpen(state, status, files) }),
+    missing: missingRequirements(state, status, state.lang, { signatureOpen: signatureOpen(state, status, files) }).map((m) =>
+      requested.has(m.instanceId) ? { ...m, requested: requested.get(m.instanceId)! } : m
+    ),
     expiresAt: row.nachreichExpiresAt ?? null,
     email: row.client?.email ?? null,
     folderId: row.sharepointFolderId ?? null,
@@ -291,6 +302,8 @@ export interface NachreichV3Deps {
   updateCase(caseId: string, build: (previous: string | null) => Record<string, boolean | string> | null): Promise<unknown>;
   /** lib/funnel-v3/abgleich/config.ts loadPruefregeln: the Abgleich JSON follows the new documents (Spezifikation Datenabgleich 5.4). */
   pruefregeln(): Promise<{ rules: readonly import("./abgleich/rules").PruefRegel[]; from: "salesforce" | "fallback" }>;
+  /** lib/funnel-v3/reuploadServer.ts resolveReuploads: the Re-Upload requests this upload answers (5.4). Never throws. */
+  resolveReuploads(inquiryId: string, state: V3State, rows: CompletionDocumentRow[], now: Date): Promise<{ requirement: string; requestedAt: Date; resolvedAt: Date | null }[]>;
   /** Pre-v5 inquiries only: v5 sends no mail for documents sent later (Handover 7.1). */
   sendMail(params: NachreichMailParams): Promise<void>;
   /** lib/funnel-v3/signatureServer.ts (InquirySignature), both fail soft. */
@@ -482,9 +495,10 @@ export async function submitV3Nachreichung(row: NachreichInquiryRow, body: any, 
     try {
       const server = await d.signature.state(row.id).catch(() => null);
       const rules = await d.pruefregeln().catch(() => null);
+      const reuploads = await d.resolveReuploads(row.id, state, rowsAfter, now).catch(() => []);
       await d.updateCase(row.salesforceCaseId, (previous) => {
         const fields = caseFieldsWithSignature(v3DocumentCaseFields(data, previous, now), server, complete);
-        const abgleich = fields && rules ? abgleichCaseField(data, rules, now) : null;
+        const abgleich = fields && rules ? abgleichCaseField(data, rules, now, reuploadsForState(reuploads)) : null;
         return abgleich ? { ...fields, Funnel_Abgleich_State__c: abgleich } : fields;
       });
     } catch (err) {
@@ -587,6 +601,10 @@ function defaultDeps(): NachreichV3Deps {
     async pruefregeln() {
       const { loadPruefregeln } = await import("./abgleich/config");
       return loadPruefregeln();
+    },
+    async resolveReuploads(inquiryId, state, rows, now) {
+      const { resolveReuploads } = await import("./reuploadServer");
+      return resolveReuploads(inquiryId, state, rows, now);
     },
     async sendMail(params) {
       const { sendNachreichConfirmation } = await import("@/components/nachreichMail");

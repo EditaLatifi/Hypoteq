@@ -29,6 +29,8 @@ export interface MissingRequirement {
   /** Files still to come: the gap, or a whole new set for an outdated document. */
   slots: number;
   state: "missing" | "partial" | "outdated" | "analysing";
+  /** HYPOTEQ asked for this document again (Re-Upload, Spezifikation Datenabgleich 5.2): the reason. */
+  requested?: string;
 }
 
 export interface NachreichV3View {
