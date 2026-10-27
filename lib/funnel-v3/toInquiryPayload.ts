@@ -40,6 +40,17 @@ export interface InquiryPayloadOptions {
   signature?: SignatureJson;
   /** The customer's choices on the Abgleich page (Spezifikation Datenabgleich 3, 6.2). */
   choices?: Record<string, unknown>;
+  /** Started in HYPO, the chat (DECISIONS V92). */
+  channel?: "chat" | null;
+  /** What the chat adds: the valuation order and the transcript for the case folder (Konzept Kap. 6, 9). */
+  hypo?: HypoPayload | null;
+}
+
+export interface HypoPayload {
+  bewertung: boolean;
+  adresse?: string;
+  /** The conversation as text (engine.ts transcriptText); goes to the case folder, not to Salesforce. */
+  transcript: string;
 }
 
 /** Korrespondenzsprache = funnel language (spec 7). */
@@ -157,7 +168,13 @@ export function toInquiryPayload(state: FunnelState, opts: InquiryPayloadOptions
         einkommen: amount(i === 0 ? fin.inc : i === 1 ? fin.inc2 : 0),
       }));
 
+  // Konzept HYPO Kap. 8: «Einziges Zusatzfeld im Payload: entry_channel: "chat"» (+ the valuation).
+  const chat = opts.channel === "chat";
+  const hypo = chat && opts.hypo ? opts.hypo : null;
+
   return {
+    ...(chat ? { entry_channel: "chat" as const, bewertung_angefragt: Boolean(hypo?.bewertung) } : {}),
+    ...(hypo ? { hypo: { transcript: hypo.transcript } } : {}),
     customerType: isPartner ? ("partner" as const) : ("direct" as const),
     locale: opts.locale,
     korrespondenzsprache: KORRESPONDENZSPRACHE[opts.locale] ?? "Deutsch",
@@ -251,6 +268,7 @@ export function toInquiryPayload(state: FunnelState, opts: InquiryPayloadOptions
       sig: state.sig ?? null,
       ...(opts.signature ? { signature: opts.signature } : {}),
       ...(opts.choices && Object.keys(opts.choices).length ? { abgleich: { choices: opts.choices } } : {}),
+      ...(chat ? { channel: "chat" as const, hypo: { bewertung: Boolean(hypo?.bewertung), ...(hypo?.adresse ? { adresse: hypo.adresse } : {}) } } : {}),
       calc,
     },
   };

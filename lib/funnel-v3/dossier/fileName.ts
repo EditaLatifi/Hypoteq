@@ -8,6 +8,11 @@ export function dossierFileName(caseNumber: string | null): string {
   return caseNumber ? `${caseNumber}_00_Fall-Dossier.pdf` : "00_Fall-Dossier.pdf";
 }
 
+/** HYPO's transcript beside the dossier (Kat 00, a HYPOTEQ document; DECISIONS V92). */
+export function transcriptFileName(caseNumber: string | null): string {
+  return caseNumber ? `${caseNumber}_00_HYPO-Chatverlauf.txt` : "00_HYPO-Chatverlauf.txt";
+}
+
 interface NamedState {
   ans?: { kn?: string | null } | null;
   txt?: { vor?: string; nach?: string; firma?: string } | null;

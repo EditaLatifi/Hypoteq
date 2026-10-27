@@ -23,7 +23,7 @@ import { documentsSummary, type DocumentsSummary } from "./documentsSummary";
 import type { FileEntry } from "./files";
 import { translate, type Lang } from "./i18n";
 import { signatureJson } from "./signature";
-import { toInquiryPayload, type InquiryPayload } from "./toInquiryPayload";
+import { toInquiryPayload, type HypoPayload, type InquiryPayload } from "./toInquiryPayload";
 import type { FunnelState } from "./types";
 
 export const ANALYSIS_WAIT_MS = 20_000;
@@ -55,6 +55,9 @@ export interface SubmitState extends FunnelState {
   dismissed?: Iterable<string>;
   /** The Abgleich page's choices (store `choices`). */
   choices?: Record<string, unknown>;
+  /** Started in HYPO (store `channel`) and what the chat adds (DECISIONS V92). */
+  channel?: "chat" | null;
+  hypo?: HypoPayload | null;
 }
 
 export interface SubmitOptions {
@@ -118,6 +121,8 @@ export function buildSubmitPayload(state: SubmitState, lang: Lang): InquiryPaylo
     documentCompleteness: documentCompleteness(summary, lang),
     signature: signatureJson(summary.signature, state.sig),
     choices: state.choices,
+    channel: state.channel ?? null,
+    hypo: state.hypo ?? null,
   });
 }
 

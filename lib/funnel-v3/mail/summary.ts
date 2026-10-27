@@ -85,6 +85,8 @@ export interface CaseSummary {
   role: "berater" | "kunde" | null;
   /** Begleitet or Schnell — the internal mail names it (HYPOTEQ Mail-Texte 20.10.2026, M3). */
   mode: "begleitet" | "schnell";
+  /** Started in HYPO, the chat (DECISIONS V92). */
+  channel?: "chat";
   /** `greetingName`: the first name the customer mail greets (a company: its signatory's). */
   customer: { name: string; email: string; isJur: boolean; greetingName: string };
   place: string;
@@ -267,7 +269,7 @@ export function buildCaseSummary(input: SummaryInput, audience: Audience, facts?
     rows: rows(
       r(t("q.antrag"), opt("antrag", ans.antrag), fromSrc("ans.antrag")),
       r(t("q.kn"), opt("kn", ans.kn), fromSrc("ans.kn")),
-      marks ? r(L.entry, t(state.mode === "schnell" ? "start.mode.fast.title" : "start.mode.guided.title")) : null
+      marks ? r(L.entry, t(state.channel === "chat" ? "hypo.entry" : state.mode === "schnell" ? "start.mode.fast.title" : "start.mode.guided.title")) : null
     ),
   }));
 
@@ -446,6 +448,7 @@ export function buildCaseSummary(input: SummaryInput, audience: Audience, facts?
     submitter,
     role,
     mode: state.mode === "schnell" ? "schnell" : "begleitet",
+    ...(state.channel === "chat" ? { channel: "chat" as const } : {}),
     customer: {
       name: customerNameOf(state),
       email: customerEmailOf(input.data) ?? "",

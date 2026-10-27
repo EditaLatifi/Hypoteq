@@ -75,6 +75,11 @@ export interface FunnelV3Data extends FunnelState {
   /** Opened from the Partnerportal (`?from=portal`): the closing offers the way back. */
   entry: "portal" | null;
   /**
+   * Started in HYPO, the chat (docs/funnel-v5/HYPOTEQ_Konzept_HYPO_ChatFunnel.md): the request
+   * carries `entry_channel: "chat"`; null for the two entries of the start screen.
+   */
+  channel: "chat" | null;
+  /**
    * What the customer picked on the Abgleich page, per field id (Spezifikation Datenabgleich 3,
    * 6.2 `customerChoice`); a document value chosen also changed the answer, `original` keeps it.
    */
@@ -91,6 +96,7 @@ export interface FunnelV3Actions {
    */
   switchMode: () => void;
   setEntry: (entry: "portal" | null) => void;
+  setChannel: (channel: "chat" | null) => void;
   setAns: <K extends keyof Answers>(key: K, value: Answers[K]) => void;
   /** Tap a chip of «Trifft etwas davon zu?» on (Ja) or off (Nein). */
   setChip: (chip: Chip, on: boolean) => void;
@@ -126,6 +132,11 @@ export interface FunnelV3Actions {
   goto: (step: Step) => boolean;
   /** One step forward; validation is the caller's (validateStep). */
   next: () => void;
+  /**
+   * HYPO hands over (Konzept Kap. 5.6, 8): open step n of the mode directly, everything before it
+   * counting as visited. The caller has checked the steps before (validateScreen).
+   */
+  openAt: (step: Step) => void;
   back: () => void;
   setSharepointFolderId: (id: string | null) => void;
   setFiles: (files: FileEntry[] | ((prev: FileEntry[]) => FileEntry[])) => void;
@@ -188,6 +199,7 @@ export function initialFunnelV3(): FunnelV3Data {
     skipped: [],
     dismissed: [],
     entry: null,
+    channel: null,
     choices: {},
   };
 }
@@ -456,6 +468,8 @@ function funnelV3Creator(set: SetState, get: () => FunnelV3Store): FunnelV3Store
 
       setEntry: (entry) => set({ entry }),
 
+      setChannel: (channel) => set((s) => (s.channel === channel ? {} : { channel })),
+
       setRole: (role) =>
         set((s) => ({
           role,
@@ -581,6 +595,12 @@ function funnelV3Creator(set: SetState, get: () => FunnelV3Store): FunnelV3Store
 
       back: () => set((s) => ({ step: asStep(s.step - 1) })),
 
+      openAt: (step) =>
+        set((s) => {
+          const to = asStep(Math.min(step, stepCount(s.mode)));
+          return { step: to, visited: asStep(Math.max(s.visited, to)) };
+        }),
+
       setSharepointFolderId: (id) => set({ sharepointFolderId: id }),
 
       setFiles: (files) => set((s) => ({ files: typeof files === "function" ? files(s.files) : files })),
@@ -680,6 +700,7 @@ export const useFunnelV3 = create<FunnelV3Store>()(
         skipped: s.skipped,
         dismissed: s.dismissed,
         entry: s.entry,
+        channel: s.channel,
         choices: s.choices,
       }),
       // An older copy (a v3 session, version 1) is dropped, not reshaped: the funnel starts empty.
@@ -703,6 +724,7 @@ export const useFunnelV3 = create<FunnelV3Store>()(
           skipped: Array.isArray(p.skipped) ? p.skipped : [],
           dismissed: Array.isArray(p.dismissed) ? p.dismissed : [],
           entry: p.entry === "portal" ? "portal" : null,
+          channel: p.channel === "chat" ? "chat" : null,
           choices: isObj(p.choices) ? (p.choices as FunnelV3Data["choices"]) : {},
         };
       },

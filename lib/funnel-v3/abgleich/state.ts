@@ -25,6 +25,8 @@ export interface AbgleichStateJson {
   version: number;
   submittedAt: string;
   funnelPath: "schnellanmeldung" | "begleitete_anmeldung";
+  /** Started in HYPO, the chat (DECISIONS V92); absent otherwise. */
+  entry_channel?: "chat";
   submittedBy: "kunde" | "berater";
   rulesFrom: "salesforce" | "fallback";
   fields: {
@@ -55,6 +57,7 @@ export interface AbgleichStateInput {
   result: AbgleichResult;
   submittedAt: Date;
   mode: "schnell" | "begleitet" | undefined;
+  channel?: "chat" | null;
   role: "kunde" | "berater" | null | undefined;
   rulesFrom: "salesforce" | "fallback";
   /** Borrower ids in order (Kreditnehmer 1, 2). */
@@ -84,6 +87,7 @@ export function buildAbgleichState(input: AbgleichStateInput): AbgleichStateJson
     version: ABGLEICH_STATE_VERSION,
     submittedAt: input.submittedAt.toISOString(),
     funnelPath: input.mode === "schnell" ? "schnellanmeldung" : "begleitete_anmeldung",
+    ...(input.channel === "chat" ? { entry_channel: "chat" as const } : {}),
     submittedBy: input.role === "berater" ? "berater" : "kunde",
     rulesFrom: input.rulesFrom,
     fields,

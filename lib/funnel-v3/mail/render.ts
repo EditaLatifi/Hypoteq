@@ -233,7 +233,7 @@ function introHtml(s: CaseSummary, T: MailTexts): string {
     <p style="font-size:14px;line-height:1.7;margin:0 0 4px 0;">${esc(text)}</p>`;
   }
   const by = s.role === "berater" ? interpolate(T.internByBerater, { name: s.berater?.name || s.berater?.email || "–" }) : T.internOwn;
-  const text = interpolate(T.introIntern, { entry: s.mode === "schnell" ? T.internFast : T.internGuided, by });
+  const text = interpolate(T.introIntern, { entry: s.channel === "chat" ? T.internChat : s.mode === "schnell" ? T.internFast : T.internGuided, by });
   return `<p style="font-size:14px;line-height:1.7;margin:22px 0 4px 0;">${esc(text)}</p>`;
 }
 

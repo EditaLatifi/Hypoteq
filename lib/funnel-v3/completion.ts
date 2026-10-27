@@ -7,7 +7,9 @@
  *   a. store the customer's per-file decisions beside the AI analysis (aiAnalysis.v3Submitted)
  *   b. rename every file in the case folder to its stored name (spec 5.1) and persist
  *      `Document.storedName`; duplicates and not-needed files are kept (Handover 4.3)
- *   c. generate the Fall-Dossier PDF and upload it as `{Fallnummer}_00_Fall-Dossier.pdf`
+ *   c. generate the Fall-Dossier PDF and upload it as `{Fallnummer}_00_Fall-Dossier.pdf`; a
+ *      request from HYPO, the chat, also gets its transcript `{Fallnummer}_00_HYPO-Chatverlauf.txt`
+ *      (Konzept HYPO Kap. 9, DECISIONS V92)
  *   d. hand the sync what it needs for the Case: folder URL, files with stored names
  *      (`v3DocumentCaseFields` below builds the Salesforce fields from it)
  *
@@ -27,6 +29,7 @@
 
 import { buildCheckState, type CheckStateDetail } from "./checkState";
 import { createDossierPdf, dossierFileName, type DossierFile, type DossierInput } from "./dossier";
+import { transcriptFileName } from "./dossier/fileName";
 import type { SubmittedDocument, V3Analysis } from "./files";
 import { isLang, type Lang } from "./i18n";
 import { SIGNATURE_REQUIREMENT_ID, getRequirement, reqList, type RequirementDef, type RequirementInstance } from "./requirements";
@@ -538,6 +541,17 @@ export async function completeV3Inquiry(input: CompletionInput, deps?: Partial<C
     fail("dossier", err);
   }
 
+  // c'. HYPO's conversation (Konzept Kap. 9): internal like the funnel's raw data, beside the dossier.
+  const transcript = typeof input.data?.hypo?.transcript === "string" ? input.data.hypo.transcript : "";
+  if (transcript && token && folderId) {
+    try {
+      const item = await d.graph.upload(folderId, transcriptFileName(input.caseNumber), new TextEncoder().encode(transcript), "text/plain; charset=utf-8", token);
+      log.log(`${tag} chat transcript stored as ${item.name}`);
+    } catch (err) {
+      fail("transcript", err);
+    }
+  }
+
   log.log(`${tag} ${files.filter((f) => f.storedName).length} renamed, ${files.filter((f) => f.removed).length} removed, ${errors.length} error(s)`);
   return { folderId, folderWebUrl, files, dossier, errors };
 }
@@ -697,7 +711,7 @@ export function abgleichCaseField(
   const docs = files.map((f) => ({ id: f.documentId, instanceId: f.instanceId ?? null, analysis: f.analysis, extraKind: f.extraKind ?? null, humanEdits: edits.get(f.documentId) ?? null }));
   const result = evaluateAbgleich({ state, docs, rules: rules.rules, choices: choicesOf(data) });
   return abgleichStateText(
-    buildAbgleichState({ result, submittedAt: now, mode: state.mode, role: state.role, rulesFrom: rules.from, borrowerIds: state.borrowers.map((b) => b.id), reuploads })
+    buildAbgleichState({ result, submittedAt: now, mode: state.mode, channel: state.channel, role: state.role, rulesFrom: rules.from, borrowerIds: state.borrowers.map((b) => b.id), reuploads })
   );
 }
 

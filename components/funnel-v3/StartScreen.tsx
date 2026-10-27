@@ -1,11 +1,15 @@
 "use client";
 
+import { useEffect } from "react";
 import { useFunnelV3 } from "@/lib/funnel-v3/store";
 import { recommendedMode } from "@/lib/funnel-v3/steps";
 import type { Mode, Role } from "@/lib/funnel-v3/types";
 import { useFunnelT } from "@/lib/funnel-v3/useFunnelT";
 import LanguageSwitch from "./LanguageSwitch";
 import { startRole } from "./logic";
+import { startHypo } from "./hypo/controller";
+import { HypoFace } from "./hypo/HypoMark";
+import { loadHypoConfig, useHypo } from "./hypo/hypoStore";
 
 const ROLES: { role: Role; labelKey: string }[] = [
   { role: "berater", labelKey: "start.advisor.title" },
@@ -24,15 +28,27 @@ const ENTRIES: { mode: Mode; eyebrow: string; title: string; sub: string; time: 
  * eyebrow, text and time. «Empfohlen» (lime) on the entry the role suggests: Berater →
  * Schnell, Kunde → Begleitet (steps.ts recommendedMode). A role preset by the link
  * (`?customer=`, the Partnerportal) is already chosen (DECISIONS V49).
+ *
+ * The third entry, HYPO (Konzept HYPO Kap. 3): «Erzähl uns dein Projekt.» in the lime wedge on the
+ * right — no popup, nothing opens by itself. Shown where /api/hypo says HYPO runs (DECISIONS V92).
  */
 export default function StartScreen() {
-  const { t } = useFunnelT();
+  const { t, lang } = useFunnelT();
   const role = useFunnelV3((s) => s.role);
   const shown = startRole(role);
   const recommended = recommendedMode(shown);
+  const hypo = useHypo((s) => s.config?.enabled === true);
+  useEffect(() => {
+    void loadHypoConfig();
+  }, []);
 
   const pickRole = (r: Role) => {
     if (r !== role) useFunnelV3.getState().setRole(r);
+  };
+  const startChat = () => {
+    const s = useFunnelV3.getState();
+    if (s.role !== shown) s.setRole(shown);
+    startHypo(lang);
   };
   const start = (mode: Mode) => {
     const s = useFunnelV3.getState();
@@ -85,6 +101,22 @@ export default function StartScreen() {
             })}
           </div>
         </div>
+        {hypo ? (
+          <button type="button" className="v3-start-hypo" onClick={startChat}>
+            <span className="v3-start-hypo-top">
+              <HypoFace size={30} />
+              <span className="v3-start-hypo-eyebrow">{t("hypo.start.eyebrow")}</span>
+            </span>
+            <span className="v3-start-hypo-title">{t("hypo.start.title")}</span>
+            <span className="v3-start-hypo-sub">{t("hypo.start.text")}</span>
+            <span className="v3-start-hypo-foot">
+              <span>{t("hypo.start.time")}</span>
+              <span className="v3-start-hypo-cta" aria-hidden="true">
+                {t("hypo.start.cta")}
+              </span>
+            </span>
+          </button>
+        ) : null}
         <span className="v3-start-claim">{t("start.claim")}</span>
       </div>
     </div>

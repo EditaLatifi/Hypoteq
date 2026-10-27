@@ -71,6 +71,10 @@ export interface CheckStateV3 extends DokumentenCheckState {
   updatedAt: string;
   /** Handover 8: Schnellanmeldung or Begleitete Anmeldung. */
   entry?: Mode;
+  /** Started in HYPO, the chat (DECISIONS V92); absent for the start screen's two entries. */
+  entry_channel?: "chat";
+  /** HYPO's Immobilienbewertung was ordered (Konzept Kap. 6; v1: the advisor triggers it). */
+  bewertung_angefragt?: boolean;
   answers: Record<string, unknown>;
   requirements: CheckStateRequirement[];
   extras: { name: string; kind: ExtraKind }[];
@@ -88,6 +92,8 @@ export interface CheckStateV3 extends DokumentenCheckState {
 /** The answer state plus what v5 writes beside it. */
 export interface CheckStateSource extends ReqState {
   mode?: Mode;
+  channel?: "chat";
+  hypo?: { bewertung: boolean; adresse?: string };
   fin?: Amounts;
   src?: Sources;
   sig?: SignatureState | null;
@@ -192,6 +198,7 @@ export function buildCheckStateObject(input: BuildCheckStateInput): CheckStateV3
     version: 1,
     updatedAt: now.toISOString(),
     ...(input.state.mode ? { entry: input.state.mode } : {}),
+    ...(input.state.channel === "chat" ? { entry_channel: "chat" as const, bewertung_angefragt: Boolean(input.state.hypo?.bewertung) } : {}),
     answers: answersBlock(input.state),
     requirements,
     extras: (input.extras || []).map((e) => ({ name: e.name, kind: e.kind })),

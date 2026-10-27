@@ -12,6 +12,7 @@ import { useFunnelV3 } from "@/lib/funnel-v3/store";
 import { submitFunnel, SubmitError, type SubmitPhase, type SubmitState } from "@/lib/funnel-v3/submit";
 import { useFunnelT } from "@/lib/funnel-v3/useFunnelT";
 import { useFunnelUI } from "../uiStore";
+import { hypoPayload } from "../hypo/transcript";
 import { saveDone, type DoneInfo } from "./doneState";
 
 export function useSubmit(enabled: boolean) {
@@ -38,7 +39,8 @@ export function useSubmit(enabled: boolean) {
     setPhase("sending");
     try {
       const res = await submitFunnel({
-        getState: () => useFunnelV3.getState() as unknown as SubmitState,
+        // A request from HYPO also carries the valuation order and the transcript (DECISIONS V92).
+        getState: () => ({ ...(useFunnelV3.getState() as unknown as SubmitState), hypo: hypoPayload(lang) }),
         lang,
         onPhase: setPhase,
       });

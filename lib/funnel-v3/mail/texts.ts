@@ -88,6 +88,8 @@ export interface MailTexts {
   /** Internal mail (M3, always German): «({entry}, {by})». */
   internGuided: string;
   internFast: string;
+  /** HYPO, the chat entry (DECISIONS V92). */
+  internChat: string;
   internByBerater: string;
   internOwn: string;
   introIntern: string;
@@ -143,6 +145,7 @@ export const MAIL_TEXTS: Record<Lang, MailTexts> = {
     teamBerater: "HYPOTEQ AG",
     internGuided: "Begleitete Anmeldung",
     internFast: "Schnellanmeldung",
+    internChat: "HYPO (Chat)",
     internByBerater: "Berater {name}",
     internOwn: "eigene Anfrage",
     introIntern: "Neue Finanzierungsanfrage über den Funnel ({entry}, {by}). Vollständige Zusammenfassung unten. Werte «aus Dokument» sind markiert.",
@@ -244,6 +247,7 @@ export const MAIL_TEXTS: Record<Lang, MailTexts> = {
     teamBerater: "HYPOTEQ AG",
     internGuided: "guided registration",
     internFast: "quick registration",
+    internChat: "HYPO (chat)",
     internByBerater: "advisor {name}",
     internOwn: "own request",
     introIntern: "New financing request via the funnel ({entry}, {by}). Full summary below. Values “from document” are marked.",
@@ -344,6 +348,7 @@ export const MAIL_TEXTS: Record<Lang, MailTexts> = {
     teamBerater: "HYPOTEQ AG",
     internGuided: "inscription accompagnée",
     internFast: "inscription rapide",
+    internChat: "HYPO (chat)",
     internByBerater: "conseiller {name}",
     internOwn: "demande propre",
     introIntern: "Nouvelle demande de financement via le funnel ({entry}, {by}). Récapitulatif complet ci-dessous. Les valeurs « du document » sont marquées.",
@@ -444,6 +449,7 @@ export const MAIL_TEXTS: Record<Lang, MailTexts> = {
     teamBerater: "HYPOTEQ AG",
     internGuided: "registrazione accompagnata",
     internFast: "registrazione rapida",
+    internChat: "HYPO (chat)",
     internByBerater: "consulente {name}",
     internOwn: "richiesta propria",
     introIntern: "Nuova richiesta di finanziamento tramite il funnel ({entry}, {by}). Riepilogo completo qui sotto. I valori «dal documento» sono contrassegnati.",

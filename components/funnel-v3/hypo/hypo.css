@@ -1,0 +1,717 @@
+/*
+ * HYPO — the chat entry (docs/funnel-v5/HYPOTEQ_Konzept_HYPO_ChatFunnel.md). The funnel's tokens
+ * (funnel-v3.css), scoped under .hqv3 like everything there, every class with the v3-hypo- prefix.
+ * Desktop: chat in the middle, the Dossier panel on the right; below 1100 px the panel becomes a
+ * collapsible bar above the chat (Kap. 5.5). The page itself does not scroll: the message list
+ * does, so the chips and the input always stay in view.
+ */
+
+/* ---------------------------------------------------------------- start screen: third entry */
+.hqv3 .v3-start-hypo {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+  padding: 22px 24px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--lime-500);
+  background: var(--forest-900);
+  color: #fff;
+  cursor: pointer;
+  font-family: var(--font-text);
+  max-width: 656px;
+  transition: var(--transition-control), transform var(--duration-base) var(--ease-out);
+}
+.hqv3 .v3-start-hypo:hover {
+  transform: translateY(-2px);
+}
+.hqv3 .v3-start-hypo:focus-visible {
+  box-shadow: var(--focus-ring-on-dark), 0 0 0 1px var(--lime-500);
+  outline: none;
+}
+.hqv3 .v3-start-hypo-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.hqv3 .v3-start-hypo-eyebrow {
+  font-size: var(--text-micro);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--on-dark-70);
+}
+.hqv3 .v3-start-hypo-title {
+  font-family: var(--font-display);
+  font-size: var(--text-heading);
+  font-weight: var(--weight-bold);
+  line-height: 1.15;
+  color: #fff;
+}
+.hqv3 .v3-start-hypo-sub {
+  font-size: var(--text-body-sm);
+  color: var(--on-dark-70);
+  text-wrap: pretty;
+}
+.hqv3 .v3-start-hypo-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: auto;
+  font-size: var(--text-caption);
+  color: var(--on-dark-70);
+}
+.hqv3 .v3-start-hypo-cta {
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--lime-500);
+}
+/* Wide screens: in the lime wedge on the right, where the wedge is widest (Kap. 3). */
+@media (min-width: 1240px) {
+  .hqv3 .v3-start-hypo {
+    position: absolute;
+    right: 44px;
+    bottom: 48px;
+    width: 280px;
+    min-height: 236px;
+    box-shadow: var(--shadow-lg);
+  }
+}
+
+/* ---------------------------------------------------------------- wordmark */
+.hqv3 .v3-hypo-word {
+  display: inline-flex;
+  align-items: center;
+  gap: 1px;
+  font-family: var(--font-display);
+  font-weight: var(--weight-heavy);
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+.hqv3 .v3-hypo-word-o {
+  width: 0.92em;
+  height: 0.92em;
+}
+
+/* ---------------------------------------------------------------- layout */
+.hqv3 .v3-hypo {
+  flex: 1;
+  height: 100vh;
+  height: 100dvh;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--paper-100);
+  color: var(--forest-800);
+  font-family: var(--font-text);
+}
+.hqv3 .v3-hypo-head {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 14px 28px;
+  background: var(--forest-800);
+  color: #fff;
+  flex: none;
+}
+.hqv3 .v3-hypo-logo {
+  height: 26px;
+  width: auto;
+  display: block;
+}
+.hqv3 .v3-hypo-who {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 20px;
+  border-left: 1px solid var(--on-dark-14);
+}
+.hqv3 .v3-hypo-who-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 17px;
+}
+.hqv3 .v3-hypo-who-sub {
+  font-size: var(--text-caption);
+  color: var(--on-dark-70);
+}
+.hqv3 .v3-hypo-head-actions {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.hqv3 .v3-hypo-ghost {
+  border: 1px solid var(--on-dark-14);
+  background: transparent;
+  color: #fff;
+  border-radius: var(--radius-pill);
+  padding: 8px 16px;
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+}
+.hqv3 .v3-hypo-ghost:hover {
+  border-color: var(--lime-500);
+  color: var(--lime-500);
+}
+.hqv3 .v3-hypo-ghost:focus-visible {
+  box-shadow: var(--focus-ring-on-dark);
+  outline: none;
+}
+.hqv3 .v3-hypo-body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  min-height: 0;
+}
+.hqv3 .v3-hypo-chat {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0 28px 16px;
+  min-height: 0;
+  height: 100%;
+}
+
+/* ---------------------------------------------------------------- messages */
+.hqv3 .v3-hypo-messages {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+  padding: 24px 2px 4px;
+  overscroll-behavior: contain;
+}
+.hqv3 .v3-hypo-line {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  animation: v3-rise 0.24s var(--ease-out) both;
+}
+.hqv3 .v3-hypo-line--user {
+  justify-content: flex-end;
+}
+.hqv3 .v3-hypo-avatar {
+  flex: none;
+  margin-bottom: 2px;
+}
+.hqv3 .v3-hypo-msg {
+  max-width: 76%;
+  padding: 12px 16px;
+  border-radius: 18px;
+  font-size: var(--text-body-sm);
+  line-height: var(--leading-relaxed);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.hqv3 .v3-hypo-msg--hypo {
+  background: #fff;
+  border: 1px solid var(--paper-300);
+  border-bottom-left-radius: 6px;
+}
+.hqv3 .v3-hypo-msg--user {
+  background: var(--forest-800);
+  color: #fff;
+  border-bottom-right-radius: 6px;
+}
+.hqv3 .v3-hypo-link {
+  color: var(--forest-800);
+  font-weight: var(--weight-semibold);
+  text-decoration: underline;
+  text-decoration-color: var(--lime-700);
+  text-underline-offset: 3px;
+}
+
+/* typing indicator: the smiling O nods, three dots */
+.hqv3 .v3-hypo-typing {
+  animation: v3-hypo-nod 1.2s ease-in-out infinite;
+}
+.hqv3 .v3-hypo-dots {
+  display: inline-flex;
+  gap: 4px;
+  padding: 14px 16px;
+}
+.hqv3 .v3-hypo-dots i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--forest-300);
+  animation: v3-hypo-blink 1.2s infinite both;
+}
+.hqv3 .v3-hypo-dots i:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.hqv3 .v3-hypo-dots i:nth-child(3) {
+  animation-delay: 0.4s;
+}
+@keyframes v3-hypo-blink {
+  0%,
+  80%,
+  100% {
+    opacity: 0.25;
+  }
+  40% {
+    opacity: 1;
+  }
+}
+@keyframes v3-hypo-nod {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+/* ---------------------------------------------------------------- cards */
+.hqv3 .v3-hypo-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 76%;
+  padding: 14px 16px;
+  border-radius: var(--radius-lg);
+  background: #fff;
+  border: 1px solid var(--paper-300);
+  font-size: var(--text-body-sm);
+  line-height: var(--leading-normal);
+}
+.hqv3 .v3-hypo-card--conflict {
+  border-color: var(--warning-500);
+  background: var(--warning-100);
+}
+.hqv3 .v3-hypo-card--summary {
+  border-color: var(--lime-600);
+  background: var(--lime-100);
+}
+.hqv3 .v3-hypo-card-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--text-micro);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  font-weight: var(--weight-bold);
+  color: var(--on-light-70);
+}
+.hqv3 .v3-hypo-reading::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid var(--paper-400);
+  border-top-color: var(--forest-800);
+  animation: v3-hypo-spin 0.8s linear infinite;
+}
+@keyframes v3-hypo-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.hqv3 .v3-hypo-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.hqv3 .v3-hypo-row {
+  display: grid;
+  grid-template-columns: 10px minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 8px;
+}
+.hqv3 .v3-hypo-row-label {
+  color: var(--on-light-70);
+}
+.hqv3 .v3-hypo-row-value {
+  font-weight: var(--weight-semibold);
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+.hqv3 .v3-hypo-row-check {
+  grid-column: 2 / -1;
+  font-size: var(--text-caption);
+  color: var(--warning-500);
+  font-weight: var(--weight-semibold);
+}
+.hqv3 .v3-hypo-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  flex: none;
+  align-self: center;
+}
+.hqv3 .v3-hypo-dot--green {
+  background: var(--success-500);
+}
+.hqv3 .v3-hypo-dot--yellow {
+  background: var(--warning-500);
+}
+.hqv3 .v3-hypo-dot--red {
+  background: var(--danger-500);
+}
+.hqv3 .v3-hypo-notes {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--paper-300);
+}
+.hqv3 .v3-hypo-notes-title {
+  font-size: var(--text-caption);
+  color: var(--on-light-45);
+}
+.hqv3 .v3-hypo-muted {
+  color: var(--on-light-45);
+  font-size: var(--text-caption);
+}
+.hqv3 .v3-hypo-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.hqv3 .v3-hypo-summary-line {
+  font-weight: var(--weight-semibold);
+}
+.hqv3 .v3-hypo-summary-cta {
+  align-self: flex-start;
+}
+
+/* ---------------------------------------------------------------- chips */
+.hqv3 .v3-hypo-chips,
+.hqv3 .v3-hypo-suggest {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-left: 34px;
+}
+.hqv3 .v3-hypo-chip {
+  border: 1px solid var(--paper-400);
+  background: #fff;
+  color: var(--forest-800);
+  border-radius: var(--radius-pill);
+  padding: 8px 14px;
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+  transition: var(--transition-control);
+}
+.hqv3 .v3-hypo-chip:hover:not(:disabled) {
+  border-color: var(--forest-800);
+  background: var(--lime-100);
+}
+.hqv3 .v3-hypo-chip:focus-visible {
+  box-shadow: var(--focus-ring);
+  outline: none;
+}
+.hqv3 .v3-hypo-chip:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.hqv3 .v3-hypo-chip[aria-pressed="true"] {
+  background: var(--forest-800);
+  border-color: var(--forest-800);
+  color: #fff;
+}
+.hqv3 .v3-hypo-chip--go {
+  background: var(--lime-500);
+  border-color: var(--lime-500);
+  font-weight: var(--weight-semibold);
+}
+.hqv3 .v3-hypo-chip--upload {
+  border-style: dashed;
+}
+.hqv3 .v3-hypo-chip--soft {
+  background: var(--lime-100);
+  border-color: var(--lime-300);
+}
+
+/* ---------------------------------------------------------------- composer */
+.hqv3 .v3-hypo-composer {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  padding: 8px;
+  background: #fff;
+  border: 1px solid var(--paper-400);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  flex: none;
+}
+.hqv3 .v3-hypo-composer:focus-within {
+  border-color: var(--forest-800);
+  box-shadow: var(--focus-ring);
+}
+.hqv3 .v3-hypo-field {
+  position: relative;
+  flex: 1;
+  display: flex;
+}
+.hqv3 .v3-hypo-input,
+.hqv3 .v3-hypo-input:focus {
+  box-shadow: none;
+}
+.hqv3 .v3-hypo-input {
+  flex: 1;
+  border: 0;
+  resize: none;
+  background: transparent;
+  font: inherit;
+  font-size: var(--text-body);
+  line-height: 1.4;
+  color: var(--forest-800);
+  padding: 9px 4px;
+  min-height: 42px;
+  max-height: 160px;
+  field-sizing: content;
+  outline: none;
+}
+.hqv3 .v3-hypo-example {
+  position: absolute;
+  inset: 9px 4px auto 4px;
+  font-size: var(--text-body);
+  line-height: 1.4;
+  color: var(--on-light-45);
+  pointer-events: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  animation: v3-hypo-fade 0.6s var(--ease-out) both;
+}
+@keyframes v3-hypo-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.hqv3 .v3-hypo-attach,
+.hqv3 .v3-hypo-send {
+  flex: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.hqv3 .v3-hypo-attach {
+  background: transparent;
+  color: var(--forest-400);
+}
+.hqv3 .v3-hypo-attach:hover {
+  background: var(--paper-200);
+  color: var(--forest-800);
+}
+.hqv3 .v3-hypo-send {
+  background: var(--lime-500);
+  color: var(--forest-800);
+}
+.hqv3 .v3-hypo-send:disabled {
+  background: var(--paper-200);
+  color: var(--on-light-45);
+  cursor: default;
+}
+.hqv3 .v3-hypo-attach:focus-visible,
+.hqv3 .v3-hypo-send:focus-visible {
+  box-shadow: var(--focus-ring);
+  outline: none;
+}
+.hqv3 .v3-hypo-foot {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  padding: 0 8px;
+}
+.hqv3 .v3-hypo-partner {
+  border: 0;
+  background: transparent;
+  padding: 2px 0 4px;
+  font-size: var(--text-caption);
+  color: var(--forest-400);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.hqv3 .v3-hypo-partner:hover {
+  color: var(--forest-800);
+}
+.hqv3 .v3-hypo-notice {
+  font-size: var(--text-caption);
+  color: var(--on-light-45);
+}
+.hqv3 .v3-hypo-notice a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+/* ---------------------------------------------------------------- dossier panel */
+.hqv3 .v3-hypo-dossier {
+  background: #fff;
+  border-left: 1px solid var(--paper-300);
+  min-height: 0;
+  overflow-y: auto;
+}
+.hqv3 .v3-hypo-dossier-toggle {
+  display: none;
+}
+.hqv3 .v3-hypo-dossier-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 24px;
+  font-size: var(--text-body-sm);
+}
+.hqv3 .v3-hypo-dossier-head {
+  margin-top: 8px;
+  font-weight: var(--weight-semibold);
+}
+.hqv3 .v3-hypo-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.hqv3 .v3-hypo-bar {
+  display: block;
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--paper-200);
+  overflow: hidden;
+}
+.hqv3 .v3-hypo-bar > span {
+  display: block;
+  height: 100%;
+  background: var(--lime-600);
+  transition: width 0.4s var(--ease-out);
+}
+.hqv3 .v3-hypo-docs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.hqv3 .v3-hypo-docs li {
+  display: grid;
+  grid-template-columns: 16px minmax(0, 1fr);
+  gap: 8px;
+  align-items: baseline;
+  color: var(--on-light-70);
+}
+.hqv3 .v3-hypo-docs li.is-ok {
+  color: var(--forest-800);
+}
+.hqv3 .v3-hypo-check {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  border: 1px solid var(--paper-400);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  line-height: 1;
+}
+.hqv3 .v3-hypo-docs li.is-ok .v3-hypo-check {
+  background: var(--success-500);
+  border-color: var(--success-500);
+  color: #fff;
+}
+
+/* ---------------------------------------------------------------- narrower: panel above the chat */
+@media (max-width: 1099px) {
+  .hqv3 .v3-hypo-body {
+    display: flex;
+    flex-direction: column;
+  }
+  .hqv3 .v3-hypo-dossier {
+    order: -1;
+    flex: none;
+    max-height: 60vh;
+    border-left: 0;
+    border-bottom: 1px solid var(--paper-300);
+  }
+  .hqv3 .v3-hypo-chat {
+    flex: 1;
+    height: auto;
+  }
+  .hqv3 .v3-hypo-dossier-toggle {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    border: 0;
+    background: #fff;
+    padding: 12px 20px;
+    font: inherit;
+    font-size: var(--text-body-sm);
+    font-weight: var(--weight-semibold);
+    color: var(--forest-800);
+    cursor: pointer;
+  }
+  .hqv3 .v3-hypo-dossier-toggle .v3-hypo-bar {
+    flex: 1;
+  }
+  .hqv3 .v3-hypo-dossier-body {
+    display: none;
+    padding-top: 0;
+  }
+  .hqv3 .v3-hypo-dossier.is-open .v3-hypo-dossier-body {
+    display: flex;
+  }
+}
+@media (max-width: 899px) {
+  .hqv3 .v3-hypo-head {
+    padding: 12px 16px;
+    gap: 12px;
+  }
+  .hqv3 .v3-hypo-logo,
+  .hqv3 .v3-hypo-who-sub {
+    display: none;
+  }
+  .hqv3 .v3-hypo-who {
+    padding-left: 0;
+    border-left: 0;
+  }
+  .hqv3 .v3-hypo-ghost {
+    padding: 7px 12px;
+    font-size: var(--text-caption);
+  }
+  .hqv3 .v3-hypo-chat {
+    padding: 0 16px 12px;
+  }
+  .hqv3 .v3-hypo-msg,
+  .hqv3 .v3-hypo-card {
+    max-width: 88%;
+  }
+  .hqv3 .v3-hypo-chips,
+  .hqv3 .v3-hypo-suggest {
+    padding-left: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hqv3 .v3-hypo-line,
+  .hqv3 .v3-hypo-typing,
+  .hqv3 .v3-hypo-dots i,
+  .hqv3 .v3-hypo-example,
+  .hqv3 .v3-hypo-reading::after {
+    animation: none;
+  }
+}

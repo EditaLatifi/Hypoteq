@@ -1,6 +1,7 @@
 "use client";
 
 import "./funnel-v3.css";
+import "./hypo/hypo.css";
 import { useEffect, useRef, type ComponentType } from "react";
 import { useFunnelV3, useFunnelV3Hydration } from "@/lib/funnel-v3/store";
 import { RAIL_SCREENS, screenAt, stepCount, type Screen } from "@/lib/funnel-v3/steps";
@@ -17,6 +18,8 @@ import Sidebar from "./Sidebar";
 import StartScreen from "./StartScreen";
 import StepHead from "./StepHead";
 import Confirmation from "./finish/Confirmation";
+import HypoChat from "./hypo/HypoChat";
+import { useHypoHydration } from "./hypo/hypoStore";
 import { readDone } from "./finish/doneState";
 import ScreenAnfrage from "./steps/ScreenAnfrage";
 import { ScreenAbschluss, ScreenUpload } from "./steps/ScreenDocuments";
@@ -53,13 +56,17 @@ function FunnelToast() {
  * for the mode's screens.
  */
 export default function FunnelV3() {
-  const hydrated = useFunnelV3Hydration();
+  const funnelHydrated = useFunnelV3Hydration();
+  // HYPO's conversation has its own sessionStorage copy (hypo/hypoStore.ts).
+  const hypoHydrated = useHypoHydration();
+  const hydrated = funnelHydrated && hypoHydrated;
   const { lang } = useFunnelT();
   const step = useFunnelV3((s) => s.step);
   const mode = useFunnelV3((s) => s.mode);
   const role = useFunnelV3((s) => s.role);
   const bmail = useFunnelV3((s) => s.txt.bmail);
   const submissionId = useFunnelV3((s) => s.submissionId);
+  const channel = useFunnelV3((s) => s.channel);
   const done = useFunnelUI((s) => s.done);
   const returnTo = useFunnelUI((s) => s.returnTo);
   const reviewing = useFunnelUI((s) => s.reviewing);
@@ -147,6 +154,16 @@ export default function FunnelV3() {
   }, [goNext, goPrev]);
 
   if (!hydrated) return <div className="hqv3 is-start" aria-busy="true" />;
+
+  // HYPO, the chat entry (docs/funnel-v5/HYPOTEQ_Konzept_HYPO_ChatFunnel.md): it lives on the
+  // start step and hands over to the funnel's screens (Kap. 5.6, 8).
+  if (step === 0 && channel === "chat") {
+    return (
+      <div className="hqv3 is-start is-hypo">
+        <HypoChat />
+      </div>
+    );
+  }
 
   if (step === 0) {
     return (

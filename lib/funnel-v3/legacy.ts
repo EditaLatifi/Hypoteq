@@ -49,6 +49,10 @@ export interface StoredFunnelState extends Pick<FunnelState, "role" | "mode" | "
   legacyEquity?: LegacyEquity;
   /** v3 answers v5 has no field for, as stored — for display only. */
   legacy?: { lieg?: string; heizung?: string; kinder?: YesNo; ab50?: YesNo };
+  /** Started in HYPO, the chat (DECISIONS V92): `entry_channel: "chat"` in the Salesforce JSON. */
+  channel?: "chat";
+  /** HYPO's Immobilienbewertung (Konzept Kap. 6): ordered, with the address given in the chat. */
+  hypo?: { bewertung: boolean; adresse?: string };
 }
 
 const isObj = (v: unknown): v is Record<string, unknown> => !!v && typeof v === "object" && !Array.isArray(v);
@@ -143,6 +147,11 @@ export function normaliseFunnelState(raw: unknown): StoredFunnelState | null {
     sig: isObj(raw.sig) && (raw.sig.choice === "uploaded" || raw.sig.choice === "later") ? (raw.sig as unknown as SignatureState) : null,
     borrowers: borrowersOf(raw.borrowers),
   };
+  if (raw.channel === "chat") out.channel = "chat";
+  if (isObj(raw.hypo)) {
+    const adresse = str(raw.hypo.adresse).trim();
+    out.hypo = { bewertung: raw.hypo.bewertung === true, ...(adresse ? { adresse } : {}) };
+  }
   if (!v3) {
     // A state stored by v3InquiryColumns keeps what normalising a v3 one produced.
     if (isObj(raw.legacyEquity)) out.legacyEquity = raw.legacyEquity as LegacyEquity;
