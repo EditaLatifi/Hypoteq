@@ -29,7 +29,11 @@ export async function POST(req: Request) {
   try {
     // Parse the incoming request body (JSON)
     const data = await req.json();
-    console.log('📥 Received data:', JSON.stringify(data, null, 2)); // Debugging step to ensure proper structure
+    // The body carries the customer's personal data and HYPO's chat transcript, so only its shape is logged.
+    console.log(
+      "📥 Received inquiry:",
+      JSON.stringify({ keys: Object.keys(data ?? {}), customerType: data?.customerType ?? null, entry_channel: data?.entry_channel ?? null })
+    );
 
     // === EMAIL VALIDATION ===
     const email = data?.client?.email;
