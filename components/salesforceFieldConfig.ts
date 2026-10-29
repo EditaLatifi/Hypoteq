@@ -26,6 +26,8 @@ export const SALESFORCE_CASE_FIELDS: Record<string, SFFieldType> = {
   Leasing__c: "boolean",
   Unterhaltspflicht__c: "boolean",
   Solidarbuergschaft__c: "boolean",
+  // HYPOTEQ 29.10.2026 point 4/6: a valuation requested in HYPO, the chat (Funnel v5 payloads only).
+  Bewertung_angefragt__c: "boolean",
 
   // Currency fields
   Betrag__c: "currency",
@@ -80,6 +82,8 @@ export const SALESFORCE_CASE_FIELDS: Record<string, SFFieldType> = {
 
   // String fields
   Kommentar__c: "string",
+  // The standard Case Origin; the funnel sets it only for a request from HYPO («HYPO Chat»).
+  Origin: "picklist",
   Case_Name__c: "string",
   // Property location (Objektinformationen tab). The funnel already collects both in
   // PropertyStep, where they are mandatory — they used to feed only the Case name.

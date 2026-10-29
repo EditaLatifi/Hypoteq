@@ -6,12 +6,13 @@
  *
  * The gate is the one of the document extraction (components/documentIntelligence/enabled.ts),
  * with its own opt-in: on the Production deployment HYPO is off until HYPOTEQ sets
- * HYPOTEQ_HYPO_IN_PRODUCTION — the provider and its hosting are still their decision (Konzept,
- * offener Punkt 3).
+ * HYPOTEQ_HYPO_IN_PRODUCTION (their release, 29.10.2026 point 10). The model is Claude on AWS
+ * Bedrock from Zürich (./bedrockProvider.ts, HYPOTEQ 29.10.2026 point 2).
  */
 
 import { coerce, isHypoKey, type HypoKey, type HypoValue } from "@/lib/funnel-v3/hypo/fields";
 import { INTENTS, type HypoIntent } from "./prompt";
+import { bedrockHypoConfig } from "./bedrockProvider";
 
 export interface HypoExtractRequest {
   lang: string;
@@ -119,7 +120,7 @@ export function hypoDisabledReason(): string | null {
 
 /** Whether the model can be asked at all (HYPO still runs without: chips and plain answers). */
 export function hypoModelConfigured(): boolean {
-  return Boolean((process.env.OPENAI_API_KEY ?? "").trim());
+  return bedrockHypoConfig() !== null;
 }
 
 const LANGS = ["de", "en", "fr", "it"] as const;

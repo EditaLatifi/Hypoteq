@@ -389,3 +389,33 @@ describe("evaluable fields of HYPOTEQ 19.10. (B13, B15, B17, D.1)", () => {
     }
   });
 });
+
+describe("HYPO, the chat (HYPOTEQ 29.10.2026 points 6, 7)", () => {
+  it("a chat request sets Origin «HYPO Chat», Bewertung_angefragt__c and attaches the transcript to the Case", async () => {
+    const sf = fakeSalesforce();
+    const attachTextFile = jest.fn(async (_id: string, _name: string, _text: string) => "068FILE");
+    await syncFunnelStepsToSalesforce(v5Payload(kaufState(), { hypo: { bewertung: true, transcript: "[29.10.2026 10:00] HYPO: Hallo!" } }), { ...sf.api, attachTextFile });
+    const c = sf.calls.cases[0];
+    expect(c.Origin).toBe("HYPO Chat");
+    expect(c.Bewertung_angefragt__c).toBe(true);
+    expect(attachTextFile).toHaveBeenCalledWith("500CASE", expect.stringMatching(/_00_HYPO-Chatverlauf\.txt$/), "[29.10.2026 10:00] HYPO: Hallo!");
+  });
+
+  it("without the valuation the checkbox is left alone; a failed attachment never costs the Case", async () => {
+    const sf = fakeSalesforce();
+    const attachTextFile = jest.fn(async () => {
+      throw new Error("INSUFFICIENT_ACCESS");
+    });
+    jest.spyOn(console, "error").mockImplementation(() => {});
+    const res = await syncFunnelStepsToSalesforce(v5Payload(kaufState(), { hypo: { bewertung: false, transcript: "x" } }), { ...sf.api, attachTextFile });
+    expect(res.case).toEqual({ id: "500CASE" });
+    expect(sf.calls.cases[0].Origin).toBe("HYPO Chat");
+    expect("Bewertung_angefragt__c" in sf.calls.cases[0]).toBe(false);
+  });
+
+  it("a request from the form keeps the Origin Salesforce gives it", async () => {
+    const { c } = await sync(kaufState());
+    expect("Origin" in c).toBe(false);
+    expect("Bewertung_angefragt__c" in c).toBe(false);
+  });
+});

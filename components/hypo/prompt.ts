@@ -5,13 +5,13 @@
  * customer sees — every HYPO sentence is a fixed, reviewed text in four languages
  * (messages/funnel-v3/*.json `hypo`), so the guardrails of Kap. 9 do not depend on a prompt.
  *
- * Vendor-neutral; the OpenAI call is ./openaiProvider.ts.
+ * Vendor-neutral; the call is ./bedrockProvider.ts (Claude on AWS Bedrock).
  */
 
 import { HYPO_FIELDS, type HypoFieldDef } from "@/lib/funnel-v3/hypo/fields";
 
 /** Bump when the instructions change: stored with each logged extraction. */
-export const HYPO_PROMPT_VERSION = "2026-10-27.1";
+export const HYPO_PROMPT_VERSION = "2026-10-29.1";
 
 export const INTENTS = [
   "advice",
@@ -102,7 +102,7 @@ export function buildHypoSchema() {
           type: "object",
           properties: {
             key: { type: "string", enum: HYPO_FIELDS.map((f) => f.key) },
-            value: { type: ["string", "number"] },
+            value: { anyOf: [{ type: "string" }, { type: "number" }] },
             confidence: { type: "number" },
           },
           required: ["key", "value", "confidence"],
@@ -111,7 +111,7 @@ export function buildHypoSchema() {
       },
       intents: { type: "array", items: { type: "string", enum: [...INTENTS] } },
       extras: { type: "array", items: { type: "string" } },
-      advisorQuestion: { type: ["string", "null"] },
+      advisorQuestion: { anyOf: [{ type: "string" }, { type: "null" }] },
     },
     required: ["fields", "intents", "extras", "advisorQuestion"],
     additionalProperties: false,

@@ -9,7 +9,7 @@ import {
   validateHypoResult,
   type HypoExtractRequest,
 } from "@/components/hypo/extract";
-import { OpenAIHypoProvider } from "@/components/hypo/openaiProvider";
+import { BedrockHypoProvider } from "@/components/hypo/bedrockProvider";
 import { HYPO_PROMPT_VERSION } from "@/components/hypo/prompt";
 import { asksAboutBot } from "@/lib/funnel-v3/hypo/parse";
 
@@ -75,7 +75,7 @@ export async function POST(req: Request) {
     message,
   };
 
-  const provider = new OpenAIHypoProvider();
+  const provider = new BedrockHypoProvider();
   const started = Date.now();
   try {
     const result = validateHypoResult(await provider.extract(request), message);

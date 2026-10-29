@@ -96,7 +96,7 @@ function MessageView({ m, fields }: { m: HypoMessage; fields: readonly AbgleichF
       body = t(m.key, m.params ? formatParams(m.params, lang) : undefined);
       break;
     case "link":
-      body = <LinkCard textKey={m.key} url={m.url} />;
+      body = <LinkCard textKey={m.key} url={m.url} labelKey={m.label} />;
       break;
     case "recognised":
       return <RecognisedCard items={m.items} notes={m.notes} />;

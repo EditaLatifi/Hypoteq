@@ -591,6 +591,22 @@ export async function updateCase(id: string, fields: Record<string, any>) {
   );
 }
 
+/**
+ * A text file under «Files» of a record (ContentVersion published to it), e.g. HYPO's chat
+ * transcript on the Case (HYPOTEQ 29.10.2026 point 7). Returns the ContentVersion Id.
+ */
+export async function attachTextFile(recordId: string, fileName: string, text: string): Promise<string> {
+  await ensureSession();
+  const res: any = await conn.sobject('ContentVersion').create({
+    Title: fileName.replace(/\.[^.]+$/, ''),
+    PathOnClient: fileName,
+    VersionData: Buffer.from(text, 'utf8').toString('base64'),
+    FirstPublishLocationId: recordId,
+  });
+  if (!res?.success && !res?.id) throw new Error(`ContentVersion not created: ${JSON.stringify(res?.errors ?? res)}`);
+  return res.id;
+}
+
 // Cached per warm instance — the Id is fixed for the org. Only the success path is
 // cached, so granting the record type takes effect without a redeploy.
 let personAccountRecordTypeId: string | null = null;
@@ -656,4 +672,5 @@ export default {
   findContactOnAccount,
   createOrUpdateCase,
   updateCase,
+  attachTextFile,
 };

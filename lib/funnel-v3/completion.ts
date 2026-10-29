@@ -119,6 +119,8 @@ export interface V3CompletionResult {
   folderWebUrl: string | null;
   files: CompletedFile[];
   dossier: { name: string; webUrl: string; driveItemId: string } | null;
+  /** Name of HYPO's transcript, also for its copy on the Salesforce Case; absent without a chat. */
+  transcriptName?: string;
   /** Steps that failed (each logged); empty when everything ran. */
   errors: string[];
 }
@@ -543,9 +545,10 @@ export async function completeV3Inquiry(input: CompletionInput, deps?: Partial<C
 
   // c'. HYPO's conversation (Konzept Kap. 9): internal like the funnel's raw data, beside the dossier.
   const transcript = typeof input.data?.hypo?.transcript === "string" ? input.data.hypo.transcript : "";
+  const transcriptName = transcript ? transcriptFileName(input.caseNumber) : undefined;
   if (transcript && token && folderId) {
     try {
-      const item = await d.graph.upload(folderId, transcriptFileName(input.caseNumber), new TextEncoder().encode(transcript), "text/plain; charset=utf-8", token);
+      const item = await d.graph.upload(folderId, transcriptName!, new TextEncoder().encode(transcript), "text/plain; charset=utf-8", token);
       log.log(`${tag} chat transcript stored as ${item.name}`);
     } catch (err) {
       fail("transcript", err);
@@ -553,7 +556,7 @@ export async function completeV3Inquiry(input: CompletionInput, deps?: Partial<C
   }
 
   log.log(`${tag} ${files.filter((f) => f.storedName).length} renamed, ${files.filter((f) => f.removed).length} removed, ${errors.length} error(s)`);
-  return { folderId, folderWebUrl, files, dossier, errors };
+  return { folderId, folderWebUrl, files, dossier, ...(transcriptName ? { transcriptName } : {}), errors };
 }
 
 export function dossierInputFor(data: any, state: V3State, files: CompletedFile[], caseNumber: string | null, date: Date): DossierInput {

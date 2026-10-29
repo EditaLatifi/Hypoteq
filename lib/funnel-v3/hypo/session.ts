@@ -26,6 +26,12 @@ export interface PartnerMatch {
 /** The offers of Kap. 6 — each made at most once per conversation. */
 export type Offer = "broker" | "academy" | "bewertung" | "language";
 
+/**
+ * Kap. 6 Immobilienbewertung (HYPOTEQ 29.10.2026, point 4): HYPO offers this link, the customer
+ * answers the questions there; the chat gives no advice and still sets «Bewertung angefragt».
+ */
+export const BEWERTUNG_URL = "https://hypoteq-hedonic.wuestappraisal.com";
+
 export interface HypoSession {
   role: HypoRole;
   /** The first message was sent: the partner chip is gone (Kap. 4). */
@@ -96,7 +102,7 @@ export function initialSession(role: HypoRole = "kunde"): HypoSession {
 export type HypoMessage =
   | { id: string; from: "user"; kind: "text"; text: string; at: string }
   | { id: string; from: "hypo"; kind: "text"; key: string; params?: Record<string, string | number>; at: string }
-  | { id: string; from: "hypo"; kind: "link"; key: string; url: string; at: string }
+  | { id: string; from: "hypo"; kind: "link"; key: string; url: string; label?: string; at: string }
   | { id: string; from: "hypo"; kind: "recognised"; items: RecognisedItem[]; notes?: string[]; at: string }
   | { id: string; from: "hypo"; kind: "document"; fileId: string; at: string }
   | { id: string; from: "hypo"; kind: "conflict"; fieldId: string; at: string }

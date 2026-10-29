@@ -12,6 +12,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@anthropic-ai/bedrock-sdk": "^1.1.0",
     "@azure/identity": "^4.13.0",
     "@microsoft/microsoft-graph-client": "^3.0.7",
     "@prisma/client": "^6.19.2",

@@ -6,15 +6,17 @@
 import { describe, it, expect, beforeEach, afterEach, jest } from "@jest/globals";
 
 const extract = jest.fn<(req: any) => Promise<unknown>>();
-jest.mock("@/components/hypo/openaiProvider", () => ({
-  OpenAIHypoProvider: class {
-    readonly name = "openai";
+jest.mock("@/components/hypo/bedrockProvider", () => ({
+  ...jest.requireActual<typeof import("@/components/hypo/bedrockProvider")>("@/components/hypo/bedrockProvider"),
+  BedrockHypoProvider: class {
+    readonly name = "bedrock";
     readonly model = "test-model";
     extract = extract;
   },
 }));
 
 import { GET, POST } from "@/app/api/hypo/route";
+import { bedrockHypoConfig } from "@/components/hypo/bedrockProvider";
 
 let ip = 0;
 const post = (body: unknown) =>
@@ -23,7 +25,7 @@ const post = (body: unknown) =>
 const env = { ...process.env };
 beforeEach(() => {
   extract.mockReset();
-  process.env.OPENAI_API_KEY = "sk-test";
+  process.env.BEDROCK_API_KEY = "bedrock-test";
 });
 afterEach(() => {
   process.env = { ...env };
@@ -57,7 +59,7 @@ describe("POST /api/hypo", () => {
       extras: ["Pensum 80 %"],
       advisorQuestion: "Wie hoch ist der Zins?",
     });
-    expect(JSON.stringify(body)).not.toMatch(/openai|gpt|test-model/i);
+    expect(JSON.stringify(body)).not.toMatch(/openai|gpt|claude|anthropic|bedrock|test-model/i);
     // Only the message and the question on screen go to the model.
     expect(Object.keys(extract.mock.calls[0][0]).sort()).toEqual(["lang", "message", "question", "questionText", "role"]);
   });
@@ -65,7 +67,7 @@ describe("POST /api/hypo", () => {
   it("a failure or a missing key is «degraded», HTTP 200", async () => {
     extract.mockRejectedValue(new Error("timeout"));
     expect(await (await post({ message: "Wir kaufen ein Haus" })).json()).toEqual({ ok: false, degraded: true });
-    delete process.env.OPENAI_API_KEY;
+    delete process.env.BEDROCK_API_KEY;
     expect(await (await post({ message: "Wir kaufen ein Haus" })).json()).toEqual({ ok: false, degraded: true });
   });
 
@@ -79,5 +81,26 @@ describe("GET /api/hypo", () => {
   it("says whether HYPO runs here — never which model", async () => {
     const body = await (await GET()).json();
     expect(body).toEqual({ enabled: true, model: true, academy: {} });
+  });
+});
+
+describe("Claude on AWS Bedrock from Zürich (HYPOTEQ 29.10.2026)", () => {
+  it("runs on the EU profile from eu-central-2 by default, with a Bedrock API key or an IAM key pair", () => {
+    expect(bedrockHypoConfig({ BEDROCK_API_KEY: "k" })).toMatchObject({ model: "eu.anthropic.claude-opus-5-5", region: "eu-central-2", apiKey: "k" });
+    expect(bedrockHypoConfig({ BEDROCK_AWS_ACCESS_KEY_ID: "id", BEDROCK_AWS_SECRET_ACCESS_KEY: "secret" })).toMatchObject({ accessKey: "id", secretKey: "secret", apiKey: null });
+  });
+
+  it("is off without its own credentials, and never leaves Europe", () => {
+    expect(bedrockHypoConfig({})).toBeNull();
+    expect(bedrockHypoConfig({ BEDROCK_AWS_ACCESS_KEY_ID: "id" })).toBeNull();
+    // The AWS_* names belong to the platform (on Vercel its own role): never used.
+    expect(bedrockHypoConfig({ AWS_ACCESS_KEY_ID: "id", AWS_SECRET_ACCESS_KEY: "secret" })).toBeNull();
+    // OpenAI is out (HYPOTEQ 29.10.2026 point 2): its key alone switches nothing on.
+    expect(bedrockHypoConfig({ OPENAI_API_KEY: "sk-test" })).toBeNull();
+    for (const model of ["global.anthropic.claude-opus-5-5", "us.anthropic.claude-opus-5-5", "openai.gpt-5.6-sol"]) {
+      expect(bedrockHypoConfig({ BEDROCK_API_KEY: "k", BEDROCK_HYPO_MODEL: model })).toBeNull();
+    }
+    expect(bedrockHypoConfig({ BEDROCK_API_KEY: "k", BEDROCK_AWS_REGION: "us-east-1" })).toBeNull();
+    expect(bedrockHypoConfig({ BEDROCK_API_KEY: "k", BEDROCK_HYPO_MODEL: "eu.anthropic.claude-sonnet-5-5" })?.model).toBe("eu.anthropic.claude-sonnet-5-5");
   });
 });

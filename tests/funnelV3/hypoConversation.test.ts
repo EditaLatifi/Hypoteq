@@ -80,7 +80,7 @@ describe("a Kauf told in one sentence (Kap. 5)", () => {
     expect(S().fin.kaufpreis).toBe(1200000);
     expect(S().ans.lieg).toBeUndefined();
     expect(H().session.emTotal).toBe(250000);
-    expect(S().txt.kommentar).toBe("Zusatzinfo: Pensum 80 %");
+    expect(S().txt.kommentar).toBe("HYPO: Zusatzinfo — Pensum 80 %");
     expect(H().messages.some((m) => m.kind === "recognised")).toBe(true);
     expect(lastKey()).toBe("hypo.q.confirm");
 
@@ -158,7 +158,7 @@ describe("advice, «bist du ein Mensch?» and the broker «Fangnetz» (Kap. 4, 6
     await sendText("Bist du ein Mensch? Wie hoch ist der Zins? Ich reiche das für meinen Kunden ein.", "de");
     const keys = H().messages.flatMap((m) => (m.from === "hypo" && m.kind === "text" ? [m.key] : []));
     expect(keys).toEqual(expect.arrayContaining(["hypo.human", "hypo.advice", "hypo.offer.broker"]));
-    expect(S().txt.kommentar).toBe("Frage an die Beratung: Wie hoch ist der Zins?");
+    expect(S().txt.kommentar).toBe("HYPO: Kundenfrage — Wie hoch ist der Zins?");
     expect(S().ans.antrag).toBe("Ablösung");
 
     await chip("Ja");
@@ -234,7 +234,8 @@ describe("without the model (Kap. 9 «Fallback»)", () => {
     await sendText("März 2027", "de");
     expect(H().session.ablauf).toBe("03.2027");
     await sendText("UBS", "de");
-    expect(S().txt.kommentar).toBe("Ablauf der Hypothek: 03.2027\nAktuelle Bank: UBS");
+    // HYPOTEQ 29.10.2026 point 5: every line HYPO files in Kommentar__c starts with «HYPO:».
+    expect(S().txt.kommentar).toBe("HYPO: Ablauf der Hypothek — 03.2027\nHYPO: Aktuelle Bank — UBS");
     expect(lastKey()).toBe("hypo.q.old");
     await sendText("800k", "de");
     expect(S().fin.old).toBe(800000);
@@ -255,7 +256,9 @@ describe("without the model (Kap. 9 «Fallback»)", () => {
     expect(lastKey()).toBe("hypo.offer.bewertung");
     await chip("Ja");
     expect(H().session.bewertung).toBe(true);
-    expect(S().txt.kommentar).toContain("Immobilienbewertung gewünscht");
+    expect(S().txt.kommentar).toContain("HYPO: Immobilienbewertung angefragt");
+    // HYPOTEQ 29.10.2026 point 4: the valuation is a link the customer follows; the chat asks on.
+    expect(H().messages.some((m) => m.kind === "link" && m.url === "https://hypoteq-hedonic.wuestappraisal.com" && m.label === "hypo.card.bewertung")).toBe(true);
     expect(lastKey()).toBe("hypo.q.val.estimate");
     await sendText("ca. 1.1 Mio", "de");
     expect(S().fin.val).toBe(1100000);

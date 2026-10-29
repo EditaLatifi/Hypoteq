@@ -71,6 +71,10 @@ describe("whitelist (Kap. 9)", () => {
   it("the model's schema allows exactly the whitelist", () => {
     const schema: any = buildHypoSchema();
     expect(schema.properties.fields.items.properties.key.enum).toEqual(HYPO_FIELDS.map((f) => f.key));
+    // Claude's structured outputs: unions as anyOf (no type arrays), every object closed.
+    expect(JSON.stringify(schema)).not.toMatch(/"type":\[/);
+    expect(schema.additionalProperties).toBe(false);
+    expect(schema.properties.fields.items.additionalProperties).toBe(false);
   });
 });
 

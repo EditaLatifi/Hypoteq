@@ -5,6 +5,7 @@ import { ART_LIEGENSCHAFT_MAP, NUTZUNG_MAP, isZweitwohnsitzNutzung } from "./pro
 import { resolvePartner, type PartnerResolution } from "./partnerDirectory";
 import { calcForState } from "@/lib/funnel-v3/calc";
 import { normaliseFunnelState } from "@/lib/funnel-v3/legacy";
+import { transcriptFileName } from "@/lib/funnel-v3/dossier/fileName";
 import { splitFullName } from "@/lib/funnel-v3/requirements";
 
 // Sales Partner = the partner *company* Account on the Case (HYPOTEQ AG for direct
@@ -16,6 +17,8 @@ const HYPOTEQ_ACCOUNT_NAME = process.env.HYPOTEQ_ACCOUNT_NAME || 'HYPOTEQ AG';
 
 export const NEW_PARTNER_NOTE = 'Neuer Partner – bitte prüfen und anlegen';
 export const PARTNER_CHECK_FAILED_NOTE = 'Partner konnte nicht geprüft werden – bitte prüfen';
+/** Case.Origin of a request from HYPO, the chat (HYPOTEQ 29.10.2026 point 6). */
+export const HYPO_CASE_ORIGIN = 'HYPO Chat';
 
 /**
  * The Comments line for an Auskunftsermächtigung submitted anyway over the AI's verdict
@@ -1234,6 +1237,13 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     caseData['Leasing__c'] = v3State.ans.leasing === 'Ja';
     caseData['Unterhaltspflicht__c'] = v3State.ans.unterhalt === 'Ja';
     caseData['Solidarbuergschaft__c'] = v3State.ans.buerge === 'Ja';
+    // HYPOTEQ 29.10.2026 point 6: a request from HYPO says so in the standard Origin (cockpit and
+    // every report) and in Bewertung_angefragt__c. Until HYPOTEQ has added the picklist value and
+    // the field, writeWithFieldFallback drops them and the intern mail lists them — never the Case.
+    if (v3State.channel === 'chat') {
+      caseData['Origin'] = HYPO_CASE_ORIGIN;
+      if (v3State.hypo?.bewertung) caseData['Bewertung_angefragt__c'] = true;
+    }
   } else {
     // v1 «Geschätzter Objektwert» (HYPOTEQ 19.10. B17 «Reste aus v1»): the legacy funnel's value.
     const value = Number(String(flatData.immobilienwert ?? '').replace(/CHF\s?|'/gi, '').trim());
@@ -1473,6 +1483,20 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
   // Create the Case
   const createdCase = await salesforceApi.createOrUpdateCase(caseData);
   console.log(`[Salesforce Sync] Case created: ${createdCase.id || createdCase.Id}`);
+
+  // HYPOTEQ 29.10.2026 point 7: HYPO's conversation also as a file on the Case — the team works
+  // there; the case folder keeps its copy (lib/funnel-v3/completion.ts). Non-fatal: the Case stands.
+  const transcript = typeof stepData.hypo?.transcript === 'string' ? stepData.hypo.transcript : '';
+  const createdCaseId = createdCase.id || createdCase.Id;
+  if (transcript && createdCaseId && typeof salesforceApi.attachTextFile === 'function') {
+    const name = stepData.v3Completion?.transcriptName || transcriptFileName(null);
+    try {
+      await salesforceApi.attachTextFile(createdCaseId, name, transcript);
+      console.log(`[Salesforce Sync] chat transcript attached to the Case as ${name}`);
+    } catch (err) {
+      console.error('[Salesforce Sync] chat transcript not attached to the Case:', err);
+    }
+  }
 
   console.log('[Salesforce Sync] ✅ Sync completed successfully');
   

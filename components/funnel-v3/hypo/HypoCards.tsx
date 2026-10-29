@@ -139,13 +139,13 @@ export function SummaryCard() {
   );
 }
 
-export function LinkCard({ textKey, url }: { textKey: string; url: string }) {
+export function LinkCard({ textKey, url, labelKey = "hypo.card.academy" }: { textKey: string; url: string; labelKey?: string }) {
   const { t } = useFunnelT();
   return (
     <span>
       {t(textKey)}{" "}
       <a className="v3-hypo-link" href={url} target="_blank" rel="noopener noreferrer">
-        {t("hypo.card.academy")} ↗
+        {t(labelKey)} ↗
       </a>
     </span>
   );

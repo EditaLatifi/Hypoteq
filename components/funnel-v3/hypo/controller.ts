@@ -35,7 +35,7 @@ import {
   withNote,
 } from "@/lib/funnel-v3/hypo/engine";
 import { asksAboutBot, asksIfHuman, isPlainAnswer, readField, saysSkip, saysUnknown } from "@/lib/funnel-v3/hypo/parse";
-import type { HypoMessage, HypoRole, HypoSession, Offer, RecognisedItem } from "@/lib/funnel-v3/hypo/session";
+import { BEWERTUNG_URL, type HypoMessage, type HypoRole, type HypoSession, type Offer, type RecognisedItem } from "@/lib/funnel-v3/hypo/session";
 import { useFunnelUI } from "../uiStore";
 import { loadHypoConfig, resetHypo, useHypo } from "./hypoStore";
 
@@ -248,10 +248,12 @@ function answerOffer(offer: Offer, yes: boolean, lang: Lang): void {
       return;
     }
     case "bewertung":
+      // HYPOTEQ 29.10.2026: the customer answers the valuation's questions behind the link; the
+      // flag and the note stay, so HYPOTEQ can count the requests.
       patch({ bewertung: yes });
       if (yes) {
         note("bewertung", "", lang);
-        say("hypo.bewertung.yes");
+        push({ from: "hypo", kind: "link", key: "hypo.bewertung.link", label: "hypo.card.bewertung", url: BEWERTUNG_URL });
       } else say("hypo.bewertung.no");
       return;
     case "language":

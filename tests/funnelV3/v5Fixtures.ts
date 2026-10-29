@@ -114,15 +114,17 @@ export function signatureOf(state: FunnelState, uploaded: boolean): SignatureJso
 /** The /api/inquiry body of a v5 submission, after the closing ran (`v3Completion`). */
 export function v5Payload(
   state: FunnelState,
-  opts: { locale?: Locale; missing?: string[]; signed?: boolean; folder?: boolean } = {}
+  opts: { locale?: Locale; missing?: string[]; signed?: boolean; folder?: boolean; hypo?: { bewertung: boolean; transcript: string } } = {}
 ): any {
   const signed = opts.signed ?? state.sig?.choice !== "later";
-  const p: any = toInquiryPayload(state, { locale: opts.locale ?? "de", submissionId: SUBMISSION, signature: signatureOf(state, signed) });
+  const chat = opts.hypo ? { channel: "chat" as const, hypo: opts.hypo } : {};
+  const p: any = toInquiryPayload(state, { locale: opts.locale ?? "de", submissionId: SUBMISSION, signature: signatureOf(state, signed), ...chat });
   p.v3Completion = {
     folderId: "FOLDER",
     folderWebUrl: opts.folder === false ? null : "https://sp.example/case",
     files: completedFiles(state, { missing: opts.missing, signed }),
     dossier: opts.folder === false ? null : { name: `${CASE_NO}_00_Fall-Dossier.pdf`, webUrl: "https://sp.example/case/dossier.pdf", driveItemId: "dossier" },
+    ...(opts.hypo?.transcript ? { transcriptName: `${CASE_NO}_00_HYPO-Chatverlauf.txt` } : {}),
     errors: [],
   };
   return p;
