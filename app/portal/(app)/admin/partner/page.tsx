@@ -18,9 +18,10 @@ export default async function AdminPartnersPage({ searchParams }: { searchParams
 
   let contacts: PartnerContact[] = [];
   let contactsFailed = false;
-  const [users, counts] = await Promise.all([
+  const [users, counts, accounts] = await Promise.all([
     prisma.portalUser.findMany({ where: status ? { status } : undefined, orderBy: [{ status: "asc" }, { createdAt: "desc" }], take: 500 }),
     prisma.portalUser.groupBy({ by: ["status"], _count: true }),
+    prisma.portalUser.findMany({ select: { email: true, status: true } }),
     listPartnerContacts()
       .then((c) => (contacts = c))
       .catch((err) => {
@@ -29,6 +30,12 @@ export default async function AdminPartnersPage({ searchParams }: { searchParams
       }),
   ]);
   const count = (s: string) => counts.find((c) => c.status === s)?._count ?? 0;
+  // «Partner einladen» from the list (Fisnik 02.11.2026): the Salesforce partners with an e-mail,
+  // each with its portal status, so an active or deactivated access cannot be ticked.
+  const access = new Map(accounts.map((a) => [a.email.toLowerCase(), a.status]));
+  const candidates = contacts
+    .filter((c) => c.email)
+    .map((c) => ({ id: c.id, name: c.name, company: c.company, email: c.email!, status: access.get(c.email!.trim().toLowerCase()) ?? null }));
   const filters: [string, string][] = [["", t.admin.filterAll], ...STATUSES.map((s) => [s, t.admin.access[s]] as [string, string])];
 
   return (
@@ -55,7 +62,7 @@ export default async function AdminPartnersPage({ searchParams }: { searchParams
         <Card>
           <Eyebrow accent>{t.admin.inviteTitle}</Eyebrow>
           <p className="m-0 text-[15px] text-white/70">{t.admin.inviteText}</p>
-          <InviteForm />
+          <InviteForm candidates={candidates} />
         </Card>
 
         <Card>

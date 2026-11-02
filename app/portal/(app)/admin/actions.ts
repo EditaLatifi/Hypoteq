@@ -19,17 +19,14 @@ async function sendInvite(userId: string) {
   await sendInviteMail({ to: user.email, name: user.name, company: user.company, origin: requestOrigin(), token, locale: user.locale });
 }
 
-/**
- * Invite a partner by e-mail. A partner must exist as a Contact in Salesforce: that
- * Contact is what their Cases point at, so without it the portal would show them nothing.
- */
-export async function invitePartnerAction(_prev: AdminFormState, fd: FormData): Promise<AdminFormState> {
-  const admin = await requireAdmin();
-  const { t, locale } = await getDict();
-  const email = normalizeEmail(String(fd.get("email") || ""));
-  const asAdmin = fd.get("role") === "admin";
-  if (!isPlausibleEmail(email)) return { error: t.admin.err.email };
+type Admin = Awaited<ReturnType<typeof requireAdmin>>;
+type T = Awaited<ReturnType<typeof getDict>>["t"];
 
+/**
+ * Invite one address. A partner must exist as a Contact in Salesforce: that Contact is what
+ * their Cases point at, so without it the portal would show them nothing.
+ */
+async function inviteOne(admin: Admin, email: string, asAdmin: boolean, t: T, locale: string): Promise<{ ok: true } | { error: string }> {
   const existing = await prisma.portalUser.findUnique({ where: { email } });
   if (existing?.status === "active") return { error: t.admin.err.alreadyActive(email) };
   if (existing?.status === "disabled") return { error: t.admin.err.isDisabled(email) };
@@ -77,11 +74,42 @@ export async function invitePartnerAction(_prev: AdminFormState, fd: FormData): 
     await sendInvite(user.id);
   } catch (err) {
     console.error("[portal] invite mail failed", err);
-    return { error: t.admin.err.mailFailed };
+    return { error: `${email}: ${t.admin.err.mailFailed}` };
   }
   await audit({ action: "partner_invited", actorId: admin.id, actorEmail: admin.email, target: `${data.name || email} · ${email}`, ip: requestIp() });
-  revalidatePath("/portal/admin/partner");
-  return { ok: t.admin.ok.invited(email) };
+  return { ok: true };
+}
+
+/**
+ * «Partner einladen»: the typed address and every partner ticked in the Salesforce list
+ * (Fisnik 02.11.2026). Each one is checked on its own as before — a ticked e-mail is looked up
+ * in Salesforce again, never trusted from the form. «Als Administrator» applies to the typed one.
+ */
+export async function invitePartnerAction(_prev: AdminFormState, fd: FormData): Promise<AdminFormState> {
+  const admin = await requireAdmin();
+  const { t, locale } = await getDict();
+  const typed = normalizeEmail(String(fd.get("email") || ""));
+  const asAdmin = fd.get("role") === "admin";
+  if (typed && !isPlausibleEmail(typed)) return { error: t.admin.err.email };
+  const picked = fd.getAll("emails").map((v) => normalizeEmail(String(v))).filter(isPlausibleEmail);
+  const emails = Array.from(new Set([typed, ...picked].filter(Boolean)));
+  if (!emails.length) return { error: t.admin.err.nothing };
+
+  const sent: string[] = [];
+  const errors = new Set<string>();
+  // A few at a time: each is a Salesforce lookup and a mail.
+  for (let i = 0; i < emails.length; i += 5) {
+    const results = await Promise.all(emails.slice(i, i + 5).map((email) => inviteOne(admin, email, asAdmin && email === typed, t, locale).then((r) => ({ email, r }))));
+    for (const { email, r } of results) {
+      if ("error" in r) errors.add(r.error);
+      else sent.push(email);
+    }
+  }
+  if (sent.length) revalidatePath("/portal/admin/partner");
+  return {
+    ...(sent.length ? { ok: sent.length === 1 ? t.admin.ok.invited(sent[0]) : t.admin.ok.invitedMany(sent) } : {}),
+    ...(errors.size ? { error: Array.from(errors).join(" ") } : {}),
+  };
 }
 
 export async function resendInviteAction(fd: FormData): Promise<void> {
