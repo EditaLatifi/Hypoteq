@@ -18,7 +18,7 @@ describe("finishSummary — Fall Mustermann", () => {
       ["Gesamtfinanzierung", "CHF 550'000"],
       ["Belehnung", "44.4 %"],
       ["Tragbarkeit", "36.3 %"],
-      ["Unterlagen", "20 / 20"],
+      ["Unterlagen", "21 / 21"],
     ]);
   });
 
@@ -56,7 +56,7 @@ describe("finishSummary — Fall Mustermann", () => {
     // v5: the chips that were tapped (prototype finalChecks).
     expect(sub.kreditnehmer).toBe("Max Mustermann · CHF 110'000 brutto · Unterhaltszahlungen · Privatkredit · Leasing");
     expect(sub.trag).toBe("36.3 % · 44.4 %");
-    expect(sub.docs).toBe("20 von 20 Anforderungen erfüllt");
+    expect(sub.docs).toBe("21 von 21 Anforderungen erfüllt");
     expect(sub.fromDocs).toBe(`${s.extractedFields} Angaben ausgelesen statt abgefragt · 0 manuell bestätigt`);
     expect(s.extractedFields).toBe(9);
   });
@@ -87,18 +87,18 @@ describe("finishSummary — title choice and documents", () => {
     expect(s.lead).toContain("2 Dokument(e) fehlen noch");
     const docs = s.checks.find((c) => c.key === "docs")!;
     expect(docs.ok).toBe(false);
-    expect(docs.sub).toBe("18 von 20 Anforderungen erfüllt · 2 fehlen");
-    expect(s.kpis[3].value).toBe("18 / 20");
+    expect(docs.sub).toBe("19 von 21 Anforderungen erfüllt · 2 fehlen");
+    expect(s.kpis[3].value).toBe("19 / 21");
   });
 
   it("an optional requirement marked «Habe ich nicht» counts as fulfilled and does not block", () => {
     const files = mustermannFiles().filter((f) => f.instanceId !== "verkaufsdoku");
     const open = summary(okState(), files);
-    expect(open.kpis[3].value).toBe("19 / 20");
+    expect(open.kpis[3].value).toBe("20 / 21");
     expect(open.missingRequired).toBe(0);
     expect(open.allGood).toBe(true);
     const skipped = summary(okState(), files, "de", ["verkaufsdoku"]);
-    expect(skipped.kpis[3].value).toBe("20 / 20");
+    expect(skipped.kpis[3].value).toBe("21 / 21");
   });
 
   it("partial and outdated are «zu prüfen»", () => {
@@ -107,7 +107,7 @@ describe("finishSummary — title choice and documents", () => {
       .map((f) => (f.instanceId === "grundbuch" ? { ...f, outdatedOverride: false } : f));
     const s = summary(okState(), files);
     expect(s.toReview).toBe(2);
-    expect(s.checks.find((c) => c.key === "docs")!.sub).toBe("18 von 20 Anforderungen erfüllt · 2 zu prüfen");
+    expect(s.checks.find((c) => c.key === "docs")!.sub).toBe("19 von 21 Anforderungen erfüllt · 2 zu prüfen");
   });
 
   it("empty answers: placeholders instead of blanks, Tragbarkeit «–»", () => {

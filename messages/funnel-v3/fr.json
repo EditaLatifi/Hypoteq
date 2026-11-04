@@ -603,11 +603,10 @@
     "choose": "Veuillez choisir une option.",
     "email": "Veuillez saisir une adresse e-mail valide.",
     "amount": "Veuillez saisir un montant en CHF.",
-    "plaus.ceiling": "{amount} est inhabituellement élevé – veuillez vérifier le montant.",
-    "plaus.floor": "{amount} est inhabituellement bas – veuillez vérifier le montant.",
-    "plaus.overValue": "L’hypothèque ({mortgage}) est supérieure à la valeur du bien ({amount}). Veuillez vérifier la valeur du bien.",
-    "plaus.farBelow": "La valeur du bien est bien inférieure au prix d’achat ({price}). Veuillez la vérifier – ou laissez le champ vide si vous ne la connaissez pas.",
-    "plaus.renoOver": "Le montant des rénovations est supérieur au prix d’achat ({price}) – veuillez vérifier le montant."
+    "range": "Veuillez vérifier le montant – il doit se situer entre CHF 10'000 et CHF 100'000'000.",
+    "tooHigh": "Veuillez vérifier le montant – au-delà de CHF 100'000'000, la valeur n’est pas valable.",
+    "overCost": "L’hypothèque est supérieure à la valeur du bien et aux rénovations réunies. Veuillez vérifier la valeur du bien et les montants.",
+    "plaus.overValue": "L’hypothèque ({mortgage}) est supérieure à la valeur du bien ({amount}) – le taux d’avance dépasse 100 %. Vous pouvez tout de même continuer ; HYPOTEQ clarifiera ce point avec vous lors de l’entretien."
   },
   "qs": {
     "antrag": "Demande",

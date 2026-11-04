@@ -7,6 +7,7 @@ import { calcFinancing } from "@/lib/funnel-v3/calc";
 import { chf } from "@/lib/funnel-v3/format";
 import { EM_ROWS, NUTZUNG_OPTIONS, type Answers, type FieldPath } from "@/lib/funnel-v3/types";
 import { useFunnelState, usePlausibility, useScreenErrors } from "../hooks";
+import { objektwertShown } from "@/lib/funnel-v3/objektwert";
 import { calcInputOf, disabledOptions, emRowHint, equityLine, visibleFields } from "../logic";
 import Choice, { type ChoiceProps } from "../ui/Choice";
 import { AmountField, TextArea, TextField } from "../ui/Fields";
@@ -94,7 +95,7 @@ export default function ScreenObjekt() {
       {choice("nutz", { options: NUTZUNG_OPTIONS[ans.kn] })}
       {show.has("miete") ? (
         <div className="v3-two v3-rise">
-          <AmountField field="miete" label={t("s2.rentIncome")} hint={t("s2.rentHint")} value={fin.miete} onChange={(n) => setFin("miete", n)} warning={plaus("miete")} />
+          <AmountField field="miete" label={t("s2.rentIncome")} hint={t("s2.rentHint")} value={fin.miete} onChange={(n) => setFin("miete", n)} />
         </div>
       ) : null}
 
@@ -110,13 +111,12 @@ export default function ScreenObjekt() {
               onChange={(n) => setFin("old", n)}
               source="fin.old"
               error={errors.old}
-              warning={plaus("old")}
             />
           </div>
           {choice("aufstockung")}
           {show.has("up") ? (
             <div className="v3-two v3-rise">
-              <AmountField field="up" label={t("s2.increase")} value={fin.up} onChange={(n) => setFin("up", n)} error={errors.up} warning={plaus("up")} />
+              <AmountField field="up" label={t("s2.increase")} value={fin.up} onChange={(n) => setFin("up", n)} error={errors.up} />
               <TextField
                 field="zweck"
                 autoComplete="off"
@@ -141,7 +141,6 @@ export default function ScreenObjekt() {
               onChange={(n) => setFin("kaufpreis", n)}
               source="fin.kaufpreis"
               error={errors.kaufpreis}
-              warning={plaus("kaufpreis")}
             />
             <TextField
               field="kaufdatum"
@@ -164,7 +163,6 @@ export default function ScreenObjekt() {
                 value={fin.renoBetrag}
                 onChange={(n) => setFin("renoBetrag", n)}
                 error={errors.renoBetrag}
-                warning={plaus("renoBetrag")}
               />
             </div>
           ) : null}
@@ -178,10 +176,11 @@ export default function ScreenObjekt() {
             <AmountField
               field="val"
               label={t("s4.value")}
-              // Handover 2: «Bei Kauf leer = Kaufpreis (Platzhalter zeigt den Kaufpreis)».
+              // Handover 2 «Bei Kauf leer = Kaufpreis»; Fisnik 04.11. Punkt 5: prefilled with Kaufpreis
+              // + Renovation until the customer changes it (DECISIONS V107); emptied, the placeholder says it.
               placeholder={kauf && fin.kaufpreis > 0 ? chf(fin.kaufpreis + (ans.reno === "Ja" ? fin.renoBetrag || 0 : 0)) : "CHF"}
               hint={t(kauf ? (ans.reno === "Ja" && (fin.renoBetrag || 0) > 0 ? "s2.valueIsCost" : "s2.valueIsPrice") : "s4.valueHint")}
-              value={fin.val}
+              value={objektwertShown(state)}
               onChange={(n) => setFin("val", n)}
               source="fin.val"
               error={errors.val}
@@ -203,7 +202,7 @@ export default function ScreenObjekt() {
                   value={em[k]}
                   onChange={(n) => setEm(k, n)}
                   source={`em.${k}` as FieldPath}
-                  warning={plaus(`em.${k}`)}
+                  error={errors[`em.${k}`]}
                 />
               ))}
             </div>

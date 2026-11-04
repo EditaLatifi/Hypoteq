@@ -1231,8 +1231,9 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     // (A company's zeichnungsberechtigte Person is its Contact since HYPOTEQ 19.10. B16 — no
     // longer the first line of Kommentar__c; the JSON keeps it, `kontakt.zeichnungsberechtigt`.)
 
-    // HYPOTEQ 19.10. B17 / D.1: the Geschätzter Objektwert as entered — an empty one is not
-    // invented from the Kaufpreis (Kaufpreis__c has that), DECISIONS V60.
+    // HYPOTEQ 19.10. B17 / D.1: the Geschätzter Objektwert as submitted — since Fisnik 04.11.2026
+    // (DECISIONS V107) also the prefilled Kaufpreis + Renovation; the Abgleich JSON says
+    // `objektwert.prefilled` then. An emptied field stays empty (V60).
     if (v3State.fin.val > 0) caseData['Geschaetzter_Objektwert__c'] = Math.round(v3State.fin.val);
     // HYPOTEQ 19.10. D.1: the chips in Checkboxes as well («auswertbar»); the JSON keeps them.
     caseData['Privatkredit__c'] = v3State.ans.kredite === 'Ja';

@@ -135,5 +135,8 @@ export function mustermannFiles(): FileEntry[] {
     file("01_Leasingvertrag_MusterLeasing_Max_Musterman.pdf", null, analysis("leasing", { requirementId: null, extraKind: "duplicate", contentHash: "sha-leasing-muster" })),
     file("01_Steuerrechnung_Max_Mustermann_2023_Schlussrechnung.pdf", null, analysis("nn_steuerrechnung", { requirementId: null, extraKind: "notneeded", extraReason: "Steuerrechnung" })),
     file("03_Nebenkostenabrechnung_Musterweg_1_Zuerich_2025.PDF", null, analysis("nn_nebenkosten", { requirementId: null, extraKind: "notneeded", extraReason: "Nebenkostenabrechnung" }), { keep: true }),
+    // Appended so the numbered ids of the files above stay as they were.
+    // HYPOTEQ 04.11.2026: the Betreibungsauszug for private persons too (DECISIONS V108); no date, so the 3-month rule never ages the fixture.
+    file("01_Betreibungsauszug_Max_Mustermann_2026.pdf", "betreibung#b1", analysis("betreibung", { personName: "Mustermann Max", docDate: null })),
   ];
 }

@@ -23,34 +23,35 @@ const has = (s: ReqState, code: string) => codes(s).includes(code);
 const docs = (s: ReqState) => documentInstances(reqList(s));
 
 describe('Mustermann progression (Handover 4.1, v5)', () => {
-  // v5: the Auskunftsermächtigung is its own block (Handover 6) — the documents list starts at 10.
-  it('counts 10 → 12 → 14 → 17 → 19 documents, plus the Auskunftsermächtigung', () => {
+  // v5: the Auskunftsermächtigung is its own block (Handover 6) — the documents list starts at 11
+  // since HYPOTEQ 04.11.2026 asks every Kreditnehmer for the Betreibungsauszug (DECISIONS V108).
+  it('counts 11 → 13 → 15 → 18 → 20 documents, plus the Auskunftsermächtigung', () => {
     // Fresh funnel: nothing tapped, Max angestellt, no amounts.
     let ans: Partial<Answers> = {};
-    expect(docs(mkState(ans))).toHaveLength(10);
-    expect(reqList(mkState(ans))).toHaveLength(11);
+    expect(docs(mkState(ans))).toHaveLength(11);
+    expect(reqList(mkState(ans))).toHaveLength(12);
 
     // Ablösung mit Erhöhung, bestehende Immobilie: Produktvereinbarung + Zinsabrechnung.
     ans = { ...ans, antrag: 'Ablösung', anrede: 'Herr', immo: 'Bestehende Immobilie', aufstockung: 'Ja' };
-    expect(docs(mkState(ans))).toHaveLength(12);
+    expect(docs(mkState(ans))).toHaveLength(13);
 
     // Stockwerkeigentum, selbstbewohnt.
     ans = { ...ans, lieg: 'Stockwerkeigentum', nutz: 'Selbstbewohnt' };
-    expect(docs(mkState(ans))).toHaveLength(14);
+    expect(docs(mkState(ans))).toHaveLength(15);
 
     // Chips: Unterhalt, Privatkredit, Leasing.
     ans = { ...ans, unterhalt: 'Ja', kredite: 'Ja', leasing: 'Ja' };
-    expect(docs(mkState(ans))).toHaveLength(17);
+    expect(docs(mkState(ans))).toHaveLength(18);
     expect(ans).toEqual(MUSTERMANN_ANSWERS);
 
     // Vorsorge: Säule 3a amount → Bescheinigung + Police.
-    expect(docs(mkState(ans, {}, {}, undefined, { em: MUSTERMANN_EM }))).toHaveLength(19);
+    expect(docs(mkState(ans, {}, {}, undefined, { em: MUSTERMANN_EM }))).toHaveLength(20);
   });
 
-  it('is the 20 requirements of the v5 Mustermann list', () => {
+  it('is the 21 requirements of the v5 Mustermann list', () => {
     const ids = reqList(mkState(MUSTERMANN_ANSWERS, {}, {}, undefined, { em: MUSTERMANN_EM })).map((r) => r.id).sort();
     expect(ids).toEqual(
-      ['vollmacht', 'id', 'lohnausweise', 'lohnabrechnungen', 'pk', 'steuer', 's3a', 'police',
+      ['vollmacht', 'id', 'betreibung', 'lohnausweise', 'lohnabrechnungen', 'pk', 'steuer', 's3a', 'police',
         'unterhalt', 'kredit', 'leasing', 'fotos', 'grundbuch', 'gvz', 'verkaufsdoku', 'stwe_regl', 'stwe_plan', 'ef',
         'produkt', 'hyp_zins'].sort()
     );
@@ -114,7 +115,9 @@ const RULES: [string, Case[], Case[]][] = [
   ['P14', [{ ans: { buerge: 'Ja' } }, { ans: { ...JP, buerge: 'Ja' } }], [{ ans: { buerge: 'Nein' } }]],
   ['P15', [{ ans: { buerge: 'Ja' } }], [{ ans: { buerge: 'Nein' } }]],
   ['P16', [{ ans: { buerge: 'Ja' } }], [{ ans: { buerge: 'Nein' } }]],
-  ...(['J1', 'J2', 'J3', 'J4', 'J5', 'J6'].map((c) => [c, [{ ans: JP }], [{}, { ans: { kn: 'Natürliche Person' } }]] as [string, Case[], Case[]])),
+  ...(['J1', 'J2', 'J3', 'J4', 'J6'].map((c) => [c, [{ ans: JP }], [{}, { ans: { kn: 'Natürliche Person' } }]] as [string, Case[], Case[]])),
+  // HYPOTEQ 04.11.2026: the Betreibungsauszug for every borrower type (DECISIONS V108).
+  ['J5', [{ ans: JP }, {}, { ans: { kn: 'Natürliche Person' } }, { b: { job: 'Pensioniert' } }], []],
   // v5: only Neue Hypothek.
   ['E1', [{ ans: { antrag: 'Neue Hypothek' } }, { ans: { ...JP, antrag: 'Neue Hypothek' } }], [{ ans: { antrag: 'Ablösung' } }, {}]],
   ['E2', [{ em: { s3a: 1000 } }, { info: { ab50: true } }, { em: { s3a: 1000 }, ans: JP }], [{}, { info: { ab50: true }, ans: JP }]],
@@ -143,10 +146,10 @@ describe('P17 · Kreditnehmer 2', () => {
     { id: 'b1', vor: 'Max', nach: 'Mustermann', job: 'Angestellt', pkSe: 'Nein' },
     { id: 'b2', vor: 'Lea', nach: 'Mustermann', pkSe: 'Nein' },
   ];
-  it('gives Kreditnehmer 2 ID, Lohnausweis, Lohnabrechnungen and PK-Ausweis — no tax return, no 4.2 documents', () => {
+  it('gives Kreditnehmer 2 ID, Betreibungsauszug, Lohnausweis, Lohnabrechnungen and PK-Ausweis — no tax return, no 4.2 documents', () => {
     const list = reqList(mkState({}, {}, {}, two, { info: { bonus: true, raise: true } }));
-    expect(list.filter((r) => r.borrowerId === 'b2').map((r) => r.instanceId)).toEqual(['id#b2', 'lohnausweise#b2', 'lohnabrechnungen#b2', 'pk#b2']);
-    expect(list.filter((r) => r.borrowerId === 'b1').map((r) => r.id)).toEqual(['id', 'lohnausweise', 'lohnabrechnungen', 'pk', 'lohnausweise_alt', 'anstellung', 'steuer']);
+    expect(list.filter((r) => r.borrowerId === 'b2').map((r) => r.instanceId)).toEqual(['id#b2', 'betreibung#b2', 'lohnausweise#b2', 'lohnabrechnungen#b2', 'pk#b2']);
+    expect(list.filter((r) => r.borrowerId === 'b1').map((r) => r.id)).toEqual(['id', 'betreibung', 'lohnausweise', 'lohnabrechnungen', 'pk', 'lohnausweise_alt', 'anstellung', 'steuer']);
   });
   it('has none without a Kreditnehmer 2', () => {
     expect(reqList(mkState()).some((r) => r.borrowerId && r.borrowerId !== 'b1')).toBe(false);
@@ -161,9 +164,9 @@ describe('P17 · Kreditnehmer 2', () => {
     const person = reqList(mkState({}, {}, {}, v3)).filter((r) => r.group === 'person').map((r) => r.instanceId);
     expect(person).toEqual([
       'vollmacht',
-      'id#b1', 'lohnausweise#b1', 'lohnabrechnungen#b1', 'pk#b1', 'steuer#b1',
-      'id#b2', 'pk#b2', 'abschluss_se#b2',
-      'id#b3', 'rente#b3',
+      'id#b1', 'betreibung#b1', 'lohnausweise#b1', 'lohnabrechnungen#b1', 'pk#b1', 'steuer#b1',
+      'id#b2', 'betreibung#b2', 'pk#b2', 'abschluss_se#b2',
+      'id#b3', 'betreibung#b3', 'rente#b3',
     ]);
   });
 });
@@ -227,7 +230,7 @@ describe('per-borrower expansion', () => {
   it('still lists one borrower before any is entered, named from step 1', () => {
     const l = reqList({ ...mkState(), borrowers: [] });
     expect(l.find((r) => r.id === 'id')!.person?.display).toBe('Max Mustermann');
-    expect(l).toHaveLength(11);
+    expect(l).toHaveLength(12);
   });
   it('gives case-level person documents to the first borrower', () => {
     expect(reqList(mkState()).find((r) => r.id === 'vollmacht')!.person?.display).toBe('Max Mustermann');

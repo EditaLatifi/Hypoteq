@@ -27,7 +27,8 @@ const fullSet = () =>
 describe('requirementStatus (spec 4.2)', () => {
   it('starts with everything missing', () => {
     const { res } = stateOf([]);
-    expect(res.counts).toMatchObject({ total: 21, missing: 21, ok: 0, fulfilled: 0 });
+    // 21 of Handover 4.1 + the Betreibungsauszug (HYPOTEQ 04.11.2026, DECISIONS V108).
+    expect(res.counts).toMatchObject({ total: 22, missing: 22, ok: 0, fulfilled: 0 });
     expect(res.completeForSalesforce).toBe(false);
   });
 
@@ -78,7 +79,7 @@ describe('requirementStatus (spec 4.2)', () => {
   it('is complete for Salesforce with every mandatory requirement ok, optional ones skipped', () => {
     const files = fullSet().filter((f) => f.requirementId !== 'verkaufsdoku');
     const { res } = stateOf(files, ['verkaufsdoku']);
-    expect(res.counts).toMatchObject({ ok: 20, skipped: 1, fulfilled: 21, missing: 0 });
+    expect(res.counts).toMatchObject({ ok: 21, skipped: 1, fulfilled: 22, missing: 0 });
     expect(res.completeForSalesforce).toBe(true);
     // An optional document may also simply be missing.
     expect(stateOf(files).res.completeForSalesforce).toBe(true);
@@ -107,6 +108,7 @@ describe('Dok_* flags (spec 6.9)', () => {
       Dok_Grundbuchauszug__c: true,
       Dok_Gebaeudeversicherungsausweis__c: true,
       Dok_Identitaetsdokument__c: true,
+      Dok_Betreibungsregisterauszug__c: true,
       Dok_Lohnausweis__c: true,
       Dok_Pensionskassenausweis__c: true,
       Dok_Steuererklaerung__c: true,

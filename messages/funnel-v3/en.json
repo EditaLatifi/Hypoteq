@@ -603,11 +603,10 @@
     "choose": "Please choose an option.",
     "email": "Please enter a valid email address.",
     "amount": "Please enter an amount in CHF.",
-    "plaus.ceiling": "{amount} is unusually high – please check the amount.",
-    "plaus.floor": "{amount} is unusually low – please check the amount.",
-    "plaus.overValue": "The mortgage ({mortgage}) is higher than the property value ({amount}). Please check the property value.",
-    "plaus.farBelow": "The property value is far below the purchase price ({price}). Please check it – or leave the field empty if you do not know it.",
-    "plaus.renoOver": "The renovation amount is higher than the purchase price ({price}) – please check the amount."
+    "range": "Please check the amount – it must be between CHF 10'000 and CHF 100'000'000.",
+    "tooHigh": "Please check the amount – above CHF 100'000'000 is not a valid value.",
+    "overCost": "The mortgage is higher than the property value and the renovation together. Please check the property value and the amounts.",
+    "plaus.overValue": "The mortgage ({mortgage}) is higher than the property value ({amount}) – the loan-to-value ratio is above 100 %. You can still continue; HYPOTEQ will clarify this with you in the consultation."
   },
   "qs": {
     "antrag": "Request",

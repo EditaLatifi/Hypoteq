@@ -308,11 +308,17 @@ describe("Gesamtfinanzierung from the v5 calculation and the JSON (Handover 5, 8
 });
 
 describe("evaluable fields of HYPOTEQ 19.10. (B13, B15, B17, D.1)", () => {
-  it("Geschätzter Objektwert → Geschaetzter_Objektwert__c as entered; empty at a Kauf → not written", async () => {
+  it("Geschätzter Objektwert → Geschaetzter_Objektwert__c as submitted; at a Kauf prefilled with Kaufpreis + Renovation (V107), an emptied field not written", async () => {
     expect((await sync(kaufState({ fin: { ...kaufState().fin, val: 1100000 } }))).c.Geschaetzter_Objektwert__c).toBe(1100000);
-    const empty = await sync(kaufState({ fin: { ...kaufState().fin, val: 0 } }));
+    // Untouched: the prefilled Kaufpreis + Renovation, marked in the Abgleich JSON.
+    const prefilled = await sync(kaufState({ ans: { ...kaufState().ans, reno: "Ja" }, fin: { ...kaufState().fin, val: 0, renoBetrag: 80000 } }));
+    expect(prefilled.c.Geschaetzter_Objektwert__c).toBe(1080000);
+    expect(JSON.parse(prefilled.c.Funnel_Abgleich_State__c).objektwert).toEqual({ value: 1080000, prefilled: true });
+    // Emptied by the customer: nothing invented.
+    const empty = await sync(kaufState({ fin: { ...kaufState().fin, val: 0 }, touched: { "fin.val": true } }));
     expect(empty.c).not.toHaveProperty("Geschaetzter_Objektwert__c");
     expect(empty.c.Kaufpreis__c).toBe(1000000);
+    expect(JSON.parse(empty.c.Funnel_Abgleich_State__c).objektwert).toEqual({ value: null, prefilled: false });
     expect((await sync(ablState())).c.Geschaetzter_Objektwert__c).toBe(1200000);
   });
 

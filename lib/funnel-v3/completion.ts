@@ -730,11 +730,14 @@ export function abgleichCaseField(
       marks: { chat: state.hypo?.answered ?? [], src: state.src },
       documents,
       signature,
+      // Fisnik 04.11. Punkt 4: «die Warnung kommt als hinweis im JSON mit» — for the analyst.
       plausibility: plausibilityWarnings(state).map((w) => ({
         feld: w.field,
         code: w.code,
-        hinweis: translate("de", w.key, Object.fromEntries(Object.entries(w.params).map(([k, v]) => [k, chf(v)]))),
+        hinweis: `Belehnung über 100 %: Hypothek ${chf(w.params.mortgage)} höher als der Objektwert ${chf(w.params.amount)} – der Kunde hat den Hinweis gesehen und weitergemacht.`,
       })),
+      // Fisnik 04.11. Punkt 5: a prefilled Objektwert is calculated, not confirmed.
+      objektwert: state.ans.antrag ? { value: state.fin.val > 0 ? state.fin.val : null, prefilled: state.valPrefilled === true } : null,
     })
   );
 }

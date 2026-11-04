@@ -55,7 +55,7 @@ describe('Dokumenten_Check_State__c v3 (spec 6.11)', () => {
     // Handover 8: the Eigenmittel split (PK-Verpfändung only here).
     expect(s.answers.eigenmittel).toEqual({ s3a: 8760, pkVerp: 20000 });
     expect(s.answers.borrowers).toEqual([{ id: 'b1', job: 'Angestellt', pkSe: 'Nein' }]);
-    expect(s.requirements).toHaveLength(21);
+    expect(s.requirements).toHaveLength(22);
     expect(s.requirements.find((r: any) => r.id === 'grundbuch')).toEqual({
       id: 'grundbuch', code: 'O4', label: 'Aktueller Grundbuchauszug (max. 6 Monate)', group: 'objekt', reason: 'Pflicht', status: 'outdated',
       files: details.grundbuch.files, fields: details.grundbuch.fields, audit: details.grundbuch.audit,

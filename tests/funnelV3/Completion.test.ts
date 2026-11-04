@@ -236,7 +236,7 @@ describe("completeV3Inquiry", () => {
     // Handover 4.3 «Nichts wird gelöscht»: the duplicate and the not-needed files (Steuerrechnung;
     // Anstellungsvertrag, Eigenmittelnachweis, Schuldbrief since v5) stay, renamed like every file.
     expect(f.removed).toEqual([]);
-    expect(res.files.filter((x) => x.storedName).length).toBe(30);
+    expect(res.files.filter((x) => x.storedName).length).toBe(31);
     expect(res.files.find((x) => x.documentId === "doc-28")).toMatchObject({ storedName: "HQ-26-01-000001_01_DUPLIKAT_Leasingvertrag_Mustermann-Max_2026-06-02.pdf" });
     expect(res.files.some((x) => x.removed)).toBe(false);
 

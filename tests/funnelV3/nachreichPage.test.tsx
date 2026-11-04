@@ -41,7 +41,7 @@ describe("NachreichV3 (server render)", () => {
     expect(html).toContain(">Photos du bien (intérieur et extérieur)<");
     expect(html).toContain(">Certificat de salaire actuel<");
     expect(html).toContain(">Convention de produit actuelle<");
-    expect((html.match(/class="v3-docrow /g) || []).length).toBe(7);
+    expect((html.match(/class="v3-docrow /g) || []).length).toBe(8);
     expect(html).not.toContain("registre foncier"); // the Grundbuch is not missing
     expect(html).toMatch(/<button type="button" class="v3-btn v3-btn--primary" disabled="">Envoyer les documents<\/button>/);
   });
@@ -59,7 +59,7 @@ describe("NachreichV3 (server render)", () => {
     expect(html).toContain("Par Max Mustermann – par tous les emprunteurs s’il y en a plusieurs.");
     expect(html).toContain(">Télécharger signé</button>");
     // Not a row of the person group, and no «später» on this page.
-    expect((html.match(/class="v3-docrow /g) || []).length).toBe(7);
+    expect((html.match(/class="v3-docrow /g) || []).length).toBe(8);
     expect(html).not.toContain("Remettre plus tard");
     // The slot comes before the drop zone.
     expect(html.indexOf("v3-sig")).toBeLessThan(html.indexOf("v3-drop"));

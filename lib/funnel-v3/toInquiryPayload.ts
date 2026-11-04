@@ -24,6 +24,7 @@
  */
 
 import { calcForState } from "./calc";
+import { isObjektwertPrefilled, objektwertDefault } from "./objektwert";
 import { FUNNEL_STATE_VERSION } from "./legacy";
 import type { SignatureJson } from "./signature";
 import { EMPTY_EM, isRentedNutzung, type Anrede, type Borrower, type FunnelState, type Job, type Laufzeit, type Liegenschaft, type Nutzung, type YesNo } from "./types";
@@ -115,7 +116,11 @@ export function buildKommentar(zweck: string, kommentar: string): string {
 }
 
 export function toInquiryPayload(state: FunnelState, opts: InquiryPayloadOptions) {
-  const { ans, txt, fin, role } = state;
+  const { ans, txt, role } = state;
+  // Fisnik 04.11.2026 Punkt 5 (DECISIONS V107): the prefilled Objektwert (Kaufpreis + Renovation)
+  // goes out as the value, marked `valPrefilled` while the customer left it as it was.
+  const valPrefilled = isObjektwertPrefilled(state);
+  const fin = valPrefilled ? { ...state.fin, val: objektwertDefault(state) } : state.fin;
   // Defensive: a caller with an older state object has no Eigenmittel and no document facts.
   const em = state.em ?? EMPTY_EM;
   const info = state.info ?? {};
@@ -263,6 +268,7 @@ export function toInquiryPayload(state: FunnelState, opts: InquiryPayloadOptions
       ans,
       txt,
       fin,
+      ...(valPrefilled ? { valPrefilled: true as const } : {}),
       em,
       borrowers: isJur ? state.borrowers.slice(0, 1) : borrowers,
       info,

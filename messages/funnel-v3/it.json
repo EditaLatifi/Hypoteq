@@ -603,11 +603,10 @@
     "choose": "Si prega di scegliere un’opzione.",
     "email": "Si prega di inserire un indirizzo e-mail valido.",
     "amount": "Si prega di inserire un importo in CHF.",
-    "plaus.ceiling": "{amount} è insolitamente alto – verifichi l’importo.",
-    "plaus.floor": "{amount} è insolitamente basso – verifichi l’importo.",
-    "plaus.overValue": "L’ipoteca ({mortgage}) è superiore al valore dell’immobile ({amount}). Verifichi il valore dell’immobile.",
-    "plaus.farBelow": "Il valore dell’immobile è molto inferiore al prezzo d’acquisto ({price}). Lo verifichi – oppure lasci vuoto il campo se non lo conosce.",
-    "plaus.renoOver": "L’importo della ristrutturazione è superiore al prezzo d’acquisto ({price}) – verifichi l’importo."
+    "range": "Verifichi l’importo – deve essere compreso tra CHF 10'000 e CHF 100'000'000.",
+    "tooHigh": "Verifichi l’importo – oltre CHF 100'000'000 non è un valore valido.",
+    "overCost": "L’ipoteca è superiore al valore dell’immobile e alla ristrutturazione insieme. Verifichi il valore dell’immobile e gli importi.",
+    "plaus.overValue": "L’ipoteca ({mortgage}) è superiore al valore dell’immobile ({amount}) – il grado di anticipo supera il 100 %. Può comunque proseguire; HYPOTEQ chiarirà la questione con Lei durante il colloquio."
   },
   "qs": {
     "antrag": "Richiesta",

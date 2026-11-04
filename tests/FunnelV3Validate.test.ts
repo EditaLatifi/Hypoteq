@@ -69,8 +69,10 @@ describe("validateScreen (Handover 2, 3)", () => {
 
     const kauf = empty({ ...base, ans: { ...DEFAULT_ANSWERS, antrag: "Neue Hypothek", reno: "Ja" } });
     expect(validateScreen("objekt", kauf)).toEqual({ immo: "val.choose", lieg: "val.choose", nutz: "val.choose", kaufpreis: "val.amount", renoBetrag: "val.amount" });
-    // A Kauf needs no Objektwert (empty = Kaufpreis) and no Laufzeit (optional since v5).
-    expect(validateScreen("objekt", { ...kauf, ans: { ...kauf.ans, immo: "Neubau", lieg: "Einfamilienhaus", nutz: "Selbstbewohnt", reno: "Nein" }, fin: { ...EMPTY_AMOUNTS, kaufpreis: 1 } })).toEqual({});
+    // A Kauf needs no Objektwert (prefilled with the Kaufpreis, V107) and no Laufzeit (optional since v5).
+    expect(validateScreen("objekt", { ...kauf, ans: { ...kauf.ans, immo: "Neubau", lieg: "Einfamilienhaus", nutz: "Selbstbewohnt", reno: "Nein" }, fin: { ...EMPTY_AMOUNTS, kaufpreis: 900000 } })).toEqual({});
+    // A Kaufpreis of CHF 1 is a typing error (Fisnik 04.11.2026 Punkt 4, V104).
+    expect(validateScreen("objekt", { ...kauf, ans: { ...kauf.ans, immo: "Neubau", lieg: "Einfamilienhaus", nutz: "Selbstbewohnt", reno: "Nein" }, fin: { ...EMPTY_AMOUNTS, kaufpreis: 1 } })).toMatchObject({ kaufpreis: "val.range" });
     expect(validateScreen("objekt", empty())).toMatchObject({ plz: "val.required", ort: "val.required" });
   });
 

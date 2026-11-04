@@ -385,9 +385,10 @@ export const REQ: readonly RequirementDef[] = [
   }),
   def({
     id: "betreibung", code: "J5", group: "person", labelDe: "Aktueller Betreibungsauszug",
-    shortName: "Betreibungsauszug", personKind: "company", sfDokField: "Dok_Betreibungsregisterauszug__c",
+    // The company's, or each Kreditnehmer's (HYPOTEQ 04.11.2026: Pflicht auch für Privatpersonen).
+    shortName: "Betreibungsauszug", sfDokField: "Dok_Betreibungsregisterauszug__c",
     legacyKeys: ["funnel.debtCollectionExtractCurrent"],
-    rule: "juristische Person",
+    rule: "juristische Person · natürliche Person: pro Kreditnehmer (HYPOTEQ 04.11.2026)",
   }),
   def({
     id: "steuer_jp", code: "J6", group: "person", labelDe: "Aktuelle Steuererklärung der Gesellschaft",
@@ -672,7 +673,7 @@ export function reqList(state: ReqState): RequirementInstance[] {
   const info = state.info ?? {};
   const legacy = state.legacyEquity ?? {};
   const out: RequirementInstance[] = [];
-  const push = (id: string, reason: ReqReason, extra?: { borrower?: Borrower; person?: PersonRef }) => {
+  const push = (id: string, reason: ReqReason, extra?: { borrower?: Borrower; person?: PersonRef; perBorrower?: boolean }) => {
     const d = BY_ID.get(id)!;
     const b = extra?.borrower;
     out.push({
@@ -685,7 +686,7 @@ export function reqList(state: ReqState): RequirementInstance[] {
       reason,
       expect: d.expect,
       optional: d.optional,
-      perBorrower: d.perBorrower,
+      perBorrower: extra?.perBorrower ?? d.perBorrower,
       borrowerId: b?.id,
       person: b ? borrowerRef(b) : extra?.person,
       def: d,
@@ -761,6 +762,9 @@ export function reqList(state: ReqState): RequirementInstance[] {
     borrowers.forEach((b, i) => {
       const first = i === 0;
       push("id", PER_BORROWER, { borrower: b });
+      // HYPOTEQ 04.11.2026 (Fisnik, Punkt 6): the Betreibungsauszug is required for private persons
+      // too — each Kreditnehmer's (DECISIONS V108).
+      push("betreibung", PER_BORROWER, { borrower: b, perBorrower: true });
       if (isEmployedOrOpen(b.job)) {
         push("lohnausweise", PER_BORROWER, { borrower: b });
         push("lohnabrechnungen", PER_BORROWER, { borrower: b });

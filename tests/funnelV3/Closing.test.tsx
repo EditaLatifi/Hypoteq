@@ -25,13 +25,13 @@ const render = () => renderToStaticMarkup(createElement(Closing));
 
 describe("Closing (server render)", () => {
   it("shows title, KPIs, hints, the check list, the Auskunftsermächtigung block and both actions", () => {
-    expect(mustermannFiles()).toHaveLength(30);
+    expect(mustermannFiles()).toHaveLength(31);
     expect(mustermannState().ans.antrag).toBe("Ablösung");
     const html = render();
     expect(html).toContain("Letzter Blick auf die Anfrage");
     expect(html).toContain(">Abschluss<");
     expect(html).toContain('class="v3-kpi-value">CHF 550&#x27;000<');
-    expect(html).toContain('class="v3-kpi-value">20 / 20<');
+    expect(html).toContain('class="v3-kpi-value">21 / 21<');
     expect(html).toContain("Hinweise an die Bank · 4");
     expect((html.match(/class="v3-hintrow"/g) || []).length).toBe(4);
     expect((html.match(/class="v3-checkrow"/g) || []).length).toBe(6);
@@ -45,7 +45,7 @@ describe("Closing (server render)", () => {
     // Spezifikation Datenabgleich 2.4: the dossier card on the left, before the submit.
     expect(html).toContain('class="v3-dossier-title">Fall-Dossier herunterladen<');
     // No size: the PDF does not carry the documents (HYPOTEQ 26.10.2026).
-    expect(html).toContain('class="v3-dossier-meta">Alle Angaben &amp; 30 Unterlagen im Überblick · PDF<');
+    expect(html).toContain('class="v3-dossier-meta">Alle Angaben &amp; 31 Unterlagen im Überblick · PDF<');
     expect(html).toContain(">Herunterladen</button>");
     expect(html.indexOf('class="v3-dossier"')).toBeLessThan(html.indexOf("v3-submit-go"));
     // The confirmation is a page of its own now (Confirmation.tsx), never part of the closing.

@@ -43,7 +43,7 @@ beforeEach(() => {
 
 describe("confirmation page (Spezifikation Datenabgleich 2.5)", () => {
   it("thanks with the case number, the three next steps, the dossier and the homepage", () => {
-    expect(mustermannFiles()).toHaveLength(30);
+    expect(mustermannFiles()).toHaveLength(31);
     expect(mustermannState().txt.vor).toBe("Max");
     const html = render();
     expect(html).toContain(">Anfrage eingereicht – vielen Dank!</h1>");

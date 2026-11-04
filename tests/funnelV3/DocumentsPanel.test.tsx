@@ -72,7 +72,7 @@ describe("«Fehlende Unterlagen & Abschluss» of the Schnellanmeldung (V82; Spez
     expect(heads(html)).toEqual([
       { open: false, text: "Zum Objekt | Alles vollständig. | 7 / 7" },
       { open: false, text: "Bestehende Hypothek | Alles vollständig. | 2 / 2" },
-      { open: false, text: "Zur Person · Max Mustermann | Aktuelle Steuererklärung, Kreditverträge (Privatkredite) | 2 fehlend | 6 / 8" },
+      { open: false, text: "Zur Person · Max Mustermann | Aktuelle Steuererklärung, Kreditverträge (Privatkredite) | 2 fehlend | 7 / 9" },
       { open: false, text: "Eigenmittel &amp; Vorsorge | Alles vollständig. | 2 / 2" },
       { open: false, text: "Weitere Dateien | Überzählig · Duplikat · Nicht benötigt | 9" },
     ]);

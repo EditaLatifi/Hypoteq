@@ -383,8 +383,8 @@ export async function POST(req: Request) {
     let salesforceError: unknown = null;
     let salesforceCaseId: string | null = null;
     let salesforceDropped: string[] = [];
-    // HYPOTEQ 03.11.2026 2.3 (DECISIONS V102): in test mode only a ZZTEST submission with
-    // HYPOTEQ_TEST_SALESFORCE reaches Salesforce; everything else is withheld as before.
+    // HYPOTEQ 03.11.2026 2.3 / 04.11. (DECISIONS V102): in test mode only a ZZTEST submission
+    // (last name ZZTEST and a «+test» address) reaches Salesforce; everything else is withheld.
     const salesforceSkipped = !salesforceAllowedFor(data);
     try {
       // Ensure LastName is present for Salesforce
@@ -417,7 +417,7 @@ export async function POST(req: Request) {
         skipped("Salesforce sync", `Case would have been created for ${data.client?.email ?? "unknown"}`);
         throw new SkipInTestMode();
       }
-      if (isTestMode()) console.log("[TEST MODE] ZZTEST submission: the Salesforce Case is created (HYPOTEQ_TEST_SALESFORCE)");
+      if (isTestMode()) console.log("[TEST MODE] ZZTEST submission: the Salesforce Case is created");
       const salesforceApi = (await import("@/components/salesforceApi")).default;
       const { syncFunnelStepsToSalesforce } = await import("@/components/syncFunnelStepsToSalesforce");
       await salesforceApi.login();

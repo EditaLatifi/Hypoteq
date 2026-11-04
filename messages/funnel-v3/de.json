@@ -603,11 +603,10 @@
     "choose": "Bitte eine Option wählen.",
     "email": "Bitte eine gültige E-Mail-Adresse eingeben.",
     "amount": "Bitte einen Betrag in CHF eingeben.",
-    "plaus.ceiling": "{amount} ist ungewöhnlich hoch – bitte prüfe den Betrag.",
-    "plaus.floor": "{amount} ist ungewöhnlich tief – bitte prüfe den Betrag.",
-    "plaus.overValue": "Die Hypothek ({mortgage}) ist höher als der Objektwert ({amount}). Bitte prüfe den Objektwert.",
-    "plaus.farBelow": "Der Objektwert liegt weit unter dem Kaufpreis ({price}). Bitte prüfe ihn – oder lass das Feld leer, wenn du ihn nicht kennst.",
-    "plaus.renoOver": "Der Renovationsbetrag ist höher als der Kaufpreis ({price}) – bitte prüfe den Betrag."
+    "range": "Bitte prüfe den Betrag – er muss zwischen CHF 10'000 und CHF 100'000'000 liegen.",
+    "tooHigh": "Bitte prüfe den Betrag – über CHF 100'000'000 ist kein gültiger Wert.",
+    "overCost": "Die Hypothek ist höher als Objektwert und Renovation zusammen. Bitte prüfe den Objektwert und die Beträge.",
+    "plaus.overValue": "Die Hypothek ({mortgage}) ist höher als der Objektwert ({amount}) – die Belehnung liegt über 100 %. Du kannst trotzdem weitermachen; HYPOTEQ klärt das mit dir im Gespräch."
   },
   "qs": {
     "antrag": "Kreditantrag",

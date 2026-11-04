@@ -24,7 +24,7 @@ describe("previewInput", () => {
     expect(input).toMatchObject({ lang: "it", draft: true, caseNumber: null, skipped: ["verkaufsdoku"] });
     expect(input.state.ans.antrag).toBe("Ablösung");
     expect(input.state.fin.val).toBe(1240000);
-    expect(input.files).toHaveLength(30);
+    expect(input.files).toHaveLength(31);
     expect(input.files[3]).toMatchObject({ instanceId: "grundbuch", outdatedOverride: true });
   });
 

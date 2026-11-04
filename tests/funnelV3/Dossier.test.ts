@@ -85,7 +85,7 @@ describe("Fall-Dossier model — Mustermann", () => {
       "Nicht benötigt – Nebenkostenabrechnung – mitgeführt",
     ]);
     // Every document the case carries, the further files included (Kap. 9.5).
-    expect(m.annex.intro).toBe("Folgende 30 Dokumente stehen zum Hypothekarfall zur Verfügung.");
+    expect(m.annex.intro).toBe("Folgende 31 Dokumente stehen zum Hypothekarfall zur Verfügung.");
     expect(m.annex).not.toHaveProperty("completeness");
   });
 
@@ -105,7 +105,7 @@ describe("Fall-Dossier model — Mustermann", () => {
     const fr = buildDossierModel(input({ lang: "fr" }));
     expect(fr.sections[0].title).toBe("01 · Demande");
     expect(fr.annex.groups[2].table.rows[0][1].text).not.toBe(m.annex.groups[2].table.rows[0][1].text);
-    expect(fr.annex.intro).toBe("Les 30 documents suivants sont disponibles pour ce dossier hypothécaire.");
+    expect(fr.annex.intro).toBe("Les 31 documents suivants sont disponibles pour ce dossier hypothécaire.");
     expect(fr.footer.left).toBe("Confidentiel · pour les prêteurs");
   });
 

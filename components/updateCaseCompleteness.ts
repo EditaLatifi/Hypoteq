@@ -1,5 +1,5 @@
 import { conn, login, sfQuery, updateCase } from "@/components/salesforceApi";
-import { hasZztestMark, isTestMode, skipped, testSalesforceEnabled } from "@/components/testMode";
+import { hasZztestMark, isTestMode, skipped } from "@/components/testMode";
 import { DOCUMENT_CATALOG } from "@/components/funnelDocumentCatalog";
 import { getRequirement } from "@/lib/funnel-v3/requirements";
 
@@ -14,7 +14,7 @@ import { getRequirement } from "@/lib/funnel-v3/requirements";
  */
 
 /**
- * Test mode with HYPOTEQ_TEST_SALESFORCE (HYPOTEQ 03.11.2026 2.3, DECISIONS V102): a Case may be
+ * Test mode (HYPOTEQ 03.11.2026 2.3 and 04.11.2026, DECISIONS V102): a Case may be
  * written only when Salesforce itself says it is a test Case — ZZTEST in its Case name or its
  * Account. The preview shares the production database, so an inquiry row is not proof enough;
  * a Case that cannot be read counts as not a test Case.
@@ -35,10 +35,10 @@ export async function isZztestCase(caseId: string): Promise<boolean> {
   }
 }
 
-/** Test mode: the Case stays untouched unless it is a ZZTEST Case and HYPOTEQ_TEST_SALESFORCE is on. */
+/** Test mode: the Case stays untouched unless it is a ZZTEST Case (the name match). */
 export async function caseWithheldInTestMode(caseId: string): Promise<boolean> {
   if (!isTestMode()) return false;
-  return !(testSalesforceEnabled() && (await isZztestCase(caseId)));
+  return !(await isZztestCase(caseId));
 }
 
 interface CompletenessUpdate {

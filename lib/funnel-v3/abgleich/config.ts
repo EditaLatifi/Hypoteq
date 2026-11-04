@@ -31,16 +31,16 @@ async function salesforceQuery(): Promise<Query> {
 }
 
 /**
- * The active rules. Test mode (the preview without Salesforce) uses the start values.
- * `query` is injectable for tests.
+ * The active rules, read from Salesforce wherever it is configured — also on a test deployment,
+ * where a ZZTEST submission creates a real Case (DECISIONS V102) and the Pre-Check judges it by
+ * the real rules; the read writes nothing. Without Salesforce: the start values. `testMode: true`
+ * forces the start values (tests); `query` is injectable for tests.
  */
 export async function loadPruefregeln(opts: { now?: number; query?: Query; testMode?: boolean } = {}): Promise<LoadedRules> {
   const now = opts.now ?? Date.now();
   if (cache && now - cache.at < (cache.from === "salesforce" ? RULES_TTL_MS : RETRY_MS)) return cache;
-  // ZZTEST mode (HYPOTEQ_TEST_SALESFORCE, DECISIONS V102) reads the real rules: the Pre-Check is tested with them.
-  const tm = await import("@/components/testMode");
-  const testMode = opts.testMode ?? (tm.isTestMode() && !tm.testSalesforceEnabled());
-  // Test mode, or no Salesforce configured (a test process): the start values, no request.
+  const testMode = opts.testMode === true;
+  // Forced, or no Salesforce configured (a test process): the start values, no request.
   if (!opts.query && (testMode || !process.env.SF_CLIENT_ID)) return (cache = { rules: FALLBACK_RULES, from: "fallback", at: now });
   try {
     const query = opts.query ?? (await salesforceQuery());

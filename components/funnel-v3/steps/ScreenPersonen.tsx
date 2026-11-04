@@ -5,7 +5,7 @@ import { useFunnelV3 } from "@/lib/funnel-v3/store";
 import { useFunnelT } from "@/lib/funnel-v3/useFunnelT";
 import { effectiveBorrowers, reqList } from "@/lib/funnel-v3/requirements";
 import { MAX_BORROWERS, type Borrower } from "@/lib/funnel-v3/types";
-import { useFunnelState, usePlausibility, useScreenErrors } from "../hooks";
+import { useFunnelState, useScreenErrors } from "../hooks";
 import { deltaLabel } from "../logic";
 import Choice from "../ui/Choice";
 import Chips from "../ui/Chips";
@@ -23,7 +23,6 @@ export default function ScreenPersonen() {
   const { t, opt } = useFunnelT();
   const state = useFunnelState();
   const errors = useScreenErrors("personen");
-  const plaus = usePlausibility();
   const setTxt = useFunnelV3((s) => s.setTxt);
   const setFin = useFunnelV3((s) => s.setFin);
   const addBorrower = useFunnelV3((s) => s.addBorrower);
@@ -109,7 +108,6 @@ export default function ScreenPersonen() {
                 onChange={(n) => setFin("inc", n)}
                 source="fin.inc"
                 error={errors.inc}
-                warning={plaus("inc")}
               />
             </div>
             {first ? (
@@ -172,7 +170,7 @@ export default function ScreenPersonen() {
                   onChange={(v) => updateBorrower(second.id, { nach: v })}
                   error={errors["borrower.1.nach"]}
                 />
-                <AmountField field="inc2" label={t("s3.income")} value={fin.inc2} onChange={(n) => setFin("inc2", n)} source="fin.inc2" warning={plaus("inc2")} />
+                <AmountField field="inc2" label={t("s3.income")} value={fin.inc2} onChange={(n) => setFin("inc2", n)} source="fin.inc2" />
               </div>
             </div>
           ) : null}

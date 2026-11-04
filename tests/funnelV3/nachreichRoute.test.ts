@@ -280,7 +280,7 @@ describe("POST /api/nachreichen/[token]", () => {
     // The verdict on the inquiry.
     const upd = mockDb.inquiryUpdates.find((u) => "documentsMissing" in u.data);
     expect(upd.data).toEqual({
-      documentsMissing: "id#b2,lohnausweise#b2,lohnabrechnungen#b2,pk#b2",
+      documentsMissing: "id#b2,betreibung#b2,lohnausweise#b2,lohnabrechnungen#b2,pk#b2",
       documentsComplete: false,
       nachreichCompletedAt: null,
     });

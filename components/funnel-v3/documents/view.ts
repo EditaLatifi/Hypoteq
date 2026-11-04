@@ -173,7 +173,7 @@ export const EXTRA_GROUP_ORDER: readonly ExtraGroupKey[] = ["pending", "unknown"
 /**
  * HYPOTEQ 03.11.2026 Befund 2 (DECISIONS V103): a recognised document of a type the answers do
  * not ask for (a Leasingvertrag without the chip, a Schenkungsvertrag without an amount, a
- * private person's Betreibungsauszug) is «Fallrelevant», not «Überzählig» — kept, sent along,
+ * Renovationsaufstellung without a renovation) is «Fallrelevant», not «Überzählig» — kept, sent along,
  * HYPOTEQ checks it. So is a further copy of the Auskunftsermächtigung. «Überzählig» stays for a
  * further copy of a document already there and for years not asked for.
  */

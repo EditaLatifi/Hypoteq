@@ -68,23 +68,20 @@ describe("updateCaseCompleteness", () => {
   });
 });
 
-describe("test mode: only a ZZTEST Case with HYPOTEQ_TEST_SALESFORCE (DECISIONS V102)", () => {
+describe("test mode: only a ZZTEST Case, by its name (DECISIONS V102)", () => {
   const update = () => updateCaseCompleteness(CASE, { complete: true, missing: [], supplied: ["grundbuch"], submissionId: "inq" });
   afterEach(() => {
     delete process.env.HYPOTEQ_TEST_MODE;
-    delete process.env.HYPOTEQ_TEST_SALESFORCE;
   });
 
-  it("test mode alone: nothing is written, Salesforce is not even asked", async () => {
-    process.env.HYPOTEQ_TEST_MODE = "1";
+  it("outside test mode the Case is written without asking", async () => {
     await update();
     expect(mockSfQuery).not.toHaveBeenCalled();
-    expect(mockUpdate).not.toHaveBeenCalled();
+    expect(mockUpdate).toHaveBeenCalledTimes(1);
   });
 
-  it("with the switch: written when Salesforce names the Case ZZTEST, not otherwise", async () => {
+  it("test mode: written when Salesforce names the Case ZZTEST, not otherwise", async () => {
     process.env.HYPOTEQ_TEST_MODE = "1";
-    process.env.HYPOTEQ_TEST_SALESFORCE = "1";
     mockSfQuery.mockResolvedValueOnce([{ Case_Name__c: "Muster, 8001 Zürich", Account: { Name: "Lea Muster" } }]);
     await update();
     expect(mockUpdate).not.toHaveBeenCalled();
@@ -96,7 +93,6 @@ describe("test mode: only a ZZTEST Case with HYPOTEQ_TEST_SALESFORCE (DECISIONS 
 
   it("a Case that cannot be read counts as no test Case", async () => {
     process.env.HYPOTEQ_TEST_MODE = "1";
-    process.env.HYPOTEQ_TEST_SALESFORCE = "1";
     mockSfQuery.mockRejectedValueOnce(new Error("INVALID_SESSION_ID"));
     await update();
     expect(mockUpdate).not.toHaveBeenCalled();

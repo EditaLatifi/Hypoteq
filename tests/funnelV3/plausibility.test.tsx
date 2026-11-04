@@ -1,6 +1,8 @@
 /**
- * HYPOTEQ 03.11.2026 Befunde 4 and 5 (DECISIONS V104): plausibility notes on the amounts —
- * shown under the field, never blocking «Weiter»; the same notes in the Abgleich JSON.
+ * Fisnik 04.11.2026 Punkt 4 (DECISIONS V104): hard stops only for amounts that make no sense
+ * technically (under CHF 10'000 / over CHF 100 Mio., a mortgage above Objektwert + Renovation);
+ * one soft note — Belehnung over 100 % — shown under the field, never blocking, and in the
+ * Abgleich JSON for the Pre-Check. No income limits.
  */
 import { describe, it, expect, jest } from "@jest/globals";
 import { renderToStaticMarkup } from "react-dom/server";
@@ -8,70 +10,81 @@ import { createElement } from "react";
 
 jest.mock("next/navigation", () => ({ usePathname: () => "/de/funnel" }));
 
-import { PLAUSIBILITY_LIMITS, plausibilityWarnings, warningsByField } from "@/lib/funnel-v3/plausibility";
+import { AMOUNT_LIMITS, plausibilityWarnings, warningsByField } from "@/lib/funnel-v3/plausibility";
 import { validateScreen } from "@/lib/funnel-v3/validate";
 import { AmountField } from "@/components/funnel-v3/ui/Fields";
 import { FALLBACK_RULES } from "@/lib/funnel-v3/abgleich/rules";
 import { abgleichCaseField } from "@/lib/funnel-v3/completion";
 import { LANGS, hasKey } from "@/lib/funnel-v3/i18n";
+import { EMPTY_EM } from "@/lib/funnel-v3/types";
 import { ablState, kaufState, v5Payload } from "./v5Fixtures";
 
-const codes = (s: Parameters<typeof plausibilityWarnings>[0]) => plausibilityWarnings(s).map((w) => [w.field, w.code]);
+const objekt = (s: Parameters<typeof validateScreen>[1]) => validateScreen("objekt", s);
+const reno = (over: Partial<ReturnType<typeof kaufState>["fin"]>, em = EMPTY_EM) =>
+  kaufState({ ans: { ...kaufState().ans, reno: "Ja" }, fin: { ...kaufState().fin, kaufpreis: 1_000_000, renoBetrag: 200_000, ...over }, em });
 
-describe("the rules", () => {
-  it("the test's case: Objektwert CHF 10'000 under a mortgage of CHF 500'000 (Ablösung)", () => {
-    const s = ablState({ fin: { ...ablState().fin, old: 500000, up: 0, val: 10000 } });
-    expect(codes(s)).toEqual([["val", "overValue"], ["val", "floor"]]);
-    expect(warningsByField(plausibilityWarnings(s)).get("val")).toMatchObject({ code: "overValue", key: "val.plaus.overValue", params: { amount: 10000, mortgage: 500000 } });
+describe("hard stops (typing errors)", () => {
+  it("Kaufpreis, Objektwert, bestehende Hypothek under CHF 10'000 or over CHF 100 Mio.", () => {
+    expect(objekt(kaufState({ fin: { ...kaufState().fin, kaufpreis: 9_000, val: 0 } })).kaufpreis).toBe("val.range");
+    expect(objekt(kaufState({ fin: { ...kaufState().fin, kaufpreis: 2_000_000_000 } })).kaufpreis).toBe("val.range");
+    expect(objekt(kaufState({ fin: { ...kaufState().fin, val: 1 } })).val).toBe("val.range");
+    expect(objekt(ablState({ fin: { ...ablState().fin, old: 150_000_000 } })).old).toBe("val.range");
+    expect(AMOUNT_LIMITS).toEqual({ min: 10_000, max: 100_000_000 });
   });
 
-  it("amounts in the billions", () => {
-    const s = kaufState({ fin: { ...kaufState().fin, kaufpreis: 2_000_000_000, val: 0, inc: 9_000_000_000 } });
-    expect(codes(s)).toEqual(expect.arrayContaining([["kaufpreis", "ceiling"], ["inc", "ceiling"]]));
+  it("Erhöhung, Renovation and Eigenmittel only over CHF 100 Mio. — a small renovation or 3a passes", () => {
+    expect(objekt(reno({ renoBetrag: 150_000_000 })).renoBetrag).toBe("val.tooHigh");
+    expect(objekt(reno({ renoBetrag: 5_000, val: 0 })).renoBetrag).toBeUndefined();
+    expect(objekt(kaufState({ em: { ...EMPTY_EM, s3a: 8_760, spar: 300_000 } }))).toEqual({});
+    expect(objekt(kaufState({ em: { ...EMPTY_EM, spar: 500_000_000 } }))["em.spar"]).toBe("val.tooHigh");
   });
 
-  it("Befund 5: CHF 1 as Objektwert at a Kauf; an empty one is no warning", () => {
-    expect(codes(kaufState({ fin: { ...kaufState().fin, val: 1 } }))[0]).toEqual(["val", "overValue"]);
-    expect(codes(kaufState({ fin: { ...kaufState().fin, val: 0 } }))).toEqual([]);
+  it("a mortgage above Objektwert plus Renovation", () => {
+    // Ablösung: no Renovation, so above the Objektwert is the stop.
+    expect(objekt(ablState({ fin: { ...ablState().fin, old: 500_000, up: 0, val: 400_000 } })).val).toBe("val.overCost");
+    // Kauf without Eigenmittel: the calculation takes 80 % of 1.2 Mio. = 960'000, against 700'000 + 200'000.
+    expect(objekt(reno({ val: 700_000 })).val).toBe("val.overCost");
   });
 
-  it("an Objektwert far under the Kaufpreis, a renovation above it", () => {
-    const s = kaufState({ ans: { ...kaufState().ans, reno: "Ja" }, fin: { ...kaufState().fin, kaufpreis: 1_000_000, val: 900_000, renoBetrag: 1_500_000 } });
-    // Without Eigenmittel the mortgage (2.5 Mio.) is above the value as well.
-    expect(codes(s)).toEqual([["renoBetrag", "renoOver"], ["val", "overValue"]]);
-    // Within the mortgage, but under half the price.
-    const low = kaufState({ fin: { ...kaufState().fin, kaufpreis: 1_000_000, val: 450_000 }, em: { spar: 600_000, s3a: 0, pkVor: 0, pkVerp: 0, schenk: 0, erbe: 0, darl: 0 } });
-    expect(codes(low)).toEqual([["val", "farBelow"]]);
-  });
-
-  it("an ordinary request has none, and nothing blocks «Weiter»", () => {
-    expect(plausibilityWarnings(kaufState())).toEqual([]);
-    const odd = ablState({ fin: { ...ablState().fin, old: 500000, val: 10000 } });
-    expect(plausibilityWarnings(odd).length).toBeGreaterThan(0);
-    expect(validateScreen("objekt", odd)).toEqual({});
-    expect(PLAUSIBILITY_LIMITS.propertyMax).toBe(50_000_000);
+  it("no income limits, and an ordinary request passes", () => {
+    expect(validateScreen("personen", kaufState({ fin: { ...kaufState().fin, inc: 9_000_000_000 } }))).toEqual({});
+    expect(objekt(kaufState())).toEqual({});
   });
 
   it("every message in every language", () => {
-    for (const l of LANGS) for (const c of ["ceiling", "floor", "overValue", "farBelow", "renoOver"]) expect([l, c, hasKey(l, `val.plaus.${c}`)]).toEqual([l, c, true]);
+    for (const l of LANGS) for (const k of ["val.range", "val.tooHigh", "val.overCost", "val.plaus.overValue"]) expect([l, k, hasKey(l, k)]).toEqual([l, k, true]);
   });
 });
 
-describe("under the field and in the JSON", () => {
-  it("the amount field shows the note, tied to the input, without marking it invalid", () => {
-    const html = renderToStaticMarkup(createElement(AmountField, { field: "val", label: "Objektwert", value: 10000, onChange: () => {}, warning: "Die Hypothek ist höher." }));
+describe("the soft note: Belehnung over 100 %", () => {
+  it("mortgage above the Objektwert alone, within Objektwert + Renovation: a note, «Weiter» stays free", () => {
+    // Mortgage 1.2 Mio. − 100'000 = 1.1 Mio. against 1.0 Mio. (+ 200'000 Renovation).
+    const s = reno({ val: 1_000_000 }, { ...EMPTY_EM, spar: 100_000 });
+    expect(warningsByField(plausibilityWarnings(s)).get("val")).toMatchObject({ code: "overValue", key: "val.plaus.overValue", params: { amount: 1_000_000, mortgage: 1_100_000 } });
+    expect(objekt(s)).toEqual({});
+  });
+
+  it("not when the hard stop already holds, not at 100 % or less, not for an empty field", () => {
+    expect(plausibilityWarnings(reno({ val: 700_000 }))).toEqual([]);
+    expect(plausibilityWarnings(kaufState())).toEqual([]);
+    expect(plausibilityWarnings(kaufState({ fin: { ...kaufState().fin, kaufpreis: 0, val: 0 } }))).toEqual([]);
+  });
+
+  it("under the field, tied to the input, not marking it invalid; an error wins", () => {
+    const html = renderToStaticMarkup(createElement(AmountField, { field: "val", label: "Objektwert", value: 10000, onChange: () => {}, warning: "Die Belehnung liegt über 100 %." }));
     expect(html).toContain('role="status"');
-    expect(html).toContain("Die Hypothek ist höher.");
+    expect(html).toContain("Die Belehnung liegt über 100 %.");
     expect(html).toMatch(/aria-describedby="[^"]*-warn"/);
     expect(html).not.toContain("aria-invalid");
-    // An error wins over the note.
     expect(renderToStaticMarkup(createElement(AmountField, { field: "val", label: "Objektwert", value: 0, onChange: () => {}, error: "val.amount", warning: "x" }))).not.toContain('role="status"');
   });
 
-  it("the Abgleich JSON lists them in German", () => {
-    const p = v5Payload(ablState({ fin: { ...ablState().fin, old: 500000, up: 0, val: 10000 } }), { signed: true });
+  it("as «hinweis» in the Abgleich JSON for the Pre-Check", () => {
+    const p = v5Payload(reno({ val: 1_000_000 }, { ...EMPTY_EM, spar: 100_000 }), { signed: true });
     const json = JSON.parse(abgleichCaseField(p, { rules: FALLBACK_RULES, from: "fallback" })!);
-    expect(json.plausibility[0]).toEqual({ feld: "val", code: "overValue", hinweis: "Die Hypothek (CHF 500'000) ist höher als der Objektwert (CHF 10'000). Bitte prüfe den Objektwert." });
+    expect(json.plausibility).toEqual([
+      { feld: "val", code: "overValue", hinweis: "Belehnung über 100 %: Hypothek CHF 1'100'000 höher als der Objektwert CHF 1'000'000 – der Kunde hat den Hinweis gesehen und weitergemacht." },
+    ]);
     expect("plausibility" in JSON.parse(abgleichCaseField(v5Payload(kaufState(), { signed: true }), { rules: FALLBACK_RULES, from: "fallback" })!)).toBe(false);
   });
 });

@@ -140,7 +140,7 @@ describe("nachreichV3View (GET)", () => {
     const ids = v.missing.map((m) => m.instanceId);
     // A v3 inquiry (version 1) judged by v5 (legacy.ts): the Produktvereinbarung instead of the
     // Rahmenvertrag, one current Lohnausweis, Kreditnehmer 2 per P17, no Anstellungsvertrag.
-    expect(ids).toEqual(["fotos", "produkt", "lohnausweise#b1", "id#b2", "lohnausweise#b2", "lohnabrechnungen#b2", "pk#b2"]);
+    expect(ids).toEqual(["fotos", "produkt", "lohnausweise#b1", "id#b2", "betreibung#b2", "lohnausweise#b2", "lohnabrechnungen#b2", "pk#b2"]);
     // The removed duplicate does not count for the photos; the overridden Grundbuch is fine;
     // the stored «Säule 3a = Ja» still asks for (and finds) the 3a documents.
     expect(ids).not.toContain("grundbuch");
@@ -229,10 +229,10 @@ describe("submitV3Nachreichung (POST)", () => {
 
     // Recomputed over all documents: Max complete, Anna's documents still open.
     expect(res.complete).toBe(false);
-    expect(res.remaining).toEqual(["id#b2", "lohnausweise#b2", "lohnabrechnungen#b2", "pk#b2"]);
+    expect(res.remaining).toEqual(["id#b2", "betreibung#b2", "lohnausweise#b2", "lohnabrechnungen#b2", "pk#b2"]);
     expect(res.remainingLabels[0]).toEqual({ instanceId: "id#b2", label: "Pass / Identitätskarte – Anna Muster" });
     expect(w.inquiryUpdates).toEqual([
-      { id: INQUIRY, documentsMissing: "id#b2,lohnausweise#b2,lohnabrechnungen#b2,pk#b2", documentsComplete: false, nachreichCompletedAt: null },
+      { id: INQUIRY, documentsMissing: "id#b2,betreibung#b2,lohnausweise#b2,lohnabrechnungen#b2,pk#b2", documentsComplete: false, nachreichCompletedAt: null },
     ]);
 
     // Salesforce, v3 path: Dok_* flags, completeness, folder, 6.11 state merged onto the Case's.

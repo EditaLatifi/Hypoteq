@@ -154,6 +154,8 @@ export interface AbgleichStateJson {
   documents: AbgleichDocument[];
   /** The funnel's plausibility notes on the amounts (03.11. Befunde 4, 5; never blocking); absent when none. */
   plausibility?: { feld: string; code: string; hinweis: string }[];
+  /** The Geschätzter Objektwert as submitted; `prefilled`: Kaufpreis + Renovation, not changed by the customer (V107). */
+  objektwert?: { value: number | null; prefilled: boolean };
   reuploads: { requirement: string; requestedAt: string | null; resolvedAt: string | null }[];
 }
 
@@ -183,6 +185,7 @@ export interface AbgleichStateInput {
   signature?: SignatureField | null;
   /** Plausibility notes, German (lib/funnel-v3/plausibility.ts). */
   plausibility?: { feld: string; code: string; hinweis: string }[];
+  objektwert?: { value: number | null; prefilled: boolean } | null;
 }
 
 export function buildAbgleichState(input: AbgleichStateInput): AbgleichStateJson {
@@ -234,6 +237,7 @@ export function buildAbgleichState(input: AbgleichStateInput): AbgleichStateJson
     summary,
     documents: input.documents ?? [],
     ...(input.plausibility?.length ? { plausibility: input.plausibility } : {}),
+    ...(input.objektwert ? { objektwert: input.objektwert } : {}),
     reuploads: input.reuploads ?? [],
   };
 }

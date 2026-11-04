@@ -89,44 +89,29 @@ describe('routeMail', () => {
   });
 });
 
-describe('ZZTEST mode (HYPOTEQ_TEST_SALESFORCE, DECISIONS V102)', () => {
-  const savedSf = process.env.HYPOTEQ_TEST_SALESFORCE;
-  afterEach(() => {
-    if (savedSf === undefined) delete process.env.HYPOTEQ_TEST_SALESFORCE;
-    else process.env.HYPOTEQ_TEST_SALESFORCE = savedSf;
-  });
-
-  it('the switch is off unless asked for plainly', async () => {
-    const { testSalesforceEnabled } = await import('../components/testMode');
-    for (const v of [undefined, '', '0', 'false', 'off', 'zz']) {
-      if (v === undefined) delete process.env.HYPOTEQ_TEST_SALESFORCE;
-      else process.env.HYPOTEQ_TEST_SALESFORCE = v;
-      expect({ v, on: testSalesforceEnabled() }).toEqual({ v, on: false });
-    }
-    process.env.HYPOTEQ_TEST_SALESFORCE = ' Yes ';
-    expect(testSalesforceEnabled()).toBe(true);
-  });
-
-  it('a ZZTEST submission: the last name of any Kreditnehmer or the company, any case', async () => {
-    const { isZztestSubmission } = await import('../components/testMode');
-    expect(isZztestSubmission({ v3: { txt: { nach: 'Muster-zztest' }, borrowers: [] } })).toBe(true);
-    expect(isZztestSubmission({ v3: { txt: { nach: 'Muster' }, borrowers: [{ nach: 'Muster' }, { nach: 'ZZTEST' }] } })).toBe(true);
-    expect(isZztestSubmission({ v3: { txt: { nach: '', firma: 'ZZTEST AG' } } })).toBe(true);
-    expect(isZztestSubmission({ client: { lastName: 'ZZTEST' } })).toBe(true);
-    expect(isZztestSubmission({ v3: { txt: { nach: 'Muster', vor: 'ZZTEST' } } })).toBe(false);
+describe('ZZTEST mode: the name match (HYPOTEQ 04.11.2026, DECISIONS V102)', () => {
+  it('a ZZTEST submission: last name (any Kreditnehmer) or company with ZZTEST, and a «+test» address', async () => {
+    const { isZztestSubmission, isTestAddress } = await import('../components/testMode');
+    const v3 = (txt: Record<string, string>, borrowers: { nach: string }[] = []) => ({ v3: { txt, borrowers } });
+    expect(isZztestSubmission(v3({ nach: 'Muster-zztest', mail: 'lea+test@kunde.ch' }))).toBe(true);
+    expect(isZztestSubmission(v3({ nach: 'Muster', mail: 'lea+test@kunde.ch' }, [{ nach: 'Muster' }, { nach: 'ZZTEST' }]))).toBe(true);
+    expect(isZztestSubmission(v3({ firma: 'ZZTEST AG', mail: 'x@firma.ch', bmail: 'berater+test@partner.ch' }))).toBe(true);
+    expect(isZztestSubmission({ client: { lastName: 'ZZTEST', email: 'a+test2@b.ch' } })).toBe(true);
+    // Both are needed: the name alone or the address alone is no test record.
+    expect(isZztestSubmission(v3({ nach: 'ZZTEST', mail: 'lea@kunde.ch' }))).toBe(false);
+    expect(isZztestSubmission(v3({ nach: 'Muster', mail: 'lea+test@kunde.ch' }))).toBe(false);
+    expect(isZztestSubmission(v3({ nach: 'Muster', vor: 'ZZTEST', mail: 'lea+test@kunde.ch' }))).toBe(false);
     expect(isZztestSubmission(null)).toBe(false);
+    expect([isTestAddress('a+test@b.ch'), isTestAddress('a+tester@b.ch'), isTestAddress('atest@b.ch'), isTestAddress('a@b+test.ch')]).toEqual([true, true, false, false]);
   });
 
-  it('Salesforce: always in production; in test mode only ZZTEST with the switch', async () => {
+  it('Salesforce: always in production; in test mode only a ZZTEST submission — no further switch', async () => {
     const { salesforceAllowedFor } = await import('../components/testMode');
-    const zz = { v3: { txt: { nach: 'ZZTEST' } } };
-    const real = { v3: { txt: { nach: 'Muster' } } };
+    const zz = { v3: { txt: { nach: 'ZZTEST', mail: 'lea+test@kunde.ch' } } };
+    const real = { v3: { txt: { nach: 'Muster', mail: 'lea@kunde.ch' } } };
     delete process.env.HYPOTEQ_TEST_MODE;
-    delete process.env.HYPOTEQ_TEST_SALESFORCE;
     expect([salesforceAllowedFor(zz), salesforceAllowedFor(real)]).toEqual([true, true]);
     process.env.HYPOTEQ_TEST_MODE = '1';
-    expect([salesforceAllowedFor(zz), salesforceAllowedFor(real)]).toEqual([false, false]);
-    process.env.HYPOTEQ_TEST_SALESFORCE = '1';
     expect([salesforceAllowedFor(zz), salesforceAllowedFor(real)]).toEqual([true, false]);
   });
 });

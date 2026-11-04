@@ -21,8 +21,13 @@
 
 import type { FunnelState } from "./types";
 import { screenAt, type Screen } from "./steps";
+import { AMOUNT_LIMITS, mortgageFigures } from "./plausibility";
 
-export type ValidationKey = "val.required" | "val.choose" | "val.email" | "val.amount";
+/**
+ * `val.range` / `val.tooHigh` / `val.overCost`: the hard stops of Fisnik 04.11.2026 Punkt 4
+ * (DECISIONS V104) — amounts that make no sense technically (lib/funnel-v3/plausibility.ts).
+ */
+export type ValidationKey = "val.required" | "val.choose" | "val.email" | "val.amount" | "val.range" | "val.tooHigh" | "val.overCost";
 export type StepErrors = Record<string, ValidationKey>;
 
 /** Same check as /api/inquiry, so what passes here passes there. */
@@ -30,7 +35,7 @@ export const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const blank = (s: string | undefined | null) => !s || !s.trim();
 
-type ValidationState = Pick<FunnelState, "role" | "ans" | "txt" | "fin" | "borrowers">;
+type ValidationState = Pick<FunnelState, "role" | "ans" | "txt" | "fin" | "borrowers"> & Partial<Pick<FunnelState, "em" | "touched" | "src">>;
 
 export function validateScreen(screen: Screen | null, state: ValidationState): StepErrors {
   const { ans, txt, fin, role } = state;
@@ -89,6 +94,7 @@ export function validateScreen(screen: Screen | null, state: ValidationState): S
         amount("kaufpreis");
         if (ans.reno === "Ja") amount("renoBetrag");
       }
+      amountLimits(state, e);
       break;
 
     case "personen":
@@ -114,4 +120,37 @@ export function validateStep(step: number, state: ValidationState & Pick<FunnelS
 
 export function isStepValid(step: number, state: ValidationState & Pick<FunnelState, "mode">): boolean {
   return Object.keys(validateStep(step, state)).length === 0;
+}
+
+/**
+ * Fisnik 04.11.2026 Punkt 4: typing errors and a mortgage no property carries hold «Weiter»;
+ * everything else passes (the one soft note, Belehnung over 100 %, is plausibilityWarnings).
+ */
+function amountLimits(state: ValidationState, e: StepErrors): void {
+  const { ans, fin } = state;
+  const { min, max } = AMOUNT_LIMITS;
+  const set = (field: string, key: ValidationKey) => {
+    if (!e[field]) e[field] = key;
+  };
+  const range = (field: string, v: number | undefined) => {
+    if (typeof v === "number" && v > 0 && (v < min || v > max)) set(field, "val.range");
+  };
+  const ceiling = (field: string, v: number | undefined) => {
+    if (typeof v === "number" && v > max) set(field, "val.tooHigh");
+  };
+  const kauf = ans.antrag === "Neue Hypothek";
+  const abl = ans.antrag === "Ablösung";
+  if (kauf) {
+    range("kaufpreis", fin.kaufpreis);
+    if (ans.reno === "Ja") ceiling("renoBetrag", fin.renoBetrag);
+  }
+  if (abl) {
+    range("old", fin.old);
+    if (ans.aufstockung === "Ja") ceiling("up", fin.up);
+  }
+  if (!ans.antrag) return;
+  const { mortgage, value, reno } = mortgageFigures(state);
+  range("val", value);
+  if (value > 0 && mortgage > value + reno) set("val", "val.overCost");
+  for (const [k, v] of Object.entries(state.em ?? {})) ceiling(`em.${k}`, v as number);
 }

@@ -229,27 +229,13 @@ describe("pre-v5 payloads keep their mails", () => {
   });
 });
 
-describe("ZZTEST mode: a real Case from a test deployment (HYPOTEQ 03.11.2026 2.3, DECISIONS V102)", () => {
-  const zztest = () => kaufState({ txt: { ...kaufState().txt, nach: "ZZTEST Muster" }, borrowers: [{ id: "b1", vor: "Lea", nach: "ZZTEST Muster", job: "Angestellt", pkSe: "Nein" }] });
-  const savedSf = process.env.HYPOTEQ_TEST_SALESFORCE;
-  afterEach(() => {
-    if (savedSf === undefined) delete process.env.HYPOTEQ_TEST_SALESFORCE;
-    else process.env.HYPOTEQ_TEST_SALESFORCE = savedSf;
-  });
+describe("ZZTEST mode: a real Case from a test deployment (HYPOTEQ 03./04.11.2026, DECISIONS V102)", () => {
+  const zztest = (mail = "lea.muster+test@kunde.ch") =>
+    kaufState({ txt: { ...kaufState().txt, nach: "ZZTEST Muster", mail }, borrowers: [{ id: "b1", vor: "Lea", nach: "ZZTEST Muster", job: "Angestellt", pkSe: "Nein" }] });
   const sfResult = () => mockState.updates.find((u) => "salesforceCaseId" in (u.data ?? {}))?.data;
 
-  it("test mode without the switch: no Case, also for ZZTEST", async () => {
+  it("test mode: a ZZTEST submission (name + «+test» address) creates its Case; the mails stay marked [TEST]", async () => {
     process.env.HYPOTEQ_TEST_MODE = "1";
-    delete process.env.HYPOTEQ_TEST_SALESFORCE;
-    const payload = v5Payload(zztest());
-    mockState.completion = payload.v3Completion;
-    await submit(payload);
-    expect(sfResult()).toMatchObject({ salesforceCaseId: null, salesforceError: "test mode: Salesforce sync skipped" });
-  });
-
-  it("with HYPOTEQ_TEST_SALESFORCE a ZZTEST submission creates its Case; the mails stay marked [TEST]", async () => {
-    process.env.HYPOTEQ_TEST_MODE = "1";
-    process.env.HYPOTEQ_TEST_SALESFORCE = "1";
     const payload = v5Payload(zztest());
     mockState.completion = payload.v3Completion;
     const res = await submit(payload);
@@ -259,12 +245,14 @@ describe("ZZTEST mode: a real Case from a test deployment (HYPOTEQ 03.11.2026 2.
     for (const p of mockState.posts) expect(p.body.message.subject).toMatch(/^\[TEST/);
   });
 
-  it("with the switch, a submission without ZZTEST is still withheld", async () => {
+  it("test mode: without the «+test» address, or without ZZTEST, it is withheld", async () => {
     process.env.HYPOTEQ_TEST_MODE = "1";
-    process.env.HYPOTEQ_TEST_SALESFORCE = "1";
-    const payload = v5Payload(kaufState());
-    mockState.completion = payload.v3Completion;
-    await submit(payload);
-    expect(sfResult()).toMatchObject({ salesforceCaseId: null, salesforceError: "test mode: Salesforce sync skipped" });
+    for (const state of [zztest("lea.muster@kunde.ch"), kaufState({ txt: { ...kaufState().txt, mail: "lea+test@kunde.ch" } })]) {
+      mockState.updates = [];
+      const payload = v5Payload(state);
+      mockState.completion = payload.v3Completion;
+      await submit(payload);
+      expect(sfResult()).toMatchObject({ salesforceCaseId: null, salesforceError: "test mode: Salesforce sync skipped" });
+    }
   });
 });

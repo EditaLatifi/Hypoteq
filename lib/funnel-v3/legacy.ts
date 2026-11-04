@@ -57,6 +57,8 @@ export interface StoredFunnelState extends Pick<FunnelState, "role" | "mode" | "
    * Abgleich JSON).
    */
   hypo?: { bewertung: boolean; adresse?: string; answered?: string[] };
+  /** The Objektwert is the prefilled Kaufpreis + Renovation, not changed by the customer (DECISIONS V107). */
+  valPrefilled?: true;
 }
 
 /** A field path the chat may have answered (`fin.inc`, `borrower.1.vor`); the `chat.*` keys are no answers. */
@@ -155,6 +157,7 @@ export function normaliseFunnelState(raw: unknown): StoredFunnelState | null {
     borrowers: borrowersOf(raw.borrowers),
   };
   if (raw.channel === "chat") out.channel = "chat";
+  if (raw.valPrefilled === true) out.valPrefilled = true;
   if (isObj(raw.hypo)) {
     const adresse = str(raw.hypo.adresse).trim();
     const answered = Array.isArray(raw.hypo.answered)
