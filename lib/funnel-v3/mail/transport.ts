@@ -6,6 +6,7 @@
  */
 
 import type { MailAttachment } from "./closing";
+import { recipientsOf } from "@/components/testMode";
 
 export interface OutgoingMail {
   to: string;
@@ -41,7 +42,8 @@ export function graphTransport(client: GraphMailClient, sendAs: string): MailTra
         message: {
           subject: mail.subject,
           body: { contentType: "HTML", content: mail.html },
-          toRecipients: [{ emailAddress: { address: mail.to } }],
+          // Test mode may route to several inboxes (HYPOTEQ_TEST_MAIL_TO); otherwise one address.
+          toRecipients: recipientsOf(mail.to).map((address) => ({ emailAddress: { address } })),
           ...(mail.replyTo ? { replyTo: [{ emailAddress: { address: mail.replyTo.address, ...(mail.replyTo.name ? { name: mail.replyTo.name } : {}) } }] } : {}),
           ...(attachments.length ? { attachments } : {}),
         },

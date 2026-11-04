@@ -2,7 +2,7 @@ import { Client } from "@microsoft/microsoft-graph-client";
 import { ClientSecretCredential } from "@azure/identity";
 import "isomorphic-fetch";
 import type { NachreichLocale } from "@/components/nachreichung";
-import { routeMail } from "@/components/testMode";
+import { recipientsOf, routeMail } from "@/components/testMode";
 
 /**
  * Confirmation sent after a customer uploads through their Nachreich link.
@@ -173,7 +173,7 @@ export async function sendNachreichConfirmation(params: {
     message: {
       subject: routed.subject,
       body: { contentType: "HTML", content: html },
-      toRecipients: [{ emailAddress: { address: routed.to } }],
+      toRecipients: recipientsOf(routed.to).map((address) => ({ emailAddress: { address } })),
       // The Berater's copy follows the same test-mode rule as every other recipient: redirected
       // to the test inbox when one is set (then dropped as a duplicate), otherwise sent as entered.
       ...(copy ? { ccRecipients: [{ emailAddress: { address: copy } }] } : {}),

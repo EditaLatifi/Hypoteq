@@ -90,12 +90,31 @@ export function skipped(what: string, detail?: string): void {
 export const TEST_FOLDER_PREFIX = "ZZ-TEST_";
 
 /**
+ * HYPOTEQ_TEST_MAIL_TO as a list: one inbox, or several separated by commas (a ZZTEST run for
+ * HYPOTEQ and the developer at once). Invalid entries are dropped.
+ */
+export function testInboxes(): string[] {
+  return (process.env.HYPOTEQ_TEST_MAIL_TO ?? "")
+    .split(/[,;\s]+/)
+    .map((s) => s.trim())
+    .filter((s) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s));
+}
+
+/** The recipients of a routed address: several when test mode routes to a list of inboxes. */
+export function recipientsOf(to: string): string[] {
+  return to
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
+
+/**
  * Where a mail actually goes, given who it was meant for.
  *
  * Outside test mode: unchanged. In test mode every mail still goes out through the configured
  * mailbox — testing the mails is part of testing the funnel — but marked «[TEST]»:
- * - With HYPOTEQ_TEST_MAIL_TO set, everything goes to that one inbox, with the real recipient
- *   in the subject («[TEST → kunde@…]»).
+ * - With HYPOTEQ_TEST_MAIL_TO set, everything goes to that inbox — or those inboxes, separated
+ *   by commas — with the real recipient in the subject («[TEST → kunde@…]»).
  * - Without it, each mail goes to the address that was entered in the funnel (the testers
  *   type their own), and the internal notification to info@ as usual.
  * Addresses on the reserved example domains (example.com/.ch/.org …) are never mailed: they
@@ -103,8 +122,8 @@ export const TEST_FOLDER_PREFIX = "ZZ-TEST_";
  */
 export function routeMail(to: string, subject: string): { to: string; subject: string } | null {
   if (!isTestMode()) return { to, subject };
-  const inbox = (process.env.HYPOTEQ_TEST_MAIL_TO ?? "").trim();
-  if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inbox)) {
+  const inbox = testInboxes().join(",");
+  if (inbox) {
     console.log(`[TEST MODE] mail for ${to} redirected to ${inbox}`);
     return { to: inbox, subject: `[TEST → ${to}] ${subject}` };
   }

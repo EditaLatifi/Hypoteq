@@ -115,3 +115,24 @@ describe('ZZTEST mode: the name match (HYPOTEQ 04.11.2026, DECISIONS V102)', () 
     expect([salesforceAllowedFor(zz), salesforceAllowedFor(real)]).toEqual([true, false]);
   });
 });
+
+describe('HYPOTEQ_TEST_MAIL_TO with several inboxes', () => {
+  const savedTo = process.env.HYPOTEQ_TEST_MAIL_TO;
+  afterEach(() => {
+    if (savedTo === undefined) delete process.env.HYPOTEQ_TEST_MAIL_TO;
+    else process.env.HYPOTEQ_TEST_MAIL_TO = savedTo;
+  });
+
+  it('routes every test mail to all of them; invalid entries are dropped', async () => {
+    const { routeMail, recipientsOf, testInboxes } = await import('../components/testMode');
+    process.env.HYPOTEQ_TEST_MODE = '1';
+    process.env.HYPOTEQ_TEST_MAIL_TO = 'a@x.ch, b@y.com; nonsense';
+    expect(testInboxes()).toEqual(['a@x.ch', 'b@y.com']);
+    const r = routeMail('kunde+test@kunde.ch', 'Deine Anfrage')!;
+    expect(r).toEqual({ to: 'a@x.ch,b@y.com', subject: '[TEST → kunde+test@kunde.ch] Deine Anfrage' });
+    expect(recipientsOf(r.to)).toEqual(['a@x.ch', 'b@y.com']);
+    // Outside test mode one address stays one recipient.
+    delete process.env.HYPOTEQ_TEST_MODE;
+    expect(recipientsOf(routeMail('kunde@kunde.ch', 'x')!.to)).toEqual(['kunde@kunde.ch']);
+  });
+});

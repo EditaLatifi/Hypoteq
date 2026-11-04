@@ -416,8 +416,9 @@ function prismaDeps(): SignatureServerDeps {
       return raw === "1" || raw === "true" || raw === "yes";
     },
     testInbox: () => {
-      const inbox = (process.env.HYPOTEQ_TEST_MAIL_TO ?? "").trim();
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inbox) ? inbox : null;
+      // One inbox or several (comma-separated), as routeMail reads it.
+      const inboxes = (process.env.HYPOTEQ_TEST_MAIL_TO ?? "").split(/[,;\s]+/).filter((s) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s));
+      return inboxes.length ? inboxes.join(",") : null;
     },
     log: console,
   };
