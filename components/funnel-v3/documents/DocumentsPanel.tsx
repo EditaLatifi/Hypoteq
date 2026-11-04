@@ -70,7 +70,7 @@ function useIntern(): boolean {
 }
 
 /** «Ja, ergänzen» / «Ja, eintragen» / «Ja, auf «Stockwerkeigentum» setzen» (prototype suggests). */
-const ACCEPT_LABEL: Record<string, string> = { loan: "docs.sugAdd", maint: "docs.sugAdd", "3a": "docs.sugEnter", stwe: "docs.sugStwe" };
+const ACCEPT_LABEL: Record<string, string> = { loan: "docs.sugAdd", maint: "docs.sugAdd", "3a": "docs.sugEnter", stwe: "docs.sugStwe", schenk: "docs.sugEnter", erbe: "docs.sugEnter", darl: "docs.sugEnter" };
 
 export type DocumentsVariant = "upload" | "guided" | "missing";
 

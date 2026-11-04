@@ -106,6 +106,25 @@ export interface FileAuditEntry {
  * funnel can have passed its six months by the time the Nachreichung or a long session
  * looks at it (spec 4.2).
  */
+/**
+ * What a document contains besides itself (HYPOTEQ 03.11.2026 Befund 3, DECISIONS V105): a
+ * Verkaufsdokumentation with the floor plans or the photos fulfils those requirements as well,
+ * when they have no file of their own. The analysis answers «ja» / «nein» per field.
+ */
+export const EMBEDDED_CONTENT: Readonly<Record<string, readonly { field: string; requirement: string }[]>> = {
+  verkaufsdoku: [
+    { field: "Grundriss enthalten", requirement: "stwe_plan" },
+    { field: "Fotos enthalten", requirement: "fotos" },
+  ],
+};
+
+/** The requirement ids an analysed document also covers; [] for most. */
+export function embeddedRequirements(a: Pick<V3Analysis, "status" | "docTypeId" | "fields"> | null | undefined): string[] {
+  if (!a || a.status !== "done" || !a.docTypeId) return [];
+  const yes = (v: unknown) => /^(ja|yes|oui|sì|si|true|vorhanden)(?![a-zà-ÿ])/i.test(String(v ?? "").trim());
+  return (EMBEDDED_CONTENT[a.docTypeId] ?? []).filter((e) => yes(a.fields?.[e.field]?.value)).map((e) => e.requirement);
+}
+
 export function toUploadedFiles(files: FileEntry[], now: Date = new Date()): UploadedFile[] {
   return files.map((f) => ({
     fileId: f.id,
@@ -122,7 +141,14 @@ export function toUploadedFiles(files: FileEntry[], now: Date = new Date()): Upl
     outdatedOverride: Boolean(f.outdatedOverride),
     extraKind: f.instanceId ? undefined : f.analysis?.extraKind,
     note: f.analysis?.note ?? undefined,
+    ...embedsOf(f.analysis),
   }));
+}
+
+/** `embeds` for an UploadedFile, absent when the document contains nothing else. */
+export function embedsOf(a: Pick<V3Analysis, "status" | "docTypeId" | "fields"> | null | undefined): { embeds?: string[] } {
+  const e = embeddedRequirements(a);
+  return e.length ? { embeds: e } : {};
 }
 
 /**

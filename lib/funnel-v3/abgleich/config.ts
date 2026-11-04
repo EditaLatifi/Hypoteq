@@ -37,7 +37,9 @@ async function salesforceQuery(): Promise<Query> {
 export async function loadPruefregeln(opts: { now?: number; query?: Query; testMode?: boolean } = {}): Promise<LoadedRules> {
   const now = opts.now ?? Date.now();
   if (cache && now - cache.at < (cache.from === "salesforce" ? RULES_TTL_MS : RETRY_MS)) return cache;
-  const testMode = opts.testMode ?? (await import("@/components/testMode")).isTestMode();
+  // ZZTEST mode (HYPOTEQ_TEST_SALESFORCE, DECISIONS V102) reads the real rules: the Pre-Check is tested with them.
+  const tm = await import("@/components/testMode");
+  const testMode = opts.testMode ?? (tm.isTestMode() && !tm.testSalesforceEnabled());
   // Test mode, or no Salesforce configured (a test process): the start values, no request.
   if (!opts.query && (testMode || !process.env.SF_CLIENT_ID)) return (cache = { rules: FALLBACK_RULES, from: "fallback", at: now });
   try {

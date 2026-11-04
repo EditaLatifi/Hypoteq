@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { isTestMode, routeMail, skipped } from "@/components/testMode";
+import { isTestMode, routeMail, salesforceAllowedFor, skipped } from "@/components/testMode";
 import { isRenditeNutzung, isZweitwohnsitzNutzung } from "@/components/propertyLabels";
 import { prisma } from "@/lib/prisma";
 import { Client } from "@microsoft/microsoft-graph-client";
@@ -383,6 +383,9 @@ export async function POST(req: Request) {
     let salesforceError: unknown = null;
     let salesforceCaseId: string | null = null;
     let salesforceDropped: string[] = [];
+    // HYPOTEQ 03.11.2026 2.3 (DECISIONS V102): in test mode only a ZZTEST submission with
+    // HYPOTEQ_TEST_SALESFORCE reaches Salesforce; everything else is withheld as before.
+    const salesforceSkipped = !salesforceAllowedFor(data);
     try {
       // Ensure LastName is present for Salesforce
       if (data.client && data.client.lastName) {
@@ -408,12 +411,13 @@ export async function POST(req: Request) {
         data.stage = 'Needs Analysis'; // Valid Salesforce picklist value
         console.log('[Salesforce Sync] Set stage to: Needs Analysis');
       }
-      if (isTestMode()) {
+      if (salesforceSkipped) {
         // Everything up to here has run — validation, picklist mapping, the completeness
         // verdict — so the payload is still exercised. Only the write is withheld.
         skipped("Salesforce sync", `Case would have been created for ${data.client?.email ?? "unknown"}`);
         throw new SkipInTestMode();
       }
+      if (isTestMode()) console.log("[TEST MODE] ZZTEST submission: the Salesforce Case is created (HYPOTEQ_TEST_SALESFORCE)");
       const salesforceApi = (await import("@/components/salesforceApi")).default;
       const { syncFunnelStepsToSalesforce } = await import("@/components/syncFunnelStepsToSalesforce");
       await salesforceApi.login();
@@ -447,7 +451,7 @@ export async function POST(req: Request) {
           salesforceSyncedAt: salesforceError ? null : new Date(),
           salesforceError: salesforceError
             ? (salesforceError instanceof Error ? salesforceError.message : String(salesforceError)).slice(0, 2000)
-            : isTestMode() ? 'test mode: Salesforce sync skipped' : null,
+            : salesforceSkipped ? 'test mode: Salesforce sync skipped' : null,
         },
       });
     } catch (updateErr) {
@@ -486,7 +490,7 @@ export async function POST(req: Request) {
             caseId: salesforceCaseId,
             url: salesforceCaseUrl(instanceUrl, salesforceCaseId),
             failed: Boolean(salesforceError),
-            testMode: isTestMode(),
+            testMode: salesforceSkipped,
             dropped: salesforceDropped,
           },
           partner: await closingPartner(data, (email) => resolvePartner(email)),

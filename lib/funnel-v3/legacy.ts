@@ -51,9 +51,16 @@ export interface StoredFunnelState extends Pick<FunnelState, "role" | "mode" | "
   legacy?: { lieg?: string; heizung?: string; kinder?: YesNo; ab50?: YesNo };
   /** Started in HYPO, the chat (DECISIONS V92): `entry_channel: "chat"` in the Salesforce JSON. */
   channel?: "chat";
-  /** HYPO's Immobilienbewertung (Konzept Kap. 6): ordered, with the address given in the chat. */
-  hypo?: { bewertung: boolean; adresse?: string };
+  /**
+   * HYPO's Immobilienbewertung (Konzept Kap. 6): ordered, with the address given in the chat.
+   * `answered`: the field paths answered in the chat (HYPOTEQ 03.11. 2.4: `source: "chat"` in the
+   * Abgleich JSON).
+   */
+  hypo?: { bewertung: boolean; adresse?: string; answered?: string[] };
 }
+
+/** A field path the chat may have answered (`fin.inc`, `borrower.1.vor`); the `chat.*` keys are no answers. */
+const ANSWER_PATH = /^(ans|txt|fin|em)\.[A-Za-z0-9]{1,40}$|^borrower\.\d\.[A-Za-z0-9]{1,20}$/;
 
 const isObj = (v: unknown): v is Record<string, unknown> => !!v && typeof v === "object" && !Array.isArray(v);
 const yn = (v: unknown): YesNo | undefined => (v === "Ja" || v === "Nein" ? v : undefined);
@@ -150,7 +157,10 @@ export function normaliseFunnelState(raw: unknown): StoredFunnelState | null {
   if (raw.channel === "chat") out.channel = "chat";
   if (isObj(raw.hypo)) {
     const adresse = str(raw.hypo.adresse).trim();
-    out.hypo = { bewertung: raw.hypo.bewertung === true, ...(adresse ? { adresse } : {}) };
+    const answered = Array.isArray(raw.hypo.answered)
+      ? Array.from(new Set(raw.hypo.answered.filter((k): k is string => typeof k === "string" && ANSWER_PATH.test(k)))).slice(0, 100)
+      : [];
+    out.hypo = { bewertung: raw.hypo.bewertung === true, ...(adresse ? { adresse } : {}), ...(answered.length ? { answered } : {}) };
   }
   if (!v3) {
     // A state stored by v3InquiryColumns keeps what normalising a v3 one produced.

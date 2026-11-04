@@ -28,6 +28,7 @@ describe("the Abgleich JSON (6.2)", () => {
       person: "Lea Muster",
       label: { de: "Jahreseinkommen", en: "Annual income", fr: "Revenu annuel", it: "Reddito annuo" },
       funnelValue: 120000,
+      source: "funnel",
       extracted: [{ docType: "lohnausweis", docId: "doc-1", value: 100000, confidence: 0.95, sourceRef: "Seite 1, Ziffer 8", role: "primary", ampel: "green", field: "Bruttolohn" }],
       // clarified: «ok» with the choice as its evidence
       result: "ok",

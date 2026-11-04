@@ -382,10 +382,10 @@ describe("v5 inquiries: the Auskunftsermächtigung after the closing, no mail (H
     expect(sig).not.toHaveProperty("note");
   });
 
-  it("an unsigned copy on P0 keeps it open; the new signed copy takes its place", async () => {
+  it("an unsigned copy on P0 counts (03.11. Befund 1), the page does not ask again; a new signed copy still takes its place", async () => {
     const rows = unsignedOnP0();
     const v = nachreichV3View(v5Row(), rows)!;
-    expect(v.missing.find((m) => m.instanceId === "vollmacht")).toMatchObject({ state: "missing", have: 1, slots: 1 });
+    expect(v.missing.find((m) => m.instanceId === "vollmacht")).toBeUndefined();
 
     const w = world(rows, [signed()], { signature: { status: "pending", requestedAt: LATER.at, remindersSent: 0 } });
     const res = await submitV3Nachreichung(v5Row(), sigBody, w.deps);
@@ -399,17 +399,19 @@ describe("v5 inquiries: the Auskunftsermächtigung after the closing, no mail (H
     expect(w.nameOf(old.id)).toMatch(/_ZUSATZ_/);
   });
 
-  // HYPOTEQ 19.10. E.4 on the Nachreich page: the AI never blocks.
+  // HYPOTEQ 19.10. E.4 and 03.11. Befund 1 on the Nachreich page: the AI never blocks.
   const doubted = () => heldRow("h-sig", "Scan 0042.pdf", analysis("vollmacht", { fields: { Unterschrift: field("fehlt"), Vollmachtgeber: field("Mustermann Max") } }), 7);
 
-  it("a doubted copy without «Trotzdem einreichen» stays open and the reminders go on", async () => {
+  it("a doubted copy counts without a click: received, stored with its time, the Case flags it for the Pre-Check", async () => {
     const w = world(withoutSig(), [doubted()], { signature: { status: "pending", requestedAt: LATER.at, remindersSent: 0 } });
     const res = await submitV3Nachreichung(v5Row(), sigBody, w.deps);
     expect(res.ok).toBe(true);
     if (!res.ok) return;
-    expect(res.remaining).toContain("vollmacht");
-    expect(w.received).toEqual([]);
-    expect(w.inquiryUpdates[0]).not.toHaveProperty("v3State");
+    expect(res.remaining).not.toContain("vollmacht");
+    expect(w.received).toEqual([{ inquiryId: INQUIRY, fileName: expect.stringMatching(/^HQ-26-10-000123_00_Auskunftsermaechtigung/), driveItemId: "item-h-sig", at: new Date("2026-10-05T12:00:00Z") }]);
+    expect(w.inquiryUpdates[0].v3State.sig).toEqual({ choice: "uploaded", at: "2026-10-05T12:00:00.000Z", method: "upload" });
+    const sig = JSON.parse(w.cases[0].Dokumenten_Check_State__c).signature;
+    expect(sig).toMatchObject({ status: "uploaded", override: true, overrideAt: "2026-10-05T12:00:00.000Z", aiProblems: ["signature"], aiNote: expect.stringContaining("manuell prüfen") });
   });
 
   it("a doubted copy submitted anyway: received, the choice stored, the Case flags it for the manual check", async () => {

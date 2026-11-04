@@ -88,3 +88,45 @@ describe('routeMail', () => {
     expect(routeMail('a@mail.example.org', 'x')).toBeNull();
   });
 });
+
+describe('ZZTEST mode (HYPOTEQ_TEST_SALESFORCE, DECISIONS V102)', () => {
+  const savedSf = process.env.HYPOTEQ_TEST_SALESFORCE;
+  afterEach(() => {
+    if (savedSf === undefined) delete process.env.HYPOTEQ_TEST_SALESFORCE;
+    else process.env.HYPOTEQ_TEST_SALESFORCE = savedSf;
+  });
+
+  it('the switch is off unless asked for plainly', async () => {
+    const { testSalesforceEnabled } = await import('../components/testMode');
+    for (const v of [undefined, '', '0', 'false', 'off', 'zz']) {
+      if (v === undefined) delete process.env.HYPOTEQ_TEST_SALESFORCE;
+      else process.env.HYPOTEQ_TEST_SALESFORCE = v;
+      expect({ v, on: testSalesforceEnabled() }).toEqual({ v, on: false });
+    }
+    process.env.HYPOTEQ_TEST_SALESFORCE = ' Yes ';
+    expect(testSalesforceEnabled()).toBe(true);
+  });
+
+  it('a ZZTEST submission: the last name of any Kreditnehmer or the company, any case', async () => {
+    const { isZztestSubmission } = await import('../components/testMode');
+    expect(isZztestSubmission({ v3: { txt: { nach: 'Muster-zztest' }, borrowers: [] } })).toBe(true);
+    expect(isZztestSubmission({ v3: { txt: { nach: 'Muster' }, borrowers: [{ nach: 'Muster' }, { nach: 'ZZTEST' }] } })).toBe(true);
+    expect(isZztestSubmission({ v3: { txt: { nach: '', firma: 'ZZTEST AG' } } })).toBe(true);
+    expect(isZztestSubmission({ client: { lastName: 'ZZTEST' } })).toBe(true);
+    expect(isZztestSubmission({ v3: { txt: { nach: 'Muster', vor: 'ZZTEST' } } })).toBe(false);
+    expect(isZztestSubmission(null)).toBe(false);
+  });
+
+  it('Salesforce: always in production; in test mode only ZZTEST with the switch', async () => {
+    const { salesforceAllowedFor } = await import('../components/testMode');
+    const zz = { v3: { txt: { nach: 'ZZTEST' } } };
+    const real = { v3: { txt: { nach: 'Muster' } } };
+    delete process.env.HYPOTEQ_TEST_MODE;
+    delete process.env.HYPOTEQ_TEST_SALESFORCE;
+    expect([salesforceAllowedFor(zz), salesforceAllowedFor(real)]).toEqual([true, true]);
+    process.env.HYPOTEQ_TEST_MODE = '1';
+    expect([salesforceAllowedFor(zz), salesforceAllowedFor(real)]).toEqual([false, false]);
+    process.env.HYPOTEQ_TEST_SALESFORCE = '1';
+    expect([salesforceAllowedFor(zz), salesforceAllowedFor(real)]).toEqual([true, false]);
+  });
+});

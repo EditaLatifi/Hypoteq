@@ -9,7 +9,7 @@ import type { Placement } from "@/lib/funnel-v3/placeFile";
 import { getRequirement, type RequirementInstance } from "@/lib/funnel-v3/requirements";
 import { assignFile, removeFile, retryFile } from "@/lib/funnel-v3/upload";
 import { requestedYears, v3DocType } from "@/components/documentIntelligence/v3/catalogue";
-import { extraReasonKey, groupExtras, rowClass, STATE_LOOK, storedNameForExtra, type RowState } from "./view";
+import { extraReasonKey, groupExtras, isRelevantExtra, rowClass, STATE_LOOK, storedNameForExtra, type RowState } from "./view";
 import StoredName from "./StoredName";
 import AuditTrail from "./AuditTrail";
 
@@ -38,6 +38,7 @@ function stateOf(f: FileEntry, p: Placement | undefined): RowState {
   if (f.uploadState === "uploading") return "uploading";
   if (f.uploadState === "failed") return "failed";
   if (!p || p.reason === "pending") return "analysing";
+  if (isRelevantExtra(p)) return "relevant";
   return (p.extraKind ?? "unknown") as RowState;
 }
 
@@ -80,7 +81,7 @@ export default function ExtraFiles({ files, placements, instances, suggested, in
     if (reasonKey) return t(reasonKey);
     switch (p?.reason) {
       case "full":
-        return t("docs.x.full");
+        return isRelevantExtra(p) ? t("docs.x.relevantCopy") : t("docs.x.full");
       case "period": {
         const years = requestedYears(p.requirementId) ?? [];
         return t("docs.x.period", { years: [...years].sort().join(", ") });
@@ -109,7 +110,7 @@ export default function ExtraFiles({ files, placements, instances, suggested, in
         const look = STATE_LOOK[state];
         const title = label(f, p);
         // Every kept file outside the list is filed under a stored name; nothing is deleted (Handover 4.3).
-        const stored = state === "surplus" || state === "duplicate" || state === "notneeded" ? storedNameForExtra(f, p, nameCtx) : null;
+        const stored = state === "relevant" || state === "surplus" || state === "duplicate" || state === "notneeded" ? storedNameForExtra(f, p, nameCtx) : null;
         return (
           <div key={f.id} className={`v3-docrow ${rowClass(state)}`}>
             <div className="v3-docrow-head v3-docrow-head--static">

@@ -138,7 +138,8 @@ export const REQ: readonly RequirementDef[] = [
     shortName: "Verkaufsdokumentation", optional: true,
     legacyKeys: ["funnel.salesDocPhotos", "funnel.oldSalesDocuments"],
     // Prefill (Handover 3.1): Objektwert (unsicher) · Baujahr, Zimmer, Heizungsart.
-    fields: ["Anbieter", "Objekt", "Baujahr", "Verkaufspreis", "Zimmer", "Wohnfläche", "Garten", "Heizung", "Kubatur"],
+    // HYPOTEQ 03.11.2026 Befund 3: what it contains — the floor plans and photos then count (files.ts EMBEDDED_CONTENT).
+    fields: ["Anbieter", "Objekt", "Baujahr", "Verkaufspreis", "Zimmer", "Wohnfläche", "Garten", "Heizung", "Kubatur", "Grundriss enthalten", "Fotos enthalten"],
     rule: "immer, ausser Bauprojekt · «Habe ich nicht» erlaubt",
   }),
   def({

@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, jest } from "@jest/globals";
+import { describe, it, expect, beforeEach, afterEach, jest } from "@jest/globals";
 
 /**
  * A portal upload on a Funnel v3 Case passes the requirement id («vollmacht», «grundbuch») to
@@ -8,9 +8,11 @@ import { describe, it, expect, beforeEach, jest } from "@jest/globals";
 
 const mockQuery = jest.fn<any>();
 const mockUpdate = jest.fn<any>();
+const mockSfQuery = jest.fn<any>();
 jest.mock("@/components/salesforceApi", () => ({
   conn: { accessToken: "token", query: (soql: string) => mockQuery(soql) },
   login: async () => {},
+  sfQuery: (soql: string, context: string) => mockSfQuery(soql, context),
   updateCase: async (id: string, f: Record<string, unknown>) => mockUpdate({ ...f, Id: id }),
 }));
 
@@ -63,5 +65,40 @@ describe("updateCaseCompleteness", () => {
     await updateCaseCompleteness(CASE, { complete: false, missing: [], supplied: ["funnel.rentalOverviewCurrent", "funnel.landRegistryNotOlder6Months"], submissionId: "inq" });
     expect(ticked()).toContain("Renditeobjekt|Aktueller Mieterspiegel inkl. Mietzinsaufstellung");
     expect(written().Dok_Grundbuchauszug__c).toBe(true);
+  });
+});
+
+describe("test mode: only a ZZTEST Case with HYPOTEQ_TEST_SALESFORCE (DECISIONS V102)", () => {
+  const update = () => updateCaseCompleteness(CASE, { complete: true, missing: [], supplied: ["grundbuch"], submissionId: "inq" });
+  afterEach(() => {
+    delete process.env.HYPOTEQ_TEST_MODE;
+    delete process.env.HYPOTEQ_TEST_SALESFORCE;
+  });
+
+  it("test mode alone: nothing is written, Salesforce is not even asked", async () => {
+    process.env.HYPOTEQ_TEST_MODE = "1";
+    await update();
+    expect(mockSfQuery).not.toHaveBeenCalled();
+    expect(mockUpdate).not.toHaveBeenCalled();
+  });
+
+  it("with the switch: written when Salesforce names the Case ZZTEST, not otherwise", async () => {
+    process.env.HYPOTEQ_TEST_MODE = "1";
+    process.env.HYPOTEQ_TEST_SALESFORCE = "1";
+    mockSfQuery.mockResolvedValueOnce([{ Case_Name__c: "Muster, 8001 Zürich", Account: { Name: "Lea Muster" } }]);
+    await update();
+    expect(mockUpdate).not.toHaveBeenCalled();
+    mockSfQuery.mockResolvedValueOnce([{ Case_Name__c: "ZZTEST Muster, 8001 Zürich", Account: { Name: "Lea ZZTEST Muster" } }]);
+    await update();
+    expect(mockUpdate).toHaveBeenCalledTimes(1);
+    expect(mockSfQuery.mock.calls[1][0]).toContain(`WHERE Id = '${CASE}'`);
+  });
+
+  it("a Case that cannot be read counts as no test Case", async () => {
+    process.env.HYPOTEQ_TEST_MODE = "1";
+    process.env.HYPOTEQ_TEST_SALESFORCE = "1";
+    mockSfQuery.mockRejectedValueOnce(new Error("INVALID_SESSION_ID"));
+    await update();
+    expect(mockUpdate).not.toHaveBeenCalled();
   });
 });

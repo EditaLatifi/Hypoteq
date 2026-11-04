@@ -23,6 +23,11 @@ export interface UploadedFile {
   extraKind?: ExtraKind;
   /** Note from the extraction («Wird mit der Erhöhung abgelöst», «Police ist an die Musterbank verpfändet»). */
   note?: string;
+  /**
+   * Requirement ids the document also contains (HYPOTEQ 03.11.2026 Befund 3, DECISIONS V105): a
+   * Verkaufsdokumentation with the floor plans or the photos (`embeddedRequirements`).
+   */
+  embeds?: string[];
 }
 
 /** Spec 4.2. */
@@ -41,6 +46,8 @@ export interface RequirementStatus {
   /** Any counted file is outdated, overridden or not. */
   outdatedFile: boolean;
   fileIds: string[];
+  /** Fulfilled by a document that contains it (a floor plan inside the Verkaufsdokumentation), not by a file of its own. */
+  embedded?: true;
 }
 
 export interface StatusCounts {
@@ -113,7 +120,14 @@ export function requirementStatus(
   for (const i of instances) perId.set(i.id, (perId.get(i.id) || 0) + 1);
 
   const requirements = instances.map((inst): RequirementStatus => {
-    const mine = files.filter((f) => belongs(f, inst, perId.get(inst.id) === 1));
+    const own = files.filter((f) => belongs(f, inst, perId.get(inst.id) === 1));
+    // Befund 3: without a file of its own, a document that contains it fulfils it (the floor plan
+    // in the Verkaufsdokumentation) — that document's age is its own requirement's business.
+    const container = own.some((f) => f.status !== "failed") ? undefined : files.find((f) => f.status === "done" && !f.extraKind && !!f.embeds?.includes(inst.id));
+    if (container) {
+      return { instance: inst, state: "ok", doneFiles: inst.expect, expect: inst.expect, failedFiles: own.length, overridden: false, outdatedFile: false, fileIds: [container.fileId], embedded: true };
+    }
+    const mine = own;
     const done = mine.filter((f) => f.status === "done");
     const failed = mine.filter((f) => f.status === "failed");
     const outdatedFile = done.some((f) => f.outdated);
@@ -166,15 +180,15 @@ export interface CorrectionPatch {
 
 export interface AnswerCorrection {
   /** i18n `sug.<key>.title`. */
-  key: "loan" | "maint" | "3a" | "stwe";
+  key: "loan" | "maint" | "3a" | "stwe" | "schenk" | "erbe" | "darl";
   titleKey: string;
   /** i18n key of the text (v5 wording for chips and amounts); `params` fill it. */
   textKey: string;
   params?: Record<string, string | number>;
   /** What «Ja, ergänzen» sets. Empty when the value must be typed (3a without a readable amount). */
   patch: CorrectionPatch;
-  /** The field to fill in by hand when `patch` cannot carry the value (`em.s3a`). */
-  focus?: "em.s3a";
+  /** The field to fill in by hand when `patch` cannot carry the value (`em.s3a`, `em.schenk` …). */
+  focus?: "em.s3a" | "em.schenk" | "em.erbe" | "em.darl";
   /** The recognised requirement ids the correction brings onto the list. */
   requirementIds: string[];
 }
@@ -183,6 +197,29 @@ export interface AnswerCorrection {
 export interface CorrectionValues {
   /** Säule 3a: the policy's Rückkaufswert or the account's Guthaben (CHF). */
   s3a?: number;
+  /** The «Betrag» of a Schenkungsvertrag, an Erbvorbezug, a Darlehensvertrag (CHF). */
+  schenk?: number;
+  erbe?: number;
+  darl?: number;
+}
+
+/**
+ * HYPOTEQ 03.11.2026 Befund 2 (DECISIONS V103): «Schenkung als Eigenmittel → Schenkungsvertrag
+ * benötigt». A recognised Schenkungsvertrag, Erbvorbezug or Darlehensvertrag without the amount
+ * among the Eigenmittel suggests entering it — the amount read, or by hand. Kauf only: an
+ * Ablösung asks for no such Eigenmittel.
+ */
+function equityCorrection(key: "schenk" | "erbe" | "darl", id: string) {
+  return {
+    key,
+    ids: [id],
+    build: (_ids: Set<string>, values: CorrectionValues): Pick<AnswerCorrection, "patch" | "textKey" | "params" | "focus"> => {
+      const amount = values[key];
+      return amount && amount > 0
+        ? { textKey: `sug.${key}.amountText`, params: { amount }, patch: { em: { [key]: amount } as Partial<Eigenmittel> } }
+        : { textKey: `sug.${key}.enterText`, patch: {}, focus: `em.${key}` as const };
+    },
+  };
 }
 
 const CORRECTIONS: {
@@ -211,6 +248,9 @@ const CORRECTIONS: {
         : { textKey: "sug.3a.enterText", patch: {}, focus: "em.s3a" },
   },
   { key: "stwe", ids: ["stwe_regl", "ef"], build: () => ({ textKey: "sug.stwe.text", patch: { ans: { lieg: "Stockwerkeigentum" } } }) },
+  equityCorrection("schenk", "schenkung"),
+  equityCorrection("erbe", "erbe"),
+  equityCorrection("darl", "darlehen"),
 ];
 
 /**
@@ -233,11 +273,13 @@ export function answerCorrections(
   const recognised = new Set([...recognisedRequirementIds].map(baseId));
   const out: AnswerCorrection[] = [];
   for (const c of CORRECTIONS) {
+    // The Eigenmittel rows of a Schenkung, an Erbvorbezug, a Darlehen exist at a Kauf only.
+    if ((c.key === "schenk" || c.key === "erbe" || c.key === "darl") && state.ans.antrag !== "Neue Hypothek") continue;
     const hit = new Set(c.ids.filter((id) => recognised.has(id) && !current.has(id)));
     if (!hit.size) continue;
     const built = c.build(hit, values);
     // For a value to be typed, test with a stand-in amount.
-    const em = { ...(state.em ?? EMPTY_EM), ...(built.patch.em ?? {}), ...(built.focus === "em.s3a" ? { s3a: 1 } : {}) };
+    const em = { ...(state.em ?? EMPTY_EM), ...(built.patch.em ?? {}), ...(built.focus ? { [built.focus.slice(3)]: 1 } : {}) };
     const after = new Set(reqList({ ...state, ans: { ...state.ans, ...(built.patch.ans ?? {}) }, em }).map((r) => r.id));
     const brought = [...hit].filter((id) => after.has(id));
     if (!brought.length) continue;

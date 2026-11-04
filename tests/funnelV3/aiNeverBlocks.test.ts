@@ -94,11 +94,12 @@ describe("A.4: no AI verdict blocks", () => {
     expect(summary.status.requirements.find((r) => r.instance.id === "grundbuch")?.state).toBe("outdated");
   });
 
-  it("an unsigned authorisation does not block either: «Trotzdem einreichen» (E.4) or «Später nachreichen»", () => {
+  it("an unsigned authorisation does not block either — without a click (03.11. Befund 1), and with «Später nachreichen»", () => {
     const s = kaufState();
     const unsigned = file("sig", { docTypeId: SIGNATURE_REQUIREMENT_ID, fields: { Unterschrift: { value: "fehlt", confidence: 0.9 } } as any }, { instanceId: SIGNATURE_REQUIREMENT_ID, assignedByUser: true });
     const base = { ans: s.ans, borrowers: s.borrowers, txt: s.txt, em: s.em, info: s.info, files: [unsigned] };
-    expect(finishGate(documentsSummary({ ...base, sig: { choice: "uploaded", at: "x", method: "upload" } }).signature).enabled).toBe(false);
+    expect(finishGate(documentsSummary({ ...base, sig: { choice: "uploaded", at: "x", method: "upload" } }).signature).enabled).toBe(true);
+    expect(finishGate(documentsSummary({ ...base, sig: null }).signature).enabled).toBe(true);
     expect(finishGate(documentsSummary({ ...base, sig: { choice: "uploaded", at: "x", method: "upload", override: true, overrideAt: "y" } }).signature).enabled).toBe(true);
     expect(finishGate(documentsSummary({ ...base, sig: { choice: "later", at: "x", method: "upload" } }).signature).enabled).toBe(true);
   });

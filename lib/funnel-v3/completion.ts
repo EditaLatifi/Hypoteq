@@ -30,17 +30,19 @@
 import { buildCheckState, type CheckStateDetail } from "./checkState";
 import { createDossierPdf, dossierFileName, type DossierFile, type DossierInput } from "./dossier";
 import { transcriptFileName } from "./dossier/fileName";
-import type { SubmittedDocument, V3Analysis } from "./files";
-import { isLang, type Lang } from "./i18n";
+import { embedsOf, type SubmittedDocument, type V3Analysis } from "./files";
+import { isLang, translate, type Lang } from "./i18n";
+import { plausibilityWarnings } from "./plausibility";
+import { chf } from "./format";
 import { SIGNATURE_REQUIREMENT_ID, getRequirement, reqList, type RequirementDef, type RequirementInstance } from "./requirements";
-import { signatureJson, signatureView } from "./signature";
+import { signatureJson, signatureReviewNote, signatureView } from "./signature";
 import { bankHints, requirementStatus, type ExtraKind, type StatusResult, type UploadedFile } from "./requirementStatus";
 import { cleanNamePart, extraStoredName, storedName } from "./storedName";
 import { normaliseFunnelState, type StoredFunnelState } from "./legacy";
-import { v3DocType } from "@/components/documentIntelligence/v3/catalogue";
+import { familyMembers, v3DocType } from "@/components/documentIntelligence/v3/catalogue";
 import { evaluateAbgleich } from "./abgleich/evaluate";
 import type { PruefRegel } from "./abgleich/rules";
-import { abgleichStateText, buildAbgleichState, choicesOf } from "./abgleich/state";
+import { abgleichStateText, buildAbgleichState, choicesOf, type AbgleichDocument, type SignatureField } from "./abgleich/state";
 
 // ---- Types --------------------------------------------------------------------------------
 
@@ -642,6 +644,7 @@ export function v3DocumentStatus(data: any): V3DocumentStatus | null {
     outdatedOverride: Boolean(f.outdatedOverride),
     extraKind: f.instanceId ? undefined : f.extraKind ?? "unknown",
     note: f.analysis?.note ?? undefined,
+    ...embedsOf(f.analysis),
   }));
   const status = requirementStatus(reqList(state), uploaded, skippedOf(data));
   return { state, files, uploaded, status };
@@ -709,13 +712,125 @@ export function abgleichCaseField(
 ): string | null {
   const computed = v3DocumentStatus(data);
   if (!computed) return null;
-  const { state, files } = computed;
+  const { state, files, status } = computed;
   const edits = new Map(submittedDocumentsOf(data).map((s) => [s.documentId, s.humanEdits ?? null]));
   const docs = files.map((f) => ({ id: f.documentId, instanceId: f.instanceId ?? null, analysis: f.analysis, extraKind: f.extraKind ?? null, humanEdits: edits.get(f.documentId) ?? null }));
   const result = evaluateAbgleich({ state, docs, rules: rules.rules, choices: choicesOf(data) });
+  const { documents, signature } = abgleichDocuments(state, status, files);
   return abgleichStateText(
-    buildAbgleichState({ result, submittedAt: now, mode: state.mode, channel: state.channel, role: state.role, rulesFrom: rules.from, borrowerIds: state.borrowers.map((b) => b.id), reuploads })
+    buildAbgleichState({
+      result,
+      submittedAt: now,
+      mode: state.mode,
+      channel: state.channel,
+      role: state.role,
+      rulesFrom: rules.from,
+      borrowerIds: state.borrowers.map((b) => b.id),
+      reuploads,
+      marks: { chat: state.hypo?.answered ?? [], src: state.src },
+      documents,
+      signature,
+      plausibility: plausibilityWarnings(state).map((w) => ({
+        feld: w.field,
+        code: w.code,
+        hinweis: translate("de", w.key, Object.fromEntries(Object.entries(w.params).map(([k, v]) => [k, chf(v)]))),
+      })),
+    })
   );
+}
+
+const LANGS4 = ["de", "en", "fr", "it"] as const;
+
+/**
+ * `documents[]` of the Abgleich JSON (HYPOTEQ 03.11.2026 Pre-Check 2.2; DECISIONS V101): every
+ * requirement of the case's list — needed (the Soll-Logik: not optional), received (fulfilled),
+ * the stored names (Naming Convention) — then every file outside the list with its category, and
+ * the Auskunftsermächtigung's signature as the AI read it (a field of the JSON, «to_check» when
+ * doubted). The requirement id is the one the Re-Upload interface takes.
+ */
+export function abgleichDocuments(
+  state: V3State,
+  status: StatusResult,
+  files: CompletedFile[]
+): { documents: AbgleichDocument[]; signature: SignatureField | null } {
+  const live = files.filter((f) => !f.removed);
+  const byId = new Map(live.map((f) => [f.documentId, f]));
+  const nameOf = (f: CompletedFile) => f.storedName || f.originalName;
+  const labelOf = (key: string, who?: string) =>
+    Object.fromEntries(LANGS4.map((l) => [l, who ? `${translate(l, key)} – ${who}` : translate(l, key)])) as Record<(typeof LANGS4)[number], string>;
+
+  const p0 = status.requirements.find((r) => r.instance.id === SIGNATURE_REQUIREMENT_ID);
+  const view = p0
+    ? signatureView(live.map((f) => ({ fileId: f.documentId, instanceId: f.instanceId, analysis: f.analysis, assignedByUser: f.assignedByUser })), state.sig, p0.instance.person)
+    : null;
+  const sigNote = view?.override ? signatureReviewNote(view.problems, "de") : undefined;
+
+  const counted = new Set<string>();
+  const documents: AbgleichDocument[] = status.requirements.map((r) => {
+    const mine = r.fileIds.map((id) => byId.get(id)).filter((f): f is CompletedFile => !!f);
+    for (const f of mine) counted.add(f.documentId);
+    const isSig = r.instance.id === SIGNATURE_REQUIREMENT_ID;
+    const who = r.instance.perBorrower ? r.instance.person?.display?.trim() : "";
+    // The Auskunftsermächtigung counts once a copy is there (03.11. Befund 1), also when doubted.
+    const received = isSig ? view?.status === "received" : r.state === "ok";
+    const outdated = mine.find((f) => f.analysis?.outdated && !f.outdatedOverride);
+    return {
+      typ: r.instance.def.shortName,
+      requirement: r.instance.instanceId,
+      code: r.instance.code,
+      label: labelOf(r.instance.labelKey, who || undefined),
+      ...(r.instance.person?.display ? { person: r.instance.person.display } : {}),
+      benoetigt: !r.instance.optional,
+      erhalten: received,
+      datei: mine[0] ? nameOf(mine[0]) : null,
+      ...(mine.length > 1 ? { dateien: mine.map(nameOf) } : {}),
+      status: isSig && received ? "ok" : r.state,
+      ...(isSig && sigNote ? { hinweis: sigNote, unsicher: true as const } : outdated?.analysis?.outdatedReason ? { hinweis: `Veraltet: ${outdated.analysis.outdatedReason}` } : {}),
+    };
+  });
+
+  // Files outside the list: kept in the dossier, never «benötigt». A recognised type the answers
+  // do not ask for — or a further copy of the Auskunftsermächtigung — is «relevant» (fallrelevant,
+  // 03.11. Befund 2), not «surplus»; «surplus» stays for a further copy or a year not asked for.
+  const onList = new Set(status.requirements.map((r) => r.instance.id));
+  for (const f of live) {
+    if (counted.has(f.documentId)) continue;
+    const def = getRequirement(f.analysis?.docTypeId || f.requirementId || "");
+    const type = v3DocType(f.analysis?.docTypeId);
+    const raw = f.extraKind ?? "unknown";
+    const relevant = raw === "surplus" && !!def && (def.id === SIGNATURE_REQUIREMENT_ID || !familyMembers(def.id).some((m) => onList.has(m)));
+    const kind = relevant ? "relevant" : raw;
+    documents.push({
+      typ: def?.shortName ?? (cleanNamePart((type?.labelDe ?? "").replace(/[\s/_()]+/g, "-")) || "Datei"),
+      requirement: null,
+      label: def ? labelOf(def.labelKey) : (Object.fromEntries(LANGS4.map((l) => [l, type?.labelDe ?? f.originalName])) as Record<(typeof LANGS4)[number], string>),
+      ...(f.analysis?.personName ? { person: f.analysis.personName } : {}),
+      benoetigt: false,
+      erhalten: true,
+      datei: nameOf(f),
+      status: "extra",
+      kategorie: kind,
+      ...(f.analysis?.note
+        ? { hinweis: f.analysis.note }
+        : relevant && def?.id !== SIGNATURE_REQUIREMENT_ID
+          ? { hinweis: "Von den Antworten nicht verlangt – fallrelevant, bitte prüfen." }
+          : {}),
+    });
+  }
+
+  let signature: SignatureField | null = null;
+  if (view && view.status === "received") {
+    const copy = live.find((f) => view.fileIds.includes(f.documentId));
+    const read = copy?.analysis?.fields?.Unterschrift;
+    signature = {
+      docId: copy?.documentId ?? null,
+      value: view.override ? (view.problems.includes("signature") ? String(read?.value || "nicht erkannt") : view.problems.includes("form") ? "anderes Dokument" : "Name passt nicht") : String(read?.value || "vorhanden"),
+      confidence: typeof read?.confidence === "number" ? read.confidence : typeof copy?.analysis?.confidence === "number" ? copy.analysis.confidence : null,
+      uncertain: view.override,
+      ...(view.override ? { note: Object.fromEntries(LANGS4.map((l) => [l, signatureReviewNote(view.problems, l)])) as Record<(typeof LANGS4)[number], string> } : {}),
+    };
+  }
+  return { documents, signature };
 }
 
 function formatTs(d: Date): string {

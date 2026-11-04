@@ -68,11 +68,11 @@ describe("addSignatureCopy", () => {
     expect(summary().signature).toMatchObject({ status: "received", canFinish: true });
   });
 
-  it("unsigned → «Unterschrift fehlt»; a new copy replaces the hand-placed one", async () => {
+  it("unsigned → flagged, not blocking (03.11. Befund 1); a new copy replaces the hand-placed one", async () => {
     analysisFor = (n) => ({ fields: { Unterschrift: { value: n.includes("v2") ? "vorhanden" : "fehlt", confidence: 0.9 } } });
     addSignatureCopy(useFunnelV3, file("auskunft.pdf"));
     await flush();
-    expect(summary().signature).toMatchObject({ status: "unsigned", problems: ["signature"], canFinish: false });
+    expect(summary().signature).toMatchObject({ status: "received", problems: ["signature"], override: true, canFinish: true });
 
     addSignatureCopy(useFunnelV3, file("auskunft-v2.pdf"));
     await flush();
@@ -89,7 +89,7 @@ describe("addSignatureCopy", () => {
     addSignatureCopy(useFunnelV3, file("Lohnausweis.pdf"));
     await flush();
     expect(S().files[0].instanceId).toBe("vollmacht");
-    expect(summary().signature).toMatchObject({ status: "unsigned", problems: ["form"] });
+    expect(summary().signature).toMatchObject({ status: "received", problems: ["form"], override: true });
   });
 
   it("a file already dropped into the folder is placed, not uploaded twice", async () => {

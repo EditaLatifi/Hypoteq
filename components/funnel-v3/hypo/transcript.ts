@@ -44,9 +44,11 @@ export function hypoPayload(lang: Lang): HypoPayload | null {
   const { session, messages } = useHypo.getState();
   const lines = messages.map((m) => ({ from: m.from, text: messageText(m, lang), at: m.at }));
   const text = transcriptText(lines, { lang, role: session.role });
+  const answered = session.answered.filter((k) => !k.startsWith("chat."));
   return {
     bewertung: session.bewertung,
     ...(session.adresse ? { adresse: session.adresse } : {}),
+    ...(answered.length ? { answered } : {}),
     transcript: text.length > MAX_TRANSCRIPT ? `${text.slice(0, MAX_TRANSCRIPT)}\n…` : text,
   };
 }

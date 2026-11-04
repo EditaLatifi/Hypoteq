@@ -50,15 +50,19 @@ export default function RequirementRow({ status: r, files, open, onToggle, onPic
   // The stored name's Kat and «Strasse-Nr-Ort» (Spezifikation Datenabgleich 8.1).
   const nameCtx = { borrowerIndex: inst.borrowerId ? borrowers.findIndex((b) => b.id === inst.borrowerId) : undefined, object: { street, place } };
   const look = STATE_LOOK[r.state];
-  const done = files.filter((f) => f.analysisState === "done");
+  // HYPOTEQ 03.11. Befund 3: fulfilled by a document that contains it (the floor plans in the
+  // Verkaufsdokumentation) — that file is shown, stored and removed on its own requirement.
+  const embedded = r.embedded === true;
+  const done = embedded ? [] : files.filter((f) => f.analysisState === "done");
   const names = done.map((f) => f.name).join(" · ");
-  const hasContent = ["ok", "outdated", "partial"].includes(r.state);
+  const hasContent = !embedded && ["ok", "outdated", "partial"].includes(r.state);
 
   let sub: string;
   if (r.state === "missing") sub = t("s5.notUploaded");
   else if (r.state === "analysing") sub = t("s5.reading");
   else if (r.state === "skipped") sub = t("s5.markedNone");
   else if (r.state === "partial") sub = `${t("s5.filesOf", { n: r.doneFiles, total: r.expect })} · ${names}`;
+  else if (embedded) sub = t("s5.embedded", { name: files[0]?.name ?? "" });
   else sub = names;
 
   const badge = r.state === "partial" ? `${t(look.labelKey)} · ${r.doneFiles}/${r.expect}` : t(look.labelKey);

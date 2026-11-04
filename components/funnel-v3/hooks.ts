@@ -9,8 +9,27 @@ import { toUploadedFiles, type FileEntry } from "@/lib/funnel-v3/files";
 import { validateScreen, type StepErrors } from "@/lib/funnel-v3/validate";
 import { screenAt, stepCount, stepOf, type Screen } from "@/lib/funnel-v3/steps";
 import type { FunnelState } from "@/lib/funnel-v3/types";
+import { plausibilityWarnings, warningsByField } from "@/lib/funnel-v3/plausibility";
+import { chf } from "@/lib/funnel-v3/format";
+import { useFunnelT } from "@/lib/funnel-v3/useFunnelT";
 import { fieldId, firstErrorField, visibleFields } from "./logic";
 import { useFunnelUI } from "./uiStore";
+
+/**
+ * The plausibility note of a field, in words (HYPOTEQ 03.11.2026 Befunde 4, 5; DECISIONS V104):
+ * shown under the amount, never blocking.
+ */
+export function usePlausibility(): (field: string) => string | undefined {
+  const state = useFunnelState();
+  const { t } = useFunnelT();
+  return useMemo(() => {
+    const by = warningsByField(plausibilityWarnings(state));
+    return (field: string) => {
+      const w = by.get(field);
+      return w ? t(w.key, Object.fromEntries(Object.entries(w.params).map(([k, v]) => [k, chf(v)]))) : undefined;
+    };
+  }, [state, t]);
+}
 
 /** The answer model, re-rendering only when one of its parts changes. */
 export function useFunnelState(): FunnelState {

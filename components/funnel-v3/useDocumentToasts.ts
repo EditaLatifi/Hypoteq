@@ -7,6 +7,7 @@ import type { RequirementInstance } from "@/lib/funnel-v3/requirements";
 import { useFunnelV3 } from "@/lib/funnel-v3/store";
 import { useFunnelT } from "@/lib/funnel-v3/useFunnelT";
 import type { ToastLine } from "./documents/Toast";
+import { isRelevantExtra } from "./documents/view";
 import { factAdditions, reasonLine } from "./logic";
 import { useFunnelUI } from "./uiStore";
 
@@ -62,7 +63,11 @@ export function useDocumentToasts(enabled: boolean): void {
     const c = summary.status.counts;
     const files = summary.files;
     const done = files.filter((f) => f.analysisState === "done").length;
-    const extraN = files.filter((f) => !f.instanceId && ["surplus", "notneeded", "duplicate"].includes(summary.placements.get(f.id)?.extraKind ?? "")).length;
+    // A «Fallrelevant» file (Befund 2) is neither «nicht benötigt» nor «überzählig».
+    const extraN = files.filter((f) => {
+      const p = summary.placements.get(f.id);
+      return !f.instanceId && ["surplus", "notneeded", "duplicate"].includes(p?.extraKind ?? "") && !isRelevantExtra(p);
+    }).length;
     const failed = files.filter((f) => f.uploadState === "failed").length;
     const warn = c.partial + c.outdated;
     const taken = mode === "schnell" ? prefilledCount(src) : 0;

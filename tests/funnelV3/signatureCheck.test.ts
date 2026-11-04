@@ -20,9 +20,9 @@ const an = (docTypeId: string | null, fields: Record<string, string> = {}, statu
 const onP0 = (a: V3Analysis | null, over: Partial<SignatureFile> = {}): SignatureFile => ({ fileId: "s", instanceId: "vollmacht", analysis: a, assignedByUser: true, ...over });
 
 describe("the right form", () => {
-  it("another document placed on P0 with the block's button: «form», not received", () => {
+  it("another document placed on P0 with the block's button: «form», flagged — never blocking (03.11. Befund 1)", () => {
     expect(signatureProblems(an("lohnausweise", { Unterschrift: "vorhanden" }), SIGNER)).toEqual(["form"]);
-    expect(signatureView([onP0(an("id"))], null, SIGNER)).toMatchObject({ status: "unsigned", problems: ["form"], canFinish: false });
+    expect(signatureView([onP0(an("id"))], null, SIGNER)).toMatchObject({ status: "received", problems: ["form"], override: true, canFinish: true });
   });
 
   it("an unrecognised or unreadable copy placed by hand still counts (V21)", () => {

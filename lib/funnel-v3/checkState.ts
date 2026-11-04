@@ -93,7 +93,7 @@ export interface CheckStateV3 extends DokumentenCheckState {
 export interface CheckStateSource extends ReqState {
   mode?: Mode;
   channel?: "chat";
-  hypo?: { bewertung: boolean; adresse?: string };
+  hypo?: { bewertung: boolean; adresse?: string; answered?: string[] };
   fin?: Amounts;
   src?: Sources;
   sig?: SignatureState | null;

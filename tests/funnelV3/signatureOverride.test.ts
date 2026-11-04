@@ -1,10 +1,10 @@
 /**
- * HYPOTEQ 19.10. A.4 / E.4: the AI check of the Auskunftsermächtigung never blocks. Over a copy
- * it judged unsigned, with another name or not the form, «Trotzdem einreichen – HYPOTEQ prüft
- * manuell» frees «Finanzierungsanfrage abschliessen»; the choice is kept with its time
- * (`sig.override`), the copy counts as received at the submit, and the AI's assessment goes along
- * only as a note — in the Case JSON, the internal mail and the dossier (DECISIONS V67). Nothing is
- * sent: Salesforce and the mail transport are fakes.
+ * HYPOTEQ 19.10. A.4 / E.4 and 03.11. Befund 1: the AI check of the Auskunftsermächtigung never
+ * blocks. A copy it judged unsigned, with another name or not the form counts as received without
+ * a click — «Unterschrift nicht sicher erkannt», «Finanzierungsanfrage abschliessen» is free — and
+ * the AI's assessment goes along only as a note: in the Case JSON, the internal mail and the
+ * dossier (DECISIONS V67, V99). An older saved `sig.override` (the click E.4 asked for) keeps its
+ * time. Nothing is sent: Salesforce and the mail transport are fakes.
  */
 import { describe, it, expect, jest, beforeEach, afterEach } from "@jest/globals";
 
@@ -56,18 +56,23 @@ afterEach(() => {
 });
 
 describe("the signature view", () => {
-  it("unsigned blocks; submitted anyway it is received, flagged, and the closing is free", () => {
-    expect(signatureView([unsignedFile], UPLOADED, SIGNER)).toMatchObject({ status: "unsigned", override: false, canFinish: false });
-    const v = signatureView([unsignedFile], OVERRIDE, SIGNER);
-    expect(v).toEqual({ status: "received", fileIds: ["sig-1"], problems: ["signature"], override: true, canFinish: true });
-    expect(finishGate(v)).toEqual({ enabled: true, labelKey: "s6.submitTitle" });
+  it("an unsigned copy is received without a click, flagged, and the closing is free", () => {
+    for (const sig of [UPLOADED, OVERRIDE]) {
+      const v = signatureView([unsignedFile], sig, SIGNER);
+      expect(v).toEqual({ status: "received", fileIds: ["sig-1"], problems: ["signature"], override: true, canFinish: true });
+      expect(finishGate(v)).toEqual({ enabled: true, labelKey: "s6.submitTitle" });
+    }
   });
 
-  it("the wrong name and the wrong form can be submitted anyway too", () => {
+  it("the wrong name and the wrong form do not block either", () => {
     const wrongName: SignatureFile = { ...unsignedFile, analysis: { ...unsignedAnalysis, fields: { Vollmachtgeber: { value: "Hans Anders", confidence: 0.9 } } } as any };
-    expect(signatureView([wrongName], OVERRIDE, SIGNER)).toMatchObject({ status: "received", problems: ["name"], canFinish: true });
+    expect(signatureView([wrongName], UPLOADED, SIGNER)).toMatchObject({ status: "received", problems: ["name"], override: true, canFinish: true });
     const wrongForm: SignatureFile = { ...unsignedFile, analysis: { ...unsignedAnalysis, docTypeId: "lohnausweise", fields: {} } as any };
-    expect(signatureView([wrongForm], OVERRIDE, SIGNER)).toMatchObject({ status: "received", problems: ["form"], canFinish: true });
+    expect(signatureView([wrongForm], UPLOADED, SIGNER)).toMatchObject({ status: "received", problems: ["form"], override: true, canFinish: true });
+  });
+
+  it("a copy still being read holds the closing until it is read", () => {
+    expect(signatureView([{ ...unsignedFile, pending: true }], UPLOADED, SIGNER)).toMatchObject({ status: "analysing", canFinish: false });
   });
 
   it("a good copy needs no override; without a copy the override means nothing", () => {
@@ -85,9 +90,11 @@ describe("the note", () => {
     expect(signatureReviewNote([], "en")).toBe("AI note: signature not recognised – check manually");
   });
 
-  it("the JSON block: uploaded, the choice with its time, the AI's findings as a note — no bank note", () => {
-    const json = signatureWithServer(signatureJson(signatureView([unsignedFile], OVERRIDE, SIGNER), OVERRIDE), null);
-    expect(json).toEqual({ status: "uploaded", at: AT, method: "upload", override: true, overrideAt: "2026-10-19T09:05:00.000Z", aiProblems: ["signature"], aiNote: NOTE });
+  it("the JSON block: uploaded, flagged with the upload's time, the AI's findings as a note — no bank note", () => {
+    const json = signatureWithServer(signatureJson(signatureView([unsignedFile], UPLOADED, SIGNER), UPLOADED), null);
+    expect(json).toEqual({ status: "uploaded", at: AT, method: "upload", override: true, overrideAt: AT, aiProblems: ["signature"], aiNote: NOTE });
+    // An older saved click keeps its own time.
+    expect(signatureJson(signatureView([unsignedFile], OVERRIDE, SIGNER), OVERRIDE).overrideAt).toBe("2026-10-19T09:05:00.000Z");
   });
 });
 
@@ -100,18 +107,21 @@ describe("the closing block (SignatureBlock / signatureModel)", () => {
   const model = (sig: SignatureState, context?: "nachreich") =>
     signatureModel({ view: signatureView([unsignedFile], sig, SIGNER), files, later: context ? null : false, data: authorizationDataFromState(kaufState(), "de"), jp: false, context }, t, opt);
 
-  it("«Unterschrift fehlt» offers «Trotzdem einreichen – HYPOTEQ prüft manuell»", () => {
+  it("«Unterschrift nicht sicher erkannt» in yellow, the finding visible, nothing to click, the closing is free", () => {
     const m = model(UPLOADED);
-    expect(m).toMatchObject({ status: "unsigned", title: "Unterschrift fehlt", canFinish: false });
-    expect(m.override).toEqual({ chosen: false, hint: expect.stringContaining("nur ein Hinweis"), label: "Trotzdem einreichen – HYPOTEQ prüft manuell" });
+    expect(m).toMatchObject({ status: "received", tone: "warn", title: "Unterschrift nicht sicher erkannt", canFinish: true, showSteps: true, later: null, override: null });
+    expect(m.lines).toEqual([
+      "Die AI hat auf der hochgeladenen Auskunftsermächtigung keine Unterschrift sicher erkannt.",
+      "Du kannst die Anfrage trotzdem abschliessen – HYPOTEQ prüft die Auskunftsermächtigung von Hand. Ein anderes Exemplar kannst du jederzeit hochladen.",
+    ]);
+    expect(m.files).toEqual([{ id: "sig-1", name: "Scan.jpg", state: "review" }]);
   });
 
-  it("chosen: «Wird von HYPOTEQ manuell geprüft», the finding stays visible, it can be undone, the closing is free", () => {
-    const m = model(OVERRIDE);
-    expect(m).toMatchObject({ title: "Wird von HYPOTEQ manuell geprüft", canFinish: true, showSteps: true, later: null });
-    expect(m.lines).toContain("Auf der hochgeladenen Auskunftsermächtigung fehlt die Unterschrift. Bitte unterzeichnet hochladen.");
-    expect(m.override).toEqual({ chosen: true, hint: "", label: "Doch nicht so einreichen" });
-    expect(m.files).toEqual([{ id: "sig-1", name: "Scan.jpg", state: "review" }]);
+  it("another name: «Wird von HYPOTEQ manuell geprüft» with the finding", () => {
+    const wrongName: SignatureFile = { ...unsignedFile, analysis: { ...unsignedAnalysis, fields: { Vollmachtgeber: { value: "Hans Anders", confidence: 0.9 } } } as any };
+    const m = signatureModel({ view: signatureView([wrongName], UPLOADED, SIGNER), files, later: false, data: authorizationDataFromState(kaufState(), "de"), jp: false }, t, opt);
+    expect(m).toMatchObject({ title: "Wird von HYPOTEQ manuell geprüft", canFinish: true });
+    expect(m.lines[0]).toBe("Der Name auf der Auskunftsermächtigung passt nicht zum Kreditnehmer.");
   });
 
   it("a signed copy with another name is no «Bestätigt» row while the block says «Name passt nicht»", () => {
@@ -120,8 +130,7 @@ describe("the closing block (SignatureBlock / signatureModel)", () => {
     const wrongFile: SignatureFile = { ...unsignedFile, analysis: wrongNameAnalysis as any };
     const m = (sig: SignatureState) =>
       signatureModel({ view: signatureView([wrongFile], sig, SIGNER), files: wrongFiles, later: false, data: authorizationDataFromState(kaufState(), "de"), jp: false }, t, opt);
-    expect(m(UPLOADED).files).toEqual([{ id: "sig-1", name: "Scan.jpg", state: "problem" }]);
-    expect(m(OVERRIDE).files).toEqual([{ id: "sig-1", name: "Scan.jpg", state: "review" }]);
+    expect(m(UPLOADED).files).toEqual([{ id: "sig-1", name: "Scan.jpg", state: "review" }]);
     // A good copy stays «Bestätigt».
     const goodAnalysis = { ...wrongNameAnalysis, fields: { Unterschrift: { value: "vorhanden", confidence: 0.9 }, Vollmachtgeber: { value: "Lea Muster", confidence: 0.9 } } };
     const good = signatureModel(
@@ -132,18 +141,15 @@ describe("the closing block (SignatureBlock / signatureModel)", () => {
     expect(good.files).toEqual([{ id: "sig-1", name: "Scan.jpg", state: "ok" }]);
   });
 
-  it("on the Nachreich page as well, and chosen there the copy is received for the manual check", () => {
-    expect(model(UPLOADED, "nachreich").override).toEqual({ chosen: false, hint: expect.stringContaining("nur ein Hinweis"), label: "Trotzdem einreichen – HYPOTEQ prüft manuell" });
-    const m = model(OVERRIDE, "nachreich");
-    expect(m).toMatchObject({ title: "Wird von HYPOTEQ manuell geprüft", later: null });
-    expect(m.override).toEqual({ chosen: true, hint: "", label: "Doch nicht so einreichen" });
+  it("on the Nachreich page as well the copy is received for the manual check", () => {
+    expect(model(UPLOADED, "nachreich")).toMatchObject({ title: "Unterschrift nicht sicher erkannt", later: null, override: null, canFinish: true });
   });
 
   it("in all four languages", () => {
     for (const lang of ["de", "en", "fr", "it"]) {
-      for (const k of ["override", "overrideHint", "overrideUndo", "review", "reviewSub", "reviewBadge"]) expect([lang, k, translate(lang, `sig.${k}`)]).not.toEqual([lang, k, `sig.${k}`]);
+      for (const k of ["review", "reviewSignature", "reviewSignatureSub", "reviewSub", "reviewBadge"]) expect([lang, k, translate(lang, `sig.${k}`)]).not.toEqual([lang, k, `sig.${k}`]);
     }
-    expect(translate("fr", "sig.override")).toBe("Soumettre quand même – HYPOTEQ vérifie manuellement");
+    expect(translate("fr", "sig.reviewSignature")).toBe("Signature non reconnue avec certitude");
   });
 });
 
@@ -188,29 +194,25 @@ describe("after the submit", () => {
     };
   }
 
-  it("Dokumenten_Check_State__c.signature carries the choice and the AI note; without the override it stays «unsigned»", async () => {
+  it("Dokumenten_Check_State__c.signature is «uploaded» with the AI note", async () => {
     const sf = fakeSalesforce();
-    await syncFunnelStepsToSalesforce(unsignedPayload(OVERRIDE), sf.api);
+    await syncFunnelStepsToSalesforce(unsignedPayload(UPLOADED), sf.api);
     const json = JSON.parse(sf.cases[0].Dokumenten_Check_State__c);
-    expect(json.signature).toMatchObject({ status: "uploaded", override: true, overrideAt: "2026-10-19T09:05:00.000Z", aiProblems: ["signature"], aiNote: NOTE });
-    const plain = fakeSalesforce();
-    await syncFunnelStepsToSalesforce(unsignedPayload(UPLOADED), plain.api);
-    expect(JSON.parse(plain.cases[0].Dokumenten_Check_State__c).signature).toMatchObject({ status: "unsigned" });
+    expect(json.signature).toMatchObject({ status: "uploaded", override: true, overrideAt: AT, aiProblems: ["signature"], aiNote: NOTE });
   });
 
   it("the AI note is also in the Case's Comments, where someone opening the Case reads it", async () => {
     const sf = fakeSalesforce();
-    await syncFunnelStepsToSalesforce(unsignedPayload(OVERRIDE), sf.api);
-    expect(sf.cases[0].Comments).toContain(`Auskunftsermächtigung trotzdem eingereicht – ${NOTE}`);
-    const plain = fakeSalesforce();
-    await syncFunnelStepsToSalesforce(unsignedPayload(UPLOADED), plain.api);
-    expect(String(plain.cases[0].Comments ?? "")).not.toContain("trotzdem eingereicht");
+    await syncFunnelStepsToSalesforce(unsignedPayload(UPLOADED), sf.api);
+    expect(sf.cases[0].Comments).toContain(`Auskunftsermächtigung nicht sicher erkannt – ${NOTE}`);
+    const signed = fakeSalesforce();
+    await syncFunnelStepsToSalesforce(v5Payload(kaufState({ sig: UPLOADED }), { signed: true }), signed.api);
+    expect(String(signed.cases[0].Comments ?? "")).not.toContain("nicht sicher erkannt");
   });
 
   it("recordSignatureAtSubmit gets «uploaded»: the row is received, no reminders follow", async () => {
-    const at = await signatureAtSubmit(unsignedPayload(OVERRIDE), async () => "drive-1");
+    const at = await signatureAtSubmit(unsignedPayload(UPLOADED), async () => "drive-1");
     expect(at).toMatchObject({ state: "uploaded", driveItemId: "drive-1" });
-    expect((await signatureAtSubmit(unsignedPayload(UPLOADED), async () => null)).state).toBeNull();
 
     const rows = new Map<string, SignatureRow>();
     const server = createSignatureServer({

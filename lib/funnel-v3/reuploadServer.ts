@@ -361,10 +361,16 @@ function prismaDeps(): ReuploadDeps {
       return updateCaseV3Documents(caseId, build);
     },
     async closeTask(taskId) {
-      const { isTestMode } = await import("@/components/testMode");
-      if (isTestMode()) return;
-      const { conn, ensureSession, withSessionRetry } = await import("@/components/salesforceApi");
+      const { isTestMode, testSalesforceEnabled } = await import("@/components/testMode");
+      if (isTestMode() && !testSalesforceEnabled()) return;
+      const { conn, ensureSession, withSessionRetry, sfQuery } = await import("@/components/salesforceApi");
       await ensureSession();
+      if (isTestMode()) {
+        // ZZTEST mode (DECISIONS V102): only the Task of a ZZTEST Case.
+        const { isZztestCase } = await import("@/components/updateCaseCompleteness");
+        const [task] = await sfQuery<{ WhatId?: string | null }>(`SELECT WhatId FROM Task WHERE Id = '${String(taskId).replace(/[^A-Za-z0-9]/g, "")}'`, "Re-Upload Task (test)");
+        if (!task?.WhatId || !(await isZztestCase(task.WhatId))) return;
+      }
       await withSessionRetry(() => conn.sobject("Task").update({ Id: taskId, Status: "Completed" }) as Promise<unknown>, "Re-Upload Task");
     },
     async pruefregeln() {

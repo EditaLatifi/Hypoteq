@@ -19,18 +19,20 @@ export const NEW_PARTNER_NOTE = 'Neuer Partner – bitte prüfen und anlegen';
 export const PARTNER_CHECK_FAILED_NOTE = 'Partner konnte nicht geprüft werden – bitte prüfen';
 /** Case.Origin of a request from HYPO, the chat (HYPOTEQ 29.10.2026 point 6). */
 export const HYPO_CASE_ORIGIN = 'HYPO Chat';
+/** `Case.Funnel_Abgleich_Status__c` on a new Case (HYPOTEQ handover 04.11.2026). */
+export const FUNNEL_ABGLEICH_STATUS_OPEN = 'Offen';
 
 /**
- * The Comments line for an Auskunftsermächtigung submitted anyway over the AI's verdict
- * (HYPOTEQ 19.10. E.4): «Auskunftsermächtigung trotzdem eingereicht – AI-Hinweis: … – manuell
- * prüfen», read from the signature block of Dokumenten_Check_State__c. Null otherwise.
+ * The Comments line for an Auskunftsermächtigung the AI flagged, submitted all the same
+ * (HYPOTEQ 19.10. E.4; 03.11. Befund 1): «Auskunftsermächtigung nicht sicher erkannt – AI-Hinweis:
+ * … – manuell prüfen», read from the signature block of Dokumenten_Check_State__c. Null otherwise.
  */
 export function signatureCaseNote(checkState: unknown): string | null {
   if (typeof checkState !== 'string') return null;
   try {
     const sig = JSON.parse(checkState)?.signature;
     if (sig?.override !== true || typeof sig.aiNote !== 'string' || !sig.aiNote.trim()) return null;
-    return `Auskunftsermächtigung trotzdem eingereicht – ${sig.aiNote.trim()}`;
+    return `Auskunftsermächtigung nicht sicher erkannt – ${sig.aiNote.trim()}`;
   } catch {
     return null;
   }
@@ -1381,7 +1383,13 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
         const { abgleichCaseField } = await import('@/lib/funnel-v3/completion');
         const { loadPruefregeln } = await import('@/lib/funnel-v3/abgleich/config');
         const abgleich = abgleichCaseField(stepData, await loadPruefregeln(), new Date());
-        if (abgleich) caseData.Funnel_Abgleich_State__c = abgleich;
+        if (abgleich) {
+          caseData.Funnel_Abgleich_State__c = abgleich;
+          // HYPOTEQ handover 04.11.2026: «ihr setzt beim Erstellen Offen» — the Pre-Check's work
+          // list. HYPOTEQ keeps it from then on (In Prüfung · Geprüft · Re-Upload angefordert);
+          // a Nachreichung or a Re-Upload never writes it (DECISIONS V100).
+          caseData.Funnel_Abgleich_Status__c = FUNNEL_ABGLEICH_STATUS_OPEN;
+        }
       } catch (err) {
         console.error('[Salesforce Sync] Abgleich JSON not built:', err);
       }

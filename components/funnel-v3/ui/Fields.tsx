@@ -132,8 +132,17 @@ export function AmountField({
   onChange,
   disabled,
   source,
-}: BaseProps & { value: number; onChange: (value: number) => void; disabled?: boolean }) {
+  warning,
+}: BaseProps & {
+  value: number;
+  onChange: (value: number) => void;
+  disabled?: boolean;
+  /** A plausibility note (lib/funnel-v3/plausibility.ts), already in words — never blocks. */
+  warning?: string;
+}) {
   const { id, hintId, errId } = useIds(field);
+  const warnId = `${id}-warn`;
+  const showWarning = warning && !error ? warning : undefined;
   const ref = useRef<HTMLInputElement>(null);
   const caretDigits = useRef<number | null>(null);
   const shown = value > 0 ? chf(value) : "";
@@ -168,10 +177,15 @@ export function AmountField({
         placeholder={placeholder}
         disabled={disabled}
         aria-invalid={error ? true : undefined}
-        aria-describedby={describedBy(hint, error, hintId, errId)}
+        aria-describedby={[describedBy(hint, error, hintId, errId), showWarning ? warnId : ""].filter(Boolean).join(" ") || undefined}
         onChange={handle}
       />
       <Messages hint={hint} error={error} hintId={hintId} errId={errId} />
+      {showWarning ? (
+        <span id={warnId} className="v3-warn v3-warn--inline" role="status">
+          {showWarning}
+        </span>
+      ) : null}
     </div>
   );
 }

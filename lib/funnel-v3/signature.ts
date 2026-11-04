@@ -11,10 +11,11 @@
  * «Später nachreichen» lets the case be closed with «Unterschrift ausstehend»; «Finanzierungs-
  * anfrage abschliessen» stays locked until a signed copy is there or that was chosen.
  *
- * The AI never blocks (HYPOTEQ 19.10. A.4, E.4; DECISIONS V67): over a copy it judged unsigned,
- * with another name or not the form, «Trotzdem einreichen – HYPOTEQ prüft manuell» (`sig.override`)
- * counts the copy as received — for the closing, the Case and the reminders — and the AI's
- * assessment goes along only as a note («AI-Hinweis: Unterschrift nicht erkannt – manuell prüfen»).
+ * The AI never blocks (HYPOTEQ 19.10. A.4, E.4; 03.11. Befund 1; DECISIONS V67, V99): a copy it
+ * judged unsigned, with another name or not the form counts as received — for the closing, the
+ * Case and the reminders — without a click, shown as «nicht sicher erkannt», and the AI's
+ * assessment goes along only as a note («AI-Hinweis: Unterschrift nicht erkannt – manuell prüfen»)
+ * for HYPOTEQ's Pre-Check. (`sig.override`, the click E.4 asked for, is no longer read.)
  */
 
 import type { V3Analysis } from "./files";
@@ -60,8 +61,8 @@ export interface SignatureView {
   /** Why a copy is «unsigned» — or, overridden, what the AI found (the note). */
   problems: SignatureProblem[];
   /**
-   * HYPOTEQ 19.10. E.4: a copy the AI flagged was submitted anyway («Trotzdem einreichen»). The
-   * status is then «received» and `problems` holds the AI's assessment for the manual check.
+   * The copy on P0 is one the AI flagged (HYPOTEQ 03.11. Befund 1: counted as received anyway).
+   * The status is then «received» and `problems` holds the AI's assessment for the manual check.
    */
   override: boolean;
   /** «Finanzierungsanfrage abschliessen» may be pressed (Handover 6). */
@@ -117,9 +118,11 @@ export function signatureView(files: SignatureFile[], sig: SignatureState | null
   else if (mine.some((f) => f.pending)) status = "analysing";
   else if (checked.length) {
     problems = Array.from(new Set(checked.flatMap((c) => c.problems)));
-    // E.4: submitted anyway — received, flagged for the manual check; the AI's view stays as a note.
-    override = sig?.override === true;
-    status = override ? "received" : "unsigned";
+    // HYPOTEQ 03.11.2026 Befund 1 (DECISIONS V99): an uncertain recognition never blocks — a copy
+    // the AI flagged counts as received without a click («Unterschrift nicht sicher erkannt»),
+    // flagged for the analyst's Pre-Check; the AI's view stays as a note. (E.4 asked for the click.)
+    override = true;
+    status = "received";
   } else status = later ? "later" : "missing";
   return { status, fileIds, problems, override, canFinish: status === "received" || later };
 }
@@ -208,7 +211,7 @@ export function signatureJson(view: Pick<SignatureView, "status"> & Partial<Pick
     // E.4: received for the closing and the reminders, flagged for HYPOTEQ's manual check.
     const problems = view.problems?.length ? view.problems : (["signature"] as SignatureProblem[]);
     out.override = true;
-    out.overrideAt = sig?.overrideAt ?? null;
+    out.overrideAt = sig?.overrideAt ?? sig?.at ?? null;
     out.aiProblems = problems;
     out.aiNote = signatureReviewNote(problems, "de");
   }

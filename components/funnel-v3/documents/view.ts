@@ -9,6 +9,8 @@ import { hasKey, optionLabel, translate, type Lang } from "@/lib/funnel-v3/i18n"
 import {
   GROUP_ORDER,
   QUESTION_SHORT_DE,
+  SIGNATURE_REQUIREMENT_ID,
+  baseId,
   getRequirement,
   type ReqGroup,
   type ReqReason,
@@ -21,7 +23,7 @@ import { OLDER_SALARY_DE, type Placement } from "@/lib/funnel-v3/placeFile";
 import { extraStoredName, storedName } from "@/lib/funnel-v3/storedName";
 import { v3DocType } from "@/components/documentIntelligence/v3/catalogue";
 
-export type RowState = RequirementState | "surplus" | "duplicate" | "notneeded" | "unknown" | "uploading" | "failed";
+export type RowState = RequirementState | "relevant" | "surplus" | "duplicate" | "notneeded" | "unknown" | "uploading" | "failed";
 
 export type Tone = "success" | "warning" | "danger" | "info" | "lime" | "neutral" | "muted";
 
@@ -35,6 +37,7 @@ export const STATE_LOOK: Record<RowState, { glyph: string; tone: Tone; labelKey:
   outdated: { glyph: "⚠", tone: "warning", labelKey: "state.outdated" },
   skipped: { glyph: "–", tone: "muted", labelKey: "state.skipped" },
   duplicate: { glyph: "=", tone: "info", labelKey: "state.duplicate" },
+  relevant: { glyph: "+", tone: "info", labelKey: "state.relevant" },
   surplus: { glyph: "+", tone: "info", labelKey: "state.surplus" },
   notneeded: { glyph: "·", tone: "muted", labelKey: "state.notneeded" },
   unknown: { glyph: "?", tone: "danger", labelKey: "state.unknown" },
@@ -45,6 +48,7 @@ export const STATE_LOOK: Record<RowState, { glyph: string; tone: Tone; labelKey:
 export function rowClass(state: RowState): string {
   if (state === "uploading") return "is-analysing";
   if (state === "failed") return "is-unknown";
+  if (state === "relevant") return "is-surplus";
   return `is-${state}`;
 }
 
@@ -163,11 +167,24 @@ export function shortList(names: string[], max = 2): string {
 // ---- Files outside the list (Handover 4.3) --------------------------------------------------
 
 /** The kinds of «Weitere Dateien», in display order (Handover 4.3), and files still on their way. */
-export type ExtraGroupKey = "surplus" | "duplicate" | "notneeded" | "unknown" | "pending";
-export const EXTRA_GROUP_ORDER: readonly ExtraGroupKey[] = ["pending", "unknown", "surplus", "duplicate", "notneeded"];
+export type ExtraGroupKey = "relevant" | "surplus" | "duplicate" | "notneeded" | "unknown" | "pending";
+export const EXTRA_GROUP_ORDER: readonly ExtraGroupKey[] = ["pending", "unknown", "relevant", "surplus", "duplicate", "notneeded"];
+
+/**
+ * HYPOTEQ 03.11.2026 Befund 2 (DECISIONS V103): a recognised document of a type the answers do
+ * not ask for (a Leasingvertrag without the chip, a Schenkungsvertrag without an amount, a
+ * private person's Betreibungsauszug) is «Fallrelevant», not «Überzählig» — kept, sent along,
+ * HYPOTEQ checks it. So is a further copy of the Auskunftsermächtigung. «Überzählig» stays for a
+ * further copy of a document already there and for years not asked for.
+ */
+export function isRelevantExtra(p: Pick<Placement, "extraKind" | "reason" | "requirementId"> | undefined): boolean {
+  if (p?.extraKind !== "surplus") return false;
+  return p.reason === "offList" || (p.reason === "full" && !!p.requirementId && baseId(p.requirementId) === SIGNATURE_REQUIREMENT_ID);
+}
 
 /** Heading of an extras group: «Überzählig», «Duplikat», «Nicht benötigt», «Nicht erkannt», «Wird gelesen». */
 export const EXTRA_GROUP_LABEL: Record<ExtraGroupKey, string> = {
+  relevant: "state.relevant",
   surplus: "state.surplus",
   duplicate: "state.duplicate",
   notneeded: "state.notneeded",
@@ -185,7 +202,7 @@ export function groupExtras(files: FileEntry[], placements: Map<string, Placemen
   for (const f of files) {
     const p = placements.get(f.id);
     const key: ExtraGroupKey =
-      f.uploadState !== "uploaded" || !p || p.reason === "pending" ? "pending" : ((p.extraKind ?? "unknown") as ExtraGroupKey);
+      f.uploadState !== "uploaded" || !p || p.reason === "pending" ? "pending" : isRelevantExtra(p) ? "relevant" : ((p.extraKind ?? "unknown") as ExtraGroupKey);
     by.set(key, [...(by.get(key) ?? []), f]);
   }
   return EXTRA_GROUP_ORDER.filter((k) => by.has(k)).map((key) => ({ key, files: by.get(key)! }));

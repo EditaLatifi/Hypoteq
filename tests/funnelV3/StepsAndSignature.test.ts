@@ -88,11 +88,11 @@ describe("Auskunftsermächtigung (Handover 6)", () => {
     expect(v).toEqual({ status: "received", fileIds: ["s1"], problems: [], override: false, canFinish: true });
   });
 
-  it("«Unterschrift fehlt» when the AI finds no signature or another name", () => {
-    expect(signatureView([f(an({ Unterschrift: "fehlt" }))], null, SIGNER)).toMatchObject({ status: "unsigned", problems: ["signature"], canFinish: false });
-    expect(signatureView([f(an({ Unterschrift: "vorhanden", Vollmachtgeber: "Hans Muster" }))], null, SIGNER)).toMatchObject({ status: "unsigned", problems: ["name"] });
-    // «Später nachreichen» still lets the case be closed.
-    expect(signatureView([f(an({ Unterschrift: "fehlt" }))], LATER, SIGNER)).toMatchObject({ status: "unsigned", canFinish: true });
+  it("no signature or another name: flagged for the manual check, never blocking (03.11. Befund 1)", () => {
+    expect(signatureView([f(an({ Unterschrift: "fehlt" }))], null, SIGNER)).toMatchObject({ status: "received", problems: ["signature"], override: true, canFinish: true });
+    expect(signatureView([f(an({ Unterschrift: "vorhanden", Vollmachtgeber: "Hans Muster" }))], null, SIGNER)).toMatchObject({ status: "received", problems: ["name"], override: true });
+    // With «Später nachreichen» chosen as well: the copy is there, so it counts.
+    expect(signatureView([f(an({ Unterschrift: "fehlt" }))], LATER, SIGNER)).toMatchObject({ status: "received", canFinish: true });
     expect(signatureProblems(an({}), SIGNER)).toEqual([]);
   });
 

@@ -18,9 +18,9 @@
  * Case update and the mail are withheld by updateCaseV3Documents / routeMail.
  *
  * Funnel v5 (Handover 6, 7.1; DECISIONS V37):
- *  - The Auskunftsermächtigung stays open until a signed copy is there — also when a copy sits
- *    on P0 that the AI found unsigned (signature.ts): the page then offers its own slot, and a new
- *    copy takes the place of the unsigned one. A signed copy marks InquirySignature «received»
+ *  - The Auskunftsermächtigung stays open until a copy is there. A copy the AI found unsigned
+ *    counts as received, flagged for HYPOTEQ's Pre-Check (03.11. Befund 1, DECISIONS V99); a new
+ *    copy still takes the place of a flagged one. A copy on P0 marks InquirySignature «received»
  *    (signatureServer.ts markSignatureReceived) and the Case JSON `signature` carries the server
  *    state (time, reminders, «ohne Unterschrift keine Anfrage an die Bank»). While it is open the
  *    dossier does not count as complete.
@@ -360,9 +360,17 @@ export async function submitV3Nachreichung(row: NachreichInquiryRow, body: any, 
   const known = new Set(rowsBefore.map((r) => r.id));
   const filesBefore = filesFromRows(state, rowsBefore);
   const statusBefore = statusFor(state, filesBefore, skipped);
-  // An unsigned copy on P0 does not close it: the new copy may take its place (Handover 6).
-  const sigOpenBefore = signatureOpen(state, statusBefore, filesBefore);
+  // No copy on P0 keeps it open (Handover 6). A copy the AI flagged counts as received (HYPOTEQ
+  // 03.11. Befund 1, DECISIONS V99) — the page does not ask for it — but a new copy may still
+  // take its place.
+  const sigViewBefore = serverSignatureView(state, statusBefore, filesBefore);
+  const sigOpenBefore = !!sigViewBefore && sigViewBefore.status !== "received";
+  const sigFlaggedBefore = sigViewBefore?.override === true;
   const openBefore = new Set(openRequirements(statusBefore, { signatureOpen: sigOpenBefore }).map((r) => r.instance.instanceId));
+  if (sigFlaggedBefore) {
+    const p0 = statusBefore.requirements.find((r) => isSignatureRequirement(r.instance));
+    if (p0) openBefore.add(p0.instance.instanceId);
+  }
   const fresh: SubmittedDocument[] = submitted
     .filter((s) => !known.has(s.documentId))
     .map((s) => {
@@ -390,7 +398,7 @@ export async function submitV3Nachreichung(row: NachreichInquiryRow, body: any, 
     const replaced =
       !!f.instanceId &&
       receiving.has(f.instanceId) &&
-      ((!!f.analysis?.outdated && !f.outdatedOverride) || (sigOpenBefore && isSignatureRequirement(f.instanceId)));
+      ((!!f.analysis?.outdated && !f.outdatedOverride) || ((sigOpenBefore || sigFlaggedBefore) && isSignatureRequirement(f.instanceId)));
     const instanceId = replaced ? null : f.instanceId;
     return {
       ...(prior ?? {}),
@@ -405,15 +413,15 @@ export async function submitV3Nachreichung(row: NachreichInquiryRow, body: any, 
   const documents = [...earlier, ...freshAdopted];
   const now = d.now();
 
-  // HYPOTEQ 19.10. E.4 on this page too: «Trotzdem einreichen – HYPOTEQ prüft manuell» over a
-  // copy the AI doubts. Honoured only with a copy that arrives now on P0 (the page posts the
-  // choice with it) and kept on the inquiry like the closing's: the page, the dossier, the Case
-  // and the reminders then agree that it is received, flagged for the manual check.
+  // A copy that arrives now on P0 is the upload of the Auskunftsermächtigung, also when the AI
+  // doubts it (HYPOTEQ 03.11. Befund 1: it counts, flagged for the Pre-Check) — kept on the
+  // inquiry with its time, so the page, the dossier, the Case and the reminders agree. An older
+  // page still posts «Trotzdem einreichen» (19.10. E.4, `signatureOverride`); its time is kept too.
   let sigState: StoredV3State = state;
-  if (body?.signatureOverride === true && freshAdopted.some((s) => !!s.instanceId && isSignatureRequirement(s.instanceId))) {
+  if (freshAdopted.some((s) => !!s.instanceId && isSignatureRequirement(s.instanceId))) {
     const at = now.toISOString();
-    const base = state.sig?.choice === "uploaded" ? state.sig : { choice: "uploaded" as const, at, method: "upload" as const };
-    sigState = { ...state, sig: { ...base, override: true, overrideAt: at } };
+    const base = { choice: "uploaded" as const, at, method: "upload" as const };
+    sigState = { ...state, sig: body?.signatureOverride === true ? { ...base, override: true, overrideAt: at } : base };
   }
 
   // The closing of the submit, run again over every file: stored names (collision-safe,

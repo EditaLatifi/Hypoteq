@@ -26,7 +26,7 @@
 
 import { calcForState, AFFORDABILITY_LIMIT, AMORTISATION_THRESHOLD, AMORTISATION_YEARS, MAINTENANCE_RATE, STRESS_RATE, type CalcResult } from "../calc";
 import type { StoredFunnelState } from "../legacy";
-import type { V3Analysis } from "../files";
+import { embedsOf, type V3Analysis } from "../files";
 import { chf, date as fmtDate, pct } from "../format";
 import { interpolate, optionLabel, translate, type Lang, type Params } from "../i18n";
 import { SIGNATURE_REQUIREMENT_ID, reqList, type ReqGroup, type ReqReason } from "../requirements";
@@ -172,6 +172,7 @@ export function toUploadedFile(f: DossierFile): UploadedFile {
     outdatedOverride: Boolean(f.outdatedOverride),
     extraKind: f.instanceId ? undefined : f.extraKind ?? f.analysis?.extraKind ?? "unknown",
     note: f.analysis?.note ?? undefined,
+    ...embedsOf(f.analysis),
   };
 }
 

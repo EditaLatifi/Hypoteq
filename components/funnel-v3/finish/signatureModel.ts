@@ -10,10 +10,10 @@
  *              the template comes with the confirmation mail, nothing goes to a bank without it
  *   missing    «Noch nicht hochgeladen» — the three steps
  *
- * The AI never blocks (HYPOTEQ 19.10. E.4): under «Unterschrift fehlt» the closing offers
- * «Trotzdem einreichen – HYPOTEQ prüft manuell»; chosen, the block says «Wird von HYPOTEQ manuell
- * geprüft» (the view is «received» with `override`), the copy can still be replaced, and the
- * choice can be undone.
+ * The AI never blocks (HYPOTEQ 19.10. E.4; 03.11. Befund 1, DECISIONS V99): a copy it flagged
+ * counts as received without a click — the block says «Unterschrift nicht sicher erkannt» in
+ * yellow (the view is «received» with `override`), HYPOTEQ checks it in the Pre-Check, and the
+ * copy can still be replaced. `override` in the model stays null (no «Trotzdem einreichen»).
  */
 
 import type { AuthorizationData } from "@/lib/funnel-v3/authorization";
@@ -82,6 +82,13 @@ const PROBLEM_KEY: Record<SignatureProblem, string> = {
   form: "sig.wrongForm",
 };
 
+/** The same findings, worded as uncertain: the copy counts, HYPOTEQ checks (03.11. Befund 1). */
+const REVIEW_KEY: Record<SignatureProblem, string> = {
+  signature: "sig.reviewSignatureSub",
+  name: "sig.wrongName",
+  form: "sig.wrongForm",
+};
+
 /**
  * `blockOk`: the block found a good copy (received, not overridden). The row checks signature
  * and form itself; the name needs the Kreditnehmer, so a copy with neither problem counts as
@@ -123,12 +130,14 @@ export function signatureModel(input: SignatureModelInput, t: T, opt: Opt): Sign
   let lines: string[];
   let showSteps = true;
   switch (overridden ? "override" : view.status) {
-    case "override":
-      // E.4: submitted anyway — HYPOTEQ checks by hand; the copy can still be replaced.
+    case "override": {
+      // 03.11. Befund 1: counted as received, yellow — HYPOTEQ checks by hand; the copy can still be replaced.
+      const problems = view.problems.length ? view.problems : (["signature"] as SignatureProblem[]);
       tone = "warn";
-      title = t("sig.review");
-      lines = [t("sig.reviewSub"), ...(view.problems.length ? view.problems : (["signature"] as SignatureProblem[])).map((p) => t(PROBLEM_KEY[p]))];
+      title = problems.includes("signature") ? t("sig.reviewSignature") : t("sig.review");
+      lines = [...problems.map((p) => t(REVIEW_KEY[p])), t("sig.reviewSub")];
       break;
+    }
     case "received": {
       const ok = files.find((f) => f.state === "ok");
       tone = "ok";
@@ -174,15 +183,8 @@ export function signatureModel(input: SignatureModelInput, t: T, opt: Opt): Sign
       input.later === null || view.status === "received"
         ? null
         : { chosen: chosenLater, question: t("sig.laterQ"), label: chosenLater ? t("sig.laterUndo") : t("sig.later") },
-    // Offered in the closing and on the Nachreich page alike (HYPOTEQ 19.10. E.4: never blocks).
-    override:
-      !nachreich && input.later === null
-        ? null
-        : overridden
-          ? { chosen: true, hint: "", label: t("sig.overrideUndo") }
-          : view.status === "unsigned"
-            ? { chosen: false, hint: t("sig.overrideHint"), label: t("sig.override") }
-            : null,
+    // 03.11. Befund 1: a flagged copy counts without a click, so there is nothing to choose.
+    override: null,
     canFinish: view.canFinish,
   };
 }

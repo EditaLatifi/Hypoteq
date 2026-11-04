@@ -355,6 +355,15 @@ function collect(files: AnalysedFile[], state: PrefillState, people: People, now
   const pledge = [newest(byType("s3a")), newest(byType("police"))].map((f) => (f ? field(f, f.analysis.docTypeId === "s3a" ? "Verpfändung" : "Begünstigte Bank") : "")).find(Boolean);
   if (pledge) setInfo("s3aPledge", pledge);
 
+  // Schenkung / Erbvorbezug / Darlehen as Eigenmittel (HYPOTEQ 03.11.2026 Befund 2, DECISIONS
+  // V103): the contract's «Betrag» — at a Kauf only, an Ablösung has no such row.
+  if (state.ans.antrag === "Neue Hypothek") {
+    for (const [path, typeId] of [["em.schenk", "schenkung"], ["em.erbe", "erbe"], ["em.darl", "darlehen"]] as const) {
+      const f = newest(byType(typeId));
+      if (f) add(f, path, amountOf(field(f, "Betrag")), conf(f, "Betrag"));
+    }
+  }
+
   // PK-Ausweis — Kreditnehmer 1
   const pk = newest(kn1Docs(byType("pk")));
   if (pk) {
@@ -400,9 +409,17 @@ function s3aSource(files: AnalysedFile[]): { file: AnalysedFile; amount: number;
 }
 
 /** Values a guided-mode suggestion can carry (requirementStatus.ts answerCorrections). */
-export function correctionValues(files: AnalysedFile[]): { s3a?: number } {
+export function correctionValues(files: AnalysedFile[]): { s3a?: number; schenk?: number; erbe?: number; darl?: number } {
+  const out: { s3a?: number; schenk?: number; erbe?: number; darl?: number } = {};
   const s = s3aSource(files);
-  return s ? { s3a: s.amount } : {};
+  if (s) out.s3a = s.amount;
+  // HYPOTEQ 03.11. Befund 2: the «Betrag» of a Schenkungsvertrag, an Erbvorbezug, a Darlehensvertrag
+  // (several of one kind add up: two gifts are two contracts).
+  for (const [key, typeId] of [["schenk", "schenkung"], ["erbe", "erbe"], ["darl", "darlehen"]] as const) {
+    const sum = files.filter((f) => f.analysis.docTypeId === typeId).reduce((n, f) => n + Math.max(0, amountOf(fieldText(f.analysis, "Betrag"))), 0);
+    if (sum > 0) out[key] = Math.round(sum);
+  }
+  return out;
 }
 
 /**

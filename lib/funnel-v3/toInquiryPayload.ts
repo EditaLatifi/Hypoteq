@@ -49,6 +49,8 @@ export interface InquiryPayloadOptions {
 export interface HypoPayload {
   bewertung: boolean;
   adresse?: string;
+  /** The field paths answered in the chat (`fin.inc`); the Abgleich JSON says `source: "chat"` for them. */
+  answered?: string[];
   /** The conversation as text (engine.ts transcriptText); goes to the case folder, not to Salesforce. */
   transcript: string;
 }
@@ -268,7 +270,12 @@ export function toInquiryPayload(state: FunnelState, opts: InquiryPayloadOptions
       sig: state.sig ?? null,
       ...(opts.signature ? { signature: opts.signature } : {}),
       ...(opts.choices && Object.keys(opts.choices).length ? { abgleich: { choices: opts.choices } } : {}),
-      ...(chat ? { channel: "chat" as const, hypo: { bewertung: Boolean(hypo?.bewertung), ...(hypo?.adresse ? { adresse: hypo.adresse } : {}) } } : {}),
+      ...(chat
+        ? {
+            channel: "chat" as const,
+            hypo: { bewertung: Boolean(hypo?.bewertung), ...(hypo?.adresse ? { adresse: hypo.adresse } : {}), ...(hypo?.answered?.length ? { answered: hypo.answered } : {}) },
+          }
+        : {}),
       calc,
     },
   };

@@ -419,3 +419,14 @@ describe("HYPO, the chat (HYPOTEQ 29.10.2026 points 6, 7)", () => {
     expect("Bewertung_angefragt__c" in c).toBe(false);
   });
 });
+
+describe("the Pre-Check (HYPOTEQ handover 04.11.2026)", () => {
+  it("a new Case carries the Abgleich JSON and Funnel_Abgleich_Status__c «Offen»", async () => {
+    const { c } = await sync(kaufState());
+    expect(typeof c.Funnel_Abgleich_State__c).toBe("string");
+    const json = JSON.parse(c.Funnel_Abgleich_State__c);
+    expect(Array.isArray(json.fields)).toBe(true);
+    expect(Array.isArray(json.documents)).toBe(true);
+    expect(c.Funnel_Abgleich_Status__c).toBe("Offen");
+  });
+});

@@ -92,28 +92,19 @@ describe("SignatureBlock (server render)", () => {
     expect(html).toContain(">Doch nicht nachreichen</button>");
   });
 
-  it("an unsigned copy uploaded with the button: «Unterschrift fehlt», the file with «Entfernen»", () => {
-    setState([...withoutSig(), sigFile({ fields: { Unterschrift: { value: "fehlt", confidence: 0.9 } } })]);
+  it("HYPOTEQ 03.11. Befund 1: an unsigned copy is «Unterschrift nicht sicher erkannt» in yellow, the block free, nothing to click", () => {
+    setState([...withoutSig(), sigFile({ fields: { Unterschrift: { value: "fehlt", confidence: 0.9 } } })], { choice: "uploaded", at: "2026-10-19T09:00:00.000Z", method: "upload" });
     const html = render();
-    expect(html).toContain('data-status="unsigned"');
-    expect(html).toContain("Unterschrift fehlt");
-    expect(html).toContain("Auf der hochgeladenen Auskunftsermächtigung fehlt die Unterschrift.");
+    expect(html).toContain('data-status="received"');
+    expect(html).toContain("Unterschrift nicht sicher erkannt");
+    expect(html).toContain("Die AI hat auf der hochgeladenen Auskunftsermächtigung keine Unterschrift sicher erkannt.");
+    expect(html).toContain("var(--warning-500");
+    expect(html).toContain(">Manuelle Prüfung<");
     expect(html).toContain("Scan_0042.jpg");
     expect(html).toContain(">Entfernen</button>");
     expect(html).toContain(">Andere Datei hochladen</button>");
-  });
-
-  it("HYPOTEQ 19.10. E.4: under «Unterschrift fehlt» «Trotzdem einreichen – HYPOTEQ prüft manuell»; chosen, the block is free and says so", () => {
-    const unsigned = [...withoutSig(), sigFile({ fields: { Unterschrift: { value: "fehlt", confidence: 0.9 } } })];
-    setState(unsigned, { choice: "uploaded", at: "2026-10-19T09:00:00.000Z", method: "upload" });
-    expect(render()).toContain(">Trotzdem einreichen – HYPOTEQ prüft manuell</button>");
-    setState(unsigned, { choice: "uploaded", at: "2026-10-19T09:00:00.000Z", method: "upload", override: true, overrideAt: "2026-10-19T09:05:00.000Z" });
-    const html = render();
-    expect(html).toContain('data-status="received"');
-    expect(html).toContain("Wird von HYPOTEQ manuell geprüft");
-    expect(html).toContain(">Manuelle Prüfung<");
-    expect(html).toContain(">Doch nicht so einreichen</button>");
-    expect(html).not.toContain(">Trotzdem einreichen – HYPOTEQ prüft manuell</button>");
+    expect(html).not.toContain("Trotzdem einreichen");
+    expect(html).not.toContain("Doch nicht so einreichen");
   });
 
   it("in the funnel language", () => {
@@ -147,9 +138,11 @@ describe("signatureModel", () => {
   });
 
   it("the wrong form and the wrong name each say so", () => {
-    expect(model([sigFile({ docTypeId: "lohnausweise" })]).lines).toEqual(["Die hochgeladene Datei ist keine HYPOTEQ Auskunftsermächtigung."]);
+    const REVIEW = "Du kannst die Anfrage trotzdem abschliessen – HYPOTEQ prüft die Auskunftsermächtigung von Hand. Ein anderes Exemplar kannst du jederzeit hochladen.";
+    expect(model([sigFile({ docTypeId: "lohnausweise" })]).lines).toEqual(["Die hochgeladene Datei ist keine HYPOTEQ Auskunftsermächtigung.", REVIEW]);
     expect(model([sigFile({ fields: { Vollmachtgeber: { value: "Hans Muster", confidence: 0.9 } } })]).lines).toEqual([
       "Der Name auf der Auskunftsermächtigung passt nicht zum Kreditnehmer.",
+      REVIEW,
     ]);
   });
 
@@ -161,9 +154,9 @@ describe("signatureModel", () => {
     expect(m.canFinish).toBe(false);
   });
 
-  it("an unsigned copy with «später»: may close, shown as pending", () => {
+  it("an unsigned copy with «später»: the copy is there, so it counts — flagged, not pending", () => {
     const m = model([sigFile({ fields: { Unterschrift: { value: "fehlt", confidence: 0.9 } } })], LATER);
-    expect(m).toMatchObject({ status: "unsigned", canFinish: true, pendingTag: "Unterschrift ausstehend · Erinnerung nach 2 und 5 Tagen" });
+    expect(m).toMatchObject({ status: "received", title: "Unterschrift nicht sicher erkannt", canFinish: true, pendingTag: null });
   });
 
   it("a juristische Person: signed by the signatory; no «später» where it is not offered", () => {
