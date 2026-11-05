@@ -344,14 +344,15 @@ function prismaDeps(): ReuploadDeps {
     },
     async sendMail(to, mail) {
       const { getGraphMailClient } = await import("@/components/nachreichMail");
-      const { routeMail } = await import("@/components/testMode");
+      const { recipientsOf, routeMail } = await import("@/components/testMode");
       const client = getGraphMailClient();
       if (!client) return false;
       const routed = routeMail(to, mail.subject);
       if (!routed) return false;
       const sendAsUser = process.env.SMTP_USER || "info@hypoteq.ch";
       await client.api(`/users/${sendAsUser}/sendMail`).post({
-        message: { subject: routed.subject, body: { contentType: "HTML", content: mail.html }, toRecipients: [{ emailAddress: { address: routed.to } }] },
+        // Test mode may route to several inboxes (HYPOTEQ_TEST_MAIL_TO); otherwise one address.
+        message: { subject: routed.subject, body: { contentType: "HTML", content: mail.html }, toRecipients: recipientsOf(routed.to).map((address) => ({ emailAddress: { address } })) },
         saveToSentItems: true,
       });
       return true;
