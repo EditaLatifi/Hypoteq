@@ -1,6 +1,6 @@
 # Abgleich-JSON für den Pre-Check — so liefert der Funnel
 
-**Für:** Fisnik Salihu (HYPOTEQ) · **Von:** Edita Latifi · **Stand:** 04.11.2026, nach euren Entscheiden vom 04.11.
+**Für:** Fisnik Salihu (HYPOTEQ) · **Von:** Edita Latifi · **Stand:** 05.11.2026 — das Format gilt als Vertrag zwischen Funnel und Salesforce (am Testfall HQ-26-11-093160 verifiziert)
 **Bezug:** Spezifikation Datenabgleich v1.1 Kap. 6.2 · «Pre-Check und Rücklieferung» vom 03.11.2026 · Handover «Pre-Check-Felder» vom 04.11.2026
 
 ## 1. Format
@@ -77,6 +77,6 @@ Zwei Felder und vier Dokumente; Labels und Erklärungen sind auf DE gekürzt.
 3. **Unterschrift, Name, Formular:** blockieren nie, gehen als Ampel in den Pre-Check. Harte Pflicht bleibt der Upload der Auskunftsermächtigung (oder «Später nachreichen» wie bisher).
 4. **Beträge:** «Weiter» gesperrt nur bei Kaufpreis, Objektwert oder bestehender Hypothek unter CHF 10'000 / über CHF 100 Mio., bei Erhöhung, Renovation oder einer Eigenmittel-Zeile über CHF 100 Mio. und bei einer Hypothek über Objektwert plus Renovation. Einzige weiche Warnung: Belehnung über 100 %; sie steht als `hinweis` im JSON. Keine Einkommensgrenzen. Ohne Renovation (Ablösung) fällt «über 100 %» mit dem harten Stopp zusammen.
 5. **Objektwert:** beim Kauf vorbelegt mit Kaufpreis + Renovation, editierbar; unverändert mit `prefilled: true` (Abschnitt 2.6). `Geschaetzter_Objektwert__c` bekommt den Wert.
-6. **Betreibungsauszug:** Pflicht für jeden Kreditnehmer einer Privatperson und wie bisher für Firmen. Die Ausnahme «interne Erneuerung bestehender Kunden» kann der Funnel nicht erkennen, er kennt keine solche Anfrageart. Wie sollen wir eine Erneuerung erkennen?
+6. **Betreibungsauszug:** im Funnel immer Pflicht — für jeden Kreditnehmer einer Privatperson und wie bisher für Firmen. Erneuerungen bestehender Kunden laufen intern in Salesforce.
 
-**Noch offen bei euch:** die Erkennung der internen Erneuerung (Punkt 6) sowie die Screenshots zu Befund 1 (die zwei Auskunftsermächtigungen) und E05 (Passwort-Reset).
+**Stand 05.11.:** alles geklärt. Feldrecht für `Funnel_Abgleich_Status__c` ist gesetzt, E05 ist geschlossen, Befund 1 ist mit V99 behoben (die Unterschrift blockiert nie) und die Namensprüfung erkennt die Person jetzt auch auf dem älteren Formular mit getrennten Feldern «Vorname» / «Name».

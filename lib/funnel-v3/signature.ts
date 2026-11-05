@@ -95,9 +95,23 @@ export function signatureProblems(a: V3Analysis | null | undefined, signer?: Per
   if (a.docTypeId && a.docTypeId !== SIGNATURE_REQUIREMENT_ID) return ["form"];
   const out: SignatureProblem[] = [];
   if (yesNoOf(fieldText(a, "Unterschrift")) === false) out.push("signature");
-  const printed = fieldText(a, "Vollmachtgeber") || a.personName || "";
-  if (signer && printed && (signer.last || signer.company) && personScore(printed, signer) <= 0) out.push("name");
+  // HYPOTEQ 03.11. Befund 1 (DECISIONS V109): the older form has separate «Vorname» / «Name»
+  // boxes, and the reading of «Vollmachtgeber» can hold the first name alone. The person name the
+  // AI reads as well counts too, so a signed copy of the right person is not flagged for that.
+  const printed = [fieldText(a, "Vollmachtgeber"), a.personName ?? ""].filter(Boolean).join(" ");
+  if (signer && printed && (signer.last || signer.company) && !nameFits(printed, signer)) out.push("name");
   return out;
+}
+
+/**
+ * The form names the person who must sign: the whole last name as entered, or — a double name
+ * («Muster-Meier», «Muster Meier») of which the form carries one part — one of its parts.
+ */
+function nameFits(printed: string, signer: PersonRef): boolean {
+  if (personScore(printed, signer) > 0) return true;
+  if (signer.company) return false;
+  const parts = (signer.last || "").split(/[\s-]+/).filter((p) => p.length > 1);
+  return parts.length > 1 && parts.some((p) => personScore(printed, { ...signer, last: p }) > 0);
 }
 
 /**

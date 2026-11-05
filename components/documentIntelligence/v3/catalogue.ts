@@ -154,7 +154,7 @@ const FIELD_HINTS: Record<string, string> = {
   "Ausstellungsdatum": "issue date of the extract, DD.MM.YYYY",
   "Grundpfandrechte": "registered mortgage notes (Schuldbriefe) with amount and creditor",
   "Unterschrift": "«vorhanden» when the signature line of every person filled in on the form carries a signature (with two persons: both lines) — a handwritten signature in any style, initials, or a scanned or electronic signature all count, also when faint, slanted or partly outside the line; «fehlt» only when the signature line of a filled-in person is clearly empty. An empty second column (only one borrower) is no missing signature",
-  "Vollmachtgeber": "all persons granting the authorisation as printed or handwritten, both columns («Kreditnehmer/in 1 / 2», «Emprunteur/-euse», «Mutuatario/a», «Borrower» on the current form; «Vollmachtgeber» on older ones), separated by «;» — with the company when one is named on the form (e.g. «Muster AG; Hans Muster»)",
+  "Vollmachtgeber": "all persons granting the authorisation as printed or handwritten, both columns («Kreditnehmer/in 1 / 2», «Emprunteur/-euse», «Mutuatario/a», «Borrower» on the current form; «Vollmachtgeber» on older ones), separated by «;» — each person with first name AND last name: where the form has separate «Vorname» and «Name» boxes, join both (e.g. «Max Mustermann»); with the company when one is named on the form (e.g. «Muster AG; Hans Muster»)",
   "Begünstigte Bank": "bank the policy is pledged or assigned to, if any",
   "ZEK-relevant": "«ja» when the contract is a consumer credit reported to the ZEK",
   // Handelsregister

@@ -48,3 +48,22 @@ describe("a failed upload on P0", () => {
     expect(documentsSummary({ ...st, files: [...files, failed] }).signature.status).toBe("missing");
   });
 });
+
+describe("the name on the form (HYPOTEQ 03.11. Befund 1, DECISIONS V109)", () => {
+  // A borrower entered with a middle name, the older form with separate Vorname / Name boxes.
+  const SIGNER2 = { kind: "borrower" as const, first: "Max Simon", last: "Mustermann", display: "Max Simon Mustermann" };
+  const signed = (fields: Record<string, string>, personName: string | null = null) => ({ ...an("vollmacht", { Unterschrift: "vorhanden", ...fields }), personName });
+
+  it("a Vollmachtgeber read as the first name alone, with the person name read beside it: no name problem", () => {
+    expect(signatureProblems(signed({ Vollmachtgeber: "Max" }, "Mustermann Max"), SIGNER2)).toEqual([]);
+    expect(signatureProblems(signed({ Vollmachtgeber: "Max Mustermann" }, "Mustermann Max"), SIGNER2)).toEqual([]);
+    expect(signatureView([onP0(signed({ Vollmachtgeber: "Max" }, "Mustermann Max"))], null, SIGNER2)).toMatchObject({ status: "received", override: false, problems: [] });
+  });
+
+  it("one part of a double last name on the form fits; another person still does not", () => {
+    const double = { ...SIGNER2, last: "Muster-Meier", display: "Max Muster-Meier" };
+    expect(signatureProblems(signed({ Vollmachtgeber: "Max Muster" }), double)).toEqual([]);
+    expect(signatureProblems(signed({ Vollmachtgeber: "Hans Anders" }, "Anders Hans"), SIGNER2)).toEqual(["name"]);
+    expect(signatureProblems(signed({ Vollmachtgeber: "Max" }), SIGNER2)).toEqual(["name"]);
+  });
+});
