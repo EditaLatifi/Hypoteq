@@ -73,7 +73,7 @@ Zwei Felder und vier Dokumente; Labels und Erklärungen sind auf DE gekürzt.
 ## 4. Umgesetzt nach euren Entscheiden vom 04.11.
 
 1. **Format:** bleibt bei Kap. 6.2 (Abschnitt 1).
-2. **ZZTEST:** reiner Namens-Match ohne Schalter: Nachname (oder Firma) enthält «ZZTEST» **und** eine «+test»-Mailadresse. Nur solche Preview-Anfragen erzeugen einen echten Case; Nachreichung und Re-Upload schreiben im Testmodus nur auf Cases, die Salesforce als ZZTEST ausweist.
+2. **Testfälle (seit 11.11. ohne ZZTEST):** jede Preview-Anfrage erzeugt ihren Case normal; HYPOTEQ kennt die Tester und löscht die Cases. Bis 10.11. galt der Namens-Match (Nachname ZZTEST und «+test»-Mailadresse); Nachreichung und Re-Upload schreiben im Testmodus nur auf Cases, die Salesforce als ZZTEST ausweist.
 3. **Unterschrift, Name, Formular:** blockieren nie, gehen als Ampel in den Pre-Check. Harte Pflicht bleibt der Upload der Auskunftsermächtigung (oder «Später nachreichen» wie bisher).
 4. **Beträge:** «Weiter» gesperrt nur bei Kaufpreis, Objektwert oder bestehender Hypothek unter CHF 10'000 / über CHF 100 Mio., bei Erhöhung, Renovation oder einer Eigenmittel-Zeile über CHF 100 Mio. und bei einer Hypothek über Objektwert plus Renovation. Einzige weiche Warnung: Belehnung über 100 %; sie steht als `hinweis` im JSON. Keine Einkommensgrenzen. Ohne Renovation (Ablösung) fällt «über 100 %» mit dem harten Stopp zusammen.
 5. **Objektwert:** beim Kauf vorbelegt mit Kaufpreis + Renovation, editierbar; unverändert mit `prefilled: true` (Abschnitt 2.6). `Geschaetzter_Objektwert__c` bekommt den Wert.

@@ -229,30 +229,28 @@ describe("pre-v5 payloads keep their mails", () => {
   });
 });
 
-describe("ZZTEST mode: a real Case from a test deployment (HYPOTEQ 03./04.11.2026, DECISIONS V102)", () => {
-  const zztest = (mail = "lea.muster+test@kunde.ch") =>
-    kaufState({ txt: { ...kaufState().txt, nach: "ZZTEST Muster", mail }, borrowers: [{ id: "b1", vor: "Lea", nach: "ZZTEST Muster", job: "Angestellt", pkSe: "Nein" }] });
+describe("test deployment: every submission creates its Case (HYPOTEQ 11.11.2026, DECISIONS V115)", () => {
   const sfResult = () => mockState.updates.find((u) => "salesforceCaseId" in (u.data ?? {}))?.data;
+  const stored = () => mockState.updates.find((u) => "v3State" in (u.data ?? {}))?.data?.v3State;
 
-  it("test mode: a ZZTEST submission (name + «+test» address) creates its Case; the mails stay marked [TEST]", async () => {
+  it("test mode: any name, any address — the Case is created, the inquiry stamped, the mails stay [TEST]", async () => {
     process.env.HYPOTEQ_TEST_MODE = "1";
-    const payload = v5Payload(zztest());
+    const payload = v5Payload(kaufState({ txt: { ...kaufState().txt, nach: "Beispiel", mail: "anna.beispiel@kunde.ch" } }));
     mockState.completion = payload.v3Completion;
     const res = await submit(payload);
     expect(res.json).toMatchObject({ success: true, salesforceSynced: true });
     expect(sfResult()).toMatchObject({ salesforceCaseId: "500AA000001xyzQ", salesforceError: null });
+    expect(stored()).toMatchObject({ testDeployment: true });
     expect(mockState.posts.length).toBeGreaterThan(0);
-    for (const p of mockState.posts) expect(p.body.message.subject).toMatch(/^\[TEST/);
+    for (const p of mockState.posts) expect(p.body.message.subject.startsWith("[TEST")).toBe(true);
   });
 
-  it("test mode: without the «+test» address, or without ZZTEST, it is withheld", async () => {
-    process.env.HYPOTEQ_TEST_MODE = "1";
-    for (const state of [zztest("lea.muster@kunde.ch"), kaufState({ txt: { ...kaufState().txt, mail: "lea+test@kunde.ch" } })]) {
-      mockState.updates = [];
-      const payload = v5Payload(state);
-      mockState.completion = payload.v3Completion;
-      await submit(payload);
-      expect(sfResult()).toMatchObject({ salesforceCaseId: null, salesforceError: "test mode: Salesforce sync skipped" });
-    }
+  it("production: the Case as always, and no stamp", async () => {
+    delete process.env.HYPOTEQ_TEST_MODE;
+    const payload = v5Payload(kaufState());
+    mockState.completion = payload.v3Completion;
+    await submit(payload);
+    expect(sfResult()).toMatchObject({ salesforceCaseId: "500AA000001xyzQ" });
+    expect(stored()?.testDeployment).toBeUndefined();
   });
 });

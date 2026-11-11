@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { isTestMode, routeMail, salesforceAllowedFor, skipped } from "@/components/testMode";
+import { isTestMode, routeMail, skipped, TEST_DEPLOYMENT_KEY } from "@/components/testMode";
 import { isRenditeNutzung, isZweitwohnsitzNutzung } from "@/components/propertyLabels";
 import { prisma } from "@/lib/prisma";
 import { Client } from "@microsoft/microsoft-graph-client";
@@ -21,9 +21,6 @@ import {
   type AutoResponseExtras,
   type AutoResponseLocale,
 } from "@/components/funnelAutoResponse";
-
-/** Thrown to leave the Salesforce block without recording a failure (see isTestMode). */
-class SkipInTestMode extends Error {}
 
 export async function POST(req: Request) {
   try {
@@ -307,7 +304,11 @@ export async function POST(req: Request) {
     // The cast covers a Prisma client generated before the columns.
     if (data.v3) {
       try {
-        await (prisma.inquiry as any).update({ where: { id: inquiry.id }, data: v3InquiryColumns(data, locale), select: { id: true } });
+        const columns = v3InquiryColumns(data, locale);
+        // V115: a test deployment stamps what it created, so its follow-up writes (Nachreichung,
+        // Re-Upload) may touch this Case and never a customer's (the database is shared).
+        if (isTestMode() && "v3State" in columns) columns.v3State = { ...columns.v3State, [TEST_DEPLOYMENT_KEY]: true };
+        await (prisma.inquiry as any).update({ where: { id: inquiry.id }, data: columns, select: { id: true } });
       } catch (v3StateErr) {
         console.error(`⚠️ Could not store the v3 answers on inquiry ${inquiry.id} (Nachreichung falls back to the legacy page):`, v3StateErr);
       }
@@ -383,9 +384,9 @@ export async function POST(req: Request) {
     let salesforceError: unknown = null;
     let salesforceCaseId: string | null = null;
     let salesforceDropped: string[] = [];
-    // HYPOTEQ 03.11.2026 2.3 / 04.11. (DECISIONS V102): in test mode only a ZZTEST submission
-    // (last name ZZTEST and a «+test» address) reaches Salesforce; everything else is withheld.
-    const salesforceSkipped = !salesforceAllowedFor(data);
+    // HYPOTEQ 11.11.2026 (DECISIONS V115): the test deployment creates every Case as usual — no
+    // ZZTEST name any more; HYPOTEQ knows who tests the Preview and deletes those Cases. Mails
+    // stay marked «[TEST]» and the SharePoint folder «ZZ-TEST_» (components/testMode.ts).
     try {
       // Ensure LastName is present for Salesforce
       if (data.client && data.client.lastName) {
@@ -411,13 +412,7 @@ export async function POST(req: Request) {
         data.stage = 'Needs Analysis'; // Valid Salesforce picklist value
         console.log('[Salesforce Sync] Set stage to: Needs Analysis');
       }
-      if (salesforceSkipped) {
-        // Everything up to here has run — validation, picklist mapping, the completeness
-        // verdict — so the payload is still exercised. Only the write is withheld.
-        skipped("Salesforce sync", `Case would have been created for ${data.client?.email ?? "unknown"}`);
-        throw new SkipInTestMode();
-      }
-      if (isTestMode()) console.log("[TEST MODE] ZZTEST submission: the Salesforce Case is created");
+      if (isTestMode()) console.log("[TEST MODE] test deployment: the Salesforce Case is created (V115)");
       const salesforceApi = (await import("@/components/salesforceApi")).default;
       const { syncFunnelStepsToSalesforce } = await import("@/components/syncFunnelStepsToSalesforce");
       await salesforceApi.login();
@@ -426,23 +421,16 @@ export async function POST(req: Request) {
       salesforceDropped = Array.isArray((syncResult as any)?.droppedFields) ? (syncResult as any).droppedFields : [];
       console.log("✅ Salesforce sync successful! Case:", salesforceCaseId);
     } catch (sfError) {
-      // A deliberate skip is not a failure: recording it as one would fill the DB with
-      // salesforceError rows and fire the outage alert on every test submission.
-      if (sfError instanceof SkipInTestMode) {
-        salesforceCaseId = null;
-      } else {
-        salesforceError = sfError;
-        console.error("❌ Salesforce sync failed:", sfError);
-        // Deliberately non-fatal: the lead is still captured in the DB and in the
-        // notification email, so the customer must not see an error. What this branch must
-        // NOT do is stay quiet — a broken sync went unnoticed for six days and cost 11 leads
-        // because the only signal was a console line nobody reads. The alert below is sent
-        // after the DB write so it can name the inquiry to replay.
-      }
+      salesforceError = sfError;
+      console.error("❌ Salesforce sync failed:", sfError);
+      // Deliberately non-fatal: the lead is still captured in the DB and in the
+      // notification email, so the customer must not see an error. What this branch must
+      // NOT do is stay quiet — a broken sync went unnoticed for six days and cost 11 leads
+      // because the only signal was a console line nobody reads. The alert below is sent
+      // after the DB write so it can name the inquiry to replay.
     }
 
-    // Record how the sync went. A test-mode skip is stamped as synced so the replay tool
-    // never pushes a test submission into the real org.
+    // Record how the sync went.
     try {
       await prisma.inquiry.update({
         where: { id: inquiry.id },
@@ -451,7 +439,7 @@ export async function POST(req: Request) {
           salesforceSyncedAt: salesforceError ? null : new Date(),
           salesforceError: salesforceError
             ? (salesforceError instanceof Error ? salesforceError.message : String(salesforceError)).slice(0, 2000)
-            : salesforceSkipped ? 'test mode: Salesforce sync skipped' : null,
+            : null,
         },
       });
     } catch (updateErr) {
@@ -490,7 +478,8 @@ export async function POST(req: Request) {
             caseId: salesforceCaseId,
             url: salesforceCaseUrl(instanceUrl, salesforceCaseId),
             failed: Boolean(salesforceError),
-            testMode: salesforceSkipped,
+            // V115: no deployment withholds the Case any more.
+            testMode: false,
             dropped: salesforceDropped,
           },
           partner: await closingPartner(data, (email) => resolvePartner(email)),

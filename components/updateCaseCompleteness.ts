@@ -1,5 +1,5 @@
 import { conn, login, sfQuery, updateCase } from "@/components/salesforceApi";
-import { hasZztestMark, isTestMode, skipped } from "@/components/testMode";
+import { hasZztestMark, isTestMode, skipped, TEST_DEPLOYMENT_KEY } from "@/components/testMode";
 import { DOCUMENT_CATALOG } from "@/components/funnelDocumentCatalog";
 import { getRequirement } from "@/lib/funnel-v3/requirements";
 
@@ -14,7 +14,7 @@ import { getRequirement } from "@/lib/funnel-v3/requirements";
  */
 
 /**
- * Test mode (HYPOTEQ 03.11.2026 2.3 and 04.11.2026, DECISIONS V102): a Case may be
+ * A ZZTEST Case from before V115 (HYPOTEQ 03.11.2026 2.3 and 04.11.2026, DECISIONS V102): a Case may be
  * written only when Salesforce itself says it is a test Case — ZZTEST in its Case name or its
  * Account. The preview shares the production database, so an inquiry row is not proof enough;
  * a Case that cannot be read counts as not a test Case.
@@ -35,10 +35,32 @@ export async function isZztestCase(caseId: string): Promise<boolean> {
   }
 }
 
-/** Test mode: the Case stays untouched unless it is a ZZTEST Case (the name match). */
+/**
+ * The test deployment created this Case (DECISIONS V115): its inquiry carries the stamp
+ * TEST_DEPLOYMENT_KEY, which only a test deployment writes. Not readable → not proven.
+ */
+export async function createdByTestDeployment(caseId: string): Promise<boolean> {
+  const id = String(caseId || "").replace(/[^A-Za-z0-9]/g, "");
+  if (!id) return false;
+  try {
+    const { prisma } = await import("@/lib/prisma");
+    const row = await (prisma.inquiry as any).findFirst({ where: { salesforceCaseId: id }, select: { v3State: true } });
+    return Boolean((row?.v3State as Record<string, unknown> | null)?.[TEST_DEPLOYMENT_KEY]);
+  } catch (error) {
+    console.warn(`[TEST MODE] Case ${id}: inquiry not readable, treated as not created here:`, error instanceof Error ? error.message : error);
+    return false;
+  }
+}
+
+/** A Case the test deployment may write: one it created itself, or a ZZTEST Case from before V115. */
+export async function isTestCase(caseId: string): Promise<boolean> {
+  return (await createdByTestDeployment(caseId)) || (await isZztestCase(caseId));
+}
+
+/** Test mode: an existing Case stays untouched unless the test deployment may write it. */
 export async function caseWithheldInTestMode(caseId: string): Promise<boolean> {
   if (!isTestMode()) return false;
-  return !(await isZztestCase(caseId));
+  return !(await isTestCase(caseId));
 }
 
 interface CompletenessUpdate {

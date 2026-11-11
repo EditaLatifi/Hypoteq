@@ -28,47 +28,27 @@ export function isTestMode(): boolean {
   return raw === "1" || raw === "true" || raw === "yes";
 }
 
-// ---- ZZTEST mode: a real Salesforce Case from a test deployment (HYPOTEQ 03.11.2026, 2.3) ----
+// ---- Salesforce from a test deployment (HYPOTEQ 11.11.2026, DECISIONS V115) ----------------
 //
-// HYPOTEQ's acceptance test needs a preview run to create a real Case («erkennbar als Test»).
-// HYPOTEQ 04.11.2026 (Fisnik, Punkt 2; DECISIONS V102): it runs on the name match alone — the
-// Kreditnehmer's last name contains ZZTEST and the e-mail address is a «+test» one — with no
-// further switch. Such a submission creates its Case in test mode too; every other submission
-// is still withheld, mail is still marked «[TEST]», uploads still land in ZZ-TEST_ folders.
+// The Preview creates every Case as usual: HYPOTEQ knows who tests it and deletes those Cases
+// («nicht mehr ZZTEST, normal testen»). Before (V102, 04.11.) only a submission with ZZTEST in the
+// last name and a «+test» address got one. Mail stays marked «[TEST]», uploads land in ZZ-TEST_
+// folders.
+//
+// What stays guarded is the WRITE to an existing Case (Nachreichung, Re-Upload, completeness):
+// the Preview shares the production database, so it may touch only a Case it created itself —
+// stamped TEST_DEPLOYMENT_KEY in the inquiry's stored answers — or a ZZTEST Case from before
+// (updateCaseCompleteness.ts isTestCase). A customer's Case is never written from the Preview.
 
-/** The mark of a test record: in the Kreditnehmer's last name or the company. */
+/** Key a test deployment adds to the stored v3 answers of each inquiry it creates. */
+export const TEST_DEPLOYMENT_KEY = "testDeployment" as const;
+
+/** The mark of a test record from before V115: in the Case name or the Account. */
 export const ZZTEST_MARK = "ZZTEST";
 
 /** Some text carries the ZZTEST mark (case-insensitive). */
 export function hasZztestMark(...values: unknown[]): boolean {
   return values.some((v) => typeof v === "string" && v.toUpperCase().includes(ZZTEST_MARK));
-}
-
-/** A «+test» address: `name+test@…`, `name+test2@…`. */
-export function isTestAddress(v: unknown): boolean {
-  return typeof v === "string" && /\+test[^@\s]*@/i.test(v.trim());
-}
-
-/**
- * A ZZTEST submission (the /api/inquiry body): a Kreditnehmer's last name — or the company —
- * contains ZZTEST, and an address entered (the customer's, or the Berater's) is a «+test» one.
- */
-export function isZztestSubmission(data: unknown): boolean {
-  const d = (data ?? {}) as {
-    client?: { lastName?: unknown; email?: unknown };
-    lastName?: unknown;
-    email?: unknown;
-    v3?: { txt?: { nach?: unknown; firma?: unknown; mail?: unknown; bmail?: unknown }; borrowers?: unknown };
-  };
-  const borrowers = Array.isArray(d.v3?.borrowers) ? (d.v3!.borrowers as { nach?: unknown }[]).map((b) => b?.nach) : [];
-  const named = hasZztestMark(d.client?.lastName, d.lastName, d.v3?.txt?.nach, d.v3?.txt?.firma, ...borrowers);
-  const addressed = [d.client?.email, d.email, d.v3?.txt?.mail, d.v3?.txt?.bmail].some(isTestAddress);
-  return named && addressed;
-}
-
-/** The submission may go to Salesforce: always outside test mode; in test mode only a ZZTEST submission. */
-export function salesforceAllowedFor(data: unknown): boolean {
-  return !isTestMode() || isZztestSubmission(data);
 }
 
 /**

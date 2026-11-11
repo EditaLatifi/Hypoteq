@@ -16,6 +16,10 @@ jest.mock("@/components/salesforceApi", () => ({
   updateCase: async (id: string, f: Record<string, unknown>) => mockUpdate({ ...f, Id: id }),
 }));
 
+// The inquiry of the Case, as the test deployment stamped it (or not) — DECISIONS V115.
+const mockFindFirst = jest.fn<any>();
+jest.mock("@/lib/prisma", () => ({ prisma: { inquiry: { findFirst: (args: unknown) => mockFindFirst(args) } } }));
+
 import { updateCaseCompleteness } from "@/components/updateCaseCompleteness";
 
 const CASE = "500AAAAAAAAAAAAAAA";
@@ -68,10 +72,35 @@ describe("updateCaseCompleteness", () => {
   });
 });
 
-describe("test mode: only a ZZTEST Case, by its name (DECISIONS V102)", () => {
+describe("test mode: only a Case the test deployment created, or a ZZTEST Case (DECISIONS V102, V115)", () => {
   const update = () => updateCaseCompleteness(CASE, { complete: true, missing: [], supplied: ["grundbuch"], submissionId: "inq" });
+  beforeEach(() => {
+    mockFindFirst.mockResolvedValue(null);
+  });
   afterEach(() => {
     delete process.env.HYPOTEQ_TEST_MODE;
+  });
+
+  it("test mode: a Case this deployment created (its inquiry is stamped) is written, whatever its name", async () => {
+    process.env.HYPOTEQ_TEST_MODE = "1";
+    mockFindFirst.mockResolvedValueOnce({ v3State: { testDeployment: true } });
+    await update();
+    expect(mockFindFirst.mock.calls[0][0]).toMatchObject({ where: { salesforceCaseId: CASE } });
+    expect(mockSfQuery).not.toHaveBeenCalled();
+    expect(mockUpdate).toHaveBeenCalledTimes(1);
+  });
+
+  it("test mode: a customer's Case (no stamp, no ZZTEST) is never written from the Preview", async () => {
+    process.env.HYPOTEQ_TEST_MODE = "1";
+    mockFindFirst.mockResolvedValueOnce({ v3State: { version: 5 } });
+    mockSfQuery.mockResolvedValueOnce([{ Case_Name__c: "Beispiel, 3000 Bern", Account: { Name: "Anna Beispiel" } }]);
+    await update();
+    expect(mockUpdate).not.toHaveBeenCalled();
+    // The database not readable: not proven either.
+    mockFindFirst.mockRejectedValueOnce(new Error("db down"));
+    mockSfQuery.mockResolvedValueOnce([{ Case_Name__c: "Muster, 8001 Zürich" }]);
+    await update();
+    expect(mockUpdate).not.toHaveBeenCalled();
   });
 
   it("outside test mode the Case is written without asking", async () => {

@@ -61,6 +61,8 @@ export interface StoredV3State extends V3State {
   version: number;
   /** The funnel language: labels and mails of the Nachreichung use it. */
   lang: Lang;
+  /** Created by a test deployment (components/testMode.ts, DECISIONS V115). */
+  testDeployment?: boolean;
 }
 
 /**

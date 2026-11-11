@@ -89,30 +89,13 @@ describe('routeMail', () => {
   });
 });
 
-describe('ZZTEST mode: the name match (HYPOTEQ 04.11.2026, DECISIONS V102)', () => {
-  it('a ZZTEST submission: last name (any Kreditnehmer) or company with ZZTEST, and a «+test» address', async () => {
-    const { isZztestSubmission, isTestAddress } = await import('../components/testMode');
-    const v3 = (txt: Record<string, string>, borrowers: { nach: string }[] = []) => ({ v3: { txt, borrowers } });
-    expect(isZztestSubmission(v3({ nach: 'Muster-zztest', mail: 'lea+test@kunde.ch' }))).toBe(true);
-    expect(isZztestSubmission(v3({ nach: 'Muster', mail: 'lea+test@kunde.ch' }, [{ nach: 'Muster' }, { nach: 'ZZTEST' }]))).toBe(true);
-    expect(isZztestSubmission(v3({ firma: 'ZZTEST AG', mail: 'x@firma.ch', bmail: 'berater+test@partner.ch' }))).toBe(true);
-    expect(isZztestSubmission({ client: { lastName: 'ZZTEST', email: 'a+test2@b.ch' } })).toBe(true);
-    // Both are needed: the name alone or the address alone is no test record.
-    expect(isZztestSubmission(v3({ nach: 'ZZTEST', mail: 'lea@kunde.ch' }))).toBe(false);
-    expect(isZztestSubmission(v3({ nach: 'Muster', mail: 'lea+test@kunde.ch' }))).toBe(false);
-    expect(isZztestSubmission(v3({ nach: 'Muster', vor: 'ZZTEST', mail: 'lea+test@kunde.ch' }))).toBe(false);
-    expect(isZztestSubmission(null)).toBe(false);
-    expect([isTestAddress('a+test@b.ch'), isTestAddress('a+tester@b.ch'), isTestAddress('atest@b.ch'), isTestAddress('a@b+test.ch')]).toEqual([true, true, false, false]);
-  });
-
-  it('Salesforce: always in production; in test mode only a ZZTEST submission — no further switch', async () => {
-    const { salesforceAllowedFor } = await import('../components/testMode');
-    const zz = { v3: { txt: { nach: 'ZZTEST', mail: 'lea+test@kunde.ch' } } };
-    const real = { v3: { txt: { nach: 'Muster', mail: 'lea@kunde.ch' } } };
-    delete process.env.HYPOTEQ_TEST_MODE;
-    expect([salesforceAllowedFor(zz), salesforceAllowedFor(real)]).toEqual([true, true]);
-    process.env.HYPOTEQ_TEST_MODE = '1';
-    expect([salesforceAllowedFor(zz), salesforceAllowedFor(real)]).toEqual([true, false]);
+describe('Salesforce from a test deployment (HYPOTEQ 11.11.2026, DECISIONS V115)', () => {
+  it('no ZZTEST gate any more: the stamp key, and the ZZTEST mark only for Cases from before', async () => {
+    const mod = await import('../components/testMode');
+    expect(mod.TEST_DEPLOYMENT_KEY).toBe('testDeployment');
+    expect('salesforceAllowedFor' in mod).toBe(false);
+    expect('isZztestSubmission' in mod).toBe(false);
+    expect([mod.hasZztestMark('Lea ZZTEST Muster'), mod.hasZztestMark('zztest'), mod.hasZztestMark('Muster', null)]).toEqual([true, true, false]);
   });
 });
 

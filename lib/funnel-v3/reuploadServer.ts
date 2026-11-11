@@ -366,10 +366,10 @@ function prismaDeps(): ReuploadDeps {
       const { conn, ensureSession, withSessionRetry, sfQuery } = await import("@/components/salesforceApi");
       await ensureSession();
       if (isTestMode()) {
-        // Test mode (DECISIONS V102): only the Task of a ZZTEST Case.
-        const { isZztestCase } = await import("@/components/updateCaseCompleteness");
+        // Test mode (DECISIONS V115): only the Task of a Case this deployment created (or a ZZTEST Case).
+        const { isTestCase } = await import("@/components/updateCaseCompleteness");
         const [task] = await sfQuery<{ WhatId?: string | null }>(`SELECT WhatId FROM Task WHERE Id = '${String(taskId).replace(/[^A-Za-z0-9]/g, "")}'`, "Re-Upload Task (test)");
-        if (!task?.WhatId || !(await isZztestCase(task.WhatId))) return;
+        if (!task?.WhatId || !(await isTestCase(task.WhatId))) return;
       }
       await withSessionRetry(() => conn.sobject("Task").update({ Id: taskId, Status: "Completed" }) as Promise<unknown>, "Re-Upload Task");
     },
