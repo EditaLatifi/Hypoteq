@@ -1,0 +1,29 @@
+# The daily run of the Preview (DECISIONS V116): Vercel runs cron jobs only on the Production
+# deployment, so this calls the Preview's /api/portal/cron at the same time as the Production
+# cron in vercel.json. On the Preview it sends the reminders (Auskunftsermächtigung, Re-Upload
+# after 2 and 5 days) only for the inquiries the Preview created; the partner sync stays off.
+# The secret is the Preview's CRON_SECRET (Vercel, Preview scope of the branch «preview»).
+name: Preview cron
+
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Call the Preview's daily cron
+        env:
+          CRON_SECRET: ${{ secrets.PREVIEW_CRON_SECRET }}
+        run: |
+          code=$(curl -sS -o result.json -w "%{http_code}" --max-time 320 \
+            -H "Authorization: Bearer ${CRON_SECRET}" \
+            https://hypoteq-git-preview-edita-latifis-projects.vercel.app/api/portal/cron)
+          cat result.json; echo
+          echo "HTTP ${code}"
+          test "${code}" = "200"
