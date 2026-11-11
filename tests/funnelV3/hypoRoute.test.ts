@@ -17,6 +17,8 @@ jest.mock("@/components/hypo/bedrockProvider", () => ({
 
 import { GET, POST } from "@/app/api/hypo/route";
 import { bedrockHypoConfig } from "@/components/hypo/bedrockProvider";
+import { openaiHypoConfig } from "@/components/hypo/openaiProvider";
+import { hypoProvider } from "@/components/hypo/provider";
 
 let ip = 0;
 const post = (body: unknown) =>
@@ -25,6 +27,7 @@ const post = (body: unknown) =>
 const env = { ...process.env };
 beforeEach(() => {
   extract.mockReset();
+  delete process.env.OPENAI_API_KEY;
   process.env.BEDROCK_API_KEY = "bedrock-test";
 });
 afterEach(() => {
@@ -102,5 +105,34 @@ describe("Claude on AWS Bedrock from Zürich (HYPOTEQ 29.10.2026)", () => {
     }
     expect(bedrockHypoConfig({ BEDROCK_API_KEY: "k", BEDROCK_AWS_REGION: "us-east-1" })).toBeNull();
     expect(bedrockHypoConfig({ BEDROCK_API_KEY: "k", BEDROCK_HYPO_MODEL: "eu.anthropic.claude-sonnet-5-5" })?.model).toBe("eu.anthropic.claude-sonnet-5-5");
+  });
+});
+
+describe("OpenAI on the Preview, while no AWS keys exist (DECISIONS V110)", () => {
+  const preview = { NODE_ENV: "production", VERCEL_ENV: "preview", OPENAI_API_KEY: "sk-test" };
+
+  it("runs on the Preview and under next dev, with the document recognition's key", () => {
+    expect(openaiHypoConfig(preview)).toEqual({ apiKey: "sk-test", model: "gpt-5.5" });
+    // .env.local is pulled from Production: next dev still counts as development.
+    expect(openaiHypoConfig({ NODE_ENV: "development", VERCEL_ENV: "production", OPENAI_API_KEY: "sk-test" })).not.toBeNull();
+    expect(openaiHypoConfig({ ...preview, HYPO_OPENAI_MODEL: "gpt-5.5-mini" })?.model).toBe("gpt-5.5-mini");
+    expect(openaiHypoConfig({ NODE_ENV: "production", VERCEL_ENV: "preview" })).toBeNull();
+  });
+
+  it("never on the Production deployment: HYPOTEQ's «nicht OpenAI» stands there", () => {
+    expect(openaiHypoConfig({ ...preview, VERCEL_ENV: "production" })).toBeNull();
+    expect(hypoProvider({ ...preview, VERCEL_ENV: "production" })).toBeNull();
+  });
+
+  it("Bedrock goes first once its keys are set", () => {
+    expect(hypoProvider(preview)?.name).toBe("openai");
+    expect(hypoProvider({ ...preview, BEDROCK_API_KEY: "k" })?.name).toBe("bedrock");
+    expect(hypoProvider({})).toBeNull();
+  });
+
+  it("the route asks OpenAI when only its key is set", async () => {
+    delete process.env.BEDROCK_API_KEY;
+    process.env.OPENAI_API_KEY = "sk-test";
+    expect((await (await GET()).json()).model).toBe(true);
   });
 });

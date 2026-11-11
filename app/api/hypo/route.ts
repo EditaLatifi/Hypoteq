@@ -9,7 +9,7 @@ import {
   validateHypoResult,
   type HypoExtractRequest,
 } from "@/components/hypo/extract";
-import { BedrockHypoProvider } from "@/components/hypo/bedrockProvider";
+import { hypoProvider } from "@/components/hypo/provider";
 import { HYPO_PROMPT_VERSION } from "@/components/hypo/prompt";
 import { asksAboutBot } from "@/lib/funnel-v3/hypo/parse";
 
@@ -63,7 +63,9 @@ export async function POST(req: Request) {
   }
 
   const disabled = hypoDisabledReason();
-  if (disabled || !hypoModelConfigured()) {
+  // Bedrock, else OpenAI off the Production deployment (DECISIONS V110), else none.
+  const provider = disabled || !hypoModelConfigured() ? null : hypoProvider();
+  if (!provider) {
     return NextResponse.json({ ok: false, degraded: true });
   }
 
@@ -75,7 +77,6 @@ export async function POST(req: Request) {
     message,
   };
 
-  const provider = new BedrockHypoProvider();
   const started = Date.now();
   try {
     const result = validateHypoResult(await provider.extract(request), message);

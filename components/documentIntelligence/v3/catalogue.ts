@@ -46,9 +46,13 @@ export type FreshnessRule =
   | { kind: "expiry"; field: string };
 
 export interface V3DocType {
-  /** A REQ id (`grundbuch`) or a not-needed id (`nn_steuerrechnung`). Stored with the analysis. */
+  /**
+   * A REQ id (`grundbuch`), a not-needed id (`nn_steuerrechnung`) or a case extra
+   * (`mietvertrag`). Stored with the analysis.
+   */
   id: string;
-  kind: "requirement" | "notneeded";
+  /** `extra`: never asked for, read and kept as «Fallrelevant» when it comes (CASE_EXTRAS). */
+  kind: "requirement" | "notneeded" | "extra";
   /** German label (stored, shown in «Weitere Dateien» for not-needed types). */
   labelDe: string;
   /**
@@ -106,6 +110,12 @@ const FIELD_HINTS: Record<string, string> = {
   ...ID_FIELDS_HINTS,
   // Lohnausweis / Lohnabrechnung (Handover 4.2)
   "Jahr": "the year the salary certificate covers, YYYY",
+  // Mietvertrag (case extra, V112)
+  "Vermieter": "landlord as printed",
+  "Mieter": "tenant(s) as printed",
+  "Mietobjekt": "what is let: address and kind (flat, house, parking space)",
+  "Mietzins pro Monat": "monthly rent as printed, with CHF (say whether charges are included)",
+  "Mietbeginn": "start of the lease, DD.MM.YYYY",
   "Bruttolohn": "gross salary of that year (Bruttolohn total, Ziffer 8), with CHF",
   "Monatslohn brutto": "gross monthly base salary of the most recent month, with CHF (not the net pay, not allowances)",
   "13. Monatslohn": "«ja» when a 13th monthly salary is paid (shown on a payslip or stated: «13 Monatslöhne», «13. Monatslohn»), «nein» when 12 salaries are stated; null when the document does not say",
@@ -587,6 +597,22 @@ const NOT_NEEDED: Omit<V3DocType, "kind" | "family" | "naming" | "fields">[] = [
   },
 ];
 
+/**
+ * Documents the list never asks for but that matter for the case when a customer sends them
+ * (HYPOTEQ Komplett-Test 06.11.2026 B01, DECISIONS V112): recognised and read, then kept under
+ * «Weitere Dateien» as «Fallrelevant» for HYPOTEQ to check — never «nicht erkannt». Placement:
+ * no requirement shares the family, so the file is off the list and relevant (placeFile.ts).
+ */
+const CASE_EXTRAS: (Omit<V3DocType, "kind" | "family" | "fields"> & { fields: string[] })[] = [
+  {
+    id: "mietvertrag", labelDe: "Mietvertrag",
+    aliases: a(["Mietvertrag", "Mietvertrag für Wohnräume", "Untermietvertrag", "Mietvertrag für Geschäftsräume"], ["Bail à loyer", "Contrat de bail", "Contrat de location"], ["Contratto di locazione", "Contratto d'affitto"], ["Lease agreement", "Rental agreement", "Tenancy agreement"]),
+    describe: "A lease contract between a landlord and a tenant for a flat, house, business premises or parking space (rent, start, notice period) — ONE lease, not a list of all tenants and rents of a building («mieterspiegel»).",
+    fields: ["Vermieter", "Mieter", "Mietobjekt", "Mietzins pro Monat", "Mietbeginn"],
+    naming: { person: false, bank: false, date: "date" },
+  },
+];
+
 function reqType(def: RequirementDef): V3DocType {
   const input = REQ_INPUT[def.id];
   if (!input) throw new Error(`No recognition entry for requirement ${def.id}`);
@@ -622,6 +648,12 @@ export const V3_DOC_TYPES: readonly V3DocType[] = [
     family: t.id,
     fields: [],
     naming: { person: false, bank: false, date: "none" },
+  })),
+  ...CASE_EXTRAS.map((t): V3DocType => ({
+    ...t,
+    kind: "extra",
+    family: t.id,
+    fields: t.fields.map((key) => ({ key, ...(FIELD_HINTS[key] ? { hint: FIELD_HINTS[key] } : {}) })),
   })),
 ];
 

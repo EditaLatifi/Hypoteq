@@ -28,6 +28,7 @@ import type { FileEntry, V3Analysis } from "./files";
 import type { ExtraKind } from "./requirementStatus";
 import { baseId, reqList, type PersonRef, type ReqState, type RequirementInstance } from "./requirements";
 import { docYear, familyMembers, requestedYears, v3DocType } from "@/components/documentIntelligence/v3/catalogue";
+import { sideJob } from "./salary";
 
 export type PlaceReason =
   | "placed"
@@ -277,21 +278,69 @@ export function placeAll(files: FileEntry[], state: ReqState, opts: PlaceOptions
   // 3. Fill the slots, newest first.
   for (const [instanceId, list] of contenders) {
     const inst = byInstance.get(instanceId)!;
+    // The person who fits best takes the slot first (V113: Max's own ID before Anna's, whose
+    // family name alone fits Max's row); among one person's documents, the newest.
+    const fit = (a: V3Analysis) => (inst.person ? personScore(a.personName, inst.person) : 0);
     list.sort(
       (x, y) =>
-        dateRank(y.a).localeCompare(dateRank(x.a)) || (y.a.confidence || 0) - (x.a.confidence || 0) || x.i - y.i
+        fit(y.a) - fit(x.a) || dateRank(y.a).localeCompare(dateRank(x.a)) || (y.a.confidence || 0) - (x.a.confidence || 0) || x.i - y.i
     );
     let free = inst.expect - (used.get(instanceId) || 0);
-    for (const { f } of list) {
-      if (free > 0) {
+    // A second Lohnausweis of the same year from another employer (Nebenjob) belongs beside the
+    // first, not in «überzählig»: together they are the year's income (salary.ts, V111).
+    const here = files.filter((x) => out.get(x.id)?.instanceId === instanceId && x.analysis).map((x) => x.analysis!);
+    for (const { f, a } of list) {
+      // A Nebenjob is the same person's: another person's Lohnausweis is never added to this one.
+      if (free > 0 || (inst.id === "lohnausweise" && sideJob(a, here) && here.every((x) => !otherPerson(x, a)))) {
         out.set(f.id, { instanceId, requirementId: inst.id, reason: "placed" });
-        free--;
+        if (free > 0) free--;
+        here.push(a);
       } else {
         out.set(f.id, extra("surplus", "full", inst.id));
       }
     }
   }
+
+  // 4. Per-Kreditnehmer requirements (ID, Lohnausweis …): a document left over on one row — its
+  //    slot taken by another person's document, or the person not told apart — goes to the same
+  //    requirement of a Kreditnehmer whose row is still empty (HYPOTEQ Komplett-Test 06.11.2026,
+  //    «ID der zweiten Person überzählig», V113). Only when its printed name is no one's already
+  //    placed there (a second copy of one person's document stays «überzählig») and the empty
+  //    row's given name, where one was entered, is on it.
+  const fileById = new Map(files.map((f) => [f.id, f]));
+  const on = (instanceId: string) => files.filter((f) => out.get(f.id)?.instanceId === instanceId);
+  for (const f of files) {
+    const p = out.get(f.id);
+    const a = analysisOf(f);
+    if (!p?.requirementId || !a?.personName) continue;
+    const overflow = p.extraKind === "surplus" && p.reason === "full";
+    const untold = p.extraKind === "unknown" && p.reason === "person";
+    if (!overflow && !untold) continue;
+    const rows = instances.filter((i) => i.id === p.requirementId && i.borrowerId);
+    if (rows.length < 2) continue;
+    const there = rows.flatMap((i) => on(i.instanceId)).map((x) => analysisOf(fileById.get(x.id)!)).filter((x): x is V3Analysis => !!x);
+    if (!there.length || there.some((x) => !otherPerson(x, a))) continue;
+    const target = rows.find((i) => on(i.instanceId).length < i.expect && givenNameFits(a.personName, i.person));
+    if (target) out.set(f.id, { instanceId: target.instanceId, requirementId: target.id, reason: "placed" });
+  }
   return out;
+}
+
+/** Two documents print different people: both name someone, and neither name contains the other. */
+function otherPerson(x: V3Analysis, y: V3Analysis): boolean {
+  const a = new Set(tokens(x.personName));
+  const b = new Set(tokens(y.personName));
+  if (!a.size || !b.size) return false;
+  const within = (s: Set<string>, t: Set<string>) => [...s].every((w) => t.has(w));
+  return !within(a, b) && !within(b, a);
+}
+
+/** The person's given name is on the document — or none was entered to hold against it. */
+function givenNameFits(printed: string | null | undefined, person: PersonRef | undefined): boolean {
+  const first = tokens(person?.first);
+  if (!first.length) return true;
+  const doc = new Set(tokens(printed));
+  return first.some((t) => doc.has(t));
 }
 
 /**

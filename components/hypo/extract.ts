@@ -7,12 +7,14 @@
  * The gate is the one of the document extraction (components/documentIntelligence/enabled.ts),
  * with its own opt-in: on the Production deployment HYPO is off until HYPOTEQ sets
  * HYPOTEQ_HYPO_IN_PRODUCTION (their release, 29.10.2026 point 10). The model is Claude on AWS
- * Bedrock from Zürich (./bedrockProvider.ts, HYPOTEQ 29.10.2026 point 2).
+ * Bedrock from Zürich (./bedrockProvider.ts, HYPOTEQ 29.10.2026 point 2); while no AWS keys exist,
+ * OpenAI on the Preview only (./openaiProvider.ts, DECISIONS V110) — ./provider.ts picks.
  */
 
 import { coerce, isHypoKey, type HypoKey, type HypoValue } from "@/lib/funnel-v3/hypo/fields";
 import { INTENTS, type HypoIntent } from "./prompt";
 import { bedrockHypoConfig } from "./bedrockProvider";
+import { openaiHypoConfig } from "./openaiProvider";
 
 export interface HypoExtractRequest {
   lang: string;
@@ -118,9 +120,12 @@ export function hypoDisabledReason(): string | null {
   return "HYPO is limited to preview deployments (set HYPOTEQ_HYPO_IN_PRODUCTION to enable it in production).";
 }
 
-/** Whether the model can be asked at all (HYPO still runs without: chips and plain answers). */
+/**
+ * Whether the model can be asked at all (HYPO still runs without: chips and plain answers):
+ * Bedrock, or OpenAI off the Production deployment (./provider.ts, DECISIONS V110).
+ */
 export function hypoModelConfigured(): boolean {
-  return bedrockHypoConfig() !== null;
+  return bedrockHypoConfig() !== null || openaiHypoConfig() !== null;
 }
 
 const LANGS = ["de", "en", "fr", "it"] as const;

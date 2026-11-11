@@ -20,6 +20,7 @@ import {
 } from "@/lib/funnel-v3/requirements";
 import type { RequirementState, RequirementStatus } from "@/lib/funnel-v3/requirementStatus";
 import { OLDER_SALARY_DE, type Placement } from "@/lib/funnel-v3/placeFile";
+import { employerGroups } from "@/lib/funnel-v3/salary";
 import { extraStoredName, storedName } from "@/lib/funnel-v3/storedName";
 import { v3DocType } from "@/components/documentIntelligence/v3/catalogue";
 
@@ -414,6 +415,17 @@ function latestGross(fields: FieldView[]): number | null {
 }
 
 /**
+ * The year's income on one borrower's Lohnausweise: the Bruttolohn of each employer's, added up
+ * (a Nebenjob beside the Hauptjob, lib/funnel-v3/salary.ts, V111). One Lohnausweis: its own.
+ */
+function salaryTotal(files: FileEntry[]): number | null {
+  const read = files.filter((f) => f.analysis);
+  let sum = 0;
+  for (const group of employerGroups(read, (x) => x.analysis!)) sum += latestGross(mergedFields(group)) ?? 0;
+  return sum > 0 ? sum : null;
+}
+
+/**
  * Document pairs that state the same fact (spec 5 «Baujahr», «Ablösedatum»): which other
  * requirement to look at, which field on each side, and how to normalise the values.
  */
@@ -438,7 +450,7 @@ export function crossChecks(inst: RequirementInstance, files: FileEntry[], fin: 
   const get = (k: string) => parseChf(fields.find((f) => f.key === k)?.value);
   const out: CrossCheck[] = [];
   if (inst.id === "lohnausweise" && borrowerCount === 1 && fin.inc > 0) {
-    const doc = latestGross(fields);
+    const doc = salaryTotal(files);
     if (doc) out.push({ kind: "funnel", field: "Bruttoeinkommen", funnel: fin.inc, doc, ok: within(fin.inc, doc, 0.05) });
   }
   if ((inst.id === "hyp_zins" || inst.id === "produkt") && fin.old > 0) {
@@ -472,7 +484,7 @@ export function householdIncomeCheck(instances: RequirementInstance[], files: Fi
   if (rows.length !== borrowerCount) return null;
   let sum = 0;
   for (const inst of rows) {
-    const v = latestGross(mergedFields(files.filter((f) => f.instanceId === inst.instanceId && f.analysisState === "done")));
+    const v = salaryTotal(files.filter((f) => f.instanceId === inst.instanceId && f.analysisState === "done"));
     if (!v) return null;
     sum += v;
   }

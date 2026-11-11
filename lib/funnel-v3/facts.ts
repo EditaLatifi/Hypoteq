@@ -23,6 +23,7 @@ import type { V3Analysis } from "./files";
 import { parseAmount } from "./format";
 import type { PersonRef } from "./requirements";
 import { personScore } from "./placeFile";
+import { salaryYear, sameEmployer } from "./salary";
 import { docYear } from "@/components/documentIntelligence/v3/catalogue";
 
 /** Handover 4.2 «+ 5 %» (DECISIONS V2: a proposal, Marco confirms). */
@@ -120,11 +121,8 @@ export function yesNoOf(v: string): boolean | null {
   return null;
 }
 
-/** The year a Lohnausweis covers: field «Jahr», else its document date. */
-export function salaryYear(a: V3Analysis): number | null {
-  const y = Number(fieldText(a, "Jahr").match(/\b(19|20)\d{2}\b/)?.[0]);
-  return Number.isFinite(y) && y > 0 ? y : docYear(a.docDate);
-}
+/** The year a Lohnausweis covers: field «Jahr», else its document date (./salary.ts). */
+export { salaryYear };
 
 /**
  * The Jahreslohn of a Lohnausweis: «Bruttolohn», or — analyses stored before v5 — the
@@ -189,7 +187,13 @@ export function docFacts(files: AnalysedFile[], people: People, now: Date = new 
     const slipYear = docYear(slip.docDate);
     // The current Lohnausweis: the latest year — before the payslips' year when there is one.
     const byYear = [...certificates].sort((x, y) => (salaryYear(y) ?? 0) - (salaryYear(x) ?? 0));
-    const cert = (slipYear !== null ? byYear.find((c) => (salaryYear(c) ?? 0) < slipYear) : undefined) ?? byYear[0];
+    const first = (slipYear !== null ? byYear.find((c) => (salaryYear(c) ?? 0) < slipYear) : undefined) ?? byYear[0];
+    // Several Lohnausweise of that year (a Nebenjob, V111): the payslips' employer's, else the largest.
+    const sameYear = byYear.filter((c) => salaryYear(c) === salaryYear(first));
+    const cert =
+      sameYear.length > 1
+        ? sameYear.find((c) => sameEmployer(c, slip)) ?? [...sameYear].sort((x, y) => annualSalary(y) - annualSalary(x))[0]
+        : first;
     const annual = annualSalary(cert);
     const bonusBase = monthly * (thirteenth === false ? 12 : 13);
     const raiseBase = monthly * (thirteenth === true ? 13 : 12);

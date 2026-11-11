@@ -46,7 +46,7 @@ import RequirementRow from "./RequirementRow";
 import AnswersSummary from "./AnswersSummary";
 import ExtraFiles from "./ExtraFiles";
 import FileDetail from "./FileDetail";
-import { EXTRA_GROUP_LABEL, groupExtras, groupRows, groupSummary, householdIncomeCheck, shortList } from "./view";
+import { EXTRA_GROUP_LABEL, groupExtras, groupRows, groupSummary, householdIncomeCheck, isRelevantExtra, shortList } from "./view";
 import { focusFieldSoon } from "../hooks";
 import { useFunnelUI } from "../uiStore";
 
@@ -109,7 +109,13 @@ export default function DocumentsPanel({ variant }: { variant: DocumentsVariant 
   const docRows = useMemo(() => status.requirements.filter((r) => !isSignatureRequirement(r.instance)), [status.requirements]);
   const openRows = useMemo(() => docRows.filter((r) => r.state !== "ok" && r.state !== "skipped"), [docRows]);
   const groups = useMemo(() => groupRows(docRows, state, lang), [docRows, state, lang]);
-  const extras = files.filter((f) => !f.instanceId);
+  const outside = files.filter((f) => !f.instanceId);
+  // «Weitere fallrelevante Unterlagen» right after the requirements (HYPOTEQ Komplett-Test
+  // 06.11.2026, V114): a Reservationsvertrag or a Renovationsaufstellung the answers did not ask
+  // for must not sink to the bottom between surplus and unrecognised files.
+  const isRelevantFile = (f: (typeof files)[number]) => f.uploadState === "uploaded" && isRelevantExtra(placements.get(f.id));
+  const relevantExtras = outside.filter(isRelevantFile);
+  const extras = outside.filter((f) => !isRelevantFile(f));
   const suggested = useMemo(() => new Set(suggestions.flatMap((s) => s.fileIds)), [suggestions]);
   // «Weitere Dateien»: the kinds it holds as its short line; a file nobody recognised needs a hand.
   const extraGroups = groupExtras(extras, placements);
@@ -131,6 +137,7 @@ export default function DocumentsPanel({ variant }: { variant: DocumentsVariant 
   const isGroupOpen = (key: string, attention: boolean) => !lastStep || (groupOpen[key] ?? attention);
   const toggleGroup = (key: string, now: boolean) => setGroupOpen((o) => ({ ...o, [key]: !now }));
   const extrasOpen = isGroupOpen("extras", unknownExtras > 0);
+  const relevantOpen = isGroupOpen("relevant", true);
   const extrasInfo = extraGroups.map((g) => t(EXTRA_GROUP_LABEL[g.key])).join(" · ");
 
   /** A section head: a plain heading on step 2, a toggle with its state on the last step. */
@@ -395,6 +402,26 @@ export default function DocumentsPanel({ variant }: { variant: DocumentsVariant 
             );
           })
         : null}
+
+      {showList && relevantExtras.length ? (
+        <section id="v3-docgroup-relevant" className={`v3-docgroup${lastStep ? " is-collapsible" : ""}${relevantOpen ? " is-open" : ""}`} aria-label={t("s5.relevantFiles")}>
+          {groupHead("relevant", t("s5.relevantFiles"), t("s5.relevantInfo"), String(relevantExtras.length), [], relevantOpen)}
+          {relevantOpen ? (
+            <ExtraFiles
+              files={relevantExtras}
+              placements={placements}
+              instances={instances}
+              suggested={suggested}
+              intern={intern}
+              canRename={canRename}
+              onView={setDetail}
+              onAssigned={(label) => say([{ text: "✓ " + t("docs.toast.assigned", { label }), big: true }])}
+              grouped
+              allFiles={files}
+            />
+          ) : null}
+        </section>
+      ) : null}
 
       {extras.length ? (
         <section id="v3-docgroup-extras" className={`v3-docgroup${lastStep ? " is-collapsible" : ""}${extrasOpen ? " is-open" : ""}`} aria-label={t("s5.otherFiles")}>

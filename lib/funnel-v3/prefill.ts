@@ -46,6 +46,7 @@ import {
   type People,
 } from "./facts";
 import { borrowerRef, splitFullName, type PersonRef } from "./requirements";
+import { employerGroups } from "./salary";
 import type { Answers, DocInfo, DocInfoText, FieldPath, FunnelState, SourceMark, Sources } from "./types";
 import { docYear } from "@/components/documentIntelligence/v3/catalogue";
 
@@ -289,14 +290,27 @@ function collect(files: AnalysedFile[], state: PrefillState, people: People, now
   // Lohnausweis — Kreditnehmer 1 (and the income of a named Kreditnehmer 2)
   if (np) {
     const yearKey = (a: V3Analysis) => String(salaryYear(a) ?? "");
+    // Several Lohnausweise of the newest year from different employers (a Nebenjob, V111): the
+    // income is their sum; the Hauptjob's (the largest) is the source and the Arbeitgeber.
+    const salary = (list: AnalysedFile[]) => {
+      // One per employer: its Lohnausweis with the Bruttolohn read.
+      const certs = employerGroups(list, (f) => f.analysis)
+        .map((g) => [...g].sort((x, y) => annualSalary(y.analysis) - annualSalary(x.analysis))[0])
+        .filter((f) => annualSalary(f.analysis) > 0);
+      if (!certs.length) return null;
+      const main = [...certs].sort((x, y) => annualSalary(y.analysis) - annualSalary(x.analysis))[0];
+      const total = certs.reduce((n, f) => n + annualSalary(f.analysis), 0);
+      return { main, total, confidence: Math.min(...certs.map((f) => conf(f, "Bruttolohn") || conf(f))) };
+    };
     const la = newest(kn1Docs(byType("lohnausweise")), yearKey);
-    if (la) {
-      add(la, "borrower.0.job", "Angestellt", conf(la));
-      add(la, "fin.inc", annualSalary(la.analysis), conf(la, "Bruttolohn") || conf(la));
-      setInfo("ag", field(la, "Arbeitgeber"));
+    if (la) add(la, "borrower.0.job", "Angestellt", conf(la));
+    const s1 = salary(kn1Docs(byType("lohnausweise")));
+    if (s1) {
+      add(s1.main, "fin.inc", s1.total, s1.confidence);
+      setInfo("ag", field(s1.main, "Arbeitgeber"));
     }
-    const la2 = newest(kn2Docs(byType("lohnausweise")), yearKey);
-    if (la2) add(la2, "fin.inc2", annualSalary(la2.analysis), conf(la2, "Bruttolohn") || conf(la2));
+    const s2 = salary(kn2Docs(byType("lohnausweise")));
+    if (s2) add(s2.main, "fin.inc2", s2.total, s2.confidence);
   }
 
   // Steuererklärung — Kreditnehmer 1
