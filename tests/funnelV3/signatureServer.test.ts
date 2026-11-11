@@ -301,18 +301,24 @@ describe("sendSignatureReminders (daily cron)", () => {
     expect(w.mails[0]).not.toHaveProperty("cc");
   });
 
-  it("test mode: no database change, mail only to the test inbox — none without one", async () => {
-    const w = world({ test: true });
-    await w.server.recordSignatureAtSubmit(INQUIRY, { state: "later" }, CLOSED);
-    expect(await w.server.sendSignatureReminders(cron(17))).toEqual({ checked: 1, sent: 0 });
-    expect(w.mails).toEqual([]);
+  it("test deployment (V116): a customer's inquiry is never reminded or touched — not even with a test inbox", async () => {
+    for (const inbox of [null, "test@hypoteq.ch"]) {
+      const w = world({ test: true, inbox });
+      await w.server.recordSignatureAtSubmit(INQUIRY, { state: "later" }, CLOSED);
+      expect(await w.server.sendSignatureReminders(cron(17))).toEqual({ checked: 1, sent: 0 });
+      expect(w.mails).toEqual([]);
+      expect(w.table.get(INQUIRY)).toMatchObject({ remindersSent: 0, lastReminderAt: null });
+      expect(w.links).toEqual([]);
+    }
+  });
 
-    const w2 = world({ test: true, inbox: "test@hypoteq.ch", inquiry: { nachreichExpiresAt: new Date("2026-10-20T00:00:00Z") } });
-    await w2.server.recordSignatureAtSubmit(INQUIRY, { state: "later" }, CLOSED);
-    expect(await w2.server.sendSignatureReminders(cron(17))).toEqual({ checked: 1, sent: 1 });
-    // The mail goes through routeMail (redirected to the inbox); the row and the link stay untouched.
-    expect(w2.table.get(INQUIRY)).toMatchObject({ remindersSent: 0, lastReminderAt: null });
-    expect(w2.links).toEqual([]);
+  it("test deployment (V116): an inquiry it created runs like production — reminded once, link minted", async () => {
+    const w = world({ test: true, inquiry: { v3State: { ...v5State(), testDeployment: true } as any } });
+    await w.server.recordSignatureAtSubmit(INQUIRY, { state: "later" }, CLOSED);
+    expect(await w.server.sendSignatureReminders(cron(17))).toEqual({ checked: 1, sent: 1 });
+    expect(w.table.get(INQUIRY)).toMatchObject({ remindersSent: 1 });
+    // The second run the same day sends nothing more.
+    expect(await w.server.sendSignatureReminders(cron(17))).toEqual({ checked: 1, sent: 0 });
   });
 });
 

@@ -40,9 +40,21 @@ beforeEach(() => {
 describe("/api/portal/cron", () => {
   it("runs the partner sync, the signature reminders and the Re-Upload reminders", async () => {
     const res = await call();
-    expect(await res.json()).toEqual({ partners: 0, notifications: 0, failures: 0, signatures: { checked: 3, sent: 1 }, reuploads: { checked: 2, sent: 1, resolved: 1 }, changeDecisions: 0 });
+    expect(await res.json()).toEqual({ partners: 0, notifications: 0, failures: 0, signatures: { checked: 3, sent: 1 }, reuploads: { checked: 2, sent: 1, resolved: 1 }, changeDecisions: 0, testDeployment: false });
     expect(mockReminders).toHaveBeenCalledTimes(1);
     expect(mockReuploads).toHaveBeenCalledTimes(1);
+  });
+
+  it("test deployment (V116): the reminders run, the partner sync does not (partners are production's)", async () => {
+    process.env.HYPOTEQ_TEST_MODE = "1";
+    mockPartners.fail = true; // would throw if the partner sync ran
+    try {
+      const body = await (await call()).json();
+      expect(body).toMatchObject({ partners: 0, signatures: { checked: 3, sent: 1 }, reuploads: { checked: 2, sent: 1, resolved: 1 }, testDeployment: true });
+      expect(mockReminders).toHaveBeenCalledTimes(1);
+    } finally {
+      delete process.env.HYPOTEQ_TEST_MODE;
+    }
   });
 
   it("the reminders still run when the partner sync fails (which keeps failing as before)", async () => {

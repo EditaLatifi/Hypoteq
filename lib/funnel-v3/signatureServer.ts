@@ -29,6 +29,7 @@ import type { CompletionDocumentRow } from "./completion";
 import type { V3Analysis } from "./files";
 import { SIGNATURE_REQUIREMENT_ID } from "./requirements";
 import { signatureProblems } from "./signature";
+import { stampedByTestDeployment } from "@/components/testMode";
 
 export type SignatureAtSubmit = { state: "uploaded" | "later" | null; fileName?: string | null; driveItemId?: string | null };
 
@@ -241,6 +242,13 @@ export function createSignatureServer(deps: SignatureServerDeps): SignatureServe
       log.warn(`${tag(id)} reminder ${due}: inquiry not found`);
       return false;
     }
+    // V115: a test deployment reminds only for inquiries it created — and those run like
+    // production (claimed once, link minted), the mail still routed «[TEST]». A customer's
+    // reminder is never sent or touched from a test deployment (the database is shared).
+    if (test) {
+      if (!stampedByTestDeployment(inquiry.v3State)) return false;
+      test = false;
+    }
 
     const copy = await signedCopyOnFile(id).catch(() => null);
     if (copy) {
@@ -260,15 +268,6 @@ export function createSignatureServer(deps: SignatureServerDeps): SignatureServe
     }
     const name =
       (state?.txt?.vor || "").trim() || splitFullName(state?.txt?.zeichner || "").first || (inquiry.client?.firstName || "").trim();
-
-    if (test) {
-      const inbox = deps.testInbox();
-      if (!inbox) {
-        const { skipped } = await import("@/components/testMode");
-        skipped("signature reminder", `${due} for inquiry ${id} (no HYPOTEQ_TEST_MAIL_TO)`);
-        return false;
-      }
-    }
 
     // Claimed before the mail goes out: a second cron run at the same time finds it taken.
     if (!test && !(await db.claimReminder(id, row.remindersSent, now))) return false;

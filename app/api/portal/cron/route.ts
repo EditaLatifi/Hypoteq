@@ -8,6 +8,7 @@ import { listPartnerCases } from "@/lib/portal/salesforce";
 import { scopeOfPartner } from "@/lib/portal/scope";
 import { sendSignatureReminders } from "@/lib/funnel-v3/signatureServer";
 import { sendReuploadReminders } from "@/lib/funnel-v3/reuploadServer";
+import { isTestMode, skipped } from "@/components/testMode";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -34,24 +35,31 @@ export async function GET(req: Request) {
   // PORTAL_BASE_URL, else this deployment's own domain (lib/portal/origin.ts).
   const origin = backgroundOrigin();
 
-  let portal: { partners: number; notifications: number; failures: number };
+  // A test deployment (the Preview, V116) runs the funnel reminders — only for the inquiries it
+  // created (signatureServer / reuploadServer) — but not the partner sync or the change-request
+  // decisions: the portal partners and their notifications are production's, in the shared database.
+  const test = isTestMode();
+  let portal: { partners: number; notifications: number; failures: number } = { partners: 0, notifications: 0, failures: 0 };
   let signatures: { checked: number; sent: number } = { checked: 0, sent: 0 };
   let reuploads: { checked: number; sent: number; resolved: number } = { checked: 0, sent: 0, resolved: 0 };
   let changeDecisions = 0;
   try {
-    portal = await syncPartners(origin);
+    if (test) skipped("portal partner sync and change decisions", "test deployment — partners are production's");
+    else portal = await syncPartners(origin);
   } finally {
     signatures = await sendSignatureReminders();
     reuploads = await sendReuploadReminders();
     // Change requests HYPOTEQ decided in Salesforce: taken over and mailed (M14) even when the
     // partner does not open the profile (lib/portal/changeDecisions.ts).
-    try {
-      changeDecisions = await syncOpenChangeDecisions(origin);
-    } catch (err: any) {
-      console.error("[portal] cron: change request decisions failed", err?.message || err);
+    if (!test) {
+      try {
+        changeDecisions = await syncOpenChangeDecisions(origin);
+      } catch (err: any) {
+        console.error("[portal] cron: change request decisions failed", err?.message || err);
+      }
     }
   }
-  return NextResponse.json({ ...portal, signatures, reuploads, changeDecisions });
+  return NextResponse.json({ ...portal, signatures, reuploads, changeDecisions, testDeployment: test });
 }
 
 async function syncPartners(origin: string) {

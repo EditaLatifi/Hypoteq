@@ -23,6 +23,7 @@ import { filesFromRows, liveRows, storedSubmission, storedV3State, type Nachreic
 import { documentName, parseReuploadRequest, resolveRequirement, reuploadMail, reuploadReminderDue, reuploadsForState, type ReuploadMail, type ReuploadRecipient, type ReuploadRequest, type ReuploadRow } from "./reupload";
 import type { PruefRegel } from "./abgleich/rules";
 import { buildNachreichUrl, createNachreichToken, nachreichExpiry, type NachreichLocale } from "@/components/nachreichung";
+import { stampedByTestDeployment } from "@/components/testMode";
 
 const DAY_MS = 86_400_000;
 /** The Nachreich link must stay usable at least this long after a request or a reminder. */
@@ -244,19 +245,23 @@ export function createReuploadServer(d: ReuploadDeps) {
         const inquiry = await db.findInquiryById(r.inquiryId);
         const state = inquiry ? storedV3State(inquiry) : null;
         if (!inquiry || !state) continue;
+        // V115: a test deployment reminds only for inquiries it created — and those run like
+        // production (claimed once, link minted), the mail still routed «[TEST]». A customer's
+        // request is never touched from a test deployment (the database is shared).
+        if (test && !stampedByTestDeployment(inquiry.v3State)) continue;
         const rows = await db.findDocuments(r.inquiryId);
         if (answered(state, rows, r)) {
-          if (!test) await resolve(r, now);
+          await resolve(r, now);
           resolved++;
           continue;
         }
         const inst = resolveRequirement(state, r.requirement);
         if (!inst || !r.recipientEmail) continue;
-        if (!test && !(await db.claimReminder(r.id, r.remindersSent, now))) continue;
+        if (!(await db.claimReminder(r.id, r.remindersSent, now))) continue;
         const lang = (r.lang as Lang) || state.lang;
-        const link = await ensureLink(inquiry, lang, now, !test);
+        const link = await ensureLink(inquiry, lang, now, true);
         if (!link) {
-          if (!test) await db.releaseReminder(r.id, r.remindersSent, r.lastReminderAt);
+          await db.releaseReminder(r.id, r.remindersSent, r.lastReminderAt);
           continue;
         }
         const recipient = r.recipient === "partner" ? "partner" : "kunde";
@@ -264,7 +269,7 @@ export function createReuploadServer(d: ReuploadDeps) {
         const mail = reuploadMail({ lang, recipient, first: who.first, last: who.last, caseNumber: inquiry.caseNumber ?? null, document: documentName(inst, lang), reason: r.reason, link, reminder: due });
         const ok = await d.sendMail(r.recipientEmail, mail).catch(() => false);
         if (ok) sent++;
-        else if (!test) await db.releaseReminder(r.id, r.remindersSent, r.lastReminderAt);
+        else await db.releaseReminder(r.id, r.remindersSent, r.lastReminderAt);
       } catch (err) {
         log.error(`[Re-Upload ${r.inquiryId}] reminder ${due} failed: ${message(err)}`);
       }

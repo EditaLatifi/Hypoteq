@@ -43,6 +43,11 @@ export function isTestMode(): boolean {
 /** Key a test deployment adds to the stored v3 answers of each inquiry it creates. */
 export const TEST_DEPLOYMENT_KEY = "testDeployment" as const;
 
+/** The stored v3 answers carry the stamp: a test deployment created this inquiry. */
+export function stampedByTestDeployment(v3State: unknown): boolean {
+  return !!v3State && typeof v3State === "object" && (v3State as Record<string, unknown>)[TEST_DEPLOYMENT_KEY] === true;
+}
+
 /** The mark of a test record from before V115: in the Case name or the Account. */
 export const ZZTEST_MARK = "ZZTEST";
 
