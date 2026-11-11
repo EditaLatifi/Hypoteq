@@ -74,6 +74,14 @@ describe("POST /api/hypo", () => {
     expect(await (await post({ message: "Wir kaufen ein Haus" })).json()).toEqual({ ok: false, degraded: true });
   });
 
+  it("a letter the model wrote as «�» is taken from the message, or the field is dropped", async () => {
+    extract.mockResolvedValue({ fields: [{ key: "txt.plz", value: "4653", confidence: 0.99 }, { key: "txt.ort", value: "Oberg�sgen", confidence: 0.95 }], intents: [], extras: [], advisorQuestion: null });
+    const ok = await (await post({ lang: "de", role: "kunde", question: "plz", message: "4653 Obergösgen" })).json();
+    expect(ok.fields).toEqual([{ key: "txt.plz", value: "4653", confidence: 0.99 }, { key: "txt.ort", value: "Obergösgen", confidence: 0.95 }]);
+    extract.mockResolvedValue({ fields: [{ key: "txt.ort", value: "Oberg�sgen", confidence: 0.95 }], intents: [], extras: [], advisorQuestion: null });
+    expect((await (await post({ lang: "de", role: "kunde", question: "plz", message: "4653 im Kanton Solothurn" })).json()).fields).toEqual([]);
+  });
+
   it("refuses an empty or too long message", async () => {
     expect((await post({ message: "" })).status).toBe(400);
     expect((await post({ message: "x".repeat(1501) })).status).toBe(413);

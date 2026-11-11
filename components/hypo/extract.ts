@@ -82,6 +82,18 @@ function fromMessage(note: string, message: string, share: number): boolean {
 }
 
 /**
+ * A value the model wrote with «�» in place of a letter (seen on the Preview 11.11.2026: «4653
+ * Obergösgen» came back as «Oberg�sgen», «Zürich» did not): the person's own spelling from the
+ * message when it is there, else null — the field is dropped rather than shown broken.
+ */
+export function ownSpelling(value: string, message: string): string | null {
+  if (!value.includes("�")) return value;
+  const escape = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const pattern = value.split("�").map(escape).join("\\S{1,2}");
+  return message.match(new RegExp(pattern, "iu"))?.[0] ?? null;
+}
+
+/**
  * The model's answer through the whitelist. Pure. With the message, the free-text parts are checked
  * against it: an extra must share a word with it, the advisor question most of its words — and
  * neither may talk about AI, models, providers or prompts (else it is dropped; the controller then
@@ -92,8 +104,9 @@ export function validateHypoResult(raw: unknown, message = ""): HypoExtractResul
   const byKey = new Map<HypoKey, HypoExtractField>();
   for (const f of Array.isArray(r.fields) ? r.fields : []) {
     if (!f || typeof f !== "object") continue;
-    const { key, value, confidence } = f as Record<string, unknown>;
+    const { key, value: given, confidence } = f as Record<string, unknown>;
     if (!isHypoKey(key)) continue;
+    const value = typeof given === "string" ? ownSpelling(given, message) : given;
     const v = coerce(key, value);
     if (v === null) continue;
     const c = clamp01(confidence);
