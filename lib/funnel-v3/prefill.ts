@@ -16,6 +16,7 @@
  *   Lohnabrechnungen            –                                             Bonus, Lohnerhöhung (4.2)
  *   Steuererklärung             Nutzung = selbstbewohnt (unsicher, Eigenmietwert)  Zivilstand, Kinder
  *   Verkaufsdokumentation       Objektwert (unsicher)                         Baujahr, Zimmer, Heizungsart
+ *   Produktvereinbarung / Zinsabrechnung  Objektwert bei Ablösung: Verkehrswert (unsicher, V127)
  *   Gebäudeversicherung         –                                             Baujahr, Kubatur, Versicherungssumme
  *   Unterhalt / Kredit / Leasing  Chip Unterhalt / Privatkredit / Leasing     Betrag, Rate, Restschuld
  *   3a-Police / -Bescheinigung  Säule 3a (Rückkaufswert)                      Verpfändung
@@ -349,11 +350,20 @@ function collect(files: AnalysedFile[], state: PrefillState, people: People, now
     setInfo("kubatur", field(gvz, "Volumen"));
     setInfo("versSumme", field(gvz, "Versicherungssumme"));
   }
+  // Geschätzter Objektwert at an Ablösung (HYPOTEQ Komplett-Test 18.11.2026 «Geschätzter Objektwert
+  // nicht erkannt», V127) — the field says «Schätzung, letzter Kaufpreis oder Verkehrswert»: the
+  // value the current lender states, else the sales documentation's price, else the Kaufpreis of an
+  // old purchase contract; one source only, always «bitte prüfen».
+  const abl = state.ans.antrag === "Ablösung";
+  const lender = abl ? [newest(byType("produkt")), zins].find((f) => !!f && amountOf(field(f, "Verkehrswert")) > 0) : undefined;
+  if (lender) add(lender, "fin.val", amountOf(field(lender, "Verkehrswert")), conf(lender, "Verkehrswert"), true);
   const vd = newest(byType("verkaufsdoku"));
+  // Analyses stored before v5 read «Verkaufspreis 2024».
+  const vdPrice = vd ? amountOf(field(vd, "Verkaufspreis")) || amountOf(field(vd, "Verkaufspreis 2024")) : 0;
+  const lastPurchase = newest(byType("kaufvertrag"));
+  if (abl && !lender && !vdPrice && lastPurchase) add(lastPurchase, "fin.val", amountOf(field(lastPurchase, "Kaufpreis")), conf(lastPurchase, "Kaufpreis"), true);
   if (vd) {
-    // Analyses stored before v5 read «Verkaufspreis 2024».
-    const price = amountOf(field(vd, "Verkaufspreis")) || amountOf(field(vd, "Verkaufspreis 2024"));
-    add(vd, "fin.val", price, conf(vd, field(vd, "Verkaufspreis") ? "Verkaufspreis" : "Verkaufspreis 2024"), true);
+    if (!lender) add(vd, "fin.val", vdPrice, conf(vd, field(vd, "Verkaufspreis") ? "Verkaufspreis" : "Verkaufspreis 2024"), true);
     setInfo("baujahr", field(vd, "Baujahr"));
     setInfo("zimmer", field(vd, "Zimmer"));
     setInfo("heizung", field(vd, "Heizung"));

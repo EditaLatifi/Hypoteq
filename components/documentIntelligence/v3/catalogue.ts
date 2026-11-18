@@ -144,6 +144,7 @@ const FIELD_HINTS: Record<string, string> = {
   "Total": "total amount, with CHF",
   // Bestehende Hypothek
   "Kapital": "outstanding capital of the existing mortgage (all tranches on this statement), with CHF",
+  "Verkehrswert": "value of the property the lender states (Verkehrswert, Belehnungswert, Schätzwert / valeur vénale, valeur de nantissement / valore venale), with CHF; null when the document names none — never the mortgage amount",
   "Zinssatz": "interest rate with the product or reference rate, e.g. «SARON + 0.80 %», «Festhypothek 1.25 %»",
   "Zins Q1 2026": "interest amount of the most recent billed period, with the period",
   "Ablösedatum": "date the current mortgage (tranche or framework) can be redeemed — end of the fixed term / maturity, DD.MM.YYYY; null when the document names none",

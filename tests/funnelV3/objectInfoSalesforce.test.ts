@@ -77,3 +77,36 @@ describe("objectInfoFields → the Case", () => {
     }
   });
 });
+
+describe("V127: the Geschätzter Objektwert at an Ablösung («Schätzung, letzter Kaufpreis oder Verkehrswert»)", () => {
+  const doc = (docTypeId: string, fields: Record<string, string>): V3Analysis => ({ ...vd(fields), docTypeId, docTypeLabel: docTypeId, requirementId: docTypeId });
+  const run = (antrag: "Ablösung" | "Neue Hypothek", list: V3Analysis[]) =>
+    prefillFromDocuments(
+      list.map((analysis, i) => ({ fileId: `f${i}`, analysis })),
+      { ans: { ...DEFAULT_ANSWERS, antrag }, txt: { ...EMPTY_TEXTS }, borrowers: [], touched: {} }
+    );
+
+  it("the value the current lender states comes first, marked «bitte prüfen»", () => {
+    const r = run("Ablösung", [doc("produkt", { Betrag: "CHF 449'000", Verkehrswert: "CHF 980'000" }), vd({ Verkaufspreis: "CHF 1'050'000" })]);
+    expect(r.values["fin.val"]).toBe(980000);
+    expect(r.src["fin.val"]).toMatchObject({ docType: "produkt", unsure: true });
+  });
+
+  it("else the sales documentation's price, else the last Kaufpreis of an old purchase contract", () => {
+    expect(run("Ablösung", [vd({ Verkaufspreis: "CHF 1'050'000" }), doc("kaufvertrag", { Kaufpreis: "CHF 780'000" })]).values["fin.val"]).toBe(1050000);
+    const old = run("Ablösung", [doc("hyp_zins", { Kapital: "CHF 449'000" }), doc("kaufvertrag", { Kaufpreis: "CHF 780'000" })]);
+    expect(old.values["fin.val"]).toBe(780000);
+    expect(old.src["fin.val"]?.unsure).toBe(true);
+  });
+
+  it("at a Kauf nothing changes: the purchase contract is the Kaufpreis, not the Objektwert", () => {
+    const r = run("Neue Hypothek", [doc("kaufvertrag", { Kaufpreis: "CHF 780'000" }), doc("produkt", { Verkehrswert: "CHF 980'000" })]);
+    expect(r.values["fin.kaufpreis"]).toBe(780000);
+    expect(r.values["fin.val"]).toBeUndefined();
+  });
+
+  it("the model is asked for the lender's Verkehrswert", () => {
+    expect(v3DocType("produkt")!.fields.map((f) => f.key)).toContain("Verkehrswert");
+    expect(v3DocType("hyp_zins")!.fields.map((f) => f.key)).toContain("Verkehrswert");
+  });
+});

@@ -238,14 +238,15 @@ export const REQ: readonly RequirementDef[] = [
     shortName: "Produktvereinbarung",
     // It replaces the Rahmenvertrag (Rosanna): an old «aktueller Hypothekarvertrag» key means it.
     legacyKeys: ["funnel.currentMortgageContract"],
-    fields: ["Bank", "Produkt", "Betrag", "Zinssatz", "Laufzeit", "Ablösedatum"],
+    // «Verkehrswert»: the property value the lender states — the Objektwert at an Ablösung (V127).
+    fields: ["Bank", "Produkt", "Betrag", "Zinssatz", "Laufzeit", "Ablösedatum", "Verkehrswert"],
     rule: "Ablösung (ersetzt Hypothekar-/Rahmenvertrag)",
   }),
   def({
     id: "hyp_zins", code: "H2", group: "hypothek", labelDe: "Letzte Zinsabrechnung",
     shortName: "Zinsabrechnung",
     // Prefill: Kreditantrag = Ablösung, bestehende Hypothek · Bank, Zins, Laufzeit, Ablösedatum.
-    fields: ["Produkt", "Kapital", "Zinssatz", "Laufzeit", "Zins Q1 2026", "Ablösedatum"],
+    fields: ["Produkt", "Kapital", "Zinssatz", "Laufzeit", "Zins Q1 2026", "Ablösedatum", "Verkehrswert"],
     rule: "Ablösung (DECISIONS V3)",
   }),
 
