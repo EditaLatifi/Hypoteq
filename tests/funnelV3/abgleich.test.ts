@@ -105,9 +105,13 @@ describe("Name against the Pass/ID: the identity conflict, the only hard stop", 
     expect(byId(r, "name_kreditnehmer:b1")!.result).toBe("ok");
   });
 
-  it("a choice cannot clear it", () => {
+  it("a document value cannot clear it; «HYPOTEQ prüft es von Hand» leaves it to the Pre-Check (V125)", () => {
+    // HYPOTEQ Komplett-Test 18.11.2026: an unsure identity must not block the request.
     const r = evaluateAbgleich({ state: s, docs: [id("Anna", "Beispiel")], choices: { "name_kreditnehmer:b1": { value: "Lea Muster", chosenSource: "funnel", at: "x" } } });
-    expect(r.blocking).toHaveLength(1);
+    expect(r.blocking).toHaveLength(0);
+    expect(byId(r, "name_kreditnehmer:b1")!.result).toBe("to_check");
+    const doc = evaluateAbgleich({ state: s, docs: [id("Anna", "Beispiel")], choices: { "name_kreditnehmer:b1": { value: "Anna Beispiel", chosenSource: "document", at: "x" } } });
+    expect(doc.blocking).toHaveLength(1);
   });
 });
 

@@ -139,7 +139,9 @@ export const REQ: readonly RequirementDef[] = [
     legacyKeys: ["funnel.salesDocPhotos", "funnel.oldSalesDocuments"],
     // Prefill (Handover 3.1): Objektwert (unsicher) · Baujahr, Zimmer, Heizungsart.
     // HYPOTEQ 03.11.2026 Befund 3: what it contains — the floor plans and photos then count (files.ts EMBEDDED_CONTENT).
-    fields: ["Anbieter", "Objekt", "Baujahr", "Verkaufspreis", "Zimmer", "Wohnfläche", "Garten", "Heizung", "Kubatur", "Grundriss enthalten", "Fotos enthalten"],
+    // HYPOTEQ Komplett-Test 18.11.2026: also terrace / balcony, parcel area and floor — for the
+    // Case's «Objektinformationen» (DECISIONS V124).
+    fields: ["Anbieter", "Objekt", "Baujahr", "Verkaufspreis", "Zimmer", "Wohnfläche", "Terrasse / Balkon", "Grundstücksfläche", "Stockwerk", "Garten", "Heizung", "Kubatur", "Grundriss enthalten", "Fotos enthalten"],
     rule: "immer, ausser Bauprojekt · «Habe ich nicht» erlaubt",
   }),
   def({
@@ -269,7 +271,8 @@ export const REQ: readonly RequirementDef[] = [
     legacyKeys: ["funnel.salaryStatementBonus"],
     // Prefill: Beschäftigung = angestellt, Bruttoeinkommen · Arbeitgeber. «Jahr» and «Bruttolohn»
     // are what 4.2 compares (facts.ts).
-    fields: ["Arbeitgeber", "AHV-Nr.", "Jahr", "Bruttolohn", "Beschäftigungsgrad"],
+    // «Unregelmässige Leistungen» (Ziffer 3): the bonus HYPOTEQ counts only over three years (V122).
+    fields: ["Arbeitgeber", "AHV-Nr.", "Jahr", "Bruttolohn", "Unregelmässige Leistungen", "Beschäftigungsgrad"],
     rule: "angestellt · 1 Datei (v5: statt 3 Jahre)",
   }),
   def({
@@ -289,7 +292,7 @@ export const REQ: readonly RequirementDef[] = [
   def({
     id: "lohnausweise_alt", code: "P5", group: "person", labelDe: "Lohnausweise der zwei Vorjahre",
     shortName: "Lohnausweis", perBorrower: true, expect: 2,
-    fields: ["Arbeitgeber", "AHV-Nr.", "Jahr", "Bruttolohn", "Beschäftigungsgrad"],
+    fields: ["Arbeitgeber", "AHV-Nr.", "Jahr", "Bruttolohn", "Unregelmässige Leistungen", "Beschäftigungsgrad"],
     rule: "automatisch, wenn Bonus erkannt (4.2)",
   }),
   def({

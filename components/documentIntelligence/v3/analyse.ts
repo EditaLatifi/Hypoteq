@@ -53,6 +53,8 @@ export function applyV3Rules(
       extraKind: "unknown",
       fields: {},
       contentHash: opts.contentHash ?? null,
+      // So a later catalogue can tell this verdict is older (lib/funnel-v3/upload.ts staleAnalysis).
+      promptVersion: PROMPT_VERSION,
     };
   }
 
@@ -67,6 +69,7 @@ export function applyV3Rules(
       extraReason: type.notNeededReason ?? type.labelDe,
       fields: {},
       contentHash: opts.contentHash ?? null,
+      promptVersion: PROMPT_VERSION,
     };
   }
 

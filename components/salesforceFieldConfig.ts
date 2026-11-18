@@ -4,7 +4,9 @@ export type SFFieldType =
   | "boolean"
   | "string"
   | "picklist"
-  | "date";
+  | "date"
+  /** A plain Salesforce Number (double), e.g. Baujahr__c, Anzahl_Zimmer__c. */
+  | "number";
 
 
 export const SALESFORCE_CASE_FIELDS: Record<string, SFFieldType> = {
@@ -118,6 +120,18 @@ export const SALESFORCE_CASE_FIELDS: Record<string, SFFieldType> = {
   // 19.10. B15): Wärmepumpe Luft-Wasser, Wärmepumpe Wasser-Wasser, Fernwärme, Holz, Gas Erdgas,
   // Gas Biogas, Öl, Andere (toWaermeerzeugung).
   Waermeerzeugung__c: "picklist",
+
+  // «Objektinformationen» read from the Verkaufsdokumentation, the Gebäudeversicherung and the
+  // Grundbuchauszug (HYPOTEQ Komplett-Test 18.11.2026, DECISIONS V124; API names from the org's
+  // describe of 18.11.2026). Only written when a document states the value.
+  Baujahr__c: "number",
+  Anzahl_Zimmer__c: "number",
+  Wohnfl_che_m2__c: "string",       // Text(80)
+  Flaeche_Terrasse_Balkon_m2__c: "number",
+  Grundst_ckfl_che_m__c: "number",
+  Kubatur__c: "string",             // Text(80)
+  Stockwerk__c: "string",           // Text(80)
+  Adresse__c: "string",             // Text(30): street and number of the object
   
   // Picklist for new construction type
   If_Neubau__c: "picklist",  // "Bereits erstellt" or "Bauprojekt"

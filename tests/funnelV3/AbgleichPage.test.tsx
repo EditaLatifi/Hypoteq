@@ -90,6 +90,19 @@ describe("Abgleich page (Spezifikation Datenabgleich 3)", () => {
     expect(html).not.toContain("Bitte kläre zuerst");
   });
 
+  it("V125: an identity conflict can be left to HYPOTEQ — then the submit is free", () => {
+    let html = render();
+    expect(html).toContain(">Ist mein Dokument – HYPOTEQ prüft es von Hand</button>");
+    choices = { "name_kreditnehmer:b1": { value: "Lea Muster", chosenSource: "funnel", at: "x" } };
+    html = render();
+    expect(html).toContain("is-identity");
+    expect(html).toContain(">Manuelle Prüfung</span>");
+    expect(html).toContain("HYPOTEQ prüft den Ausweis von Hand – du kannst die Anfrage absenden.");
+    expect(html).not.toContain(">Ist mein Dokument – HYPOTEQ prüft es von Hand</button>");
+    expect(html).not.toMatch(/disabled=""[^>]*>Angaben bestätigen/);
+    expect(html).not.toContain("Bitte kläre zuerst");
+  });
+
   it("in the funnel language", () => {
     pathname = "/fr/funnel";
     const html = render();

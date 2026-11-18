@@ -10,6 +10,8 @@
  *   STWE-Reglement / EF         Art der Liegenschaft = STWE                   Saldo Erneuerungsfonds
  *   Zinsabrechnung              Kreditantrag = Ablösung, bestehende Hypothek  Bank, Zins, Laufzeit, Ablösedatum
  *   Kaufvertrag                 Kreditantrag = Neue Hypothek, Kaufpreis, Kaufdatum
+ *   Reservationsvertrag / -zahlung  Kreditantrag = Neue Hypothek (unsicher, V119)
+ *   Produktvereinbarung / Rahmenvertrag  Kreditantrag = Ablösung (unsicher, V119)
  *   Lohnausweis                 Beschäftigung = angestellt, Bruttoeinkommen   Arbeitgeber
  *   Lohnabrechnungen            –                                             Bonus, Lohnerhöhung (4.2)
  *   Steuererklärung             Nutzung = selbstbewohnt (unsicher, Eigenmietwert)  Zivilstand, Kinder
@@ -46,7 +48,7 @@ import {
   type People,
 } from "./facts";
 import { borrowerRef, splitFullName, type PersonRef } from "./requirements";
-import { employerGroups } from "./salary";
+import { creditableBonus, employerGroups, regularGross } from "./salary";
 import type { Answers, DocInfo, DocInfoText, FieldPath, FunnelState, SourceMark, Sources } from "./types";
 import { docYear } from "@/components/documentIntelligence/v3/catalogue";
 
@@ -278,6 +280,20 @@ function collect(files: AnalysedFile[], state: PrefillState, people: People, now
     setInfo("abl", dateOf(field(f, "Ablösedatum")) || field(f, "Ablösedatum"));
   }
 
+  // Kreditantrag from documents that only fit one purpose, to be checked (HYPOTEQ Komplett-Test
+  // 18.11.2026, DECISIONS V119): the Schnellanmeldung reads the files before it asks — without the
+  // purpose the Eigenmittelnachweis and the Rahmenvertrag sat in «nicht benötigt». A reservation
+  // means a purchase; the current lender's product agreement or Rahmenvertrag an Ablösung.
+  // Disagreeing documents (a Kaufvertrag and a Rahmenvertrag) leave the question open, as always.
+  for (const id of ["reservation", "reservation_zahlung"]) {
+    const f = newest(byType(id));
+    if (f) add(f, "ans.antrag", "Neue Hypothek", conf(f), true);
+  }
+  for (const id of ["produkt", "hyp_rahmen"]) {
+    const f = newest(byType(id));
+    if (f) add(f, "ans.antrag", "Ablösung", conf(f), true);
+  }
+
   // Kaufvertrag
   const kv = newest(byType("kaufvertrag"));
   if (kv) {
@@ -299,7 +315,10 @@ function collect(files: AnalysedFile[], state: PrefillState, people: People, now
         .filter((f) => annualSalary(f.analysis) > 0);
       if (!certs.length) return null;
       const main = [...certs].sort((x, y) => annualSalary(y.analysis) - annualSalary(x.analysis))[0];
-      const total = certs.reduce((n, f) => n + annualSalary(f.analysis), 0);
+      // Without Ziffer 3 «Unregelmässige Leistungen» — a bonus counts only as the average of three
+      // years' Lohnausweise (HYPOTEQ Komplett-Test A03, V122).
+      const regular = certs.reduce((n, f) => n + regularGross(f.analysis, annualSalary(f.analysis)), 0);
+      const total = regular + creditableBonus(list.map((f) => f.analysis));
       return { main, total, confidence: Math.min(...certs.map((f) => conf(f, "Bruttolohn") || conf(f))) };
     };
     const la = newest(kn1Docs(byType("lohnausweise")), yearKey);
@@ -339,6 +358,12 @@ function collect(files: AnalysedFile[], state: PrefillState, people: People, now
     setInfo("zimmer", field(vd, "Zimmer"));
     setInfo("heizung", field(vd, "Heizung"));
     setInfo("wohnflaeche", field(vd, "Wohnfläche"));
+    // For the Case's «Objektinformationen» (HYPOTEQ Komplett-Test 18.11.2026, V124); the
+    // Gebäudeversicherung's Volumen comes first for the Kubatur.
+    setInfo("terrasse", field(vd, "Terrasse / Balkon"));
+    setInfo("grundstueck", field(vd, "Grundstücksfläche"));
+    setInfo("stockwerk", field(vd, "Stockwerk"));
+    setInfo("kubatur", field(vd, "Kubatur"));
   }
   const plan = newest(byType("stwe_plan"));
   if (plan) setInfo("wohnflaeche", field(plan, "Nettowohnfläche"));

@@ -25,6 +25,7 @@ import { calcForState } from "../calc";
 import { amountOf, dateOf, fieldText, yesNoOf } from "../facts";
 import type { V3Analysis } from "../files";
 import { personScore } from "../placeFile";
+import { creditableBonus, regularGross } from "../salary";
 import { effectiveBorrowers, reqList, type PersonRef, type RequirementInstance } from "../requirements";
 import type { Borrower, FunnelState } from "../types";
 import { ampelOf, FALLBACK_RULES, SECONDARY_TOLERANCE_PCT, sourceKeyOf, sourceTypes, type Ampel, type PruefRegel } from "./rules";
@@ -179,6 +180,19 @@ const amount = (key: string, times = 1): Reader => (p) => {
   return { value: n * times, display: chfText(n * times), field: key, confidence: conf(p.analysis, [key]), sourceRef: refOf(p.analysis, [key]) };
 };
 
+/**
+ * The income on a Lohnausweis HYPOTEQ counts: the Bruttolohn without Ziffer 3 «Unregelmässige
+ * Leistungen» (Komplett-Test A03, V122 — lib/funnel-v3/salary.ts regularGross); the three-year bonus
+ * average is added per Kreditnehmer below.
+ */
+const regularSalary: Reader = (p) => {
+  const gross = amountOf(fieldText(p.analysis, "Bruttolohn"));
+  if (!gross) return null;
+  const n = regularGross(p.analysis, gross);
+  const keys = n !== gross ? ["Bruttolohn", "Unregelmässige Leistungen"] : ["Bruttolohn"];
+  return { value: n, display: chfText(n), field: n !== gross ? "Bruttolohn − Unregelmässige Leistungen" : "Bruttolohn", confidence: conf(p.analysis, keys), sourceRef: refOf(p.analysis, keys) };
+};
+
 /** The yearly salary of a payslip: Monatslohn × 13 when a 13th salary is paid, else × 12. */
 const payslipYear: Reader = (p) => {
   const monthly = amountOf(fieldText(p.analysis, "Monatslohn brutto"));
@@ -244,7 +258,7 @@ const READERS: Record<string, Record<string, Reader>> = {
   name_kreditnehmer: { id: printedName, lohnausweise: printedName, steuer: printedName, betreibung: printedName },
   geburtsdatum: { id: date("Geburtsdatum"), pk: date("Geburtsdatum") },
   nationalitaet_bewilligung: { id: text("Nationalität") },
-  jahreseinkommen: { lohnausweise: amount("Bruttolohn"), lohnabrechnungen: payslipYear, steuer: amount("Einkünfte unselbständig") },
+  jahreseinkommen: { lohnausweise: regularSalary, lohnabrechnungen: payslipYear, steuer: amount("Einkünfte unselbständig") },
   einkommen_selbstaendig: { abschluss_se: amount("Reingewinn"), steuer: amount("Einkünfte selbständig") },
   renteneinkommen: { rente: amount("Rente pro Monat", 12), steuer: amount("Renteneinkünfte") },
   eigenmittel_total: { vermoegen: amount("Saldo total"), s3a: amount("Guthaben"), police: amount("Rückkaufswert"), pkvorbezug: amount("Betrag"), pk: amount("Vorbezug für Wohneigentum möglich"), steuer: amount("Vermögen") },
@@ -392,6 +406,13 @@ function judge(ctx: Ctx, rule: PruefRegel, s: Spec): AbgleichField {
   if (choice && rule.severity === "conflict" && s.choosable) {
     return { ...base, result: "ok", against: c, customerChoice: choice };
   }
+  // «Ist mein Dokument – HYPOTEQ prüft es von Hand» on an identity conflict (HYPOTEQ Komplett-Test
+  // 18.11.2026: a passport with a residence permit «konnte nicht abgeschlossen werden» — an unsure
+  // recognition must not block, DECISIONS V125): the funnel's name stays, the field goes to the
+  // Pre-Check as «to_check» with the choice as its evidence, and the submission is free.
+  if (choice && rule.severity === "identity_conflict" && choice.chosenSource === "funnel" && !same(s.kind, s.funnel, c.value, rule.tolerancePct, rule.onlyBelow, person)) {
+    return { ...base, result: "to_check", against: c, customerChoice: choice, nameOnDocument: String(c.value) };
+  }
   if (same(s.kind, s.funnel, c.value, rule.tolerancePct, rule.onlyBelow, person)) {
     base.result = secondaryOff(s.funnel) ? "hint" : "ok";
     return base;
@@ -416,10 +437,15 @@ function specs(ctx: Ctx): { rule: PruefRegel; spec: Spec }[] {
     if (spec.funnel === null && !spec.primary.length && !spec.secondary.length) return;
     out.push({ rule, spec: { ...spec, compared: spec.compared === undefined ? spec.primary[0] ?? null : spec.compared } });
   };
-  const amountSpec = (key: string, rule: PruefRegel, funnel: number, filter: (p: Placed) => boolean, extra: Partial<Spec> & { combine?: "total" | "average"; only?: readonly string[] } = {}) => {
+  const amountSpec = (key: string, rule: PruefRegel, funnel: number, filter: (p: Placed) => boolean, extra: Partial<Spec> & { combine?: "total" | "average"; only?: readonly string[]; bonus?: number } = {}) => {
     const primary = extract(ctx, rule, "primary", filter, extra.only);
     const secondary = extract(ctx, rule, "secondary", filter);
-    const compared = extra.combine === "average" ? average(primary, rule) : extra.combine === "total" ? total(primary, { docType: primary[0]?.docType ?? "", typeId: primary[0]?.typeId ?? "", role: "primary" }, rule) : undefined;
+    let compared = extra.combine === "average" ? average(primary, rule) : extra.combine === "total" ? total(primary, { docType: primary[0]?.docType ?? "", typeId: primary[0]?.typeId ?? "", role: "primary" }, rule) : undefined;
+    // The three-year bonus average on top of the Lohnausweis without Ziffer 3 (V122).
+    if (compared && extra.bonus && extra.bonus > 0) {
+      const value = Number(compared.value) + extra.bonus;
+      compared = { ...compared, value, display: chfText(value), field: `${compared.field} + Ø Bonus 3 Jahre`, sourceRef: null };
+    }
     if (funnel <= 0 && !primary.length) return;
     add(rule, {
       id: extra.id ?? key,
@@ -456,11 +482,14 @@ function specs(ctx: Ctx): { rule: PruefRegel; spec: Spec }[] {
       const key = job === "Selbständig" ? "einkommen_selbstaendig" : job === "Pensioniert" ? "renteneinkommen" : "jahreseinkommen";
       const ir = pick(key, ctx);
       if (ir) {
+        // All of this person's Lohnausweise (P2 and the two years before, P5) for the bonus average.
+        const certs = ctx.placed.filter((p) => mine(p) && (p.typeId === "lohnausweise" || p.typeId === "lohnausweise_alt")).map((p) => p.analysis);
         amountSpec(sid(key, b.id), ir, i < 2 ? income : 0, mine, {
           id: sid(key, b.id),
           borrower: b,
           choosable: i < 2,
           combine: key === "einkommen_selbstaendig" ? "average" : "total",
+          ...(key === "jahreseinkommen" ? { bonus: creditableBonus(certs) } : {}),
           explanationKey: key === "jahreseinkommen" ? "abg.hint.income" : key === "einkommen_selbstaendig" ? "abg.hint.selfEmployed" : undefined,
         });
       }

@@ -34,7 +34,7 @@ import {
   valueText,
   withNote,
 } from "@/lib/funnel-v3/hypo/engine";
-import { asksAboutBot, asksIfHuman, isPlainAnswer, readField, saysSkip, saysUnknown } from "@/lib/funnel-v3/hypo/parse";
+import { asksAboutBot, asksAboutDocuments, asksIfHuman, isPlainAnswer, isQuestionOnly, readField, saysSkip, saysUnknown, wantsValuation } from "@/lib/funnel-v3/hypo/parse";
 import { BEWERTUNG_URL, type HypoMessage, type HypoRole, type HypoSession, type Offer, type RecognisedItem } from "@/lib/funnel-v3/hypo/session";
 import { useFunnelUI } from "../uiStore";
 import { loadHypoConfig, resetHypo, useHypo } from "./hypoStore";
@@ -226,6 +226,52 @@ function unknownValue(): void {
     return;
   }
   say("hypo.estimate");
+}
+
+/**
+ * The valuation asked for in words (HYPOTEQ Komplett-Test C05, «Can you estimate the market value
+ * of my property?»): HYPO gives the online valuation's link right away, as after a «Ja» to the offer.
+ */
+function giveValuation(lang: Lang): void {
+  if (H().offer === "bewertung") patch({ offer: null });
+  close("offer:bewertung");
+  hypoEvent("offer_bewertung", "asked");
+  patch({ bewertung: true });
+  note("bewertung", "", lang);
+  say("hypo.bewertung.asked");
+  push({ from: "hypo", kind: "link", key: "hypo.bewertung.link", label: "hypo.card.bewertung", url: BEWERTUNG_URL });
+}
+
+/**
+ * A question instead of an answer (Komplett-Test 18.11.2026: «Brauche ich einen Arbeitsvertrag?» at
+ * «Wie heisst du?» was stored as the name). Nothing of it becomes a value: the model, where it runs,
+ * only says what kind of question it is (advice → noted for the advisor, off topic …); a question
+ * about the documents gets HYPO's fixed answer; then the question on screen comes again.
+ */
+async function answerQuestion(text: string, q: Question | null, lang: Lang): Promise<void> {
+  if (wantsValuation(text)) {
+    giveValuation(lang);
+    return askNext(lang);
+  }
+  if (asksAboutDocuments(text)) {
+    say("hypo.docsQuestion");
+    patch({ misses: 0 });
+    return askNext(lang);
+  }
+  const config = useHypo.getState().config ?? (await loadHypoConfig());
+  const res = config.model ? await extract(text, q, lang) : null;
+  if (res) {
+    patch({ llm: true });
+    const handled = await applyModel({ ...res, fields: [], extras: [] }, q, text, lang);
+    if (handled === "left") return;
+    if (handled) {
+      patch({ misses: 0 });
+      return askNext(lang);
+    }
+  }
+  say("hypo.question");
+  patch({ misses: 0 });
+  return askNext(lang);
 }
 
 function answerOffer(offer: Offer, yes: boolean, lang: Lang): void {
@@ -457,6 +503,14 @@ async function handleText(text: string, lang: Lang, first: boolean): Promise<voi
     say("hypo.human");
     return askNext(lang);
   }
+  // The language offer («Sprache wechseln oder Formular?») answered by typing on: the typed text
+  // is the answer to the question underneath (Komplett-Test C02: «8400 Winterthur» after the offer
+  // was never read, HYPO repeated the offer and the request could not be finished).
+  if (h.offer === "language") {
+    patch({ offer: null });
+    close("offer:language");
+    patch({ current: nextQuestion(flowState(), H())?.id ?? null });
+  }
   // An offer or a «stimmt das?» on screen, answered in words.
   if (h.offer && h.offer !== "language") {
     const yes = readConfirm(text);
@@ -488,6 +542,12 @@ async function handleText(text: string, lang: Lang, first: boolean): Promise<voi
     unknownValue();
     return askNext(lang);
   }
+  // «Was ist meine Wohnung wert?», «Ich möchte eine Bewertung» — also as the first message.
+  if (wantsValuation(text) && !isQuestionOnly(text)) {
+    giveValuation(lang);
+    return askNext(lang);
+  }
+  if (isQuestionOnly(text)) return answerQuestion(text, q, lang);
   const plain = q ? (q.id === "partnerName" ? (isPlainAnswer(text) ? readPartnerName(text) : null) : readPlainAnswer(q, text, lang)) : null;
   if (q && plain) {
     await takeAnswer(q, plain, lang);

@@ -116,7 +116,7 @@ function analysis(x: unknown): V3Analysis | null {
     }
   }
   const str = (y: unknown, max = 300) => (typeof y === "string" ? y.slice(0, max) : null);
-  const kinds = ["surplus", "duplicate", "notneeded", "unknown"];
+  const kinds = ["relevant", "surplus", "duplicate", "notneeded", "unknown"];
   return {
     status: x.status === "failed" ? "failed" : "done",
     docTypeId: str(x.docTypeId, 60),

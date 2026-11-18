@@ -19,6 +19,9 @@
  *                                           it (Anstellungsvertrag without a Lohnerhöhung,
  *                                           Eigenmittelnachweis at an Ablösung — Handover 4.2, 4.3)
  *               (reason "dismissed")        an off-list document whose suggestion was turned down
+ *  - relevant   (reason "relevant")         recognised and kept for HYPOTEQ (Fallrelevant, V119): the
+ *                                           Rahmenvertrag unless it is a Kauf, a further document of a
+ *                                           per-person requirement that shows another person
  *  - unknown    (reason "unknown")          not recognised
  *               (reason "failed")           could not be analysed
  *               (reason "person")           recognised, but whose it is cannot be told apart
@@ -42,6 +45,7 @@ export type PlaceReason =
   | "unknown"
   | "failed"
   | "person"
+  | "relevant"
   | "pending";
 
 export interface Placement {
@@ -60,6 +64,8 @@ export interface PlaceOptions {
   now?: Date;
   /** File ids whose answer-correction suggestion was dismissed. */
   dismissed?: Iterable<string>;
+  /** placeFile: the Kreditantrag («Neue Hypothek» / «Ablösung»); placeAll reads it from the state. */
+  antrag?: string;
   /**
    * placeAll: the instances to place on instead of reqList(state) — the Nachreich page places
    * new files only on what the inquiry is still missing (lib/funnel-v3/nachreichView.ts).
@@ -88,7 +94,11 @@ const REASON_DE: Record<PlaceReason, string> = {
   unknown: "Dokumenttyp nicht erkannt.",
   failed: "Konnte nicht gelesen werden.",
   person: "Person nicht eindeutig erkannt.",
+  relevant: "Für den Fall relevant, auch wenn die Antworten es nicht verlangen – wird im Dossier mitgeführt und von HYPOTEQ geprüft.",
 };
+
+/** A further document of a per-person requirement that shows another person (V119). */
+export const OTHER_PERSON_DE = "Dokument einer weiteren Person – für den Fall relevant, wird im Dossier mitgeführt und von HYPOTEQ geprüft.";
 
 function extra(kind: ExtraKind, reason: PlaceReason, requirementId: string | null, text?: string): Placement {
   return { instanceId: null, requirementId, extraKind: kind, extraReason: text || REASON_DE[reason], reason };
@@ -151,12 +161,17 @@ function candidateFor(
   analysis: V3Analysis | undefined,
   instances: RequirementInstance[],
   dismissed: boolean,
-  now: Date
+  now: Date,
+  antrag?: string
 ): Placement | { candidate: RequirementInstance } {
   if (!analysis) return { instanceId: null, requirementId: null, reason: "pending" };
   if (analysis.status === "failed") return extra("unknown", "failed", null);
   const type = v3DocType(analysis.docTypeId);
   if (!type) return extra("unknown", "unknown", null);
+  // HYPOTEQ Komplett-Test A02 (06.11., again 18.11.2026): the Rahmenvertrag of the current mortgage
+  // is case-relevant at an Ablösung — and while the Kreditantrag is still open (the Schnellanmeldung
+  // reads the files before it is asked). Only a Kauf leaves it «nicht benötigt» (V119).
+  if (type.id === "hyp_rahmen" && antrag !== "Neue Hypothek") return extra("relevant", "relevant", null);
   if (type.kind === "notneeded") return extra("notneeded", "notneeded", null, type.notNeededReason);
 
   const members = new Set(familyMembers(type.id));
@@ -204,7 +219,7 @@ export function placeFile(
     const same = existing.find((e) => e.contentHash && e.contentHash === hash && e.id !== opts.fileId);
     if (same) return { ...extra("duplicate", "duplicate", analysis?.docTypeId && v3DocType(analysis.docTypeId)?.kind === "requirement" ? analysis.docTypeId : null), duplicateOf: same.id };
   }
-  const c = candidateFor(analysis, instances, opts.fileId ? dismissed.has(opts.fileId) : false, now);
+  const c = candidateFor(analysis, instances, opts.fileId ? dismissed.has(opts.fileId) : false, now, opts.antrag);
   if (!("candidate" in c)) return c;
   const inst = c.candidate;
   const taken = existing.filter((e) => e.instanceId === inst.instanceId).length;
@@ -265,7 +280,7 @@ export function placeAll(files: FileEntry[], state: ReqState, opts: PlaceOptions
       out.set(f.id, { ...extra("duplicate", "duplicate", req), duplicateOf: firstByHash.get(h) });
       return;
     }
-    const c = candidateFor(a, instances, dismissed.has(f.id), now);
+    const c = candidateFor(a, instances, dismissed.has(f.id), now, state.ans?.antrag);
     if (!("candidate" in c)) {
       out.set(f.id, c);
       return;
@@ -291,7 +306,11 @@ export function placeAll(files: FileEntry[], state: ReqState, opts: PlaceOptions
     const here = files.filter((x) => out.get(x.id)?.instanceId === instanceId && x.analysis).map((x) => x.analysis!);
     for (const { f, a } of list) {
       // A Nebenjob is the same person's: another person's Lohnausweis is never added to this one.
-      if (free > 0 || (inst.id === "lohnausweise" && sideJob(a, here) && here.every((x) => !otherPerson(x, a)))) {
+      const nebenjob = inst.id === "lohnausweise" && sideJob(a, here) && here.every((x) => !otherPerson(x, a));
+      // A foreigner's passport and residence permit (Ausweis B / C …) of one person belong together
+      // on the ID row (Komplett-Test 18.11.2026: the Aufenthaltsbewilligung C was «überzählig», V120).
+      const permitPair = v3DocType(inst.id)?.family === "id" && here.some((x) => !otherPerson(x, a) && isResidencePermit(x) !== isResidencePermit(a));
+      if (free > 0 || nebenjob || permitPair) {
         out.set(f.id, { instanceId, requirementId: inst.id, reason: "placed" });
         if (free > 0) free--;
         here.push(a);
@@ -323,7 +342,33 @@ export function placeAll(files: FileEntry[], state: ReqState, opts: PlaceOptions
     const target = rows.find((i) => on(i.instanceId).length < i.expect && givenNameFits(a.personName, i.person));
     if (target) out.set(f.id, { instanceId: target.instanceId, requirementId: target.id, reason: "placed" });
   }
+
+  // 5. Still left over, and it shows ANOTHER person than every document placed on that requirement:
+  //    a second Kreditnehmer's Steuererklärung (P17 asks it of Kreditnehmer 1 only), or the
+  //    documents of a person not entered yet. «Fallrelevant» (kept, HYPOTEQ checks it), not
+  //    «Überzählig — die Anforderung ist bereits vollständig» (Komplett-Test 18.11.2026, V119).
+  for (const f of files) {
+    const p = out.get(f.id);
+    const a = analysisOf(f);
+    if (!p?.requirementId || p.extraKind !== "surplus" || p.reason !== "full" || !a?.personName) continue;
+    const there = instances
+      .filter((i) => i.id === p.requirementId)
+      .flatMap((i) => on(i.instanceId))
+      .map((x) => analysisOf(fileById.get(x.id)!))
+      .filter((x): x is V3Analysis => !!x);
+    if (there.length && there.every((x) => otherPerson(x, a))) out.set(f.id, extra("relevant", "relevant", p.requirementId, OTHER_PERSON_DE));
+  }
   return out;
+}
+
+/**
+ * A residence permit for foreigners (Ausländerausweis B / C / L / G, «Aufenthaltsbewilligung»,
+ * «Niederlassungsbewilligung», «titre de séjour», «permesso di dimora»), by what the ID's
+ * «Dokumentart» says — not a passport or an identity card.
+ */
+export function isResidencePermit(a: V3Analysis): boolean {
+  const kind = String(a.fields?.["Dokumentart"]?.value ?? "");
+  return /ausländer|auslander|aufenthalt|niederlass|bewilligung|permit|permis|permesso|séjour|sejour|établissement|etablissement|dimora|domicilio|soggiorno|\bausweis\s*[bcglfn]\b|\b[bcglfn][- ]?(ausweis|permit|bewilligung)\b/i.test(kind);
 }
 
 /** Two documents print different people: both name someone, and neither name contains the other. */

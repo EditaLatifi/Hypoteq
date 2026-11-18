@@ -80,7 +80,8 @@ describe("v3 recognition catalogue", () => {
 
   it("says why a recognised requirement off the list is not needed (prototype NN)", () => {
     expect(v3DocType("anstellung")!.notNeededReason).toMatch(/Lohnerhöhung/);
-    expect(v3DocType("vermoegen")!.notNeededReason).toBe("Eigenmittelnachweis ist nur bei einem Kauf nötig.");
+    // Off the list it is «Fallrelevant» since HYPOTEQ's Komplett-Test of 18.11.2026 (V119).
+    expect(v3DocType("vermoegen")!.notNeededReason).toBeUndefined();
     expect(v3DocType("hyp_rahmen")!.notNeededReason).toMatch(/Produktvereinbarung/);
     expect(v3DocType("lohnausweise")!.notNeededReason).toBeUndefined();
   });

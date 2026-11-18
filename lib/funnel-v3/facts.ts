@@ -1,7 +1,8 @@
 /**
  * Rules from the document analysis that need no question (Handover 4.2). Pure.
  *
- *   Bonus          Jahreslohn Lohnausweis > Monatslohn (Lohnabrechnung) × 12 bzw. × 13 + 5 %
+ *   Bonus          Jahreslohn Lohnausweis > Monatslohn (Lohnabrechnung) × 12 bzw. × 13 + 5 %,
+ *                  or the current Lohnausweis shows Ziffer 3 «Unregelmässige Leistungen» (V122)
  *                  → P5 «Lohnausweise der zwei Vorjahre», reason «variabler Lohnanteil erkannt»
  *   Lohnerhöhung   aktueller Monatslohn × 12 bzw. × 13 > Jahreslohn Vorjahres-Lohnausweis + 5 %
  *                  → P6 «Anstellungsvertrag», reason «Lohnerhöhung erkannt»
@@ -23,7 +24,7 @@ import type { V3Analysis } from "./files";
 import { parseAmount } from "./format";
 import type { PersonRef } from "./requirements";
 import { personScore } from "./placeFile";
-import { salaryYear, sameEmployer } from "./salary";
+import { irregularPay, salaryYear, sameEmployer } from "./salary";
 import { docYear } from "@/components/documentIntelligence/v3/catalogue";
 
 /** Handover 4.2 «+ 5 %» (DECISIONS V2: a proposal, Marco confirms). */
@@ -202,6 +203,13 @@ export function docFacts(files: AnalysedFile[], people: People, now: Date = new 
     out.salary = { year: salaryYear(cert), annual, monthly, thirteenth, bonusDelta, raiseDelta };
     out.bonus = bonusDelta > SALARY_THRESHOLD;
     out.raise = raiseDelta > SALARY_THRESHOLD;
+  }
+
+  // A bonus printed on the current Lohnausweis (Ziffer 3) is one too: HYPOTEQ counts it only with the
+  // Lohnausweise of three years (Komplett-Test A03, V122), so P5 asks for the two before.
+  if (!out.bonus && certificates.length) {
+    const latest = Math.max(...certificates.map((c) => salaryYear(c) ?? 0));
+    if (certificates.some((c) => (salaryYear(c) ?? 0) === latest && irregularPay(c) > 0)) out.bonus = true;
   }
 
   // ---- Ab 50: any Kreditnehmer's ID (not the Solidarbürge's, not the signatory's).

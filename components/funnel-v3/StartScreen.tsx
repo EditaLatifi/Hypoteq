@@ -25,8 +25,8 @@ const ENTRIES: { mode: Mode; eyebrow: string; title: string; sub: string; time: 
 /**
  * Step 0 (Handover 1): the switch «HYPOTEQ Berater | Kunde selbst», then the two entries —
  * Schnellanmeldung (documents first) and Begleitete Anmeldung (step by step), each with
- * eyebrow, text and time. «Empfohlen» (lime) on the entry the role suggests: Berater →
- * Schnell, Kunde → Begleitet (steps.ts recommendedMode). A role preset by the link
+ * eyebrow, text and time. «Empfohlen» (lime) on the Schnellanmeldung for both roles
+ * (steps.ts recommendedMode, DECISIONS V117). A role preset by the link
  * (`?customer=`, the Partnerportal) is already chosen (DECISIONS V49).
  *
  * The third entry, HYPO (Konzept HYPO Kap. 3): «Erzähl uns dein Projekt.» in the lime wedge on the

@@ -35,7 +35,7 @@ export interface V3Analysis {
   /** Requirement the file was placed on, when its type is on the current list. */
   requirementId: string | null;
   /** Set when the file is kept outside the list (spec 4.3). */
-  extraKind?: "surplus" | "duplicate" | "notneeded" | "unknown";
+  extraKind?: "relevant" | "surplus" | "duplicate" | "notneeded" | "unknown";
   /** Why it is an extra, for the «Weitere Dateien» list (e.g. "Steuerrechnung"). */
   extraReason?: string;
   /** Person the document belongs to, «Nachname Vorname» as printed. */

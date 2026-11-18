@@ -74,9 +74,12 @@ describe("«Fehlende Unterlagen & Abschluss» of the Schnellanmeldung (V82; Spez
       { open: false, text: "Bestehende Hypothek | Alles vollständig. | 2 / 2" },
       { open: false, text: "Zur Person · Max Mustermann | Aktuelle Steuererklärung, Kreditverträge (Privatkredite) | 2 fehlend | 7 / 9" },
       { open: false, text: "Eigenmittel &amp; Vorsorge | Alles vollständig. | 2 / 2" },
-      { open: false, text: "Weitere Dateien | Überzählig · Duplikat · Nicht benötigt | 9" },
+      // The Eigenmittelnachweis at an Ablösung is «Fallrelevant» since 18.11.2026 (V119).
+      { open: true, text: "Weitere fallrelevante Unterlagen | Nicht verlangt, aber für deinen Fall wichtig – HYPOTEQ prüft sie. | 1" },
+      { open: false, text: "Weitere Dateien | Überzählig · Duplikat · Nicht benötigt | 8" },
     ]);
-    expect(rowTitles(html)).toEqual([]);
+    // Only the fallrelevant block is open (V114): its one row.
+    expect(rowTitles(html)).toEqual(["Aufstellung und Nachweis der Eigenmittel"]);
   });
 
   it("shows the same rows with the same labels as the requirement list (V84)", () => {

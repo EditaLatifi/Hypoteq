@@ -155,6 +155,7 @@ const NAME_LEAD =
 
 /** «Max Muster», «Ich heisse Anna Maria Beispiel» → first names and last name; null when not a name. */
 export function readName(text: string): { vor: string; nach: string } | null {
+  if (isQuestionOnly(text)) return null;
   const s = text.trim().replace(NAME_LEAD, "").replace(/[.!]+$/, "").trim();
   const parts = s.split(/\s+/).filter(Boolean);
   if (parts.length < 2 || parts.length > 5) return null;
@@ -178,6 +179,30 @@ const MONTHS: readonly (readonly string[])[] = [
   ["dez", "dec", "déc", "décembre", "dicembre", "dezember", "december"],
 ];
 
+/**
+ * «in 20 Monaten», «20 Monate», «in 2 Jahren», «in 1.5 years», «Ende 2027», «Mitte 2027» → MM.JJJJ,
+ * counted from `now` (HYPOTEQ Komplett-Test C01: «20 Monat» at «Wann läuft deine Hypothek aus?»
+ * was not understood). A bare number of months or years is a span, never a calendar month.
+ */
+function readRelativeMonth(s: string, now: Date): string | null {
+  const t = lower(s);
+  const span = t.match(/(\d{1,3}(?:[.,]\d)?)\s*(monat|monate|monaten|mt\.?|mte\.?|months?|mois|mesi|mese|jahr|jahre|jahren|years?|yrs?|ans?|années?|anni|anno)\b/u);
+  if (span) {
+    const n = Number(span[1].replace(",", "."));
+    const months = /^(jahr|year|yr|an|ann)/.test(span[2]) ? Math.round(n * 12) : Math.round(n);
+    if (!Number.isFinite(months) || months < 0 || months > 600) return null;
+    const d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + months, 1));
+    return `${String(d.getUTCMonth() + 1).padStart(2, "0")}.${d.getUTCFullYear()}`;
+  }
+  const part = t.match(/\b(ende|end of|end|fin|fine|mitte|middle of|mid|milieu|metà|anfang|beginning of|start of|début|debut|inizio)\s+(?:de\s+|del\s+|dell'\s*)?((?:19|20)\d{2})\b/u);
+  if (part) {
+    const w = part[1];
+    const month = /^(ende|end|fin|fine)/.test(w) ? 12 : /^(mitte|middle|mid|milieu|metà)/.test(w) ? 6 : 1;
+    return `${String(month).padStart(2, "0")}.${part[2]}`;
+  }
+  return null;
+}
+
 /** A month by name («März 2027», «end of march 2027») → MM.JJJJ. */
 function readMonthName(s: string): string | null {
   const m = lower(s).match(/([a-zäéû]+)\.?\s+(\d{4})/u);
@@ -187,8 +212,8 @@ function readMonthName(s: string): string | null {
   return idx >= 0 ? normaliseMonth(`${idx + 1}.${m[2]}`) || null : null;
 }
 
-/** A date (`TT.MM.JJJJ`) or, when `month`, also a month (`MM.JJJJ`). */
-export function readDate(text: string, month = false): string | null {
+/** A date (`TT.MM.JJJJ`) or, when `month`, also a month (`MM.JJJJ`), also «in 20 Monaten» (from `now`). */
+export function readDate(text: string, month = false, now: Date = new Date()): string | null {
   const t = text.trim();
   const full = t.match(/\b(\d{1,2}[./-]\d{1,2}[./-](?:\d{4}|\d{2}))\b/) || t.match(/\b(\d{4}-\d{2}-\d{2})\b/);
   if (full) {
@@ -201,7 +226,55 @@ export function readDate(text: string, month = false): string | null {
     const v = normaliseMonth(mm[1]);
     if (v) return v;
   }
-  return readMonthName(t);
+  return readMonthName(t) ?? readRelativeMonth(t, now);
+}
+
+// ---- Questions the person asks instead of answering (HYPOTEQ Komplett-Test 18.11.2026) -------
+
+/** W-words: a message starting with one asks something, in any length. */
+const ASKS = /^(wer|wen|wem|wessen|was|wann|wo|woher|wohin|wieso|weshalb|warum|wie|welche[rsnm]?|what|when|where|who|whom|why|how|which|qui|que|quoi|quand|où|comment|pourquoi|quel(le)?s?|est-ce|chi|cosa|che cosa|quando|dove|come|perché|perche|quale|quali|quanto|quanta)(?=$|[\s,?!'’])/u;
+/** A verb first («Brauche ich …», «Do I need …», «Dois-je …», «Devo …»): a question when a few words follow. */
+const VERB_FIRST = /^(brauche|braucht|brauchen|muss|musst|müssen|kann|kannst|können|darf|dürfen|soll|sollte|sollen|gibt es|habe ich|hast du|haben wir|reicht|geht das|do|does|did|can|could|should|would|will|must|need|is there|are there|dois|doit|faut-il|puis|peut|peux|ai-je|avons|devo|deve|devono|posso|può|possiamo|serve|servono|ho bisogno|c'è|ci sono)(?=$|[\s,?!'’-])/u;
+
+/**
+ * The message is a question and nothing else — one sentence that asks («Brauche ich einen
+ * Arbeitsvertrag?», «what documents do you need», «Wie lange dauert das?»). It is never the answer
+ * to the question on screen: a name, a place or an amount is not read out of it (Komplett-Test
+ * 18.11.2026: «Brauche ich einen Arbeitsvertrag?» became Vorname «brauche ich einen», Nachname
+ * «arbeitsvertrag»).
+ */
+export function isQuestionOnly(text: string): boolean {
+  const s = lower(text).trim().replace(/^[«"'(]+/, "");
+  if (!s || s.length > 200) return false;
+  // A second sentence after the first («Wir kaufen in Bern. Was kostet das?») carries answers too.
+  if (/[.;!?]\s+\S/.test(s)) return false;
+  const words = s.replace(/[?!.]+$/, "").split(/\s+/).filter(Boolean).length;
+  if (ASKS.test(s)) return true;
+  if (VERB_FIRST.test(s) && words >= 3) return true;
+  return s.endsWith("?") && words >= 3;
+}
+
+/** A question about the documents («Brauche ich einen Arbeitsvertrag?», «Welche Unterlagen …»). */
+export function asksAboutDocuments(text: string): boolean {
+  return /(unterlage|dokument|nachweis|ausweis|vertrag|lohnausweis|lohnabrechnung|steuererkl|auszug|bescheinigung|police|beleg|document|papers|paperwork|certificate|contract|statement|payslip|pièce|justificatif|attestation|contrat|relevé|certificat|documento|documenti|contratto|attestato|certificato|estratto)/i.test(text);
+}
+
+const WANTS = /\b(möchte|möchten|will|wollen|wünsche|hätte gerne|hätten gerne|bitte|brauche|want|would like|need|please|voudrais|souhaite|aimerais|besoin|vorrei|desidero|ho bisogno|per favore)\b/iu;
+
+/** A valuation asked for: as a question («Was ist mein Haus wert?») or a wish («Ich möchte eine Bewertung»). */
+export function wantsValuation(text: string): boolean {
+  return asksValuation(text) && (isQuestionOnly(text) || WANTS.test(lower(text)));
+}
+
+/**
+ * The person asks for a valuation of the property (Komplett-Test C05: «Can you estimate the market
+ * value of my property?» was not recognised). HYPO answers with the online valuation (Kap. 6).
+ */
+export function asksValuation(text: string): boolean {
+  const s = lower(text);
+  return (
+    /(bewert|marktwert|verkehrswert|immobilienwert|liegenschaftswert|schätz\w*\s+(den |meine[nm]? |unsere[nm]? |die )?(wert|immobilie|liegenschaft|haus|wohnung)|was (ist|sind) (mein|meine|unser|unsere) (haus|wohnung|immobilie|liegenschaft)\w* wert|valuation|apprais|market value|property value|estimate (the |my |our )?(value|worth|price)|(house|home|property|flat|apartment) (is )?worth|évaluation|évaluer|evaluer|estimation|estimer (la |ma |notre )?(valeur|bien|maison|appartement)|valeur (vénale|venale|marchande|du bien|de (mon|ma|notre))|valutazione|valutare|stima (del|della|dell)|stimare|valore (di mercato|dell'immobile|della casa))/u.test(s)
+  );
 }
 
 /** «weiss ich nicht», «keine Ahnung», «not sure», «je ne sais pas», «non lo so». */

@@ -45,9 +45,13 @@ export function timeLeft(mode: Mode, step: number): string {
   return times[Math.min(Math.max(step, 1), times.length) - 1];
 }
 
-/** Handover 1 «Vorauswahl»: Berater → Schnellanmeldung, Kunde → Begleitete Anmeldung. */
-export function recommendedMode(role: Role | null): Mode {
-  return role === "kunde" ? "begleitet" : "schnell";
+/**
+ * «Empfohlen» on the start screen: the Schnellanmeldung for both roles. Handover 1 had Kunde →
+ * Begleitete Anmeldung; HYPOTEQ's Komplett-Test (06.11. A01, again 18.11.) expects the
+ * Schnellanmeldung marked for the customer as well (DECISIONS V117).
+ */
+export function recommendedMode(_role: Role | null): Mode {
+  return "schnell";
 }
 
 /**

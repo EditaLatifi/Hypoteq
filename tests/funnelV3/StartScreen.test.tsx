@@ -31,6 +31,18 @@ describe("start screen (Handover 1)", () => {
     expect(html).not.toContain("ca. 1 Minute + Upload");
   });
 
+  it("«Empfohlen» on the Schnellanmeldung, also for the customer (Komplett-Test A01, V117)", () => {
+    for (const role of ["kunde", "berater"]) {
+      mockState.current = { role, step: 0 };
+      const html = renderToStaticMarkup(createElement(StartScreen));
+      const cards = html.split("<button").filter((c) => c.includes("v3-start-card-title"));
+      const marked = cards.filter((c) => c.includes("v3-start-card-rec")).map((c) => c.match(/v3-start-card-title">([^<]+)</)?.[1]);
+      expect([role, marked]).toEqual([role, ["Schnellanmeldung"]]);
+      expect(html.match(/v3-start-card-rec/g)).toHaveLength(1);
+    }
+    mockState.current = { role: null, step: 0 };
+  });
+
   it("in every language", () => {
     const want: Record<string, string> = { en: "approx. 3 minutes", fr: "env. 3 minutes", it: "ca. 3 minuti" };
     for (const [lang, text] of Object.entries(want)) {

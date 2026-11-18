@@ -179,6 +179,7 @@ export const EXTRA_GROUP_ORDER: readonly ExtraGroupKey[] = ["pending", "unknown"
  * further copy of a document already there and for years not asked for.
  */
 export function isRelevantExtra(p: Pick<Placement, "extraKind" | "reason" | "requirementId"> | undefined): boolean {
+  if (p?.extraKind === "relevant") return true;
   if (p?.extraKind !== "surplus") return false;
   return p.reason === "offList" || (p.reason === "full" && !!p.requirementId && baseId(p.requirementId) === SIGNATURE_REQUIREMENT_ID);
 }
@@ -416,12 +417,18 @@ function latestGross(fields: FieldView[]): number | null {
 
 /**
  * The year's income on one borrower's Lohnausweise: the Bruttolohn of each employer's, added up
- * (a Nebenjob beside the Hauptjob, lib/funnel-v3/salary.ts, V111). One Lohnausweis: its own.
+ * (a Nebenjob beside the Hauptjob, lib/funnel-v3/salary.ts, V111), without Ziffer 3 «Unregelmässige
+ * Leistungen» — the income HYPOTEQ counts (Komplett-Test A03, V122). One Lohnausweis: its own.
  */
 function salaryTotal(files: FileEntry[]): number | null {
   const read = files.filter((f) => f.analysis);
   let sum = 0;
-  for (const group of employerGroups(read, (x) => x.analysis!)) sum += latestGross(mergedFields(group)) ?? 0;
+  for (const group of employerGroups(read, (x) => x.analysis!)) {
+    const fields = mergedFields(group);
+    const gross = latestGross(fields) ?? 0;
+    const irregular = parseChf(fields.find((f) => f.key === "Unregelmässige Leistungen")?.value) ?? 0;
+    sum += irregular > 0 && irregular < gross ? gross - irregular : gross;
+  }
   return sum > 0 ? sum : null;
 }
 

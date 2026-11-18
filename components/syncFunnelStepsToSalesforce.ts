@@ -207,6 +207,46 @@ const NO_HEATING = /^(unbekannt|unknown|inconnue?|sconosciut[oa]|keine?( angaben
  * names a heating but none of these («Elektroheizung», «Solar») → «Andere»; no text, or one that
  * says there is none to read («unbekannt»), → nothing. The text stays in the JSON `info.heizung`.
  */
+/**
+ * The Case's «Objektinformationen» from what the documents read (HYPOTEQ Komplett-Test 18.11.2026:
+ * «Baujahr, Wohnfläche, Terrasse, Grundstückfläche stehen in der Verkaufsdokumentation, aber nicht in
+ * Salesforce», DECISIONS V124). Pure. A value goes in only when it reads as one: a year 1800–2100,
+ * an area or a room count as a number; the text fields as read (Wohnfläche with its unit). Nothing
+ * read → the field is left alone (an advisor's entry is never overwritten with empty).
+ */
+export function objectInfoFields(info: Record<string, unknown> | null | undefined): Record<string, string | number> {
+  const out: Record<string, string | number> = {};
+  if (!info) return out;
+  const str = (k: string) => (typeof info[k] === 'string' ? String(info[k]).replace(/\s+/g, ' ').trim() : '');
+  // «125 m²», «ca. 140.5 m2», «1'250 m²», «3½ Zimmer», «3.5»
+  const num = (s: string): number | null => {
+    const m = s.replace(/½/g, '.5').match(/\d{1,3}(?:['’]\d{3})+(?:[.,]\d+)?|\d+(?:[.,]\d+)?/);
+    if (!m) return null;
+    const n = Number(m[0].replace(/['’]/g, '').replace(',', '.'));
+    return Number.isFinite(n) && n > 0 ? n : null;
+  };
+  const year = str('baujahr').match(/\b(1[89]\d{2}|20\d{2}|2100)\b/);
+  if (year) out['Baujahr__c'] = Number(year[1]);
+  const rooms = num(str('zimmer'));
+  if (rooms !== null && rooms < 100) out['Anzahl_Zimmer__c'] = rooms;
+  const living = str('wohnflaeche');
+  if (living && num(living) !== null) out['Wohnfl_che_m2__c'] = living.slice(0, 80);
+  // «Terrasse 24 m², Balkon 8 m²» is 32 m²: every area named adds up.
+  const areas = [...str('terrasse').matchAll(/(\d+(?:[.,]\d+)?)\s*m(?:²|2)(?![\d³])/g)].map((m) => Number(m[1].replace(',', '.')));
+  const terrace = areas.length > 1 ? areas.reduce((a, b) => a + b, 0) : num(str('terrasse'));
+  if (terrace !== null) out['Flaeche_Terrasse_Balkon_m2__c'] = Math.round(terrace);
+  const land = num(str('grundstueck'));
+  if (land !== null) out['Grundst_ckfl_che_m__c'] = Math.round(land);
+  const volume = str('kubatur');
+  if (volume && num(volume) !== null) out['Kubatur__c'] = volume.slice(0, 80);
+  const floor = str('stockwerk');
+  if (floor) out['Stockwerk__c'] = floor.slice(0, 80);
+  // The street of the object («Musterweg 1, 8000 Zürich» → «Musterweg 1»), Text(30).
+  const street = str('adresse').split(',')[0].trim();
+  if (street && /\p{L}/u.test(street)) out['Adresse__c'] = street.slice(0, 30);
+  return out;
+}
+
 export function toWaermeerzeugung(heizung: unknown): string | null {
   if (typeof heizung !== 'string') return null;
   const v = heizung.trim().toLowerCase();
@@ -1228,6 +1268,8 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     // Heizungsart is no longer asked; the documents say it (Verkaufsdokumentation, GVZ).
     const heizung = toWaermeerzeugung(v3State.info?.heizung);
     if (heizung) caseData['Waermeerzeugung__c'] = heizung;
+    // Baujahr, Zimmer, Wohnfläche, Terrasse / Balkon, Grundstückfläche, Kubatur, Stockwerk, Adresse (V124).
+    Object.assign(caseData, objectInfoFields(v3State.info as Record<string, unknown> | undefined));
     // (A company's zeichnungsberechtigte Person is its Contact since HYPOTEQ 19.10. B16 — no
     // longer the first line of Kommentar__c; the JSON keeps it, `kontakt.zeichnungsberechtigt`.)
 
@@ -1350,6 +1392,10 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     }
     if (type === "date" && typeof value !== "string") {
       caseData[field] = null;
+    }
+    if (type === "number" && typeof value !== "number") {
+      const n = Number(value);
+      caseData[field] = Number.isFinite(n) ? n : null;
     }
   }
 

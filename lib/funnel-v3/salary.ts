@@ -13,6 +13,7 @@
  */
 
 import type { V3Analysis } from "./files";
+import { parseAmount } from "./format";
 import { docYear } from "@/components/documentIntelligence/v3/catalogue";
 
 const text = (a: V3Analysis, key: string): string => {
@@ -61,6 +62,50 @@ export function sideJob(a: V3Analysis, placed: readonly V3Analysis[]): boolean {
   if (!placed.length) return false;
   const year = salaryYear(a);
   return placed.some((p) => salaryYear(p) === year) && placed.every((p) => otherEmployer(p, a));
+}
+
+// ---- The income HYPOTEQ counts (Komplett-Test 06.11. A03, again 18.11.2026; DECISIONS V122) ------
+
+/** The first amount in a field as printed («CHF 12'500», «12'500.–»); 0 when none. */
+function amountIn(a: V3Analysis, key: string): number {
+  const m = text(a, key).match(/\d{1,3}(?:['’ ]\d{3})+(?:[.,]\d{1,2})?|\d+(?:[.,]\d{1,2})?/);
+  return m ? parseAmount(m[0]) : 0;
+}
+
+/** Ziffer 3 «Unregelmässige Leistungen» (bonus, gratification, sign-on fee …) of a Lohnausweis; 0 when not read. */
+export function irregularPay(a: V3Analysis): number {
+  return amountIn(a, "Unregelmässige Leistungen");
+}
+
+/**
+ * A Lohnausweis' Bruttolohn without Ziffer 3. HYPOTEQ counts a bonus only with proof of the last three
+ * years (then their average, `creditableBonus`): a Lohnausweis of CHF 140'000 total with
+ * CHF 15'000 «Antrittsentschädigung + Bonus» under Ziffer 3 is an income of CHF 125'000. Never below 0; the
+ * Bruttolohn itself when Ziffer 3 was not read (analyses before 18.11.2026).
+ */
+export function regularGross(a: V3Analysis, gross: number): number {
+  const irregular = irregularPay(a);
+  return irregular > 0 && irregular < gross ? gross - irregular : gross;
+}
+
+/**
+ * The bonus HYPOTEQ counts on top of `regularGross`: the average Ziffer 3 of the last three years —
+ * only when one person's Lohnausweise of all three years are there and the current one shows a
+ * bonus; else 0. Several employers in one year add up (one value per employer).
+ */
+export function creditableBonus(certs: readonly V3Analysis[]): number {
+  const years = certs.map(salaryYear).filter((y): y is number => y !== null);
+  if (!years.length) return 0;
+  const latest = Math.max(...years);
+  const perYear = [latest, latest - 1, latest - 2].map((y) => certs.filter((c) => salaryYear(c) === y));
+  if (perYear.some((list) => !list.length)) return 0;
+  const sums = perYear.map((list) =>
+    employerGroups(list, (c) => c)
+      .map((g) => Math.max(...g.map(irregularPay)))
+      .reduce((n, v) => n + v, 0)
+  );
+  if (sums[0] <= 0) return 0;
+  return Math.round(sums.reduce((n, v) => n + v, 0) / 3);
 }
 
 /**

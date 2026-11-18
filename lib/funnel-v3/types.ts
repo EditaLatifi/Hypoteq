@@ -293,6 +293,10 @@ export interface DocInfo {
   kubatur?: string;
   /** Versicherungssumme der Gebäudeversicherung. */
   versSumme?: string;
+  /** Terrasse / Balkon, Grundstücksfläche, Stockwerk — Verkaufsdokumentation (V124). */
+  terrasse?: string;
+  grundstueck?: string;
+  stockwerk?: string;
   // Unterhalt / Kredit / Leasing
   unterhaltBetrag?: string;
   kreditRest?: string;

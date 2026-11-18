@@ -17,6 +17,7 @@ import type { FileAuditEntry, FileEntry, V3Analysis } from "./files";
 import { placeAll, withPlacement } from "./placeFile";
 import { analysedFiles, prefillFromDocuments } from "./prefill";
 import { reqList, type RequirementInstance } from "./requirements";
+import { PROMPT_VERSION } from "@/components/documentIntelligence/v3/prompt";
 
 // ---- Limits -------------------------------------------------------------------------------
 
@@ -630,10 +631,25 @@ export function hasLocalFile(id: string): boolean {
 }
 
 /**
+ * A verdict from an older catalogue that today's would improve: a file nobody recognised, or a
+ * Lohnausweis read without Ziffer 3 (V122). A request reopened by the link in the mail kept such a
+ * verdict for good — HYPOTEQ's second Komplett-Test (18.11.2026) found the Mietvertrag still «nicht
+ * erkannt» although the catalogue of 11.11. knows it (V112, DECISIONS V123). A file placed by hand
+ * keeps its verdict.
+ */
+export function staleAnalysis(f: Pick<FileEntry, "analysis" | "analysisState" | "assignedByUser">): boolean {
+  const a = f.analysis;
+  if (f.analysisState !== "done" || !a || a.status !== "done" || f.assignedByUser) return false;
+  if (a.promptVersion === PROMPT_VERSION) return false;
+  return !a.docTypeId || a.docTypeId === "lohnausweise";
+}
+
+/**
  * After a mount (or a reload of the page): pick up what the previous instance left running.
  *  - an upload still running: wait for it (it analyses itself);
  *  - an upload interrupted by a reload: the File is gone → failed («Erneut hochladen»);
- *  - an uploaded file without a verdict here: ask the route, which answers from the row.
+ *  - an uploaded file without a verdict here: ask the route, which answers from the row;
+ *  - a verdict from an older catalogue (`staleAnalysis`): read again.
  */
 export function resumePipeline(): void {
   for (const f of S().files) {
@@ -643,6 +659,8 @@ export function resumePipeline(): void {
       else patch(f.id, { uploadState: "failed", uploadError: "lost" });
     } else if (f.uploadState === "uploaded" && f.documentId && f.analysisState !== "done") {
       void analyseFile(f.id, true);
+    } else if (f.uploadState === "uploaded" && f.documentId && staleAnalysis(f)) {
+      void analyseFile(f.id, false);
     }
   }
   syncPlacement();

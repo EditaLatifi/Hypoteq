@@ -71,11 +71,16 @@ describe("placeFile (single file)", () => {
   });
 
   it("«nicht benötigt» with its reason for what v5 no longer asks (prototype NN)", () => {
-    expect(placeFile(an("hyp_rahmen"), inst, [], { now: NOW })).toMatchObject({ extraKind: "notneeded", reason: "notneeded", extraReason: "Für die Ablösung brauchen wir die aktuelle Produktvereinbarung." });
+    // HYPOTEQ Komplett-Test A02 (06.11., 18.11.2026, V119): the Rahmenvertrag is «Fallrelevant» at an
+    // Ablösung and while the Kreditantrag is open; only a Kauf leaves it «nicht benötigt».
+    expect(placeFile(an("hyp_rahmen"), inst, [], { now: NOW })).toMatchObject({ extraKind: "relevant", reason: "relevant" });
+    expect(placeFile(an("hyp_rahmen"), inst, [], { now: NOW, antrag: "Ablösung" })).toMatchObject({ extraKind: "relevant", reason: "relevant" });
+    expect(placeFile(an("hyp_rahmen"), inst, [], { now: NOW, antrag: "Neue Hypothek" })).toMatchObject({ extraKind: "notneeded", reason: "notneeded", extraReason: "Für die Ablösung brauchen wir die aktuelle Produktvereinbarung." });
     expect(placeFile(an("hyp_sicher"), inst, [], { now: NOW })).toMatchObject({ extraKind: "notneeded" });
-    // Anstellungsvertrag without a Lohnerhöhung, Eigenmittelnachweis at an Ablösung.
+    // Anstellungsvertrag without a Lohnerhöhung: «nicht benötigt». The Eigenmittelnachweis at an
+    // Ablösung is «Fallrelevant» (off the list, kept) since 18.11.2026 (V119).
     expect(placeFile(an("anstellung"), inst, [], { now: NOW })).toMatchObject({ extraKind: "notneeded", requirementId: "anstellung" });
-    expect(placeFile(an("vermoegen"), inst, [], { now: NOW })).toMatchObject({ extraKind: "notneeded", extraReason: "Eigenmittelnachweis ist nur bei einem Kauf nötig." });
+    expect(placeFile(an("vermoegen"), inst, [], { now: NOW })).toMatchObject({ extraKind: "surplus", reason: "offList", requirementId: "vermoegen" });
     const raise = reqList(mkState(MUSTERMANN_ANSWERS, {}, {}, undefined, { info: { raise: true } }));
     expect(placeFile(an("anstellung"), raise, [], { now: NOW })).toMatchObject({ instanceId: "anstellung#b1" });
   });

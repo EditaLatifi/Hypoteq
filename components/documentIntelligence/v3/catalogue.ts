@@ -94,12 +94,12 @@ const ID_FIELDS_HINTS: Record<string, string> = {
   Geschlecht: "sex as printed: «M» or «F»",
   Geburtsdatum: "date of birth, DD.MM.YYYY",
   "Nationalität": "nationality",
-  Dokumentart: "Pass, Identitätskarte or Ausländerausweis (with permit letter, e.g. «Ausweis C»)",
+  Dokumentart: "«Pass», «Identitätskarte» or «Ausländerausweis» with the permit letter (e.g. «Ausländerausweis C», «Ausländerausweis B»)",
   "Gültig bis": "expiry date, DD.MM.YYYY",
 };
 
 /** The fields of a Lohnausweis — what 4.2 compares (lib/funnel-v3/facts.ts). */
-const LOHNAUSWEIS_FIELDS = ["Arbeitgeber", "AHV-Nr.", "Jahr", "Bruttolohn", "Beschäftigungsgrad"];
+const LOHNAUSWEIS_FIELDS = ["Arbeitgeber", "AHV-Nr.", "Jahr", "Bruttolohn", "Unregelmässige Leistungen", "Beschäftigungsgrad"];
 
 /**
  * Hints for the keys of REQ[].fields that need one, so they generalise beyond the reference case.
@@ -117,6 +117,7 @@ const FIELD_HINTS: Record<string, string> = {
   "Mietzins pro Monat": "monthly rent as printed, with CHF (say whether charges are included)",
   "Mietbeginn": "start of the lease, DD.MM.YYYY",
   "Bruttolohn": "gross salary of that year (Bruttolohn total, Ziffer 8), with CHF",
+  "Unregelmässige Leistungen": "irregular payments of that year (Ziffer 3 «Unregelmässige Leistungen / Prestations non périodiques / Prestazioni aperiodiche»: bonus, gratification, commission, sign-on or severance pay), the amount with CHF; null when the line is empty",
   "Monatslohn brutto": "gross monthly base salary of the most recent month, with CHF (not the net pay, not allowances)",
   "13. Monatslohn": "«ja» when a 13th monthly salary is paid (shown on a payslip or stated: «13 Monatslöhne», «13. Monatslohn»), «nein» when 12 salaries are stated; null when the document does not say",
   // Objekt
@@ -128,6 +129,9 @@ const FIELD_HINTS: Record<string, string> = {
   "Verkaufspreis": "asking or sale price as printed, with CHF",
   "Zimmer": "number of rooms",
   "Wohnfläche": "living area in m²",
+  "Terrasse / Balkon": "area of the terrace(s) and balcony(ies) in m² as printed; null when none is named",
+  "Grundstücksfläche": "area of the parcel / land (Grundstücksfläche, Parzellenfläche) in m²; null when none is named (a flat in a condominium usually has none)",
+  "Stockwerk": "floor of the unit (e.g. «2. OG», «EG», «Attika»); null for a whole house",
   "Nettowohnfläche": "net living area in m²",
   "Kubatur": "building volume (Kubatur) in m³ as printed, SIA 416 where stated; null when the document names none",
   "Grundriss enthalten": "«ja» when the sales documentation itself contains floor plans (Grundrisspläne) of the property or of the unit on one of its pages, «nein» when it contains none",
@@ -215,8 +219,10 @@ const REQ_INPUT: Record<string, ReqTypeInput> = {
     naming: { date: "date" },
   },
   gvz: {
-    aliases: a(["Gebäudeversicherungspolice", "Gebäudeversicherungsausweis", "GVZ-Police", "Versicherungsnachweis Gebäude", "Kubatur"], ["Police d'assurance immobilière", "Assurance bâtiment", "ECA", "Attestation d'assurance du bâtiment"], ["Polizza di assicurazione dello stabile", "Assicurazione fabbricati"], ["Building insurance policy", "Building insurance certificate"]),
-    describe: "Policy or certificate of the cantonal (or private) building insurance stating insured value and building volume (Kubatur).",
+    aliases: a(["Gebäudeversicherungspolice", "Gebäudeversicherungsausweis", "GVZ-Police", "Versicherungsnachweis Gebäude", "Versicherungswert", "Gebäudeversicherungswert", "Kubatur"], ["Police d'assurance immobilière", "Assurance bâtiment", "ECA", "Attestation d'assurance du bâtiment", "Valeur d'assurance"], ["Polizza di assicurazione dello stabile", "Assicurazione fabbricati", "Valore assicurativo"], ["Building insurance policy", "Building insurance certificate", "Insured value"]),
+    // HYPOTEQ Komplett-Test 18.11.2026: a «Versicherungswert Wohnungen» (the building's insured value
+    // split per condominium unit) stayed «nicht erkannt» (DECISIONS V126).
+    describe: "Policy or certificate of the cantonal (or private) building insurance stating insured value and building volume (Kubatur) — also a statement or list of the building insurance value (Versicherungswert / Gebäudeversicherungswert), for a condominium possibly split per unit (e.g. «Versicherungswert Wohnungen»).",
     naming: { date: "date" },
   },
   kaufvertrag: {
@@ -315,8 +321,16 @@ const REQ_INPUT: Record<string, ReqTypeInput> = {
     naming: { person: true, date: "date" },
   },
   id: {
-    aliases: a(["Pass", "Identitätskarte", "ID", "Ausländerausweis", "Aufenthaltsbewilligung"], ["Passeport", "Carte d'identité", "Permis de séjour"], ["Passaporto", "Carta d'identità", "Permesso di dimora"], ["Passport", "Identity card", "Residence permit"]),
-    describe: "Passport, identity card or foreigner's residence permit of a person (front and back).",
+    aliases: a(
+      ["Pass", "Reisepass", "Identitätskarte", "ID", "Ausländerausweis", "Aufenthaltsbewilligung", "Niederlassungsbewilligung", "Ausweis B", "Ausweis C"],
+      ["Passeport", "Carte d'identité", "Permis de séjour", "Permis B", "Permis C", "Titre de séjour"],
+      ["Passaporto", "Carta d'identità", "Permesso di dimora", "Permesso B", "Permesso C"],
+      ["Passport", "Identity card", "Residence permit", "Passaporte", "Pasaporte", "Cartão de Cidadão", "Paszport", "Pasoš"]
+    ),
+    // HYPOTEQ Komplett-Test 18.11.2026: a Portuguese passport next to an Aufenthaltsbewilligung C
+    // was not taken as a passport. Any country's passport is this type; the permit too (V120).
+    describe:
+      "Passport or identity card of ANY country (Swiss or foreign, e.g. Portuguese «Passaporte» or «Cartão de Cidadão», Italian «Passaporto», German «Reisepass» / «Personalausweis», Kosovar «Pasaportë»), or the Swiss foreigner's residence permit (Ausländerausweis B / C / L / G: «Aufenthaltsbewilligung», «Niederlassungsbewilligung», «Permis de séjour / d'établissement», «Permesso di dimora / di domicilio») — front and back. A foreigner often sends both the passport and the permit: each is this type.",
     freshness: [{ kind: "expiry", field: "Gültig bis" }],
     naming: { person: true, date: "none" },
   },
@@ -472,8 +486,9 @@ const REQ_INPUT: Record<string, ReqTypeInput> = {
     // default: 3 months — own funds have to be shown as they are now.
     freshness: [{ kind: "maxAgeMonths", months: 3 }],
     naming: { date: "date" },
-    // v5 E1: only for a purchase (Rosanna).
-    notNeededReason: "Eigenmittelnachweis ist nur bei einem Kauf nötig.",
+    // v5 E1: asked for a purchase only (Rosanna). Off the list (an Ablösung, or the Schnellanmeldung
+    // before the Kreditantrag is answered) it is «Fallrelevant», no longer «nicht benötigt» —
+    // HYPOTEQ Komplett-Test 18.11.2026: «für die Finanzierung relevant» (DECISIONS V119).
   },
   s3a: {
     aliases: a(["Säule 3a Bescheinigung", "3a-Bescheinigung", "Bescheinigung gebundene Vorsorge"], ["Attestation 3e pilier A", "Attestation de prévoyance liée 3a"], ["Attestazione pilastro 3a", "Attestazione previdenza vincolata"], ["Pillar 3a certificate"]),

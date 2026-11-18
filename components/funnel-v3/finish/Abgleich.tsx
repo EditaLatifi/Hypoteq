@@ -57,8 +57,10 @@ export default function Abgleich() {
   const blocked = abg.blocking.length > 0;
   const { submit, busy, error, progressTitle } = useSubmit(!blocked);
 
-  const identities = abg.conflicts.filter((f) => f.result === "identity_conflict");
-  const values = abg.conflicts.filter((f) => f.result !== "identity_conflict");
+  // An identity conflict left to HYPOTEQ («HYPOTEQ prüft es von Hand», V125) keeps its card, resolved.
+  const isIdentity = (f: AbgleichField) => f.result === "identity_conflict" || (f.key === "name_kreditnehmer" && !!f.customerChoice);
+  const identities = abg.conflicts.filter(isIdentity);
+  const values = abg.conflicts.filter((f) => !isIdentity(f));
   const confirmed = abg.fields.filter((f) => f.result === "ok" && !f.customerChoice && f.funnelValue !== null && f.funnelDisplay && f.kind !== "presence");
   const n = identities.length + values.length;
   const byId = useMemo(() => new Map(summary.files.map((f) => [f.id, f])), [summary.files]);
@@ -119,14 +121,21 @@ export default function Abgleich() {
         {n ? <p className="v3-lead">{n === 1 ? t("abg.lead1") : t("abg.lead", { n })}</p> : null}
       </div>
 
-      {identities.map((f) => (
+      {identities.map((f) => {
+        const reviewed = f.result !== "identity_conflict";
+        return (
         <section key={f.id} className="v3-abg-card is-identity" aria-label={label(f)}>
           <div className="v3-abg-card-head">
             <span className="v3-abg-card-title">{t("abg.identityTitle")}</span>
-            <span className="v3-tag v3-tone--danger">{t("abg.badgeConflict")}</span>
+            {reviewed ? (
+              <span className="v3-tag v3-tone--warning">{t("sig.reviewBadge")}</span>
+            ) : (
+              <span className="v3-tag v3-tone--danger">{t("abg.badgeConflict")}</span>
+            )}
           </div>
           <p className="v3-abg-text">{t("abg.identity", { nameDok: f.nameOnDocument ?? "", nameAntrag: f.funnelDisplay })}</p>
-          <p className="v3-abg-why">{t("abg.hint.identity")}</p>
+          <p className="v3-abg-why">{reviewed ? t("abg.identityReviewed") : t("abg.hint.identity")}</p>
+          {reviewed ? null : (
           <div className="v3-actions">
             {kn !== "Juristische Person" && borrowers.length < 2 ? (
               <button type="button" className="v3-btn v3-btn--dark" onClick={() => addSecond(f)}>
@@ -136,14 +145,19 @@ export default function Abgleich() {
             <button type="button" className="v3-btn v3-btn--outline" onClick={() => startReplace(f)}>
               {t("abg.identityUpload")}
             </button>
+            <button type="button" className="v3-btn v3-btn--outline" onClick={() => choose(f, "funnel")}>
+              {t("abg.identityReview")}
+            </button>
             {firstDoc(f) ? (
               <button type="button" className="v3-btn v3-btn--text" onClick={() => setDetail(firstDoc(f))}>
                 {t("abg.viewDoc")}
               </button>
             ) : null}
           </div>
+          )}
         </section>
-      ))}
+        );
+      })}
 
       {values.map((f) => {
         const chosen = f.customerChoice?.chosenSource ?? "funnel";

@@ -10,7 +10,7 @@ import { hasKey, optionLabel, translate, type Lang } from "../i18n";
 import type { FieldPath } from "../types";
 import { fieldDef, isAmountKey, HYPO_FIELDS, type HypoKey, type HypoValue } from "./fields";
 import type { Question } from "./flow";
-import { isPlainAnswer, readField, readName, readPlace, readYesNo } from "./parse";
+import { isPlainAnswer, isQuestionOnly, readField, readName, readPlace, readYesNo } from "./parse";
 import type { HypoRole, RecognisedItem } from "./session";
 
 /** Kap. 1.2: green ≥ 0.90 is taken (shown, confirmed by carrying on); yellow / red is asked back. */
@@ -118,7 +118,8 @@ export function fieldLabel(key: HypoKey | FieldPath, lang: Lang): string {
  * just the answer (parse.ts isPlainAnswer). Null = ask the model (or ask again).
  */
 export function readPlainAnswer(q: Question, text: string, lang: Lang): RecognisedItem[] | null {
-  if (!isPlainAnswer(text)) return null;
+  // A question is never the answer (Komplett-Test 18.11.2026: «Brauche ich einen Arbeitsvertrag?»).
+  if (!isPlainAnswer(text) || isQuestionOnly(text)) return null;
   const sure = (key: HypoKey, value: HypoValue | null | undefined): RecognisedItem[] | null =>
     value === null || value === undefined || value === "" ? null : [{ key, value, confidence: 1 }];
   switch (q.kind) {

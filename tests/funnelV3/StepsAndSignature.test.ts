@@ -32,9 +32,10 @@ describe("steps (Handover 2, 3)", () => {
     expect(translate("de", "common.timeLeft", { time: timeLeft("begleitet", 2) })).toBe("noch ca. 2:30 Min.");
   });
 
-  it("recommends Schnell for a Berater, Begleitet for a Kunde (Handover 1)", () => {
+  it("recommends the Schnellanmeldung for both roles (V117)", () => {
     expect(recommendedMode("berater")).toBe("schnell");
-    expect(recommendedMode("kunde")).toBe("begleitet");
+    // HYPOTEQ Komplett-Test A01 (06.11., 18.11.): the Schnellanmeldung for the customer too (V117).
+    expect(recommendedMode("kunde")).toBe("schnell");
   });
 
   it("switching lands on the same topic (Handover 1, 3)", () => {

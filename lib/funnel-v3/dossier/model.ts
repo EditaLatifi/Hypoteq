@@ -580,6 +580,7 @@ const REASON_KEY_FROM_TEXT: Record<string, string> = {
 
 /** When the reason is free German text (a catalogue label), the kind alone decides the translated line. */
 const REASON_KEY_FROM_KIND: Partial<Record<ExtraKind, string>> = {
+  relevant: "docs.x.offList",
   duplicate: "docs.x.duplicate",
   notneeded: "docs.x.notneeded",
   unknown: "docs.x.unknown",

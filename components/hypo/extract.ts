@@ -12,6 +12,7 @@
  */
 
 import { coerce, isHypoKey, type HypoKey, type HypoValue } from "@/lib/funnel-v3/hypo/fields";
+import { isQuestionOnly } from "@/lib/funnel-v3/hypo/parse";
 import { INTENTS, type HypoIntent } from "./prompt";
 import { bedrockHypoConfig } from "./bedrockProvider";
 import { openaiHypoConfig } from "./openaiProvider";
@@ -102,7 +103,10 @@ export function ownSpelling(value: string, message: string): string | null {
 export function validateHypoResult(raw: unknown, message = ""): HypoExtractResult {
   const r = (raw && typeof raw === "object" ? raw : {}) as Record<string, unknown>;
   const byKey = new Map<HypoKey, HypoExtractField>();
-  for (const f of Array.isArray(r.fields) ? r.fields : []) {
+  // A message that only asks something holds no values (Komplett-Test 18.11.2026: «Brauche ich einen
+  // Arbeitsvertrag?» at the name question came back as Vorname / Nachname).
+  const fields = message && isQuestionOnly(message) ? [] : Array.isArray(r.fields) ? r.fields : [];
+  for (const f of fields) {
     if (!f || typeof f !== "object") continue;
     const { key, value: given, confidence } = f as Record<string, unknown>;
     if (!isHypoKey(key)) continue;

@@ -801,7 +801,10 @@ export function abgleichDocuments(
     const def = getRequirement(f.analysis?.docTypeId || f.requirementId || "");
     const type = v3DocType(f.analysis?.docTypeId);
     const raw = f.extraKind ?? "unknown";
-    const relevant = raw === "surplus" && !!def && (def.id === SIGNATURE_REQUIREMENT_ID || !familyMembers(def.id).some((m) => onList.has(m)));
+    // A case extra (Mietvertrag, V112) is «relevant» too — it has no requirement of its own.
+    const relevant =
+      raw === "relevant" ||
+      (raw === "surplus" && (def ? def.id === SIGNATURE_REQUIREMENT_ID || !familyMembers(def.id).some((m) => onList.has(m)) : type?.kind === "extra"));
     const kind = relevant ? "relevant" : raw;
     documents.push({
       typ: def?.shortName ?? (cleanNamePart((type?.labelDe ?? "").replace(/[\s/_()]+/g, "-")) || "Datei"),

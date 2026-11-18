@@ -329,7 +329,8 @@ describe("v3DocumentCaseFields", () => {
     expect(gb.status).toBe("ok");
     expect(gb.files[0]).toMatchObject({ originalName: "03_Grundbuchauszug_Musterweg_1_Zuerich_2026_01_15.pdf", storedName: "HQ-26-01-000001_03_Grundbuchauszug_Zuerich_2026-01-15.pdf", confidence: 0.95 });
     expect(gb.fields).toContainEqual({ key: "Eigentümer", value: "Max Simon Mustermann", confidence: 0.97 });
-    expect(state.extras.map((e: any) => e.kind)).toEqual(["surplus", "surplus", "notneeded", "notneeded", "notneeded", "surplus", "duplicate", "notneeded", "notneeded"]);
+    // The Eigenmittelnachweis at an Ablösung: off the list, kept («Fallrelevant», V119) — no longer «notneeded».
+    expect(state.extras.map((e: any) => e.kind)).toEqual(["surplus", "surplus", "notneeded", "surplus", "notneeded", "surplus", "duplicate", "notneeded", "notneeded"]);
     // Handover 8: entry, signature (P0 on file), sources.
     expect(state.entry).toBe("begleitet");
     expect(state.signature).toEqual({ status: "uploaded", at: null, method: "upload" });

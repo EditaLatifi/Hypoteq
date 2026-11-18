@@ -5,7 +5,7 @@ import { useFunnelT } from "@/lib/funnel-v3/useFunnelT";
 import { useFunnelV3 } from "@/lib/funnel-v3/store";
 import { hasKey } from "@/lib/funnel-v3/i18n";
 import type { FileEntry } from "@/lib/funnel-v3/files";
-import type { Placement } from "@/lib/funnel-v3/placeFile";
+import { OTHER_PERSON_DE, type Placement } from "@/lib/funnel-v3/placeFile";
 import { getRequirement, type RequirementInstance } from "@/lib/funnel-v3/requirements";
 import { assignFile, removeFile, retryFile } from "@/lib/funnel-v3/upload";
 import { requestedYears, v3DocType } from "@/components/documentIntelligence/v3/catalogue";
@@ -92,6 +92,11 @@ export default function ExtraFiles({ files, placements, instances, suggested, in
         return t("docs.x.notneeded");
       case "offList":
         return suggested.has(f.id) ? t("docs.x.offListSug") : t("docs.x.offList");
+      case "relevant":
+        // Another person's document (V119): whose it is, so the customer sees why it is kept.
+        return p.extraReason === OTHER_PERSON_DE && f.analysis?.personName
+          ? t("docs.x.otherPerson", { person: f.analysis.personName })
+          : t("docs.x.offList");
       case "dismissed":
         return t("docs.x.dismissed");
       case "failed":

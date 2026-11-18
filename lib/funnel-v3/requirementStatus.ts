@@ -7,7 +7,12 @@ import { EMPTY_EM, type Answers, type Eigenmittel } from "./types";
 import { REQ, baseId, reqList, type ReqState, type RequirementInstance } from "./requirements";
 
 export type FileStatus = "analysing" | "done" | "failed";
-export type ExtraKind = "surplus" | "duplicate" | "notneeded" | "unknown";
+/**
+ * Why a file is outside the list. «relevant» (Fallrelevant): recognised, not asked for by the
+ * answers, but kept and checked by HYPOTEQ — the Rahmenvertrag at an Ablösung, another person's
+ * document (HYPOTEQ Komplett-Test 18.11.2026, DECISIONS V119); always sent along.
+ */
+export type ExtraKind = "relevant" | "surplus" | "duplicate" | "notneeded" | "unknown";
 
 /** One uploaded file as the document analysis reports it. */
 export interface UploadedFile {
