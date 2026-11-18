@@ -180,3 +180,21 @@ describe("V125: an unsure identity never blocks once left to HYPOTEQ", () => {
     expect(after.summary.toCheck).toBeGreaterThanOrEqual(1);
   });
 });
+
+describe("V129: ÖREB-Katasterauszug and a shared facility's Reglement are «Fallrelevant», not «nicht erkannt»", () => {
+  const { classifiableTypes } = require("@/components/documentIntelligence/v3/catalogue") as typeof import("@/components/documentIntelligence/v3/catalogue");
+
+  it("the model may choose them", () => {
+    const ids = classifiableTypes().map((t) => t.id);
+    expect(ids).toEqual(expect.arrayContaining(["oereb", "anlage_reglement", "mietvertrag"]));
+  });
+
+  it("placed as case-relevant, shown in «Weitere fallrelevante Unterlagen»", () => {
+    const files = [file("oereb", null, { Grundstück: "Nr. 1234" }, { requirementId: "oereb" }), file("anlage_reglement", null, { Anlage: "gemeinsame Heizungsanlage" }, { requirementId: "anlage_reglement" })];
+    const map = placeAll(files, mkState({ antrag: "Neue Hypothek" }), { now: NOW });
+    for (const f of files) {
+      const p = map.get(f.id)!;
+      expect([p.extraKind, p.reason, isRelevantExtra(p)]).toEqual(["surplus", "offList", true]);
+    }
+  });
+});

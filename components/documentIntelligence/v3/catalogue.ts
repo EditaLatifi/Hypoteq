@@ -116,6 +116,11 @@ const FIELD_HINTS: Record<string, string> = {
   "Mietobjekt": "what is let: address and kind (flat, house, parking space)",
   "Mietzins pro Monat": "monthly rent as printed, with CHF (say whether charges are included)",
   "Mietbeginn": "start of the lease, DD.MM.YYYY",
+  // ÖREB-Katasterauszug, Reglement gemeinsame Anlage (case extras, V129)
+  "Grundstück": "parcel number (Grundstück-Nr. / Parzelle) as printed",
+  "Gemeinde": "municipality as printed",
+  "Anlage": "the shared facility or the right concerned (e.g. «gemeinsame Heizungsanlage», «Wegrecht»)",
+  "Beteiligte": "the properties or owners taking part, short",
   "Bruttolohn": "gross salary of that year (Bruttolohn total, Ziffer 8), with CHF",
   "Unregelmässige Leistungen": "irregular payments of that year (Ziffer 3 «Unregelmässige Leistungen / Prestations non périodiques / Prestazioni aperiodiche»: bonus, gratification, commission, sign-on or severance pay), the amount with CHF; null when the line is empty",
   "Monatslohn brutto": "gross monthly base salary of the most recent month, with CHF (not the net pay, not allowances)",
@@ -625,6 +630,22 @@ const CASE_EXTRAS: (Omit<V3DocType, "kind" | "family" | "fields"> & { fields: st
     aliases: a(["Mietvertrag", "Mietvertrag für Wohnräume", "Untermietvertrag", "Mietvertrag für Geschäftsräume"], ["Bail à loyer", "Contrat de bail", "Contrat de location"], ["Contratto di locazione", "Contratto d'affitto"], ["Lease agreement", "Rental agreement", "Tenancy agreement"]),
     describe: "A lease contract between a landlord and a tenant for a flat, house, business premises or parking space (rent, start, notice period) — ONE lease, not a list of all tenants and rents of a building («mieterspiegel»).",
     fields: ["Vermieter", "Mieter", "Mietobjekt", "Mietzins pro Monat", "Mietbeginn"],
+    naming: { person: false, bank: false, date: "date" },
+  },
+  // Seen «nicht erkannt» in HYPOTEQ's Komplett-Test data (11.11.2026, DECISIONS V129): the customer
+  // had to assign them by hand. Kept as «Fallrelevant» for HYPOTEQ to check, like the Mietvertrag.
+  {
+    id: "oereb", labelDe: "ÖREB-Katasterauszug",
+    aliases: a(["ÖREB-Auszug", "ÖREB-Kataster", "Auszug aus dem Kataster der öffentlich-rechtlichen Eigentumsbeschränkungen"], ["Extrait du cadastre RDPPF", "Cadastre RDPPF", "Extrait RDPPF"], ["Estratto del catasto RDPP", "Catasto RDPP"], ["Public-law restrictions cadastre extract", "PLR cadastre extract"]),
+    describe: "Extract of the Swiss cadastre of public-law restrictions on landownership (ÖREB / RDPPF / RDPP) for a parcel: zoning plan, noise sensitivity, protected areas, contaminated sites — NOT the land register extract («grundbuch»).",
+    fields: ["Grundstück", "Gemeinde", "Ausstellungsdatum"],
+    naming: { person: false, bank: false, date: "date" },
+  },
+  {
+    id: "anlage_reglement", labelDe: "Reglement / Vereinbarung gemeinsame Anlage",
+    aliases: a(["Reglement gemeinsame Heizungsanlage", "Benützungsreglement", "Dienstbarkeitsvertrag", "Nutzungsvereinbarung"], ["Règlement d'utilisation de l'installation commune", "Convention de servitude"], ["Regolamento dell'impianto comune", "Convenzione di servitù"], ["Shared facility regulations", "Easement agreement"]),
+    describe: "Regulations or an agreement on a facility several properties share (common heating plant, access road, parking, well) or an easement agreement between neighbours — NOT the condominium's deed or its use and administration regulations («stwe_regl»).",
+    fields: ["Anlage", "Beteiligte", "Datum"],
     naming: { person: false, bank: false, date: "date" },
   },
 ];
