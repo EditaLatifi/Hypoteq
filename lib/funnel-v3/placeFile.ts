@@ -32,6 +32,7 @@ import type { ExtraKind } from "./requirementStatus";
 import { baseId, reqList, type PersonRef, type ReqState, type RequirementInstance } from "./requirements";
 import { docYear, familyMembers, requestedYears, v3DocType } from "@/components/documentIntelligence/v3/catalogue";
 import { sideJob } from "./salary";
+import { nameTokens, namesSeveral, personScore } from "./persons";
 
 export type PlaceReason =
   | "placed"
@@ -104,37 +105,10 @@ function extra(kind: ExtraKind, reason: PlaceReason, requirementId: string | nul
   return { instanceId: null, requirementId, extraKind: kind, extraReason: text || REASON_DE[reason], reason };
 }
 
-// ---- Person matching --------------------------------------------------------------------
+// ---- Person matching (./persons.ts) -----------------------------------------------------
 
-function tokens(s: string | null | undefined): string[] {
-  return (s || "")
-    .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "")
-    .replace(/ß/g, "ss")
-    .toLowerCase()
-    .split(/[^a-z0-9]+/)
-    // «Bürgi» and the machine-readable «BUERGI» are the same name.
-    .map((t) => t.replace(/ae/g, "a").replace(/oe/g, "o").replace(/ue/g, "u"))
-    .filter((t) => t.length > 1);
-}
-
-/**
- * How well a printed name («Mustermann Max Simon») fits a person: 0 = not at all. The family
- * name must be there (word order does not matter — documents print both orders); each matching
- * given name adds to the score so spouses with one family name are told apart.
- */
-export function personScore(printed: string | null | undefined, person: PersonRef | undefined): number {
-  if (!person) return 0;
-  const doc = new Set(tokens(printed));
-  if (!doc.size) return 0;
-  if (person.company) {
-    const c = tokens(person.company).filter((t) => !["ag", "gmbh", "sa", "sarl", "sagl", "ltd"].includes(t));
-    return c.length && c.every((t) => doc.has(t)) ? 2 : 0;
-  }
-  const last = tokens(person.last);
-  if (!last.length || !last.every((t) => doc.has(t))) return 0;
-  return 2 + tokens(person.first).filter((t) => doc.has(t)).length;
-}
+export { personScore };
+const tokens = nameTokens;
 
 /** The candidate instances whose person fits best; several when it cannot be told. */
 function byPerson(analysis: V3Analysis, candidates: RequirementInstance[]): RequirementInstance[] {
@@ -189,6 +163,9 @@ function candidateFor(
   });
   let fit = byPerson(analysis, inPeriod.length ? inPeriod : onList);
   if (fit.length > 1 && samePerson(fit)) fit = [fit.find((i) => i.id === type.id) ?? fit[0]];
+  // A joint document of both Kreditnehmer (their two IDs in one scan, V128): the first one's row —
+  // it counts for the other's as well (requirementStatus.ts `persons`).
+  if (fit.length > 1 && namesSeveral(analysis)) fit = [fit[0]];
   if (fit.length !== 1) return extra("unknown", "person", type.id);
   const inst = fit[0];
 

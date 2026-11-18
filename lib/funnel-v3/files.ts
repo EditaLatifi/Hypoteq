@@ -9,6 +9,7 @@
 
 import type { UploadedFile } from "./requirementStatus";
 import { freshnessProblem } from "@/components/documentIntelligence/v3/catalogue";
+import { personsOn } from "./persons";
 
 /** Extraction of one value from a document. */
 export interface ExtractedField {
@@ -142,7 +143,15 @@ export function toUploadedFiles(files: FileEntry[], now: Date = new Date()): Upl
     extraKind: f.instanceId ? undefined : f.analysis?.extraKind,
     note: f.analysis?.note ?? undefined,
     ...embedsOf(f.analysis),
+    ...personsOf(f.analysis),
   }));
+}
+
+/** `persons` for an UploadedFile: the names on a joint document (V128), absent for one person. */
+export function personsOf(a: Pick<V3Analysis, "status" | "personName" | "fields"> | null | undefined): { persons?: string[] } {
+  if (!a || a.status !== "done") return {};
+  const list = personsOn(a);
+  return list.length > 1 ? { persons: list.map((p) => p.display) } : {};
 }
 
 /** `embeds` for an UploadedFile, absent when the document contains nothing else. */

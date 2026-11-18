@@ -10,8 +10,9 @@
  *   funnel's value chosen until the customer picks the other, «Dokument ansehen →», and the
  *   explanation of the Prüfmatrix. Picking the document's value changes the answer; the original
  *   is kept with the choice (store chooseAbgleich, 6.2 customerChoice).
- *   the identity card: «{Name} als 2. Kreditnehmer/in erfassen» or «Richtiges Dokument
- *   hochladen» — the only hard stop; «Angaben bestätigen & absenden» waits for it.
+ *   the identity card: «{Name} als 2. Kreditnehmer/in erfassen», «Richtiges Dokument hochladen» or
+ *   «Ist mein Dokument – HYPOTEQ prüft es von Hand» (V125) — the only hard stop until one is chosen.
+ *   On a joint ID (two persons in one scan) the button offers the one who is not the applicant (V128).
  *   «Bestätigte Angaben»: what matched, field → value with a check.
  */
 
@@ -20,6 +21,7 @@ import type { AbgleichField } from "@/lib/funnel-v3/abgleich/evaluate";
 import { useDocumentsSummary } from "@/lib/funnel-v3/documentsSummary";
 import { chf } from "@/lib/funnel-v3/format";
 import { getRequirement } from "@/lib/funnel-v3/requirements";
+import { secondPerson } from "@/lib/funnel-v3/persons";
 import { useFunnelV3 } from "@/lib/funnel-v3/store";
 import { filesFromInput, replaceFile, screenFiles } from "@/lib/funnel-v3/upload";
 import { useFunnelT } from "@/lib/funnel-v3/useFunnelT";
@@ -34,14 +36,6 @@ import "./finish.css";
 
 const shown = (v: number | string | null | undefined) => (typeof v === "number" ? chf(v) : String(v ?? ""));
 
-/** «Anna Beispiel» → { vor: "Anna", nach: "Beispiel" }; the ID's own fields when it has them. */
-function splitName(printed: string, fields: Record<string, { value: string | number | null }> | undefined) {
-  const vor = String(fields?.Vornamen?.value ?? "").trim();
-  const nach = String(fields?.Name?.value ?? "").trim();
-  if (vor || nach) return { vor, nach };
-  const parts = printed.trim().split(/\s+/);
-  return { vor: parts.slice(0, -1).join(" "), nach: parts.at(-1) ?? "" };
-}
 
 export default function Abgleich() {
   const { t } = useFunnelT();
@@ -49,6 +43,7 @@ export default function Abgleich() {
   const summary = useDocumentsSummary();
   const choose = useFunnelV3((s) => s.chooseAbgleich);
   const borrowers = useFunnelV3((s) => s.borrowers);
+  const txt = useFunnelV3((s) => s.txt);
   const kn = useFunnelV3((s) => s.ans.kn);
   const say = useFunnelUI((s) => s.say);
   const [detail, setDetail] = useState<string | null>(null);
@@ -86,9 +81,14 @@ export default function Abgleich() {
     void submit();
   }, [blocked, choose, submit, values]);
 
-  const addSecond = (f: AbgleichField) => {
+  // The person «als 2. Kreditnehmer/in erfassen» adds: on a joint ID the one who is not the applicant (V128).
+  const applicant = { vor: (txt?.vor || borrowers[0]?.vor || "").trim(), nach: (txt?.nach || borrowers[0]?.nach || "").trim() };
+  const candidate = (f: AbgleichField) => {
     const id = firstDoc(f);
-    const { vor, nach } = splitName(f.nameOnDocument ?? "", id ? byId.get(id)?.analysis?.fields : undefined);
+    return secondPerson(id ? byId.get(id)?.analysis : undefined, f.nameOnDocument ?? "", applicant);
+  };
+  const addSecond = (f: AbgleichField) => {
+    const { vor, nach } = candidate(f);
     const s = useFunnelV3.getState();
     if (s.borrowers.length < 2) s.addBorrower();
     const second = useFunnelV3.getState().borrowers[1];
@@ -139,7 +139,7 @@ export default function Abgleich() {
           <div className="v3-actions">
             {kn !== "Juristische Person" && borrowers.length < 2 ? (
               <button type="button" className="v3-btn v3-btn--dark" onClick={() => addSecond(f)}>
-                {t("abg.identityAdd", { nameDok: f.nameOnDocument ?? "" })}
+                {t("abg.identityAdd", { nameDok: candidate(f).display })}
               </button>
             ) : null}
             <button type="button" className="v3-btn v3-btn--outline" onClick={() => startReplace(f)}>

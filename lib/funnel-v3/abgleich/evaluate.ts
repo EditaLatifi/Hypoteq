@@ -26,6 +26,7 @@ import { amountOf, dateOf, fieldText, yesNoOf } from "../facts";
 import type { V3Analysis } from "../files";
 import { personScore } from "../placeFile";
 import { creditableBonus, regularGross } from "../salary";
+import { personsOn } from "../persons";
 import { effectiveBorrowers, reqList, type PersonRef, type RequirementInstance } from "../requirements";
 import type { Borrower, FunnelState } from "../types";
 import { ampelOf, FALLBACK_RULES, SECONDARY_TOLERANCE_PCT, sourceKeyOf, sourceTypes, type Ampel, type PruefRegel } from "./rules";
@@ -214,8 +215,18 @@ const date = (key: string): Reader => (p) => {
   return iso ? { value: iso, display: dateOf(iso), field: key, confidence: conf(p.analysis, [key]), sourceRef: refOf(p.analysis, [key]) } : null;
 };
 
-/** The printed name: the ID's «Vornamen Name», else the person the document belongs to. */
+/**
+ * The printed name: the ID's «Vornamen Name», else the person the document belongs to. A joint
+ * document (two IDs in one scan) lists both, «Anna Ruth Muster-Beispiel / Tom Muster» (V128) — the
+ * applicant fits when he or she is one of them.
+ */
 const printedName: Reader = (p) => {
+  const persons = personsOn(p.analysis);
+  if (persons.length > 1) {
+    const v = persons.map((x) => x.display).join(" / ");
+    const keys = ["Vornamen", "Name"];
+    return { value: v, display: v, field: keys.join(" · "), confidence: conf(p.analysis, keys) || (p.analysis.confidence ?? 0), sourceRef: refOf(p.analysis, keys) };
+  }
   const first = fieldText(p.analysis, "Vornamen");
   const last = fieldText(p.analysis, "Name");
   if (last) {

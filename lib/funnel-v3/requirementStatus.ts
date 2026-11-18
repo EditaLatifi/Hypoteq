@@ -5,6 +5,7 @@
 
 import { EMPTY_EM, type Answers, type Eigenmittel } from "./types";
 import { REQ, baseId, reqList, type ReqState, type RequirementInstance } from "./requirements";
+import { personScore } from "./persons";
 
 export type FileStatus = "analysing" | "done" | "failed";
 /**
@@ -33,6 +34,25 @@ export interface UploadedFile {
    * Verkaufsdokumentation with the floor plans or the photos (`embeddedRequirements`).
    */
   embeds?: string[];
+  /**
+   * The persons a joint document names, when more than one (their two IDs in one scan, V128): placed
+   * on one Kreditnehmer's ID row, it fulfils the other's too (`files.ts personsOf`).
+   */
+  persons?: string[];
+}
+
+/** A joint ID placed on another Kreditnehmer's row that names this row's person (V128). */
+function jointCopy(inst: RequirementInstance, files: UploadedFile[]): UploadedFile | undefined {
+  if (inst.id !== "id" || !inst.person) return undefined;
+  return files.find(
+    (f) =>
+      f.status === "done" &&
+      !f.extraKind &&
+      !!f.requirementId &&
+      f.requirementId !== inst.instanceId &&
+      baseId(f.requirementId) === inst.id &&
+      !!f.persons?.some((p) => personScore(p, inst.person) > 0)
+  );
 }
 
 /** Spec 4.2. */
@@ -128,7 +148,9 @@ export function requirementStatus(
     const own = files.filter((f) => belongs(f, inst, perId.get(inst.id) === 1));
     // Befund 3: without a file of its own, a document that contains it fulfils it (the floor plan
     // in the Verkaufsdokumentation) — that document's age is its own requirement's business.
-    const container = own.some((f) => f.status !== "failed") ? undefined : files.find((f) => f.status === "done" && !f.extraKind && !!f.embeds?.includes(inst.id));
+    const container = own.some((f) => f.status !== "failed")
+      ? undefined
+      : files.find((f) => f.status === "done" && !f.extraKind && !!f.embeds?.includes(inst.id)) ?? jointCopy(inst, files);
     if (container) {
       return { instance: inst, state: "ok", doneFiles: inst.expect, expect: inst.expect, failedFiles: own.length, overridden: false, outdatedFile: false, fileIds: [container.fileId], embedded: true };
     }

@@ -13,6 +13,7 @@ let pathname = "/de/funnel";
 jest.mock("next/navigation", () => ({ usePathname: () => pathname, useRouter: () => ({ replace: () => {}, push: () => {} }) }));
 
 let withForeignId = true;
+let jointId = false;
 let choices: Record<string, unknown> = {};
 jest.mock("@/lib/funnel-v3/store", () => {
   const { kaufState } = jest.requireActual("./v5Fixtures") as typeof import("./v5Fixtures");
@@ -39,7 +40,13 @@ jest.mock("@/lib/funnel-v3/store", () => {
     chooseAbgleich: () => {},
     files: [
       file("lohn", inst("lohnausweise"), "lohnausweise", { Bruttolohn: { value: "CHF 100'000", confidence: 0.95 } }),
-      ...(withForeignId ? [file("pass", inst("id"), "id", { Vornamen: { value: "Anna", confidence: 0.96 }, Name: { value: "Beispiel", confidence: 0.96 } })] : []),
+      ...(withForeignId
+        ? [
+            jointId
+              ? file("pass", inst("id"), "id", { Vornamen: { value: "Tom; Anna Ruth", confidence: 0.96 }, Name: { value: "Beispiel; Beispiel-Meier", confidence: 0.96 } })
+              : file("pass", inst("id"), "id", { Vornamen: { value: "Anna", confidence: 0.96 }, Name: { value: "Beispiel", confidence: 0.96 } }),
+          ]
+        : []),
     ],
   });
   const hook: any = (sel: (x: any) => unknown) => sel(current());
@@ -53,6 +60,7 @@ const render = () => renderToStaticMarkup(createElement(Abgleich));
 
 beforeEach(() => {
   withForeignId = true;
+  jointId = false;
   choices = {};
   pathname = "/de/funnel";
 });
@@ -101,6 +109,14 @@ describe("Abgleich page (Spezifikation Datenabgleich 3)", () => {
     expect(html).not.toContain(">Ist mein Dokument – HYPOTEQ prüft es von Hand</button>");
     expect(html).not.toMatch(/disabled=""[^>]*>Angaben bestätigen/);
     expect(html).not.toContain("Bitte kläre zuerst");
+  });
+
+  it("V128: a joint ID of two other persons — the names apart, the button offers one person", () => {
+    jointId = true;
+    const html = render();
+    expect(html).toContain("Das hochgeladene Dokument lautet auf Tom Beispiel / Anna Ruth Beispiel-Meier – dein Antrag auf Lea Muster.");
+    expect(html).toContain(">Tom Beispiel als 2. Kreditnehmer/in erfassen</button>");
+    expect(html).not.toContain("Tom; Anna Ruth");
   });
 
   it("in the funnel language", () => {

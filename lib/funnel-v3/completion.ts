@@ -30,7 +30,7 @@
 import { buildCheckState, type CheckStateDetail } from "./checkState";
 import { createDossierPdf, dossierFileName, type DossierFile, type DossierInput } from "./dossier";
 import { transcriptFileName } from "./dossier/fileName";
-import { embedsOf, type SubmittedDocument, type V3Analysis } from "./files";
+import { embedsOf, personsOf, type SubmittedDocument, type V3Analysis } from "./files";
 import { isLang, translate, type Lang } from "./i18n";
 import { plausibilityWarnings } from "./plausibility";
 import { chf } from "./format";
@@ -645,6 +645,7 @@ export function v3DocumentStatus(data: any): V3DocumentStatus | null {
     extraKind: f.instanceId ? undefined : f.extraKind ?? "unknown",
     note: f.analysis?.note ?? undefined,
     ...embedsOf(f.analysis),
+    ...personsOf(f.analysis),
   }));
   const status = requirementStatus(reqList(state), uploaded, skippedOf(data));
   return { state, files, uploaded, status };
