@@ -36,7 +36,7 @@ export default function Impressum() {
                         Löwenstrasse 29,<br />
                         8001 Zürich - Schweiz,<br />
                         Mail: info@hypoteq.ch,<br />
-                        Tel.: 044 502 92 52,<br />
+                        Tel.: +41 44 502 92 52,<br />
                         UID: CHE-249.716.201
                     </p>
                 </div>
