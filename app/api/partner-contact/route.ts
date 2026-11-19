@@ -466,7 +466,6 @@ function generatePartnerAutoResponseHTML(firstName: string): string {
         <div>Marco Circelli</div>
         <div>HYPOTEQ AG</div>
         <div style="margin-top: 10px;">
-          📱 +41 79 815 35 65<br>
           📞 +41 44 502 92 52<br>
           ✉️ marco.circelli@hypoteq.ch<br>
           🌐 www.hypoteq.ch

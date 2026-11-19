@@ -63,7 +63,6 @@ Dein HYPOTEQ Team
 Marco Circelli
 HYPOTEQ AG
 
-📱 +41 79 815 35 65
 📞 +41 44 502 92 52
 ✉️ marco.circelli@hypoteq.ch
 🌐 www.hypoteq.ch
@@ -221,7 +220,6 @@ All auto-responses include:
 Marco Circelli
 HYPOTEQ AG
 
-Phone: +41 79 815 35 65
 Office: +41 44 502 92 52
 Email: marco.circelli@hypoteq.ch
 Website: www.hypoteq.ch
