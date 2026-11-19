@@ -400,8 +400,8 @@ describe("language and address (Handover 7.3, DECISIONS D9)", () => {
     expect(b).toContain(
       "Die Finanzierungsanfrage für Marco Beispiel ist bei HYPOTEQ eingegangen. Die Bestätigung mit der Zusammenfassung ging an marco.beispiel@kunde.ch. Unten finden Sie die vollständige Übersicht inklusive Dokumentenstatus"
     );
-    expect(b).toContain("Den Stand des Dossiers sehen Sie jederzeit im Partnerportal. Bei Fragen erreichen Sie uns unter +41 44 554 41 00. Freundliche Grüsse HYPOTEQ AG");
-    for (const who of ["kunde", "berater"]) expect(text(of(list, who).html)).toContain("HYPOTEQ AG · +41 44 554 41 00 · info@hypoteq.ch · www.hypoteq.ch");
+    expect(b).toContain("Den Stand des Dossiers sehen Sie jederzeit im Partnerportal. Bei Fragen erreichen Sie uns unter +41 44 502 92 52. Freundliche Grüsse HYPOTEQ AG");
+    for (const who of ["kunde", "berater"]) expect(text(of(list, who).html)).toContain("HYPOTEQ AG · +41 44 502 92 52 · info@hypoteq.ch · www.hypoteq.ch");
   });
 
   it("the internal mail is German with entry and submitter, whatever the funnel language", async () => {

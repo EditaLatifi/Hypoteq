@@ -25,7 +25,7 @@ export function supportEmail(): string {
 export type SupportContact = { name: string; role: string; initials: string; phone: string; email: string; hours: string };
 
 /**
- * «Ihr Ansprechpartner» (B20): Partner Management, HYPOTEQ AG · +41 44 554 41 00 · «Telefonisch
+ * «Ihr Ansprechpartner» (B20): Partner Management, HYPOTEQ AG · +41 44 502 92 52 · «Telefonisch
  * Mo–Fr, 09:30–16:30 · Meldungen rund um die Uhr (24/7)» — no response-time promise. The
  * prototype's person is demo data.
  */
@@ -36,7 +36,7 @@ export function supportContact(t: SupportDict): SupportContact {
     name,
     role: process.env.PORTAL_SUPPORT_CONTACT_ROLE || t.contactRole,
     initials: ((parts[0]?.[0] || "") + (parts[1]?.[0] || "")).toUpperCase() || "H",
-    phone: process.env.PORTAL_SUPPORT_PHONE || "+41 44 554 41 00",
+    phone: process.env.PORTAL_SUPPORT_PHONE || "+41 44 502 92 52",
     email: supportEmail(),
     hours: process.env.PORTAL_SUPPORT_HOURS || t.hours,
   };

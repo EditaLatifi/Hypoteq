@@ -333,7 +333,7 @@ describe("the reminder mail (Handover 7.1: Vorlage + Upload-Link, keine Zusammen
     expect(c.text).toContain("kleiner Reminder: Für deine Finanzierungsanfrage fehlt noch die unterzeichnete Auskunftsermächtigung.");
     expect(c.text).toContain("Die Vorlage liegt nochmals bei: ausdrucken, unterschreiben, über deinen Link hochladen");
     expect(c.text).toContain("Beste Grüsse\nDein HYPOTEQ Team");
-    expect(c.text).toContain("HYPOTEQ AG · +41 44 554 41 00 · info@hypoteq.ch · www.hypoteq.ch");
+    expect(c.text).toContain("HYPOTEQ AG · +41 44 502 92 52 · info@hypoteq.ch · www.hypoteq.ch");
     expect(c.html).toContain(`href="https://hypoteq.com/de/nachreichen/${TOKEN}"`);
     expect(c.html).not.toMatch(/Belehnung|Tragbarkeit|CHF/);
   });
@@ -342,7 +342,7 @@ describe("the reminder mail (Handover 7.1: Vorlage + Upload-Link, keine Zusammen
     const c = signatureReminderContent({ ...base, reminder: 2 });
     expect(c.subject).toBe(`Letzte Erinnerung: Deine Anfrage ${CASE} wartet auf deine Unterschrift`);
     expect(c.text).toContain("deine Finanzierungsanfrage liegt bereit — es fehlt nur noch deine Unterschrift auf der Auskunftsermächtigung.");
-    expect(c.text).toContain("ruf uns an unter +41 44 554 41 00");
+    expect(c.text).toContain("ruf uns an unter +41 44 502 92 52");
     expect(c.text).not.toContain("kleiner Reminder");
     expect(c.html).toContain(`href="https://hypoteq.com/de/nachreichen/${TOKEN}"`);
   });

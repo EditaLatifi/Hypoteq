@@ -66,7 +66,7 @@ export interface MailLabels {
 }
 
 /** HYPOTEQ Mail-Texte 20.10.2026: the same footer line in every mail and language. */
-export const MAIL_FOOTER = "HYPOTEQ AG · +41 44 554 41 00 · info@hypoteq.ch · www.hypoteq.ch";
+export const MAIL_FOOTER = "HYPOTEQ AG · +41 44 502 92 52 · info@hypoteq.ch · www.hypoteq.ch";
 
 export interface MailTexts {
   /** Berater mail: the subject without «Deine» (mail.subject is the customer's). */
@@ -140,7 +140,7 @@ export const MAIL_TEXTS: Record<Lang, MailTexts> = {
     introBeraterOverview: "Unten finden Sie die vollständige Übersicht inklusive Dokumentenstatus — Werte aus hochgeladenen Dokumenten sind mit «aus Dokument» markiert.",
     greetingBerater: "Guten Tag {name}",
     greetingBeraterNoName: "Guten Tag",
-    closingBerater: "Den Stand des Dossiers sehen Sie jederzeit im Partnerportal. Bei Fragen erreichen Sie uns unter +41 44 554 41 00.",
+    closingBerater: "Den Stand des Dossiers sehen Sie jederzeit im Partnerportal. Bei Fragen erreichen Sie uns unter +41 44 502 92 52.",
     signoffBerater: "Freundliche Grüsse",
     teamBerater: "HYPOTEQ AG",
     internGuided: "Begleitete Anmeldung",
@@ -242,7 +242,7 @@ export const MAIL_TEXTS: Record<Lang, MailTexts> = {
     introBeraterOverview: "Below you find the complete overview including document status — values extracted from documents are marked “from document”.",
     greetingBerater: "Dear {name},",
     greetingBeraterNoName: "Hello,",
-    closingBerater: "You can follow the file anytime in the partner portal. For questions, call us on +41 44 554 41 00.",
+    closingBerater: "You can follow the file anytime in the partner portal. For questions, call us on +41 44 502 92 52.",
     signoffBerater: "Kind regards",
     teamBerater: "HYPOTEQ AG",
     internGuided: "guided registration",
@@ -343,7 +343,7 @@ export const MAIL_TEXTS: Record<Lang, MailTexts> = {
     introBeraterOverview: "Vous trouvez ci-dessous l'aperçu complet, y compris l'état des documents — les valeurs extraites de documents sont marquées « du document ».",
     greetingBerater: "Bonjour {name},",
     greetingBeraterNoName: "Bonjour,",
-    closingBerater: "Vous suivez le dossier à tout moment dans le portail partenaires. Questions : +41 44 554 41 00.",
+    closingBerater: "Vous suivez le dossier à tout moment dans le portail partenaires. Questions : +41 44 502 92 52.",
     signoffBerater: "Meilleures salutations",
     teamBerater: "HYPOTEQ AG",
     internGuided: "inscription accompagnée",
@@ -444,7 +444,7 @@ export const MAIL_TEXTS: Record<Lang, MailTexts> = {
     introBeraterOverview: "Di seguito trova la panoramica completa, incluso lo stato dei documenti — i valori estratti dai documenti sono contrassegnati con «dal documento».",
     greetingBerater: "Buongiorno {name},",
     greetingBeraterNoName: "Buongiorno,",
-    closingBerater: "Può seguire il dossier in qualsiasi momento nel portale partner. Domande: +41 44 554 41 00.",
+    closingBerater: "Può seguire il dossier in qualsiasi momento nel portale partner. Domande: +41 44 502 92 52.",
     signoffBerater: "Cordiali saluti",
     teamBerater: "HYPOTEQ AG",
     internGuided: "registrazione accompagnata",

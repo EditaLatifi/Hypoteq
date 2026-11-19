@@ -21,7 +21,7 @@ export function NachreichFooter() {
     <footer className="hq-nr-foot">
       <div className="hq-nr-bar">
         <span>HYPOTEQ AG</span>
-        <a href="tel:+41445544100">+41 44 554 41 00</a>
+        <a href="tel:+41445029252">+41 44 502 92 52</a>
         <a href="mailto:info@hypoteq.ch">info@hypoteq.ch</a>
         <a href="https://www.hypoteq.ch" target="_blank" rel="noopener noreferrer">
           www.hypoteq.ch

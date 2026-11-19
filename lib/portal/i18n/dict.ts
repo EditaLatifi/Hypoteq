@@ -24,7 +24,7 @@ function statusTexts(texts: Record<CaseStatus, string>): Record<string, string> 
 }
 
 /** The bar under every portal mail, the same in all four languages (HYPOTEQ Mail-Texte 20.10.2026). */
-const MAIL_FOOTER = "HYPOTEQ AG · +41 44 554 41 00 · info@hypoteq.ch · www.hypoteq.ch";
+const MAIL_FOOTER = "HYPOTEQ AG · +41 44 502 92 52 · info@hypoteq.ch · www.hypoteq.ch";
 
 /**
  * HYPOTEQ's partner mails on a Case change (Mail-Texte 20.10.2026 M6–M13), as

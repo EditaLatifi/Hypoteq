@@ -134,7 +134,7 @@ describe("contact and address", () => {
       name: "Partner Management",
       role: "HYPOTEQ AG",
       initials: "PM",
-      phone: "+41 44 554 41 00",
+      phone: "+41 44 502 92 52",
       email: "info@hypoteq.ch",
       hours: "Telefonisch Mo–Fr, 09:30–16:30 · Meldungen rund um die Uhr (24/7)",
     });

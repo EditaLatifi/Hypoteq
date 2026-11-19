@@ -239,7 +239,7 @@ describe("M14 change request decided", () => {
 });
 
 describe("every portal mail", () => {
-  const FOOTER = "HYPOTEQ AG · +41 44 554 41 00 · info@hypoteq.ch · www.hypoteq.ch";
+  const FOOTER = "HYPOTEQ AG · +41 44 502 92 52 · info@hypoteq.ch · www.hypoteq.ch";
 
   it("ends with HYPOTEQ's footer line, the same in all four languages", async () => {
     for (const locale of LOCALES) {
