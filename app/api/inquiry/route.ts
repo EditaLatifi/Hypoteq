@@ -306,8 +306,9 @@ export async function POST(req: Request) {
 
       // Mail 2a / 2b — now that the row exists, the Nachreich link in 2b is guaranteed to
       // resolve. Non-fatal: the lead is captured either way, and a customer who never gets
-      // this mail can still reply to the confirmation one.
-      if (documentCompleteness) {
+      // this mail can still reply to the confirmation one. Switched off for now, see
+      // SEND_DOSSIER_COMPLETENESS_MAIL.
+      if (documentCompleteness && SEND_DOSSIER_COMPLETENESS_MAIL) {
         try {
           await sendDossierCompletenessEmail(data, documentCompleteness, locale, nachreichToken);
         } catch (dossierMailError) {
@@ -464,6 +465,15 @@ type EmailLocale = 'de' | 'fr' | 'it' | 'en';
  * Recipient follows the same rule as the confirmation mail (data.client.email), which for
  * partner submissions is the advisor rather than the end customer.
  * ======================================================================== */
+
+/**
+ * Off for now (HYPOTEQ, 20.11.2026): after a submission the customer gets only the confirmation
+ * mail — no «Ihr Dossier ist vollständig» and no «Fehlende Unterlagen zu Ihrem Dossier» listing
+ * what is still missing. The Nachreich token is still minted and stored with the inquiry, so
+ * setting this to true sends Mail 2a / 2b again with no other change.
+ */
+const SEND_DOSSIER_COMPLETENESS_MAIL = false;
+
 const DOSSIER_MAIL = {
   de: {
     subjectComplete: 'HYPOTEQ - Ihr Dossier ist vollständig',
