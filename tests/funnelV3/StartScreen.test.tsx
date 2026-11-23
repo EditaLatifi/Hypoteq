@@ -43,15 +43,19 @@ describe("start screen (Handover 1)", () => {
     mockState.current = { role: null, step: 0 };
   });
 
-  it("a partner's invitation: who invited, no role switch, «Empfohlen» and lime on the Begleitete Anmeldung (HYPOTEQ 23.11.2026)", () => {
+  it("a partner's invitation: who invited, no role switch, the Begleitete Anmeldung only — lime, no Schnellanmeldung, no HYPO (HYPOTEQ 23.11.2026)", () => {
     mockState.current = { role: "kunde", step: 0, lead: { token: "T".repeat(43), partnerName: "Anna Muster", partnerCompany: "Muster AG" } };
     const html = renderToStaticMarkup(createElement(StartScreen));
     expect(html).toContain("Anna Muster · Muster AG hat dich bei HYPOTEQ angemeldet.");
+    expect(html).toContain("wir führen dich Schritt für Schritt durch deine Anfrage");
     expect(html).not.toContain("v3-roleswitch");
     const cards = html.split("<button").filter((c) => c.includes("v3-start-card-title"));
     const title = (c: string) => c.match(/v3-start-card-title">([^<]+)</)?.[1];
-    expect(cards.filter((c) => c.includes("v3-start-card-rec")).map(title)).toEqual(["Begleitete Anmeldung"]);
-    expect(cards.filter((c) => c.includes("v3-start-card--accent")).map(title)).toEqual(["Begleitete Anmeldung"]);
+    expect(cards.map(title)).toEqual(["Begleitete Anmeldung"]);
+    expect(cards[0]).toContain("v3-start-card--accent");
+    expect(html).not.toContain("v3-start-card-rec");
+    expect(html).not.toContain("Schnellanmeldung");
+    expect(html).not.toContain("v3-start-hypo");
     mockState.current = { role: null, step: 0 };
   });
 

@@ -496,10 +496,19 @@ async function writeWithFieldFallback(
       if (code === 'MALFORMED_ID' || code === 'INVALID_CROSS_REFERENCE_KEY' || code === 'INVALID_ID_FIELD' || code === 'INSUFFICIENT_ACCESS_ON_CROSS_REFERENCE_ENTITY') {
         const target =
           errFields.find(f => f in working) ??
+          // A real record Id Salesforce refuses (deleted, or out of the integration user's reach)
+          // is named in the message by its 15-character form: «insufficient access rights on
+          // cross-reference id: 001TG00000u4C2Q». Before, an 18-character value never matched, the
+          // owner and an unrelated «1» went first, and the Case was lost (Fast Lead test 23.11.2026).
           Object.keys(working).find(f => {
             const v = working[f];
-            // Salesforce Ids are 15 or 18 chars; anything else in a lookup is malformed.
-            return typeof v === 'string' && f.endsWith('__c') && v !== '' && v.length !== 15 && v.length !== 18 && message.includes(v);
+            return typeof v === 'string' && (v.length === 15 || v.length === 18) && /^[a-zA-Z0-9]+$/.test(v) && message.includes(v.slice(0, 15));
+          }) ??
+          Object.keys(working).find(f => {
+            const v = working[f];
+            // Salesforce Ids are 15 or 18 chars; anything else in a lookup is malformed. Short
+            // values («1», «Ja») are not looked for: they appear in any message.
+            return typeof v === 'string' && f.endsWith('__c') && v.length >= 5 && v.length !== 15 && v.length !== 18 && message.includes(v);
           }) ??
           // An owner the record cannot take (a queue not enabled for the object, a User without
           // access) and Salesforce names no field: the owner goes, the default owner stays —

@@ -40,7 +40,7 @@
     "mode.fast.text": "I already have the documents. Upload first – then most of the request is filled in.",
     "mode.fast.duration": "approx. 3 minutes · much of it pre-filled",
     "roleLabel": "Who is entering the request?",
-    "leadNote": "{name} has registered you with HYPOTEQ. Your contact details are already filled in – choose how you would like to continue."
+    "leadNote": "{name} has registered you with HYPOTEQ. Your contact details are already filled in – we guide you through your request step by step."
   },
   "side": {
     "request": "Request",

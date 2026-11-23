@@ -40,7 +40,7 @@
     "mode.fast.text": "J’ai déjà les documents. D’abord les télécharger – la demande est ensuite en grande partie remplie.",
     "mode.fast.duration": "env. 3 minutes · en grande partie pré-rempli",
     "roleLabel": "Qui saisit la demande ?",
-    "leadNote": "{name} vous a inscrit auprès de HYPOTEQ. Vos coordonnées sont déjà remplies – choisissez comment continuer."
+    "leadNote": "{name} vous a inscrit auprès de HYPOTEQ. Vos coordonnées sont déjà remplies – nous vous guidons pas à pas dans votre demande."
   },
   "side": {
     "request": "Demande",
