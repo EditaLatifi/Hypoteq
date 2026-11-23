@@ -488,16 +488,15 @@ function funnelV3Creator(set: SetState, get: () => FunnelV3Store): FunnelV3Store
           const txt = role === "kunde" && s.role !== "kunde" ? { ...s.txt, bmail: "", pvor: "", pnach: "", ptel: "", pfirma: "" } : s.txt;
           if (s.lead?.token === lead.token || !customer) return { lead, role, txt };
           const fill = (cur: string, v: string | null | undefined) => (cur.trim() ? cur : (v || "").trim());
+          const vor = fill(txt.vor, customer.firstName);
+          const nach = fill(txt.nach, customer.lastName);
           return {
             lead,
             role,
-            txt: {
-              ...txt,
-              vor: fill(txt.vor, customer.firstName),
-              nach: fill(txt.nach, customer.lastName),
-              mail: fill(txt.mail, customer.email),
-              tel: fill(txt.tel, customer.phone),
-            },
+            txt: { ...txt, vor, nach, mail: fill(txt.mail, customer.email), tel: fill(txt.tel, customer.phone) },
+            // Kreditnehmer 1 is the contact, kept in step as setTxt does: the Personen screen writes
+            // borrower 1 back to txt (updateBorrower), and an empty one wiped the name (E2E 23.11.2026).
+            borrowers: s.borrowers.map((b, i) => (i === 0 ? { ...b, vor, nach } : b)),
             ans: s.ans.anrede || !customer.anrede ? s.ans : { ...s.ans, anrede: customer.anrede },
           };
         }),

@@ -84,6 +84,15 @@ describe("applyLead (store)", () => {
     expect(s.touched).toEqual({});
   });
 
+  it("Kreditnehmer 1 carries the name too: the Personen screen does not wipe it (E2E 23.11.2026)", () => {
+    const store = createFunnelV3Store();
+    store.getState().applyLead(lead, customer);
+    expect(store.getState().borrowers[0]).toMatchObject({ vor: "Lea", nach: "Beispiel" });
+    // «Angestellt» on the Personen screen writes borrower 1 back to the contact.
+    store.getState().updateBorrower(store.getState().borrowers[0].id, { job: "Angestellt" });
+    expect(store.getState().txt).toMatchObject({ vor: "Lea", nach: "Beispiel" });
+  });
+
   it("never overwrites what the customer typed, and the same invitation again changes nothing", () => {
     const store = createFunnelV3Store();
     store.getState().setTxt("mail", "lea.privat@kunde.ch");
