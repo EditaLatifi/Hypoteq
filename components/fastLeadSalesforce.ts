@@ -15,7 +15,8 @@
  * creates the Case as for any request).
  */
 
-import { KORRESPONDENZSPRACHE } from "@/lib/funnel-v3/toInquiryPayload";
+// Only the light helpers, never the sync itself: it imports the closing (Fall-Dossier, pdf-lib),
+// which broke the webpack build of the portal's server action (components/funnelCaseFields.ts).
 import {
   applyFunnelOwner,
   applyFunnelRecordType,
@@ -23,7 +24,10 @@ import {
   funnelCaseName,
   toSalesforceSalutation,
   type LeadPartnerOnCase,
-} from "./syncFunnelStepsToSalesforce";
+} from "./funnelCaseFields";
+
+/** Case.Korrespondenzsprache__c per language (as lib/funnel-v3/toInquiryPayload.ts KORRESPONDENZSPRACHE). */
+const KORRESPONDENZSPRACHE: Record<string, string> = { de: "Deutsch", en: "Englisch", fr: "Französisch", it: "Italienisch" };
 
 export type LeadCaseInput = {
   customer: { anrede: string | null; firstName: string; lastName: string; email: string; phone: string | null; locale: string };
@@ -78,7 +82,7 @@ export async function createLeadCase(input: LeadCaseInput, salesforceApi: any): 
   const caseData: Record<string, any> = {
     Case_Name__c: funnelCaseName({ vorname: c.firstName, nachname: c.lastName, submitter: input.partner.email }),
     Stage__c: "Needs Analysis",
-    Korrespondenzsprache__c: KORRESPONDENZSPRACHE[c.locale as keyof typeof KORRESPONDENZSPRACHE] ?? "Deutsch",
+    Korrespondenzsprache__c: KORRESPONDENZSPRACHE[c.locale] ?? "Deutsch",
     Description: leadCaseDescription(input),
   };
   if (accountId) {
