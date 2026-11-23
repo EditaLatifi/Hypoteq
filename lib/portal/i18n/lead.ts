@@ -75,7 +75,8 @@ const leadDe = {
     body2: "Über deinen persönlichen Link ergänzt du die Angaben zu deinem Vorhaben und lädst deine Unterlagen hoch. Deine Kontaktdaten sind schon ausgefüllt – das dauert nur wenige Minuten.",
     replies: (partner: string) => `Fragen? Antworte einfach auf diese E-Mail – sie geht an uns und an ${partner}.`,
     cta: "Anfrage vervollständigen",
-    buttonFallback: "Falls der Button nicht funktioniert, kopiere diesen Link in deinen Browser:",
+    buttonFallback: "Falls der Button nicht funktioniert, öffne deine Anfrage über diesen Link:",
+    linkLabel: "Zu deiner Finanzierungsanfrage",
     foot: (days: number) =>
       `Der Link ist ${days} Tage gültig. Du hast diese Einladung nicht erwartet? Dann ignoriere diese E-Mail oder schreib uns an info@hypoteq.ch.`,
   },
@@ -155,7 +156,8 @@ const leadEn: LeadDict = {
     body2: "With your personal link you add the details of your project and upload your documents. Your contact details are already filled in – it only takes a few minutes.",
     replies: (partner) => `Questions? Just reply to this email – it reaches us and ${partner}.`,
     cta: "Complete your request",
-    buttonFallback: "If the button does not work, copy this link into your browser:",
+    buttonFallback: "If the button does not work, open your request with this link:",
+    linkLabel: "To your financing request",
     foot: (days) =>
       `The link is valid for ${days} days. Not expecting this invitation? Simply ignore this email or write to us at info@hypoteq.ch.`,
   },
@@ -232,7 +234,8 @@ const leadFr: LeadDict = {
     body2: "Avec votre lien personnel, vous complétez les informations sur votre projet et téléchargez vos documents. Vos coordonnées sont déjà remplies – cela ne prend que quelques minutes.",
     replies: (partner) => `Des questions ? Répondez simplement à cet e-mail – il nous parvient ainsi qu'à ${partner}.`,
     cta: "Compléter la demande",
-    buttonFallback: "Si le bouton ne fonctionne pas, copiez ce lien dans votre navigateur :",
+    buttonFallback: "Si le bouton ne fonctionne pas, ouvrez votre demande avec ce lien :",
+    linkLabel: "Vers votre demande de financement",
     foot: (days) =>
       `Le lien est valable ${days} jours. Vous n'attendiez pas cette invitation ? Ignorez simplement cet e-mail ou écrivez-nous à info@hypoteq.ch.`,
   },
@@ -309,7 +312,8 @@ const leadIt: LeadDict = {
     body2: "Con il Suo link personale completa i dati del Suo progetto e carica i Suoi documenti. I Suoi dati di contatto sono già compilati – bastano pochi minuti.",
     replies: (partner) => `Domande? Risponda semplicemente a questa e-mail – arriva a noi e a ${partner}.`,
     cta: "Completare la richiesta",
-    buttonFallback: "Se il pulsante non funziona, copi questo link nel Suo browser:",
+    buttonFallback: "Se il pulsante non funziona, apra la Sua richiesta con questo link:",
+    linkLabel: "Alla Sua richiesta di finanziamento",
     foot: (days) =>
       `Il link è valido ${days} giorni. Non si aspettava questo invito? Ignori semplicemente questa e-mail o ci scriva a info@hypoteq.ch.`,
   },

@@ -43,26 +43,56 @@ function dict(locale: string | null | undefined): { t: Dict; lang: string } {
   return { t: DICTS[lang], lang };
 }
 
-// The footer bar is not upper-cased: HYPOTEQ's footer line carries an e-mail address and a
-// web address that should read as written (Mail-Texte 20.10.2026).
-function layout(p: { lang: string; t: Dict; origin: string; heading: string; paragraphs: string[]; cta: string; url: string; footnote: string; fallback?: string }) {
+// Colours of the portal mails as plain hex: rgba() is not shown by every client (it was
+// «text at 75 %» of #132219 on white).
+const MAIL = { page: "#F6F8F4", ink: "#132219", text: "#4E5952", muted: "#7D8580", faint: "#959C98", lime: "#CAF476", rule: "#E1E7DC" };
+const MAIL_FONT = "'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif";
+
+/** A long link as text that may wrap (after «/», «?», «=», «&» and every 24 characters). */
+function breakableUrl(url: string): string {
+  return esc(url)
+    .replace(/([/?=]|&amp;)/g, "$1<wbr>")
+    .replace(/([^<>/?=;\s]{24})(?=[^<>/?=;\s])/g, "$1<wbr>");
+}
+
+/*
+ * The portal mails' page. Tables with inline styles and bgcolor, no overflow:hidden, no rgba,
+ * no unbreakable text wider than the card: the div version showed only its grey background in
+ * the new Outlook (the-eksperts mailbox, Partner Fast Lead test of 23.11.2026), while the funnel's
+ * closing mails rendered. The look is unchanged. `linkLabel`: the fallback line links a short
+ * text instead of printing the link (the customer mails of the Fast Lead).
+ *
+ * The footer bar is not upper-cased: HYPOTEQ's footer line carries an e-mail address and a
+ * web address that should read as written (Mail-Texte 20.10.2026).
+ */
+function layout(p: { lang: string; t: Dict; origin: string; heading: string; paragraphs: string[]; cta: string; url: string; footnote: string; fallback?: string; linkLabel?: string }) {
+  const f = `font-family:${MAIL_FONT};`;
+  const href = esc(p.url);
+  const link = p.linkLabel
+    ? `<a href="${href}" style="color:${MAIL.ink};text-decoration:underline;">${esc(p.linkLabel)}</a>`
+    : `<a href="${href}" style="color:${MAIL.muted};text-decoration:underline;word-break:break-all;">${breakableUrl(p.url)}</a>`;
   return `<!DOCTYPE html>
-<html lang="${p.lang}"><head><meta charset="UTF-8" /></head>
-<body style="margin:0;padding:24px 12px;background:#F6F8F4;font-family:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;color:#132219;">
-  <div style="max-width:600px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;">
-    <div style="padding:32px 28px;">
-      <img src="${p.origin}/images/HYPOTEQ_layout_logo.png" alt="HYPOTEQ" width="120" style="display:block;width:120px;height:auto;" />
-      <div style="width:44px;height:3px;background:#132219;margin:20px 0;"></div>
-      <h1 style="margin:0 0 20px;font-size:26px;line-height:1.15;font-weight:700;letter-spacing:-0.02em;">${esc(p.heading)}</h1>
-      ${p.paragraphs.map((t) => `<p style="margin:0 0 16px;font-size:16px;line-height:1.5;color:rgba(19,34,25,.75);">${esc(t)}</p>`).join("")}
-      <p style="margin:24px 0;">
-        <a href="${p.url}" style="display:inline-block;background:#CAF476;color:#132219;text-decoration:none;font-weight:600;font-size:16px;padding:14px 26px;border-radius:999px;">${esc(p.cta)} &rarr;</a>
-      </p>
-      <p style="margin:0 0 8px;font-size:13px;line-height:1.5;color:rgba(19,34,25,.55);">${esc(p.fallback ?? p.t.mail.buttonFallback)}<br /><span style="word-break:break-all;">${p.url}</span></p>
-      <p style="margin:16px 0 0;font-size:13px;line-height:1.5;color:rgba(19,34,25,.45);">${esc(p.footnote)}</p>
-    </div>
-    <div style="padding:14px 28px;border-top:1px solid #E1E7DC;font-size:11px;color:rgba(19,34,25,.45);">${esc(p.t.mail.footer)}</div>
-  </div>
+<html lang="${p.lang}">
+<head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>${esc(p.heading)}</title></head>
+<body style="margin:0;padding:0;background-color:${MAIL.page};">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="${MAIL.page}" style="background-color:${MAIL.page};">
+  <tr><td align="center" style="padding:24px 12px;">
+    <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="width:100%;max-width:600px;background-color:#ffffff;border-radius:12px;">
+      <tr><td style="padding:32px 28px;${f}color:${MAIL.ink};">
+        <img src="${p.origin}/images/HYPOTEQ_layout_logo.png" alt="HYPOTEQ" width="120" height="30" style="display:block;width:120px;height:30px;border:0;" />
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding:20px 0;"><table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td width="44" height="3" bgcolor="${MAIL.ink}" style="width:44px;height:3px;background-color:${MAIL.ink};font-size:0;line-height:0;">&nbsp;</td></tr></table></td></tr></table>
+        <h1 style="margin:0 0 20px;${f}font-size:26px;line-height:30px;font-weight:700;color:${MAIL.ink};">${esc(p.heading)}</h1>
+        ${p.paragraphs.map((t) => `<p style="margin:0 0 16px;${f}font-size:16px;line-height:24px;color:${MAIL.text};">${esc(t)}</p>`).join("")}
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:24px 0;"><tr><td bgcolor="${MAIL.lime}" style="background-color:${MAIL.lime};border-radius:999px;">
+          <a href="${href}" style="display:inline-block;padding:14px 26px;${f}font-size:16px;line-height:20px;font-weight:600;color:${MAIL.ink};text-decoration:none;">${esc(p.cta)} &rarr;</a>
+        </td></tr></table>
+        <p style="margin:0 0 8px;${f}font-size:13px;line-height:20px;color:${MAIL.muted};">${esc(p.fallback ?? p.t.mail.buttonFallback)}<br />${link}</p>
+        <p style="margin:16px 0 0;${f}font-size:13px;line-height:20px;color:${MAIL.faint};">${esc(p.footnote)}</p>
+      </td></tr>
+      <tr><td style="padding:14px 28px;border-top:1px solid ${MAIL.rule};${f}font-size:11px;line-height:16px;color:${MAIL.faint};">${esc(p.t.mail.footer)}</td></tr>
+    </table>
+  </td></tr>
+</table>
 </body></html>`;
 }
 
@@ -256,6 +286,7 @@ export async function sendLeadInviteMail(p: {
     url: p.url,
     footnote: m.foot(p.days),
     fallback: m.buttonFallback,
+    linkLabel: m.linkLabel,
   });
 }
 
@@ -288,6 +319,7 @@ export async function sendLeadReminderMail(p: {
     url: p.url,
     footnote: r.foot(p.validUntil),
     fallback: m.buttonFallback,
+    linkLabel: m.linkLabel,
   });
 }
 
