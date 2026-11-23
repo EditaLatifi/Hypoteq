@@ -1,5 +1,8 @@
-"use client";
-import Header from "@/components/layout/Header";
+import LegacyRoot, { legacyMetadata } from "@/components/legacy/LegacyRoot";
+import FunnelShell from "./FunnelShell";
+
+// Root layout of the bare /funnel (it redirects to /{locale}/funnel): the previous root document.
+export const metadata = legacyMetadata;
 
 export default function FunnelLayout({
   children,
@@ -7,13 +10,8 @@ export default function FunnelLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
-      <Header />
-      <div className="flex min-h-screen">
-        <div className="flex-1 bg-white overflow-visible">
-          {children}
-        </div>
-      </div>
-    </>
+    <LegacyRoot>
+      <FunnelShell>{children}</FunnelShell>
+    </LegacyRoot>
   );
 }

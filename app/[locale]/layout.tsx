@@ -2,6 +2,13 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { generateMetadata as generateSEOMetadata, SITE_CONFIG } from "@/lib/seo";
 import AlternateLinks from "@/components/AlternateLinks";
+import LegacyRoot, { LEGACY_TITLE_TEMPLATE, legacyMetadata } from "@/components/legacy/LegacyRoot";
+
+/**
+ * Root layout of the pages under /{locale} that keep the previous design (funnel, Nachreich
+ * page, partner landing pages, AGB, thank-you pages). The new website's pages under /{locale}
+ * are app/(site)/[locale], with their own root layout.
+ */
 
 type Props = {
   children: React.ReactNode;
@@ -19,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const locale = params.locale as Locale;
   
   if (!locales.includes(locale as any)) {
-    return {};
+    return legacyMetadata;
   }
 
   const titles = {
@@ -36,11 +43,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     it: "HYPOTEQ AG - Mutuo conveniente con consulenza professionale. Il vostro partner di fiducia per i mutui in Svizzera."
   };
 
-  return generateSEOMetadata(locale, {
-    title: titles[locale],
-    description: descriptions[locale],
-    canonical: "",
-  });
+  // This layout was below app/layout.tsx: its metadata on top of the root's, and its title
+  // through the root's title template, as Next.js merged them then.
+  return {
+    ...legacyMetadata,
+    ...generateSEOMetadata(locale, {
+      title: titles[locale],
+      description: descriptions[locale],
+      canonical: "",
+    }),
+    title: { absolute: LEGACY_TITLE_TEMPLATE.replace("%s", titles[locale]) },
+  };
 }
 
 export default function LocaleLayout({ children, params }: Props) {
@@ -49,9 +62,9 @@ export default function LocaleLayout({ children, params }: Props) {
   }
 
   return (
-    <>
+    <LegacyRoot>
       <AlternateLinks />
       {children}
-    </>
+    </LegacyRoot>
   );
 }

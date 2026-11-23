@@ -5,10 +5,19 @@ import StructuredData from "@/components/StructuredData";
 import PromoPopup from "@/components/PromoPopup";
 import { generateOrganizationSchema } from "@/lib/seo";
 
-export const metadata: Metadata = {
+/**
+ * The root document of the pages that keep the previous design (funnel, Nachreich page, portal,
+ * partner landing pages, AGB, thank-you pages). It was app/layout.tsx; since the new website
+ * (app/(site)) has its own root layout without Tailwind, each of these sections renders this
+ * root itself: app/[locale]/layout.tsx, app/portal/layout.tsx, app/funnel/layout.tsx.
+ */
+
+export const LEGACY_TITLE_TEMPLATE = "%s | HYPOTEQ AG - günstige Hypothek mit Profi-Beratung";
+
+export const legacyMetadata: Metadata = {
   title: {
     default: "Home - HYPOTEQ AG - günstige Hypothek mit Profi-Beratung",
-    template: "%s | HYPOTEQ AG - günstige Hypothek mit Profi-Beratung"
+    template: LEGACY_TITLE_TEMPLATE,
   },
   description: "HYPOTEQ AG - günstige Hypothek mit Profi-Beratung. Ihr vertrauenswürdiger Partner für Hypotheken in der Schweiz. Beste Konditionen, persönliche Beratung und digitale Lösungen für Ihre Traumimmobilie.",
   keywords: [
@@ -82,7 +91,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default function LegacyRoot({
   children,
 }: {
   children: React.ReactNode;
@@ -101,21 +110,21 @@ export default function RootLayout({
     <html lang={lang} className="font-sf">
       <head>
         <StructuredData data={organizationSchema} />
-        
+
         {/* Performance optimizations */}
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
         <meta name="theme-color" content="#CAF476" />
-        
+
         {/* Preconnect to external domains */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        
+
         {/* DNS prefetch for faster lookups */}
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
-        
+
         {/* Canonical */}
         <link rel="canonical" href="https://www.hypoteq.ch" />
-        
+
         {/* Favicon */}
         <link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png" />

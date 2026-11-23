@@ -1,3 +1,5 @@
+import { websiteRedirects } from "./lib/website/redirects.mjs";
+
 /**
  * The Auskunftsermächtigung templates (de/en/fr/it). lib/funnel-v3/authorization.ts reads them
  * with fs from public/documents; on Vercel `public` is served by the CDN and is not part of a
@@ -88,6 +90,7 @@ const nextConfig = {
         permanent: true,
       },
       ...Object.entries(AUTHORIZATION_LEGACY).map(([source, destination]) => ({ source, destination, permanent: true })),
+      ...websiteRedirects(),
     ];
   },
 
