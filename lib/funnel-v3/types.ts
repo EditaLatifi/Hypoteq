@@ -27,6 +27,26 @@ export type Mode = "begleitet" | "schnell";
 export type Antrag = "Neue Hypothek" | "Ablösung";
 export type Kreditnehmer = "Natürliche Person" | "Juristische Person";
 export type Anrede = "Herr" | "Frau";
+
+/**
+ * Partner Fast Lead (DECISIONS P39): the funnel was opened from a partner's invitation
+ * (`?lead=<token>`). The token goes with the submit — the server credits the partner from it;
+ * name and company are only shown («Eingeladen von …»).
+ */
+export interface FunnelLead {
+  token: string;
+  partnerName: string;
+  partnerCompany: string | null;
+}
+
+/** The customer's contact as the partner entered it, for the prefill (GET /api/funnel/lead). */
+export interface LeadCustomer {
+  anrede: Anrede | null;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string | null;
+}
 export type Immo = "Bestehende Immobilie" | "Neubau" | "Bauprojekt";
 /** Handover 2: «Ferienobjekt» entfällt (Ferienwohnung = Nutzung Zweitwohnsitz). */
 export type Liegenschaft = "Einfamilienhaus" | "Stockwerkeigentum" | "Mehrfamilienhaus";

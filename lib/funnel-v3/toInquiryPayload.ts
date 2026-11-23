@@ -45,6 +45,11 @@ export interface InquiryPayloadOptions {
   channel?: "chat" | null;
   /** What the chat adds: the valuation order and the transcript for the case folder (Konzept Kap. 6, 9). */
   hypo?: HypoPayload | null;
+  /**
+   * The partner's invitation the customer came from (Partner Fast Lead, DECISIONS P39). Only the
+   * token goes: /api/inquiry looks the invitation up and credits that partner.
+   */
+  leadToken?: string | null;
 }
 
 export interface HypoPayload {
@@ -183,6 +188,8 @@ export function toInquiryPayload(state: FunnelState, opts: InquiryPayloadOptions
     ...(chat ? { entry_channel: "chat" as const, bewertung_angefragt: Boolean(hypo?.bewertung) } : {}),
     ...(hypo ? { hypo: { transcript: hypo.transcript } } : {}),
     customerType: isPartner ? ("partner" as const) : ("direct" as const),
+    // A customer's own request from a partner's invitation (DECISIONS P39); never with the Berater entry.
+    ...(!isPartner && opts.leadToken ? { lead: { token: opts.leadToken } } : {}),
     locale: opts.locale,
     korrespondenzsprache: KORRESPONDENZSPRACHE[opts.locale] ?? "Deutsch",
     email: client.email,

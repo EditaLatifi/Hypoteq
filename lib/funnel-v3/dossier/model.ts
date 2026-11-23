@@ -78,6 +78,8 @@ export interface DossierInput {
   files: DossierFile[];
   /** Instance ids marked «Habe ich nicht». */
   skipped?: string[];
+  /** Partner Fast Lead (DECISIONS P39): who invited the customer — «Anna Muster · Muster AG». */
+  invitedBy?: string | null;
 }
 
 export interface KeyValue {
@@ -276,7 +278,9 @@ export function buildDossierModel(input: DossierInput): DossierModel {
   const partnerName = [txt.pvor.trim(), txt.pnach.trim()].filter(Boolean).join(" ");
   const submitter = state.role === "berater"
     ? t("side.submittedBy", { name: [partnerName, txt.bmail.trim()].filter(Boolean).join(" · ") || "HYPOTEQ" })
-    : t("side.ownRequest");
+    : input.invitedBy
+      ? t("side.invitedBy", { name: input.invitedBy })
+      : t("side.ownRequest");
 
   const descParts: string[] = [];
   const objectLine = [opt("lieg", ans.lieg), opt("nutz", ans.nutz)].filter(Boolean).join(", ");

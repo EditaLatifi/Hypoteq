@@ -123,6 +123,33 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: true, inquiryId: existing.id, caseNumber: existing.caseNumber ?? null, alreadySubmitted: true });
     }
 
+    // === PARTNER FAST LEAD (DECISIONS P39) ===
+    // A customer's own request from a partner's invitation carries only the link's token. The
+    // partner is looked up here, by that token, and put on the body for the sync (Kundenberater
+    // + Sales Partner), the closing mails and the dossier — never taken from the browser, so a
+    // `partnerLead` in the request is dropped first. No invitation (unknown, used, a Berater
+    // entry, or the table missing): the request goes on as the customer's own.
+    delete data.partnerLead;
+    const leadToken = data.customerType !== "partner" && typeof data.lead?.token === "string" ? data.lead.token : null;
+    delete data.lead;
+    if (leadToken) {
+      try {
+        const { leadPartnerForSubmit } = await import("@/lib/portal/leadServer");
+        const partnerLead = await leadPartnerForSubmit(leadToken);
+        if (partnerLead) {
+          data.partnerLead = partnerLead;
+          // The existing column says which partner the inquiry belongs to.
+          data.client = { ...(data.client || {}), partnerEmail: partnerLead.email };
+          console.log(`[Inquiry] Partner Fast Lead ${partnerLead.leadId}: credited to Contact ${partnerLead.contactId}`);
+        } else {
+          console.log("[Inquiry] Lead token without an open invitation — the customer's own request");
+        }
+      } catch (leadErr) {
+        console.error("⚠️ Partner Fast Lead lookup failed (continuing as the customer's own request):", leadErr);
+      }
+    }
+    // === END PARTNER FAST LEAD ===
+
     // Funnel v5 (Handover 7): one mail per recipient at the closing — customer, Berater,
     // HYPOTEQ intern — sent after the Salesforce sync, because the internal one links the Case.
     // Every older payload keeps the mails below exactly as they were.
@@ -315,6 +342,22 @@ export async function POST(req: Request) {
     }
     // === END FUNNEL V3 STATE ===
 
+    // Partner Fast Lead: this inquiry uses the invitation. Before the sync, so a second submit
+    // with the same token (another tab) cannot credit the partner twice; a lost race leaves
+    // this one the customer's own request.
+    if (data.partnerLead) {
+      try {
+        const { claimLead } = await import("@/lib/portal/leadServer");
+        if (!(await claimLead(data.partnerLead.leadId, inquiry.id))) {
+          console.log(`[Inquiry] Partner Fast Lead ${data.partnerLead.leadId} was used by another submission — not credited here`);
+          delete data.partnerLead;
+        }
+      } catch (claimErr) {
+        // The partner stays credited: the invitation was open a moment ago.
+        console.error(`⚠️ Could not mark Partner Fast Lead ${data.partnerLead.leadId} as used:`, claimErr);
+      }
+    }
+
     // === CASE NUMBER (DECISIONS D1) ===
     // Stored right after the row exists, so a failure here can never cost the lead: the
     // inquiry stays saved with caseNumber null, and the miss is logged.
@@ -444,6 +487,12 @@ export async function POST(req: Request) {
       });
     } catch (updateErr) {
       console.error("⚠️ Could not record the Salesforce result on the inquiry:", updateErr);
+    }
+
+    // Partner Fast Lead: the partner's list shows the case number and opens the Case.
+    if (data.partnerLead) {
+      const { recordLeadCase } = await import("@/lib/portal/leadServer");
+      await recordLeadCase(data.partnerLead.leadId, { caseNumber, salesforceCaseId });
     }
 
     // The partner is linked inside the sync (components/partnerDirectory). Unknown partners

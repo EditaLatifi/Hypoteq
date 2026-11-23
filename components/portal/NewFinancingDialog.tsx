@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { ArrowRight, House, Layers, Plus } from "lucide-react";
+import { ArrowRight, House, Layers, Plus, Send } from "lucide-react";
 import Modal from "@/components/portal/Modal";
 import { useT } from "@/components/portal/I18n";
 import { NEW_FINANCING_PATH } from "@/lib/portal/funnelLink";
@@ -13,7 +13,8 @@ const OPTION =
 /**
  * «Neue Finanzierung starten» (handoff «Spezialfinanzierung», Einstieg): a choice between
  * the Standardfinanzierung — the existing funnel as Berater, recognised by the partner's
- * e-mail — and the Spezialfinanzierung captured in the portal.
+ * e-mail —, «Kunde einladen» (Partner Fast Lead, DECISIONS P39: the customer completes the
+ * funnel through their own link) and the Spezialfinanzierung captured in the portal.
  */
 export default function NewFinancingDialog() {
   const t = useT();
@@ -44,6 +45,15 @@ export default function NewFinancingDialog() {
             </span>
             <ArrowRight size={18} aria-hidden className="mt-1 flex-none text-[#CAF476]" />
           </a>
+          <Link href="/portal/kunde-einladen" className={OPTION} onClick={() => setOpen(false)}>
+            <Send size={24} aria-hidden className="mt-0.5 flex-none text-[#CAF476]" />
+            <span className="flex flex-1 flex-col gap-1">
+              <span className="text-[17px] font-medium">{nf.lead}</span>
+              <span className="text-[15px] text-white/70">{nf.leadText}</span>
+              <span className="pt-1 text-[11px] uppercase tracking-[.14em] text-[#CAF476]">{nf.leadTag}</span>
+            </span>
+            <ArrowRight size={18} aria-hidden className="mt-1 flex-none text-[#CAF476]" />
+          </Link>
           <Link href="/portal/spezialfinanzierung" className={OPTION} onClick={() => setOpen(false)}>
             <Layers size={24} aria-hidden className="mt-0.5 flex-none text-[#CAF476]" />
             <span className="flex flex-1 flex-col gap-1">

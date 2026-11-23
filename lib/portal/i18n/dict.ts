@@ -7,6 +7,7 @@
 
 import { PROFILE_EXTRA } from "./profileExtra";
 import { special, support } from "@/lib/portal/i18n/special";
+import { lead } from "@/lib/portal/i18n/lead";
 import { SHELL } from "@/lib/portal/i18n/shell";
 import { LEGACY_STATUSES, type CaseStatus } from "@/lib/portal/status";
 
@@ -516,7 +517,7 @@ const de = {
       `Ihr Änderungsantrag zu «${feld}» wurde ${approved ? "übernommen. Die Angabe ist ab sofort aktualisiert." : "nicht übernommen. Die Details zum Entscheid finden Sie im Portal."} Danke für die Meldung.`,
     changeCta: "Profil öffnen",
   },
-  special: special.de, support: support.de,
+  special: special.de, support: support.de, lead: lead.de,
 };
 
 export type Dict = typeof de;
@@ -994,7 +995,7 @@ const en: Dict = {
       `your change request for "${feld}" has been ${approved ? "approved. The information is updated as of now." : "declined. You find the details of the decision in the portal."} Thank you for the notice.`,
     changeCta: "Open profile",
   },
-  special: special.en, support: support.en,
+  special: special.en, support: support.en, lead: lead.en,
 };
 
 const fr: Dict = {
@@ -1470,7 +1471,7 @@ const fr: Dict = {
       `votre demande de modification concernant « ${feld} » a été ${approved ? "acceptée. L'information est mise à jour dès maintenant." : "refusée. Vous trouvez les détails de la décision dans le portail."} Merci pour votre signalement.`,
     changeCta: "Ouvrir le profil",
   },
-  special: special.fr, support: support.fr,
+  special: special.fr, support: support.fr, lead: lead.fr,
 };
 
 const it: Dict = {
@@ -1946,7 +1947,7 @@ const it: Dict = {
       `la Sua richiesta di modifica per «${feld}» è stata ${approved ? "accettata. Il dato è aggiornato da subito." : "rifiutata. Trova i dettagli della decisione nel portale."} Grazie per la segnalazione.`,
     changeCta: "Apri profilo",
   },
-  special: special.it, support: support.it,
+  special: special.it, support: support.it, lead: lead.it,
 };
 
 export const DICTS: Record<Locale, Dict> = { de, en, fr, it };

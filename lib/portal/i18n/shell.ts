@@ -21,6 +21,9 @@ const de = {
       special: "Spezialfinanzierung",
       specialText: "Mezzanine, Bauprojekt, Renditeobjekt oder Gewerbe – direkt hier im Portal erfassen.",
       specialTag: "Individuelle Prüfung",
+      lead: "Kunde einladen",
+      leadText: "Nur Name und E-Mail erfassen – Ihr Kunde ergänzt Angaben und Unterlagen selbst über seinen persönlichen Link.",
+      leadTag: "Fast Lead · Ihnen zugeordnet",
     },
     tools: {
       title: "Tools",
@@ -122,6 +125,9 @@ const en: ShellDict = {
       special: "Special financing",
       specialText: "Mezzanine, construction project, investment property or commercial – entered right here in the portal.",
       specialTag: "Individual review",
+      lead: "Invite a client",
+      leadText: "Enter only name and email – your client completes the details and documents through their personal link.",
+      leadTag: "Fast lead · assigned to you",
     },
     tools: {
       title: "Tools",
@@ -221,6 +227,9 @@ const fr: ShellDict = {
       special: "Financement spécial",
       specialText: "Mezzanine, projet de construction, immeuble de rendement ou commercial – saisi directement ici dans le portail.",
       specialTag: "Examen individuel",
+      lead: "Inviter un client",
+      leadText: "Saisissez seulement le nom et l'e-mail – votre client complète les informations et les documents via son lien personnel.",
+      leadTag: "Fast lead · attribué à vous",
     },
     tools: {
       title: "Outils",
@@ -320,6 +329,9 @@ const it: ShellDict = {
       special: "Finanziamento speciale",
       specialText: "Mezzanine, progetto edilizio, immobile a reddito o commerciale – inserito direttamente qui nel portale.",
       specialTag: "Verifica individuale",
+      lead: "Invitare un cliente",
+      leadText: "Inserisca solo nome ed e-mail – il Suo cliente completa dati e documenti tramite il suo link personale.",
+      leadTag: "Fast lead · attribuito a Lei",
     },
     tools: {
       title: "Strumenti",

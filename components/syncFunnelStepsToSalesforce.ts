@@ -90,6 +90,45 @@ export async function applyPartnerToCase(
   console.log(`[Salesforce Sync] Partner not recognised (${checked ? 'unknown' : resolved ? 'lookup failed, stale miss' : 'lookup failed'}): ${partnerEmail}`);
 }
 
+/** The partner of a Partner Fast Lead, as /api/inquiry put it on the body (lib/portal/leadServer.ts SubmitLeadPartner). */
+export type LeadPartnerOnCase = {
+  contactId?: string | null;
+  accountId?: string | null;
+  name?: string | null;
+  company?: string | null;
+  email?: string | null;
+  invitedAt?: string | null;
+};
+
+/**
+ * The Comments line of a Partner Fast Lead (default answer 2 to Fisnik, 23.11.2026: a note, no new
+ * Origin value): «Partner Fast Lead – eingeladen von Anna Muster (Muster AG) am 23.11.2026; die
+ * Angaben hat der Kunde selbst erfasst.»
+ */
+export function fastLeadNote(lead: LeadPartnerOnCase): string {
+  const name = (lead.name || '').trim() || (lead.email || '').trim() || 'Partner';
+  const company = (lead.company || '').trim();
+  const who = company && company.toLowerCase() !== name.toLowerCase() ? `${name} (${company})` : name;
+  const date = lead.invitedAt && !Number.isNaN(new Date(lead.invitedAt).getTime())
+    ? ` am ${new Date(lead.invitedAt).toLocaleDateString('de-CH', { day: '2-digit', month: '2-digit', year: 'numeric', timeZone: 'Europe/Zurich' })}`
+    : '';
+  return `Partner Fast Lead – eingeladen von ${who}${date}; die Angaben hat der Kunde selbst erfasst.`;
+}
+
+/**
+ * Put the inviting partner on a Partner Fast Lead's Case (DECISIONS P39): the customer submitted
+ * through the partner's invitation, so the Case is the partner's like a Berater submission —
+ * Partner_Consultant__c = their Contact, Sales Partner = its Account — and Comments says how it
+ * came in. The Contact comes from the portal login (the invitation), so no lookup is needed; one
+ * Salesforce refuses (deleted, lookup filter) is dropped by the field fallback, never the Case.
+ */
+export function applyLeadPartnerToCase(caseData: Record<string, any>, lead: LeadPartnerOnCase): void {
+  if (lead.contactId) caseData['Partner_Consultant__c'] = lead.contactId;
+  if (lead.accountId) caseData[SALES_PARTNER_FIELD] = lead.accountId;
+  prependComment(caseData, fastLeadNote(lead));
+  console.log(`[Salesforce Sync] Partner Fast Lead: Contact ${lead.contactId ?? '–'}, Account ${lead.accountId ?? '–'}`);
+}
+
 /**
  * Case_Name__c of a funnel Case (HYPOTEQ 19.10. D.4, mapping «Case Name (generiert)»; DECISIONS
  * V65): «{Nachname} {Vorname} – {PLZ} {Ort}», a company «{Firma} – {PLZ} {Ort}». A part that is
@@ -1500,6 +1539,11 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
     // Spec 6.3 / DECISIONS D13. Fresh lookup: the Case is what HYPOTEQ works from, so it
     // must not rest on a recognition cached minutes ago in the browser's session.
     await applyPartnerToCase(caseData, partnerEmail, stepData.partner);
+  } else if (stepData.partnerLead?.contactId) {
+    // Partner Fast Lead (DECISIONS P39): the customer's own request through a partner's invitation.
+    // The customer is the contact (validated in full, unlike a Berater's borrower); the Case is
+    // the inviting partner's. Set by /api/inquiry from the invitation, never by the browser.
+    applyLeadPartnerToCase(caseData, stepData.partnerLead);
   } else {
     // Direktkundenfunnel → HYPOTEQ AG is the sales partner. Resolve its Account by name.
     // Deliberately lookup-only: silently creating a second "HYPOTEQ AG" Account would

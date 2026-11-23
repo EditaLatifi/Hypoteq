@@ -6,7 +6,7 @@ import { recommendedMode } from "@/lib/funnel-v3/steps";
 import type { Mode, Role } from "@/lib/funnel-v3/types";
 import { useFunnelT } from "@/lib/funnel-v3/useFunnelT";
 import LanguageSwitch from "./LanguageSwitch";
-import { startRole } from "./logic";
+import { leadPartnerText, startRole } from "./logic";
 import { startHypo } from "./hypo/controller";
 import { HypoFace } from "./hypo/HypoMark";
 import { loadHypoConfig, useHypo } from "./hypo/hypoStore";
@@ -35,6 +35,8 @@ const ENTRIES: { mode: Mode; eyebrow: string; title: string; sub: string; time: 
 export default function StartScreen() {
   const { t, lang } = useFunnelT();
   const role = useFunnelV3((s) => s.role);
+  // Opened from a partner's invitation (DECISIONS P39): the customer's own request, no role switch.
+  const lead = useFunnelV3((s) => s.lead);
   const shown = startRole(role);
   const recommended = recommendedMode(shown);
   const hypo = useHypo((s) => s.config?.enabled === true);
@@ -72,13 +74,17 @@ export default function StartScreen() {
           <p className="v3-start-lead">{t("start.leadModes")}</p>
         </div>
         <div className="v3-start-choose">
-          <div className="v3-roleswitch" role="group" aria-label={t("start.roleLabel")}>
-            {ROLES.map((r) => (
-              <button key={r.role} type="button" className="v3-roleswitch-btn" aria-pressed={shown === r.role} onClick={() => pickRole(r.role)}>
-                {t(r.labelKey)}
-              </button>
-            ))}
-          </div>
+          {lead && shown === "kunde" ? (
+            <p className="v3-start-leadnote">{t("start.leadNote", { name: leadPartnerText(lead) })}</p>
+          ) : (
+            <div className="v3-roleswitch" role="group" aria-label={t("start.roleLabel")}>
+              {ROLES.map((r) => (
+                <button key={r.role} type="button" className="v3-roleswitch-btn" aria-pressed={shown === r.role} onClick={() => pickRole(r.role)}>
+                  {t(r.labelKey)}
+                </button>
+              ))}
+            </div>
+          )}
           <div className="v3-start-cards">
             {ENTRIES.map((e) => {
               const rec = e.mode === recommended;

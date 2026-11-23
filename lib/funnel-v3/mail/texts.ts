@@ -91,6 +91,8 @@ export interface MailTexts {
   /** HYPO, the chat entry (DECISIONS V92). */
   internChat: string;
   internByBerater: string;
+  /** Partner Fast Lead (DECISIONS P39): the customer's own request through a partner's invitation. */
+  internByLead: string;
   internOwn: string;
   introIntern: string;
   signKunde: string;
@@ -147,6 +149,7 @@ export const MAIL_TEXTS: Record<Lang, MailTexts> = {
     internFast: "Schnellanmeldung",
     internChat: "HYPO (Chat)",
     internByBerater: "Berater {name}",
+    internByLead: "vom Kunden selbst erfasst, Partner-Einladung von {name}",
     internOwn: "eigene Anfrage",
     introIntern: "Neue Finanzierungsanfrage über den Funnel ({entry}, {by}). Vollständige Zusammenfassung unten. Werte «aus Dokument» sind markiert.",
     signKunde:
@@ -249,6 +252,7 @@ export const MAIL_TEXTS: Record<Lang, MailTexts> = {
     internFast: "quick registration",
     internChat: "HYPO (chat)",
     internByBerater: "advisor {name}",
+    internByLead: "entered by the client, invited by partner {name}",
     internOwn: "own request",
     introIntern: "New financing request via the funnel ({entry}, {by}). Full summary below. Values “from document” are marked.",
     signKunde:
@@ -350,6 +354,7 @@ export const MAIL_TEXTS: Record<Lang, MailTexts> = {
     internFast: "inscription rapide",
     internChat: "HYPO (chat)",
     internByBerater: "conseiller {name}",
+    internByLead: "saisie par le client, invité par le partenaire {name}",
     internOwn: "demande propre",
     introIntern: "Nouvelle demande de financement via le funnel ({entry}, {by}). Récapitulatif complet ci-dessous. Les valeurs « du document » sont marquées.",
     signKunde:
@@ -451,6 +456,7 @@ export const MAIL_TEXTS: Record<Lang, MailTexts> = {
     internFast: "registrazione rapida",
     internChat: "HYPO (chat)",
     internByBerater: "consulente {name}",
+    internByLead: "inserita dal cliente, invitato dal partner {name}",
     internOwn: "richiesta propria",
     introIntern: "Nuova richiesta di finanziamento tramite il funnel ({entry}, {by}). Riepilogo completo qui sotto. I valori «dal documento» sono contrassegnati.",
     signKunde:

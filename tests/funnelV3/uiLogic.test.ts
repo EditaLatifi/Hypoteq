@@ -421,15 +421,15 @@ describe('entry, language, keys, partner', () => {
 
 describe('entryFromParams — opened from the Partnerportal', () => {
   it('Berater entry, address and the way back', () => {
-    expect(entryFromParams('?customer=partner&bmail=anna%40vzch.ch&from=portal')).toEqual({ role: 'berater', bmail: 'anna@vzch.ch', fromPortal: true });
+    expect(entryFromParams('?customer=partner&bmail=anna%40vzch.ch&from=portal')).toEqual({ role: 'berater', bmail: 'anna@vzch.ch', fromPortal: true, lead: '' });
   });
   it('a portal link without customer= still means Berater', () => {
-    expect(entryFromParams('?from=portal')).toEqual({ role: 'berater', bmail: '', fromPortal: true });
-    expect(entryFromParams('?bmail=anna%40vzch.ch')).toEqual({ role: 'berater', bmail: 'anna@vzch.ch', fromPortal: false });
+    expect(entryFromParams('?from=portal')).toEqual({ role: 'berater', bmail: '', fromPortal: true, lead: '' });
+    expect(entryFromParams('?bmail=anna%40vzch.ch')).toEqual({ role: 'berater', bmail: 'anna@vzch.ch', fromPortal: false, lead: '' });
   });
   it('ignores a bmail that is not an address, keeps the plain presets', () => {
-    expect(entryFromParams('?customer=direct&bmail=nope')).toEqual({ role: 'kunde', bmail: '', fromPortal: false });
-    expect(entryFromParams('')).toEqual({ role: null, bmail: '', fromPortal: false });
+    expect(entryFromParams('?customer=direct&bmail=nope')).toEqual({ role: 'kunde', bmail: '', fromPortal: false, lead: '' });
+    expect(entryFromParams('')).toEqual({ role: null, bmail: '', fromPortal: false, lead: '' });
   });
 });
 

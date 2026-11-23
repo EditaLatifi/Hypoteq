@@ -561,6 +561,14 @@ export async function completeV3Inquiry(input: CompletionInput, deps?: Partial<C
   return { folderId, folderWebUrl, files, dossier, ...(transcriptName ? { transcriptName } : {}), errors };
 }
 
+/** Partner Fast Lead (DECISIONS P39): the inviting partner the server put on the body, for the dossier's header. */
+function invitedByOf(data: any): string | null {
+  const p = data?.partnerLead;
+  if (!p || typeof p !== "object" || data?.v3?.role === "berater") return null;
+  const name = [p.name, p.company].map((s: unknown) => (typeof s === "string" ? s.trim() : "")).filter(Boolean);
+  return name.length ? name.join(" · ") : typeof p.email === "string" ? p.email : null;
+}
+
 export function dossierInputFor(data: any, state: V3State, files: CompletedFile[], caseNumber: string | null, date: Date): DossierInput {
   return {
     lang: langOf(data),
@@ -569,6 +577,7 @@ export function dossierInputFor(data: any, state: V3State, files: CompletedFile[
     date,
     state,
     skipped: skippedOf(data),
+    invitedBy: invitedByOf(data),
     files: files.map(
       (f): DossierFile => ({
         id: f.documentId,

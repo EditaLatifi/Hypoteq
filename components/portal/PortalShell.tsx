@@ -15,7 +15,10 @@ import { PORTAL_TOOLS, SESSION_IDLE_MINUTES } from "@/lib/portal/config";
 type NavItem = { href: string; label: string; short?: string; icon: ReactNode; badge?: number; mobile?: boolean };
 
 /** Pages without a nav entry of their own, and the entry they belong to. */
-const NAV_PARENT: [string, string][] = [["/portal/dokumente", "/portal/cases"]];
+const NAV_PARENT: [string, string][] = [
+  ["/portal/dokumente", "/portal/cases"],
+  ["/portal/kunde-einladen", "/portal/cases"],
+];
 
 /**
  * The server ends a session after 30 minutes without a request (lib/portal/session.ts) and

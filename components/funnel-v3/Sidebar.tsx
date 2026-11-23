@@ -19,6 +19,7 @@ export default function Sidebar() {
   const state = useFunnelState();
   const { step, mode, total } = useScreen();
   const visited = useFunnelV3((s) => s.visited);
+  const lead = useFunnelV3((s) => s.lead);
   const partner = usePartnerLookup((s) => s.result);
   const reqs = useRequirements();
   const { goTo } = useFunnelNav();
@@ -31,7 +32,7 @@ export default function Sidebar() {
       <div className="v3-side-case">
         <span className="v3-side-eyebrow">{t("side.request")}</span>
         <span className="v3-side-caseline">{caseLine(state.txt, t, state.ans.kn)}</span>
-        <span className="v3-side-roleline">{roleLine(state.role, state.txt, partner, t)}</span>
+        <span className="v3-side-roleline">{roleLine(state.role, state.txt, partner, t, lead)}</span>
       </div>
       <div className="v3-side-pathhead">
         <span className="v3-side-eyebrow">{t("side.path")}</span>

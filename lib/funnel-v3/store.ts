@@ -37,7 +37,9 @@ import {
   type DocInfo,
   type Eigenmittel,
   type FieldPath,
+  type FunnelLead,
   type FunnelState,
+  type LeadCustomer,
   type Mode,
   type Role,
   type Sources,
@@ -74,6 +76,8 @@ export interface FunnelV3Data extends FunnelState {
   dismissed: string[];
   /** Opened from the Partnerportal (`?from=portal`): the closing offers the way back. */
   entry: "portal" | null;
+  /** Opened from a partner's invitation (`?lead=`, Partner Fast Lead, DECISIONS P39). */
+  lead: FunnelLead | null;
   /**
    * Started in HYPO, the chat (docs/funnel-v5/HYPOTEQ_Konzept_HYPO_ChatFunnel.md): the request
    * carries `entry_channel: "chat"`; null for the two entries of the start screen.
@@ -96,6 +100,13 @@ export interface FunnelV3Actions {
    */
   switchMode: () => void;
   setEntry: (entry: "portal" | null) => void;
+  /**
+   * The partner's invitation (Partner Fast Lead, DECISIONS P39): the customer's own request
+   * («Kunde selbst»), the contact the partner entered filled into the empty fields — not marked
+   * touched, so the ID may still correct a name. The same invitation again (a reload, the link
+   * opened twice) changes nothing the customer has typed or cleared since.
+   */
+  applyLead: (lead: FunnelLead, customer: LeadCustomer | null) => void;
   setChannel: (channel: "chat" | null) => void;
   setAns: <K extends keyof Answers>(key: K, value: Answers[K]) => void;
   /** Tap a chip of «Trifft etwas davon zu?» on (Ja) or off (Nein). */
@@ -199,6 +210,7 @@ export function initialFunnelV3(): FunnelV3Data {
     skipped: [],
     dismissed: [],
     entry: null,
+    lead: null,
     channel: null,
     choices: {},
   };
@@ -468,6 +480,28 @@ function funnelV3Creator(set: SetState, get: () => FunnelV3Store): FunnelV3Store
 
       setEntry: (entry) => set({ entry }),
 
+      applyLead: (lead, customer) =>
+        set((s) => {
+          // A Berater already under way keeps their entry (the token then does not go along).
+          const role = s.role === "berater" && s.step > 0 ? s.role : "kunde";
+          // The Berater block belongs to the Berater entry (as setRole).
+          const txt = role === "kunde" && s.role !== "kunde" ? { ...s.txt, bmail: "", pvor: "", pnach: "", ptel: "", pfirma: "" } : s.txt;
+          if (s.lead?.token === lead.token || !customer) return { lead, role, txt };
+          const fill = (cur: string, v: string | null | undefined) => (cur.trim() ? cur : (v || "").trim());
+          return {
+            lead,
+            role,
+            txt: {
+              ...txt,
+              vor: fill(txt.vor, customer.firstName),
+              nach: fill(txt.nach, customer.lastName),
+              mail: fill(txt.mail, customer.email),
+              tel: fill(txt.tel, customer.phone),
+            },
+            ans: s.ans.anrede || !customer.anrede ? s.ans : { ...s.ans, anrede: customer.anrede },
+          };
+        }),
+
       setChannel: (channel) => set((s) => (s.channel === channel ? {} : { channel })),
 
       setRole: (role) =>
@@ -700,6 +734,7 @@ export const useFunnelV3 = create<FunnelV3Store>()(
         skipped: s.skipped,
         dismissed: s.dismissed,
         entry: s.entry,
+        lead: s.lead,
         channel: s.channel,
         choices: s.choices,
       }),
@@ -724,6 +759,7 @@ export const useFunnelV3 = create<FunnelV3Store>()(
           skipped: Array.isArray(p.skipped) ? p.skipped : [],
           dismissed: Array.isArray(p.dismissed) ? p.dismissed : [],
           entry: p.entry === "portal" ? "portal" : null,
+          lead: isObj(p.lead) && typeof p.lead.token === "string" && p.lead.token ? (p.lead as FunnelLead) : null,
           channel: p.channel === "chat" ? "chat" : null,
           choices: isObj(p.choices) ? (p.choices as FunnelV3Data["choices"]) : {},
         };

@@ -24,12 +24,15 @@ import {
   type DocInfoText,
   type Eigenmittel,
   type FieldPath,
+  type FunnelLead,
   type FunnelState,
+  type LeadCustomer,
   type Mode,
   type Role,
   type SourceMark,
   type Texts,
 } from "@/lib/funnel-v3/types";
+import { isLeadToken } from "@/lib/portal/lead";
 import { LANGS, isLang, type Lang, type Params } from "@/lib/funnel-v3/i18n";
 import {
   GROUP_ORDER,
@@ -302,9 +305,14 @@ export interface PartnerInfo {
   degraded?: boolean;
 }
 
-/** «Eigene Anfrage» / «Erfasst von {Name}» (spec 2.1). */
-export function roleLine(role: Role | null, txt: Texts, partner: PartnerInfo | null, t: T): string {
-  if (role === "kunde") return t("side.ownRequest");
+/** «Eingeladen von Anna Muster · Muster AG» (Partner Fast Lead, DECISIONS P39). */
+export function leadPartnerText(lead: Pick<FunnelLead, "partnerName" | "partnerCompany">): string {
+  return [lead.partnerName, lead.partnerCompany].map((s) => (s || "").trim()).filter(Boolean).join(" · ");
+}
+
+/** «Eigene Anfrage» / «Eingeladen von {Name}» (DECISIONS P39) / «Erfasst von {Name}» (spec 2.1). */
+export function roleLine(role: Role | null, txt: Texts, partner: PartnerInfo | null, t: T, lead?: FunnelLead | null): string {
+  if (role === "kunde") return lead ? t("side.invitedBy", { name: leadPartnerText(lead) }) : t("side.ownRequest");
   if (partner && partner.status !== "unknown" && partner.name) return t("side.submittedBy", { name: partner.name });
   const own = [txt.pvor, txt.pnach].map((s) => (s || "").trim()).filter(Boolean).join(" ");
   if (own) {
@@ -671,14 +679,45 @@ export function portalAction(session: "in" | "out" | "unknown"): { href: string;
  * the address is filled in (so the partner is recognised at once) and the closing offers the
  * way back to the portal. A bmail that is not an address is ignored.
  */
-export function entryFromParams(search: string | URLSearchParams | null | undefined): { role: Role | null; bmail: string; fromPortal: boolean } {
+export function entryFromParams(search: string | URLSearchParams | null | undefined): { role: Role | null; bmail: string; fromPortal: boolean; lead: string } {
   const p = typeof search === "string" || !search ? new URLSearchParams(search || "") : search;
   const raw = (p.get("bmail") || "").trim();
   const bmail = isLookupEmail(raw) ? raw : "";
   const fromPortal = (p.get("from") || "").trim().toLowerCase() === "portal";
-  // A portal link always means the Berater entry, even without `customer=`.
-  const role = roleFromParams(p) ?? (fromPortal || bmail ? "berater" : null);
-  return { role, bmail, fromPortal };
+  // Partner Fast Lead (DECISIONS P39): the customer's personal link `?lead=<token>`.
+  const rawLead = (p.get("lead") || "").trim();
+  const lead = isLeadToken(rawLead) ? rawLead : "";
+  // A portal link always means the Berater entry, even without `customer=`; an invitation the customer's own.
+  const role = roleFromParams(p) ?? (fromPortal || bmail ? "berater" : lead ? "kunde" : null);
+  return { role, bmail, fromPortal, lead };
+}
+
+export type LeadAnswer = { lead: Omit<FunnelLead, "token">; customer: LeadCustomer } | null;
+
+const clipText = (v: unknown, max: number) => (typeof v === "string" ? v.trim().slice(0, max) : "");
+
+/**
+ * GET /api/funnel/lead/[token], defensively: an invitation that opens (`status: "ok"`) with the
+ * partner's name and the customer's contact; anything else — used, expired, unknown, a broken
+ * answer — is null and the funnel opens as the customer's own request.
+ */
+export function normaliseLeadAnswer(json: unknown): LeadAnswer {
+  const j = (json && typeof json === "object" ? json : {}) as Record<string, any>;
+  if (j.status !== "ok" || !j.partner || typeof j.partner !== "object" || !j.customer || typeof j.customer !== "object") return null;
+  const partnerName = clipText(j.partner.name, 120);
+  if (!partnerName) return null;
+  const c = j.customer as Record<string, unknown>;
+  const email = clipText(c.email, 254);
+  return {
+    lead: { partnerName, partnerCompany: clipText(j.partner.company, 120) || null },
+    customer: {
+      anrede: c.anrede === "Herr" || c.anrede === "Frau" ? c.anrede : null,
+      firstName: clipText(c.firstName, 80),
+      lastName: clipText(c.lastName, 80),
+      email: EMAIL_RE.test(email) ? email : "",
+      phone: clipText(c.phone, 40) || null,
+    },
+  };
 }
 
 /**

@@ -39,7 +39,8 @@
     "leadModes": "Mit Unterlagen oder ohne. Wir sagen dir sofort, was es braucht – und lesen den Rest für dich aus.",
     "mode.fast.text": "Ich habe die Unterlagen schon. Erst hochladen – danach ist die Anfrage grösstenteils ausgefüllt.",
     "mode.fast.duration": "ca. 3 Minuten · vieles vorausgefüllt",
-    "roleLabel": "Wer erfasst die Anfrage?"
+    "roleLabel": "Wer erfasst die Anfrage?",
+    "leadNote": "{name} hat dich bei HYPOTEQ angemeldet. Deine Kontaktdaten sind schon ausgefüllt – wähle, wie du weitermachen möchtest."
   },
   "side": {
     "request": "Anfrage",
@@ -54,7 +55,8 @@
     "done": "Erledigt",
     "fulfilled": "{ok} von {total} erfüllt",
     "toFast": "Unterlagen schon bereit? Zur Schnellanmeldung",
-    "toGuided": "Lieber Schritt für Schritt"
+    "toGuided": "Lieber Schritt für Schritt",
+    "invitedBy": "Eingeladen von {name}"
   },
   "step": {
     "1": "Allgemeines",

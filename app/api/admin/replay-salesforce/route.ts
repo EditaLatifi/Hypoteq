@@ -215,7 +215,20 @@ export async function GET(req: Request) {
       inquiry.client?.email ?? "",
     ].join(" ");
     try {
-      const out = await syncFunnelStepsToSalesforce(toFunnelPayload(inquiry) as any, api);
+      const payload: any = toFunnelPayload(inquiry);
+      // Partner Fast Lead (DECISIONS P39): the invitation's partner, as the live submit credits them.
+      let leadId: string | null = null;
+      try {
+        const { leadPartnerForInquiry } = await import("@/lib/portal/leadServer");
+        const partnerLead = await leadPartnerForInquiry(inquiry.id);
+        if (partnerLead) {
+          payload.partnerLead = partnerLead;
+          leadId = partnerLead.leadId;
+        }
+      } catch (leadErr) {
+        console.error(`⚠️ Partner Fast Lead lookup for ${inquiry.id} failed (replayed without it):`, leadErr);
+      }
+      const out = await syncFunnelStepsToSalesforce(payload, api);
       const caseId = (out as any)?.case?.id || (out as any)?.case?.Id || null;
 
       // Stamp the row so a replay is never applied twice.
@@ -224,6 +237,10 @@ export async function GET(req: Request) {
           where: { id: inquiry.id },
           data: { salesforceCaseId: caseId, salesforceSyncedAt: new Date(), salesforceError: null },
         });
+        if (leadId) {
+          const { recordLeadCase } = await import("@/lib/portal/leadServer");
+          await recordLeadCase(leadId, { caseNumber: inquiry.caseNumber ?? null, salesforceCaseId: caseId });
+        }
       }
 
       results.push({

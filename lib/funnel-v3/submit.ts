@@ -58,6 +58,8 @@ export interface SubmitState extends FunnelState {
   /** Started in HYPO (store `channel`) and what the chat adds (DECISIONS V92). */
   channel?: "chat" | null;
   hypo?: HypoPayload | null;
+  /** Opened from a partner's invitation (store `lead`, DECISIONS P39). */
+  lead?: { token: string } | null;
 }
 
 export interface SubmitOptions {
@@ -123,6 +125,7 @@ export function buildSubmitPayload(state: SubmitState, lang: Lang): InquiryPaylo
     choices: state.choices,
     channel: state.channel ?? null,
     hypo: state.hypo ?? null,
+    leadToken: state.lead?.token ?? null,
   });
 }
 

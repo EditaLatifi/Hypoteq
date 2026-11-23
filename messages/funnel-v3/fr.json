@@ -39,7 +39,8 @@
     "leadModes": "Avec ou sans documents. Nous vous indiquons immédiatement ce qu’il faut – et lisons le reste pour vous.",
     "mode.fast.text": "J’ai déjà les documents. D’abord les télécharger – la demande est ensuite en grande partie remplie.",
     "mode.fast.duration": "env. 3 minutes · en grande partie pré-rempli",
-    "roleLabel": "Qui saisit la demande ?"
+    "roleLabel": "Qui saisit la demande ?",
+    "leadNote": "{name} vous a inscrit auprès de HYPOTEQ. Vos coordonnées sont déjà remplies – choisissez comment continuer."
   },
   "side": {
     "request": "Demande",
@@ -54,7 +55,8 @@
     "done": "Terminé",
     "fulfilled": "{ok} sur {total} remplies",
     "toFast": "Documents prêts ? Passer à la demande express",
-    "toGuided": "Plutôt étape par étape"
+    "toGuided": "Plutôt étape par étape",
+    "invitedBy": "Invité par {name}"
   },
   "step": {
     "1": "Généralités",

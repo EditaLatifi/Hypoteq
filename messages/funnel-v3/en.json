@@ -39,7 +39,8 @@
     "leadModes": "With or without documents. We tell you right away what is needed – and read the rest for you.",
     "mode.fast.text": "I already have the documents. Upload first – then most of the request is filled in.",
     "mode.fast.duration": "approx. 3 minutes · much of it pre-filled",
-    "roleLabel": "Who is entering the request?"
+    "roleLabel": "Who is entering the request?",
+    "leadNote": "{name} has registered you with HYPOTEQ. Your contact details are already filled in – choose how you would like to continue."
   },
   "side": {
     "request": "Request",
@@ -54,7 +55,8 @@
     "done": "Done",
     "fulfilled": "{ok} of {total} fulfilled",
     "toFast": "Documents ready? Switch to quick start",
-    "toGuided": "Prefer step by step"
+    "toGuided": "Prefer step by step",
+    "invitedBy": "Invited by {name}"
   },
   "step": {
     "1": "General",

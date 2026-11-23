@@ -3,6 +3,7 @@ import { ClientSecretCredential } from "@azure/identity";
 import "isomorphic-fetch";
 import { isPlausibleEmail, mailFromAddress, teamAddress } from "@/lib/portal/config";
 import { DICTS, isLocale, type CaseMail, type Dict } from "@/lib/portal/i18n/dict";
+import { recipientsOf, routeMail } from "@/components/testMode";
 
 /**
  * Partnerportal e-mails, sent through Microsoft Graph (else SMTP) like the rest of the site,
@@ -44,7 +45,7 @@ function dict(locale: string | null | undefined): { t: Dict; lang: string } {
 
 // The footer bar is not upper-cased: HYPOTEQ's footer line carries an e-mail address and a
 // web address that should read as written (Mail-Texte 20.10.2026).
-function layout(p: { lang: string; t: Dict; origin: string; heading: string; paragraphs: string[]; cta: string; url: string; footnote: string }) {
+function layout(p: { lang: string; t: Dict; origin: string; heading: string; paragraphs: string[]; cta: string; url: string; footnote: string; fallback?: string }) {
   return `<!DOCTYPE html>
 <html lang="${p.lang}"><head><meta charset="UTF-8" /></head>
 <body style="margin:0;padding:24px 12px;background:#F6F8F4;font-family:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;color:#132219;">
@@ -57,7 +58,7 @@ function layout(p: { lang: string; t: Dict; origin: string; heading: string; par
       <p style="margin:24px 0;">
         <a href="${p.url}" style="display:inline-block;background:#CAF476;color:#132219;text-decoration:none;font-weight:600;font-size:16px;padding:14px 26px;border-radius:999px;">${esc(p.cta)} &rarr;</a>
       </p>
-      <p style="margin:0 0 8px;font-size:13px;line-height:1.5;color:rgba(19,34,25,.55);">${esc(p.t.mail.buttonFallback)}<br /><span style="word-break:break-all;">${p.url}</span></p>
+      <p style="margin:0 0 8px;font-size:13px;line-height:1.5;color:rgba(19,34,25,.55);">${esc(p.fallback ?? p.t.mail.buttonFallback)}<br /><span style="word-break:break-all;">${p.url}</span></p>
       <p style="margin:16px 0 0;font-size:13px;line-height:1.5;color:rgba(19,34,25,.45);">${esc(p.footnote)}</p>
     </div>
     <div style="padding:14px 28px;border-top:1px solid #E1E7DC;font-size:11px;color:rgba(19,34,25,.45);">${esc(p.t.mail.footer)}</div>
@@ -218,6 +219,35 @@ export async function sendMagicLinkMail(p: { to: string; name: string | null; or
     footnote: t.mail.magicFoot,
   });
   await send({ to: p.to, subject: t.mail.magicSubject, html, devLink: url });
+}
+
+/**
+ * «Kunde einladen» (Partner Fast Lead, DECISIONS P39): HYPOTEQ's invitation to the customer, in
+ * the language the partner chose, with the personal link to the funnel. Speaks to the customer
+ * («du» in German) and names the partner who invited. Routed through test mode like the funnel's
+ * customer mails (components/testMode.ts: «[TEST]», HYPOTEQ_TEST_MAIL_TO); false when test mode
+ * withheld it (an example.com address).
+ */
+export async function sendLeadInviteMail(p: { to: string; firstName: string; partner: string; origin: string; url: string; locale: string | null; days: number }): Promise<boolean> {
+  const { t, lang } = dict(p.locale);
+  const m = t.lead.mail;
+  const routed = routeMail(p.to, m.subject(p.partner));
+  if (!routed) return false;
+  const html = layout({
+    lang,
+    t,
+    origin: p.origin,
+    heading: m.heading,
+    paragraphs: [m.hello(p.firstName), m.body(p.partner), m.body2],
+    cta: m.cta,
+    url: p.url,
+    footnote: m.foot(p.days),
+    fallback: m.buttonFallback,
+  });
+  // Test mode may route to several inboxes («a@…,b@…»): the first gets it, the others a copy.
+  const [to, ...cc] = recipientsOf(routed.to);
+  await send({ to, cc, subject: routed.subject, html, devLink: p.url });
+  return true;
 }
 
 /** {{partner_vorname}}: the first word of PortalUser.name (HYPOTEQ Mail-Texte 20.10.2026), else null. */

@@ -12,6 +12,7 @@ import DocsRail from "./DocsRail";
 import Toast from "./documents/Toast";
 import { useFunnelNav } from "./hooks";
 import { arrowAction, entryFromParams } from "./logic";
+import { openLead } from "./lead";
 import { usePartnerRecognition } from "./partner";
 import PrefillBanner from "./PrefillBanner";
 import Sidebar from "./Sidebar";
@@ -90,6 +91,8 @@ export default function FunnelV3() {
     if (entry.role === "berater" && entry.bmail && useFunnelV3.getState().role === "berater" && !useFunnelV3.getState().txt.bmail.trim()) {
       s.setTxt("bmail", entry.bmail);
     }
+    // Partner Fast Lead (DECISIONS P39): the customer's link from a partner's invitation.
+    if (entry.lead) void openLead(entry.lead);
   }, [hydrated]);
 
   // Uploads and analyses a reload left, and placement + prefill in step with the answers.

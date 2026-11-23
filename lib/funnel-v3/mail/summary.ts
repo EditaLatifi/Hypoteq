@@ -80,9 +80,11 @@ export interface CaseSummary {
   caseNumber: string | null;
   /** TT.MM.JJJJ of the closing. */
   date: string;
-  /** «Erfasst von …» / «Eigene Anfrage» (7.2 block 1). */
+  /** «Erfasst von …» / «Eingeladen von …» / «Eigene Anfrage» (7.2 block 1). */
   submitter: string;
   role: "berater" | "kunde" | null;
+  /** The customer's own request through a partner's invitation (Partner Fast Lead, DECISIONS P39). */
+  invited?: true;
   /** Begleitet or Schnell — the internal mail names it (HYPOTEQ Mail-Texte 20.10.2026, M3). */
   mode: "begleitet" | "schnell";
   /** Started in HYPO, the chat (DECISIONS V92). */
@@ -131,9 +133,22 @@ export function customerEmailOf(data: any): string | null {
   return data?.v3?.role !== "berater" && EMAIL_RE.test(client) ? client : null;
 }
 
-/** The Berater's address (Berater entry only). */
+/**
+ * The partner of a Partner Fast Lead (DECISIONS P39): set on the body by /api/inquiry from the
+ * invitation (lib/portal/leadServer.ts SubmitLeadPartner), never by the browser. Customer's own
+ * requests only.
+ */
+export function leadPartnerOf(data: any): { name: string; email: string; phone: string; company: string } | null {
+  const p = data?.partnerLead;
+  if (!p || typeof p !== "object" || data?.v3?.role === "berater") return null;
+  const email = str(p.email);
+  if (!EMAIL_RE.test(email)) return null;
+  return { name: str(p.name), email, phone: str(p.phone), company: str(p.company) };
+}
+
+/** The Berater's address (Berater entry), or the inviting partner's (Partner Fast Lead). */
 export function beraterEmailOf(data: any): string | null {
-  if (data?.v3?.role !== "berater") return null;
+  if (data?.v3?.role !== "berater") return leadPartnerOf(data)?.email ?? null;
   const mail = str(data?.v3?.txt?.bmail || data?.partner?.email);
   return EMAIL_RE.test(mail) ? mail : null;
 }
@@ -437,8 +452,16 @@ export function buildCaseSummary(input: SummaryInput, audience: Audience, facts?
   // gives it, so the customer reads who submitted, not just an address (retest 20.10.2026).
   const partnerName = [txt.pvor.trim(), txt.pnach.trim()].filter(Boolean).join(" ") || str(input.partner?.name);
   const partnerFirm = txt.pfirma.trim() || str(input.partner?.company);
+  // Partner Fast Lead (DECISIONS P39): the customer filled it in, the partner invited them.
+  const lead = leadPartnerOf(input.data);
+  const leadName = lead ? lead.name || str(input.partner?.name) || lead.email : "";
+  const leadFirm = lead ? lead.company || str(input.partner?.company) : "";
   const submitter =
-    role === "berater" ? t("side.submittedBy", { name: [partnerName, txt.bmail.trim()].filter(Boolean).join(" · ") || "HYPOTEQ" }) : t("side.ownRequest");
+    role === "berater"
+      ? t("side.submittedBy", { name: [partnerName, txt.bmail.trim()].filter(Boolean).join(" · ") || "HYPOTEQ" })
+      : lead
+        ? t("side.invitedBy", { name: [leadName, leadFirm].filter(Boolean).join(" · ") })
+        : t("side.ownRequest");
 
   return {
     lang,
@@ -447,6 +470,7 @@ export function buildCaseSummary(input: SummaryInput, audience: Audience, facts?
     date: fmtDate(input.date),
     submitter,
     role,
+    ...(lead ? { invited: true as const } : {}),
     mode: state.mode === "schnell" ? "schnell" : "begleitet",
     ...(state.channel === "chat" ? { channel: "chat" as const } : {}),
     customer: {
@@ -456,7 +480,12 @@ export function buildCaseSummary(input: SummaryInput, audience: Audience, facts?
       greetingName: (isJur ? txt.zeichner : txt.vor || state.borrowers[0]?.vor || "").trim().split(/\s+/)[0] ?? "",
     },
     place: placeOf(state),
-    berater: role === "berater" ? { name: partnerName, email: txt.bmail.trim(), phone: txt.ptel.trim(), firma: partnerFirm } : null,
+    berater:
+      role === "berater"
+        ? { name: partnerName, email: txt.bmail.trim(), phone: txt.ptel.trim(), firma: partnerFirm }
+        : lead
+          ? { name: leadName, email: lead.email, phone: lead.phone, firma: leadFirm }
+          : null,
     next: { signature: signature.status !== "uploaded", missing: missingDocuments(status, lang) },
     blocks,
     docs: {

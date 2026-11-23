@@ -607,3 +607,49 @@ model PortalPartnerDocument {
 
   @@index([accountId, createdAt])
 }
+
+// Partner Fast Lead (DECISIONS P39): a partner invites a customer from the portal with the
+// contact details only; the customer completes the funnel through a personal link, and the
+// Case is linked to the partner who invited (Partner_Consultant__c + Sales Partner).
+// Table from prisma/sql/2026-11-23-portal-lead.sql (run by hand).
+model PortalLead {
+  id               String    @id @default(uuid())
+  // Who invited: the portal login, and the Salesforce Contact / Account the Case goes to
+  // (the login's at the time of the invitation; the submit prefers the login's current ones).
+  partnerUserId    String
+  partnerEmail     String
+  partnerName      String?
+  partnerCompany   String?
+  partnerPhone     String?
+  sfContactId      String
+  sfAccountId      String?
+  // The customer as the partner entered them. anrede: Herr | Frau | null
+  anrede           String?
+  firstName        String
+  lastName         String
+  email            String
+  phone            String?
+  // de | en | fr | it — the invitation mail and the funnel the link opens.
+  locale           String    @default("de")
+  // The partner confirmed that the customer agreed to be contacted by HYPOTEQ.
+  consentAt        DateTime
+  // The link's credential, like Inquiry.nachreichToken: kept so «Erneut senden» sends the
+  // same link (a customer who already opened it keeps their funnel).
+  token            String    @unique
+  expiresAt        DateTime
+  // invited | opened | submitted (expired is derived from expiresAt)
+  status           String    @default("invited")
+  openedAt         DateTime?
+  mailsSent        Int       @default(1)
+  lastMailAt       DateTime?
+  submittedAt      DateTime?
+  inquiryId        String?
+  caseNumber       String?
+  salesforceCaseId String?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  @@index([sfContactId, createdAt])
+  @@index([partnerUserId, createdAt])
+  @@index([email])
+}

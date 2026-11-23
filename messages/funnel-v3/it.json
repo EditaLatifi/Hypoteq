@@ -39,7 +39,8 @@
     "leadModes": "Con o senza documenti. Le diciamo subito cosa serve – e leggiamo il resto per Lei.",
     "mode.fast.text": "Ho già i documenti. Prima li carico – poi la richiesta è in gran parte compilata.",
     "mode.fast.duration": "ca. 3 minuti · in gran parte precompilato",
-    "roleLabel": "Chi inserisce la richiesta?"
+    "roleLabel": "Chi inserisce la richiesta?",
+    "leadNote": "{name} L'ha registrata presso HYPOTEQ. I Suoi dati di contatto sono già compilati – scelga come proseguire."
   },
   "side": {
     "request": "Richiesta",
@@ -54,7 +55,8 @@
     "done": "Completato",
     "fulfilled": "{ok} di {total} soddisfatti",
     "toFast": "Documenti pronti? Passa alla richiesta rapida",
-    "toGuided": "Preferisco passo dopo passo"
+    "toGuided": "Preferisco passo dopo passo",
+    "invitedBy": "Invitato da {name}"
   },
   "step": {
     "1": "Informazioni generali",
