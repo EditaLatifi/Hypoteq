@@ -7,16 +7,21 @@ import type { Tone } from "@/lib/portal/status";
  * the partner who invited. Rules, checks and labels shared by the form, the server action, the
  * funnel's lead endpoint and the submit. Pure and client-safe.
  *
- * Defaults until HYPOTEQ decides otherwise (questions to Fisnik of 23.11.2026):
- *  - the Salesforce Case is created only when the customer completes the funnel;
+ * HYPOTEQ's answers of 23.11.2026 (DECISIONS P40):
+ *  - the Salesforce Case is created with the invitation, so the team can call the customer at
+ *    once; the customer's submit updates that Case (components/fastLeadSalesforce.ts);
  *  - the Case says so in Comments (no new Origin value);
- *  - the link is valid LEAD_TTL_DAYS days; «Erneut senden» sends the same link again and
- *    extends it; no automatic reminders yet;
- *  - replies to the invitation go to HYPOTEQ.
+ *  - a customer who submits without the link, with the invited address, still goes to the partner;
+ *  - the link is valid LEAD_TTL_DAYS days, reminders after 3 and 7 days (LEAD_REMINDER_DAYS);
+ *    «Erneut senden» sends the same link again and extends it;
+ *  - replies to the customer's mails go to the partner and HYPOTEQ;
+ *  - the consent checkbox is enough, ticked by default.
  */
 
-/** How long the link opens the funnel prefilled (default answer 4 to Fisnik, 23.11.2026). */
+/** How long the link opens the funnel prefilled (HYPOTEQ 23.11.2026). */
 export const LEAD_TTL_DAYS = 30;
+/** Reminders to the customer, days after the invitation (HYPOTEQ 23.11.2026). */
+export const LEAD_REMINDER_DAYS = [3, 7] as const;
 /** Invitations per partner (Salesforce Contact) within 24 hours: a mailbox is not to be flooded. */
 export const LEAD_MAX_PER_DAY = 20;
 /** Mails per invitation: the first one and three «Erneut senden». */
@@ -186,22 +191,47 @@ export type LeadMailParty = {
 };
 
 /**
- * The mail to HYPOTEQ when a partner invites a customer (default answer 1 to Fisnik: the Case
- * waits for the customer, the team learns of the lead at once). German, like every team mail;
- * «Antworten» goes to the partner.
+ * The mail to HYPOTEQ when a partner invites a customer: who invited whom, the Case the
+ * invitation made (HYPOTEQ 23.11.2026: «so your team can call the client right away») or that
+ * Salesforce refused it. German, like every team mail; «Antworten» goes to the partner.
  */
-export function leadTeamMail(p: LeadMailParty): { subject: string; lines: string[] } {
+export function leadTeamMail(p: LeadMailParty, sf: { caseUrl: string | null; failed: boolean } = { caseUrl: null, failed: false }): { subject: string; lines: string[] } {
   const partner = partnerLabel(p);
   const kunde = customerLabel(p);
   const contact = [[p.anrede, kunde].filter(Boolean).join(" "), p.email, p.phone].filter(Boolean).join(" · ");
+  const caseLine = sf.failed
+    ? "Der Case konnte in Salesforce nicht angelegt werden – bitte von Hand anlegen und dem Partner zuordnen. Schliesst der Kunde die Anfrage ab, entsteht er automatisch."
+    : `Der Case ist in Salesforce angelegt und dem Partner zugeordnet (Kundenberater und Sales Partner)${sf.caseUrl ? `: ${sf.caseUrl}` : ""}. Er wird mit den Angaben des Kunden aktualisiert, sobald dieser die Anfrage abschliesst.`;
   return {
     subject: `Partner Fast Lead · ${kunde} · eingeladen von ${partner}`.slice(0, 250),
     lines: [
       `${partner} hat über das Partnerportal einen Kunden eingeladen, seine Finanzierungsanfrage selbst zu vervollständigen.`,
       `Kunde: ${contact} · Sprache ${p.locale.toUpperCase()}`,
       "Der Partner hat bestätigt, dass der Kunde einverstanden ist, von HYPOTEQ per E-Mail und Telefon kontaktiert zu werden.",
-      `Der Case entsteht in Salesforce, sobald der Kunde die Anfrage abschliesst, und wird dann dem Partner zugeordnet (Kundenberater und Sales Partner). Der Link des Kunden ist bis ${swissDate(p.expiresAt)} gültig.`,
+      caseLine,
+      `Der Link des Kunden ist bis ${swissDate(p.expiresAt)} gültig; nach ${LEAD_REMINDER_DAYS.join(" und ")} Tagen erinnern wir ihn, falls er noch nicht abgeschlossen hat.`,
       `«Antworten» geht direkt an ${p.partnerEmail}.`,
     ],
   };
+}
+
+/**
+ * Which reminder is due (1 after 3 days, 2 after 7), or none: only for an open invitation whose
+ * link still works, one at a time (a missed day sends the first, the next day the second), and
+ * not within a day of another mail to the customer («Erneut senden», the previous reminder).
+ */
+export function reminderDue(
+  row: LeadRowState & { createdAt: Date | string; remindersSent: number; lastMailAt: Date | string | null; lastReminderAt: Date | string | null },
+  now: Date = new Date(),
+): 1 | 2 | null {
+  const status = leadStatus(row, now);
+  if (status !== "invited" && status !== "opened") return null;
+  const n = row.remindersSent;
+  if (n >= LEAD_REMINDER_DAYS.length) return null;
+  const day = 24 * 3600_000;
+  const age = now.getTime() - new Date(row.createdAt).getTime();
+  if (age < LEAD_REMINDER_DAYS[n] * day) return null;
+  const last = Math.max(row.lastMailAt ? new Date(row.lastMailAt).getTime() : 0, row.lastReminderAt ? new Date(row.lastReminderAt).getTime() : 0);
+  if (last && now.getTime() - last < day) return null;
+  return (n + 1) as 1 | 2;
 }

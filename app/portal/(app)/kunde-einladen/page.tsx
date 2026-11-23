@@ -9,8 +9,9 @@ import { listLeads, type LeadView } from "@/lib/portal/leadServer";
 import { requireUser } from "@/lib/portal/session";
 
 /**
- * «Kunde einladen» (Partner Fast Lead, DECISIONS P39): the form, how it works, and the partner's
- * invitations with their status — Eingeladen, Link geöffnet, Eingereicht (with the Case), Abgelaufen.
+ * «Kunde einladen» (Partner Fast Lead, DECISIONS P39, P40): the form, how it works, and the partner's
+ * invitations with their status — Eingeladen, Link geöffnet, Eingereicht, Abgelaufen — and their
+ * Case, which exists from the invitation on.
  * An admin viewing as a partner sees that partner's list read-only.
  */
 export default async function InviteCustomerPage() {
@@ -72,11 +73,12 @@ export default async function InviteCustomerPage() {
                   </div>
                   <div className="flex flex-none items-center gap-3">
                     <Badge tone={LEAD_TONE[r.status]}>{l.statuses[r.status]}</Badge>
-                    {r.status === "submitted" && r.salesforceCaseId ? (
+                    {/* The Case exists from the invitation on (DECISIONS P40). */}
+                    {r.salesforceCaseId ? (
                       <Link href={`/portal/cases/${r.salesforceCaseId}`} className="inline-flex items-center gap-1 text-[14px] font-medium text-[#CAF476] hover:text-[#DAF6A2]">
                         {r.caseNumber ? l.caseNr(r.caseNumber) : l.openCase} <ChevronRight size={16} aria-hidden />
                       </Link>
-                    ) : r.status === "submitted" && r.caseNumber ? (
+                    ) : r.caseNumber ? (
                       <span className="text-[14px] text-white/70">{l.caseNr(r.caseNumber)}</span>
                     ) : null}
                     {canInvite && r.status !== "submitted" && r.canResend ? <ResendLeadButton leadId={r.id} /> : null}

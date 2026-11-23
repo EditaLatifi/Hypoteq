@@ -26,6 +26,9 @@ jest.mock("@/lib/funnel-v3/signatureServer", () => ({ sendSignatureReminders: ()
 // Spezifikation Datenabgleich 5.3: the Re-Upload reminders run in the same daily job.
 const mockReuploads = jest.fn(async () => ({ checked: 2, sent: 1, resolved: 1 }));
 jest.mock("@/lib/funnel-v3/reuploadServer", () => ({ sendReuploadReminders: () => mockReuploads() }));
+// Partner Fast Lead (DECISIONS P40): the reminders to invited customers after 3 and 7 days.
+const mockLeads = jest.fn(async (_origin: string) => ({ checked: 4, sent: 2 }));
+jest.mock("@/lib/portal/leadServer", () => ({ sendLeadReminders: (origin: string) => mockLeads(origin) }));
 
 import { GET } from "@/app/api/portal/cron/route";
 
@@ -38,11 +41,21 @@ beforeEach(() => {
 });
 
 describe("/api/portal/cron", () => {
-  it("runs the partner sync, the signature reminders and the Re-Upload reminders", async () => {
+  it("runs the partner sync, the signature reminders, the Re-Upload and the Fast Lead reminders", async () => {
     const res = await call();
-    expect(await res.json()).toEqual({ partners: 0, notifications: 0, failures: 0, signatures: { checked: 3, sent: 1 }, reuploads: { checked: 2, sent: 1, resolved: 1 }, changeDecisions: 0, testDeployment: false });
+    expect(await res.json()).toEqual({
+      partners: 0,
+      notifications: 0,
+      failures: 0,
+      signatures: { checked: 3, sent: 1 },
+      reuploads: { checked: 2, sent: 1, resolved: 1 },
+      leads: { checked: 4, sent: 2 },
+      changeDecisions: 0,
+      testDeployment: false,
+    });
     expect(mockReminders).toHaveBeenCalledTimes(1);
     expect(mockReuploads).toHaveBeenCalledTimes(1);
+    expect(mockLeads).toHaveBeenCalledTimes(1);
   });
 
   it("test deployment (V116): the reminders run, the partner sync does not (partners are production's)", async () => {

@@ -8,6 +8,7 @@ import { listPartnerCases } from "@/lib/portal/salesforce";
 import { scopeOfPartner } from "@/lib/portal/scope";
 import { sendSignatureReminders } from "@/lib/funnel-v3/signatureServer";
 import { sendReuploadReminders } from "@/lib/funnel-v3/reuploadServer";
+import { sendLeadReminders } from "@/lib/portal/leadServer";
 import { isTestMode, skipped } from "@/components/testMode";
 
 export const runtime = "nodejs";
@@ -25,7 +26,9 @@ export const maxDuration = 300;
  * when it fails, and never fail it: sendSignatureReminders does not throw. An hourly schedule
  * would not send more — at most one reminder per inquiry and day. The Re-Upload reminders
  * (Spezifikation Datenabgleich 5.3, 10.2: after 2 and 5 days without the new document;
- * lib/funnel-v3/reuploadServer.ts) run beside them the same way.
+ * lib/funnel-v3/reuploadServer.ts) run beside them the same way, and so do the Partner Fast Lead
+ * reminders to invited customers after 3 and 7 days (lib/portal/leadServer.ts sendLeadReminders;
+ * a test deployment only its own invitations).
  */
 export async function GET(req: Request) {
   const secret = process.env.CRON_SECRET;
@@ -42,6 +45,7 @@ export async function GET(req: Request) {
   let portal: { partners: number; notifications: number; failures: number } = { partners: 0, notifications: 0, failures: 0 };
   let signatures: { checked: number; sent: number } = { checked: 0, sent: 0 };
   let reuploads: { checked: number; sent: number; resolved: number } = { checked: 0, sent: 0, resolved: 0 };
+  let leads: { checked: number; sent: number } = { checked: 0, sent: 0 };
   let changeDecisions = 0;
   try {
     if (test) skipped("portal partner sync and change decisions", "test deployment — partners are production's");
@@ -49,6 +53,7 @@ export async function GET(req: Request) {
   } finally {
     signatures = await sendSignatureReminders();
     reuploads = await sendReuploadReminders();
+    leads = await sendLeadReminders(origin);
     // Change requests HYPOTEQ decided in Salesforce: taken over and mailed (M14) even when the
     // partner does not open the profile (lib/portal/changeDecisions.ts).
     if (!test) {
@@ -59,7 +64,7 @@ export async function GET(req: Request) {
       }
     }
   }
-  return NextResponse.json({ ...portal, signatures, reuploads, changeDecisions, testDeployment: test });
+  return NextResponse.json({ ...portal, signatures, reuploads, leads, changeDecisions, testDeployment: test });
 }
 
 async function syncPartners(origin: string) {

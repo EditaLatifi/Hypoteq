@@ -608,9 +608,9 @@ model PortalPartnerDocument {
   @@index([accountId, createdAt])
 }
 
-// Partner Fast Lead (DECISIONS P39): a partner invites a customer from the portal with the
-// contact details only; the customer completes the funnel through a personal link, and the
-// Case is linked to the partner who invited (Partner_Consultant__c + Sales Partner).
+// Partner Fast Lead (DECISIONS P39, P40): a partner invites a customer from the portal with the
+// contact details only. The Salesforce Case is created at once (salesforceCaseId); the customer
+// completes the funnel through a personal link and the submit updates that Case.
 // Table from prisma/sql/2026-11-23-portal-lead.sql (run by hand).
 model PortalLead {
   id               String    @id @default(uuid())
@@ -642,9 +642,16 @@ model PortalLead {
   openedAt         DateTime?
   mailsSent        Int       @default(1)
   lastMailAt       DateTime?
+  // Reminders to the customer after 3 and 7 days (HYPOTEQ 23.11.2026), by the portal cron.
+  remindersSent    Int       @default(0)
+  lastReminderAt   DateTime?
+  // Created by a test deployment (the Preview): only a test deployment credits, updates and
+  // reminds it — the database is shared with production (components/testMode.ts).
+  testDeployment   Boolean   @default(false)
   submittedAt      DateTime?
   inquiryId        String?
   caseNumber       String?
+  // The Case created with the invitation; the customer's submit updates it.
   salesforceCaseId String?
   createdAt        DateTime  @default(now())
   updatedAt        DateTime  @updatedAt
@@ -652,4 +659,5 @@ model PortalLead {
   @@index([sfContactId, createdAt])
   @@index([partnerUserId, createdAt])
   @@index([email])
+  @@index([status, createdAt])
 }

@@ -73,8 +73,11 @@ type Outgoing = {
   /** What a developer without Graph needs from the mail (its link). */
   devLink: string;
   cc?: string[];
-  /** Where «Antworten» goes, e.g. the partner who wrote (B22). Ignored unless an e-mail address. */
-  replyTo?: string | null;
+  /**
+   * Where «Antworten» goes, e.g. the partner who wrote (B22); several for a Partner Fast Lead's
+   * customer mails (partner and HYPOTEQ). Addresses that are not e-mail addresses are ignored.
+   */
+  replyTo?: string | string[] | null;
 };
 
 /** «d***@meier-finanz.ch»: enough to tell in a log which mailbox it was, without the address. */
@@ -90,7 +93,7 @@ export function mailErrorText(err: any): string {
   return parts.join(" · ").slice(0, 500);
 }
 
-type Transport = { kind: "graph" | "smtp"; send(m: Outgoing, copies: string[], replyTo: string | null): Promise<void> };
+type Transport = { kind: "graph" | "smtp"; send(m: Outgoing, copies: string[], replyTo: string[]): Promise<void> };
 
 /**
  * How portal mails leave: Microsoft Graph when configured (USE_GRAPH=true + GRAPH_*), else
@@ -109,7 +112,7 @@ function transport(): Transport | null {
             body: { contentType: "HTML", content: m.html },
             toRecipients: [{ emailAddress: { address: m.to } }],
             ...(copies.length ? { ccRecipients: copies.map((address) => ({ emailAddress: { address } })) } : {}),
-            ...(replyTo ? { replyTo: [{ emailAddress: { address: replyTo } }] } : {}),
+            ...(replyTo.length ? { replyTo: replyTo.map((address) => ({ emailAddress: { address } })) } : {}),
           },
           saveToSentItems: true,
         });
@@ -136,7 +139,7 @@ function transport(): Transport | null {
           from: `"HYPOTEQ AG" <${user}>`,
           to: m.to,
           ...(copies.length ? { cc: copies } : {}),
-          ...(replyTo ? { replyTo } : {}),
+          ...(replyTo.length ? { replyTo: replyTo.join(", ") } : {}),
           subject: m.subject,
           html: m.html,
         });
@@ -164,7 +167,9 @@ async function send(m: Outgoing): Promise<void> {
     throw new Error(`Portal mail cannot be sent: ${reason}`);
   }
   const copies = (m.cc || []).filter((a) => a && a.toLowerCase() !== m.to.toLowerCase());
-  const replyTo = m.replyTo && isPlausibleEmail(m.replyTo.trim()) ? m.replyTo.trim() : null;
+  const replyTo = (Array.isArray(m.replyTo) ? m.replyTo : [m.replyTo])
+    .map((a) => (a || "").trim())
+    .filter((a, i, all) => a && isPlausibleEmail(a) && all.findIndex((b) => (b || "").trim().toLowerCase() === a.toLowerCase()) === i);
   try {
     await t.send(m, copies, replyTo);
   } catch (err) {
@@ -228,25 +233,71 @@ export async function sendMagicLinkMail(p: { to: string; name: string | null; or
  * customer mails (components/testMode.ts: «[TEST]», HYPOTEQ_TEST_MAIL_TO); false when test mode
  * withheld it (an example.com address).
  */
-export async function sendLeadInviteMail(p: { to: string; firstName: string; partner: string; origin: string; url: string; locale: string | null; days: number }): Promise<boolean> {
+export async function sendLeadInviteMail(p: {
+  to: string;
+  firstName: string;
+  partner: string;
+  origin: string;
+  url: string;
+  locale: string | null;
+  days: number;
+  /** «Antworten» goes to the partner and HYPOTEQ (HYPOTEQ 23.11.2026). */
+  replyTo?: string[];
+}): Promise<boolean> {
   const { t, lang } = dict(p.locale);
   const m = t.lead.mail;
-  const routed = routeMail(p.to, m.subject(p.partner));
-  if (!routed) return false;
-  const html = layout({
+  return sendToCustomer(p.to, m.subject(p.partner), p.replyTo, p.url, {
     lang,
     t,
     origin: p.origin,
     heading: m.heading,
-    paragraphs: [m.hello(p.firstName), m.body(p.partner), m.body2],
+    paragraphs: [m.hello(p.firstName), m.body(p.partner), m.body2, m.replies(p.partner)],
     cta: m.cta,
     url: p.url,
     footnote: m.foot(p.days),
     fallback: m.buttonFallback,
   });
+}
+
+/**
+ * The reminder of a Partner Fast Lead after 3 (n = 1) and 7 (n = 2) days: the customer's
+ * invitation is still open. Same link, same routing and reply-to as the invitation.
+ */
+export async function sendLeadReminderMail(p: {
+  to: string;
+  firstName: string;
+  partner: string;
+  origin: string;
+  url: string;
+  locale: string | null;
+  /** dd.mm.yyyy: until when the link works. */
+  validUntil: string;
+  n: 1 | 2;
+  replyTo?: string[];
+}): Promise<boolean> {
+  const { t, lang } = dict(p.locale);
+  const m = t.lead.mail;
+  const r = t.lead.reminder;
+  return sendToCustomer(p.to, r.subject(p.n), p.replyTo, p.url, {
+    lang,
+    t,
+    origin: p.origin,
+    heading: r.heading,
+    paragraphs: [m.hello(p.firstName), r.body(p.partner), r.body2],
+    cta: m.cta,
+    url: p.url,
+    footnote: r.foot(p.validUntil),
+    fallback: m.buttonFallback,
+  });
+}
+
+/** A Fast Lead mail to the customer, through test mode (false when it withheld the mail). */
+async function sendToCustomer(address: string, subject: string, replyTo: string[] | undefined, url: string, page: Parameters<typeof layout>[0]): Promise<boolean> {
+  const routed = routeMail(address, subject);
+  if (!routed) return false;
   // Test mode may route to several inboxes («a@…,b@…»): the first gets it, the others a copy.
   const [to, ...cc] = recipientsOf(routed.to);
-  await send({ to, cc, subject: routed.subject, html, devLink: p.url });
+  await send({ to, cc, subject: routed.subject, html: layout(page), devLink: url, replyTo: replyTo ?? null });
   return true;
 }
 

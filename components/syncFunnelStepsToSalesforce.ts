@@ -98,21 +98,26 @@ export type LeadPartnerOnCase = {
   company?: string | null;
   email?: string | null;
   invitedAt?: string | null;
+  /** The Case created with the invitation (DECISIONS P40): the submit updates it. */
+  caseId?: string | null;
 };
 
 /**
- * The Comments line of a Partner Fast Lead (default answer 2 to Fisnik, 23.11.2026: a note, no new
- * Origin value): «Partner Fast Lead – eingeladen von Anna Muster (Muster AG) am 23.11.2026; die
- * Angaben hat der Kunde selbst erfasst.»
+ * The Comments line of a Partner Fast Lead (HYPOTEQ 23.11.2026: a note, no new Origin value).
+ * At the invitation: «Partner Fast Lead – eingeladen von Anna Muster (Muster AG) am 23.11.2026.
+ * Der Kunde hat seine Angaben noch nicht erfasst …». At the customer's submit: «…; die Angaben
+ * hat der Kunde selbst erfasst.»
  */
-export function fastLeadNote(lead: LeadPartnerOnCase): string {
+export function fastLeadNote(lead: LeadPartnerOnCase, stage: 'invited' | 'completed' = 'completed'): string {
   const name = (lead.name || '').trim() || (lead.email || '').trim() || 'Partner';
   const company = (lead.company || '').trim();
   const who = company && company.toLowerCase() !== name.toLowerCase() ? `${name} (${company})` : name;
   const date = lead.invitedAt && !Number.isNaN(new Date(lead.invitedAt).getTime())
     ? ` am ${new Date(lead.invitedAt).toLocaleDateString('de-CH', { day: '2-digit', month: '2-digit', year: 'numeric', timeZone: 'Europe/Zurich' })}`
     : '';
-  return `Partner Fast Lead – eingeladen von ${who}${date}; die Angaben hat der Kunde selbst erfasst.`;
+  return stage === 'invited'
+    ? `Partner Fast Lead – eingeladen von ${who}${date}. Der Kunde hat seine Angaben noch nicht erfasst; der Case wird aktualisiert, sobald er die Anfrage über seinen Link abschliesst.`
+    : `Partner Fast Lead – eingeladen von ${who}${date}; die Angaben hat der Kunde selbst erfasst.`;
 }
 
 /**
@@ -122,11 +127,39 @@ export function fastLeadNote(lead: LeadPartnerOnCase): string {
  * came in. The Contact comes from the portal login (the invitation), so no lookup is needed; one
  * Salesforce refuses (deleted, lookup filter) is dropped by the field fallback, never the Case.
  */
-export function applyLeadPartnerToCase(caseData: Record<string, any>, lead: LeadPartnerOnCase): void {
+export function applyLeadPartnerToCase(caseData: Record<string, any>, lead: LeadPartnerOnCase, stage: 'invited' | 'completed' = 'completed'): void {
   if (lead.contactId) caseData['Partner_Consultant__c'] = lead.contactId;
   if (lead.accountId) caseData[SALES_PARTNER_FIELD] = lead.accountId;
-  prependComment(caseData, fastLeadNote(lead));
+  prependComment(caseData, fastLeadNote(lead, stage));
   console.log(`[Salesforce Sync] Partner Fast Lead: Contact ${lead.contactId ?? '–'}, Account ${lead.accountId ?? '–'}`);
+}
+
+/**
+ * What the customer's submit does NOT write on the Case created with the invitation (DECISIONS
+ * P40): who owns it, its record type, origin, status and stage are HYPOTEQ's from the moment it
+ * exists — the team may have called the customer and moved it on.
+ */
+export const LEAD_CASE_KEPT_FIELDS = ['OwnerId', 'RecordTypeId', 'Origin', 'Status', 'Stage__c'] as const;
+
+/**
+ * Write the funnel's Case: a new one, or — for a Partner Fast Lead whose invitation already made
+ * the Case — that one, updated (LEAD_CASE_KEPT_FIELDS left as they are). Should the update fail
+ * (the Case was deleted or is out of reach), a new Case is created, so the request is never lost.
+ */
+export async function writeFunnelCase(caseData: Record<string, any>, salesforceApi: any, existingCaseId?: string | null): Promise<any> {
+  if (existingCaseId && typeof salesforceApi.updateCase === 'function') {
+    const fields: Record<string, any> = { ...caseData };
+    for (const k of LEAD_CASE_KEPT_FIELDS) delete fields[k];
+    try {
+      const res = await salesforceApi.updateCase(existingCaseId, fields);
+      console.log(`[Salesforce Sync] Partner Fast Lead: Case ${existingCaseId} updated with the customer's request`);
+      return { ...(res && typeof res === 'object' ? res : {}), id: existingCaseId, updated: true };
+    } catch (err) {
+      console.error(`[Salesforce Sync] Partner Fast Lead: updating Case ${existingCaseId} failed — creating a new Case instead:`, err);
+      prependComment(caseData, `Der Case der Einladung (${existingCaseId}) konnte nicht aktualisiert werden – bitte zusammenführen.`);
+    }
+  }
+  return salesforceApi.createOrUpdateCase(caseData);
 }
 
 /**
@@ -1579,9 +1612,10 @@ export async function syncFunnelStepsToSalesforce(stepData: Record<string, any>,
 
   console.log('[Salesforce Sync] Full caseData before sending:', JSON.stringify(caseData, null, 2));
 
-  // Create the Case
-  const createdCase = await salesforceApi.createOrUpdateCase(caseData);
-  console.log(`[Salesforce Sync] Case created: ${createdCase.id || createdCase.Id}`);
+  // Create the Case — or update the one a Partner Fast Lead's invitation made (DECISIONS P40).
+  const leadCaseId = !partnerEmail && stepData.partnerLead?.caseId ? String(stepData.partnerLead.caseId) : null;
+  const createdCase = await writeFunnelCase(caseData, salesforceApi, leadCaseId);
+  console.log(`[Salesforce Sync] Case ${createdCase.updated ? 'updated' : 'created'}: ${createdCase.id || createdCase.Id}`);
 
   // HYPOTEQ 29.10.2026 point 7: HYPO's conversation also as a file on the Case — the team works
   // there; the case folder keeps its copy (lib/funnel-v3/completion.ts). Non-fatal: the Case stands.

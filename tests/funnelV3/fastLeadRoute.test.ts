@@ -17,16 +17,31 @@ const PARTNER_LEAD = {
   contactId: "003PARTNERAAAAAAAA",
   accountId: "001PARTNERAAAAAAAA",
   invitedAt: "2026-11-23T09:00:00.000Z",
+  caseId: "500LEADAAAAAAAAAAA",
+  via: "link",
 };
 
-const mockState: { posts: any[]; synced: any[]; created: any[]; lookups: string[]; claims: any[]; recorded: any[]; lead: any; claimOk: boolean } = {
+const mockState: {
+  posts: any[];
+  synced: any[];
+  created: any[];
+  lookups: string[];
+  emailLookups: string[];
+  claims: any[];
+  recorded: any[];
+  lead: any;
+  emailLead: any;
+  claimOk: boolean;
+} = {
   posts: [],
   synced: [],
   created: [],
   lookups: [],
+  emailLookups: [],
   claims: [],
   recorded: [],
   lead: null,
+  emailLead: null,
   claimOk: true,
 };
 
@@ -91,6 +106,10 @@ jest.mock("@/lib/portal/leadServer", () => ({
     mockState.lookups.push(token);
     return mockState.lead;
   },
+  leadPartnerForEmail: async (email: string) => {
+    mockState.emailLookups.push(email);
+    return mockState.emailLead;
+  },
   claimLead: async (leadId: string, inquiryId: string) => {
     mockState.claims.push({ leadId, inquiryId });
     return mockState.claimOk;
@@ -107,7 +126,7 @@ beforeEach(() => {
   jest.spyOn(console, "log").mockImplementation(() => {});
   jest.spyOn(console, "warn").mockImplementation(() => {});
   jest.spyOn(console, "error").mockImplementation(() => {});
-  Object.assign(mockState, { posts: [], synced: [], created: [], lookups: [], claims: [], recorded: [], lead: PARTNER_LEAD, claimOk: true });
+  Object.assign(mockState, { posts: [], synced: [], created: [], lookups: [], emailLookups: [], claims: [], recorded: [], lead: PARTNER_LEAD, emailLead: null, claimOk: true });
   for (const [k, v] of Object.entries(ENV)) {
     saved[k] = process.env[k];
     process.env[k] = v;
@@ -167,6 +186,29 @@ describe("/api/inquiry with a partner's invitation", () => {
     expect(p.customerType).toBe("partner");
     await submit(p);
     expect(mockState.lookups).toEqual([]);
+    expect(mockState.emailLookups).toEqual([]);
     expect(mockState.synced[0].partnerLead).toBeUndefined();
+  });
+
+  it("without the link, an open invitation of the customer's address still credits the partner (HYPOTEQ 23.11.2026)", async () => {
+    mockState.emailLead = { ...PARTNER_LEAD, via: "email" };
+    await submit(v5Payload(kaufState()));
+    expect(mockState.lookups).toEqual([]);
+    expect(mockState.emailLookups).toEqual(["lea.muster@kunde.ch"]);
+    expect(mockState.synced[0].partnerLead).toMatchObject({ leadId: "lead-1", caseId: "500LEADAAAAAAAAAAA", via: "email" });
+    expect(mockState.claims).toHaveLength(1);
+    expect(recipients()).toContain("anna@muster.ch");
+  });
+
+  it("the link wins over the address; an own request without either stays the customer's", async () => {
+    mockState.emailLead = { ...PARTNER_LEAD, leadId: "lead-other" };
+    await submit({ ...v5Payload(kaufState()), lead: { token: TOKEN } });
+    expect(mockState.synced[0].partnerLead.leadId).toBe("lead-1");
+    expect(mockState.emailLookups).toEqual([]);
+
+    mockState.lead = null;
+    mockState.emailLead = null;
+    await submit({ ...v5Payload(kaufState()), submissionId: "8f1c2b9e-1d2a-4c3b-9e8f-0a1b2c3d4e5f" });
+    expect(mockState.synced[1].partnerLead).toBeUndefined();
   });
 });

@@ -14,6 +14,7 @@ import {
   leadStatus,
   leadTeamMail,
   partnerLabel,
+  reminderDue,
   validateLead,
 } from "@/lib/portal/lead";
 import { newToken } from "@/lib/portal/crypto";
@@ -106,26 +107,62 @@ describe("labels and the team mail", () => {
     expect(customerLabel({ firstName: "Lea", lastName: "Muster" })).toBe("Lea Muster");
   });
 
-  it("tells HYPOTEQ who invited whom, that the customer agreed and that the Case comes with the submit", () => {
-    const m = leadTeamMail({
-      partnerName: "Anna Muster",
-      partnerCompany: "Muster AG",
-      partnerEmail: "anna@muster.ch",
-      anrede: "Frau",
-      firstName: "Lea",
-      lastName: "Beispiel",
-      email: "lea@kunde.ch",
-      phone: null,
-      locale: "fr",
-      expiresAt: new Date("2026-12-23T10:00:00.000Z"),
-    });
+  const party = {
+    partnerName: "Anna Muster",
+    partnerCompany: "Muster AG",
+    partnerEmail: "anna@muster.ch",
+    anrede: "Frau",
+    firstName: "Lea",
+    lastName: "Beispiel",
+    email: "lea@kunde.ch",
+    phone: null,
+    locale: "fr",
+    expiresAt: new Date("2026-12-23T10:00:00.000Z"),
+  };
+
+  it("tells HYPOTEQ who invited whom, that the customer agreed, the Case and the reminders", () => {
+    const m = leadTeamMail(party, { caseUrl: "https://hypoteq-ch.lightning.force.com/lightning/r/Case/500X/view", failed: false });
     expect(m.subject).toBe("Partner Fast Lead · Lea Beispiel · eingeladen von Anna Muster (Muster AG)");
     const body = m.lines.join("\n");
     expect(body).toContain("Kunde: Frau Lea Beispiel · lea@kunde.ch · Sprache FR");
     expect(body).toContain("einverstanden");
-    expect(body).toContain("sobald der Kunde die Anfrage abschliesst");
-    expect(body).toContain("bis 23.12.2026 gültig");
+    expect(body).toContain("Der Case ist in Salesforce angelegt und dem Partner zugeordnet (Kundenberater und Sales Partner): https://hypoteq-ch.lightning.force.com/lightning/r/Case/500X/view");
+    expect(body).toContain("bis 23.12.2026 gültig; nach 3 und 7 Tagen erinnern wir ihn");
     expect(body).toContain("anna@muster.ch");
+  });
+
+  it("says so when Salesforce refused the invitation's Case", () => {
+    expect(leadTeamMail(party, { caseUrl: null, failed: true }).lines.join("\n")).toContain("konnte in Salesforce nicht angelegt werden – bitte von Hand anlegen");
+  });
+});
+
+describe("reminderDue", () => {
+  const DAY = 24 * 3600_000;
+  const row = (ageDays: number, over: Record<string, unknown> = {}) => ({
+    status: "invited",
+    createdAt: new Date(NOW.getTime() - ageDays * DAY),
+    expiresAt: new Date(NOW.getTime() + 20 * DAY),
+    remindersSent: 0,
+    lastMailAt: new Date(NOW.getTime() - ageDays * DAY),
+    lastReminderAt: null,
+    ...over,
+  });
+  it("the first after 3 days, the second after 7", () => {
+    expect(reminderDue(row(2.9), NOW)).toBeNull();
+    expect(reminderDue(row(3), NOW)).toBe(1);
+    expect(reminderDue(row(6, { remindersSent: 1, lastReminderAt: new Date(NOW.getTime() - 3 * DAY) }), NOW)).toBeNull();
+    expect(reminderDue(row(7, { remindersSent: 1, lastReminderAt: new Date(NOW.getTime() - 4 * DAY) }), NOW)).toBe(2);
+    expect(reminderDue(row(9, { remindersSent: 2 }), NOW)).toBeNull();
+  });
+  it("one at a time, never within a day of another mail, never after the submit or the expiry", () => {
+    // A missed run sends the first; the second waits a day.
+    expect(reminderDue(row(8), NOW)).toBe(1);
+    expect(reminderDue(row(8, { remindersSent: 1, lastReminderAt: new Date(NOW.getTime() - 3600_000) }), NOW)).toBeNull();
+    // «Erneut senden» an hour ago.
+    expect(reminderDue(row(4, { lastMailAt: new Date(NOW.getTime() - 3600_000) }), NOW)).toBeNull();
+    expect(reminderDue(row(4, { status: "submitted" }), NOW)).toBeNull();
+    expect(reminderDue(row(4, { expiresAt: new Date(NOW.getTime() - 1) }), NOW)).toBeNull();
+    expect(reminderDue(row(4, { status: "opened" }), NOW)).toBe(1);
   });
 });
 
@@ -137,9 +174,15 @@ describe("texts", () => {
       expect(Object.keys(t.err).sort()).toEqual(Object.keys(DICTS.de.lead.err).sort());
       expect(t.mail.subject("Anna Muster (Muster AG)")).toContain("Anna Muster");
       expect(t.mail.foot(30)).toContain("30");
+      expect(t.mail.replies("Anna Muster")).toContain("Anna Muster");
+      expect(t.reminder.subject(1)).not.toBe(t.reminder.subject(2));
+      expect(t.reminder.foot("23.12.2026")).toContain("23.12.2026");
       expect(DICTS[l].shell.newFinancing.lead).toBeTruthy();
     }
     expect(DICTS.de.lead.mail.body2).toContain("deine");
+    // HYPOTEQ 23.11.2026: a welcome that names who the customer came through.
+    expect(DICTS.de.lead.mail.heading).toBe("Willkommen bei HYPOTEQ");
+    expect(DICTS.de.lead.mail.body("Anna Muster (Muster AG)")).toBe("schön, dass du über Anna Muster (Muster AG) zu uns gefunden hast – wir freuen uns, dich bei deiner Hypothekarfinanzierung zu begleiten.");
     expect(DICTS.de.lead.consent).toContain("Mein Kunde");
   });
 });

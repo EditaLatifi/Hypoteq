@@ -26,7 +26,8 @@ const ENTRIES: { mode: Mode; eyebrow: string; title: string; sub: string; time: 
  * Step 0 (Handover 1): the switch «HYPOTEQ Berater | Kunde selbst», then the two entries —
  * Schnellanmeldung (documents first) and Begleitete Anmeldung (step by step), each with
  * eyebrow, text and time. «Empfohlen» (lime) on the Schnellanmeldung for both roles
- * (steps.ts recommendedMode, DECISIONS V117). A role preset by the link
+ * (steps.ts recommendedMode, DECISIONS V117) — on the Begleitete Anmeldung for a customer who came
+ * through a partner's invitation (DECISIONS P40). A role preset by the link
  * (`?customer=`, the Partnerportal) is already chosen (DECISIONS V49).
  *
  * The third entry, HYPO (Konzept HYPO Kap. 3): «Erzähl uns dein Projekt.» in the lime wedge on the
@@ -38,7 +39,8 @@ export default function StartScreen() {
   // Opened from a partner's invitation (DECISIONS P39): the customer's own request, no role switch.
   const lead = useFunnelV3((s) => s.lead);
   const shown = startRole(role);
-  const recommended = recommendedMode(shown);
+  // A partner's invitation (DECISIONS P40): the Begleitete Anmeldung is the recommended one.
+  const recommended = recommendedMode(shown, Boolean(lead));
   const hypo = useHypo((s) => s.config?.enabled === true);
   useEffect(() => {
     void loadHypoConfig();

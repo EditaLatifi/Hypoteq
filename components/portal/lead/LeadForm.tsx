@@ -27,7 +27,8 @@ export default function LeadForm() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [locale, setLocale] = useState<LeadLocale>(isLeadLocale(portalLocale) ? portalLocale : "de");
-  const [consent, setConsent] = useState(false);
+  // HYPOTEQ 23.11.2026: ticked by default; the partner unticks it when the customer has not agreed.
+  const [consent, setConsent] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
 
@@ -47,7 +48,7 @@ export default function LeadForm() {
       setLastName("");
       setEmail("");
       setPhone("");
-      setConsent(false);
+      setConsent(true);
     });
   }
 

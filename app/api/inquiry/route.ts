@@ -123,25 +123,27 @@ export async function POST(req: Request) {
       return NextResponse.json({ success: true, inquiryId: existing.id, caseNumber: existing.caseNumber ?? null, alreadySubmitted: true });
     }
 
-    // === PARTNER FAST LEAD (DECISIONS P39) ===
-    // A customer's own request from a partner's invitation carries only the link's token. The
-    // partner is looked up here, by that token, and put on the body for the sync (Kundenberater
-    // + Sales Partner), the closing mails and the dossier — never taken from the browser, so a
-    // `partnerLead` in the request is dropped first. No invitation (unknown, used, a Berater
-    // entry, or the table missing): the request goes on as the customer's own.
+    // === PARTNER FAST LEAD (DECISIONS P39, P40) ===
+    // A customer's own request from a partner's invitation carries only the link's token; without
+    // the link, an open invitation of the customer's address counts too (HYPOTEQ 23.11.2026). The
+    // partner — and the Case the invitation created, which the sync then updates — is looked up
+    // here and put on the body for the sync, the closing mails and the dossier; never taken from
+    // the browser, so a `partnerLead` in the request is dropped first. No invitation (none, used,
+    // a Berater entry, or the table missing): the request goes on as the customer's own.
     delete data.partnerLead;
-    const leadToken = data.customerType !== "partner" && typeof data.lead?.token === "string" ? data.lead.token : null;
+    const ownRequest = data.customerType !== "partner";
+    const leadToken = ownRequest && typeof data.lead?.token === "string" ? data.lead.token : null;
     delete data.lead;
-    if (leadToken) {
+    if (ownRequest) {
       try {
-        const { leadPartnerForSubmit } = await import("@/lib/portal/leadServer");
-        const partnerLead = await leadPartnerForSubmit(leadToken);
+        const { leadPartnerForSubmit, leadPartnerForEmail } = await import("@/lib/portal/leadServer");
+        const partnerLead = (leadToken ? await leadPartnerForSubmit(leadToken) : null) ?? (await leadPartnerForEmail(data.client?.email));
         if (partnerLead) {
           data.partnerLead = partnerLead;
           // The existing column says which partner the inquiry belongs to.
           data.client = { ...(data.client || {}), partnerEmail: partnerLead.email };
-          console.log(`[Inquiry] Partner Fast Lead ${partnerLead.leadId}: credited to Contact ${partnerLead.contactId}`);
-        } else {
+          console.log(`[Inquiry] Partner Fast Lead ${partnerLead.leadId} (${partnerLead.via}): credited to Contact ${partnerLead.contactId}, Case ${partnerLead.caseId ?? "– (created now)"}`);
+        } else if (leadToken) {
           console.log("[Inquiry] Lead token without an open invitation — the customer's own request");
         }
       } catch (leadErr) {

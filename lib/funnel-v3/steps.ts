@@ -48,10 +48,12 @@ export function timeLeft(mode: Mode, step: number): string {
 /**
  * «Empfohlen» on the start screen: the Schnellanmeldung for both roles. Handover 1 had Kunde →
  * Begleitete Anmeldung; HYPOTEQ's Komplett-Test (06.11. A01, again 18.11.) expects the
- * Schnellanmeldung marked for the customer as well (DECISIONS V117).
+ * Schnellanmeldung marked for the customer as well (DECISIONS V117). A customer who came through a
+ * partner's invitation (Partner Fast Lead, HYPOTEQ 23.11.2026) is recommended the Begleitete
+ * Anmeldung: invited, they rarely have their documents at hand yet.
  */
-export function recommendedMode(_role: Role | null): Mode {
-  return "schnell";
+export function recommendedMode(role: Role | null, invited = false): Mode {
+  return invited && role !== "berater" ? "begleitet" : "schnell";
 }
 
 /**

@@ -36,7 +36,7 @@ const leadDe = {
     "Sie erfassen Name, E-Mail und auf Wunsch die Telefonnummer Ihres Kunden.",
     "Ihr Kunde erhält eine E-Mail von HYPOTEQ mit seinem persönlichen Link, 30 Tage gültig.",
     "Er vervollständigt Angaben und Unterlagen im HYPOTEQ Funnel; seine Kontaktdaten sind schon ausgefüllt.",
-    "Beim Abschluss entsteht der Case, Ihnen zugeordnet. Sie erhalten die Zusammenfassung und finden ihn unter «Cases».",
+    "Der Case entsteht sofort, Ihnen zugeordnet (unter «Cases»). Nach 3 und 7 Tagen erinnern wir Ihren Kunden; schliesst er ab, erhalten Sie die Zusammenfassung.",
   ],
   listTitle: "Ihre Einladungen",
   listNone: "Noch keine Einladungen.",
@@ -68,15 +68,24 @@ const leadDe = {
   } as Record<LeadInputError | "self" | "duplicate" | "limit" | "mail" | "failed" | "notFound" | "submitted" | "resendLimit" | "tooSoon", string>,
   /** The invitation the customer receives. */
   mail: {
-    subject: (partner: string) => `${partner} hat dich bei HYPOTEQ angemeldet`,
-    heading: "Deine Finanzierungsanfrage",
+    subject: (partner: string) => `Willkommen bei HYPOTEQ – ${partner} hat dich angemeldet`,
+    heading: "Willkommen bei HYPOTEQ",
     hello: (name: string) => `Hi ${name},`,
-    body: (partner: string) => `${partner} hat dich bei HYPOTEQ für deine Hypothekarfinanzierung angemeldet.`,
+    body: (partner: string) => `schön, dass du über ${partner} zu uns gefunden hast – wir freuen uns, dich bei deiner Hypothekarfinanzierung zu begleiten.`,
     body2: "Über deinen persönlichen Link ergänzt du die Angaben zu deinem Vorhaben und lädst deine Unterlagen hoch. Deine Kontaktdaten sind schon ausgefüllt – das dauert nur wenige Minuten.",
+    replies: (partner: string) => `Fragen? Antworte einfach auf diese E-Mail – sie geht an uns und an ${partner}.`,
     cta: "Anfrage vervollständigen",
     buttonFallback: "Falls der Button nicht funktioniert, kopiere diesen Link in deinen Browser:",
     foot: (days: number) =>
       `Der Link ist ${days} Tage gültig. Du hast diese Einladung nicht erwartet? Dann ignoriere diese E-Mail oder schreib uns an info@hypoteq.ch.`,
+  },
+  /** The reminders after 3 and 7 days (HYPOTEQ 23.11.2026). */
+  reminder: {
+    subject: (n: 1 | 2): string => (n === 1 ? "Erinnerung: deine Finanzierungsanfrage bei HYPOTEQ" : "Deine Finanzierungsanfrage wartet noch auf dich"),
+    heading: "Deine Anfrage ist noch offen",
+    body: (partner: string) => `${partner} hat dich vor ein paar Tagen bei HYPOTEQ angemeldet. Deine Finanzierungsanfrage ist noch nicht vollständig.`,
+    body2: "Mit deinem persönlichen Link ergänzt du sie in wenigen Minuten – deine Kontaktdaten sind schon ausgefüllt.",
+    foot: (date: string) => `Der Link ist bis ${date} gültig. Fragen? Antworte einfach auf diese E-Mail.`,
   },
 };
 
@@ -108,7 +117,7 @@ const leadEn: LeadDict = {
     "You enter your client's name, email and, if you like, phone number.",
     "Your client receives an email from HYPOTEQ with a personal link, valid for 30 days.",
     "They complete the details and documents in the HYPOTEQ funnel; their contact details are already filled in.",
-    "When they submit, the Case is created and assigned to you. You receive the summary and find it under «Cases».",
+    "The Case is created at once and assigned to you (under «Cases»). We remind your client after 3 and 7 days; when they submit, you receive the summary.",
   ],
   listTitle: "Your invitations",
   listNone: "No invitations yet.",
@@ -139,15 +148,23 @@ const leadEn: LeadDict = {
     tooSoon: "The invitation was sent just now. Please wait 15 minutes.",
   },
   mail: {
-    subject: (partner) => `${partner} has registered you with HYPOTEQ`,
-    heading: "Your financing request",
+    subject: (partner) => `Welcome to HYPOTEQ – ${partner} has registered you`,
+    heading: "Welcome to HYPOTEQ",
     hello: (name) => `Hi ${name},`,
-    body: (partner) => `${partner} has registered you with HYPOTEQ for your mortgage financing.`,
+    body: (partner) => `great that you found your way to us through ${partner} – we look forward to accompanying you with your mortgage financing.`,
     body2: "With your personal link you add the details of your project and upload your documents. Your contact details are already filled in – it only takes a few minutes.",
+    replies: (partner) => `Questions? Just reply to this email – it reaches us and ${partner}.`,
     cta: "Complete your request",
     buttonFallback: "If the button does not work, copy this link into your browser:",
     foot: (days) =>
       `The link is valid for ${days} days. Not expecting this invitation? Simply ignore this email or write to us at info@hypoteq.ch.`,
+  },
+  reminder: {
+    subject: (n) => (n === 1 ? "Reminder: your financing request with HYPOTEQ" : "Your financing request is still waiting for you"),
+    heading: "Your request is still open",
+    body: (partner) => `${partner} registered you with HYPOTEQ a few days ago. Your financing request is not complete yet.`,
+    body2: "With your personal link you complete it in a few minutes – your contact details are already filled in.",
+    foot: (date) => `The link is valid until ${date}. Questions? Just reply to this email.`,
   },
 };
 
@@ -177,7 +194,7 @@ const leadFr: LeadDict = {
     "Vous saisissez le nom, l'e-mail et, si vous le souhaitez, le téléphone de votre client.",
     "Votre client reçoit un e-mail de HYPOTEQ avec son lien personnel, valable 30 jours.",
     "Il complète les informations et les documents dans le funnel HYPOTEQ ; ses coordonnées sont déjà remplies.",
-    "À l'envoi, le Case est créé et vous est attribué. Vous recevez le récapitulatif et le trouvez sous «Cases».",
+    "Le Case est créé immédiatement et vous est attribué (sous «Cases»). Nous relançons votre client après 3 et 7 jours ; dès qu'il envoie, vous recevez le récapitulatif.",
   ],
   listTitle: "Vos invitations",
   listNone: "Aucune invitation pour l'instant.",
@@ -208,15 +225,23 @@ const leadFr: LeadDict = {
     tooSoon: "L'invitation vient d'être envoyée. Veuillez patienter 15 minutes.",
   },
   mail: {
-    subject: (partner) => `${partner} vous a inscrit auprès de HYPOTEQ`,
-    heading: "Votre demande de financement",
+    subject: (partner) => `Bienvenue chez HYPOTEQ – ${partner} vous a inscrit`,
+    heading: "Bienvenue chez HYPOTEQ",
     hello: (name) => `Bonjour ${name},`,
-    body: (partner) => `${partner} vous a inscrit auprès de HYPOTEQ pour votre financement hypothécaire.`,
+    body: (partner) => `nous sommes ravis que vous soyez venu à nous par ${partner} et nous nous réjouissons de vous accompagner dans votre financement hypothécaire.`,
     body2: "Avec votre lien personnel, vous complétez les informations sur votre projet et téléchargez vos documents. Vos coordonnées sont déjà remplies – cela ne prend que quelques minutes.",
+    replies: (partner) => `Des questions ? Répondez simplement à cet e-mail – il nous parvient ainsi qu'à ${partner}.`,
     cta: "Compléter la demande",
     buttonFallback: "Si le bouton ne fonctionne pas, copiez ce lien dans votre navigateur :",
     foot: (days) =>
       `Le lien est valable ${days} jours. Vous n'attendiez pas cette invitation ? Ignorez simplement cet e-mail ou écrivez-nous à info@hypoteq.ch.`,
+  },
+  reminder: {
+    subject: (n) => (n === 1 ? "Rappel : votre demande de financement chez HYPOTEQ" : "Votre demande de financement vous attend encore"),
+    heading: "Votre demande est encore ouverte",
+    body: (partner) => `${partner} vous a inscrit auprès de HYPOTEQ il y a quelques jours. Votre demande de financement n'est pas encore complète.`,
+    body2: "Avec votre lien personnel, vous la complétez en quelques minutes – vos coordonnées sont déjà remplies.",
+    foot: (date) => `Le lien est valable jusqu'au ${date}. Des questions ? Répondez simplement à cet e-mail.`,
   },
 };
 
@@ -246,7 +271,7 @@ const leadIt: LeadDict = {
     "Inserisce nome, e-mail e, se lo desidera, il numero di telefono del Suo cliente.",
     "Il Suo cliente riceve un'e-mail da HYPOTEQ con il suo link personale, valido 30 giorni.",
     "Completa dati e documenti nel funnel HYPOTEQ; i suoi dati di contatto sono già compilati.",
-    "All'invio viene creato il Case, attribuito a Lei. Riceve il riepilogo e lo trova sotto «Cases».",
+    "Il Case viene creato subito, attribuito a Lei (sotto «Cases»). Ricordiamo al Suo cliente dopo 3 e 7 giorni; quando invia, riceve il riepilogo.",
   ],
   listTitle: "I Suoi inviti",
   listNone: "Ancora nessun invito.",
@@ -277,15 +302,23 @@ const leadIt: LeadDict = {
     tooSoon: "L'invito è appena stato inviato. Attenda 15 minuti.",
   },
   mail: {
-    subject: (partner) => `${partner} L'ha registrata presso HYPOTEQ`,
-    heading: "La Sua richiesta di finanziamento",
+    subject: (partner) => `Benvenuto da HYPOTEQ – ${partner} L'ha registrata`,
+    heading: "Benvenuto da HYPOTEQ",
     hello: (name) => `Buongiorno ${name},`,
-    body: (partner) => `${partner} L'ha registrata presso HYPOTEQ per il Suo finanziamento ipotecario.`,
+    body: (partner) => `siamo lieti che sia arrivato da noi tramite ${partner} e saremo felici di accompagnarLa nel Suo finanziamento ipotecario.`,
     body2: "Con il Suo link personale completa i dati del Suo progetto e carica i Suoi documenti. I Suoi dati di contatto sono già compilati – bastano pochi minuti.",
+    replies: (partner) => `Domande? Risponda semplicemente a questa e-mail – arriva a noi e a ${partner}.`,
     cta: "Completare la richiesta",
     buttonFallback: "Se il pulsante non funziona, copi questo link nel Suo browser:",
     foot: (days) =>
       `Il link è valido ${days} giorni. Non si aspettava questo invito? Ignori semplicemente questa e-mail o ci scriva a info@hypoteq.ch.`,
+  },
+  reminder: {
+    subject: (n) => (n === 1 ? "Promemoria: la Sua richiesta di finanziamento presso HYPOTEQ" : "La Sua richiesta di finanziamento La sta ancora aspettando"),
+    heading: "La Sua richiesta è ancora aperta",
+    body: (partner) => `${partner} L'ha registrata presso HYPOTEQ qualche giorno fa. La Sua richiesta di finanziamento non è ancora completa.`,
+    body2: "Con il Suo link personale la completa in pochi minuti – i Suoi dati di contatto sono già compilati.",
+    foot: (date) => `Il link è valido fino al ${date}. Domande? Risponda semplicemente a questa e-mail.`,
   },
 };
 

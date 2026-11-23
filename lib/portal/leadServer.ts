@@ -1,9 +1,11 @@
 import { isTestMode, skipped } from "@/components/testMode";
 import { prisma } from "@/lib/prisma";
 import { audit } from "@/lib/portal/audit";
+import { teamAddress } from "@/lib/portal/config";
 import { newToken } from "@/lib/portal/crypto";
 import {
   LEAD_MAX_PER_DAY,
+  LEAD_REMINDER_DAYS,
   LEAD_TTL_DAYS,
   canResend,
   customerLabel,
@@ -14,6 +16,8 @@ import {
   leadStatus,
   leadTeamMail,
   partnerLabel,
+  reminderDue,
+  swissDate,
   validateLead,
   type LeadAnrede,
   type LeadInput,
@@ -21,16 +25,21 @@ import {
   type LeadLocale,
   type LeadStatus,
 } from "@/lib/portal/lead";
-import { maskEmail, sendLeadInviteMail, sendTeamMail } from "@/lib/portal/mail";
+import { maskEmail, sendLeadInviteMail, sendLeadReminderMail, sendTeamMail } from "@/lib/portal/mail";
 
 /**
- * Partner Fast Lead on the server (DECISIONS P39). The portal side — invite, send again, list —
- * and the funnel side: the lead endpoint (`leadForLink`, app/api/funnel/lead/[token]) and the
- * submit (`leadPartnerForSubmit`, `claimLead`, `recordLeadCase` in app/api/inquiry), which
- * links the Case to the partner who invited.
+ * Partner Fast Lead on the server (DECISIONS P39, P40). The portal side — invite (with the
+ * Salesforce Case at once), send again, list, the reminders after 3 and 7 days — and the funnel
+ * side: the lead endpoint (`leadForLink`, app/api/funnel/lead/[token]) and the submit
+ * (`leadPartnerForSubmit` / `leadPartnerForEmail`, `claimLead`, `recordLeadCase` in
+ * app/api/inquiry), which credits the partner and updates the invitation's Case.
  *
  * The partner always comes from this table, never from the browser: the funnel only carries the
  * token, and the submit looks the invitation up again.
+ *
+ * Test mode: the database is shared, so a deployment only credits, updates and reminds the
+ * invitations of its own kind (`testDeployment`) — a tester's real address never pulls a
+ * production invitation, and production never reminds a Preview test.
  */
 
 export type LeadPartner = {
@@ -51,11 +60,15 @@ export type CreateLeadResult = { ok: true; id: string; name: string; email: stri
 
 const OPEN_STATUSES = ["invited", "opened"];
 
+type MailRow = { email: string; firstName: string; token: string; locale: string; partnerName: string | null; partnerCompany: string | null; partnerEmail: string };
+
+/** «Antworten» on a mail to the customer reaches the partner and HYPOTEQ (HYPOTEQ 23.11.2026). */
+function customerReplyTo(row: Pick<MailRow, "partnerEmail">): string[] {
+  return [row.partnerEmail, teamAddress()];
+}
+
 /** The invitation mail for a stored row: the customer's language, the partner as the customer reads them. */
-async function mailInvitation(
-  row: { email: string; firstName: string; token: string; locale: string; partnerName: string | null; partnerCompany: string | null; partnerEmail: string },
-  origin: string,
-): Promise<boolean> {
+async function mailInvitation(row: MailRow, origin: string): Promise<boolean> {
   return sendLeadInviteMail({
     to: row.email,
     firstName: row.firstName,
@@ -64,7 +77,52 @@ async function mailInvitation(
     url: `${origin}${leadFunnelPath(row.locale, row.token)}`,
     locale: row.locale,
     days: LEAD_TTL_DAYS,
+    replyTo: customerReplyTo(row),
   });
+}
+
+type InvitationCase = { caseId: string | null; caseUrl: string | null; failed: boolean };
+
+/**
+ * The Case of the invitation (HYPOTEQ 23.11.2026, DECISIONS P40: «as soon as the partner sends the
+ * invitation, so your team can call the client right away»). Non-fatal: a refusal keeps the
+ * invitation, the team mail says so, and the customer's submit creates the Case as for any request.
+ * The Preview creates it too (V115: every Preview submission creates its Case).
+ */
+async function invitationCase(row: LeadRow): Promise<InvitationCase> {
+  try {
+    const sf = await import("@/components/salesforceApi");
+    const { createLeadCase } = await import("@/components/fastLeadSalesforce");
+    await sf.default.login();
+    const res = await createLeadCase(
+      {
+        customer: { anrede: row.anrede, firstName: row.firstName, lastName: row.lastName, email: row.email, phone: row.phone, locale: row.locale },
+        partner: {
+          contactId: row.sfContactId,
+          accountId: row.sfAccountId,
+          name: row.partnerName,
+          company: row.partnerCompany,
+          email: row.partnerEmail,
+          invitedAt: row.createdAt.toISOString(),
+        },
+        expiresAt: row.expiresAt,
+      },
+      sf.default,
+    );
+    await prisma.portalLead.update({ where: { id: row.id }, data: { salesforceCaseId: res.caseId } });
+    if (res.dropped.length) console.warn(`[portal] lead ${row.id}: Salesforce dropped ${res.dropped.join(", ")}`);
+    let caseUrl: string | null = null;
+    try {
+      const { salesforceCaseUrl } = await import("@/lib/funnel-v3/mail/caseLink");
+      caseUrl = salesforceCaseUrl((sf as any).conn?.instanceUrl ?? null, res.caseId);
+    } catch {
+      /* the team mail goes without the link */
+    }
+    return { caseId: res.caseId, caseUrl, failed: false };
+  } catch (err) {
+    console.error(`[portal] lead ${row.id}: the invitation's Salesforce Case failed (the submit will create one)`, err);
+    return { caseId: null, caseUrl: null, failed: true };
+  }
 }
 
 /**
@@ -110,6 +168,7 @@ export async function createLead(user: LeadPartner, input: LeadInput, ctx: LeadC
       token: newToken(),
       expiresAt: leadExpiry(now),
       mailsSent: 0,
+      testDeployment: isTestMode(),
     },
   });
   const name = customerLabel(row);
@@ -123,8 +182,9 @@ export async function createLead(user: LeadPartner, input: LeadInput, ctx: LeadC
     console.error(`[portal] lead ${row.id}: invitation mail to ${maskEmail(row.email)} failed`, err);
   }
 
-  // HYPOTEQ learns of the lead at once; the Case only comes with the customer's submit.
-  const team = leadTeamMail(row);
+  // The Case at once, then HYPOTEQ learns of the lead with its link.
+  const sfCase = await invitationCase(row);
+  const team = leadTeamMail(row, { caseUrl: sfCase.caseUrl, failed: sfCase.failed });
   if (isTestMode()) {
     skipped("Fast Lead team mail", team.subject);
   } else {
@@ -253,6 +313,10 @@ export type SubmitLeadPartner = {
   contactId: string;
   accountId: string | null;
   invitedAt: string;
+  /** The Case the invitation created (DECISIONS P40): the submit updates it instead of making one. */
+  caseId: string | null;
+  /** How the submit found the invitation: its link, or the customer's address without it. */
+  via: "link" | "email";
 };
 
 /**
@@ -264,14 +328,30 @@ export type SubmitLeadPartner = {
 export async function leadPartnerForSubmit(token: unknown): Promise<SubmitLeadPartner | null> {
   if (!isLeadToken(token)) return null;
   const row = await prisma.portalLead.findUnique({ where: { token } });
-  if (!row || !OPEN_STATUSES.includes(row.status)) return null;
-  return submitPartnerOf(row);
+  if (!row || !OPEN_STATUSES.includes(row.status) || row.testDeployment !== isTestMode()) return null;
+  return submitPartnerOf(row, "link");
+}
+
+/**
+ * A customer's own request without the link, from an address a partner invited (HYPOTEQ
+ * 23.11.2026: «If the client submits through hypoteq.ch with the same email address, should the
+ * Case still go to the partner? YES»): the newest open invitation of that address. Like the link,
+ * the expiry does not count — the invitation's Case is there either way.
+ */
+export async function leadPartnerForEmail(email: unknown): Promise<SubmitLeadPartner | null> {
+  const address = typeof email === "string" ? email.trim().toLowerCase() : "";
+  if (!address || !address.includes("@")) return null;
+  const row = await prisma.portalLead.findFirst({
+    where: { email: address, status: { in: OPEN_STATUSES }, testDeployment: isTestMode() },
+    orderBy: { createdAt: "desc" },
+  });
+  return row ? submitPartnerOf(row, "email") : null;
 }
 
 type LeadRow = NonNullable<Awaited<ReturnType<typeof prisma.portalLead.findUnique>>>;
 
 /** The partner as they are now: the login's current Contact / Account, else the invitation's. */
-async function submitPartnerOf(row: LeadRow): Promise<SubmitLeadPartner> {
+async function submitPartnerOf(row: LeadRow, via: SubmitLeadPartner["via"]): Promise<SubmitLeadPartner> {
   const user = await prisma.portalUser.findUnique({
     where: { id: row.partnerUserId },
     select: { email: true, name: true, company: true, phone: true, sfContactId: true, sfAccountId: true },
@@ -286,6 +366,8 @@ async function submitPartnerOf(row: LeadRow): Promise<SubmitLeadPartner> {
     // The Account belongs to the Contact: a Contact that changed brings its own Account.
     accountId: user?.sfContactId ? user.sfAccountId : row.sfAccountId,
     invitedAt: row.createdAt.toISOString(),
+    caseId: row.salesforceCaseId,
+    via,
   };
 }
 
@@ -295,7 +377,7 @@ async function submitPartnerOf(row: LeadRow): Promise<SubmitLeadPartner> {
  */
 export async function leadPartnerForInquiry(inquiryId: string): Promise<SubmitLeadPartner | null> {
   const row = await prisma.portalLead.findFirst({ where: { inquiryId, status: "submitted" } });
-  return row ? submitPartnerOf(row) : null;
+  return row ? submitPartnerOf(row, "link") : null;
 }
 
 /**
@@ -317,4 +399,53 @@ export async function recordLeadCase(leadId: string, data: { caseNumber: string 
   } catch (err) {
     console.error(`[portal] lead ${leadId}: recording the Case failed`, err);
   }
+}
+
+/**
+ * The reminders after 3 and 7 days (HYPOTEQ 23.11.2026), from the portal's daily cron: an open
+ * invitation whose link still works gets the due one (lib/portal/lead.ts reminderDue), counted
+ * so it never goes twice. Never throws — the cron's other jobs must run.
+ */
+export async function sendLeadReminders(origin: string, now: Date = new Date()): Promise<{ checked: number; sent: number }> {
+  let checked = 0;
+  let sent = 0;
+  try {
+    const rows = await prisma.portalLead.findMany({
+      where: {
+        status: { in: OPEN_STATUSES },
+        remindersSent: { lt: LEAD_REMINDER_DAYS.length },
+        expiresAt: { gt: now },
+        createdAt: { lte: new Date(now.getTime() - LEAD_REMINDER_DAYS[0] * 24 * 3600_000) },
+        testDeployment: isTestMode(),
+      },
+      orderBy: { createdAt: "asc" },
+      take: 200,
+    });
+    for (const row of rows) {
+      checked++;
+      const n = reminderDue(row, now);
+      if (!n) continue;
+      try {
+        const mailed = await sendLeadReminderMail({
+          to: row.email,
+          firstName: row.firstName,
+          partner: partnerLabel(row),
+          origin,
+          url: `${origin}${leadFunnelPath(row.locale, row.token)}`,
+          locale: row.locale,
+          validUntil: swissDate(row.expiresAt),
+          n,
+          replyTo: customerReplyTo(row),
+        });
+        // Counted also when test mode withheld it (an example.com address): it is not retried daily.
+        await prisma.portalLead.update({ where: { id: row.id }, data: { remindersSent: { increment: 1 }, lastReminderAt: now } });
+        if (mailed) sent++;
+      } catch (err) {
+        console.error(`[portal] lead ${row.id}: reminder ${n} to ${maskEmail(row.email)} failed`, err);
+      }
+    }
+  } catch (err) {
+    console.error("[portal] lead reminders failed", err);
+  }
+  return { checked, sent };
 }

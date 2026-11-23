@@ -20,7 +20,7 @@ jest.mock("nodemailer", () => ({
   default: { createTransport: (o: unknown) => (mockSmtpOptions(o), { sendMail: (m: unknown) => mockSmtpSend(m) }) },
 }));
 
-import { mailErrorText, maskEmail, sendMagicLinkMail, sendResetMail, sendTeamMail } from "@/lib/portal/mail";
+import { mailErrorText, maskEmail, sendLeadInviteMail, sendLeadReminderMail, sendMagicLinkMail, sendResetMail, sendTeamMail } from "@/lib/portal/mail";
 
 const ENV = { ...process.env };
 beforeEach(() => {
@@ -113,5 +113,43 @@ describe("partner mails", () => {
     const msg = (mockPost.mock.calls[0][0] as any).message;
     expect(msg).not.toHaveProperty("replyTo");
     expect(msg.body.content).toContain("https://portal.example/portal/link/tok");
+  });
+});
+
+describe("Partner Fast Lead mails to the customer (DECISIONS P39, P40)", () => {
+  const base = { to: "lea@kunde.ch", firstName: "Lea", partner: "Anna Muster (Muster AG)", origin: "https://hypoteq.com", url: "https://hypoteq.com/de/funnel?lead=TOKEN", locale: "de" };
+
+  it("the welcome names the partner, and «Antworten» reaches the partner and HYPOTEQ", async () => {
+    delete process.env.HYPOTEQ_TEST_MODE;
+    await sendLeadInviteMail({ ...base, days: 30, replyTo: ["anna@muster.ch", "info@hypoteq.ch", "ANNA@muster.ch"] });
+    const msg = (mockPost.mock.calls[0][0] as any).message;
+    expect(msg.subject).toBe("Willkommen bei HYPOTEQ – Anna Muster (Muster AG) hat dich angemeldet");
+    expect(msg.toRecipients).toEqual([{ emailAddress: { address: "lea@kunde.ch" } }]);
+    expect(msg.replyTo).toEqual([{ emailAddress: { address: "anna@muster.ch" } }, { emailAddress: { address: "info@hypoteq.ch" } }]);
+    expect(msg.body.content).toContain("schön, dass du über Anna Muster (Muster AG) zu uns gefunden hast");
+    expect(msg.body.content).toContain("sie geht an uns und an Anna Muster (Muster AG)");
+    expect(msg.body.content).toContain("https://hypoteq.com/de/funnel?lead=TOKEN");
+  });
+
+  it("the reminders after 3 and 7 days", async () => {
+    delete process.env.HYPOTEQ_TEST_MODE;
+    await sendLeadReminderMail({ ...base, validUntil: "23.12.2026", n: 1, replyTo: ["anna@muster.ch", "info@hypoteq.ch"] });
+    await sendLeadReminderMail({ ...base, locale: "fr", validUntil: "23.12.2026", n: 2 });
+    const [first, second] = mockPost.mock.calls.map((c) => (c[0] as any).message);
+    expect(first.subject).toBe("Erinnerung: deine Finanzierungsanfrage bei HYPOTEQ");
+    expect(first.body.content).toContain("Der Link ist bis 23.12.2026 gültig.");
+    expect(first.replyTo).toHaveLength(2);
+    expect(second.subject).toBe("Votre demande de financement vous attend encore");
+    expect(second).not.toHaveProperty("replyTo");
+  });
+
+  it("test mode marks the mail and routes it to the test inbox", async () => {
+    process.env.HYPOTEQ_TEST_MODE = "1";
+    process.env.HYPOTEQ_TEST_MAIL_TO = "test1@hypoteq.example.org,test2@hypoteq.example.org";
+    expect(await sendLeadInviteMail({ ...base, days: 30 })).toBe(true);
+    const msg = (mockPost.mock.calls[0][0] as any).message;
+    expect(msg.subject.startsWith("[TEST → lea@kunde.ch] ")).toBe(true);
+    expect(msg.toRecipients).toEqual([{ emailAddress: { address: "test1@hypoteq.example.org" } }]);
+    expect(msg.ccRecipients).toEqual([{ emailAddress: { address: "test2@hypoteq.example.org" } }]);
   });
 });

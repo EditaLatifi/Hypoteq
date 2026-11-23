@@ -1,6 +1,7 @@
 /**
- * Partner Fast Lead on the server (DECISIONS P39): inviting, sending again, the customer's link
- * and the submit's lookup. Database, mail and audit are fakes.
+ * Partner Fast Lead on the server (DECISIONS P39, P40): inviting (with the Salesforce Case at
+ * once), sending again, the customer's link, the submit's lookup by link or address, and the
+ * reminders after 3 and 7 days. Database, Salesforce, mail and audit are fakes.
  */
 import { describe, it, expect, beforeEach, jest } from "@jest/globals";
 
@@ -19,18 +20,28 @@ const mockDb = {
 jest.mock("@/lib/prisma", () => ({ prisma: mockDb }));
 
 const mockInviteMail = jest.fn<any>();
+const mockReminderMail = jest.fn<any>();
 const mockTeamMail = jest.fn<any>();
 jest.mock("@/lib/portal/mail", () => ({
   sendLeadInviteMail: (p: any) => mockInviteMail(p),
+  sendLeadReminderMail: (p: any) => mockReminderMail(p),
   sendTeamMail: (p: any) => mockTeamMail(p),
   maskEmail: (e: string) => `${e.slice(0, 1)}***`,
+}));
+const mockCreateLeadCase = jest.fn<any>();
+jest.mock("@/components/fastLeadSalesforce", () => ({ createLeadCase: (input: any, api: any) => mockCreateLeadCase(input, api) }));
+jest.mock("@/components/salesforceApi", () => ({
+  __esModule: true,
+  conn: { instanceUrl: "https://hypoteq-ch.my.salesforce.com" },
+  default: { login: async () => {} },
 }));
 const mockAudit = jest.fn<any>();
 jest.mock("@/lib/portal/audit", () => ({ audit: (e: any) => mockAudit(e) }));
 let mockTestMode = false;
 jest.mock("@/components/testMode", () => ({ isTestMode: () => mockTestMode, skipped: () => {} }));
 
-import { claimLead, createLead, leadForLink, leadPartnerForSubmit, listLeads, resendLead } from "@/lib/portal/leadServer";
+import { claimLead, createLead, leadForLink, leadPartnerForEmail, leadPartnerForSubmit, listLeads, resendLead, sendLeadReminders } from "@/lib/portal/leadServer";
+import { teamAddress } from "@/lib/portal/config";
 
 const NOW = new Date("2026-11-23T10:00:00.000Z");
 /** The first argument of a fake's n-th call. */
@@ -71,6 +82,9 @@ const stored = (over: Record<string, unknown> = {}) => ({
   openedAt: null,
   mailsSent: 1,
   lastMailAt: new Date(NOW.getTime() - 3600_000),
+  remindersSent: 0,
+  lastReminderAt: null,
+  testDeployment: false,
   submittedAt: null,
   inquiryId: null,
   caseNumber: null,
@@ -89,7 +103,9 @@ beforeEach(() => {
   mockDb.portalLead.update.mockResolvedValue({});
   mockDb.portalLead.updateMany.mockResolvedValue({ count: 1 });
   mockInviteMail.mockResolvedValue(true);
+  mockReminderMail.mockResolvedValue(true);
   mockTeamMail.mockResolvedValue(undefined);
+  mockCreateLeadCase.mockResolvedValue({ caseId: "500LEADAAAAAAAAAAA", accountId: "001KUNDEAAAAAAAAAA", dropped: [] });
 });
 
 describe("createLead", () => {
@@ -106,6 +122,7 @@ describe("createLead", () => {
       locale: "fr",
       consentAt: NOW,
       mailsSent: 0,
+      testDeployment: false,
     });
     expect(data.token).toMatch(/^[A-Za-z0-9_-]{43}$/);
     expect(data.expiresAt).toEqual(new Date(NOW.getTime() + 30 * 24 * 3600_000));
@@ -113,9 +130,18 @@ describe("createLead", () => {
     const mail = argOf(mockInviteMail, 0);
     expect(mail).toMatchObject({ to: "lea@kunde.ch", firstName: "Lea", partner: "Anna Muster (Muster AG)", locale: "fr", days: 30 });
     expect(mail.url).toBe(`${ORIGIN}/fr/funnel?lead=${data.token}`);
+    // HYPOTEQ 23.11.2026: replies reach the partner and HYPOTEQ.
+    expect(mail.replyTo).toEqual(["anna@muster.ch", teamAddress()]);
     expect(mockDb.portalLead.update).toHaveBeenCalledWith({ where: { id: "lead-new" }, data: { mailsSent: 1, lastMailAt: expect.any(Date) } });
 
+    // The Case at once, for the partner, with the customer's contact (DECISIONS P40).
+    const sf = mockCreateLeadCase.mock.calls[0][0] as any;
+    expect(sf.customer).toEqual({ anrede: "Frau", firstName: "Lea", lastName: "Beispiel", email: "lea@kunde.ch", phone: null, locale: "fr" });
+    expect(sf.partner).toMatchObject({ contactId: "003PARTNERAAAAAAAA", accountId: "001PARTNERAAAAAAAA", name: "Anna Muster", company: "Muster AG", email: "anna@muster.ch" });
+    expect(mockDb.portalLead.update).toHaveBeenCalledWith({ where: { id: "lead-new" }, data: { salesforceCaseId: "500LEADAAAAAAAAAAA" } });
+
     expect(mockTeamMail).toHaveBeenCalledWith(expect.objectContaining({ to: null, replyTo: "anna@muster.ch", subject: expect.stringContaining("Partner Fast Lead · Lea Beispiel") }));
+    expect(argOf(mockTeamMail).lines.join(" ")).toContain("https://hypoteq-ch.lightning.force.com/lightning/r/Case/500LEADAAAAAAAAAAA/view");
     expect(mockAudit).toHaveBeenCalledWith(expect.objectContaining({ action: "lead_invited", actorId: "user-1", target: "Lea Beispiel · l***" }));
   });
 
@@ -145,14 +171,23 @@ describe("createLead", () => {
     jest.spyOn(console, "error").mockImplementation(() => {});
     expect(await createLead(partner, form, { origin: ORIGIN, ip: null, now: NOW })).toEqual({ ok: false, error: "mail" });
     expect(mockDb.portalLead.create).toHaveBeenCalled();
-    expect(mockDb.portalLead.update).not.toHaveBeenCalled();
+    expect(mockDb.portalLead.update).not.toHaveBeenCalledWith(expect.objectContaining({ data: expect.objectContaining({ mailsSent: 1 }) }));
   });
 
-  it("withholds the team mail in test mode (the customer mail goes through test-mode routing)", async () => {
+  it("withholds the team mail in test mode and marks the invitation as the Preview's", async () => {
     mockTestMode = true;
     expect((await createLead(partner, form, { origin: ORIGIN, ip: null, now: NOW })).ok).toBe(true);
     expect(mockInviteMail).toHaveBeenCalled();
     expect(mockTeamMail).not.toHaveBeenCalled();
+    expect(argOf(mockDb.portalLead.create).data.testDeployment).toBe(true);
+  });
+
+  it("keeps the invitation when Salesforce refuses the Case, and the team mail says so", async () => {
+    mockCreateLeadCase.mockRejectedValueOnce(new Error("INVALID_SESSION_ID"));
+    jest.spyOn(console, "error").mockImplementation(() => {});
+    expect((await createLead(partner, form, { origin: ORIGIN, ip: null, now: NOW })).ok).toBe(true);
+    expect(mockDb.portalLead.update).not.toHaveBeenCalledWith(expect.objectContaining({ data: expect.objectContaining({ salesforceCaseId: expect.anything() }) }));
+    expect(argOf(mockTeamMail).lines.join(" ")).toContain("konnte in Salesforce nicht angelegt werden");
   });
 });
 
@@ -223,8 +258,8 @@ describe("leadForLink (the customer's link)", () => {
 });
 
 describe("the submit", () => {
-  it("credits the partner as the login is now — its current Contact and Account", async () => {
-    mockDb.portalLead.findUnique.mockResolvedValueOnce(stored({ status: "opened" }));
+  it("credits the partner as the login is now — its current Contact and Account — with the invitation's Case", async () => {
+    mockDb.portalLead.findUnique.mockResolvedValueOnce(stored({ status: "opened", salesforceCaseId: "500LEADAAAAAAAAAAA" }));
     mockDb.portalUser.findUnique.mockResolvedValueOnce({ ...partner, sfContactId: "003NEWAAAAAAAAAAAA", sfAccountId: "001NEWAAAAAAAAAAAA" });
     expect(await leadPartnerForSubmit(TOKEN)).toEqual({
       leadId: "lead-1",
@@ -235,6 +270,8 @@ describe("the submit", () => {
       contactId: "003NEWAAAAAAAAAAAA",
       accountId: "001NEWAAAAAAAAAAAA",
       invitedAt: "2026-11-23T09:00:00.000Z",
+      caseId: "500LEADAAAAAAAAAAA",
+      via: "link",
     });
   });
 
@@ -253,6 +290,27 @@ describe("the submit", () => {
     expect(await leadPartnerForSubmit("bad")).toBeNull();
   });
 
+  it("a deployment only credits invitations of its own kind (the database is shared with the Preview)", async () => {
+    mockDb.portalLead.findUnique.mockResolvedValueOnce(stored({ testDeployment: true }));
+    expect(await leadPartnerForSubmit(TOKEN)).toBeNull();
+    mockTestMode = true;
+    mockDb.portalLead.findUnique.mockResolvedValueOnce(stored({ testDeployment: true }));
+    mockDb.portalUser.findUnique.mockResolvedValueOnce(partner);
+    expect(await leadPartnerForSubmit(TOKEN)).not.toBeNull();
+  });
+
+  it("without the link: the newest open invitation of the customer's address (HYPOTEQ 23.11.2026)", async () => {
+    mockDb.portalLead.findFirst.mockResolvedValueOnce(stored({ salesforceCaseId: "500LEADAAAAAAAAAAA" }));
+    mockDb.portalUser.findUnique.mockResolvedValueOnce(partner);
+    expect(await leadPartnerForEmail(" Lea@Kunde.CH ")).toMatchObject({ leadId: "lead-1", contactId: "003PARTNERAAAAAAAA", caseId: "500LEADAAAAAAAAAAA", via: "email" });
+    expect(argOf(mockDb.portalLead.findFirst)).toEqual({
+      where: { email: "lea@kunde.ch", status: { in: ["invited", "opened"] }, testDeployment: false },
+      orderBy: { createdAt: "desc" },
+    });
+    expect(await leadPartnerForEmail("")).toBeNull();
+    expect(await leadPartnerForEmail(undefined)).toBeNull();
+  });
+
   it("claims the invitation once", async () => {
     expect(await claimLead("lead-1", "inq-1", NOW)).toBe(true);
     expect(mockDb.portalLead.updateMany).toHaveBeenCalledWith({
@@ -261,5 +319,37 @@ describe("the submit", () => {
     });
     mockDb.portalLead.updateMany.mockResolvedValueOnce({ count: 0 });
     expect(await claimLead("lead-1", "inq-2", NOW)).toBe(false);
+  });
+});
+
+describe("sendLeadReminders", () => {
+  const DAY = 24 * 3600_000;
+  it("sends the due reminder with the same link and reply-to, and counts it", async () => {
+    mockDb.portalLead.findMany.mockResolvedValueOnce([
+      stored({ id: "due-1", createdAt: new Date(NOW.getTime() - 3 * DAY), lastMailAt: new Date(NOW.getTime() - 3 * DAY) }),
+      stored({ id: "due-2", createdAt: new Date(NOW.getTime() - 7 * DAY), lastMailAt: new Date(NOW.getTime() - 7 * DAY), remindersSent: 1, lastReminderAt: new Date(NOW.getTime() - 4 * DAY) }),
+      stored({ id: "resent", createdAt: new Date(NOW.getTime() - 4 * DAY), lastMailAt: new Date(NOW.getTime() - 3600_000) }),
+    ]);
+    expect(await sendLeadReminders(ORIGIN, NOW)).toEqual({ checked: 3, sent: 2 });
+    const where = argOf(mockDb.portalLead.findMany).where;
+    expect(where).toMatchObject({ status: { in: ["invited", "opened"] }, remindersSent: { lt: 2 }, expiresAt: { gt: NOW }, testDeployment: false });
+    expect(where.createdAt).toEqual({ lte: new Date(NOW.getTime() - 3 * DAY) });
+    expect(mockReminderMail.mock.calls.map((c: any[]) => c[0].n)).toEqual([1, 2]);
+    expect(argOf(mockReminderMail)).toMatchObject({
+      to: "lea@kunde.ch",
+      firstName: "Lea",
+      partner: "Anna Muster (Muster AG)",
+      url: `${ORIGIN}/fr/funnel?lead=${TOKEN}`,
+      locale: "fr",
+      replyTo: ["anna@muster.ch", teamAddress()],
+    });
+    expect(mockDb.portalLead.update).toHaveBeenCalledWith({ where: { id: "due-1" }, data: { remindersSent: { increment: 1 }, lastReminderAt: NOW } });
+    expect(mockDb.portalLead.update).not.toHaveBeenCalledWith(expect.objectContaining({ where: { id: "resent" } }));
+  });
+
+  it("never throws — the cron's other jobs must run", async () => {
+    jest.spyOn(console, "error").mockImplementation(() => {});
+    mockDb.portalLead.findMany.mockRejectedValueOnce(new Error("relation PortalLead does not exist"));
+    expect(await sendLeadReminders(ORIGIN, NOW)).toEqual({ checked: 0, sent: 0 });
   });
 });
