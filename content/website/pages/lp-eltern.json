@@ -1,0 +1,878 @@
+{
+ "de": {
+  "title": "Haus von den Eltern kaufen: Finanzierung | HYPOTEQ",
+  "description": "Du übernimmst das Haus deiner Eltern? Wir finanzieren Kauf, Erbvorbezug oder gemischte Schenkung mit 40+ Anbietern. Anfrage in 3 Minuten.",
+  "h1": "Das Haus deiner Eltern fair übernehmen",
+  "nav": [
+   "Haus von den Eltern kaufen",
+   "Erbvorbezug, Schenkung, Wohnrecht"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Haus von Eltern kaufen",
+    "h1": "Das Haus deiner Eltern\nfair übernehmen",
+    "lead": "Du willst das **Haus von deinen Eltern kaufen**, vielleicht mit Erbvorbezug, gemischter Schenkung oder Wohnrecht? HYPOTEQ findet die passende Finanzierung bei über 40 Anbietern und sorgt mit einer neutralen Bewertung für einen Preis, der auch gegenüber Geschwistern fair ist.",
+    "ctas": [
+     {
+      "label": "Übernahme anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Kostenloser Vergleich",
+     "Bewertung mit Wüest Partner",
+     "Erstgespräch kostenlos"
+    ],
+    "image": "family-home",
+    "alt": "Familie am Tisch im Elternhaus",
+    "float": {
+     "title": "Faire Basis für alle",
+     "text": "Bewertung CHF 300 statt 450"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "Banken, Versicherungen und Pensionskassen"
+     },
+     {
+      "value": "0 CHF",
+      "label": "für Vergleich und Vermittlung"
+     },
+     {
+      "value": "CHF 300",
+      "label": "Immobilienbewertung statt CHF 450"
+     },
+     {
+      "value": "3 Min.",
+      "label": "bis zur vollständigen Anfrage"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Erbvorbezug Hypothek",
+    "title": "Familienpreis.\n*Bankfähig finanziert.*",
+    "image": "family",
+    "alt": "Junge Familie im neuen Zuhause",
+    "paragraphs": [
+     "Viele Eltern verkaufen ihr Haus unter dem Marktwert an ein Kind. Die Differenz gilt als **gemischte Schenkung** bzw. **Erbvorbezug**, und Banken rechnen sie oft als Eigenkapital an. Das kann die Finanzierung deutlich erleichtern.",
+     "Behalten die Eltern ein **Wohnrecht** oder eine **Nutzniessung**, schränkt das die Belehnung ein. Wir strukturieren die Finanzierung so, dass sie für dich, deine Eltern und die Bank aufgeht."
+    ],
+    "bullets": [
+     "Kauf zum Marktwert oder mit Familienpreis",
+     "Hypothek der Eltern übernehmen oder neu aufsetzen",
+     "Wohnrecht und Nutzniessung mit dem Anbieter klären"
+    ],
+    "ctas": [
+     {
+      "label": "Finanzierung prüfen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "So gehen wir vor",
+    "title": "Von der Familienidee\nzum Notartermin.",
+    "items": [
+     {
+      "title": "Ausgangslage schildern",
+      "text": "Objekt, Preisidee und bestehende Hypothek: online in 3 Minuten oder im Chat mit HYPO."
+     },
+     {
+      "title": "Marktwert bestimmen",
+      "text": "Die Bewertung mit Wüest Partner zeigt, wie gross ein Familienrabatt tatsächlich ist."
+     },
+     {
+      "title": "Struktur festlegen",
+      "text": "Deine Beraterin rechnet Kaufpreis, Erbvorbezug, Hypothek und Wohnrecht in Varianten durch."
+     },
+     {
+      "title": "Offerten & Beurkundung",
+      "text": "Wir holen Offerten ein und koordinieren mit Notariat und Bank."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Jetzt starten",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Typische Hürden",
+    "title": "Was den Familienkauf bremst.\n*Und unsere Lösung.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Eigenkapital",
+      "title": "Kaum Ersparnisse?",
+      "text": "Ein Erbvorbezug kann als Eigenkapital zählen. Fehlt trotzdem etwas, zeigen wir weitere Wege.",
+      "to": "page:lp-wenig-eigenmittel"
+     },
+     {
+      "kicker": "Wohnrecht",
+      "title": "Eltern bleiben wohnen",
+      "text": "Wohnrecht oder Nutzniessung senken die Belehnung. Wir suchen Anbieter, die das finanzieren.",
+      "to": "funnel"
+     },
+     {
+      "kicker": "Geschwister",
+      "title": "Ist der Preis fair?",
+      "text": "Ein neutraler Marktwert nach dem Wüest-Partner-Modell schafft Transparenz in der Familie.",
+      "to": "bewertung"
+     },
+     {
+      "kicker": "Recht & Steuern",
+      "title": "Ausgleich und Vertrag",
+      "text": "Das klären Notariat oder Fachperson. Für komplexe Fälle gibt es unser Advisory.",
+      "to": "page:advisory"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Was kostet mich die Übernahme?",
+    "title": "Familienkauf\n*durchrechnen.*",
+    "lead": "Gib den vereinbarten Preis ein und als Eigenmittel deine Ersparnisse plus einen allfälligen Erbvorbezug."
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Passend dazu",
+    "title": "Weitere Themen\n*rund ums Elternhaus.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Erbfall",
+      "title": "Miterben auszahlen",
+      "text": "Wenn das Haus geerbt ist.",
+      "to": "page:lp-erbschaft"
+     },
+     {
+      "kicker": "Erstkauf",
+      "title": "Junge Familie",
+      "text": "Das erste Eigenheim finanzieren.",
+      "to": "page:lp-erstkauf"
+     },
+     {
+      "kicker": "Vorsorge",
+      "title": "PK & Säule 3a",
+      "text": "Vorsorgegelder fürs Eigenheim.",
+      "to": "page:rg-pk"
+     },
+     {
+      "kicker": "Für Treuhänder",
+      "title": "Partner werden",
+      "text": "Nachfolgen deiner Mandanten finanzieren.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Haus von den Eltern\n*klar erklärt.*",
+    "items": [
+     {
+      "q": "Zählt ein Erbvorbezug als Eigenkapital?",
+      "a": "In der Regel ja. Verkaufen dir deine Eltern das Haus unter dem Marktwert, rechnen Banken die Differenz meist als Eigenkapital an. Wichtig sind ein nachvollziehbarer Marktwert und ein sauberer Vertrag. Stand 2026, ohne Gewähr."
+     },
+     {
+      "q": "Kann ich die Hypothek meiner Eltern übernehmen?",
+      "a": "Ja, wenn der Kreditgeber zustimmt und die Tragbarkeit für dich passt. Alternativ löst du die Hypothek ab und finanzierst zu verglichenen Konditionen neu. Bei laufender Festhypothek prüfen wir Vorfälligkeitskosten."
+     },
+     {
+      "q": "Was bedeutet ein Wohnrecht der Eltern für die Bank?",
+      "a": "Ein Wohnrecht oder eine Nutzniessung belastet das Haus. Die Bank könnte es im Ernstfall nicht frei verwerten und finanziert daher meist weniger. Wir klären früh, welche Anbieter solche Lösungen akzeptieren."
+     },
+     {
+      "q": "Welcher Preis ist gegenüber Geschwistern fair?",
+      "a": "Das hängt von eurer Familiensituation und vom Erbrecht ab. Eine neutrale Bewertung nach dem Modell von Wüest Partner zeigt den Marktwert als Grundlage. Wie ein Preisnachlass später ausgeglichen wird, klärst du mit dem Notariat."
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Das Elternhaus\n*fair übernehmen?*",
+    "text": "Bewertung, Struktur und Finanzierung aus einer Hand. Anfrage in 3 Minuten.",
+    "ctas": [
+     {
+      "label": "Übernahme anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "Erstgespräch vereinbaren",
+      "to": "page:kontakt"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Acheter la maison de vos parents: financement | HYPOTEQ",
+  "description": "Vous reprenez la maison de vos parents? Nous finançons achat, avancement d'hoirie ou donation mixte avec 40+ prêteurs. Demande en 3 minutes.",
+  "h1": "Reprendre la maison de vos parents",
+  "nav": [
+   "Acheter à vos parents",
+   "Avancement d'hoirie, donation, droits"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Acheter la maison de ses parents",
+    "h1": "Reprendre la maison\nde vos parents",
+    "lead": "Vous souhaitez **acheter la maison de vos parents**, peut-être avec avancement d'hoirie, donation mixte ou droit d'habitation? HYPOTEQ trouve le financement adapté parmi plus de 40 prêteurs et vous aide, grâce à une estimation neutre, à fixer un prix équitable aussi envers vos frères et soeurs.",
+    "ctas": [
+     {
+      "label": "Demander la reprise",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Comparaison gratuite",
+     "Estimation Wüest Partner",
+     "Premier entretien gratuit"
+    ],
+    "image": "family-home",
+    "alt": "Famille à table dans la maison des parents",
+    "float": {
+     "title": "Une base équitable",
+     "text": "Estimation CHF 300 au lieu de 450"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banques, assurances et caisses de pension"
+     },
+     {
+      "value": "0 CHF",
+      "label": "pour la comparaison et le courtage"
+     },
+     {
+      "value": "CHF 300",
+      "label": "estimation au lieu de CHF 450"
+     },
+     {
+      "value": "3 min",
+      "label": "pour une demande complète"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Avancement d'hoirie hypothèque",
+    "title": "Prix de famille.\n*Financement bancable.*",
+    "image": "family",
+    "alt": "Jeune famille dans son nouveau logement",
+    "paragraphs": [
+     "Beaucoup de parents vendent leur maison à un enfant sous sa valeur de marché. La différence constitue une **donation mixte** ou un **avancement d'hoirie**, souvent reconnu comme fonds propres par les banques.",
+     "Si vos parents gardent un **droit d'habitation** ou un **usufruit**, le nantissement possible baisse. Nous structurons le financement pour qu'il convienne à vous, à vos parents et à la banque."
+    ],
+    "bullets": [
+     "Achat à la valeur de marché ou à prix de famille",
+     "Reprendre l'hypothèque des parents ou refinancer",
+     "Droit d'habitation et usufruit clarifiés"
+    ],
+    "ctas": [
+     {
+      "label": "Vérifier le financement",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Déroulement",
+    "title": "De l'idée familiale\nau notaire.",
+    "items": [
+     {
+      "title": "Décrire la situation",
+      "text": "Bien, prix envisagé et hypothèque existante: en ligne ou avec l'assistant HYPO."
+     },
+     {
+      "title": "Fixer la valeur",
+      "text": "L'estimation Wüest Partner montre l'ampleur réelle du rabais familial."
+     },
+     {
+      "title": "Définir la structure",
+      "text": "Votre conseillère calcule prix, avancement d'hoirie, hypothèque et droit d'habitation."
+     },
+     {
+      "title": "Offres & acte",
+      "text": "Nous obtenons les offres et coordonnons notaire et banque."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Commencer",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Obstacles fréquents",
+    "title": "Ce qui freine l'achat en famille.\n*Et nos solutions.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Fonds propres",
+      "title": "Peu d'épargne?",
+      "text": "Un avancement d'hoirie peut compter comme fonds propres. Sinon, nous montrons d'autres pistes.",
+      "to": "page:lp-wenig-eigenmittel"
+     },
+     {
+      "kicker": "Droit d'habitation",
+      "title": "Les parents restent",
+      "text": "Habitation ou usufruit réduisent le nantissement. Nous trouvons les prêteurs qui financent.",
+      "to": "funnel"
+     },
+     {
+      "kicker": "Fratrie",
+      "title": "Le prix est-il juste?",
+      "text": "Une valeur neutre selon Wüest Partner crée la transparence.",
+      "to": "bewertung"
+     },
+     {
+      "kicker": "Droit & impôts",
+      "title": "Rapport et contrat",
+      "text": "Le notaire ou un spécialiste s'en charge. Cas complexes: notre Advisory.",
+      "to": "page:advisory"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Combien coûte la reprise?",
+    "title": "Calculer\n*l'achat en famille.*",
+    "lead": "Saisissez le prix convenu et, comme fonds propres, votre épargne plus un éventuel avancement d'hoirie."
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Pour aller plus loin",
+    "title": "Autour de\n*la maison familiale.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Succession",
+      "title": "Racheter les parts",
+      "text": "Si la maison est héritée.",
+      "to": "page:lp-erbschaft"
+     },
+     {
+      "kicker": "Premier achat",
+      "title": "Jeune famille",
+      "text": "Financer le premier logement.",
+      "to": "page:lp-erstkauf"
+     },
+     {
+      "kicker": "Prévoyance",
+      "title": "2e pilier & 3a",
+      "text": "La prévoyance pour le logement.",
+      "to": "page:rg-pk"
+     },
+     {
+      "kicker": "Fiduciaires",
+      "title": "Devenir partenaire",
+      "text": "Financer les transmissions de vos mandants.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "Acheter à ses parents\n*expliqué.*",
+    "items": [
+     {
+      "q": "Un avancement d'hoirie compte-t-il comme fonds propres?",
+      "a": "En général oui. Si vos parents vendent sous la valeur de marché, les banques comptent souvent la différence comme fonds propres. Une valeur claire et un contrat propre sont essentiels. État 2026, sans garantie."
+     },
+     {
+      "q": "Puis-je reprendre l'hypothèque de mes parents?",
+      "a": "Oui, si le prêteur accepte et que la capacité est respectée. Sinon, vous remboursez et refinancez aux meilleures conditions comparées. Avec un taux fixe en cours, nous vérifions la pénalité."
+     },
+     {
+      "q": "Que signifie un droit d'habitation pour la banque?",
+      "a": "Il grève la maison: la banque ne pourrait pas la réaliser librement et finance donc en général moins. Nous vérifions tôt quels prêteurs acceptent ces solutions."
+     },
+     {
+      "q": "Quel prix est équitable envers les frères et soeurs?",
+      "a": "Cela dépend de votre situation familiale et du droit successoral. Une estimation neutre selon Wüest Partner donne la valeur de marché comme base. La compensation d'un rabais se règle avec le notaire."
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Reprendre la maison\n*en toute équité?*",
+    "text": "Estimation, structure et financement réunis. Demande en 3 minutes.",
+    "ctas": [
+     {
+      "label": "Demander la reprise",
+      "to": "funnel"
+     },
+     {
+      "label": "Prendre rendez-vous",
+      "to": "page:kontakt"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Comprare casa dai genitori: il finanziamento | HYPOTEQ",
+  "description": "Rilevi la casa dei tuoi genitori? Finanziamo acquisto, anticipo ereditario o donazione mista con oltre 40 istituti. Richiesta in 3 minuti.",
+  "h1": "Rilevare la casa dei tuoi genitori",
+  "nav": [
+   "Comprare dai genitori",
+   "Anticipo ereditario, donazione mista"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Comprare casa dai genitori",
+    "h1": "Rilevare la casa\ndei tuoi genitori",
+    "lead": "Vuoi **comprare casa dai genitori**, magari con anticipo ereditario, donazione mista o diritto di abitazione? HYPOTEQ trova il finanziamento adatto tra oltre 40 istituti e, con una stima neutra, ti aiuta a fissare un prezzo equo anche verso i fratelli.",
+    "ctas": [
+     {
+      "label": "Richiedi la ripresa",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Confronto gratuito",
+     "Stima con Wüest Partner",
+     "Primo colloquio gratuito"
+    ],
+    "image": "family-home",
+    "alt": "Famiglia a tavola nella casa dei genitori",
+    "float": {
+     "title": "Una base equa",
+     "text": "Valutazione CHF 300 invece di 450"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banche, assicurazioni e casse pensione"
+     },
+     {
+      "value": "0 CHF",
+      "label": "per confronto e intermediazione"
+     },
+     {
+      "value": "CHF 300",
+      "label": "valutazione invece di CHF 450"
+     },
+     {
+      "value": "3 min",
+      "label": "per una richiesta completa"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Anticipo ereditario ipoteca",
+    "title": "Prezzo di famiglia.\n*Finanziamento bancabile.*",
+    "image": "family",
+    "alt": "Giovane famiglia nella nuova casa",
+    "paragraphs": [
+     "Molti genitori vendono la casa a un figlio sotto il valore di mercato. La differenza è una **donazione mista** o un **anticipo ereditario**, che le banche riconoscono spesso come fondi propri.",
+     "Se i genitori mantengono un **diritto di abitazione** o l'**usufrutto**, l'anticipo possibile si riduce. Strutturiamo il finanziamento in modo che funzioni per te, per i tuoi genitori e per la banca."
+    ],
+    "bullets": [
+     "Acquisto a valore di mercato o a prezzo di famiglia",
+     "Riprendere l'ipoteca dei genitori o rifinanziare",
+     "Diritto di abitazione e usufrutto chiariti"
+    ],
+    "ctas": [
+     {
+      "label": "Verifica il finanziamento",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Come procediamo",
+    "title": "Dall'idea di famiglia\nal notaio.",
+    "items": [
+     {
+      "title": "Descrivi la situazione",
+      "text": "Immobile, prezzo previsto e ipoteca esistente: online o con l'assistente HYPO."
+     },
+     {
+      "title": "Fissare il valore",
+      "text": "La stima Wüest Partner mostra quanto è davvero lo sconto di famiglia."
+     },
+     {
+      "title": "Definire la struttura",
+      "text": "La tua consulente calcola prezzo, anticipo ereditario, ipoteca e diritto di abitazione."
+     },
+     {
+      "title": "Offerte & atto",
+      "text": "Raccogliamo offerte e coordiniamo notaio e banca."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Inizia ora",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Ostacoli tipici",
+    "title": "Cosa frena l'acquisto in famiglia.\n*E la nostra soluzione.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Fondi propri",
+      "title": "Pochi risparmi?",
+      "text": "Un anticipo ereditario può contare come fondi propri. Altrimenti ti mostriamo altre strade.",
+      "to": "page:lp-wenig-eigenmittel"
+     },
+     {
+      "kicker": "Abitazione",
+      "title": "I genitori restano",
+      "text": "Diritto di abitazione o usufrutto riducono l'anticipo. Troviamo istituti che finanziano.",
+      "to": "funnel"
+     },
+     {
+      "kicker": "Fratelli",
+      "title": "Il prezzo è equo?",
+      "text": "Un valore neutro secondo Wüest Partner crea trasparenza.",
+      "to": "bewertung"
+     },
+     {
+      "kicker": "Diritto & imposte",
+      "title": "Conguaglio e contratto",
+      "text": "Se ne occupa il notaio o un professionista. Casi complessi: Advisory.",
+      "to": "page:advisory"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Quanto mi costa la ripresa?",
+    "title": "Calcola\n*l'acquisto in famiglia.*",
+    "lead": "Inserisci il prezzo concordato e, come fondi propri, i risparmi più un eventuale anticipo ereditario."
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Approfondisci",
+    "title": "Tutto sulla\n*casa di famiglia.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Successione",
+      "title": "Liquidare i coeredi",
+      "text": "Se la casa è ereditata.",
+      "to": "page:lp-erbschaft"
+     },
+     {
+      "kicker": "Prima casa",
+      "title": "Giovani famiglie",
+      "text": "Finanziare la prima casa.",
+      "to": "page:lp-erstkauf"
+     },
+     {
+      "kicker": "Previdenza",
+      "title": "Cassa pensione & 3a",
+      "text": "La previdenza per la casa.",
+      "to": "page:rg-pk"
+     },
+     {
+      "kicker": "Fiduciari",
+      "title": "Diventa partner",
+      "text": "Finanzia le successioni dei mandanti.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "Comprare dai genitori\n*in chiaro.*",
+    "items": [
+     {
+      "q": "Un anticipo ereditario conta come fondi propri?",
+      "a": "Di regola sì. Se i genitori vendono sotto il valore di mercato, le banche contano spesso la differenza come fondi propri. Servono un valore chiaro e un contratto pulito. Stato 2026, senza garanzia."
+     },
+     {
+      "q": "Posso riprendere l'ipoteca dei miei genitori?",
+      "a": "Sì, se l'istituto è d'accordo e la sostenibilità regge. In alternativa estingui e rifinanzi alle migliori condizioni confrontate. Con una fissa in corso verifichiamo la penale."
+     },
+     {
+      "q": "Cosa significa un diritto di abitazione per la banca?",
+      "a": "Grava sulla casa: la banca non potrebbe realizzarla liberamente e quindi finanzia di solito meno. Verifichiamo subito quali istituti accettano queste soluzioni."
+     },
+     {
+      "q": "Quale prezzo è equo verso i fratelli?",
+      "a": "Dipende dalla situazione familiare e dal diritto successorio. Una stima neutra secondo Wüest Partner indica il valore di mercato come base. La compensazione di uno sconto la chiarisci con il notaio."
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Rilevare la casa\n*in modo equo?*",
+    "text": "Valutazione, struttura e finanziamento da un unico partner. Richiesta in 3 minuti.",
+    "ctas": [
+     {
+      "label": "Richiedi la ripresa",
+      "to": "funnel"
+     },
+     {
+      "label": "Fissa un colloquio",
+      "to": "page:kontakt"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "Buying your parents' house: financing | HYPOTEQ",
+  "description": "Taking over your parents' home? We finance the purchase, an advance on inheritance or a mixed gift with 40+ lenders. Apply in 3 minutes.",
+  "h1": "Taking over your parents' home",
+  "nav": [
+   "Buy from your parents",
+   "Inheritance advance, gift, residence"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Buying a house from parents Switzerland",
+    "h1": "Taking over\nyour parents' home",
+    "lead": "**Buying a house from your parents in Switzerland**, perhaps with an advance on inheritance, a mixed gift or a right of residence? HYPOTEQ finds the right financing among 40+ lenders, and a neutral valuation helps you set a price that is fair to your siblings too.",
+    "ctas": [
+     {
+      "label": "Request a takeover",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Free comparison",
+     "Valuation with Wüest Partner",
+     "First consultation free"
+    ],
+    "image": "family-home",
+    "alt": "Family at the table in the parents' home",
+    "float": {
+     "title": "A fair basis",
+     "text": "Valuation CHF 300 instead of 450"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banks, insurers and pension funds"
+     },
+     {
+      "value": "0 CHF",
+      "label": "for comparison and brokerage"
+     },
+     {
+      "value": "CHF 300",
+      "label": "valuation instead of CHF 450"
+     },
+     {
+      "value": "3 min",
+      "label": "to a complete request"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Advance on inheritance mortgage",
+    "title": "Family price.\n*Bankable financing.*",
+    "image": "family",
+    "alt": "Young family in their new home",
+    "paragraphs": [
+     "Many parents sell their home to a child below market value. The difference counts as a **mixed gift** or **advance on inheritance**, which banks often accept as equity.",
+     "If your parents keep a **right of residence** or **usufruct**, the possible loan-to-value drops. We structure the financing so it works for you, your parents and the lender."
+    ],
+    "bullets": [
+     "Purchase at market value or family price",
+     "Take over your parents' mortgage or refinance",
+     "Right of residence and usufruct clarified"
+    ],
+    "ctas": [
+     {
+      "label": "Check my financing",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "How we proceed",
+    "title": "From family plan\nto notary.",
+    "items": [
+     {
+      "title": "Describe your case",
+      "text": "Property, intended price and existing mortgage: online or with chat assistant HYPO."
+     },
+     {
+      "title": "Set the value",
+      "text": "The Wüest Partner valuation shows how large a family discount really is."
+     },
+     {
+      "title": "Define the structure",
+      "text": "Your advisor works through price, inheritance advance, mortgage and right of residence."
+     },
+     {
+      "title": "Offers & deed",
+      "text": "We collect offers and coordinate notary and bank."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Get started",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Common hurdles",
+    "title": "What slows a family purchase.\n*And our solution.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Equity",
+      "title": "Little savings?",
+      "text": "An advance on inheritance can count as equity. If something is still missing, we show other options.",
+      "to": "page:lp-wenig-eigenmittel"
+     },
+     {
+      "kicker": "Residence",
+      "title": "Parents stay on",
+      "text": "A right of residence or usufruct lowers the loan-to-value. We find lenders who finance it.",
+      "to": "funnel"
+     },
+     {
+      "kicker": "Siblings",
+      "title": "Is the price fair?",
+      "text": "A neutral value based on Wüest Partner creates transparency.",
+      "to": "bewertung"
+     },
+     {
+      "kicker": "Law & tax",
+      "title": "Equalisation, contract",
+      "text": "A notary or specialist handles this. Complex cases: our Advisory.",
+      "to": "page:advisory"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "What does the takeover cost?",
+    "title": "Run the numbers\n*on a family purchase.*",
+    "lead": "Enter the agreed price and, as equity, your savings plus any advance on inheritance."
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Related",
+    "title": "More about\n*the family home.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Inheritance",
+      "title": "Buy out co-heirs",
+      "text": "When the house is inherited.",
+      "to": "page:lp-erbschaft"
+     },
+     {
+      "kicker": "First home",
+      "title": "Young families",
+      "text": "Financing your first home.",
+      "to": "page:lp-erstkauf"
+     },
+     {
+      "kicker": "Pension",
+      "title": "Pillar 2 & 3a",
+      "text": "Retirement money for a home.",
+      "to": "page:rg-pk"
+     },
+     {
+      "kicker": "For trustees",
+      "title": "Become a partner",
+      "text": "Finance your clients' succession.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Buying from parents\n*explained.*",
+    "items": [
+     {
+      "q": "Does an advance on inheritance count as equity?",
+      "a": "Usually yes. If your parents sell below market value, banks often count the difference as equity. A clear market value and a clean contract are key. As of 2026, without guarantee."
+     },
+     {
+      "q": "Can I take over my parents' mortgage?",
+      "a": "Yes, if the lender agrees and affordability works for you. Alternatively, you repay it and refinance at compared conditions. With a running fixed rate, we check prepayment costs."
+     },
+     {
+      "q": "What does a right of residence mean for the bank?",
+      "a": "It encumbers the house: the bank could not freely sell it in an emergency and therefore usually lends less. We check early which lenders accept such arrangements."
+     },
+     {
+      "q": "What price is fair towards my siblings?",
+      "a": "That depends on your family situation and inheritance law. A neutral valuation based on Wüest Partner shows the market value as a basis. How a discount is later equalised, you clarify with the notary."
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Take over the home\n*fairly?*",
+    "text": "Valuation, structure and financing in one place. Apply in 3 minutes.",
+    "ctas": [
+     {
+      "label": "Request a takeover",
+      "to": "funnel"
+     },
+     {
+      "label": "Book a consultation",
+      "to": "page:kontakt"
+     }
+    ]
+   }
+  ]
+ }
+}

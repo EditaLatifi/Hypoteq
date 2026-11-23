@@ -1,0 +1,1042 @@
+{
+ "de": {
+  "title": "Baukredit & Baufinanzierung für deinen Neubau | HYPOTEQ",
+  "description": "Du baust? Vom Baukredit bis zur Konsolidierung in die Hypothek: Wir vergleichen die Baufinanzierung bei 40+ Anbietern. Jetzt Anfrage starten.",
+  "h1": "Baufinanzierung für deinen Neubau",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Baukredit & Neubau",
+    "h1": "Baufinanzierung für deinen Neubau",
+    "lead": "Du baust dein eigenes Haus? Wir vergleichen deinen **Baukredit** und die spätere Hypothek bei über 40 Banken, Versicherungen und Pensionskassen. So ist deine **Baufinanzierung in der Schweiz** vom Bauland bis zum Einzug aus einem Guss.",
+    "ctas": [
+     {
+      "label": "Baufinanzierung anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "Tragbarkeit prüfen",
+      "to": "page:tragbarkeit"
+     }
+    ],
+    "badges": [
+     "Baukredit & Hypothek",
+     "0 CHF Vermittlung",
+     "Offerten in 48–72 h"
+    ],
+    "image": "swiss-villa",
+    "alt": "Chalet am Seeufer in den Schweizer Alpen"
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "Finanzierungspartner im Vergleich"
+     },
+     {
+      "value": "1",
+      "label": "Ansprechperson vom Bauland bis zum Einzug"
+     },
+     {
+      "value": "48–72 h",
+      "label": "bis zu konkreten Offerten"
+     },
+     {
+      "value": "0 CHF",
+      "label": "für Vergleich und Vermittlung"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "So funktioniert der Baukredit",
+    "title": "Zahlen, wenn gebaut wird.\n*Nicht vorher.*",
+    "image": "product",
+    "alt": "Unterlagen und Laptop auf dem Tisch",
+    "paragraphs": [
+     "Ein Baukredit ist eine Kreditlimite, die nach Baufortschritt ausgezahlt wird. Du bezahlst Zinsen nur auf dem bereits bezogenen Betrag, meist zu variablen Konditionen.",
+     "Nach Fertigstellung und Bauabrechnung wird der Baukredit in eine definitive **Neubau Hypothek** umgewandelt, die sogenannte Konsolidierung. Dann wählst du SARON, Fest oder eine Kombination."
+    ],
+    "bullets": [
+     "Auszahlung in Etappen nach Baufortschritt",
+     "Zinsen nur auf dem bezogenen Betrag",
+     "Konsolidierung in die Hypothek nach Bauende"
+    ],
+    "ctas": [
+     {
+      "label": "Baukredit anfragen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Haus bauen: Finanzierung in Etappen",
+    "title": "Vom Bauland\nzum Einzug.",
+    "items": [
+     {
+      "title": "Bauland & Projekt",
+      "text": "Wir prüfen Landkauf, Baukosten und Eigenmittel. Bauland lässt sich je nach Anbieter mitfinanzieren."
+     },
+     {
+      "title": "Finanzierungszusage",
+      "text": "Mit Baubeschrieb, Kostenvoranschlag und Plänen holen wir Offerten bei über 40 Anbietern ein."
+     },
+     {
+      "title": "Baukredit in der Bauphase",
+      "text": "Auszahlung nach Baufortschritt, Zinsen nur auf dem bezogenen Betrag."
+     },
+     {
+      "title": "Konsolidierung",
+      "text": "Nach Bauabrechnung wird der Baukredit in die definitive Hypothek umgewandelt."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Neubau finanzieren",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Was Banken beim Neubau prüfen",
+    "title": "Gut geplant\n*ist halb gebaut.*",
+    "lead": "Allgemeine Schweizer Grundregeln, Stand 2026, ohne Gewähr.",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Eigenmittel",
+      "title": "Mind. 20 %",
+      "text": "Bezogen auf die gesamten Anlagekosten aus Land und Bau, davon mind. 10 % «hart».",
+      "to": "page:rg-eigenmittel"
+     },
+     {
+      "kicker": "Tragbarkeit",
+      "title": "Max. ca. ⅓",
+      "text": "Kalkulatorischer Zins 5 %, Unterhalt 1 % und Amortisation im Verhältnis zum Einkommen.",
+      "to": "page:rg-tragbarkeit"
+     },
+     {
+      "kicker": "Bauland",
+      "title": "Land zuerst",
+      "text": "Bauland finanzieren ist möglich, Bedingungen und Belehnung variieren je nach Anbieter."
+     },
+     {
+      "kicker": "Reserve",
+      "title": "Kosten im Griff",
+      "text": "Plane eine Reserve für Mehrkosten ein. Banken achten auf einen realistischen Kostenvoranschlag."
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Online-Anfrage",
+    "title": "Pläne hochladen.\n*Wir rechnen.*",
+    "screen": "funnel",
+    "reverse": true,
+    "paragraphs": [
+     "Lade Baubeschrieb, Kostenvoranschlag, Pläne und deine persönlichen Unterlagen hoch. Unsere KI liest die meisten Angaben aus, deine Beraterin meldet sich zeitnah."
+    ],
+    "bullets": [
+     "Baubeschrieb und Kostenvoranschlag",
+     "Grundbuchauszug bzw. Kaufvertrag Bauland",
+     "Lohnausweis, Steuererklärung, Pensionskassenausweis"
+    ],
+    "ctas": [
+     {
+      "label": "Unterlagen hochladen",
+      "to": "funnel"
+     },
+     {
+      "label": "Checkliste herunterladen",
+      "to": "page:dokumente"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Baukredit Zinsen",
+    "title": "Und nach dem Bau?\n*Die Hypothek.*",
+    "lead": "Der Baukredit läuft meist variabel. Bei der Konsolidierung wählst du dein Hypothekarmodell, die Richtzinsen geben dir eine Orientierung."
+   },
+   {
+    "type": "testimonials",
+    "eyebrow": "Kundenstimmen",
+    "title": "Persönlich begleitet.\n*Bis zum Einzug.*",
+    "items": [
+     {
+      "text": "Mein Berater hat mich optimal begleitet und war sehr präsent.",
+      "author": "Romain C."
+     },
+     {
+      "text": "Höchst professionell, menschlich und kompetent: ein perfektes Ergebnis mit top Konditionen.",
+      "author": "Gregor R."
+     },
+     {
+      "text": "Erstklassiger Service, alles wurde schnell bearbeitet.",
+      "author": "Andreas K."
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Passend dazu",
+    "title": "Mehr zum\n*Bauen & Finanzieren.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Modelle",
+      "title": "SARON oder Fest?",
+      "text": "Welches Modell bei der Konsolidierung passt.",
+      "to": "page:rg-saron-fest"
+     },
+     {
+      "kicker": "Kosten",
+      "title": "Nebenkosten",
+      "text": "Handänderung, Notar, Grundbuch und Schuldbrief.",
+      "to": "page:rg-nebenkosten"
+     },
+     {
+      "kicker": "Übersicht",
+      "title": "Alle Hypotheken",
+      "text": "Kauf, Ablösung, Aufstocken und Spezialfälle.",
+      "to": "page:hypotheken"
+     },
+     {
+      "kicker": "Für Partner",
+      "title": "Partner werden",
+      "text": "Du begleitest Bauherren als Makler oder Treuhänder? Wir übernehmen die Finanzierung, du erhältst eine Provision.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Neubau\nohne Baustellen.",
+    "items": [
+     {
+      "q": "Wie funktioniert ein Baukredit in der Schweiz?",
+      "a": "Die Bank gewährt eine Kreditlimite, die nach Baufortschritt ausgezahlt wird. Du zahlst Zinsen nur auf dem bezogenen Betrag. Nach Bauende wird der Baukredit in eine Hypothek umgewandelt."
+     },
+     {
+      "q": "Wann wird der Baukredit in eine Hypothek umgewandelt?",
+      "a": "In der Regel nach Fertigstellung und Bauabrechnung. Dann wird der Baukredit konsolidiert und du wählst das Hypothekarmodell, z. B. SARON, Fest oder eine Kombination."
+     },
+     {
+      "q": "Wie viel Eigenkapital brauche ich für einen Neubau?",
+      "a": "Mindestens 20 % der gesamten Anlagekosten aus Land und Bau, davon mind. 10 % «hart», also nicht aus der Pensionskasse. Stand 2026, ohne Gewähr."
+     },
+     {
+      "q": "Kann ich Bauland mitfinanzieren?",
+      "a": "Ja, das ist möglich. Bedingungen und Belehnung für Bauland variieren je nach Anbieter. Wir vergleichen für dich, wer Land und Bau zusammen finanziert."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Alle Fragen",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Bereit für den\n*ersten Spatenstich?*",
+    "text": "Baufinanzierung kostenlos vergleichen und in 3 Minuten anfragen.",
+    "ctas": [
+     {
+      "label": "Baufinanzierung anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Crédit de construction pour votre projet | HYPOTEQ",
+  "description": "Vous construisez? Du crédit de construction à la consolidation en hypothèque, nous comparons le financement auprès de 40+ prêteurs. Demande en 3 min.",
+  "h1": "Financer votre construction neuve",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Crédit de construction",
+    "h1": "Financer votre\nconstruction neuve",
+    "lead": "Vous construisez votre maison? Nous comparons votre **crédit de construction** et l'hypothèque qui suivra auprès de plus de 40 banques, assurances et caisses de pension. Le **financement de la construction de votre maison** reste cohérent du terrain à l'emménagement.",
+    "ctas": [
+     {
+      "label": "Demander un financement",
+      "to": "funnel"
+     },
+     {
+      "label": "Calculer ma capacité",
+      "to": "page:tragbarkeit"
+     }
+    ],
+    "badges": [
+     "Crédit de construction & hypothèque",
+     "0 CHF de courtage",
+     "Offres en 48–72 h"
+    ],
+    "image": "swiss-villa",
+    "alt": "Chalet au bord d'un lac dans les Alpes suisses"
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "partenaires de financement comparés"
+     },
+     {
+      "value": "1",
+      "label": "interlocutrice du terrain à l'emménagement"
+     },
+     {
+      "value": "48–72 h",
+      "label": "jusqu'aux offres concrètes"
+     },
+     {
+      "value": "0 CHF",
+      "label": "pour la comparaison et le courtage"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Comment fonctionne le crédit",
+    "title": "Payer quand on construit.\n*Pas avant.*",
+    "image": "product",
+    "alt": "Documents et ordinateur portable sur la table",
+    "paragraphs": [
+     "Le crédit de construction est une limite de crédit versée selon l'avancement des travaux. Vous ne payez des intérêts que sur le montant utilisé, en général à des conditions variables.",
+     "Une fois les travaux terminés et le décompte final établi, le crédit est transformé en hypothèque définitive: c'est la **consolidation du crédit de construction**. Vous choisissez alors SARON, taux fixe ou une combinaison."
+    ],
+    "bullets": [
+     "Versements par étapes selon l'avancement",
+     "Intérêts uniquement sur le montant utilisé",
+     "Consolidation en hypothèque à la fin des travaux"
+    ],
+    "ctas": [
+     {
+      "label": "Demander un crédit de construction",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Construire une maison en Suisse",
+    "title": "Du terrain\nà l'emménagement.",
+    "items": [
+     {
+      "title": "Terrain & projet",
+      "text": "Nous analysons achat du terrain, coûts de construction et fonds propres. Selon le prêteur, le terrain peut être financé."
+     },
+     {
+      "title": "Accord de financement",
+      "text": "Avec descriptif, devis et plans, nous obtenons des offres de plus de 40 prêteurs."
+     },
+     {
+      "title": "Crédit pendant les travaux",
+      "text": "Versements selon l'avancement, intérêts uniquement sur le montant utilisé."
+     },
+     {
+      "title": "Consolidation",
+      "text": "Après le décompte final, le crédit devient votre hypothèque définitive."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Financer ma construction",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Ce que vérifient les banques",
+    "title": "Bien planifié,\n*à moitié construit.*",
+    "lead": "Règles générales en Suisse, état 2026, sans garantie.",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Fonds propres",
+      "title": "Min. 20 %",
+      "text": "Sur le coût total terrain et construction, dont min. 10 % hors 2e pilier.",
+      "to": "page:rg-eigenmittel"
+     },
+     {
+      "kicker": "Capacité financière",
+      "title": "Max. env. ⅓",
+      "text": "Taux théorique 5 %, entretien 1 % et amortissement par rapport au revenu.",
+      "to": "page:rg-tragbarkeit"
+     },
+     {
+      "kicker": "Terrain",
+      "title": "D'abord le terrain",
+      "text": "Financer un terrain est possible, conditions et taux d'avance varient selon le prêteur."
+     },
+     {
+      "kicker": "Réserve",
+      "title": "Maîtriser les coûts",
+      "text": "Prévoyez une réserve pour les surcoûts. Les banques attendent un devis réaliste."
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Demande en ligne",
+    "title": "Envoyez vos plans.\n*Nous calculons.*",
+    "screen": "funnel",
+    "reverse": true,
+    "paragraphs": [
+     "Téléchargez descriptif, devis, plans et vos documents personnels. Notre IA lit la plupart des informations, votre conseillère vous contacte rapidement."
+    ],
+    "bullets": [
+     "Descriptif de construction et devis",
+     "Extrait du registre foncier ou acte d'achat du terrain",
+     "Certificat de salaire, déclaration d'impôt, certificat de caisse de pension"
+    ],
+    "ctas": [
+     {
+      "label": "Envoyer mes documents",
+      "to": "funnel"
+     },
+     {
+      "label": "Télécharger la checklist",
+      "to": "page:dokumente"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Taux indicatifs",
+    "title": "Et après les travaux?\n*L'hypothèque.*",
+    "lead": "Le crédit de construction est généralement variable. À la consolidation, vous choisissez votre modèle; les taux indicatifs vous donnent une orientation."
+   },
+   {
+    "type": "testimonials",
+    "eyebrow": "Avis clients",
+    "title": "Accompagné personnellement.\n*Jusqu'à l'emménagement.*",
+    "items": [
+     {
+      "text": "Mon conseiller m'a accompagné de façon optimale et a été très présent.",
+      "author": "Romain C."
+     },
+     {
+      "text": "Très professionnels, humains et compétents: un résultat parfait avec des conditions excellentes.",
+      "author": "Gregor R."
+     },
+     {
+      "text": "Un service de premier ordre, tout a été traité rapidement.",
+      "author": "Andreas K."
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "À lire aussi",
+    "title": "Construire\n*et financer.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Modèles",
+      "title": "SARON ou taux fixe?",
+      "text": "Quel modèle choisir à la consolidation.",
+      "to": "page:rg-saron-fest"
+     },
+     {
+      "kicker": "Frais",
+      "title": "Frais d'achat",
+      "text": "Droits de mutation, notaire, registre foncier et cédule.",
+      "to": "page:rg-nebenkosten"
+     },
+     {
+      "kicker": "Aperçu",
+      "title": "Toutes les hypothèques",
+      "text": "Achat, renouvellement, augmentation et cas particuliers.",
+      "to": "page:hypotheken"
+     },
+     {
+      "kicker": "Partenaires",
+      "title": "Devenir partenaire",
+      "text": "Vous accompagnez des maîtres d'ouvrage comme courtier ou fiduciaire? Nous gérons le financement, vous touchez une commission.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "Construire\nsans mauvaise surprise.",
+    "items": [
+     {
+      "q": "Comment fonctionne un crédit de construction?",
+      "a": "La banque accorde une limite de crédit versée selon l'avancement des travaux. Vous payez des intérêts uniquement sur le montant utilisé. À la fin des travaux, le crédit est transformé en hypothèque."
+     },
+     {
+      "q": "Quand le crédit est-il consolidé en hypothèque?",
+      "a": "En général après l'achèvement et le décompte final des travaux. Le crédit est alors consolidé et vous choisissez votre modèle, par exemple SARON, taux fixe ou une combinaison."
+     },
+     {
+      "q": "Combien de fonds propres pour construire?",
+      "a": "Au moins 20 % du coût total terrain et construction, dont au moins 10 % hors 2e pilier. État 2026, sans garantie."
+     },
+     {
+      "q": "Peut-on financer l'achat du terrain?",
+      "a": "Oui, c'est possible. Conditions et taux d'avance pour un terrain varient selon le prêteur. Nous comparons qui finance terrain et construction ensemble."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Toutes les questions",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Prêt pour le\n*premier coup de pelle?*",
+    "text": "Comparez gratuitement votre financement et lancez la demande en 3 minutes.",
+    "ctas": [
+     {
+      "label": "Demander un financement",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Credito di costruzione per la tua casa | HYPOTEQ",
+  "description": "Costruisci casa? Dal credito di costruzione al consolidamento in ipoteca: confrontiamo il finanziamento di oltre 40 istituti. Richiesta in 3 minuti.",
+  "h1": "Finanziare la tua nuova costruzione",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Credito di costruzione",
+    "h1": "Finanziare la tua\nnuova costruzione",
+    "lead": "Vuoi costruire casa in Ticino o nel resto della Svizzera? Confrontiamo il tuo **credito di costruzione** e la successiva ipoteca presso oltre 40 banche, assicurazioni e casse pensione. Il **finanziamento della nuova costruzione** resta coerente dal terreno al trasloco.",
+    "ctas": [
+     {
+      "label": "Richiedi il finanziamento",
+      "to": "funnel"
+     },
+     {
+      "label": "Verifica la sostenibilità",
+      "to": "page:tragbarkeit"
+     }
+    ],
+    "badges": [
+     "Credito di costruzione & ipoteca",
+     "0 CHF di mediazione",
+     "Offerte in 48–72 h"
+    ],
+    "image": "swiss-villa",
+    "alt": "Chalet in riva al lago nelle Alpi svizzere"
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "partner di finanziamento a confronto"
+     },
+     {
+      "value": "1",
+      "label": "referente dal terreno al trasloco"
+     },
+     {
+      "value": "48–72 h",
+      "label": "fino alle offerte concrete"
+     },
+     {
+      "value": "0 CHF",
+      "label": "per confronto e mediazione"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Come funziona il credito",
+    "title": "Paghi quando si costruisce.\n*Non prima.*",
+    "image": "product",
+    "alt": "Documenti e laptop sul tavolo",
+    "paragraphs": [
+     "Il credito di costruzione è un limite di credito versato secondo l'avanzamento dei lavori. Paghi interessi solo sull'importo già utilizzato, di solito a condizioni variabili.",
+     "Dopo la fine dei lavori e il conteggio finale, il credito viene trasformato nell'ipoteca definitiva: è il **consolidamento del credito**. A quel punto scegli SARON, fisso o una combinazione."
+    ],
+    "bullets": [
+     "Versamenti a tappe secondo l'avanzamento",
+     "Interessi solo sull'importo utilizzato",
+     "Consolidamento in ipoteca a fine lavori"
+    ],
+    "ctas": [
+     {
+      "label": "Richiedi il credito di costruzione",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Costruire casa: finanziamento a tappe",
+    "title": "Dal terreno\nal trasloco.",
+    "items": [
+     {
+      "title": "Terreno & progetto",
+      "text": "Verifichiamo acquisto del terreno, costi di costruzione e fondi propri. Secondo l'istituto si può finanziare anche il terreno."
+     },
+     {
+      "title": "Conferma di finanziamento",
+      "text": "Con descrizione, preventivo e piani raccogliamo offerte da oltre 40 istituti."
+     },
+     {
+      "title": "Credito durante i lavori",
+      "text": "Versamenti secondo l'avanzamento, interessi solo sull'importo utilizzato."
+     },
+     {
+      "title": "Consolidamento",
+      "text": "Dopo il conteggio finale il credito diventa la tua ipoteca definitiva."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Finanzia la costruzione",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Cosa verificano le banche",
+    "title": "Ben pianificato\n*è già mezzo costruito.*",
+    "lead": "Regole generali svizzere, stato 2026, senza garanzia.",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Fondi propri",
+      "title": "Min. 20 %",
+      "text": "Sul costo totale di terreno e costruzione, di cui min. 10 % non dalla cassa pensione.",
+      "to": "page:rg-eigenmittel"
+     },
+     {
+      "kicker": "Sostenibilità",
+      "title": "Max. ca. ⅓",
+      "text": "Tasso teorico 5 %, manutenzione 1 % e ammortamento rispetto al reddito.",
+      "to": "page:rg-tragbarkeit"
+     },
+     {
+      "kicker": "Terreno",
+      "title": "Prima il terreno",
+      "text": "Finanziare un terreno edificabile è possibile, condizioni e anticipo variano secondo l'istituto."
+     },
+     {
+      "kicker": "Riserva",
+      "title": "Costi sotto controllo",
+      "text": "Prevedi una riserva per i costi aggiuntivi. Le banche vogliono un preventivo realistico."
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Richiesta online",
+    "title": "Carica i piani.\n*Calcoliamo noi.*",
+    "screen": "funnel",
+    "reverse": true,
+    "paragraphs": [
+     "Carica descrizione, preventivo, piani e i tuoi documenti personali. La nostra IA legge gran parte dei dati, la tua consulente ti contatta in tempi brevi."
+    ],
+    "bullets": [
+     "Descrizione della costruzione e preventivo",
+     "Estratto del registro fondiario o contratto d'acquisto del terreno",
+     "Certificato di salario, dichiarazione fiscale, certificato della cassa pensione"
+    ],
+    "ctas": [
+     {
+      "label": "Carica i documenti",
+      "to": "funnel"
+     },
+     {
+      "label": "Scarica la checklist",
+      "to": "page:dokumente"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Tassi indicativi",
+    "title": "E dopo i lavori?\n*L'ipoteca.*",
+    "lead": "Il credito di costruzione è di solito variabile. Al consolidamento scegli il tuo modello; i tassi indicativi ti danno un orientamento."
+   },
+   {
+    "type": "testimonials",
+    "eyebrow": "Opinioni dei clienti",
+    "title": "Accompagnati di persona.\n*Fino al trasloco.*",
+    "items": [
+     {
+      "text": "Il mio consulente mi ha accompagnato in modo ottimale ed è stato molto presente.",
+      "author": "Romain C."
+     },
+     {
+      "text": "Estremamente professionali, umani e competenti: un risultato perfetto con condizioni top.",
+      "author": "Gregor R."
+     },
+     {
+      "text": "Servizio di prima classe, tutto è stato gestito rapidamente.",
+      "author": "Andreas K."
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Da leggere",
+    "title": "Costruire\n*e finanziare.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Modelli",
+      "title": "SARON o fisso?",
+      "text": "Quale modello scegliere al consolidamento.",
+      "to": "page:rg-saron-fest"
+     },
+     {
+      "kicker": "Costi",
+      "title": "Spese accessorie",
+      "text": "Imposta di trapasso, notaio, registro fondiario e cartella ipotecaria.",
+      "to": "page:rg-nebenkosten"
+     },
+     {
+      "kicker": "Panoramica",
+      "title": "Tutte le ipoteche",
+      "text": "Acquisto, rinnovo, aumento e casi particolari.",
+      "to": "page:hypotheken"
+     },
+     {
+      "kicker": "Per i partner",
+      "title": "Diventa partner",
+      "text": "Accompagni committenti come agente o fiduciario? Noi gestiamo il finanziamento, tu ricevi una provvigione.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "Costruire\nsenza sorprese.",
+    "items": [
+     {
+      "q": "Come funziona un credito di costruzione?",
+      "a": "La banca concede un limite di credito versato secondo l'avanzamento dei lavori. Paghi interessi solo sull'importo utilizzato. A fine lavori il credito viene trasformato in ipoteca."
+     },
+     {
+      "q": "Quando viene consolidato in ipoteca?",
+      "a": "Di regola dopo la fine dei lavori e il conteggio finale. Il credito viene consolidato e scegli il modello, per esempio SARON, fisso o una combinazione."
+     },
+     {
+      "q": "Quanti fondi propri servono per costruire?",
+      "a": "Almeno il 20 % del costo totale di terreno e costruzione, di cui almeno il 10 % non dalla cassa pensione. Stato 2026, senza garanzia."
+     },
+     {
+      "q": "Si può finanziare anche il terreno?",
+      "a": "Sì, è possibile. Condizioni e anticipo per il terreno variano secondo l'istituto. Confrontiamo chi finanzia terreno e costruzione insieme."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Tutte le domande",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Pronto per\n*il primo colpo di pala?*",
+    "text": "Confronta gratis il finanziamento e avvia la richiesta in 3 minuti.",
+    "ctas": [
+     {
+      "label": "Richiedi il finanziamento",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "Construction Loans for New Builds in Switzerland | HYPOTEQ",
+  "description": "Building a home in Switzerland? From construction loan to final mortgage, we compare financing from 40+ lenders. Apply in 3 minutes, advice in English.",
+  "h1": "Financing your new build in Switzerland",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Construction loan Switzerland",
+    "h1": "Financing your new build\nin Switzerland",
+    "lead": "Planning to **build a house in Switzerland**? We compare your **construction loan** and the mortgage that follows across 40+ banks, insurers and pension funds. Your financing stays joined up from building plot to moving in, with advice in English.",
+    "ctas": [
+     {
+      "label": "Request financing",
+      "to": "funnel"
+     },
+     {
+      "label": "Check affordability",
+      "to": "page:tragbarkeit"
+     }
+    ],
+    "badges": [
+     "Construction loan & mortgage",
+     "CHF 0 brokerage fee",
+     "Offers in 48–72 h"
+    ],
+    "image": "swiss-villa",
+    "alt": "Chalet on a lakeshore in the Swiss Alps"
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "financing partners compared"
+     },
+     {
+      "value": "1",
+      "label": "contact person from plot to move-in"
+     },
+     {
+      "value": "48–72 h",
+      "label": "to concrete offers"
+     },
+     {
+      "value": "CHF 0",
+      "label": "for comparison and brokerage"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "How a Swiss construction loan works",
+    "title": "Pay as you build.\n*Not before.*",
+    "image": "product",
+    "alt": "Documents and laptop on a desk",
+    "paragraphs": [
+     "A construction loan is a credit line paid out as building work progresses. You only pay interest on the amount drawn, usually at variable terms.",
+     "Once the build is finished and the final cost statement is in, the loan is converted into your permanent **new build mortgage**. This step is called consolidation. You then choose SARON, fixed or a mix."
+    ],
+    "bullets": [
+     "Paid out in stages as work progresses",
+     "Interest only on the amount drawn",
+     "Converted into a mortgage after completion"
+    ],
+    "ctas": [
+     {
+      "label": "Request a construction loan",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Building in stages",
+    "title": "From building plot\nto moving in.",
+    "items": [
+     {
+      "title": "Plot & project",
+      "text": "We review land purchase, building costs and equity. Depending on the lender, the plot can be financed too."
+     },
+     {
+      "title": "Financing commitment",
+      "text": "With building specs, cost estimate and plans, we collect offers from 40+ lenders."
+     },
+     {
+      "title": "Loan during construction",
+      "text": "Payouts as work progresses, interest only on what you've drawn."
+     },
+     {
+      "title": "Consolidation",
+      "text": "After the final cost statement, the loan becomes your permanent mortgage."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Finance my new build",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "What banks check",
+    "title": "Well planned\n*is half built.*",
+    "lead": "General Swiss rules, as of 2026, without guarantee.",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Equity",
+      "title": "Min. 20 %",
+      "text": "Of total land and building costs, at least 10 % not from your pension fund (pillar 2).",
+      "to": "page:rg-eigenmittel"
+     },
+     {
+      "kicker": "Affordability",
+      "title": "Max. about ⅓",
+      "text": "Imputed 5 % rate, 1 % maintenance and amortisation compared with income.",
+      "to": "page:rg-tragbarkeit"
+     },
+     {
+      "kicker": "Building land",
+      "title": "Plot first",
+      "text": "Building land financing is possible; terms and loan-to-value vary by lender."
+     },
+     {
+      "kicker": "Buffer",
+      "title": "Costs under control",
+      "text": "Plan a buffer for extra costs. Banks expect a realistic cost estimate."
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Online application",
+    "title": "Upload your plans.\n*We do the maths.*",
+    "screen": "funnel",
+    "reverse": true,
+    "paragraphs": [
+     "Upload building specs, cost estimate, plans and your personal documents. Our AI reads most of the details, and your advisor gets back to you promptly."
+    ],
+    "bullets": [
+     "Building specification and cost estimate",
+     "Land register extract or land purchase contract",
+     "Salary statement, tax return, pension fund certificate"
+    ],
+    "ctas": [
+     {
+      "label": "Upload documents",
+      "to": "funnel"
+     },
+     {
+      "label": "Download checklist",
+      "to": "page:dokumente"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Indicative rates",
+    "title": "And after the build?\n*Your mortgage.*",
+    "lead": "Construction loans are usually variable. At consolidation you choose your mortgage model; indicative rates give you orientation."
+   },
+   {
+    "type": "testimonials",
+    "eyebrow": "Client reviews",
+    "title": "Personal support.\n*Until you move in.*",
+    "items": [
+     {
+      "text": "My advisor guided me perfectly and was always there for me.",
+      "author": "Romain C."
+     },
+     {
+      "text": "Highly professional, personable and competent: a perfect result with top terms.",
+      "author": "Gregor R."
+     },
+     {
+      "text": "First-class service, everything was processed quickly.",
+      "author": "Andreas K."
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Related",
+    "title": "More on\n*building & financing.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Models",
+      "title": "SARON or fixed?",
+      "text": "Which model fits at consolidation.",
+      "to": "page:rg-saron-fest"
+     },
+     {
+      "kicker": "Costs",
+      "title": "Purchase costs",
+      "text": "Transfer tax, notary, land registry and mortgage note.",
+      "to": "page:rg-nebenkosten"
+     },
+     {
+      "kicker": "Overview",
+      "title": "All mortgages",
+      "text": "Buying, refinancing, increasing and special cases.",
+      "to": "page:hypotheken"
+     },
+     {
+      "kicker": "For partners",
+      "title": "Become a partner",
+      "text": "You support people who build, as an agent or trustee? We handle the financing, you earn a commission.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Building\nwithout surprises.",
+    "items": [
+     {
+      "q": "How does a Swiss construction loan work?",
+      "a": "The bank grants a credit line that is paid out as construction progresses. You only pay interest on the amount drawn. After completion, the loan is converted into a mortgage."
+     },
+     {
+      "q": "When is it converted into a mortgage?",
+      "a": "Usually after completion and the final cost statement. The loan is then consolidated and you choose your model, for example SARON, fixed or a combination."
+     },
+     {
+      "q": "How much equity do I need to build?",
+      "a": "At least 20 % of total land and building costs, of which at least 10 % must not come from your pension fund. As of 2026, without guarantee."
+     },
+     {
+      "q": "Can the building plot be financed too?",
+      "a": "Yes, that's possible. Terms and loan-to-value for building land vary by lender. We compare who will finance the plot and the build together."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "All questions",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Ready to\n*break ground?*",
+    "text": "Compare your financing for free and apply in 3 minutes.",
+    "ctas": [
+     {
+      "label": "Request financing",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ }
+}

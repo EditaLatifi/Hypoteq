@@ -1,0 +1,1580 @@
+{
+ "_meta": {
+  "stand": "2026-11-16",
+  "hinweis": "volume/difficulty = Schätzung (S), ohne bezahltes Keyword-Tool, aus SERP-Analyse abgeleitet."
+ },
+ "pages": {
+  "lp-erstkauf": {
+   "_meta": {
+    "angle": "Junge Familien und Erstkäufer brauchen Orientierung (Eigenmittel, PK, Tragbarkeit) und eine schnelle Zusage, um bei Besichtigungen mitzubieten. Familienrabatte einzelner Banken sind ein konkreter Vergleichsgrund.",
+    "competitors": "UBS, Raiffeisen, ZKB, PostFinance (Ratgeber), comparis.ch, moneyland.ch, MoneyPark, VZ VermögensZentrum",
+    "parent": "hypotheken"
+   },
+   "de": {
+    "slug": "hypothek-junge-familie",
+    "primary": "Hypothek junge Familie",
+    "secondary": [
+     "Familienhypothek",
+     "Hypothek Erstkäufer",
+     "erstes Eigenheim junge Familie",
+     "Eigenheim mit Kindern finanzieren"
+    ],
+    "title": "Hypothek für junge Familien und Erstkäufer | HYPOTEQ",
+    "description": "Erstes Eigenheim mit Familie? Wir prüfen Eigenmittel, PK-Vorbezug und Tragbarkeit und vergleichen 40+ Anbieter kostenlos. Anfrage in 3 Minuten.",
+    "h1": "Dein erstes Eigenheim als junge Familie",
+    "faq": [
+     "Wie viel Eigenkapital braucht ihr als junge Familie?",
+     "Gibt es spezielle Familienhypotheken mit Zinsrabatt?",
+     "Wie wirken sich Teilzeit und Kinderkosten auf die Tragbarkeit aus?",
+     "Können wir Pensionskasse und Säule 3a für das Eigenkapital nutzen?"
+    ],
+    "intent": "transaktional",
+    "volume": "mittel (S)",
+    "difficulty": "mittel (S)"
+   },
+   "fr": {
+    "slug": "hypotheque-jeune-famille",
+    "primary": "hypothèque jeune famille",
+    "secondary": [
+     "premier achat immobilier",
+     "primo-accédant Suisse",
+     "acheter avec des enfants",
+     "hypothèque famille"
+    ],
+    "title": "Hypothèque pour jeunes familles et primo-accédants | HYPOTEQ",
+    "description": "Premier logement en famille? Nous vérifions vos fonds propres, le 2e pilier et votre capacité financière, et comparons 40+ prêteurs. Demande en 3 minutes.",
+    "h1": "Votre premier logement en famille",
+    "faq": [
+     "De combien de fonds propres une jeune famille a-t-elle besoin?",
+     "Existe-t-il des hypothèques famille avec rabais?",
+     "Le temps partiel influence-t-il la capacité financière?",
+     "Peut-on utiliser le 2e pilier et le 3a comme fonds propres?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "mittel (S)"
+   },
+   "it": {
+    "slug": "ipoteca-giovani-famiglie",
+    "primary": "ipoteca giovani famiglie",
+    "secondary": [
+     "prima casa Svizzera",
+     "primo acquisto casa",
+     "ipoteca famiglia",
+     "comprare casa con figli"
+    ],
+    "title": "Ipoteca per giovani famiglie e prima casa | HYPOTEQ",
+    "description": "Prima casa con la tua famiglia? Verifichiamo fondi propri, 2° pilastro e sostenibilità e confrontiamo gratis oltre 40 istituti. Richiesta in 3 minuti.",
+    "h1": "La tua prima casa come giovane famiglia",
+    "faq": [
+     "Quanti fondi propri servono a una giovane famiglia?",
+     "Esistono ipoteche famiglia con sconto sul tasso?",
+     "Il lavoro a tempo parziale incide sulla sostenibilità?",
+     "Posso usare il 2° pilastro e il 3a come fondi propri?"
+    ],
+    "intent": "transaktional",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "en": {
+    "slug": "mortgage-young-families",
+    "primary": "first time buyer mortgage Switzerland",
+    "secondary": [
+     "family mortgage Switzerland",
+     "first home Switzerland",
+     "buying a house with kids Switzerland"
+    ],
+    "title": "Mortgage for young families and first-time buyers | HYPOTEQ",
+    "description": "Buying your first family home? We check your equity, pension withdrawal and affordability and compare 40+ lenders for free. Apply in 3 minutes.",
+    "h1": "Your first home as a young family",
+    "faq": [
+     "How much equity does a young family need?",
+     "Are there family mortgages with rate discounts?",
+     "How does part-time work affect affordability?",
+     "Can we use pension fund and pillar 3a money as equity?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "mittel (S)"
+   }
+  },
+  "lp-scheidung": {
+   "_meta": {
+    "angle": "Bei Trennung muss oft ein Partner das Haus übernehmen und den anderen auszahlen. Die Tragbarkeit mit einem Einkommen ist der Knackpunkt, und die bisherige Bank entlässt den ausziehenden Partner oft nicht aus der Solidarhaftung. Das ist ein dringender, beratungsintensiver Fall, oft verbunden mit einer Bewertung (Wüest CHF 300).",
+    "competitors": "comparis.ch, UBS (Ratgeber), VZ VermögensZentrum, Beobachter, neho.ch, Swiss Life, moneyland.ch (Forum)",
+    "parent": "hypotheken"
+   },
+   "de": {
+    "slug": "hypothek-scheidung-trennung",
+    "primary": "Hypothek Scheidung",
+    "secondary": [
+     "Haus übernehmen nach Scheidung",
+     "Partner auszahlen Hypothek",
+     "Trennung Eigenheim",
+     "Solidarhaftung Hypothek Scheidung"
+    ],
+    "title": "Hypothek bei Scheidung: Haus übernehmen | HYPOTEQ",
+    "description": "Scheidung oder Trennung? Wir prüfen, ob du das Haus allein tragen und deinen Partner auszahlen kannst, mit 40+ Anbietern. Diskret anfragen.",
+    "h1": "Haus behalten nach der Trennung",
+    "faq": [
+     "Kann ich die Hypothek nach der Scheidung allein übernehmen?",
+     "Wie zahle ich meinen Ex-Partner aus?",
+     "Wird der ausziehende Partner aus der Solidarhaftung entlassen?",
+     "Wie wird der Wert des Hauses bei der Scheidung festgelegt?"
+    ],
+    "intent": "transaktional",
+    "volume": "mittel (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "fr": {
+    "slug": "hypotheque-divorce-separation",
+    "primary": "hypothèque divorce",
+    "secondary": [
+     "garder la maison après divorce",
+     "racheter la part du conjoint",
+     "séparation bien immobilier",
+     "reprise hypothèque divorce"
+    ],
+    "title": "Hypothèque et divorce: reprendre le logement | HYPOTEQ",
+    "description": "Divorce ou séparation? Nous vérifions si vous pouvez reprendre le logement seul et racheter la part de votre conjoint, avec 40+ prêteurs. Demande discrète.",
+    "h1": "Garder votre logement après une séparation",
+    "faq": [
+     "Puis-je reprendre seul l'hypothèque après un divorce?",
+     "Comment racheter la part de mon ex-conjoint?",
+     "Le conjoint qui part est-il libéré de la responsabilité solidaire?",
+     "Comment la valeur du bien est-elle fixée?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "it": {
+    "slug": "ipoteca-divorzio-separazione",
+    "primary": "ipoteca divorzio",
+    "secondary": [
+     "tenere la casa dopo il divorzio",
+     "liquidare il coniuge",
+     "separazione casa di proprietà"
+    ],
+    "title": "Ipoteca e divorzio: tenere la casa | HYPOTEQ",
+    "description": "Divorzio o separazione? Verifichiamo se puoi sostenere da solo la casa e liquidare il partner, con oltre 40 istituti. Richiesta riservata in 3 minuti.",
+    "h1": "Tenere la casa dopo la separazione",
+    "faq": [
+     "Posso riprendere da solo l'ipoteca dopo il divorzio?",
+     "Come liquido l'ex partner?",
+     "Il partner che lascia la casa resta responsabile solidalmente?",
+     "Come si stabilisce il valore della casa?"
+    ],
+    "intent": "transaktional",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "en": {
+    "slug": "mortgage-divorce-separation",
+    "primary": "mortgage divorce Switzerland",
+    "secondary": [
+     "keep the house after divorce",
+     "buy out spouse mortgage",
+     "separation property Switzerland"
+    ],
+    "title": "Mortgage after divorce: keep your home | HYPOTEQ",
+    "description": "Divorce or separation? We check whether you can carry the mortgage alone and buy out your partner, with 40+ lenders. Confidential request in 3 minutes.",
+    "h1": "Keeping your home after a separation",
+    "faq": [
+     "Can I take over the mortgage alone after a divorce?",
+     "How do I buy out my ex-partner?",
+     "Is the departing partner released from joint liability?",
+     "How is the value of the property determined?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   }
+  },
+  "lp-erbschaft": {
+   "_meta": {
+    "angle": "Erbengemeinschaft: Ein Erbe will das Elternhaus behalten und muss die Geschwister auszahlen. Die Ausgleichszahlung wird über eine neue oder aufgestockte Hypothek finanziert, und es braucht einen anerkannten Anrechnungswert (Bewertung). Hohes Volumen pro Fall.",
+    "competitors": "ZKB (Blog), UBS, Swiss Life, cash.ch, neho.ch, Raiffeisen Casa, VZ VermögensZentrum",
+    "parent": "hypotheken"
+   },
+   "de": {
+    "slug": "hypothek-erbschaft-erbengemeinschaft",
+    "primary": "Haus erben Geschwister auszahlen",
+    "secondary": [
+     "Erbengemeinschaft Haus übernehmen",
+     "Hypothek Erbschaft",
+     "Elternhaus übernehmen Finanzierung",
+     "Erbteil auszahlen Hypothek"
+    ],
+    "title": "Haus geerbt? Geschwister mit Hypothek auszahlen | HYPOTEQ",
+    "description": "Du willst das geerbte Haus behalten? Wir finanzieren die Auszahlung deiner Miterben, inkl. Bewertung, mit 40+ Anbietern. Anfrage in 3 Minuten.",
+    "h1": "Elternhaus übernehmen und Miterben auszahlen",
+    "faq": [
+     "Wie finanziere ich die Auszahlung meiner Geschwister?",
+     "Kann ich die bestehende Hypothek der Eltern übernehmen?",
+     "Welcher Wert gilt für die Erbteilung?",
+     "Wie lange darf die Erbteilung dauern?"
+    ],
+    "intent": "transaktional",
+    "volume": "mittel (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "fr": {
+    "slug": "hypotheque-heritage-succession",
+    "primary": "hériter maison racheter parts",
+    "secondary": [
+     "hoirie maison",
+     "hypothèque héritage",
+     "reprendre la maison familiale",
+     "racheter part frères et soeurs"
+    ],
+    "title": "Maison héritée: racheter les parts des cohéritiers | HYPOTEQ",
+    "description": "Vous voulez garder la maison héritée? Nous finançons le rachat des parts des cohéritiers, estimation comprise, avec 40+ prêteurs. Demande en 3 minutes.",
+    "h1": "Reprendre la maison familiale et désintéresser les cohéritiers",
+    "faq": [
+     "Comment financer le rachat des parts de mes frères et soeurs?",
+     "Puis-je reprendre l'hypothèque existante de mes parents?",
+     "Quelle valeur retenir pour le partage?",
+     "Combien de temps dure un partage successoral?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "it": {
+    "slug": "ipoteca-eredita-comunione-ereditaria",
+    "primary": "casa ereditata liquidare fratelli",
+    "secondary": [
+     "comunione ereditaria casa",
+     "ipoteca eredità",
+     "rilevare la casa dei genitori"
+    ],
+    "title": "Casa ereditata: liquida i coeredi con un'ipoteca | HYPOTEQ",
+    "description": "Vuoi tenere la casa ereditata? Finanziamo la liquidazione dei coeredi, stima inclusa, con oltre 40 istituti. Richiesta in 3 minuti, inizia ora.",
+    "h1": "Rilevare la casa di famiglia e liquidare i coeredi",
+    "faq": [
+     "Come finanzio la quota dei miei fratelli?",
+     "Posso riprendere l'ipoteca dei miei genitori?",
+     "Quale valore vale per la divisione ereditaria?",
+     "Quanto dura una divisione ereditaria?"
+    ],
+    "intent": "transaktional",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "en": {
+    "slug": "mortgage-inherited-property",
+    "primary": "inherited house buy out siblings Switzerland",
+    "secondary": [
+     "community of heirs property",
+     "inheritance mortgage Switzerland",
+     "take over parents' house"
+    ],
+    "title": "Inherited a house? Buy out your co-heirs | HYPOTEQ",
+    "description": "Want to keep the inherited home? We finance the buyout of your co-heirs, valuation included, with 40+ lenders. Apply in 3 minutes.",
+    "h1": "Keep the family home and buy out your co-heirs",
+    "faq": [
+     "How do I finance buying out my siblings?",
+     "Can I take over my parents' existing mortgage?",
+     "Which value applies when dividing the estate?",
+     "How long can the division of the estate take?"
+    ],
+    "intent": "transaktional",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   }
+  },
+  "lp-eltern": {
+   "_meta": {
+    "angle": "Haus von den Eltern kaufen oder übernehmen (gemischte Schenkung, Erbvorbezug, Wohnrecht oder Nutzniessung). Banken rechnen den Erbvorbezug als Eigenkapital an, und Wohnrecht oder Nutzniessung schränken die Belehnung ein. Komplexe Fälle, die eine Beratung brauchen.",
+    "competitors": "VZ VermögensZentrum, PostFinance (Blog), Raiffeisen Casa, Mobiliar, Blick, comparis.ch",
+    "parent": "hypotheken"
+   },
+   "de": {
+    "slug": "haus-von-eltern-kaufen",
+    "primary": "Haus von Eltern kaufen",
+    "secondary": [
+     "Erbvorbezug Hypothek",
+     "Hypothek der Eltern übernehmen",
+     "gemischte Schenkung Haus",
+     "Elternhaus kaufen Wohnrecht"
+    ],
+    "title": "Haus von den Eltern kaufen: Finanzierung | HYPOTEQ",
+    "description": "Du übernimmst das Haus deiner Eltern? Wir finanzieren Kauf, Erbvorbezug oder gemischte Schenkung mit 40+ Anbietern. Anfrage in 3 Minuten.",
+    "h1": "Das Haus deiner Eltern fair übernehmen",
+    "faq": [
+     "Zählt ein Erbvorbezug als Eigenkapital?",
+     "Kann ich die Hypothek meiner Eltern übernehmen?",
+     "Was bedeutet ein Wohnrecht der Eltern für die Bank?",
+     "Welcher Preis ist gegenüber Geschwistern fair?"
+    ],
+    "intent": "transaktional",
+    "volume": "mittel (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "fr": {
+    "slug": "acheter-maison-parents",
+    "primary": "acheter la maison de ses parents",
+    "secondary": [
+     "avancement d'hoirie hypothèque",
+     "reprendre l'hypothèque des parents",
+     "donation mixte maison",
+     "droit d'habitation parents"
+    ],
+    "title": "Acheter la maison de vos parents: financement | HYPOTEQ",
+    "description": "Vous reprenez la maison de vos parents? Nous finançons achat, avancement d'hoirie ou donation mixte avec 40+ prêteurs. Demande en 3 minutes.",
+    "h1": "Reprendre la maison de vos parents",
+    "faq": [
+     "Un avancement d'hoirie compte-t-il comme fonds propres?",
+     "Puis-je reprendre l'hypothèque de mes parents?",
+     "Que signifie un droit d'habitation pour la banque?",
+     "Quel prix est équitable envers les frères et soeurs?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "it": {
+    "slug": "comprare-casa-dai-genitori",
+    "primary": "comprare casa dai genitori",
+    "secondary": [
+     "anticipo ereditario ipoteca",
+     "riprendere l'ipoteca dei genitori",
+     "donazione mista casa"
+    ],
+    "title": "Comprare casa dai genitori: il finanziamento | HYPOTEQ",
+    "description": "Rilevi la casa dei tuoi genitori? Finanziamo acquisto, anticipo ereditario o donazione mista con oltre 40 istituti. Richiesta in 3 minuti.",
+    "h1": "Rilevare la casa dei tuoi genitori",
+    "faq": [
+     "Un anticipo ereditario conta come fondi propri?",
+     "Posso riprendere l'ipoteca dei miei genitori?",
+     "Cosa significa un diritto di abitazione per la banca?",
+     "Quale prezzo è equo verso i fratelli?"
+    ],
+    "intent": "transaktional",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "en": {
+    "slug": "buy-house-from-parents",
+    "primary": "buying a house from parents Switzerland",
+    "secondary": [
+     "advance on inheritance mortgage",
+     "take over parents' mortgage",
+     "mixed gift property Switzerland"
+    ],
+    "title": "Buying your parents' house: financing | HYPOTEQ",
+    "description": "Taking over your parents' home? We finance the purchase, an advance on inheritance or a mixed gift with 40+ lenders. Apply in 3 minutes.",
+    "h1": "Taking over your parents' home",
+    "faq": [
+     "Does an advance on inheritance count as equity?",
+     "Can I take over my parents' mortgage?",
+     "What does a right of residence mean for the bank?",
+     "What price is fair towards my siblings?"
+    ],
+    "intent": "transaktional",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   }
+  },
+  "lp-zweitmeinung": {
+   "_meta": {
+    "angle": "Absage der Hausbank: Ein Vermittler mit 40+ Anbietern (inkl. Versicherungen und Pensionskassen mit anderen Kriterien) ist die naheliegende Zweitmeinung. Sehr hohe Abschlussnähe, da Kaufobjekt und Unterlagen meist schon vorhanden sind. Kaum dedizierte Seiten in den SERPs.",
+    "competitors": "Kaum dedizierte LPs; Ratgeber von UBS, moneyland.ch, Mustachian Post, MoneyPark",
+    "parent": "hypotheken"
+   },
+   "de": {
+    "slug": "hypothek-abgelehnt",
+    "primary": "Hypothek abgelehnt",
+    "secondary": [
+     "Hypothek Zweitmeinung",
+     "Bank lehnt Hypothek ab",
+     "Tragbarkeit nicht erfüllt was tun",
+     "Hypothek trotz Absage"
+    ],
+    "title": "Hypothek abgelehnt? Hol dir eine Zweitmeinung | HYPOTEQ",
+    "description": "Deine Bank hat abgelehnt? Wir prüfen den Fall neu und fragen 40+ Banken, Versicherungen und Pensionskassen an. Kostenlos, Rasche, persönliche Rückmeldung.",
+    "h1": "Hypothek abgelehnt: So geht es weiter",
+    "faq": [
+     "Warum lehnen Banken eine Hypothek ab?",
+     "Rechnen andere Anbieter die Tragbarkeit anders?",
+     "Schadet eine Absage meinen Chancen bei anderen Banken?",
+     "Welche Unterlagen brauche ich für eine Zweitmeinung?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "fr": {
+    "slug": "hypotheque-refusee",
+    "primary": "hypothèque refusée",
+    "secondary": [
+     "refus de prêt hypothécaire",
+     "deuxième avis hypothèque",
+     "banque refuse hypothèque que faire"
+    ],
+    "title": "Hypothèque refusée? Obtenez un deuxième avis | HYPOTEQ",
+    "description": "Votre banque a refusé? Nous réexaminons votre dossier auprès de 40+ banques, assurances et caisses de pension. Gratuit, réponse rapide.",
+    "h1": "Hypothèque refusée: les prochaines étapes",
+    "faq": [
+     "Pourquoi une banque refuse-t-elle une hypothèque?",
+     "Les autres prêteurs calculent-ils la capacité différemment?",
+     "Un refus nuit-il à mes chances ailleurs?",
+     "Quels documents faut-il pour un deuxième avis?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "it": {
+    "slug": "ipoteca-rifiutata",
+    "primary": "ipoteca rifiutata",
+    "secondary": [
+     "banca rifiuta ipoteca",
+     "secondo parere ipoteca",
+     "sostenibilità non rispettata"
+    ],
+    "title": "Ipoteca rifiutata? Chiedi un secondo parere | HYPOTEQ",
+    "description": "La tua banca ha detto no? Riesaminiamo il tuo caso con oltre 40 banche, assicurazioni e casse pensione. Gratis, risposta in giornata.",
+    "h1": "Ipoteca rifiutata: come andare avanti",
+    "faq": [
+     "Perché una banca rifiuta un'ipoteca?",
+     "Altri istituti calcolano la sostenibilità diversamente?",
+     "Un rifiuto riduce le mie possibilità altrove?",
+     "Quali documenti servono per un secondo parere?"
+    ],
+    "intent": "transaktional",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "en": {
+    "slug": "mortgage-rejected",
+    "primary": "mortgage rejected Switzerland",
+    "secondary": [
+     "mortgage application declined",
+     "second opinion mortgage",
+     "bank refused mortgage what now"
+    ],
+    "title": "Mortgage rejected? Get a second opinion | HYPOTEQ",
+    "description": "Your bank said no? We review your case and approach 40+ banks, insurers and pension funds. Free of charge, reply the same business day.",
+    "h1": "Mortgage rejected: what to do next",
+    "faq": [
+     "Why do banks reject mortgage applications?",
+     "Do other lenders calculate affordability differently?",
+     "Does a rejection hurt my chances elsewhere?",
+     "Which documents do I need for a second opinion?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   }
+  },
+  "lp-wenig-eigenmittel": {
+   "_meta": {
+    "angle": "Problemfall: weniger als 20 % Eigenmittel oder weniger als 10 % harte Eigenmittel. Lösungen sind Erbvorbezug, Darlehen, PK-Verpfändung, Zusatzsicherheiten oder Mezzanine (eigenes HYPOTEQ-Produkt). Abgrenzung zu rg-eigenmittel (Ratgeber): Diese Seite ist lösungsorientiert mit Lead-Fokus und verlinkt auf mezzanine.",
+    "competitors": "UBS, comparis.ch, moneyland.ch, PostFinance, Hypotheke.ch, MoneyPark",
+    "parent": "hypotheken"
+   },
+   "de": {
+    "slug": "hypothek-wenig-eigenkapital",
+    "primary": "Hypothek wenig Eigenkapital",
+    "secondary": [
+     "Hypothek ohne 20 Prozent Eigenkapital",
+     "Eigenkapital fehlt Hauskauf",
+     "Hypothek 10 Prozent Eigenkapital",
+     "Eigenkapitallücke schliessen"
+    ],
+    "title": "Hypothek mit wenig Eigenkapital: Lösungen | HYPOTEQ",
+    "description": "Dir fehlen Eigenmittel zum 20-%-Ziel? Wir zeigen Lösungen von Erbvorbezug bis Mezzanine und vergleichen 40+ Anbieter. Anfrage in 3 Minuten.",
+    "h1": "Eigenkapital knapp? So klappt die Finanzierung",
+    "faq": [
+     "Geht eine Hypothek mit weniger als 20 % Eigenkapital?",
+     "Was sind harte Eigenmittel?",
+     "Hilft ein Darlehen von Verwandten?",
+     "Wann ist Mezzanine-Kapital sinnvoll?"
+    ],
+    "intent": "transaktional",
+    "volume": "mittel (S)",
+    "difficulty": "mittel (S)"
+   },
+   "fr": {
+    "slug": "hypotheque-peu-de-fonds-propres",
+    "primary": "hypothèque sans 20% de fonds propres",
+    "secondary": [
+     "peu de fonds propres achat immobilier",
+     "fonds propres insuffisants",
+     "hypothèque 10% fonds propres"
+    ],
+    "title": "Hypothèque avec peu de fonds propres: solutions | HYPOTEQ",
+    "description": "Il vous manque des fonds propres pour atteindre 20%? Avancement d'hoirie, prêt familial, mezzanine: nous comparons 40+ prêteurs. Demande en 3 minutes.",
+    "h1": "Fonds propres insuffisants: les solutions",
+    "faq": [
+     "Une hypothèque est-elle possible avec moins de 20% de fonds propres?",
+     "Que sont les fonds propres durs?",
+     "Un prêt familial est-il accepté?",
+     "Quand un financement mezzanine est-il judicieux?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "mittel (S)"
+   },
+   "it": {
+    "slug": "ipoteca-pochi-fondi-propri",
+    "primary": "ipoteca senza 20% fondi propri",
+    "secondary": [
+     "fondi propri insufficienti",
+     "ipoteca 10% fondi propri",
+     "mancano fondi propri casa"
+    ],
+    "title": "Ipoteca con pochi fondi propri: le soluzioni | HYPOTEQ",
+    "description": "Ti mancano fondi propri per arrivare al 20%? Anticipo ereditario, prestito familiare, mezzanine: confrontiamo oltre 40 istituti. Richiesta in 3 minuti.",
+    "h1": "Fondi propri insufficienti: le soluzioni",
+    "faq": [
+     "Si può avere un'ipoteca con meno del 20% di fondi propri?",
+     "Cosa sono i fondi propri duri?",
+     "Un prestito di familiari è accettato?",
+     "Quando conviene il capitale mezzanine?"
+    ],
+    "intent": "transaktional",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "en": {
+    "slug": "mortgage-low-deposit",
+    "primary": "mortgage less than 20 percent down Switzerland",
+    "secondary": [
+     "low deposit mortgage Switzerland",
+     "not enough equity house purchase",
+     "10 percent deposit Switzerland"
+    ],
+    "title": "Low-deposit mortgage in Switzerland: options | HYPOTEQ",
+    "description": "Short of the 20% equity? From inheritance advances to mezzanine capital, we show your options and compare 40+ lenders. Apply in 3 minutes.",
+    "h1": "Not enough equity? Here is how it can work",
+    "faq": [
+     "Can I get a mortgage with less than 20% equity?",
+     "What is hard equity?",
+     "Is a loan from family accepted?",
+     "When does mezzanine capital make sense?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "mittel (S)"
+   }
+  },
+  "lp-eigentumswohnung": {
+   "_meta": {
+    "angle": "Objekt-LP Stockwerkeigentum: Erneuerungsfonds, Wertquoten und Reglement beeinflussen Belehnung und Tragbarkeit. Suchende stehen kurz vor dem Kauf. Spezifischer als kauf (generisch).",
+    "competitors": "comparis.ch, homegate.ch, newhome.ch, UBS, ZKB, Raiffeisen, MoneyPark",
+    "parent": "hypotheken"
+   },
+   "de": {
+    "slug": "hypothek-eigentumswohnung",
+    "primary": "Hypothek Eigentumswohnung",
+    "secondary": [
+     "Wohnung kaufen Finanzierung",
+     "Stockwerkeigentum Hypothek",
+     "Erneuerungsfonds Bank",
+     "Eigentumswohnung finanzieren"
+    ],
+    "title": "Hypothek für deine Eigentumswohnung | HYPOTEQ",
+    "description": "Du kaufst eine Wohnung im Stockwerkeigentum? Wir prüfen Erneuerungsfonds und Tragbarkeit und vergleichen 40+ Anbieter. Anfrage in 3 Minuten.",
+    "h1": "Deine Eigentumswohnung richtig finanzieren",
+    "faq": [
+     "Wie viel Eigenkapital brauche ich für eine Eigentumswohnung?",
+     "Welche Rolle spielt der Erneuerungsfonds?",
+     "Welche Unterlagen der Stockwerkeigentümergemeinschaft braucht die Bank?",
+     "Wie rechnet die Bank Nebenkosten der Wohnung ein?"
+    ],
+    "intent": "transaktional",
+    "volume": "hoch (S)",
+    "difficulty": "hoch (S)"
+   },
+   "fr": {
+    "slug": "hypotheque-appartement-ppe",
+    "primary": "hypothèque appartement",
+    "secondary": [
+     "acheter un appartement financement",
+     "PPE hypothèque",
+     "fonds de rénovation PPE"
+    ],
+    "title": "Hypothèque pour votre appartement en PPE | HYPOTEQ",
+    "description": "Vous achetez un appartement en PPE? Nous vérifions le fonds de rénovation et la capacité financière et comparons 40+ prêteurs. Demande en 3 minutes.",
+    "h1": "Financer votre appartement en PPE",
+    "faq": [
+     "De combien de fonds propres ai-je besoin pour un appartement?",
+     "Quel est le rôle du fonds de rénovation?",
+     "Quels documents de la PPE la banque demande-t-elle?",
+     "Comment les charges sont-elles prises en compte?"
+    ],
+    "intent": "transaktional",
+    "volume": "mittel (S)",
+    "difficulty": "hoch (S)"
+   },
+   "it": {
+    "slug": "ipoteca-appartamento-ppp",
+    "primary": "ipoteca appartamento",
+    "secondary": [
+     "comprare appartamento finanziamento",
+     "proprietà per piani ipoteca",
+     "fondo di rinnovamento PPP"
+    ],
+    "title": "Ipoteca per il tuo appartamento in PPP | HYPOTEQ",
+    "description": "Compri un appartamento in proprietà per piani? Verifichiamo fondo di rinnovamento e sostenibilità e confrontiamo oltre 40 istituti. Richiesta in 3 minuti.",
+    "h1": "Finanziare il tuo appartamento in PPP",
+    "faq": [
+     "Quanti fondi propri servono per un appartamento?",
+     "Che ruolo ha il fondo di rinnovamento?",
+     "Quali documenti della comunione servono alla banca?",
+     "Come vengono considerate le spese condominiali?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "mittel (S)"
+   },
+   "en": {
+    "slug": "mortgage-apartment-switzerland",
+    "primary": "mortgage apartment Switzerland",
+    "secondary": [
+     "buy a flat Switzerland",
+     "condominium mortgage Switzerland",
+     "renovation fund condominium"
+    ],
+    "title": "Mortgage for your apartment in Switzerland | HYPOTEQ",
+    "description": "Buying a condominium? We check the renovation fund and affordability and compare 40+ lenders for free. Apply in 3 minutes.",
+    "h1": "Financing your apartment the right way",
+    "faq": [
+     "How much equity do I need for an apartment?",
+     "What role does the renovation fund play?",
+     "Which owners' association documents does the bank need?",
+     "How are service charges included in affordability?"
+    ],
+    "intent": "transaktional",
+    "volume": "mittel (S)",
+    "difficulty": "mittel (S)"
+   }
+  },
+  "lp-einfamilienhaus": {
+   "_meta": {
+    "angle": "Objekt-LP Einfamilienhaus: Altbau, Sanierungsbedarf, Bewertung und Landanteil prägen die Finanzierung. Höhere Volumina als bei Wohnungen. Cross-Sell mit Bewertung (Wüest) und Aufstockung/Renovation.",
+    "competitors": "comparis.ch, homegate.ch, UBS, ZKB, Raiffeisen, MoneyPark, Hypotheke.ch",
+    "parent": "hypotheken"
+   },
+   "de": {
+    "slug": "hypothek-einfamilienhaus",
+    "primary": "Hypothek Einfamilienhaus",
+    "secondary": [
+     "Haus kaufen Finanzierung",
+     "Einfamilienhaus finanzieren",
+     "Altbau kaufen Hypothek",
+     "Hypothek Haus mit Sanierungsbedarf"
+    ],
+    "title": "Hypothek für dein Einfamilienhaus | HYPOTEQ",
+    "description": "Du kaufst ein Einfamilienhaus, neu oder mit Sanierungsbedarf? Wir finanzieren Kauf und Renovation mit 40+ Anbietern. Anfrage in 3 Minuten.",
+    "h1": "Dein Einfamilienhaus clever finanzieren",
+    "faq": [
+     "Wie viel Haus kann ich mir leisten?",
+     "Wie bewertet die Bank ein älteres Einfamilienhaus?",
+     "Kann ich Renovationskosten gleich mitfinanzieren?",
+     "Welche Hypothekarlaufzeit passt zu einem Hauskauf?"
+    ],
+    "intent": "transaktional",
+    "volume": "hoch (S)",
+    "difficulty": "hoch (S)"
+   },
+   "fr": {
+    "slug": "hypotheque-maison-individuelle",
+    "primary": "hypothèque maison",
+    "secondary": [
+     "acheter une maison financement",
+     "financer une villa",
+     "maison à rénover hypothèque"
+    ],
+    "title": "Hypothèque pour votre maison individuelle | HYPOTEQ",
+    "description": "Vous achetez une maison, neuve ou à rénover? Nous finançons achat et travaux avec 40+ prêteurs. Demande en 3 minutes, réponse rapide.",
+    "h1": "Financer votre maison individuelle",
+    "faq": [
+     "Quel prix de maison puis-je me permettre?",
+     "Comment la banque évalue-t-elle une maison ancienne?",
+     "Puis-je financer les travaux en même temps?",
+     "Quelle durée d'hypothèque choisir pour une maison?"
+    ],
+    "intent": "transaktional",
+    "volume": "mittel (S)",
+    "difficulty": "hoch (S)"
+   },
+   "it": {
+    "slug": "ipoteca-casa-unifamiliare",
+    "primary": "ipoteca casa",
+    "secondary": [
+     "comprare casa unifamiliare",
+     "finanziare una villa",
+     "casa da ristrutturare ipoteca"
+    ],
+    "title": "Ipoteca per la tua casa unifamiliare | HYPOTEQ",
+    "description": "Compri una casa unifamiliare, nuova o da ristrutturare? Finanziamo acquisto e lavori con oltre 40 istituti. Richiesta in 3 minuti.",
+    "h1": "Finanziare la tua casa unifamiliare",
+    "faq": [
+     "Quale casa posso permettermi?",
+     "Come valuta la banca una casa datata?",
+     "Posso finanziare anche la ristrutturazione?",
+     "Quale durata d'ipoteca scegliere?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "mittel (S)"
+   },
+   "en": {
+    "slug": "mortgage-house-switzerland",
+    "primary": "mortgage house Switzerland",
+    "secondary": [
+     "buy a house Switzerland financing",
+     "detached house mortgage",
+     "renovation house purchase mortgage"
+    ],
+    "title": "Mortgage for your house in Switzerland | HYPOTEQ",
+    "description": "Buying a detached house, new or in need of renovation? We finance purchase and works with 40+ lenders. Apply in 3 minutes.",
+    "h1": "Financing your house the smart way",
+    "faq": [
+     "How much house can I afford?",
+     "How does the bank value an older house?",
+     "Can I finance renovation costs at the same time?",
+     "Which mortgage term suits a house purchase?"
+    ],
+    "intent": "transaktional",
+    "volume": "mittel (S)",
+    "difficulty": "hoch (S)"
+   }
+  },
+  "lp-bauland": {
+   "_meta": {
+    "angle": "Bauland kaufen vor dem Neubau: Viele Banken finanzieren unbebautes Land nur mit tieferer Belehnung oder in Verbindung mit einem konkreten Bauprojekt. Wenig spezialisierte Seiten. Wer Land kauft, wird später zum Baukredit-Lead (Verlinkung zu neubau).",
+    "competitors": "comparis.ch, moneyland.ch, Raiffeisen, Kantonalbanken (Produktseiten), homegate.ch (Ratgeber)",
+    "parent": "hypotheken"
+   },
+   "de": {
+    "slug": "bauland-finanzieren",
+    "primary": "Bauland finanzieren",
+    "secondary": [
+     "Grundstück kaufen Hypothek",
+     "Landkauf Finanzierung",
+     "Bauland Kredit Belehnung",
+     "Bauland kaufen Eigenkapital"
+    ],
+    "title": "Bauland finanzieren: Grundstück mit Hypothek | HYPOTEQ",
+    "description": "Du willst Bauland kaufen? Wir finden Anbieter, die das Grundstück finanzieren, und planen gleich den Baukredit. 40+ Anbieter, Anfrage in 3 Minuten.",
+    "h1": "Bauland kaufen und klug finanzieren",
+    "faq": [
+     "Wie hoch belehnen Banken unbebautes Bauland?",
+     "Brauche ich schon ein Bauprojekt für die Finanzierung?",
+     "Wie viel Eigenkapital brauche ich für Bauland?",
+     "Wie geht es vom Landkauf zum Baukredit?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "fr": {
+    "slug": "financer-terrain-a-batir",
+    "primary": "financer un terrain",
+    "secondary": [
+     "acheter terrain à bâtir hypothèque",
+     "prêt terrain Suisse",
+     "fonds propres terrain"
+    ],
+    "title": "Financer un terrain à bâtir en Suisse | HYPOTEQ",
+    "description": "Vous achetez un terrain à bâtir? Nous trouvons les prêteurs qui le financent et préparons votre crédit de construction. 40+ prêteurs, demande en 3 minutes.",
+    "h1": "Acheter et financer votre terrain à bâtir",
+    "faq": [
+     "Quel taux d'avance pour un terrain non bâti?",
+     "Faut-il déjà un projet de construction?",
+     "Combien de fonds propres pour un terrain?",
+     "Comment passer du terrain au crédit de construction?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "it": {
+    "slug": "finanziare-terreno-edificabile",
+    "primary": "finanziare terreno edificabile",
+    "secondary": [
+     "comprare terreno ipoteca",
+     "prestito terreno Svizzera",
+     "fondi propri terreno"
+    ],
+    "title": "Finanziare un terreno edificabile in Svizzera | HYPOTEQ",
+    "description": "Vuoi comprare un terreno edificabile? Troviamo chi lo finanzia e pianifichiamo il credito di costruzione. Oltre 40 istituti, richiesta in 3 minuti.",
+    "h1": "Comprare e finanziare il tuo terreno",
+    "faq": [
+     "Quanto finanziano le banche un terreno non edificato?",
+     "Serve già un progetto di costruzione?",
+     "Quanti fondi propri servono per un terreno?",
+     "Come si passa dal terreno al credito di costruzione?"
+    ],
+    "intent": "transaktional",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "en": {
+    "slug": "building-land-financing",
+    "primary": "financing building land Switzerland",
+    "secondary": [
+     "buy land Switzerland mortgage",
+     "land loan Switzerland",
+     "plot purchase financing"
+    ],
+    "title": "Financing building land in Switzerland | HYPOTEQ",
+    "description": "Buying a building plot? We find lenders who finance the land and plan your construction loan. 40+ lenders, apply in 3 minutes.",
+    "h1": "Buying and financing your building plot",
+    "faq": [
+     "How much do banks lend on undeveloped land?",
+     "Do I need a building project first?",
+     "How much equity do I need for land?",
+     "How do I move from land purchase to a construction loan?"
+    ],
+    "intent": "transaktional",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   }
+  },
+  "lp-gruen": {
+   "_meta": {
+    "angle": "Über 40 Schweizer Banken bieten Öko- oder Energiehypotheken mit Zinsrabatt (moneyland). Der Vergleich der Rabattbedingungen (Minergie, GEAK, Solar, Heizungsersatz) ist für Laien aufwendig, deshalb ein klarer Vermittler-Mehrwert. Abgrenzung zu aufstocken: Dort geht es um den Kreditbetrag, hier um das Produkt und den Rabatt.",
+    "competitors": "moneyland.ch, UBS (Energy-Hypothek), Swiss Life, Raiffeisen, St. Galler KB, BCF, Alternative Bank Schweiz",
+    "parent": "hypotheken"
+   },
+   "de": {
+    "slug": "gruene-hypothek",
+    "primary": "grüne Hypothek",
+    "secondary": [
+     "Ökohypothek",
+     "Energiehypothek",
+     "Hypothek Solaranlage",
+     "Hypothek Heizungsersatz Wärmepumpe",
+     "Minergie Hypothek"
+    ],
+    "title": "Grüne Hypothek: Zinsrabatt für Energie & Solar | HYPOTEQ",
+    "description": "Solaranlage, Wärmepumpe oder Minergie? Vergleiche Öko-Hypotheken mit Zinsrabatt bei 40+ Anbietern und finanziere die Sanierung. Jetzt anfragen.",
+    "h1": "Grüne Hypothek: Rabatt für nachhaltiges Wohnen",
+    "faq": [
+     "Was ist eine grüne Hypothek?",
+     "Welche Massnahmen werden mit Zinsrabatt belohnt?",
+     "Lassen sich Öko-Rabatte mit Förderbeiträgen kombinieren?",
+     "Was passiert mit dem Rabatt bei vorzeitiger Auflösung?"
+    ],
+    "intent": "kommerziell",
+    "volume": "mittel (S)",
+    "difficulty": "mittel (S)"
+   },
+   "fr": {
+    "slug": "hypotheque-verte",
+    "primary": "hypothèque verte",
+    "secondary": [
+     "hypothèque écologique",
+     "hypothèque énergie",
+     "hypothèque panneaux solaires",
+     "hypothèque pompe à chaleur"
+    ],
+    "title": "Hypothèque verte: rabais énergie et solaire | HYPOTEQ",
+    "description": "Solaire, pompe à chaleur ou Minergie? Comparez les hypothèques vertes avec rabais auprès de 40+ prêteurs et financez la rénovation. Demande en 3 minutes.",
+    "h1": "Hypothèque verte: un rabais pour un logement durable",
+    "faq": [
+     "Qu'est-ce qu'une hypothèque verte?",
+     "Quelles mesures donnent droit à un rabais?",
+     "Peut-on cumuler rabais et subventions?",
+     "Que devient le rabais en cas de résiliation anticipée?"
+    ],
+    "intent": "kommerziell",
+    "volume": "niedrig (S)",
+    "difficulty": "mittel (S)"
+   },
+   "it": {
+    "slug": "ipoteca-verde",
+    "primary": "ipoteca verde",
+    "secondary": [
+     "ipoteca ecologica",
+     "ipoteca energia",
+     "ipoteca pannelli solari",
+     "ipoteca pompa di calore"
+    ],
+    "title": "Ipoteca verde: sconto per energia e solare | HYPOTEQ",
+    "description": "Fotovoltaico, pompa di calore o Minergie? Confronta le ipoteche verdi con sconto di oltre 40 istituti e finanzia il risanamento. Richiesta in 3 minuti.",
+    "h1": "Ipoteca verde: uno sconto per abitare sostenibile",
+    "faq": [
+     "Cos'è un'ipoteca verde?",
+     "Quali interventi danno diritto a uno sconto?",
+     "Si possono combinare sconto e incentivi?",
+     "Cosa succede allo sconto in caso di disdetta anticipata?"
+    ],
+    "intent": "kommerziell",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "en": {
+    "slug": "green-mortgage-switzerland",
+    "primary": "green mortgage Switzerland",
+    "secondary": [
+     "eco mortgage",
+     "energy efficient mortgage",
+     "solar panels mortgage Switzerland",
+     "heat pump financing"
+    ],
+    "title": "Green mortgage in Switzerland: energy discounts | HYPOTEQ",
+    "description": "Solar panels, heat pump or Minergie? Compare green mortgages with rate discounts from 40+ lenders and finance your retrofit. Apply in 3 minutes.",
+    "h1": "Green mortgage: a discount for sustainable living",
+    "faq": [
+     "What is a green mortgage?",
+     "Which measures qualify for a rate discount?",
+     "Can discounts be combined with subsidies?",
+     "What happens to the discount if I exit early?"
+    ],
+    "intent": "kommerziell",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   }
+  },
+  "lp-forward": {
+   "_meta": {
+    "angle": "Forward-Festhypothek: Zins heute für eine Ablösung in 6 bis 36 Monaten sichern. Die Forward-Aufschläge sind je nach Anbieter verschieden und schwer vergleichbar, der Vergleich ist der Lead-Grund. Abgrenzung zu abloesung (allgemein) und fest (Produkt). SERPs zeigen v. a. deutsche Forward-Darlehen-Seiten, also eine Lücke für Schweizer Inhalte.",
+    "competitors": "comparis.ch, moneyland.ch, MoneyPark, Kantonalbanken; viele DE-Seiten (Interhyp, Baufi24) ohne CH-Relevanz",
+    "parent": "hypotheken"
+   },
+   "de": {
+    "slug": "forward-hypothek",
+    "primary": "Forward-Hypothek",
+    "secondary": [
+     "Forward Festhypothek",
+     "Zins im Voraus sichern",
+     "Forward Hypothek Aufschlag",
+     "Hypothek Zins fixieren Ablösung"
+    ],
+    "title": "Forward-Hypothek: Zins heute für morgen sichern | HYPOTEQ",
+    "description": "Deine Hypothek läuft erst in einigen Monaten aus? Vergleiche Forward-Aufschläge von 40+ Anbietern und sichere dir den Zins schon heute. Jetzt anfragen.",
+    "h1": "Forward-Hypothek: Den Zins im Voraus fixieren",
+    "faq": [
+     "Wie weit im Voraus kann ich eine Forward-Hypothek abschliessen?",
+     "Wie hoch ist der Forward-Aufschlag?",
+     "Lohnt sich eine Forward-Hypothek bei stabilen Zinsen?",
+     "Was passiert, wenn die Zinsen bis zur Ablösung sinken?"
+    ],
+    "intent": "transaktional",
+    "volume": "mittel (S)",
+    "difficulty": "mittel (S)"
+   },
+   "fr": {
+    "slug": "hypotheque-forward",
+    "primary": "hypothèque forward",
+    "secondary": [
+     "fixer son taux à l'avance",
+     "prime forward hypothèque",
+     "renouvellement hypothèque anticipé"
+    ],
+    "title": "Hypothèque forward: fixez votre taux à l'avance | HYPOTEQ",
+    "description": "Votre hypothèque échoit dans quelques mois? Comparez les primes forward de 40+ prêteurs et fixez votre taux dès aujourd'hui. Demande en 3 minutes.",
+    "h1": "Hypothèque forward: fixer le taux à l'avance",
+    "faq": [
+     "Combien de temps à l'avance peut-on conclure une hypothèque forward?",
+     "À combien s'élève la prime forward?",
+     "Une hypothèque forward vaut-elle la peine si les taux sont stables?",
+     "Que se passe-t-il si les taux baissent d'ici là?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "it": {
+    "slug": "ipoteca-forward",
+    "primary": "ipoteca forward",
+    "secondary": [
+     "bloccare il tasso in anticipo",
+     "supplemento forward",
+     "rinnovo ipoteca anticipato"
+    ],
+    "title": "Ipoteca forward: blocca oggi il tasso di domani | HYPOTEQ",
+    "description": "La tua ipoteca scade tra qualche mese? Confronta i supplementi forward di oltre 40 istituti e blocca il tasso già oggi. Richiesta in 3 minuti.",
+    "h1": "Ipoteca forward: fissare il tasso in anticipo",
+    "faq": [
+     "Con quanto anticipo posso stipulare un'ipoteca forward?",
+     "Quanto costa il supplemento forward?",
+     "Conviene un'ipoteca forward con tassi stabili?",
+     "Cosa succede se i tassi scendono nel frattempo?"
+    ],
+    "intent": "transaktional",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "en": {
+    "slug": "forward-mortgage-switzerland",
+    "primary": "forward mortgage Switzerland",
+    "secondary": [
+     "lock in mortgage rate in advance",
+     "forward premium mortgage",
+     "early mortgage renewal"
+    ],
+    "title": "Forward mortgage: lock in today's rate | HYPOTEQ",
+    "description": "Your mortgage expires in a few months? Compare forward premiums from 40+ lenders and lock in your rate today. Apply in 3 minutes.",
+    "h1": "Forward mortgage: fix your rate in advance",
+    "faq": [
+     "How far in advance can I take out a forward mortgage?",
+     "How high is the forward premium?",
+     "Is a forward mortgage worth it when rates are stable?",
+     "What if rates fall before my renewal date?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   }
+  },
+  "lp-vorfaelligkeit": {
+   "_meta": {
+    "angle": "Wer eine Festhypothek vorzeitig auflösen will (Verkauf, Scheidung, Umzug, Zinsoptimierung), sucht die Kosten der Vorfälligkeitsentschädigung. Lead-Winkel: Wir prüfen die Berechnung der Bank und Alternativen (Übertragung auf ein neues Objekt, Ersatzobjekt, Ablösung durch einen neuen Anbieter).",
+    "competitors": "comparis.ch, moneyland.ch (Rechner), UBS, Raiffeisen (Produktblatt), PostFinance, VZ VermögensZentrum, RealAdvisor",
+    "parent": "ratgeber"
+   },
+   "de": {
+    "slug": "vorfaelligkeitsentschaedigung-hypothek",
+    "primary": "Vorfälligkeitsentschädigung",
+    "secondary": [
+     "Festhypothek vorzeitig auflösen",
+     "Hypothek vorzeitig kündigen Kosten",
+     "Vorfälligkeitsentschädigung berechnen",
+     "Hypothek vorzeitig ablösen"
+    ],
+    "title": "Vorfälligkeitsentschädigung: Kosten prüfen | HYPOTEQ",
+    "description": "Du willst deine Festhypothek vorzeitig auflösen? Wir prüfen die Vorfälligkeitsentschädigung deiner Bank und zeigen günstigere Wege. Kostenlos anfragen.",
+    "h1": "Festhypothek vorzeitig auflösen: Was kostet es?",
+    "faq": [
+     "Wie berechnet die Bank die Vorfälligkeitsentschädigung?",
+     "Kann ich die Festhypothek auf ein neues Objekt übertragen?",
+     "Lohnt sich eine vorzeitige Auflösung bei tieferen Zinsen?",
+     "Ist die Vorfälligkeitsentschädigung steuerlich abziehbar?"
+    ],
+    "intent": "informational/transaktional",
+    "volume": "mittel (S)",
+    "difficulty": "mittel (S)"
+   },
+   "fr": {
+    "slug": "penalite-remboursement-anticipe-hypotheque",
+    "primary": "pénalité de remboursement anticipé",
+    "secondary": [
+     "résilier hypothèque fixe",
+     "indemnité de remboursement anticipé",
+     "sortie anticipée hypothèque coût"
+    ],
+    "title": "Remboursement anticipé: vérifiez la pénalité | HYPOTEQ",
+    "description": "Vous voulez résilier votre hypothèque fixe avant terme? Nous vérifions la pénalité de votre banque et cherchons une solution moins chère. Demande gratuite.",
+    "h1": "Résilier une hypothèque fixe avant l'échéance",
+    "faq": [
+     "Comment la banque calcule-t-elle la pénalité?",
+     "Puis-je transférer l'hypothèque sur un nouveau bien?",
+     "Une sortie anticipée vaut-elle la peine si les taux baissent?",
+     "La pénalité est-elle déductible des impôts?"
+    ],
+    "intent": "informational/transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "mittel (S)"
+   },
+   "it": {
+    "slug": "penale-estinzione-anticipata-ipoteca",
+    "primary": "penale estinzione anticipata ipoteca",
+    "secondary": [
+     "disdire ipoteca fissa",
+     "indennità di rimborso anticipato",
+     "uscita anticipata ipoteca costi"
+    ],
+    "title": "Penale per estinzione anticipata: verifica i costi | HYPOTEQ",
+    "description": "Vuoi chiudere in anticipo la tua ipoteca fissa? Verifichiamo la penale della tua banca e cerchiamo alternative più convenienti. Richiesta gratuita.",
+    "h1": "Chiudere in anticipo un'ipoteca fissa",
+    "faq": [
+     "Come calcola la banca la penale?",
+     "Posso trasferire l'ipoteca su un nuovo immobile?",
+     "Conviene uscire prima se i tassi scendono?",
+     "La penale è deducibile dalle imposte?"
+    ],
+    "intent": "informational/transaktional",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "en": {
+    "slug": "mortgage-early-repayment-penalty",
+    "primary": "early repayment penalty mortgage Switzerland",
+    "secondary": [
+     "break fixed rate mortgage",
+     "prepayment penalty Switzerland",
+     "exit fixed mortgage cost"
+    ],
+    "title": "Mortgage early repayment penalty: check the cost | HYPOTEQ",
+    "description": "Want to exit your fixed-rate mortgage early? We check your bank's prepayment penalty and look for cheaper options. Free of charge, apply in 3 minutes.",
+    "h1": "Ending a fixed-rate mortgage early",
+    "faq": [
+     "How does the bank calculate the penalty?",
+     "Can I transfer the mortgage to a new property?",
+     "Is an early exit worth it when rates fall?",
+     "Is the penalty tax deductible?"
+    ],
+    "intent": "informational/transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   }
+  },
+  "lp-zinsprognose": {
+   "_meta": {
+    "angle": "Evergreen-Prognoseseite mit Jahr im Slug-freien Format (Titel aktualisieren). Leser stehen vor einer Laufzeitentscheidung, CTA ist eine Zinsanfrage bzw. ein Forward-Vergleich. Abgrenzung zu zinsen (aktuelle Richtzinsen): Hier geht es um die Erwartung 2027 mit Bankenprognosen (UBS, PostFinance, Raiffeisen, LUKB).",
+    "competitors": "PostFinance, Raiffeisen, UBS, LUKB, HBL, MoneyPark, comparis.ch, Bilanz/cash.ch",
+    "parent": "ratgeber"
+   },
+   "de": {
+    "slug": "zinsprognose-hypotheken",
+    "primary": "Zinsprognose Hypotheken 2027",
+    "secondary": [
+     "Hypothekarzinsen Prognose",
+     "Zinsentwicklung Schweiz",
+     "SNB Leitzins Prognose",
+     "Zinsprognose SARON"
+    ],
+    "title": "Zinsprognose 2027: Wohin gehen die Hypozinsen? | HYPOTEQ",
+    "description": "Wohin gehen die Hypozinsen 2027? Was SNB, SARON und Swap-Sätze bedeuten und wie du ohne Prognose die richtige Strategie wählst. Jetzt beraten lassen.",
+    "h1": "Zinsprognose 2027 für Schweizer Hypotheken",
+    "faq": [
+     "Wie entwickelt sich der SNB-Leitzins 2027?",
+     "Soll ich jetzt eine Festhypothek abschliessen oder bei SARON bleiben?",
+     "Wie zuverlässig sind Zinsprognosen?",
+     "Wann lohnt sich eine Forward-Hypothek?"
+    ],
+    "intent": "informational",
+    "volume": "hoch (S)",
+    "difficulty": "hoch (S)"
+   },
+   "fr": {
+    "slug": "prevision-taux-hypothecaires",
+    "primary": "prévision taux hypothécaires 2027",
+    "secondary": [
+     "évolution des taux Suisse",
+     "taux directeur BNS prévision",
+     "prévision SARON"
+    ],
+    "title": "Prévision 2027: où vont les taux hypothécaires? | HYPOTEQ",
+    "description": "Où vont les taux hypothécaires en 2027? Ce que signifient BNS, SARON et taux swap, et comment choisir une stratégie robuste. Conseil gratuit.",
+    "h1": "Prévision des taux hypothécaires suisses en 2027",
+    "faq": [
+     "Comment évoluera le taux directeur de la BNS en 2027?",
+     "Faut-il conclure une hypothèque fixe maintenant?",
+     "Les prévisions de taux sont-elles fiables?",
+     "Quand une hypothèque forward est-elle intéressante?"
+    ],
+    "intent": "informational",
+    "volume": "mittel (S)",
+    "difficulty": "mittel (S)"
+   },
+   "it": {
+    "slug": "previsioni-tassi-ipotecari",
+    "primary": "previsioni tassi ipotecari 2027",
+    "secondary": [
+     "andamento tassi Svizzera",
+     "tasso guida BNS previsioni",
+     "previsioni SARON"
+    ],
+    "title": "Previsioni 2027: dove vanno i tassi ipotecari? | HYPOTEQ",
+    "description": "Dove vanno i tassi ipotecari nel 2027? Cosa significano BNS, SARON e tassi swap e come scegliere una strategia solida. Consulenza gratuita.",
+    "h1": "Previsioni dei tassi ipotecari svizzeri 2027",
+    "faq": [
+     "Come evolverà il tasso guida BNS nel 2027?",
+     "Conviene ora un'ipoteca fissa o restare sul SARON?",
+     "Quanto sono affidabili le previsioni?",
+     "Quando conviene un'ipoteca forward?"
+    ],
+    "intent": "informational",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "en": {
+    "slug": "swiss-mortgage-rate-forecast",
+    "primary": "Swiss mortgage rate forecast 2027",
+    "secondary": [
+     "SNB interest rate forecast",
+     "Swiss interest rates outlook",
+     "SARON forecast"
+    ],
+    "title": "Swiss mortgage rate forecast 2027 | HYPOTEQ",
+    "description": "Where are Swiss mortgage rates heading in 2027? What the SNB, SARON and swap rates mean and how to choose a robust strategy. Get free advice.",
+    "h1": "Swiss mortgage rate forecast for 2027",
+    "faq": [
+     "Where is the SNB policy rate heading in 2027?",
+     "Should I fix now or stay on SARON?",
+     "How reliable are interest rate forecasts?",
+     "When does a forward mortgage make sense?"
+    ],
+    "intent": "informational",
+    "volume": "mittel (S)",
+    "difficulty": "mittel (S)"
+   }
+  },
+  "lp-konkubinat": {
+   "_meta": {
+    "angle": "Unverheiratete Paare kaufen gemeinsam: Miteigentumsquoten, ungleiche Eigenmittel, Absicherung im Todesfall und Trennungsfall. Banken prüfen beide Einkommen, Fehler sind teuer. Beratung plus Vergleich, gut verlinkbar mit Scheidung und Versicherung (Partner-Kanal).",
+    "competitors": "Swiss Life (Blog), comparis.ch, Beobachter, VZ VermögensZentrum, UBS, Raiffeisen Casa",
+    "parent": "hypotheken"
+   },
+   "de": {
+    "slug": "hypothek-konkubinat-paare",
+    "primary": "Hypothek Konkubinat",
+    "secondary": [
+     "Eigenheim unverheiratet kaufen",
+     "gemeinsam Haus kaufen Paar",
+     "Miteigentum Konkubinat",
+     "Hypothek zu zweit"
+    ],
+    "title": "Hypothek im Konkubinat: gemeinsam kaufen | HYPOTEQ",
+    "description": "Ihr kauft unverheiratet zusammen? Wir klären Eigentumsquoten und Absicherung und vergleichen 40+ Anbieter für eure Hypothek. Anfrage in 3 Minuten.",
+    "h1": "Gemeinsam kaufen ohne Trauschein",
+    "faq": [
+     "Wie teilen wir das Eigentum bei ungleichem Eigenkapital auf?",
+     "Haften beide Partner für die ganze Hypothek?",
+     "Was passiert mit dem Haus bei einer Trennung?",
+     "Wie sichern wir uns im Todesfall gegenseitig ab?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "fr": {
+    "slug": "hypotheque-couple-concubinage",
+    "primary": "hypothèque concubinage",
+    "secondary": [
+     "acheter à deux sans être mariés",
+     "copropriété couple",
+     "achat immobilier en couple"
+    ],
+    "title": "Hypothèque en concubinage: acheter à deux | HYPOTEQ",
+    "description": "Vous achetez à deux sans être mariés? Nous clarifions les quotes-parts et la protection du partenaire et comparons 40+ prêteurs. Demande en 3 minutes.",
+    "h1": "Acheter à deux sans être mariés",
+    "faq": [
+     "Comment répartir la propriété avec des fonds propres inégaux?",
+     "Les deux partenaires sont-ils solidairement responsables?",
+     "Que devient le bien en cas de séparation?",
+     "Comment se protéger en cas de décès?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "it": {
+    "slug": "ipoteca-coppia-convivenza",
+    "primary": "ipoteca convivenza",
+    "secondary": [
+     "comprare casa in due non sposati",
+     "comproprietà coppia",
+     "acquisto casa in coppia"
+    ],
+    "title": "Ipoteca per conviventi: comprare in due | HYPOTEQ",
+    "description": "Comprate casa insieme senza essere sposati? Chiariamo quote di proprietà e tutele e confrontiamo oltre 40 istituti. Richiesta in 3 minuti.",
+    "h1": "Comprare casa in due senza essere sposati",
+    "faq": [
+     "Come dividiamo la proprietà con fondi propri diversi?",
+     "Entrambi rispondono dell'intera ipoteca?",
+     "Cosa succede alla casa in caso di separazione?",
+     "Come ci tuteliamo in caso di decesso?"
+    ],
+    "intent": "transaktional",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "en": {
+    "slug": "mortgage-unmarried-couples",
+    "primary": "mortgage unmarried couple Switzerland",
+    "secondary": [
+     "buying property together Switzerland",
+     "co-ownership couple",
+     "joint mortgage Switzerland"
+    ],
+    "title": "Mortgage for unmarried couples in Switzerland | HYPOTEQ",
+    "description": "Buying together without being married? We clarify ownership shares and protection and compare 40+ lenders for your mortgage. Apply in 3 minutes.",
+    "h1": "Buying together without being married",
+    "faq": [
+     "How do we split ownership with unequal equity?",
+     "Are both partners liable for the full mortgage?",
+     "What happens to the home if we separate?",
+     "How do we protect each other in case of death?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   }
+  },
+  "lp-bonus": {
+   "_meta": {
+    "angle": "Angestellte mit hohem Bonus-, Provisions- oder variablem Lohnanteil (Banking, Pharma, Sales) erleben, dass Banken nur einen Teil anrechnen. Die Anrechnungspraxis unterscheidet sich stark, also ein klarer Vergleichsgrund. Abgrenzung zu selbstaendige (Unternehmer).",
+    "competitors": "Kaum dedizierte LPs; Hinweise bei UBS, MoneyPark, moneyland.ch, comparis.ch (Ratgeber Tragbarkeit)",
+    "parent": "hypotheken"
+   },
+   "de": {
+    "slug": "hypothek-bonus-variables-einkommen",
+    "primary": "Hypothek Bonus Einkommen",
+    "secondary": [
+     "Bonus Tragbarkeit Hypothek",
+     "variables Einkommen Hypothek",
+     "Provision Einkommen Hypothek",
+     "Teilzeit Einkommen Hypothek"
+    ],
+    "title": "Hypothek mit Bonus oder variablem Einkommen | HYPOTEQ",
+    "description": "Bonus, Provision oder schwankender Lohn? Wir finden Anbieter, die dein variables Einkommen fair anrechnen. 40+ Anbieter, Anfrage in 3 Minuten.",
+    "h1": "Wenn dein Bonus für die Tragbarkeit zählen soll",
+    "faq": [
+     "Rechnen Banken meinen Bonus an die Tragbarkeit an?",
+     "Wie viele Jahre Bonushistorie braucht die Bank?",
+     "Wie werden Provisionen und Schichtzulagen behandelt?",
+     "Hilft ein zweites Einkommen bei der Tragbarkeit?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "fr": {
+    "slug": "hypotheque-bonus-revenu-variable",
+    "primary": "hypothèque bonus revenu variable",
+    "secondary": [
+     "bonus capacité financière",
+     "revenu variable hypothèque",
+     "commissions hypothèque"
+    ],
+    "title": "Hypothèque avec bonus ou revenu variable | HYPOTEQ",
+    "description": "Bonus, commissions ou salaire variable? Nous trouvons les prêteurs qui prennent équitablement en compte votre revenu variable. 40+ prêteurs.",
+    "h1": "Faire compter votre bonus dans la capacité financière",
+    "faq": [
+     "Les banques tiennent-elles compte de mon bonus?",
+     "Combien d'années d'historique de bonus faut-il?",
+     "Comment les commissions sont-elles traitées?",
+     "Un deuxième revenu aide-t-il?"
+    ],
+    "intent": "transaktional",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "it": {
+    "slug": "ipoteca-bonus-reddito-variabile",
+    "primary": "ipoteca reddito variabile",
+    "secondary": [
+     "bonus sostenibilità ipoteca",
+     "provvigioni ipoteca",
+     "reddito variabile banca"
+    ],
+    "title": "Ipoteca con bonus o reddito variabile | HYPOTEQ",
+    "description": "Bonus, provvigioni o stipendio variabile? Troviamo gli istituti che considerano in modo equo il tuo reddito variabile. Oltre 40 istituti.",
+    "h1": "Quando il tuo bonus deve contare",
+    "faq": [
+     "Le banche considerano il mio bonus?",
+     "Quanti anni di storico bonus servono?",
+     "Come vengono trattate le provvigioni?",
+     "Un secondo reddito aiuta la sostenibilità?"
+    ],
+    "intent": "transaktional",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "en": {
+    "slug": "mortgage-bonus-variable-income",
+    "primary": "mortgage bonus income Switzerland",
+    "secondary": [
+     "variable income mortgage",
+     "commission income mortgage",
+     "bonus affordability Switzerland"
+    ],
+    "title": "Mortgage with bonus or variable income | HYPOTEQ",
+    "description": "Bonus, commission or fluctuating pay? We find lenders who count your variable income fairly. 40+ lenders, apply in 3 minutes.",
+    "h1": "Making your bonus count for affordability",
+    "faq": [
+     "Do Swiss banks count my bonus towards affordability?",
+     "How many years of bonus history are required?",
+     "How are commissions treated?",
+     "Does a second income help?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   }
+  },
+  "lp-ueberbrueckung": {
+   "_meta": {
+    "angle": "Eigenheimwechsel: neues Objekt kaufen, bevor das alte verkauft ist. Gefragt sind Überbrückungsfinanzierung, Übertragung der Festhypothek und Ersatzbeschaffung (Grundstückgewinnsteueraufschub). Zeitdruck plus hohe Volumina. Wenige dedizierte Seiten in der Schweiz.",
+    "competitors": "Raiffeisen, Kantonalbanken (Produktseiten Überbrückungskredit), comparis.ch, neho.ch, VZ VermögensZentrum",
+    "parent": "hypotheken"
+   },
+   "de": {
+    "slug": "ueberbrueckungsfinanzierung-eigenheim",
+    "primary": "Überbrückungskredit Hauskauf",
+    "secondary": [
+     "Überbrückungsfinanzierung Eigenheim",
+     "neues Haus kaufen altes noch nicht verkauft",
+     "Eigenheimwechsel Finanzierung",
+     "Hypothek übertragen neues Objekt"
+    ],
+    "title": "Überbrückungskredit: Neu kaufen vor dem Verkauf | HYPOTEQ",
+    "description": "Du kaufst neu, bevor dein altes Eigenheim verkauft ist? Wir organisieren die Überbrückung und vergleichen 40+ Anbieter. Anfrage in 3 Minuten.",
+    "h1": "Eigenheim wechseln ohne Finanzierungslücke",
+    "faq": [
+     "Wie funktioniert eine Überbrückungsfinanzierung?",
+     "Kann ich meine Festhypothek auf das neue Objekt übertragen?",
+     "Wie lange darf die Überbrückung dauern?",
+     "Was ist bei der Ersatzbeschaffung steuerlich zu beachten?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "fr": {
+    "slug": "credit-relais-achat-immobilier",
+    "primary": "crédit relais immobilier",
+    "secondary": [
+     "acheter avant de vendre",
+     "financement transitoire logement",
+     "transférer hypothèque nouveau bien"
+    ],
+    "title": "Crédit relais: acheter avant de vendre | HYPOTEQ",
+    "description": "Vous achetez avant d'avoir vendu votre logement actuel? Nous organisons le crédit relais et comparons 40+ prêteurs. Demande en 3 minutes.",
+    "h1": "Changer de logement sans trou de financement",
+    "faq": [
+     "Comment fonctionne un crédit relais?",
+     "Puis-je transférer mon hypothèque fixe sur le nouveau bien?",
+     "Combien de temps peut durer le relais?",
+     "Quels sont les aspects fiscaux du remploi?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "it": {
+    "slug": "credito-ponte-acquisto-casa",
+    "primary": "credito ponte casa",
+    "secondary": [
+     "comprare prima di vendere",
+     "finanziamento transitorio casa",
+     "trasferire ipoteca nuovo immobile"
+    ],
+    "title": "Credito ponte: comprare prima di vendere | HYPOTEQ",
+    "description": "Compri casa prima di aver venduto la tua? Organizziamo il credito ponte e confrontiamo oltre 40 istituti. Richiesta in 3 minuti.",
+    "h1": "Cambiare casa senza vuoti di finanziamento",
+    "faq": [
+     "Come funziona un credito ponte?",
+     "Posso trasferire l'ipoteca fissa sul nuovo immobile?",
+     "Quanto può durare il ponte?",
+     "Quali aspetti fiscali vanno considerati nel reinvestimento?"
+    ],
+    "intent": "transaktional",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "en": {
+    "slug": "bridging-loan-switzerland",
+    "primary": "bridging loan Switzerland",
+    "secondary": [
+     "buy before selling house",
+     "bridge financing home",
+     "transfer mortgage to new property"
+    ],
+    "title": "Bridging loan: buy before you sell | HYPOTEQ",
+    "description": "Buying your next home before selling the current one? We arrange bridge financing and compare 40+ lenders. Apply in 3 minutes.",
+    "h1": "Moving home without a financing gap",
+    "faq": [
+     "How does a bridging loan work in Switzerland?",
+     "Can I transfer my fixed-rate mortgage to the new property?",
+     "How long can a bridging loan last?",
+     "What are the tax rules for replacement property?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   }
+  },
+  "lp-baurecht": {
+   "_meta": {
+    "angle": "Objekte im Baurecht (Gemeinde, Kirche, Genossenschaft als Landeigentümer) werden von Banken restriktiver belehnt, je nach Restlaufzeit und Baurechtszins. Viele Käufer erleben Absagen, also ein klarer Vermittler-Mehrwert. Kaum Wettbewerb mit Lead-Fokus.",
+    "competitors": "comparis.ch, HEV, Raiffeisen Casa, Beobachter, Kantonalbanken (Ratgeber)",
+    "parent": "hypotheken"
+   },
+   "de": {
+    "slug": "hypothek-baurecht",
+    "primary": "Hypothek Baurecht",
+    "secondary": [
+     "Baurechtsliegenschaft finanzieren",
+     "Haus im Baurecht kaufen",
+     "Baurechtszins Tragbarkeit",
+     "Wohnung im Baurecht Hypothek"
+    ],
+    "title": "Hypothek im Baurecht: Finanzierung sichern | HYPOTEQ",
+    "description": "Haus oder Wohnung im Baurecht? Wir wissen, welche Anbieter Baurechtsobjekte fair belehnen, je nach Restlaufzeit. 40+ Anbieter, Anfrage in 3 Minuten.",
+    "h1": "Baurechtsliegenschaft kaufen und finanzieren",
+    "faq": [
+     "Finanzieren Banken Liegenschaften im Baurecht?",
+     "Welche Restlaufzeit des Baurechts verlangen Banken?",
+     "Wie fliesst der Baurechtszins in die Tragbarkeit ein?",
+     "Was passiert am Ende des Baurechts?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "fr": {
+    "slug": "hypotheque-droit-de-superficie",
+    "primary": "hypothèque droit de superficie",
+    "secondary": [
+     "acheter en droit de superficie",
+     "rente de superficie capacité financière",
+     "DDP financement"
+    ],
+    "title": "Hypothèque en droit de superficie | HYPOTEQ",
+    "description": "Maison ou appartement en droit de superficie? Nous savons quels prêteurs financent ces biens selon la durée restante. 40+ prêteurs, demande en 3 minutes.",
+    "h1": "Acheter et financer un bien en droit de superficie",
+    "faq": [
+     "Les banques financent-elles un droit de superficie?",
+     "Quelle durée restante exigent-elles?",
+     "Comment la rente de superficie entre-t-elle dans le calcul?",
+     "Que se passe-t-il à l'échéance du droit?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "it": {
+    "slug": "ipoteca-diritto-di-superficie",
+    "primary": "ipoteca diritto di superficie",
+    "secondary": [
+     "comprare in diritto di superficie",
+     "canone di superficie sostenibilità"
+    ],
+    "title": "Ipoteca in diritto di superficie | HYPOTEQ",
+    "description": "Casa o appartamento in diritto di superficie? Sappiamo quali istituti li finanziano secondo la durata residua. Oltre 40 istituti, richiesta in 3 minuti.",
+    "h1": "Comprare e finanziare in diritto di superficie",
+    "faq": [
+     "Le banche finanziano immobili in diritto di superficie?",
+     "Quale durata residua richiedono?",
+     "Come incide il canone sulla sostenibilità?",
+     "Cosa succede alla scadenza del diritto?"
+    ],
+    "intent": "transaktional",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "en": {
+    "slug": "mortgage-building-lease",
+    "primary": "mortgage building lease Switzerland",
+    "secondary": [
+     "leasehold property Switzerland",
+     "building right Baurecht mortgage",
+     "ground rent affordability"
+    ],
+    "title": "Mortgage for building lease (Baurecht) property | HYPOTEQ",
+    "description": "Home on a building lease (Baurecht)? We know which lenders finance it depending on the remaining term. 40+ lenders, apply in 3 minutes.",
+    "h1": "Buying and financing a building lease property",
+    "faq": [
+     "Do Swiss banks finance building lease properties?",
+     "What remaining term do lenders require?",
+     "How is ground rent included in affordability?",
+     "What happens when the building lease ends?"
+    ],
+    "intent": "transaktional",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   }
+  }
+ }
+}

@@ -1,0 +1,1018 @@
+{
+ "de": {
+  "title": "Hypothek mit wenig Eigenkapital: Lösungen | HYPOTEQ",
+  "description": "Dir fehlen Eigenmittel zum 20-%-Ziel? Wir zeigen Lösungen von Erbvorbezug bis Mezzanine und vergleichen 40+ Anbieter. Anfrage in 3 Minuten.",
+  "h1": "Eigenkapital knapp? So klappt die Finanzierung",
+  "nav": [
+   "Wenig Eigenkapital",
+   "Lösungen bei fehlenden Eigenmitteln"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypothek wenig Eigenkapital",
+    "h1": "Eigenkapital knapp?\nSo klappt die Finanzierung",
+    "lead": "Dir fehlen ein paar Prozent bis zu den geforderten 20 % Eigenmitteln? Für deine **Hypothek mit wenig Eigenkapital** prüfen wir Lösungen von Erbvorbezug über Vorsorgegelder bis Mezzanine und vergleichen kostenlos über 40 Anbieter.",
+    "ctas": [
+     {
+      "label": "Lösung anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Kostenlos & unverbindlich",
+     "Anfrage in 3 Minuten",
+     "Beraterin zeitnah"
+    ],
+    "image": "couple",
+    "alt": "Paar entspannt im eigenen Wohnzimmer",
+    "float": {
+     "title": "Mind. 20 % Eigenmittel",
+     "text": "davon 10 % hart · Stand 2026"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "20 %",
+      "label": "Eigenmittel als Grundregel"
+     },
+     {
+      "value": "10 %",
+      "label": "davon hart, nicht aus der PK"
+     },
+     {
+      "value": "40+",
+      "label": "Anbieter mit eigenen Kriterien"
+     },
+     {
+      "value": "0 CHF",
+      "label": "für Vergleich und Vermittlung"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Eigenkapital fehlt beim Hauskauf",
+    "title": "Die Lücke ist oft kleiner,\n*als du denkst.*",
+    "image": "keys",
+    "alt": "Schlüssel zur neuen Wohnung",
+    "paragraphs": [
+     "Kreditgeber finanzieren in der Regel max. 80 % des Werts. Die restlichen **20 % Eigenmittel** bringst du mit, davon mind. 10 % hart, also nicht aus der Pensionskasse. Dazu kommen ca. 2–5 % Kaufnebenkosten.",
+     "Fehlt ein Teil davon, ist das oft lösbar. Entscheidend ist, woher das Geld kommt und wie ein Anbieter es anrechnet. Wir zeigen dir, welche Bausteine bei dir funktionieren."
+    ],
+    "bullets": [
+     "Vorsorgegelder richtig einsetzen",
+     "Familienhilfe sauber strukturieren",
+     "Zusatzsicherheiten und Mezzanine prüfen"
+    ],
+    "ctas": [
+     {
+      "label": "Eigenmittel prüfen lassen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Lösungen",
+    "title": "Sechs Wege,\n*die Eigenkapitallücke zu schliessen.*",
+    "lead": "Allgemeine Grundregeln, Stand 2026, ohne Gewähr. Die Anrechnung entscheidet der Anbieter.",
+    "tone": "soft",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Familie",
+      "title": "Erbvorbezug oder Schenkung",
+      "text": "Geld der Eltern wird meist als Eigenkapital anerkannt, wenn es nicht zurückbezahlt werden muss.",
+      "to": "page:lp-eltern"
+     },
+     {
+      "kicker": "Darlehen",
+      "title": "Darlehen von Verwandten",
+      "text": "Wird unterschiedlich angerechnet. Zins und Rückzahlung belasten meist die Tragbarkeit.",
+      "to": "funnel"
+     },
+     {
+      "kicker": "Vorsorge",
+      "title": "PK und Säule 3a",
+      "text": "PK-Vorbezug ab CHF 20’000 ergänzt die Eigenmittel, deckt aber nicht die harten 10 %.",
+      "to": "page:rg-pk"
+     },
+     {
+      "kicker": "Sicherheiten",
+      "title": "Verpfändung",
+      "text": "Verpfändete Vorsorgeguthaben können je nach Anbieter als Zusatzsicherheit dienen.",
+      "to": "funnel"
+     },
+     {
+      "kicker": "Objekt",
+      "title": "Wert prüfen",
+      "text": "Liegt der Preis über dem Marktwert, rechnet die Bank mit dem tieferen Wert. Eine Bewertung schafft Klarheit.",
+      "to": "bewertung"
+     },
+     {
+      "kicker": "Mezzanine",
+      "title": "Nachrangiges Kapital",
+      "text": "Für Developer, Family Offices und Bestandshalter mit Eigenmittellücke.",
+      "to": "page:mezzanine"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "So gehen wir vor",
+    "title": "Von der Lücke\nzur Finanzierung.",
+    "items": [
+     {
+      "title": "Anfrage in 3 Minuten",
+      "text": "Lade Lohnausweis, Vorsorgeausweise und Objektunterlagen hoch. Die KI liest die meisten Angaben aus."
+     },
+     {
+      "title": "Eigenmittel analysieren",
+      "text": "Deine Beraterin prüft, was hart zählt, was aus der Vorsorge kommt und wie gross die Lücke ist."
+     },
+     {
+      "title": "Bausteine kombinieren",
+      "text": "Wir rechnen Varianten mit Familienhilfe, Vorsorge oder Zusatzsicherheiten."
+     },
+     {
+      "title": "Offerten vergleichen",
+      "text": "Mit vollständigen Unterlagen liegen in der Regel nach 48–72 h Offerten vor."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Jetzt starten",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Reichen meine Eigenmittel?",
+    "title": "Belehnung und Tragbarkeit\n*sofort sehen.*",
+    "lead": "Gib Kaufpreis, Eigenmittel und Einkommen ein. Der Rechner zeigt, ob deine Eigenmittel das Minimum erreichen."
+   },
+   {
+    "type": "split",
+    "eyebrow": "Mezzanine von HYPOTEQ",
+    "title": "Wenn Eigenkapital\n*das Projekt bremst.*",
+    "image": "swiss-landscape",
+    "alt": "Schweizer Landschaft mit Bergen und See",
+    "tone": "dark",
+    "reverse": true,
+    "paragraphs": [
+     "Für Neubau, Akquisition, Zwischenfinanzierung oder eine Eigenmittellücke bietet HYPOTEQ **Mezzanine-Kapital**: ein Nachrangdarlehen zwischen Eigenkapital und Bank, ohne Anteile abzugeben, mit 2–5 Jahren Laufzeit."
+    ],
+    "ctas": [
+     {
+      "label": "Mezzanine entdecken",
+      "to": "page:mezzanine"
+     },
+     {
+      "label": "Kontakt aufnehmen",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Passend dazu",
+    "title": "Weiterlesen\n*und vorbereiten.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Ratgeber",
+      "title": "Wie viel Eigenkapital?",
+      "text": "Alle Regeln im Detail.",
+      "to": "page:rg-eigenmittel"
+     },
+     {
+      "kicker": "Erstkauf",
+      "title": "Junge Familie",
+      "text": "Das erste Eigenheim finanzieren.",
+      "to": "page:lp-erstkauf"
+     },
+     {
+      "kicker": "Bankabsage",
+      "title": "Hypothek abgelehnt?",
+      "text": "So holst du dir eine Zweitmeinung.",
+      "to": "page:lp-zweitmeinung"
+     },
+     {
+      "kicker": "Für Makler",
+      "title": "Partner werden",
+      "text": "Käufer mit knappen Eigenmitteln begleiten.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Wenig Eigenkapital\n*klar erklärt.*",
+    "items": [
+     {
+      "q": "Geht eine Hypothek mit weniger als 20 % Eigenkapital?",
+      "a": "Bei selbst bewohntem Eigentum ist eine Belehnung über 80 % die Ausnahme. Oft lässt sich die Lücke aber mit Erbvorbezug, Vorsorgegeldern oder Zusatzsicherheiten schliessen. Wir prüfen, was bei welchem Anbieter möglich ist."
+     },
+     {
+      "q": "Was sind harte Eigenmittel?",
+      "a": "Eigene Mittel, die nicht aus der Pensionskasse stammen, etwa Ersparnisse, Säule 3a, Wertschriften, Schenkungen oder Erbvorbezüge. Mindestens 10 % des Kaufpreises müssen hart sein. Stand 2026, ohne Gewähr."
+     },
+     {
+      "q": "Hilft ein Darlehen von Verwandten?",
+      "a": "Es kann helfen, wird aber unterschiedlich angerechnet. Anbieter prüfen, ob und wann es zurückbezahlt werden muss, und Zins und Rückzahlung belasten die Tragbarkeit. Steuerliches klärst du mit einer Fachperson."
+     },
+     {
+      "q": "Wann ist Mezzanine-Kapital sinnvoll?",
+      "a": "Mezzanine ist nachrangiges Kapital zwischen Eigenkapital und Bankfinanzierung. Es eignet sich für Developer, Family Offices und Bestandshalter, etwa bei Neubau, Akquisition oder einer Eigenmittellücke."
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Lücke schliessen.\n*Eigenheim finanzieren.*",
+    "text": "In 3 Minuten anfragen und kostenlos Lösungen von über 40 Anbietern vergleichen.",
+    "ctas": [
+     {
+      "label": "Lösung anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Hypothèque avec peu de fonds propres: solutions | HYPOTEQ",
+  "description": "Il vous manque des fonds propres pour atteindre 20%? Avancement d'hoirie, prêt familial, mezzanine: nous comparons 40+ prêteurs. Demande en 3 minutes.",
+  "h1": "Fonds propres insuffisants: les solutions",
+  "nav": [
+   "Peu de fonds propres",
+   "Solutions quand il manque des fonds"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypothèque sans 20% de fonds propres",
+    "h1": "Fonds propres insuffisants:\nles solutions",
+    "lead": "Il vous manque quelques pour cent pour atteindre les 20 % requis? Pour une **hypothèque sans 20 % de fonds propres**, nous étudions avancement d'hoirie, prévoyance ou mezzanine et comparons gratuitement plus de 40 prêteurs.",
+    "ctas": [
+     {
+      "label": "Demander une solution",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Gratuit & sans engagement",
+     "Demande en 3 minutes",
+     "Conseillère rapidement"
+    ],
+    "image": "couple",
+    "alt": "Couple détendu dans son salon",
+    "float": {
+     "title": "Min. 20 % de fonds propres",
+     "text": "dont 10 % durs · état 2026"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "20 %",
+      "label": "de fonds propres en règle générale"
+     },
+     {
+      "value": "10 %",
+      "label": "dont durs, hors 2e pilier"
+     },
+     {
+      "value": "40+",
+      "label": "prêteurs aux critères propres"
+     },
+     {
+      "value": "0 CHF",
+      "label": "pour la comparaison et le courtage"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Peu de fonds propres achat immobilier",
+    "title": "L'écart est souvent\n*plus petit que prévu.*",
+    "image": "keys",
+    "alt": "Clés du nouvel appartement",
+    "paragraphs": [
+     "Les prêteurs financent en général 80 % de la valeur au plus. Les **20 % de fonds propres** restants viennent de vous, dont 10 % durs, hors 2e pilier. S'ajoutent environ 2 à 5 % de frais d'achat.",
+     "Si une partie manque, c'est souvent soluble: tout dépend de l'origine de l'argent."
+    ],
+    "bullets": [
+     "Utiliser la prévoyance à bon escient",
+     "Structurer l'aide familiale",
+     "Examiner sûretés et mezzanine"
+    ],
+    "ctas": [
+     {
+      "label": "Faire vérifier mes fonds propres",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Solutions",
+    "title": "Six façons\n*de combler l'écart.*",
+    "lead": "Règles générales, état 2026, sans garantie.",
+    "tone": "soft",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Famille",
+      "title": "Avancement d'hoirie ou donation",
+      "text": "L'argent des parents compte en général comme fonds propres s'il n'est pas remboursable.",
+      "to": "page:lp-eltern"
+     },
+     {
+      "kicker": "Prêt",
+      "title": "Prêt familial",
+      "text": "Pris en compte différemment. Intérêts et remboursement pèsent sur la capacité.",
+      "to": "funnel"
+     },
+     {
+      "kicker": "Prévoyance",
+      "title": "2e pilier et 3a",
+      "text": "Le retrait dès CHF 20’000 complète, mais ne remplace pas les 10 % durs.",
+      "to": "page:rg-pk"
+     },
+     {
+      "kicker": "Sûretés",
+      "title": "Nantissement",
+      "text": "La prévoyance nantie peut servir de sûreté supplémentaire selon le prêteur.",
+      "to": "funnel"
+     },
+     {
+      "kicker": "Bien",
+      "title": "Vérifier la valeur",
+      "text": "Si le prix dépasse la valeur, la banque retient la plus basse. Une estimation clarifie.",
+      "to": "bewertung"
+     },
+     {
+      "kicker": "Mezzanine",
+      "title": "Capital subordonné",
+      "text": "Pour développeurs, family offices et détenteurs avec lacune de fonds propres.",
+      "to": "page:mezzanine"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Notre démarche",
+    "title": "De l'écart\nau financement.",
+    "items": [
+     {
+      "title": "Demande en 3 minutes",
+      "text": "Envoyez vos documents. L'IA lit la plupart des données."
+     },
+     {
+      "title": "Analyser les fonds propres",
+      "text": "Votre conseillère vérifie ce qui est dur, ce qui vient de la prévoyance et l'écart."
+     },
+     {
+      "title": "Combiner",
+      "text": "Nous calculons des variantes avec aide familiale, prévoyance ou sûretés."
+     },
+     {
+      "title": "Comparer les offres",
+      "text": "Dossier complet, offres en général sous 48–72 h."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Commencer",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Mes fonds propres suffisent-ils?",
+    "title": "Nantissement et capacité\n*en un coup d'oeil.*",
+    "lead": "Saisissez prix, fonds propres et revenu pour voir si vous atteignez le minimum."
+   },
+   {
+    "type": "split",
+    "eyebrow": "Mezzanine HYPOTEQ",
+    "title": "Quand les fonds propres\n*freinent le projet.*",
+    "image": "swiss-landscape",
+    "alt": "Paysage suisse avec montagnes et lac",
+    "tone": "dark",
+    "reverse": true,
+    "paragraphs": [
+     "Pour construction, acquisition, financement intermédiaire ou lacune de fonds propres: le **capital mezzanine** HYPOTEQ, un prêt subordonné sans céder de parts, sur 2 à 5 ans."
+    ],
+    "ctas": [
+     {
+      "label": "Découvrir la mezzanine",
+      "to": "page:mezzanine"
+     },
+     {
+      "label": "Nous contacter",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Pour aller plus loin",
+    "title": "Lire\n*et se préparer.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Guide",
+      "title": "Combien de fonds propres?",
+      "text": "Toutes les règles.",
+      "to": "page:rg-eigenmittel"
+     },
+     {
+      "kicker": "Premier achat",
+      "title": "Jeune famille",
+      "text": "Financer le premier logement.",
+      "to": "page:lp-erstkauf"
+     },
+     {
+      "kicker": "Refus",
+      "title": "Hypothèque refusée?",
+      "text": "Obtenez un deuxième avis.",
+      "to": "page:lp-zweitmeinung"
+     },
+     {
+      "kicker": "Courtiers",
+      "title": "Devenir partenaire",
+      "text": "Accompagner les acheteurs.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "Peu de fonds propres\n*expliqué.*",
+    "items": [
+     {
+      "q": "Une hypothèque est-elle possible avec moins de 20% de fonds propres?",
+      "a": "Pour un logement occupé par son propriétaire, dépasser 80 % de nantissement est l'exception. L'écart se comble souvent par avancement d'hoirie, prévoyance ou sûretés."
+     },
+     {
+      "q": "Que sont les fonds propres durs?",
+      "a": "Des moyens qui ne proviennent pas de la caisse de pension: épargne, 3e pilier, titres, donations ou avancements d'hoirie. Au moins 10 % du prix doivent être durs. État 2026, sans garantie."
+     },
+     {
+      "q": "Un prêt familial est-il accepté?",
+      "a": "Il peut aider, mais chaque prêteur le compte différemment; intérêts et remboursement pèsent sur la capacité. Pour la fiscalité, consultez un spécialiste."
+     },
+     {
+      "q": "Quand un financement mezzanine est-il judicieux?",
+      "a": "Capital subordonné entre fonds propres et banque, pour développeurs, family offices et détenteurs d'immeubles: construction, acquisition ou lacune de fonds propres."
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Combler l'écart.\n*Financer votre logement.*",
+    "text": "Demande en 3 minutes et comparaison gratuite de plus de 40 prêteurs.",
+    "ctas": [
+     {
+      "label": "Demander une solution",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Ipoteca con pochi fondi propri: le soluzioni | HYPOTEQ",
+  "description": "Ti mancano fondi propri per arrivare al 20%? Anticipo ereditario, prestito familiare, mezzanine: confrontiamo oltre 40 istituti. Richiesta in 3 minuti.",
+  "h1": "Fondi propri insufficienti: le soluzioni",
+  "nav": [
+   "Pochi fondi propri",
+   "Soluzioni se mancano fondi propri"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Ipoteca senza 20% fondi propri",
+    "h1": "Fondi propri insufficienti:\nle soluzioni",
+    "lead": "Ti mancano pochi punti percentuali per il 20 % richiesto? Per un'**ipoteca senza 20 % di fondi propri** valutiamo anticipo ereditario, previdenza o mezzanine e confrontiamo gratis oltre 40 istituti.",
+    "ctas": [
+     {
+      "label": "Richiedi una soluzione",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Gratuito e senza impegno",
+     "Richiesta in 3 minuti",
+     "Consulente in giornata"
+    ],
+    "image": "couple",
+    "alt": "Coppia rilassata nel proprio soggiorno",
+    "float": {
+     "title": "Min. 20 % di fondi propri",
+     "text": "di cui 10 % duri · stato 2026"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "20 %",
+      "label": "di fondi propri come regola"
+     },
+     {
+      "value": "10 %",
+      "label": "di cui duri, non dalla cassa pensione"
+     },
+     {
+      "value": "40+",
+      "label": "istituti con criteri propri"
+     },
+     {
+      "value": "0 CHF",
+      "label": "per confronto e intermediazione"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Mancano fondi propri per la casa",
+    "title": "La lacuna è spesso\n*più piccola del previsto.*",
+    "image": "keys",
+    "alt": "Chiavi del nuovo appartamento",
+    "paragraphs": [
+     "Gli istituti finanziano di regola al massimo l'80 % del valore. Il restante **20 % di fondi propri** lo porti tu, di cui almeno il 10 % duri, non dalla cassa pensione. Si aggiungono circa il 2–5 % di costi d'acquisto.",
+     "Se ne manca una parte, spesso si risolve. Conta da dove arrivano i soldi e come l'istituto li considera."
+    ],
+    "bullets": [
+     "Usare bene la previdenza",
+     "Strutturare l'aiuto della famiglia",
+     "Valutare garanzie e mezzanine"
+    ],
+    "ctas": [
+     {
+      "label": "Fai verificare i fondi propri",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Soluzioni",
+    "title": "Sei modi\n*per colmare la lacuna.*",
+    "lead": "Regole generali, stato 2026, senza garanzia.",
+    "tone": "soft",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Famiglia",
+      "title": "Anticipo ereditario o donazione",
+      "text": "Il denaro dei genitori conta di solito come fondi propri se non va restituito.",
+      "to": "page:lp-eltern"
+     },
+     {
+      "kicker": "Prestito",
+      "title": "Prestito di familiari",
+      "text": "Viene considerato in modo diverso. Interessi e rimborso pesano sulla sostenibilità.",
+      "to": "funnel"
+     },
+     {
+      "kicker": "Previdenza",
+      "title": "Cassa pensione e 3a",
+      "text": "Il prelievo da CHF 20’000 integra, ma non sostituisce il 10 % duro.",
+      "to": "page:rg-pk"
+     },
+     {
+      "kicker": "Garanzie",
+      "title": "Costituzione in pegno",
+      "text": "La previdenza in pegno può servire da garanzia aggiuntiva, secondo l'istituto.",
+      "to": "funnel"
+     },
+     {
+      "kicker": "Immobile",
+      "title": "Verificare il valore",
+      "text": "Se il prezzo supera il valore, la banca usa quello più basso. Una stima chiarisce.",
+      "to": "bewertung"
+     },
+     {
+      "kicker": "Mezzanine",
+      "title": "Capitale subordinato",
+      "text": "Per developer, family office e detentori con lacuna di fondi propri.",
+      "to": "page:mezzanine"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Come procediamo",
+    "title": "Dalla lacuna\nal finanziamento.",
+    "items": [
+     {
+      "title": "Richiesta in 3 minuti",
+      "text": "Carica certificati di salario, di previdenza e documenti dell'immobile. L'IA legge la maggior parte dei dati."
+     },
+     {
+      "title": "Analisi dei fondi propri",
+      "text": "La tua consulente verifica cosa conta come duro, cosa arriva dalla previdenza e la lacuna."
+     },
+     {
+      "title": "Combinare",
+      "text": "Calcoliamo varianti con aiuto familiare, previdenza o garanzie."
+     },
+     {
+      "title": "Confrontare le offerte",
+      "text": "Con documenti completi, offerte di regola entro 48–72 h."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Inizia ora",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Bastano i miei fondi propri?",
+    "title": "Anticipo e sostenibilità\n*subito chiari.*",
+    "lead": "Inserisci prezzo, fondi propri e reddito per vedere se raggiungi il minimo."
+   },
+   {
+    "type": "split",
+    "eyebrow": "Mezzanine HYPOTEQ",
+    "title": "Quando i fondi propri\n*frenano il progetto.*",
+    "image": "swiss-landscape",
+    "alt": "Paesaggio svizzero con montagne e lago",
+    "tone": "dark",
+    "reverse": true,
+    "paragraphs": [
+     "Per nuove costruzioni, acquisizioni, finanziamenti ponte o una lacuna di fondi propri, HYPOTEQ offre **capitale mezzanine**: un prestito subordinato tra fondi propri e banca, senza cedere quote, per 2–5 anni."
+    ],
+    "ctas": [
+     {
+      "label": "Scopri il mezzanine",
+      "to": "page:mezzanine"
+     },
+     {
+      "label": "Contattaci",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Approfondisci",
+    "title": "Leggi\n*e preparati.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Guida",
+      "title": "Quanti fondi propri?",
+      "text": "Tutte le regole.",
+      "to": "page:rg-eigenmittel"
+     },
+     {
+      "kicker": "Prima casa",
+      "title": "Giovani famiglie",
+      "text": "Finanziare la prima casa.",
+      "to": "page:lp-erstkauf"
+     },
+     {
+      "kicker": "Rifiuto",
+      "title": "Ipoteca rifiutata?",
+      "text": "Chiedi un secondo parere.",
+      "to": "page:lp-zweitmeinung"
+     },
+     {
+      "kicker": "Agenti",
+      "title": "Diventa partner",
+      "text": "Accompagna gli acquirenti.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "Pochi fondi propri\n*in chiaro.*",
+    "items": [
+     {
+      "q": "Si può avere un'ipoteca con meno del 20% di fondi propri?",
+      "a": "Per un'abitazione propria, superare l'80 % di anticipo è l'eccezione. Spesso la lacuna si colma con anticipo ereditario, previdenza o garanzie."
+     },
+     {
+      "q": "Cosa sono i fondi propri duri?",
+      "a": "Mezzi che non provengono dalla cassa pensione: risparmi, 3° pilastro, titoli, donazioni o anticipi ereditari. Almeno il 10 % del prezzo deve essere duro. Stato 2026, senza garanzia."
+     },
+     {
+      "q": "Un prestito di familiari è accettato?",
+      "a": "Può aiutare, ma viene considerato in modo diverso. Gli istituti verificano se va restituito, e interessi e rimborso pesano sulla sostenibilità. Per gli aspetti fiscali consulta un professionista."
+     },
+     {
+      "q": "Quando conviene il capitale mezzanine?",
+      "a": "Capitale subordinato tra fondi propri e banca, per developer, family office e detentori di immobili: nuove costruzioni, acquisizioni o lacuna di fondi propri."
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Colmare la lacuna.\n*Finanziare la casa.*",
+    "text": "Richiesta in 3 minuti e confronto gratuito di oltre 40 istituti.",
+    "ctas": [
+     {
+      "label": "Richiedi una soluzione",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "Low-deposit mortgage in Switzerland: options | HYPOTEQ",
+  "description": "Short of the 20% equity? From inheritance advances to mezzanine capital, we show your options and compare 40+ lenders. Apply in 3 minutes.",
+  "h1": "Not enough equity? Here is how it can work",
+  "nav": [
+   "Low equity",
+   "Options when equity falls short"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Low deposit mortgage Switzerland",
+    "h1": "Not enough equity?\nHere is how it can work",
+    "lead": "A few percent short of the required 20 % equity? For a **mortgage with less than 20 percent down in Switzerland**, we look at inheritance advances, pension money or mezzanine capital and compare 40+ lenders for free.",
+    "ctas": [
+     {
+      "label": "Request a solution",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Free & non-binding",
+     "Apply in 3 minutes",
+     "Advisor the same day"
+    ],
+    "image": "couple",
+    "alt": "Couple relaxing in their own living room",
+    "float": {
+     "title": "Min. 20 % equity",
+     "text": "10 % of it hard · as of 2026"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "20 %",
+      "label": "equity as the basic rule"
+     },
+     {
+      "value": "10 %",
+      "label": "of it hard, not from the pension fund"
+     },
+     {
+      "value": "40+",
+      "label": "lenders with their own criteria"
+     },
+     {
+      "value": "0 CHF",
+      "label": "for comparison and brokerage"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Not enough equity for a house purchase",
+    "title": "The gap is often\n*smaller than you think.*",
+    "image": "keys",
+    "alt": "Keys to the new apartment",
+    "paragraphs": [
+     "Lenders usually finance at most 80 % of the value. The remaining **20 % equity** comes from you, at least 10 % of it hard, i.e. not from the pension fund (pillar 2). Add roughly 2–5 % purchase costs.",
+     "If part is missing, it can often be solved. What counts is where the money comes from."
+    ],
+    "bullets": [
+     "Use pension money wisely",
+     "Structure family support properly",
+     "Check extra collateral and mezzanine"
+    ],
+    "ctas": [
+     {
+      "label": "Have my equity checked",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Options",
+    "title": "Six ways\n*to close the equity gap.*",
+    "lead": "General rules, as of 2026, without guarantee.",
+    "tone": "soft",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Family",
+      "title": "Inheritance advance or gift",
+      "text": "Money from parents usually counts as equity if it does not have to be repaid.",
+      "to": "page:lp-eltern"
+     },
+     {
+      "kicker": "Loan",
+      "title": "Loan from relatives",
+      "text": "Treated differently by lenders. Interest and repayment usually weigh on affordability.",
+      "to": "funnel"
+     },
+     {
+      "kicker": "Pension",
+      "title": "Pillar 2 and 3a",
+      "text": "A withdrawal from CHF 20,000 adds equity but does not replace the 10 % hard share.",
+      "to": "page:rg-pk"
+     },
+     {
+      "kicker": "Collateral",
+      "title": "Pledge",
+      "text": "Pledged pension assets can serve as extra collateral, depending on the lender.",
+      "to": "funnel"
+     },
+     {
+      "kicker": "Property",
+      "title": "Check the value",
+      "text": "If the price exceeds the value, the bank uses the lower figure. A valuation clarifies.",
+      "to": "bewertung"
+     },
+     {
+      "kicker": "Mezzanine",
+      "title": "Subordinated capital",
+      "text": "For developers, family offices and property holders with an equity gap.",
+      "to": "page:mezzanine"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "How we proceed",
+    "title": "From gap\nto financing.",
+    "items": [
+     {
+      "title": "Request in 3 minutes",
+      "text": "Upload salary statement, pension certificates and property documents. Our AI reads most details."
+     },
+     {
+      "title": "Analyse your equity",
+      "text": "Your advisor checks what counts as hard, what comes from pension money and the gap."
+     },
+     {
+      "title": "Combine options",
+      "text": "We calculate variants with family support, pension money or collateral."
+     },
+     {
+      "title": "Compare offers",
+      "text": "With complete documents, offers usually arrive within 48–72 h."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Get started",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Is my equity enough?",
+    "title": "Loan-to-value and affordability\n*at a glance.*",
+    "lead": "Enter price, equity and income to see whether you reach the minimum."
+   },
+   {
+    "type": "split",
+    "eyebrow": "HYPOTEQ mezzanine",
+    "title": "When equity\n*holds the project back.*",
+    "image": "swiss-landscape",
+    "alt": "Swiss landscape with mountains and lake",
+    "tone": "dark",
+    "reverse": true,
+    "paragraphs": [
+     "For new builds, acquisitions, bridge financing or an equity gap, HYPOTEQ offers **mezzanine capital**: a subordinated loan between equity and bank, without giving up shares, over 2–5 years."
+    ],
+    "ctas": [
+     {
+      "label": "Explore mezzanine",
+      "to": "page:mezzanine"
+     },
+     {
+      "label": "Contact us",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Related",
+    "title": "Read on\n*and prepare.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Guide",
+      "title": "How much equity?",
+      "text": "All the rules in detail.",
+      "to": "page:rg-eigenmittel"
+     },
+     {
+      "kicker": "First home",
+      "title": "Young families",
+      "text": "Financing your first home.",
+      "to": "page:lp-erstkauf"
+     },
+     {
+      "kicker": "Rejection",
+      "title": "Mortgage rejected?",
+      "text": "Get a second opinion.",
+      "to": "page:lp-zweitmeinung"
+     },
+     {
+      "kicker": "For agents",
+      "title": "Become a partner",
+      "text": "Support buyers with tight equity.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Low equity\n*explained.*",
+    "items": [
+     {
+      "q": "Can I get a mortgage with less than 20% equity?",
+      "a": "For owner-occupied property, a loan-to-value above 80 % is the exception. The gap can often be closed with an inheritance advance, pension money or extra collateral."
+     },
+     {
+      "q": "What is hard equity?",
+      "a": "Funds that do not come from the pension fund, such as savings, pillar 3a, securities, gifts or inheritance advances. At least 10 % of the price must be hard equity. As of 2026, without guarantee."
+     },
+     {
+      "q": "Is a loan from family accepted?",
+      "a": "It can help, but each lender treats it differently; interest and repayment weigh on affordability. Ask a specialist about tax."
+     },
+     {
+      "q": "When does mezzanine capital make sense?",
+      "a": "Subordinated capital between equity and bank, for developers, family offices and property holders: new builds, acquisitions or an equity gap."
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Close the gap.\n*Finance your home.*",
+    "text": "Apply in 3 minutes and compare solutions from 40+ lenders for free.",
+    "ctas": [
+     {
+      "label": "Request a solution",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ }
+}

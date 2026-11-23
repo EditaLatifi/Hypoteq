@@ -1,0 +1,838 @@
+{
+ "de": {
+  "title": "Dokumente hochladen: Anfrage in 3 Minuten | HYPOTEQ",
+  "description": "Lohnausweis, Steuererklärung, Verkaufsdokumentation: Lade deine Unterlagen hoch, unsere KI liest sie aus, die Beraterin meldet sich zeitnah.",
+  "h1": "Unterlagen hochladen, Angebot erhalten",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypothek Dokumente hochladen",
+    "h1": "Unterlagen hochladen,\nAngebot erhalten",
+    "lead": "Lade deine **Dokumente für die Hypothek** einfach hoch: Unsere KI liest die meisten Angaben aus und deine Beraterin meldet sich zeitnah. Hier findest du Checklisten und Formulare.",
+    "ctas": [
+     {
+      "label": "Dokumente hochladen",
+      "to": "funnel"
+     },
+     {
+      "label": "Checklisten anfordern",
+      "to": "mail"
+     }
+    ],
+    "badges": [
+     "Anfrage in 3 Minuten",
+     "KI liest die Unterlagen",
+     "Daten in der Schweiz"
+    ],
+    "image": "keys",
+    "alt": "Hausschlüssel auf einem Tisch"
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Formulare & Checklisten",
+    "title": "Alles für deinen\n*Hypothekenantrag.*",
+    "lead": "Jeweils als PDF auf Deutsch, Französisch, Italienisch und Englisch. Schreib uns, wir senden dir die Dokumente gerne zu.",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "PDF · DE/FR/IT/EN",
+      "title": "Auskunftsermächtigung",
+      "text": "Damit wir bei Bedarf Auskünfte bei Banken, Pensionskassen oder Behörden für deine Finanzierung einholen dürfen.",
+      "to": "mail",
+      "cta": "PDF anfordern"
+     },
+     {
+      "kicker": "PDF · DE/FR/IT/EN",
+      "title": "Checkliste Eigenheim",
+      "text": "Alle Unterlagen für selbst bewohntes Wohneigentum: Haus oder Eigentumswohnung als Hauptwohnsitz.",
+      "to": "mail",
+      "cta": "PDF anfordern"
+     },
+     {
+      "kicker": "PDF · DE/FR/IT/EN",
+      "title": "Checkliste Renditeobjekt",
+      "text": "Zusätzliche Unterlagen für vermietete Liegenschaften, etwa Mieterspiegel und Erfolgsrechnung.",
+      "to": "mail",
+      "cta": "PDF anfordern"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Welche Unterlagen brauche ich?",
+    "title": "Die Checkliste\n*im Überblick.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "01",
+      "title": "Person & Einkommen",
+      "text": "ID oder Ausländerausweis\nLohnausweis bzw. Lohnabrechnungen\nletzte Steuererklärung\nBetreibungsregisterauszug"
+     },
+     {
+      "kicker": "02",
+      "title": "Eigenmittel & Vorsorge",
+      "text": "Kontoauszüge Erspartes\nPensionskassenausweis\nSäule-3a-Auszug\nallenfalls Schenkung oder Erbvorbezug"
+     },
+     {
+      "kicker": "03",
+      "title": "Objekt",
+      "text": "Verkaufsdokumentation\nKaufvertrag oder Entwurf\nGrundbuchauszug\nPläne, Fotos, Flächen"
+     },
+     {
+      "kicker": "04",
+      "title": "Spezialfälle",
+      "text": "Ablösung: aktueller Hypothekarvertrag\nSelbständige: Jahresabschlüsse\nNeubau: Baubeschrieb und Kostenvoranschlag"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Schnellanmeldung",
+    "title": "Hochladen statt abtippen.\n*Die KI macht den Rest.*",
+    "screen": "funnel",
+    "paragraphs": [
+     "In der **Schnellanmeldung** lädst du deine Unterlagen hoch. Unsere KI erkennt die Dokumente und liest die meisten Angaben automatisch aus. Du siehst sofort, was noch fehlt.",
+     "Fehlt etwas, kannst du es jederzeit nachreichen. Mit vollständigen Unterlagen erhältst du in der Regel innert 48–72 Stunden Offerten."
+    ],
+    "bullets": [
+     "Verarbeitung in der Schweiz (Region Zürich)",
+     "Die KI berät nicht: Das macht ein Mensch",
+     "Dokumente später nachreichen möglich"
+    ],
+    "ctas": [
+     {
+      "label": "Jetzt hochladen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "So geht’s",
+    "title": "Vom Upload\nzur Offerte.",
+    "items": [
+     {
+      "title": "Unterlagen hochladen",
+      "text": "Lohnausweis, ID und Objektunterlagen genügen für den Start."
+     },
+     {
+      "title": "KI liest aus",
+      "text": "Die meisten Angaben werden automatisch erkannt und vorausgefüllt."
+     },
+     {
+      "title": "Beraterin prüft",
+      "text": "Sie meldet sich zeitnah und klärt offene Punkte."
+     },
+     {
+      "title": "Offerten erhalten",
+      "text": "Wir vergleichen über 40 Finanzierungspartner für dich."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Hypothek anfragen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Weiterlesen",
+    "title": "Gut vorbereitet\n*in den Antrag.*",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Ratgeber",
+      "title": "Eigenmittel richtig einsetzen",
+      "text": "Was als Eigenmittel zählt und wie Pensionskasse und Säule 3a helfen.",
+      "to": "page:rg-eigenmittel"
+     },
+     {
+      "kicker": "Rechner",
+      "title": "Tragbarkeit prüfen",
+      "text": "Prüfe vor dem Upload, welcher Kaufpreis zu deinem Einkommen passt.",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "kicker": "Für Partner",
+      "title": "Dossiers im Partnerportal",
+      "text": "Makler und Treuhänder reichen Unterlagen ihrer Kunden direkt im Partnerportal ein.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Fragen zu\nden Dokumenten.",
+    "items": [
+     {
+      "q": "Welche Dokumente brauche ich?",
+      "a": "Für den Start genügen ID, Lohnausweis und Objektunterlagen. Für die Offerten braucht es zusätzlich Steuererklärung, Eigenmittelnachweis, Pensionskassenausweis und je nach Fall weitere Unterlagen."
+     },
+     {
+      "q": "Was macht die KI mit meinen Dokumenten?",
+      "a": "Sie erkennt die Dokumente und liest die Angaben für deine Anfrage aus. Die KI berät nicht und entscheidet nichts: Deine Beraterin prüft alles persönlich."
+     },
+     {
+      "q": "Wo werden meine Daten gespeichert?",
+      "a": "Deine Daten werden in der Schweiz (Region Zürich) verarbeitet und nur für deine Finanzierungsanfrage verwendet. Mehr dazu in der Datenschutzerklärung."
+     },
+     {
+      "q": "Kann ich Dokumente später nachreichen?",
+      "a": "Ja. Du siehst jederzeit, welche Unterlagen noch fehlen, und kannst sie später hochladen."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Datenschutz",
+      "to": "page:datenschutz"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Unterlagen bereit?\n*Dann los.*",
+    "text": "Hochladen, auslesen lassen, Offerten erhalten. Kostenlos.",
+    "ctas": [
+     {
+      "label": "Dokumente hochladen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Envoyer vos documents: demande en 3 min | HYPOTEQ",
+  "description": "Certificat de salaire, déclaration d'impôt, dossier de vente: envoyez vos documents, notre IA les lit, la conseillère vous contacte rapidement.",
+  "h1": "Envoyez vos documents, recevez une offre",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Documents demande hypothèque",
+    "h1": "Envoyez vos documents,\nrecevez une offre",
+    "lead": "Envoyez simplement les **documents de votre demande d'hypothèque**: notre IA lit la plupart des données et votre conseillère vous contacte rapidement. Vous trouvez ici checklists et formulaires.",
+    "ctas": [
+     {
+      "label": "Envoyer mes documents",
+      "to": "funnel"
+     },
+     {
+      "label": "Demander les checklists",
+      "to": "mail"
+     }
+    ],
+    "badges": [
+     "Demande en 3 minutes",
+     "L'IA lit vos documents",
+     "Données en Suisse"
+    ],
+    "image": "keys",
+    "alt": "Clés de maison sur une table"
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Formulaires & checklists",
+    "title": "Tout pour votre\n*demande hypothécaire.*",
+    "lead": "En PDF, en français, allemand, italien et anglais. Écrivez-nous, nous vous les envoyons volontiers.",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "PDF · FR/DE/IT/EN",
+      "title": "Autorisation de renseignements",
+      "text": "Pour que nous puissions, si nécessaire, obtenir des informations auprès des banques, caisses de pension ou autorités pour votre financement.",
+      "to": "mail",
+      "cta": "Demander le PDF"
+     },
+     {
+      "kicker": "PDF · FR/DE/IT/EN",
+      "title": "Checklist logement en propriété",
+      "text": "Toutes les pièces pour un bien habité par vous-même: maison ou PPE en résidence principale.",
+      "to": "mail",
+      "cta": "Demander le PDF"
+     },
+     {
+      "kicker": "PDF · FR/DE/IT/EN",
+      "title": "Checklist immeuble de rendement",
+      "text": "Pièces supplémentaires pour un bien loué, par exemple état locatif et compte de résultat.",
+      "to": "mail",
+      "cta": "Demander le PDF"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Quels documents fournir?",
+    "title": "Les pièces justificatives\n*en un coup d'œil.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "01",
+      "title": "Personne & revenu",
+      "text": "Pièce d'identité ou permis de séjour\nCertificat de salaire ou fiches de salaire\nDernière déclaration d'impôt\nExtrait du registre des poursuites"
+     },
+     {
+      "kicker": "02",
+      "title": "Fonds propres & prévoyance",
+      "text": "Relevés de comptes d'épargne\nCertificat de caisse de pension\nRelevé du 3e pilier\nÉvent. donation ou avancement d'hoirie"
+     },
+     {
+      "kicker": "03",
+      "title": "Bien immobilier",
+      "text": "Dossier de vente\nContrat de vente ou projet\nExtrait du registre foncier\nPlans, photos, surfaces"
+     },
+     {
+      "kicker": "04",
+      "title": "Cas particuliers",
+      "text": "Renouvellement: contrat hypothécaire actuel\nIndépendants: comptes annuels\nConstruction: descriptif et devis"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Inscription rapide",
+    "title": "Envoyer plutôt que saisir.\n*L'IA fait le reste.*",
+    "screen": "funnel",
+    "paragraphs": [
+     "Dans l'**inscription rapide**, vous envoyez vos documents. Notre IA les reconnaît et lit automatiquement la plupart des données. Vous voyez tout de suite ce qui manque.",
+     "Il manque une pièce? Vous pouvez la compléter à tout moment. Avec un dossier complet, vous recevez en règle générale des offres sous 48 à 72 heures."
+    ],
+    "bullets": [
+     "Traitement en Suisse (région de Zurich)",
+     "L'IA ne conseille pas: c'est le rôle d'une personne",
+     "Compléments possibles plus tard"
+    ],
+    "ctas": [
+     {
+      "label": "Envoyer maintenant",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Comment ça marche",
+    "title": "De l'envoi\nà l'offre.",
+    "items": [
+     {
+      "title": "Envoyer les documents",
+      "text": "Certificat de salaire, pièce d'identité et documents du bien suffisent pour commencer."
+     },
+     {
+      "title": "L'IA lit les données",
+      "text": "La plupart des informations sont reconnues et pré-remplies automatiquement."
+     },
+     {
+      "title": "La conseillère vérifie",
+      "text": "Elle vous contacte rapidement et clarifie les points ouverts."
+     },
+     {
+      "title": "Recevoir des offres",
+      "text": "Nous comparons pour vous plus de 40 prêteurs."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Demander une hypothèque",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "À lire aussi",
+    "title": "Bien préparé\n*pour votre demande.*",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Guide",
+      "title": "Bien utiliser ses fonds propres",
+      "text": "Ce qui compte comme fonds propres et comment le 2e et le 3e pilier peuvent aider.",
+      "to": "page:rg-eigenmittel"
+     },
+     {
+      "kicker": "Calculateur",
+      "title": "Vérifier la capacité financière",
+      "text": "Vérifiez avant l'envoi quel prix correspond à votre revenu.",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "kicker": "Partenaires",
+      "title": "Dossiers dans le portail",
+      "text": "Courtiers et fiduciaires déposent les documents de leurs clients directement dans le portail partenaires.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "Questions sur\nles documents.",
+    "items": [
+     {
+      "q": "Quels documents fournir?",
+      "a": "Pour commencer: pièce d'identité, certificat de salaire et documents du bien. Pour les offres, il faut aussi la déclaration d'impôt, les justificatifs de fonds propres, le certificat de caisse de pension et, selon le cas, d'autres pièces."
+     },
+     {
+      "q": "Que fait l'IA avec mes documents?",
+      "a": "Elle reconnaît les documents et en extrait les données pour votre demande. L'IA ne conseille pas et ne décide rien: votre conseillère vérifie tout personnellement."
+     },
+     {
+      "q": "Où sont stockées mes données?",
+      "a": "Vos données sont traitées en Suisse (région de Zurich) et utilisées uniquement pour votre demande de financement. Plus de détails dans la déclaration de protection des données."
+     },
+     {
+      "q": "Puis-je compléter plus tard?",
+      "a": "Oui. Vous voyez à tout moment les pièces manquantes et pouvez les envoyer plus tard."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Protection des données",
+      "to": "page:datenschutz"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Documents prêts?\n*Allons-y.*",
+    "text": "Envoyer, laisser lire, recevoir des offres. Gratuitement.",
+    "ctas": [
+     {
+      "label": "Envoyer mes documents",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Carica i documenti: richiesta in 3 minuti | HYPOTEQ",
+  "description": "Certificato di salario, dichiarazione fiscale, documentazione di vendita: carica i documenti, l'IA li legge, la consulente ti contatta lo stesso giorno.",
+  "h1": "Carica i documenti e ricevi un'offerta",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Documenti richiesta ipoteca",
+    "h1": "Carica i documenti\ne ricevi un'offerta",
+    "lead": "Carica semplicemente i **documenti per la richiesta d'ipoteca**: la nostra IA legge la maggior parte dei dati e la tua consulente ti contatta in tempi brevi. Qui trovi checklist e moduli.",
+    "ctas": [
+     {
+      "label": "Carica i documenti",
+      "to": "funnel"
+     },
+     {
+      "label": "Richiedi le checklist",
+      "to": "mail"
+     }
+    ],
+    "badges": [
+     "Richiesta in 3 minuti",
+     "L'IA legge i documenti",
+     "Dati in Svizzera"
+    ],
+    "image": "keys",
+    "alt": "Chiavi di casa su un tavolo"
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Moduli & checklist",
+    "title": "Tutto per la tua\n*richiesta d'ipoteca.*",
+    "lead": "In PDF, in italiano, tedesco, francese e inglese. Scrivici, te li inviamo volentieri.",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "PDF · IT/DE/FR/EN",
+      "title": "Autorizzazione a fornire informazioni",
+      "text": "Per poter richiedere, se necessario, informazioni a banche, casse pensioni o autorità per il tuo finanziamento.",
+      "to": "mail",
+      "cta": "Richiedi il PDF"
+     },
+     {
+      "kicker": "PDF · IT/DE/FR/EN",
+      "title": "Checklist abitazione propria",
+      "text": "Tutti i documenti per un'abitazione ad uso proprio: casa o appartamento come residenza principale.",
+      "to": "mail",
+      "cta": "Richiedi il PDF"
+     },
+     {
+      "kicker": "PDF · IT/DE/FR/EN",
+      "title": "Checklist immobile da reddito",
+      "text": "Documenti aggiuntivi per immobili locati, ad esempio elenco inquilini e conto economico.",
+      "to": "mail",
+      "cta": "Richiedi il PDF"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Quali documenti servono?",
+    "title": "La lista documenti\n*in sintesi.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "01",
+      "title": "Persona & reddito",
+      "text": "Documento d'identità o permesso\nCertificato di salario o buste paga\nUltima dichiarazione fiscale\nEstratto del registro esecuzioni"
+     },
+     {
+      "kicker": "02",
+      "title": "Fondi propri & previdenza",
+      "text": "Estratti conto dei risparmi\nCertificato della cassa pensione\nEstratto del 3° pilastro\nEvent. donazione o anticipo ereditario"
+     },
+     {
+      "kicker": "03",
+      "title": "Immobile",
+      "text": "Documentazione di vendita\nContratto di compravendita o bozza\nEstratto del registro fondiario\nPiani, foto, superfici"
+     },
+     {
+      "kicker": "04",
+      "title": "Casi particolari",
+      "text": "Rinnovo: contratto ipotecario attuale\nIndipendenti: conti annuali\nNuova costruzione: descrizione e preventivo"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Registrazione rapida",
+    "title": "Carica invece di digitare.\n*Al resto pensa l'IA.*",
+    "screen": "funnel",
+    "paragraphs": [
+     "Nella **registrazione rapida** carichi i tuoi documenti. La nostra IA li riconosce e legge automaticamente la maggior parte dei dati. Vedi subito cosa manca.",
+     "Manca qualcosa? Puoi aggiungerlo in qualsiasi momento. Con i documenti completi ricevi di regola offerte entro 48–72 ore."
+    ],
+    "bullets": [
+     "Trattamento in Svizzera (regione di Zurigo)",
+     "L'IA non fornisce consulenza: lo fa una persona",
+     "Documenti aggiungibili in seguito"
+    ],
+    "ctas": [
+     {
+      "label": "Carica ora",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Come funziona",
+    "title": "Dal caricamento\nall'offerta.",
+    "items": [
+     {
+      "title": "Carica i documenti",
+      "text": "Per iniziare bastano certificato di salario, documento d'identità e documenti dell'immobile."
+     },
+     {
+      "title": "L'IA legge i dati",
+      "text": "La maggior parte delle informazioni viene riconosciuta e precompilata automaticamente."
+     },
+     {
+      "title": "La consulente verifica",
+      "text": "Ti contatta in tempi brevi e chiarisce i punti aperti."
+     },
+     {
+      "title": "Ricevi le offerte",
+      "text": "Confrontiamo per te oltre 40 istituti."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Richiedere un'ipoteca",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Approfondisci",
+    "title": "Ben preparato\n*per la richiesta.*",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Guida",
+      "title": "Usare bene i fondi propri",
+      "text": "Cosa conta come fondi propri e come aiutano cassa pensione e 3° pilastro.",
+      "to": "page:rg-eigenmittel"
+     },
+     {
+      "kicker": "Calcolatore",
+      "title": "Verifica la sostenibilità",
+      "text": "Controlla prima del caricamento quale prezzo è adatto al tuo reddito.",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "kicker": "Per partner",
+      "title": "Dossier nel portale partner",
+      "text": "Agenti e fiduciari inoltrano i documenti dei clienti direttamente nel portale partner.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "Domande sui\ndocumenti.",
+    "items": [
+     {
+      "q": "Quali documenti servono?",
+      "a": "Per iniziare bastano documento d'identità, certificato di salario e documenti dell'immobile. Per le offerte servono anche dichiarazione fiscale, prova dei fondi propri, certificato della cassa pensione e, a seconda del caso, altri documenti."
+     },
+     {
+      "q": "Cosa fa l'IA con i miei documenti?",
+      "a": "Li riconosce e ne estrae i dati per la tua richiesta. L'IA non fornisce consulenza e non decide nulla: la tua consulente verifica tutto di persona."
+     },
+     {
+      "q": "Dove vengono salvati i miei dati?",
+      "a": "I tuoi dati vengono trattati in Svizzera (regione di Zurigo) e usati solo per la tua richiesta di finanziamento. Maggiori dettagli nella dichiarazione sulla protezione dei dati."
+     },
+     {
+      "q": "Posso aggiungere documenti più tardi?",
+      "a": "Sì. Vedi in ogni momento quali documenti mancano e puoi caricarli in seguito."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Protezione dei dati",
+      "to": "page:datenschutz"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Documenti pronti?\n*Si parte.*",
+    "text": "Carica, lascia leggere, ricevi offerte. Gratis.",
+    "ctas": [
+     {
+      "label": "Carica i documenti",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "Upload Documents: Apply in 3 Minutes | HYPOTEQ",
+  "description": "Salary statement, tax return, sales brochure: upload your documents, our AI extracts the data and your advisor contacts you the same day.",
+  "h1": "Upload your documents, get an offer",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Swiss mortgage documents",
+    "h1": "Upload your documents,\nget an offer",
+    "lead": "Simply upload your **Swiss mortgage documents**: our AI extracts most of the details and your advisor usually contacts you the same business day. Here you'll find checklists and forms.",
+    "ctas": [
+     {
+      "label": "Upload documents",
+      "to": "funnel"
+     },
+     {
+      "label": "Request checklists",
+      "to": "mail"
+     }
+    ],
+    "badges": [
+     "Apply in 3 minutes",
+     "AI reads your documents",
+     "Data stays in Switzerland"
+    ],
+    "image": "keys",
+    "alt": "House keys on a table"
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Forms & checklists",
+    "title": "Everything for your\n*mortgage application.*",
+    "lead": "Available as PDF in English, German, French and Italian. Write to us and we'll send them to you.",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "PDF · EN/DE/FR/IT",
+      "title": "Information authorisation",
+      "text": "Allows us to obtain information from banks, pension funds or authorities for your financing where needed.",
+      "to": "mail",
+      "cta": "Request PDF"
+     },
+     {
+      "kicker": "PDF · EN/DE/FR/IT",
+      "title": "Checklist owner-occupied home",
+      "text": "All documents for a home you live in: house or condominium as your primary residence.",
+      "to": "mail",
+      "cta": "Request PDF"
+     },
+     {
+      "kicker": "PDF · EN/DE/FR/IT",
+      "title": "Checklist buy-to-let",
+      "text": "Additional documents for rented property, such as the rent roll and income statement.",
+      "to": "mail",
+      "cta": "Request PDF"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Documents needed for a mortgage in Switzerland",
+    "title": "The checklist\n*at a glance.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "01",
+      "title": "You & your income",
+      "text": "Passport/ID and B or C permit\nSalary statement or payslips\nLatest tax return\nDebt collection register extract"
+     },
+     {
+      "kicker": "02",
+      "title": "Equity & pension",
+      "text": "Savings account statements\nPension fund statement (pillar 2)\nPillar 3a statement\nGift or advance inheritance, if any"
+     },
+     {
+      "kicker": "03",
+      "title": "Property",
+      "text": "Sales brochure\nPurchase contract or draft\nLand register extract\nFloor plans, photos, areas"
+     },
+     {
+      "kicker": "04",
+      "title": "Special cases",
+      "text": "Refinancing: current mortgage contract\nSelf-employed: annual accounts\nNew build: construction specs and cost estimate"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Quick application",
+    "title": "Upload, don't type.\n*The AI does the rest.*",
+    "screen": "funnel",
+    "paragraphs": [
+     "In the **quick application** you upload your documents. Our AI recognises them and extracts most of the details automatically. You see right away what's still missing.",
+     "Something missing? You can add it at any time. Once your documents are complete, you usually receive offers within 48–72 hours."
+    ],
+    "bullets": [
+     "Processed in Switzerland (Zurich region)",
+     "The AI doesn't advise: a person does",
+     "Add documents later"
+    ],
+    "ctas": [
+     {
+      "label": "Upload now",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "How it works",
+    "title": "From upload\nto offer.",
+    "items": [
+     {
+      "title": "Upload documents",
+      "text": "Salary statement, ID and property documents are enough to get started."
+     },
+     {
+      "title": "AI extracts data",
+      "text": "Most details are recognised and pre-filled automatically."
+     },
+     {
+      "title": "Advisor reviews",
+      "text": "She usually contacts you the same business day and clarifies open points."
+     },
+     {
+      "title": "Receive offers",
+      "text": "We compare more than 40 lenders for you."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Request a mortgage",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Read more",
+    "title": "Well prepared\n*for your application.*",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Guide",
+      "title": "Using your equity",
+      "text": "What counts as equity and how pillar 2 and pillar 3a can help.",
+      "to": "page:rg-eigenmittel"
+     },
+     {
+      "kicker": "Calculator",
+      "title": "Check affordability",
+      "text": "Check before uploading which price fits your income.",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "kicker": "For partners",
+      "title": "Cases in the partner portal",
+      "text": "Agents and trustees submit their clients' documents directly in the partner portal.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Questions about\ndocuments.",
+    "items": [
+     {
+      "q": "Which documents do I need?",
+      "a": "To get started: ID, salary statement and property documents. For offers you'll also need your tax return, proof of equity, pension fund statement and, depending on your case, further documents."
+     },
+     {
+      "q": "What does the AI do with my documents?",
+      "a": "It recognises the documents and extracts the details for your request. The AI doesn't advise or decide anything: your advisor reviews everything in person."
+     },
+     {
+      "q": "Where is my data stored?",
+      "a": "Your data is processed in Switzerland (Zurich region) and used only for your financing request. More in our privacy policy."
+     },
+     {
+      "q": "Can I add documents later?",
+      "a": "Yes. You can always see which documents are missing and upload them later."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Privacy policy",
+      "to": "page:datenschutz"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Documents ready?\n*Let's go.*",
+    "text": "Upload, let the AI read, get offers. Free of charge.",
+    "ctas": [
+     {
+      "label": "Upload documents",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ }
+}

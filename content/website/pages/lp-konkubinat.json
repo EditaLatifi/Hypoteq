@@ -1,0 +1,946 @@
+{
+ "de": {
+  "title": "Hypothek im Konkubinat: gemeinsam kaufen | HYPOTEQ",
+  "description": "Ihr kauft unverheiratet zusammen? Wir klären Eigentumsquoten und Absicherung und vergleichen 40+ Anbieter für eure Hypothek. Anfrage in 3 Minuten.",
+  "h1": "Gemeinsam kaufen ohne Trauschein",
+  "nav": [
+   "Hypothek im Konkubinat",
+   "Unverheiratet gemeinsam kaufen"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypothek Konkubinat",
+    "h1": "Gemeinsam kaufen\n*ohne Trauschein*",
+    "lead": "Ihr wollt unverheiratet ein Eigenheim kaufen, bringt aber unterschiedlich viel Eigenkapital mit? Für eure **Hypothek im Konkubinat** klären wir, worauf die Bank achtet, und vergleichen über 40 Anbieter kostenlos.",
+    "ctas": [
+     {
+      "label": "Gemeinsam anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Kostenlos & unverbindlich",
+     "Beide Einkommen im Blick",
+     "Offerten in 48–72 h"
+    ],
+    "image": "couple",
+    "alt": "Paar entspannt im eigenen Wohnzimmer",
+    "float": {
+     "title": "5 Jahre fest ab 1.30 %",
+     "text": "Richtzins · Beispielwert"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "Banken, Versicherungen und Pensionskassen"
+     },
+     {
+      "value": "0 CHF",
+      "label": "für Vergleich und Vermittlung"
+     },
+     {
+      "value": "3 Min.",
+      "label": "bis zur vollständigen Anfrage"
+     },
+     {
+      "value": "48–72 h",
+      "label": "bis zu konkreten Offerten"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Eigenheim unverheiratet kaufen",
+    "title": "Ohne Ehe gelten\n*andere Spielregeln.*",
+    "image": "family-home",
+    "alt": "Helles Wohnzimmer in einem Schweizer Eigenheim",
+    "paragraphs": [
+     "Verheiratete Paare sind durch das Ehe- und Erbrecht teilweise abgesichert. Wenn ihr **gemeinsam ein Haus als Paar** kauft, ohne verheiratet zu sein, müsst ihr vieles selbst regeln: wem wie viel gehört, wer was bezahlt und was bei Trennung oder Todesfall passiert.",
+     "Die Bank prüft beide Einkommen und beide Eigenmittel. Wir stellen euer Dossier so zusammen, dass es für die Bank klar ist, und holen Angebote ein, die zu euch als Paar passen."
+    ],
+    "bullets": [
+     "Tragbarkeit mit beiden Einkommen berechnen",
+     "Eigenmittel und Vorsorgegelder sauber zuordnen",
+     "Rechtliche Fragen mit Notariat oder Rechtsberatung klären"
+    ],
+    "ctas": [
+     {
+      "label": "Hypothek zu zweit anfragen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Miteigentum Konkubinat",
+    "title": "Vier Fragen,\n*die ihr vor dem Kauf klären solltet.*",
+    "lead": "Allgemeine Hinweise, keine Rechtsberatung. Für Verträge und Testament wendet ihr euch an ein Notariat oder eine Rechtsfachperson.",
+    "tone": "soft",
+    "cols": 2,
+    "items": [
+     {
+      "kicker": "Ungleiches Eigenkapital",
+      "title": "Quoten bewusst festlegen",
+      "text": "Im Grundbuch könnt ihr Miteigentum mit festen Quoten eintragen lassen. Haltet schriftlich fest, wer wie viel eingebracht hat."
+     },
+     {
+      "kicker": "Haftung",
+      "title": "Beide stehen in der Pflicht",
+      "text": "Banken lassen in der Regel beide Partner für die ganze Hypothek haften. Die Tragbarkeit muss deshalb gemeinsam stimmen.",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "kicker": "Trennung",
+      "title": "Ausstieg vorab regeln",
+      "text": "Wer übernimmt, wer wird ausbezahlt? Eine Vereinbarung vor dem Kauf erspart später teure Diskussionen.",
+      "to": "page:lp-scheidung"
+     },
+     {
+      "kicker": "Todesfall",
+      "title": "Gegenseitig absichern",
+      "text": "Konkubinatspaare erben nicht automatisch voneinander. Testament, Begünstigung und Risikoversicherung schaffen Klarheit.",
+      "to": "page:lp-erbschaft"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Hypothekenrechner",
+    "title": "Was könnt ihr euch\n*gemeinsam leisten?*",
+    "lead": "Gebt Kaufpreis, eure gesamten Eigenmittel und das Haushaltseinkommen ein und seht die Tragbarkeit sofort."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "So läuft es",
+    "title": "Zu zweit in vier Schritten\nzur Finanzierung.",
+    "items": [
+     {
+      "title": "Gemeinsame Anfrage",
+      "text": "Ladet die Unterlagen beider Partner hoch. Die KI liest die meisten Angaben in rund 3 Minuten aus."
+     },
+     {
+      "title": "Beratung für euch beide",
+      "text": "Eure Beraterin meldet sich zeitnah und bespricht Eigenmittel, Quoten und Tragbarkeit."
+     },
+     {
+      "title": "Offerten vergleichen",
+      "text": "Mit vollständigen Unterlagen erhaltet ihr meist innert 48–72 h Angebote von mehreren Anbietern."
+     },
+     {
+      "title": "Notar und Auszahlung",
+      "text": "Wir koordinieren mit Bank und Notariat, damit Eigentum und Finanzierung zusammenpassen."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Jetzt starten",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "trust",
+    "items": [
+     "Unabhängiger Vermittler",
+     "40+ Finanzierungspartner",
+     "Kostenlos für Privatkund:innen",
+     "Persönliche Beraterin statt Hotline",
+     "Daten in der Schweiz verarbeitet",
+     "180+ Berater:innen"
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Weiterlesen",
+    "title": "Passend\n*zu eurer Situation.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Erstes Eigenheim",
+      "title": "Erstkauf",
+      "text": "Was beim ersten Kauf zählt.",
+      "to": "page:lp-erstkauf"
+     },
+     {
+      "kicker": "Kauf",
+      "title": "Hauskauf finanzieren",
+      "text": "Von der Bestätigung bis zum Schlüssel.",
+      "to": "page:kauf"
+     },
+     {
+      "kicker": "Komplexe Fälle",
+      "title": "Advisory",
+      "text": "Für mehrere Eigentümer oder besondere Strukturen.",
+      "to": "page:advisory"
+     },
+     {
+      "kicker": "Für Partner",
+      "title": "Partner werden",
+      "text": "Makler, Treuhand oder Versicherung? Arbeite mit uns.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Konkubinat und Hypothek\nkurz erklärt.",
+    "items": [
+     {
+      "q": "Wie teilen wir das Eigentum bei ungleichem Eigenkapital auf?",
+      "a": "Häufig wird Miteigentum mit Quoten gewählt, die dem eingebrachten Kapital entsprechen. Haltet die Beiträge schriftlich fest. Welche Form zu euch passt, klärt ihr am besten mit dem Notariat."
+     },
+     {
+      "q": "Haften beide Partner für die ganze Hypothek?",
+      "a": "In der Regel ja. Banken verlangen meist, dass beide Partner solidarisch für die gesamte Hypothek haften, unabhängig von der Eigentumsquote."
+     },
+     {
+      "q": "Was passiert mit dem Haus bei einer Trennung?",
+      "a": "Entweder übernimmt eine Person den Anteil der anderen, oder das Objekt wird verkauft. Ob eine Übernahme tragbar ist, prüfen wir gerne. Eine Vereinbarung vor dem Kauf hilft."
+     },
+     {
+      "q": "Wie sichern wir uns im Todesfall gegenseitig ab?",
+      "a": "Ohne Ehe gibt es kein gesetzliches Erbrecht unter Partnern. Testament oder Erbvertrag, Begünstigung in Pensionskasse und Säule 3a sowie eine Todesfallversicherung sind mögliche Bausteine. Lasst euch dazu von Fachpersonen beraten."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Kontakt aufnehmen",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Euer Eigenheim.\n*Klar geregelt.*",
+    "text": "Vergleicht kostenlos über 40 Angebote und startet eure gemeinsame Anfrage in 3 Minuten.",
+    "ctas": [
+     {
+      "label": "Gemeinsam anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Hypothèque en concubinage: acheter à deux | HYPOTEQ",
+  "description": "Vous achetez à deux sans être mariés? Nous clarifions les quotes-parts et la protection du partenaire et comparons 40+ prêteurs. Demande en 3 minutes.",
+  "h1": "Acheter à deux sans être mariés",
+  "nav": [
+   "Hypothèque en concubinage",
+   "Acheter à deux sans être mariés"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypothèque concubinage",
+    "h1": "Acheter à deux\n*sans être mariés*",
+    "lead": "Vous voulez acheter un logement en couple sans être mariés, avec des fonds propres différents? Pour votre **hypothèque en concubinage**, nous clarifions ce que la banque examine et comparons gratuitement plus de 40 prêteurs.",
+    "ctas": [
+     {
+      "label": "Faire une demande à deux",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Gratuit & sans engagement",
+     "Deux revenus pris en compte",
+     "Offres en 48–72 h"
+    ],
+    "image": "couple",
+    "alt": "Couple détendu dans son salon",
+    "float": {
+     "title": "Fixe 5 ans dès 1.30 %",
+     "text": "Taux indicatif · valeur d'exemple"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banques, assurances et caisses de pension"
+     },
+     {
+      "value": "0 CHF",
+      "label": "pour la comparaison et le courtage"
+     },
+     {
+      "value": "3 min",
+      "label": "pour une demande complète"
+     },
+     {
+      "value": "48–72 h",
+      "label": "jusqu'aux offres concrètes"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Acheter à deux sans être mariés",
+    "title": "Sans mariage,\n*d'autres règles s'appliquent.*",
+    "image": "family-home",
+    "alt": "Salon lumineux dans une maison en Suisse",
+    "paragraphs": [
+     "Les couples mariés sont en partie protégés par le droit matrimonial et successoral. Pour un **achat immobilier en couple** sans mariage, vous devez régler beaucoup de choses vous-mêmes: qui possède quelle part, qui paie quoi, et ce qui se passe en cas de séparation ou de décès.",
+     "La banque examine les deux revenus et les deux apports. Nous préparons un dossier clair et obtenons des offres adaptées à votre couple."
+    ],
+    "bullets": [
+     "Capacité financière calculée avec les deux revenus",
+     "Fonds propres et prévoyance clairement attribués",
+     "Questions juridiques à clarifier avec un notaire ou un juriste"
+    ],
+    "ctas": [
+     {
+      "label": "Demander une hypothèque à deux",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Copropriété en couple",
+    "title": "Quatre questions\n*à régler avant l'achat.*",
+    "lead": "Indications générales, pas de conseil juridique. Pour les contrats et le testament, adressez-vous à un notaire ou à un juriste.",
+    "tone": "soft",
+    "cols": 2,
+    "items": [
+     {
+      "kicker": "Fonds propres inégaux",
+      "title": "Fixer les quotes-parts",
+      "text": "La copropriété peut être inscrite au registre foncier avec des quotes-parts précises. Notez par écrit qui a apporté combien."
+     },
+     {
+      "kicker": "Responsabilité",
+      "title": "Les deux sont engagés",
+      "text": "En règle générale, les banques font répondre les deux partenaires de toute l'hypothèque. La capacité financière doit donc tenir ensemble.",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "kicker": "Séparation",
+      "title": "Prévoir la sortie",
+      "text": "Qui reprend, qui est désintéressé? Une convention avant l'achat évite des discussions coûteuses.",
+      "to": "page:lp-scheidung"
+     },
+     {
+      "kicker": "Décès",
+      "title": "Se protéger mutuellement",
+      "text": "Les concubins n'héritent pas automatiquement l'un de l'autre. Testament, clause bénéficiaire et assurance risque apportent de la clarté.",
+      "to": "page:lp-erbschaft"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Calculateur hypothécaire",
+    "title": "Que pouvez-vous\n*vous offrir à deux?*",
+    "lead": "Saisissez le prix, vos fonds propres communs et le revenu du ménage pour voir la capacité financière."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Déroulement",
+    "title": "À deux, en quatre étapes\njusqu'au financement.",
+    "items": [
+     {
+      "title": "Demande commune",
+      "text": "Téléversez les documents des deux partenaires. L'IA lit la plupart des données en 3 minutes environ."
+     },
+     {
+      "title": "Conseil pour vous deux",
+      "text": "Votre conseillère vous contacte rapidement pour parler fonds propres, quotes-parts et capacité."
+     },
+     {
+      "title": "Comparer les offres",
+      "text": "Avec un dossier complet, vous recevez en général sous 48–72 h des offres de plusieurs prêteurs."
+     },
+     {
+      "title": "Notaire et versement",
+      "text": "Nous coordonnons avec la banque et le notaire pour que propriété et financement concordent."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Commencer",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "trust",
+    "items": [
+     "Courtier indépendant",
+     "40+ partenaires de financement",
+     "Gratuit pour les particuliers",
+     "Une conseillère, pas une hotline",
+     "Données traitées en Suisse",
+     "180+ conseillers"
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "À lire aussi",
+    "title": "Selon\n*votre situation.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Premier logement",
+      "title": "Premier achat",
+      "text": "L'essentiel pour un premier achat.",
+      "to": "page:lp-erstkauf"
+     },
+     {
+      "kicker": "Achat",
+      "title": "Financer un achat",
+      "text": "De la confirmation à la remise des clés.",
+      "to": "page:kauf"
+     },
+     {
+      "kicker": "Cas complexes",
+      "title": "Advisory",
+      "text": "Plusieurs propriétaires ou structures particulières.",
+      "to": "page:advisory"
+     },
+     {
+      "kicker": "Partenaires",
+      "title": "Devenir partenaire",
+      "text": "Courtier, fiduciaire ou assurance? Travaillons ensemble.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "Concubinage et hypothèque\nen bref.",
+    "items": [
+     {
+      "q": "Comment répartir la propriété avec des fonds propres inégaux?",
+      "a": "On choisit souvent une copropriété avec des quotes-parts correspondant aux apports. Consignez les contributions par écrit. La forme adaptée se clarifie au mieux avec le notaire."
+     },
+     {
+      "q": "Les deux partenaires sont-ils solidairement responsables?",
+      "a": "En général oui. Les banques exigent le plus souvent que les deux partenaires répondent solidairement de toute l'hypothèque, quelle que soit la quote-part."
+     },
+     {
+      "q": "Que devient le bien en cas de séparation?",
+      "a": "Soit l'un reprend la part de l'autre, soit le bien est vendu. Nous vérifions volontiers si une reprise est supportable. Une convention avant l'achat aide."
+     },
+     {
+      "q": "Comment se protéger en cas de décès?",
+      "a": "Sans mariage, il n'y a pas de droit successoral légal entre partenaires. Testament ou pacte successoral, clause bénéficiaire au 2e et au 3e pilier et assurance décès sont des pistes. Faites-vous conseiller par des spécialistes."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Nous contacter",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Votre logement.\n*Bien réglé.*",
+    "text": "Comparez gratuitement plus de 40 offres et lancez votre demande commune en 3 minutes.",
+    "ctas": [
+     {
+      "label": "Faire une demande à deux",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Ipoteca per conviventi: comprare in due | HYPOTEQ",
+  "description": "Comprate casa insieme senza essere sposati? Chiariamo quote di proprietà e tutele e confrontiamo oltre 40 istituti. Richiesta in 3 minuti.",
+  "h1": "Comprare casa in due senza essere sposati",
+  "nav": [
+   "Ipoteca per conviventi",
+   "Comprare in due senza matrimonio"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Ipoteca convivenza",
+    "h1": "Comprare casa in due\n*senza essere sposati*",
+    "lead": "Volete comprare casa insieme senza essere sposati, ma con fondi propri diversi? Per la vostra **ipoteca in convivenza** chiariamo cosa guarda la banca e confrontiamo gratis oltre 40 istituti.",
+    "ctas": [
+     {
+      "label": "Richiedete insieme",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Gratuito e senza impegno",
+     "Entrambi i redditi considerati",
+     "Offerte in 48–72 h"
+    ],
+    "image": "couple",
+    "alt": "Coppia rilassata nel proprio soggiorno",
+    "float": {
+     "title": "Fissa 5 anni da 1.30 %",
+     "text": "Tasso indicativo · valore d'esempio"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banche, assicurazioni e casse pensioni"
+     },
+     {
+      "value": "0 CHF",
+      "label": "per confronto e mediazione"
+     },
+     {
+      "value": "3 min",
+      "label": "per una richiesta completa"
+     },
+     {
+      "value": "48–72 h",
+      "label": "fino alle offerte concrete"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Comprare casa in due non sposati",
+    "title": "Senza matrimonio\n*valgono altre regole.*",
+    "image": "family-home",
+    "alt": "Soggiorno luminoso in una casa svizzera",
+    "paragraphs": [
+     "Le coppie sposate sono in parte tutelate dal diritto matrimoniale e successorio. Per un **acquisto casa in coppia** senza matrimonio dovete regolare molto da soli: chi possiede quale quota, chi paga cosa e cosa succede in caso di separazione o decesso.",
+     "La banca esamina entrambi i redditi ed entrambi i fondi propri. Prepariamo un dossier chiaro e raccogliamo offerte adatte a voi come coppia."
+    ],
+    "bullets": [
+     "Sostenibilità calcolata con entrambi i redditi",
+     "Fondi propri e previdenza attribuiti con chiarezza",
+     "Questioni giuridiche da chiarire con notaio o legale"
+    ],
+    "ctas": [
+     {
+      "label": "Richiedi l'ipoteca in due",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Comproprietà coppia",
+    "title": "Quattro domande\n*da chiarire prima dell'acquisto.*",
+    "lead": "Indicazioni generali, nessuna consulenza legale. Per contratti e testamento rivolgetevi a un notaio o a un legale.",
+    "tone": "soft",
+    "cols": 2,
+    "items": [
+     {
+      "kicker": "Fondi propri diversi",
+      "title": "Definire le quote",
+      "text": "La comproprietà può essere iscritta a registro fondiario con quote precise. Mettete per iscritto chi ha apportato quanto."
+     },
+     {
+      "kicker": "Responsabilità",
+      "title": "Entrambi sono obbligati",
+      "text": "Di regola le banche chiedono che entrambi rispondano dell'intera ipoteca. La sostenibilità deve quindi reggere insieme.",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "kicker": "Separazione",
+      "title": "Regolare l'uscita",
+      "text": "Chi rileva, chi viene liquidato? Un accordo prima dell'acquisto evita discussioni costose.",
+      "to": "page:lp-scheidung"
+     },
+     {
+      "kicker": "Decesso",
+      "title": "Tutelarsi a vicenda",
+      "text": "I conviventi non ereditano automaticamente l'uno dall'altro. Testamento, beneficiari e assicurazione rischio creano chiarezza.",
+      "to": "page:lp-erbschaft"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Calcolatore ipotecario",
+    "title": "Cosa potete\n*permettervi insieme?*",
+    "lead": "Inserite prezzo, fondi propri comuni e reddito familiare e vedete subito la sostenibilità."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Come funziona",
+    "title": "In due, in quattro passi\nverso il finanziamento.",
+    "items": [
+     {
+      "title": "Richiesta comune",
+      "text": "Caricate i documenti di entrambi. L'IA legge la maggior parte dei dati in circa 3 minuti."
+     },
+     {
+      "title": "Consulenza per entrambi",
+      "text": "La vostra consulente vi contatta in tempi brevi per parlare di fondi propri, quote e sostenibilità."
+     },
+     {
+      "title": "Confrontare le offerte",
+      "text": "Con la documentazione completa ricevete di solito entro 48–72 h offerte di più istituti."
+     },
+     {
+      "title": "Notaio e versamento",
+      "text": "Coordiniamo banca e notaio affinché proprietà e finanziamento combacino."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Inizia ora",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "trust",
+    "items": [
+     "Intermediario indipendente",
+     "40+ partner di finanziamento",
+     "Gratuito per privati",
+     "Una consulente, non una hotline",
+     "Dati trattati in Svizzera",
+     "180+ consulenti"
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Approfondisci",
+    "title": "Adatto\n*alla vostra situazione.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Prima casa",
+      "title": "Primo acquisto",
+      "text": "Cosa conta al primo acquisto.",
+      "to": "page:lp-erstkauf"
+     },
+     {
+      "kicker": "Acquisto",
+      "title": "Finanziare l'acquisto",
+      "text": "Dalla conferma alla consegna delle chiavi.",
+      "to": "page:kauf"
+     },
+     {
+      "kicker": "Casi complessi",
+      "title": "Advisory",
+      "text": "Più proprietari o strutture particolari.",
+      "to": "page:advisory"
+     },
+     {
+      "kicker": "Per partner",
+      "title": "Diventa partner",
+      "text": "Agente, fiduciario o assicurazione? Collabora con noi.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "Convivenza e ipoteca\nin breve.",
+    "items": [
+     {
+      "q": "Come dividiamo la proprietà con fondi propri diversi?",
+      "a": "Spesso si sceglie la comproprietà con quote pari al capitale apportato. Mettete per iscritto i contributi. La forma adatta si chiarisce al meglio con il notaio."
+     },
+     {
+      "q": "Entrambi rispondono dell'intera ipoteca?",
+      "a": "Di regola sì. Le banche chiedono quasi sempre che entrambi rispondano solidalmente dell'intera ipoteca, indipendentemente dalla quota."
+     },
+     {
+      "q": "Cosa succede alla casa in caso di separazione?",
+      "a": "O uno rileva la quota dell'altro, oppure l'immobile viene venduto. Verifichiamo volentieri se una ripresa è sostenibile. Un accordo prima dell'acquisto aiuta."
+     },
+     {
+      "q": "Come ci tuteliamo in caso di decesso?",
+      "a": "Senza matrimonio non esiste un diritto successorio legale tra partner. Testamento o contratto successorio, beneficiari in cassa pensione e 3° pilastro e un'assicurazione in caso di decesso sono possibili tasselli. Fatevi consigliare da specialisti."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Contattaci",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "La vostra casa.\n*Regolata con chiarezza.*",
+    "text": "Confrontate gratis oltre 40 offerte e avviate la richiesta comune in 3 minuti.",
+    "ctas": [
+     {
+      "label": "Richiedete insieme",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "Mortgage for unmarried couples in Switzerland | HYPOTEQ",
+  "description": "Buying together without being married? We clarify ownership shares and protection and compare 40+ lenders for your mortgage. Apply in 3 minutes.",
+  "h1": "Buying together without being married",
+  "nav": [
+   "Unmarried couples",
+   "Buying a home together"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Mortgage for unmarried couples",
+    "h1": "Buying together\n*without being married*",
+    "lead": "You want to buy a home as an unmarried couple, but you bring different amounts of equity? For your **mortgage as an unmarried couple in Switzerland**, we clarify what lenders look at and compare 40+ offers free of charge.",
+    "ctas": [
+     {
+      "label": "Apply together",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Free & non-binding",
+     "Both incomes considered",
+     "Offers in 48–72 h"
+    ],
+    "image": "couple",
+    "alt": "Couple relaxing in their own living room",
+    "float": {
+     "title": "5-year fixed from 1.30 %",
+     "text": "Indicative rate · sample value"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banks, insurers and pension funds"
+     },
+     {
+      "value": "CHF 0",
+      "label": "for comparison and brokerage"
+     },
+     {
+      "value": "3 min.",
+      "label": "to a complete request"
+     },
+     {
+      "value": "48–72 h",
+      "label": "to concrete offers"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Buying property together in Switzerland",
+    "title": "Without marriage,\n*different rules apply.*",
+    "image": "family-home",
+    "alt": "Bright living room in a Swiss family home",
+    "paragraphs": [
+     "Married couples are partly protected by Swiss marital and inheritance law. When you buy together without being married, you have to arrange a lot yourselves: who owns which share, who pays what, and what happens on separation or death.",
+     "Lenders assess both incomes and both partners' equity. We put together a clear file and obtain offers that fit you as a couple, whether you want a **joint mortgage in Switzerland** or separate tranches."
+    ],
+    "bullets": [
+     "Affordability calculated with both incomes",
+     "Equity and pension assets (pillar 2 and 3a) clearly assigned",
+     "Legal questions clarified with a notary or lawyer"
+    ],
+    "ctas": [
+     {
+      "label": "Request a joint mortgage",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Co-ownership as a couple",
+    "title": "Four questions\n*to settle before you buy.*",
+    "lead": "General information, not legal advice. For contracts and wills, please consult a notary or legal professional.",
+    "tone": "soft",
+    "cols": 2,
+    "items": [
+     {
+      "kicker": "Unequal equity",
+      "title": "Set ownership shares deliberately",
+      "text": "Co-ownership can be entered in the land register with fixed shares. Record in writing who contributed how much."
+     },
+     {
+      "kicker": "Liability",
+      "title": "Both are on the hook",
+      "text": "Lenders usually make both partners liable for the full mortgage. Affordability therefore has to work for you together.",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "kicker": "Separation",
+      "title": "Plan the exit in advance",
+      "text": "Who takes over, who gets paid out? An agreement before buying avoids costly disputes later.",
+      "to": "page:lp-scheidung"
+     },
+     {
+      "kicker": "Death",
+      "title": "Protect each other",
+      "text": "Unmarried partners don't inherit from each other by law. A will, beneficiary designations and risk insurance create clarity.",
+      "to": "page:lp-erbschaft"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Mortgage calculator",
+    "title": "What can you\n*afford together?*",
+    "lead": "Enter the price, your combined equity and household income to see affordability instantly."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "How it works",
+    "title": "Together in four steps\nto your financing.",
+    "items": [
+     {
+      "title": "Joint request",
+      "text": "Upload both partners' documents. Our AI reads most details in about 3 minutes."
+     },
+     {
+      "title": "Advice for both of you",
+      "text": "Your advisor usually gets back to you the same business day to discuss equity, shares and affordability."
+     },
+     {
+      "title": "Compare offers",
+      "text": "With complete documents, you usually receive offers from several lenders within 48–72 h."
+     },
+     {
+      "title": "Notary and payout",
+      "text": "We coordinate with the lender and notary so ownership and financing match."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Get started",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "trust",
+    "items": [
+     "Independent broker",
+     "40+ financing partners",
+     "Free for private clients",
+     "A personal advisor, not a hotline",
+     "Data processed in Switzerland",
+     "2,500+ clients"
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Read more",
+    "title": "Matching\n*your situation.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "First home",
+      "title": "First-time buyers",
+      "text": "What matters when you buy for the first time.",
+      "to": "page:lp-erstkauf"
+     },
+     {
+      "kicker": "Purchase",
+      "title": "Financing a purchase",
+      "text": "From confirmation to keys.",
+      "to": "page:kauf"
+     },
+     {
+      "kicker": "Complex cases",
+      "title": "Advisory",
+      "text": "Several owners or special structures.",
+      "to": "page:advisory"
+     },
+     {
+      "kicker": "For partners",
+      "title": "Become a partner",
+      "text": "Agent, trustee or insurer? Work with us.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Unmarried couples\nand mortgages.",
+    "items": [
+     {
+      "q": "How do we split ownership with unequal equity?",
+      "a": "Couples often choose co-ownership with shares that reflect what each contributed. Record your contributions in writing. The notary can help you choose the right form."
+     },
+     {
+      "q": "Are both partners liable for the full mortgage?",
+      "a": "Usually yes. Lenders generally require both partners to be jointly and severally liable for the entire mortgage, regardless of ownership shares."
+     },
+     {
+      "q": "What happens to the home if we separate?",
+      "a": "Either one partner takes over the other's share or the property is sold. We're happy to check whether a takeover is affordable. An agreement before buying helps."
+     },
+     {
+      "q": "How do we protect each other in case of death?",
+      "a": "Without marriage, partners have no statutory inheritance rights. A will or inheritance contract, beneficiary designations in pillar 2 and 3a and life insurance are possible building blocks. Seek advice from specialists."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Contact us",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Your home.\n*Clearly arranged.*",
+    "text": "Compare 40+ offers for free and start your joint request in 3 minutes.",
+    "ctas": [
+     {
+      "label": "Apply together",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ }
+}

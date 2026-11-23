@@ -1,0 +1,994 @@
+{
+ "de": {
+  "title": "Hypothek für Selbständige und Unternehmer | HYPOTEQ",
+  "description": "Selbständig erwerbend? Wir wissen, welche Banken dein Einkommen fair anrechnen. Jahresabschlüsse hochladen, Anfrage in 3 Minuten. Jetzt starten.",
+  "h1": "Hypothek für Selbständige: fair gerechnet",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypotheken · Selbständige & Unternehmer",
+    "h1": "Hypothek für Selbständige:\nfair gerechnet",
+    "lead": "Als Selbständige:r hast du keinen Lohnausweis, dafür Jahresabschlüsse und Steuererklärungen. Wir wissen, welche Anbieter dein Einkommen fair anrechnen, und finden die passende **Hypothek für Selbständige** unter über 40 Banken, Versicherungen und Pensionskassen.",
+    "ctas": [
+     {
+      "label": "Hypothek anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "Zur Hypothekenübersicht",
+      "to": "page:hypotheken"
+     }
+    ],
+    "badges": [
+     "0 CHF Vermittlung",
+     "Jahresabschlüsse hochladen",
+     "Auch für GmbH- und AG-Inhaber"
+    ],
+    "image": "portrait",
+    "alt": "Unternehmerin in ihrem Büro",
+    "float": {
+     "title": "2–3 Jahresabschlüsse",
+     "text": "verlangen die meisten Banken"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "Banken, Versicherungen & Pensionskassen"
+     },
+     {
+      "value": "2–3",
+      "label": "Jahresabschlüsse als übliche Basis"
+     },
+     {
+      "value": "3 Min.",
+      "label": "bis zur vollständigen Anfrage"
+     },
+     {
+      "value": "0 CHF",
+      "label": "für Vergleich und Vermittlung"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Anforderungen",
+    "title": "So prüfen Banken\n*selbständig Erwerbende*.",
+    "image": "consultation",
+    "alt": "Beratungsgespräch mit Unterlagen",
+    "paragraphs": [
+     "Für eine **Hypothek als selbständig Erwerbende:r** wollen Banken sehen, dass dein Einkommen **nachhaltig** ist. Deshalb verlangen die meisten Anbieter die **Jahresabschlüsse der letzten 2–3 Jahre** sowie die passenden Steuererklärungen und Steuerveranlagungen.",
+     "Meist rechnet die Bank mit einem **Durchschnitt** dieser Jahre. Ein besonders gutes Jahr zählt daher oft nicht voll, ein schwaches Jahr drückt den Schnitt. Wie Bezüge, Dividenden und Gewinne in der Firma angerechnet werden, unterscheidet sich je nach Anbieter deutlich."
+    ],
+    "bullets": [
+     "Jahresabschlüsse (Bilanz und Erfolgsrechnung) der letzten 2–3 Jahre",
+     "Steuererklärungen und Steuerveranlagungen",
+     "Bei GmbH/AG: Lohnausweis und Dividenden als Inhaber:in",
+     "Nachweis der Eigenmittel und Vorsorgegelder"
+    ],
+    "ctas": [
+     {
+      "label": "Checkliste herunterladen",
+      "to": "page:dokumente"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Deine Situation",
+    "title": "Freelancer, Einzelfirma\noder Unternehmer.",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Einzelfirma & Freelancer",
+      "title": "Hypothek ohne Lohnausweis",
+      "text": "Dein Einkommen ergibt sich aus Erfolgsrechnung und Steuererklärung. Wir zeigen der Bank deine Zahlen verständlich und vollständig.",
+      "to": "funnel",
+      "cta": "Anfrage starten"
+     },
+     {
+      "kicker": "GmbH & AG",
+      "title": "Hypothek für GmbH-Inhaber",
+      "text": "Lohn, Dividenden und Gewinne in der Firma: Banken bewerten diese Mischung unterschiedlich. Genau hier lohnt sich der Vergleich.",
+      "to": "page:rg-tragbarkeit",
+      "cta": "Tragbarkeit verstehen"
+     },
+     {
+      "kicker": "Junges Unternehmen",
+      "title": "Weniger als 2 Jahresabschlüsse?",
+      "text": "Dann wird es anspruchsvoller. Eine höhere Eigenmittelquote oder ein Advisory-Mandat kann helfen, eine Lösung zu finden.",
+      "to": "page:advisory",
+      "cta": "Advisory ansehen"
+     }
+    ]
+   },
+   {
+    "type": "features",
+    "title": "Tragbarkeit für Selbständige.\n*So wird gerechnet.*",
+    "items": [
+     {
+      "icon": "%",
+      "title": "Kalkulatorischer Zins 5 %",
+      "text": "Banken rechnen mit 5 % Zins, 1 % Unterhalt und Amortisation. Die Kosten sollten max. ca. ⅓ des Einkommens betragen.",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "icon": "≡",
+      "title": "Durchschnittseinkommen",
+      "text": "Meist zählt der Schnitt der letzten 2–3 Jahre. Schwankungen sind normal und kein Ausschlussgrund."
+     },
+     {
+      "icon": "⌂",
+      "title": "Eigenmittel",
+      "text": "Mind. 20 %, davon mind. 10 % hart. Mehr Eigenmittel verbessern deine Chancen spürbar.",
+      "to": "page:rg-eigenmittel"
+     },
+     {
+      "icon": "✓",
+      "title": "Säule 3a & Pensionskasse",
+      "text": "Viele Selbständige sparen über die Säule 3a. Bezug oder Verpfändung sind möglich.",
+      "to": "page:rg-pk"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "So läuft’s",
+    "title": "Von den Abschlüssen\nzur Offerte.",
+    "items": [
+     {
+      "title": "Unterlagen hochladen",
+      "text": "Jahresabschlüsse, Steuererklärungen und ID hochladen. Die KI liest die meisten Angaben in rund 3 Minuten aus."
+     },
+     {
+      "title": "Einkommen aufbereiten",
+      "text": "Deine Beraterin meldet sich zeitnah und bereitet deine Zahlen so auf, wie Banken sie lesen."
+     },
+     {
+      "title": "Passende Anbieter wählen",
+      "text": "Wir fragen gezielt Anbieter an, die selbständig Erwerbende fair beurteilen."
+     },
+     {
+      "title": "Offerten vergleichen",
+      "text": "Nach vollständigen Unterlagen erhältst du in der Regel innert 48–72 h konkrete Offerten."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Jetzt anfragen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Nach einer Bankabsage",
+    "title": "Deine Bank sagt nein?\n*Das muss nicht das Ende sein.*",
+    "tone": "soft",
+    "reverse": true,
+    "image": "keys",
+    "alt": "Hausschlüssel auf einem Tisch",
+    "paragraphs": [
+     "Eine Absage der Hausbank heisst oft nur, dass ihr Modell nicht zu deinem Einkommen passt. Andere Anbieter rechnen Firmeneinkommen anders an. Bei schwierigen Fällen wie schwankenden Erträgen, komplexen Firmenstrukturen oder mehreren Eigentümern unterstützt dich unser **Advisory**.",
+     "Das Advisory ist ein kostenpflichtiges Mandat, das **Erstgespräch ist kostenlos**."
+    ],
+    "ctas": [
+     {
+      "label": "Advisory ansehen",
+      "to": "page:advisory"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Für Treuhänder",
+    "title": "Du betreust Selbständige?\n*Werde Partner.*",
+    "screen": "portal",
+    "tone": "dark",
+    "paragraphs": [
+     "Treuhänder kennen die Zahlen ihrer Kundschaft am besten. Im **Partnerprogramm** reichst du Finanzierungen ein, verfolgst sie im Partnerportal und erhältst eine faire Provision pro Abschluss. Die Kundenbeziehung bleibt bei dir."
+    ],
+    "ctas": [
+     {
+      "label": "Partner werden",
+      "to": "page:partner-treuhand"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Selbständig und Eigenheim:\ngut zu wissen.",
+    "items": [
+     {
+      "q": "Welche Unterlagen brauchen Selbständige für eine Hypothek?",
+      "a": "In der Regel die **Jahresabschlüsse der letzten 2–3 Jahre**, die Steuererklärungen und Veranlagungen, einen Eigenmittelnachweis, ID sowie die Objektunterlagen. Bei einer GmbH oder AG zusätzlich deinen Lohnausweis als Inhaber:in."
+     },
+     {
+      "q": "Wie rechnen Banken mein Einkommen an?",
+      "a": "Meist mit dem Durchschnitt der letzten Jahre. Danach prüfen sie die Tragbarkeit mit 5 % kalkulatorischem Zins, 1 % Unterhalt und Amortisation, maximal ca. ⅓ des Bruttoeinkommens. Wie Dividenden und Firmengewinne zählen, ist je nach Anbieter verschieden."
+     },
+     {
+      "q": "Brauche ich drei Jahresabschlüsse?",
+      "a": "Viele Anbieter verlangen drei, manche akzeptieren auch zwei. Mit weniger als zwei Abschlüssen ist eine Finanzierung schwieriger, aber je nach Eigenmitteln und Situation nicht ausgeschlossen."
+     },
+     {
+      "q": "Was tun nach einer Absage meiner Bank?",
+      "a": "Lass deine Situation neutral prüfen. Wir vergleichen über 40 Anbieter, die Einkommen unterschiedlich bewerten. Bei komplexen Fällen hilft unser kostenpflichtiges Advisory, das Erstgespräch ist kostenlos."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Alle Fragen",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Dein Einkommen.\n*Fair gerechnet.*",
+    "text": "Jahresabschlüsse hochladen und die Anfrage in 3 Minuten starten. Kostenlos und unverbindlich.",
+    "ctas": [
+     {
+      "label": "Hypothek anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Hypothèque pour indépendants | HYPOTEQ",
+  "description": "Vous êtes indépendant? Nous savons quelles banques prennent votre revenu en compte équitablement. Envoyez vos bilans, demande en 3 minutes.",
+  "h1": "Hypothèque pour indépendants et entrepreneurs",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypothèques · Indépendants & entrepreneurs",
+    "h1": "Hypothèque pour indépendants\net entrepreneurs",
+    "lead": "En tant qu’indépendant, vous n’avez pas de certificat de salaire, mais des bilans et des déclarations d’impôt. Nous savons quels prêteurs prennent votre revenu en compte équitablement et trouvons votre **hypothèque d’indépendant** parmi plus de 40 banques, assurances et caisses de pension.",
+    "ctas": [
+     {
+      "label": "Demander une hypothèque",
+      "to": "funnel"
+     },
+     {
+      "label": "Vue d’ensemble hypothèques",
+      "to": "page:hypotheken"
+     }
+    ],
+    "badges": [
+     "0 CHF de courtage",
+     "Envoyez vos bilans",
+     "Aussi pour Sàrl et SA"
+    ],
+    "image": "portrait",
+    "alt": "Entrepreneure dans son bureau",
+    "float": {
+     "title": "2 à 3 bilans",
+     "text": "exigés par la plupart des banques"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banques, assurances et caisses de pension"
+     },
+     {
+      "value": "2–3",
+      "label": "bilans comme base usuelle"
+     },
+     {
+      "value": "3 min",
+      "label": "pour une demande complète"
+     },
+     {
+      "value": "0 CHF",
+      "label": "pour la comparaison et le courtage"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Exigences",
+    "title": "Comment les banques évaluent\nles *indépendants*.",
+    "image": "consultation",
+    "alt": "Entretien de conseil avec documents",
+    "paragraphs": [
+     "Pour un **prêt hypothécaire d’indépendant**, la banque veut voir un revenu **durable**. La plupart des prêteurs demandent donc les **bilans des 2 à 3 dernières années**, ainsi que les déclarations et taxations fiscales correspondantes.",
+     "La banque calcule en général une **moyenne** de ces années. Une très bonne année ne compte donc souvent pas entièrement, une année faible pèse sur la moyenne. La prise en compte des prélèvements, dividendes et bénéfices de l’entreprise varie fortement d’un prêteur à l’autre."
+    ],
+    "bullets": [
+     "Bilans et comptes de résultat des 2 à 3 dernières années",
+     "Déclarations d’impôt et taxations",
+     "Sàrl/SA: certificat de salaire et dividendes du propriétaire",
+     "Justificatifs des fonds propres et de la prévoyance"
+    ],
+    "ctas": [
+     {
+      "label": "Télécharger la check-list",
+      "to": "page:dokumente"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Votre situation",
+    "title": "Freelance, raison individuelle\nou entrepreneur.",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Raison individuelle",
+      "title": "Sans certificat de salaire",
+      "text": "Votre revenu ressort du compte de résultat et de la déclaration d’impôt. Nous présentons vos chiffres clairement à la banque.",
+      "to": "funnel",
+      "cta": "Lancer la demande"
+     },
+     {
+      "kicker": "Sàrl & SA",
+      "title": "Hypothèque entrepreneur",
+      "text": "Salaire, dividendes et bénéfices dans la société: les banques évaluent ce mélange différemment. C’est là que la comparaison paie.",
+      "to": "page:rg-tragbarkeit",
+      "cta": "Comprendre la capacité"
+     },
+     {
+      "kicker": "Jeune entreprise",
+      "title": "Moins de 2 bilans?",
+      "text": "C’est plus exigeant. Davantage de fonds propres ou un mandat d’Advisory peuvent aider à trouver une solution.",
+      "to": "page:advisory",
+      "cta": "Découvrir l’Advisory"
+     }
+    ]
+   },
+   {
+    "type": "features",
+    "title": "Capacité financière des indépendants.\n*Le calcul.*",
+    "items": [
+     {
+      "icon": "%",
+      "title": "Taux théorique de 5 %",
+      "text": "Les banques calculent avec 5 % d’intérêt, 1 % d’entretien et l’amortissement: au maximum env. ⅓ du revenu.",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "icon": "≡",
+      "title": "Revenu moyen",
+      "text": "En général, la moyenne des 2 à 3 dernières années compte. Des variations sont normales."
+     },
+     {
+      "icon": "⌂",
+      "title": "Fonds propres",
+      "text": "Au moins 20 %, dont au moins 10 % de fonds propres «durs». Davantage améliore nettement vos chances.",
+      "to": "page:rg-eigenmittel"
+     },
+     {
+      "icon": "✓",
+      "title": "2e et 3e pilier",
+      "text": "Beaucoup d’indépendants épargnent via le 3e pilier. Retrait ou nantissement sont possibles.",
+      "to": "page:rg-pk"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Déroulement",
+    "title": "Des bilans\nà l’offre.",
+    "items": [
+     {
+      "title": "Envoyer vos documents",
+      "text": "Bilans, déclarations d’impôt et pièce d’identité: l’IA lit la plupart des données en environ 3 minutes."
+     },
+     {
+      "title": "Préparer le revenu",
+      "text": "Votre conseillère vous contacte rapidement et présente vos chiffres comme les banques les lisent."
+     },
+     {
+      "title": "Choisir les bons prêteurs",
+      "text": "Nous sollicitons de manière ciblée les prêteurs qui évaluent équitablement les indépendants."
+     },
+     {
+      "title": "Comparer les offres",
+      "text": "Dossier complet, vous recevez en règle générale des offres concrètes en 48 à 72 h."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Faire une demande",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Après un refus",
+    "title": "Votre banque a dit non?\n*Ce n’est pas forcément la fin.*",
+    "tone": "soft",
+    "reverse": true,
+    "image": "keys",
+    "alt": "Clés de maison sur une table",
+    "paragraphs": [
+     "Un refus signifie souvent que le modèle de votre banque ne correspond pas à votre revenu. D’autres prêteurs évaluent autrement le revenu d’entreprise. Pour les cas difficiles (revenus fluctuants, structures complexes, plusieurs propriétaires), notre **Advisory** vous accompagne.",
+     "L’Advisory est un mandat payant, le **premier entretien est gratuit**."
+    ],
+    "ctas": [
+     {
+      "label": "Découvrir l’Advisory",
+      "to": "page:advisory"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Pour fiduciaires",
+    "title": "Vous suivez des indépendants?\n*Devenez partenaire.*",
+    "screen": "portal",
+    "tone": "dark",
+    "paragraphs": [
+     "Les fiduciaires connaissent le mieux les chiffres de leurs clients. Avec le **programme partenaires**, vous soumettez des financements, les suivez dans le portail et recevez une commission équitable par conclusion. La relation client reste chez vous."
+    ],
+    "ctas": [
+     {
+      "label": "Devenir partenaire",
+      "to": "page:partner-treuhand"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "Indépendant et propriétaire:\nbon à savoir.",
+    "items": [
+     {
+      "q": "Quels documents pour un indépendant?",
+      "a": "En général les **bilans des 2 à 3 dernières années**, les déclarations d’impôt et taxations, un justificatif des fonds propres, une pièce d’identité et les documents du bien. Pour une Sàrl ou SA, aussi votre certificat de salaire de propriétaire."
+     },
+     {
+      "q": "Comment la banque calcule-t-elle mon revenu?",
+      "a": "Le plus souvent sur la moyenne des dernières années. Elle vérifie ensuite la capacité financière avec un taux théorique de 5 %, 1 % d’entretien et l’amortissement, au maximum env. ⅓ du revenu brut. La prise en compte des dividendes varie selon le prêteur."
+     },
+     {
+      "q": "Faut-il trois bilans?",
+      "a": "Beaucoup de prêteurs en demandent trois, certains acceptent deux. Avec moins de deux bilans, un financement est plus difficile, mais pas exclu selon vos fonds propres et votre situation."
+     },
+     {
+      "q": "Que faire après un refus de ma banque?",
+      "a": "Faites examiner votre situation de manière neutre. Nous comparons plus de 40 prêteurs qui évaluent le revenu différemment. Pour les cas complexes, notre Advisory payant vous aide, le premier entretien est gratuit."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Toutes les questions",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Votre revenu.\n*Évalué équitablement.*",
+    "text": "Envoyez vos bilans et lancez votre demande en 3 minutes. Gratuit et sans engagement.",
+    "ctas": [
+     {
+      "label": "Demander une hypothèque",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Ipoteca per lavoratori indipendenti | HYPOTEQ",
+  "description": "Sei indipendente? Sappiamo quali banche valutano correttamente il tuo reddito. Carica i bilanci e invia la richiesta in 3 minuti. Inizia ora.",
+  "h1": "Ipoteca per indipendenti e imprenditori",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Ipoteche · Indipendenti & imprenditori",
+    "h1": "Ipoteca per indipendenti\ne imprenditori",
+    "lead": "Da indipendente non hai un certificato di salario, ma bilanci e dichiarazioni d’imposta. Sappiamo quali istituti valutano correttamente il tuo reddito e troviamo la tua **ipoteca per lavoratori indipendenti** tra oltre 40 banche, assicurazioni e casse pensione.",
+    "ctas": [
+     {
+      "label": "Richiedi l’ipoteca",
+      "to": "funnel"
+     },
+     {
+      "label": "Panoramica ipoteche",
+      "to": "page:hypotheken"
+     }
+    ],
+    "badges": [
+     "0 CHF di mediazione",
+     "Carica i bilanci",
+     "Anche per Sagl e SA"
+    ],
+    "image": "portrait",
+    "alt": "Imprenditrice nel suo ufficio",
+    "float": {
+     "title": "2–3 bilanci",
+     "text": "richiesti dalla maggior parte delle banche"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banche, assicurazioni e casse pensione"
+     },
+     {
+      "value": "2–3",
+      "label": "bilanci come base abituale"
+     },
+     {
+      "value": "3 min",
+      "label": "per una richiesta completa"
+     },
+     {
+      "value": "0 CHF",
+      "label": "per confronto e mediazione"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Requisiti",
+    "title": "Come le banche valutano\ngli *indipendenti*.",
+    "image": "consultation",
+    "alt": "Colloquio di consulenza con documenti",
+    "paragraphs": [
+     "Per un **mutuo da indipendente in Svizzera** la banca vuole vedere un reddito **stabile nel tempo**. Per questo la maggior parte degli istituti chiede i **bilanci degli ultimi 2–3 anni** e le relative dichiarazioni e tassazioni.",
+     "Di solito la banca calcola una **media** di questi anni. Un anno molto buono spesso non conta per intero, uno debole abbassa la media. Come vengono considerati prelievi, dividendi e utili della società varia molto da istituto a istituto."
+    ],
+    "bullets": [
+     "Bilanci e conti economici degli ultimi 2–3 anni",
+     "Dichiarazioni d’imposta e tassazioni",
+     "Sagl/SA: certificato di salario e dividendi del titolare",
+     "Prova dei fondi propri e della previdenza"
+    ],
+    "ctas": [
+     {
+      "label": "Scarica la checklist",
+      "to": "page:dokumente"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "La tua situazione",
+    "title": "Freelance, ditta individuale\no imprenditore.",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Ditta individuale",
+      "title": "Senza certificato di salario",
+      "text": "Il tuo reddito risulta dal conto economico e dalla dichiarazione d’imposta. Presentiamo i tuoi numeri in modo chiaro alla banca.",
+      "to": "funnel",
+      "cta": "Avvia la richiesta"
+     },
+     {
+      "kicker": "Sagl & SA",
+      "title": "Ipoteca imprenditore",
+      "text": "Salario, dividendi e utili nella società: le banche valutano questo mix in modo diverso. Qui il confronto conviene.",
+      "to": "page:rg-tragbarkeit",
+      "cta": "Capire la sostenibilità"
+     },
+     {
+      "kicker": "Azienda giovane",
+      "title": "Meno di 2 bilanci?",
+      "text": "È più impegnativo. Più fondi propri o un mandato di Advisory possono aiutare a trovare una soluzione.",
+      "to": "page:advisory",
+      "cta": "Scopri l’Advisory"
+     }
+    ]
+   },
+   {
+    "type": "features",
+    "title": "Sostenibilità per indipendenti.\n*Il calcolo.*",
+    "items": [
+     {
+      "icon": "%",
+      "title": "Tasso teorico del 5 %",
+      "text": "Le banche calcolano con 5 % d’interesse, 1 % di manutenzione e ammortamento: al massimo circa ⅓ del reddito.",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "icon": "≡",
+      "title": "Reddito medio",
+      "text": "Di solito conta la media degli ultimi 2–3 anni. Le oscillazioni sono normali."
+     },
+     {
+      "icon": "⌂",
+      "title": "Fondi propri",
+      "text": "Almeno 20 %, di cui almeno 10 % «duri». Più fondi propri migliorano le tue possibilità.",
+      "to": "page:rg-eigenmittel"
+     },
+     {
+      "icon": "✓",
+      "title": "Cassa pensione e 3° pilastro",
+      "text": "Molti indipendenti risparmiano con il 3° pilastro. Prelievo o pegno sono possibili.",
+      "to": "page:rg-pk"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Come funziona",
+    "title": "Dai bilanci\nall’offerta.",
+    "items": [
+     {
+      "title": "Carica i documenti",
+      "text": "Bilanci, dichiarazioni d’imposta e documento d’identità: l’IA legge la maggior parte dei dati in circa 3 minuti."
+     },
+     {
+      "title": "Preparare il reddito",
+      "text": "La tua consulente ti contatta in tempi brevi e presenta i tuoi numeri come li leggono le banche."
+     },
+     {
+      "title": "Scegliere gli istituti giusti",
+      "text": "Contattiamo in modo mirato gli istituti che valutano correttamente gli indipendenti."
+     },
+     {
+      "title": "Confrontare le offerte",
+      "text": "Con documenti completi ricevi di regola offerte concrete entro 48–72 h."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Richiedi ora",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Dopo un rifiuto",
+    "title": "La tua banca ha detto no?\n*Non è per forza la fine.*",
+    "tone": "soft",
+    "reverse": true,
+    "image": "keys",
+    "alt": "Chiavi di casa su un tavolo",
+    "paragraphs": [
+     "Un rifiuto spesso significa solo che il modello della tua banca non si adatta al tuo reddito. Altri istituti valutano diversamente il reddito d’impresa. Nei casi difficili (redditi variabili, strutture complesse, più proprietari) ti aiuta il nostro **Advisory**.",
+     "L’Advisory è un mandato a pagamento, il **primo colloquio è gratuito**."
+    ],
+    "ctas": [
+     {
+      "label": "Scopri l’Advisory",
+      "to": "page:advisory"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Per fiduciari",
+    "title": "Segui clienti indipendenti?\n*Diventa partner.*",
+    "screen": "portal",
+    "tone": "dark",
+    "paragraphs": [
+     "I fiduciari conoscono meglio di tutti i numeri dei loro clienti. Con il **programma partner** inoltri i finanziamenti, li segui nel portale e ricevi una provvigione equa per ogni conclusione. Il rapporto con il cliente resta tuo."
+    ],
+    "ctas": [
+     {
+      "label": "Diventa partner",
+      "to": "page:partner-treuhand"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "Indipendente e proprietario:\nbuono a sapersi.",
+    "items": [
+     {
+      "q": "Quali documenti servono a un indipendente?",
+      "a": "Di regola i **bilanci degli ultimi 2–3 anni**, le dichiarazioni d’imposta e tassazioni, la prova dei fondi propri, un documento d’identità e i documenti dell’immobile. Per Sagl o SA anche il tuo certificato di salario come titolare."
+     },
+     {
+      "q": "Come valuta la banca il mio reddito?",
+      "a": "Perlopiù sulla media degli ultimi anni. Poi verifica la sostenibilità con un tasso teorico del 5 %, 1 % di manutenzione e ammortamento, al massimo circa ⅓ del reddito lordo. Come contano i dividendi varia da istituto a istituto."
+     },
+     {
+      "q": "Servono tre bilanci?",
+      "a": "Molti istituti ne chiedono tre, alcuni ne accettano due. Con meno di due bilanci il finanziamento è più difficile, ma non escluso a seconda di fondi propri e situazione."
+     },
+     {
+      "q": "Cosa fare dopo un rifiuto della banca?",
+      "a": "Fai verificare la tua situazione in modo neutrale. Confrontiamo oltre 40 istituti che valutano il reddito in modo diverso. Per i casi complessi ti aiuta il nostro Advisory a pagamento, il primo colloquio è gratuito."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Tutte le domande",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Il tuo reddito.\n*Valutato correttamente.*",
+    "text": "Carica i bilanci e avvia la richiesta in 3 minuti. Gratis e senza impegno.",
+    "ctas": [
+     {
+      "label": "Richiedi l’ipoteca",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "Mortgages for Self-Employed in Switzerland | HYPOTEQ",
+  "description": "Self-employed or running a company? We know which Swiss lenders assess your income fairly. Upload your accounts and apply in 3 minutes.",
+  "h1": "Swiss mortgages for the self-employed",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Mortgages · Self-employed & business owners",
+    "h1": "Swiss mortgages\nfor the self-employed",
+    "lead": "Self-employed people have no salary certificate, but annual accounts and tax returns. We know which lenders assess your income fairly and find your **self employed mortgage in Switzerland** among 40+ banks, insurers and pension funds, with advice in English.",
+    "ctas": [
+     {
+      "label": "Apply for a mortgage",
+      "to": "funnel"
+     },
+     {
+      "label": "All mortgage options",
+      "to": "page:hypotheken"
+     }
+    ],
+    "badges": [
+     "CHF 0 brokerage",
+     "Upload your accounts",
+     "Also for GmbH & AG owners"
+    ],
+    "image": "portrait",
+    "alt": "Business owner in her office",
+    "float": {
+     "title": "2–3 years of accounts",
+     "text": "required by most lenders"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banks, insurers & pension funds"
+     },
+     {
+      "value": "2–3",
+      "label": "years of accounts as the usual basis"
+     },
+     {
+      "value": "3 min",
+      "label": "to a complete application"
+     },
+     {
+      "value": "CHF 0",
+      "label": "for comparison and brokerage"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Requirements",
+    "title": "How lenders assess\n*the self-employed*.",
+    "image": "consultation",
+    "alt": "Advisory meeting with documents",
+    "paragraphs": [
+     "For a **freelancer mortgage in Switzerland**, lenders want to see **sustainable** income. That is why most ask for your **annual accounts for the last 2–3 years**, plus the matching tax returns and tax assessments.",
+     "Lenders usually work with an **average** of those years. A very strong year often doesn’t count in full, a weak one pulls the average down. How salary, dividends and profits retained in the company are counted differs a lot between lenders."
+    ],
+    "bullets": [
+     "Annual accounts (balance sheet and P&L) for the last 2–3 years",
+     "Tax returns and tax assessments",
+     "GmbH/AG: your salary certificate and dividends as owner",
+     "Proof of equity and pension assets"
+    ],
+    "ctas": [
+     {
+      "label": "Download the checklist",
+      "to": "page:dokumente"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Your situation",
+    "title": "Freelancer, sole trader\nor business owner.",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Sole trader & freelancer",
+      "title": "No salary certificate",
+      "text": "Your income comes from your P&L and tax return. We present your figures to the lender clearly and completely.",
+      "to": "funnel",
+      "cta": "Start your application"
+     },
+     {
+      "kicker": "GmbH & AG",
+      "title": "Mortgage for business owners",
+      "text": "Salary, dividends and company profits: lenders weigh this mix differently. This is exactly where comparing pays off.",
+      "to": "page:rg-tragbarkeit",
+      "cta": "Understand affordability"
+     },
+     {
+      "kicker": "Young business",
+      "title": "Fewer than 2 years of accounts?",
+      "text": "It gets harder. More equity or an Advisory mandate can help find a solution.",
+      "to": "page:advisory",
+      "cta": "Explore Advisory"
+     }
+    ]
+   },
+   {
+    "type": "features",
+    "title": "Affordability when self-employed.\n*How it’s calculated.*",
+    "items": [
+     {
+      "icon": "%",
+      "title": "Imputed rate of 5 %",
+      "text": "Lenders use 5 % interest, 1 % maintenance and amortisation: costs should stay below roughly ⅓ of income.",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "icon": "≡",
+      "title": "Average income",
+      "text": "Usually the average of the last 2–3 years counts. Fluctuations are normal."
+     },
+     {
+      "icon": "⌂",
+      "title": "Equity",
+      "text": "At least 20 %, of which at least 10 % must be “hard” equity (not from pillar 2). More equity clearly helps.",
+      "to": "page:rg-eigenmittel"
+     },
+     {
+      "icon": "✓",
+      "title": "Pillar 2 & pillar 3a",
+      "text": "Many self-employed people save via pillar 3a, the private pension. Withdrawal or pledge is possible.",
+      "to": "page:rg-pk"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "How it works",
+    "title": "From your accounts\nto an offer.",
+    "items": [
+     {
+      "title": "Upload documents",
+      "text": "Annual accounts, tax returns and ID: our AI reads most details in about 3 minutes."
+     },
+     {
+      "title": "Prepare your income",
+      "text": "Your advisor usually gets back to you the same business day and presents your figures the way lenders read them."
+     },
+     {
+      "title": "Pick the right lenders",
+      "text": "We approach lenders that assess self-employed applicants fairly."
+     },
+     {
+      "title": "Compare offers",
+      "text": "Once your documents are complete, you usually receive concrete offers within 48–72 h."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Apply now",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "After a rejection",
+    "title": "Your bank said no?\n*It doesn’t have to end there.*",
+    "tone": "soft",
+    "reverse": true,
+    "image": "keys",
+    "alt": "House keys on a table",
+    "paragraphs": [
+     "A rejection often just means your bank’s model doesn’t fit your income. Other lenders count business income differently. For difficult cases such as fluctuating earnings, complex company structures or several owners, our **Advisory** team supports you.",
+     "Advisory is a paid mandate, the **first consultation is free**."
+    ],
+    "ctas": [
+     {
+      "label": "Explore Advisory",
+      "to": "page:advisory"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "For fiduciaries",
+    "title": "You advise self-employed clients?\n*Become a partner.*",
+    "screen": "portal",
+    "tone": "dark",
+    "paragraphs": [
+     "Fiduciaries know their clients’ figures best. With our **partner programme** you submit financing cases, track them in the partner portal and earn a fair commission per closed deal. The client relationship stays with you."
+    ],
+    "ctas": [
+     {
+      "label": "Become a partner",
+      "to": "page:partner-treuhand"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Self-employed homeowners:\ngood to know.",
+    "items": [
+     {
+      "q": "Which documents do self-employed applicants need?",
+      "a": "Usually your **annual accounts for the last 2–3 years**, tax returns and assessments, proof of equity, ID and the property documents. For a GmbH or AG, also your salary certificate as owner."
+     },
+     {
+      "q": "How do banks calculate my income?",
+      "a": "Mostly as an average of recent years. They then test affordability at an imputed 5 % rate, 1 % maintenance and amortisation, capped at roughly ⅓ of gross income. How dividends count varies by lender."
+     },
+     {
+      "q": "Do I need three years of accounts?",
+      "a": "Many lenders ask for three, some accept two. With fewer than two, financing is harder but not ruled out, depending on your equity and situation."
+     },
+     {
+      "q": "What if my bank said no?",
+      "a": "Have your situation reviewed neutrally. We compare 40+ lenders that assess income differently. For complex cases our paid Advisory helps, and the first consultation is free."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "All questions",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Your income.\n*Assessed fairly.*",
+    "text": "Upload your accounts and start your application in 3 minutes. Free and non-binding.",
+    "ctas": [
+     {
+      "label": "Apply for a mortgage",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ }
+}

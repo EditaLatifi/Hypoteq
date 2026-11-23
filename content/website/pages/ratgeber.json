@@ -1,0 +1,942 @@
+{
+ "de": {
+  "title": "Hypotheken-Ratgeber: Wissen zum Eigenheim | HYPOTEQ",
+  "description": "Eigenmittel, Tragbarkeit, SARON oder Fest, Pensionskasse und Nebenkosten: verständlich erklärt von unseren Expertinnen und Experten. Jetzt lesen.",
+  "h1": "Ratgeber: Hypotheken einfach erklärt",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Ratgeber",
+    "h1": "Ratgeber:\nHypotheken einfach erklärt",
+    "lead": "Unser **Hypotheken Ratgeber** erklärt dir Eigenmittel, Tragbarkeit, Zinsmodelle und Nebenkosten so, wie Banken wirklich rechnen. Mit einem durchgehenden Rechenbeispiel, klaren Regeln und konkreten Tipps für deinen Hauskauf in der Schweiz.",
+    "ctas": [
+     {
+      "label": "Hypothek anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "Tragbarkeit prüfen",
+      "to": "page:tragbarkeit"
+     }
+    ],
+    "badges": [
+     "6 Ratgeber-Artikel",
+     "Praxisfall Familie Meier",
+     "Stand 2026"
+    ],
+    "image": "family",
+    "alt": "Familie im neuen, noch leeren Zuhause"
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Artikel",
+    "title": "Hypothek einfach erklärt.\n*Schritt für Schritt.*",
+    "lead": "Alle Artikel nutzen dasselbe Beispiel: Familie Meier kauft ein Einfamilienhaus in Baden für CHF 980’000. So siehst du, wie die Themen zusammenhängen.",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "01 · Eigenmittel",
+      "title": "Eigenkapital für den Hauskauf",
+      "text": "20 % Eigenmittel, davon 10 % hart: was zählt, was nicht und wie Erbvorbezug oder Schenkung helfen.",
+      "to": "page:rg-eigenmittel",
+      "cta": "Artikel lesen"
+     },
+     {
+      "kicker": "02 · Tragbarkeit",
+      "title": "Tragbarkeit berechnen",
+      "text": "Kalkulatorischer Zins 5 %, Nebenkosten 1 % und Amortisation: So prüfen Banken, ob du dir das Eigenheim leisten kannst.",
+      "to": "page:rg-tragbarkeit",
+      "cta": "Artikel lesen"
+     },
+     {
+      "kicker": "03 · Zinsmodell",
+      "title": "SARON oder Festhypothek?",
+      "text": "Zinsrisiko, Planbarkeit und Mischformen im Vergleich, mit einer klaren Entscheidungshilfe.",
+      "to": "page:rg-saron-fest",
+      "cta": "Artikel lesen"
+     },
+     {
+      "kicker": "04 · Vorsorge",
+      "title": "Pensionskasse und Säule 3a",
+      "text": "Vorbezug oder Verpfändung? So setzt du Vorsorgegelder für Eigenmittel und Amortisation ein.",
+      "to": "page:rg-pk",
+      "cta": "Artikel lesen"
+     },
+     {
+      "kicker": "05 · Kosten",
+      "title": "Nebenkosten beim Hauskauf",
+      "text": "Handänderungssteuer, Notar, Grundbuch und Schuldbrief: je nach Kanton rund 2–5 % des Kaufpreises.",
+      "to": "page:rg-nebenkosten",
+      "cta": "Artikel lesen"
+     },
+     {
+      "kicker": "06 · Vermittler",
+      "title": "Hypothekenvermittler im Vergleich",
+      "text": "Wie Vermittler arbeiten, wie sie verdienen und worauf du bei der Wahl achten solltest.",
+      "to": "page:rg-vermittler",
+      "cta": "Artikel lesen"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Werkzeuge",
+    "title": "Vom Wissen\n*zur eigenen Zahl.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Rechner",
+      "title": "Hypothekenrechner",
+      "text": "Zinskosten für SARON und Festhypotheken in Sekunden berechnen.",
+      "to": "page:rechner",
+      "cta": "Jetzt rechnen"
+     },
+     {
+      "kicker": "Rechner",
+      "title": "Tragbarkeitsrechner",
+      "text": "Prüfe Eigenmittel, Belehnung und Tragbarkeit so, wie Banken rechnen.",
+      "to": "page:tragbarkeit",
+      "cta": "Tragbarkeit prüfen"
+     },
+     {
+      "kicker": "Markt",
+      "title": "Aktuelle Zinsen",
+      "text": "Richtzinsen für SARON, 5 und 10 Jahre fest. Beispielwerte zur Orientierung.",
+      "to": "page:zinsen",
+      "cta": "Zinsen ansehen"
+     },
+     {
+      "kicker": "Bewertung",
+      "title": "Immobilienbewertung",
+      "text": "Marktwert mit dem Modell von Wüest Partner. Jetzt CHF 300 statt 450.",
+      "to": "bewertung",
+      "cta": "Bewertung starten"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Hauskauf Tipps Schweiz",
+    "title": "Wo fange ich an?",
+    "items": [
+     {
+      "title": "Budget klären",
+      "text": "Wie viel Eigenmittel hast du, und wie viel davon ist hart? Lies dazu den Artikel zu den Eigenmitteln."
+     },
+     {
+      "title": "Tragbarkeit prüfen",
+      "text": "Rechne mit 5 % kalkulatorischem Zins. Die Belastung sollte rund ein Drittel deines Bruttoeinkommens nicht übersteigen."
+     },
+     {
+      "title": "Nebenkosten einplanen",
+      "text": "Kaufnebenkosten kommen zu den Eigenmitteln dazu und lassen sich meist nicht mitfinanzieren."
+     },
+     {
+      "title": "Offerten vergleichen",
+      "text": "Wir holen Angebote von über 40 Banken, Versicherungen und Pensionskassen ein, kostenlos für dich."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Anfrage in 3 Minuten",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "HYPOTEQ Academy",
+    "title": "Tiefer einsteigen?\n*Lerne es richtig.*",
+    "screen": "academy",
+    "paragraphs": [
+     "Der Ratgeber gibt dir den Überblick. Wer tiefer einsteigen will, lernt im **Foundation Course** für CHF 290 in 8 Learning Journeys alles von den Eigenmitteln über die Tragbarkeit bis zum bankfähigen Hypothekardossier, ganz ohne Vorwissen.",
+     "Im KI-Learning Playground übst du mit Praxisfällen wie Familie Meier, testest dein Wissen mit Knowledge Checks und schliesst mit einem Zertifikat ab."
+    ],
+    "bullets": [
+     "Kurze Learning Nuggets und Praxisfälle",
+     "KI-Trainer für deine Fragen",
+     "Abschlusstest und Zertifikat",
+     "Für Privatpersonen, Einsteiger und Vertriebspartner"
+    ],
+    "ctas": [
+     {
+      "label": "Academy entdecken",
+      "to": "page:academy"
+     },
+     {
+      "label": "Zum Kurs",
+      "to": "academy"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Für Makler, Treuhänder & Broker",
+    "title": "Deine Kunden.\n*Unsere Plattform.*",
+    "image": "consultation",
+    "alt": "Beratungsgespräch mit Unterlagen am Tisch",
+    "tone": "dark",
+    "reverse": true,
+    "paragraphs": [
+     "Deine Kundinnen und Kunden stellen dir diese Fragen täglich? Im **Partnerprogramm** übernehmen wir die Finanzierung, die Kundenbeziehung bleibt bei dir, und du erhältst pro Abschluss eine faire Provision."
+    ],
+    "ctas": [
+     {
+      "label": "Partner werden",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Kurz beantwortet.",
+    "items": [
+     {
+      "q": "Wo fange ich beim Hauskauf an?",
+      "a": "Starte mit deinem Budget: Kläre, wie viel Eigenmittel du hast, und prüfe die Tragbarkeit mit 5 % kalkulatorischem Zins. Danach lohnt sich eine Finanzierungsbestätigung, bevor du ein Kaufangebot machst. Mit der **Online-Anfrage** in 3 Minuten erhältst du eine erste Einschätzung von einem Menschen."
+     },
+     {
+      "q": "Welche Kosten kommen beim Kauf auf mich zu?",
+      "a": "Neben dem Kaufpreis fallen **Kaufnebenkosten** von je nach Kanton ca. 2–5 % an: Handänderungssteuer, Notar, Grundbuch und Schuldbrief. Später kommen Zinsen, Amortisation sowie Unterhalt und Nebenkosten dazu. Banken rechnen dafür in der Tragbarkeit pauschal mit 1 % des Immobilienwerts pro Jahr."
+     },
+     {
+      "q": "Wie viel Eigenkapital brauche ich?",
+      "a": "Mindestens **20 %** des Belehnungswerts, davon mindestens 10 % «hart», also nicht aus der Pensionskasse. Liegt der Kaufpreis über dem Belehnungswert, musst du die Differenz zusätzlich mit Eigenmitteln decken. Bei Familie Meier sind das CHF 220’000 statt CHF 196’000."
+     },
+     {
+      "q": "SARON oder Festhypothek?",
+      "a": "Die **SARON-Hypothek** folgt dem Geldmarkt und ist flexibel, die **Festhypothek** bietet planbare Kosten über die ganze Laufzeit. Wer Zinsrisiken tragen kann, profitiert eher von SARON, wer Sicherheit braucht, wählt Fest. Oft passt eine Kombination beider Modelle."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Alle Fragen",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Genug gelesen?\n*Hol dir echte Offerten.*",
+    "text": "Kostenlos, unverbindlich und in 3 Minuten gestartet. Deine Beraterin meldet sich zeitnah.",
+    "ctas": [
+     {
+      "label": "Hypothek anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Guide hypothécaire: tout sur la propriété | HYPOTEQ",
+  "description": "Fonds propres, capacité financière, SARON ou taux fixe, 2e pilier et frais d'achat: expliqués simplement par nos experts. Lisez notre guide.",
+  "h1": "Guide: l'hypothèque expliquée simplement",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Guide",
+    "h1": "Guide: l'hypothèque\nexpliquée simplement",
+    "lead": "Notre **guide hypothèque** vous explique fonds propres, capacité financière, modèles de taux et frais d'achat, tels que les banques les calculent réellement. Avec un exemple chiffré suivi d'un article à l'autre et des conseils concrets pour acheter en Suisse.",
+    "ctas": [
+     {
+      "label": "Demander une hypothèque",
+      "to": "funnel"
+     },
+     {
+      "label": "Vérifier ma capacité",
+      "to": "page:tragbarkeit"
+     }
+    ],
+    "badges": [
+     "6 articles",
+     "Cas pratique famille Meier",
+     "État 2026"
+    ],
+    "image": "family",
+    "alt": "Famille dans son nouveau logement encore vide"
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Articles",
+    "title": "L'hypothèque expliquée.\n*Pas à pas.*",
+    "lead": "Tous les articles reprennent le même exemple: la famille Meier achète une maison individuelle à Baden pour CHF 980’000. Vous voyez ainsi comment les thèmes s'enchaînent.",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "01 · Fonds propres",
+      "title": "Fonds propres pour l'achat",
+      "text": "20 % de fonds propres dont 10 % durs: ce qui compte, ce qui ne compte pas, avance d'hoirie et donation.",
+      "to": "page:rg-eigenmittel",
+      "cta": "Lire l'article"
+     },
+     {
+      "kicker": "02 · Capacité",
+      "title": "Calculer la capacité financière",
+      "text": "Taux théorique de 5 %, frais d'entretien de 1 % et amortissement: la méthode des banques.",
+      "to": "page:rg-tragbarkeit",
+      "cta": "Lire l'article"
+     },
+     {
+      "kicker": "03 · Modèle de taux",
+      "title": "SARON ou taux fixe?",
+      "text": "Risque de taux, prévisibilité et combinaisons comparés, avec une aide à la décision.",
+      "to": "page:rg-saron-fest",
+      "cta": "Lire l'article"
+     },
+     {
+      "kicker": "04 · Prévoyance",
+      "title": "2e pilier et 3e pilier",
+      "text": "Retrait anticipé ou nantissement? Utiliser la prévoyance comme fonds propres ou pour amortir.",
+      "to": "page:rg-pk",
+      "cta": "Lire l'article"
+     },
+     {
+      "kicker": "05 · Frais",
+      "title": "Frais d'achat immobilier",
+      "text": "Droits de mutation, notaire, registre foncier et cédule hypothécaire: env. 2–5 % du prix selon le canton.",
+      "to": "page:rg-nebenkosten",
+      "cta": "Lire l'article"
+     },
+     {
+      "kicker": "06 · Courtier",
+      "title": "Choisir son courtier hypothécaire",
+      "text": "Comment travaille un courtier, comment il est rémunéré et à quoi faire attention.",
+      "to": "page:rg-vermittler",
+      "cta": "Lire l'article"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Outils",
+    "title": "Du savoir\n*à vos propres chiffres.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Calculateur",
+      "title": "Calculateur hypothécaire",
+      "text": "Calculez en quelques secondes les intérêts SARON et à taux fixe.",
+      "to": "page:rechner",
+      "cta": "Calculer"
+     },
+     {
+      "kicker": "Calculateur",
+      "title": "Capacité financière",
+      "text": "Vérifiez fonds propres, nantissement et capacité comme les banques.",
+      "to": "page:tragbarkeit",
+      "cta": "Vérifier"
+     },
+     {
+      "kicker": "Marché",
+      "title": "Taux actuels",
+      "text": "Taux indicatifs SARON, 5 et 10 ans fixes. Valeurs d'exemple pour vous orienter.",
+      "to": "page:zinsen",
+      "cta": "Voir les taux"
+     },
+     {
+      "kicker": "Estimation",
+      "title": "Estimation immobilière",
+      "text": "Valeur de marché selon le modèle de Wüest Partner. CHF 300 au lieu de 450.",
+      "to": "bewertung",
+      "cta": "Estimer mon bien"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Conseils achat immobilier Suisse",
+    "title": "Par où commencer?",
+    "items": [
+     {
+      "title": "Clarifier le budget",
+      "text": "De combien de fonds propres disposez-vous, et quelle part est «dure»? Notre article sur les fonds propres vous guide."
+     },
+     {
+      "title": "Vérifier la capacité",
+      "text": "Calculez avec un taux théorique de 5 %. Les charges ne devraient pas dépasser environ un tiers du revenu brut."
+     },
+     {
+      "title": "Prévoir les frais d'achat",
+      "text": "Les frais d'achat s'ajoutent aux fonds propres et ne peuvent en général pas être financés par l'hypothèque."
+     },
+     {
+      "title": "Comparer les offres",
+      "text": "Nous sollicitons plus de 40 banques, assurances et caisses de pension, gratuitement pour vous."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Demande en 3 minutes",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "HYPOTEQ Academy",
+    "title": "Aller plus loin?\n*Apprenez pour de bon.*",
+    "screen": "academy",
+    "paragraphs": [
+     "Le guide vous donne une vue d'ensemble. Pour approfondir, le **Foundation Course** à CHF 290 couvre en 8 Learning Journeys tout le financement immobilier suisse, des fonds propres au dossier hypothécaire bancable, sans connaissances préalables.",
+     "Dans le Learning Playground avec IA, vous vous exercez sur des cas pratiques comme la famille Meier, testez vos acquis et obtenez un certificat."
+    ],
+    "bullets": [
+     "Learning Nuggets courts et cas pratiques",
+     "Formateur IA pour vos questions",
+     "Test final et certificat",
+     "Pour particuliers, débutants et partenaires de vente"
+    ],
+    "ctas": [
+     {
+      "label": "Découvrir l'Academy",
+      "to": "page:academy"
+     },
+     {
+      "label": "Vers le cours",
+      "to": "academy"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Pour courtiers, fiduciaires & brokers",
+    "title": "Vos clients.\n*Notre plateforme.*",
+    "image": "consultation",
+    "alt": "Entretien de conseil autour d'une table",
+    "tone": "dark",
+    "reverse": true,
+    "paragraphs": [
+     "Vos clients vous posent ces questions chaque jour? Avec le **programme partenaires**, nous prenons en charge le financement, la relation client reste chez vous et vous touchez une commission équitable par conclusion."
+    ],
+    "ctas": [
+     {
+      "label": "Devenir partenaire",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "En bref.",
+    "items": [
+     {
+      "q": "Par où commencer pour acheter?",
+      "a": "Commencez par votre budget: déterminez vos fonds propres et vérifiez la capacité financière avec un taux théorique de 5 %. Une confirmation de financement avant l'offre d'achat vous donne ensuite du poids. Avec la **demande en ligne** en 3 minutes, un conseiller humain vous donne une première évaluation."
+     },
+     {
+      "q": "Quels frais à l'achat?",
+      "a": "En plus du prix, comptez des **frais d'achat** d'env. 2–5 % selon le canton: droits de mutation, notaire, registre foncier et cédule hypothécaire. Viennent ensuite intérêts, amortissement, entretien et charges, que les banques estiment à 1 % de la valeur du bien par an."
+     },
+     {
+      "q": "Combien de fonds propres?",
+      "a": "Au moins **20 %** de la valeur de nantissement, dont 10 % au minimum de fonds propres «durs», c'est-à-dire hors 2e pilier. Si le prix dépasse la valeur retenue par la banque, la différence s'ajoute. Pour la famille Meier: CHF 220’000 au lieu de CHF 196’000."
+     },
+     {
+      "q": "SARON ou taux fixe?",
+      "a": "L'**hypothèque SARON** suit le marché monétaire et reste flexible, le **taux fixe** offre des coûts prévisibles sur toute la durée. Si vous pouvez supporter un risque de taux, le SARON est souvent intéressant; si vous cherchez la sécurité, le fixe s'impose. Une combinaison des deux convient souvent."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Toutes les questions",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Assez lu?\n*Obtenez de vraies offres.*",
+    "text": "Gratuit, sans engagement et lancé en 3 minutes. Votre conseillère vous rappelle rapidement.",
+    "ctas": [
+     {
+      "label": "Demander une hypothèque",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Guida ipotecaria: tutto sulla casa | HYPOTEQ",
+  "description": "Fondi propri, sostenibilità, SARON o tasso fisso, 2° pilastro e costi d'acquisto: spiegati in modo semplice dai nostri esperti. Leggi la guida.",
+  "h1": "Guida: l'ipoteca spiegata in modo semplice",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Guida",
+    "h1": "Guida: l'ipoteca\nspiegata in modo semplice",
+    "lead": "La nostra **guida ipoteca** ti spiega fondi propri, sostenibilità, modelli di tasso e costi accessori, proprio come li calcolano le banche. Con un esempio di calcolo che attraversa tutti gli articoli e consigli concreti per comprare casa in Svizzera.",
+    "ctas": [
+     {
+      "label": "Richiedere un'ipoteca",
+      "to": "funnel"
+     },
+     {
+      "label": "Verifica la sostenibilità",
+      "to": "page:tragbarkeit"
+     }
+    ],
+    "badges": [
+     "6 articoli",
+     "Caso pratico famiglia Meier",
+     "Stato 2026"
+    ],
+    "image": "family",
+    "alt": "Famiglia nella nuova casa ancora vuota"
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Articoli",
+    "title": "L'ipoteca spiegata.\n*Passo dopo passo.*",
+    "lead": "Tutti gli articoli usano lo stesso esempio: la famiglia Meier compra una casa unifamiliare a Baden per CHF 980’000. Così vedi come i temi si collegano.",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "01 · Fondi propri",
+      "title": "Fondi propri per la casa",
+      "text": "20 % di fondi propri, di cui 10 % effettivi: cosa conta, cosa no, anticipo d'eredità e donazione.",
+      "to": "page:rg-eigenmittel",
+      "cta": "Leggi l'articolo"
+     },
+     {
+      "kicker": "02 · Sostenibilità",
+      "title": "Calcolare la sostenibilità",
+      "text": "Tasso teorico del 5 %, costi accessori dell'1 % e ammortamento: come verificano le banche.",
+      "to": "page:rg-tragbarkeit",
+      "cta": "Leggi l'articolo"
+     },
+     {
+      "kicker": "03 · Modello di tasso",
+      "title": "SARON o tasso fisso?",
+      "text": "Rischio di tasso, pianificabilità e combinazioni a confronto, con un aiuto alla decisione.",
+      "to": "page:rg-saron-fest",
+      "cta": "Leggi l'articolo"
+     },
+     {
+      "kicker": "04 · Previdenza",
+      "title": "Cassa pensione e 3° pilastro",
+      "text": "Prelievo anticipato o costituzione in pegno? Usare la previdenza per i fondi propri o l'ammortamento.",
+      "to": "page:rg-pk",
+      "cta": "Leggi l'articolo"
+     },
+     {
+      "kicker": "05 · Costi",
+      "title": "Costi accessori dell'acquisto",
+      "text": "Imposta di trapasso, notaio, registro fondiario e cartella ipotecaria: circa 2–5 % del prezzo, a seconda del cantone.",
+      "to": "page:rg-nebenkosten",
+      "cta": "Leggi l'articolo"
+     },
+     {
+      "kicker": "06 · Broker",
+      "title": "Scegliere un broker ipotecario",
+      "text": "Come lavora un broker, come viene pagato e a cosa fare attenzione.",
+      "to": "page:rg-vermittler",
+      "cta": "Leggi l'articolo"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Strumenti",
+    "title": "Dalla teoria\n*ai tuoi numeri.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Calcolatore",
+      "title": "Calcolatore ipotecario",
+      "text": "Calcola in pochi secondi gli interessi per SARON e tasso fisso.",
+      "to": "page:rechner",
+      "cta": "Calcola ora"
+     },
+     {
+      "kicker": "Calcolatore",
+      "title": "Sostenibilità",
+      "text": "Verifica fondi propri, anticipo e sostenibilità come fanno le banche.",
+      "to": "page:tragbarkeit",
+      "cta": "Verifica"
+     },
+     {
+      "kicker": "Mercato",
+      "title": "Tassi attuali",
+      "text": "Tassi indicativi SARON, 5 e 10 anni fissi. Valori d'esempio per orientarti.",
+      "to": "page:zinsen",
+      "cta": "Vedi i tassi"
+     },
+     {
+      "kicker": "Valutazione",
+      "title": "Valutazione immobiliare",
+      "text": "Valore di mercato con il modello di Wüest Partner. CHF 300 invece di 450.",
+      "to": "bewertung",
+      "cta": "Avvia la valutazione"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Consigli acquisto casa Svizzera",
+    "title": "Da dove comincio?",
+    "items": [
+     {
+      "title": "Chiarire il budget",
+      "text": "Quanti fondi propri hai e quanti sono effettivi? L'articolo sui fondi propri ti aiuta."
+     },
+     {
+      "title": "Verificare la sostenibilità",
+      "text": "Calcola con un tasso teorico del 5 %. I costi non dovrebbero superare circa un terzo del reddito lordo."
+     },
+     {
+      "title": "Prevedere i costi accessori",
+      "text": "I costi d'acquisto si aggiungono ai fondi propri e di regola non si possono finanziare con l'ipoteca."
+     },
+     {
+      "title": "Confrontare le offerte",
+      "text": "Raccogliamo offerte da oltre 40 banche, assicurazioni e casse pensioni, gratis per te."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Richiesta in 3 minuti",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "HYPOTEQ Academy",
+    "title": "Vuoi approfondire?\n*Impara davvero.*",
+    "screen": "academy",
+    "paragraphs": [
+     "La guida ti dà la panoramica. Se vuoi andare più a fondo, il **Foundation Course** a CHF 290 ti accompagna in 8 Learning Journeys dai fondi propri alla sostenibilità fino al dossier ipotecario pronto per la banca, senza conoscenze preliminari.",
+     "Nel Learning Playground con IA ti eserciti su casi pratici come la famiglia Meier, verifichi le tue conoscenze e concludi con un certificato."
+    ],
+    "bullets": [
+     "Learning Nuggets brevi e casi pratici",
+     "Trainer IA per le tue domande",
+     "Test finale e certificato",
+     "Per privati, principianti e partner di vendita"
+    ],
+    "ctas": [
+     {
+      "label": "Scopri l'Academy",
+      "to": "page:academy"
+     },
+     {
+      "label": "Al corso",
+      "to": "academy"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Per agenti immobiliari, fiduciari & broker",
+    "title": "I tuoi clienti.\n*La nostra piattaforma.*",
+    "image": "consultation",
+    "alt": "Colloquio di consulenza al tavolo",
+    "tone": "dark",
+    "reverse": true,
+    "paragraphs": [
+     "I tuoi clienti ti fanno queste domande ogni giorno? Con il **programma partner** ci occupiamo noi del finanziamento, la relazione con il cliente resta tua e ricevi una provvigione equa per ogni conclusione."
+    ],
+    "ctas": [
+     {
+      "label": "Diventa partner",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "In breve.",
+    "items": [
+     {
+      "q": "Da dove comincio per comprare casa?",
+      "a": "Parti dal budget: chiarisci i tuoi fondi propri e verifica la sostenibilità con un tasso teorico del 5 %. Una conferma di finanziamento prima dell'offerta d'acquisto ti rende più credibile. Con la **richiesta online** in 3 minuti una persona ti dà una prima valutazione."
+     },
+     {
+      "q": "Quali costi devo considerare?",
+      "a": "Oltre al prezzo ci sono **costi d'acquisto** di circa 2–5 % a seconda del cantone: imposta di trapasso, notaio, registro fondiario e cartella ipotecaria. In seguito si aggiungono interessi, ammortamento, manutenzione e spese, che le banche stimano all'1 % del valore dell'immobile all'anno."
+     },
+     {
+      "q": "Quanti fondi propri servono?",
+      "a": "Almeno il **20 %** del valore di anticipo, di cui almeno il 10 % effettivo, cioè non dalla cassa pensione. Se il prezzo supera il valore stimato dalla banca, la differenza va coperta in più con fondi propri. Per la famiglia Meier: CHF 220’000 invece di CHF 196’000."
+     },
+     {
+      "q": "SARON o tasso fisso?",
+      "a": "L'**ipoteca SARON** segue il mercato monetario ed è flessibile, l'**ipoteca fissa** offre costi pianificabili per tutta la durata. Se puoi sopportare un rischio di tasso, il SARON è spesso interessante; se cerchi sicurezza, scegli il fisso. Spesso conviene combinarli."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Tutte le domande",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Hai letto abbastanza?\n*Ricevi offerte reali.*",
+    "text": "Gratuito, senza impegno e avviato in 3 minuti. La tua consulente ti richiama in tempi brevi.",
+    "ctas": [
+     {
+      "label": "Richiedere un'ipoteca",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "Swiss Mortgage Guide for Homebuyers | HYPOTEQ",
+  "description": "Down payment, affordability, SARON vs fixed, pension funds and purchase costs: Swiss mortgages explained simply by our experts. Read the guide.",
+  "h1": "Swiss mortgages explained simply",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Guide",
+    "h1": "Swiss mortgages\nexplained simply",
+    "lead": "Our **Swiss mortgage guide** explains down payment, affordability, rate models and purchase costs the way Swiss banks actually calculate them. One worked example runs through every article, with clear rules and practical tips for buying a house in Switzerland.",
+    "ctas": [
+     {
+      "label": "Request a mortgage",
+      "to": "funnel"
+     },
+     {
+      "label": "Check affordability",
+      "to": "page:tragbarkeit"
+     }
+    ],
+    "badges": [
+     "6 guide articles",
+     "Case study: the Meier family",
+     "Rules as of 2026"
+    ],
+    "image": "family",
+    "alt": "Family in their new, still empty home"
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Articles",
+    "title": "Swiss mortgages explained.\n*Step by step.*",
+    "lead": "Every article uses the same example: the Meier family buys a detached house in Baden for CHF 980’000. That way you see how the topics fit together.",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "01 · Down payment",
+      "title": "Down payment rules",
+      "text": "20 % equity, at least 10 % in cash: what counts, what doesn't, and how family gifts help.",
+      "to": "page:rg-eigenmittel",
+      "cta": "Read article"
+     },
+     {
+      "kicker": "02 · Affordability",
+      "title": "Affordability rules",
+      "text": "5 % imputed rate, 1 % maintenance and amortisation: how banks test whether you can carry the home.",
+      "to": "page:rg-tragbarkeit",
+      "cta": "Read article"
+     },
+     {
+      "kicker": "03 · Rate model",
+      "title": "SARON or fixed-rate?",
+      "text": "Interest rate risk, predictability and mixed models compared, with a clear decision guide.",
+      "to": "page:rg-saron-fest",
+      "cta": "Read article"
+     },
+     {
+      "kicker": "04 · Pension",
+      "title": "Pension fund and pillar 3a",
+      "text": "Withdrawal or pledge? How to use pillar 2 and 3a for your down payment or amortisation.",
+      "to": "page:rg-pk",
+      "cta": "Read article"
+     },
+     {
+      "kicker": "05 · Costs",
+      "title": "Extra purchase costs",
+      "text": "Transfer tax, notary, land registry and mortgage certificate: roughly 2–5 % of the price, by canton.",
+      "to": "page:rg-nebenkosten",
+      "cta": "Read article"
+     },
+     {
+      "kicker": "06 · Brokers",
+      "title": "Choosing a mortgage broker",
+      "text": "How Swiss brokers work, how they are paid and what to look out for.",
+      "to": "page:rg-vermittler",
+      "cta": "Read article"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Tools",
+    "title": "From knowledge\n*to your own numbers.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Calculator",
+      "title": "Mortgage calculator",
+      "text": "Work out interest costs for SARON and fixed-rate mortgages in seconds.",
+      "to": "page:rechner",
+      "cta": "Calculate"
+     },
+     {
+      "kicker": "Calculator",
+      "title": "Affordability check",
+      "text": "Check equity, loan-to-value and affordability the way banks do.",
+      "to": "page:tragbarkeit",
+      "cta": "Check now"
+     },
+     {
+      "kicker": "Market",
+      "title": "Current rates",
+      "text": "Indicative rates for SARON, 5 and 10 years fixed. Sample values for orientation.",
+      "to": "page:zinsen",
+      "cta": "View rates"
+     },
+     {
+      "kicker": "Valuation",
+      "title": "Property valuation",
+      "text": "Market value based on the Wüest Partner model. Now CHF 300 instead of 450.",
+      "to": "bewertung",
+      "cta": "Start valuation"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Buying a house in Switzerland",
+    "title": "Where do I start?",
+    "items": [
+     {
+      "title": "Set your budget",
+      "text": "How much equity do you have, and how much of it is cash rather than pension money? Our down payment guide helps."
+     },
+     {
+      "title": "Check affordability",
+      "text": "Calculate with a 5 % imputed rate. Costs should not exceed roughly one third of your gross income."
+     },
+     {
+      "title": "Plan purchase costs",
+      "text": "Purchase costs come on top of your equity and usually cannot be added to the mortgage."
+     },
+     {
+      "title": "Compare offers",
+      "text": "We collect offers from 40+ banks, insurers and pension funds, free of charge for you."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Apply in 3 minutes",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "HYPOTEQ Academy",
+    "title": "Want to go deeper?\n*Learn it properly.*",
+    "screen": "academy",
+    "paragraphs": [
+     "This guide gives you the overview. To go deeper, the **Foundation Course** for CHF 290 takes you through Swiss property financing in 8 Learning Journeys, from equity and affordability to a bank-ready mortgage file, with no prior knowledge needed.",
+     "In the AI Learning Playground you practise with case studies such as the Meier family, test yourself with knowledge checks and finish with a certificate."
+    ],
+    "bullets": [
+     "Short learning nuggets and case studies",
+     "AI trainer for your questions",
+     "Final test and certificate",
+     "For private buyers, beginners and sales partners"
+    ],
+    "ctas": [
+     {
+      "label": "Discover the Academy",
+      "to": "page:academy"
+     },
+     {
+      "label": "Go to the course",
+      "to": "academy"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "For agents, trustees & brokers",
+    "title": "Your clients.\n*Our platform.*",
+    "image": "consultation",
+    "alt": "Advisory meeting at a table with documents",
+    "tone": "dark",
+    "reverse": true,
+    "paragraphs": [
+     "Your clients ask you these questions every day? With our **partner programme** we handle the financing, the client relationship stays with you and you earn a fair commission on every closed deal."
+    ],
+    "ctas": [
+     {
+      "label": "Become a partner",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Quick answers.",
+    "items": [
+     {
+      "q": "Where do I start when buying in Switzerland?",
+      "a": "Start with your budget: work out your equity and check affordability with the 5 % imputed rate banks use. A financing confirmation before you make an offer strengthens your position. Our **online request** takes 3 minutes, and a human advisor gives you a first assessment."
+     },
+     {
+      "q": "What costs come with a purchase?",
+      "a": "On top of the price, expect **purchase costs** of roughly 2–5 % depending on the canton: property transfer tax, notary, land registry and the mortgage certificate (Schuldbrief). Afterwards come interest, amortisation and maintenance, which banks estimate at 1 % of the property value per year."
+     },
+     {
+      "q": "How much down payment is needed?",
+      "a": "At least **20 %** of the lending value, with at least 10 % as «hard» equity, meaning not from your pension fund (pillar 2). If the price is above the value the bank accepts, you cover the difference with extra equity. For the Meier family that means CHF 220’000 instead of CHF 196’000."
+     },
+     {
+      "q": "SARON or fixed?",
+      "a": "A **SARON mortgage** follows the Swiss money market and stays flexible; a **fixed-rate mortgage** gives you predictable costs for the whole term. If you can absorb rate swings, SARON is often attractive; if you need certainty, go fixed. Many buyers combine both."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "All questions",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Done reading?\n*Get real offers.*",
+    "text": "Free, non-binding and started in 3 minutes. Your advisor gets back to you promptly.",
+    "ctas": [
+     {
+      "label": "Request a mortgage",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ }
+}

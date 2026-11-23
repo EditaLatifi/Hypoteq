@@ -1,0 +1,862 @@
+{
+ "de": {
+  "title": "Hypothekenrechner: Kosten & Belehnung | HYPOTEQ",
+  "description": "Berechne in Sekunden deine monatlichen Hypothekarkosten, Belehnung und Amortisation. Danach Angebote von 40+ Anbietern anfragen. Kostenlos.",
+  "h1": "Hypothekenrechner: deine Kosten auf einen Blick",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypothekenrechner Schweiz",
+    "h1": "Hypothekenrechner: deine Kosten auf einen Blick",
+    "lead": "Mit unserem **Hypothekenrechner** siehst du in Sekunden, was dich deine Hypothek pro Monat kostet und wie hoch die Belehnung ist. Danach holst du dir kostenlos echte Offerten von über 40 Finanzierungspartnern.",
+    "ctas": [
+     {
+      "label": "Jetzt rechnen",
+      "to": "page:rechner#rechner"
+     },
+     {
+      "label": "Hypothek anfragen",
+      "to": "funnel"
+     }
+    ],
+    "badges": [
+     "Kostenlos & ohne Anmeldung",
+     "SARON, 5 und 10 Jahre fest",
+     "Ergebnis in Sekunden"
+    ],
+    "image": "house",
+    "alt": "Schweizer Chalet vor verschneiten Bergen",
+    "float": {
+     "title": "5 Jahre fest ab 1.30 %",
+     "text": "Richtzins · Beispielwert"
+    }
+   },
+   {
+    "type": "calc",
+    "mode": "zins",
+    "eyebrow": "Hypothek berechnen",
+    "title": "Was kostet\n*deine Hypothek?*",
+    "lead": "Gib Kaufpreis und Eigenmittel ein und wähle ein Hypothekarmodell. Der Rechner zeigt dir Hypothek, Belehnung und Zinskosten pro Monat und Jahr."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "So nutzt du den Rechner",
+    "title": "In vier Schritten\nzum Ergebnis.",
+    "items": [
+     {
+      "title": "Kaufpreis eingeben",
+      "text": "Trage den Kaufpreis oder den heutigen Wert deiner Immobilie ein. Kennst du den Wert nicht genau, hilft dir unsere Immobilienbewertung."
+     },
+     {
+      "title": "Eigenmittel erfassen",
+      "text": "Erfasse Erspartes, Säule 3a und allenfalls Pensionskassengelder. Banken verlangen mind. 20 % Eigenmittel, davon mind. 10 % «hart»."
+     },
+     {
+      "title": "Modell wählen",
+      "text": "Wähle SARON, 5 oder 10 Jahre fest. Der Rechner nutzt dafür unsere Richtzinsen als Beispielwerte."
+     },
+     {
+      "title": "Ergebnis lesen",
+      "text": "Du siehst Hypothek, **Belehnung** und Zinskosten. Liegt die Belehnung über 80 %, braucht es mehr Eigenmittel. Für deinen persönlichen Zins startest du die Anfrage."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Persönliche Offerte anfragen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "Banken, Versicherungen & Pensionskassen"
+     },
+     {
+      "value": "0 CHF",
+      "label": "für Vergleich und Vermittlung"
+     },
+     {
+      "value": "3 Min.",
+      "label": "bis zur vollständigen Anfrage"
+     },
+     {
+      "value": "48–72 h",
+      "label": "bis zu den Offerten"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Richtzinsen",
+    "title": "Mit diesen Zinsen\n*rechnet der Rechner.*",
+    "lead": "Die Richtzinsen sind Beispielwerte zur Orientierung. Deinen persönlichen Hypothekarzins berechnen die Finanzierungspartner nach Objekt, Belehnung und Tragbarkeit."
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Weiterrechnen",
+    "title": "Der Zins ist erst\n*die halbe Rechnung.*",
+    "lead": "Der Hypothekenrechner zeigt die Zinskosten. Ob dir eine Bank die Hypothek gewährt, entscheidet die Tragbarkeit.",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Rechner",
+      "title": "Tragbarkeitsrechner",
+      "text": "Prüfe mit kalkulatorischem Zins, Unterhalt und Amortisation, ob dein Einkommen reicht.",
+      "to": "page:tragbarkeit",
+      "cta": "Tragbarkeit berechnen"
+     },
+     {
+      "kicker": "Zinsen",
+      "title": "Aktuelle Hypothekarzinsen",
+      "text": "SARON und Festhypotheken im Überblick, inklusive Einordnung, wann welches Modell passt.",
+      "to": "page:zinsen",
+      "cta": "Zinsen ansehen"
+     },
+     {
+      "kicker": "Ratgeber",
+      "title": "Tragbarkeit verstehen",
+      "text": "Wie Banken rechnen, warum mit 5 % Zins und was du tun kannst, wenn es knapp wird.",
+      "to": "page:rg-tragbarkeit",
+      "cta": "Ratgeber lesen"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Nach der Berechnung",
+    "title": "Vom Rechner\n*zur echten Offerte.*",
+    "screen": "funnel",
+    "paragraphs": [
+     "Der Rechner zeigt eine Beispielrechnung. Für deinen verbindlichen Zins lädst du in der **Schnellanmeldung** Lohnausweis, ID und Objektunterlagen hoch. Unsere KI liest die meisten Angaben aus.",
+     "Deine Beraterin meldet sich zeitnah. Mit vollständigen Unterlagen erhältst du meist innert 48–72 Stunden konkrete Offerten."
+    ],
+    "bullets": [
+     "Kostenlos und unverbindlich",
+     "Daten werden in der Schweiz verarbeitet",
+     "Die KI berät nicht: Das macht ein Mensch"
+    ],
+    "ctas": [
+     {
+      "label": "Jetzt in 3 Minuten anfragen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Für Makler & Treuhänder",
+    "title": "Den Rechner\n*für deine Kunden nutzen.*",
+    "cols": 2,
+    "tone": "soft",
+    "items": [
+     {
+      "kicker": "Partnerprogramm",
+      "title": "Kunden vermitteln, Provision erhalten",
+      "text": "Du bringst die Kundin, wir organisieren die Finanzierung. Die Kundenbeziehung bleibt bei dir.",
+      "to": "page:partner",
+      "cta": "Partner werden"
+     },
+     {
+      "kicker": "Einbettung",
+      "title": "Rechner auf deiner Website",
+      "text": "Partner können den Kalkulator nach Absprache per iFrame auf ihrer eigenen Website einbinden.",
+      "to": "page:partner#formular",
+      "cta": "Anfrage stellen"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Fragen zum\nHypothekenrechner.",
+    "items": [
+     {
+      "q": "Wie genau ist der Hypothekenrechner?",
+      "a": "Der Rechner liefert eine **Beispielrechnung** der Zinskosten. Er ersetzt keine Tragbarkeitsprüfung und ist keine Finanzierungszusage. Dein effektiver Zins hängt von Objekt, Belehnung, Tragbarkeit und Laufzeit ab."
+     },
+     {
+      "q": "Welcher Zinssatz wird verwendet?",
+      "a": "Unsere Richtzinsen als Beispielwerte: SARON ab 0.85 %, 5 Jahre fest ab 1.30 % und 10 Jahre fest ab 1.60 %. Persönliche Zinsen erhältst du mit der Online-Anfrage."
+     },
+     {
+      "q": "Sind Nebenkosten und Amortisation enthalten?",
+      "a": "Nein. Der Hypothekenrechner zeigt nur die Zinskosten. Unterhalt (ca. 1 % des Immobilienwerts) und Amortisation berücksichtigt der **Tragbarkeitsrechner**. Kaufnebenkosten liegen je nach Kanton bei ca. 2–5 %."
+     },
+     {
+      "q": "Wie geht es nach der Berechnung weiter?",
+      "a": "Starte die kostenlose Online-Anfrage. Deine Beraterin meldet sich zeitnah, prüft deine Situation und holt Offerten von über 40 Finanzierungspartnern ein."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Alle Fragen",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Gerechnet?\n*Jetzt echte Offerten holen.*",
+    "text": "Kostenlos, unverbindlich und in 3 Minuten gestartet.",
+    "ctas": [
+     {
+      "label": "Hypothek anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Calculateur hypothécaire: coûts et avance | HYPOTEQ",
+  "description": "Calculez en quelques secondes vos coûts mensuels, le taux d'avance et l'amortissement. Puis demandez une offre à 40+ prêteurs. Gratuit.",
+  "h1": "Calculateur hypothécaire gratuit",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Simulateur hypothèque Suisse",
+    "h1": "Calculateur\nhypothécaire gratuit",
+    "lead": "Avec notre **calculateur hypothécaire**, vous voyez en quelques secondes le coût mensuel de votre hypothèque et votre taux d'avance. Ensuite, vous demandez gratuitement de vraies offres à plus de 40 prêteurs.",
+    "ctas": [
+     {
+      "label": "Calculer maintenant",
+      "to": "page:rechner#rechner"
+     },
+     {
+      "label": "Demander une hypothèque",
+      "to": "funnel"
+     }
+    ],
+    "badges": [
+     "Gratuit & sans inscription",
+     "SARON, fixe 5 et 10 ans",
+     "Résultat immédiat"
+    ],
+    "image": "house",
+    "alt": "Chalet suisse devant des montagnes enneigées",
+    "float": {
+     "title": "Fixe 5 ans dès 1.30 %",
+     "text": "Taux indicatif · valeur d'exemple"
+    }
+   },
+   {
+    "type": "calc",
+    "mode": "zins",
+    "eyebrow": "Calcul hypothèque",
+    "title": "Combien coûte\n*votre hypothèque?*",
+    "lead": "Saisissez le prix d'achat et vos fonds propres, puis choisissez un modèle. Le calculateur affiche l'hypothèque, le nantissement et les intérêts par mois et par an."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Mode d'emploi",
+    "title": "Quatre étapes\njusqu'au résultat.",
+    "items": [
+     {
+      "title": "Indiquer le prix",
+      "text": "Saisissez le prix d'achat ou la valeur actuelle de votre bien. Vous ne la connaissez pas? Notre estimation immobilière vous aide."
+     },
+     {
+      "title": "Saisir les fonds propres",
+      "text": "Épargne, 3e pilier et éventuellement 2e pilier. Les banques exigent au moins 20 % de fonds propres, dont 10 % au minimum hors caisse de pension."
+     },
+     {
+      "title": "Choisir le modèle",
+      "text": "SARON, fixe 5 ou 10 ans: le calculateur utilise nos taux indicatifs comme valeurs d'exemple."
+     },
+     {
+      "title": "Lire le résultat",
+      "text": "Vous voyez l'hypothèque, le **taux d'avance** et les intérêts. Au-delà de 80 %, il faut davantage de fonds propres. Pour votre taux personnel, lancez la demande."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Demander une offre personnelle",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banques, assurances & caisses de pension"
+     },
+     {
+      "value": "0 CHF",
+      "label": "pour la comparaison et le courtage"
+     },
+     {
+      "value": "3 min",
+      "label": "pour une demande complète"
+     },
+     {
+      "value": "48–72 h",
+      "label": "jusqu'aux offres"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Taux indicatifs",
+    "title": "Les taux utilisés\n*par le calculateur.*",
+    "lead": "Ces taux hypothécaires sont des valeurs d'exemple. Votre taux personnel dépend du bien, du nantissement et de votre capacité financière."
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Aller plus loin",
+    "title": "Le taux n'est que\n*la moitié du calcul.*",
+    "lead": "Le calculateur montre les intérêts. C'est toutefois la capacité financière qui décide si la banque accorde l'hypothèque.",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Calculateur",
+      "title": "Capacité financière",
+      "text": "Vérifiez avec le taux théorique, l'entretien et l'amortissement si votre revenu suffit.",
+      "to": "page:tragbarkeit",
+      "cta": "Calculer ma capacité"
+     },
+     {
+      "kicker": "Taux",
+      "title": "Taux hypothécaires actuels",
+      "text": "SARON et hypothèques fixes en un coup d'œil, avec nos repères pour choisir.",
+      "to": "page:zinsen",
+      "cta": "Voir les taux"
+     },
+     {
+      "kicker": "Guide",
+      "title": "Comprendre la capacité",
+      "text": "Comment les banques calculent, pourquoi 5 % et que faire si le calcul est serré.",
+      "to": "page:rg-tragbarkeit",
+      "cta": "Lire le guide"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Après le calcul",
+    "title": "Du calculateur\n*à la vraie offre.*",
+    "screen": "funnel",
+    "paragraphs": [
+     "Le calculateur donne un exemple. Pour un taux ferme, envoyez dans l'**inscription rapide** votre certificat de salaire, votre pièce d'identité et les documents du bien. Notre IA lit la plupart des données.",
+     "Votre conseillère vous contacte rapidement. Avec un dossier complet, vous recevez des offres concrètes sous 48 à 72 heures."
+    ],
+    "bullets": [
+     "Gratuit et sans engagement",
+     "Données traitées en Suisse",
+     "L'IA ne conseille pas: c'est le rôle d'une personne"
+    ],
+    "ctas": [
+     {
+      "label": "Demander en 3 minutes",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Pour courtiers & fiduciaires",
+    "title": "Le calculateur\n*pour vos clients.*",
+    "cols": 2,
+    "tone": "soft",
+    "items": [
+     {
+      "kicker": "Programme partenaires",
+      "title": "Recommander et être rémunéré",
+      "text": "Vous apportez le client, nous organisons le financement. La relation client reste chez vous.",
+      "to": "page:partner",
+      "cta": "Devenir partenaire"
+     },
+     {
+      "kicker": "Intégration",
+      "title": "Le calculateur sur votre site",
+      "text": "Nos partenaires peuvent intégrer le calculateur par iFrame sur leur propre site, après accord.",
+      "to": "page:partner#formular",
+      "cta": "Nous contacter"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "Questions sur\nle calculateur.",
+    "items": [
+     {
+      "q": "Quelle est la précision du calculateur?",
+      "a": "Le calculateur fournit un **exemple** des intérêts. Il ne remplace pas l'examen de la capacité financière et ne constitue pas un engagement de financement. Votre taux dépend du bien, du nantissement, de la capacité et de la durée."
+     },
+     {
+      "q": "Quel taux d'intérêt est utilisé?",
+      "a": "Nos taux indicatifs, à titre d'exemple: SARON dès 0.85 %, fixe 5 ans dès 1.30 %, fixe 10 ans dès 1.60 %. Vous obtenez votre taux personnel avec la demande en ligne."
+     },
+     {
+      "q": "Les frais d'entretien sont-ils inclus?",
+      "a": "Non. Ce calculateur affiche uniquement les intérêts. L'entretien (env. 1 % de la valeur du bien) et l'amortissement figurent dans le **calcul de capacité financière**. Les frais d'achat varient selon le canton, env. 2 à 5 %."
+     },
+     {
+      "q": "Que faire après le calcul?",
+      "a": "Lancez la demande en ligne gratuite. Votre conseillère vous contacte rapidement, analyse votre situation et obtient des offres de plus de 40 prêteurs."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Toutes les questions",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Calcul terminé?\n*Place aux vraies offres.*",
+    "text": "Gratuit, sans engagement et lancé en 3 minutes.",
+    "ctas": [
+     {
+      "label": "Demander une hypothèque",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Calcolatore ipotecario: costi e anticipo | HYPOTEQ",
+  "description": "Calcola in pochi secondi i costi mensili dell'ipoteca, il grado di anticipo e l'ammortamento. Poi richiedi un'offerta a oltre 40 istituti. Gratis.",
+  "h1": "Calcolatore ipotecario gratuito",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Simulatore ipoteca Svizzera",
+    "h1": "Calcolatore\nipotecario gratuito",
+    "lead": "Con il nostro **calcolatore ipotecario** vedi in pochi secondi quanto ti costa l'ipoteca al mese e qual è il grado di anticipo. Poi richiedi gratis offerte vere a oltre 40 istituti.",
+    "ctas": [
+     {
+      "label": "Calcola ora",
+      "to": "page:rechner#rechner"
+     },
+     {
+      "label": "Richiedere un'ipoteca",
+      "to": "funnel"
+     }
+    ],
+    "badges": [
+     "Gratis e senza registrazione",
+     "SARON, fissa 5 e 10 anni",
+     "Risultato immediato"
+    ],
+    "image": "house",
+    "alt": "Chalet svizzero davanti a montagne innevate",
+    "float": {
+     "title": "Fissa 5 anni da 1.30 %",
+     "text": "Tasso indicativo · valore d'esempio"
+    }
+   },
+   {
+    "type": "calc",
+    "mode": "zins",
+    "eyebrow": "Calcolo ipoteca",
+    "title": "Quanto costa\n*la tua ipoteca?*",
+    "lead": "Inserisci prezzo d'acquisto e fondi propri e scegli un modello. Il calcolatore mostra ipoteca, anticipo e interessi al mese e all'anno."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Come funziona",
+    "title": "Quattro passi\nfino al risultato.",
+    "items": [
+     {
+      "title": "Inserisci il prezzo",
+      "text": "Indica il prezzo d'acquisto o il valore attuale dell'immobile. Non lo conosci con precisione? Ti aiuta la nostra stima immobiliare."
+     },
+     {
+      "title": "Indica i fondi propri",
+      "text": "Risparmi, 3° pilastro ed eventualmente la cassa pensione. Le banche chiedono almeno il 20 % di fondi propri, di cui almeno il 10 % non dalla cassa pensione."
+     },
+     {
+      "title": "Scegli il modello",
+      "text": "SARON, fissa 5 o 10 anni: il calcolatore usa i nostri tassi indicativi come valori d'esempio."
+     },
+     {
+      "title": "Leggi il risultato",
+      "text": "Vedi ipoteca, **anticipo** e interessi. Oltre l'80 % servono più fondi propri. Per il tuo tasso personale avvia la richiesta."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Richiedi un'offerta personale",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banche, assicurazioni e casse pensioni"
+     },
+     {
+      "value": "0 CHF",
+      "label": "per confronto e mediazione"
+     },
+     {
+      "value": "3 min",
+      "label": "per una richiesta completa"
+     },
+     {
+      "value": "48–72 h",
+      "label": "fino alle offerte"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Tassi indicativi",
+    "title": "I tassi usati\n*dal calcolatore.*",
+    "lead": "Questi tassi ipotecari sono valori d'esempio. Il tuo tasso personale dipende da immobile, anticipo e sostenibilità."
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Continua a calcolare",
+    "title": "Il tasso è solo\n*metà del calcolo.*",
+    "lead": "Il calcolatore mostra gli interessi. Ma è la sostenibilità a decidere se la banca concede l'ipoteca.",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Calcolatore",
+      "title": "Calcolo sostenibilità",
+      "text": "Verifica con tasso teorico, manutenzione e ammortamento se il tuo reddito basta.",
+      "to": "page:tragbarkeit",
+      "cta": "Calcola la sostenibilità"
+     },
+     {
+      "kicker": "Tassi",
+      "title": "Tassi ipotecari attuali",
+      "text": "SARON e ipoteche fisse a colpo d'occhio, con indicazioni su quando conviene quale modello.",
+      "to": "page:zinsen",
+      "cta": "Vedi i tassi"
+     },
+     {
+      "kicker": "Guida",
+      "title": "Capire la sostenibilità",
+      "text": "Come calcolano le banche, perché il 5 % e cosa fare se il calcolo è al limite.",
+      "to": "page:rg-tragbarkeit",
+      "cta": "Leggi la guida"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Dopo il calcolo",
+    "title": "Dal calcolatore\n*all'offerta vera.*",
+    "screen": "funnel",
+    "paragraphs": [
+     "Il calcolatore mostra un esempio. Per un tasso vincolante carica nella **registrazione rapida** certificato di salario, documento d'identità e documenti dell'immobile. La nostra IA legge la maggior parte dei dati.",
+     "La tua consulente ti contatta in tempi brevi. Con i documenti completi ricevi di solito offerte concrete entro 48–72 ore."
+    ],
+    "bullets": [
+     "Gratis e senza impegno",
+     "Dati trattati in Svizzera",
+     "L'IA non fornisce consulenza: lo fa una persona"
+    ],
+    "ctas": [
+     {
+      "label": "Richiedi in 3 minuti",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Per agenti & fiduciari",
+    "title": "Il calcolatore\n*per i tuoi clienti.*",
+    "cols": 2,
+    "tone": "soft",
+    "items": [
+     {
+      "kicker": "Programma partner",
+      "title": "Segnala clienti, ricevi la provvigione",
+      "text": "Tu porti il cliente, noi organizziamo il finanziamento. Il rapporto con il cliente resta tuo.",
+      "to": "page:partner",
+      "cta": "Diventa partner"
+     },
+     {
+      "kicker": "Integrazione",
+      "title": "Il calcolatore sul tuo sito",
+      "text": "I partner possono integrare il calcolatore via iFrame sul proprio sito, previo accordo.",
+      "to": "page:partner#formular",
+      "cta": "Contattaci"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "Domande sul\ncalcolatore.",
+    "items": [
+     {
+      "q": "Quanto è preciso il calcolatore?",
+      "a": "Il calcolatore fornisce un **esempio** degli interessi. Non sostituisce la verifica della sostenibilità e non è una promessa di finanziamento. Il tuo tasso dipende da immobile, anticipo, sostenibilità e durata."
+     },
+     {
+      "q": "Quale tasso viene utilizzato?",
+      "a": "I nostri tassi indicativi come valori d'esempio: SARON da 0.85 %, fissa 5 anni da 1.30 %, fissa 10 anni da 1.60 %. Il tasso personale lo ottieni con la richiesta online."
+     },
+     {
+      "q": "Sono inclusi costi accessori e ammortamento?",
+      "a": "No. Questo calcolatore mostra solo gli interessi. Manutenzione (ca. 1 % del valore) e ammortamento sono inclusi nel **calcolo della sostenibilità**. I costi d'acquisto variano per cantone, ca. 2–5 %."
+     },
+     {
+      "q": "Cosa succede dopo il calcolo?",
+      "a": "Avvia la richiesta online gratuita. La tua consulente ti contatta in tempi brevi, analizza la tua situazione e raccoglie offerte da oltre 40 istituti."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Tutte le domande",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Calcolo fatto?\n*Ora le offerte vere.*",
+    "text": "Gratis, senza impegno e avviato in 3 minuti.",
+    "ctas": [
+     {
+      "label": "Richiedere un'ipoteca",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "Swiss Mortgage Calculator: Costs & LTV | HYPOTEQ",
+  "description": "Calculate your monthly Swiss mortgage costs, loan-to-value and amortisation in seconds. Then request offers from 40+ lenders. Free, in English.",
+  "h1": "Swiss mortgage calculator",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Mortgage calculator Switzerland",
+    "h1": "Swiss mortgage\ncalculator",
+    "lead": "Our **mortgage calculator for Switzerland** shows you in seconds what your mortgage costs per month and what your loan-to-value is. Then request real offers from more than 40 lenders, free of charge.",
+    "ctas": [
+     {
+      "label": "Calculate now",
+      "to": "page:rechner#rechner"
+     },
+     {
+      "label": "Request a mortgage",
+      "to": "funnel"
+     }
+    ],
+    "badges": [
+     "Free, no sign-up",
+     "SARON, 5- and 10-year fixed",
+     "Instant result"
+    ],
+    "image": "house",
+    "alt": "Swiss chalet in front of snowy mountains",
+    "float": {
+     "title": "5-year fixed from 1.30 %",
+     "text": "Indicative rate · sample value"
+    }
+   },
+   {
+    "type": "calc",
+    "mode": "zins",
+    "eyebrow": "Calculate your mortgage",
+    "title": "What does\n*your mortgage cost?*",
+    "lead": "Enter the purchase price and your equity, then pick a mortgage model. The calculator shows the mortgage amount, loan-to-value and interest per month and year."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "How to use it",
+    "title": "Four steps\nto your result.",
+    "items": [
+     {
+      "title": "Enter the price",
+      "text": "Type in the purchase price or today's value of your property. Not sure about the value? Our property valuation helps."
+     },
+     {
+      "title": "Add your equity",
+      "text": "Savings, pillar 3a and possibly pillar 2 pension assets. Swiss banks require at least 20 % equity, of which at least 10 % must come from outside your pension fund."
+     },
+     {
+      "title": "Choose a model",
+      "text": "SARON (money-market based), 5- or 10-year fixed: the calculator uses our indicative rates as sample values."
+     },
+     {
+      "title": "Read the result",
+      "text": "You see the mortgage, **loan-to-value** and interest. Above 80 % you need more equity. For your personal rate, start your request."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Request a personal offer",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banks, insurers & pension funds"
+     },
+     {
+      "value": "0 CHF",
+      "label": "for comparison and brokerage"
+     },
+     {
+      "value": "3 min",
+      "label": "to complete your request"
+     },
+     {
+      "value": "48–72 h",
+      "label": "until you get offers"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Indicative rates",
+    "title": "The rates behind\n*the calculator.*",
+    "lead": "These are sample values for orientation. Your personal mortgage rate depends on the property, loan-to-value and affordability."
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Keep calculating",
+    "title": "Interest is only\n*half the story.*",
+    "lead": "The calculator shows interest costs. Whether a Swiss bank grants the mortgage depends on affordability.",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Calculator",
+      "title": "Affordability calculator",
+      "text": "Check with the 5 % imputed rate, maintenance and amortisation whether your income is enough.",
+      "to": "page:tragbarkeit",
+      "cta": "Check affordability"
+     },
+     {
+      "kicker": "Rates",
+      "title": "Current mortgage rates",
+      "text": "SARON and fixed-rate mortgages at a glance, with guidance on which model fits when.",
+      "to": "page:zinsen",
+      "cta": "See rates"
+     },
+     {
+      "kicker": "Guide",
+      "title": "Understand affordability",
+      "text": "How Swiss banks calculate, why they use 5 % and what to do if it gets tight.",
+      "to": "page:rg-tragbarkeit",
+      "cta": "Read the guide"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "After the calculation",
+    "title": "From calculator\n*to a real offer.*",
+    "screen": "funnel",
+    "paragraphs": [
+     "The calculator gives you an example. For a binding rate, upload your salary statement, ID and property documents in the **quick application**. Our AI reads most of the details for you.",
+     "Your advisor usually contacts you the same business day. Once your documents are complete, you typically receive concrete offers within 48–72 hours."
+    ],
+    "bullets": [
+     "Free and non-binding",
+     "Data processed in Switzerland",
+     "The AI doesn't advise: a person does"
+    ],
+    "ctas": [
+     {
+      "label": "Apply in 3 minutes",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "For agents & trustees",
+    "title": "Use the calculator\n*for your clients.*",
+    "cols": 2,
+    "tone": "soft",
+    "items": [
+     {
+      "kicker": "Partner programme",
+      "title": "Refer clients, earn commission",
+      "text": "You bring the client, we arrange the financing. The client relationship stays with you.",
+      "to": "page:partner",
+      "cta": "Become a partner"
+     },
+     {
+      "kicker": "Embedding",
+      "title": "The calculator on your website",
+      "text": "Partners can embed the calculator on their own website via iFrame, by arrangement.",
+      "to": "page:partner#formular",
+      "cta": "Get in touch"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Questions about\nthe calculator.",
+    "items": [
+     {
+      "q": "How accurate is the calculator?",
+      "a": "The calculator gives you an **example** of interest costs. It doesn't replace an affordability check and isn't a financing commitment. Your actual rate depends on the property, loan-to-value, affordability and term."
+     },
+     {
+      "q": "Which interest rate is used?",
+      "a": "Our indicative rates as sample values: SARON from 0.85 %, 5-year fixed from 1.30 % and 10-year fixed from 1.60 %. You get your personal rate through the online request."
+     },
+     {
+      "q": "Are maintenance costs included?",
+      "a": "No. This calculator shows interest only. Maintenance (approx. 1 % of the property value) and amortisation are part of the **affordability calculator**. Purchase costs vary by canton, roughly 2–5 %."
+     },
+     {
+      "q": "What happens after the calculation?",
+      "a": "Start the free online request. Your advisor contacts you the same business day, reviews your situation and gathers offers from more than 40 lenders."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "All questions",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Done calculating?\n*Get real offers.*",
+    "text": "Free, non-binding and started in 3 minutes.",
+    "ctas": [
+     {
+      "label": "Request a mortgage",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ }
+}

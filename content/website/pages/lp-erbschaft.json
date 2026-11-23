@@ -1,0 +1,878 @@
+{
+ "de": {
+  "title": "Haus geerbt? Geschwister mit Hypothek auszahlen | HYPOTEQ",
+  "description": "Du willst das geerbte Haus behalten? Wir finanzieren die Auszahlung deiner Miterben, inkl. Bewertung, mit 40+ Anbietern. Anfrage in 3 Minuten.",
+  "h1": "Elternhaus übernehmen und Miterben auszahlen",
+  "nav": [
+   "Erbschaft & Miterben",
+   "Elternhaus behalten, Miterben auszahlen"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypothek Erbschaft",
+    "h1": "Elternhaus übernehmen\nund Miterben auszahlen",
+    "lead": "Wer ein **Haus erbt und die Geschwister auszahlen** will, braucht zwei Dinge: einen fairen Wert und Geld für die Ausgleichszahlung. HYPOTEQ organisiert die Bewertung und finanziert die Übernahme mit über 40 Banken, Versicherungen und Pensionskassen.",
+    "ctas": [
+     {
+      "label": "Übernahme anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Kostenloser Vergleich",
+     "Bewertung mit Wüest Partner",
+     "Anfrage in 3 Minuten"
+    ],
+    "image": "family-home",
+    "alt": "Familie am Tisch bespricht die Zukunft des Elternhauses",
+    "float": {
+     "title": "Marktwert mit Wüest Partner",
+     "text": "CHF 300 statt 450"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "Banken, Versicherungen und Pensionskassen"
+     },
+     {
+      "value": "0 CHF",
+      "label": "für Vergleich und Vermittlung"
+     },
+     {
+      "value": "CHF 300",
+      "label": "Immobilienbewertung statt CHF 450"
+     },
+     {
+      "value": "48–72 h",
+      "label": "bis zu konkreten Offerten"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Erbengemeinschaft Haus übernehmen",
+    "title": "Einer behält das Haus.\n*Alle erhalten ihren Anteil.*",
+    "image": "house",
+    "alt": "Chalet vor Bergen",
+    "paragraphs": [
+     "In einer **Erbengemeinschaft** gehört das Haus allen Erben gemeinsam. Willst du das **Elternhaus übernehmen**, zahlst du deinen Miterben ihren Anteil aus. Dafür braucht es einen anerkannten Anrechnungswert und eine Finanzierung, die du allein tragen kannst.",
+     "Wir bringen beides zusammen: Die Bewertung nach dem Modell von Wüest Partner schafft eine gemeinsame Grundlage, und wir finanzieren die Ausgleichszahlung über eine neue oder aufgestockte Hypothek."
+    ],
+    "bullets": [
+     "Bestehende Hypothek übernehmen oder neu finanzieren",
+     "Ausgleichszahlung über Hypothek, Eigenmittel oder Vorsorge",
+     "Abstimmung mit Notariat und Erbteilungsvertrag"
+    ],
+    "ctas": [
+     {
+      "label": "Finanzierung prüfen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "So läuft die Übernahme",
+    "title": "Vom Erbfall\nzum eigenen Zuhause.",
+    "items": [
+     {
+      "title": "Situation schildern",
+      "text": "Beschreibe Erbengemeinschaft, Objekt und bestehende Hypothek online oder im Chat mit HYPO."
+     },
+     {
+      "title": "Wert festlegen",
+      "text": "Die Bewertung mit Wüest Partner liefert einen nachvollziehbaren Marktwert für die Erbteilung."
+     },
+     {
+      "title": "Finanzierung rechnen",
+      "text": "Deine Beraterin prüft Belehnung und Tragbarkeit und zeigt, wie viel Auszahlung finanzierbar ist."
+     },
+     {
+      "title": "Offerten & Teilung",
+      "text": "Wir holen Offerten ein und stimmen die Auszahlung mit dem Notariat ab."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Jetzt starten",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Typische Stolpersteine",
+    "title": "Wo es im Erbfall hakt.\n*Und wie wir helfen.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Tragbarkeit",
+      "title": "Ein Einkommen, ein Haus",
+      "text": "Banken rechnen mit 5 % kalkulatorischem Zins. Wir suchen Anbieter, die zu deiner Situation passen, auch vor der Pensionierung.",
+      "to": "page:ruhestand"
+     },
+     {
+      "kicker": "Hypothek",
+      "title": "Festhypothek läuft noch",
+      "text": "Übernehmen, ablösen oder aufstocken? Wir vergleichen die Varianten inklusive Vorfälligkeitskosten.",
+      "to": "page:lp-vorfaelligkeit"
+     },
+     {
+      "kicker": "Wert",
+      "title": "Uneinig über den Preis",
+      "text": "Ein neutraler Marktwert nach dem Wüest-Partner-Modell versachlicht die Diskussion.",
+      "to": "bewertung"
+     },
+     {
+      "kicker": "Recht & Steuern",
+      "title": "Teilung, Steuern, Fristen",
+      "text": "Das klären Notariat oder Fachperson. Bei komplexen Strukturen hilft unser Advisory.",
+      "to": "page:advisory"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Wie viel Auszahlung kann ich finanzieren?",
+    "title": "Übernahme\n*grob durchrechnen.*",
+    "lead": "Setze den Hauswert als Kaufpreis ein und als Eigenmittel deinen Erbteil plus Ersparnisse. So siehst du Hypothek und Tragbarkeit."
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Passend dazu",
+    "title": "Weitere Themen\n*rund ums Elternhaus.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Zu Lebzeiten",
+      "title": "Haus von den Eltern kaufen",
+      "text": "Erbvorbezug, Schenkung, Wohnrecht.",
+      "to": "page:lp-eltern"
+     },
+     {
+      "kicker": "Trennung",
+      "title": "Haus nach Scheidung behalten",
+      "text": "Partner auszahlen, allein tragen.",
+      "to": "page:lp-scheidung"
+     },
+     {
+      "kicker": "Mehr Kapital",
+      "title": "Hypothek aufstocken",
+      "text": "Für Auszahlung oder Sanierung.",
+      "to": "page:aufstocken"
+     },
+     {
+      "kicker": "Für Treuhänder",
+      "title": "Partner werden",
+      "text": "Erbfälle deiner Mandanten finanzieren.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Erbschaft und Hypothek\n*klar erklärt.*",
+    "items": [
+     {
+      "q": "Wie finanziere ich die Auszahlung meiner Geschwister?",
+      "a": "Meist über eine neue oder aufgestockte Hypothek auf dem geerbten Haus, ergänzt durch eigene Mittel. Die Belehnung darf max. 80 % betragen, und die Tragbarkeit muss mit deinem Einkommen aufgehen. Stand 2026, ohne Gewähr."
+     },
+     {
+      "q": "Kann ich die bestehende Hypothek der Eltern übernehmen?",
+      "a": "Ja, wenn der Kreditgeber zustimmt und die Tragbarkeit passt. Läuft die Festhypothek bald aus, lohnt sich oft ein Wechsel zu besseren Konditionen. Bei vorzeitiger Auflösung können Vorfälligkeitskosten anfallen."
+     },
+     {
+      "q": "Welcher Wert gilt für die Erbteilung?",
+      "a": "Darauf einigen sich die Erben im Rahmen von Gesetz und Testament. Eine neutrale Bewertung nach dem Modell von Wüest Partner ist eine gute Grundlage, auch für die Bank. Rechtliches klärst du mit dem Notariat."
+     },
+     {
+      "q": "Wie lange darf die Erbteilung dauern?",
+      "a": "Eine Erbengemeinschaft kann grundsätzlich länger bestehen, jede erbende Person kann aber die Teilung verlangen. Für die Finanzierung zählt die Einigung über Wert und Übernahme. Zu Fristen und Steuern berät dich eine Fachperson."
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Das Elternhaus\n*in der Familie behalten?*",
+    "text": "Bewertung, Vergleich und Finanzierung aus einer Hand. Anfrage in 3 Minuten.",
+    "ctas": [
+     {
+      "label": "Übernahme anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Maison héritée: racheter les parts des cohéritiers | HYPOTEQ",
+  "description": "Vous voulez garder la maison héritée? Nous finançons le rachat des parts des cohéritiers, estimation comprise, avec 40+ prêteurs. Demande en 3 minutes.",
+  "h1": "Reprendre la maison familiale et désintéresser les cohéritiers",
+  "nav": [
+   "Héritage & cohéritiers",
+   "Garder la maison, racheter les parts"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypothèque héritage",
+    "h1": "Reprendre la maison familiale\net désintéresser les cohéritiers",
+    "lead": "Vous voulez **hériter de la maison et racheter les parts** de vos frères et soeurs? Il faut une valeur juste et de quoi financer la soulte: HYPOTEQ organise l'estimation et finance la reprise avec plus de 40 prêteurs.",
+    "ctas": [
+     {
+      "label": "Demander la reprise",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Comparaison gratuite",
+     "Estimation Wüest Partner",
+     "Demande en 3 minutes"
+    ],
+    "image": "family-home",
+    "alt": "Famille à table discutant de l'avenir de la maison familiale",
+    "float": {
+     "title": "Valeur avec Wüest Partner",
+     "text": "CHF 300 au lieu de 450"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banques, assurances et caisses de pension"
+     },
+     {
+      "value": "0 CHF",
+      "label": "pour la comparaison et le courtage"
+     },
+     {
+      "value": "CHF 300",
+      "label": "estimation au lieu de CHF 450"
+     },
+     {
+      "value": "48–72 h",
+      "label": "jusqu'aux offres"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Hoirie et maison",
+    "title": "Un héritier garde la maison.\n*Chacun reçoit sa part.*",
+    "image": "house",
+    "alt": "Chalet devant les montagnes",
+    "paragraphs": [
+     "Dans une **hoirie**, la maison appartient à tous les héritiers. Pour **reprendre la maison familiale**, vous versez leur part aux cohéritiers. Il faut une valeur reconnue et un financement supportable avec votre revenu.",
+     "Nous réunissons les deux: l'estimation selon le modèle de Wüest Partner crée une base commune, et nous finançons la soulte par une hypothèque nouvelle ou augmentée."
+    ],
+    "bullets": [
+     "Reprendre l'hypothèque existante ou refinancer",
+     "Soulte via hypothèque, fonds propres ou prévoyance",
+     "Coordination avec le notaire et le partage"
+    ],
+    "ctas": [
+     {
+      "label": "Vérifier le financement",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Déroulement",
+    "title": "De la succession\nà votre logement.",
+    "items": [
+     {
+      "title": "Décrire la situation",
+      "text": "Hoirie, bien et hypothèque existante: en ligne ou avec l'assistant HYPO."
+     },
+     {
+      "title": "Fixer la valeur",
+      "text": "L'estimation Wüest Partner fournit une valeur de marché claire pour le partage."
+     },
+     {
+      "title": "Calculer le financement",
+      "text": "Votre conseillère vérifie nantissement et capacité et chiffre la soulte finançable."
+     },
+     {
+      "title": "Offres & partage",
+      "text": "Nous obtenons les offres et coordonnons le versement avec le notaire."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Commencer",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Obstacles fréquents",
+    "title": "Où cela coince.\n*Et comment nous aidons.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Capacité",
+      "title": "Un revenu, une maison",
+      "text": "Taux théorique de 5 %: nous trouvons les prêteurs adaptés, même proche de la retraite.",
+      "to": "page:ruhestand"
+     },
+     {
+      "kicker": "Hypothèque",
+      "title": "Taux fixe en cours",
+      "text": "Reprendre, rembourser ou augmenter? Nous comparons, pénalités comprises.",
+      "to": "page:lp-vorfaelligkeit"
+     },
+     {
+      "kicker": "Valeur",
+      "title": "Désaccord sur le prix",
+      "text": "Une valeur neutre selon Wüest Partner apaise la discussion.",
+      "to": "bewertung"
+     },
+     {
+      "kicker": "Droit & impôts",
+      "title": "Partage, impôts, délais",
+      "text": "Le notaire ou un spécialiste s'en charge. Structures complexes: notre Advisory.",
+      "to": "page:advisory"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Quelle soulte puis-je financer?",
+    "title": "Calculer\n*la reprise.*",
+    "lead": "Saisissez la valeur du bien comme prix et comme fonds propres votre part d'héritage plus votre épargne."
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Pour aller plus loin",
+    "title": "Autour de\n*la maison familiale.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Du vivant",
+      "title": "Acheter à vos parents",
+      "text": "Avancement d'hoirie, donation.",
+      "to": "page:lp-eltern"
+     },
+     {
+      "kicker": "Séparation",
+      "title": "Garder le logement",
+      "text": "Racheter la part du conjoint.",
+      "to": "page:lp-scheidung"
+     },
+     {
+      "kicker": "Capital",
+      "title": "Augmenter l'hypothèque",
+      "text": "Pour la soulte ou des travaux.",
+      "to": "page:aufstocken"
+     },
+     {
+      "kicker": "Fiduciaires",
+      "title": "Devenir partenaire",
+      "text": "Financer les successions de vos mandants.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "Héritage et hypothèque\n*expliqués.*",
+    "items": [
+     {
+      "q": "Comment financer le rachat des parts de mes frères et soeurs?",
+      "a": "En général par une hypothèque nouvelle ou augmentée sur la maison, complétée par vos fonds propres. Nantissement de 80 % au plus et capacité financière respectée avec votre revenu. État 2026, sans garantie."
+     },
+     {
+      "q": "Puis-je reprendre l'hypothèque existante de mes parents?",
+      "a": "Oui, si le prêteur accepte et que la capacité est respectée. Si le taux fixe arrive à échéance, changer de prêteur vaut souvent la peine. Un remboursement anticipé peut entraîner une pénalité."
+     },
+     {
+      "q": "Quelle valeur retenir pour le partage?",
+      "a": "Les héritiers s'accordent dans le cadre de la loi et du testament. Une estimation neutre selon Wüest Partner est une bonne base, aussi pour la banque. Le juridique se règle avec le notaire."
+     },
+     {
+      "q": "Combien de temps dure un partage successoral?",
+      "a": "Une hoirie peut en principe durer, mais chaque héritier peut demander le partage. Pour le financement, l'accord sur la valeur et la reprise compte. Pour les délais et impôts, consultez un spécialiste."
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Garder la maison\n*dans la famille?*",
+    "text": "Estimation, comparaison et financement réunis. Demande en 3 minutes.",
+    "ctas": [
+     {
+      "label": "Demander la reprise",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Casa ereditata: liquida i coeredi con un'ipoteca | HYPOTEQ",
+  "description": "Vuoi tenere la casa ereditata? Finanziamo la liquidazione dei coeredi, stima inclusa, con oltre 40 istituti. Richiesta in 3 minuti, inizia ora.",
+  "h1": "Rilevare la casa di famiglia e liquidare i coeredi",
+  "nav": [
+   "Eredità & coeredi",
+   "Tenere la casa, liquidare i coeredi"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Ipoteca eredità",
+    "h1": "Rilevare la casa di famiglia\ne liquidare i coeredi",
+    "lead": "Hai una **casa ereditata e vuoi liquidare i fratelli**? Servono un valore equo e i mezzi per il conguaglio: HYPOTEQ organizza la valutazione e finanzia la ripresa con oltre 40 banche, assicurazioni e casse pensione.",
+    "ctas": [
+     {
+      "label": "Richiedi la ripresa",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Confronto gratuito",
+     "Stima con Wüest Partner",
+     "Richiesta in 3 minuti"
+    ],
+    "image": "family-home",
+    "alt": "Famiglia a tavola che parla del futuro della casa dei genitori",
+    "float": {
+     "title": "Valore con Wüest Partner",
+     "text": "CHF 300 invece di 450"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banche, assicurazioni e casse pensione"
+     },
+     {
+      "value": "0 CHF",
+      "label": "per confronto e intermediazione"
+     },
+     {
+      "value": "CHF 300",
+      "label": "valutazione invece di CHF 450"
+     },
+     {
+      "value": "48–72 h",
+      "label": "fino alle offerte"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Comunione ereditaria casa",
+    "title": "Uno tiene la casa.\n*Tutti ricevono la loro quota.*",
+    "image": "house",
+    "alt": "Chalet davanti alle montagne",
+    "paragraphs": [
+     "In una **comunione ereditaria** la casa appartiene a tutti gli eredi. Per **rilevare la casa dei genitori** devi versare ai coeredi la loro quota. Servono un valore riconosciuto e un finanziamento sostenibile con il tuo reddito.",
+     "Uniamo le due cose: la stima secondo il modello di Wüest Partner crea una base comune e finanziamo il conguaglio con un'ipoteca nuova o aumentata."
+    ],
+    "bullets": [
+     "Riprendere l'ipoteca esistente o rifinanziare",
+     "Conguaglio con ipoteca, fondi propri o previdenza",
+     "Coordinamento con notaio e divisione"
+    ],
+    "ctas": [
+     {
+      "label": "Verifica il finanziamento",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Come funziona",
+    "title": "Dalla successione\nalla tua casa.",
+    "items": [
+     {
+      "title": "Descrivi la situazione",
+      "text": "Comunione ereditaria, immobile e ipoteca esistente: online o con l'assistente HYPO."
+     },
+     {
+      "title": "Fissare il valore",
+      "text": "La stima Wüest Partner fornisce un valore di mercato chiaro per la divisione."
+     },
+     {
+      "title": "Calcolare il finanziamento",
+      "text": "La tua consulente verifica anticipo e sostenibilità e quanto conguaglio è finanziabile."
+     },
+     {
+      "title": "Offerte & divisione",
+      "text": "Raccogliamo offerte e coordiniamo il versamento con il notaio."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Inizia ora",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Ostacoli tipici",
+    "title": "Dove si inceppa.\n*E come aiutiamo.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Sostenibilità",
+      "title": "Un reddito, una casa",
+      "text": "Tasso teorico del 5 %: troviamo istituti adatti, anche vicino alla pensione.",
+      "to": "page:ruhestand"
+     },
+     {
+      "kicker": "Ipoteca",
+      "title": "Fissa ancora in corso",
+      "text": "Riprendere, estinguere o aumentare? Confrontiamo, penali incluse.",
+      "to": "page:lp-vorfaelligkeit"
+     },
+     {
+      "kicker": "Valore",
+      "title": "Disaccordo sul prezzo",
+      "text": "Un valore neutro secondo Wüest Partner rende oggettiva la discussione.",
+      "to": "bewertung"
+     },
+     {
+      "kicker": "Diritto & imposte",
+      "title": "Divisione, imposte, termini",
+      "text": "Se ne occupa il notaio o un professionista. Strutture complesse: Advisory.",
+      "to": "page:advisory"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Quanto conguaglio posso finanziare?",
+    "title": "Calcola\n*la ripresa.*",
+    "lead": "Inserisci il valore della casa come prezzo e come fondi propri la tua quota ereditaria più i risparmi."
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Approfondisci",
+    "title": "Tutto sulla\n*casa di famiglia.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "In vita",
+      "title": "Comprare dai genitori",
+      "text": "Anticipo ereditario, donazione.",
+      "to": "page:lp-eltern"
+     },
+     {
+      "kicker": "Separazione",
+      "title": "Tenere la casa",
+      "text": "Liquidare il partner.",
+      "to": "page:lp-scheidung"
+     },
+     {
+      "kicker": "Capitale",
+      "title": "Aumentare l'ipoteca",
+      "text": "Per conguaglio o ristrutturazione.",
+      "to": "page:aufstocken"
+     },
+     {
+      "kicker": "Fiduciari",
+      "title": "Diventa partner",
+      "text": "Finanzia le successioni dei mandanti.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "Eredità e ipoteca\n*in chiaro.*",
+    "items": [
+     {
+      "q": "Come finanzio la quota dei miei fratelli?",
+      "a": "Di solito con un'ipoteca nuova o aumentata sulla casa, più i tuoi fondi propri. Anticipo massimo dell'80 % e sostenibilità rispettata con il tuo reddito. Stato 2026, senza garanzia."
+     },
+     {
+      "q": "Posso riprendere l'ipoteca dei miei genitori?",
+      "a": "Sì, se l'istituto è d'accordo e la sostenibilità regge. Se la fissa scade presto, cambiare istituto conviene spesso. Un'estinzione anticipata può comportare una penale."
+     },
+     {
+      "q": "Quale valore vale per la divisione ereditaria?",
+      "a": "Gli eredi si accordano nel quadro di legge e testamento. Una stima neutra secondo Wüest Partner è una buona base, anche per la banca. Gli aspetti legali li chiarisci con il notaio."
+     },
+     {
+      "q": "Quanto dura una divisione ereditaria?",
+      "a": "Una comunione ereditaria può in linea di principio durare, ma ogni erede può chiedere la divisione. Per il finanziamento conta l'accordo su valore e ripresa. Per termini e imposte consulta un professionista."
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Tenere la casa\n*in famiglia?*",
+    "text": "Valutazione, confronto e finanziamento da un unico partner. Richiesta in 3 minuti.",
+    "ctas": [
+     {
+      "label": "Richiedi la ripresa",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "Inherited a house? Buy out your co-heirs | HYPOTEQ",
+  "description": "Want to keep the inherited home? We finance the buyout of your co-heirs, valuation included, with 40+ lenders. Apply in 3 minutes.",
+  "h1": "Keep the family home and buy out your co-heirs",
+  "nav": [
+   "Inheritance & co-heirs",
+   "Keep the home, buy out your siblings"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Inheritance mortgage Switzerland",
+    "h1": "Keep the family home\nand buy out your co-heirs",
+    "lead": "Inherited a house and want to **buy out your siblings in Switzerland**? You need a fair value and money for the payout: HYPOTEQ arranges the valuation and finances the takeover with more than 40 banks, insurers and pension funds.",
+    "ctas": [
+     {
+      "label": "Request a takeover",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Free comparison",
+     "Valuation with Wüest Partner",
+     "Apply in 3 minutes"
+    ],
+    "image": "family-home",
+    "alt": "Family at the table discussing the future of the parents' home",
+    "float": {
+     "title": "Value with Wüest Partner",
+     "text": "CHF 300 instead of 450"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banks, insurers and pension funds"
+     },
+     {
+      "value": "0 CHF",
+      "label": "for comparison and brokerage"
+     },
+     {
+      "value": "CHF 300",
+      "label": "valuation instead of CHF 450"
+     },
+     {
+      "value": "48–72 h",
+      "label": "to concrete offers"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Community of heirs property",
+    "title": "One heir keeps the house.\n*Everyone gets their share.*",
+    "image": "house",
+    "alt": "Chalet in front of mountains",
+    "paragraphs": [
+     "In a **community of heirs** (Erbengemeinschaft), the house belongs to all heirs jointly. To **take over your parents' house**, you pay out your co-heirs. That requires a recognised value and financing you can afford on your own income.",
+     "We bring both together: a valuation based on the Wüest Partner model creates common ground, and we finance the payout with a new or increased mortgage."
+    ],
+    "bullets": [
+     "Take over the existing mortgage or refinance",
+     "Payout via mortgage, savings or pension money",
+     "Coordination with notary and division agreement"
+    ],
+    "ctas": [
+     {
+      "label": "Check my financing",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "How it works",
+    "title": "From inheritance\nto your own home.",
+    "items": [
+     {
+      "title": "Describe your case",
+      "text": "Heirs, property and existing mortgage: online or with our chat assistant HYPO."
+     },
+     {
+      "title": "Agree on the value",
+      "text": "The Wüest Partner valuation provides a clear market value for the division."
+     },
+     {
+      "title": "Calculate financing",
+      "text": "Your advisor checks loan-to-value and affordability and how much payout can be financed."
+     },
+     {
+      "title": "Offers & division",
+      "text": "We collect offers and coordinate the payout with the notary."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Get started",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Common hurdles",
+    "title": "Where it gets stuck.\n*And how we help.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Affordability",
+      "title": "One income, one house",
+      "text": "Banks use an imputed 5 % rate. We find suitable lenders, even close to retirement.",
+      "to": "page:ruhestand"
+     },
+     {
+      "kicker": "Mortgage",
+      "title": "Fixed rate still running",
+      "text": "Take over, repay or increase? We compare, early repayment costs included.",
+      "to": "page:lp-vorfaelligkeit"
+     },
+     {
+      "kicker": "Value",
+      "title": "No agreement on price",
+      "text": "A neutral value based on Wüest Partner keeps the discussion factual.",
+      "to": "bewertung"
+     },
+     {
+      "kicker": "Law & tax",
+      "title": "Division, taxes, deadlines",
+      "text": "A notary or specialist handles this. Complex structures: our Advisory.",
+      "to": "page:advisory"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "How much payout can I finance?",
+    "title": "Run the numbers\n*on a takeover.*",
+    "lead": "Enter the property value as price and your inherited share plus savings as equity."
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Related",
+    "title": "More about\n*the family home.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "During lifetime",
+      "title": "Buy from your parents",
+      "text": "Advance on inheritance, gifts.",
+      "to": "page:lp-eltern"
+     },
+     {
+      "kicker": "Separation",
+      "title": "Keep your home",
+      "text": "Buy out your partner.",
+      "to": "page:lp-scheidung"
+     },
+     {
+      "kicker": "More capital",
+      "title": "Increase your mortgage",
+      "text": "For a payout or renovation.",
+      "to": "page:aufstocken"
+     },
+     {
+      "kicker": "For trustees",
+      "title": "Become a partner",
+      "text": "Finance your clients' inheritances.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Inheritance and mortgage\n*explained.*",
+    "items": [
+     {
+      "q": "How do I finance buying out my siblings?",
+      "a": "Usually with a new or increased mortgage on the inherited house plus your own funds. Loan-to-value may not exceed 80 %, and affordability must work on your income. As of 2026, without guarantee."
+     },
+     {
+      "q": "Can I take over my parents' existing mortgage?",
+      "a": "Yes, if the lender agrees and affordability works. If the fixed rate expires soon, switching lender often pays off. Early termination may trigger a prepayment penalty."
+     },
+     {
+      "q": "Which value applies when dividing the estate?",
+      "a": "The heirs agree within the framework of law and will. A neutral valuation based on Wüest Partner is a good basis, for the bank too. Clarify legal questions with the notary."
+     },
+     {
+      "q": "How long can the division of the estate take?",
+      "a": "A community of heirs can in principle continue, but each heir can request the division. For financing, what counts is agreement on value and takeover. Ask a specialist about deadlines and taxes."
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Keep the house\n*in the family?*",
+    "text": "Valuation, comparison and financing in one place. Apply in 3 minutes.",
+    "ctas": [
+     {
+      "label": "Request a takeover",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ }
+}

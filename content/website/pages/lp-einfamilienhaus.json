@@ -1,0 +1,1006 @@
+{
+ "de": {
+  "title": "Hypothek für dein Einfamilienhaus | HYPOTEQ",
+  "description": "Du kaufst ein Einfamilienhaus, neu oder mit Sanierungsbedarf? Wir finanzieren Kauf und Renovation mit 40+ Anbietern. Anfrage in 3 Minuten.",
+  "h1": "Dein Einfamilienhaus clever finanzieren",
+  "nav": [
+   "Einfamilienhaus",
+   "Kauf und Renovation finanzieren"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypothek Einfamilienhaus",
+    "h1": "Dein Einfamilienhaus\n*clever finanzieren*",
+    "lead": "Ein Haus ist meist die grösste Finanzierung deines Lebens, und bei älteren Objekten kommen Sanierungskosten dazu. Wir planen deine **Hypothek fürs Einfamilienhaus** inklusive Renovation und vergleichen über 40 Banken, Versicherungen und Pensionskassen.",
+    "ctas": [
+     {
+      "label": "Haus finanzieren",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Kostenlos & unverbindlich",
+     "Kauf + Renovation",
+     "Offerten in 48–72 h"
+    ],
+    "image": "house",
+    "alt": "Chalet vor Schweizer Bergen",
+    "float": {
+     "title": "10 Jahre fest ab 1.60 %",
+     "text": "Richtzins · Beispielwert"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "Finanzierungspartner im Vergleich"
+     },
+     {
+      "value": "3 Min.",
+      "label": "bis zur vollständigen Anfrage"
+     },
+     {
+      "value": "48–72 h",
+      "label": "bis zu konkreten Offerten"
+     },
+     {
+      "value": "0 CHF",
+      "label": "für Vergleich und Vermittlung"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Altbau kaufen Hypothek",
+    "title": "Kaufpreis ist nicht gleich Wert.\n*Die Bank rechnet anders.*",
+    "image": "family-home",
+    "alt": "Familie im Garten vor ihrem Einfamilienhaus",
+    "paragraphs": [
+     "Beim Einfamilienhaus belehnt die Bank ihren eigenen Schätzwert. Lage, Landanteil, Baujahr und Zustand bestimmen ihn. Liegt der Kaufpreis darüber, musst du die Differenz mit Eigenmitteln decken.",
+     "Plant du nach dem Kauf eine neue Heizung, Küche oder Fassade, finanzierst du das idealerweise gleich mit. Wir rechnen Kauf und **Renovation** zusammen und suchen Anbieter, die den Wert nach der Sanierung berücksichtigen."
+    ],
+    "bullets": [
+     "Marktwert vor dem Angebot kennen",
+     "Renovationsbudget von Anfang an eingeplant",
+     "Finanzierungsbestätigung für dein Kaufangebot"
+    ],
+    "ctas": [
+     {
+      "label": "Hauskauf prüfen lassen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Typische Hürden",
+    "title": "Was beim Hauskauf bremst.\n*Und wie wir es lösen.*",
+    "tone": "soft",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Hürde",
+      "title": "Schätzwert zu tief",
+      "text": "Mit der Bewertung nach Wüest Partner kennst du den Wert, bevor du bietest. CHF 300 statt 450.",
+      "to": "page:bewertung",
+      "cta": "Haus bewerten"
+     },
+     {
+      "kicker": "Hürde",
+      "title": "Sanierung nötig",
+      "text": "Wir planen Kauf und Renovation in einem Schritt oder erhöhen die Hypothek später.",
+      "to": "page:aufstocken",
+      "cta": "Hypothek aufstocken"
+     },
+     {
+      "kicker": "Hürde",
+      "title": "Tragbarkeit knapp",
+      "text": "Wir prüfen Pensionskasse, Säule 3a und Anbieter, deren Rechenweise zu deiner Situation passt.",
+      "to": "page:tragbarkeit",
+      "cta": "Tragbarkeit prüfen"
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Anfrage starten",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Haus kaufen Finanzierung",
+    "title": "Wie viel Haus\n*kannst du dir leisten?*",
+    "lead": "Gib Kaufpreis, Eigenmittel und Einkommen ein und sieh, wie Banken die Tragbarkeit rechnen."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Einfamilienhaus finanzieren",
+    "title": "In vier Schritten\n*ins eigene Haus.*",
+    "items": [
+     {
+      "title": "Anfrage in 3 Minuten",
+      "text": "Lade deine Unterlagen hoch, die KI liest die meisten Angaben aus."
+     },
+     {
+      "title": "Wert & Budget klären",
+      "text": "Deine Beraterin prüft Marktwert, Renovationsbedarf und Tragbarkeit."
+     },
+     {
+      "title": "Offerten vergleichen",
+      "text": "Angebote meist innert 48–72 h nach vollständigen Unterlagen."
+     },
+     {
+      "title": "Notar & Auszahlung",
+      "text": "Wir koordinieren mit Bank und Notariat bis zur Schlüsselübergabe."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Jetzt starten",
+      "to": "funnel"
+     },
+     {
+      "label": "Kontakt aufnehmen",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "testimonials",
+    "eyebrow": "Kundenstimmen",
+    "title": "Eingezogen.\n*Und gut beraten.*",
+    "items": [
+     {
+      "text": "Neutrale Beratung, mehrere attraktive Angebote, alles reibungslos.",
+      "author": "Chris E."
+     },
+     {
+      "text": "Erstklassiger Service, alles wurde schnell bearbeitet.",
+      "author": "Andreas K."
+     },
+     {
+      "text": "Professionell, menschlich, kompetent und top Konditionen.",
+      "author": "Gregor R."
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Passend dazu",
+    "title": "Mehr rund\n*ums eigene Haus.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Energie",
+      "title": "Grüne Hypothek",
+      "text": "Zinsrabatt für Solar, Wärmepumpe oder Minergie.",
+      "to": "page:lp-gruen"
+     },
+     {
+      "kicker": "Erstkauf",
+      "title": "Das erste Eigenheim",
+      "text": "Eigenmittel, Tragbarkeit und Ablauf.",
+      "to": "page:lp-erstkauf"
+     },
+     {
+      "kicker": "Neubau",
+      "title": "Selbst bauen",
+      "text": "Vom Bauland bis zum Baukredit.",
+      "to": "page:lp-bauland"
+     },
+     {
+      "kicker": "Für Makler",
+      "title": "Partner werden",
+      "text": "Deine Käufer finanzieren mit uns, du erhältst eine Provision.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Hauskauf\n*ohne Fragezeichen.*",
+    "items": [
+     {
+      "q": "Wie viel Haus kann ich mir leisten?",
+      "a": "Banken rechnen mit kalkulatorisch 5 % Zins, 1 % Unterhalt und Amortisation. Das sollte max. ca. ein Drittel deines Bruttoeinkommens sein. Dazu brauchst du mind. **20 %** Eigenmittel, davon 10 % hart. Stand 2026, ohne Gewähr."
+     },
+     {
+      "q": "Wie bewertet die Bank ein älteres Einfamilienhaus?",
+      "a": "Meist mit einem hedonischen Modell, das Lage, Grundstück, Baujahr und Zustand mit vergleichbaren Verkäufen abgleicht. Sanierungsbedarf senkt den Wert. Unsere Bewertung nutzt das Modell von Wüest Partner, das Banken kennen."
+     },
+     {
+      "q": "Kann ich Renovationskosten gleich mitfinanzieren?",
+      "a": "Oft ja, wenn Belehnung und Tragbarkeit inklusive Renovation aufgehen. Wertvermehrende Arbeiten wie Heizungsersatz oder Ausbau werden eher berücksichtigt als reiner Unterhalt. Wir brauchen dafür Offerten oder ein Budget."
+     },
+     {
+      "q": "Welche Hypothekarlaufzeit passt zu einem Hauskauf?",
+      "a": "Das hängt von Budget, Zinserwartung und Plänen ab. Viele kombinieren eine Festhypothek für Planbarkeit mit einer SARON-Tranche für Flexibilität. Wir zeigen dir Varianten im Vergleich."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "SARON oder Fest?",
+      "to": "page:rg-saron-fest"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Dein Haus gefunden?\n*Jetzt Finanzierung sichern.*",
+    "text": "Kostenlos vergleichen und in 3 Minuten anfragen. Deine Beraterin meldet sich zeitnah.",
+    "ctas": [
+     {
+      "label": "Finanzierung anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Hypothèque pour votre maison individuelle | HYPOTEQ",
+  "description": "Vous achetez une maison, neuve ou à rénover? Nous finançons achat et travaux avec 40+ prêteurs. Demande en 3 minutes, réponse rapide.",
+  "h1": "Financer votre maison individuelle",
+  "nav": [
+   "Maison individuelle",
+   "Financer achat et rénovation"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypothèque maison",
+    "h1": "Financer votre\n*maison individuelle*",
+    "lead": "Une maison est souvent le plus gros financement d'une vie, et pour un bien ancien s'ajoutent des travaux. Nous planifions votre **hypothèque maison** rénovation comprise et comparons plus de 40 banques, assurances et caisses de pension.",
+    "ctas": [
+     {
+      "label": "Financer ma maison",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Gratuit & sans engagement",
+     "Achat + travaux",
+     "Offres en 48–72 h"
+    ],
+    "image": "house",
+    "alt": "Chalet devant les montagnes suisses",
+    "float": {
+     "title": "Fixe 10 ans dès 1.60 %",
+     "text": "Taux indicatif · valeur d'exemple"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "partenaires de financement comparés"
+     },
+     {
+      "value": "3 min",
+      "label": "pour une demande complète"
+     },
+     {
+      "value": "48–72 h",
+      "label": "jusqu'aux offres concrètes"
+     },
+     {
+      "value": "0 CHF",
+      "label": "pour la comparaison et le courtage"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Maison à rénover hypothèque",
+    "title": "Le prix n'est pas la valeur.\n*La banque calcule autrement.*",
+    "image": "family-home",
+    "alt": "Famille dans le jardin devant sa maison",
+    "paragraphs": [
+     "Pour une maison, la banque finance sa propre estimation. Situation, terrain, année de construction et état la déterminent. Si le prix est plus élevé, vous couvrez la différence avec vos fonds propres.",
+     "Vous prévoyez un nouveau chauffage, une cuisine ou une façade? Idéalement, vous les financez d'emblée. Nous calculons achat et **travaux** ensemble et ciblons les prêteurs qui tiennent compte de la valeur après rénovation."
+    ],
+    "bullets": [
+     "Connaître la valeur avant l'offre",
+     "Budget de rénovation prévu dès le départ",
+     "Attestation de financement pour votre offre"
+    ],
+    "ctas": [
+     {
+      "label": "Faire vérifier l'achat",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Obstacles fréquents",
+    "title": "Ce qui freine l'achat.\n*Et comment nous le résolvons.*",
+    "tone": "soft",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Obstacle",
+      "title": "Estimation trop basse",
+      "text": "Avec l'estimation selon Wüest Partner, vous connaissez la valeur avant d'offrir. CHF 300 au lieu de 450.",
+      "to": "page:bewertung",
+      "cta": "Estimer la maison"
+     },
+     {
+      "kicker": "Obstacle",
+      "title": "Travaux nécessaires",
+      "text": "Nous planifions achat et rénovation en une fois ou augmentons l'hypothèque plus tard.",
+      "to": "page:aufstocken",
+      "cta": "Augmenter l'hypothèque"
+     },
+     {
+      "kicker": "Obstacle",
+      "title": "Capacité financière juste",
+      "text": "Nous vérifions 2e pilier, 3e pilier et prêteurs dont la méthode correspond à votre situation.",
+      "to": "page:tragbarkeit",
+      "cta": "Calculer ma capacité"
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Lancer la demande",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Acheter une maison financement",
+    "title": "Quelle maison\n*pouvez-vous vous offrir?*",
+    "lead": "Saisissez prix, fonds propres et revenu et voyez comment les banques calculent la capacité financière."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Financer une villa",
+    "title": "Quatre étapes\n*jusqu'à votre maison.*",
+    "items": [
+     {
+      "title": "Demande en 3 minutes",
+      "text": "Téléchargez vos documents, l'IA lit la plupart des données."
+     },
+     {
+      "title": "Valeur & budget",
+      "text": "Votre conseillère vérifie valeur, besoin de rénovation et capacité financière."
+     },
+     {
+      "title": "Comparer les offres",
+      "text": "Offres en général 48–72 h après dossier complet."
+     },
+     {
+      "title": "Notaire & versement",
+      "text": "Nous coordonnons banque et notaire jusqu'aux clés."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Commencer",
+      "to": "funnel"
+     },
+     {
+      "label": "Nous contacter",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "testimonials",
+    "eyebrow": "Avis clients",
+    "title": "Installés.\n*Et bien conseillés.*",
+    "items": [
+     {
+      "text": "Conseil neutre, plusieurs offres attractives, sans accroc.",
+      "author": "Chris E."
+     },
+     {
+      "text": "Service de premier ordre, tout a été traité rapidement.",
+      "author": "Andreas K."
+     },
+     {
+      "text": "Professionnel, humain, compétent, excellentes conditions.",
+      "author": "Gregor R."
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "À lire aussi",
+    "title": "Tout autour\n*de votre maison.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Énergie",
+      "title": "Hypothèque verte",
+      "text": "Rabais pour solaire, pompe à chaleur ou Minergie.",
+      "to": "page:lp-gruen"
+     },
+     {
+      "kicker": "Premier achat",
+      "title": "Premier logement",
+      "text": "Fonds propres, capacité et déroulement.",
+      "to": "page:lp-erstkauf"
+     },
+     {
+      "kicker": "Construction",
+      "title": "Construire soi-même",
+      "text": "Du terrain au crédit de construction.",
+      "to": "page:lp-bauland"
+     },
+     {
+      "kicker": "Courtiers",
+      "title": "Devenir partenaire",
+      "text": "Vos acheteurs financent avec nous, vous touchez une commission.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "Achat de maison\n*sans points d'interrogation.*",
+    "items": [
+     {
+      "q": "Quel prix de maison puis-je me permettre?",
+      "a": "Les banques comptent un taux théorique de 5 %, 1 % d'entretien et l'amortissement, au maximum environ un tiers du revenu brut. Il faut aussi au moins **20 %** de fonds propres, dont 10 % hors 2e pilier. État 2026, sans garantie."
+     },
+     {
+      "q": "Comment la banque évalue-t-elle une maison ancienne?",
+      "a": "Souvent avec un modèle hédoniste qui compare situation, terrain, année et état avec des ventes similaires. Un besoin de rénovation réduit la valeur. Notre estimation utilise le modèle de Wüest Partner, connu des banques."
+     },
+     {
+      "q": "Puis-je financer les travaux en même temps?",
+      "a": "Souvent oui, si le taux d'avance et la capacité financière restent respectés travaux compris. Les travaux qui augmentent la valeur sont mieux pris en compte que le simple entretien. Il nous faut des devis ou un budget."
+     },
+     {
+      "q": "Quelle durée d'hypothèque choisir pour une maison?",
+      "a": "Cela dépend du budget, des attentes de taux et de vos projets. Beaucoup combinent une hypothèque fixe pour la planification et une tranche SARON pour la flexibilité. Nous comparons les variantes avec vous."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "SARON ou fixe?",
+      "to": "page:rg-saron-fest"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Maison trouvée?\n*Sécurisez le financement.*",
+    "text": "Comparez gratuitement et déposez votre demande en 3 minutes. Votre conseillère vous rappelle rapidement.",
+    "ctas": [
+     {
+      "label": "Demander un financement",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Ipoteca per la tua casa unifamiliare | HYPOTEQ",
+  "description": "Compri una casa unifamiliare, nuova o da ristrutturare? Finanziamo acquisto e lavori con oltre 40 istituti. Richiesta in 3 minuti.",
+  "h1": "Finanziare la tua casa unifamiliare",
+  "nav": [
+   "Casa unifamiliare",
+   "Finanziare acquisto e lavori"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Ipoteca casa",
+    "h1": "Finanziare la tua\n*casa unifamiliare*",
+    "lead": "Una casa è spesso il finanziamento più grande della vita e negli immobili datati si aggiungono i lavori. Pianifichiamo la tua **ipoteca casa** inclusa la ristrutturazione e confrontiamo oltre 40 banche, assicurazioni e casse pensione.",
+    "ctas": [
+     {
+      "label": "Finanzia la casa",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Gratuito e senza impegno",
+     "Acquisto + lavori",
+     "Offerte in 48–72 h"
+    ],
+    "image": "house",
+    "alt": "Chalet davanti alle montagne svizzere",
+    "float": {
+     "title": "Fisso 10 anni da 1.60 %",
+     "text": "Tasso indicativo · valore d'esempio"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "partner di finanziamento a confronto"
+     },
+     {
+      "value": "3 min",
+      "label": "per una richiesta completa"
+     },
+     {
+      "value": "48–72 h",
+      "label": "fino alle offerte concrete"
+     },
+     {
+      "value": "0 CHF",
+      "label": "per confronto e mediazione"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Casa da ristrutturare ipoteca",
+    "title": "Il prezzo non è il valore.\n*La banca calcola diversamente.*",
+    "image": "family-home",
+    "alt": "Famiglia in giardino davanti alla casa",
+    "paragraphs": [
+     "Per una casa la banca finanzia la propria stima. Posizione, terreno, anno di costruzione e stato la determinano. Se il prezzo è più alto, copri la differenza con fondi propri.",
+     "Prevedi un nuovo riscaldamento, una cucina o la facciata? Idealmente li finanzi subito. Calcoliamo insieme acquisto e **ristrutturazione** e cerchiamo istituti che considerano il valore dopo i lavori."
+    ],
+    "bullets": [
+     "Conoscere il valore prima dell'offerta",
+     "Budget dei lavori previsto da subito",
+     "Conferma di finanziamento per la tua offerta"
+    ],
+    "ctas": [
+     {
+      "label": "Fai verificare l'acquisto",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Ostacoli tipici",
+    "title": "Cosa frena l'acquisto.\n*E come lo risolviamo.*",
+    "tone": "soft",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Ostacolo",
+      "title": "Stima troppo bassa",
+      "text": "Con la stima secondo Wüest Partner conosci il valore prima dell'offerta. CHF 300 invece di 450.",
+      "to": "page:bewertung",
+      "cta": "Stima la casa"
+     },
+     {
+      "kicker": "Ostacolo",
+      "title": "Lavori necessari",
+      "text": "Pianifichiamo acquisto e ristrutturazione insieme o aumentiamo l'ipoteca più tardi.",
+      "to": "page:aufstocken",
+      "cta": "Aumentare l'ipoteca"
+     },
+     {
+      "kicker": "Ostacolo",
+      "title": "Sostenibilità al limite",
+      "text": "Verifichiamo cassa pensione, 3° pilastro e istituti il cui calcolo si adatta a te.",
+      "to": "page:tragbarkeit",
+      "cta": "Verifica la sostenibilità"
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Avvia la richiesta",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Comprare casa unifamiliare",
+    "title": "Quale casa\n*puoi permetterti?*",
+    "lead": "Inserisci prezzo, fondi propri e reddito e scopri come le banche calcolano la sostenibilità."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Finanziare una villa",
+    "title": "Quattro passi\n*fino alla tua casa.*",
+    "items": [
+     {
+      "title": "Richiesta in 3 minuti",
+      "text": "Carica i documenti, l'IA legge la maggior parte dei dati."
+     },
+     {
+      "title": "Valore e budget",
+      "text": "La consulente verifica valore, lavori necessari e sostenibilità."
+     },
+     {
+      "title": "Confronto delle offerte",
+      "text": "Offerte di regola entro 48–72 h dai documenti completi."
+     },
+     {
+      "title": "Notaio e versamento",
+      "text": "Coordiniamo banca e notaio fino alle chiavi."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Inizia ora",
+      "to": "funnel"
+     },
+     {
+      "label": "Contattaci",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "testimonials",
+    "eyebrow": "Opinioni dei clienti",
+    "title": "Traslocati.\n*E ben consigliati.*",
+    "items": [
+     {
+      "text": "Consulenza neutrale, diverse offerte interessanti, tutto liscio.",
+      "author": "Chris E."
+     },
+     {
+      "text": "Servizio di prima classe, tutto gestito rapidamente.",
+      "author": "Andreas K."
+     },
+     {
+      "text": "Professionali, umani, competenti, condizioni top.",
+      "author": "Gregor R."
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Approfondisci",
+    "title": "Tutto intorno\n*alla tua casa.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Energia",
+      "title": "Ipoteca verde",
+      "text": "Sconto per fotovoltaico, pompa di calore o Minergie.",
+      "to": "page:lp-gruen"
+     },
+     {
+      "kicker": "Primo acquisto",
+      "title": "La prima casa",
+      "text": "Fondi propri, sostenibilità e procedura.",
+      "to": "page:lp-erstkauf"
+     },
+     {
+      "kicker": "Costruzione",
+      "title": "Costruire da sé",
+      "text": "Dal terreno al credito di costruzione.",
+      "to": "page:lp-bauland"
+     },
+     {
+      "kicker": "Per agenti",
+      "title": "Diventa partner",
+      "text": "I tuoi acquirenti finanziano con noi, tu ricevi una provvigione.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "Comprare casa\n*senza punti di domanda.*",
+    "items": [
+     {
+      "q": "Quale casa posso permettermi?",
+      "a": "Le banche calcolano un tasso teorico del 5 %, l'1 % di manutenzione e l'ammortamento, al massimo circa un terzo del reddito lordo. Servono inoltre almeno il **20 %** di fondi propri, di cui il 10 % non dalla cassa pensione. Stato 2026, senza garanzia."
+     },
+     {
+      "q": "Come valuta la banca una casa datata?",
+      "a": "Spesso con un modello edonico che confronta posizione, terreno, anno e stato con vendite simili. I lavori necessari riducono il valore. La nostra stima usa il modello di Wüest Partner, noto alle banche."
+     },
+     {
+      "q": "Posso finanziare anche la ristrutturazione?",
+      "a": "Spesso sì, se anticipo e sostenibilità reggono lavori inclusi. Gli interventi che aumentano il valore contano più della semplice manutenzione. Ci servono preventivi o un budget."
+     },
+     {
+      "q": "Quale durata d'ipoteca scegliere?",
+      "a": "Dipende da budget, attese sui tassi e progetti. Molti combinano un'ipoteca fissa per pianificare con una tranche SARON per la flessibilità. Ti mostriamo le varianti a confronto."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "SARON o fisso?",
+      "to": "page:rg-saron-fest"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Trovato la casa?\n*Assicurati il finanziamento.*",
+    "text": "Confronta gratis e invia la richiesta in 3 minuti. La tua consulente ti contatta in tempi brevi.",
+    "ctas": [
+     {
+      "label": "Richiedi il finanziamento",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "Mortgage for your house in Switzerland | HYPOTEQ",
+  "description": "Buying a detached house, new or in need of renovation? We finance purchase and works with 40+ lenders. Apply in 3 minutes.",
+  "h1": "Financing your house the smart way",
+  "nav": [
+   "House mortgage",
+   "Financing purchase and renovation"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Mortgage house Switzerland",
+    "h1": "Financing your house\n*the smart way*",
+    "lead": "A house is often the biggest financing of your life, and older properties come with renovation costs. We plan your **mortgage for a house in Switzerland** including renovation and compare 40+ banks, insurers and pension funds.",
+    "ctas": [
+     {
+      "label": "Finance my house",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Free & non-binding",
+     "Purchase + renovation",
+     "Offers in 48–72 h"
+    ],
+    "image": "house",
+    "alt": "Chalet in front of Swiss mountains",
+    "float": {
+     "title": "10-year fixed from 1.60 %",
+     "text": "Indicative rate · sample value"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "lenders compared"
+     },
+     {
+      "value": "3 min",
+      "label": "to a complete request"
+     },
+     {
+      "value": "48–72 h",
+      "label": "to concrete offers"
+     },
+     {
+      "value": "CHF 0",
+      "label": "for comparison and brokerage"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Renovation house purchase mortgage",
+    "title": "Price is not value.\n*Banks calculate differently.*",
+    "image": "family-home",
+    "alt": "Family in the garden in front of their house",
+    "paragraphs": [
+     "For a house, the bank lends on its own valuation, based on location, plot, year of construction and condition. If the price is higher, you cover the difference with equity.",
+     "Planning a new heating system, kitchen or façade? Ideally you finance it right away. We calculate purchase and **renovation** together and target lenders that consider the value after the works."
+    ],
+    "bullets": [
+     "Know the value before you bid",
+     "Renovation budget planned from day one",
+     "Financing confirmation for your offer"
+    ],
+    "ctas": [
+     {
+      "label": "Get my purchase checked",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Common hurdles",
+    "title": "What slows house buyers down.\n*And how we solve it.*",
+    "tone": "soft",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Hurdle",
+      "title": "Valuation too low",
+      "text": "A valuation based on Wüest Partner tells you the value before you bid. CHF 300 instead of 450.",
+      "to": "page:bewertung",
+      "cta": "Value the house"
+     },
+     {
+      "kicker": "Hurdle",
+      "title": "Renovation needed",
+      "text": "We plan purchase and renovation in one go or increase the mortgage later.",
+      "to": "page:aufstocken",
+      "cta": "Increase mortgage"
+     },
+     {
+      "kicker": "Hurdle",
+      "title": "Tight affordability",
+      "text": "We check pillar 2, pillar 3a and lenders whose method fits your situation.",
+      "to": "page:tragbarkeit",
+      "cta": "Check affordability"
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Start your request",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Buy a house Switzerland financing",
+    "title": "How much house\n*can you afford?*",
+    "lead": "Enter price, equity and income and see how Swiss banks calculate affordability."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Detached house mortgage",
+    "title": "Four steps\n*to your own house.*",
+    "items": [
+     {
+      "title": "Request in 3 minutes",
+      "text": "Upload your documents, our AI reads most of the details."
+     },
+     {
+      "title": "Value & budget",
+      "text": "Your advisor checks value, renovation needs and affordability."
+     },
+     {
+      "title": "Compare offers",
+      "text": "Offers usually within 48–72 h of complete documents."
+     },
+     {
+      "title": "Notary & payout",
+      "text": "We coordinate bank and notary until handover."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Get started",
+      "to": "funnel"
+     },
+     {
+      "label": "Contact us",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "testimonials",
+    "eyebrow": "Client reviews",
+    "title": "Moved in.\n*And well advised.*",
+    "items": [
+     {
+      "text": "Neutral advice, several attractive offers, all smooth.",
+      "author": "Chris E."
+     },
+     {
+      "text": "First-class service, everything handled quickly.",
+      "author": "Andreas K."
+     },
+     {
+      "text": "Professional, personal, competent, top conditions.",
+      "author": "Gregor R."
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Related",
+    "title": "More about\n*your own house.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Energy",
+      "title": "Green mortgage",
+      "text": "Rate discounts for solar, heat pumps or Minergie.",
+      "to": "page:lp-gruen"
+     },
+     {
+      "kicker": "First purchase",
+      "title": "Your first home",
+      "text": "Equity, affordability and process.",
+      "to": "page:lp-erstkauf"
+     },
+     {
+      "kicker": "New build",
+      "title": "Build your own",
+      "text": "From building land to construction loan.",
+      "to": "page:lp-bauland"
+     },
+     {
+      "kicker": "For agents",
+      "title": "Become a partner",
+      "text": "Your buyers finance with us and you earn a commission.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Buying a house\n*without question marks.*",
+    "items": [
+     {
+      "q": "How much house can I afford?",
+      "a": "Banks apply an imputed 5 % rate, 1 % maintenance and amortisation, at most about one third of gross income. You also need at least **20 %** equity, with 10 % not from your pension fund. As of 2026, without guarantee."
+     },
+     {
+      "q": "How does the bank value an older house?",
+      "a": "Usually with a hedonic model that compares location, plot, age and condition with similar sales. Renovation needs lower the value. Our valuation uses the Wüest Partner model that banks know."
+     },
+     {
+      "q": "Can I finance renovation costs at the same time?",
+      "a": "Often yes, if loan-to-value and affordability work including the works. Value-adding projects count more than routine maintenance. We need quotes or a budget."
+     },
+     {
+      "q": "Which mortgage term suits a house purchase?",
+      "a": "It depends on budget, rate expectations and plans. Many combine a fixed-rate mortgage for predictability with a SARON tranche for flexibility. We compare the options with you."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "SARON or fixed?",
+      "to": "page:rg-saron-fest"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Found your house?\n*Secure the financing.*",
+    "text": "Compare for free and apply in 3 minutes. Your advisor gets back to you promptly.",
+    "ctas": [
+     {
+      "label": "Request financing",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ }
+}

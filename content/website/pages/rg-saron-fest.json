@@ -1,0 +1,937 @@
+{
+ "de": {
+  "title": "SARON oder Festhypothek: was lohnt sich? | HYPOTEQ",
+  "description": "SARON oder Festhypothek? Vor- und Nachteile, Zinsrisiko, Ausstiegskosten und Mischformen im Vergleich. Mit Entscheidungshilfe für deine Situation.",
+  "h1": "SARON oder Festhypothek?",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Ratgeber",
+    "h1": "SARON oder\nFesthypothek?",
+    "lead": "**SARON oder Festhypothek**: Diese Frage entscheidet über deine Zinskosten der nächsten Jahre. Wir zeigen dir Vor- und Nachteile, das Zinsrisiko und wann sich ein Mix lohnt, am Beispiel von Familie Meier.",
+    "ctas": [
+     {
+      "label": "Hypothek anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "Aktuelle Richtzinsen",
+      "to": "page:zinsen"
+     }
+    ],
+    "badges": [
+     "Mit Rechenbeispiel",
+     "Stand 2026",
+     "Kostenloser Vergleich"
+    ],
+    "image": "keys",
+    "alt": "Hausschlüssel auf einem Tisch"
+   },
+   {
+    "type": "article",
+    "blocks": [
+     {
+      "h2": "Zwei Modelle, zwei Logiken"
+     },
+     {
+      "p": "Bei der Wahl zwischen SARON und Festhypothek geht es im Kern um eine Frage: Willst du **Planbarkeit** oder **Flexibilität**? Beide Modelle finanzieren dasselbe Eigenheim, sie verteilen aber das Zinsrisiko unterschiedlich. Bei der Festhypothek trägt der Kreditgeber das Risiko steigender Zinsen während der Laufzeit. Bei der SARON-Hypothek trägst du es selbst, profitierst dafür aber sofort, wenn die Zinsen sinken."
+     },
+     {
+      "p": "Eine pauschal richtige Antwort gibt es nicht. Entscheidend sind dein Budget, deine Pläne mit der Immobilie und wie gut du mit schwankenden Kosten leben kannst. Dieser Ratgeber hilft dir, diese Punkte zu sortieren, bevor du Offerten vergleichst."
+     },
+     {
+      "h2": "So funktioniert die SARON-Hypothek"
+     },
+     {
+      "p": "SARON steht für Swiss Average Rate Overnight. Das ist der Referenzzins des Schweizer Geldmarkts, den die SIX täglich berechnet. Dein Zins setzt sich aus dem aufgezinsten SARON der vergangenen Periode und einer **individuellen Marge** zusammen. Die Marge bleibt meist über die ganze Vertragsdauer fix, der SARON-Anteil schwankt."
+     },
+     {
+      "ul": [
+       "Abrechnung in der Regel quartalsweise, rückwirkend für die abgelaufene Periode",
+       "Oft eingebettet in einen Rahmenvertrag von zwei bis fünf Jahren",
+       "Wechsel in eine Festhypothek ist bei vielen Kreditgebern während der Laufzeit möglich",
+       "Zinsänderungen wirken sich direkt auf deine Kosten aus, nach oben wie nach unten"
+      ]
+     },
+     {
+      "p": "Der grosse Vorteil: Die SARON-Hypothek war historisch oft günstiger als lange Festhypotheken, weil du keine Prämie für die Zinssicherheit bezahlst. Der Nachteil: Du weisst nie genau, was das nächste Quartal kostet. Richtzinsen für SARON-Hypotheken liegen bei HYPOTEQ derzeit **ab 0.85 %** (Beispielwert). Mehr zum Modell findest du auf unserer Seite zur SARON-Hypothek."
+     },
+     {
+      "h2": "So funktioniert die Festhypothek"
+     },
+     {
+      "p": "Bei der Festhypothek vereinbarst du einen Zinssatz für eine feste Laufzeit, typischerweise zwischen 2 und 15 Jahren. Dieser Zins gilt bis zum Ende der Laufzeit, egal was am Kapitalmarkt passiert. Als Beispielwerte zeigen unsere Richtzinsen **5 Jahre ab 1.30 %** und **10 Jahre ab 1.60 %**."
+     },
+     {
+      "p": "Du bezahlst also für Sicherheit. Das lohnt sich vor allem dann, wenn dein Budget wenig Spielraum hat oder wenn du erwartest, dass die Zinsen steigen. Der Haken liegt beim Ausstieg: Willst du die Festhypothek vor Ablauf auflösen, etwa wegen eines Verkaufs, verlangt der Kreditgeber meist eine **Vorfälligkeitsentschädigung**. Deren Höhe hängt von der Restlaufzeit und vom Zinsniveau ab und kann beträchtlich sein. Prüfe deshalb vor dem Abschluss, wie lange du die Immobilie realistisch behalten willst."
+     },
+     {
+      "h2": "Rechenbeispiel: Familie Meier"
+     },
+     {
+      "p": "Familie Meier kauft ein Einfamilienhaus in Baden für CHF 980’000. Mit CHF 250’000 Eigenmitteln bleibt eine Hypothek von **CHF 730’000**. Die Tragbarkeit ist mit 28.4 % des Bruttoeinkommens von CHF 185’000 gegeben. Welche Zinskosten entstehen je nach Modell? Die folgenden Zinssätze sind **Annahmen für das Lernbeispiel**, keine Offerten und keine Prognose."
+     },
+     {
+      "table": {
+       "head": [
+        "Variante",
+        "Zinsannahme",
+        "Zinskosten pro Jahr"
+       ],
+       "rows": [
+        [
+         "SARON-Hypothek CHF 730’000",
+         "1.00 % (Annahme)",
+         "CHF 7’300"
+        ],
+        [
+         "Festhypothek 10 Jahre CHF 730’000",
+         "1.60 % (Annahme)",
+         "CHF 11’680"
+        ],
+        [
+         "Mix: je CHF 365’000 SARON und 10 Jahre fest",
+         "1.00 % / 1.60 %",
+         "CHF 9’490"
+        ],
+        [
+         "Stress: SARON steigt auf 3.00 %",
+         "3.00 % (Annahme)",
+         "CHF 21’900"
+        ],
+        [
+         "Stress im Mix (fester Teil bleibt bei 1.60 %)",
+         "3.00 % / 1.60 %",
+         "CHF 16’790"
+        ]
+       ]
+      }
+     },
+     {
+      "p": "Im ruhigen Szenario spart die SARON-Variante gegenüber der Festhypothek CHF 4’380 pro Jahr. Steigt der SARON-Anteil jedoch stark, kostet sie plötzlich fast doppelt so viel wie die Festhypothek. Der Mix halbiert beide Effekte: Er ist im ruhigen Szenario günstiger als die reine Festhypothek und im Stressfall deutlich günstiger als die reine SARON-Lösung."
+     },
+     {
+      "p": "Wichtig: Für die **Tragbarkeit** rechnen Banken unabhängig vom Modell mit einem kalkulatorischen Zins von 5 %. Bei Familie Meier ergibt das kalkulatorisch CHF 52’500 pro Jahr inklusive Unterhalt und Amortisation. Die Wahl zwischen SARON und Fest verändert also nicht, ob du die Hypothek bekommst, sondern nur, was du effektiv bezahlst."
+     },
+     {
+      "cta": {
+       "title": "Was kostet deine Hypothek?",
+       "text": "Rechne SARON und Festhypothek mit deinen eigenen Zahlen durch.",
+       "label": "Zum Hypothekenrechner",
+       "to": "page:rechner"
+      }
+     },
+     {
+      "h2": "Wann passt welches Modell?"
+     },
+     {
+      "p": "Die SARON-Hypothek passt eher zu dir, wenn du finanzielle Reserven hast und höhere Zinskosten über einige Quartale verkraften kannst. Sie eignet sich auch, wenn du in den nächsten Jahren einen Verkauf, eine grössere Amortisation oder einen Wechsel planst, weil du flexibler bist als mit einer langen Festhypothek."
+     },
+     {
+      "p": "Die Festhypothek passt eher zu dir, wenn dein Budget fix ist, etwa mit Kindern, Ausbildungskosten oder kurz vor der Pensionierung. Sie lohnt sich auch, wenn du nachts nicht über Zinsen nachdenken willst. Je länger die Laufzeit, desto mehr Sicherheit, aber desto höher ist meist auch der Zins."
+     },
+     {
+      "ul": [
+       "**Hohe Reserven, flexible Pläne:** eher SARON oder ein grosser SARON-Anteil",
+       "**Knappes Budget, langfristige Pläne:** eher Festhypothek mit passender Laufzeit",
+       "**Unentschieden:** Mix aus SARON und Fest oder mehrere Festtranchen"
+      ]
+     },
+     {
+      "h2": "Der Mix: Tranchen und gestaffelte Laufzeiten"
+     },
+     {
+      "p": "Du musst dich nicht für ein einziges Modell entscheiden. Viele Kreditgeber erlauben es, die Hypothek in **Tranchen** aufzuteilen. Ein Teil läuft als SARON, ein anderer als Festhypothek. Oder du staffelst mehrere Festhypotheken mit unterschiedlichen Laufzeiten, zum Beispiel 5 und 10 Jahre."
+     },
+     {
+      "p": "Der Vorteil der Staffelung: Nicht die ganze Hypothek wird am selben Tag fällig. So verteilst du das Risiko, zu einem ungünstigen Zeitpunkt verlängern zu müssen. Achte aber darauf, dass alle Tranchen beim gleichen Kreditgeber liegen. Unterschiedliche Fälligkeiten erschweren nämlich einen späteren Wechsel zu einem anderen Anbieter, weil du nie die ganze Hypothek gleichzeitig ablösen kannst."
+     },
+     {
+      "tip": "Lege die Fälligkeiten so, dass sie mit deinen Lebensplänen zusammenpassen, etwa einer geplanten Pensionierung oder einem möglichen Umzug. Und verhandle die Marge einer SARON-Hypothek genauso hart wie den Zins einer Festhypothek: Sie gilt oft über Jahre.",
+      "title": "Tipp"
+     },
+     {
+      "h2": "So triffst du die Entscheidung"
+     },
+     {
+      "p": "Beantworte für dich drei Fragen: Wie viel Zinsschwankung verträgt dein Monatsbudget? Wie lange willst du die Immobilie sicher behalten? Und wie wichtig ist dir die Möglichkeit, flexibel zu amortisieren oder zu wechseln? Mit diesen Antworten lässt sich die Strategie viel klarer eingrenzen."
+     },
+     {
+      "p": "Denk auch an später: Die Entscheidung von heute ist nicht für immer. Läuft eine Festhypothek aus oder endet der SARON-Rahmenvertrag, stellt sich die Frage neu. Beginne dann frühzeitig mit dem Vergleich, idealerweise einige Monate vor der Fälligkeit, damit du nicht unter Zeitdruck verlängern musst. Bei einer Ablösung kannst du auch den Kreditgeber wechseln, wenn ein anderer Anbieter bessere Konditionen bietet. Wer seine Fälligkeiten im Blick behält, hat beim nächsten Abschluss die stärkere Verhandlungsposition."
+     },
+     {
+      "p": "Danach lohnt sich der Vergleich. Die Unterschiede zwischen Kreditgebern sind bei Margen und Festzinsen oft grösser als zwischen den Modellen selbst. HYPOTEQ holt für dich Offerten von **über 40 Banken, Versicherungen und Pensionskassen** ein und zeigt dir SARON, Fest und Mix nebeneinander. Vergleich und Vermittlung sind für dich kostenlos."
+     },
+     {
+      "cta": {
+       "title": "Offerten für SARON, Fest und Mix",
+       "text": "Anfrage in 3 Minuten, deine Beraterin meldet sich zeitnah.",
+       "label": "Hypothek anfragen",
+       "to": "funnel"
+      }
+     },
+     {
+      "h2": "Tiefer einsteigen mit der HYPOTEQ Academy"
+     },
+     {
+      "p": "Du willst Hypothekenstrategien wirklich verstehen? Im **Foundation Course** der HYPOTEQ Academy (CHF 290, ohne Vorwissen) widmet sich die Learning Journey «Die passende Hypothekenstrategie» genau diesem Thema, mit kurzen Learning Nuggets, Knowledge Checks und dem Praxisfall Familie Meier. Du bist Makler, Treuhänder oder Broker? Dann lohnt sich auch ein Blick auf unser Partnerprogramm: Die Academy ist dort für dein Team inklusive."
+     },
+     {
+      "p": "*Allgemeine Informationen, Stand 2026, ohne Gewähr. Zinssätze im Beispiel sind Annahmen. Massgebend sind die Offerten und Verträge der Kreditgeber.*"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "SARON oder Fest:\n*kurz beantwortet.*",
+    "items": [
+     {
+      "q": "Ist SARON langfristig günstiger?",
+      "a": "Historisch war die SARON-Hypothek in vielen Phasen günstiger, weil du keine Prämie für Zinssicherheit bezahlst. Eine Garantie ist das nicht: Steigen die Geldmarktzinsen, steigen deine Kosten sofort mit. Im Beispiel von Familie Meier kostet SARON bei 1.00 % (Annahme) CHF 7’300 pro Jahr, bei 3.00 % aber CHF 21’900."
+     },
+     {
+      "q": "Wann lohnt sich eine Festhypothek?",
+      "a": "Wenn du ein fixes Budget brauchst, die Immobilie langfristig behalten willst oder steigende Zinsen erwartest. Du kennst deine Zinskosten über die ganze Laufzeit. Bedenke die **Vorfälligkeitsentschädigung**, falls du vorzeitig aussteigst."
+     },
+     {
+      "q": "Kann ich beide Modelle kombinieren?",
+      "a": "Ja. Viele Kreditgeber teilen die Hypothek in Tranchen auf, zum Beispiel die Hälfte SARON und die Hälfte 10 Jahre fest. So halbierst du das Zinsrisiko und profitierst trotzdem teilweise von tiefen Geldmarktzinsen. Lege alle Tranchen am besten beim gleichen Kreditgeber an."
+     },
+     {
+      "q": "Wie gross ist mein Zinsrisiko?",
+      "a": "Rechne einfach: Hypothek mal Zinsanstieg. Bei CHF 730’000 kostet jeder zusätzliche Prozentpunkt CHF 7’300 pro Jahr. Mit einer Festhypothek ist dieses Risiko für die Laufzeit abgesichert, mit SARON trägst du es selbst, im Mix zur Hälfte."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Academy entdecken",
+      "to": "page:academy"
+     },
+     {
+      "label": "Zur Festhypothek",
+      "to": "page:fest"
+     },
+     {
+      "label": "Ratgeber-Übersicht",
+      "to": "page:ratgeber"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "SARON, Fest oder Mix?\n*Vergleiche alle drei.*",
+    "text": "Kostenlos und unverbindlich: Wir holen Offerten von über 40 Finanzierungspartnern ein.",
+    "ctas": [
+     {
+      "label": "Hypothek anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "SARON-Hypothek im Detail",
+      "to": "page:saron"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "SARON ou taux fixe: que choisir? | HYPOTEQ",
+  "description": "SARON ou taux fixe? Avantages, risques de taux, frais de sortie et combinaisons comparés. Avec une aide à la décision selon votre situation.",
+  "h1": "SARON ou taux fixe?",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Guide",
+    "h1": "SARON ou\ntaux fixe?",
+    "lead": "**SARON ou taux fixe**: ce choix détermine vos intérêts hypothécaires pour les années à venir. Nous comparons avantages, risque de taux et combinaisons, à l'aide de l'exemple de la famille Meier.",
+    "ctas": [
+     {
+      "label": "Demander une hypothèque",
+      "to": "funnel"
+     },
+     {
+      "label": "Taux indicatifs",
+      "to": "page:zinsen"
+     }
+    ],
+    "badges": [
+     "Avec exemple chiffré",
+     "État 2026",
+     "Comparaison gratuite"
+    ],
+    "image": "keys",
+    "alt": "Clés de maison posées sur une table"
+   },
+   {
+    "type": "article",
+    "blocks": [
+     {
+      "h2": "Deux modèles, deux logiques"
+     },
+     {
+      "p": "Choisir entre une hypothèque SARON et une hypothèque à taux fixe revient à arbitrer entre **prévisibilité** et **flexibilité**. Les deux financent le même logement, mais répartissent différemment le risque de taux. Avec le taux fixe, le prêteur supporte la hausse des taux pendant la durée. Avec le SARON, c'est vous qui la supportez, mais vous profitez immédiatement d'une baisse."
+     },
+     {
+      "p": "Il n'existe pas de réponse universelle. Tout dépend de votre budget, de vos projets avec le bien et de votre tolérance aux variations de coûts. Ce guide vous aide à clarifier ces points avant de comparer des offres."
+     },
+     {
+      "h2": "Comment fonctionne l'hypothèque SARON"
+     },
+     {
+      "p": "SARON signifie Swiss Average Rate Overnight: c'est le taux de référence du marché monétaire suisse, calculé chaque jour par SIX. Votre taux hypothécaire se compose du SARON composé de la période écoulée et d'une **marge individuelle**. La marge reste en général fixe pendant tout le contrat, seule la part SARON varie."
+     },
+     {
+      "ul": [
+       "Décompte en général trimestriel, a posteriori pour la période écoulée",
+       "Souvent intégrée dans un contrat-cadre de deux à cinq ans",
+       "Passage à un taux fixe généralement possible en cours de contrat",
+       "Chaque variation de taux se répercute directement sur vos coûts"
+      ]
+     },
+     {
+      "p": "Avantage: historiquement, le SARON a souvent été moins cher que les taux fixes longs, car vous ne payez pas de prime pour la sécurité. Inconvénient: vous ne connaissez jamais exactement le coût du prochain trimestre. Nos taux indicatifs SARON démarrent **dès 0.85 %** (valeur d'exemple). Pour en savoir plus, consultez notre page sur l'hypothèque SARON."
+     },
+     {
+      "h2": "Comment fonctionne le taux fixe"
+     },
+     {
+      "p": "Avec une hypothèque à taux fixe, vous convenez d'un taux pour une durée déterminée, en général entre 2 et 15 ans. Ce taux s'applique jusqu'à l'échéance, quoi qu'il arrive sur les marchés. Nos taux indicatifs: **5 ans dès 1.30 %** et **10 ans dès 1.60 %** (valeurs d'exemple)."
+     },
+     {
+      "p": "Vous payez donc pour la sécurité. C'est pertinent si votre budget laisse peu de marge ou si vous anticipez une hausse des taux. Le point délicat est la sortie anticipée: en cas de vente avant l'échéance, le prêteur exige le plus souvent une **indemnité de remboursement anticipé**. Son montant dépend de la durée restante et du niveau des taux et peut être élevé. Estimez donc avant de signer combien de temps vous garderez le bien."
+     },
+     {
+      "h2": "Exemple chiffré: la famille Meier"
+     },
+     {
+      "p": "La famille Meier achète une maison individuelle à Baden pour CHF 980’000. Avec CHF 250’000 de fonds propres, l'hypothèque s'élève à **CHF 730’000**. La capacité financière est respectée avec 28.4 % du revenu brut de CHF 185’000. Quels intérêts selon le modèle? Les taux ci-dessous sont des **hypothèses pédagogiques**, ni offres ni prévisions."
+     },
+     {
+      "table": {
+       "head": [
+        "Variante",
+        "Taux supposé",
+        "Intérêts par an"
+       ],
+       "rows": [
+        [
+         "Hypothèque SARON CHF 730’000",
+         "1.00 % (hypothèse)",
+         "CHF 7’300"
+        ],
+        [
+         "Taux fixe 10 ans CHF 730’000",
+         "1.60 % (hypothèse)",
+         "CHF 11’680"
+        ],
+        [
+         "Mix: CHF 365’000 SARON et CHF 365’000 fixe 10 ans",
+         "1.00 % / 1.60 %",
+         "CHF 9’490"
+        ],
+        [
+         "Stress: le SARON monte à 3.00 %",
+         "3.00 % (hypothèse)",
+         "CHF 21’900"
+        ],
+        [
+         "Stress avec mix (part fixe à 1.60 %)",
+         "3.00 % / 1.60 %",
+         "CHF 16’790"
+        ]
+       ]
+      }
+     },
+     {
+      "p": "Dans le scénario calme, le SARON économise CHF 4’380 par an par rapport au taux fixe. Si le SARON grimpe fortement, il coûte presque deux fois plus. Le mix divise les deux effets par deux: moins cher que le taux fixe pur en période calme, nettement moins cher que le SARON pur en cas de stress."
+     },
+     {
+      "p": "Important: pour la **capacité financière**, les banques calculent toujours avec un taux théorique de 5 %, quel que soit le modèle. Pour les Meier, cela représente CHF 52’500 par an, entretien et amortissement compris. Le choix SARON ou fixe ne change donc pas l'octroi du crédit, seulement ce que vous payez réellement."
+     },
+     {
+      "cta": {
+       "title": "Combien coûte votre hypothèque?",
+       "text": "Comparez SARON et taux fixe avec vos propres chiffres.",
+       "label": "Calculateur hypothécaire",
+       "to": "page:rechner"
+      }
+     },
+     {
+      "h2": "Quel modèle pour quelle situation?"
+     },
+     {
+      "p": "Le SARON vous convient plutôt si vous disposez de réserves et pouvez absorber des intérêts plus élevés pendant quelques trimestres. Il est aussi intéressant si vous prévoyez une vente, un amortissement important ou un changement de prêteur dans les prochaines années."
+     },
+     {
+      "p": "Le taux fixe vous convient plutôt si votre budget est serré, par exemple avec des enfants ou à l'approche de la retraite, ou si vous voulez simplement dormir tranquille. Plus la durée est longue, plus la sécurité est grande, mais plus le taux est en général élevé."
+     },
+     {
+      "ul": [
+       "**Réserves solides, projets flexibles:** plutôt SARON ou une grande part SARON",
+       "**Budget serré, projets à long terme:** plutôt taux fixe avec la bonne durée",
+       "**Hésitation:** combinaison SARON et fixe ou plusieurs tranches fixes"
+      ]
+     },
+     {
+      "h2": "Le mix: tranches et échéances échelonnées"
+     },
+     {
+      "p": "Vous n'êtes pas obligé de choisir un seul modèle. Beaucoup de prêteurs acceptent de diviser l'hypothèque en **tranches**: une part en SARON, une part en taux fixe. Vous pouvez aussi échelonner plusieurs taux fixes, par exemple 5 et 10 ans."
+     },
+     {
+      "p": "L'échelonnement évite que toute l'hypothèque arrive à échéance le même jour, au mauvais moment. Veillez cependant à placer toutes les tranches chez le même prêteur: des échéances différentes compliquent un changement ultérieur, car vous ne pouvez jamais transférer toute l'hypothèque en une fois."
+     },
+     {
+      "tip": "Alignez les échéances sur vos projets de vie, par exemple une retraite ou un déménagement possible. Et négociez la marge d'un SARON aussi fermement que le taux d'un fixe: elle s'applique souvent pendant des années.",
+      "title": "Conseil"
+     },
+     {
+      "h2": "Comment prendre la décision"
+     },
+     {
+      "p": "Posez-vous trois questions: quelle variation de taux votre budget supporte-t-il? Combien de temps garderez-vous le bien? Quelle importance accordez-vous à la flexibilité pour amortir ou changer de prêteur? Ces réponses délimitent clairement votre stratégie."
+     },
+     {
+      "p": "Ensuite, comparez. Les écarts entre prêteurs sur les marges et les taux fixes sont souvent plus grands qu'entre les modèles eux-mêmes. HYPOTEQ obtient pour vous des offres de **plus de 40 banques, assurances et caisses de pension** et présente SARON, fixe et mix côte à côte. La comparaison et le courtage sont gratuits pour vous."
+     },
+     {
+      "cta": {
+       "title": "Des offres SARON, fixe et mix",
+       "text": "Demande en 3 minutes, votre conseillère vous contacte rapidement.",
+       "label": "Demander une hypothèque",
+       "to": "funnel"
+      }
+     },
+     {
+      "h2": "Approfondir avec la HYPOTEQ Academy"
+     },
+     {
+      "p": "Vous souhaitez vraiment maîtriser les stratégies hypothécaires? Le **Foundation Course** de la HYPOTEQ Academy (CHF 290, sans prérequis) consacre la Learning Journey «La bonne stratégie hypothécaire» à ce sujet, avec de courtes unités, des quiz et le cas pratique de la famille Meier. Vous êtes courtier immobilier, fiduciaire ou broker? Découvrez aussi notre programme partenaires, qui inclut l'accès à l'Academy pour votre équipe."
+     },
+     {
+      "p": "*Informations générales, état 2026, sans garantie. Les taux de l'exemple sont des hypothèses. Seules les offres et contrats des prêteurs font foi.*"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "SARON ou fixe:\n*en bref.*",
+    "items": [
+     {
+      "q": "Le SARON est-il moins cher à long terme?",
+      "a": "Historiquement, souvent oui, car vous ne payez pas de prime de sécurité. Mais ce n'est pas garanti: si les taux du marché monétaire montent, vos coûts suivent immédiatement. Dans l'exemple Meier, le SARON coûte CHF 7’300 par an à 1.00 % (hypothèse), mais CHF 21’900 à 3.00 %."
+     },
+     {
+      "q": "Quand choisir un taux fixe?",
+      "a": "Si vous avez besoin d'un budget stable, comptez garder le bien longtemps ou anticipez une hausse des taux. Vous connaissez vos intérêts pour toute la durée. Tenez compte de l'**indemnité de remboursement anticipé** en cas de sortie avant l'échéance."
+     },
+     {
+      "q": "Peut-on combiner les deux?",
+      "a": "Oui. La plupart des prêteurs acceptent des tranches, par exemple moitié SARON, moitié fixe 10 ans. Vous divisez ainsi le risque de taux par deux tout en profitant en partie de taux bas. Idéalement, toutes les tranches chez le même prêteur."
+     },
+     {
+      "q": "Quel est mon risque de taux?",
+      "a": "Calcul simple: montant de l'hypothèque multiplié par la hausse. Sur CHF 730’000, chaque point de pourcentage supplémentaire coûte CHF 7’300 par an. Le taux fixe vous protège pendant la durée, le SARON non, le mix à moitié."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Découvrir l'Academy",
+      "to": "page:academy"
+     },
+     {
+      "label": "Hypothèque à taux fixe",
+      "to": "page:fest"
+     },
+     {
+      "label": "Tous les guides",
+      "to": "page:ratgeber"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "SARON, fixe ou mix?\n*Comparez les trois.*",
+    "text": "Gratuit et sans engagement: nous obtenons des offres de plus de 40 partenaires de financement.",
+    "ctas": [
+     {
+      "label": "Demander une hypothèque",
+      "to": "funnel"
+     },
+     {
+      "label": "L'hypothèque SARON",
+      "to": "page:saron"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "SARON o tasso fisso: cosa conviene? | HYPOTEQ",
+  "description": "SARON o tasso fisso? Vantaggi, rischio tassi, costi di uscita e combinazioni a confronto. Con un aiuto alla decisione per la tua situazione.",
+  "h1": "SARON o tasso fisso?",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Guida",
+    "h1": "SARON o\ntasso fisso?",
+    "lead": "**SARON o tasso fisso**: questa scelta determina i tuoi interessi ipotecari per i prossimi anni. Confrontiamo vantaggi, rischio di tasso e combinazioni con l'esempio della famiglia Meier.",
+    "ctas": [
+     {
+      "label": "Richiedere un'ipoteca",
+      "to": "funnel"
+     },
+     {
+      "label": "Tassi indicativi",
+      "to": "page:zinsen"
+     }
+    ],
+    "badges": [
+     "Con esempio di calcolo",
+     "Stato 2026",
+     "Confronto gratuito"
+    ],
+    "image": "keys",
+    "alt": "Chiavi di casa appoggiate su un tavolo"
+   },
+   {
+    "type": "article",
+    "blocks": [
+     {
+      "h2": "Due modelli, due logiche"
+     },
+     {
+      "p": "Scegliere tra un'ipoteca SARON e un'ipoteca a tasso fisso significa decidere tra **pianificabilità** e **flessibilità**. Entrambe finanziano la stessa casa, ma distribuiscono il rischio di tasso in modo diverso. Con il tasso fisso il rischio di un aumento lo porta il finanziatore per tutta la durata. Con il SARON lo porti tu, ma approfitti subito se i tassi scendono."
+     },
+     {
+      "p": "Una risposta valida per tutti non esiste. Contano il tuo budget, i tuoi progetti con l'immobile e quanto sopporti costi variabili. Questa guida ti aiuta a chiarire questi punti prima di confrontare le offerte."
+     },
+     {
+      "h2": "Come funziona l'ipoteca SARON"
+     },
+     {
+      "p": "SARON sta per Swiss Average Rate Overnight, il tasso di riferimento del mercato monetario svizzero calcolato ogni giorno da SIX. Il tuo tasso ipotecario è dato dal SARON composto del periodo trascorso più un **margine individuale**. Il margine resta di solito fisso per tutto il contratto, varia solo la parte SARON."
+     },
+     {
+      "ul": [
+       "Conteggio di norma trimestrale, a posteriori per il periodo concluso",
+       "Spesso inserita in un contratto quadro da due a cinque anni",
+       "Passaggio a un tasso fisso in genere possibile durante il contratto",
+       "Ogni variazione dei tassi incide direttamente sui tuoi costi"
+      ]
+     },
+     {
+      "p": "Il vantaggio: in passato il SARON è stato spesso più conveniente dei tassi fissi lunghi, perché non paghi un premio per la sicurezza. Lo svantaggio: non sai mai con precisione quanto costerà il prossimo trimestre. I nostri tassi indicativi SARON partono **da 0.85 %** (valore d'esempio). Trovi tutti i dettagli nella pagina sull'ipoteca SARON."
+     },
+     {
+      "h2": "Come funziona il tasso fisso"
+     },
+     {
+      "p": "Con l'ipoteca a tasso fisso concordi un tasso per una durata stabilita, di solito tra 2 e 15 anni. Il tasso vale fino alla scadenza, qualunque cosa succeda sui mercati. I nostri tassi indicativi: **5 anni da 1.30 %** e **10 anni da 1.60 %** (valori d'esempio)."
+     },
+     {
+      "p": "Paghi quindi per la sicurezza. Conviene soprattutto se il tuo budget ha poco margine o se ti aspetti un aumento dei tassi. Il punto critico è l'uscita anticipata: se vendi prima della scadenza, il finanziatore chiede di regola un'**indennità di rimborso anticipato**, che dipende dalla durata residua e dal livello dei tassi e può essere elevata. Valuta quindi prima di firmare per quanto tempo terrai l'immobile."
+     },
+     {
+      "h2": "Esempio di calcolo: la famiglia Meier"
+     },
+     {
+      "p": "La famiglia Meier compra una casa unifamiliare a Baden per CHF 980’000. Con CHF 250’000 di fondi propri l'ipoteca è di **CHF 730’000**. La sostenibilità è rispettata con il 28.4 % del reddito lordo di CHF 185’000. Quanto costano gli interessi a seconda del modello? I tassi sotto sono **ipotesi didattiche**, non offerte né previsioni."
+     },
+     {
+      "table": {
+       "head": [
+        "Variante",
+        "Tasso ipotizzato",
+        "Interessi all'anno"
+       ],
+       "rows": [
+        [
+         "Ipoteca SARON CHF 730’000",
+         "1.00 % (ipotesi)",
+         "CHF 7’300"
+        ],
+        [
+         "Tasso fisso 10 anni CHF 730’000",
+         "1.60 % (ipotesi)",
+         "CHF 11’680"
+        ],
+        [
+         "Mix: CHF 365’000 SARON e CHF 365’000 fisso 10 anni",
+         "1.00 % / 1.60 %",
+         "CHF 9’490"
+        ],
+        [
+         "Stress: il SARON sale al 3.00 %",
+         "3.00 % (ipotesi)",
+         "CHF 21’900"
+        ],
+        [
+         "Stress con mix (parte fissa all'1.60 %)",
+         "3.00 % / 1.60 %",
+         "CHF 16’790"
+        ]
+       ]
+      }
+     },
+     {
+      "p": "Nello scenario tranquillo il SARON fa risparmiare CHF 4’380 all'anno rispetto al fisso. Se però il SARON sale molto, costa quasi il doppio. Il mix dimezza entrambi gli effetti: più economico del fisso puro in tempi calmi, nettamente meno caro del SARON puro in caso di stress."
+     },
+     {
+      "p": "Importante: per la **sostenibilità** le banche calcolano sempre con un tasso teorico del 5 %, indipendentemente dal modello. Per i Meier sono CHF 52’500 all'anno, manutenzione e ammortamento compresi. La scelta tra SARON e fisso non cambia quindi la concessione del credito, ma solo quanto paghi davvero."
+     },
+     {
+      "cta": {
+       "title": "Quanto costa la tua ipoteca?",
+       "text": "Confronta SARON e tasso fisso con i tuoi numeri.",
+       "label": "Calcolatore ipotecario",
+       "to": "page:rechner"
+      }
+     },
+     {
+      "h2": "Quale modello per quale situazione?"
+     },
+     {
+      "p": "Il SARON fa per te se hai riserve finanziarie e puoi sostenere interessi più alti per qualche trimestre. È interessante anche se nei prossimi anni pensi a una vendita, a un ammortamento importante o a un cambio di finanziatore."
+     },
+     {
+      "p": "Il tasso fisso fa per te se il budget è rigido, per esempio con figli o in vista della pensione, o se vuoi semplicemente dormire tranquillo. Più lunga la durata, più sicurezza, ma di solito anche un tasso più alto."
+     },
+     {
+      "ul": [
+       "**Riserve solide, progetti flessibili:** piuttosto SARON o una grossa quota SARON",
+       "**Budget stretto, progetti a lungo termine:** piuttosto tasso fisso con la durata giusta",
+       "**Indeciso:** mix tra SARON e fisso o più tranche fisse"
+      ]
+     },
+     {
+      "h2": "Il mix: tranche e scadenze scaglionate"
+     },
+     {
+      "p": "Non devi scegliere un solo modello. Molti finanziatori permettono di suddividere l'ipoteca in **tranche**: una parte SARON, una parte a tasso fisso. Oppure scaglioni più ipoteche fisse con durate diverse, per esempio 5 e 10 anni."
+     },
+     {
+      "p": "Lo scaglionamento evita che tutta l'ipoteca scada lo stesso giorno, magari nel momento sbagliato. Tieni però tutte le tranche presso lo stesso finanziatore: scadenze diverse rendono più difficile un cambio futuro, perché non puoi mai trasferire tutta l'ipoteca in una volta."
+     },
+     {
+      "tip": "Fai coincidere le scadenze con i tuoi progetti di vita, come il pensionamento o un possibile trasloco. E negozia il margine del SARON con la stessa decisione del tasso fisso: spesso vale per anni.",
+      "title": "Consiglio"
+     },
+     {
+      "h2": "Come prendere la decisione"
+     },
+     {
+      "p": "Rispondi a tre domande: quanta oscillazione dei tassi sopporta il tuo budget? Per quanto tempo terrai l'immobile? Quanto conta per te poter ammortizzare o cambiare finanziatore con flessibilità? Con queste risposte la strategia diventa molto più chiara."
+     },
+     {
+      "p": "Poi conviene confrontare. Le differenze tra finanziatori su margini e tassi fissi sono spesso maggiori di quelle tra i modelli. HYPOTEQ raccoglie per te offerte da **oltre 40 banche, assicurazioni e casse pensioni** e ti mostra SARON, fisso e mix fianco a fianco. Confronto e intermediazione sono gratuiti per te."
+     },
+     {
+      "cta": {
+       "title": "Offerte per SARON, fisso e mix",
+       "text": "Richiesta in 3 minuti, la tua consulente ti contatta in tempi brevi.",
+       "label": "Richiedere un'ipoteca",
+       "to": "funnel"
+      }
+     },
+     {
+      "h2": "Approfondire con la HYPOTEQ Academy"
+     },
+     {
+      "p": "Vuoi capire a fondo le strategie ipotecarie? Nel **Foundation Course** della HYPOTEQ Academy (CHF 290, senza conoscenze preliminari) la Learning Journey «La strategia ipotecaria giusta» tratta proprio questo tema, con brevi unità, quiz e il caso pratico della famiglia Meier. Sei agente immobiliare, fiduciario o broker? Scopri anche il nostro programma partner, con accesso all'Academy per il tuo team."
+     },
+     {
+      "p": "*Informazioni generali, stato 2026, senza garanzia. I tassi dell'esempio sono ipotesi. Fanno stato le offerte e i contratti dei finanziatori.*"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "SARON o fisso:\n*in breve.*",
+    "items": [
+     {
+      "q": "Il SARON conviene a lungo termine?",
+      "a": "In passato spesso sì, perché non paghi un premio di sicurezza. Non è però garantito: se salgono i tassi del mercato monetario, i tuoi costi salgono subito. Nell'esempio Meier il SARON costa CHF 7’300 all'anno all'1.00 % (ipotesi), ma CHF 21’900 al 3.00 %."
+     },
+     {
+      "q": "Quando scegliere il tasso fisso?",
+      "a": "Se ti serve un budget stabile, vuoi tenere l'immobile a lungo o ti aspetti tassi in aumento. Conosci gli interessi per tutta la durata. Considera l'**indennità di rimborso anticipato** se esci prima della scadenza."
+     },
+     {
+      "q": "Si possono combinare?",
+      "a": "Sì. Molti finanziatori accettano tranche, per esempio metà SARON e metà fisso 10 anni. Così dimezzi il rischio di tasso e approfitti in parte dei tassi bassi. Meglio tenere tutte le tranche presso lo stesso finanziatore."
+     },
+     {
+      "q": "Qual è il mio rischio di tasso?",
+      "a": "Calcolo semplice: importo dell'ipoteca per l'aumento del tasso. Su CHF 730’000 ogni punto percentuale in più costa CHF 7’300 all'anno. Il fisso ti protegge per la durata, il SARON no, il mix a metà."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Scopri l'Academy",
+      "to": "page:academy"
+     },
+     {
+      "label": "Ipoteca a tasso fisso",
+      "to": "page:fest"
+     },
+     {
+      "label": "Tutte le guide",
+      "to": "page:ratgeber"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "SARON, fisso o mix?\n*Confronta tutti e tre.*",
+    "text": "Gratuito e senza impegno: raccogliamo offerte da oltre 40 partner di finanziamento.",
+    "ctas": [
+     {
+      "label": "Richiedere un'ipoteca",
+      "to": "funnel"
+     },
+     {
+      "label": "L'ipoteca SARON",
+      "to": "page:saron"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "SARON vs Fixed Mortgage: Which Is Better? | HYPOTEQ",
+  "description": "SARON or fixed-rate? Pros and cons, interest rate risk, exit costs and mixed models compared, with a decision guide for your situation.",
+  "h1": "SARON or fixed-rate mortgage?",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Guide",
+    "h1": "SARON or\nfixed-rate mortgage?",
+    "lead": "**SARON vs fixed mortgage**: this choice shapes your interest costs for years. We compare pros and cons, interest rate risk and mixed models, using the example of the Meier family.",
+    "ctas": [
+     {
+      "label": "Request a mortgage",
+      "to": "funnel"
+     },
+     {
+      "label": "Indicative rates",
+      "to": "page:zinsen"
+     }
+    ],
+    "badges": [
+     "Worked example",
+     "As of 2026",
+     "Free comparison"
+    ],
+    "image": "keys",
+    "alt": "House keys on a table"
+   },
+   {
+    "type": "article",
+    "blocks": [
+     {
+      "h2": "Two models, two philosophies"
+     },
+     {
+      "p": "Choosing between a SARON mortgage and a fixed-rate mortgage comes down to one question: do you value **predictability** or **flexibility**? Both finance the same home, but they share interest rate risk differently. With a fixed rate, the lender carries the risk of rising rates during the term. With SARON, you carry it yourself, but you benefit straight away when rates fall."
+     },
+     {
+      "p": "There is no one-size-fits-all answer. It depends on your budget, your plans for the property and how comfortable you are with fluctuating costs. This guide helps you sort these points before you compare offers, which is especially useful if you are new to the Swiss market."
+     },
+     {
+      "h2": "How a SARON mortgage works"
+     },
+     {
+      "p": "SARON stands for Swiss Average Rate Overnight, the reference rate of the Swiss money market, calculated daily by SIX. It replaced the old LIBOR-based mortgages. Your rate is the compounded SARON of the past period plus an **individual margin**. The margin usually stays fixed for the whole contract; only the SARON part moves."
+     },
+     {
+      "ul": [
+       "Usually billed quarterly, in arrears for the period just ended",
+       "Often part of a framework agreement of two to five years",
+       "Switching to a fixed rate during the term is possible with many lenders",
+       "Every rate change hits your costs directly, up or down"
+      ]
+     },
+     {
+      "p": "The upside: historically, SARON has often been cheaper than long fixed rates, because you don't pay a premium for certainty. The downside: you never know exactly what next quarter will cost. Our indicative SARON rates start **from 0.85 %** (sample value). Read more on our SARON mortgage page."
+     },
+     {
+      "h2": "How a fixed-rate mortgage works"
+     },
+     {
+      "p": "With a fixed-rate mortgage you agree a rate for a set term, typically between 2 and 15 years. That rate applies until maturity, whatever happens on the capital markets. Our indicative rates: **5 years from 1.30 %** and **10 years from 1.60 %** (sample values)."
+     },
+     {
+      "p": "You are paying for certainty. That makes sense if your budget has little room or if you expect rates to rise. The catch is the early exit: if you sell before maturity, the lender usually charges an **early repayment penalty**. Its size depends on the remaining term and the rate level and can be substantial. So think carefully before signing about how long you will realistically keep the property, especially if a job move abroad is possible."
+     },
+     {
+      "h2": "Worked example: the Meier family"
+     },
+     {
+      "p": "The Meier family buys a detached house in Baden for CHF 980,000. With CHF 250,000 of equity, the mortgage is **CHF 730,000**. Affordability is met at 28.4 % of their gross income of CHF 185,000. What interest do they pay with each model? The rates below are **assumptions for learning purposes**, not offers and not forecasts."
+     },
+     {
+      "table": {
+       "head": [
+        "Option",
+        "Assumed rate",
+        "Interest per year"
+       ],
+       "rows": [
+        [
+         "SARON mortgage CHF 730,000",
+         "1.00 % (assumption)",
+         "CHF 7,300"
+        ],
+        [
+         "10-year fixed CHF 730,000",
+         "1.60 % (assumption)",
+         "CHF 11,680"
+        ],
+        [
+         "Mix: CHF 365,000 SARON and CHF 365,000 10-year fixed",
+         "1.00 % / 1.60 %",
+         "CHF 9,490"
+        ],
+        [
+         "Stress: SARON rises to 3.00 %",
+         "3.00 % (assumption)",
+         "CHF 21,900"
+        ],
+        [
+         "Stress with mix (fixed part stays at 1.60 %)",
+         "3.00 % / 1.60 %",
+         "CHF 16,790"
+        ]
+       ]
+      }
+     },
+     {
+      "p": "In the calm scenario, SARON saves CHF 4,380 a year compared with the fixed rate. If SARON rises sharply, it suddenly costs almost twice as much. The mix halves both effects: cheaper than a pure fixed rate in calm times and clearly cheaper than pure SARON under stress."
+     },
+     {
+      "p": "Important: for **affordability**, Swiss banks always calculate with an imputed rate of 5 %, whatever model you choose. For the Meiers that means CHF 52,500 a year including maintenance and amortisation. So SARON or fixed does not decide whether you get the mortgage, only what you actually pay."
+     },
+     {
+      "cta": {
+       "title": "What will your mortgage cost?",
+       "text": "Compare SARON and fixed rates with your own numbers.",
+       "label": "Mortgage calculator",
+       "to": "page:rechner"
+      }
+     },
+     {
+      "h2": "Which model suits which situation?"
+     },
+     {
+      "p": "SARON tends to suit you if you have financial reserves and can absorb higher interest for a few quarters. It also works well if you might sell, make a large repayment or switch lenders in the next few years."
+     },
+     {
+      "p": "A fixed rate tends to suit you if your budget is tight, for example with children or close to retirement, or if you simply want peace of mind. The longer the term, the more certainty, but usually the higher the rate."
+     },
+     {
+      "ul": [
+       "**Strong reserves, flexible plans:** SARON or a large SARON share",
+       "**Tight budget, long-term plans:** a fixed rate with the right term",
+       "**Undecided:** a SARON and fixed mix, or several fixed tranches"
+      ]
+     },
+     {
+      "h2": "The mix: tranches and staggered terms"
+     },
+     {
+      "p": "You don't have to pick just one model. Many lenders let you split the mortgage into **tranches**: one part SARON, one part fixed. Or you stagger several fixed-rate tranches with different terms, for example 5 and 10 years."
+     },
+     {
+      "p": "Staggering means the whole mortgage never matures on the same day, possibly at a bad moment. Keep all tranches with the same lender, though: different maturities make a later switch harder, because you can never move the whole mortgage at once."
+     },
+     {
+      "tip": "Align maturities with your life plans, such as retirement or a possible relocation. And negotiate the SARON margin as hard as a fixed rate: it often applies for years.",
+      "title": "Tip"
+     },
+     {
+      "h2": "How to make the decision"
+     },
+     {
+      "p": "Ask yourself three questions: how much rate fluctuation can your budget take? How long will you definitely keep the property? And how much do you value the freedom to repay or switch? Your answers narrow down the strategy considerably."
+     },
+     {
+      "p": "Then compare. Differences between lenders on margins and fixed rates are often bigger than between the models themselves. HYPOTEQ gathers offers from **more than 40 banks, insurers and pension funds** and shows you SARON, fixed and mixed options side by side, in English if you prefer. Comparison and brokerage are free for you."
+     },
+     {
+      "cta": {
+       "title": "Offers for SARON, fixed and mix",
+       "text": "Request in 3 minutes; your advisor gets back to you promptly.",
+       "label": "Request a mortgage",
+       "to": "funnel"
+      }
+     },
+     {
+      "h2": "Go deeper with HYPOTEQ Academy"
+     },
+     {
+      "p": "Want to really understand mortgage strategies? In the **Foundation Course** of HYPOTEQ Academy (CHF 290, no prior knowledge needed), the learning journey on choosing the right mortgage strategy covers exactly this, with short learning nuggets, knowledge checks and the Meier family case. Are you a real estate agent, trustee or broker? Have a look at our partner programme too, which includes Academy access for your team."
+     },
+     {
+      "p": "*General information, as of 2026, without guarantee. Rates in the example are assumptions. Lenders' offers and contracts are binding.*"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "SARON or fixed:\n*quick answers.*",
+    "items": [
+     {
+      "q": "Is SARON cheaper in the long run?",
+      "a": "Historically, often yes, because you pay no premium for certainty. But it is not guaranteed: if money-market rates rise, your costs rise immediately. In the Meier example, SARON costs CHF 7,300 a year at 1.00 % (assumption) but CHF 21,900 at 3.00 %."
+     },
+     {
+      "q": "When is a fixed rate better?",
+      "a": "When you need a stable budget, plan to keep the property for a long time or expect rates to rise. You know your interest for the whole term. Keep the **early repayment penalty** in mind if you might exit early."
+     },
+     {
+      "q": "Can I combine both?",
+      "a": "Yes. Many lenders accept tranches, for example half SARON and half 10-year fixed. That halves your rate risk while still partly benefiting from low rates. Ideally keep all tranches with one lender."
+     },
+     {
+      "q": "How big is my interest rate risk?",
+      "a": "Simple maths: mortgage amount times the rate increase. On CHF 730,000, every extra percentage point costs CHF 7,300 a year. A fixed rate protects you for the term, SARON doesn't, a mix does so by half."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Explore the Academy",
+      "to": "page:academy"
+     },
+     {
+      "label": "Fixed-rate mortgage",
+      "to": "page:fest"
+     },
+     {
+      "label": "All guides",
+      "to": "page:ratgeber"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "SARON, fixed or mix?\n*Compare all three.*",
+    "text": "Free and non-binding: we gather offers from more than 40 lenders.",
+    "ctas": [
+     {
+      "label": "Request a mortgage",
+      "to": "funnel"
+     },
+     {
+      "label": "SARON mortgage",
+      "to": "page:saron"
+     }
+    ]
+   }
+  ]
+ }
+}

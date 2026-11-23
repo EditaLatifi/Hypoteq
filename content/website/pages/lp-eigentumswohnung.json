@@ -1,0 +1,998 @@
+{
+ "de": {
+  "title": "Hypothek für deine Eigentumswohnung | HYPOTEQ",
+  "description": "Du kaufst eine Wohnung im Stockwerkeigentum? Wir prüfen Erneuerungsfonds und Tragbarkeit und vergleichen 40+ Anbieter. Anfrage in 3 Minuten.",
+  "h1": "Deine Eigentumswohnung richtig finanzieren",
+  "nav": [
+   "Eigentumswohnung",
+   "Stockwerkeigentum finanzieren"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypothek Eigentumswohnung",
+    "h1": "Deine Eigentumswohnung\n*richtig finanzieren*",
+    "lead": "Bei einer Wohnung im Stockwerkeigentum schaut die Bank nicht nur auf Preis und Einkommen, sondern auch auf Erneuerungsfonds, Reglement und anstehende Sanierungen. Wir prüfen deine **Hypothek für die Eigentumswohnung** vorab und vergleichen über 40 Banken, Versicherungen und Pensionskassen.",
+    "ctas": [
+     {
+      "label": "Wohnung finanzieren",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Kostenlos & unverbindlich",
+     "Erneuerungsfonds geprüft",
+     "Offerten in 48–72 h"
+    ],
+    "image": "zurich-neighbourhood",
+    "alt": "Wohnquartier mit Mehrfamilienhäusern in Zürich",
+    "float": {
+     "title": "5 Jahre fest ab 1.30 %",
+     "text": "Richtzins · Beispielwert"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "Banken, Versicherungen und Pensionskassen"
+     },
+     {
+      "value": "3 Min.",
+      "label": "bis zur vollständigen Anfrage"
+     },
+     {
+      "value": "48–72 h",
+      "label": "bis zu konkreten Offerten"
+     },
+     {
+      "value": "0 CHF",
+      "label": "für Vergleich und Vermittlung"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Stockwerkeigentum Hypothek",
+    "title": "Du kaufst nicht nur die Wohnung.\n*Sondern einen Anteil am Haus.*",
+    "image": "interior",
+    "alt": "Helles Wohnzimmer einer Eigentumswohnung",
+    "paragraphs": [
+     "Mit der Wohnung erwirbst du eine Wertquote am ganzen Gebäude. Dach, Fassade und Heizung gehören allen gemeinsam. Darum will die Bank wissen, wie gut die Gemeinschaft vorgesorgt hat.",
+     "Ist der **Erneuerungsfonds** knapp und steht eine Sanierung bevor, kann das die Beurteilung verschlechtern. Wir lesen die Unterlagen mit dir, bevor du unterschreibst, und suchen die Anbieter, die dein Objekt fair beurteilen."
+    ],
+    "bullets": [
+     "Erneuerungsfonds, Reglement und Protokolle im Blick",
+     "Tragbarkeit inklusive Nebenkosten gerechnet",
+     "Finanzierungsbestätigung für dein Kaufangebot"
+    ],
+    "ctas": [
+     {
+      "label": "Wohnung prüfen lassen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Typische Hürden",
+    "title": "Was beim Wohnungskauf bremst.\n*Und wie wir es lösen.*",
+    "tone": "soft",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Hürde",
+      "title": "Zu wenig Eigenkapital",
+      "text": "Du brauchst mind. 20 % Eigenmittel, davon 10 % hart. Wir prüfen, ob Pensionskasse, Säule 3a oder ein Erbvorbezug die Lücke schliessen.",
+      "to": "page:lp-wenig-eigenmittel",
+      "cta": "Wenig Eigenmittel"
+     },
+     {
+      "kicker": "Hürde",
+      "title": "Knapper Erneuerungsfonds",
+      "text": "Wir zeigen der Bank den Zustand des Hauses und geplante Arbeiten transparent und vergleichen Anbieter, die das Objekt realistisch einschätzen."
+     },
+     {
+      "kicker": "Hürde",
+      "title": "Preis über dem Marktwert",
+      "text": "Die Bank belehnt den Wert, nicht den Kaufpreis. Mit der Bewertung nach Wüest Partner kennst du den Wert vor dem Angebot.",
+      "to": "page:bewertung",
+      "cta": "Wohnung bewerten"
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Anfrage starten",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Wohnung kaufen Finanzierung",
+    "title": "Was kostet\n*deine Wohnung pro Monat?*",
+    "lead": "Gib Kaufpreis, Eigenmittel und Einkommen ein. Du siehst Belehnung, Zinskosten und Tragbarkeit auf einen Blick."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Eigentumswohnung finanzieren",
+    "title": "In vier Schritten\n*zum Schlüssel.*",
+    "items": [
+     {
+      "title": "Anfrage in 3 Minuten",
+      "text": "Lade deine Unterlagen hoch, die KI liest die meisten Angaben aus."
+     },
+     {
+      "title": "Objekt & Gemeinschaft prüfen",
+      "text": "Deine Beraterin prüft Erneuerungsfonds, Reglement, Nebenkosten und Tragbarkeit."
+     },
+     {
+      "title": "Offerten vergleichen",
+      "text": "Offerten meist innert 48–72 h nach vollständigen Unterlagen."
+     },
+     {
+      "title": "Notar & Auszahlung",
+      "text": "Wir koordinieren mit Bank und Notariat bis zur Übergabe."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Jetzt starten",
+      "to": "funnel"
+     },
+     {
+      "label": "Kontakt aufnehmen",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "testimonials",
+    "eyebrow": "Kundenstimmen",
+    "title": "Gekauft.\n*Und gut finanziert.*",
+    "items": [
+     {
+      "text": "Neutrale Beratung, mehrere attraktive Angebote, alles reibungslos.",
+      "author": "Chris E."
+     },
+     {
+      "text": "Professionell, menschlich, kompetent und top Konditionen.",
+      "author": "Gregor R."
+     },
+     {
+      "text": "Mein Berater hat mich optimal begleitet.",
+      "author": "Romain C."
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Passend dazu",
+    "title": "Gut vorbereitet\n*zur eigenen Wohnung.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Erstkauf",
+      "title": "Die erste Wohnung",
+      "text": "Alles, was beim ersten Eigenheim zählt.",
+      "to": "page:lp-erstkauf"
+     },
+     {
+      "kicker": "Paare",
+      "title": "Unverheiratet kaufen",
+      "text": "Miteigentum und Absicherung im Konkubinat.",
+      "to": "page:lp-konkubinat"
+     },
+     {
+      "kicker": "Modelle",
+      "title": "SARON oder Fest?",
+      "text": "Welche Strategie zu deiner Wohnung passt.",
+      "to": "page:rg-saron-fest"
+     },
+     {
+      "kicker": "Für Makler",
+      "title": "Partner werden",
+      "text": "Du verkaufst Wohnungen? Deine Käufer finanzieren mit uns, du erhältst eine Provision.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Eigentumswohnung\n*ohne Fragezeichen.*",
+    "items": [
+     {
+      "q": "Wie viel Eigenkapital brauche ich für eine Eigentumswohnung?",
+      "a": "Mindestens **20 %** des Kaufpreises bzw. Werts, davon mind. 10 % hart, also nicht aus der Pensionskasse. Die Kaufnebenkosten von ca. 2–5 % je nach Kanton kommen dazu. Stand 2026, ohne Gewähr."
+     },
+     {
+      "q": "Welche Rolle spielt der Erneuerungsfonds?",
+      "a": "Er finanziert gemeinsame Sanierungen wie Dach, Fassade oder Heizung. Ist er im Verhältnis zum Alter des Hauses tief und steht eine grössere Arbeit an, rechnet die Bank mit zusätzlichen Kosten für dich. Das kann Belehnung und Tragbarkeit beeinflussen."
+     },
+     {
+      "q": "Welche Unterlagen der Stockwerkeigentümergemeinschaft braucht die Bank?",
+      "a": "Typisch sind Begründungsakt mit Wertquoten, Reglement, die letzten Versammlungsprotokolle, die Jahresrechnung mit Stand des Erneuerungsfonds sowie Grundbuchauszug und Verkaufsdokumentation. Wir sagen dir, was fehlt."
+     },
+     {
+      "q": "Wie rechnet die Bank Nebenkosten der Wohnung ein?",
+      "a": "In der Tragbarkeit rechnen Banken meist pauschal mit rund 1 % des Werts für Unterhalt und Nebenkosten, dazu kalkulatorische 5 % Zins und die Amortisation. Zusammen sollte das max. ca. ein Drittel deines Bruttoeinkommens sein."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Frage stellen",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Deine Wohnung gefunden?\n*Jetzt Finanzierung sichern.*",
+    "text": "Kostenlos vergleichen und in 3 Minuten anfragen. Deine Beraterin meldet sich zeitnah.",
+    "ctas": [
+     {
+      "label": "Finanzierung anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Hypothèque pour votre appartement en PPE | HYPOTEQ",
+  "description": "Vous achetez un appartement en PPE? Nous vérifions le fonds de rénovation et la capacité financière et comparons 40+ prêteurs. Demande en 3 minutes.",
+  "h1": "Financer votre appartement en PPE",
+  "nav": [
+   "Appartement en PPE",
+   "Financer la propriété par étages"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypothèque appartement",
+    "h1": "Financer votre\n*appartement en PPE*",
+    "lead": "En PPE, la banque regarde aussi le fonds de rénovation, le règlement et les travaux à venir. Nous vérifions votre **hypothèque appartement** en amont et comparons plus de 40 banques, assurances et caisses de pension.",
+    "ctas": [
+     {
+      "label": "Financer mon appartement",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Gratuit & sans engagement",
+     "Fonds de rénovation vérifié",
+     "Offres en 48–72 h"
+    ],
+    "image": "zurich-neighbourhood",
+    "alt": "Quartier résidentiel avec immeubles à Zurich",
+    "float": {
+     "title": "Fixe 5 ans dès 1.30 %",
+     "text": "Taux indicatif · valeur d'exemple"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banques, assurances et caisses de pension"
+     },
+     {
+      "value": "3 min",
+      "label": "pour une demande complète"
+     },
+     {
+      "value": "48–72 h",
+      "label": "jusqu'aux offres concrètes"
+     },
+     {
+      "value": "0 CHF",
+      "label": "pour la comparaison et le courtage"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "PPE hypothèque",
+    "title": "Vous n'achetez pas qu'un appartement.\n*Mais une part de l'immeuble.*",
+    "image": "interior",
+    "alt": "Séjour lumineux d'un appartement en PPE",
+    "paragraphs": [
+     "Avec l'appartement, vous acquérez une quote-part de tout l'immeuble. Toit, façade et chauffage sont communs. La banque veut donc savoir si la communauté a bien anticipé.",
+     "Si le **fonds de rénovation** est faible et qu'une rénovation approche, l'évaluation peut se dégrader. Nous analysons les documents avec vous avant la signature et ciblons les prêteurs adaptés."
+    ],
+    "bullets": [
+     "Fonds de rénovation, règlement et procès-verbaux examinés",
+     "Capacité financière calculée charges comprises",
+     "Attestation de financement pour votre offre d'achat"
+    ],
+    "ctas": [
+     {
+      "label": "Faire vérifier l'appartement",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Obstacles fréquents",
+    "title": "Ce qui freine l'achat.\n*Et comment nous le résolvons.*",
+    "tone": "soft",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Obstacle",
+      "title": "Fonds propres insuffisants",
+      "text": "Il faut au moins 20 % de fonds propres, dont 10 % « durs ». Nous vérifions si le 2e pilier, le 3e pilier ou une avance d'hoirie comblent l'écart.",
+      "to": "page:lp-wenig-eigenmittel",
+      "cta": "Peu de fonds propres"
+     },
+     {
+      "kicker": "Obstacle",
+      "title": "Fonds de rénovation faible",
+      "text": "Nous présentons à la banque l'état de l'immeuble et les travaux prévus de façon transparente, et comparons les prêteurs qui l'évaluent de manière réaliste."
+     },
+     {
+      "kicker": "Obstacle",
+      "title": "Prix au-dessus du marché",
+      "text": "La banque finance la valeur, pas le prix. Avec l'estimation selon Wüest Partner, vous connaissez la valeur avant votre offre.",
+      "to": "page:bewertung",
+      "cta": "Estimer l'appartement"
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Lancer la demande",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Acheter un appartement financement",
+    "title": "Combien coûte\n*votre appartement par mois?*",
+    "lead": "Saisissez prix, fonds propres et revenu. Vous voyez le taux d'avance, les intérêts et la capacité financière d'un coup d'œil."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Financer un appartement",
+    "title": "Quatre étapes\n*jusqu'aux clés.*",
+    "items": [
+     {
+      "title": "Demande en 3 minutes",
+      "text": "Téléchargez vos documents, l'IA lit la plupart des données."
+     },
+     {
+      "title": "Bien et PPE analysés",
+      "text": "Votre conseillère vérifie fonds de rénovation, règlement et capacité financière."
+     },
+     {
+      "title": "Comparer les offres",
+      "text": "Offres en général 48–72 h après dossier complet."
+     },
+     {
+      "title": "Notaire & versement",
+      "text": "Nous coordonnons banque et notaire jusqu'aux clés."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Commencer",
+      "to": "funnel"
+     },
+     {
+      "label": "Nous contacter",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "testimonials",
+    "eyebrow": "Avis clients",
+    "title": "Acheté.\n*Et bien financé.*",
+    "items": [
+     {
+      "text": "Conseil neutre, plusieurs offres attractives, sans accroc.",
+      "author": "Chris E."
+     },
+     {
+      "text": "Professionnel, humain, compétent, excellentes conditions.",
+      "author": "Gregor R."
+     },
+     {
+      "text": "Mon conseiller m'a parfaitement accompagné.",
+      "author": "Romain C."
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "À lire aussi",
+    "title": "Bien préparé\n*pour votre appartement.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Premier achat",
+      "title": "Votre premier logement",
+      "text": "L'essentiel pour devenir propriétaire.",
+      "to": "page:lp-erstkauf"
+     },
+     {
+      "kicker": "Couples",
+      "title": "Acheter en concubinage",
+      "text": "Copropriété et protection du partenaire.",
+      "to": "page:lp-konkubinat"
+     },
+     {
+      "kicker": "Modèles",
+      "title": "SARON ou fixe?",
+      "text": "La stratégie adaptée à votre appartement.",
+      "to": "page:rg-saron-fest"
+     },
+     {
+      "kicker": "Courtiers",
+      "title": "Devenir partenaire",
+      "text": "Vous vendez des appartements? Vos acheteurs financent avec nous, vous touchez une commission.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "Appartement en PPE\n*sans points d'interrogation.*",
+    "items": [
+     {
+      "q": "De combien de fonds propres ai-je besoin pour un appartement?",
+      "a": "Au moins **20 %** du prix ou de la valeur, dont 10 % hors 2e pilier. S'y ajoutent des frais d'achat d'environ 2–5 % selon le canton. État 2026, sans garantie."
+     },
+     {
+      "q": "Quel est le rôle du fonds de rénovation?",
+      "a": "Il finance les rénovations communes (toit, façade, chauffage). S'il est faible et qu'un gros chantier approche, la banque anticipe des frais pour vous, ce qui peut peser sur le taux d'avance et la capacité financière."
+     },
+     {
+      "q": "Quels documents de la PPE la banque demande-t-elle?",
+      "a": "En général: acte constitutif avec quotes-parts, règlement, derniers procès-verbaux, comptes annuels avec état du fonds de rénovation, extrait du registre foncier et dossier de vente."
+     },
+     {
+      "q": "Comment les charges sont-elles prises en compte?",
+      "a": "Les banques comptent souvent environ 1 % de la valeur pour entretien et charges, plus un taux théorique de 5 % et l'amortissement. Le total ne devrait pas dépasser environ un tiers du revenu brut."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Poser une question",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Appartement trouvé?\n*Sécurisez le financement.*",
+    "text": "Comparez gratuitement et déposez votre demande en 3 minutes. Votre conseillère vous rappelle rapidement.",
+    "ctas": [
+     {
+      "label": "Demander un financement",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Ipoteca per il tuo appartamento in PPP | HYPOTEQ",
+  "description": "Compri un appartamento in proprietà per piani? Verifichiamo fondo di rinnovamento e sostenibilità e confrontiamo oltre 40 istituti. Richiesta in 3 minuti.",
+  "h1": "Finanziare il tuo appartamento in PPP",
+  "nav": [
+   "Appartamento in PPP",
+   "Finanziare la proprietà per piani"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Ipoteca appartamento",
+    "h1": "Finanziare il tuo\n*appartamento in PPP*",
+    "lead": "In PPP la banca guarda anche fondo di rinnovamento, regolamento e lavori in arrivo. Verifichiamo in anticipo la tua **ipoteca appartamento** e confrontiamo oltre 40 banche, assicurazioni e casse pensione.",
+    "ctas": [
+     {
+      "label": "Finanzia l'appartamento",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Gratuito e senza impegno",
+     "Fondo di rinnovamento verificato",
+     "Offerte in 48–72 h"
+    ],
+    "image": "lugano",
+    "alt": "Quartiere residenziale di Lugano sul lago",
+    "float": {
+     "title": "Fisso 5 anni da 1.30 %",
+     "text": "Tasso indicativo · valore d'esempio"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banche, assicurazioni e casse pensione"
+     },
+     {
+      "value": "3 min",
+      "label": "per una richiesta completa"
+     },
+     {
+      "value": "48–72 h",
+      "label": "fino alle offerte concrete"
+     },
+     {
+      "value": "0 CHF",
+      "label": "per confronto e mediazione"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Proprietà per piani ipoteca",
+    "title": "Non compri solo l'appartamento.\n*Ma una quota dello stabile.*",
+    "image": "interior",
+    "alt": "Soggiorno luminoso di un appartamento in PPP",
+    "paragraphs": [
+     "Con l'appartamento acquisti una quota di valore dell'intero stabile. Tetto, facciata e riscaldamento sono comuni. Per questo la banca vuole sapere quanto la comunione ha accantonato.",
+     "Se il **fondo di rinnovamento** è basso e si avvicina un risanamento, la valutazione può peggiorare. Leggiamo i documenti con te prima della firma e cerchiamo gli istituti che valutano il tuo immobile in modo equo."
+    ],
+    "bullets": [
+     "Fondo di rinnovamento, regolamento e verbali sotto controllo",
+     "Sostenibilità calcolata con le spese condominiali",
+     "Conferma di finanziamento per la tua offerta"
+    ],
+    "ctas": [
+     {
+      "label": "Fai verificare l'appartamento",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Ostacoli tipici",
+    "title": "Cosa frena l'acquisto.\n*E come lo risolviamo.*",
+    "tone": "soft",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Ostacolo",
+      "title": "Pochi fondi propri",
+      "text": "Servono almeno il 20 % di fondi propri, di cui il 10 % «duri». Verifichiamo se cassa pensione, 3° pilastro o un anticipo ereditario colmano la lacuna.",
+      "to": "page:lp-wenig-eigenmittel",
+      "cta": "Pochi fondi propri"
+     },
+     {
+      "kicker": "Ostacolo",
+      "title": "Fondo di rinnovamento basso",
+      "text": "Presentiamo alla banca in modo trasparente lo stato dello stabile e i lavori previsti e confrontiamo gli istituti che lo valutano in modo realistico."
+     },
+     {
+      "kicker": "Ostacolo",
+      "title": "Prezzo sopra il mercato",
+      "text": "La banca finanzia il valore, non il prezzo. Con la stima secondo Wüest Partner conosci il valore prima dell'offerta.",
+      "to": "page:bewertung",
+      "cta": "Stima l'appartamento"
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Avvia la richiesta",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Comprare appartamento finanziamento",
+    "title": "Quanto costa\n*il tuo appartamento al mese?*",
+    "lead": "Inserisci prezzo, fondi propri e reddito. Vedi anticipo, interessi e sostenibilità a colpo d'occhio."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Finanziare un appartamento",
+    "title": "Quattro passi\n*fino alle chiavi.*",
+    "items": [
+     {
+      "title": "Richiesta in 3 minuti",
+      "text": "Carica i documenti, l'IA legge la maggior parte dei dati."
+     },
+     {
+      "title": "Immobile e comunione",
+      "text": "La consulente verifica fondo di rinnovamento, regolamento e sostenibilità."
+     },
+     {
+      "title": "Confronto delle offerte",
+      "text": "Offerte di regola entro 48–72 h dai documenti completi."
+     },
+     {
+      "title": "Notaio e versamento",
+      "text": "Coordiniamo banca e notaio fino alle chiavi."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Inizia ora",
+      "to": "funnel"
+     },
+     {
+      "label": "Contattaci",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "testimonials",
+    "eyebrow": "Opinioni dei clienti",
+    "title": "Comprato.\n*E ben finanziato.*",
+    "items": [
+     {
+      "text": "Consulenza neutrale, diverse offerte interessanti, tutto liscio.",
+      "author": "Chris E."
+     },
+     {
+      "text": "Professionali, umani, competenti, condizioni top.",
+      "author": "Gregor R."
+     },
+     {
+      "text": "Il mio consulente mi ha accompagnato in modo ottimale.",
+      "author": "Romain C."
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Approfondisci",
+    "title": "Ben preparato\n*per il tuo appartamento.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Primo acquisto",
+      "title": "La prima casa",
+      "text": "Tutto quello che conta per il primo immobile.",
+      "to": "page:lp-erstkauf"
+     },
+     {
+      "kicker": "Coppie",
+      "title": "Comprare in concubinato",
+      "text": "Comproprietà e tutela del partner.",
+      "to": "page:lp-konkubinat"
+     },
+     {
+      "kicker": "Modelli",
+      "title": "SARON o fisso?",
+      "text": "La strategia giusta per il tuo appartamento.",
+      "to": "page:rg-saron-fest"
+     },
+     {
+      "kicker": "Per agenti",
+      "title": "Diventa partner",
+      "text": "Vendi appartamenti? I tuoi acquirenti finanziano con noi e tu ricevi una provvigione.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "Appartamento in PPP\n*senza punti di domanda.*",
+    "items": [
+     {
+      "q": "Quanti fondi propri servono per un appartamento?",
+      "a": "Almeno il **20 %** del prezzo o del valore, di cui il 10 % non dalla cassa pensione. Si aggiungono costi d'acquisto del 2–5 % circa secondo il cantone. Stato 2026, senza garanzia."
+     },
+     {
+      "q": "Che ruolo ha il fondo di rinnovamento?",
+      "a": "Finanzia i risanamenti comuni (tetto, facciata, riscaldamento). Se è basso e si avvicina un intervento importante, la banca calcola costi aggiuntivi per te, con effetti su anticipo e sostenibilità."
+     },
+     {
+      "q": "Quali documenti della comunione servono alla banca?",
+      "a": "Di solito: atto costitutivo con le quote, regolamento, ultimi verbali, conto annuale con lo stato del fondo di rinnovamento, estratto del registro fondiario e documentazione di vendita."
+     },
+     {
+      "q": "Come vengono considerate le spese condominiali?",
+      "a": "Le banche calcolano spesso circa l'1 % del valore per manutenzione e spese, più un tasso teorico del 5 % e l'ammortamento. Il totale non dovrebbe superare circa un terzo del reddito lordo."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Fai una domanda",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Trovato l'appartamento?\n*Assicurati il finanziamento.*",
+    "text": "Confronta gratis e invia la richiesta in 3 minuti. La tua consulente ti contatta in tempi brevi.",
+    "ctas": [
+     {
+      "label": "Richiedi il finanziamento",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "Mortgage for your apartment in Switzerland | HYPOTEQ",
+  "description": "Buying a condominium? We check the renovation fund and affordability and compare 40+ lenders for free. Apply in 3 minutes.",
+  "h1": "Financing your apartment the right way",
+  "nav": [
+   "Apartment mortgage",
+   "Financing a condominium"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Mortgage apartment Switzerland",
+    "h1": "Financing your apartment\n*the right way*",
+    "lead": "With a condominium (Stockwerkeigentum), the bank looks beyond price and income: the renovation fund, the owners' rules and upcoming works all count. We check your **mortgage for an apartment in Switzerland** upfront and compare 40+ banks, insurers and pension funds.",
+    "ctas": [
+     {
+      "label": "Finance my apartment",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Free & non-binding",
+     "Renovation fund checked",
+     "Offers in 48–72 h"
+    ],
+    "image": "zurich-neighbourhood",
+    "alt": "Residential neighbourhood with apartment buildings in Zurich",
+    "float": {
+     "title": "5-year fixed from 1.30 %",
+     "text": "Indicative rate · sample value"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banks, insurers and pension funds"
+     },
+     {
+      "value": "3 min",
+      "label": "to a complete request"
+     },
+     {
+      "value": "48–72 h",
+      "label": "to concrete offers"
+     },
+     {
+      "value": "CHF 0",
+      "label": "for comparison and brokerage"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Condominium mortgage Switzerland",
+    "title": "You're not just buying a flat.\n*You're buying a share of the building.*",
+    "image": "interior",
+    "alt": "Bright living room in a condominium",
+    "paragraphs": [
+     "With the apartment you acquire a value quota of the whole building. Roof, façade and heating are shared. That's why the bank wants to know how well the owners' association has saved.",
+     "If the **renovation fund** is low and major works are due, the assessment can suffer. We review the documents with you before you sign and look for lenders that judge your property fairly."
+    ],
+    "bullets": [
+     "Renovation fund, rules and minutes reviewed",
+     "Affordability calculated including service charges",
+     "Financing confirmation for your offer"
+    ],
+    "ctas": [
+     {
+      "label": "Get my apartment checked",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Common hurdles",
+    "title": "What slows buyers down.\n*And how we solve it.*",
+    "tone": "soft",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Hurdle",
+      "title": "Not enough equity",
+      "text": "You need at least 20 % equity, 10 % of it in cash or savings. We check whether pillar 2, pillar 3a or an advance on inheritance closes the gap.",
+      "to": "page:lp-wenig-eigenmittel",
+      "cta": "Low equity"
+     },
+     {
+      "kicker": "Hurdle",
+      "title": "Low renovation fund",
+      "text": "We present the building's condition and planned works transparently and compare lenders that assess it realistically."
+     },
+     {
+      "kicker": "Hurdle",
+      "title": "Price above market value",
+      "text": "Banks lend on value, not price. A valuation based on Wüest Partner tells you the value before you make an offer.",
+      "to": "page:bewertung",
+      "cta": "Value the apartment"
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Start your request",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Buy a flat Switzerland",
+    "title": "What does your apartment\n*cost per month?*",
+    "lead": "Enter price, equity and income. See loan-to-value, interest and affordability at a glance."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Financing a condominium",
+    "title": "Four steps\n*to your keys.*",
+    "items": [
+     {
+      "title": "Request in 3 minutes",
+      "text": "Upload your documents, our AI reads most of the details."
+     },
+     {
+      "title": "Property & association check",
+      "text": "Your advisor checks renovation fund, rules and affordability."
+     },
+     {
+      "title": "Compare offers",
+      "text": "Offers usually within 48–72 h of complete documents."
+     },
+     {
+      "title": "Notary & payout",
+      "text": "We coordinate bank and notary until handover."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Get started",
+      "to": "funnel"
+     },
+     {
+      "label": "Contact us",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "testimonials",
+    "eyebrow": "Client reviews",
+    "title": "Bought.\n*And well financed.*",
+    "items": [
+     {
+      "text": "Neutral advice, several attractive offers, all smooth.",
+      "author": "Chris E."
+     },
+     {
+      "text": "Professional, personal, competent, top conditions.",
+      "author": "Gregor R."
+     },
+     {
+      "text": "My advisor guided me perfectly.",
+      "author": "Romain C."
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Related",
+    "title": "Well prepared\n*for your apartment.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "First purchase",
+      "title": "Your first home",
+      "text": "What matters when you buy for the first time.",
+      "to": "page:lp-erstkauf"
+     },
+     {
+      "kicker": "Couples",
+      "title": "Buying unmarried",
+      "text": "Co-ownership and protecting your partner.",
+      "to": "page:lp-konkubinat"
+     },
+     {
+      "kicker": "Models",
+      "title": "SARON or fixed?",
+      "text": "The right strategy for your apartment.",
+      "to": "page:rg-saron-fest"
+     },
+     {
+      "kicker": "For agents",
+      "title": "Become a partner",
+      "text": "You sell apartments? Your buyers finance with us and you earn a commission.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Apartment purchase\n*without question marks.*",
+    "items": [
+     {
+      "q": "How much equity do I need for an apartment?",
+      "a": "At least **20 %** of the price or value, with at least 10 % not from your pension fund (pillar 2). Purchase costs of about 2–5 % depending on the canton come on top. As of 2026, without guarantee."
+     },
+     {
+      "q": "What role does the renovation fund play?",
+      "a": "It pays for shared works such as roof, façade or heating. If it is low and a major job is due, the bank expects extra costs for you, which can affect loan-to-value and affordability."
+     },
+     {
+      "q": "Which owners' association documents does the bank need?",
+      "a": "Typically the deed of constitution with value quotas, the rules, recent meeting minutes, annual accounts with the fund balance, the land register extract and sales documentation."
+     },
+     {
+      "q": "How are service charges included in affordability?",
+      "a": "Banks usually apply about 1 % of the value for maintenance and running costs, plus an imputed 5 % rate and amortisation. In total this should not exceed roughly one third of gross income."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Ask a question",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Found your apartment?\n*Secure the financing.*",
+    "text": "Compare for free and apply in 3 minutes. Your advisor gets back to you promptly.",
+    "ctas": [
+     {
+      "label": "Request financing",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ }
+}

@@ -1,0 +1,1190 @@
+{
+ "de": {
+  "title": "Hypothekarzinsen aktuell: SARON und Fest | HYPOTEQ",
+  "description": "Aktuelle Richtzinsen für SARON- und Festhypotheken, Zinsentwicklung und Prognose. Persönliches Angebot von 40+ Anbietern in 3 Minuten anfragen.",
+  "h1": "Aktuelle Hypothekarzinsen in der Schweiz",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypothekarzinsen aktuell",
+    "h1": "Aktuelle Hypothekarzinsen\nin der Schweiz",
+    "lead": "Hier findest du die **Hypothekarzinsen aktuell** als Richtwerte für SARON- und Festhypotheken. Deinen persönlichen **Hypothekarzins in der Schweiz** holen wir bei über 40 Banken, Versicherungen und Pensionskassen für dich ein, kostenlos.",
+    "ctas": [
+     {
+      "label": "Persönlichen Zins anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "Zum Hypothekenrechner",
+      "to": "page:rechner"
+     }
+    ],
+    "badges": [
+     "Beispielwerte mit Stand-Datum",
+     "Keine Schaufensterzinsen",
+     "40+ Anbieter"
+    ],
+    "image": "zurich-neighbourhood",
+    "alt": "Wohnquartier in Zürich",
+    "float": {
+     "title": "10 Jahre fest ab 1.60 %",
+     "text": "Richtzins · Beispielwert"
+    }
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Richtzinsen",
+    "title": "SARON, 5 und 10 Jahre\n*im Überblick.*",
+    "lead": "Alle Werte sind **Beispielwerte**, das Stand-Datum steht direkt unter den Zinsen. Sie dienen der Orientierung und sind kein verbindliches Angebot."
+   },
+   {
+    "type": "trust",
+    "items": [
+     "Richtzinsen mit Stand-Datum",
+     "Persönliche Offerten von 40+ Anbietern",
+     "Kostenlos & unverbindlich",
+     "Offerten in 48–72 h",
+     "Beraterin meldet sich zeitnah",
+     "Daten in der Schweiz"
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "SARON aktuell",
+    "title": "SARON-Hypothek:\n*flexibel mit dem Markt.*",
+    "image": "neighbourhood",
+    "alt": "Wohnhäuser in einem Schweizer Quartier",
+    "paragraphs": [
+     "Der **SARON** ist der Referenzzinssatz für den Schweizer Franken. Er basiert auf Geschäften am Geldmarkt und folgt eng dem Leitzins der Schweizerischen Nationalbank. Bei der SARON-Hypothek zahlst du den SARON plus eine individuelle Marge des Anbieters.",
+     "Steigt oder sinkt der SARON, ändern sich deine Zinskosten laufend mit. Das bringt Flexibilität, verlangt aber Reserven im Budget."
+    ],
+    "bullets": [
+     "Zins wird laufend an den Markt angepasst",
+     "Meist flexibler bei Wechsel oder Rückzahlung, je nach Vertrag",
+     "Geeignet, wenn du Schwankungen tragen kannst"
+    ],
+    "ctas": [
+     {
+      "label": "Mehr zur SARON-Hypothek",
+      "to": "page:saron"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Festhypothek & Laufzeiten",
+    "title": "Festhypothek:\n*planbar über Jahre.*",
+    "image": "family",
+    "alt": "Familie im neuen, noch leeren Zuhause",
+    "reverse": true,
+    "paragraphs": [
+     "Bei der **Festhypothek** fixierst du den Zins für die ganze Laufzeit, zum Beispiel 5 oder 10 Jahre. Die **Zinsen einer Festhypothek über 10 Jahre** liegen meist höher als kürzere Laufzeiten, dafür kennst du deine Kosten lange im Voraus.",
+     "Eine vorzeitige Auflösung kostet in der Regel eine Vorfälligkeitsentschädigung. Läuft deine Festhypothek bald aus, kannst du den Zins mit einer Forward-Hypothek im Voraus sichern."
+    ],
+    "bullets": [
+     "Fester Zins über die gesamte Laufzeit",
+     "Laufzeiten je nach Anbieter von 2 bis 15 Jahren",
+     "Kombinierbar mit SARON in Tranchen"
+    ],
+    "ctas": [
+     {
+      "label": "Mehr zur Festhypothek",
+      "to": "page:fest"
+     },
+     {
+      "label": "Ablösung planen",
+      "to": "page:abloesung"
+     }
+    ]
+   },
+   {
+    "type": "compare",
+    "eyebrow": "Modelle im Vergleich",
+    "title": "Welches Modell\npasst zu dir?",
+    "head": [
+     "",
+     "SARON",
+     "Fest 5 Jahre",
+     "Fest 10 Jahre"
+    ],
+    "rows": [
+     [
+      "Zinsbindung",
+      "laufend angepasst",
+      "5 Jahre fix",
+      "10 Jahre fix"
+     ],
+     [
+      "Planbarkeit",
+      "tief",
+      "hoch",
+      "sehr hoch"
+     ],
+     [
+      "Flexibilität",
+      "hoch, je nach Vertrag",
+      "mittel",
+      "tief"
+     ],
+     [
+      "Geeignet für",
+      "Budget mit Reserven",
+      "mittelfristige Planung",
+      "langfristige Sicherheit"
+     ]
+    ],
+    "note": "Die Richtzinsen der Modelle findest du oben. Viele Kreditnehmer kombinieren Modelle in Tranchen."
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Warum weicht mein Zins ab?",
+    "title": "Richtzins ist nicht\n*dein Zins.*",
+    "lead": "Vier Faktoren bestimmen, welchen Zins dir ein Anbieter tatsächlich offeriert.",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Belehnung",
+      "title": "Wie viel Hypothek?",
+      "text": "Je tiefer die Belehnung im Verhältnis zum Immobilienwert, desto besser meist der Zins."
+     },
+     {
+      "kicker": "Tragbarkeit",
+      "title": "Wie solide?",
+      "text": "Einkommen, Vermögen und Kosten im Verhältnis zur Hypothek."
+     },
+     {
+      "kicker": "Objekt",
+      "title": "Welche Immobilie?",
+      "text": "Lage, Zustand und Nutzung, z. B. Eigenheim oder Renditeobjekt."
+     },
+     {
+      "kicker": "Modell",
+      "title": "Welche Laufzeit?",
+      "text": "SARON, kurze oder lange Festhypothek, Forward oder Tranchen."
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Hypozins Entwicklung & Prognose",
+    "title": "Strategie statt\n*Kaffeesatzlesen.*",
+    "screen": "funnel",
+    "paragraphs": [
+     "Niemand kennt die Zinsen von morgen. **Hypozinsen-Prognosen** von Banken und Ökonomen gehen oft auseinander. SARON-Hypotheken reagieren rasch auf Leitzinsänderungen, Festhypotheken auf Erwartungen am Kapitalmarkt.",
+     "Statt auf eine Prognose zu wetten, entwickeln wir mit dir eine Strategie, die zu Budget und Risikobereitschaft passt, und holen dafür echte Offerten ein."
+    ],
+    "bullets": [
+     "Szenarien statt Versprechen",
+     "Fälligkeiten in Tranchen verteilen",
+     "Offerten von 40+ Anbietern in 48–72 h"
+    ],
+    "ctas": [
+     {
+      "label": "Persönliche Strategie anfragen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "mode": "zins",
+    "eyebrow": "Zinsrechner",
+    "title": "Was kostet\ndeine Hypothek?",
+    "lead": "Wähle ein Modell und rechne mit den Richtzinsen deine monatlichen Zinskosten aus."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Vom Richtzins zum Angebot",
+    "title": "So erhältst du\ndeinen echten Zins.",
+    "items": [
+     {
+      "title": "Anfrage in 3 Minuten",
+      "text": "Unterlagen hochladen, unsere KI liest die meisten Angaben aus."
+     },
+     {
+      "title": "Persönliche Beratung",
+      "text": "Deine Beraterin klärt Modell, Laufzeit und Strategie mit dir."
+     },
+     {
+      "title": "Offerten vergleichen",
+      "text": "In der Regel innert 48–72 Stunden nach vollständigen Unterlagen."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Persönlichen Zins anfragen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Passend dazu",
+    "title": "Mehr zu\n*Zinsen & Modellen.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Rechner",
+      "title": "Hypothekenrechner",
+      "text": "Zinskosten und Tragbarkeit selbst berechnen.",
+      "to": "page:rechner"
+     },
+     {
+      "kicker": "Ratgeber",
+      "title": "SARON oder Fest?",
+      "text": "Vor- und Nachteile beider Modelle.",
+      "to": "page:rg-saron-fest"
+     },
+     {
+      "kicker": "Ablösung",
+      "title": "Hypothek läuft aus?",
+      "text": "12–24 Monate vorher vergleichen und Zins sichern.",
+      "to": "page:abloesung"
+     },
+     {
+      "kicker": "Für Partner",
+      "title": "Partner werden",
+      "text": "Makler, Treuhänder und Broker: Fälle einreichen und Provision erhalten.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Zinsen\nverständlich.",
+    "items": [
+     {
+      "q": "Wie entwickeln sich die Hypothekarzinsen?",
+      "a": "Hypothekarzinsen hängen unter anderem vom Leitzins der Schweizerischen Nationalbank und von den Zinsen am Kapitalmarkt ab. Eine verlässliche Prognose gibt es nicht. Wir zeigen dir Szenarien und eine passende Strategie."
+     },
+     {
+      "q": "Warum weicht mein Zins vom Richtzins ab?",
+      "a": "Richtzinsen sind **Beispielwerte**. Dein persönlicher Zins hängt von Belehnung, Tragbarkeit, Objekt, Nutzung und Laufzeit ab. Darum holen wir individuelle Offerten bei über 40 Anbietern ein."
+     },
+     {
+      "q": "Wann lohnt sich eine Festhypothek?",
+      "a": "Wenn du planbare Kosten über mehrere Jahre willst und Zinsschwankungen nicht tragen möchtest. Wer flexibel bleiben will und Reserven hat, prüft SARON oder eine Kombination."
+     },
+     {
+      "q": "Wie oft werden die Zinsen aktualisiert?",
+      "a": "Das Stand-Datum der Richtzinsen steht direkt unter den Zinsen. Deine persönlichen Offerten basieren immer auf den aktuellen Konditionen der Anbieter zum Zeitpunkt der Anfrage."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Alle Fragen",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Richtzins gesehen?\n*Jetzt deinen Zins holen.*",
+    "text": "Kostenlos, unverbindlich und in 3 Minuten angefragt.",
+    "ctas": [
+     {
+      "label": "Persönlichen Zins anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Taux hypothécaires actuels en Suisse | HYPOTEQ",
+  "description": "Taux indicatifs SARON et fixes, évolution et prévisions des taux hypothécaires en Suisse. Obtenez une offre personnalisée de 40+ prêteurs en 3 minutes.",
+  "h1": "Taux hypothécaires actuels en Suisse",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Taux hypothécaire actuel",
+    "h1": "Taux hypothécaires actuels\nen Suisse",
+    "lead": "Retrouvez ici le **taux hypothécaire actuel** à titre indicatif pour les hypothèques SARON et à taux fixe. Votre **taux hypothécaire en Suisse** personnel, nous l'obtenons pour vous gratuitement auprès de plus de 40 banques, assurances et caisses de pension.",
+    "ctas": [
+     {
+      "label": "Demander mon taux",
+      "to": "funnel"
+     },
+     {
+      "label": "Vers le calculateur",
+      "to": "page:rechner"
+     }
+    ],
+    "badges": [
+     "Valeurs d'exemple datées",
+     "Pas de taux d'appel",
+     "40+ prêteurs"
+    ],
+    "image": "zurich-neighbourhood",
+    "alt": "Quartier résidentiel en Suisse",
+    "float": {
+     "title": "Fixe 10 ans dès 1.60 %",
+     "text": "Taux indicatif · valeur d'exemple"
+    }
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Taux indicatifs",
+    "title": "SARON, 5 et 10 ans\n*en un coup d'œil.*",
+    "lead": "Toutes les valeurs sont des **valeurs d'exemple**; la date figure juste sous les taux. Elles servent d'orientation et ne constituent pas une offre ferme."
+   },
+   {
+    "type": "trust",
+    "items": [
+     "Taux indicatifs datés",
+     "Offres personnelles de 40+ prêteurs",
+     "Gratuit & sans engagement",
+     "Offres en 48–72 h",
+     "Réponse rapide et personnelle",
+     "Données en Suisse"
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "SARON",
+    "title": "Hypothèque SARON:\n*flexible avec le marché.*",
+    "image": "neighbourhood",
+    "alt": "Maisons dans un quartier suisse",
+    "paragraphs": [
+     "Le **SARON** est le taux de référence du franc suisse. Il repose sur les transactions du marché monétaire et suit de près le taux directeur de la Banque nationale suisse. Avec une hypothèque SARON, vous payez le SARON plus une marge individuelle du prêteur.",
+     "Si le SARON monte ou baisse, vos intérêts évoluent en continu. C'est flexible, mais cela exige des réserves dans le budget."
+    ],
+    "bullets": [
+     "Taux adapté en continu au marché",
+     "Souvent plus flexible pour changer ou rembourser, selon le contrat",
+     "Adapté si vous pouvez supporter des variations"
+    ],
+    "ctas": [
+     {
+      "label": "En savoir plus sur SARON",
+      "to": "page:saron"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Taux fixe & durées",
+    "title": "Hypothèque à taux fixe:\n*planifiable sur des années.*",
+    "image": "family",
+    "alt": "Famille dans son nouveau logement encore vide",
+    "reverse": true,
+    "paragraphs": [
+     "Avec l'**hypothèque à taux fixe**, vous bloquez le taux pour toute la durée, par exemple 5 ou 10 ans. Le **taux fixe 10 ans en Suisse** est en général plus élevé que les durées courtes, mais vous connaissez vos coûts longtemps à l'avance.",
+     "Une sortie anticipée entraîne en général une pénalité. Si votre hypothèque fixe arrive bientôt à échéance, vous pouvez sécuriser le taux à l'avance avec une hypothèque forward."
+    ],
+    "bullets": [
+     "Taux fixe pour toute la durée",
+     "Durées de 2 à 15 ans selon le prêteur",
+     "Combinable avec SARON en tranches"
+    ],
+    "ctas": [
+     {
+      "label": "En savoir plus sur le taux fixe",
+      "to": "page:fest"
+     },
+     {
+      "label": "Préparer le renouvellement",
+      "to": "page:abloesung"
+     }
+    ]
+   },
+   {
+    "type": "compare",
+    "eyebrow": "Modèles comparés",
+    "title": "Quel modèle\nvous convient?",
+    "head": [
+     "",
+     "SARON",
+     "Fixe 5 ans",
+     "Fixe 10 ans"
+    ],
+    "rows": [
+     [
+      "Durée du taux",
+      "adapté en continu",
+      "fixé 5 ans",
+      "fixé 10 ans"
+     ],
+     [
+      "Prévisibilité",
+      "faible",
+      "élevée",
+      "très élevée"
+     ],
+     [
+      "Flexibilité",
+      "élevée, selon contrat",
+      "moyenne",
+      "faible"
+     ],
+     [
+      "Pour qui",
+      "budget avec réserves",
+      "planification à moyen terme",
+      "sécurité à long terme"
+     ]
+    ],
+    "note": "Les taux indicatifs des modèles figurent plus haut. Beaucoup d'emprunteurs combinent plusieurs modèles en tranches."
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Pourquoi mon taux diffère-t-il?",
+    "title": "Le taux indicatif\n*n'est pas votre taux.*",
+    "lead": "Quatre facteurs déterminent le taux qu'un prêteur vous propose réellement.",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Nantissement",
+      "title": "Quel montant?",
+      "text": "Plus le taux d'avance est bas par rapport à la valeur du bien, meilleur est souvent le taux."
+     },
+     {
+      "kicker": "Capacité financière",
+      "title": "Quelle solidité?",
+      "text": "Revenus, fortune et charges par rapport à l'hypothèque."
+     },
+     {
+      "kicker": "Bien",
+      "title": "Quel objet?",
+      "text": "Situation, état et usage, p. ex. résidence principale ou bien de rendement."
+     },
+     {
+      "kicker": "Modèle",
+      "title": "Quelle durée?",
+      "text": "SARON, taux fixe court ou long, forward ou tranches."
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Évolution & prévision des taux hypothécaires",
+    "title": "Une stratégie\n*plutôt qu'un pari.*",
+    "screen": "funnel",
+    "paragraphs": [
+     "Personne ne connaît les taux de demain. Les **prévisions de taux hypothécaires** des banques et des économistes divergent souvent. Les hypothèques SARON réagissent vite aux changements du taux directeur, les taux fixes aux attentes du marché des capitaux.",
+     "Plutôt que de parier sur une prévision, nous construisons avec vous une stratégie adaptée à votre budget et à votre goût du risque, puis nous obtenons de vraies offres."
+    ],
+    "bullets": [
+     "Des scénarios plutôt que des promesses",
+     "Échelonner les échéances en tranches",
+     "Offres de 40+ prêteurs en 48–72 h"
+    ],
+    "ctas": [
+     {
+      "label": "Demander une stratégie",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "mode": "zins",
+    "eyebrow": "Calculateur d'intérêts",
+    "title": "Combien coûte\nvotre hypothèque?",
+    "lead": "Choisissez un modèle et calculez vos intérêts mensuels avec les taux indicatifs."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Du taux indicatif à l'offre",
+    "title": "Obtenir\nvotre vrai taux.",
+    "items": [
+     {
+      "title": "Demande en 3 minutes",
+      "text": "Téléchargez vos documents, notre IA lit la plupart des informations."
+     },
+     {
+      "title": "Conseil personnel",
+      "text": "Votre conseillère clarifie modèle, durée et stratégie avec vous."
+     },
+     {
+      "title": "Comparer les offres",
+      "text": "En général sous 48 à 72 heures après réception du dossier complet."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Demander mon taux",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "À lire aussi",
+    "title": "Taux\n*& modèles.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Calculateur",
+      "title": "Calculateur hypothécaire",
+      "text": "Calculer soi-même intérêts et capacité financière.",
+      "to": "page:rechner"
+     },
+     {
+      "kicker": "Guide",
+      "title": "SARON ou taux fixe?",
+      "text": "Avantages et inconvénients des deux modèles.",
+      "to": "page:rg-saron-fest"
+     },
+     {
+      "kicker": "Renouvellement",
+      "title": "Échéance en vue?",
+      "text": "Comparer 12 à 24 mois avant et sécuriser le taux.",
+      "to": "page:abloesung"
+     },
+     {
+      "kicker": "Partenaires",
+      "title": "Devenir partenaire",
+      "text": "Courtiers, fiduciaires et brokers: soumettez des dossiers et touchez une commission.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "Les taux\nen clair.",
+    "items": [
+     {
+      "q": "Comment évoluent les taux hypothécaires?",
+      "a": "Les taux hypothécaires dépendent notamment du taux directeur de la Banque nationale suisse et des taux du marché des capitaux. Il n'existe pas de prévision fiable. Nous vous montrons des scénarios et une stratégie adaptée."
+     },
+     {
+      "q": "Pourquoi mon taux diffère-t-il du taux indicatif?",
+      "a": "Les taux indicatifs sont des **valeurs d'exemple**. Votre taux dépend du nantissement, de la capacité financière, du bien, de son usage et de la durée. C'est pourquoi nous obtenons des offres individuelles auprès de plus de 40 prêteurs."
+     },
+     {
+      "q": "Quand opter pour un taux fixe?",
+      "a": "Si vous voulez des coûts planifiables sur plusieurs années et ne souhaitez pas supporter de variations. Si vous voulez rester flexible et disposez de réserves, examinez SARON ou une combinaison."
+     },
+     {
+      "q": "À quelle fréquence les taux sont-ils mis à jour?",
+      "a": "La date des taux indicatifs figure directement sous les taux. Vos offres personnelles reposent toujours sur les conditions actuelles des prêteurs au moment de la demande."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Toutes les questions",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Vu le taux indicatif?\n*Obtenez votre taux.*",
+    "text": "Gratuit, sans engagement, demande en 3 minutes.",
+    "ctas": [
+     {
+      "label": "Demander mon taux",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Tassi ipotecari attuali in Svizzera | HYPOTEQ",
+  "description": "Tassi indicativi SARON e fissi, andamento e previsioni dei tassi ipotecari in Svizzera. Ricevi un'offerta personale di 40+ istituti in 3 minuti.",
+  "h1": "Tassi ipotecari attuali in Svizzera",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Tassi ipotecari attuali",
+    "h1": "Tassi ipotecari attuali\nin Svizzera",
+    "lead": "Qui trovi i **tassi ipotecari attuali** come valori indicativi per ipoteche SARON e a tasso fisso. Il tuo **tasso ipotecario in Svizzera** personale lo raccogliamo gratis per te presso oltre 40 banche, assicurazioni e casse pensione.",
+    "ctas": [
+     {
+      "label": "Richiedi il tuo tasso",
+      "to": "funnel"
+     },
+     {
+      "label": "Al calcolatore ipotecario",
+      "to": "page:rechner"
+     }
+    ],
+    "badges": [
+     "Valori d'esempio con data",
+     "Niente tassi civetta",
+     "40+ istituti"
+    ],
+    "image": "zurich-neighbourhood",
+    "alt": "Quartiere residenziale in Svizzera",
+    "float": {
+     "title": "Fisso 10 anni da 1.60 %",
+     "text": "Tasso indicativo · valore d'esempio"
+    }
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Tassi indicativi",
+    "title": "SARON, 5 e 10 anni\n*a colpo d'occhio.*",
+    "lead": "Tutti i valori sono **valori d'esempio**; la data è indicata subito sotto i tassi. Servono da orientamento e non sono un'offerta vincolante."
+   },
+   {
+    "type": "trust",
+    "items": [
+     "Tassi indicativi con data",
+     "Offerte personali di 40+ istituti",
+     "Gratuito e senza impegno",
+     "Offerte in 48–72 h",
+     "Risposta rapida e personale",
+     "Dati in Svizzera"
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "SARON",
+    "title": "Ipoteca SARON:\n*flessibile con il mercato.*",
+    "image": "neighbourhood",
+    "alt": "Case in un quartiere svizzero",
+    "paragraphs": [
+     "Il **SARON** è il tasso di riferimento per il franco svizzero. Si basa sulle operazioni del mercato monetario e segue da vicino il tasso guida della Banca nazionale svizzera. Con l'ipoteca SARON paghi il SARON più un margine individuale dell'istituto.",
+     "Se il SARON sale o scende, i tuoi interessi cambiano di continuo. È flessibile, ma richiede riserve nel budget."
+    ],
+    "bullets": [
+     "Tasso adeguato di continuo al mercato",
+     "Spesso più flessibile per cambio o rimborso, secondo il contratto",
+     "Adatta se puoi sostenere oscillazioni"
+    ],
+    "ctas": [
+     {
+      "label": "Scopri l'ipoteca SARON",
+      "to": "page:saron"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Tasso fisso & durate",
+    "title": "Ipoteca a tasso fisso:\n*pianificabile per anni.*",
+    "image": "family",
+    "alt": "Famiglia nella nuova casa ancora vuota",
+    "reverse": true,
+    "paragraphs": [
+     "Con l'**ipoteca a tasso fisso** blocchi il tasso per tutta la durata, per esempio 5 o 10 anni. Il **tasso fisso a 10 anni** è di solito più alto delle durate brevi, ma conosci i tuoi costi con largo anticipo.",
+     "Un'uscita anticipata comporta di regola una penale. Se la tua ipoteca fissa scade presto, puoi assicurarti il tasso in anticipo con un'ipoteca forward."
+    ],
+    "bullets": [
+     "Tasso fisso per tutta la durata",
+     "Durate da 2 a 15 anni secondo l'istituto",
+     "Combinabile con SARON in tranche"
+    ],
+    "ctas": [
+     {
+      "label": "Scopri il tasso fisso",
+      "to": "page:fest"
+     },
+     {
+      "label": "Pianifica il rinnovo",
+      "to": "page:abloesung"
+     }
+    ]
+   },
+   {
+    "type": "compare",
+    "eyebrow": "Modelli a confronto",
+    "title": "Quale modello\nfa per te?",
+    "head": [
+     "",
+     "SARON",
+     "Fisso 5 anni",
+     "Fisso 10 anni"
+    ],
+    "rows": [
+     [
+      "Durata del tasso",
+      "adeguato di continuo",
+      "fisso 5 anni",
+      "fisso 10 anni"
+     ],
+     [
+      "Pianificabilità",
+      "bassa",
+      "alta",
+      "molto alta"
+     ],
+     [
+      "Flessibilità",
+      "alta, secondo contratto",
+      "media",
+      "bassa"
+     ],
+     [
+      "Adatto per",
+      "budget con riserve",
+      "pianificazione a medio termine",
+      "sicurezza a lungo termine"
+     ]
+    ],
+    "note": "I tassi indicativi dei modelli si trovano più in alto. Molti combinano più modelli in tranche."
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Perché il mio tasso è diverso?",
+    "title": "Il tasso indicativo\n*non è il tuo tasso.*",
+    "lead": "Quattro fattori determinano il tasso che un istituto ti offre davvero.",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Anticipo",
+      "title": "Quanta ipoteca?",
+      "text": "Più basso è l'anticipo rispetto al valore dell'immobile, migliore è spesso il tasso."
+     },
+     {
+      "kicker": "Sostenibilità",
+      "title": "Quanto solido?",
+      "text": "Reddito, patrimonio e costi rispetto all'ipoteca."
+     },
+     {
+      "kicker": "Immobile",
+      "title": "Quale oggetto?",
+      "text": "Posizione, stato e uso, per es. residenza principale o immobile da reddito."
+     },
+     {
+      "kicker": "Modello",
+      "title": "Quale durata?",
+      "text": "SARON, fisso breve o lungo, forward o tranche."
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Andamento & previsioni dei tassi ipotecari",
+    "title": "Una strategia\n*invece di una scommessa.*",
+    "screen": "funnel",
+    "paragraphs": [
+     "Nessuno conosce i tassi di domani. Le **previsioni sui tassi ipotecari** di banche ed economisti spesso divergono. Le ipoteche SARON reagiscono rapidamente alle variazioni del tasso guida, quelle fisse alle aspettative del mercato dei capitali.",
+     "Invece di scommettere su una previsione, costruiamo con te una strategia adatta al tuo budget e alla tua propensione al rischio, poi raccogliamo offerte reali."
+    ],
+    "bullets": [
+     "Scenari invece di promesse",
+     "Scaglionare le scadenze in tranche",
+     "Offerte di 40+ istituti in 48–72 h"
+    ],
+    "ctas": [
+     {
+      "label": "Richiedi una strategia",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "mode": "zins",
+    "eyebrow": "Calcolatore degli interessi",
+    "title": "Quanto costa\nla tua ipoteca?",
+    "lead": "Scegli un modello e calcola i tuoi interessi mensili con i tassi indicativi."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Dal tasso indicativo all'offerta",
+    "title": "Così ottieni\nil tuo vero tasso.",
+    "items": [
+     {
+      "title": "Richiesta in 3 minuti",
+      "text": "Carica i documenti, la nostra IA legge gran parte dei dati."
+     },
+     {
+      "title": "Consulenza personale",
+      "text": "La tua consulente chiarisce con te modello, durata e strategia."
+     },
+     {
+      "title": "Confrontare le offerte",
+      "text": "Di regola entro 48–72 ore dalla documentazione completa."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Richiedi il tuo tasso",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Da leggere",
+    "title": "Tassi\n*& modelli.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Calcolatore",
+      "title": "Calcolatore ipotecario",
+      "text": "Calcola da solo interessi e sostenibilità.",
+      "to": "page:rechner"
+     },
+     {
+      "kicker": "Guida",
+      "title": "SARON o fisso?",
+      "text": "Vantaggi e svantaggi dei due modelli.",
+      "to": "page:rg-saron-fest"
+     },
+     {
+      "kicker": "Rinnovo",
+      "title": "Ipoteca in scadenza?",
+      "text": "Confronta 12–24 mesi prima e assicurati il tasso.",
+      "to": "page:abloesung"
+     },
+     {
+      "kicker": "Per i partner",
+      "title": "Diventa partner",
+      "text": "Agenti, fiduciari e broker: inoltra i casi e ricevi una provvigione.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "Tassi\nin chiaro.",
+    "items": [
+     {
+      "q": "Come stanno evolvendo i tassi ipotecari?",
+      "a": "I tassi ipotecari dipendono tra l'altro dal tasso guida della Banca nazionale svizzera e dai tassi del mercato dei capitali. Una previsione affidabile non esiste. Ti mostriamo scenari e una strategia adatta."
+     },
+     {
+      "q": "Perché il mio tasso è diverso da quello indicativo?",
+      "a": "I tassi indicativi sono **valori d'esempio**. Il tuo tasso dipende da anticipo, sostenibilità, immobile, uso e durata. Per questo raccogliamo offerte individuali presso oltre 40 istituti."
+     },
+     {
+      "q": "Quando conviene il tasso fisso?",
+      "a": "Quando vuoi costi pianificabili per diversi anni e non vuoi sostenere oscillazioni. Se preferisci restare flessibile e hai riserve, valuta il SARON o una combinazione."
+     },
+     {
+      "q": "Ogni quanto vengono aggiornati i tassi?",
+      "a": "La data dei tassi indicativi è indicata direttamente sotto i tassi. Le tue offerte personali si basano sempre sulle condizioni attuali degli istituti al momento della richiesta."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Tutte le domande",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Visto il tasso indicativo?\n*Ora ottieni il tuo.*",
+    "text": "Gratuito, senza impegno, richiesta in 3 minuti.",
+    "ctas": [
+     {
+      "label": "Richiedi il tuo tasso",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "Swiss Mortgage Rates Today: SARON & Fixed | HYPOTEQ",
+  "description": "Current indicative Swiss mortgage rates for SARON and fixed terms, trends and forecast. Get a personal offer from 40+ lenders in 3 minutes, in English.",
+  "h1": "Current Swiss mortgage rates",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Mortgage rates Switzerland today",
+    "h1": "Current Swiss\nmortgage rates",
+    "lead": "Here you'll find **Swiss mortgage rates** as indicative values for SARON and fixed-rate mortgages. We collect your personal rate from 40+ banks, insurers and pension funds for free, with advice in English.",
+    "ctas": [
+     {
+      "label": "Request your rate",
+      "to": "funnel"
+     },
+     {
+      "label": "Mortgage calculator",
+      "to": "page:rechner"
+     }
+    ],
+    "badges": [
+     "Sample values with date",
+     "No teaser rates",
+     "40+ lenders"
+    ],
+    "image": "zurich-neighbourhood",
+    "alt": "Residential neighbourhood in Zurich",
+    "float": {
+     "title": "10-year fixed from 1.60 %",
+     "text": "Indicative rate · sample value"
+    }
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Indicative rates",
+    "title": "SARON, 5 and 10 years\n*at a glance.*",
+    "lead": "All figures are **sample values**; the date is shown right below the rates. They are for orientation and are not a binding offer."
+   },
+   {
+    "type": "trust",
+    "items": [
+     "Indicative rates with date",
+     "Personal offers from 40+ lenders",
+     "Free & non-binding",
+     "Offers in 48–72 h",
+     "Reply promptly",
+     "Data in Switzerland"
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "SARON rate",
+    "title": "SARON mortgage:\n*flexible with the market.*",
+    "image": "neighbourhood",
+    "alt": "Homes in a Swiss neighbourhood",
+    "paragraphs": [
+     "**SARON** (Swiss Average Rate Overnight) is the reference rate for the Swiss franc. It is based on money-market transactions and closely follows the Swiss National Bank's policy rate. With a SARON mortgage you pay SARON plus the lender's individual margin.",
+     "When SARON rises or falls, your interest costs change with it. That gives you flexibility, but you need a buffer in your budget."
+    ],
+    "bullets": [
+     "Rate adjusts continuously to the market",
+     "Often more flexible to switch or repay, depending on the contract",
+     "Suits you if you can handle fluctuations"
+    ],
+    "ctas": [
+     {
+      "label": "More on SARON mortgages",
+      "to": "page:saron"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Fixed rates & terms",
+    "title": "Fixed-rate mortgage:\n*plannable for years.*",
+    "image": "family",
+    "alt": "Family in their new, still empty home",
+    "reverse": true,
+    "paragraphs": [
+     "With a **fixed-rate mortgage** you lock in the rate for the full term, for example 5 or 10 years. A **10-year fixed rate in Switzerland** is usually higher than shorter terms, but you know your costs well in advance.",
+     "Leaving early usually means paying an early repayment penalty. If your fixed-rate mortgage expires soon, you can secure a rate in advance with a forward mortgage."
+    ],
+    "bullets": [
+     "Fixed rate for the full term",
+     "Terms of 2 to 15 years depending on the lender",
+     "Can be combined with SARON in tranches"
+    ],
+    "ctas": [
+     {
+      "label": "More on fixed-rate mortgages",
+      "to": "page:fest"
+     },
+     {
+      "label": "Plan your renewal",
+      "to": "page:abloesung"
+     }
+    ]
+   },
+   {
+    "type": "compare",
+    "eyebrow": "Models compared",
+    "title": "Which model\nsuits you?",
+    "head": [
+     "",
+     "SARON",
+     "Fixed 5 years",
+     "Fixed 10 years"
+    ],
+    "rows": [
+     [
+      "Rate period",
+      "adjusts continuously",
+      "fixed for 5 years",
+      "fixed for 10 years"
+     ],
+     [
+      "Predictability",
+      "low",
+      "high",
+      "very high"
+     ],
+     [
+      "Flexibility",
+      "high, depending on contract",
+      "medium",
+      "low"
+     ],
+     [
+      "Best for",
+      "budgets with a buffer",
+      "medium-term planning",
+      "long-term security"
+     ]
+    ],
+    "note": "You'll find the indicative rates for each model above. Many borrowers combine models in tranches."
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Why is my rate different?",
+    "title": "The indicative rate\n*isn't your rate.*",
+    "lead": "Four factors decide which rate a lender will actually offer you.",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Loan-to-value",
+      "title": "How much mortgage?",
+      "text": "The lower the mortgage compared with the property value, the better the rate tends to be."
+     },
+     {
+      "kicker": "Affordability",
+      "title": "How solid?",
+      "text": "Income, assets and costs in relation to the mortgage."
+     },
+     {
+      "kicker": "Property",
+      "title": "Which property?",
+      "text": "Location, condition and use, e.g. own home or buy-to-let."
+     },
+     {
+      "kicker": "Model",
+      "title": "Which term?",
+      "text": "SARON, short or long fixed term, forward or tranches."
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Swiss mortgage rate forecast",
+    "title": "A strategy,\n*not a guess.*",
+    "screen": "funnel",
+    "paragraphs": [
+     "Nobody knows tomorrow's rates. **Swiss mortgage rate forecasts** from banks and economists often differ. SARON mortgages react quickly to policy rate changes; fixed rates react to expectations in the capital market.",
+     "Instead of betting on a forecast, we build a strategy with you that fits your budget and risk appetite, and then collect real offers."
+    ],
+    "bullets": [
+     "Scenarios instead of promises",
+     "Spread maturities across tranches",
+     "Offers from 40+ lenders in 48–72 h"
+    ],
+    "ctas": [
+     {
+      "label": "Request a personal strategy",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "mode": "zins",
+    "eyebrow": "Interest calculator",
+    "title": "What will\nyour mortgage cost?",
+    "lead": "Choose a model and calculate your monthly interest using the indicative rates."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "From indicative rate to offer",
+    "title": "How to get\nyour real rate.",
+    "items": [
+     {
+      "title": "Apply in 3 minutes",
+      "text": "Upload documents, our AI reads most of the details."
+     },
+     {
+      "title": "Personal advice",
+      "text": "Your advisor clarifies model, term and strategy with you, in English."
+     },
+     {
+      "title": "Compare offers",
+      "text": "Usually within 48–72 hours once your documents are complete."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Request your rate",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Related",
+    "title": "More on\n*rates & models.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Calculator",
+      "title": "Mortgage calculator",
+      "text": "Work out interest costs and affordability yourself.",
+      "to": "page:rechner"
+     },
+     {
+      "kicker": "Guide",
+      "title": "SARON or fixed?",
+      "text": "Pros and cons of both models.",
+      "to": "page:rg-saron-fest"
+     },
+     {
+      "kicker": "Renewal",
+      "title": "Mortgage expiring?",
+      "text": "Compare 12–24 months ahead and secure your rate.",
+      "to": "page:abloesung"
+     },
+     {
+      "kicker": "For partners",
+      "title": "Become a partner",
+      "text": "Agents, trustees and brokers: submit cases and earn a commission.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Swiss rates\nexplained.",
+    "items": [
+     {
+      "q": "How are Swiss mortgage rates developing?",
+      "a": "Swiss mortgage rates depend among other things on the Swiss National Bank's policy rate and on capital-market rates. There is no reliable forecast. We show you scenarios and a strategy that fits."
+     },
+     {
+      "q": "Why is my rate different from the indicative rate?",
+      "a": "Indicative rates are **sample values**. Your personal rate depends on loan-to-value, affordability, the property, its use and the term. That's why we collect individual offers from 40+ lenders."
+     },
+     {
+      "q": "When is a fixed rate worth it?",
+      "a": "When you want predictable costs over several years and prefer not to absorb rate swings. If you'd rather stay flexible and have a buffer, look at SARON or a combination."
+     },
+     {
+      "q": "How often are rates updated?",
+      "a": "The date of the indicative rates is shown directly below them. Your personal offers are always based on the lenders' current terms at the time of your request."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "All questions",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Seen the indicative rate?\n*Now get yours.*",
+    "text": "Free, non-binding and requested in 3 minutes.",
+    "ctas": [
+     {
+      "label": "Request your rate",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ }
+}

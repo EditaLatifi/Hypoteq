@@ -1,0 +1,938 @@
+{
+ "de": {
+  "title": "Hypothek im Baurecht: Finanzierung sichern | HYPOTEQ",
+  "description": "Haus oder Wohnung im Baurecht? Wir wissen, welche Anbieter Baurechtsobjekte fair belehnen, je nach Restlaufzeit. 40+ Anbieter, Anfrage in 3 Minuten.",
+  "h1": "Baurechtsliegenschaft kaufen und finanzieren",
+  "nav": [
+   "Hypothek im Baurecht",
+   "Baurechtsobjekte fair finanzieren"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypothek Baurecht",
+    "h1": "Baurechtsliegenschaft\nkaufen und\n*finanzieren*",
+    "lead": "Das Objekt passt, steht aber im Baurecht, und deine Bank zögert? Für deine **Hypothek im Baurecht** wissen wir, welche Anbieter solche Liegenschaften je nach Restlaufzeit fair belehnen. Wir vergleichen über 40 Anbieter kostenlos.",
+    "ctas": [
+     {
+      "label": "Baurechtsobjekt prüfen lassen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Kostenlos & unverbindlich",
+     "Haus & Wohnung im Baurecht",
+     "Offerten in 48–72 h"
+    ],
+    "image": "neighbourhood",
+    "alt": "Schweizer Chalet-Dorf mit Wiesen und Bergen",
+    "float": {
+     "title": "5 Jahre fest ab 1.30 %",
+     "text": "Richtzins · Beispielwert"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "Banken, Versicherungen und Pensionskassen"
+     },
+     {
+      "value": "0 CHF",
+      "label": "für Vergleich und Vermittlung"
+     },
+     {
+      "value": "3 Min.",
+      "label": "bis zur vollständigen Anfrage"
+     },
+     {
+      "value": "48–72 h",
+      "label": "bis zu konkreten Offerten"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Haus im Baurecht kaufen",
+    "title": "Dir gehört das Haus.\n*Das Land bleibt beim Eigentümer.*",
+    "image": "house",
+    "alt": "Chalet vor Schweizer Bergkulisse",
+    "paragraphs": [
+     "Im Baurecht kaufst du das Gebäude, nicht den Boden. Das Land gehört zum Beispiel einer Gemeinde, einer Kirchgemeinde oder einer Genossenschaft. Dafür zahlst du einen jährlichen **Baurechtszins**, und das Baurecht läuft auf eine vertraglich festgelegte Dauer.",
+     "Weil die Laufzeit endlich ist, belehnen Banken eine **Baurechtsliegenschaft** oft vorsichtiger. Wie stark, hängt von Restlaufzeit, Baurechtszins und Vertrag ab. Genau hier unterscheiden sich die Anbieter."
+    ],
+    "bullets": [
+     "Baurechtsvertrag und Restlaufzeit vorab geprüft",
+     "Baurechtszins korrekt in der Tragbarkeit",
+     "Anbieter mit Erfahrung bei Baurechtsobjekten"
+    ],
+    "ctas": [
+     {
+      "label": "Mein Objekt prüfen lassen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Wohnung im Baurecht Hypothek",
+    "title": "Typische Hürden\n*und wie wir sie lösen.*",
+    "tone": "soft",
+    "cols": 2,
+    "items": [
+     {
+      "kicker": "Restlaufzeit",
+      "title": "Den richtigen Anbieter wählen",
+      "text": "Je kürzer das Baurecht noch läuft, desto zurückhaltender sind manche Banken. Andere sind offener. Wir kennen die Unterschiede."
+     },
+     {
+      "kicker": "Baurechtszins",
+      "title": "Sauber in die Tragbarkeit",
+      "text": "Der Baurechtszins kommt zu Zins, Unterhalt und Amortisation hinzu. Wir rechnen ihn von Anfang an mit ein.",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "kicker": "Vertrag",
+      "title": "Klauseln verstehen",
+      "text": "Anpassung des Baurechtszinses, Heimfall und Entschädigung: Wir sammeln die Punkte, die die Bank prüfen will."
+     },
+     {
+      "kicker": "Bankabsage",
+      "title": "Zweitmeinung einholen",
+      "text": "Eine Absage für ein Baurechtsobjekt gilt nicht für alle Anbieter. Wir prüfen dein Dossier neu.",
+      "to": "page:lp-zweitmeinung"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Hypothekenrechner",
+    "title": "Was kostet\n*dein Baurechtsobjekt?*",
+    "lead": "Gib Kaufpreis, Eigenmittel und Einkommen ein. Den Baurechtszins rechnen wir in der Beratung zusätzlich ein."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "So läuft es",
+    "title": "In vier Schritten\nzur Finanzierung im Baurecht.",
+    "items": [
+     {
+      "title": "Anfrage in 3 Minuten",
+      "text": "Lade Verkaufsdokumentation, Baurechtsvertrag und deine Unterlagen hoch. Die KI liest die meisten Angaben aus."
+     },
+     {
+      "title": "Vertrag und Objekt prüfen",
+      "text": "Deine Beraterin meldet sich zeitnah und klärt Restlaufzeit, Baurechtszins und Heimfall."
+     },
+     {
+      "title": "Gezielt anfragen",
+      "text": "Wir reichen dein Dossier bei passenden Anbietern ein. Offerten meist innert 48–72 h."
+     },
+     {
+      "title": "Abschliessen",
+      "text": "Du vergleichst und entscheidest. Wir koordinieren mit Bank, Notariat und Baurechtsgeber."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Jetzt starten",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "trust",
+    "items": [
+     "Unabhängiger Vermittler",
+     "40+ Finanzierungspartner",
+     "Kostenlos für Privatkund:innen",
+     "Persönliche Beraterin statt Hotline",
+     "Daten in der Schweiz verarbeitet",
+     "35+ Jahre Erfahrung im Team"
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Weiterlesen",
+    "title": "Mehr zu\n*deinem Objekt.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Wohnung",
+      "title": "Eigentumswohnung",
+      "text": "Finanzierung für Stockwerkeigentum.",
+      "to": "page:lp-eigentumswohnung"
+     },
+     {
+      "kicker": "Haus",
+      "title": "Einfamilienhaus",
+      "text": "Was beim Hauskauf zählt.",
+      "to": "page:lp-einfamilienhaus"
+     },
+     {
+      "kicker": "Komplexe Fälle",
+      "title": "Advisory",
+      "text": "Für besondere Liegenschaften und Strukturen.",
+      "to": "page:advisory"
+     },
+     {
+      "kicker": "Für Partner",
+      "title": "Partner werden",
+      "text": "Du vermittelst Baurechtsobjekte? Arbeite mit uns.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Baurecht und Hypothek\nkurz erklärt.",
+    "items": [
+     {
+      "q": "Finanzieren Banken Liegenschaften im Baurecht?",
+      "a": "Ja, aber oft vorsichtiger als bei Objekten mit eigenem Boden. Wie viel belehnt wird, hängt von Anbieter, Restlaufzeit und Baurechtsvertrag ab. Darum lohnt sich der Vergleich."
+     },
+     {
+      "q": "Welche Restlaufzeit des Baurechts verlangen Banken?",
+      "a": "Das legt jeder Anbieter selbst fest. Grundsätzlich gilt: Je länger das Baurecht noch läuft, desto mehr Anbieter kommen infrage. Wir wissen, wer bei deiner Restlaufzeit offen ist."
+     },
+     {
+      "q": "Wie fliesst der Baurechtszins in die Tragbarkeit ein?",
+      "a": "Der Baurechtszins wird als laufende Belastung zu den kalkulatorischen Kosten addiert. Zusammen sollten sie maximal rund einen Drittel deines Bruttoeinkommens ausmachen."
+     },
+     {
+      "q": "Was passiert am Ende des Baurechts?",
+      "a": "Das Baurecht kann verlängert werden oder es kommt zum Heimfall: Das Gebäude geht an den Landeigentümer, meist gegen eine Entschädigung gemäss Vertrag. Lass den Vertrag von einer Fachperson prüfen."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Kontakt aufnehmen",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Baurecht ist kein Hindernis.\n*Mit dem richtigen Anbieter.*",
+    "text": "Vergleiche kostenlos über 40 Anbieter und starte deine Anfrage in 3 Minuten.",
+    "ctas": [
+     {
+      "label": "Baurechtsobjekt prüfen lassen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Hypothèque en droit de superficie | HYPOTEQ",
+  "description": "Maison ou appartement en droit de superficie? Nous savons quels prêteurs financent ces biens selon la durée restante. 40+ prêteurs, demande en 3 minutes.",
+  "h1": "Acheter et financer un bien en droit de superficie",
+  "nav": [
+   "Droit de superficie",
+   "Financer un bien en DDP"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypothèque droit de superficie",
+    "h1": "Acheter et financer\nun bien en droit\n*de superficie*",
+    "lead": "Le bien vous plaît, mais il est en droit de superficie et votre banque hésite? Pour votre **hypothèque en droit de superficie**, nous savons quels prêteurs financent ces biens selon la durée restante. Nous comparons gratuitement plus de 40 prêteurs.",
+    "ctas": [
+     {
+      "label": "Faire examiner mon bien",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Gratuit & sans engagement",
+     "Maison & appartement",
+     "Offres en 48–72 h"
+    ],
+    "image": "neighbourhood",
+    "alt": "Village de chalets suisse entre prairies et montagnes",
+    "float": {
+     "title": "Fixe 5 ans dès 1.30 %",
+     "text": "Taux indicatif · valeur d'exemple"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banques, assurances et caisses de pension"
+     },
+     {
+      "value": "0 CHF",
+      "label": "pour la comparaison et le courtage"
+     },
+     {
+      "value": "3 min",
+      "label": "pour une demande complète"
+     },
+     {
+      "value": "48–72 h",
+      "label": "jusqu'aux offres concrètes"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Acheter en droit de superficie",
+    "title": "La maison est à vous.\n*Le terrain reste au propriétaire.*",
+    "image": "house",
+    "alt": "Chalet devant un paysage de montagnes suisses",
+    "paragraphs": [
+     "En droit de superficie (DDP), vous achetez le bâtiment, pas le sol. Le terrain appartient par exemple à une commune, une paroisse ou une coopérative. Vous payez une **rente de superficie** annuelle, et le droit court sur une durée fixée par contrat.",
+     "Comme cette durée est limitée, les banques fixent souvent un taux d'avance plus prudent. Tout dépend de la durée restante, de la rente et du contrat. C'est là que les prêteurs diffèrent."
+    ],
+    "bullets": [
+     "Contrat et durée restante examinés à l'avance",
+     "Rente intégrée correctement dans la capacité financière",
+     "Prêteurs expérimentés en droit de superficie"
+    ],
+    "ctas": [
+     {
+      "label": "Faire examiner mon bien",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "DDP financement",
+    "title": "Obstacles fréquents\n*et nos solutions.*",
+    "tone": "soft",
+    "cols": 2,
+    "items": [
+     {
+      "kicker": "Durée restante",
+      "title": "Choisir le bon prêteur",
+      "text": "Plus le droit est proche de son terme, plus certaines banques sont réservées. D'autres sont plus ouvertes. Nous connaissons les différences."
+     },
+     {
+      "kicker": "Rente de superficie",
+      "title": "Bien intégrée au calcul",
+      "text": "La rente s'ajoute aux intérêts, à l'entretien et à l'amortissement. Nous l'intégrons dès le départ.",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "kicker": "Contrat",
+      "title": "Comprendre les clauses",
+      "text": "Adaptation de la rente, retour du bâtiment et indemnité: nous réunissons les points que la banque veut vérifier."
+     },
+     {
+      "kicker": "Refus bancaire",
+      "title": "Demander un deuxième avis",
+      "text": "Un refus pour un bien en DDP ne vaut pas pour tous les prêteurs. Nous réexaminons votre dossier.",
+      "to": "page:lp-zweitmeinung"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Calculateur hypothécaire",
+    "title": "Combien coûte\n*votre bien en DDP?*",
+    "lead": "Saisissez prix, fonds propres et revenu. La rente de superficie est ajoutée lors du conseil."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Déroulement",
+    "title": "Quatre étapes\nvers votre financement.",
+    "items": [
+     {
+      "title": "Demande en 3 minutes",
+      "text": "Téléversez la documentation de vente, le contrat de superficie et vos documents. L'IA lit la plupart des données."
+     },
+     {
+      "title": "Examen du contrat",
+      "text": "Votre conseillère vous contacte rapidement et clarifie durée restante, rente et retour."
+     },
+     {
+      "title": "Demandes ciblées",
+      "text": "Nous soumettons votre dossier aux prêteurs adaptés. Offres en général sous 48–72 h."
+     },
+     {
+      "title": "Conclure",
+      "text": "Vous comparez et décidez. Nous coordonnons avec la banque, le notaire et le superficiant."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Commencer",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "trust",
+    "items": [
+     "Courtier indépendant",
+     "40+ partenaires de financement",
+     "Gratuit pour les particuliers",
+     "Une conseillère, pas une hotline",
+     "Données traitées en Suisse",
+     "35+ ans d'expérience dans l'équipe"
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "À lire aussi",
+    "title": "Selon\n*votre bien.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Appartement",
+      "title": "Appartement en PPE",
+      "text": "Financer une propriété par étages.",
+      "to": "page:lp-eigentumswohnung"
+     },
+     {
+      "kicker": "Maison",
+      "title": "Maison individuelle",
+      "text": "L'essentiel pour acheter une maison.",
+      "to": "page:lp-einfamilienhaus"
+     },
+     {
+      "kicker": "Cas complexes",
+      "title": "Advisory",
+      "text": "Biens et structures particuliers.",
+      "to": "page:advisory"
+     },
+     {
+      "kicker": "Partenaires",
+      "title": "Devenir partenaire",
+      "text": "Vous vendez des biens en DDP? Travaillons ensemble.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "Droit de superficie\nen bref.",
+    "items": [
+     {
+      "q": "Les banques financent-elles un droit de superficie?",
+      "a": "Oui, mais souvent avec plus de prudence qu'un bien avec terrain. Le montant dépend du prêteur, de la durée restante et du contrat. D'où l'intérêt de comparer."
+     },
+     {
+      "q": "Quelle durée restante exigent-elles?",
+      "a": "Chaque prêteur la fixe lui-même. En principe, plus le droit court longtemps, plus le choix de prêteurs est large. Nous savons qui est ouvert pour votre durée restante."
+     },
+     {
+      "q": "Comment la rente de superficie entre-t-elle dans le calcul?",
+      "a": "La rente s'ajoute comme charge courante aux coûts théoriques. Ensemble, ils ne devraient pas dépasser environ un tiers de votre revenu brut."
+     },
+     {
+      "q": "Que se passe-t-il à l'échéance du droit?",
+      "a": "Le droit peut être prolongé ou le bâtiment revient au propriétaire du terrain, en général contre une indemnité prévue au contrat. Faites examiner le contrat par un spécialiste."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Nous contacter",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Le DDP n'est pas un obstacle.\n*Avec le bon prêteur.*",
+    "text": "Comparez gratuitement plus de 40 prêteurs et lancez votre demande en 3 minutes.",
+    "ctas": [
+     {
+      "label": "Faire examiner mon bien",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Ipoteca in diritto di superficie | HYPOTEQ",
+  "description": "Casa o appartamento in diritto di superficie? Sappiamo quali istituti li finanziano secondo la durata residua. Oltre 40 istituti, richiesta in 3 minuti.",
+  "h1": "Comprare e finanziare in diritto di superficie",
+  "nav": [
+   "Diritto di superficie",
+   "Finanziare immobili in superficie"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Ipoteca diritto di superficie",
+    "h1": "Comprare e finanziare\nin diritto\n*di superficie*",
+    "lead": "L'immobile ti piace, ma è in diritto di superficie e la tua banca esita? Per la tua **ipoteca in diritto di superficie** sappiamo quali istituti finanziano questi immobili secondo la durata residua. Confrontiamo gratis oltre 40 istituti.",
+    "ctas": [
+     {
+      "label": "Fai verificare l'immobile",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Gratuito e senza impegno",
+     "Casa e appartamento",
+     "Offerte in 48–72 h"
+    ],
+    "image": "neighbourhood",
+    "alt": "Villaggio svizzero di chalet tra prati e montagne",
+    "float": {
+     "title": "Fissa 5 anni da 1.30 %",
+     "text": "Tasso indicativo · valore d'esempio"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banche, assicurazioni e casse pensioni"
+     },
+     {
+      "value": "0 CHF",
+      "label": "per confronto e mediazione"
+     },
+     {
+      "value": "3 min",
+      "label": "per una richiesta completa"
+     },
+     {
+      "value": "48–72 h",
+      "label": "fino alle offerte concrete"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Comprare in diritto di superficie",
+    "title": "La casa è tua.\n*Il terreno resta al proprietario.*",
+    "image": "house",
+    "alt": "Chalet davanti alle montagne svizzere",
+    "paragraphs": [
+     "Con il diritto di superficie compri l'edificio, non il terreno. Il fondo appartiene per esempio a un Comune, a una parrocchia o a una cooperativa. Paghi un **canone di superficie** annuo e il diritto dura per un periodo fissato nel contratto.",
+     "Poiché la durata è limitata, le banche spesso concedono un anticipo più prudente. Dipende da durata residua, canone e contratto. Proprio qui gli istituti si differenziano."
+    ],
+    "bullets": [
+     "Contratto e durata residua verificati in anticipo",
+     "Canone inserito correttamente nella sostenibilità",
+     "Istituti con esperienza in diritto di superficie"
+    ],
+    "ctas": [
+     {
+      "label": "Fai verificare l'immobile",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Canone di superficie e sostenibilità",
+    "title": "Ostacoli tipici\n*e come li risolviamo.*",
+    "tone": "soft",
+    "cols": 2,
+    "items": [
+     {
+      "kicker": "Durata residua",
+      "title": "Scegliere l'istituto giusto",
+      "text": "Più il diritto è vicino alla scadenza, più alcune banche sono caute. Altre sono più aperte. Conosciamo le differenze."
+     },
+     {
+      "kicker": "Canone",
+      "title": "Inserito nel calcolo",
+      "text": "Il canone si aggiunge a interessi, manutenzione e ammortamento. Lo consideriamo fin dall'inizio.",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "kicker": "Contratto",
+      "title": "Capire le clausole",
+      "text": "Adeguamento del canone, riversione e indennità: raccogliamo i punti che la banca vuole verificare."
+     },
+     {
+      "kicker": "Rifiuto bancario",
+      "title": "Chiedere un secondo parere",
+      "text": "Un rifiuto per un immobile in superficie non vale per tutti. Riesaminiamo il tuo dossier.",
+      "to": "page:lp-zweitmeinung"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Calcolatore ipotecario",
+    "title": "Quanto costa\n*il tuo immobile?*",
+    "lead": "Inserisci prezzo, fondi propri e reddito. Il canone di superficie lo aggiungiamo in consulenza."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Come funziona",
+    "title": "Quattro passi\nverso il finanziamento.",
+    "items": [
+     {
+      "title": "Richiesta in 3 minuti",
+      "text": "Carica documentazione di vendita, contratto di superficie e i tuoi documenti. L'IA legge la maggior parte dei dati."
+     },
+     {
+      "title": "Verifica del contratto",
+      "text": "La tua consulente ti contatta in tempi brevi e chiarisce durata residua, canone e riversione."
+     },
+     {
+      "title": "Richieste mirate",
+      "text": "Presentiamo il dossier agli istituti adatti. Offerte di solito entro 48–72 h."
+     },
+     {
+      "title": "Concludere",
+      "text": "Confronti e decidi. Coordiniamo banca, notaio e concedente."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Inizia ora",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "trust",
+    "items": [
+     "Intermediario indipendente",
+     "40+ partner di finanziamento",
+     "Gratuito per privati",
+     "Una consulente, non una hotline",
+     "Dati trattati in Svizzera",
+     "35+ anni di esperienza nel team"
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Approfondisci",
+    "title": "Adatto\n*al tuo immobile.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Appartamento",
+      "title": "Appartamento in PPP",
+      "text": "Finanziare la proprietà per piani.",
+      "to": "page:lp-eigentumswohnung"
+     },
+     {
+      "kicker": "Casa",
+      "title": "Casa unifamiliare",
+      "text": "Cosa conta nell'acquisto di una casa.",
+      "to": "page:lp-einfamilienhaus"
+     },
+     {
+      "kicker": "Casi complessi",
+      "title": "Advisory",
+      "text": "Immobili e strutture particolari.",
+      "to": "page:advisory"
+     },
+     {
+      "kicker": "Per partner",
+      "title": "Diventa partner",
+      "text": "Vendi immobili in superficie? Collabora con noi.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "Diritto di superficie\nin breve.",
+    "items": [
+     {
+      "q": "Le banche finanziano immobili in diritto di superficie?",
+      "a": "Sì, ma spesso con più prudenza rispetto a un immobile con terreno proprio. L'importo dipende da istituto, durata residua e contratto. Per questo conviene confrontare."
+     },
+     {
+      "q": "Quale durata residua richiedono?",
+      "a": "Ogni istituto la stabilisce da sé. In linea di principio: più a lungo dura ancora il diritto, più istituti entrano in gioco. Sappiamo chi è aperto per la tua durata residua."
+     },
+     {
+      "q": "Come incide il canone sulla sostenibilità?",
+      "a": "Il canone si somma come onere corrente ai costi teorici. Insieme non dovrebbero superare circa un terzo del tuo reddito lordo."
+     },
+     {
+      "q": "Cosa succede alla scadenza del diritto?",
+      "a": "Il diritto può essere prolungato oppure l'edificio passa al proprietario del terreno, di solito contro un'indennità prevista dal contratto. Fai verificare il contratto da uno specialista."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Contattaci",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Il diritto di superficie non è un ostacolo.\n*Con l'istituto giusto.*",
+    "text": "Confronta gratis oltre 40 istituti e avvia la richiesta in 3 minuti.",
+    "ctas": [
+     {
+      "label": "Fai verificare l'immobile",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "Mortgage for building lease (Baurecht) property | HYPOTEQ",
+  "description": "Home on a building lease (Baurecht)? We know which lenders finance it depending on the remaining term. 40+ lenders, apply in 3 minutes.",
+  "h1": "Buying and financing a building lease property",
+  "nav": [
+   "Building lease (Baurecht)",
+   "Financing leasehold property"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Mortgage building lease Switzerland",
+    "h1": "Buying and financing\na building lease\n*property*",
+    "lead": "The property is right, but it's on a building lease and your bank hesitates? For your **mortgage on a building lease in Switzerland**, we know which lenders finance such properties depending on the remaining term. We compare 40+ lenders free of charge.",
+    "ctas": [
+     {
+      "label": "Have my property reviewed",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Free & non-binding",
+     "Houses & apartments",
+     "Offers in 48–72 h"
+    ],
+    "image": "neighbourhood",
+    "alt": "Swiss chalet village between meadows and mountains",
+    "float": {
+     "title": "5-year fixed from 1.30 %",
+     "text": "Indicative rate · sample value"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banks, insurers and pension funds"
+     },
+     {
+      "value": "CHF 0",
+      "label": "for comparison and brokerage"
+     },
+     {
+      "value": "3 min.",
+      "label": "to a complete request"
+     },
+     {
+      "value": "48–72 h",
+      "label": "to concrete offers"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Leasehold property in Switzerland",
+    "title": "You own the house.\n*The land stays with the owner.*",
+    "image": "house",
+    "alt": "Chalet in front of Swiss mountains",
+    "paragraphs": [
+     "With a building right (Baurecht), you buy the building, not the land. The land belongs, for example, to a municipality, a parish or a cooperative. You pay an annual **ground rent** (Baurechtszins), and the right runs for a term fixed in the contract.",
+     "Because the term is finite, lenders often apply a more cautious loan-to-value. How cautious depends on the remaining term, the ground rent and the contract. That's exactly where lenders differ."
+    ],
+    "bullets": [
+     "Contract and remaining term reviewed upfront",
+     "Ground rent correctly included in affordability",
+     "Lenders experienced with building lease properties"
+    ],
+    "ctas": [
+     {
+      "label": "Have my property reviewed",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Building right Baurecht mortgage",
+    "title": "Typical hurdles\n*and how we solve them.*",
+    "tone": "soft",
+    "cols": 2,
+    "items": [
+     {
+      "kicker": "Remaining term",
+      "title": "Choosing the right lender",
+      "text": "The shorter the remaining term, the more cautious some banks get. Others are more open. We know the differences."
+     },
+     {
+      "kicker": "Ground rent",
+      "title": "Properly in affordability",
+      "text": "Ground rent is added to interest, maintenance and amortisation. We include it from the start.",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "kicker": "Contract",
+      "title": "Understanding the clauses",
+      "text": "Rent adjustments, reversion and compensation: we gather the points the lender wants to check."
+     },
+     {
+      "kicker": "Bank rejection",
+      "title": "Get a second opinion",
+      "text": "A rejection for a leasehold property doesn't apply to every lender. We review your file afresh.",
+      "to": "page:lp-zweitmeinung"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Mortgage calculator",
+    "title": "What will\n*your property cost?*",
+    "lead": "Enter price, equity and income. We add the ground rent during your consultation."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "How it works",
+    "title": "Four steps\nto your financing.",
+    "items": [
+     {
+      "title": "Request in 3 minutes",
+      "text": "Upload the sales documentation, building lease contract and your documents. Our AI reads most details."
+     },
+     {
+      "title": "Contract review",
+      "text": "Your advisor usually gets back to you the same business day and clarifies remaining term, ground rent and reversion."
+     },
+     {
+      "title": "Targeted requests",
+      "text": "We submit your file to suitable lenders. Offers usually within 48–72 h."
+     },
+     {
+      "title": "Sign",
+      "text": "You compare and decide. We coordinate with lender, notary and landowner."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Get started",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "trust",
+    "items": [
+     "Independent broker",
+     "40+ financing partners",
+     "Free for private clients",
+     "A personal advisor, not a hotline",
+     "Data processed in Switzerland",
+     "35+ years of team experience"
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Read more",
+    "title": "More on\n*your property.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Apartment",
+      "title": "Condominium",
+      "text": "Financing a condo.",
+      "to": "page:lp-eigentumswohnung"
+     },
+     {
+      "kicker": "House",
+      "title": "Single-family home",
+      "text": "What matters when buying a house.",
+      "to": "page:lp-einfamilienhaus"
+     },
+     {
+      "kicker": "Complex cases",
+      "title": "Advisory",
+      "text": "Special properties and structures.",
+      "to": "page:advisory"
+     },
+     {
+      "kicker": "For partners",
+      "title": "Become a partner",
+      "text": "You sell leasehold properties? Work with us.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Building leases\nin brief.",
+    "items": [
+     {
+      "q": "Do Swiss banks finance building lease properties?",
+      "a": "Yes, but often more cautiously than properties with their own land. The amount depends on the lender, remaining term and contract. That's why comparing pays off."
+     },
+     {
+      "q": "What remaining term do lenders require?",
+      "a": "Each lender sets its own rules. In principle, the longer the building right still runs, the more lenders are available. We know who is open for your remaining term."
+     },
+     {
+      "q": "How is ground rent included in affordability?",
+      "a": "Ground rent is added to the imputed costs as an ongoing expense. Together, they should not exceed roughly one third of your gross income."
+     },
+     {
+      "q": "What happens when the building lease ends?",
+      "a": "The right can be extended, or the building reverts to the landowner, usually against compensation set out in the contract. Have the contract reviewed by a specialist."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Contact us",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "A building lease is no obstacle.\n*With the right lender.*",
+    "text": "Compare 40+ lenders for free and start your request in 3 minutes.",
+    "ctas": [
+     {
+      "label": "Have my property reviewed",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ }
+}

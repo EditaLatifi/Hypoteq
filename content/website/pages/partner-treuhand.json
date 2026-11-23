@@ -1,0 +1,938 @@
+{
+ "de": {
+  "title": "Für Treuhänder & Vermögensverwalter | HYPOTEQ",
+  "description": "Biete deinen Mandanten unabhängige Hypothekenlösungen, ohne eigenen Aufwand. Provision, Partnerportal und Fachsupport. Jetzt Partner werden.",
+  "h1": "Partnerprogramm für Treuhänder und Vermögensverwalter",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Partner · Treuhand & Vermögensverwaltung",
+    "h1": "Partnerprogramm für Treuhänder\nund Vermögensverwalter",
+    "lead": "Als **Hypothek Partner für Treuhänder** bietest du deinen Mandanten unabhängige Finanzierungslösungen von über 40 Banken, Versicherungen und Pensionskassen. Wir übernehmen Dossier und Verhandlung, die Kundenbeziehung bleibt bei dir.",
+    "ctas": [
+     {
+      "label": "Partner werden",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Partnerlogin",
+      "to": "portal"
+     }
+    ],
+    "badges": [
+     "Keine Produktkonkurrenz",
+     "Kundenbeziehung bleibt bei dir",
+     "Provision pro Abschluss"
+    ],
+    "image": "consultation",
+    "alt": "Treuhänder bespricht Unterlagen mit einem Mandanten",
+    "float": {
+     "title": "Unabhängig",
+     "text": "Wir vertreiben keine Versicherungen und Anlagen"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "Banken, Versicherungen & Pensionskassen"
+     },
+     {
+      "value": "0",
+      "label": "Produktkonkurrenz: keine Versicherungen, keine Anlagen"
+     },
+     {
+      "value": "35+ J.",
+      "label": "Erfahrung im Team aus Hypo- und FinTech-Welt"
+     },
+     {
+      "value": "1:1",
+      "label": "persönliche Ansprechperson für deine Fälle"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Hypothek für Mandanten",
+    "title": "Mehrwert für Mandanten.\n*Ohne Mehraufwand.*",
+    "screen": "portal",
+    "paragraphs": [
+     "Deine Mandanten vertrauen dir bei Steuern, Vermögen und Vorsorge. Mit HYPOTEQ ergänzt du dieses Vertrauen um die Hypothek: Du reichst den Fall im **Partnerportal** ein, wir bereiten das Dossier auf, holen Offerten ein und verhandeln.",
+     "Für Vermögensverwalter heisst Hypothekenvermittlung: Die Finanzierung passt zur Vermögensstrategie, ohne dass du eigene Bankenverträge brauchst."
+    ],
+    "bullets": [
+     "Status, Dokumente und Rückmeldungen an einem Ort",
+     "Jeder Partner sieht nur eigene Fälle",
+     "Immobilienbewertung mit Wüest Partner inklusive"
+    ],
+    "ctas": [
+     {
+      "label": "Partner werden",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Zum Partnerportal",
+      "to": "portal"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Vorsorge & Steuern",
+    "title": "Die Hypothek\n*im Gesamtbild.*",
+    "image": "family",
+    "alt": "Familie im neuen, noch leeren Zuhause",
+    "reverse": true,
+    "tone": "soft",
+    "paragraphs": [
+     "Eigenheim, Vorsorge und Steuern hängen eng zusammen. Wir beziehen deine Sicht als Treuhänder ein, etwa beim Einsatz von Pensionskassengeld oder bei der Amortisation."
+    ],
+    "bullets": [
+     "PK-Vorbezug oder Verpfändung als Eigenmittel",
+     "Indirekte Amortisation über die Säule 3a",
+     "Finanzierung im Ruhestand und komplexe Eigentümerstrukturen"
+    ],
+    "ctas": [
+     {
+      "label": "Ratgeber Pensionskasse & 3a",
+      "to": "page:rg-pk"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Warum HYPOTEQ?",
+    "title": "Dein Mandat.\n*Deine Beziehung.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "01",
+      "title": "Keine Produktkonkurrenz",
+      "text": "HYPOTEQ vertreibt keine Versicherungen und Anlagen. Wir konkurrieren nicht mit deinem Angebot."
+     },
+     {
+      "kicker": "02",
+      "title": "Kundenbeziehung bleibt",
+      "text": "Du bleibst erste Ansprechperson deiner Mandanten. Wir arbeiten im Hintergrund."
+     },
+     {
+      "kicker": "03",
+      "title": "Faire Provision",
+      "text": "Pro Abschluss erhältst du eine faire Provision, schnell ausbezahlt."
+     },
+     {
+      "kicker": "04",
+      "title": "Advisory für Komplexes",
+      "text": "Rendite-Liegenschaften, juristische Personen oder Auslandsbezug: Unser Advisory hilft.",
+      "to": "page:advisory",
+      "cta": "Zum Advisory"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "So funktioniert’s",
+    "title": "Vom Mandat\n*zur Finanzierung.*",
+    "items": [
+     {
+      "title": "Partner werden",
+      "text": "Formular ausfüllen, Erstgespräch führen, Einladung ins Partnerportal erhalten."
+     },
+     {
+      "title": "Fall einreichen",
+      "text": "Im Portal einreichen oder die Online-Anfrage als Berater mit deinem Mandanten ausfüllen."
+     },
+     {
+      "title": "Wir holen Offerten",
+      "text": "Wir prüfen, verhandeln mit über 40 Finanzierungspartnern und halten dich auf dem Laufenden."
+     },
+     {
+      "title": "Abschluss & Provision",
+      "text": "Dein Mandant schliesst ab, du erhältst deine Provision."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Jetzt Partner werden",
+      "to": "page:partner#formular"
+     }
+    ]
+   },
+   {
+    "type": "quote",
+    "text": "Auch als Partner ist man bei HYPOTEQ sehr gut aufgehoben. Die Erreichbarkeit stimmt, auch nach Bürozeiten.",
+    "author": "Luigi M., Vertriebspartner"
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Mehr erfahren",
+    "title": "Weiter im\n*Partnerprogramm.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "title": "Partnerprogramm",
+      "text": "Vorteile, Voraussetzungen und Portal im Überblick.",
+      "to": "page:partner"
+     },
+     {
+      "title": "HYPOTEQ Academy",
+      "text": "Hypothekenwissen für dein Team, mit KI-Trainer.",
+      "to": "page:academy"
+     },
+     {
+      "title": "Hypothek im Ruhestand",
+      "text": "Tragbarkeit und Finanzierung nach der Pensionierung.",
+      "to": "page:ruhestand"
+     },
+     {
+      "title": "Für Versicherungen & Broker",
+      "text": "Das Partnerprogramm für Agenturen und Broker.",
+      "to": "page:partner-versicherung"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Gut zu wissen\n*für Treuhänder.*",
+    "items": [
+     {
+      "q": "Wie integriere ich Hypotheken in meine Mandatsbetreuung?",
+      "a": "Du erkennst den Finanzierungsbedarf, etwa bei Kauf, Ablösung oder Pensionierung, und reichst den Fall im Partnerportal ein. Wir übernehmen Dossier, Offerten und Verhandlung, du bleibst Ansprechperson."
+     },
+     {
+      "q": "Wie hoch ist die Vergütung?",
+      "a": "Du erhältst eine **faire Provision pro Abschluss**, mit schneller Auszahlung. Die Konditionen vereinbaren wir im Erstgespräch."
+     },
+     {
+      "q": "Wie wird die Vertraulichkeit sichergestellt?",
+      "a": "Der Portalzugang erfolgt per Einladung und jeder Partner sieht nur seine eigenen Fälle. Die Daten der Online-Anfrage werden in der Schweiz verarbeitet. Da wir keine Versicherungen und Anlagen vertreiben, sprechen wir deine Mandanten nicht für andere Produkte an."
+     },
+     {
+      "q": "Kann ich komplexe Fälle ins Advisory geben?",
+      "a": "Ja. Für Finanzierung im Ruhestand, Rendite- und gemischt genutzte Liegenschaften, Fälle nach Bankabsagen oder komplexe Eigentümerstrukturen gibt es unser **Advisory** (kostenpflichtiges Mandat, Erstgespräch gratis)."
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Mehrwert für Mandanten.\n*Provision für dich.*",
+    "text": "Werde HYPOTEQ-Partner, ohne Produktkonkurrenz und mit persönlicher Ansprechperson.",
+    "ctas": [
+     {
+      "label": "Partner werden",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Partnerlogin",
+      "to": "portal"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Fiduciaires et gérants de fortune | HYPOTEQ",
+  "description": "Offrez à vos clients des solutions hypothécaires indépendantes sans effort supplémentaire. Commission, portail partenaire et support. Devenez partenaire.",
+  "h1": "Partenariat pour fiduciaires et gérants de fortune",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Partenaires · Fiduciaires et gérants de fortune",
+    "h1": "Partenariat pour fiduciaires\net gérants de fortune",
+    "lead": "Avec ce **partenariat fiduciaire hypothèque**, vous offrez à vos mandants des solutions de financement indépendantes de plus de 40 banques, assurances et caisses de pension. Nous nous chargeons du dossier et de la négociation, la relation client reste la vôtre.",
+    "ctas": [
+     {
+      "label": "Devenir partenaire",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Login partenaire",
+      "to": "portal"
+     }
+    ],
+    "badges": [
+     "Aucune concurrence de produits",
+     "La relation client reste la vôtre",
+     "Commission par conclusion"
+    ],
+    "image": "consultation",
+    "alt": "Fiduciaire examinant des documents avec un mandant",
+    "float": {
+     "title": "Indépendant",
+     "text": "Nous ne vendons ni assurances ni placements"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banques, assurances et caisses de pension"
+     },
+     {
+      "value": "0",
+      "label": "concurrence de produits: ni assurances, ni placements"
+     },
+     {
+      "value": "35+ ans",
+      "label": "d'expérience de l'équipe, hypothèque et FinTech"
+     },
+     {
+      "value": "1:1",
+      "label": "interlocuteur personnel pour vos dossiers"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Hypothèque pour vos mandants",
+    "title": "Valeur ajoutée.\n*Sans effort supplémentaire.*",
+    "screen": "portal",
+    "paragraphs": [
+     "Vos mandants vous font confiance pour leurs impôts, leur patrimoine et leur prévoyance. Avec HYPOTEQ, vous y ajoutez l'hypothèque: vous déposez le dossier dans le **portail partenaire**, nous le préparons, obtenons les offres et négocions.",
+     "Pour le **gérant de fortune**, l'hypothèque s'intègre à la stratégie patrimoniale, sans contrats bancaires propres."
+    ],
+    "bullets": [
+     "Statut, documents et retours au même endroit",
+     "Chaque partenaire ne voit que ses dossiers",
+     "Estimation immobilière avec Wüest Partner incluse"
+    ],
+    "ctas": [
+     {
+      "label": "Devenir partenaire",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Accéder au portail",
+      "to": "portal"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Prévoyance et fiscalité",
+    "title": "L'hypothèque\n*dans la vue d'ensemble.*",
+    "image": "family",
+    "alt": "Famille dans son nouveau logement encore vide",
+    "reverse": true,
+    "tone": "soft",
+    "paragraphs": [
+     "Logement, prévoyance et impôts sont étroitement liés. Nous intégrons votre regard de fiduciaire, par exemple pour l'utilisation du 2e pilier ou l'amortissement."
+    ],
+    "bullets": [
+     "Retrait anticipé ou nantissement du 2e pilier",
+     "Amortissement indirect via le 3e pilier",
+     "Financement à la retraite et structures de propriété complexes"
+    ],
+    "ctas": [
+     {
+      "label": "Guide 2e pilier et 3a",
+      "to": "page:rg-pk"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Pourquoi HYPOTEQ?",
+    "title": "Votre mandat.\n*Votre relation.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "01",
+      "title": "Aucune concurrence",
+      "text": "HYPOTEQ ne distribue ni assurances ni placements. Nous ne concurrençons pas votre offre."
+     },
+     {
+      "kicker": "02",
+      "title": "La relation reste la vôtre",
+      "text": "Vous restez le premier interlocuteur de vos mandants. Nous travaillons en coulisse."
+     },
+     {
+      "kicker": "03",
+      "title": "Commission équitable",
+      "text": "Une commission équitable par conclusion, versée rapidement."
+     },
+     {
+      "kicker": "04",
+      "title": "Advisory pour le complexe",
+      "text": "Immeubles de rendement, personnes morales ou lien avec l'étranger: notre Advisory vous aide.",
+      "to": "page:advisory",
+      "cta": "Vers l'Advisory"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Comment ça marche",
+    "title": "Du mandat\n*au financement.*",
+    "items": [
+     {
+      "title": "Devenir partenaire",
+      "text": "Remplir le formulaire, mener le premier entretien, recevoir l'invitation au portail."
+     },
+     {
+      "title": "Déposer le dossier",
+      "text": "Dans le portail ou via la demande en ligne remplie avec votre mandant."
+     },
+     {
+      "title": "Nous obtenons les offres",
+      "text": "Nous vérifions, négocions avec plus de 40 prêteurs et vous tenons informé."
+     },
+     {
+      "title": "Conclusion et commission",
+      "text": "Votre mandant conclut, vous recevez votre commission."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Devenir partenaire",
+      "to": "page:partner#formular"
+     }
+    ]
+   },
+   {
+    "type": "quote",
+    "text": "Comme partenaire aussi, on est très bien entouré chez HYPOTEQ. Ils restent joignables, même après les heures de bureau.",
+    "author": "Luigi M., partenaire"
+   },
+   {
+    "type": "cards",
+    "eyebrow": "En savoir plus",
+    "title": "Le programme\n*partenaire.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "title": "Programme partenaire",
+      "text": "Avantages, conditions et portail en un coup d'œil.",
+      "to": "page:partner"
+     },
+     {
+      "title": "HYPOTEQ Academy",
+      "text": "Le savoir hypothécaire pour votre équipe, avec entraîneur IA.",
+      "to": "page:academy"
+     },
+     {
+      "title": "Hypothèque à la retraite",
+      "text": "Capacité financière et financement après la retraite.",
+      "to": "page:ruhestand"
+     },
+     {
+      "title": "Pour assurances et brokers",
+      "text": "Le programme pour agences et brokers.",
+      "to": "page:partner-versicherung"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "Bon à savoir\n*pour les fiduciaires.*",
+    "items": [
+     {
+      "q": "Comment intégrer l'hypothèque à mes mandats?",
+      "a": "Vous identifiez le besoin de financement, par exemple lors d'un achat, d'un renouvellement ou de la retraite, et déposez le dossier dans le portail. Nous gérons dossier, offres et négociation, vous restez l'interlocuteur."
+     },
+     {
+      "q": "Quelle rémunération?",
+      "a": "Vous recevez une **commission équitable par conclusion**, versée rapidement. Les conditions sont fixées lors du premier entretien."
+     },
+     {
+      "q": "Comment la confidentialité est-elle garantie?",
+      "a": "L'accès au portail se fait sur invitation et chaque partenaire ne voit que ses propres dossiers. Les données de la demande en ligne sont traitées en Suisse. Comme nous ne vendons ni assurances ni placements, nous ne sollicitons pas vos mandants pour d'autres produits."
+     },
+     {
+      "q": "Puis-je confier des cas complexes au conseil?",
+      "a": "Oui. Pour le financement à la retraite, les immeubles de rendement ou mixtes, les dossiers refusés par une banque ou les structures de propriété complexes, notre **Advisory** intervient (mandat payant, premier entretien gratuit)."
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Valeur pour vos mandants.\n*Commission pour vous.*",
+    "text": "Devenez partenaire HYPOTEQ, sans concurrence de produits et avec un interlocuteur personnel.",
+    "ctas": [
+     {
+      "label": "Devenir partenaire",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Login partenaire",
+      "to": "portal"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Per fiduciari e gestori patrimoniali | HYPOTEQ",
+  "description": "Offri ai tuoi clienti soluzioni ipotecarie indipendenti senza lavoro aggiuntivo. Provvigione, portale partner e supporto. Diventa partner ora.",
+  "h1": "Partner per fiduciari e gestori patrimoniali",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Partner · Fiduciari e gestori patrimoniali",
+    "h1": "Partner per fiduciari\ne gestori patrimoniali",
+    "lead": "Come **partner fiduciari per le ipoteche**, offri ai tuoi mandanti soluzioni di finanziamento indipendenti di oltre 40 banche, assicurazioni e casse pensione. Noi ci occupiamo di dossier e trattativa, il rapporto con il cliente resta tuo.",
+    "ctas": [
+     {
+      "label": "Diventa partner",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Login partner",
+      "to": "portal"
+     }
+    ],
+    "badges": [
+     "Nessuna concorrenza di prodotti",
+     "Il cliente resta tuo",
+     "Provvigione per conclusione"
+    ],
+    "image": "consultation",
+    "alt": "Fiduciario esamina documenti con un mandante",
+    "float": {
+     "title": "Indipendente",
+     "text": "Non vendiamo assicurazioni né investimenti"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banche, assicurazioni e casse pensione"
+     },
+     {
+      "value": "0",
+      "label": "concorrenza di prodotti: niente assicurazioni né investimenti"
+     },
+     {
+      "value": "35+ anni",
+      "label": "di esperienza del team, ipoteche e FinTech"
+     },
+     {
+      "value": "1:1",
+      "label": "referente personale per i tuoi dossier"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Ipoteca per i mandanti",
+    "title": "Valore per i mandanti.\n*Senza lavoro in più.*",
+    "screen": "portal",
+    "paragraphs": [
+     "I tuoi mandanti si fidano di te per imposte, patrimonio e previdenza. Con HYPOTEQ aggiungi l'ipoteca: inoltri il dossier nel **portale partner**, noi lo prepariamo, raccogliamo le offerte e trattiamo.",
+     "Per il **gestore patrimoniale** l'ipoteca si integra nella strategia patrimoniale, senza contratti bancari propri."
+    ],
+    "bullets": [
+     "Stato, documenti e riscontri in un solo posto",
+     "Ogni partner vede solo i propri dossier",
+     "Valutazione immobiliare con Wüest Partner inclusa"
+    ],
+    "ctas": [
+     {
+      "label": "Diventa partner",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Al portale partner",
+      "to": "portal"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Previdenza e imposte",
+    "title": "L'ipoteca\n*nel quadro completo.*",
+    "image": "family",
+    "alt": "Famiglia nella nuova casa ancora vuota",
+    "reverse": true,
+    "tone": "soft",
+    "paragraphs": [
+     "Casa, previdenza e imposte sono strettamente legate. Teniamo conto della tua visione da fiduciario, per esempio sull'uso della cassa pensione o sull'ammortamento."
+    ],
+    "bullets": [
+     "Prelievo anticipato o costituzione in pegno della cassa pensione",
+     "Ammortamento indiretto tramite il 3° pilastro",
+     "Finanziamento in pensione e strutture di proprietà complesse"
+    ],
+    "ctas": [
+     {
+      "label": "Guida cassa pensione e 3a",
+      "to": "page:rg-pk"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Perché HYPOTEQ?",
+    "title": "Il tuo mandato.\n*Il tuo rapporto.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "01",
+      "title": "Nessuna concorrenza",
+      "text": "HYPOTEQ non vende assicurazioni né investimenti. Non facciamo concorrenza alla tua offerta."
+     },
+     {
+      "kicker": "02",
+      "title": "Il rapporto resta tuo",
+      "text": "Resti il primo referente dei tuoi mandanti. Noi lavoriamo dietro le quinte."
+     },
+     {
+      "kicker": "03",
+      "title": "Provvigione equa",
+      "text": "Per ogni conclusione una provvigione equa, pagata rapidamente."
+     },
+     {
+      "kicker": "04",
+      "title": "Advisory per i casi complessi",
+      "text": "Immobili a reddito, persone giuridiche o legami con l'estero: il nostro Advisory ti aiuta.",
+      "to": "page:advisory",
+      "cta": "All'Advisory"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Come funziona",
+    "title": "Dal mandato\n*al finanziamento.*",
+    "items": [
+     {
+      "title": "Diventa partner",
+      "text": "Compila il modulo, fai il primo colloquio, ricevi l'invito al portale."
+     },
+     {
+      "title": "Inoltra il dossier",
+      "text": "Nel portale o tramite la richiesta online compilata con il tuo mandante."
+     },
+     {
+      "title": "Raccogliamo le offerte",
+      "text": "Verifichiamo, trattiamo con oltre 40 istituti e ti teniamo aggiornato."
+     },
+     {
+      "title": "Conclusione e provvigione",
+      "text": "Il tuo mandante conclude, tu ricevi la provvigione."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Diventa partner ora",
+      "to": "page:partner#formular"
+     }
+    ]
+   },
+   {
+    "type": "quote",
+    "text": "Anche come partner si è in ottime mani da HYPOTEQ. Sono raggiungibili anche dopo l'orario d'ufficio.",
+    "author": "Luigi M., partner"
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Scopri di più",
+    "title": "Il programma\n*partner.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "title": "Programma partner",
+      "text": "Vantaggi, requisiti e portale in sintesi.",
+      "to": "page:partner"
+     },
+     {
+      "title": "HYPOTEQ Academy",
+      "text": "Sapere ipotecario per il tuo team, con trainer IA.",
+      "to": "page:academy"
+     },
+     {
+      "title": "Ipoteca in pensione",
+      "text": "Sostenibilità e finanziamento dopo il pensionamento.",
+      "to": "page:ruhestand"
+     },
+     {
+      "title": "Per assicurazioni e broker",
+      "text": "Il programma per agenzie e broker.",
+      "to": "page:partner-versicherung"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "Buono a sapersi\n*per i fiduciari.*",
+    "items": [
+     {
+      "q": "Come integro le ipoteche nei miei mandati?",
+      "a": "Riconosci il bisogno di finanziamento, per esempio in caso di acquisto, rinnovo o pensionamento, e inoltri il dossier nel portale. Noi gestiamo dossier, offerte e trattativa, tu resti il referente."
+     },
+     {
+      "q": "Qual è la remunerazione?",
+      "a": "Ricevi una **provvigione equa per ogni conclusione**, pagata rapidamente. Le condizioni le definiamo nel primo colloquio."
+     },
+     {
+      "q": "Come viene garantita la riservatezza?",
+      "a": "L'accesso al portale avviene su invito e ogni partner vede solo i propri dossier. I dati della richiesta online sono trattati in Svizzera. Poiché non vendiamo assicurazioni né investimenti, non contattiamo i tuoi mandanti per altri prodotti."
+     },
+     {
+      "q": "Posso affidare casi complessi alla consulenza?",
+      "a": "Sì. Per finanziamenti in pensione, immobili a reddito o a uso misto, casi dopo un rifiuto bancario o strutture di proprietà complesse c'è il nostro **Advisory** (mandato a pagamento, primo colloquio gratuito)."
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Valore per i mandanti.\n*Provvigione per te.*",
+    "text": "Diventa partner HYPOTEQ, senza concorrenza di prodotti e con un referente personale.",
+    "ctas": [
+     {
+      "label": "Diventa partner",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Login partner",
+      "to": "portal"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "For Fiduciaries & Wealth Managers | HYPOTEQ",
+  "description": "Offer your clients independent Swiss mortgage solutions without extra workload. Commission, partner portal and expert support. Become a partner.",
+  "h1": "Partner programme for fiduciaries and wealth managers",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Partners · Fiduciaries & wealth managers",
+    "h1": "Partner programme for fiduciaries\nand wealth managers",
+    "lead": "As a **mortgage partner for wealth managers in Switzerland**, you offer your clients independent financing from 40+ banks, insurers and pension funds. We handle the file and the negotiation, you keep the client relationship.",
+    "ctas": [
+     {
+      "label": "Become a partner",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Partner login",
+      "to": "portal"
+     }
+    ],
+    "badges": [
+     "No product competition",
+     "You keep the client",
+     "Commission per deal"
+    ],
+    "image": "consultation",
+    "alt": "Fiduciary reviewing documents with a client",
+    "float": {
+     "title": "Independent",
+     "text": "We sell no insurance and no investments"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banks, insurers & pension funds"
+     },
+     {
+      "value": "0",
+      "label": "product competition: no insurance, no investments"
+     },
+     {
+      "value": "35+ yrs",
+      "label": "team experience in mortgages and FinTech"
+     },
+     {
+      "value": "1:1",
+      "label": "a personal contact for your cases"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Wealth manager mortgage solutions",
+    "title": "Value for clients.\n*No extra workload.*",
+    "screen": "portal",
+    "paragraphs": [
+     "Your clients trust you with taxes, assets and retirement planning. With HYPOTEQ you add the mortgage: submit the case in the **partner portal**, and we prepare the file, collect offers and negotiate.",
+     "For wealth managers, the mortgage fits into the overall wealth strategy, without needing your own bank agreements."
+    ],
+    "bullets": [
+     "Status, documents and feedback in one place",
+     "Each partner only sees their own cases",
+     "Property valuation with Wüest Partner included"
+    ],
+    "ctas": [
+     {
+      "label": "Become a partner",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Go to partner portal",
+      "to": "portal"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Pensions & taxes",
+    "title": "The mortgage\n*in the big picture.*",
+    "image": "family",
+    "alt": "Family in their new, still empty home",
+    "reverse": true,
+    "tone": "soft",
+    "paragraphs": [
+     "Home ownership, pensions and taxes are closely linked. We bring your fiduciary view into the process, for example when using pension fund (pillar 2) money or planning amortisation."
+    ],
+    "bullets": [
+     "Pillar 2 early withdrawal or pledge as equity",
+     "Indirect amortisation via pillar 3a",
+     "Financing in retirement and complex ownership structures"
+    ],
+    "ctas": [
+     {
+      "label": "Guide: pension fund & 3a",
+      "to": "page:rg-pk"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Why HYPOTEQ?",
+    "title": "Your mandate.\n*Your relationship.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "01",
+      "title": "No product competition",
+      "text": "HYPOTEQ sells no insurance or investments. We do not compete with your offering."
+     },
+     {
+      "kicker": "02",
+      "title": "You keep the client",
+      "text": "You remain your client’s first point of contact. We work in the background."
+     },
+     {
+      "kicker": "03",
+      "title": "Fair commission",
+      "text": "A fair commission on every closed deal, paid out quickly."
+     },
+     {
+      "kicker": "04",
+      "title": "Advisory for complex cases",
+      "text": "Investment properties, legal entities or cross-border ties: our Advisory team helps.",
+      "to": "page:advisory",
+      "cta": "See Advisory"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "How it works",
+    "title": "From mandate\n*to financing.*",
+    "items": [
+     {
+      "title": "Become a partner",
+      "text": "Fill in the form, have a first call and receive your portal invitation."
+     },
+     {
+      "title": "Submit a case",
+      "text": "In the portal, or via the online request completed with your client."
+     },
+     {
+      "title": "We collect offers",
+      "text": "We review, negotiate with 40+ lenders and keep you updated."
+     },
+     {
+      "title": "Closing & commission",
+      "text": "Your client closes, you receive your commission."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Become a partner now",
+      "to": "page:partner#formular"
+     }
+    ]
+   },
+   {
+    "type": "quote",
+    "text": "As a partner, you are in very good hands at HYPOTEQ. They are reachable, even after office hours.",
+    "author": "Luigi M., sales partner"
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Learn more",
+    "title": "More from the\n*partner programme.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "title": "Partner programme",
+      "text": "Benefits, requirements and portal at a glance.",
+      "to": "page:partner"
+     },
+     {
+      "title": "HYPOTEQ Academy",
+      "text": "Mortgage know-how for your team, with an AI trainer.",
+      "to": "page:academy"
+     },
+     {
+      "title": "Mortgage in retirement",
+      "text": "Affordability and financing after retirement.",
+      "to": "page:ruhestand"
+     },
+     {
+      "title": "For insurers & brokers",
+      "text": "The partner programme for agencies and brokers.",
+      "to": "page:partner-versicherung"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Good to know\n*for fiduciaries.*",
+    "items": [
+     {
+      "q": "How do I add mortgages to my client mandates?",
+      "a": "You spot the financing need, for example a purchase, a renewal or retirement, and submit the case in the portal. This fiduciary mortgage referral leaves the file, offers and negotiation to us, while you stay the contact."
+     },
+     {
+      "q": "What is the compensation?",
+      "a": "You earn a **fair commission on every closed deal**, paid out quickly. We agree the terms in a first call."
+     },
+     {
+      "q": "How is confidentiality ensured?",
+      "a": "Portal access is by invitation and each partner only sees their own cases. Online request data is processed in Switzerland. As we sell no insurance or investments, we never approach your clients for other products."
+     },
+     {
+      "q": "Can complex cases go to advisory?",
+      "a": "Yes. For financing in retirement, investment or mixed-use properties, cases after a bank rejection or complex ownership structures, our **Advisory** steps in (paid mandate, free first meeting)."
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Value for your clients.\n*Commission for you.*",
+    "text": "Become a HYPOTEQ partner, with no product competition and a personal contact.",
+    "ctas": [
+     {
+      "label": "Become a partner",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Partner login",
+      "to": "portal"
+     }
+    ]
+   }
+  ]
+ }
+}

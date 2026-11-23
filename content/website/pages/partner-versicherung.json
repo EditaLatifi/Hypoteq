@@ -1,0 +1,910 @@
+{
+ "de": {
+  "title": "Für Versicherungen, Agenturen & Broker | HYPOTEQ",
+  "description": "Ergänze dein Angebot um Hypotheken von 40+ Anbietern. Provision, Partnerportal und Schulung via HYPOTEQ Academy. Jetzt Partnerschaft anfragen.",
+  "h1": "Partnerprogramm für Versicherungen und Broker",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Partner · Versicherungen & Broker",
+    "h1": "Partnerprogramm für\nVersicherungen und Broker",
+    "lead": "Als **Hypothek Partner für Versicherungsbroker** nimmst du Hypotheken von über 40 Banken, Versicherungen und Pensionskassen ins Portfolio, ohne eigenen Bankenvertrag. Wir übernehmen Dossier und Verhandlung, du erhältst eine Provision pro Abschluss.",
+    "ctas": [
+     {
+      "label": "Partnerschaft anfragen",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Partnerlogin",
+      "to": "portal"
+     }
+    ],
+    "badges": [
+     "Ohne eigenen Bankenvertrag",
+     "Academy fürs Team",
+     "Provision pro Abschluss"
+    ],
+    "image": "couple",
+    "alt": "Paar entspannt im eigenen Wohnzimmer",
+    "float": {
+     "title": "Cross-Selling",
+     "text": "Hypothek und Versicherung aus einer Hand"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "Finanzierungspartner ohne eigenen Bankenvertrag"
+     },
+     {
+      "value": "8",
+      "label": "Learning Journeys in der Academy für dein Team"
+     },
+     {
+      "value": "1 Portal",
+      "label": "für alle Fälle deiner Agentur"
+     },
+     {
+      "value": "0 CHF",
+      "label": "Setup-Kosten für deinen Einstieg"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Versicherungsagentur Hypotheken",
+    "title": "Hypotheken ins Portfolio.\n*Ohne Bankenvertrag.*",
+    "screen": "portal",
+    "paragraphs": [
+     "Deine Kunden kaufen ein Eigenheim oder lösen ihre Hypothek ab? Statt sie an die Bank zu verlieren, reichst du den Fall im **Partnerportal** ein. Wir prüfen das Dossier, holen Offerten von über 40 Finanzierungspartnern und verhandeln.",
+     "Du siehst Status, Dokumente und Rückmeldungen der Kreditgeber an einem Ort, und jeder Berater sieht nur seine eigenen Fälle."
+    ],
+    "bullets": [
+     "Fälle einreichen oder Online-Anfrage als Berater ausfüllen",
+     "Immobilienbewertung mit Wüest Partner inklusive",
+     "Kalkulator-Einbettung (iFrame) nach Absprache"
+    ],
+    "ctas": [
+     {
+      "label": "Partnerschaft anfragen",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Zum Partnerportal",
+      "to": "portal"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Cross-Selling Hypothek Versicherung",
+    "title": "Ein Anlass.\n*Mehr Geschäft.*",
+    "image": "house",
+    "alt": "Schweizer Chalet vor verschneiten Bergen",
+    "reverse": true,
+    "tone": "soft",
+    "paragraphs": [
+     "Der Kauf eines Eigenheims ist ein idealer Anlass für Gespräche über Gebäude-, Hausrat- und Risikoversicherung. Mit HYPOTEQ deckst du die Finanzierung ab und bleibst die Ansprechperson für alles Weitere.",
+     "**Keine Produktkonkurrenz:** HYPOTEQ vertreibt keine Versicherungen und Anlagen. Deine Kundenbeziehung bleibt bei dir."
+    ],
+    "bullets": [
+     "Faire Provision pro Abschluss",
+     "Schnelle Auszahlung",
+     "Persönliche Ansprechperson, keine Hotline"
+    ],
+    "ctas": [
+     {
+      "label": "Partner werden",
+      "to": "page:partner#formular"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "HYPOTEQ Academy",
+    "title": "Dein Team.\n*Sicher in Hypotheken.*",
+    "screen": "academy",
+    "tone": "dark",
+    "paragraphs": [
+     "Mit dem **Foundation Course** lernt dein Team in 8 Learning Journeys die Schweizer Immobilienfinanzierung, von Eigenmitteln bis zum bankfähigen Dossier.",
+     "Im KI-Learning-Playground üben deine Berater Kundengespräche per Text oder Audio und erhalten eine Analyse."
+    ],
+    "bullets": [
+     "Ohne Vorwissen",
+     "Praxisfälle, Knowledge Checks und Zertifikat",
+     "CHF 290 pro Person"
+    ],
+    "ctas": [
+     {
+      "label": "Academy entdecken",
+      "to": "page:academy"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "So funktioniert’s",
+    "title": "Von der Police\n*zur Hypothek.*",
+    "items": [
+     {
+      "title": "Partnerschaft anfragen",
+      "text": "Formular ausfüllen, Erstgespräch führen, Einladung ins Partnerportal erhalten."
+     },
+     {
+      "title": "Team befähigen",
+      "text": "Deine Berater lernen in der Academy die Grundlagen und erkennen Finanzierungsbedarf."
+     },
+     {
+      "title": "Fälle einreichen",
+      "text": "Im Portal oder über die Online-Anfrage. Wir holen die Offerten und halten dich auf dem Laufenden."
+     },
+     {
+      "title": "Abschluss & Provision",
+      "text": "Nach dem Abschluss erhältst du deine Provision."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Jetzt Partnerschaft anfragen",
+      "to": "page:partner#formular"
+     }
+    ]
+   },
+   {
+    "type": "quote",
+    "text": "Als Vermittler ist HYPOTEQ für mich der Türöffner zur Finanzierungswelt.",
+    "author": "Noli T., Vertriebspartner"
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Mehr erfahren",
+    "title": "Weiter im\n*Partnerprogramm.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "title": "Partnerprogramm",
+      "text": "Vorteile, Voraussetzungen und Portal im Überblick.",
+      "to": "page:partner"
+     },
+     {
+      "title": "HYPOTEQ Academy",
+      "text": "Foundation Course mit KI-Trainer für dein Team.",
+      "to": "page:academy"
+     },
+     {
+      "title": "Für Treuhänder",
+      "text": "Das Partnerprogramm für Treuhänder und Vermögensverwalter.",
+      "to": "page:partner-treuhand"
+     },
+     {
+      "title": "Aktuelle Zinsen",
+      "text": "Richtzinsen für SARON und Festhypotheken.",
+      "to": "page:zinsen"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Gut zu wissen\n*für Broker.*",
+    "items": [
+     {
+      "q": "Wie ergänzen Hypotheken mein Versicherungsgeschäft?",
+      "a": "Ein Eigenheimkauf oder eine Ablösung ist ein Kontaktanlass. Mit HYPOTEQ bietest du die Finanzierung von über 40 Anbietern an, ohne eigenen Bankenvertrag, und bleibst Ansprechperson für die Versicherungen."
+     },
+     {
+      "q": "Wie hoch ist die Provision?",
+      "a": "Du erhältst eine **faire Provision pro Abschluss**, mit schneller Auszahlung. Die Konditionen hängen vom Partnermodell ab und werden im Erstgespräch vereinbart."
+     },
+     {
+      "q": "Werden meine Mitarbeitenden geschult?",
+      "a": "Ja. Über die **HYPOTEQ Academy** lernt dein Team mit dem Foundation Course (CHF 290) in 8 Learning Journeys und trainiert Kundengespräche im KI-Learning-Playground."
+     },
+     {
+      "q": "Gibt es eine API oder Portal-Anbindung?",
+      "a": "Fälle reichst du im Partnerportal ein, der Zugang erfolgt per Einladung. Unseren Kalkulator kannst du nach Absprache per iFrame einbetten. Weitere Anbindungen besprechen wir gerne im Erstgespräch."
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Hypotheken ins Portfolio.\n*Provision für dich.*",
+    "text": "Ohne Bankenvertrag, mit Partnerportal und Academy fürs Team.",
+    "ctas": [
+     {
+      "label": "Partnerschaft anfragen",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Partnerlogin",
+      "to": "portal"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Assurances, agences et courtiers | HYPOTEQ",
+  "description": "Complétez votre offre avec les hypothèques de 40+ prêteurs. Commission, portail partenaire et formation via la HYPOTEQ Academy. Contactez-nous.",
+  "h1": "Partenariat pour assurances et courtiers",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Partenaires · Assurances et courtiers",
+    "h1": "Partenariat pour\nassurances et courtiers",
+    "lead": "Avec ce **partenariat courtier assurance hypothèque**, vous ajoutez à votre portefeuille les hypothèques de plus de 40 banques, assurances et caisses de pension, sans contrat bancaire propre. Nous gérons dossier et négociation, vous touchez une commission par conclusion.",
+    "ctas": [
+     {
+      "label": "Demander un partenariat",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Login partenaire",
+      "to": "portal"
+     }
+    ],
+    "badges": [
+     "Sans contrat bancaire propre",
+     "Academy pour l'équipe",
+     "Commission par conclusion"
+    ],
+    "image": "couple",
+    "alt": "Couple détendu dans son salon",
+    "float": {
+     "title": "Cross-selling",
+     "text": "Hypothèque et assurance d'un seul interlocuteur"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "prêteurs sans contrat bancaire propre"
+     },
+     {
+      "value": "8",
+      "label": "Learning Journeys à l'Academy pour votre équipe"
+     },
+     {
+      "value": "1 portail",
+      "label": "pour tous les dossiers de votre agence"
+     },
+     {
+      "value": "0 CHF",
+      "label": "de frais de mise en place"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Agence d'assurance hypothèque",
+    "title": "L'hypothèque au portefeuille.\n*Sans contrat bancaire.*",
+    "screen": "portal",
+    "paragraphs": [
+     "Vos clients achètent un logement ou renouvellent leur hypothèque? Plutôt que de les perdre au profit de la banque, vous déposez le dossier dans le **portail partenaire**. Nous le vérifions, obtenons les offres de plus de 40 prêteurs et négocions.",
+     "Statut, documents et retours des prêteurs sont au même endroit, et chaque conseiller ne voit que ses propres dossiers."
+    ],
+    "bullets": [
+     "Déposer des dossiers ou remplir la demande en tant que conseiller",
+     "Estimation immobilière avec Wüest Partner incluse",
+     "Intégration du calculateur (iFrame) sur demande"
+    ],
+    "ctas": [
+     {
+      "label": "Demander un partenariat",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Accéder au portail",
+      "to": "portal"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Cross-selling",
+    "title": "Une occasion.\n*Plus d'affaires.*",
+    "image": "house",
+    "alt": "Chalet suisse devant des montagnes enneigées",
+    "reverse": true,
+    "tone": "soft",
+    "paragraphs": [
+     "L'achat d'un logement est l'occasion idéale de parler d'assurance bâtiment, ménage ou risque. Avec HYPOTEQ, vous couvrez le financement et restez l'interlocuteur pour le reste.",
+     "**Aucune concurrence de produits:** HYPOTEQ ne vend ni assurances ni placements. La relation client reste la vôtre."
+    ],
+    "bullets": [
+     "Commission équitable par conclusion",
+     "Versement rapide",
+     "Interlocuteur personnel, pas de hotline"
+    ],
+    "ctas": [
+     {
+      "label": "Devenir partenaire",
+      "to": "page:partner#formular"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "HYPOTEQ Academy",
+    "title": "Votre équipe.\n*À l'aise avec l'hypothèque.*",
+    "screen": "academy",
+    "tone": "dark",
+    "paragraphs": [
+     "Avec le **Foundation Course**, votre équipe découvre le financement immobilier suisse en 8 Learning Journeys, des fonds propres au dossier bancable.",
+     "Dans le Learning Playground IA, vos conseillers s'entraînent aux entretiens clients par texte ou audio et reçoivent une analyse."
+    ],
+    "bullets": [
+     "Sans connaissances préalables",
+     "Cas pratiques, Knowledge Checks et certificat",
+     "CHF 290 par personne"
+    ],
+    "ctas": [
+     {
+      "label": "Découvrir l'Academy",
+      "to": "page:academy"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Comment ça marche",
+    "title": "De la police\n*à l'hypothèque.*",
+    "items": [
+     {
+      "title": "Demander un partenariat",
+      "text": "Remplir le formulaire, mener le premier entretien, recevoir l'invitation au portail."
+     },
+     {
+      "title": "Former l'équipe",
+      "text": "Vos conseillers apprennent les bases à l'Academy et repèrent les besoins de financement."
+     },
+     {
+      "title": "Déposer les dossiers",
+      "text": "Dans le portail ou via la demande en ligne. Nous obtenons les offres et vous informons."
+     },
+     {
+      "title": "Conclusion et commission",
+      "text": "Après la conclusion, vous recevez votre commission."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Demander un partenariat",
+      "to": "page:partner#formular"
+     }
+    ]
+   },
+   {
+    "type": "quote",
+    "text": "En tant qu'intermédiaire, HYPOTEQ m'ouvre les portes du monde du financement.",
+    "author": "Noli T., partenaire"
+   },
+   {
+    "type": "cards",
+    "eyebrow": "En savoir plus",
+    "title": "Le programme\n*partenaire.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "title": "Programme partenaire",
+      "text": "Avantages, conditions et portail en un coup d'œil.",
+      "to": "page:partner"
+     },
+     {
+      "title": "HYPOTEQ Academy",
+      "text": "Foundation Course avec entraîneur IA pour votre équipe.",
+      "to": "page:academy"
+     },
+     {
+      "title": "Pour fiduciaires",
+      "text": "Le programme pour fiduciaires et gérants de fortune.",
+      "to": "page:partner-treuhand"
+     },
+     {
+      "title": "Taux actuels",
+      "text": "Taux indicatifs SARON et hypothèques fixes.",
+      "to": "page:zinsen"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "Bon à savoir\n*pour les courtiers.*",
+    "items": [
+     {
+      "q": "Comment l'hypothèque complète-t-elle mon activité?",
+      "a": "Un achat ou un renouvellement est une occasion de contact. Avec HYPOTEQ, vous proposez le financement de plus de 40 prêteurs, sans contrat bancaire propre, et restez l'interlocuteur pour les assurances."
+     },
+     {
+      "q": "Quelle commission?",
+      "a": "Le **courtier en assurances** reçoit une **commission équitable par conclusion**, versée rapidement. Les conditions dépendent du modèle de partenariat et sont fixées lors du premier entretien."
+     },
+     {
+      "q": "Mes collaborateurs sont-ils formés?",
+      "a": "Oui. Via la **HYPOTEQ Academy**, votre équipe suit le Foundation Course (CHF 290) en 8 Learning Journeys et s'entraîne aux entretiens dans le Learning Playground IA."
+     },
+     {
+      "q": "Existe-t-il un portail ou une API?",
+      "a": "Vous déposez les dossiers dans le portail partenaire, accessible sur invitation. Notre calculateur peut être intégré par iFrame sur demande. D'autres connexions se discutent lors du premier entretien."
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "L'hypothèque au portefeuille.\n*La commission pour vous.*",
+    "text": "Sans contrat bancaire, avec portail partenaire et Academy pour l'équipe.",
+    "ctas": [
+     {
+      "label": "Demander un partenariat",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Login partenaire",
+      "to": "portal"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Per assicurazioni, agenzie e broker | HYPOTEQ",
+  "description": "Completa la tua offerta con le ipoteche di oltre 40 istituti. Provvigione, portale partner e formazione con la HYPOTEQ Academy. Contattaci.",
+  "h1": "Partner per assicurazioni e broker",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Partner · Assicurazioni e broker",
+    "h1": "Partner per\nassicurazioni e broker",
+    "lead": "Come **partner per broker assicurativi sulle ipoteche**, aggiungi al portafoglio le ipoteche di oltre 40 banche, assicurazioni e casse pensione, senza contratto bancario proprio. Noi gestiamo dossier e trattativa, tu ricevi una provvigione per conclusione.",
+    "ctas": [
+     {
+      "label": "Richiedi la partnership",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Login partner",
+      "to": "portal"
+     }
+    ],
+    "badges": [
+     "Senza contratto bancario proprio",
+     "Academy per il team",
+     "Provvigione per conclusione"
+    ],
+    "image": "couple",
+    "alt": "Coppia rilassata nel proprio soggiorno",
+    "float": {
+     "title": "Cross-selling",
+     "text": "Ipoteca e assicurazione da un unico referente"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "istituti senza contratto bancario proprio"
+     },
+     {
+      "value": "8",
+      "label": "Learning Journeys nell'Academy per il team"
+     },
+     {
+      "value": "1 portale",
+      "label": "per tutti i dossier della tua agenzia"
+     },
+     {
+      "value": "0 CHF",
+      "label": "di costi di setup per iniziare"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Agenzia assicurativa ipoteche",
+    "title": "Ipoteche nel portafoglio.\n*Senza contratto bancario.*",
+    "screen": "portal",
+    "paragraphs": [
+     "I tuoi clienti comprano casa o rinnovano l'ipoteca? Invece di perderli a favore della banca, inoltri il dossier nel **portale partner**. Noi lo verifichiamo, raccogliamo le offerte di oltre 40 istituti e trattiamo.",
+     "Stato, documenti e riscontri degli istituti sono in un solo posto, e ogni consulente vede solo i propri dossier."
+    ],
+    "bullets": [
+     "Inoltrare dossier o compilare la richiesta come consulente",
+     "Valutazione immobiliare con Wüest Partner inclusa",
+     "Integrazione del calcolatore (iFrame) su accordo"
+    ],
+    "ctas": [
+     {
+      "label": "Richiedi la partnership",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Al portale partner",
+      "to": "portal"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Cross-selling",
+    "title": "Un'occasione.\n*Più affari.*",
+    "image": "house",
+    "alt": "Chalet svizzero davanti a montagne innevate",
+    "reverse": true,
+    "tone": "soft",
+    "paragraphs": [
+     "L'acquisto di una casa è l'occasione ideale per parlare di assicurazione stabile, economia domestica o rischio. Con HYPOTEQ copri il finanziamento e resti il referente per tutto il resto.",
+     "**Nessuna concorrenza di prodotti:** HYPOTEQ non vende assicurazioni né investimenti. Il rapporto con il cliente resta tuo."
+    ],
+    "bullets": [
+     "Provvigione equa per conclusione",
+     "Pagamento rapido",
+     "Referente personale, niente hotline"
+    ],
+    "ctas": [
+     {
+      "label": "Diventa partner",
+      "to": "page:partner#formular"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "HYPOTEQ Academy",
+    "title": "Il tuo team.\n*Sicuro sulle ipoteche.*",
+    "screen": "academy",
+    "tone": "dark",
+    "paragraphs": [
+     "Con il **Foundation Course** il tuo team impara il finanziamento immobiliare svizzero in 8 Learning Journeys, dai fondi propri al dossier bancabile.",
+     "Nel Learning Playground IA i tuoi consulenti allenano i colloqui con i clienti per testo o audio e ricevono un'analisi."
+    ],
+    "bullets": [
+     "Senza conoscenze preliminari",
+     "Casi pratici, Knowledge Check e certificato",
+     "CHF 290 a persona"
+    ],
+    "ctas": [
+     {
+      "label": "Scopri l'Academy",
+      "to": "page:academy"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Come funziona",
+    "title": "Dalla polizza\n*all'ipoteca.*",
+    "items": [
+     {
+      "title": "Richiedi la partnership",
+      "text": "Compila il modulo, fai il primo colloquio, ricevi l'invito al portale."
+     },
+     {
+      "title": "Forma il team",
+      "text": "I tuoi consulenti imparano le basi nell'Academy e riconoscono il bisogno di finanziamento."
+     },
+     {
+      "title": "Inoltra i dossier",
+      "text": "Nel portale o tramite la richiesta online. Raccogliamo le offerte e ti teniamo aggiornato."
+     },
+     {
+      "title": "Conclusione e provvigione",
+      "text": "Dopo la conclusione ricevi la tua provvigione."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Richiedi la partnership ora",
+      "to": "page:partner#formular"
+     }
+    ]
+   },
+   {
+    "type": "quote",
+    "text": "Come intermediario, HYPOTEQ è per me la porta d'accesso al mondo dei finanziamenti.",
+    "author": "Noli T., partner"
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Scopri di più",
+    "title": "Il programma\n*partner.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "title": "Programma partner",
+      "text": "Vantaggi, requisiti e portale in sintesi.",
+      "to": "page:partner"
+     },
+     {
+      "title": "HYPOTEQ Academy",
+      "text": "Foundation Course con trainer IA per il tuo team.",
+      "to": "page:academy"
+     },
+     {
+      "title": "Per fiduciari",
+      "text": "Il programma per fiduciari e gestori patrimoniali.",
+      "to": "page:partner-treuhand"
+     },
+     {
+      "title": "Tassi attuali",
+      "text": "Tassi indicativi SARON e ipoteche fisse.",
+      "to": "page:zinsen"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "Buono a sapersi\n*per i broker.*",
+    "items": [
+     {
+      "q": "Come completano le ipoteche la mia attività?",
+      "a": "Un acquisto o un rinnovo è un'occasione di contatto. Con HYPOTEQ offri il finanziamento di oltre 40 istituti, senza contratto bancario proprio, e resti il referente per le assicurazioni."
+     },
+     {
+      "q": "Qual è la provvigione?",
+      "a": "Come **broker assicurativo** ricevi una **provvigione equa per ogni conclusione**, pagata rapidamente. Le condizioni dipendono dal modello di partnership e le definiamo nel primo colloquio."
+     },
+     {
+      "q": "I miei collaboratori vengono formati?",
+      "a": "Sì. Con la **HYPOTEQ Academy** il tuo team segue il Foundation Course (CHF 290) in 8 Learning Journeys e allena i colloqui nel Learning Playground IA."
+     },
+     {
+      "q": "C'è un portale o un'API?",
+      "a": "Inoltri i dossier nel portale partner, accessibile su invito. Il nostro calcolatore può essere integrato via iFrame su accordo. Altri collegamenti li discutiamo volentieri nel primo colloquio."
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Ipoteche nel portafoglio.\n*Provvigione per te.*",
+    "text": "Senza contratto bancario, con portale partner e Academy per il team.",
+    "ctas": [
+     {
+      "label": "Richiedi la partnership",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Login partner",
+      "to": "portal"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "For Insurers, Agencies & Brokers | HYPOTEQ",
+  "description": "Add mortgages from 40+ Swiss lenders to your offering. Commission, partner portal and training via HYPOTEQ Academy. Request a partnership.",
+  "h1": "Partner programme for insurers and brokers",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Partners · Insurers & brokers",
+    "h1": "Partner programme for\ninsurers and brokers",
+    "lead": "As a **mortgage partner for insurance brokers in Switzerland**, you add mortgages from 40+ banks, insurers and pension funds to your portfolio, without your own bank agreements. We handle the file and negotiation, you earn a commission on every deal.",
+    "ctas": [
+     {
+      "label": "Request a partnership",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Partner login",
+      "to": "portal"
+     }
+    ],
+    "badges": [
+     "No bank agreements needed",
+     "Academy for your team",
+     "Commission per deal"
+    ],
+    "image": "couple",
+    "alt": "Couple relaxing in their own living room",
+    "float": {
+     "title": "Cross-selling",
+     "text": "Mortgage and insurance from one contact"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "lenders, no bank agreements of your own"
+     },
+     {
+      "value": "8",
+      "label": "Academy learning journeys for your team"
+     },
+     {
+      "value": "1 portal",
+      "label": "for all your agency’s cases"
+     },
+     {
+      "value": "CHF 0",
+      "label": "setup cost to get started"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Insurance agency mortgage referral",
+    "title": "Mortgages in your portfolio.\n*No bank agreements.*",
+    "screen": "portal",
+    "paragraphs": [
+     "Your clients are buying a home or refinancing? Instead of losing them to the bank, you submit the case in the **partner portal**. We review the file, collect offers from 40+ lenders and negotiate.",
+     "Status, documents and lender feedback sit in one place, and each advisor only sees their own cases."
+    ],
+    "bullets": [
+     "Submit cases or complete the online request as an advisor",
+     "Property valuation with Wüest Partner included",
+     "Calculator embedding (iFrame) by arrangement"
+    ],
+    "ctas": [
+     {
+      "label": "Request a partnership",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Go to partner portal",
+      "to": "portal"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Broker cross-selling mortgages",
+    "title": "One occasion.\n*More business.*",
+    "image": "house",
+    "alt": "Swiss chalet in front of snowy mountains",
+    "reverse": true,
+    "tone": "soft",
+    "paragraphs": [
+     "Buying a home is the perfect occasion to talk about building, contents and risk insurance. With HYPOTEQ you cover the financing and stay the contact for everything else.",
+     "**No product competition:** HYPOTEQ sells no insurance or investments. The client relationship stays with you."
+    ],
+    "bullets": [
+     "Fair commission per closed deal",
+     "Fast payout",
+     "A personal contact, not a hotline"
+    ],
+    "ctas": [
+     {
+      "label": "Become a partner",
+      "to": "page:partner#formular"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "HYPOTEQ Academy",
+    "title": "Your team.\n*Confident with mortgages.*",
+    "screen": "academy",
+    "tone": "dark",
+    "paragraphs": [
+     "With the **Foundation Course**, your team learns Swiss real estate financing in 8 learning journeys, from equity to a bank-ready file.",
+     "In the AI Learning Playground, your advisors practise client conversations by text or audio and get an analysis."
+    ],
+    "bullets": [
+     "No prior knowledge needed",
+     "Case studies, knowledge checks and certificate",
+     "CHF 290 per person"
+    ],
+    "ctas": [
+     {
+      "label": "Explore the Academy",
+      "to": "page:academy"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "How it works",
+    "title": "From policy\n*to mortgage.*",
+    "items": [
+     {
+      "title": "Request a partnership",
+      "text": "Fill in the form, have a first call and receive your portal invitation."
+     },
+     {
+      "title": "Train your team",
+      "text": "Your advisors learn the basics in the Academy and spot financing needs."
+     },
+     {
+      "title": "Submit cases",
+      "text": "In the portal or via the online request. We collect offers and keep you updated."
+     },
+     {
+      "title": "Closing & commission",
+      "text": "Once the deal closes, you receive your commission."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Request a partnership now",
+      "to": "page:partner#formular"
+     }
+    ]
+   },
+   {
+    "type": "quote",
+    "text": "As an intermediary, HYPOTEQ is my door opener to the world of financing.",
+    "author": "Noli T., sales partner"
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Learn more",
+    "title": "More from the\n*partner programme.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "title": "Partner programme",
+      "text": "Benefits, requirements and portal at a glance.",
+      "to": "page:partner"
+     },
+     {
+      "title": "HYPOTEQ Academy",
+      "text": "Foundation Course with an AI trainer for your team.",
+      "to": "page:academy"
+     },
+     {
+      "title": "For fiduciaries",
+      "text": "The programme for fiduciaries and wealth managers.",
+      "to": "page:partner-treuhand"
+     },
+     {
+      "title": "Current rates",
+      "text": "Indicative rates for SARON and fixed-rate mortgages.",
+      "to": "page:zinsen"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Good to know\n*for brokers.*",
+    "items": [
+     {
+      "q": "How do mortgages complement my insurance business?",
+      "a": "A home purchase or refinancing is a reason to get in touch. With HYPOTEQ you offer financing from 40+ lenders, without your own bank agreements, and remain the contact for insurance."
+     },
+     {
+      "q": "What commission do I earn?",
+      "a": "You earn a **fair commission on every closed deal**, paid out quickly. The terms depend on the partner model and are agreed in a first call."
+     },
+     {
+      "q": "Is training provided for my team?",
+      "a": "Yes. Through the **HYPOTEQ Academy**, your team takes the Foundation Course (CHF 290) with 8 learning journeys and practises conversations in the AI Learning Playground."
+     },
+     {
+      "q": "Is there a portal or API?",
+      "a": "You submit cases in the partner portal, with access by invitation. Our calculator can be embedded via iFrame by arrangement. We are happy to discuss other integrations in a first call."
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Mortgages in your portfolio.\n*Commission for you.*",
+    "text": "No bank agreements, with a partner portal and Academy for your team.",
+    "ctas": [
+     {
+      "label": "Request a partnership",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Partner login",
+      "to": "portal"
+     }
+    ]
+   }
+  ]
+ }
+}

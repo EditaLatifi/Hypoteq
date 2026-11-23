@@ -1,0 +1,946 @@
+{
+ "de": {
+  "title": "Forward-Hypothek: Zins heute für morgen sichern | HYPOTEQ",
+  "description": "Deine Hypothek läuft erst in einigen Monaten aus? Vergleiche Forward-Aufschläge von 40+ Anbietern und sichere dir den Zins schon heute. Jetzt anfragen.",
+  "h1": "Forward-Hypothek: Den Zins im Voraus fixieren",
+  "nav": [
+   "Forward-Hypothek",
+   "Zins heute für später sichern"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Forward-Hypothek",
+    "h1": "Forward-Hypothek:\n*Den Zins im Voraus fixieren*",
+    "lead": "Deine Festhypothek läuft erst in einigen Monaten aus, aber du willst nicht auf steigende Zinsen hoffen müssen? Mit einer **Forward-Hypothek** sicherst du dir den Zins schon heute. Wir vergleichen die Forward-Aufschläge von über 40 Banken, Versicherungen und Pensionskassen.",
+    "ctas": [
+     {
+      "label": "Forward-Offerten anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Kostenlos & unverbindlich",
+     "Aufschläge verglichen",
+     "Offerten in 48–72 h"
+    ],
+    "image": "lake-house",
+    "alt": "Kapellbrücke in Luzern am Vierwaldstättersee",
+    "float": {
+     "title": "10 Jahre fest ab 1.60 %",
+     "text": "Richtzins · Beispielwert, ohne Forward-Aufschlag"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "Anbieter mit eigenen Forward-Konditionen"
+     },
+     {
+      "value": "3 Min.",
+      "label": "bis zur vollständigen Anfrage"
+     },
+     {
+      "value": "48–72 h",
+      "label": "bis zu konkreten Offerten"
+     },
+     {
+      "value": "0 CHF",
+      "label": "für Vergleich und Vermittlung"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Forward Festhypothek",
+    "title": "Heute abschliessen.\n*Später starten.*",
+    "image": "consultation",
+    "alt": "Beraterin vergleicht Forward-Offerten mit einer Kundin",
+    "paragraphs": [
+     "Bei einer Forward-Hypothek schliesst du heute eine Festhypothek ab, die erst bei Ablauf deiner aktuellen Hypothek beginnt. So kennst du deine Zinskosten schon jetzt.",
+     "Für die Vorlaufzeit verlangen Anbieter einen **Forward-Aufschlag**. Wie hoch er ist und wie weit im Voraus du fixieren kannst, ist je nach Anbieter verschieden und schwer vergleichbar. Genau das übernehmen wir."
+    ],
+    "bullets": [
+     "Je nach Anbieter bis 12 Monate im Voraus, teils länger",
+     "Aufschläge mehrerer Anbieter nebeneinander",
+     "Bankwechsel zum Ablauf ohne Vorfälligkeit"
+    ],
+    "ctas": [
+     {
+      "label": "Forward vergleichen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Typische Einwände",
+    "title": "Lohnt sich das?\n*Ehrliche Antworten.*",
+    "tone": "soft",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Einwand",
+      "title": "Der Aufschlag kostet",
+      "text": "Er ist der Preis für Sicherheit. Wir rechnen, ob er im Vergleich zum Zinsrisiko gerechtfertigt ist."
+     },
+     {
+      "kicker": "Einwand",
+      "title": "Was, wenn Zinsen sinken?",
+      "text": "Dann profitierst du nicht davon, denn der Forward ist verbindlich. Wir zeigen dir Alternativen wie SARON.",
+      "to": "page:saron",
+      "cta": "SARON-Hypothek"
+     },
+     {
+      "kicker": "Einwand",
+      "title": "Meine Bank bietet es auch",
+      "text": "Gut, dann hast du einen Vergleichswert. Mit Konkurrenzofferten verhandelst du stärker.",
+      "to": "page:abloesung",
+      "cta": "Ablösung"
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Anfrage starten",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Richtzinsen",
+    "title": "Der heutige Zins\n*als Basis für morgen.*",
+    "lead": "Die Richtzinsen zeigen dir den Markt. Der Forward-Aufschlag kommt je nach Anbieter und Vorlaufzeit dazu."
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Zins im Voraus sichern",
+    "title": "Was kostet\n*deine Anschlusshypothek?*",
+    "lead": "Wähle Ablösung, gib bestehende Hypothek und Einkommen ein und sieh deine künftigen Zinskosten."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "So läuft es",
+    "title": "In vier Schritten\n*zum fixierten Zins.*",
+    "items": [
+     {
+      "title": "Anfrage in 3 Minuten",
+      "text": "Lade Hypothekarvertrag, Lohnausweis und Objektunterlagen hoch."
+     },
+     {
+      "title": "Strategie & Timing",
+      "text": "Deine Beraterin prüft Ablaufdatum, Kündigungsfristen und Laufzeiten."
+     },
+     {
+      "title": "Forward-Offerten",
+      "text": "Wir vergleichen Aufschläge, meist innert 48–72 h nach vollständigen Unterlagen."
+     },
+     {
+      "title": "Fixieren & wechseln",
+      "text": "Du sicherst den Zins, wir koordinieren den Wechsel zum Ablauf."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Jetzt starten",
+      "to": "funnel"
+     },
+     {
+      "label": "Kontakt aufnehmen",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Passend dazu",
+    "title": "Gut informiert\n*zum richtigen Zeitpunkt.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Ausblick",
+      "title": "Zinsprognose",
+      "text": "Wohin sich die Hypothekarzinsen bewegen könnten.",
+      "to": "page:lp-zinsprognose"
+     },
+     {
+      "kicker": "Vorzeitig",
+      "title": "Vorfälligkeit",
+      "text": "Was es kostet, früher auszusteigen.",
+      "to": "page:lp-vorfaelligkeit"
+     },
+     {
+      "kicker": "Modell",
+      "title": "Festhypothek",
+      "text": "Laufzeiten und Strategien im Überblick.",
+      "to": "page:fest"
+     },
+     {
+      "kicker": "Für Treuhänder",
+      "title": "Partner werden",
+      "text": "Deine Kunden haben auslaufende Hypotheken? Reiche sie ein.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Forward-Hypothek\n*ohne Fragezeichen.*",
+    "items": [
+     {
+      "q": "Wie weit im Voraus kann ich eine Forward-Hypothek abschliessen?",
+      "a": "Das hängt vom Anbieter ab, häufig bis 12 Monate, teils länger. Je länger die Vorlaufzeit, desto höher ist in der Regel der Aufschlag."
+     },
+     {
+      "q": "Wie hoch ist der Forward-Aufschlag?",
+      "a": "Es gibt keinen Einheitswert. Er hängt von Anbieter, Vorlaufzeit, Laufzeit und Marktlage ab. Darum lohnt der Vergleich mehrerer Offerten."
+     },
+     {
+      "q": "Lohnt sich eine Forward-Hypothek bei stabilen Zinsen?",
+      "a": "Nicht immer. Bleiben die Zinsen gleich, zahlst du den Aufschlag für eine Sicherheit, die du nicht gebraucht hast. Sie lohnt sich vor allem, wenn dein Budget keine höheren Zinsen verträgt."
+     },
+     {
+      "q": "Was passiert, wenn die Zinsen bis zur Ablösung sinken?",
+      "a": "Du bleibst an den vereinbarten Zins gebunden. Ein Ausstieg ist meist nur gegen Entschädigung möglich. Wäge darum Sicherheit und Flexibilität vorher ab."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Hypothek ablösen",
+      "to": "page:abloesung"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Läuft deine Hypothek bald aus?\n*Zins jetzt sichern.*",
+    "text": "Forward-Aufschläge kostenlos vergleichen und in 3 Minuten anfragen. Deine Beraterin meldet sich zeitnah.",
+    "ctas": [
+     {
+      "label": "Forward anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Hypothèque forward: fixez votre taux à l'avance | HYPOTEQ",
+  "description": "Votre hypothèque échoit dans quelques mois? Comparez les primes forward de 40+ prêteurs et fixez votre taux dès aujourd'hui. Demande en 3 minutes.",
+  "h1": "Hypothèque forward: fixer le taux à l'avance",
+  "nav": [
+   "Hypothèque forward",
+   "Fixer son taux à l'avance"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypothèque forward",
+    "h1": "Hypothèque forward:\n*fixer le taux à l'avance*",
+    "lead": "Votre hypothèque fixe échoit dans quelques mois et vous ne voulez pas parier sur les taux? Avec une **hypothèque forward**, vous fixez votre taux dès aujourd'hui. Nous comparons les primes forward de plus de 40 banques, assurances et caisses de pension.",
+    "ctas": [
+     {
+      "label": "Demander des offres forward",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Gratuit & sans engagement",
+     "Primes comparées",
+     "Offres en 48–72 h"
+    ],
+    "image": "lake-house",
+    "alt": "Pont de la Chapelle à Lucerne au bord du lac",
+    "float": {
+     "title": "Fixe 10 ans dès 1.60 %",
+     "text": "Taux indicatif · valeur d'exemple, sans prime forward"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "prêteurs aux conditions forward propres"
+     },
+     {
+      "value": "3 min",
+      "label": "pour une demande complète"
+     },
+     {
+      "value": "48–72 h",
+      "label": "jusqu'aux offres concrètes"
+     },
+     {
+      "value": "0 CHF",
+      "label": "pour la comparaison et le courtage"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Renouvellement hypothèque anticipé",
+    "title": "Conclure aujourd'hui.\n*Démarrer plus tard.*",
+    "image": "consultation",
+    "alt": "Conseillère comparant des offres forward avec une cliente",
+    "paragraphs": [
+     "Avec une hypothèque forward, vous concluez aujourd'hui une hypothèque fixe qui ne démarre qu'à l'échéance de l'actuelle. Vous connaissez donc déjà vos frais d'intérêts.",
+     "Pour ce délai, les prêteurs demandent une **prime forward**. Son montant et le délai possible varient selon le prêteur et se comparent difficilement. C'est précisément notre travail."
+    ],
+    "bullets": [
+     "Selon le prêteur jusqu'à 12 mois à l'avance, parfois plus",
+     "Primes de plusieurs prêteurs côte à côte",
+     "Changement de banque à l'échéance sans pénalité"
+    ],
+    "ctas": [
+     {
+      "label": "Comparer les forwards",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Objections fréquentes",
+    "title": "Est-ce rentable?\n*Des réponses honnêtes.*",
+    "tone": "soft",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Objection",
+      "title": "La prime coûte",
+      "text": "C'est le prix de la sécurité. Nous calculons si elle se justifie face au risque de taux."
+     },
+     {
+      "kicker": "Objection",
+      "title": "Et si les taux baissent?",
+      "text": "Vous n'en profitez pas, le forward est contraignant. Nous vous montrons des alternatives comme le SARON.",
+      "to": "page:saron",
+      "cta": "Hypothèque SARON"
+     },
+     {
+      "kicker": "Objection",
+      "title": "Ma banque le propose aussi",
+      "text": "Parfait, vous avez une référence. Avec des offres concurrentes, vous négociez mieux.",
+      "to": "page:abloesung",
+      "cta": "Renouvellement"
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Lancer la demande",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Taux indicatifs",
+    "title": "Le taux d'aujourd'hui\n*comme base pour demain.*",
+    "lead": "Les taux indicatifs montrent le marché. La prime forward s'y ajoute selon le prêteur et le délai."
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Fixer son taux à l'avance",
+    "title": "Combien coûtera\n*votre nouvelle hypothèque?*",
+    "lead": "Choisissez le renouvellement, saisissez l'hypothèque actuelle et le revenu et voyez vos futurs intérêts."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Déroulement",
+    "title": "Quatre étapes\n*vers un taux fixé.*",
+    "items": [
+     {
+      "title": "Demande en 3 minutes",
+      "text": "Téléchargez contrat hypothécaire, certificat de salaire et documents du bien."
+     },
+     {
+      "title": "Stratégie & calendrier",
+      "text": "Votre conseillère vérifie échéance, délais de résiliation et durées."
+     },
+     {
+      "title": "Offres forward",
+      "text": "Nous comparons les primes, en général 48–72 h après dossier complet."
+     },
+     {
+      "title": "Fixer & changer",
+      "text": "Vous fixez le taux, nous coordonnons le changement à l'échéance."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Commencer",
+      "to": "funnel"
+     },
+     {
+      "label": "Nous contacter",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "À lire aussi",
+    "title": "Bien informé\n*au bon moment.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Perspectives",
+      "title": "Prévision des taux",
+      "text": "Où pourraient aller les taux hypothécaires.",
+      "to": "page:lp-zinsprognose"
+     },
+     {
+      "kicker": "Sortie anticipée",
+      "title": "Pénalité",
+      "text": "Ce que coûte une sortie avant l'échéance.",
+      "to": "page:lp-vorfaelligkeit"
+     },
+     {
+      "kicker": "Modèle",
+      "title": "Hypothèque fixe",
+      "text": "Durées et stratégies en bref.",
+      "to": "page:fest"
+     },
+     {
+      "kicker": "Fiduciaires",
+      "title": "Devenir partenaire",
+      "text": "Vos clients ont des hypothèques qui échoient? Soumettez-les.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "Hypothèque forward\n*sans points d'interrogation.*",
+    "items": [
+     {
+      "q": "Combien de temps à l'avance peut-on conclure une hypothèque forward?",
+      "a": "Cela dépend du prêteur, souvent jusqu'à 12 mois, parfois plus. Plus le délai est long, plus la prime est en général élevée."
+     },
+     {
+      "q": "À combien s'élève la prime forward?",
+      "a": "Il n'y a pas de valeur unique. Elle dépend du prêteur, du délai, de la durée et du marché. D'où l'intérêt de comparer plusieurs offres."
+     },
+     {
+      "q": "Une hypothèque forward vaut-elle la peine si les taux sont stables?",
+      "a": "Pas toujours. Si les taux ne bougent pas, vous payez la prime pour une sécurité inutile. Elle est surtout utile si votre budget ne supporte pas des taux plus élevés."
+     },
+     {
+      "q": "Que se passe-t-il si les taux baissent d'ici là?",
+      "a": "Vous restez lié au taux convenu. Une sortie n'est en général possible que contre indemnité. Pesez donc sécurité et flexibilité avant de signer."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Renouveler l'hypothèque",
+      "to": "page:abloesung"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Votre hypothèque échoit bientôt?\n*Fixez votre taux.*",
+    "text": "Comparez gratuitement les primes forward et déposez votre demande en 3 minutes. Votre conseillère vous rappelle rapidement.",
+    "ctas": [
+     {
+      "label": "Demander un forward",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Ipoteca forward: blocca oggi il tasso di domani | HYPOTEQ",
+  "description": "La tua ipoteca scade tra qualche mese? Confronta i supplementi forward di oltre 40 istituti e blocca il tasso già oggi. Richiesta in 3 minuti.",
+  "h1": "Ipoteca forward: fissare il tasso in anticipo",
+  "nav": [
+   "Ipoteca forward",
+   "Bloccare il tasso in anticipo"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Ipoteca forward",
+    "h1": "Ipoteca forward:\n*fissare il tasso in anticipo*",
+    "lead": "La tua ipoteca fissa scade tra qualche mese e non vuoi scommettere sui tassi? Con un'**ipoteca forward** blocchi il tasso già oggi. Confrontiamo i supplementi forward di oltre 40 banche, assicurazioni e casse pensione.",
+    "ctas": [
+     {
+      "label": "Richiedi offerte forward",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Gratuito e senza impegno",
+     "Supplementi a confronto",
+     "Offerte in 48–72 h"
+    ],
+    "image": "lake-house",
+    "alt": "Ponte della Cappella a Lucerna sul lago",
+    "float": {
+     "title": "Fisso 10 anni da 1.60 %",
+     "text": "Tasso indicativo · valore d'esempio, senza supplemento"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "istituti con condizioni forward proprie"
+     },
+     {
+      "value": "3 min",
+      "label": "per una richiesta completa"
+     },
+     {
+      "value": "48–72 h",
+      "label": "fino alle offerte concrete"
+     },
+     {
+      "value": "0 CHF",
+      "label": "per confronto e mediazione"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Rinnovo ipoteca anticipato",
+    "title": "Firmare oggi.\n*Partire più tardi.*",
+    "image": "consultation",
+    "alt": "Consulente confronta offerte forward con una cliente",
+    "paragraphs": [
+     "Con un'ipoteca forward stipuli oggi un'ipoteca fissa che parte solo alla scadenza di quella attuale. Così conosci già i tuoi costi d'interesse.",
+     "Per il periodo d'anticipo gli istituti chiedono un **supplemento forward**. Importo e anticipo possibile variano da istituto a istituto e sono difficili da confrontare. È proprio il nostro lavoro."
+    ],
+    "bullets": [
+     "Secondo l'istituto fino a 12 mesi prima, a volte di più",
+     "Supplementi di più istituti a confronto",
+     "Cambio di banca alla scadenza senza penale"
+    ],
+    "ctas": [
+     {
+      "label": "Confronta i forward",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Obiezioni tipiche",
+    "title": "Conviene?\n*Risposte oneste.*",
+    "tone": "soft",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Obiezione",
+      "title": "Il supplemento costa",
+      "text": "È il prezzo della sicurezza. Calcoliamo se è giustificato rispetto al rischio di tasso."
+     },
+     {
+      "kicker": "Obiezione",
+      "title": "E se i tassi scendono?",
+      "text": "Non ne approfitti, il forward è vincolante. Ti mostriamo alternative come il SARON.",
+      "to": "page:saron",
+      "cta": "Ipoteca SARON"
+     },
+     {
+      "kicker": "Obiezione",
+      "title": "La mia banca lo offre",
+      "text": "Bene, hai un valore di riferimento. Con offerte concorrenti tratti meglio.",
+      "to": "page:abloesung",
+      "cta": "Rinnovo"
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Avvia la richiesta",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Tassi indicativi",
+    "title": "Il tasso di oggi\n*come base per domani.*",
+    "lead": "I tassi indicativi mostrano il mercato. Il supplemento forward si aggiunge secondo istituto e anticipo."
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Bloccare il tasso in anticipo",
+    "title": "Quanto costerà\n*la tua nuova ipoteca?*",
+    "lead": "Scegli il rinnovo, inserisci ipoteca attuale e reddito e vedi i tuoi interessi futuri."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Come funziona",
+    "title": "Quattro passi\n*verso il tasso bloccato.*",
+    "items": [
+     {
+      "title": "Richiesta in 3 minuti",
+      "text": "Carica contratto ipotecario, certificato di salario e documenti dell'immobile."
+     },
+     {
+      "title": "Strategia e tempi",
+      "text": "La consulente verifica scadenza, termini di disdetta e durate."
+     },
+     {
+      "title": "Offerte forward",
+      "text": "Confrontiamo i supplementi, di regola entro 48–72 h dai documenti completi."
+     },
+     {
+      "title": "Bloccare e cambiare",
+      "text": "Blocchi il tasso, noi coordiniamo il cambio alla scadenza."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Inizia ora",
+      "to": "funnel"
+     },
+     {
+      "label": "Contattaci",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Approfondisci",
+    "title": "Ben informato\n*al momento giusto.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Prospettive",
+      "title": "Previsione dei tassi",
+      "text": "Dove potrebbero andare i tassi ipotecari.",
+      "to": "page:lp-zinsprognose"
+     },
+     {
+      "kicker": "Uscita anticipata",
+      "title": "Penale",
+      "text": "Quanto costa uscire prima della scadenza.",
+      "to": "page:lp-vorfaelligkeit"
+     },
+     {
+      "kicker": "Modello",
+      "title": "Ipoteca fissa",
+      "text": "Durate e strategie in sintesi.",
+      "to": "page:fest"
+     },
+     {
+      "kicker": "Fiduciari",
+      "title": "Diventa partner",
+      "text": "I tuoi clienti hanno ipoteche in scadenza? Inviale.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "Ipoteca forward\n*senza punti di domanda.*",
+    "items": [
+     {
+      "q": "Con quanto anticipo posso stipulare un'ipoteca forward?",
+      "a": "Dipende dall'istituto, spesso fino a 12 mesi, a volte di più. Più lungo è l'anticipo, più alto è di regola il supplemento."
+     },
+     {
+      "q": "Quanto costa il supplemento forward?",
+      "a": "Non esiste un valore unico. Dipende da istituto, anticipo, durata e mercato. Per questo conviene confrontare più offerte."
+     },
+     {
+      "q": "Conviene un'ipoteca forward con tassi stabili?",
+      "a": "Non sempre. Se i tassi restano uguali, paghi il supplemento per una sicurezza che non ti è servita. Conviene soprattutto se il tuo budget non regge tassi più alti."
+     },
+     {
+      "q": "Cosa succede se i tassi scendono nel frattempo?",
+      "a": "Resti vincolato al tasso concordato. Un'uscita è di solito possibile solo con un'indennità. Valuta quindi prima sicurezza e flessibilità."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Rinnovare l'ipoteca",
+      "to": "page:abloesung"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "La tua ipoteca scade presto?\n*Blocca il tasso ora.*",
+    "text": "Confronta gratis i supplementi forward e invia la richiesta in 3 minuti. La tua consulente ti contatta in tempi brevi.",
+    "ctas": [
+     {
+      "label": "Richiedi un forward",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "Forward mortgage: lock in today's rate | HYPOTEQ",
+  "description": "Your mortgage expires in a few months? Compare forward premiums from 40+ lenders and lock in your rate today. Apply in 3 minutes.",
+  "h1": "Forward mortgage: fix your rate in advance",
+  "nav": [
+   "Forward mortgage",
+   "Lock in today's rate for later"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Forward mortgage Switzerland",
+    "h1": "Forward mortgage:\n*fix your rate in advance*",
+    "lead": "Your fixed-rate mortgage expires in a few months and you don't want to gamble on rates? With a **forward mortgage in Switzerland** you lock in your rate today. We compare forward premiums from 40+ banks, insurers and pension funds.",
+    "ctas": [
+     {
+      "label": "Request forward offers",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Free & non-binding",
+     "Premiums compared",
+     "Offers in 48–72 h"
+    ],
+    "image": "lake-house",
+    "alt": "Chapel Bridge in Lucerne on the lake",
+    "float": {
+     "title": "10-year fixed from 1.60 %",
+     "text": "Indicative rate · sample value, no forward premium"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "lenders with their own forward terms"
+     },
+     {
+      "value": "3 min",
+      "label": "to a complete request"
+     },
+     {
+      "value": "48–72 h",
+      "label": "to concrete offers"
+     },
+     {
+      "value": "CHF 0",
+      "label": "for comparison and brokerage"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Early mortgage renewal",
+    "title": "Sign today.\n*Start later.*",
+    "image": "consultation",
+    "alt": "Advisor comparing forward offers with a client",
+    "paragraphs": [
+     "With a forward mortgage you sign a fixed-rate mortgage today that only starts when your current one expires. So you already know your future interest costs.",
+     "For the lead time, lenders charge a **forward premium**. Its size and how far ahead you can fix vary by lender and are hard to compare. That's exactly what we do for you."
+    ],
+    "bullets": [
+     "Depending on lender up to 12 months ahead, sometimes longer",
+     "Premiums from several lenders side by side",
+     "Switch banks at expiry without penalty"
+    ],
+    "ctas": [
+     {
+      "label": "Compare forwards",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Common objections",
+    "title": "Is it worth it?\n*Honest answers.*",
+    "tone": "soft",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Objection",
+      "title": "The premium costs money",
+      "text": "It's the price of certainty. We calculate whether it's justified compared with the rate risk."
+     },
+     {
+      "kicker": "Objection",
+      "title": "What if rates fall?",
+      "text": "You won't benefit, because the forward is binding. We show you alternatives such as SARON.",
+      "to": "page:saron",
+      "cta": "SARON mortgage"
+     },
+     {
+      "kicker": "Objection",
+      "title": "My bank offers it too",
+      "text": "Great, now you have a benchmark. With competing offers you negotiate from strength.",
+      "to": "page:abloesung",
+      "cta": "Renewal"
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Start your request",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Indicative rates",
+    "title": "Today's rate\n*as the basis for tomorrow.*",
+    "lead": "Indicative rates show the market. The forward premium is added depending on lender and lead time."
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Lock in mortgage rate in advance",
+    "title": "What will your next\n*mortgage cost?*",
+    "lead": "Choose refinancing, enter your current mortgage and income and see your future interest costs."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "How it works",
+    "title": "Four steps\n*to a locked-in rate.*",
+    "items": [
+     {
+      "title": "Request in 3 minutes",
+      "text": "Upload mortgage contract, salary statement and property documents."
+     },
+     {
+      "title": "Strategy & timing",
+      "text": "Your advisor checks expiry date, notice periods and terms."
+     },
+     {
+      "title": "Forward offers",
+      "text": "We compare premiums, usually within 48–72 h of complete documents."
+     },
+     {
+      "title": "Lock in & switch",
+      "text": "You fix the rate, we coordinate the switch at expiry."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Get started",
+      "to": "funnel"
+     },
+     {
+      "label": "Contact us",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Related",
+    "title": "Well informed\n*at the right time.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Outlook",
+      "title": "Rate forecast",
+      "text": "Where Swiss mortgage rates could be heading.",
+      "to": "page:lp-zinsprognose"
+     },
+     {
+      "kicker": "Early exit",
+      "title": "Prepayment penalty",
+      "text": "What it costs to leave before maturity.",
+      "to": "page:lp-vorfaelligkeit"
+     },
+     {
+      "kicker": "Model",
+      "title": "Fixed-rate mortgage",
+      "text": "Terms and strategies at a glance.",
+      "to": "page:fest"
+     },
+     {
+      "kicker": "For trustees",
+      "title": "Become a partner",
+      "text": "Your clients have expiring mortgages? Submit them.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Forward mortgage\n*without question marks.*",
+    "items": [
+     {
+      "q": "How far in advance can I take out a forward mortgage?",
+      "a": "It depends on the lender, often up to 12 months, sometimes longer. The longer the lead time, the higher the premium tends to be."
+     },
+     {
+      "q": "How high is the forward premium?",
+      "a": "There's no single figure. It depends on lender, lead time, term and market conditions. That's why comparing several offers pays off."
+     },
+     {
+      "q": "Is a forward mortgage worth it when rates are stable?",
+      "a": "Not always. If rates stay the same, you pay the premium for certainty you didn't need. It mainly makes sense if your budget can't absorb higher rates."
+     },
+     {
+      "q": "What if rates fall before my renewal date?",
+      "a": "You stay bound to the agreed rate. Exiting is usually only possible against compensation. So weigh certainty against flexibility beforehand."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Mortgage renewal",
+      "to": "page:abloesung"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Mortgage expiring soon?\n*Lock in your rate now.*",
+    "text": "Compare forward premiums for free and apply in 3 minutes. Your advisor gets back to you promptly.",
+    "ctas": [
+     {
+      "label": "Request a forward",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ }
+}

@@ -1,0 +1,2046 @@
+{
+ "BASE_PAGES": [
+  [
+   "home",
+   null,
+   ""
+  ],
+  [
+   "hypotheken",
+   "home",
+   "hypotheken"
+  ],
+  [
+   "kauf",
+   "hypotheken",
+   "hypothek-immobilienkauf"
+  ],
+  [
+   "abloesung",
+   "hypotheken",
+   "hypothek-abloesen-verlaengern"
+  ],
+  [
+   "neubau",
+   "hypotheken",
+   "baufinanzierung-neubau"
+  ],
+  [
+   "aufstocken",
+   "hypotheken",
+   "hypothek-aufstocken-renovation"
+  ],
+  [
+   "saron",
+   "hypotheken",
+   "saron-hypothek"
+  ],
+  [
+   "fest",
+   "hypotheken",
+   "festhypothek"
+  ],
+  [
+   "rendite",
+   "hypotheken",
+   "renditeobjekt-zweitwohnung"
+  ],
+  [
+   "selbstaendige",
+   "hypotheken",
+   "hypothek-selbstaendige"
+  ],
+  [
+   "ruhestand",
+   "hypotheken",
+   "hypothek-pensionierung"
+  ],
+  [
+   "expats",
+   "hypotheken",
+   "hypothek-expats"
+  ],
+  [
+   "zinsen",
+   "home",
+   "hypothekarzinsen"
+  ],
+  [
+   "rechner",
+   "home",
+   "hypothekenrechner"
+  ],
+  [
+   "tragbarkeit",
+   "rechner",
+   "tragbarkeitsrechner"
+  ],
+  [
+   "bewertung",
+   "home",
+   "immobilienbewertung"
+  ],
+  [
+   "mezzanine",
+   "hypotheken",
+   "mezzanine-finanzierung"
+  ],
+  [
+   "advisory",
+   "hypotheken",
+   "advisory"
+  ],
+  [
+   "partner",
+   "home",
+   "partner-werden"
+  ],
+  [
+   "partner-makler",
+   "partner",
+   "partner-immobilienmakler"
+  ],
+  [
+   "partner-treuhand",
+   "partner",
+   "partner-treuhaender-vermoegensverwalter"
+  ],
+  [
+   "partner-versicherung",
+   "partner",
+   "partner-versicherungen-broker"
+  ],
+  [
+   "academy",
+   "partner",
+   "academy"
+  ],
+  [
+   "ratgeber",
+   "home",
+   "ratgeber"
+  ],
+  [
+   "rg-eigenmittel",
+   "ratgeber",
+   "eigenmittel-hauskauf"
+  ],
+  [
+   "rg-tragbarkeit",
+   "ratgeber",
+   "tragbarkeit-berechnen"
+  ],
+  [
+   "rg-saron-fest",
+   "ratgeber",
+   "saron-oder-festhypothek"
+  ],
+  [
+   "rg-pk",
+   "ratgeber",
+   "pensionskasse-3a-eigenheim"
+  ],
+  [
+   "rg-nebenkosten",
+   "ratgeber",
+   "nebenkosten-hauskauf"
+  ],
+  [
+   "rg-vermittler",
+   "ratgeber",
+   "hypothekenvermittler-vergleich"
+  ],
+  [
+   "ueber-uns",
+   "home",
+   "ueber-uns"
+  ],
+  [
+   "faq",
+   "home",
+   "faq"
+  ],
+  [
+   "kontakt",
+   "home",
+   "kontakt"
+  ],
+  [
+   "dokumente",
+   "home",
+   "dokumente"
+  ],
+  [
+   "impressum",
+   "home",
+   "impressum"
+  ],
+  [
+   "datenschutz",
+   "home",
+   "datenschutz"
+  ]
+ ],
+ "LINKS": {
+  "funnel": "https://hypoteq.com/{lang}/funnel",
+  "portal": "https://hypoteq.com/portal/login",
+  "academy": "https://hypoteq.talentlms.com/plus/",
+  "bewertung": "https://hypoteq-hedonic.wuestappraisal.com/",
+  "tel": "tel:+41445029252",
+  "mail": "mailto:info@hypoteq.ch",
+  "linkedin": "https://www.linkedin.com/company/hypoteq-ag",
+  "google": "https://www.google.com/search?q=HYPOTEQ+AG+Bewertungen"
+ },
+ "PHONE": "044 502 92 52",
+ "PHONE_INTL": "+41 44 502 92 52",
+ "GOOGLE_RATING": 4.7,
+ "RATES": [
+  [
+   "saron",
+   0.85
+  ],
+  [
+   "5",
+   1.3
+  ],
+  [
+   "10",
+   1.6
+  ]
+ ],
+ "BEST": {
+  "saron": 0.79,
+  "5": 1.19,
+  "10": 1.48
+ },
+ "CALC_RATES": [
+  [
+   "SARON",
+   0.85
+  ],
+  [
+   "1Y",
+   0.97
+  ],
+  [
+   "2Y",
+   1.02
+  ],
+  [
+   "3Y",
+   1.13
+  ],
+  [
+   "4Y",
+   1.22
+  ],
+  [
+   "5Y",
+   1.3
+  ],
+  [
+   "6Y",
+   1.36
+  ],
+  [
+   "7Y",
+   1.42
+  ],
+  [
+   "8Y",
+   1.49
+  ],
+  [
+   "9Y",
+   1.55
+  ],
+  [
+   "10Y",
+   1.6
+  ]
+ ],
+ "NAV": {
+  "de": {
+   "hypotheken": [
+    "Alle Hypotheken",
+    "Übersicht aller Lösungen"
+   ],
+   "kauf": [
+    "Immobilie kaufen",
+    "Erste Hypothek für dein Eigenheim"
+   ],
+   "abloesung": [
+    "Ablösen & verlängern",
+    "Bestehende Hypothek optimieren"
+   ],
+   "neubau": [
+    "Neubau finanzieren",
+    "Baukredit und Konsolidierung"
+   ],
+   "aufstocken": [
+    "Aufstocken & renovieren",
+    "Mehr Kapital fürs Eigenheim"
+   ],
+   "saron": [
+    "SARON-Hypothek",
+    "Flexibel mit Geldmarktzins"
+   ],
+   "fest": [
+    "Festhypothek",
+    "Planbare Zinsen 2–15 Jahre"
+   ],
+   "rendite": [
+    "Renditeobjekt & Zweitwohnung",
+    "Vermieten oder Ferien"
+   ],
+   "selbstaendige": [
+    "Für Selbständige",
+    "Mit Jahresabschlüssen zur Hypothek"
+   ],
+   "ruhestand": [
+    "Hypothek im Ruhestand",
+    "Pensionierung und Tragbarkeit"
+   ],
+   "expats": [
+    "Für Expats",
+    "Hypothek mit B- oder C-Bewilligung"
+   ],
+   "mezzanine": [
+    "Mezzanine",
+    "Kapital zwischen EK und Bank"
+   ],
+   "advisory": [
+    "Advisory",
+    "Für komplexe Fälle"
+   ],
+   "zinsen": [
+    "Zinsen",
+    "Aktuelle Richtzinsen"
+   ],
+   "rechner": [
+    "Hypothekenrechner",
+    "Monatliche Kosten berechnen"
+   ],
+   "tragbarkeit": [
+    "Tragbarkeitsrechner",
+    "Kann ich mir das leisten?"
+   ],
+   "bewertung": [
+    "Immobilienbewertung",
+    "Mit Wüest Partner, CHF 300"
+   ],
+   "partner": [
+    "Partner werden",
+    "Provision, Portal, Support"
+   ],
+   "partner-makler": [
+    "Für Immobilienmakler",
+    "Schneller verkaufen"
+   ],
+   "partner-treuhand": [
+    "Für Treuhänder & Vermögensverwalter",
+    "Mehrwert für Mandanten"
+   ],
+   "partner-versicherung": [
+    "Für Versicherungen & Broker",
+    "Hypotheken ins Portfolio"
+   ],
+   "academy": [
+    "HYPOTEQ Academy",
+    "Hypotheken lernen, mit KI trainieren"
+   ],
+   "ratgeber": [
+    "Ratgeber",
+    "Wissen rund ums Eigenheim"
+   ],
+   "rg-eigenmittel": [
+    "Eigenmittel",
+    "Wie viel Eigenkapital?"
+   ],
+   "rg-tragbarkeit": [
+    "Tragbarkeit",
+    "So rechnen Banken"
+   ],
+   "rg-saron-fest": [
+    "SARON oder Fest?",
+    "Die richtige Strategie"
+   ],
+   "rg-pk": [
+    "Pensionskasse & 3a",
+    "Vorsorgegeld fürs Eigenheim"
+   ],
+   "rg-nebenkosten": [
+    "Nebenkosten Hauskauf",
+    "Notar, Grundbuch, Steuern"
+   ],
+   "rg-vermittler": [
+    "Vermittler vergleichen",
+    "Lohnt sich ein Vermittler?"
+   ],
+   "ueber-uns": [
+    "Über uns",
+    ""
+   ],
+   "faq": [
+    "FAQ",
+    ""
+   ],
+   "kontakt": [
+    "Kontakt",
+    ""
+   ],
+   "dokumente": [
+    "Dokumente",
+    ""
+   ],
+   "impressum": [
+    "Impressum",
+    ""
+   ],
+   "datenschutz": [
+    "Datenschutz",
+    ""
+   ],
+   "home": [
+    "Home",
+    ""
+   ]
+  },
+  "fr": {
+   "hypotheken": [
+    "Toutes les hypothèques",
+    "Aperçu des solutions"
+   ],
+   "kauf": [
+    "Acheter un bien",
+    "Première hypothèque"
+   ],
+   "abloesung": [
+    "Renouveler & transférer",
+    "Optimiser votre hypothèque"
+   ],
+   "neubau": [
+    "Financer une construction",
+    "Crédit de construction"
+   ],
+   "aufstocken": [
+    "Augmenter & rénover",
+    "Plus de capital"
+   ],
+   "saron": [
+    "Hypothèque SARON",
+    "Flexible, taux du marché"
+   ],
+   "fest": [
+    "Hypothèque fixe",
+    "Taux planifiables 2–15 ans"
+   ],
+   "rendite": [
+    "Immeuble de rendement & résidence secondaire",
+    "Louer ou vacances"
+   ],
+   "selbstaendige": [
+    "Pour indépendants",
+    "Hypothèque avec bilans"
+   ],
+   "ruhestand": [
+    "Hypothèque à la retraite",
+    "Retraite et capacité"
+   ],
+   "expats": [
+    "Pour expatriés",
+    "Permis B ou C"
+   ],
+   "mezzanine": [
+    "Mezzanine",
+    "Capital entre fonds propres et banque"
+   ],
+   "advisory": [
+    "Advisory",
+    "Pour les cas complexes"
+   ],
+   "zinsen": [
+    "Taux",
+    "Taux indicatifs actuels"
+   ],
+   "rechner": [
+    "Calculateur hypothécaire",
+    "Coûts mensuels"
+   ],
+   "tragbarkeit": [
+    "Calcul de capacité",
+    "Puis-je me le permettre?"
+   ],
+   "bewertung": [
+    "Estimation immobilière",
+    "Avec Wüest Partner, CHF 300"
+   ],
+   "partner": [
+    "Devenir partenaire",
+    "Commission, portail, support"
+   ],
+   "partner-makler": [
+    "Pour courtiers immobiliers",
+    "Vendre plus vite"
+   ],
+   "partner-treuhand": [
+    "Pour fiduciaires & gérants",
+    "Valeur ajoutée pour vos mandants"
+   ],
+   "partner-versicherung": [
+    "Pour assurances & brokers",
+    "Les hypothèques au portefeuille"
+   ],
+   "academy": [
+    "HYPOTEQ Academy",
+    "Apprendre l'hypothèque avec l'IA"
+   ],
+   "ratgeber": [
+    "Guide",
+    "Savoir pour votre logement"
+   ],
+   "rg-eigenmittel": [
+    "Fonds propres",
+    "Combien faut-il?"
+   ],
+   "rg-tragbarkeit": [
+    "Capacité financière",
+    "Le calcul des banques"
+   ],
+   "rg-saron-fest": [
+    "SARON ou fixe?",
+    "La bonne stratégie"
+   ],
+   "rg-pk": [
+    "2e pilier & 3a",
+    "Prévoyance et logement"
+   ],
+   "rg-nebenkosten": [
+    "Frais d'achat",
+    "Notaire, registre foncier, impôts"
+   ],
+   "rg-vermittler": [
+    "Comparer les courtiers",
+    "Un courtier vaut-il la peine?"
+   ],
+   "ueber-uns": [
+    "À propos",
+    ""
+   ],
+   "faq": [
+    "FAQ",
+    ""
+   ],
+   "kontakt": [
+    "Contact",
+    ""
+   ],
+   "dokumente": [
+    "Documents",
+    ""
+   ],
+   "impressum": [
+    "Mentions légales",
+    ""
+   ],
+   "datenschutz": [
+    "Protection des données",
+    ""
+   ],
+   "home": [
+    "Accueil",
+    ""
+   ]
+  },
+  "it": {
+   "hypotheken": [
+    "Tutte le ipoteche",
+    "Panoramica delle soluzioni"
+   ],
+   "kauf": [
+    "Acquistare un immobile",
+    "Prima ipoteca"
+   ],
+   "abloesung": [
+    "Rinnovare & trasferire",
+    "Ottimizzare l'ipoteca"
+   ],
+   "neubau": [
+    "Finanziare una costruzione",
+    "Credito di costruzione"
+   ],
+   "aufstocken": [
+    "Aumentare & ristrutturare",
+    "Più capitale"
+   ],
+   "saron": [
+    "Ipoteca SARON",
+    "Flessibile, tasso di mercato"
+   ],
+   "fest": [
+    "Ipoteca fissa",
+    "Tassi pianificabili 2–15 anni"
+   ],
+   "rendite": [
+    "Immobile a reddito & residenza secondaria",
+    "Affittare o vacanze"
+   ],
+   "selbstaendige": [
+    "Per indipendenti",
+    "Ipoteca con chiusure annuali"
+   ],
+   "ruhestand": [
+    "Ipoteca in pensione",
+    "Pensionamento e sostenibilità"
+   ],
+   "expats": [
+    "Per expat",
+    "Permesso B o C"
+   ],
+   "mezzanine": [
+    "Mezzanine",
+    "Capitale tra fondi propri e banca"
+   ],
+   "advisory": [
+    "Advisory",
+    "Per casi complessi"
+   ],
+   "zinsen": [
+    "Tassi",
+    "Tassi indicativi attuali"
+   ],
+   "rechner": [
+    "Calcolatore ipotecario",
+    "Costi mensili"
+   ],
+   "tragbarkeit": [
+    "Calcolo sostenibilità",
+    "Posso permettermelo?"
+   ],
+   "bewertung": [
+    "Valutazione immobiliare",
+    "Con Wüest Partner, CHF 300"
+   ],
+   "partner": [
+    "Diventare partner",
+    "Provvigione, portale, supporto"
+   ],
+   "partner-makler": [
+    "Per agenti immobiliari",
+    "Vendere più in fretta"
+   ],
+   "partner-treuhand": [
+    "Per fiduciari & gestori",
+    "Valore per i mandanti"
+   ],
+   "partner-versicherung": [
+    "Per assicurazioni & broker",
+    "Ipoteche nel portafoglio"
+   ],
+   "academy": [
+    "HYPOTEQ Academy",
+    "Imparare con l'IA"
+   ],
+   "ratgeber": [
+    "Guida",
+    "Sapere per la tua casa"
+   ],
+   "rg-eigenmittel": [
+    "Fondi propri",
+    "Quanto serve?"
+   ],
+   "rg-tragbarkeit": [
+    "Sostenibilità",
+    "Il calcolo delle banche"
+   ],
+   "rg-saron-fest": [
+    "SARON o fissa?",
+    "La strategia giusta"
+   ],
+   "rg-pk": [
+    "Cassa pensione & 3a",
+    "Previdenza e abitazione"
+   ],
+   "rg-nebenkosten": [
+    "Costi d'acquisto",
+    "Notaio, registro fondiario, imposte"
+   ],
+   "rg-vermittler": [
+    "Confrontare intermediari",
+    "Conviene un intermediario?"
+   ],
+   "ueber-uns": [
+    "Chi siamo",
+    ""
+   ],
+   "faq": [
+    "FAQ",
+    ""
+   ],
+   "kontakt": [
+    "Contatto",
+    ""
+   ],
+   "dokumente": [
+    "Documenti",
+    ""
+   ],
+   "impressum": [
+    "Note legali",
+    ""
+   ],
+   "datenschutz": [
+    "Protezione dei dati",
+    ""
+   ],
+   "home": [
+    "Home",
+    ""
+   ]
+  },
+  "en": {
+   "hypotheken": [
+    "All mortgages",
+    "Overview of solutions"
+   ],
+   "kauf": [
+    "Buy a property",
+    "Your first mortgage"
+   ],
+   "abloesung": [
+    "Renew & refinance",
+    "Optimise your mortgage"
+   ],
+   "neubau": [
+    "New build financing",
+    "Construction loan"
+   ],
+   "aufstocken": [
+    "Increase & renovate",
+    "More capital for your home"
+   ],
+   "saron": [
+    "SARON mortgage",
+    "Flexible, money-market rate"
+   ],
+   "fest": [
+    "Fixed-rate mortgage",
+    "Plannable rates 2–15 years"
+   ],
+   "rendite": [
+    "Buy-to-let & second home",
+    "Rent out or holiday"
+   ],
+   "selbstaendige": [
+    "For self-employed",
+    "Mortgage with annual accounts"
+   ],
+   "ruhestand": [
+    "Mortgage in retirement",
+    "Retirement and affordability"
+   ],
+   "expats": [
+    "For expats",
+    "With B or C permit"
+   ],
+   "mezzanine": [
+    "Mezzanine",
+    "Capital between equity and bank"
+   ],
+   "advisory": [
+    "Advisory",
+    "For complex cases"
+   ],
+   "zinsen": [
+    "Rates",
+    "Current indicative rates"
+   ],
+   "rechner": [
+    "Mortgage calculator",
+    "Monthly costs"
+   ],
+   "tragbarkeit": [
+    "Affordability calculator",
+    "Can I afford it?"
+   ],
+   "bewertung": [
+    "Property valuation",
+    "With Wüest Partner, CHF 300"
+   ],
+   "partner": [
+    "Become a partner",
+    "Commission, portal, support"
+   ],
+   "partner-makler": [
+    "For real estate agents",
+    "Sell faster"
+   ],
+   "partner-treuhand": [
+    "For trustees & wealth managers",
+    "Value for your clients"
+   ],
+   "partner-versicherung": [
+    "For insurers & brokers",
+    "Add mortgages to your portfolio"
+   ],
+   "academy": [
+    "HYPOTEQ Academy",
+    "Learn mortgages, train with AI"
+   ],
+   "ratgeber": [
+    "Guides",
+    "Know-how for homeowners"
+   ],
+   "rg-eigenmittel": [
+    "Equity",
+    "How much do you need?"
+   ],
+   "rg-tragbarkeit": [
+    "Affordability",
+    "How banks calculate"
+   ],
+   "rg-saron-fest": [
+    "SARON or fixed?",
+    "The right strategy"
+   ],
+   "rg-pk": [
+    "Pension fund & pillar 3a",
+    "Retirement money for a home"
+   ],
+   "rg-nebenkosten": [
+    "Purchase costs",
+    "Notary, land registry, taxes"
+   ],
+   "rg-vermittler": [
+    "Compare brokers",
+    "Is a broker worth it?"
+   ],
+   "ueber-uns": [
+    "About us",
+    ""
+   ],
+   "faq": [
+    "FAQ",
+    ""
+   ],
+   "kontakt": [
+    "Contact",
+    ""
+   ],
+   "dokumente": [
+    "Documents",
+    ""
+   ],
+   "impressum": [
+    "Legal notice",
+    ""
+   ],
+   "datenschutz": [
+    "Privacy",
+    ""
+   ],
+   "home": [
+    "Home",
+    ""
+   ]
+  }
+ },
+ "MENU": [
+  [
+   "hyp",
+   [
+    "kauf",
+    "abloesung",
+    "neubau",
+    "aufstocken",
+    "saron",
+    "fest",
+    "rendite",
+    "selbstaendige",
+    "ruhestand",
+    "expats",
+    "mezzanine",
+    "advisory",
+    "themen",
+    "kantone",
+    "hypotheken"
+   ],
+   "funnel"
+  ],
+  [
+   "zinsen",
+   null,
+   null
+  ],
+  [
+   "tools",
+   [
+    "rechner",
+    "tragbarkeit",
+    "bewertung"
+   ],
+   "bewertung"
+  ],
+  [
+   "ratgeber",
+   [
+    "rg-eigenmittel",
+    "rg-tragbarkeit",
+    "rg-saron-fest",
+    "rg-pk",
+    "rg-nebenkosten",
+    "rg-vermittler",
+    "ratgeber"
+   ],
+   null
+  ],
+  [
+   "b2b",
+   [
+    "partner",
+    "partner-makler",
+    "partner-treuhand",
+    "partner-versicherung",
+    "academy"
+   ],
+   "portal"
+  ]
+ ],
+ "UI": {
+  "de": {
+   "rates_best": "Bester Partnerzins aktuell",
+   "nl_t": "Newsletter",
+   "nl_x": "Zinsentwicklung und Tipps rund ums Eigenheim, einmal im Monat.",
+   "nl_ph": "Deine E-Mail",
+   "nl_b": "Anmelden",
+   "nl_ok": "Danke! In der Vorschau wird nichts gesendet.",
+   "g_rev": "Google-Bewertungen",
+   "follow": "Folge uns auf LinkedIn",
+   "online": "Online",
+   "g_hyp": "Hypotheken",
+   "g_tools": "Rechner & Bewertung",
+   "g_ratgeber": "Ratgeber",
+   "g_b2b": "Für Partner",
+   "g_company": "HYPOTEQ",
+   "cta": "Hypothek anfragen",
+   "cta_short": "Anfragen",
+   "login": "Partnerlogin",
+   "call": "Anrufen",
+   "promo_funnel": "Anfrage in 3 Minuten starten",
+   "promo_bewertung": "Immobilie jetzt bewerten · CHF 300",
+   "promo_portal": "Zum Partnerportal",
+   "usp": [
+    "<b>Kostenlos</b> & unverbindlich",
+    "<b>40+</b> Finanzierungspartner",
+    "<b>100 %</b> unabhängig"
+   ],
+   "preview": "DESIGNVORSCHAU · Beispielwerte & Symbolbilder · Formulare senden keine Daten",
+   "home": "Home",
+   "skip": "Zum Inhalt",
+   "footer_h": "Zuerst vergleichen.<br><em>Dann entscheiden.</em>",
+   "footer_claim": "Hypotheken sind dank HYPOTEQ vergleichbar geworden. Ihr Berater ist hingegen einzigartig.",
+   "rights": "© 2026 HYPOTEQ AG · Alle Rechte vorbehalten",
+   "rates_title": "Richtzinsen",
+   "rates_saron": "SARON-Hypothek",
+   "rates_5": "Festhypothek 5 Jahre",
+   "rates_10": "Festhypothek 10 Jahre",
+   "rates_from": "ab",
+   "rates_note": "Beispielwerte, Stand: [Datum einsetzen]. Richtzinsen dienen der Orientierung, dein persönlicher Zins hängt von Objekt, Belehnung und Tragbarkeit ab.",
+   "rates_cta": "Persönlichen Zins anfragen",
+   "calc_price": "Kaufpreis / Immobilienwert · CHF",
+   "calc_equity": "Eigenmittel · CHF",
+   "calc_income": "Brutto-Haushaltseinkommen pro Jahr · CHF",
+   "calc_rate": "Hypothekarmodell",
+   "calc_monthly": "Monatliche Zinskosten",
+   "calc_loan": "Hypothek",
+   "calc_ltv": "Belehnung",
+   "calc_year": "Zinskosten pro Jahr",
+   "calc_fine": "Beispielrechnung nur mit Zinskosten. Ohne Amortisation, Nebenkosten und Tragbarkeitsprüfung. Keine Finanzierungszusage.",
+   "aff_title": "Tragbarkeit",
+   "aff_cost": "Kalkulatorische Kosten / Monat",
+   "aff_maxp": "Max. Kaufpreis (bei 20 % EM)",
+   "aff_fine": "Vereinfachte Rechnung mit kalkulatorischem Zins 5 %, Unterhalt 1 % und Amortisation der 2. Hypothek über 15 Jahre. Banken rechnen teilweise anders.",
+   "use1": "Hauptwohnsitz",
+   "use2": "Zweitwohnsitz",
+   "v_empty": "Gib Kaufpreis, Eigenmittel und Einkommen ein.",
+   "v_ok": "Sieht gut aus: Tragbarkeit unter 33 %. Hol dir jetzt echte Offerten.",
+   "v_over": "Knapp: Über 33 %. Wir prüfen Lösungen mit mehr Eigenmitteln oder anderen Partnern.",
+   "v_equity": "Zu wenig Eigenmittel. Mezzanine oder Vorsorgegelder könnten helfen.",
+   "form_name": "Vor- und Nachname",
+   "form_mail": "E-Mail",
+   "form_phone": "Telefon",
+   "form_company": "Firma",
+   "form_type": "Ich bin …",
+   "form_msg": "Nachricht",
+   "form_send": "Absenden",
+   "form_ok": "Danke! In der Vorschau werden keine Daten gesendet.",
+   "form_types": [
+    "Immobilienmakler:in",
+    "Treuhänder:in / Vermögensverwalter:in",
+    "Versicherungsagentur / Broker",
+    "Andere"
+   ],
+   "toc": "Inhalt",
+   "read": "Lesezeit",
+   "min": "Min.",
+   "updated": "Aktualisiert: November 2026",
+   "more": "Mehr erfahren",
+   "lang_name": "Deutsch",
+   "choose": "Sprache wählen"
+  },
+  "fr": {
+   "rates_best": "Meilleur taux partenaire actuel",
+   "nl_t": "Newsletter",
+   "nl_x": "Évolution des taux et conseils pour votre logement, une fois par mois.",
+   "nl_ph": "Votre e-mail",
+   "nl_b": "S'inscrire",
+   "nl_ok": "Merci! Rien n'est envoyé dans l'aperçu.",
+   "g_rev": "Avis Google",
+   "follow": "Suivez-nous sur LinkedIn",
+   "online": "En ligne",
+   "g_hyp": "Hypothèques",
+   "g_tools": "Calculateurs & estimation",
+   "g_ratgeber": "Guide",
+   "g_b2b": "Partenaires",
+   "g_company": "HYPOTEQ",
+   "cta": "Demander une hypothèque",
+   "cta_short": "Demander",
+   "login": "Login partenaires",
+   "call": "Appeler",
+   "promo_funnel": "Démarrer la demande en 3 minutes",
+   "promo_bewertung": "Estimer mon bien · CHF 300",
+   "promo_portal": "Vers le portail partenaires",
+   "usp": [
+    "<b>Gratuit</b> & sans engagement",
+    "<b>40+</b> partenaires de financement",
+    "<b>100 %</b> indépendant"
+   ],
+   "preview": "APERÇU DESIGN · Valeurs d'exemple & images symboliques · aucun envoi de données",
+   "home": "Accueil",
+   "skip": "Aller au contenu",
+   "footer_h": "Comparer d'abord.<br><em>Décider ensuite.</em>",
+   "footer_claim": "Grâce à HYPOTEQ, les hypothèques sont devenues comparables. Votre conseiller, lui, est unique.",
+   "rights": "© 2026 HYPOTEQ AG · Tous droits réservés",
+   "rates_title": "Taux indicatifs",
+   "rates_saron": "Hypothèque SARON",
+   "rates_5": "Hypothèque fixe 5 ans",
+   "rates_10": "Hypothèque fixe 10 ans",
+   "rates_from": "dès",
+   "rates_note": "Valeurs d'exemple, état: [insérer la date]. Les taux indicatifs servent d'orientation; votre taux dépend du bien, du nantissement et de la capacité financière.",
+   "rates_cta": "Demander mon taux",
+   "calc_price": "Prix / valeur du bien · CHF",
+   "calc_equity": "Fonds propres · CHF",
+   "calc_income": "Revenu brut du ménage par an · CHF",
+   "calc_rate": "Modèle hypothécaire",
+   "calc_monthly": "Intérêts mensuels",
+   "calc_loan": "Hypothèque",
+   "calc_ltv": "Nantissement",
+   "calc_year": "Intérêts par an",
+   "calc_fine": "Exemple basé uniquement sur les intérêts. Sans amortissement, frais ni contrôle de capacité. Aucun engagement de financement.",
+   "aff_title": "Capacité financière",
+   "aff_cost": "Coûts théoriques / mois",
+   "aff_maxp": "Prix max. (avec 20 % FP)",
+   "aff_fine": "Calcul simplifié: taux théorique 5 %, entretien 1 %, amortissement du 2e rang sur 15 ans. Les banques peuvent calculer différemment.",
+   "use1": "Résidence principale",
+   "use2": "Résidence secondaire",
+   "v_empty": "Saisissez prix, fonds propres et revenu.",
+   "v_ok": "Bonne nouvelle: capacité sous 33 %. Obtenez maintenant de vraies offres.",
+   "v_over": "Juste: plus de 33 %. Nous cherchons des solutions avec d'autres partenaires.",
+   "v_equity": "Fonds propres insuffisants. La mezzanine ou la prévoyance peuvent aider.",
+   "form_name": "Prénom et nom",
+   "form_mail": "E-mail",
+   "form_phone": "Téléphone",
+   "form_company": "Entreprise",
+   "form_type": "Je suis …",
+   "form_msg": "Message",
+   "form_send": "Envoyer",
+   "form_ok": "Merci! Dans cet aperçu, aucune donnée n'est envoyée.",
+   "form_types": [
+    "Courtier immobilier",
+    "Fiduciaire / gérant de fortune",
+    "Agence d'assurance / broker",
+    "Autre"
+   ],
+   "toc": "Sommaire",
+   "read": "Lecture",
+   "min": "min",
+   "updated": "Mis à jour: novembre 2026",
+   "more": "En savoir plus",
+   "lang_name": "Français",
+   "choose": "Choisir la langue"
+  },
+  "it": {
+   "rates_best": "Miglior tasso partner attuale",
+   "nl_t": "Newsletter",
+   "nl_x": "Andamento dei tassi e consigli per la casa, una volta al mese.",
+   "nl_ph": "La tua e-mail",
+   "nl_b": "Iscriviti",
+   "nl_ok": "Grazie! Nell'anteprima non viene inviato nulla.",
+   "g_rev": "Recensioni Google",
+   "follow": "Seguici su LinkedIn",
+   "online": "Online",
+   "g_hyp": "Ipoteche",
+   "g_tools": "Calcolatori & valutazione",
+   "g_ratgeber": "Guida",
+   "g_b2b": "Partner",
+   "g_company": "HYPOTEQ",
+   "cta": "Richiedere un'ipoteca",
+   "cta_short": "Richiedi",
+   "login": "Login partner",
+   "call": "Chiamare",
+   "promo_funnel": "Avvia la richiesta in 3 minuti",
+   "promo_bewertung": "Valuta il tuo immobile · CHF 300",
+   "promo_portal": "Al portale partner",
+   "usp": [
+    "<b>Gratuito</b> e senza impegno",
+    "<b>40+</b> partner di finanziamento",
+    "<b>100 %</b> indipendente"
+   ],
+   "preview": "ANTEPRIMA DESIGN · Valori d'esempio e immagini simboliche · nessun invio di dati",
+   "home": "Home",
+   "skip": "Vai al contenuto",
+   "footer_h": "Prima confrontare.<br><em>Poi decidere.</em>",
+   "footer_claim": "Grazie a HYPOTEQ le ipoteche sono diventate confrontabili. Il vostro consulente, invece, è unico.",
+   "rights": "© 2026 HYPOTEQ AG · Tutti i diritti riservati",
+   "rates_title": "Tassi indicativi",
+   "rates_saron": "Ipoteca SARON",
+   "rates_5": "Ipoteca fissa 5 anni",
+   "rates_10": "Ipoteca fissa 10 anni",
+   "rates_from": "da",
+   "rates_note": "Valori d'esempio, stato: [inserire data]. I tassi indicativi servono da orientamento; il tuo tasso dipende da immobile, anticipo e sostenibilità.",
+   "rates_cta": "Richiedi il tuo tasso",
+   "calc_price": "Prezzo / valore dell'immobile · CHF",
+   "calc_equity": "Fondi propri · CHF",
+   "calc_income": "Reddito lordo dell'economia domestica all'anno · CHF",
+   "calc_rate": "Modello ipotecario",
+   "calc_monthly": "Interessi mensili",
+   "calc_loan": "Ipoteca",
+   "calc_ltv": "Anticipo",
+   "calc_year": "Interessi all'anno",
+   "calc_fine": "Esempio solo con interessi. Senza ammortamento, spese e verifica della sostenibilità. Nessuna promessa di finanziamento.",
+   "aff_title": "Sostenibilità",
+   "aff_cost": "Costi teorici / mese",
+   "aff_maxp": "Prezzo max. (con 20 % FP)",
+   "aff_fine": "Calcolo semplificato: tasso teorico 5 %, manutenzione 1 %, ammortamento della 2a ipoteca in 15 anni. Le banche possono calcolare diversamente.",
+   "use1": "Residenza principale",
+   "use2": "Residenza secondaria",
+   "v_empty": "Inserisci prezzo, fondi propri e reddito.",
+   "v_ok": "Ottimo: sostenibilità sotto il 33 %. Richiedi ora offerte reali.",
+   "v_over": "Al limite: oltre il 33 %. Cerchiamo soluzioni con altri partner.",
+   "v_equity": "Fondi propri insufficienti. Mezzanine o previdenza possono aiutare.",
+   "form_name": "Nome e cognome",
+   "form_mail": "E-mail",
+   "form_phone": "Telefono",
+   "form_company": "Azienda",
+   "form_type": "Sono …",
+   "form_msg": "Messaggio",
+   "form_send": "Invia",
+   "form_ok": "Grazie! Nell'anteprima non vengono inviati dati.",
+   "form_types": [
+    "Agente immobiliare",
+    "Fiduciario / gestore patrimoniale",
+    "Agenzia assicurativa / broker",
+    "Altro"
+   ],
+   "toc": "Indice",
+   "read": "Lettura",
+   "min": "min",
+   "updated": "Aggiornato: novembre 2026",
+   "more": "Scopri di più",
+   "lang_name": "Italiano",
+   "choose": "Scegli la lingua"
+  },
+  "en": {
+   "rates_best": "Best partner rate right now",
+   "nl_t": "Newsletter",
+   "nl_x": "Rate trends and home-ownership tips, once a month.",
+   "nl_ph": "Your email",
+   "nl_b": "Sign up",
+   "nl_ok": "Thank you! The preview sends nothing.",
+   "g_rev": "Google reviews",
+   "follow": "Follow us on LinkedIn",
+   "online": "Online",
+   "g_hyp": "Mortgages",
+   "g_tools": "Calculators & valuation",
+   "g_ratgeber": "Guides",
+   "g_b2b": "For partners",
+   "g_company": "HYPOTEQ",
+   "cta": "Request a mortgage",
+   "cta_short": "Request",
+   "login": "Partner login",
+   "call": "Call",
+   "promo_funnel": "Start your request in 3 minutes",
+   "promo_bewertung": "Value your property · CHF 300",
+   "promo_portal": "Go to partner portal",
+   "usp": [
+    "<b>Free</b> & non-binding",
+    "<b>40+</b> financing partners",
+    "<b>100 %</b> independent"
+   ],
+   "preview": "DESIGN PREVIEW · Sample values & stock images · forms send no data",
+   "home": "Home",
+   "skip": "Skip to content",
+   "footer_h": "Compare first.<br><em>Then decide.</em>",
+   "footer_claim": "HYPOTEQ made mortgages comparable. Your advisor, however, is one of a kind.",
+   "rights": "© 2026 HYPOTEQ AG · All rights reserved",
+   "rates_title": "Indicative rates",
+   "rates_saron": "SARON mortgage",
+   "rates_5": "Fixed-rate 5 years",
+   "rates_10": "Fixed-rate 10 years",
+   "rates_from": "from",
+   "rates_note": "Sample values, as of: [insert date]. Indicative rates are for orientation; your rate depends on property, loan-to-value and affordability.",
+   "rates_cta": "Request your rate",
+   "calc_price": "Purchase price / value · CHF",
+   "calc_equity": "Equity · CHF",
+   "calc_income": "Gross household income per year · CHF",
+   "calc_rate": "Mortgage model",
+   "calc_monthly": "Monthly interest",
+   "calc_loan": "Mortgage",
+   "calc_ltv": "Loan-to-value",
+   "calc_year": "Interest per year",
+   "calc_fine": "Example with interest only. Excludes amortisation, running costs and affordability check. Not a financing commitment.",
+   "aff_title": "Affordability",
+   "aff_cost": "Imputed costs / month",
+   "aff_maxp": "Max. price (with 20 % equity)",
+   "aff_fine": "Simplified: imputed rate 5 %, maintenance 1 %, amortisation of the 2nd mortgage over 15 years. Banks may calculate differently.",
+   "use1": "Primary residence",
+   "use2": "Second home",
+   "v_empty": "Enter price, equity and income.",
+   "v_ok": "Looks good: affordability below 33 %. Get real offers now.",
+   "v_over": "Tight: above 33 %. We look for solutions with other lenders.",
+   "v_equity": "Not enough equity. Mezzanine or pension assets may help.",
+   "form_name": "First and last name",
+   "form_mail": "Email",
+   "form_phone": "Phone",
+   "form_company": "Company",
+   "form_type": "I am …",
+   "form_msg": "Message",
+   "form_send": "Send",
+   "form_ok": "Thank you! This preview sends no data.",
+   "form_types": [
+    "Real estate agent",
+    "Trustee / wealth manager",
+    "Insurance agency / broker",
+    "Other"
+   ],
+   "toc": "Contents",
+   "read": "Reading time",
+   "min": "min",
+   "updated": "Updated: November 2026",
+   "more": "Learn more",
+   "lang_name": "English",
+   "choose": "Choose language"
+  }
+ },
+ "ADV": {
+  "de": [
+   "Persönlich begleitet.\nVon der Anfrage bis zur Auszahlung.",
+   "Fachleute prüfen jeden Fall einzeln"
+  ],
+  "fr": [
+   "Accompagné personnellement.\nDe la demande au versement.",
+   "Des spécialistes examinent chaque dossier"
+  ],
+  "it": [
+   "Accompagnato di persona.\nDalla richiesta al versamento.",
+   "Specialisti verificano ogni caso"
+  ],
+  "en": [
+   "Personally supported.\nFrom application to payout.",
+   "Specialists review every case"
+  ]
+ },
+ "CAPITALS": [
+  "Zürich",
+  "Lausanne",
+  "Bern",
+  "Luzern",
+  "Genève",
+  "Bellinzona",
+  "St. Gallen",
+  "Basel",
+  "Aarau",
+  "Fribourg",
+  "Neuchâtel",
+  "Sion",
+  "Chur",
+  "Frauenfeld",
+  "Schaffhausen",
+  "Solothurn",
+  "Liestal",
+  "Zug",
+  "Schwyz",
+  "Altdorf",
+  "Sarnen",
+  "Stans",
+  "Glarus",
+  "Herisau",
+  "Appenzell",
+  "Delémont"
+ ],
+ "SMS": {
+  "de": [
+   "Swiss Made Software",
+   "Unsere Plattform wird in der Schweiz entwickelt und betrieben.",
+   "Nach oben"
+  ],
+  "fr": [
+   "Swiss Made Software",
+   "Notre plateforme est développée et exploitée en Suisse.",
+   "Haut de page"
+  ],
+  "it": [
+   "Swiss Made Software",
+   "La nostra piattaforma è sviluppata e gestita in Svizzera.",
+   "Torna su"
+  ],
+  "en": [
+   "Swiss Made Software",
+   "Our platform is developed and operated in Switzerland.",
+   "Back to top"
+  ]
+ },
+ "SMS_TXT": {
+  "de": [
+   "Entwickelt in der Schweiz",
+   "Funnel, Partnerportal und KI-Dokumentenerkennung von HYPOTEQ werden in der Schweiz entwickelt. Deine Daten werden in der Schweiz verarbeitet."
+  ],
+  "fr": [
+   "Développé en Suisse",
+   "Le parcours en ligne, le portail partenaires et la reconnaissance de documents par IA de HYPOTEQ sont développés en Suisse. Vos données sont traitées en Suisse."
+  ],
+  "it": [
+   "Sviluppato in Svizzera",
+   "Il percorso online, il portale partner e il riconoscimento dei documenti con IA di HYPOTEQ sono sviluppati in Svizzera. I tuoi dati sono trattati in Svizzera."
+  ],
+  "en": [
+   "Developed in Switzerland",
+   "HYPOTEQ's online application, partner portal and AI document recognition are developed in Switzerland. Your data is processed in Switzerland."
+  ]
+ },
+ "IMAGES": [
+  "academy",
+  "appenzell",
+  "bern",
+  "consultation",
+  "couple",
+  "family",
+  "family-home",
+  "house",
+  "interior",
+  "keys",
+  "kt-ag",
+  "kt-ai",
+  "kt-ar",
+  "kt-be",
+  "kt-bl",
+  "kt-bs",
+  "kt-fr",
+  "kt-ge",
+  "kt-gl",
+  "kt-gr",
+  "kt-ju",
+  "kt-lu",
+  "kt-ne",
+  "kt-nw",
+  "kt-ow",
+  "kt-sg",
+  "kt-sh",
+  "kt-so",
+  "kt-sz",
+  "kt-tg",
+  "kt-ti",
+  "kt-ur",
+  "kt-vd",
+  "kt-vs",
+  "kt-zg",
+  "kt-zh",
+  "lake-house",
+  "lake-living",
+  "lugano",
+  "neighbourhood",
+  "portrait",
+  "product",
+  "swiss-landscape",
+  "swiss-villa",
+  "zurich-neighbourhood"
+ ],
+ "SCR": {
+  "de": {
+   "d_docs": [
+    "Lohnausweis",
+    "ID",
+    "Kaufvertrag",
+    "PK-Ausweis"
+   ],
+   "d_fields": [
+    [
+     "Einkommen",
+     "CHF 186’000"
+    ],
+    [
+     "Kaufpreis",
+     "CHF 1’150’000"
+    ],
+    [
+     "Eigenmittel",
+     "CHF 260’000"
+    ],
+    [
+     "PK-Guthaben",
+     "CHF 94’000"
+    ]
+   ],
+   "d_type": "Erkannt: Kauf · Einfamilienhaus · Hauptwohnsitz",
+   "d_ready": "Dossier bankfähig",
+   "d_swiss": "Swiss Made Software · Hosting in der Schweiz",
+   "docs": "Lohnausweis.pdf · ID.pdf · Kaufvertrag.pdf",
+   "fields": "Einkommen · Pensionskasse · Objekt",
+   "advisor": "Beraterin",
+   "today": "heute",
+   "c1": "Wir möchten ein Haus in Winterthur kaufen.",
+   "c2": "Schön! Wie hoch ist der Kaufpreis ungefähr?",
+   "c3": "Rund CHF 1.1 Mio.",
+   "a1": "Was ist der Unterschied zwischen Belehnung und Tragbarkeit?",
+   "a2": "Die Belehnung zeigt das Verhältnis von Hypothek zu Immobilienwert. Die Tragbarkeit prüft, ob die laufenden Kosten zum Einkommen passen.",
+   "lj": "Expert Journey 12 / 20",
+   "case": "Fall",
+   "offers": "Offerten",
+   "docs2": "Dokumente",
+   "approved": "Zusage",
+   "comm": "Provision Q4",
+   "mv": "Marktwert (hedonisch)",
+   "band": "Bandbreite CHF 1.11–1.26 Mio.",
+   "efh": "Einfamilienhaus · Hauptwohnsitz",
+   "p1": "EFH Baden",
+   "p2": "Ablösung Zug",
+   "p3": "STWE Lugano"
+  },
+  "fr": {
+   "d_docs": [
+    "Certificat de salaire",
+    "ID",
+    "Contrat de vente",
+    "Certificat LPP"
+   ],
+   "d_fields": [
+    [
+     "Revenu",
+     "CHF 186’000"
+    ],
+    [
+     "Prix d'achat",
+     "CHF 1’150’000"
+    ],
+    [
+     "Fonds propres",
+     "CHF 260’000"
+    ],
+    [
+     "Avoir LPP",
+     "CHF 94’000"
+    ]
+   ],
+   "d_type": "Reconnu: achat · maison individuelle · résidence principale",
+   "d_ready": "Dossier prêt pour la banque",
+   "d_swiss": "Swiss Made Software · hébergé en Suisse",
+   "docs": "Certificat de salaire.pdf · ID.pdf · Contrat de vente.pdf",
+   "fields": "Revenu · 2e pilier · Bien",
+   "advisor": "Conseillère",
+   "today": "aujourd'hui",
+   "c1": "Nous aimerions acheter une maison à Morges.",
+   "c2": "Volontiers! Quel est le prix d'achat approximatif?",
+   "c3": "Environ CHF 1,1 mio.",
+   "a1": "Quelle est la différence entre nantissement et capacité financière?",
+   "a2": "Le nantissement compare l'hypothèque à la valeur du bien. La capacité financière vérifie si les charges correspondent au revenu.",
+   "lj": "Expert Journey 12 / 20",
+   "case": "Dossier",
+   "offers": "Offres",
+   "docs2": "Documents",
+   "approved": "Accord",
+   "comm": "Commission T4",
+   "mv": "Valeur de marché (hédoniste)",
+   "band": "Fourchette CHF 1,11–1,26 mio.",
+   "efh": "Maison individuelle · Résidence principale",
+   "p1": "Villa Morges",
+   "p2": "Transfert Nyon",
+   "p3": "PPE Lugano"
+  },
+  "it": {
+   "d_docs": [
+    "Certificato di salario",
+    "ID",
+    "Contratto d'acquisto",
+    "Certificato LPP"
+   ],
+   "d_fields": [
+    [
+     "Reddito",
+     "CHF 186’000"
+    ],
+    [
+     "Prezzo d'acquisto",
+     "CHF 1’150’000"
+    ],
+    [
+     "Fondi propri",
+     "CHF 260’000"
+    ],
+    [
+     "Avere LPP",
+     "CHF 94’000"
+    ]
+   ],
+   "d_type": "Riconosciuto: acquisto · casa unifamiliare · residenza principale",
+   "d_ready": "Dossier pronto per la banca",
+   "d_swiss": "Swiss Made Software · hosting in Svizzera",
+   "docs": "Certificato di salario.pdf · ID.pdf · Contratto.pdf",
+   "fields": "Reddito · Cassa pensione · Immobile",
+   "advisor": "Consulente",
+   "today": "oggi",
+   "c1": "Vorremmo comprare una casa a Bellinzona.",
+   "c2": "Ottimo! Qual è circa il prezzo d'acquisto?",
+   "c3": "Circa CHF 1,1 mio.",
+   "a1": "Qual è la differenza tra anticipo e sostenibilità?",
+   "a2": "L'anticipo confronta l'ipoteca con il valore dell'immobile. La sostenibilità verifica se i costi correnti sono adeguati al reddito.",
+   "lj": "Expert Journey 12 / 20",
+   "case": "Caso",
+   "offers": "Offerte",
+   "docs2": "Documenti",
+   "approved": "Conferma",
+   "comm": "Provvigione T4",
+   "mv": "Valore di mercato (edonico)",
+   "band": "Forchetta CHF 1,11–1,26 mio.",
+   "efh": "Casa unifamiliare · Residenza principale",
+   "p1": "Casa Bellinzona",
+   "p2": "Trasferimento Locarno",
+   "p3": "PPP Lugano"
+  },
+  "en": {
+   "d_docs": [
+    "Salary statement",
+    "ID",
+    "Purchase contract",
+    "Pension certificate"
+   ],
+   "d_fields": [
+    [
+     "Income",
+     "CHF 186’000"
+    ],
+    [
+     "Purchase price",
+     "CHF 1’150’000"
+    ],
+    [
+     "Own funds",
+     "CHF 260’000"
+    ],
+    [
+     "Pension assets",
+     "CHF 94’000"
+    ]
+   ],
+   "d_type": "Detected: purchase · single-family home · main residence",
+   "d_ready": "Dossier bank-ready",
+   "d_swiss": "Swiss Made Software · hosted in Switzerland",
+   "docs": "Salary statement.pdf · ID.pdf · Purchase contract.pdf",
+   "fields": "Income · Pension fund · Property",
+   "advisor": "Advisor",
+   "today": "today",
+   "c1": "We'd like to buy a house in Zug.",
+   "c2": "Great! Roughly what is the purchase price?",
+   "c3": "About CHF 1.1m.",
+   "a1": "What's the difference between loan-to-value and affordability?",
+   "a2": "Loan-to-value compares the mortgage with the property value. Affordability checks whether running costs fit your income.",
+   "lj": "Expert Journey 12 / 20",
+   "case": "Case",
+   "offers": "Offers",
+   "docs2": "Documents",
+   "approved": "Approved",
+   "comm": "Commission Q4",
+   "mv": "Market value (hedonic)",
+   "band": "Range CHF 1.11–1.26m",
+   "efh": "Single-family home · Primary residence",
+   "p1": "House Baden",
+   "p2": "Refinance Zug",
+   "p3": "Condo Lugano"
+  }
+ },
+ "CL": {
+  "de": {
+   "purchase": "Immobilienkauf",
+   "refinancing": "Refinanzierung",
+   "main": "Hauptwohnsitz",
+   "second": "Zweitwohnsitz",
+   "price": "Kaufpreis / Immobilienwert",
+   "existing": "Bisherige Hypothek",
+   "increase": "Hypothekenerhöhung",
+   "own": "Eigenmittel",
+   "income": "Brutto-Haushaltseinkommen",
+   "select": "Zins-Laufzeit wählen:",
+   "rates": [
+    "Saron: 0.85%",
+    "1 Jahr: 0.97%",
+    "2 Jahre: 1.02%",
+    "3 Jahre: 1.13%",
+    "4 Jahre: 1.22%",
+    "5 Jahre: 1.30%",
+    "6 Jahre: 1.36%",
+    "7 Jahre: 1.42%",
+    "8 Jahre: 1.49%",
+    "9 Jahre: 1.55%",
+    "10 Jahre: 1.60%"
+   ],
+   "okP": "Finanzierung möglich. Geschätzter Hypothekbedarf:",
+   "okR": "Finanzierung möglich. Neue Hypothek bis:",
+   "no": "Finanzierung nicht möglich. Maximale Hypothek:",
+   "aff": "Tragbarkeit",
+   "ltv": "Belehnung",
+   "prev": "Bisherige monatliche Kosten",
+   "total": "Monatliche Gesamtkosten",
+   "interest": "Zinsen",
+   "maint": "Unterhalt / Nebenkosten",
+   "amort": "Amortisation",
+   "side": "Nebenkosten",
+   "icost": "Zinskosten",
+   "monthly": "Monatliche Kosten",
+   "cta": "Mein Projekt fortsetzen",
+   "min": "Minimum",
+   "fine": "Unverbindliche Berechnung mit Richtzinsen. Kalkulatorisch 5 % Zins und 0.8 % Unterhalt, Tragbarkeit bis 35 %. Keine Finanzierungszusage."
+  },
+  "fr": {
+   "purchase": "Achat immobilier",
+   "refinancing": "Refinancement",
+   "main": "Résidence principale",
+   "second": "Résidence secondaire",
+   "price": "Prix d'achat / valeur du bien",
+   "existing": "Hypothèque actuelle",
+   "increase": "Augmentation de l'hypothèque",
+   "own": "Fonds propres",
+   "income": "Revenu brut du ménage",
+   "select": "Sélectionner la durée d'intérêt :",
+   "rates": [
+    "SARON 0.85%",
+    "1 an 0.97%",
+    "2 ans 1.02%",
+    "3 ans 1.13%",
+    "4 ans 1.22%",
+    "5 ans 1.30%",
+    "6 ans 1.36%",
+    "7 ans 1.42%",
+    "8 ans 1.49%",
+    "9 ans 1.55%",
+    "10 ans 1.60%"
+   ],
+   "okP": "Financement possible. Besoin hypothécaire estimé :",
+   "okR": "Financement possible. Nouvelle hypothèque jusqu'à :",
+   "no": "Financement non possible. Hypothèque maximale :",
+   "aff": "Capacité financière",
+   "ltv": "Taux d'avance",
+   "prev": "Coûts mensuels précédents",
+   "total": "Coûts mensuels totaux",
+   "interest": "Intérêts",
+   "maint": "Entretien / frais annexes",
+   "amort": "Amortissement",
+   "side": "Frais annexes",
+   "icost": "Coûts d'intérêt",
+   "monthly": "Coûts mensuels",
+   "cta": "Continuer mon projet",
+   "min": "Minimum",
+   "fine": "Calcul indicatif avec taux indicatifs. Taux théorique 5 % et entretien 0,8 %, capacité jusqu'à 35 %. Aucun engagement de financement."
+  },
+  "it": {
+   "purchase": "Acquisto",
+   "refinancing": "Rifinanziamento",
+   "main": "Residenza principale",
+   "second": "Residenza secondaria",
+   "price": "Prezzo d'acquisto / valore",
+   "existing": "Ipoteca esistente",
+   "increase": "Aumento dell'ipoteca",
+   "own": "Fondi propri",
+   "income": "Reddito lordo familiare",
+   "select": "Seleziona durata interessi:",
+   "rates": [
+    "SARON 0.85%",
+    "1 anno 0.97%",
+    "2 anni 1.02%",
+    "3 anni 1.13%",
+    "4 anni 1.22%",
+    "5 anni 1.30%",
+    "6 anni 1.36%",
+    "7 anni 1.42%",
+    "8 anni 1.49%",
+    "9 anni 1.55%",
+    "10 anni 1.60%"
+   ],
+   "okP": "Finanziamento possibile. Fabbisogno ipotecario stimato:",
+   "okR": "Finanziamento possibile. Nuova ipoteca fino a:",
+   "no": "Finanziamento non possibile. Ipoteca massima:",
+   "aff": "Sostenibilità",
+   "ltv": "Anticipo",
+   "prev": "Costi mensili precedenti",
+   "total": "Costi mensili totali",
+   "interest": "Interessi",
+   "maint": "Manutenzione / spese accessorie",
+   "amort": "Ammortamento",
+   "side": "Spese accessorie",
+   "icost": "Costi degli interessi",
+   "monthly": "Costi mensili",
+   "cta": "Continua il mio progetto",
+   "min": "Minimo",
+   "fine": "Calcolo indicativo con tassi indicativi. Tasso teorico 5 % e manutenzione 0,8 %, sostenibilità fino al 35 %. Nessuna promessa di finanziamento."
+  },
+  "en": {
+   "purchase": "Property purchase",
+   "refinancing": "Refinancing",
+   "main": "Main residence",
+   "second": "Secondary residence",
+   "price": "Purchase price / property value",
+   "existing": "Existing mortgage",
+   "increase": "Mortgage increase",
+   "own": "Own funds",
+   "income": "Gross household income",
+   "select": "Select interest term:",
+   "rates": [
+    "SARON 0.85%",
+    "1 year 0.97%",
+    "2 years 1.02%",
+    "3 years 1.13%",
+    "4 years 1.22%",
+    "5 years 1.30%",
+    "6 years 1.36%",
+    "7 years 1.42%",
+    "8 years 1.49%",
+    "9 years 1.55%",
+    "10 years 1.60%"
+   ],
+   "okP": "Financing possible. Estimated mortgage need:",
+   "okR": "Financing possible. New mortgage up to:",
+   "no": "Financing not possible. Maximum mortgage:",
+   "aff": "Affordability",
+   "ltv": "Loan-to-value",
+   "prev": "Previous monthly costs",
+   "total": "Total monthly costs",
+   "interest": "Interest",
+   "maint": "Maintenance / ancillary costs",
+   "amort": "Amortization",
+   "side": "Ancillary costs",
+   "icost": "Interest costs",
+   "monthly": "Monthly costs",
+   "cta": "Continue my project",
+   "min": "Minimum",
+   "fine": "Indicative calculation with indicative rates. Imputed 5 % interest and 0.8 % maintenance, affordability up to 35 %. Not a financing commitment."
+  }
+ },
+ "HUB_SLUGS": {
+  "themen": {
+   "de": "hypothek-themen",
+   "fr": "hypotheque-situations",
+   "it": "ipoteca-situazioni",
+   "en": "mortgage-situations"
+  },
+  "kantone": {
+   "de": "hypothek-kantone",
+   "fr": "hypotheque-cantons",
+   "it": "ipoteca-cantoni",
+   "en": "mortgage-cantons"
+  }
+ },
+ "HUB_NAV": {
+  "de": {
+   "themen": [
+    "Hypothek-Themen",
+    "Für jede Lebenslage"
+   ],
+   "kantone": [
+    "Hypothek nach Kanton",
+    "Alle 26 Kantone"
+   ]
+  },
+  "fr": {
+   "themen": [
+    "Situations",
+    "Pour chaque étape de vie"
+   ],
+   "kantone": [
+    "Hypothèque par canton",
+    "Les 26 cantons"
+   ]
+  },
+  "it": {
+   "themen": [
+    "Situazioni",
+    "Per ogni fase della vita"
+   ],
+   "kantone": [
+    "Ipoteca per cantone",
+    "Tutti i 26 cantoni"
+   ]
+  },
+  "en": {
+   "themen": [
+    "Mortgage topics",
+    "For every life situation"
+   ],
+   "kantone": [
+    "Mortgage by canton",
+    "All 26 cantons"
+   ]
+  }
+ },
+ "CT": {
+  "de": {
+   "eyebrow": "Hypothek · Kanton {name}",
+   "lead": "Vergleiche **kostenlos** Hypotheken von über 40 Banken, Versicherungen und Pensionskassen für dein Eigenheim im Kanton {name}. Anfrage in 3 Minuten, deine Beraterin meldet sich zeitnah.",
+   "c1": "Hypothek anfragen",
+   "c2": "Tragbarkeit prüfen",
+   "b": [
+    "0 CHF Vermittlung",
+    "40+ Finanzierungspartner",
+    "Region {name}"
+   ],
+   "s_e": "Kanton {name}",
+   "s_t": "Wohneigentum im\n*Kanton {name}.*",
+   "p_reg": "Gefragte Wohnregionen: **{regions}**.",
+   "p_cap": "Hauptort ist {capital}.",
+   "tax_no": "Der Kanton {name} erhebt **keine Handänderungssteuer**. Das senkt die Kaufnebenkosten.",
+   "tax_yes": "Der Kanton {name} erhebt eine **Handänderungssteuer**{rate}. Plane sie bei den Kaufnebenkosten ein.",
+   "tax_unk": "Kläre die kantonalen Gebühren für Grundbuch, Notariat und allfällige Handänderungssteuer frühzeitig.",
+   "not": "Notariat: {notary}.",
+   "bul": [
+    "Banken mit regionaler Stärke und überregionale Anbieter im Vergleich",
+    "Bewertung deiner Immobilie mit Wüest Partner",
+    "Begleitung bis zur Auszahlung"
+   ],
+   "r_e": "Richtzinsen",
+   "r_t": "Zinsen für\n*{name}.*",
+   "r_l": "Die Hypothekarzinsen hängen nicht vom Kanton ab, sondern vom Anbieter und deiner Situation. Deshalb lohnt sich der Vergleich.",
+   "k_e": "Rechner",
+   "k_t": "Was kostet\n*dein Eigenheim?*",
+   "st_e": "So funktioniert’s",
+   "st_t": "In drei Schritten\nzur Hypothek.",
+   "st": [
+    [
+     "Anfrage in 3 Minuten",
+     "Unterlagen hochladen, die KI liest die Angaben aus."
+    ],
+    [
+     "Beraterin meldet sich",
+     "Noch zeitnah, persönlich und kostenlos."
+    ],
+    [
+     "Offerten vergleichen",
+     "Angebote von über 40 Partnern, klar aufbereitet."
+    ]
+   ],
+   "l_e": "Weiterlesen",
+   "l_t": "Passend zu deinem\nProjekt.",
+   "faq_t": "Fragen zum\nKanton {name}.",
+   "q1": "Welche Banken finanzieren Eigenheime im Kanton {name}?",
+   "a1": "Neben den regionalen Banken finanzieren auch überregionale Banken, Versicherungen und Pensionskassen Wohneigentum im Kanton {name}. HYPOTEQ vergleicht über 40 Anbieter für dich.",
+   "q2": "Gibt es im Kanton {name} eine Handänderungssteuer?",
+   "q3": "Wie viel Eigenkapital brauche ich?",
+   "a3": "In der Regel mindestens 20 % des Kaufpreises, davon mindestens 10 % aus Mitteln, die nicht aus der Pensionskasse stammen. Bei Zweitwohnungen und Renditeobjekten meist mehr.",
+   "q4": "Ist der Vergleich kostenlos?",
+   "a4": "Ja. Vergleich und Vermittlung sind für dich kostenlos. HYPOTEQ wird im Erfolgsfall vom Finanzierungspartner entschädigt.",
+   "cta_t": "Dein Eigenheim im\n*Kanton {name}.*",
+   "cta_x": "Kostenlos vergleichen, persönlich beraten.",
+   "hub_e": "Hypothek nach Kanton",
+   "hub_t": "Deine Hypothek.\n*In jedem Kanton.*",
+   "hub_l": "Wähle deinen Kanton und erfahre, was beim Kauf vor Ort wichtig ist: Gebühren, Regionen und wie HYPOTEQ dich begleitet.",
+   "hub_title": "Hypothek in allen 26 Kantonen vergleichen | HYPOTEQ",
+   "hub_desc": "Hypothek für dein Eigenheim in deinem Kanton: kostenloser Vergleich von 40+ Anbietern, Infos zu Gebühren und Regionen. Jetzt Kanton wählen.",
+   "more": "Zum Kanton"
+  },
+  "fr": {
+   "eyebrow": "Hypothèque · Canton de {name}",
+   "lead": "Comparez **gratuitement** les hypothèques de plus de 40 banques, assurances et caisses de pension pour votre logement dans le canton de {name}. Demande en 3 minutes, votre conseillère vous rappelle rapidement.",
+   "c1": "Demander une hypothèque",
+   "c2": "Vérifier la capacité",
+   "b": [
+    "0 CHF de courtage",
+    "40+ partenaires",
+    "Région {name}"
+   ],
+   "s_e": "Canton de {name}",
+   "s_t": "Devenir propriétaire\n*dans le canton de {name}.*",
+   "p_reg": "Régions recherchées: **{regions}**.",
+   "p_cap": "Chef-lieu: {capital}.",
+   "tax_no": "Le canton de {name} ne prélève **pas de droits de mutation**. Les frais d'achat sont donc plus bas.",
+   "tax_yes": "Le canton de {name} prélève des **droits de mutation**{rate}. Prévoyez-les dans les frais d'achat.",
+   "tax_unk": "Clarifiez tôt les frais cantonaux de registre foncier, de notaire et d'éventuels droits de mutation.",
+   "not": "Notariat: {notary}.",
+   "bul": [
+    "Banques régionales et prêteurs nationaux comparés",
+    "Estimation de votre bien avec Wüest Partner",
+    "Accompagnement jusqu'au versement"
+   ],
+   "r_e": "Taux indicatifs",
+   "r_t": "Taux pour\n*{name}.*",
+   "r_l": "Les taux hypothécaires ne dépendent pas du canton, mais du prêteur et de votre situation. C'est pourquoi la comparaison vaut la peine.",
+   "k_e": "Calculateur",
+   "k_t": "Combien coûte\n*votre logement?*",
+   "st_e": "Comment ça marche",
+   "st_t": "Votre hypothèque\nen trois étapes.",
+   "st": [
+    [
+     "Demande en 3 minutes",
+     "Téléchargez vos documents, l'IA lit les informations."
+    ],
+    [
+     "Votre conseillère vous rappelle",
+     "Le jour ouvrable même, personnellement et gratuitement."
+    ],
+    [
+     "Comparer les offres",
+     "Offres de plus de 40 partenaires, présentées clairement."
+    ]
+   ],
+   "l_e": "À lire aussi",
+   "l_t": "Pour votre\nprojet.",
+   "faq_t": "Questions sur le\ncanton de {name}.",
+   "q1": "Quelles banques financent des logements dans le canton de {name}?",
+   "a1": "Outre les banques régionales, des banques nationales, des assurances et des caisses de pension financent des logements dans le canton de {name}. HYPOTEQ compare plus de 40 prêteurs pour vous.",
+   "q2": "Le canton de {name} prélève-t-il des droits de mutation?",
+   "q3": "De combien de fonds propres ai-je besoin?",
+   "a3": "En règle générale au moins 20 % du prix d'achat, dont au moins 10 % ne provenant pas du 2e pilier. Davantage pour les résidences secondaires et immeubles de rendement.",
+   "q4": "La comparaison est-elle gratuite?",
+   "a4": "Oui. La comparaison et le courtage sont gratuits pour vous. HYPOTEQ est rémunérée par le prêteur en cas de succès.",
+   "cta_t": "Votre logement dans\n*le canton de {name}.*",
+   "cta_x": "Comparer gratuitement, être conseillé personnellement.",
+   "hub_e": "Hypothèque par canton",
+   "hub_t": "Votre hypothèque.\n*Dans chaque canton.*",
+   "hub_l": "Choisissez votre canton et découvrez ce qui compte lors d'un achat: frais, régions et accompagnement HYPOTEQ.",
+   "hub_title": "Comparer les hypothèques dans les 26 cantons | HYPOTEQ",
+   "hub_desc": "Hypothèque pour votre logement dans votre canton: comparaison gratuite de 40+ prêteurs, frais et régions. Choisissez votre canton.",
+   "more": "Vers le canton"
+  },
+  "it": {
+   "eyebrow": "Ipoteca · Canton {name}",
+   "lead": "Confronta **gratuitamente** le ipoteche di oltre 40 banche, assicurazioni e casse pensioni per la tua casa nel Canton {name}. Richiesta in 3 minuti, la consulente ti richiama in tempi brevi.",
+   "c1": "Richiedi un'ipoteca",
+   "c2": "Verifica la sostenibilità",
+   "b": [
+    "0 CHF di intermediazione",
+    "40+ partner",
+    "Regione {name}"
+   ],
+   "s_e": "Canton {name}",
+   "s_t": "Casa di proprietà\n*nel Canton {name}.*",
+   "p_reg": "Regioni richieste: **{regions}**.",
+   "p_cap": "Capoluogo: {capital}.",
+   "tax_no": "Il Canton {name} **non preleva un'imposta sul trapasso di proprietà**. Ciò riduce i costi accessori.",
+   "tax_yes": "Il Canton {name} preleva un'**imposta sul trapasso**{rate}. Considerala nei costi d'acquisto.",
+   "tax_unk": "Chiarisci per tempo le tasse cantonali per registro fondiario, notaio ed eventuale imposta sul trapasso.",
+   "not": "Notariato: {notary}.",
+   "bul": [
+    "Banche regionali e istituti nazionali a confronto",
+    "Valutazione dell'immobile con Wüest Partner",
+    "Accompagnamento fino al versamento"
+   ],
+   "r_e": "Tassi indicativi",
+   "r_t": "Tassi per\n*{name}.*",
+   "r_l": "I tassi ipotecari non dipendono dal cantone, ma dall'istituto e dalla tua situazione. Per questo conviene confrontare.",
+   "k_e": "Calcolatore",
+   "k_t": "Quanto costa\n*la tua casa?*",
+   "st_e": "Come funziona",
+   "st_t": "La tua ipoteca\nin tre passi.",
+   "st": [
+    [
+     "Richiesta in 3 minuti",
+     "Carica i documenti, l'IA legge i dati."
+    ],
+    [
+     "La consulente ti richiama",
+     "Lo stesso giorno lavorativo, di persona e gratis."
+    ],
+    [
+     "Confronta le offerte",
+     "Offerte di oltre 40 partner, presentate in modo chiaro."
+    ]
+   ],
+   "l_e": "Approfondisci",
+   "l_t": "Per il tuo\nprogetto.",
+   "faq_t": "Domande sul\nCanton {name}.",
+   "q1": "Quali banche finanziano case nel Canton {name}?",
+   "a1": "Oltre alle banche regionali, anche banche nazionali, assicurazioni e casse pensioni finanziano abitazioni nel Canton {name}. HYPOTEQ confronta oltre 40 istituti per te.",
+   "q2": "Il Canton {name} preleva un'imposta sul trapasso?",
+   "q3": "Quanti fondi propri servono?",
+   "a3": "Di regola almeno il 20 % del prezzo d'acquisto, di cui almeno il 10 % non proveniente dalla cassa pensione. Di più per residenze secondarie e immobili a reddito.",
+   "q4": "Il confronto è gratuito?",
+   "a4": "Sì. Confronto e intermediazione sono gratuiti per te. HYPOTEQ è remunerata dall'istituto in caso di successo.",
+   "cta_t": "La tua casa nel\n*Canton {name}.*",
+   "cta_x": "Confronta gratis, consulenza personale.",
+   "hub_e": "Ipoteca per cantone",
+   "hub_t": "La tua ipoteca.\n*In ogni cantone.*",
+   "hub_l": "Scegli il tuo cantone e scopri cosa conta nell'acquisto: costi, regioni e accompagnamento HYPOTEQ.",
+   "hub_title": "Confronta ipoteche in tutti i 26 cantoni | HYPOTEQ",
+   "hub_desc": "Ipoteca per la tua casa nel tuo cantone: confronto gratuito di 40+ istituti, costi e regioni. Scegli ora il tuo cantone.",
+   "more": "Al cantone"
+  },
+  "en": {
+   "eyebrow": "Mortgage · Canton of {name}",
+   "lead": "Compare mortgages from more than 40 banks, insurers and pension funds **for free** for your home in the canton of {name}. Request in 3 minutes, your advisor calls you back promptly.",
+   "c1": "Request a mortgage",
+   "c2": "Check affordability",
+   "b": [
+    "CHF 0 brokerage",
+    "40+ lenders",
+    "Region {name}"
+   ],
+   "s_e": "Canton of {name}",
+   "s_t": "Owning a home in\n*the canton of {name}.*",
+   "p_reg": "Popular residential areas: **{regions}**.",
+   "p_cap": "The capital is {capital}.",
+   "tax_no": "The canton of {name} levies **no property transfer tax**, which lowers purchase costs.",
+   "tax_yes": "The canton of {name} levies a **property transfer tax**{rate}. Include it in your purchase costs.",
+   "tax_unk": "Clarify cantonal fees for land registry, notary and any transfer tax early on.",
+   "not": "Notary system: {notary}.",
+   "bul": [
+    "Regional banks and national lenders compared",
+    "Property valuation with Wüest Partner",
+    "Support until the loan is paid out"
+   ],
+   "r_e": "Indicative rates",
+   "r_t": "Rates for\n*{name}.*",
+   "r_l": "Mortgage rates don't depend on the canton but on the lender and your situation. That's why comparing pays off.",
+   "k_e": "Calculator",
+   "k_t": "What does\n*your home cost?*",
+   "st_e": "How it works",
+   "st_t": "Your mortgage\nin three steps.",
+   "st": [
+    [
+     "Request in 3 minutes",
+     "Upload your documents, the AI reads the details."
+    ],
+    [
+     "Your advisor calls you",
+     "The same working day, personal and free."
+    ],
+    [
+     "Compare offers",
+     "Offers from 40+ lenders, clearly presented."
+    ]
+   ],
+   "l_e": "Read more",
+   "l_t": "For your\nproject.",
+   "faq_t": "Questions about\nthe canton of {name}.",
+   "q1": "Which banks finance homes in the canton of {name}?",
+   "a1": "Besides regional banks, national banks, insurers and pension funds finance homes in the canton of {name}. HYPOTEQ compares 40+ lenders for you.",
+   "q2": "Does the canton of {name} charge a property transfer tax?",
+   "q3": "How much equity do I need?",
+   "a3": "Usually at least 20 % of the purchase price, with at least 10 % not coming from your pension fund. More for second homes and buy-to-let.",
+   "q4": "Is the comparison free?",
+   "a4": "Yes. Comparison and brokerage are free for you. HYPOTEQ is paid by the lender if the mortgage is concluded.",
+   "cta_t": "Your home in\n*the canton of {name}.*",
+   "cta_x": "Compare for free, get personal advice.",
+   "hub_e": "Mortgage by canton",
+   "hub_t": "Your mortgage.\n*In every canton.*",
+   "hub_l": "Choose your canton and learn what matters when buying there: fees, regions and how HYPOTEQ supports you.",
+   "hub_title": "Compare mortgages in all 26 Swiss cantons | HYPOTEQ",
+   "hub_desc": "A mortgage for your home in your canton: free comparison of 40+ lenders, fees and regions. Choose your canton now.",
+   "more": "To the canton"
+  }
+ }
+}

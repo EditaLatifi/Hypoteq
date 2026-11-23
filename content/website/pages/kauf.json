@@ -1,0 +1,1206 @@
+{
+ "de": {
+  "title": "Hypothek für den Hauskauf: Eigenheim finanzieren | HYPOTEQ",
+  "description": "Haus oder Wohnung kaufen? Erhalte rasch eine Finanzierungsbestätigung und die besten Konditionen aus 40+ Angeboten. Anfrage in 3 Minuten.",
+  "h1": "Dein Eigenheim richtig finanzieren",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypothek Hauskauf",
+    "h1": "Dein Eigenheim richtig finanzieren",
+    "lead": "Du hast dein Traumobjekt gefunden? Mit HYPOTEQ erhältst du für deine **Hypothek zum Hauskauf** rasch eine Finanzierungsbestätigung und vergleichst Konditionen von über 40 Banken, Versicherungen und Pensionskassen.",
+    "ctas": [
+     {
+      "label": "Finanzierung anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "Tragbarkeit prüfen",
+      "to": "page:tragbarkeit"
+     }
+    ],
+    "badges": [
+     "Kostenlos & unverbindlich",
+     "Offerten in 48–72 h",
+     "Für Haus & Wohnung"
+    ],
+    "image": "family-home",
+    "alt": "Familie am Esstisch in ihrem neuen Zuhause",
+    "float": {
+     "title": "5 Jahre fest ab 1.30 %",
+     "text": "Richtzins · Beispielwert"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "Finanzierungspartner im Vergleich"
+     },
+     {
+      "value": "3 Min.",
+      "label": "bis zur vollständigen Anfrage"
+     },
+     {
+      "value": "48–72 h",
+      "label": "bis zu konkreten Offerten"
+     },
+     {
+      "value": "0 CHF",
+      "label": "für Vergleich und Vermittlung"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Finanzierungsbestätigung",
+    "title": "Zuerst die Zusage.\n*Dann das Angebot.*",
+    "image": "keys",
+    "alt": "Schlüsselübergabe beim Wohnungskauf",
+    "paragraphs": [
+     "Wer ein **Eigenheim finanzieren** will, braucht im Bieterverfahren schnell Klarheit. Eine Finanzierungsbestätigung zeigt Verkäufer und Makler, dass dein Angebot solide ist.",
+     "Mit vollständigen Unterlagen erhältst du in der Regel innert **48–72 Stunden** konkrete Offerten. Wir prüfen dabei nicht nur den Zins, sondern auch Amortisation, Laufzeiten und Bedingungen."
+    ],
+    "bullets": [
+     "Ideal für die erste Hypothek und den Wohnungskauf",
+     "Eine Anfrage, über 40 Anbieter",
+     "Beraterin meldet sich zeitnah"
+    ],
+    "ctas": [
+     {
+      "label": "Finanzierungsbestätigung anfragen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Hauskauf-Finanzierung",
+    "title": "Vier Regeln,\n*die jede Bank prüft.*",
+    "lead": "Allgemeine Schweizer Grundregeln, Stand 2026, ohne Gewähr.",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Eigenmittel",
+      "title": "Mind. 20 %",
+      "text": "Davon mindestens 10 % «hart», also nicht aus der Pensionskasse.",
+      "to": "page:rg-eigenmittel"
+     },
+     {
+      "kicker": "Tragbarkeit",
+      "title": "Max. ca. ⅓",
+      "text": "Kalkulatorischer Zins 5 %, Unterhalt 1 % und Amortisation im Verhältnis zum Bruttoeinkommen.",
+      "to": "page:rg-tragbarkeit"
+     },
+     {
+      "kicker": "Nebenkosten",
+      "title": "Ca. 2–5 %",
+      "text": "Handänderungssteuer, Notar, Grundbuch und Schuldbrief, je nach Kanton.",
+      "to": "page:rg-nebenkosten"
+     },
+     {
+      "kicker": "Vorsorge",
+      "title": "PK & Säule 3a",
+      "text": "Vorbezug ab CHF 20’000 oder Verpfändung. Reglement prüfen.",
+      "to": "page:rg-pk"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "mode": "tragbarkeit",
+    "eyebrow": "Wie viel Haus kann ich mir leisten?",
+    "title": "Tragbarkeit\nin Sekunden.",
+    "lead": "Gib Kaufpreis, Eigenmittel und Einkommen ein und sieh, wie Banken rechnen."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Vom Objekt zum Schlüssel",
+    "title": "So läuft dein\nHauskauf mit uns.",
+    "items": [
+     {
+      "title": "Anfrage in 3 Minuten",
+      "text": "Lade Lohnausweis, ID und Objektunterlagen hoch. Die KI liest die meisten Angaben aus."
+     },
+     {
+      "title": "Persönliche Prüfung",
+      "text": "Deine Beraterin prüft Eigenmittel, Tragbarkeit und den Einsatz von Vorsorgegeldern."
+     },
+     {
+      "title": "Offerten & Bestätigung",
+      "text": "Wir holen Angebote ein und du erhältst eine Finanzierungsbestätigung für dein Kaufangebot."
+     },
+     {
+      "title": "Notar & Auszahlung",
+      "text": "Wir koordinieren mit Bank, Notariat und Makler bis zur Schlüsselübergabe."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Jetzt starten",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Welche Dokumente braucht die Bank?",
+    "title": "Unterlagen hochladen.\n*Die KI erledigt den Rest.*",
+    "screen": "funnel",
+    "reverse": true,
+    "paragraphs": [
+     "Für die **Wohnung kaufen Hypothek** brauchst du Angaben zu dir und zum Objekt. In der Schnellanmeldung lädst du alles hoch, unsere KI erkennt die meisten Daten und zeigt dir, was noch fehlt."
+    ],
+    "bullets": [
+     "Lohnausweis, Steuererklärung, Pensionskassenausweis",
+     "Ausweis und Betreibungsauszug",
+     "Verkaufsdokumentation, Grundbuchauszug, Kaufvertrag-Entwurf",
+     "Daten werden in der Schweiz verarbeitet"
+    ],
+    "ctas": [
+     {
+      "label": "Unterlagen hochladen",
+      "to": "funnel"
+     },
+     {
+      "label": "Checkliste herunterladen",
+      "to": "page:dokumente"
+     }
+    ]
+   },
+   {
+    "type": "compare",
+    "eyebrow": "Warum ein Vermittler?",
+    "title": "Hausbank oder HYPOTEQ?",
+    "head": [
+     "",
+     "Hausbank",
+     "HYPOTEQ"
+    ],
+    "rows": [
+     [
+      "Angebote",
+      "1",
+      "40+ Finanzierungspartner"
+     ],
+     [
+      "Kosten für dich",
+      "keine",
+      "0 CHF"
+     ],
+     [
+      "Verhandlung",
+      "selbst",
+      "wir verhandeln für dich"
+     ],
+     [
+      "Beratung",
+      "eigene Produkte",
+      "neutral"
+     ]
+    ],
+    "note": "HYPOTEQ wird im Erfolgsfall vom Finanzierungspartner entschädigt."
+   },
+   {
+    "type": "testimonials",
+    "eyebrow": "Kundenstimmen",
+    "title": "Vom ersten Gespräch\nbis zum Schlüssel.",
+    "items": [
+     {
+      "text": "Die neutrale Beratung brachte uns mehrere attraktive Finanzierungsangebote. Alles lief reibungslos.",
+      "author": "Chris E."
+     },
+     {
+      "text": "Erstklassiger Service, alles wurde schnell bearbeitet.",
+      "author": "Andreas K."
+     },
+     {
+      "text": "Mein Berater hat mich optimal begleitet und war sehr präsent.",
+      "author": "Romain C."
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Weiterlesen",
+    "title": "Gut vorbereitet\n*zum Eigenheim.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Bewertung",
+      "title": "Ist der Preis fair?",
+      "text": "Marktwert nach dem Modell von Wüest Partner, CHF 300 statt 450.",
+      "to": "page:bewertung"
+     },
+     {
+      "kicker": "Modelle",
+      "title": "SARON oder Fest?",
+      "text": "Welches Hypothekarmodell zu deinem ersten Eigenheim passt.",
+      "to": "page:rg-saron-fest"
+     },
+     {
+      "kicker": "Übersicht",
+      "title": "Alle Hypotheken",
+      "text": "Kauf, Ablösung, Neubau und Spezialfälle.",
+      "to": "page:hypotheken"
+     },
+     {
+      "kicker": "Für Makler",
+      "title": "Partner werden",
+      "text": "Du verkaufst Immobilien? Deine Käufer finanzieren mit uns, du erhältst eine Provision.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Hauskauf\nohne Fragezeichen.",
+    "items": [
+     {
+      "q": "Wie viel Eigenkapital brauche ich für den Hauskauf?",
+      "a": "Mindestens **20 %** des Kaufpreises, davon mind. 10 % «harte» Eigenmittel. Den Rest kannst du z. B. mit Pensionskasse oder Säule 3a decken. Die Kaufnebenkosten von ca. 2–5 % zahlst du zusätzlich aus eigenen Mitteln. Stand 2026, ohne Gewähr."
+     },
+     {
+      "q": "Wie schnell erhalte ich eine Finanzierungsbestätigung?",
+      "a": "Deine Beraterin meldet sich zeitnah. Mit vollständigen Unterlagen erhältst du meist innert 48–72 Stunden Offerten und darauf basierend die Finanzierungsbestätigung."
+     },
+     {
+      "q": "Welche Dokumente braucht die Bank?",
+      "a": "Typisch sind Lohnausweis, Steuererklärung, Pensionskassenausweis, Betreibungsauszug, ID sowie Verkaufsdokumentation, Grundbuchauszug und Kaufvertrag-Entwurf. Unsere Checkliste hilft dir dabei."
+     },
+     {
+      "q": "Wie viel Haus kann ich mir leisten?",
+      "a": "Banken rechnen mit einem kalkulatorischen Zins von 5 %, 1 % Unterhalt und Amortisation. Diese Kosten sollten max. ca. ein Drittel deines Bruttoeinkommens ausmachen. Unser Tragbarkeitsrechner zeigt dir den Rahmen."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Tragbarkeitsrechner",
+      "to": "page:tragbarkeit"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Bereit für dein\n*Eigenheim?*",
+    "text": "Kostenlos vergleichen und in 3 Minuten die Finanzierung anfragen.",
+    "ctas": [
+     {
+      "label": "Finanzierung anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Hypothèque pour l'achat d'un logement | HYPOTEQ",
+  "description": "Vous achetez une maison ou un appartement? Obtenez vite une attestation de financement et les meilleures conditions parmi 40+ offres. Demande en 3 min.",
+  "h1": "Financer l'achat de votre logement",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypothèque achat maison",
+    "h1": "Financer l'achat\nde votre logement",
+    "lead": "Vous avez trouvé le bien idéal? Avec HYPOTEQ, vous obtenez rapidement une attestation de financement pour votre **hypothèque d'achat de maison** ou d'appartement et comparez les conditions de plus de 40 banques, assurances et caisses de pension.",
+    "ctas": [
+     {
+      "label": "Demander un financement",
+      "to": "funnel"
+     },
+     {
+      "label": "Calculer ma capacité",
+      "to": "page:tragbarkeit"
+     }
+    ],
+    "badges": [
+     "Gratuit & sans engagement",
+     "Offres en 48–72 h",
+     "Maison & appartement"
+    ],
+    "image": "family-home",
+    "alt": "Famille à table dans son nouveau logement",
+    "float": {
+     "title": "Fixe 5 ans dès 1.30 %",
+     "text": "Taux indicatif · valeur d'exemple"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "partenaires de financement comparés"
+     },
+     {
+      "value": "3 min",
+      "label": "pour une demande complète"
+     },
+     {
+      "value": "48–72 h",
+      "label": "jusqu'aux offres concrètes"
+     },
+     {
+      "value": "0 CHF",
+      "label": "pour la comparaison et le courtage"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Attestation de financement",
+    "title": "D'abord l'accord.\n*Ensuite l'offre d'achat.*",
+    "image": "keys",
+    "alt": "Remise des clés lors d'un achat immobilier",
+    "paragraphs": [
+     "Pour **acheter un bien immobilier en Suisse**, il faut vite de la clarté, surtout quand plusieurs acheteurs sont intéressés. L'attestation de financement montre au vendeur et au courtier que votre offre est solide.",
+     "Avec un dossier complet, vous recevez en général des offres concrètes sous **48 à 72 heures**. Nous comparons non seulement le taux, mais aussi l'amortissement, les durées et les conditions."
+    ],
+    "bullets": [
+     "Idéal pour un premier achat immobilier",
+     "Une demande, plus de 40 prêteurs",
+     "Votre conseillère vous contacte rapidement"
+    ],
+    "ctas": [
+     {
+      "label": "Demander une attestation",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Financer un achat",
+    "title": "Quatre règles\n*que chaque banque vérifie.*",
+    "lead": "Règles générales en Suisse, état 2026, sans garantie.",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Fonds propres",
+      "title": "Min. 20 %",
+      "text": "Dont au moins 10 % hors 2e pilier.",
+      "to": "page:rg-eigenmittel"
+     },
+     {
+      "kicker": "Capacité financière",
+      "title": "Max. env. ⅓",
+      "text": "Taux théorique 5 %, entretien 1 % et amortissement par rapport au revenu brut.",
+      "to": "page:rg-tragbarkeit"
+     },
+     {
+      "kicker": "Frais d'achat",
+      "title": "Env. 2–5 %",
+      "text": "Droits de mutation, notaire, registre foncier et cédule, selon le canton.",
+      "to": "page:rg-nebenkosten"
+     },
+     {
+      "kicker": "Prévoyance",
+      "title": "2e & 3e pilier",
+      "text": "Retrait dès CHF 20’000 ou nantissement. Vérifiez le règlement.",
+      "to": "page:rg-pk"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "mode": "tragbarkeit",
+    "eyebrow": "Quel prix puis-je me permettre?",
+    "title": "Votre capacité\nen quelques secondes.",
+    "lead": "Saisissez prix, fonds propres et revenu et voyez comment calculent les banques."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Du bien aux clés",
+    "title": "Votre achat\navec HYPOTEQ.",
+    "items": [
+     {
+      "title": "Demande en 3 minutes",
+      "text": "Téléchargez certificat de salaire, pièce d'identité et documents du bien. L'IA lit la plupart des informations."
+     },
+     {
+      "title": "Analyse personnelle",
+      "text": "Votre conseillère vérifie fonds propres, capacité financière et utilisation du 2e et 3e pilier."
+     },
+     {
+      "title": "Offres & attestation",
+      "text": "Nous obtenons les offres et vous recevez une attestation de financement pour votre offre d'achat."
+     },
+     {
+      "title": "Notaire & versement",
+      "text": "Nous coordonnons banque, notaire et courtier jusqu'à la remise des clés."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Commencer",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Quels documents la banque demande-t-elle?",
+    "title": "Envoyez vos documents.\n*L'IA fait le reste.*",
+    "screen": "funnel",
+    "reverse": true,
+    "paragraphs": [
+     "Pour **financer l'achat d'un appartement** ou d'une maison, la banque a besoin d'informations sur vous et sur le bien. Avec l'inscription rapide, vous téléchargez tout: notre IA reconnaît la plupart des données et vous indique ce qui manque."
+    ],
+    "bullets": [
+     "Certificat de salaire, déclaration d'impôt, certificat de caisse de pension",
+     "Pièce d'identité et extrait des poursuites",
+     "Dossier de vente, extrait du registre foncier, projet d'acte de vente",
+     "Données traitées en Suisse"
+    ],
+    "ctas": [
+     {
+      "label": "Envoyer mes documents",
+      "to": "funnel"
+     },
+     {
+      "label": "Télécharger la checklist",
+      "to": "page:dokumente"
+     }
+    ]
+   },
+   {
+    "type": "compare",
+    "eyebrow": "Pourquoi un courtier?",
+    "title": "Votre banque ou HYPOTEQ?",
+    "head": [
+     "",
+     "Votre banque",
+     "HYPOTEQ"
+    ],
+    "rows": [
+     [
+      "Offres",
+      "1",
+      "40+ partenaires de financement"
+     ],
+     [
+      "Coût pour vous",
+      "aucun",
+      "0 CHF"
+     ],
+     [
+      "Négociation",
+      "vous-même",
+      "nous négocions pour vous"
+     ],
+     [
+      "Conseil",
+      "produits maison",
+      "neutre"
+     ]
+    ],
+    "note": "En cas de succès, HYPOTEQ est rémunéré par le partenaire de financement."
+   },
+   {
+    "type": "testimonials",
+    "eyebrow": "Avis clients",
+    "title": "Du premier entretien\naux clés.",
+    "items": [
+     {
+      "text": "Le conseil neutre nous a apporté plusieurs offres de financement intéressantes. Tout s'est déroulé sans accroc.",
+      "author": "Chris E."
+     },
+     {
+      "text": "Un service de premier ordre, tout a été traité rapidement.",
+      "author": "Andreas K."
+     },
+     {
+      "text": "Mon conseiller m'a accompagné de façon optimale et a été très présent.",
+      "author": "Romain C."
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Pour aller plus loin",
+    "title": "Bien préparé\n*pour devenir propriétaire.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Estimation",
+      "title": "Le prix est-il juste?",
+      "text": "Valeur de marché selon le modèle de Wüest Partner, CHF 300 au lieu de 450.",
+      "to": "page:bewertung"
+     },
+     {
+      "kicker": "Modèles",
+      "title": "SARON ou taux fixe?",
+      "text": "Quel modèle convient à votre premier achat.",
+      "to": "page:rg-saron-fest"
+     },
+     {
+      "kicker": "Aperçu",
+      "title": "Toutes les hypothèques",
+      "text": "Achat, renouvellement, construction et cas particuliers.",
+      "to": "page:hypotheken"
+     },
+     {
+      "kicker": "Courtiers immobiliers",
+      "title": "Devenir partenaire",
+      "text": "Vous vendez des biens? Vos acheteurs se financent avec nous, vous touchez une commission.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "Acheter\nen toute clarté.",
+    "items": [
+     {
+      "q": "Combien de fonds propres pour acheter un bien?",
+      "a": "Au moins **20 %** du prix d'achat, dont au moins 10 % hors 2e pilier. Le reste peut provenir du 2e ou du 3e pilier. Les frais d'achat d'environ 2 à 5 % s'ajoutent et se paient avec vos propres moyens. État 2026, sans garantie."
+     },
+     {
+      "q": "Comment obtenir une attestation de financement?",
+      "a": "Lancez la demande en ligne. Votre conseillère vous contacte rapidement. Dossier complet, vous recevez le plus souvent des offres sous 48 à 72 heures, puis l'attestation de financement."
+     },
+     {
+      "q": "Quels documents la banque demande-t-elle?",
+      "a": "En général: certificat de salaire, déclaration d'impôt, certificat de caisse de pension, extrait des poursuites, pièce d'identité, ainsi que dossier de vente, extrait du registre foncier et projet d'acte. Notre checklist vous aide."
+     },
+     {
+      "q": "Quel prix d'achat puis-je me permettre?",
+      "a": "Les banques calculent avec un taux théorique de 5 %, 1 % d'entretien et l'amortissement. Ces charges ne devraient pas dépasser environ un tiers de votre revenu brut. Notre calculateur vous donne le cadre."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Calculateur de capacité",
+      "to": "page:tragbarkeit"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Prêt à devenir\n*propriétaire?*",
+    "text": "Comparez gratuitement et demandez votre financement en 3 minutes.",
+    "ctas": [
+     {
+      "label": "Demander un financement",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Ipoteca per l'acquisto della casa | HYPOTEQ",
+  "description": "Compri casa o appartamento in Ticino? Ottieni rapidamente una conferma di finanziamento e le condizioni migliori tra 40+ offerte. Richiesta in 3 minuti.",
+  "h1": "Finanziare l'acquisto della tua casa",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Ipoteca acquisto casa",
+    "h1": "Finanziare l'acquisto\ndella tua casa",
+    "lead": "Hai trovato l'immobile dei tuoi sogni? Con HYPOTEQ ottieni rapidamente una conferma di finanziamento per la tua **ipoteca per l'acquisto della casa** e confronti le condizioni di oltre 40 banche, assicurazioni e casse pensione.",
+    "ctas": [
+     {
+      "label": "Richiedi il finanziamento",
+      "to": "funnel"
+     },
+     {
+      "label": "Verifica la sostenibilità",
+      "to": "page:tragbarkeit"
+     }
+    ],
+    "badges": [
+     "Gratuito e senza impegno",
+     "Offerte in 48–72 h",
+     "Casa & appartamento"
+    ],
+    "image": "family-home",
+    "alt": "Famiglia a tavola nella nuova casa",
+    "float": {
+     "title": "Fisso 5 anni da 1.30 %",
+     "text": "Tasso indicativo · valore d'esempio"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "partner di finanziamento a confronto"
+     },
+     {
+      "value": "3 min",
+      "label": "per una richiesta completa"
+     },
+     {
+      "value": "48–72 h",
+      "label": "fino alle offerte concrete"
+     },
+     {
+      "value": "0 CHF",
+      "label": "per confronto e mediazione"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Conferma di finanziamento",
+    "title": "Prima la conferma.\n*Poi l'offerta d'acquisto.*",
+    "image": "keys",
+    "alt": "Consegna delle chiavi dopo l'acquisto",
+    "paragraphs": [
+     "Se vuoi **comprare casa in Ticino** o nel resto della Svizzera, ti serve chiarezza in fretta, soprattutto se ci sono altri interessati. La conferma di finanziamento mostra a venditore e agente che la tua offerta è solida.",
+     "Con la documentazione completa ricevi di regola offerte concrete entro **48–72 ore**. Non confrontiamo solo il tasso, ma anche ammortamento, durate e condizioni."
+    ],
+    "bullets": [
+     "Ideale per la prima casa in Svizzera",
+     "Una richiesta, oltre 40 istituti",
+     "La consulente ti contatta in tempi brevi"
+    ],
+    "ctas": [
+     {
+      "label": "Richiedi la conferma",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Finanziamento dell'acquisto",
+    "title": "Quattro regole\n*che ogni banca verifica.*",
+    "lead": "Regole generali svizzere, stato 2026, senza garanzia.",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Fondi propri",
+      "title": "Min. 20 %",
+      "text": "Di cui almeno il 10 % non dalla cassa pensione.",
+      "to": "page:rg-eigenmittel"
+     },
+     {
+      "kicker": "Sostenibilità",
+      "title": "Max. ca. ⅓",
+      "text": "Tasso teorico 5 %, manutenzione 1 % e ammortamento rispetto al reddito lordo.",
+      "to": "page:rg-tragbarkeit"
+     },
+     {
+      "kicker": "Spese accessorie",
+      "title": "Ca. 2–5 %",
+      "text": "Imposta di trapasso, notaio, registro fondiario e cartella ipotecaria, secondo il cantone.",
+      "to": "page:rg-nebenkosten"
+     },
+     {
+      "kicker": "Previdenza",
+      "title": "Cassa pensione & 3° pilastro",
+      "text": "Prelievo da CHF 20’000 o costituzione in pegno. Verifica il regolamento.",
+      "to": "page:rg-pk"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "mode": "tragbarkeit",
+    "eyebrow": "Quanto posso spendere per una casa?",
+    "title": "Sostenibilità\nin pochi secondi.",
+    "lead": "Inserisci prezzo, fondi propri e reddito e scopri come calcolano le banche."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Dall'immobile alle chiavi",
+    "title": "Il tuo acquisto\ncon HYPOTEQ.",
+    "items": [
+     {
+      "title": "Richiesta in 3 minuti",
+      "text": "Carica certificato di salario, documento d'identità e documenti dell'immobile. L'IA legge gran parte dei dati."
+     },
+     {
+      "title": "Verifica personale",
+      "text": "La tua consulente controlla fondi propri, sostenibilità e uso della cassa pensione."
+     },
+     {
+      "title": "Offerte & conferma",
+      "text": "Raccogliamo le offerte e ricevi una conferma di finanziamento per la tua offerta d'acquisto."
+     },
+     {
+      "title": "Notaio & versamento",
+      "text": "Coordiniamo banca, notaio e agente fino alla consegna delle chiavi."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Inizia ora",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Quali documenti richiede la banca?",
+    "title": "Carica i documenti.\n*Al resto pensa l'IA.*",
+    "screen": "funnel",
+    "reverse": true,
+    "paragraphs": [
+     "Per il **finanziamento di un appartamento** o di una casa servono dati su di te e sull'immobile. Con l'iscrizione rapida carichi tutto: la nostra IA riconosce la maggior parte delle informazioni e ti mostra cosa manca."
+    ],
+    "bullets": [
+     "Certificato di salario, dichiarazione fiscale, certificato della cassa pensione",
+     "Documento d'identità ed estratto esecuzioni",
+     "Documentazione di vendita, estratto del registro fondiario, bozza del contratto",
+     "Dati trattati in Svizzera"
+    ],
+    "ctas": [
+     {
+      "label": "Carica i documenti",
+      "to": "funnel"
+     },
+     {
+      "label": "Scarica la checklist",
+      "to": "page:dokumente"
+     }
+    ]
+   },
+   {
+    "type": "compare",
+    "eyebrow": "Perché un broker?",
+    "title": "La tua banca o HYPOTEQ?",
+    "head": [
+     "",
+     "La tua banca",
+     "HYPOTEQ"
+    ],
+    "rows": [
+     [
+      "Offerte",
+      "1",
+      "40+ partner di finanziamento"
+     ],
+     [
+      "Costi per te",
+      "nessuno",
+      "0 CHF"
+     ],
+     [
+      "Trattativa",
+      "da solo",
+      "trattiamo noi per te"
+     ],
+     [
+      "Consulenza",
+      "prodotti propri",
+      "neutrale"
+     ]
+    ],
+    "note": "In caso di successo HYPOTEQ viene remunerata dal partner di finanziamento."
+   },
+   {
+    "type": "testimonials",
+    "eyebrow": "Opinioni dei clienti",
+    "title": "Dal primo colloquio\nalle chiavi.",
+    "items": [
+     {
+      "text": "La consulenza neutrale ci ha portato diverse offerte interessanti. Tutto si è svolto senza intoppi.",
+      "author": "Chris E."
+     },
+     {
+      "text": "Servizio di prima classe, tutto è stato gestito rapidamente.",
+      "author": "Andreas K."
+     },
+     {
+      "text": "Il mio consulente mi ha accompagnato in modo ottimale ed è stato molto presente.",
+      "author": "Romain C."
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Per approfondire",
+    "title": "Ben preparato\n*per la casa propria.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Valutazione",
+      "title": "Il prezzo è giusto?",
+      "text": "Valore di mercato secondo il modello di Wüest Partner, CHF 300 invece di 450.",
+      "to": "page:bewertung"
+     },
+     {
+      "kicker": "Modelli",
+      "title": "SARON o fisso?",
+      "text": "Quale modello ipotecario fa per la tua prima casa.",
+      "to": "page:rg-saron-fest"
+     },
+     {
+      "kicker": "Panoramica",
+      "title": "Tutte le ipoteche",
+      "text": "Acquisto, rinnovo, costruzione e casi particolari.",
+      "to": "page:hypotheken"
+     },
+     {
+      "kicker": "Per agenti immobiliari",
+      "title": "Diventa partner",
+      "text": "Vendi immobili? I tuoi acquirenti si finanziano con noi e tu ricevi una provvigione.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "Comprare casa\nsenza punti interrogativi.",
+    "items": [
+     {
+      "q": "Quanti fondi propri servono per comprare casa?",
+      "a": "Almeno il **20 %** del prezzo d'acquisto, di cui almeno il 10 % non dalla cassa pensione. Il resto può arrivare dalla cassa pensione o dal 3° pilastro. Le spese accessorie del 2–5 % circa si pagano in più con mezzi propri. Stato 2026, senza garanzia."
+     },
+     {
+      "q": "Come ottengo una conferma di finanziamento?",
+      "a": "Avvia la richiesta online. La consulente ti contatta in tempi brevi. Con la documentazione completa ricevi di solito offerte entro 48–72 ore e, sulla base di queste, la conferma di finanziamento."
+     },
+     {
+      "q": "Quali documenti richiede la banca?",
+      "a": "Di solito: certificato di salario, dichiarazione fiscale, certificato della cassa pensione, estratto esecuzioni, documento d'identità, documentazione di vendita, estratto del registro fondiario e bozza del contratto. La nostra checklist ti aiuta."
+     },
+     {
+      "q": "Quanto posso spendere per una casa?",
+      "a": "Le banche calcolano con un tasso teorico del 5 %, 1 % di manutenzione e l'ammortamento. Questi costi non dovrebbero superare circa un terzo del reddito lordo. Il nostro calcolatore ti mostra il margine."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Calcolatore di sostenibilità",
+      "to": "page:tragbarkeit"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Pronto per\n*la tua casa?*",
+    "text": "Confronta gratis e richiedi il finanziamento in 3 minuti.",
+    "ctas": [
+     {
+      "label": "Richiedi il finanziamento",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "Mortgage to Buy a Home in Switzerland | HYPOTEQ",
+  "description": "Buying a house or flat in Switzerland? Get a financing confirmation fast and the best terms from 40+ lenders. Apply in 3 minutes, advice in English.",
+  "h1": "Finance your Swiss home purchase",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Buy a house in Switzerland",
+    "h1": "Finance your\nSwiss home purchase",
+    "lead": "Found the right place? With HYPOTEQ you get a fast financing confirmation for your **mortgage to buy a house in Switzerland** and compare terms from 40+ banks, insurers and pension funds, with advice in English.",
+    "ctas": [
+     {
+      "label": "Request financing",
+      "to": "funnel"
+     },
+     {
+      "label": "Check affordability",
+      "to": "page:tragbarkeit"
+     }
+    ],
+    "badges": [
+     "Free & non-binding",
+     "Offers in 48–72 h",
+     "Houses & flats"
+    ],
+    "image": "family-home",
+    "alt": "Family at the table in their new home",
+    "float": {
+     "title": "5-year fixed from 1.30 %",
+     "text": "Indicative rate · sample value"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "financing partners compared"
+     },
+     {
+      "value": "3 min",
+      "label": "to a complete application"
+     },
+     {
+      "value": "48–72 h",
+      "label": "to concrete offers"
+     },
+     {
+      "value": "CHF 0",
+      "label": "for comparison and brokerage"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Mortgage pre-approval",
+    "title": "Approval first.\n*Then your offer.*",
+    "image": "keys",
+    "alt": "Key handover after buying a flat",
+    "paragraphs": [
+     "When **buying property in Switzerland**, you need clarity fast, especially if other buyers are bidding. A financing confirmation (similar to a pre-approval) shows the seller and agent that your offer is solid.",
+     "Once your documents are complete, you usually receive concrete offers within **48–72 hours**. We compare not only the rate, but also amortisation, terms and conditions."
+    ],
+    "bullets": [
+     "Ideal for your first home in Switzerland",
+     "One application, 40+ lenders",
+     "Your advisor gets back to you promptly"
+    ],
+    "ctas": [
+     {
+      "label": "Get a financing confirmation",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Swiss home financing",
+    "title": "Four rules\n*every bank checks.*",
+    "lead": "General Swiss rules, as of 2026, without guarantee.",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Equity",
+      "title": "Min. 20 %",
+      "text": "At least 10 % must be «hard» equity, i.e. not from your pension fund (pillar 2).",
+      "to": "page:rg-eigenmittel"
+     },
+     {
+      "kicker": "Affordability",
+      "title": "Max. about ⅓",
+      "text": "Imputed 5 % rate, 1 % maintenance and amortisation compared with gross income.",
+      "to": "page:rg-tragbarkeit"
+     },
+     {
+      "kicker": "Purchase costs",
+      "title": "About 2–5 %",
+      "text": "Transfer tax, notary, land registry and mortgage note, depending on the canton.",
+      "to": "page:rg-nebenkosten"
+     },
+     {
+      "kicker": "Pension assets",
+      "title": "Pillar 2 & 3a",
+      "text": "Withdrawal from CHF 20’000 or pledging. Check your fund's rules.",
+      "to": "page:rg-pk"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "mode": "tragbarkeit",
+    "eyebrow": "How much property can I afford?",
+    "title": "Affordability\nin seconds.",
+    "lead": "Enter price, equity and income and see how Swiss banks calculate."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "From viewing to keys",
+    "title": "Your purchase\nwith HYPOTEQ.",
+    "items": [
+     {
+      "title": "Apply in 3 minutes",
+      "text": "Upload salary statement, ID and property documents. The AI reads most of the details."
+     },
+     {
+      "title": "Personal review",
+      "text": "Your advisor checks equity, affordability and the use of pillar 2 and 3a assets."
+     },
+     {
+      "title": "Offers & confirmation",
+      "text": "We collect offers and you get a financing confirmation for your bid."
+     },
+     {
+      "title": "Notary & payout",
+      "text": "We coordinate with bank, notary and agent until you get the keys."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Get started",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Which documents do Swiss banks need?",
+    "title": "Upload your documents.\n*The AI does the rest.*",
+    "screen": "funnel",
+    "reverse": true,
+    "paragraphs": [
+     "Whether you want to **buy an apartment in Zurich** or a house in the countryside, the bank needs details about you and the property. With quick sign-up you upload everything: our AI recognises most details and shows you what is missing."
+    ],
+    "bullets": [
+     "Salary statement, tax return, pension fund certificate",
+     "ID or residence permit and debt enforcement extract",
+     "Sales brochure, land register extract, draft purchase contract",
+     "Data processed in Switzerland"
+    ],
+    "ctas": [
+     {
+      "label": "Upload documents",
+      "to": "funnel"
+     },
+     {
+      "label": "Download checklist",
+      "to": "page:dokumente"
+     }
+    ]
+   },
+   {
+    "type": "compare",
+    "eyebrow": "Why a broker?",
+    "title": "Your bank or HYPOTEQ?",
+    "head": [
+     "",
+     "Your bank",
+     "HYPOTEQ"
+    ],
+    "rows": [
+     [
+      "Offers",
+      "1",
+      "40+ financing partners"
+     ],
+     [
+      "Cost to you",
+      "none",
+      "CHF 0"
+     ],
+     [
+      "Negotiation",
+      "yourself",
+      "we negotiate for you"
+     ],
+     [
+      "Advice",
+      "own products",
+      "neutral"
+     ]
+    ],
+    "note": "HYPOTEQ is paid by the financing partner when a deal closes."
+   },
+   {
+    "type": "testimonials",
+    "eyebrow": "Client reviews",
+    "title": "From first call\nto keys.",
+    "items": [
+     {
+      "text": "The neutral advice brought us several attractive financing offers. Everything went smoothly.",
+      "author": "Chris E."
+     },
+     {
+      "text": "First-class service, everything was processed quickly.",
+      "author": "Andreas K."
+     },
+     {
+      "text": "My advisor guided me perfectly and was always there for me.",
+      "author": "Romain C."
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Read more",
+    "title": "Well prepared\n*for your first home.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Valuation",
+      "title": "Is the price fair?",
+      "text": "Market value based on the Wüest Partner model, CHF 300 instead of 450.",
+      "to": "page:bewertung"
+     },
+     {
+      "kicker": "Models",
+      "title": "SARON or fixed?",
+      "text": "Which mortgage model suits your first home in Switzerland.",
+      "to": "page:rg-saron-fest"
+     },
+     {
+      "kicker": "Overview",
+      "title": "All mortgages",
+      "text": "Buying, refinancing, building and special cases.",
+      "to": "page:hypotheken"
+     },
+     {
+      "kicker": "For agents",
+      "title": "Become a partner",
+      "text": "You sell property? Your buyers finance with us and you earn a commission.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Buying in Switzerland,\nclearly explained.",
+    "items": [
+     {
+      "q": "How much equity do I need to buy in Switzerland?",
+      "a": "At least **20 %** of the purchase price, of which at least 10 % must not come from your pension fund. The rest can come from pillar 2 or pillar 3a. Purchase costs of about 2–5 % come on top and must be paid from your own funds. As of 2026, without guarantee."
+     },
+     {
+      "q": "How do I get a mortgage pre-approval?",
+      "a": "Start your online application. Your advisor gets back to you promptly. With complete documents you typically receive offers within 48–72 hours and, based on these, a financing confirmation."
+     },
+     {
+      "q": "Which documents do Swiss banks need?",
+      "a": "Usually salary statement, tax return, pension fund certificate, debt enforcement extract, ID or permit, plus sales brochure, land register extract and draft purchase contract. Our checklist helps you."
+     },
+     {
+      "q": "How much property can I afford?",
+      "a": "Swiss banks calculate with an imputed rate of 5 %, 1 % maintenance and amortisation. These costs should not exceed about one third of your gross income. Our affordability calculator shows your range."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Affordability calculator",
+      "to": "page:tragbarkeit"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Ready for your\n*Swiss home?*",
+    "text": "Compare for free and request your financing in 3 minutes.",
+    "ctas": [
+     {
+      "label": "Request financing",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ }
+}

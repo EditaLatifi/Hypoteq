@@ -1,0 +1,990 @@
+{
+ "de": {
+  "title": "Bauland finanzieren: Grundstück mit Hypothek | HYPOTEQ",
+  "description": "Du willst Bauland kaufen? Wir finden Anbieter, die das Grundstück finanzieren, und planen gleich den Baukredit. 40+ Anbieter, Anfrage in 3 Minuten.",
+  "h1": "Bauland kaufen und klug finanzieren",
+  "nav": [
+   "Bauland finanzieren",
+   "Grundstück kaufen, Neubau planen"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Bauland finanzieren",
+    "h1": "Bauland kaufen\n*und klug finanzieren*",
+    "lead": "Viele Banken finanzieren unbebautes Land nur zurückhaltend oder erst mit konkretem Bauprojekt. Wir finden Anbieter, die dein **Bauland finanzieren**, und planen den späteren Baukredit gleich mit, im Vergleich von über 40 Banken, Versicherungen und Pensionskassen.",
+    "ctas": [
+     {
+      "label": "Landkauf anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Kostenlos & unverbindlich",
+     "Land + Baukredit",
+     "Offerten in 48–72 h"
+    ],
+    "image": "swiss-landscape",
+    "alt": "Grüne Hügellandschaft in der Schweiz",
+    "float": {
+     "title": "Vom Land zum Haus",
+     "text": "Eine Anfrage für beide Schritte"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "Anbieter statt nur deiner Hausbank"
+     },
+     {
+      "value": "3 Min.",
+      "label": "bis zur vollständigen Anfrage"
+     },
+     {
+      "value": "48–72 h",
+      "label": "bis zu konkreten Offerten"
+     },
+     {
+      "value": "0 CHF",
+      "label": "für Vergleich und Vermittlung"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Grundstück kaufen Hypothek",
+    "title": "Land ist kein Haus.\n*Banken bleiben vorsichtig.*",
+    "image": "neighbourhood",
+    "alt": "Chalet-Dorf mit Bauparzellen am Hang",
+    "paragraphs": [
+     "Ein leeres Grundstück bringt keinen Wohnnutzen und ist schwerer zu bewerten. Darum belehnen viele Banken Bauland tiefer als ein fertiges Eigenheim oder verlangen ein konkretes Bauprojekt.",
+     "Wir zeigen dir, welche Anbieter den **Landkauf** finanzieren, wie viel Eigenkapital realistisch ist und wie du nahtlos zum Baukredit kommst."
+    ],
+    "bullets": [
+     "Anbieter mit Erfahrung bei Bauland",
+     "Landkauf und Neubau als ein Gesamtpaket",
+     "Prüfung von Bauzone, Erschliessung und Zeitplan"
+    ],
+    "ctas": [
+     {
+      "label": "Grundstück prüfen lassen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Typische Hürden",
+    "title": "Was beim Landkauf bremst.\n*Und wie wir es lösen.*",
+    "tone": "soft",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Hürde",
+      "title": "Tiefe Belehnung",
+      "text": "Wir vergleichen, wie unterschiedlich Anbieter Bauland belehnen, und planen deine Eigenmittel entsprechend."
+     },
+     {
+      "kicker": "Hürde",
+      "title": "Noch kein Bauprojekt",
+      "text": "Mit Skizze, Budget und Zeitplan wird dein Vorhaben für die Bank greifbar. Wir sagen dir, was reicht."
+     },
+     {
+      "kicker": "Hürde",
+      "title": "Übergang zum Baukredit",
+      "text": "Wir planen Landkauf und Baukredit so, dass sie später sauber zusammenpassen.",
+      "to": "page:neubau",
+      "cta": "Neubau finanzieren"
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Anfrage starten",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Bauland kaufen Eigenkapital",
+    "title": "Was kostet\n*dein Projekt pro Monat?*",
+    "lead": "Gib Land- und Baukosten als Gesamtpreis ein und sieh Belehnung, Zinskosten und Tragbarkeit."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Vom Land zum Haus",
+    "title": "In vier Schritten\n*zum eigenen Grundstück.*",
+    "items": [
+     {
+      "title": "Anfrage in 3 Minuten",
+      "text": "Lade Parzellenangaben, Kaufvertrag-Entwurf und deine Unterlagen hoch."
+     },
+     {
+      "title": "Projekt einschätzen",
+      "text": "Deine Beraterin prüft Eigenmittel, Bauvorhaben und Tragbarkeit."
+     },
+     {
+      "title": "Offerten für Land & Bau",
+      "text": "Wir holen Angebote ein, meist innert 48–72 h nach vollständigen Unterlagen."
+     },
+     {
+      "title": "Kauf & Baukredit",
+      "text": "Wir koordinieren Notariat, Auszahlung und den Start des Baukredits."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Jetzt starten",
+      "to": "funnel"
+     },
+     {
+      "label": "Kontakt aufnehmen",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "testimonials",
+    "eyebrow": "Kundenstimmen",
+    "title": "Gut begleitet\n*von Anfang an.*",
+    "items": [
+     {
+      "text": "Mein Berater hat mich optimal begleitet und war sehr präsent.",
+      "author": "Romain C."
+     },
+     {
+      "text": "Professionell, menschlich, kompetent und top Konditionen.",
+      "author": "Gregor R."
+     },
+     {
+      "text": "Erstklassiger Service, alles wurde schnell bearbeitet.",
+      "author": "Andreas K."
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Passend dazu",
+    "title": "Weiter\n*zum eigenen Haus.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Alternative",
+      "title": "Land im Baurecht",
+      "text": "Bauen, ohne das Land zu kaufen.",
+      "to": "page:lp-baurecht"
+     },
+     {
+      "kicker": "Objekt",
+      "title": "Einfamilienhaus",
+      "text": "Kauf und Renovation finanzieren.",
+      "to": "page:lp-einfamilienhaus"
+     },
+     {
+      "kicker": "Energie",
+      "title": "Grüne Hypothek",
+      "text": "Rabatt für energieeffizientes Bauen.",
+      "to": "page:lp-gruen"
+     },
+     {
+      "kicker": "Für Makler",
+      "title": "Partner werden",
+      "text": "Du verkaufst Bauland? Deine Käufer finanzieren mit uns.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Bauland\n*ohne Fragezeichen.*",
+    "items": [
+     {
+      "q": "Wie hoch belehnen Banken unbebautes Bauland?",
+      "a": "Meist tiefer als ein bewohntes Eigenheim, die Regeln sind je nach Anbieter verschieden. Manche finanzieren Land nur in Verbindung mit einem Bauprojekt. Wir vergleichen die Bedingungen für dich."
+     },
+     {
+      "q": "Brauche ich schon ein Bauprojekt für die Finanzierung?",
+      "a": "Nicht immer, aber es hilft. Mit Projektskizze, Kostenschätzung und Zeitplan sind deutlich mehr Anbieter bereit, das Land zu finanzieren."
+     },
+     {
+      "q": "Wie viel Eigenkapital brauche ich für Bauland?",
+      "a": "Wegen der tieferen Belehnung oft mehr als die üblichen 20 %. Ob Vorsorgegelder einsetzbar sind, hängt vom Reglement und vom geplanten selbst bewohnten Bau ab. Stand 2026, ohne Gewähr."
+     },
+     {
+      "q": "Wie geht es vom Landkauf zum Baukredit?",
+      "a": "Nach Baubewilligung und Werkverträgen wird ein Baukredit eröffnet, der nach Baufortschritt ausgezahlt und nach Bauende in eine Hypothek umgewandelt wird. Wir planen beides von Anfang an zusammen."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Neubau finanzieren",
+      "to": "page:neubau"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Dein Grundstück gefunden?\n*Jetzt Finanzierung klären.*",
+    "text": "Kostenlos vergleichen und in 3 Minuten anfragen. Deine Beraterin meldet sich zeitnah.",
+    "ctas": [
+     {
+      "label": "Landkauf anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Financer un terrain à bâtir en Suisse | HYPOTEQ",
+  "description": "Vous achetez un terrain à bâtir? Nous trouvons les prêteurs qui le financent et préparons votre crédit de construction. 40+ prêteurs, demande en 3 minutes.",
+  "h1": "Acheter et financer votre terrain à bâtir",
+  "nav": [
+   "Terrain à bâtir",
+   "Acheter un terrain, planifier"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Financer un terrain",
+    "h1": "Acheter et financer\n*votre terrain à bâtir*",
+    "lead": "Beaucoup de banques financent un terrain non bâti avec prudence, ou seulement avec un projet concret. Nous trouvons les prêteurs pour **financer votre terrain** et préparons le crédit de construction, en comparant plus de 40 banques, assurances et caisses de pension.",
+    "ctas": [
+     {
+      "label": "Demander un financement",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Gratuit & sans engagement",
+     "Terrain + construction",
+     "Offres en 48–72 h"
+    ],
+    "image": "swiss-landscape",
+    "alt": "Paysage vallonné et verdoyant en Suisse",
+    "float": {
+     "title": "Du terrain à la maison",
+     "text": "Une demande pour les deux étapes"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "prêteurs au lieu de votre seule banque"
+     },
+     {
+      "value": "3 min",
+      "label": "pour une demande complète"
+     },
+     {
+      "value": "48–72 h",
+      "label": "jusqu'aux offres concrètes"
+     },
+     {
+      "value": "0 CHF",
+      "label": "pour la comparaison et le courtage"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Acheter terrain à bâtir hypothèque",
+    "title": "Un terrain n'est pas une maison.\n*Les banques restent prudentes.*",
+    "image": "neighbourhood",
+    "alt": "Village de chalets avec parcelles à bâtir",
+    "paragraphs": [
+     "Un terrain vide n'offre pas d'usage d'habitation et s'évalue plus difficilement. Beaucoup de banques appliquent donc un taux d'avance plus bas qu'à un logement terminé ou exigent un projet concret.",
+     "Nous vous montrons quels prêteurs financent l'**achat du terrain**, combien de fonds propres sont réalistes et comment passer sans rupture au crédit de construction."
+    ],
+    "bullets": [
+     "Prêteurs habitués aux terrains",
+     "Terrain et construction en un seul dossier",
+     "Zone à bâtir, équipement et calendrier vérifiés"
+    ],
+    "ctas": [
+     {
+      "label": "Faire vérifier le terrain",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Obstacles fréquents",
+    "title": "Ce qui freine l'achat.\n*Et comment nous le résolvons.*",
+    "tone": "soft",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Obstacle",
+      "title": "Taux d'avance bas",
+      "text": "Nous comparons comment chaque prêteur finance un terrain et planifions vos fonds propres en conséquence."
+     },
+     {
+      "kicker": "Obstacle",
+      "title": "Pas encore de projet",
+      "text": "Esquisse, budget et calendrier rendent votre projet concret pour la banque. Nous vous disons ce qui suffit."
+     },
+     {
+      "kicker": "Obstacle",
+      "title": "Passage au crédit de construction",
+      "text": "Nous planifions terrain et crédit de construction pour qu'ils s'enchaînent proprement.",
+      "to": "page:neubau",
+      "cta": "Financer une construction"
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Lancer la demande",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Fonds propres terrain",
+    "title": "Combien coûte\n*votre projet par mois?*",
+    "lead": "Saisissez terrain et construction comme prix total et voyez taux d'avance, intérêts et capacité financière."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Du terrain à la maison",
+    "title": "Quatre étapes\n*jusqu'à votre terrain.*",
+    "items": [
+     {
+      "title": "Demande en 3 minutes",
+      "text": "Téléchargez données de la parcelle, projet d'acte et vos documents."
+     },
+     {
+      "title": "Évaluer le projet",
+      "text": "Votre conseillère vérifie fonds propres, projet et capacité financière."
+     },
+     {
+      "title": "Offres terrain & construction",
+      "text": "Offres en général 48–72 h après dossier complet."
+     },
+     {
+      "title": "Achat & crédit",
+      "text": "Nous coordonnons notaire, versement et ouverture du crédit de construction."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Commencer",
+      "to": "funnel"
+     },
+     {
+      "label": "Nous contacter",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "testimonials",
+    "eyebrow": "Avis clients",
+    "title": "Bien accompagnés\n*dès le début.*",
+    "items": [
+     {
+      "text": "Mon conseiller m'a parfaitement accompagné et était très présent.",
+      "author": "Romain C."
+     },
+     {
+      "text": "Professionnel, humain, compétent, excellentes conditions.",
+      "author": "Gregor R."
+     },
+     {
+      "text": "Service de premier ordre, tout a été traité rapidement.",
+      "author": "Andreas K."
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "À lire aussi",
+    "title": "En route\n*vers votre maison.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Alternative",
+      "title": "Droit de superficie",
+      "text": "Construire sans acheter le terrain.",
+      "to": "page:lp-baurecht"
+     },
+     {
+      "kicker": "Bien",
+      "title": "Maison individuelle",
+      "text": "Financer achat et rénovation.",
+      "to": "page:lp-einfamilienhaus"
+     },
+     {
+      "kicker": "Énergie",
+      "title": "Hypothèque verte",
+      "text": "Rabais pour une construction efficiente.",
+      "to": "page:lp-gruen"
+     },
+     {
+      "kicker": "Courtiers",
+      "title": "Devenir partenaire",
+      "text": "Vous vendez des terrains? Vos acheteurs financent avec nous.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "Terrain à bâtir\n*sans points d'interrogation.*",
+    "items": [
+     {
+      "q": "Quel taux d'avance pour un terrain non bâti?",
+      "a": "En général plus bas que pour un logement habité, et les règles varient selon le prêteur. Certains ne financent un terrain qu'avec un projet de construction. Nous comparons les conditions pour vous."
+     },
+     {
+      "q": "Faut-il déjà un projet de construction?",
+      "a": "Pas toujours, mais cela aide. Avec esquisse, estimation des coûts et calendrier, beaucoup plus de prêteurs sont prêts à financer le terrain."
+     },
+     {
+      "q": "Combien de fonds propres pour un terrain?",
+      "a": "Souvent plus que les 20 % habituels, à cause du taux d'avance plus bas. L'utilisation du 2e pilier dépend du règlement et de la future résidence principale. État 2026, sans garantie."
+     },
+     {
+      "q": "Comment passer du terrain au crédit de construction?",
+      "a": "Après le permis de construire et les contrats d'entreprise, un crédit de construction est ouvert, versé selon l'avancement puis converti en hypothèque. Nous planifions les deux dès le départ."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Financer une construction",
+      "to": "page:neubau"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Terrain trouvé?\n*Clarifiez le financement.*",
+    "text": "Comparez gratuitement et déposez votre demande en 3 minutes. Votre conseillère vous rappelle rapidement.",
+    "ctas": [
+     {
+      "label": "Demander un financement",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Finanziare un terreno edificabile in Svizzera | HYPOTEQ",
+  "description": "Vuoi comprare un terreno edificabile? Troviamo chi lo finanzia e pianifichiamo il credito di costruzione. Oltre 40 istituti, richiesta in 3 minuti.",
+  "h1": "Comprare e finanziare il tuo terreno",
+  "nav": [
+   "Terreno edificabile",
+   "Comprare terreno, pianificare"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Finanziare terreno edificabile",
+    "h1": "Comprare e finanziare\n*il tuo terreno*",
+    "lead": "Molte banche finanziano un terreno non edificato con prudenza o solo con un progetto concreto. Troviamo chi può **finanziare il terreno edificabile** e pianifichiamo subito il credito di costruzione, confrontando oltre 40 banche, assicurazioni e casse pensione.",
+    "ctas": [
+     {
+      "label": "Richiedi il finanziamento",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Gratuito e senza impegno",
+     "Terreno + costruzione",
+     "Offerte in 48–72 h"
+    ],
+    "image": "swiss-landscape",
+    "alt": "Paesaggio collinare verde in Svizzera",
+    "float": {
+     "title": "Dal terreno alla casa",
+     "text": "Una richiesta per entrambi i passi"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "istituti invece della sola tua banca"
+     },
+     {
+      "value": "3 min",
+      "label": "per una richiesta completa"
+     },
+     {
+      "value": "48–72 h",
+      "label": "fino alle offerte concrete"
+     },
+     {
+      "value": "0 CHF",
+      "label": "per confronto e mediazione"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Comprare terreno ipoteca",
+    "title": "Un terreno non è una casa.\n*Le banche restano prudenti.*",
+    "image": "neighbourhood",
+    "alt": "Villaggio di chalet con parcelle edificabili",
+    "paragraphs": [
+     "Un terreno vuoto non offre un uso abitativo ed è più difficile da valutare. Per questo molte banche concedono un anticipo più basso rispetto a una casa finita o chiedono un progetto concreto.",
+     "Ti mostriamo quali istituti finanziano l'**acquisto del terreno**, quanti fondi propri sono realistici e come passare senza intoppi al credito di costruzione."
+    ],
+    "bullets": [
+     "Istituti con esperienza sui terreni",
+     "Terreno e costruzione in un unico pacchetto",
+     "Zona edificabile, urbanizzazione e tempi verificati"
+    ],
+    "ctas": [
+     {
+      "label": "Fai verificare il terreno",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Ostacoli tipici",
+    "title": "Cosa frena l'acquisto.\n*E come lo risolviamo.*",
+    "tone": "soft",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Ostacolo",
+      "title": "Anticipo basso",
+      "text": "Confrontiamo come ogni istituto finanzia un terreno e pianifichiamo i tuoi fondi propri di conseguenza."
+     },
+     {
+      "kicker": "Ostacolo",
+      "title": "Nessun progetto ancora",
+      "text": "Schizzo, budget e tempi rendono il progetto concreto per la banca. Ti diciamo cosa basta."
+     },
+     {
+      "kicker": "Ostacolo",
+      "title": "Passaggio al credito",
+      "text": "Pianifichiamo terreno e credito di costruzione in modo che si incastrino bene.",
+      "to": "page:neubau",
+      "cta": "Finanziare una costruzione"
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Avvia la richiesta",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Fondi propri terreno",
+    "title": "Quanto costa\n*il tuo progetto al mese?*",
+    "lead": "Inserisci terreno e costruzione come prezzo totale e vedi anticipo, interessi e sostenibilità."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Dal terreno alla casa",
+    "title": "Quattro passi\n*fino al tuo terreno.*",
+    "items": [
+     {
+      "title": "Richiesta in 3 minuti",
+      "text": "Carica dati della particella, bozza del contratto e i tuoi documenti."
+     },
+     {
+      "title": "Valutare il progetto",
+      "text": "La consulente verifica fondi propri, progetto e sostenibilità."
+     },
+     {
+      "title": "Offerte terreno e costruzione",
+      "text": "Offerte di regola entro 48–72 h dai documenti completi."
+     },
+     {
+      "title": "Acquisto e credito",
+      "text": "Coordiniamo notaio, versamento e avvio del credito di costruzione."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Inizia ora",
+      "to": "funnel"
+     },
+     {
+      "label": "Contattaci",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "testimonials",
+    "eyebrow": "Opinioni dei clienti",
+    "title": "Ben accompagnati\n*fin dall'inizio.*",
+    "items": [
+     {
+      "text": "Il mio consulente mi ha accompagnato in modo ottimale ed era molto presente.",
+      "author": "Romain C."
+     },
+     {
+      "text": "Professionali, umani, competenti, condizioni top.",
+      "author": "Gregor R."
+     },
+     {
+      "text": "Servizio di prima classe, tutto gestito rapidamente.",
+      "author": "Andreas K."
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Approfondisci",
+    "title": "Verso\n*la tua casa.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Alternativa",
+      "title": "Diritto di superficie",
+      "text": "Costruire senza comprare il terreno.",
+      "to": "page:lp-baurecht"
+     },
+     {
+      "kicker": "Immobile",
+      "title": "Casa unifamiliare",
+      "text": "Finanziare acquisto e lavori.",
+      "to": "page:lp-einfamilienhaus"
+     },
+     {
+      "kicker": "Energia",
+      "title": "Ipoteca verde",
+      "text": "Sconto per costruire in modo efficiente.",
+      "to": "page:lp-gruen"
+     },
+     {
+      "kicker": "Per agenti",
+      "title": "Diventa partner",
+      "text": "Vendi terreni? I tuoi acquirenti finanziano con noi.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "Terreno edificabile\n*senza punti di domanda.*",
+    "items": [
+     {
+      "q": "Quanto finanziano le banche un terreno non edificato?",
+      "a": "Di solito meno di una casa abitata, e le regole variano da istituto a istituto. Alcuni finanziano un terreno solo insieme a un progetto. Confrontiamo le condizioni per te."
+     },
+     {
+      "q": "Serve già un progetto di costruzione?",
+      "a": "Non sempre, ma aiuta. Con schizzo, stima dei costi e tempi molti più istituti sono disposti a finanziare il terreno."
+     },
+     {
+      "q": "Quanti fondi propri servono per un terreno?",
+      "a": "Spesso più del solito 20 %, a causa dell'anticipo più basso. L'uso della cassa pensione dipende dal regolamento e dalla futura abitazione propria. Stato 2026, senza garanzia."
+     },
+     {
+      "q": "Come si passa dal terreno al credito di costruzione?",
+      "a": "Dopo licenza edilizia e contratti d'appalto si apre un credito di costruzione, versato secondo l'avanzamento e poi convertito in ipoteca. Pianifichiamo entrambi fin dall'inizio."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Finanziare una costruzione",
+      "to": "page:neubau"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Trovato il terreno?\n*Chiarisci il finanziamento.*",
+    "text": "Confronta gratis e invia la richiesta in 3 minuti. La tua consulente ti contatta in tempi brevi.",
+    "ctas": [
+     {
+      "label": "Richiedi il finanziamento",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "Financing building land in Switzerland | HYPOTEQ",
+  "description": "Buying a building plot? We find lenders who finance the land and plan your construction loan. 40+ lenders, apply in 3 minutes.",
+  "h1": "Buying and financing your building plot",
+  "nav": [
+   "Building land",
+   "Buy a plot, plan your build"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Financing building land Switzerland",
+    "h1": "Buying and financing\n*your building plot*",
+    "lead": "Many banks are cautious with undeveloped land or only lend once there is a concrete building project. We find lenders for **financing building land in Switzerland** and plan your construction loan at the same time, comparing 40+ banks, insurers and pension funds.",
+    "ctas": [
+     {
+      "label": "Request land financing",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Free & non-binding",
+     "Land + construction",
+     "Offers in 48–72 h"
+    ],
+    "image": "swiss-landscape",
+    "alt": "Green rolling hills in Switzerland",
+    "float": {
+     "title": "From plot to house",
+     "text": "One request for both steps"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "lenders instead of just your bank"
+     },
+     {
+      "value": "3 min",
+      "label": "to a complete request"
+     },
+     {
+      "value": "48–72 h",
+      "label": "to concrete offers"
+     },
+     {
+      "value": "CHF 0",
+      "label": "for comparison and brokerage"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Buy land Switzerland mortgage",
+    "title": "Land is not a house.\n*Banks stay cautious.*",
+    "image": "neighbourhood",
+    "alt": "Chalet village with building plots on a slope",
+    "paragraphs": [
+     "An empty plot has no residential use and is harder to value. That's why many banks lend less on land than on a finished home, or ask for a concrete building project.",
+     "We show you which lenders finance the **plot purchase**, how much equity is realistic and how to move smoothly to the construction loan."
+    ],
+    "bullets": [
+     "Lenders experienced with building land",
+     "Land and construction as one package",
+     "Zoning, utilities and timeline checked"
+    ],
+    "ctas": [
+     {
+      "label": "Get my plot checked",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Common hurdles",
+    "title": "What slows land buyers down.\n*And how we solve it.*",
+    "tone": "soft",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Hurdle",
+      "title": "Low loan-to-value",
+      "text": "We compare how each lender finances land and plan your equity accordingly."
+     },
+     {
+      "kicker": "Hurdle",
+      "title": "No project yet",
+      "text": "A sketch, budget and timeline make your plans tangible for the bank. We tell you what's enough."
+     },
+     {
+      "kicker": "Hurdle",
+      "title": "Switch to construction loan",
+      "text": "We plan land and construction loan so they fit together later.",
+      "to": "page:neubau",
+      "cta": "New build financing"
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Start your request",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Plot purchase financing",
+    "title": "What does your project\n*cost per month?*",
+    "lead": "Enter land and building costs as a total price and see loan-to-value, interest and affordability."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "From plot to house",
+    "title": "Four steps\n*to your own plot.*",
+    "items": [
+     {
+      "title": "Request in 3 minutes",
+      "text": "Upload plot details, draft purchase contract and your documents."
+     },
+     {
+      "title": "Assess the project",
+      "text": "Your advisor checks equity, building plans and affordability."
+     },
+     {
+      "title": "Offers for land & build",
+      "text": "Offers usually within 48–72 h of complete documents."
+     },
+     {
+      "title": "Purchase & loan",
+      "text": "We coordinate notary, payout and the start of the construction loan."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Get started",
+      "to": "funnel"
+     },
+     {
+      "label": "Contact us",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "testimonials",
+    "eyebrow": "Client reviews",
+    "title": "Well guided\n*from day one.*",
+    "items": [
+     {
+      "text": "My advisor guided me perfectly and was always there.",
+      "author": "Romain C."
+     },
+     {
+      "text": "Professional, personal, competent, top conditions.",
+      "author": "Gregor R."
+     },
+     {
+      "text": "First-class service, everything handled quickly.",
+      "author": "Andreas K."
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Related",
+    "title": "On the way\n*to your house.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Alternative",
+      "title": "Building lease",
+      "text": "Build without buying the land (Baurecht).",
+      "to": "page:lp-baurecht"
+     },
+     {
+      "kicker": "Property",
+      "title": "Detached house",
+      "text": "Financing purchase and renovation.",
+      "to": "page:lp-einfamilienhaus"
+     },
+     {
+      "kicker": "Energy",
+      "title": "Green mortgage",
+      "text": "Discounts for energy-efficient building.",
+      "to": "page:lp-gruen"
+     },
+     {
+      "kicker": "For agents",
+      "title": "Become a partner",
+      "text": "You sell land? Your buyers finance with us.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Building land\n*without question marks.*",
+    "items": [
+     {
+      "q": "How much do banks lend on undeveloped land?",
+      "a": "Usually less than on an occupied home, and the rules differ by lender. Some only finance land together with a building project. We compare the conditions for you."
+     },
+     {
+      "q": "Do I need a building project first?",
+      "a": "Not always, but it helps. With a sketch, cost estimate and timeline, far more lenders are willing to finance the plot."
+     },
+     {
+      "q": "How much equity do I need for land?",
+      "a": "Often more than the usual 20 % because of the lower loan-to-value. Whether pension assets (pillar 2) can be used depends on the fund's rules and your planned owner-occupied home. As of 2026, without guarantee."
+     },
+     {
+      "q": "How do I move from land purchase to a construction loan?",
+      "a": "After the building permit and contractor agreements, a construction loan is opened, paid out as work progresses and converted into a mortgage at completion. We plan both from the start."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "New build financing",
+      "to": "page:neubau"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Found your plot?\n*Clarify the financing.*",
+    "text": "Compare for free and apply in 3 minutes. Your advisor gets back to you promptly.",
+    "ctas": [
+     {
+      "label": "Request financing",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ }
+}

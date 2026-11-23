@@ -1,0 +1,1290 @@
+{
+ "de": {
+  "title": "Partner werden: Hypotheken vermitteln | HYPOTEQ",
+  "description": "Vermittle Hypotheken an HYPOTEQ und erhalte eine Provision. Partnerportal, 40+ Finanzierungspartner und Fallbegleitung. Jetzt Partner werden.",
+  "h1": "Partner werden und Hypotheken vermitteln",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "HYPOTEQ Partnerprogramm · B2B",
+    "h1": "Partner werden und\nHypotheken vermitteln",
+    "lead": "**Hypothekarvermittler werden**, ohne eigenen Bankenvertrag: Du bringst die Kundin, wir holen Offerten von über 40 Banken, Versicherungen und Pensionskassen. Die Kundenbeziehung bleibt bei dir, die Provision pro Abschluss auch.",
+    "ctas": [
+     {
+      "label": "Partner werden",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Partnerlogin",
+      "to": "portal"
+     }
+    ],
+    "badges": [
+     "0 CHF Setup",
+     "Faire Provision pro Abschluss",
+     "Persönliche Ansprechperson"
+    ],
+    "image": "consultation",
+    "alt": "Beratungsgespräch zwischen Partner und Kundin am Tisch",
+    "float": {
+     "title": "Deine Kunden. Deine Provision.",
+     "text": "Die Kundenbeziehung bleibt bei dir"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "0 CHF",
+      "label": "Setup-Kosten für deinen Einstieg"
+     },
+     {
+      "value": "40+",
+      "label": "Banken, Versicherungen & Pensionskassen"
+     },
+     {
+      "value": "1 Portal",
+      "label": "für Fälle, Status, Dokumente & Rückmeldungen"
+     },
+     {
+      "value": "1:1",
+      "label": "persönliche Ansprechperson statt Hotline"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Partnerportal",
+    "title": "Jeder Fall.\n*Ein Ort.*",
+    "screen": "portal",
+    "lead": "Im **Partnerportal** reichst du Fälle ein und siehst jederzeit, wo sie stehen.",
+    "paragraphs": [
+     "Status, Dokumente und die Rückmeldungen der Kreditgeber sind an einem Ort gebündelt. Du siehst nur deine eigenen Fälle, der Zugang erfolgt per Einladung.",
+     "Lieber direkt mit der Kundin? Du kannst die Online-Anfrage auch **als Berater** für deine Kunden ausfüllen. Unsere KI liest die hochgeladenen Unterlagen aus."
+    ],
+    "bullets": [
+     "Fälle einreichen und Status live verfolgen",
+     "Rückmeldungen der Kreditgeber direkt im Fall",
+     "Immobilienbewertung mit Wüest Partner inklusive",
+     "Kalkulator-Einbettung (iFrame) nach Absprache"
+    ],
+    "ctas": [
+     {
+      "label": "Partner werden",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Zum Partnerportal",
+      "to": "portal"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "So funktioniert’s",
+    "title": "Vom ersten Fall\n*zur Provision.*",
+    "items": [
+     {
+      "title": "Registrieren oder Einladung erhalten",
+      "text": "Du meldest dich über das Formular. Nach der Prüfung erhältst du deine Einladung ins Partnerportal."
+     },
+     {
+      "title": "Fall einreichen",
+      "text": "Reiche den Fall im Portal ein oder fülle die Online-Anfrage als Berater gemeinsam mit deiner Kundin aus."
+     },
+     {
+      "title": "Wir holen die Offerten",
+      "text": "Wir prüfen das Dossier, verhandeln mit über 40 Finanzierungspartnern und halten dich im Portal auf dem Laufenden."
+     },
+     {
+      "title": "Abschluss & Provision",
+      "text": "Nach dem Abschluss erhältst du deine Provision, mit schneller Auszahlung."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Jetzt Partner werden",
+      "to": "page:partner#formular"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Für wen?",
+    "title": "Das Partnerprogramm\n*für deine Branche.*",
+    "lead": "Vertriebspartner Hypotheken: Immobilienmakler, Treuhänder, Vermögensverwalter, Versicherungsagenturen und Broker.",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Makler",
+      "title": "Für Immobilienmakler",
+      "text": "Schneller verkaufen dank Finanzierungsbestätigung für Kaufinteressenten.",
+      "to": "page:partner-makler",
+      "cta": "Für Makler"
+     },
+     {
+      "kicker": "Treuhand",
+      "title": "Für Treuhänder & Vermögensverwalter",
+      "text": "Mehrwert für Mandanten, ohne Produktkonkurrenz.",
+      "to": "page:partner-treuhand",
+      "cta": "Für Treuhänder"
+     },
+     {
+      "kicker": "Versicherung",
+      "title": "Für Versicherungen & Broker",
+      "text": "Hypotheken ins Portfolio, ohne eigenen Bankenvertrag.",
+      "to": "page:partner-versicherung",
+      "cta": "Für Broker"
+     },
+     {
+      "kicker": "Academy",
+      "title": "HYPOTEQ Academy",
+      "text": "Dein Team lernt Hypotheken und trainiert Kundengespräche mit KI.",
+      "to": "page:academy",
+      "cta": "Academy entdecken"
+     }
+    ]
+   },
+   {
+    "type": "compare",
+    "eyebrow": "Warum HYPOTEQ?",
+    "title": "Selbst vermitteln\n*oder mit HYPOTEQ?*",
+    "head": [
+     "",
+     "Eigener Bankenvertrag",
+     "Mit HYPOTEQ"
+    ],
+    "rows": [
+     [
+      "Zugang zu Kreditgebern",
+      "einzeln verhandeln",
+      "40+ Finanzierungspartner"
+     ],
+     [
+      "Setup-Kosten",
+      "Aufwand & Verträge",
+      "0 CHF"
+     ],
+     [
+      "Dossier & Offerten",
+      "selbst aufbereiten",
+      "wir übernehmen"
+     ],
+     [
+      "Fallstatus",
+      "per E-Mail & Telefon",
+      "live im Partnerportal"
+     ],
+     [
+      "Immobilienbewertung",
+      "extern einkaufen",
+      "inklusive"
+     ],
+     [
+      "Schulung fürs Team",
+      "selbst organisieren",
+      "HYPOTEQ Academy"
+     ]
+    ],
+    "note": "Provisionen werden pro Abschluss vereinbart. Die Konditionen besprechen wir im Erstgespräch.",
+    "ctas": [
+     {
+      "label": "Erstgespräch anfragen",
+      "to": "page:partner#formular"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Voraussetzungen",
+    "title": "Wer Partner\n*werden kann.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "01",
+      "title": "Registriertes Unternehmen",
+      "text": "Du bist mit deiner Firma im Handelsregister eingetragen."
+     },
+     {
+      "kicker": "02",
+      "title": "Bewilligung & Aufsicht",
+      "text": "Du hast eine gültige Vermittlungsbewilligung bzw. unterstehst einer Aufsicht."
+     },
+     {
+      "kicker": "03",
+      "title": "KYC & AML",
+      "text": "Du hältst die Sorgfaltspflichten zu Kundenidentifikation und Geldwäscherei ein."
+     },
+     {
+      "kicker": "04",
+      "title": "Erfahrung",
+      "text": "Du bringst Erfahrung in Immobilien, Treuhand, Vermögen oder Versicherung mit."
+     }
+    ]
+   },
+   {
+    "type": "testimonials",
+    "eyebrow": "Partnerstimmen",
+    "title": "Was unsere\n*Partner sagen.*",
+    "items": [
+     {
+      "text": "Als Vermittler ist HYPOTEQ für mich der Türöffner zur Finanzierungswelt.",
+      "author": "Noli T., Vertriebspartner"
+     },
+     {
+      "text": "Auch als Partner ist man bei HYPOTEQ sehr gut aufgehoben. Die Erreichbarkeit stimmt, auch nach Bürozeiten.",
+      "author": "Luigi M., Vertriebspartner"
+     },
+     {
+      "text": "Unser Berater hat uns optimal begleitet und war immer sehr präsent.",
+      "author": "Romain C., Kunde"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Referenzen",
+    "title": "Bereits Partner:\n*RE/MAX & Betterhomes.*",
+    "cols": 2,
+    "items": [
+     {
+      "kicker": "Co-Branding",
+      "title": "RE/MAX",
+      "text": "Ein eigener Co-Branding-Einstieg führt Kaufinteressenten direkt zur Finanzierungsanfrage."
+     },
+     {
+      "kicker": "Co-Branding",
+      "title": "Betterhomes",
+      "text": "Auch Betterhomes nutzt einen Co-Branding-Einstieg. So einen Einstieg richten wir auf Anfrage auch für dich ein."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Co-Branding anfragen",
+      "to": "page:partner#formular"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Gut zu wissen\n*für Partner.*",
+    "items": [
+     {
+      "q": "Wer kann HYPOTEQ-Partner werden?",
+      "a": "Immobilienmakler, Treuhänder, Vermögensverwalter, Versicherungsagenturen und Broker mit registriertem Unternehmen, gültiger Bewilligung bzw. Aufsicht, eingehaltenen KYC/AML-Pflichten und Erfahrung."
+     },
+     {
+      "q": "Wie hoch ist die Provision?",
+      "a": "Du erhältst eine **faire Provision pro Abschluss**, mit schneller Auszahlung. Die konkreten Konditionen hängen vom Partnermodell ab und werden im Erstgespräch vereinbart."
+     },
+     {
+      "q": "Wie funktioniert das Partnerportal?",
+      "a": "Du reichst Fälle ein und siehst Status, Dokumente und Rückmeldungen der Kreditgeber an einem Ort. Jeder Partner sieht nur seine eigenen Fälle, der Zugang erfolgt per Einladung."
+     },
+     {
+      "q": "Bleibt die Kundenbeziehung bei mir?",
+      "a": "Ja. Die Kundenbeziehung bleibt bei dir. HYPOTEQ vertreibt keine Versicherungen und Anlagen, es gibt also keine Produktkonkurrenz."
+     },
+     {
+      "q": "Was kostet die Partnerschaft?",
+      "a": "Der Einstieg ist kostenlos: 0 CHF Setup. Die Immobilienbewertung mit Wüest Partner ist für deine Fälle inklusive."
+     }
+    ]
+   },
+   {
+    "type": "form",
+    "kind": "partner",
+    "eyebrow": "Partnerschaft anfragen",
+    "title": "Lass uns\n*sprechen.*",
+    "lead": "Erzähl uns kurz von deinem Unternehmen. Deine Ansprechperson meldet sich persönlich bei dir.",
+    "paragraphs": [
+     "Nach dem Erstgespräch prüfen wir die Voraussetzungen und senden dir die Einladung ins Partnerportal.",
+     "Lieber direkt? Ruf uns an unter **044 502 92 52** oder schreib an info@hypoteq.ch."
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Deine Kunden.\n*Deine Provision.*",
+    "text": "0 CHF Setup, 40+ Finanzierungspartner und eine persönliche Ansprechperson.",
+    "ctas": [
+     {
+      "label": "Partner werden",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Partnerlogin",
+      "to": "portal"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Devenir partenaire: hypothèques et commissions | HYPOTEQ",
+  "description": "Apportez des dossiers hypothécaires à HYPOTEQ et touchez une commission. Portail partenaire, 40+ prêteurs et suivi des dossiers. Devenez partenaire.",
+  "h1": "Devenir partenaire hypothécaire",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Programme partenaire HYPOTEQ · B2B",
+    "h1": "Devenir partenaire\nhypothécaire",
+    "lead": "**Devenir courtier hypothécaire** sans contrat bancaire propre: vous apportez le client, nous obtenons les offres de plus de 40 banques, assurances et caisses de pension. La relation client reste la vôtre, la commission par conclusion aussi.",
+    "ctas": [
+     {
+      "label": "Devenir partenaire",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Login partenaire",
+      "to": "portal"
+     }
+    ],
+    "badges": [
+     "0 CHF de mise en place",
+     "Commission équitable par dossier",
+     "Interlocuteur personnel"
+    ],
+    "image": "consultation",
+    "alt": "Entretien de conseil entre un partenaire et une cliente",
+    "float": {
+     "title": "Vos clients. Votre commission.",
+     "text": "La relation client reste la vôtre"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "0 CHF",
+      "label": "de frais de mise en place"
+     },
+     {
+      "value": "40+",
+      "label": "banques, assurances et caisses de pension"
+     },
+     {
+      "value": "1 portail",
+      "label": "pour dossiers, statut, documents et retours"
+     },
+     {
+      "value": "1:1",
+      "label": "interlocuteur personnel, pas de hotline"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Portail partenaire",
+    "title": "Chaque dossier.\n*Un seul endroit.*",
+    "screen": "portal",
+    "lead": "Dans le **portail partenaire**, vous déposez vos dossiers et voyez à tout moment où ils en sont.",
+    "paragraphs": [
+     "Statut, documents et retours des prêteurs sont réunis au même endroit. Vous ne voyez que vos propres dossiers, l'accès se fait sur invitation.",
+     "Vous préférez avancer avec le client? Vous pouvez aussi remplir la demande en ligne **en tant que conseiller**. Notre IA lit les documents téléchargés."
+    ],
+    "bullets": [
+     "Déposer des dossiers et suivre le statut en direct",
+     "Retours des prêteurs directement dans le dossier",
+     "Estimation immobilière avec Wüest Partner incluse",
+     "Intégration du calculateur (iFrame) sur demande"
+    ],
+    "ctas": [
+     {
+      "label": "Devenir partenaire",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Accéder au portail",
+      "to": "portal"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Comment ça marche",
+    "title": "Du premier dossier\n*à la commission.*",
+    "items": [
+     {
+      "title": "Inscription ou invitation",
+      "text": "Vous nous contactez via le formulaire. Après vérification, vous recevez votre invitation au portail partenaire."
+     },
+     {
+      "title": "Déposer le dossier",
+      "text": "Déposez le dossier dans le portail ou remplissez la demande en ligne en tant que conseiller avec votre client."
+     },
+     {
+      "title": "Nous obtenons les offres",
+      "text": "Nous vérifions le dossier, négocions avec plus de 40 prêteurs et vous tenons informé dans le portail."
+     },
+     {
+      "title": "Conclusion et commission",
+      "text": "Après la conclusion, vous recevez votre commission, avec un versement rapide."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Devenir partenaire",
+      "to": "page:partner#formular"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Pour qui?",
+    "title": "Le programme partenaire\n*pour votre métier.*",
+    "lead": "Apporteur d'affaires hypothèque: courtiers immobiliers, fiduciaires, gérants de fortune, agences d'assurance et brokers.",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Immobilier",
+      "title": "Pour courtiers immobiliers",
+      "text": "Vendre plus vite grâce à une attestation de financement pour vos acheteurs.",
+      "to": "page:partner-makler",
+      "cta": "Pour courtiers"
+     },
+     {
+      "kicker": "Fiduciaire",
+      "title": "Pour fiduciaires et gérants",
+      "text": "Une valeur ajoutée pour vos mandants, sans concurrence de produits.",
+      "to": "page:partner-treuhand",
+      "cta": "Pour fiduciaires"
+     },
+     {
+      "kicker": "Assurance",
+      "title": "Pour assurances et brokers",
+      "text": "L'hypothèque au portefeuille, sans contrat bancaire propre.",
+      "to": "page:partner-versicherung",
+      "cta": "Pour brokers"
+     },
+     {
+      "kicker": "Academy",
+      "title": "HYPOTEQ Academy",
+      "text": "Votre équipe apprend l'hypothèque et s'entraîne aux entretiens avec l'IA.",
+      "to": "page:academy",
+      "cta": "Découvrir l'Academy"
+     }
+    ]
+   },
+   {
+    "type": "compare",
+    "eyebrow": "Pourquoi HYPOTEQ?",
+    "title": "Seul\n*ou avec HYPOTEQ?*",
+    "head": [
+     "",
+     "Propre contrat bancaire",
+     "Avec HYPOTEQ"
+    ],
+    "rows": [
+     [
+      "Accès aux prêteurs",
+      "négocier un par un",
+      "40+ prêteurs"
+     ],
+     [
+      "Mise en place",
+      "contrats et démarches",
+      "0 CHF"
+     ],
+     [
+      "Dossier et offres",
+      "à préparer soi-même",
+      "nous nous en chargeons"
+     ],
+     [
+      "Suivi du dossier",
+      "par e-mail et téléphone",
+      "en direct dans le portail"
+     ],
+     [
+      "Estimation immobilière",
+      "à acheter à l'externe",
+      "incluse"
+     ],
+     [
+      "Formation de l'équipe",
+      "à organiser soi-même",
+      "HYPOTEQ Academy"
+     ]
+    ],
+    "note": "La commission est convenue par conclusion. Nous discutons des conditions lors du premier entretien.",
+    "ctas": [
+     {
+      "label": "Demander un entretien",
+      "to": "page:partner#formular"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Conditions",
+    "title": "Qui peut\n*devenir partenaire.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "01",
+      "title": "Entreprise enregistrée",
+      "text": "Votre société est inscrite au registre du commerce."
+     },
+     {
+      "kicker": "02",
+      "title": "Autorisation et surveillance",
+      "text": "Vous disposez d'une autorisation d'intermédiaire valable ou êtes soumis à une surveillance."
+     },
+     {
+      "kicker": "03",
+      "title": "KYC et LBA",
+      "text": "Vous respectez les obligations d'identification des clients et de lutte contre le blanchiment."
+     },
+     {
+      "kicker": "04",
+      "title": "Expérience",
+      "text": "Vous avez de l'expérience dans l'immobilier, la fiduciaire, la gestion de fortune ou l'assurance."
+     }
+    ]
+   },
+   {
+    "type": "testimonials",
+    "eyebrow": "Témoignages",
+    "title": "Ce que disent\n*nos partenaires.*",
+    "items": [
+     {
+      "text": "En tant qu'intermédiaire, HYPOTEQ m'ouvre les portes du monde du financement.",
+      "author": "Noli T., partenaire"
+     },
+     {
+      "text": "Comme partenaire aussi, on est très bien entouré chez HYPOTEQ. Ils restent joignables, même après les heures de bureau.",
+      "author": "Luigi M., partenaire"
+     },
+     {
+      "text": "Notre conseiller nous a parfaitement accompagnés et a toujours été très présent.",
+      "author": "Romain C., client"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Références",
+    "title": "Déjà partenaires:\n*RE/MAX et Betterhomes.*",
+    "cols": 2,
+    "items": [
+     {
+      "kicker": "Co-branding",
+      "title": "RE/MAX",
+      "text": "Une entrée co-brandée dédiée mène les acheteurs directement à la demande de financement."
+     },
+     {
+      "kicker": "Co-branding",
+      "title": "Betterhomes",
+      "text": "Betterhomes utilise aussi une entrée co-brandée. Nous pouvons en créer une pour vous sur demande."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Demander un co-branding",
+      "to": "page:partner#formular"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "Bon à savoir\n*pour les partenaires.*",
+    "items": [
+     {
+      "q": "Qui peut devenir partenaire HYPOTEQ?",
+      "a": "Les courtiers immobiliers, fiduciaires, gérants de fortune, agences d'assurance et brokers disposant d'une entreprise enregistrée, d'une autorisation ou surveillance valable, respectant le KYC/LBA et ayant de l'expérience."
+     },
+     {
+      "q": "Quel est le montant de la commission?",
+      "a": "Vous recevez une **commission équitable par conclusion**, versée rapidement. Les conditions précises dépendent du modèle de partenariat et sont fixées lors du premier entretien."
+     },
+     {
+      "q": "Comment fonctionne le portail partenaire?",
+      "a": "Vous déposez vos dossiers et voyez le statut, les documents et les retours des prêteurs au même endroit. Chaque partenaire ne voit que ses propres dossiers, l'accès se fait sur invitation."
+     },
+     {
+      "q": "Le client reste-t-il le mien?",
+      "a": "Oui. La relation client reste la vôtre. HYPOTEQ ne distribue ni assurances ni placements: aucune concurrence de produits."
+     },
+     {
+      "q": "Combien coûte le partenariat?",
+      "a": "L'entrée est gratuite: 0 CHF de mise en place. L'estimation immobilière avec Wüest Partner est incluse pour vos dossiers."
+     }
+    ]
+   },
+   {
+    "type": "form",
+    "kind": "partner",
+    "eyebrow": "Demande de partenariat",
+    "title": "Parlons-en.",
+    "lead": "Présentez-nous brièvement votre entreprise. Votre interlocuteur vous recontacte personnellement.",
+    "paragraphs": [
+     "Après le premier entretien, nous vérifions les conditions et vous envoyons l'invitation au portail partenaire.",
+     "Vous préférez un contact direct? Appelez le **044 502 92 52** ou écrivez à info@hypoteq.ch."
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Vos clients.\n*Votre commission.*",
+    "text": "0 CHF de mise en place, 40+ prêteurs et un interlocuteur personnel.",
+    "ctas": [
+     {
+      "label": "Devenir partenaire",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Login partenaire",
+      "to": "portal"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Diventa partner: ipoteche con provvigione | HYPOTEQ",
+  "description": "Segnala ipoteche a HYPOTEQ e ricevi una provvigione. Portale partner, oltre 40 istituti e accompagnamento dei dossier. Diventa partner ora.",
+  "h1": "Diventa partner ipotecario",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Programma partner HYPOTEQ · B2B",
+    "h1": "Diventa partner\nipotecario",
+    "lead": "**Diventare broker ipotecario** senza un contratto bancario proprio: tu porti il cliente, noi raccogliamo le offerte di oltre 40 banche, assicurazioni e casse pensione. Il rapporto con il cliente resta tuo, la provvigione per ogni conclusione anche.",
+    "ctas": [
+     {
+      "label": "Diventa partner",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Login partner",
+      "to": "portal"
+     }
+    ],
+    "badges": [
+     "0 CHF di setup",
+     "Provvigione equa per conclusione",
+     "Referente personale"
+    ],
+    "image": "consultation",
+    "alt": "Colloquio di consulenza tra un partner e una cliente",
+    "float": {
+     "title": "I tuoi clienti. La tua provvigione.",
+     "text": "Il rapporto con il cliente resta tuo"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "0 CHF",
+      "label": "di costi di setup per iniziare"
+     },
+     {
+      "value": "40+",
+      "label": "banche, assicurazioni e casse pensione"
+     },
+     {
+      "value": "1 portale",
+      "label": "per dossier, stato, documenti e riscontri"
+     },
+     {
+      "value": "1:1",
+      "label": "referente personale, niente hotline"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Portale partner",
+    "title": "Ogni dossier.\n*Un solo posto.*",
+    "screen": "portal",
+    "lead": "Nel **portale partner** inoltri i dossier e vedi in ogni momento a che punto sono.",
+    "paragraphs": [
+     "Stato, documenti e riscontri degli istituti sono riuniti in un solo posto. Vedi solo i tuoi dossier, l'accesso avviene su invito.",
+     "Preferisci lavorare con il cliente? Puoi compilare la richiesta online anche **come consulente**. La nostra IA legge i documenti caricati."
+    ],
+    "bullets": [
+     "Inoltrare dossier e seguirne lo stato in tempo reale",
+     "Riscontri degli istituti direttamente nel dossier",
+     "Valutazione immobiliare con Wüest Partner inclusa",
+     "Integrazione del calcolatore (iFrame) su accordo"
+    ],
+    "ctas": [
+     {
+      "label": "Diventa partner",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Al portale partner",
+      "to": "portal"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Come funziona",
+    "title": "Dal primo dossier\n*alla provvigione.*",
+    "items": [
+     {
+      "title": "Registrazione o invito",
+      "text": "Ci contatti tramite il modulo. Dopo la verifica ricevi l'invito al portale partner."
+     },
+     {
+      "title": "Inoltrare il dossier",
+      "text": "Inoltra il dossier nel portale o compila la richiesta online come consulente insieme al cliente."
+     },
+     {
+      "title": "Raccogliamo le offerte",
+      "text": "Verifichiamo il dossier, trattiamo con oltre 40 istituti e ti teniamo aggiornato nel portale."
+     },
+     {
+      "title": "Conclusione e provvigione",
+      "text": "Dopo la conclusione ricevi la tua provvigione, con pagamento rapido."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Diventa partner ora",
+      "to": "page:partner#formular"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Per chi?",
+    "title": "Il programma partner\n*per il tuo settore.*",
+    "lead": "Segnalatore ipoteche con provvigione: agenti immobiliari, fiduciari, gestori patrimoniali, agenzie assicurative e broker.",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Immobiliare",
+      "title": "Per agenti immobiliari",
+      "text": "Vendere più in fretta grazie alla conferma di finanziamento per gli acquirenti.",
+      "to": "page:partner-makler",
+      "cta": "Per agenti"
+     },
+     {
+      "kicker": "Fiduciaria",
+      "title": "Per fiduciari e gestori",
+      "text": "Valore aggiunto per i mandanti, senza concorrenza di prodotti.",
+      "to": "page:partner-treuhand",
+      "cta": "Per fiduciari"
+     },
+     {
+      "kicker": "Assicurazione",
+      "title": "Per assicurazioni e broker",
+      "text": "Ipoteche nel portafoglio, senza contratto bancario proprio.",
+      "to": "page:partner-versicherung",
+      "cta": "Per broker"
+     },
+     {
+      "kicker": "Academy",
+      "title": "HYPOTEQ Academy",
+      "text": "Il tuo team impara le ipoteche e allena i colloqui con l'IA.",
+      "to": "page:academy",
+      "cta": "Scopri l'Academy"
+     }
+    ]
+   },
+   {
+    "type": "compare",
+    "eyebrow": "Perché HYPOTEQ?",
+    "title": "Da solo\n*o con HYPOTEQ?*",
+    "head": [
+     "",
+     "Contratto bancario proprio",
+     "Con HYPOTEQ"
+    ],
+    "rows": [
+     [
+      "Accesso agli istituti",
+      "trattare uno per uno",
+      "40+ istituti"
+     ],
+     [
+      "Setup",
+      "contratti e pratiche",
+      "0 CHF"
+     ],
+     [
+      "Dossier e offerte",
+      "da preparare da solo",
+      "ce ne occupiamo noi"
+     ],
+     [
+      "Stato del dossier",
+      "via e-mail e telefono",
+      "in tempo reale nel portale"
+     ],
+     [
+      "Valutazione immobiliare",
+      "da acquistare esternamente",
+      "inclusa"
+     ],
+     [
+      "Formazione del team",
+      "da organizzare da solo",
+      "HYPOTEQ Academy"
+     ]
+    ],
+    "note": "La provvigione è concordata per ogni conclusione. Le condizioni le definiamo nel primo colloquio.",
+    "ctas": [
+     {
+      "label": "Richiedi un colloquio",
+      "to": "page:partner#formular"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Requisiti",
+    "title": "Chi può\n*diventare partner.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "01",
+      "title": "Impresa registrata",
+      "text": "La tua società è iscritta al registro di commercio."
+     },
+     {
+      "kicker": "02",
+      "title": "Autorizzazione e vigilanza",
+      "text": "Hai un'autorizzazione all'intermediazione valida o sei soggetto a vigilanza."
+     },
+     {
+      "kicker": "03",
+      "title": "KYC e antiriciclaggio",
+      "text": "Rispetti gli obblighi di identificazione dei clienti e antiriciclaggio."
+     },
+     {
+      "kicker": "04",
+      "title": "Esperienza",
+      "text": "Hai esperienza in immobili, fiduciaria, gestione patrimoniale o assicurazioni."
+     }
+    ]
+   },
+   {
+    "type": "testimonials",
+    "eyebrow": "Voci dei partner",
+    "title": "Cosa dicono\n*i nostri partner.*",
+    "items": [
+     {
+      "text": "Come intermediario, HYPOTEQ è per me la porta d'accesso al mondo dei finanziamenti.",
+      "author": "Noli T., partner"
+     },
+     {
+      "text": "Anche come partner si è in ottime mani da HYPOTEQ. Sono raggiungibili anche dopo l'orario d'ufficio.",
+      "author": "Luigi M., partner"
+     },
+     {
+      "text": "Il nostro consulente ci ha accompagnati in modo ottimale ed è sempre stato molto presente.",
+      "author": "Romain C., cliente"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Referenze",
+    "title": "Già partner:\n*RE/MAX e Betterhomes.*",
+    "cols": 2,
+    "items": [
+     {
+      "kicker": "Co-branding",
+      "title": "RE/MAX",
+      "text": "Un accesso co-brandizzato dedicato porta gli acquirenti direttamente alla richiesta di finanziamento."
+     },
+     {
+      "kicker": "Co-branding",
+      "title": "Betterhomes",
+      "text": "Anche Betterhomes usa un accesso co-brandizzato. Su richiesta lo creiamo anche per te."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Richiedi il co-branding",
+      "to": "page:partner#formular"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "Buono a sapersi\n*per i partner.*",
+    "items": [
+     {
+      "q": "Chi può diventare partner HYPOTEQ?",
+      "a": "Agenti immobiliari, fiduciari, gestori patrimoniali, agenzie assicurative e broker con impresa registrata, autorizzazione o vigilanza valida, obblighi KYC/antiriciclaggio rispettati ed esperienza."
+     },
+     {
+      "q": "Quanto è la provvigione?",
+      "a": "Ricevi una **provvigione equa per ogni conclusione**, con pagamento rapido. Le condizioni concrete dipendono dal modello di partnership e le definiamo nel primo colloquio."
+     },
+     {
+      "q": "Come funziona il portale partner?",
+      "a": "Inoltri i dossier e vedi stato, documenti e riscontri degli istituti in un solo posto. Ogni partner vede solo i propri dossier, l'accesso avviene su invito."
+     },
+     {
+      "q": "Il cliente resta mio?",
+      "a": "Sì. Il rapporto con il cliente resta tuo. HYPOTEQ non vende assicurazioni né investimenti: nessuna concorrenza di prodotti."
+     },
+     {
+      "q": "Quanto costa la partnership?",
+      "a": "L'ingresso è gratuito: 0 CHF di setup. La valutazione immobiliare con Wüest Partner è inclusa per i tuoi dossier."
+     }
+    ]
+   },
+   {
+    "type": "form",
+    "kind": "partner",
+    "eyebrow": "Richiesta di partnership",
+    "title": "Parliamone.",
+    "lead": "Raccontaci in breve della tua azienda. Il tuo referente ti ricontatta personalmente.",
+    "paragraphs": [
+     "Dopo il primo colloquio verifichiamo i requisiti e ti inviamo l'invito al portale partner.",
+     "Preferisci un contatto diretto? Chiama lo **044 502 92 52** o scrivi a info@hypoteq.ch."
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "I tuoi clienti.\n*La tua provvigione.*",
+    "text": "0 CHF di setup, oltre 40 istituti e un referente personale.",
+    "ctas": [
+     {
+      "label": "Diventa partner",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Login partner",
+      "to": "portal"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "Become a Partner: Refer Mortgages, Earn | HYPOTEQ",
+  "description": "Refer mortgage clients to HYPOTEQ and earn a commission. Partner portal, 40+ Swiss lenders and full case support. Become a partner today.",
+  "h1": "Become a HYPOTEQ mortgage partner",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "HYPOTEQ partner programme · B2B",
+    "h1": "Become a HYPOTEQ\nmortgage partner",
+    "lead": "**Become a mortgage broker in Switzerland** without your own bank agreements: you bring the client, we collect offers from 40+ banks, insurers and pension funds. You keep the client relationship and earn a commission on every closed deal.",
+    "ctas": [
+     {
+      "label": "Become a partner",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Partner login",
+      "to": "portal"
+     }
+    ],
+    "badges": [
+     "CHF 0 setup",
+     "Fair commission per deal",
+     "Personal contact person"
+    ],
+    "image": "consultation",
+    "alt": "Advisory meeting between a partner and a client",
+    "float": {
+     "title": "Your clients. Your commission.",
+     "text": "You keep the client relationship"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "CHF 0",
+      "label": "setup cost to get started"
+     },
+     {
+      "value": "40+",
+      "label": "banks, insurers & pension funds"
+     },
+     {
+      "value": "1 portal",
+      "label": "for cases, status, documents & lender feedback"
+     },
+     {
+      "value": "1:1",
+      "label": "a personal contact, not a hotline"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Partner portal",
+    "title": "Every case.\n*One place.*",
+    "screen": "portal",
+    "lead": "In the **partner portal** you submit cases and see where they stand at any time.",
+    "paragraphs": [
+     "Status, documents and lender feedback are all in one place. You only see your own cases, and access is by invitation.",
+     "Prefer to work with the client directly? You can also complete the online request **as an advisor** on their behalf. Our AI reads the uploaded documents."
+    ],
+    "bullets": [
+     "Submit cases and track status live",
+     "Lender feedback right inside each case",
+     "Property valuation with Wüest Partner included",
+     "Calculator embedding (iFrame) by arrangement"
+    ],
+    "ctas": [
+     {
+      "label": "Become a partner",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Go to partner portal",
+      "to": "portal"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "How it works",
+    "title": "From first case\n*to commission.*",
+    "items": [
+     {
+      "title": "Register or get invited",
+      "text": "Get in touch via the form. Once we have checked the requirements, you receive your partner portal invitation."
+     },
+     {
+      "title": "Submit a case",
+      "text": "Submit the case in the portal, or fill in the online request as an advisor together with your client."
+     },
+     {
+      "title": "We collect the offers",
+      "text": "We review the file, negotiate with 40+ lenders and keep you updated in the portal."
+     },
+     {
+      "title": "Closing & commission",
+      "text": "Once the mortgage closes, you receive your commission, paid out quickly."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Become a partner now",
+      "to": "page:partner#formular"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Who is it for?",
+    "title": "The partner programme\n*for your industry.*",
+    "lead": "A mortgage partner program in Switzerland for real estate agents, fiduciaries, wealth managers, insurance agencies, brokers and introducers.",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Real estate",
+      "title": "For real estate agents",
+      "text": "Sell faster with financing confirmations for your buyers.",
+      "to": "page:partner-makler",
+      "cta": "For agents"
+     },
+     {
+      "kicker": "Fiduciary",
+      "title": "For fiduciaries & wealth managers",
+      "text": "Added value for clients, with no product competition.",
+      "to": "page:partner-treuhand",
+      "cta": "For fiduciaries"
+     },
+     {
+      "kicker": "Insurance",
+      "title": "For insurers & brokers",
+      "text": "Add mortgages to your portfolio without your own bank agreements.",
+      "to": "page:partner-versicherung",
+      "cta": "For brokers"
+     },
+     {
+      "kicker": "Academy",
+      "title": "HYPOTEQ Academy",
+      "text": "Your team learns Swiss mortgages and practises client conversations with AI.",
+      "to": "page:academy",
+      "cta": "Explore the Academy"
+     }
+    ]
+   },
+   {
+    "type": "compare",
+    "eyebrow": "Why HYPOTEQ?",
+    "title": "On your own\n*or with HYPOTEQ?*",
+    "head": [
+     "",
+     "Own bank agreements",
+     "With HYPOTEQ"
+    ],
+    "rows": [
+     [
+      "Access to lenders",
+      "negotiate one by one",
+      "40+ lenders"
+     ],
+     [
+      "Setup",
+      "contracts & paperwork",
+      "CHF 0"
+     ],
+     [
+      "File & offers",
+      "prepare yourself",
+      "we handle it"
+     ],
+     [
+      "Case status",
+      "by email & phone",
+      "live in the partner portal"
+     ],
+     [
+      "Property valuation",
+      "buy externally",
+      "included"
+     ],
+     [
+      "Team training",
+      "organise yourself",
+      "HYPOTEQ Academy"
+     ]
+    ],
+    "note": "Commission is agreed per closed deal. We discuss the terms in a first call.",
+    "ctas": [
+     {
+      "label": "Request a first call",
+      "to": "page:partner#formular"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Requirements",
+    "title": "Who can\n*become a partner.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "01",
+      "title": "Registered company",
+      "text": "Your business is listed in the Swiss commercial register."
+     },
+     {
+      "kicker": "02",
+      "title": "Licence & supervision",
+      "text": "You hold a valid intermediary licence or are subject to supervision."
+     },
+     {
+      "kicker": "03",
+      "title": "KYC & AML",
+      "text": "You comply with client identification and anti-money-laundering duties."
+     },
+     {
+      "kicker": "04",
+      "title": "Experience",
+      "text": "You have experience in real estate, fiduciary services, wealth management or insurance."
+     }
+    ]
+   },
+   {
+    "type": "testimonials",
+    "eyebrow": "Partner voices",
+    "title": "What our\n*partners say.*",
+    "items": [
+     {
+      "text": "As an intermediary, HYPOTEQ is my door opener to the world of financing.",
+      "author": "Noli T., sales partner"
+     },
+     {
+      "text": "As a partner, you are in very good hands at HYPOTEQ. They are reachable, even after office hours.",
+      "author": "Luigi M., sales partner"
+     },
+     {
+      "text": "Our advisor guided us perfectly and was always very present.",
+      "author": "Romain C., client"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "References",
+    "title": "Already partners:\n*RE/MAX & Betterhomes.*",
+    "cols": 2,
+    "items": [
+     {
+      "kicker": "Co-branding",
+      "title": "RE/MAX",
+      "text": "A dedicated co-branded entry point takes buyers straight to the financing request."
+     },
+     {
+      "kicker": "Co-branding",
+      "title": "Betterhomes",
+      "text": "Betterhomes also uses a co-branded entry point. We can set one up for you on request."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Request co-branding",
+      "to": "page:partner#formular"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Good to know\n*for partners.*",
+    "items": [
+     {
+      "q": "Who can become a HYPOTEQ partner?",
+      "a": "Real estate agents, fiduciaries, wealth managers, insurance agencies and brokers with a registered company, a valid licence or supervision, KYC/AML compliance and relevant experience."
+     },
+     {
+      "q": "How much commission do I earn?",
+      "a": "You earn a **fair commission on every closed deal**, paid out quickly. The exact terms depend on the partner model and are agreed in a first call."
+     },
+     {
+      "q": "How does the partner portal work?",
+      "a": "You submit cases and see status, documents and lender feedback in one place. Each partner only sees their own cases, and access is by invitation."
+     },
+     {
+      "q": "Do I keep the client relationship?",
+      "a": "Yes. The client relationship stays with you. HYPOTEQ does not sell insurance or investments, so there is no product competition."
+     },
+     {
+      "q": "What does the partnership cost?",
+      "a": "Getting started is free: CHF 0 setup. Property valuation with Wüest Partner is included for your cases."
+     }
+    ]
+   },
+   {
+    "type": "form",
+    "kind": "partner",
+    "eyebrow": "Partnership request",
+    "title": "Let’s\n*talk.*",
+    "lead": "Tell us briefly about your business. Your contact person will get back to you personally.",
+    "paragraphs": [
+     "After the first call, we check the requirements and send you your partner portal invitation.",
+     "Prefer to talk now? Call **044 502 92 52** or write to info@hypoteq.ch."
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Your clients.\n*Your commission.*",
+    "text": "CHF 0 setup, 40+ lenders and a personal contact person.",
+    "ctas": [
+     {
+      "label": "Become a partner",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Partner login",
+      "to": "portal"
+     }
+    ]
+   }
+  ]
+ }
+}

@@ -1,0 +1,938 @@
+{
+ "de": {
+  "title": "Hypothek mit Bonus oder variablem Einkommen | HYPOTEQ",
+  "description": "Bonus, Provision oder schwankender Lohn? Wir finden Anbieter, die dein variables Einkommen fair anrechnen. 40+ Anbieter, Anfrage in 3 Minuten.",
+  "h1": "Wenn dein Bonus für die Tragbarkeit zählen soll",
+  "nav": [
+   "Hypothek mit Bonus",
+   "Variables Einkommen fair anrechnen"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypothek Bonus Einkommen",
+    "h1": "Wenn dein Bonus\nfür die Tragbarkeit\n*zählen soll*",
+    "lead": "Ein grosser Teil deines Lohns kommt als Bonus oder Provision, aber deine Bank rechnet nur das Fixum? Für deine **Hypothek mit Bonus-Einkommen** suchen wir unter 40+ Anbietern jene, die dein variables Einkommen fair berücksichtigen.",
+    "ctas": [
+     {
+      "label": "Tragbarkeit prüfen lassen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Kostenlos & unverbindlich",
+     "Bonus, Provision, Zulagen",
+     "Offerten in 48–72 h"
+    ],
+    "image": "zurich-neighbourhood",
+    "alt": "Wohnquartier in Zürich mit Mehrfamilienhäusern",
+    "float": {
+     "title": "10 Jahre fest ab 1.60 %",
+     "text": "Richtzins · Beispielwert"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "Anbieter mit unterschiedlicher Anrechnungspraxis"
+     },
+     {
+      "value": "0 CHF",
+      "label": "für Vergleich und Vermittlung"
+     },
+     {
+      "value": "3 Min.",
+      "label": "bis zur vollständigen Anfrage"
+     },
+     {
+      "value": "48–72 h",
+      "label": "bis zu konkreten Offerten"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Bonus Tragbarkeit Hypothek",
+    "title": "Gleiches Einkommen.\n*Unterschiedliche Rechnung.*",
+    "image": "consultation",
+    "alt": "Beraterin prüft Lohnausweise mit einem Kunden",
+    "paragraphs": [
+     "Banken rechnen die Tragbarkeit mit einem kalkulatorischen Zins von 5 %, Unterhalt und Amortisation. Die Kosten sollten maximal rund einen Drittel des Bruttoeinkommens ausmachen. Entscheidend ist also, **welches Einkommen** die Bank überhaupt zählt.",
+     "Beim **variablen Einkommen** gehen die Anbieter verschieden vor: Manche berücksichtigen nur das Fixum, andere einen Teil des Bonus oder einen Durchschnitt über mehrere Jahre. Genau hier lohnt sich der Vergleich."
+    ],
+    "bullets": [
+     "Für Angestellte in Banking, Pharma, Sales und Beratung",
+     "Bonus, Provision, Schicht- und Spesenanteile sauber dokumentiert",
+     "Anbieter gezielt nach Anrechnungspraxis ausgewählt"
+    ],
+    "ctas": [
+     {
+      "label": "Mein Einkommen prüfen lassen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Variables Einkommen Hypothek",
+    "title": "Typische Hürden\n*und wie wir sie lösen.*",
+    "tone": "soft",
+    "cols": 2,
+    "items": [
+     {
+      "kicker": "«Meine Bank zählt nur das Fixum»",
+      "title": "Andere Anbieter rechnen anders",
+      "text": "Wir reichen dein Dossier dort ein, wo variable Lohnbestandteile nachvollziehbar mitgerechnet werden."
+     },
+     {
+      "kicker": "«Mein Bonus schwankt»",
+      "title": "Historie zeigen",
+      "text": "Lohnausweise mehrerer Jahre und Bonusreglement machen die Entwicklung sichtbar. Je stabiler, desto besser die Chancen."
+     },
+     {
+      "kicker": "«Ich arbeite Teilzeit»",
+      "title": "Zweites Einkommen einbeziehen",
+      "text": "Ein Partnereinkommen oder Teilzeitpensum kann die Tragbarkeit stärken. Wir rechnen beide Varianten.",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "kicker": "«Ich habe schon eine Absage»",
+      "title": "Zweitmeinung einholen",
+      "text": "Eine Absage gilt für eine Bank, nicht für den Markt. Wir prüfen dein Dossier neu.",
+      "to": "page:lp-zweitmeinung"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Hypothekenrechner",
+    "title": "Mit und ohne Bonus\n*durchrechnen.*",
+    "lead": "Rechne einmal nur mit dem Fixlohn und einmal inklusive Bonus. So siehst du, wie viel die Anrechnung ausmacht."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "So läuft es",
+    "title": "In vier Schritten\nzur fairen Anrechnung.",
+    "items": [
+     {
+      "title": "Anfrage in 3 Minuten",
+      "text": "Lade Lohnausweise, Arbeitsvertrag und Bonusbelege hoch. Die KI liest die meisten Angaben aus."
+     },
+     {
+      "title": "Einkommen analysieren",
+      "text": "Deine Beraterin meldet sich zeitnah und prüft, wie stabil dein variabler Anteil ist."
+     },
+     {
+      "title": "Passende Anbieter",
+      "text": "Wir wählen Partner, deren Anrechnungspraxis zu deinem Profil passt. Offerten meist innert 48–72 h."
+     },
+     {
+      "title": "Vergleichen und abschliessen",
+      "text": "Du entscheidest mit klaren Zahlen. Wir begleiten dich bis zur Auszahlung."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Jetzt starten",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "trust",
+    "items": [
+     "Unabhängiger Vermittler",
+     "40+ Finanzierungspartner",
+     "Kostenlos für Privatkund:innen",
+     "Persönliche Beraterin statt Hotline",
+     "Daten in der Schweiz verarbeitet",
+     "35+ Jahre Erfahrung im Team"
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Weiterlesen",
+    "title": "Mehr zu\n*Einkommen und Tragbarkeit.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Selbständig?",
+      "title": "Hypothek für Selbständige",
+      "text": "Für Unternehmer:innen mit eigenem Betrieb.",
+      "to": "page:selbstaendige"
+     },
+     {
+      "kicker": "Eigenmittel",
+      "title": "Wenig Eigenmittel",
+      "text": "Wenn das Eigenkapital knapp ist.",
+      "to": "page:lp-wenig-eigenmittel"
+     },
+     {
+      "kicker": "Ratgeber",
+      "title": "Tragbarkeit verstehen",
+      "text": "So rechnen Banken.",
+      "to": "page:rg-tragbarkeit"
+     },
+     {
+      "kicker": "Für Partner",
+      "title": "Partner werden",
+      "text": "Du betreust Kund:innen mit Finanzierungsbedarf? Arbeite mit uns.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Bonus und Hypothek\nkurz erklärt.",
+    "items": [
+     {
+      "q": "Rechnen Banken meinen Bonus an die Tragbarkeit an?",
+      "a": "Teilweise. Manche Anbieter zählen nur den Fixlohn, andere einen Teil des Bonus oder einen Mehrjahresdurchschnitt. Darum vergleichen wir gezielt nach Anrechnungspraxis."
+     },
+     {
+      "q": "Wie viele Jahre Bonushistorie braucht die Bank?",
+      "a": "Das unterscheidet sich je nach Anbieter. Meist wird eine mehrjährige, nachvollziehbare Historie erwartet. Halte Lohnausweise mehrerer Jahre und das Bonusreglement bereit."
+     },
+     {
+      "q": "Wie werden Provisionen und Schichtzulagen behandelt?",
+      "a": "Ähnlich wie ein Bonus: Regelmässige, belegbare Zahlungen haben bessere Chancen, angerechnet zu werden. Arbeitsvertrag und Lohnabrechnungen helfen bei der Beurteilung."
+     },
+     {
+      "q": "Hilft ein zweites Einkommen bei der Tragbarkeit?",
+      "a": "Ja. Ein Partnereinkommen, auch aus Teilzeit, fliesst in die Tragbarkeit ein. Dann haften in der Regel beide Kreditnehmer für die Hypothek."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Kontakt aufnehmen",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Dein Bonus verdient\n*eine faire Rechnung.*",
+    "text": "Vergleiche kostenlos über 40 Anbieter und starte deine Anfrage in 3 Minuten.",
+    "ctas": [
+     {
+      "label": "Tragbarkeit prüfen lassen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Hypothèque avec bonus ou revenu variable | HYPOTEQ",
+  "description": "Bonus, commissions ou salaire variable? Nous trouvons les prêteurs qui prennent équitablement en compte votre revenu variable. 40+ prêteurs.",
+  "h1": "Faire compter votre bonus dans la capacité financière",
+  "nav": [
+   "Hypothèque avec bonus",
+   "Revenu variable pris en compte"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypothèque bonus revenu variable",
+    "h1": "Faire compter votre bonus\ndans la capacité\n*financière*",
+    "lead": "Une grande partie de votre salaire arrive sous forme de bonus ou de commissions, mais votre banque ne retient que le fixe? Pour votre **hypothèque avec bonus et revenu variable**, nous cherchons parmi 40+ prêteurs ceux qui en tiennent compte équitablement.",
+    "ctas": [
+     {
+      "label": "Faire vérifier ma capacité",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Gratuit & sans engagement",
+     "Bonus, commissions, primes",
+     "Offres en 48–72 h"
+    ],
+    "image": "lake-living",
+    "alt": "Vignobles de Lavaux au-dessus du Léman",
+    "float": {
+     "title": "Fixe 10 ans dès 1.60 %",
+     "text": "Taux indicatif · valeur d'exemple"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "prêteurs aux pratiques différentes"
+     },
+     {
+      "value": "0 CHF",
+      "label": "pour la comparaison et le courtage"
+     },
+     {
+      "value": "3 min",
+      "label": "pour une demande complète"
+     },
+     {
+      "value": "48–72 h",
+      "label": "jusqu'aux offres concrètes"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Bonus et capacité financière",
+    "title": "Même revenu.\n*Calcul différent.*",
+    "image": "consultation",
+    "alt": "Conseillère examinant des certificats de salaire avec un client",
+    "paragraphs": [
+     "Les banques calculent la capacité financière avec un taux théorique de 5 %, l'entretien et l'amortissement. Les charges ne devraient pas dépasser environ un tiers du revenu brut. Tout dépend donc du **revenu que la banque retient**.",
+     "Pour un **revenu variable**, les pratiques divergent: certains prêteurs ne comptent que le fixe, d'autres une part du bonus ou une moyenne sur plusieurs années. C'est là que la comparaison paie."
+    ],
+    "bullets": [
+     "Pour salariés de la banque, de la pharma, de la vente et du conseil",
+     "Bonus, commissions et primes bien documentés",
+     "Prêteurs choisis selon leur pratique de prise en compte"
+    ],
+    "ctas": [
+     {
+      "label": "Faire analyser mon revenu",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Revenu variable et hypothèque",
+    "title": "Obstacles fréquents\n*et nos solutions.*",
+    "tone": "soft",
+    "cols": 2,
+    "items": [
+     {
+      "kicker": "«Ma banque ne compte que le fixe»",
+      "title": "D'autres calculent autrement",
+      "text": "Nous déposons votre dossier là où les éléments variables sont pris en compte de manière traçable."
+     },
+     {
+      "kicker": "«Mon bonus fluctue»",
+      "title": "Montrer l'historique",
+      "text": "Les certificats de salaire de plusieurs années et le règlement de bonus rendent l'évolution visible."
+     },
+     {
+      "kicker": "«Je travaille à temps partiel»",
+      "title": "Inclure un deuxième revenu",
+      "text": "Le revenu d'un partenaire ou un temps partiel peut renforcer la capacité. Nous calculons les deux variantes.",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "kicker": "«J'ai déjà reçu un refus»",
+      "title": "Demander un deuxième avis",
+      "text": "Un refus vaut pour une banque, pas pour le marché. Nous réexaminons votre dossier.",
+      "to": "page:lp-zweitmeinung"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Calculateur hypothécaire",
+    "title": "Calculer avec\n*et sans bonus.*",
+    "lead": "Calculez une fois avec le salaire fixe seul, une fois bonus compris, pour voir ce que la prise en compte change."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Déroulement",
+    "title": "Quatre étapes\nvers un calcul équitable.",
+    "items": [
+     {
+      "title": "Demande en 3 minutes",
+      "text": "Téléversez certificats de salaire, contrat de travail et justificatifs de bonus. L'IA lit la plupart des données."
+     },
+     {
+      "title": "Analyse du revenu",
+      "text": "Votre conseillère vous contacte rapidement et évalue la stabilité de votre part variable."
+     },
+     {
+      "title": "Prêteurs adaptés",
+      "text": "Nous choisissons des partenaires dont la pratique correspond à votre profil. Offres en général sous 48–72 h."
+     },
+     {
+      "title": "Comparer et conclure",
+      "text": "Vous décidez avec des chiffres clairs. Nous vous accompagnons jusqu'au versement."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Commencer",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "trust",
+    "items": [
+     "Courtier indépendant",
+     "40+ partenaires de financement",
+     "Gratuit pour les particuliers",
+     "Une conseillère, pas une hotline",
+     "Données traitées en Suisse",
+     "35+ ans d'expérience dans l'équipe"
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "À lire aussi",
+    "title": "Revenu et\n*capacité financière.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Indépendant?",
+      "title": "Hypothèque pour indépendants",
+      "text": "Pour les entrepreneurs.",
+      "to": "page:selbstaendige"
+     },
+     {
+      "kicker": "Fonds propres",
+      "title": "Peu de fonds propres",
+      "text": "Quand l'apport est juste.",
+      "to": "page:lp-wenig-eigenmittel"
+     },
+     {
+      "kicker": "Guide",
+      "title": "Comprendre la capacité",
+      "text": "Comment les banques calculent.",
+      "to": "page:rg-tragbarkeit"
+     },
+     {
+      "kicker": "Partenaires",
+      "title": "Devenir partenaire",
+      "text": "Vous suivez des clients qui financent un bien? Travaillons ensemble.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "Bonus et hypothèque\nen bref.",
+    "items": [
+     {
+      "q": "Les banques tiennent-elles compte de mon bonus?",
+      "a": "En partie. Certains prêteurs ne comptent que le fixe, d'autres une part du bonus ou une moyenne pluriannuelle. C'est pourquoi nous comparons selon cette pratique."
+     },
+     {
+      "q": "Combien d'années d'historique de bonus faut-il?",
+      "a": "Cela varie selon le prêteur. Un historique de plusieurs années, traçable, est généralement attendu. Préparez vos certificats de salaire et le règlement de bonus."
+     },
+     {
+      "q": "Comment les commissions sont-elles traitées?",
+      "a": "Comme un bonus: des versements réguliers et justifiés ont de meilleures chances d'être retenus. Contrat de travail et fiches de salaire aident à l'évaluation."
+     },
+     {
+      "q": "Un deuxième revenu aide-t-il?",
+      "a": "Oui. Le revenu d'un partenaire, même à temps partiel, entre dans la capacité financière. Les deux emprunteurs répondent alors en général de l'hypothèque."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Nous contacter",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Votre bonus mérite\n*un calcul équitable.*",
+    "text": "Comparez gratuitement plus de 40 prêteurs et lancez votre demande en 3 minutes.",
+    "ctas": [
+     {
+      "label": "Faire vérifier ma capacité",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Ipoteca con bonus o reddito variabile | HYPOTEQ",
+  "description": "Bonus, provvigioni o stipendio variabile? Troviamo gli istituti che considerano in modo equo il tuo reddito variabile. Oltre 40 istituti.",
+  "h1": "Quando il tuo bonus deve contare",
+  "nav": [
+   "Ipoteca con bonus",
+   "Reddito variabile considerato"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Ipoteca reddito variabile",
+    "h1": "Quando il tuo bonus\n*deve contare*",
+    "lead": "Gran parte del tuo stipendio arriva come bonus o provvigioni, ma la tua banca considera solo il fisso? Per la tua **ipoteca con reddito variabile** cerchiamo tra oltre 40 istituti quelli che lo valutano in modo equo.",
+    "ctas": [
+     {
+      "label": "Fai verificare la sostenibilità",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Gratuito e senza impegno",
+     "Bonus, provvigioni, indennità",
+     "Offerte in 48–72 h"
+    ],
+    "image": "lugano",
+    "alt": "Lugano con il lago e le colline del Ticino",
+    "float": {
+     "title": "Fissa 10 anni da 1.60 %",
+     "text": "Tasso indicativo · valore d'esempio"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "istituti con prassi diverse"
+     },
+     {
+      "value": "0 CHF",
+      "label": "per confronto e mediazione"
+     },
+     {
+      "value": "3 min",
+      "label": "per una richiesta completa"
+     },
+     {
+      "value": "48–72 h",
+      "label": "fino alle offerte concrete"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Bonus e sostenibilità ipoteca",
+    "title": "Stesso reddito.\n*Calcolo diverso.*",
+    "image": "consultation",
+    "alt": "Consulente esamina certificati di salario con un cliente",
+    "paragraphs": [
+     "Le banche calcolano la sostenibilità con un tasso teorico del 5 %, manutenzione e ammortamento. I costi non dovrebbero superare circa un terzo del reddito lordo. Conta quindi **quale reddito** la banca considera.",
+     "Con un **reddito variabile** le prassi divergono: alcuni istituti contano solo il fisso, altri una parte del bonus o una media pluriennale. Proprio qui il confronto conviene."
+    ],
+    "bullets": [
+     "Per dipendenti in banca, farmaceutica, vendita e consulenza",
+     "Bonus, provvigioni e indennità ben documentati",
+     "Istituti scelti secondo la loro prassi"
+    ],
+    "ctas": [
+     {
+      "label": "Fai analizzare il tuo reddito",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Reddito variabile e banca",
+    "title": "Ostacoli tipici\n*e come li risolviamo.*",
+    "tone": "soft",
+    "cols": 2,
+    "items": [
+     {
+      "kicker": "«La mia banca conta solo il fisso»",
+      "title": "Altri calcolano diversamente",
+      "text": "Presentiamo il tuo dossier dove le componenti variabili vengono considerate in modo trasparente."
+     },
+     {
+      "kicker": "«Il mio bonus oscilla»",
+      "title": "Mostrare lo storico",
+      "text": "Certificati di salario di più anni e regolamento bonus rendono visibile l'andamento."
+     },
+     {
+      "kicker": "«Lavoro a tempo parziale»",
+      "title": "Includere un secondo reddito",
+      "text": "Il reddito del partner o un tempo parziale può rafforzare la sostenibilità. Calcoliamo entrambe le varianti.",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "kicker": "«Ho già ricevuto un rifiuto»",
+      "title": "Chiedere un secondo parere",
+      "text": "Un rifiuto vale per una banca, non per il mercato. Riesaminiamo il tuo dossier.",
+      "to": "page:lp-zweitmeinung"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Calcolatore ipotecario",
+    "title": "Calcola con\n*e senza bonus.*",
+    "lead": "Calcola una volta solo con lo stipendio fisso e una volta bonus incluso, per vedere quanto conta."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Come funziona",
+    "title": "Quattro passi\nverso un calcolo equo.",
+    "items": [
+     {
+      "title": "Richiesta in 3 minuti",
+      "text": "Carica certificati di salario, contratto di lavoro e giustificativi del bonus. L'IA legge la maggior parte dei dati."
+     },
+     {
+      "title": "Analisi del reddito",
+      "text": "La tua consulente ti contatta in tempi brevi e valuta la stabilità della parte variabile."
+     },
+     {
+      "title": "Istituti adatti",
+      "text": "Scegliamo partner la cui prassi si adatta al tuo profilo. Offerte di solito entro 48–72 h."
+     },
+     {
+      "title": "Confrontare e concludere",
+      "text": "Decidi con cifre chiare. Ti accompagniamo fino al versamento."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Inizia ora",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "trust",
+    "items": [
+     "Intermediario indipendente",
+     "40+ partner di finanziamento",
+     "Gratuito per privati",
+     "Una consulente, non una hotline",
+     "Dati trattati in Svizzera",
+     "35+ anni di esperienza nel team"
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Approfondisci",
+    "title": "Reddito e\n*sostenibilità.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Indipendente?",
+      "title": "Ipoteca per indipendenti",
+      "text": "Per chi ha una propria azienda.",
+      "to": "page:selbstaendige"
+     },
+     {
+      "kicker": "Fondi propri",
+      "title": "Pochi fondi propri",
+      "text": "Quando il capitale è scarso.",
+      "to": "page:lp-wenig-eigenmittel"
+     },
+     {
+      "kicker": "Guida",
+      "title": "Capire la sostenibilità",
+      "text": "Come calcolano le banche.",
+      "to": "page:rg-tragbarkeit"
+     },
+     {
+      "kicker": "Per partner",
+      "title": "Diventa partner",
+      "text": "Segui clienti che finanziano casa? Collabora con noi.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "Bonus e ipoteca\nin breve.",
+    "items": [
+     {
+      "q": "Le banche considerano il mio bonus?",
+      "a": "In parte. Alcuni istituti contano solo il fisso, altri una parte del bonus o una media pluriennale. Per questo confrontiamo in base a questa prassi."
+     },
+     {
+      "q": "Quanti anni di storico bonus servono?",
+      "a": "Dipende dall'istituto. Di solito ci si aspetta uno storico pluriennale e documentato. Tieni pronti i certificati di salario e il regolamento bonus."
+     },
+     {
+      "q": "Come vengono trattate le provvigioni?",
+      "a": "Come un bonus: pagamenti regolari e documentati hanno più possibilità di essere considerati. Contratto di lavoro e buste paga aiutano."
+     },
+     {
+      "q": "Un secondo reddito aiuta la sostenibilità?",
+      "a": "Sì. Il reddito del partner, anche a tempo parziale, entra nel calcolo. Di regola entrambi rispondono poi dell'ipoteca."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Contattaci",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Il tuo bonus merita\n*un calcolo equo.*",
+    "text": "Confronta gratis oltre 40 istituti e avvia la richiesta in 3 minuti.",
+    "ctas": [
+     {
+      "label": "Fai verificare la sostenibilità",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "Mortgage with bonus or variable income | HYPOTEQ",
+  "description": "Bonus, commission or fluctuating pay? We find lenders who count your variable income fairly. 40+ lenders, apply in 3 minutes.",
+  "h1": "Making your bonus count for affordability",
+  "nav": [
+   "Mortgage with bonus income",
+   "Variable pay counted fairly"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Mortgage bonus income Switzerland",
+    "h1": "Making your bonus\ncount for\n*affordability*",
+    "lead": "A big part of your pay comes as bonus or commission, but your bank only counts the base salary? For your **mortgage with bonus income in Switzerland**, we search 40+ lenders for those who count variable pay fairly.",
+    "ctas": [
+     {
+      "label": "Check my affordability",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Free & non-binding",
+     "Bonus, commission, allowances",
+     "Offers in 48–72 h"
+    ],
+    "image": "zurich-neighbourhood",
+    "alt": "Residential neighbourhood in Zurich",
+    "float": {
+     "title": "10-year fixed from 1.60 %",
+     "text": "Indicative rate · sample value"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "lenders with different practices"
+     },
+     {
+      "value": "CHF 0",
+      "label": "for comparison and brokerage"
+     },
+     {
+      "value": "3 min.",
+      "label": "to a complete request"
+     },
+     {
+      "value": "48–72 h",
+      "label": "to concrete offers"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Bonus affordability Switzerland",
+    "title": "Same income.\n*Different calculation.*",
+    "image": "consultation",
+    "alt": "Advisor reviewing salary statements with a client",
+    "paragraphs": [
+     "Swiss lenders test affordability with an imputed interest rate of 5 %, maintenance and amortisation. These costs should not exceed roughly one third of gross income. So what matters is **which income** the lender counts at all.",
+     "With **variable income**, practices differ: some lenders count only base salary, others part of the bonus or an average over several years. That's exactly where comparing pays off."
+    ],
+    "bullets": [
+     "For employees in banking, pharma, sales and consulting",
+     "Bonus, commission and allowances properly documented",
+     "Lenders selected by how they treat variable pay"
+    ],
+    "ctas": [
+     {
+      "label": "Have my income reviewed",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Variable income mortgage",
+    "title": "Typical hurdles\n*and how we solve them.*",
+    "tone": "soft",
+    "cols": 2,
+    "items": [
+     {
+      "kicker": "“My bank only counts base pay”",
+      "title": "Other lenders calculate differently",
+      "text": "We submit your file where variable pay components are counted in a transparent way."
+     },
+     {
+      "kicker": "“My bonus fluctuates”",
+      "title": "Show your track record",
+      "text": "Salary statements from several years plus the bonus policy make the trend visible."
+     },
+     {
+      "kicker": "“I work part-time”",
+      "title": "Include a second income",
+      "text": "A partner's income or a part-time role can strengthen affordability. We calculate both options.",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "kicker": "“I've already been rejected”",
+      "title": "Get a second opinion",
+      "text": "A rejection applies to one bank, not the market. We review your file afresh.",
+      "to": "page:lp-zweitmeinung"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Mortgage calculator",
+    "title": "Run the numbers\n*with and without bonus.*",
+    "lead": "Calculate once with base salary only and once including bonus to see how much the treatment matters."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "How it works",
+    "title": "Four steps\nto a fair calculation.",
+    "items": [
+     {
+      "title": "Request in 3 minutes",
+      "text": "Upload salary statements, employment contract and bonus documents. Our AI reads most details."
+     },
+     {
+      "title": "Income analysis",
+      "text": "Your advisor usually gets back to you the same business day and assesses how stable your variable pay is."
+     },
+     {
+      "title": "Matching lenders",
+      "text": "We pick partners whose practice fits your profile. Offers usually within 48–72 h."
+     },
+     {
+      "title": "Compare and sign",
+      "text": "You decide with clear numbers. We support you until payout."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Get started",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "trust",
+    "items": [
+     "Independent broker",
+     "40+ financing partners",
+     "Free for private clients",
+     "A personal advisor, not a hotline",
+     "Data processed in Switzerland",
+     "35+ years of team experience"
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Read more",
+    "title": "More on income\n*and affordability.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Self-employed?",
+      "title": "Mortgage for self-employed",
+      "text": "For business owners.",
+      "to": "page:selbstaendige"
+     },
+     {
+      "kicker": "Equity",
+      "title": "Low equity",
+      "text": "When your down payment is tight.",
+      "to": "page:lp-wenig-eigenmittel"
+     },
+     {
+      "kicker": "Guide",
+      "title": "Understanding affordability",
+      "text": "How Swiss lenders calculate.",
+      "to": "page:rg-tragbarkeit"
+     },
+     {
+      "kicker": "For partners",
+      "title": "Become a partner",
+      "text": "You support clients who finance property? Work with us.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Bonus and mortgage\nin brief.",
+    "items": [
+     {
+      "q": "Do Swiss banks count my bonus towards affordability?",
+      "a": "Partly. Some lenders count only base salary, others part of the bonus or a multi-year average. That's why we compare lenders on exactly this point."
+     },
+     {
+      "q": "How many years of bonus history are required?",
+      "a": "It varies by lender. A traceable history over several years is usually expected. Have salary statements from several years and your bonus policy ready."
+     },
+     {
+      "q": "How are commissions treated?",
+      "a": "Much like a bonus: regular, documented payments are more likely to be counted. Your employment contract and payslips help with the assessment."
+     },
+     {
+      "q": "Does a second income help?",
+      "a": "Yes. A partner's income, even part-time, is included in affordability. Both borrowers are then usually liable for the mortgage."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Contact us",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Your bonus deserves\n*a fair calculation.*",
+    "text": "Compare 40+ lenders for free and start your request in 3 minutes.",
+    "ctas": [
+     {
+      "label": "Check my affordability",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ }
+}

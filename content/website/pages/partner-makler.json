@@ -1,0 +1,938 @@
+{
+ "de": {
+  "title": "Für Immobilienmakler: schnellere Abschlüsse | HYPOTEQ",
+  "description": "Finanzierungsbestätigungen für deine Kaufinteressenten innert kurzer Zeit, plus Provision. HYPOTEQ-Partnerprogramm für Immobilienmakler. Jetzt anfragen.",
+  "h1": "Partnerprogramm für Immobilienmakler",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Partner · Immobilienmakler",
+    "h1": "Partnerprogramm\nfür Immobilienmakler",
+    "lead": "Als **Hypothek Partner für Immobilienmakler** sorgt HYPOTEQ dafür, dass deine Kaufinteressenten rasch wissen, ob die Finanzierung steht. So verkaufst du schneller, verlierst keine Käufer und erhältst eine Provision pro Abschluss.",
+    "ctas": [
+     {
+      "label": "Partner werden",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Partnerlogin",
+      "to": "portal"
+     }
+    ],
+    "badges": [
+     "Finanzierungsbestätigung für Käufer",
+     "Co-Branding wie RE/MAX & Betterhomes",
+     "Bewertung inklusive"
+    ],
+    "image": "keys",
+    "alt": "Übergabe der Hausschlüssel an neue Eigentümer",
+    "float": {
+     "title": "Offerten in 48–72 h",
+     "text": "in der Regel nach vollständigen Unterlagen"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "48–72 h",
+      "label": "bis zu Offerten, nach vollständigen Unterlagen"
+     },
+     {
+      "value": "40+",
+      "label": "Banken, Versicherungen & Pensionskassen"
+     },
+     {
+      "value": "inkl.",
+      "label": "Immobilienbewertung mit Wüest Partner"
+     },
+     {
+      "value": "0 CHF",
+      "label": "Setup-Kosten für deinen Einstieg"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Finanzierung für Maklerkunden",
+    "title": "Kaufinteressenten\n*nicht verlieren.*",
+    "screen": "funnel",
+    "paragraphs": [
+     "Viele Verkäufe stocken, weil Käufer zu lange auf ihre Bank warten. Mit HYPOTEQ erhalten deine Interessenten rasch Klarheit: Die Beraterin meldet sich zeitnah, Offerten folgen meist innert 48–72 Stunden nach vollständigen Unterlagen.",
+     "Die **Makler-Finanzierungsbestätigung** basiert auf echten Offerten von über 40 Finanzierungspartnern. Das stärkt deine Verhandlung mit dem Verkäufer."
+    ],
+    "bullets": [
+     "Online-Anfrage in ca. 3 Minuten, auch als Berater für deine Kunden",
+     "Kaufinteressenten mit geprüfter Finanzierung",
+     "Status jedes Falls im Partnerportal"
+    ],
+    "ctas": [
+     {
+      "label": "Partner werden",
+      "to": "page:partner#formular"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Für Verkaufsmandate",
+    "title": "Den Marktwert kennen.\n*Mandate gewinnen.*",
+    "screen": "valuation",
+    "reverse": true,
+    "tone": "soft",
+    "paragraphs": [
+     "Mit der Immobilienbewertung von **Wüest Partner** zeigst du Eigentümern einen nachvollziehbaren Marktwert, berechnet mit einem hedonischen Modell, das Banken und Institutionen kennen.",
+     "Für deine Fälle ist die Bewertung als Partner inklusive."
+    ],
+    "bullets": [
+     "Einfamilienhaus und Eigentumswohnung",
+     "Online in wenigen Minuten",
+     "Starkes Argument im Akquisegespräch"
+    ],
+    "ctas": [
+     {
+      "label": "Zur Immobilienbewertung",
+      "to": "page:bewertung"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Co-Branding",
+    "title": "Dein eigener Einstieg.\n*Wie bei RE/MAX & Betterhomes.*",
+    "lead": "Mit einer Co-Branding-Landingpage gelangen deine Kaufinteressenten direkt zur Finanzierungsanfrage, und jeder Fall wird dir zugeordnet.",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Referenz",
+      "title": "RE/MAX",
+      "text": "Nutzt bereits einen Co-Branding-Einstieg zu HYPOTEQ."
+     },
+     {
+      "kicker": "Referenz",
+      "title": "Betterhomes",
+      "text": "Vermittelt Finanzierungen über einen eigenen Co-Branding-Einstieg."
+     },
+     {
+      "kicker": "Für dich",
+      "title": "Deine Landingpage",
+      "text": "Wir richten deinen Einstieg nach Absprache ein, auf Wunsch mit eingebettetem Kalkulator (iFrame)."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Co-Branding anfragen",
+      "to": "page:partner#formular"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "So funktioniert’s",
+    "title": "Vom Interessenten\n*zum Abschluss.*",
+    "items": [
+     {
+      "title": "Partner werden",
+      "text": "Formular ausfüllen, Erstgespräch führen, Einladung ins Partnerportal erhalten."
+     },
+     {
+      "title": "Käufer übergeben",
+      "text": "Fall im Portal einreichen, Co-Branding-Link teilen oder die Anfrage gemeinsam ausfüllen."
+     },
+     {
+      "title": "Wir finanzieren",
+      "text": "Wir holen Offerten ein und koordinieren mit Bank, Notariat und dir bis zur Auszahlung."
+     },
+     {
+      "title": "Provision erhalten",
+      "text": "Nach dem Abschluss erhältst du deine faire Provision, schnell ausbezahlt."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Jetzt Partner werden",
+      "to": "page:partner#formular"
+     }
+    ]
+   },
+   {
+    "type": "quote",
+    "text": "Als Vermittler ist HYPOTEQ für mich der Türöffner zur Finanzierungswelt.",
+    "author": "Noli T., Vertriebspartner"
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Mehr zum Partnerprogramm",
+    "title": "Alles für\n*deinen Vertrieb.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "title": "Partnerprogramm",
+      "text": "Alle Vorteile, Voraussetzungen und das Portal im Überblick.",
+      "to": "page:partner"
+     },
+     {
+      "title": "HYPOTEQ Academy",
+      "text": "Hypothekenwissen für dich und dein Team, mit KI-Trainer.",
+      "to": "page:academy"
+     },
+     {
+      "title": "Tragbarkeitsrechner",
+      "text": "Prüfe mit Käufern sofort, was finanzierbar ist.",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "title": "Immobilie kaufen",
+      "text": "So läuft die Finanzierung für deine Käufer ab.",
+      "to": "page:kauf"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Gut zu wissen\n*für Makler.*",
+    "items": [
+     {
+      "q": "Wie schnell erhalten meine Käufer eine Finanzierungsbestätigung?",
+      "a": "Die Beraterin meldet sich zeitnah. Sobald die Unterlagen vollständig sind, liegen meist **innert 48–72 Stunden** Offerten vor, die Grundlage für die Bestätigung."
+     },
+     {
+      "q": "Wie werde ich als Makler vergütet?",
+      "a": "Du erhältst eine **faire Provision pro Abschluss**, mit schneller Auszahlung. Die Konditionen vereinbaren wir im Erstgespräch."
+     },
+     {
+      "q": "Kann ich den Status im Partnerportal verfolgen?",
+      "a": "Ja. Im Partnerportal siehst du Status, Dokumente und Rückmeldungen der Kreditgeber zu jedem deiner Fälle. Du siehst nur deine eigenen Fälle."
+     },
+     {
+      "q": "Gibt es Co-Branding-Material?",
+      "a": "Ja. Wie für RE/MAX und Betterhomes richten wir nach Absprache einen Co-Branding-Einstieg für dich ein, optional mit eingebettetem Kalkulator."
+     },
+     {
+      "q": "Bleibt der Kunde bei mir?",
+      "a": "Ja. Die Kundenbeziehung bleibt bei dir. Wir kümmern uns ausschliesslich um die Finanzierung."
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Schneller verkaufen.\n*Mit gesicherter Finanzierung.*",
+    "text": "Werde HYPOTEQ-Partner und gib deinen Käufern Klarheit.",
+    "ctas": [
+     {
+      "label": "Partner werden",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Partnerlogin",
+      "to": "portal"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Courtiers immobiliers: vendez plus vite | HYPOTEQ",
+  "description": "Attestations de financement rapides pour vos acheteurs et commission à la clé. Programme partenaire HYPOTEQ pour courtiers immobiliers. Contactez-nous.",
+  "h1": "Programme partenaire pour courtiers immobiliers",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Partenaires · Courtiers immobiliers",
+    "h1": "Programme partenaire\npour courtiers immobiliers",
+    "lead": "Avec ce **partenariat courtier immobilier hypothèque**, vos acheteurs savent rapidement si leur financement tient la route. Vous vendez plus vite, ne perdez plus d'acheteurs et touchez une commission par conclusion.",
+    "ctas": [
+     {
+      "label": "Devenir partenaire",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Login partenaire",
+      "to": "portal"
+     }
+    ],
+    "badges": [
+     "Attestation de financement",
+     "Co-branding comme RE/MAX et Betterhomes",
+     "Estimation incluse"
+    ],
+    "image": "keys",
+    "alt": "Remise des clés de la maison aux nouveaux propriétaires",
+    "float": {
+     "title": "Offres en 48–72 h",
+     "text": "en règle générale, dossier complet"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "48–72 h",
+      "label": "jusqu'aux offres, dossier complet"
+     },
+     {
+      "value": "40+",
+      "label": "banques, assurances et caisses de pension"
+     },
+     {
+      "value": "incl.",
+      "label": "estimation immobilière avec Wüest Partner"
+     },
+     {
+      "value": "0 CHF",
+      "label": "de frais de mise en place"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Financement des acheteurs",
+    "title": "Ne perdez plus\n*vos acheteurs.*",
+    "screen": "funnel",
+    "paragraphs": [
+     "Beaucoup de ventes ralentissent parce que les acheteurs attendent leur banque. Avec HYPOTEQ, ils obtiennent vite de la clarté: la conseillère les rappelle rapidement, et les offres suivent souvent dans les 48–72 heures après réception du dossier complet.",
+     "L'**attestation de financement acheteur** repose sur de vraies offres de plus de 40 prêteurs. Un atout dans votre négociation avec le vendeur."
+    ],
+    "bullets": [
+     "Demande en ligne en 3 minutes environ, aussi en tant que conseiller",
+     "Des acheteurs au financement vérifié",
+     "Statut de chaque dossier dans le portail partenaire"
+    ],
+    "ctas": [
+     {
+      "label": "Devenir partenaire",
+      "to": "page:partner#formular"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Pour vos mandats de vente",
+    "title": "Connaître la valeur.\n*Gagner des mandats.*",
+    "screen": "valuation",
+    "reverse": true,
+    "tone": "soft",
+    "paragraphs": [
+     "Avec l'estimation immobilière de **Wüest Partner**, vous présentez aux propriétaires une valeur de marché fondée sur un modèle hédoniste connu des banques et des institutions.",
+     "En tant que partenaire, l'estimation est incluse pour vos dossiers."
+    ],
+    "bullets": [
+     "Maison individuelle et PPE",
+     "En ligne en quelques minutes",
+     "Un argument fort en acquisition"
+    ],
+    "ctas": [
+     {
+      "label": "Vers l'estimation",
+      "to": "page:bewertung"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Co-branding",
+    "title": "Votre propre entrée.\n*Comme RE/MAX et Betterhomes.*",
+    "lead": "Avec une landing page co-brandée, vos acheteurs accèdent directement à la demande de financement et chaque dossier vous est attribué.",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Référence",
+      "title": "RE/MAX",
+      "text": "Utilise déjà une entrée co-brandée vers HYPOTEQ."
+     },
+     {
+      "kicker": "Référence",
+      "title": "Betterhomes",
+      "text": "Transmet des financements via sa propre entrée co-brandée."
+     },
+     {
+      "kicker": "Pour vous",
+      "title": "Votre landing page",
+      "text": "Nous créons votre entrée sur demande, avec calculateur intégré (iFrame) si vous le souhaitez."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Demander un co-branding",
+      "to": "page:partner#formular"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Comment ça marche",
+    "title": "De l'acheteur\n*à la conclusion.*",
+    "items": [
+     {
+      "title": "Devenir partenaire",
+      "text": "Remplir le formulaire, mener le premier entretien, recevoir l'invitation au portail."
+     },
+     {
+      "title": "Transmettre l'acheteur",
+      "text": "Déposer le dossier, partager le lien co-brandé ou remplir la demande ensemble."
+     },
+     {
+      "title": "Nous finançons",
+      "text": "Nous obtenons les offres et coordonnons avec la banque, le notaire et vous jusqu'au versement."
+     },
+     {
+      "title": "Recevoir la commission",
+      "text": "Après la conclusion, vous touchez votre commission, versée rapidement."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Devenir partenaire",
+      "to": "page:partner#formular"
+     }
+    ]
+   },
+   {
+    "type": "quote",
+    "text": "En tant qu'intermédiaire, HYPOTEQ m'ouvre les portes du monde du financement.",
+    "author": "Noli T., partenaire"
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Programme partenaire",
+    "title": "Tout pour\n*votre activité.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "title": "Programme partenaire",
+      "text": "Avantages, conditions et portail en un coup d'œil.",
+      "to": "page:partner"
+     },
+     {
+      "title": "HYPOTEQ Academy",
+      "text": "Le savoir hypothécaire pour vous et votre équipe, avec entraîneur IA.",
+      "to": "page:academy"
+     },
+     {
+      "title": "Calcul de capacité",
+      "text": "Vérifiez avec vos acheteurs ce qui est finançable.",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "title": "Acheter un bien",
+      "text": "Le déroulement du financement pour vos acheteurs.",
+      "to": "page:kauf"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "Bon à savoir\n*pour les courtiers.*",
+    "items": [
+     {
+      "q": "En combien de temps mes acheteurs obtiennent-ils une attestation?",
+      "a": "La conseillère rappelle rapidement. Une fois le dossier complet, des offres sont souvent disponibles **dans les 48–72 heures**: elles servent de base à l'attestation."
+     },
+     {
+      "q": "Comment suis-je rémunéré?",
+      "a": "Vous recevez une **commission équitable par conclusion**, versée rapidement. Les conditions sont fixées lors du premier entretien."
+     },
+     {
+      "q": "Puis-je suivre les dossiers en ligne?",
+      "a": "Oui. Le portail partenaire montre le statut, les documents et les retours des prêteurs pour chacun de vos dossiers. Vous ne voyez que les vôtres."
+     },
+     {
+      "q": "Proposez-vous du matériel co-brandé?",
+      "a": "Oui. Comme pour RE/MAX et Betterhomes, nous créons sur demande une entrée co-brandée pour vous, avec calculateur intégré en option."
+     },
+     {
+      "q": "Le client reste-t-il le mien?",
+      "a": "Oui. La relation client reste la vôtre. Nous nous occupons uniquement du financement."
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Vendre plus vite.\n*Avec un financement assuré.*",
+    "text": "Devenez partenaire HYPOTEQ et donnez de la clarté à vos acheteurs.",
+    "ctas": [
+     {
+      "label": "Devenir partenaire",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Login partenaire",
+      "to": "portal"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Agenti immobiliari: vendite più rapide | HYPOTEQ",
+  "description": "Conferme di finanziamento rapide per i tuoi acquirenti e una provvigione. Programma partner HYPOTEQ per agenti immobiliari in Ticino. Contattaci.",
+  "h1": "Programma partner per agenti immobiliari",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Partner · Agenti immobiliari",
+    "h1": "Programma partner\nper agenti immobiliari",
+    "lead": "Come **partner per agenti immobiliari sull'ipoteca**, HYPOTEQ fa sì che i tuoi acquirenti sappiano in fretta se il finanziamento regge. Vendi più rapidamente, non perdi acquirenti e ricevi una provvigione per ogni conclusione.",
+    "ctas": [
+     {
+      "label": "Diventa partner",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Login partner",
+      "to": "portal"
+     }
+    ],
+    "badges": [
+     "Conferma di finanziamento",
+     "Co-branding come RE/MAX e Betterhomes",
+     "Valutazione inclusa"
+    ],
+    "image": "keys",
+    "alt": "Consegna delle chiavi di casa ai nuovi proprietari",
+    "float": {
+     "title": "Offerte in 48–72 h",
+     "text": "di regola, con documenti completi"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "48–72 h",
+      "label": "fino alle offerte, con documenti completi"
+     },
+     {
+      "value": "40+",
+      "label": "banche, assicurazioni e casse pensione"
+     },
+     {
+      "value": "incl.",
+      "label": "valutazione immobiliare con Wüest Partner"
+     },
+     {
+      "value": "0 CHF",
+      "label": "di costi di setup per iniziare"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Finanziamento clienti agenzia immobiliare",
+    "title": "Non perdere\n*gli acquirenti.*",
+    "screen": "funnel",
+    "paragraphs": [
+     "Molte vendite si bloccano perché gli acquirenti aspettano troppo la loro banca. Con HYPOTEQ ottengono chiarezza in fretta: la consulente li ricontatta in tempi brevi e le offerte arrivano spesso entro 48–72 ore dai documenti completi.",
+     "La **conferma di finanziamento per gli acquirenti** si basa su offerte reali di oltre 40 istituti. Un vantaggio nella trattativa con il venditore."
+    ],
+    "bullets": [
+     "Richiesta online in circa 3 minuti, anche come consulente",
+     "Acquirenti con finanziamento verificato",
+     "Stato di ogni dossier nel portale partner"
+    ],
+    "ctas": [
+     {
+      "label": "Diventa partner",
+      "to": "page:partner#formular"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Per i mandati di vendita",
+    "title": "Conoscere il valore.\n*Ottenere mandati.*",
+    "screen": "valuation",
+    "reverse": true,
+    "tone": "soft",
+    "paragraphs": [
+     "Con la valutazione immobiliare di **Wüest Partner** mostri ai proprietari un valore di mercato fondato su un modello edonico conosciuto da banche e istituzioni.",
+     "Come partner, la valutazione è inclusa per i tuoi dossier."
+    ],
+    "bullets": [
+     "Casa unifamiliare e appartamento in PPP",
+     "Online in pochi minuti",
+     "Un argomento forte nell'acquisizione"
+    ],
+    "ctas": [
+     {
+      "label": "Alla valutazione",
+      "to": "page:bewertung"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Co-branding",
+    "title": "Il tuo accesso.\n*Come RE/MAX e Betterhomes.*",
+    "lead": "Con una landing page co-brandizzata i tuoi acquirenti arrivano direttamente alla richiesta di finanziamento e ogni dossier ti viene attribuito.",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Referenza",
+      "title": "RE/MAX",
+      "text": "Usa già un accesso co-brandizzato verso HYPOTEQ."
+     },
+     {
+      "kicker": "Referenza",
+      "title": "Betterhomes",
+      "text": "Segnala finanziamenti tramite un proprio accesso co-brandizzato."
+     },
+     {
+      "kicker": "Per te",
+      "title": "La tua landing page",
+      "text": "Creiamo il tuo accesso su accordo, se vuoi con calcolatore integrato (iFrame)."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Richiedi il co-branding",
+      "to": "page:partner#formular"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Come funziona",
+    "title": "Dall'acquirente\n*alla conclusione.*",
+    "items": [
+     {
+      "title": "Diventa partner",
+      "text": "Compila il modulo, fai il primo colloquio, ricevi l'invito al portale."
+     },
+     {
+      "title": "Affida l'acquirente",
+      "text": "Inoltra il dossier, condividi il link co-brandizzato o compila la richiesta insieme."
+     },
+     {
+      "title": "Noi finanziamo",
+      "text": "Raccogliamo le offerte e coordiniamo con banca, notaio e te fino al versamento."
+     },
+     {
+      "title": "Ricevi la provvigione",
+      "text": "Dopo la conclusione ricevi la tua provvigione, pagata rapidamente."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Diventa partner ora",
+      "to": "page:partner#formular"
+     }
+    ]
+   },
+   {
+    "type": "quote",
+    "text": "Come intermediario, HYPOTEQ è per me la porta d'accesso al mondo dei finanziamenti.",
+    "author": "Noli T., partner"
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Programma partner",
+    "title": "Tutto per\n*la tua attività.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "title": "Programma partner",
+      "text": "Vantaggi, requisiti e portale in sintesi.",
+      "to": "page:partner"
+     },
+     {
+      "title": "HYPOTEQ Academy",
+      "text": "Sapere ipotecario per te e il tuo team, con trainer IA.",
+      "to": "page:academy"
+     },
+     {
+      "title": "Calcolo sostenibilità",
+      "text": "Verifica subito con gli acquirenti cosa è finanziabile.",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "title": "Acquistare un immobile",
+      "text": "Come funziona il finanziamento per i tuoi acquirenti.",
+      "to": "page:kauf"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "Buono a sapersi\n*per gli agenti.*",
+    "items": [
+     {
+      "q": "In quanto tempo i miei acquirenti ricevono una conferma?",
+      "a": "La consulente li ricontatta in tempi brevi. Con i documenti completi, le offerte arrivano spesso **entro 48–72 ore** e sono la base della conferma."
+     },
+     {
+      "q": "Come vengo remunerato?",
+      "a": "Ricevi una **provvigione equa per ogni conclusione**, pagata rapidamente. Le condizioni le definiamo nel primo colloquio."
+     },
+     {
+      "q": "Posso seguire i dossier online?",
+      "a": "Sì. Nel portale partner vedi stato, documenti e riscontri degli istituti per ognuno dei tuoi dossier. Vedi solo i tuoi."
+     },
+     {
+      "q": "Offrite materiale co-brandizzato?",
+      "a": "Sì. Come per RE/MAX e Betterhomes, su accordo creiamo per te un accesso co-brandizzato, con calcolatore integrato su richiesta."
+     },
+     {
+      "q": "Il cliente resta mio?",
+      "a": "Sì. Il rapporto con il cliente resta tuo. Noi ci occupiamo solo del finanziamento."
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Vendere più in fretta.\n*Con il finanziamento sicuro.*",
+    "text": "Diventa partner HYPOTEQ e dai chiarezza ai tuoi acquirenti.",
+    "ctas": [
+     {
+      "label": "Diventa partner",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Login partner",
+      "to": "portal"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "For Real Estate Agents: Close Deals Faster | HYPOTEQ",
+  "description": "Fast financing confirmations for your buyers, plus a referral commission. HYPOTEQ partner programme for real estate agents in Switzerland.",
+  "h1": "Partner programme for real estate agents",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Partners · Real estate agents",
+    "h1": "Partner programme\nfor real estate agents",
+    "lead": "As a **mortgage partner for real estate agents**, HYPOTEQ helps your buyers find out quickly whether their financing works. You sell faster, keep your buyers and earn a commission on every closed deal.",
+    "ctas": [
+     {
+      "label": "Become a partner",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Partner login",
+      "to": "portal"
+     }
+    ],
+    "badges": [
+     "Buyer financing confirmation",
+     "Co-branding like RE/MAX & Betterhomes",
+     "Valuation included"
+    ],
+    "image": "keys",
+    "alt": "Handing over house keys to the new owners",
+    "float": {
+     "title": "Offers in 48–72 h",
+     "text": "usually, once documents are complete"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "48–72 h",
+      "label": "to offers, once documents are complete"
+     },
+     {
+      "value": "40+",
+      "label": "banks, insurers & pension funds"
+     },
+     {
+      "value": "incl.",
+      "label": "property valuation with Wüest Partner"
+     },
+     {
+      "value": "CHF 0",
+      "label": "setup cost to get started"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Financing for your buyers",
+    "title": "Don’t lose\n*your buyers.*",
+    "screen": "funnel",
+    "paragraphs": [
+     "Many sales stall because buyers wait too long for their bank. With HYPOTEQ they get clarity fast: an advisor usually calls back promptly, and offers typically follow within 48–72 hours of complete documents.",
+     "The **buyer financing confirmation** is based on real offers from 40+ lenders. That strengthens your negotiation with the seller."
+    ],
+    "bullets": [
+     "Online request in about 3 minutes, also as an advisor for your client",
+     "Buyers with checked financing",
+     "Status of every case in the partner portal"
+    ],
+    "ctas": [
+     {
+      "label": "Become a partner",
+      "to": "page:partner#formular"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "For sales mandates",
+    "title": "Know the value.\n*Win mandates.*",
+    "screen": "valuation",
+    "reverse": true,
+    "tone": "soft",
+    "paragraphs": [
+     "With the **Wüest Partner** property valuation you show owners a transparent market value, based on a hedonic model that banks and institutions know.",
+     "As a partner, the valuation is included for your cases."
+    ],
+    "bullets": [
+     "Single-family homes and condominiums",
+     "Online in a few minutes",
+     "A strong argument when pitching for listings"
+    ],
+    "ctas": [
+     {
+      "label": "See property valuation",
+      "to": "page:bewertung"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Co-branding",
+    "title": "Your own entry point.\n*Like RE/MAX & Betterhomes.*",
+    "lead": "With a co-branded landing page, your buyers go straight to the financing request and every case is assigned to you.",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Reference",
+      "title": "RE/MAX",
+      "text": "Already uses a co-branded entry point to HYPOTEQ."
+     },
+     {
+      "kicker": "Reference",
+      "title": "Betterhomes",
+      "text": "Refers financing through its own co-branded entry point."
+     },
+     {
+      "kicker": "For you",
+      "title": "Your landing page",
+      "text": "We set up your entry point by arrangement, with an embedded calculator (iFrame) if you like."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Request co-branding",
+      "to": "page:partner#formular"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "How it works",
+    "title": "From buyer\n*to closing.*",
+    "items": [
+     {
+      "title": "Become a partner",
+      "text": "Fill in the form, have a first call and receive your portal invitation."
+     },
+     {
+      "title": "Hand over the buyer",
+      "text": "Submit the case, share your co-branded link or fill in the request together."
+     },
+     {
+      "title": "We arrange financing",
+      "text": "We collect offers and coordinate with the bank, notary and you until payout."
+     },
+     {
+      "title": "Earn your commission",
+      "text": "Once the deal closes, you receive your referral fee, paid out quickly."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Become a partner now",
+      "to": "page:partner#formular"
+     }
+    ]
+   },
+   {
+    "type": "quote",
+    "text": "As an intermediary, HYPOTEQ is my door opener to the world of financing.",
+    "author": "Noli T., sales partner"
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Partner programme",
+    "title": "Everything for\n*your sales.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "title": "Partner programme",
+      "text": "Benefits, requirements and the portal at a glance.",
+      "to": "page:partner"
+     },
+     {
+      "title": "HYPOTEQ Academy",
+      "text": "Mortgage know-how for you and your team, with an AI trainer.",
+      "to": "page:academy"
+     },
+     {
+      "title": "Affordability calculator",
+      "text": "Check with buyers right away what can be financed.",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "title": "Buy a property",
+      "text": "How financing works for your buyers.",
+      "to": "page:kauf"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Good to know\n*for agents.*",
+    "items": [
+     {
+      "q": "How fast do my buyers get a financing confirmation?",
+      "a": "An advisor usually calls back promptly. Once documents are complete, offers are typically available **within 48–72 hours** and form the basis of the confirmation."
+     },
+     {
+      "q": "How am I compensated?",
+      "a": "You earn a **fair commission on every closed deal**, paid out quickly. We agree the terms in a first call."
+     },
+     {
+      "q": "Can I track cases in the partner portal?",
+      "a": "Yes. The partner portal shows status, documents and lender feedback for each of your cases. You only see your own."
+     },
+     {
+      "q": "Is co-branded material available?",
+      "a": "Yes. As for RE/MAX and Betterhomes, we set up a co-branded entry point for you by arrangement, optionally with an embedded calculator."
+     },
+     {
+      "q": "Do I keep the client?",
+      "a": "Yes. The client relationship stays with you. We focus solely on the financing."
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Sell faster.\n*With financing in place.*",
+    "text": "Become a HYPOTEQ partner and give your buyers clarity.",
+    "ctas": [
+     {
+      "label": "Become a partner",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Partner login",
+      "to": "portal"
+     }
+    ]
+   }
+  ]
+ }
+}

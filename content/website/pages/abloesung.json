@@ -1,0 +1,1314 @@
+{
+ "de": {
+  "title": "Hypothek verlängern oder ablösen: Bank wechseln | HYPOTEQ",
+  "description": "Läuft deine Hypothek aus? Vergleiche die Verlängerung mit 40+ Anbietern und wechsle einfach die Bank. Bis 12 Monate im Voraus fixieren.",
+  "h1": "Hypothek verlängern oder ablösen und sparen",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypothek verlängern & ablösen",
+    "h1": "Hypothek verlängern\noder ablösen\n*und sparen*",
+    "lead": "Deine Festhypothek läuft aus und du willst die **Hypothek verlängern**? Bevor du das Angebot deiner Hausbank unterschreibst, vergleichen wir die Verlängerung bei über 40 Banken, Versicherungen und Pensionskassen. Starte **12 bis 24 Monate vor Ablauf**, sichere dir den Zins mit einer Forward-Hypothek und **wechsle die Bank ohne Vermittlungskosten**.",
+    "ctas": [
+     {
+      "label": "Ablösung anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "Zinsen ansehen",
+      "to": "page:zinsen"
+     }
+    ],
+    "badges": [
+     "0 CHF Vermittlung",
+     "Forward-Hypothek möglich",
+     "Offerten in 48–72 h"
+    ],
+    "image": "lake-living",
+    "alt": "Lavaux-Weinberge über dem Genfersee",
+    "float": {
+     "title": "10 Jahre fest ab 1.60 %",
+     "text": "Richtzins · Beispielwert"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "12–24 Mt.",
+      "label": "vor Ablauf: das ideale Zeitfenster"
+     },
+     {
+      "value": "40+",
+      "label": "Anbieter statt nur deiner Hausbank"
+     },
+     {
+      "value": "48–72 h",
+      "label": "bis zu konkreten Offerten"
+     },
+     {
+      "value": "0 CHF",
+      "label": "für Vergleich und Bankwechsel-Vermittlung"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Hypothek läuft aus",
+    "title": "Wer früh vergleicht,\n*hat mehr Auswahl.*",
+    "image": "interior",
+    "alt": "Helles Wohnzimmer in einem Eigenheim",
+    "paragraphs": [
+     "Viele Eigentümer verlängern ihre Hypothek einfach bei der bisherigen Bank. Wer nur dieses Angebot kennt, weiss aber nicht, ob es marktgerecht ist. Mit einer **Anschlussfinanzierung** über HYPOTEQ erhältst du Vergleichsofferten und eine starke Verhandlungsposition.",
+     "Am meisten Spielraum hast du **12 bis 24 Monate vor Ablauf**: genug Zeit, um Strategie, Laufzeiten und Anbieter zu prüfen und den Zins bei Bedarf im Voraus zu fixieren."
+    ],
+    "bullets": [
+     "Verlängerungsangebot der Hausbank mit 40+ Offerten vergleichen",
+     "Laufzeiten und Tranchen neu staffeln",
+     "Zinsrisiko mit Forward-Hypothek absichern"
+    ],
+    "ctas": [
+     {
+      "label": "Jetzt Ablösung prüfen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Dein Fahrplan zur Ablösung",
+    "title": "Von 24 Monaten\nbis zum Wechsel.",
+    "items": [
+     {
+      "title": "24–18 Monate vorher: Strategie",
+      "text": "Wir prüfen Vertrag, Ablaufdaten, Tragbarkeit und ob du die Hypothek aufstocken oder amortisieren willst."
+     },
+     {
+      "title": "18–12 Monate vorher: Offerten",
+      "text": "Wir holen Angebote bei über 40 Anbietern ein, inklusive Forward-Konditionen."
+     },
+     {
+      "title": "Bis 12 Monate vorher: Zins fixieren",
+      "text": "Passt das Angebot, sicherst du dir den Zins mit einer Forward-Hypothek."
+     },
+     {
+      "title": "Vor Ablauf: Fristen einhalten",
+      "text": "Wir prüfen mit dir Kündigungsfristen im Vertrag und informieren die bisherige Bank."
+     },
+     {
+      "title": "Ablauf: nahtloser Wechsel",
+      "text": "Wir koordinieren die Übertragung des Schuldbriefs und die Auszahlung an die bisherige Bank."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Ablösung starten",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "features",
+    "title": "Mehr als nur\n*verlängern.*",
+    "items": [
+     {
+      "icon": "◎",
+      "title": "Forward-Hypothek",
+      "text": "Heute den Zins für morgen sichern, je nach Anbieter bis 12 Monate im Voraus."
+     },
+     {
+      "icon": "⇪",
+      "title": "Bank wechseln",
+      "text": "Bei regulärem Ablauf ohne Vorfälligkeitsentschädigung zu einem besseren Anbieter."
+     },
+     {
+      "icon": "≡",
+      "title": "Neu staffeln",
+      "text": "SARON und Fest kombinieren, Fälligkeiten verteilen.",
+      "to": "page:rg-saron-fest"
+     },
+     {
+      "icon": "＋",
+      "title": "Gleich aufstocken",
+      "text": "Renovation geplant? Die Ablösung ist der ideale Moment.",
+      "to": "page:aufstocken"
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Ablösung anfragen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Forward-Hypothek",
+    "title": "Zins heute fixieren.\n*Später profitieren.*",
+    "image": "consultation",
+    "alt": "Beraterin bespricht Hypothekarofferten",
+    "paragraphs": [
+     "Mit einer **Forward-Hypothek** schliesst du heute eine Festhypothek ab, die erst bei Ablauf deiner aktuellen Hypothek beginnt. So kennst du deine Zinskosten im Voraus.",
+     "Für die Vorlaufzeit verlangen Anbieter meist einen Zuschlag. Sinken die Zinsen bis zum Start, profitierst du davon nicht. Wir rechnen mit dir durch, ob sich der Forward lohnt."
+    ],
+    "bullets": [
+     "Je nach Anbieter bis 12 Monate im Voraus, teils länger",
+     "Planungssicherheit für dein Budget",
+     "Forward-Angebote mehrerer Anbieter im Vergleich"
+    ],
+    "ctas": [
+     {
+      "label": "Forward-Offerten anfragen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Hypothek Bank wechseln",
+    "title": "Bank wechseln.\n*Ohne Vermittlungskosten.*",
+    "screen": "funnel",
+    "reverse": true,
+    "tone": "soft",
+    "paragraphs": [
+     "Läuft deine Festhypothek regulär aus, kannst du **ohne Vorfälligkeitsentschädigung** zu einem anderen Anbieter wechseln. Vergleich und Vermittlung durch HYPOTEQ sind für dich kostenlos.",
+     "Der bestehende Schuldbrief wird in der Regel an die neue Bank übertragen. Je nach Kanton und Bank können dafür kleine Gebühren anfallen. Den Papierkram koordinieren wir für dich."
+    ],
+    "bullets": [
+     "Unterlagen in 3 Minuten hochladen",
+     "Beraterin meldet sich zeitnah",
+     "Wir kommunizieren mit alter und neuer Bank"
+    ],
+    "ctas": [
+     {
+      "label": "Bankwechsel anfragen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Richtzinsen",
+    "title": "Was kostet\n*deine Verlängerung?*",
+    "lead": "Die Richtzinsen zeigen dir den Markt. Für die Refinanzierung deiner Hypothek holen wir persönliche Offerten ein."
+   },
+   {
+    "type": "compare",
+    "eyebrow": "Verlängern oder vergleichen?",
+    "title": "Hausbank-Verlängerung\noder HYPOTEQ?",
+    "head": [
+     "",
+     "Verlängerung Hausbank",
+     "HYPOTEQ"
+    ],
+    "rows": [
+     [
+      "Angebote",
+      "1",
+      "40+ Finanzierungspartner"
+     ],
+     [
+      "Verhandlungsposition",
+      "allein",
+      "mit Konkurrenzofferten"
+     ],
+     [
+      "Forward-Optionen",
+      "eine Bank",
+      "mehrere Anbieter"
+     ],
+     [
+      "Kosten für dich",
+      "keine",
+      "0 CHF"
+     ],
+     [
+      "Aufwand",
+      "Formulare der Bank",
+      "Unterlagen in 3 Min. hochladen"
+     ]
+    ],
+    "note": "HYPOTEQ wird im Erfolgsfall vom Finanzierungspartner entschädigt. Für dich bleibt die Vermittlung kostenlos."
+   },
+   {
+    "type": "testimonials",
+    "eyebrow": "Kundenstimmen",
+    "title": "Gewechselt.\n*Und zufrieden.*",
+    "items": [
+     {
+      "text": "Höchst professionell, menschlich und kompetent: ein perfektes Ergebnis mit top Konditionen.",
+      "author": "Gregor R."
+     },
+     {
+      "text": "Erstklassiger Service, alles wurde schnell bearbeitet.",
+      "author": "Andreas K."
+     },
+     {
+      "text": "Die neutrale Beratung brachte uns mehrere attraktive Angebote. Alles lief reibungslos.",
+      "author": "Chris E."
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Passend dazu",
+    "title": "Gut informiert\n*in die Verlängerung.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Zinsen",
+      "title": "Aktuelle Richtzinsen",
+      "text": "SARON, 5 und 10 Jahre fest im Überblick.",
+      "to": "page:zinsen"
+     },
+     {
+      "kicker": "Ratgeber",
+      "title": "SARON oder Fest?",
+      "text": "Welches Modell nach der Ablösung passt.",
+      "to": "page:rg-saron-fest"
+     },
+     {
+      "kicker": "Übersicht",
+      "title": "Alle Hypotheken",
+      "text": "Kauf, Neubau, Aufstocken und Spezialfälle.",
+      "to": "page:hypotheken"
+     },
+     {
+      "kicker": "Für Treuhänder & Broker",
+      "title": "Partner werden",
+      "text": "Deine Kunden haben auslaufende Hypotheken? Reiche sie ein und erhalte eine Provision.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Ablösung\nohne Stolpersteine.",
+    "items": [
+     {
+      "q": "Wann sollte ich mich um die Verlängerung kümmern?",
+      "a": "Idealerweise **12 bis 24 Monate vor Ablauf**. Dann bleibt Zeit, Offerten zu vergleichen, Kündigungsfristen einzuhalten und den Zins bei Bedarf mit einer Forward-Hypothek zu fixieren."
+     },
+     {
+      "q": "Kann ich bei der Ablösung die Bank wechseln?",
+      "a": "Ja. Läuft deine Festhypothek regulär aus, bist du frei, zu einem anderen Anbieter zu wechseln. Wir holen Offerten von über 40 Banken, Versicherungen und Pensionskassen ein und koordinieren den Wechsel."
+     },
+     {
+      "q": "Was kostet ein Bankwechsel?",
+      "a": "Vergleich und Vermittlung durch HYPOTEQ sind **kostenlos**. Bei regulärem Ablauf fällt keine Vorfälligkeitsentschädigung an. Für die Übertragung des Schuldbriefs können je nach Kanton und Bank kleine Gebühren anfallen. Wechselst du vorzeitig, rechnen wir mit dir durch, ob es sich lohnt."
+     },
+     {
+      "q": "Kann ich den Zins im Voraus fixieren (Forward)?",
+      "a": "Ja. Mit einer Forward-Hypothek fixierst du den Zins je nach Anbieter bis 12 Monate im Voraus, teils länger. Dafür verlangen Anbieter meist einen Zuschlag. Wir vergleichen die Forward-Konditionen für dich."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Alle Fragen",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Läuft deine Hypothek\n*in 24 Monaten aus?*",
+    "text": "Jetzt vergleichen, Zins sichern und kostenlos die Bank wechseln.",
+    "ctas": [
+     {
+      "label": "Ablösung anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Renouveler ou transférer votre hypothèque | HYPOTEQ",
+  "description": "Votre hypothèque arrive à échéance? Comparez le renouvellement avec 40+ prêteurs et changez de banque sans stress. Bloquez un taux jusqu'à 12 mois avant.",
+  "h1": "Renouveler son hypothèque au meilleur taux",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Renouvellement hypothèque",
+    "h1": "Renouveler\nson hypothèque\n*au meilleur taux*",
+    "lead": "Votre hypothèque à taux fixe arrive à échéance? Avant de signer l'offre de votre banque, nous comparons le **renouvellement de votre hypothèque** auprès de plus de 40 banques, assurances et caisses de pension. Commencez **12 à 24 mois avant l'échéance**, bloquez votre taux avec une hypothèque forward et **changez de banque sans frais de courtage**.",
+    "ctas": [
+     {
+      "label": "Demander un renouvellement",
+      "to": "funnel"
+     },
+     {
+      "label": "Voir les taux",
+      "to": "page:zinsen"
+     }
+    ],
+    "badges": [
+     "0 CHF de courtage",
+     "Hypothèque forward possible",
+     "Offres en 48–72 h"
+    ],
+    "image": "lake-living",
+    "alt": "Vignobles de Lavaux au-dessus du Léman",
+    "float": {
+     "title": "Fixe 10 ans dès 1.60 %",
+     "text": "Taux indicatif · valeur d'exemple"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "12–24 mois",
+      "label": "avant l'échéance: le bon moment"
+     },
+     {
+      "value": "40+",
+      "label": "prêteurs au lieu de votre seule banque"
+     },
+     {
+      "value": "48–72 h",
+      "label": "jusqu'aux offres concrètes"
+     },
+     {
+      "value": "0 CHF",
+      "label": "pour la comparaison et le courtage"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Échéance hypothèque",
+    "title": "Comparer tôt,\n*c'est avoir le choix.*",
+    "image": "interior",
+    "alt": "Salon lumineux d'une maison",
+    "paragraphs": [
+     "Beaucoup de propriétaires renouvellent simplement auprès de leur banque actuelle. Sans comparaison, impossible de savoir si l'offre est conforme au marché. Avec un **refinancement hypothécaire** via HYPOTEQ, vous obtenez des offres concurrentes et une position de négociation solide.",
+     "La plus grande marge de manœuvre se situe **12 à 24 mois avant l'échéance**: assez de temps pour revoir stratégie, durées et prêteurs, et bloquer le taux à l'avance si nécessaire."
+    ],
+    "bullets": [
+     "Comparer l'offre de votre banque avec 40+ offres",
+     "Réorganiser durées et tranches",
+     "Se protéger contre la hausse des taux avec une forward"
+    ],
+    "ctas": [
+     {
+      "label": "Vérifier mon renouvellement",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Votre calendrier",
+    "title": "De 24 mois\nau changement.",
+    "items": [
+     {
+      "title": "24–18 mois avant: stratégie",
+      "text": "Nous analysons contrat, échéances, capacité financière et vos projets d'augmentation ou d'amortissement."
+     },
+     {
+      "title": "18–12 mois avant: offres",
+      "text": "Nous sollicitons plus de 40 prêteurs, conditions forward comprises."
+     },
+     {
+      "title": "Jusqu'à 12 mois avant: bloquer le taux",
+      "text": "Si l'offre convient, vous sécurisez votre taux avec une hypothèque forward."
+     },
+     {
+      "title": "Avant l'échéance: respecter les délais",
+      "text": "Nous vérifions avec vous les délais de résiliation et informons votre banque actuelle."
+     },
+     {
+      "title": "À l'échéance: transfert sans rupture",
+      "text": "Nous coordonnons le transfert de la cédule hypothécaire et le remboursement de l'ancienne banque."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Lancer le renouvellement",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "features",
+    "title": "Bien plus\n*qu'un renouvellement.*",
+    "items": [
+     {
+      "icon": "◎",
+      "title": "Hypothèque forward",
+      "text": "Bloquer aujourd'hui le taux de demain, selon le prêteur jusqu'à 12 mois avant."
+     },
+     {
+      "icon": "⇪",
+      "title": "Changer de banque",
+      "text": "À l'échéance, sans pénalité de remboursement anticipé, vers un meilleur prêteur."
+     },
+     {
+      "icon": "≡",
+      "title": "Réorganiser",
+      "text": "Combiner SARON et taux fixe, échelonner les échéances.",
+      "to": "page:rg-saron-fest"
+     },
+     {
+      "icon": "＋",
+      "title": "Augmenter en même temps",
+      "text": "Des travaux prévus? Le renouvellement est le moment idéal.",
+      "to": "page:aufstocken"
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Demander un renouvellement",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Hypothèque forward",
+    "title": "Bloquer le taux aujourd'hui.\n*En profiter demain.*",
+    "image": "consultation",
+    "alt": "Conseillère présentant des offres hypothécaires",
+    "paragraphs": [
+     "Avec une **hypothèque forward**, vous concluez aujourd'hui une hypothèque à taux fixe qui ne débute qu'à l'échéance de l'actuelle. Vous connaissez ainsi vos charges d'intérêts à l'avance.",
+     "Pour cette période d'anticipation, les prêteurs appliquent en général une majoration. Si les taux baissent d'ici au départ, vous n'en profitez pas. Nous calculons avec vous si la forward vaut la peine."
+    ],
+    "bullets": [
+     "Selon le prêteur jusqu'à 12 mois avant, parfois plus",
+     "Sécurité pour votre budget",
+     "Offres forward de plusieurs prêteurs comparées"
+    ],
+    "ctas": [
+     {
+      "label": "Demander des offres forward",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Changer de banque hypothèque",
+    "title": "Changer de banque.\n*Sans frais de courtage.*",
+    "screen": "funnel",
+    "reverse": true,
+    "tone": "soft",
+    "paragraphs": [
+     "Si votre hypothèque fixe arrive normalement à échéance, vous pouvez changer de prêteur **sans pénalité de remboursement anticipé**. La comparaison et le courtage par HYPOTEQ sont gratuits pour vous.",
+     "La cédule hypothécaire existante est en général transférée à la nouvelle banque. Selon le canton et la banque, de petits frais peuvent s'appliquer. Nous coordonnons les démarches pour vous."
+    ],
+    "bullets": [
+     "Documents envoyés en 3 minutes",
+     "Votre conseillère vous contacte rapidement",
+     "Nous communiquons avec l'ancienne et la nouvelle banque"
+    ],
+    "ctas": [
+     {
+      "label": "Demander un changement de banque",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Taux indicatifs",
+    "title": "Combien coûte\n*votre renouvellement?*",
+    "lead": "Les taux indicatifs montrent le marché. Pour le rachat de votre hypothèque, nous obtenons des offres personnelles."
+   },
+   {
+    "type": "compare",
+    "eyebrow": "Renouveler ou comparer?",
+    "title": "Renouvellement à la banque\nou HYPOTEQ?",
+    "head": [
+     "",
+     "Renouvellement banque",
+     "HYPOTEQ"
+    ],
+    "rows": [
+     [
+      "Offres",
+      "1",
+      "40+ partenaires de financement"
+     ],
+     [
+      "Position de négociation",
+      "seul",
+      "avec offres concurrentes"
+     ],
+     [
+      "Options forward",
+      "une banque",
+      "plusieurs prêteurs"
+     ],
+     [
+      "Coût pour vous",
+      "aucun",
+      "0 CHF"
+     ],
+     [
+      "Effort",
+      "formulaires de la banque",
+      "documents en 3 min"
+     ]
+    ],
+    "note": "En cas de succès, HYPOTEQ est rémunéré par le partenaire de financement. Le courtage reste gratuit pour vous."
+   },
+   {
+    "type": "testimonials",
+    "eyebrow": "Avis clients",
+    "title": "Ils ont changé.\n*Et sont satisfaits.*",
+    "items": [
+     {
+      "text": "Très professionnels, humains et compétents: un résultat parfait avec des conditions excellentes.",
+      "author": "Gregor R."
+     },
+     {
+      "text": "Un service de premier ordre, tout a été traité rapidement.",
+      "author": "Andreas K."
+     },
+     {
+      "text": "Mon conseiller m'a accompagné de façon optimale et a été très présent.",
+      "author": "Romain C."
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "À lire aussi",
+    "title": "Bien informé\n*pour le renouvellement.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Taux",
+      "title": "Taux indicatifs actuels",
+      "text": "SARON, 5 et 10 ans fixes en un coup d'œil.",
+      "to": "page:zinsen"
+     },
+     {
+      "kicker": "Guide",
+      "title": "SARON ou taux fixe?",
+      "text": "Quel modèle choisir après le renouvellement.",
+      "to": "page:rg-saron-fest"
+     },
+     {
+      "kicker": "Aperçu",
+      "title": "Toutes les hypothèques",
+      "text": "Achat, construction, augmentation et cas particuliers.",
+      "to": "page:hypotheken"
+     },
+     {
+      "kicker": "Fiduciaires & brokers",
+      "title": "Devenir partenaire",
+      "text": "Vos clients ont une hypothèque qui arrive à échéance? Soumettez le dossier et touchez une commission.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "Renouveler\nsans embûches.",
+    "items": [
+     {
+      "q": "Quand préparer le renouvellement de mon hypothèque?",
+      "a": "Idéalement **12 à 24 mois avant l'échéance**. Vous avez alors le temps de comparer, de respecter les délais de résiliation et, si besoin, de bloquer le taux avec une hypothèque forward."
+     },
+     {
+      "q": "Puis-je changer de banque à l'échéance?",
+      "a": "Oui. Lorsque votre hypothèque fixe arrive normalement à échéance, vous êtes libre de changer de prêteur. Nous obtenons des offres de plus de 40 banques, assurances et caisses de pension et coordonnons le transfert."
+     },
+     {
+      "q": "Quels frais en cas de changement de prêteur?",
+      "a": "La comparaison et le courtage par HYPOTEQ sont **gratuits**. À l'échéance, il n'y a pas de pénalité de remboursement anticipé. Le transfert de la cédule hypothécaire peut entraîner de petits frais selon le canton et la banque. En cas de sortie anticipée, nous calculons avec vous si le changement vaut la peine."
+     },
+     {
+      "q": "Qu'est-ce qu'une hypothèque forward?",
+      "a": "Une hypothèque à taux fixe conclue aujourd'hui, qui démarre plus tard. Selon le prêteur, le taux peut être bloqué jusqu'à 12 mois avant, parfois plus, en général contre une majoration. Nous comparons les conditions forward pour vous."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Toutes les questions",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Votre hypothèque arrive\n*à échéance dans 24 mois?*",
+    "text": "Comparez maintenant, sécurisez votre taux et changez de banque sans frais de courtage.",
+    "ctas": [
+     {
+      "label": "Demander un renouvellement",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Rinnovo o trasferimento dell'ipoteca | HYPOTEQ",
+  "description": "L'ipoteca è in scadenza? Confronta il rinnovo con oltre 40 istituti e cambia banca senza complicazioni. Blocca il tasso fino a 12 mesi prima.",
+  "h1": "Rinnovare l'ipoteca alle condizioni migliori",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Rinnovo ipoteca",
+    "h1": "Rinnovare l'ipoteca\n*alle condizioni migliori*",
+    "lead": "La tua ipoteca fissa è in scadenza? Prima di firmare l'offerta della tua banca, confrontiamo il **rinnovo dell'ipoteca** presso oltre 40 banche, assicurazioni e casse pensione. Inizia **12–24 mesi prima della scadenza**, blocca il tasso con un'ipoteca forward e **cambia banca senza costi di mediazione**.",
+    "ctas": [
+     {
+      "label": "Richiedi il rinnovo",
+      "to": "funnel"
+     },
+     {
+      "label": "Vedi i tassi",
+      "to": "page:zinsen"
+     }
+    ],
+    "badges": [
+     "0 CHF di mediazione",
+     "Ipoteca forward possibile",
+     "Offerte in 48–72 h"
+    ],
+    "image": "lake-living",
+    "alt": "Vigneti del Lavaux sopra il Lemano",
+    "float": {
+     "title": "Fisso 10 anni da 1.60 %",
+     "text": "Tasso indicativo · valore d'esempio"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "12–24 mesi",
+      "label": "prima della scadenza: il momento giusto"
+     },
+     {
+      "value": "40+",
+      "label": "istituti invece della sola tua banca"
+     },
+     {
+      "value": "48–72 h",
+      "label": "fino alle offerte concrete"
+     },
+     {
+      "value": "0 CHF",
+      "label": "per confronto e mediazione"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Ipoteca in scadenza",
+    "title": "Chi confronta presto\n*ha più scelta.*",
+    "image": "interior",
+    "alt": "Soggiorno luminoso di una casa",
+    "paragraphs": [
+     "Molti proprietari rinnovano semplicemente con la banca attuale. Ma chi conosce solo quell'offerta non sa se è in linea con il mercato. Con HYPOTEQ ricevi offerte alternative e una posizione negoziale forte.",
+     "Il margine maggiore lo hai **12–24 mesi prima della scadenza**: abbastanza tempo per rivedere strategia, durate e istituti e, se serve, bloccare il tasso in anticipo."
+    ],
+    "bullets": [
+     "Confrontare l'offerta della tua banca con 40+ offerte",
+     "Riorganizzare durate e tranche",
+     "Proteggersi dai rialzi con un'ipoteca forward"
+    ],
+    "ctas": [
+     {
+      "label": "Verifica il rinnovo",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Il tuo calendario",
+    "title": "Da 24 mesi\nal cambio di banca.",
+    "items": [
+     {
+      "title": "24–18 mesi prima: strategia",
+      "text": "Analizziamo contratto, scadenze, sostenibilità e se vuoi aumentare o ammortizzare l'ipoteca."
+     },
+     {
+      "title": "18–12 mesi prima: offerte",
+      "text": "Raccogliamo offerte da oltre 40 istituti, incluse le condizioni forward."
+     },
+     {
+      "title": "Fino a 12 mesi prima: bloccare il tasso",
+      "text": "Se l'offerta convince, ti assicuri il tasso con un'ipoteca forward."
+     },
+     {
+      "title": "Prima della scadenza: rispettare i termini",
+      "text": "Verifichiamo con te i termini di disdetta e informiamo la banca attuale."
+     },
+     {
+      "title": "Alla scadenza: trasferimento senza intoppi",
+      "text": "Coordiniamo il trasferimento della cartella ipotecaria e il rimborso alla vecchia banca."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Avvia il rinnovo",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "features",
+    "title": "Molto più\n*di un rinnovo.*",
+    "items": [
+     {
+      "icon": "◎",
+      "title": "Ipoteca forward",
+      "text": "Fissare oggi il tasso di domani, secondo l'istituto fino a 12 mesi prima."
+     },
+     {
+      "icon": "⇪",
+      "title": "Cambiare banca",
+      "text": "Alla scadenza regolare, senza penale di rimborso anticipato, verso un istituto migliore."
+     },
+     {
+      "icon": "≡",
+      "title": "Riorganizzare",
+      "text": "Combinare SARON e fisso, scaglionare le scadenze.",
+      "to": "page:rg-saron-fest"
+     },
+     {
+      "icon": "＋",
+      "title": "Aumentare subito",
+      "text": "Lavori in vista? Il rinnovo è il momento ideale.",
+      "to": "page:aufstocken"
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Richiedi il rinnovo",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Ipoteca forward",
+    "title": "Fissa il tasso oggi.\n*Approfittane domani.*",
+    "image": "consultation",
+    "alt": "Consulente che presenta offerte ipotecarie",
+    "paragraphs": [
+     "Con un'**ipoteca forward** concludi oggi un'ipoteca a tasso fisso che inizia solo alla scadenza di quella attuale. Così conosci in anticipo i tuoi costi d'interesse.",
+     "Per il periodo di anticipo gli istituti chiedono di regola un supplemento. Se i tassi scendono prima dell'inizio, non ne approfitti. Calcoliamo con te se la forward conviene."
+    ],
+    "bullets": [
+     "Secondo l'istituto fino a 12 mesi prima, talvolta di più",
+     "Sicurezza per il tuo budget",
+     "Offerte forward di più istituti a confronto"
+    ],
+    "ctas": [
+     {
+      "label": "Richiedi offerte forward",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Cambiare banca ipoteca",
+    "title": "Cambia banca.\n*Senza costi di mediazione.*",
+    "screen": "funnel",
+    "reverse": true,
+    "tone": "soft",
+    "paragraphs": [
+     "Se la tua ipoteca fissa scade regolarmente, puoi passare a un altro istituto **senza penale di rimborso anticipato**. Il **trasferimento dell'ipoteca** tramite HYPOTEQ, con confronto e mediazione, è gratuito per te.",
+     "La cartella ipotecaria esistente viene di regola trasferita alla nuova banca. Secondo cantone e banca possono esserci piccole spese. Coordiniamo noi le pratiche."
+    ],
+    "bullets": [
+     "Documenti caricati in 3 minuti",
+     "La consulente ti contatta in tempi brevi",
+     "Comunichiamo noi con la vecchia e la nuova banca"
+    ],
+    "ctas": [
+     {
+      "label": "Richiedi il cambio di banca",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Tassi indicativi",
+    "title": "Quanto costa\n*il tuo rinnovo?*",
+    "lead": "I tassi indicativi mostrano il mercato. Per il tuo rinnovo raccogliamo offerte personali."
+   },
+   {
+    "type": "compare",
+    "eyebrow": "Rinnovare o confrontare?",
+    "title": "Rinnovo in banca\no HYPOTEQ?",
+    "head": [
+     "",
+     "Rinnovo in banca",
+     "HYPOTEQ"
+    ],
+    "rows": [
+     [
+      "Offerte",
+      "1",
+      "40+ partner di finanziamento"
+     ],
+     [
+      "Posizione negoziale",
+      "da solo",
+      "con offerte concorrenti"
+     ],
+     [
+      "Opzioni forward",
+      "una banca",
+      "più istituti"
+     ],
+     [
+      "Costi per te",
+      "nessuno",
+      "0 CHF"
+     ],
+     [
+      "Impegno",
+      "moduli della banca",
+      "documenti in 3 min"
+     ]
+    ],
+    "note": "In caso di successo HYPOTEQ viene remunerata dal partner di finanziamento. Per te la mediazione resta gratuita."
+   },
+   {
+    "type": "testimonials",
+    "eyebrow": "Opinioni dei clienti",
+    "title": "Hanno cambiato.\n*E sono soddisfatti.*",
+    "items": [
+     {
+      "text": "Estremamente professionali, umani e competenti: un risultato perfetto con condizioni top.",
+      "author": "Gregor R."
+     },
+     {
+      "text": "Servizio di prima classe, tutto è stato gestito rapidamente.",
+      "author": "Andreas K."
+     },
+     {
+      "text": "La consulenza neutrale ci ha portato diverse offerte interessanti. Tutto senza intoppi.",
+      "author": "Chris E."
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Da leggere",
+    "title": "Ben informato\n*per il rinnovo.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Tassi",
+      "title": "Tassi indicativi attuali",
+      "text": "SARON, fisso 5 e 10 anni a colpo d'occhio.",
+      "to": "page:zinsen"
+     },
+     {
+      "kicker": "Guida",
+      "title": "SARON o fisso?",
+      "text": "Quale modello scegliere dopo il rinnovo.",
+      "to": "page:rg-saron-fest"
+     },
+     {
+      "kicker": "Panoramica",
+      "title": "Tutte le ipoteche",
+      "text": "Acquisto, costruzione, aumento e casi particolari.",
+      "to": "page:hypotheken"
+     },
+     {
+      "kicker": "Fiduciari & broker",
+      "title": "Diventa partner",
+      "text": "I tuoi clienti hanno ipoteche in scadenza? Inoltra il caso e ricevi una provvigione.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "Rinnovare\nsenza ostacoli.",
+    "items": [
+     {
+      "q": "Quando devo occuparmi del rinnovo?",
+      "a": "Idealmente **12–24 mesi prima della scadenza**. Così hai tempo per confrontare offerte, rispettare i termini di disdetta e, se serve, bloccare il tasso con un'ipoteca forward."
+     },
+     {
+      "q": "Posso cambiare banca alla scadenza?",
+      "a": "Sì. Se la tua ipoteca fissa scade regolarmente, sei libero di passare a un altro istituto. Raccogliamo offerte da oltre 40 banche, assicurazioni e casse pensione e coordiniamo il cambio."
+     },
+     {
+      "q": "Quanto costa trasferire l'ipoteca?",
+      "a": "Confronto e mediazione tramite HYPOTEQ sono **gratuiti**. Alla scadenza regolare non c'è penale di rimborso anticipato. Per il trasferimento della cartella ipotecaria possono esserci piccole spese secondo cantone e banca. In caso di uscita anticipata calcoliamo con te se conviene."
+     },
+     {
+      "q": "Cos'è un'ipoteca forward?",
+      "a": "È un'ipoteca a tasso fisso conclusa oggi che inizia più tardi. Secondo l'istituto puoi bloccare il tasso fino a 12 mesi prima, talvolta di più, di regola con un supplemento. Confrontiamo per te le condizioni forward."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Tutte le domande",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "La tua ipoteca scade\n*nei prossimi 24 mesi?*",
+    "text": "Confronta ora, assicurati il tasso e cambia banca senza costi di mediazione.",
+    "ctas": [
+     {
+      "label": "Richiedi il rinnovo",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "Renew or Refinance Your Swiss Mortgage | HYPOTEQ",
+  "description": "Is your Swiss mortgage expiring? Compare renewal offers from 40+ lenders and switch banks with ease. Lock in a rate up to 12 months ahead. Start now.",
+  "h1": "Renew or refinance your mortgage and save",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Mortgage renewal Switzerland",
+    "h1": "Renew or refinance\nyour mortgage\n*and save*",
+    "lead": "Is your fixed-rate mortgage expiring? Before you sign your bank's renewal offer, we compare your **mortgage renewal in Switzerland** across 40+ banks, insurers and pension funds. Start **12 to 24 months before expiry**, lock in your rate with a forward mortgage and **switch banks with no brokerage fee**.",
+    "ctas": [
+     {
+      "label": "Request a renewal",
+      "to": "funnel"
+     },
+     {
+      "label": "See rates",
+      "to": "page:zinsen"
+     }
+    ],
+    "badges": [
+     "CHF 0 brokerage fee",
+     "Forward mortgage possible",
+     "Offers in 48–72 h"
+    ],
+    "image": "lake-living",
+    "alt": "Lavaux vineyards above Lake Geneva",
+    "float": {
+     "title": "10-year fixed from 1.60 %",
+     "text": "Indicative rate · sample value"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "12–24 mo.",
+      "label": "before expiry: the ideal window"
+     },
+     {
+      "value": "40+",
+      "label": "lenders instead of just your bank"
+     },
+     {
+      "value": "48–72 h",
+      "label": "to concrete offers"
+     },
+     {
+      "value": "CHF 0",
+      "label": "for comparison and brokerage"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Mortgage expiring",
+    "title": "Compare early,\n*keep your options.*",
+    "image": "interior",
+    "alt": "Bright living room in a family home",
+    "paragraphs": [
+     "Many owners simply renew with their current bank. But if that's the only offer you see, you can't tell whether it's in line with the market. When you **refinance your mortgage in Switzerland** through HYPOTEQ, you get competing offers and a strong negotiating position.",
+     "You have the most room to manoeuvre **12 to 24 months before expiry**: enough time to review strategy, terms and lenders, and to lock in a rate early if it makes sense."
+    ],
+    "bullets": [
+     "Compare your bank's renewal offer with 40+ offers",
+     "Restructure terms and tranches",
+     "Hedge against rising rates with a forward mortgage"
+    ],
+    "ctas": [
+     {
+      "label": "Check my renewal",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Your renewal timeline",
+    "title": "From 24 months out\nto a smooth switch.",
+    "items": [
+     {
+      "title": "24–18 months before: strategy",
+      "text": "We review your contract, maturity dates, affordability and whether you want to increase or pay down the mortgage."
+     },
+     {
+      "title": "18–12 months before: offers",
+      "text": "We collect offers from 40+ lenders, including forward terms."
+     },
+     {
+      "title": "Up to 12 months before: lock in",
+      "text": "If the offer fits, you secure your rate with a forward mortgage."
+     },
+     {
+      "title": "Before expiry: meet deadlines",
+      "text": "We check notice periods in your contract with you and inform your current bank."
+     },
+     {
+      "title": "At expiry: seamless switch",
+      "text": "We coordinate the transfer of the mortgage note (Schuldbrief) and the payout to your old bank."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Start my renewal",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "features",
+    "title": "More than\n*just renewing.*",
+    "items": [
+     {
+      "icon": "◎",
+      "title": "Forward mortgage",
+      "text": "Lock in tomorrow's rate today, up to 12 months ahead depending on the lender."
+     },
+     {
+      "icon": "⇪",
+      "title": "Switch mortgage bank",
+      "text": "At regular expiry, with no early repayment penalty, to a better lender."
+     },
+     {
+      "icon": "≡",
+      "title": "Restructure",
+      "text": "Combine SARON and fixed, spread your maturity dates.",
+      "to": "page:rg-saron-fest"
+     },
+     {
+      "icon": "＋",
+      "title": "Increase at the same time",
+      "text": "Planning renovations? Renewal is the perfect moment.",
+      "to": "page:aufstocken"
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Request a renewal",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Forward mortgage",
+    "title": "Fix your rate today.\n*Benefit later.*",
+    "image": "consultation",
+    "alt": "Advisor presenting mortgage offers",
+    "paragraphs": [
+     "With a **forward mortgage**, you sign a fixed-rate mortgage today that only starts when your current one expires. That way you know your interest costs in advance.",
+     "Lenders usually charge a premium for the lead time. If rates fall before the start date, you won't benefit. We work out with you whether a forward makes sense."
+    ],
+    "bullets": [
+     "Up to 12 months ahead depending on the lender, sometimes longer",
+     "Budget certainty",
+     "Forward offers from several lenders compared"
+    ],
+    "ctas": [
+     {
+      "label": "Request forward offers",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Switch mortgage bank",
+    "title": "Switch banks.\n*No brokerage fee.*",
+    "screen": "funnel",
+    "reverse": true,
+    "tone": "soft",
+    "paragraphs": [
+     "If your fixed-rate mortgage expires normally, you can move to another lender **without an early repayment penalty**. Comparison and brokerage by HYPOTEQ are free for you.",
+     "Your existing mortgage note is usually transferred to the new bank. Depending on the canton and bank, small fees may apply. We coordinate the paperwork for you."
+    ],
+    "bullets": [
+     "Upload documents in 3 minutes",
+     "Your advisor gets back to you promptly",
+     "We deal with your old and new bank"
+    ],
+    "ctas": [
+     {
+      "label": "Request a bank switch",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Indicative rates",
+    "title": "What will\n*your renewal cost?*",
+    "lead": "Indicative rates show where the market is. For your refinancing we collect personal offers."
+   },
+   {
+    "type": "compare",
+    "eyebrow": "Renew or compare?",
+    "title": "Renewing with your bank\nor HYPOTEQ?",
+    "head": [
+     "",
+     "Renewal with your bank",
+     "HYPOTEQ"
+    ],
+    "rows": [
+     [
+      "Offers",
+      "1",
+      "40+ financing partners"
+     ],
+     [
+      "Negotiating position",
+      "on your own",
+      "with competing offers"
+     ],
+     [
+      "Forward options",
+      "one bank",
+      "several lenders"
+     ],
+     [
+      "Cost to you",
+      "none",
+      "CHF 0"
+     ],
+     [
+      "Effort",
+      "bank forms",
+      "upload documents in 3 min"
+     ]
+    ],
+    "note": "HYPOTEQ is paid by the financing partner when a deal closes. Brokerage stays free for you."
+   },
+   {
+    "type": "testimonials",
+    "eyebrow": "Client reviews",
+    "title": "They switched.\n*And they're happy.*",
+    "items": [
+     {
+      "text": "Highly professional, personable and competent: a perfect result with top terms.",
+      "author": "Gregor R."
+     },
+     {
+      "text": "First-class service, everything was processed quickly.",
+      "author": "Andreas K."
+     },
+     {
+      "text": "The neutral advice brought us several attractive offers. Everything went smoothly.",
+      "author": "Chris E."
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Related",
+    "title": "Well informed\n*for your renewal.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Rates",
+      "title": "Current indicative rates",
+      "text": "SARON, 5 and 10-year fixed at a glance.",
+      "to": "page:zinsen"
+     },
+     {
+      "kicker": "Guide",
+      "title": "SARON or fixed?",
+      "text": "Which model fits after your renewal.",
+      "to": "page:rg-saron-fest"
+     },
+     {
+      "kicker": "Overview",
+      "title": "All mortgages",
+      "text": "Buying, building, increasing and special cases.",
+      "to": "page:hypotheken"
+     },
+     {
+      "kicker": "Trustees & brokers",
+      "title": "Become a partner",
+      "text": "Clients with expiring mortgages? Submit the case and earn a commission.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Renewal\nwithout pitfalls.",
+    "items": [
+     {
+      "q": "When should I start my mortgage renewal?",
+      "a": "Ideally **12 to 24 months before expiry**. That leaves time to compare offers, meet notice periods and, if useful, lock in your rate with a forward mortgage."
+     },
+     {
+      "q": "Can I switch banks when my mortgage expires?",
+      "a": "Yes. When your fixed-rate mortgage expires normally, you are free to move to another lender. We collect offers from 40+ banks, insurers and pension funds and coordinate the switch."
+     },
+     {
+      "q": "What does switching lender cost?",
+      "a": "Comparison and brokerage by HYPOTEQ are **free**. At regular expiry there is no early repayment penalty. Transferring the mortgage note may involve small fees depending on the canton and bank. If you want to leave early, we calculate with you whether it pays off."
+     },
+     {
+      "q": "What is a forward mortgage?",
+      "a": "A fixed-rate mortgage signed today that starts at a later date. Depending on the lender, you can lock in the rate up to 12 months ahead, sometimes longer, usually for a premium. We compare forward terms for you."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "All questions",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Mortgage expiring\n*within 24 months?*",
+    "text": "Compare now, secure your rate and switch banks with no brokerage fee.",
+    "ctas": [
+     {
+      "label": "Request a renewal",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ }
+}

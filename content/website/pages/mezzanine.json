@@ -1,0 +1,1090 @@
+{
+ "de": {
+  "title": "Mezzanine-Finanzierung: Eigenkapital ergänzen | HYPOTEQ",
+  "description": "Fehlt Eigenkapital für Kauf oder Projekt? Mit Mezzanine-Kapital schliesst du die Lücke zwischen Hypothek und Eigenmitteln. Unverbindlich anfragen.",
+  "h1": "Mezzanine-Finanzierung für Immobilien",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "HYPOTEQ · Mezzanine-Kapital",
+    "h1": "Mezzanine-Finanzierung\nfür Immobilien",
+    "lead": "Mit einer **Mezzanine-Finanzierung für Immobilien** schliesst du die Lücke zwischen Bankhypothek und Eigenkapital, ohne Anteile abzugeben. Für Developer, Family Offices und Bestandshalter, die ein Projekt jetzt umsetzen wollen.",
+    "ctas": [
+     {
+      "label": "Erstgespräch vereinbaren",
+      "to": "page:kontakt"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Nachrangdarlehen",
+     "Laufzeit 2–5 Jahre",
+     "Keine Anteilsabgabe"
+    ],
+    "image": "zurich-neighbourhood",
+    "alt": "Wohnquartier in Zürich mit Mehrfamilienhäusern",
+    "float": {
+     "title": "Kapital zwischen Bank und Eigenmitteln",
+     "text": "Strukturiert für dein Projekt"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "2–5 J.",
+      "label": "typische Laufzeit des Nachrangdarlehens"
+     },
+     {
+      "value": "0 %",
+      "label": "Anteile, die du abgeben musst"
+     },
+     {
+      "value": "40+",
+      "label": "Finanzierungspartner für die Senior-Tranche"
+     },
+     {
+      "value": "35+ J.",
+      "label": "Erfahrung im Team"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Was ist Mezzanine?",
+    "title": "Kapital in der Mitte.\n*Wirkung für das ganze Projekt.*",
+    "image": "product",
+    "paragraphs": [
+     "Mezzanine-Kapital ist **nachrangiges Kapital** zwischen Eigenkapital und Bankfinanzierung. Die Bank finanziert die erste Tranche mit Grundpfand, das **Nachrangdarlehen** füllt den Teil darüber, den die Bank nicht übernimmt.",
+     "So musst du weder auf das Projekt warten noch Mitinvestoren an Bord holen, die Anteile und Mitsprache verlangen. Die Eigentümerstruktur bleibt, wie sie ist."
+    ],
+    "bullets": [
+     "Ergänzt die Hypothek, ersetzt sie nicht",
+     "Keine Verwässerung deiner Beteiligung",
+     "Passend für Neubau, Akquisition und Zwischenfinanzierung"
+    ],
+    "ctas": [
+     {
+      "label": "Projekt besprechen",
+      "to": "page:kontakt"
+     }
+    ],
+    "alt": "Unterlagen und Laptop auf dem Tisch"
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Einsatzbereiche",
+    "title": "Wann Mezzanine-Kapital\n*sinnvoll ist.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Neubau",
+      "title": "Projektentwicklung",
+      "text": "Wenn die Bank nur einen Teil der Baukosten finanziert und das Eigenkapital in anderen Projekten gebunden ist."
+     },
+     {
+      "kicker": "Akquisition",
+      "title": "Kauf von Liegenschaften",
+      "text": "Wenn sich eine Gelegenheit bietet, bevor eigene Mittel aus einem Verkauf frei werden."
+     },
+     {
+      "kicker": "Übergang",
+      "title": "Zwischenfinanzierung",
+      "text": "Wenn eine Phase überbrückt werden muss, etwa bis zur Vermietung, zum Verkauf oder zur Refinanzierung."
+     },
+     {
+      "kicker": "Lücke",
+      "title": "Eigenmittellücke",
+      "text": "Wenn die Bank mehr Eigenmittel verlangt, als im Projekt aktuell verfügbar sind."
+     }
+    ]
+   },
+   {
+    "type": "compare",
+    "eyebrow": "Struktur",
+    "title": "So kann ein\n*Nachrangdarlehen aussehen.*",
+    "head": [
+     "",
+     "Bankhypothek",
+     "Mezzanine-Kapital"
+    ],
+    "rows": [
+     [
+      "Rang",
+      "erstrangig, grundpfandgesichert",
+      "nachrangig"
+     ],
+     [
+      "Verzinsung",
+      "fix oder SARON",
+      "fix oder variabel"
+     ],
+     [
+      "Rückzahlung",
+      "Amortisation nach Vorgaben",
+      "endfällig oder mit leichter Amortisation"
+     ],
+     [
+      "Laufzeit",
+      "je nach Produkt",
+      "in der Regel 2–5 Jahre"
+     ],
+     [
+      "Gewinnbeteiligung",
+      "keine",
+      "optional, je nach Struktur"
+     ]
+    ],
+    "note": "Konditionen hängen vom Projekt, vom Risiko und vom Kapitalgeber ab. Wir prüfen jeden Fall individuell, es gibt keine Standardpreise."
+   },
+   {
+    "type": "split",
+    "eyebrow": "Für wen",
+    "title": "Developer, Family Offices,\n*Bestandshalter.*",
+    "image": "consultation",
+    "reverse": true,
+    "tone": "soft",
+    "paragraphs": [
+     "Mezzanine richtet sich an **professionelle Immobilienakteure**: Developer mit mehreren Projekten, Family Offices mit Immobilienstrategie und Bestandshalter, die ihr Portfolio weiterentwickeln.",
+     "Für den klassischen Eigenheimkauf ist Mezzanine selten die richtige Lösung. Fehlt dir dort Eigenkapital, prüfen wir zuerst Vorsorgegelder, Belehnung und Tragbarkeit. Bei komplexen Fällen hilft unser **Advisory**."
+    ],
+    "bullets": [
+     "Klare Unterlagen zu Projekt, Kosten und Zeitplan",
+     "Bankfinanzierung als Basis",
+     "Realistischer Exit: Verkauf, Vermietung oder Refinanzierung"
+    ],
+    "ctas": [
+     {
+      "label": "Advisory ansehen",
+      "to": "page:advisory"
+     },
+     {
+      "label": "Alle Hypotheken",
+      "to": "page:hypotheken"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Ablauf",
+    "title": "Vom Erstgespräch\nzur Struktur.",
+    "items": [
+     {
+      "title": "Kostenloses Erstgespräch",
+      "text": "Du schilderst Projekt, Kapitalbedarf und Zeitplan. Wir sagen dir offen, ob Mezzanine passt."
+     },
+     {
+      "title": "Projekt analysieren",
+      "text": "Wir prüfen Unterlagen, Bankfinanzierung und Exit-Szenario und zeigen, wo die Lücke liegt."
+     },
+     {
+      "title": "Struktur erarbeiten",
+      "text": "Fix oder variabel, endfällig oder mit Amortisation, mit oder ohne Gewinnbeteiligung."
+     },
+     {
+      "title": "Umsetzung begleiten",
+      "text": "Wir koordinieren Senior-Finanzierung und Nachrangkapital bis zur Auszahlung."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Erstgespräch vereinbaren",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Weiterlesen",
+    "title": "Passend zu\n*deinem Projekt.*",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Rendite",
+      "title": "Renditeobjekte finanzieren",
+      "text": "Mehrfamilienhaus oder Renditewohnung: Anforderungen an Eigenmittel und Amortisation.",
+      "to": "page:rendite",
+      "cta": "Mehr erfahren"
+     },
+     {
+      "kicker": "Neubau",
+      "title": "Baufinanzierung",
+      "text": "Baukredit, Etappen und Konsolidierung in eine Hypothek.",
+      "to": "page:neubau",
+      "cta": "Mehr erfahren"
+     },
+     {
+      "kicker": "Partner",
+      "title": "Partnerprogramm",
+      "text": "Makler, Treuhänder und Vermögensverwalter bringen Projekte ein. Die Kundenbeziehung bleibt beim Partner.",
+      "to": "page:partner",
+      "cta": "Partner werden"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Mezzanine, kurz erklärt.",
+    "items": [
+     {
+      "q": "Was ist eine Mezzanine-Finanzierung?",
+      "a": "Ein **nachrangiges Darlehen** zwischen Eigenkapital und Bankhypothek. Es schliesst eine Finanzierungslücke, ohne dass du Anteile an deinem Projekt abgibst."
+     },
+     {
+      "q": "Für wen eignet sich Mezzanine-Kapital?",
+      "a": "Für Developer, Family Offices und Bestandshalter bei Neubau, Akquisition, Zwischenfinanzierung oder einer Eigenmittellücke. Für private Eigenheime ist es nur selten sinnvoll."
+     },
+     {
+      "q": "Was kostet Mezzanine im Vergleich zur Hypothek?",
+      "a": "Mezzanine ist **teurer als eine Hypothek**, weil der Kapitalgeber im Nachrang steht und mehr Risiko trägt. Die konkreten Konditionen hängen vom Projekt ab und werden individuell offeriert."
+     },
+     {
+      "q": "Kann ich damit fehlendes Eigenkapital ersetzen?",
+      "a": "Teilweise. Mezzanine ergänzt Eigenkapital, ersetzt es aber nicht vollständig. Banken und Kapitalgeber erwarten weiterhin einen substanziellen eigenen Beitrag."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Frage stellen",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Projekt mit\n*Finanzierungslücke?*",
+    "text": "Lass uns im kostenlosen Erstgespräch prüfen, ob Mezzanine-Kapital die richtige Lösung ist.",
+    "ctas": [
+     {
+      "label": "Erstgespräch vereinbaren",
+      "to": "page:kontakt"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Financement mezzanine immobilier | HYPOTEQ",
+  "description": "Il vous manque des fonds propres? Le capital mezzanine comble l'écart entre hypothèque et fonds propres pour un achat ou un projet. Demande gratuite.",
+  "h1": "Financement mezzanine pour l'immobilier",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "HYPOTEQ · Capital mezzanine",
+    "h1": "Financement mezzanine\npour l'immobilier",
+    "lead": "Le **financement mezzanine immobilier** comble l'écart entre l'hypothèque bancaire et vos fonds propres, sans céder de parts. Pour les développeurs, family offices et détenteurs de portefeuilles qui veulent réaliser leur projet maintenant.",
+    "ctas": [
+     {
+      "label": "Prendre rendez-vous",
+      "to": "page:kontakt"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Prêt subordonné",
+     "Durée 2 à 5 ans",
+     "Sans cession de parts"
+    ],
+    "image": "zurich-neighbourhood",
+    "alt": "Quartier résidentiel avec immeubles locatifs",
+    "float": {
+     "title": "Entre banque et fonds propres",
+     "text": "Structuré pour votre projet"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "2–5 ans",
+      "label": "durée usuelle du prêt subordonné"
+     },
+     {
+      "value": "0 %",
+      "label": "de parts à céder"
+     },
+     {
+      "value": "40+",
+      "label": "partenaires pour la tranche bancaire"
+     },
+     {
+      "value": "35+ ans",
+      "label": "d'expérience dans l'équipe"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Le mezzanine, c'est quoi?",
+    "title": "Un capital intermédiaire.\n*Un effet sur tout le projet.*",
+    "image": "product",
+    "paragraphs": [
+     "Le capital mezzanine est un **capital subordonné** situé entre les fonds propres et le financement bancaire. La banque finance la première tranche, garantie par gage immobilier, et le **prêt subordonné immobilier** couvre la part qu'elle ne prend pas.",
+     "Vous n'avez ni à reporter le projet ni à faire entrer des co-investisseurs qui exigent des parts et un droit de regard. La structure de propriété reste inchangée."
+    ],
+    "bullets": [
+     "Complète l'hypothèque, sans la remplacer",
+     "Aucune dilution de votre participation",
+     "Adapté aux constructions, acquisitions et financements relais"
+    ],
+    "ctas": [
+     {
+      "label": "Discuter du projet",
+      "to": "page:kontakt"
+     }
+    ],
+    "alt": "Documents et ordinateur portable sur la table"
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Cas d'usage",
+    "title": "Quand le mezzanine\n*fait sens.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Construction",
+      "title": "Promotion immobilière",
+      "text": "Quand la banque ne finance qu'une partie des coûts et que vos fonds propres sont engagés ailleurs."
+     },
+     {
+      "kicker": "Acquisition",
+      "title": "Achat d'immeubles",
+      "text": "Quand une opportunité se présente avant que les fonds d'une vente soient disponibles."
+     },
+     {
+      "kicker": "Relais",
+      "title": "Financement intermédiaire",
+      "text": "Pour franchir une phase, par exemple jusqu'à la mise en location, la vente ou le refinancement."
+     },
+     {
+      "kicker": "Écart",
+      "title": "Manque de fonds propres",
+      "text": "Quand la banque exige davantage de fonds propres que ceux disponibles dans le projet."
+     }
+    ]
+   },
+   {
+    "type": "compare",
+    "eyebrow": "Structure",
+    "title": "À quoi peut ressembler\n*un prêt subordonné.*",
+    "head": [
+     "",
+     "Hypothèque bancaire",
+     "Capital mezzanine"
+    ],
+    "rows": [
+     [
+      "Rang",
+      "premier rang, gage immobilier",
+      "subordonné"
+     ],
+     [
+      "Taux",
+      "fixe ou SARON",
+      "fixe ou variable"
+     ],
+     [
+      "Remboursement",
+      "amortissement selon règles",
+      "à l'échéance ou amortissement léger"
+     ],
+     [
+      "Durée",
+      "selon le produit",
+      "en général 2 à 5 ans"
+     ],
+     [
+      "Participation au bénéfice",
+      "aucune",
+      "optionnelle, selon la structure"
+     ]
+    ],
+    "note": "Les conditions dépendent du projet, du risque et du bailleur de fonds. Chaque dossier est étudié individuellement, il n'existe pas de prix standard."
+   },
+   {
+    "type": "split",
+    "eyebrow": "Pour qui",
+    "title": "Développeurs, family offices,\n*détenteurs de portefeuilles.*",
+    "image": "consultation",
+    "reverse": true,
+    "tone": "soft",
+    "paragraphs": [
+     "Le mezzanine s'adresse aux **acteurs immobiliers professionnels**: développeurs gérant plusieurs projets, family offices dotés d'une stratégie immobilière et détenteurs qui font évoluer leur portefeuille.",
+     "Pour l'achat d'une résidence principale, ce n'est que rarement la bonne solution. S'il vous manque des fonds propres, nous examinons d'abord le 2e pilier, le taux d'avance et la capacité financière. Pour les cas complexes, notre **conseil hypothécaire** vous accompagne."
+    ],
+    "bullets": [
+     "Documents clairs sur le projet, les coûts et le calendrier",
+     "Financement bancaire comme base",
+     "Sortie réaliste: vente, location ou refinancement"
+    ],
+    "ctas": [
+     {
+      "label": "Voir le conseil",
+      "to": "page:advisory"
+     },
+     {
+      "label": "Toutes les hypothèques",
+      "to": "page:hypotheken"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Déroulement",
+    "title": "Du premier entretien\nà la structure.",
+    "items": [
+     {
+      "title": "Premier entretien gratuit",
+      "text": "Vous présentez le projet, le besoin en capital et le calendrier. Nous vous disons franchement si le mezzanine convient."
+     },
+     {
+      "title": "Analyse du projet",
+      "text": "Nous examinons les documents, le financement bancaire et le scénario de sortie pour situer l'écart."
+     },
+     {
+      "title": "Élaboration de la structure",
+      "text": "Fixe ou variable, à l'échéance ou amorti, avec ou sans participation au bénéfice."
+     },
+     {
+      "title": "Mise en œuvre",
+      "text": "Nous coordonnons le financement de premier rang et le capital subordonné jusqu'au versement."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Prendre rendez-vous",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "À lire aussi",
+    "title": "En lien avec\n*votre projet.*",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Rendement",
+      "title": "Immeubles de rendement",
+      "text": "Immeuble locatif ou appartement de rendement: exigences en fonds propres et amortissement.",
+      "to": "page:rendite",
+      "cta": "En savoir plus"
+     },
+     {
+      "kicker": "Construction",
+      "title": "Financement de construction",
+      "text": "Crédit de construction, étapes et consolidation en hypothèque.",
+      "to": "page:neubau",
+      "cta": "En savoir plus"
+     },
+     {
+      "kicker": "Partenaires",
+      "title": "Programme partenaires",
+      "text": "Courtiers, fiduciaires et gérants de fortune nous confient des projets. La relation client reste chez eux.",
+      "to": "page:partner",
+      "cta": "Devenir partenaire"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "Le mezzanine en bref.",
+    "items": [
+     {
+      "q": "Qu'est-ce que le financement mezzanine?",
+      "a": "Un **prêt subordonné** situé entre les fonds propres et l'hypothèque bancaire. Il comble un manque de financement sans que vous cédiez de parts de votre projet."
+     },
+     {
+      "q": "À qui s'adresse-t-il?",
+      "a": "Aux développeurs, family offices et détenteurs de portefeuilles, pour une construction, une acquisition, un financement relais ou un manque de fonds propres. Pour une résidence principale, il est rarement adapté."
+     },
+     {
+      "q": "Combien coûte le mezzanine par rapport à l'hypothèque?",
+      "a": "Le mezzanine est **plus cher qu'une hypothèque**, car le bailleur de fonds est subordonné et porte davantage de risque. Les conditions concrètes dépendent du projet et font l'objet d'une offre individuelle."
+     },
+     {
+      "q": "Peut-il remplacer des fonds propres?",
+      "a": "En partie. Le mezzanine complète les fonds propres sans les remplacer entièrement. Banques et bailleurs attendent toujours un apport personnel substantiel."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Poser une question",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Un projet avec\n*un manque de financement?*",
+    "text": "Vérifions ensemble, lors d'un premier entretien gratuit, si le capital mezzanine est la bonne solution.",
+    "ctas": [
+     {
+      "label": "Prendre rendez-vous",
+      "to": "page:kontakt"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Finanziamento mezzanine immobiliare | HYPOTEQ",
+  "description": "Mancano fondi propri? Il capitale mezzanine colma il divario tra ipoteca e mezzi propri per acquisti o progetti. Richiesta senza impegno.",
+  "h1": "Finanziamento mezzanine per immobili",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "HYPOTEQ · Capitale mezzanine",
+    "h1": "Finanziamento mezzanine\nper immobili",
+    "lead": "Con un **finanziamento mezzanine immobiliare** colmi il divario tra ipoteca bancaria e fondi propri, senza cedere quote. Per developer, family office e detentori di portafogli che vogliono realizzare subito il loro progetto.",
+    "ctas": [
+     {
+      "label": "Fissa un primo colloquio",
+      "to": "page:kontakt"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Prestito subordinato",
+     "Durata 2–5 anni",
+     "Nessuna cessione di quote"
+    ],
+    "image": "zurich-neighbourhood",
+    "alt": "Quartiere residenziale con palazzine",
+    "float": {
+     "title": "Tra banca e fondi propri",
+     "text": "Strutturato per il tuo progetto"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "2–5 anni",
+      "label": "durata tipica del prestito subordinato"
+     },
+     {
+      "value": "0 %",
+      "label": "di quote da cedere"
+     },
+     {
+      "value": "40+",
+      "label": "partner per la tranche bancaria"
+     },
+     {
+      "value": "35+ anni",
+      "label": "di esperienza nel team"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Cos'è il mezzanine?",
+    "title": "Capitale nel mezzo.\n*Effetto su tutto il progetto.*",
+    "image": "product",
+    "paragraphs": [
+     "Il capitale mezzanine è **capitale subordinato** tra fondi propri e finanziamento bancario. La banca copre la prima tranche con garanzia ipotecaria, il **prestito subordinato immobile** copre la parte che la banca non assume.",
+     "Così non devi rinviare il progetto né coinvolgere coinvestitori che chiedono quote e voce in capitolo. La struttura di proprietà resta invariata."
+    ],
+    "bullets": [
+     "Completa l'ipoteca, non la sostituisce",
+     "Nessuna diluizione della tua partecipazione",
+     "Adatto a nuove costruzioni, acquisizioni e finanziamenti ponte"
+    ],
+    "ctas": [
+     {
+      "label": "Parliamo del progetto",
+      "to": "page:kontakt"
+     }
+    ],
+    "alt": "Documenti e laptop sul tavolo"
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Ambiti d'uso",
+    "title": "Quando il mezzanine\n*ha senso.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Costruzione",
+      "title": "Sviluppo immobiliare",
+      "text": "Quando la banca finanzia solo una parte dei costi e i tuoi fondi propri sono impegnati altrove."
+     },
+     {
+      "kicker": "Acquisizione",
+      "title": "Acquisto di stabili",
+      "text": "Quando arriva un'opportunità prima che si liberino i mezzi di una vendita."
+     },
+     {
+      "kicker": "Ponte",
+      "title": "Finanziamento intermedio",
+      "text": "Per superare una fase, per esempio fino alla locazione, alla vendita o al rifinanziamento."
+     },
+     {
+      "kicker": "Divario",
+      "title": "Mancano fondi propri",
+      "text": "Quando la banca chiede più fondi propri di quelli disponibili nel progetto."
+     }
+    ]
+   },
+   {
+    "type": "compare",
+    "eyebrow": "Struttura",
+    "title": "Come può essere\n*un prestito subordinato.*",
+    "head": [
+     "",
+     "Ipoteca bancaria",
+     "Capitale mezzanine"
+    ],
+    "rows": [
+     [
+      "Rango",
+      "primo rango, garanzia ipotecaria",
+      "subordinato"
+     ],
+     [
+      "Tasso",
+      "fisso o SARON",
+      "fisso o variabile"
+     ],
+     [
+      "Rimborso",
+      "ammortamento secondo regole",
+      "a scadenza o con ammortamento leggero"
+     ],
+     [
+      "Durata",
+      "secondo il prodotto",
+      "di regola 2–5 anni"
+     ],
+     [
+      "Partecipazione agli utili",
+      "nessuna",
+      "opzionale, secondo la struttura"
+     ]
+    ],
+    "note": "Le condizioni dipendono da progetto, rischio e finanziatore. Valutiamo ogni caso singolarmente: non esistono prezzi standard."
+   },
+   {
+    "type": "split",
+    "eyebrow": "Per chi",
+    "title": "Developer, family office,\n*detentori di portafogli.*",
+    "image": "consultation",
+    "reverse": true,
+    "tone": "soft",
+    "paragraphs": [
+     "Il mezzanine si rivolge ad **attori immobiliari professionali**: developer con più progetti, family office con una strategia immobiliare e detentori che sviluppano il loro portafoglio.",
+     "Per l'acquisto della casa in cui abiti è raramente la soluzione giusta. Se ti mancano fondi propri, verifichiamo prima cassa pensione, anticipo e sostenibilità. Per i casi complessi c'è la nostra **consulenza ipotecaria**."
+    ],
+    "bullets": [
+     "Documenti chiari su progetto, costi e tempi",
+     "Finanziamento bancario come base",
+     "Exit realistico: vendita, locazione o rifinanziamento"
+    ],
+    "ctas": [
+     {
+      "label": "Vedi la consulenza",
+      "to": "page:advisory"
+     },
+     {
+      "label": "Tutte le ipoteche",
+      "to": "page:hypotheken"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Procedura",
+    "title": "Dal primo colloquio\nalla struttura.",
+    "items": [
+     {
+      "title": "Primo colloquio gratuito",
+      "text": "Descrivi progetto, fabbisogno di capitale e tempi. Ti diciamo con franchezza se il mezzanine fa al caso tuo."
+     },
+     {
+      "title": "Analisi del progetto",
+      "text": "Esaminiamo documenti, finanziamento bancario e scenario di uscita per individuare il divario."
+     },
+     {
+      "title": "Definizione della struttura",
+      "text": "Fisso o variabile, a scadenza o con ammortamento, con o senza partecipazione agli utili."
+     },
+     {
+      "title": "Accompagnamento",
+      "text": "Coordiniamo finanziamento di primo rango e capitale subordinato fino al versamento."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Fissa un primo colloquio",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Approfondisci",
+    "title": "Utile per\n*il tuo progetto.*",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Reddito",
+      "title": "Immobili da reddito",
+      "text": "Stabile locativo o appartamento da reddito: requisiti su fondi propri e ammortamento.",
+      "to": "page:rendite",
+      "cta": "Scopri di più"
+     },
+     {
+      "kicker": "Costruzione",
+      "title": "Finanziamento di costruzione",
+      "text": "Credito di costruzione, tappe e consolidamento in ipoteca.",
+      "to": "page:neubau",
+      "cta": "Scopri di più"
+     },
+     {
+      "kicker": "Partner",
+      "title": "Programma partner",
+      "text": "Agenti immobiliari, fiduciari e gestori patrimoniali ci portano progetti. La relazione con il cliente resta a loro.",
+      "to": "page:partner",
+      "cta": "Diventa partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "Il mezzanine in breve.",
+    "items": [
+     {
+      "q": "Cos'è un finanziamento mezzanine?",
+      "a": "Un **prestito subordinato** tra fondi propri e ipoteca bancaria. Colma una lacuna di finanziamento senza che tu debba cedere quote del progetto."
+     },
+     {
+      "q": "A chi è rivolto?",
+      "a": "A developer, family office e detentori di portafogli, per nuove costruzioni, acquisizioni, finanziamenti ponte o mancanza di fondi propri. Per la casa propria è adatto solo di rado."
+     },
+     {
+      "q": "Quanto costa rispetto all'ipoteca?",
+      "a": "Il mezzanine è **più caro di un'ipoteca**, perché il finanziatore è subordinato e si assume più rischio. Le condizioni concrete dipendono dal progetto e vengono offerte singolarmente."
+     },
+     {
+      "q": "Può sostituire i fondi propri?",
+      "a": "In parte. Il mezzanine completa i fondi propri ma non li sostituisce del tutto. Banche e finanziatori si aspettano comunque un contributo proprio sostanziale."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Fai una domanda",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Un progetto con\n*una lacuna di finanziamento?*",
+    "text": "Verifichiamo insieme, in un primo colloquio gratuito, se il capitale mezzanine è la soluzione giusta.",
+    "ctas": [
+     {
+      "label": "Fissa un primo colloquio",
+      "to": "page:kontakt"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "Mezzanine Financing for Swiss Real Estate | HYPOTEQ",
+  "description": "Short on equity? Mezzanine capital bridges the gap between your mortgage and own funds for purchases or projects in Switzerland. Enquire today.",
+  "h1": "Mezzanine financing for real estate",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "HYPOTEQ · Mezzanine capital",
+    "h1": "Mezzanine financing\nfor real estate",
+    "lead": "**Mezzanine financing for real estate in Switzerland** bridges the gap between your bank mortgage and your equity, without giving away shares. For developers, family offices and portfolio holders who want to move a project forward now.",
+    "ctas": [
+     {
+      "label": "Book a first meeting",
+      "to": "page:kontakt"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Subordinated loan",
+     "Term 2–5 years",
+     "No equity dilution"
+    ],
+    "image": "zurich-neighbourhood",
+    "alt": "Residential neighbourhood in Zurich with apartment buildings",
+    "float": {
+     "title": "Between bank and equity",
+     "text": "Structured for your project"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "2–5 yrs",
+      "label": "typical term of the subordinated loan"
+     },
+     {
+      "value": "0 %",
+      "label": "of shares you give away"
+     },
+     {
+      "value": "40+",
+      "label": "lenders for the senior tranche"
+     },
+     {
+      "value": "35+ yrs",
+      "label": "of experience in the team"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "What is mezzanine?",
+    "title": "Capital in the middle.\n*Impact on the whole project.*",
+    "image": "product",
+    "paragraphs": [
+     "Mezzanine capital is **subordinated capital** that sits between equity and bank financing. The bank funds the first tranche, secured by a mortgage on the property, and a **subordinated real estate loan** covers the part above it that the bank will not take.",
+     "You neither have to put the project on hold nor bring in co-investors who want shares and a say. Your ownership structure stays exactly as it is."
+    ],
+    "bullets": [
+     "Complements the mortgage, does not replace it",
+     "No dilution of your stake",
+     "Suits new builds, acquisitions and bridge financing"
+    ],
+    "ctas": [
+     {
+      "label": "Discuss your project",
+      "to": "page:kontakt"
+     }
+    ],
+    "alt": "Documents and laptop on a desk"
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Use cases",
+    "title": "When mezzanine capital\n*makes sense.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "New build",
+      "title": "Development projects",
+      "text": "When the bank only funds part of the construction costs and your equity is tied up in other projects."
+     },
+     {
+      "kicker": "Acquisition",
+      "title": "Buying properties",
+      "text": "When an opportunity comes up before proceeds from a sale are available."
+     },
+     {
+      "kicker": "Bridge",
+      "title": "Gap financing",
+      "text": "To bridge a phase, for example until letting, sale or refinancing."
+     },
+     {
+      "kicker": "Equity gap",
+      "title": "Not enough equity",
+      "text": "When the bank requires more own funds than are currently available in the project."
+     }
+    ]
+   },
+   {
+    "type": "compare",
+    "eyebrow": "Structure",
+    "title": "What a subordinated loan\n*can look like.*",
+    "head": [
+     "",
+     "Bank mortgage",
+     "Mezzanine capital"
+    ],
+    "rows": [
+     [
+      "Ranking",
+      "senior, secured on the property",
+      "subordinated"
+     ],
+     [
+      "Interest",
+      "fixed or SARON",
+      "fixed or variable"
+     ],
+     [
+      "Repayment",
+      "amortisation as required",
+      "bullet or light amortisation"
+     ],
+     [
+      "Term",
+      "depends on the product",
+      "usually 2–5 years"
+     ],
+     [
+      "Profit participation",
+      "none",
+      "optional, depending on structure"
+     ]
+    ],
+    "note": "Terms depend on the project, the risk and the capital provider. We assess every case individually; there are no standard prices."
+   },
+   {
+    "type": "split",
+    "eyebrow": "Who it is for",
+    "title": "Developers, family offices,\n*portfolio holders.*",
+    "image": "consultation",
+    "reverse": true,
+    "tone": "soft",
+    "paragraphs": [
+     "Mezzanine is aimed at **professional real estate players**: developers running several projects, family offices with a property strategy and holders who are growing their portfolio.",
+     "For buying your own home it is rarely the right fit. If you are short on a down payment, we first look at pension assets (pillar 2 and 3a), loan-to-value and affordability. For complex cases, our **advisory** team can help."
+    ],
+    "bullets": [
+     "Clear documents on project, costs and timeline",
+     "Bank financing as the foundation",
+     "Realistic exit: sale, letting or refinancing"
+    ],
+    "ctas": [
+     {
+      "label": "See advisory",
+      "to": "page:advisory"
+     },
+     {
+      "label": "All mortgages",
+      "to": "page:hypotheken"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Process",
+    "title": "From first meeting\nto structure.",
+    "items": [
+     {
+      "title": "Free first meeting",
+      "text": "You outline the project, capital need and timeline. We tell you honestly whether mezzanine fits."
+     },
+     {
+      "title": "Project analysis",
+      "text": "We review documents, bank financing and exit scenario and show where the gap lies."
+     },
+     {
+      "title": "Structuring",
+      "text": "Fixed or variable, bullet or amortising, with or without profit participation."
+     },
+     {
+      "title": "Execution",
+      "text": "We coordinate the senior financing and the subordinated capital through to drawdown."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Book a first meeting",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Related",
+    "title": "Relevant to\n*your project.*",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Investment",
+      "title": "Buy-to-let financing",
+      "text": "Apartment buildings and investment flats: equity and amortisation requirements.",
+      "to": "page:rendite",
+      "cta": "Learn more"
+     },
+     {
+      "kicker": "New build",
+      "title": "Construction financing",
+      "text": "Construction loans, stages and conversion into a mortgage.",
+      "to": "page:neubau",
+      "cta": "Learn more"
+     },
+     {
+      "kicker": "Partners",
+      "title": "Partner programme",
+      "text": "Brokers, fiduciaries and wealth managers bring us projects. The client relationship stays with them.",
+      "to": "page:partner",
+      "cta": "Become a partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Mezzanine in brief.",
+    "items": [
+     {
+      "q": "What is mezzanine financing?",
+      "a": "A **subordinated loan** that sits between equity and the bank mortgage. It closes a financing gap without you giving away shares in your project."
+     },
+     {
+      "q": "Who is it suitable for?",
+      "a": "Developers, family offices and portfolio holders, for new builds, acquisitions, bridge financing or an equity gap. For a private home it is rarely the right solution."
+     },
+     {
+      "q": "How much does it cost compared to a mortgage?",
+      "a": "Mezzanine is **more expensive than a mortgage**, because the capital provider ranks behind the bank and carries more risk. Actual terms depend on the project and are quoted individually."
+     },
+     {
+      "q": "Can it replace missing equity?",
+      "a": "Partly. Mezzanine complements equity but does not fully replace it. Banks and capital providers still expect a substantial contribution of your own."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Ask a question",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "A project with\n*a financing gap?*",
+    "text": "Let's check in a free first meeting, in English if you prefer, whether mezzanine capital is the right solution.",
+    "ctas": [
+     {
+      "label": "Book a first meeting",
+      "to": "page:kontakt"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ }
+}

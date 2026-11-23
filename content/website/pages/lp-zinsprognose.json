@@ -1,0 +1,1042 @@
+{
+ "de": {
+  "title": "Zinsprognose 2027: Wohin gehen die Hypozinsen? | HYPOTEQ",
+  "description": "Wohin gehen die Hypozinsen 2027? Was SNB, SARON und Swap-Sätze bedeuten und wie du ohne Prognose die richtige Strategie wählst. Jetzt beraten lassen.",
+  "h1": "Zinsprognose 2027 für Schweizer Hypotheken",
+  "nav": [
+   "Zinsprognose 2027",
+   "Was die Hypozinsen bewegt"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Zinsprognose Hypotheken 2027",
+    "h1": "Zinsprognose 2027\nfür Schweizer\n*Hypotheken*",
+    "lead": "Deine Hypothek läuft aus und alle reden von der **Zinsprognose für Hypotheken 2027**? Niemand kennt die Zinsen von morgen, aber du kannst heute eine Strategie wählen, die in beiden Richtungen funktioniert. Wir vergleichen dafür kostenlos über 40 Angebote.",
+    "ctas": [
+     {
+      "label": "Zinsofferten anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Kostenlos & unverbindlich",
+     "Offerten in 48–72 h",
+     "SARON, Fest & Forward"
+    ],
+    "image": "zurich-neighbourhood",
+    "alt": "Wohnquartier in Zürich mit Blick über die Dächer",
+    "float": {
+     "title": "SARON ab 0.85 %",
+     "text": "Richtzins · Beispielwert"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "Banken, Versicherungen und Pensionskassen"
+     },
+     {
+      "value": "0 CHF",
+      "label": "für Vergleich und Vermittlung"
+     },
+     {
+      "value": "3 Min.",
+      "label": "bis zur vollständigen Anfrage"
+     },
+     {
+      "value": "48–72 h",
+      "label": "bis zu konkreten Offerten"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Zinsentwicklung Schweiz",
+    "title": "Vier Faktoren,\n*die deinen Hypozins bewegen.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "SNB",
+      "title": "Leitzins",
+      "text": "Die Schweizerische Nationalbank steuert mit dem Leitzins die kurzfristigen Zinsen. Jede **SNB-Leitzins-Prognose** ist deshalb der Ausgangspunkt."
+     },
+     {
+      "kicker": "SARON",
+      "title": "Geldmarkt",
+      "text": "Der SARON folgt dem Leitzins eng. Darauf basieren SARON-Hypotheken, die sich laufend anpassen.",
+      "to": "page:saron"
+     },
+     {
+      "kicker": "Swaps",
+      "title": "Langfristige Sätze",
+      "text": "Festhypotheken orientieren sich an den Swap-Sätzen. Sie spiegeln die Erwartungen des Marktes für die nächsten Jahre.",
+      "to": "page:fest"
+     },
+     {
+      "kicker": "Teuerung",
+      "title": "Inflation",
+      "text": "Steigt die Teuerung, reagiert die SNB eher mit höheren Zinsen. Sinkt sie, entsteht Spielraum nach unten."
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Hypothekarzinsen Prognose",
+    "title": "Prognosen helfen.\n*Sie entscheiden aber nicht für dich.*",
+    "image": "consultation",
+    "alt": "Beraterin bespricht Zinsstrategie mit einem Paar",
+    "paragraphs": [
+     "Banken und Ökonomen veröffentlichen regelmässig **Hypothekarzinsen-Prognosen**. Sie gehen oft auseinander und werden laufend angepasst, weil sich Teuerung, Konjunktur und Geldpolitik schneller ändern als erwartet.",
+     "Darum verzichten wir bewusst auf eine eigene Zinsprognose. Wichtiger ist die Frage: Was passiert mit deinem Budget, wenn die Zinsen steigen oder sinken? Genau das rechnen wir mit dir durch."
+    ],
+    "bullets": [
+     "Laufzeit passend zu deinen Plänen statt zur Schlagzeile",
+     "Mehrere Szenarien statt einer Wette",
+     "Offerten von 40+ Anbietern als echte Marktsicht"
+    ],
+    "ctas": [
+     {
+      "label": "Strategie prüfen lassen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Richtzinsen heute",
+    "title": "Wo die Zinsen\n*heute stehen.*",
+    "lead": "Die Ausgangslage für deine Entscheidung. Deinen persönlichen Zins holen wir mit einer Anfrage bei über 40 Partnern ein."
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Robust ohne Prognose",
+    "title": "Typische Zweifel\n*und wie wir sie lösen.*",
+    "cols": 2,
+    "items": [
+     {
+      "kicker": "«Ich warte lieber ab»",
+      "title": "Warten ist auch eine Wette",
+      "text": "Wer auf sinkende Zinsen setzt, trägt das Risiko steigender Zinsen. Wir zeigen dir beide Szenarien in Franken."
+     },
+     {
+      "kicker": "«Ich will mich nicht falsch festlegen»",
+      "title": "Tranchieren statt alles auf eine Karte",
+      "text": "Teile die Hypothek in Tranchen mit unterschiedlichen Laufzeiten, etwa SARON plus Festhypothek. So verteilst du das Zinsrisiko.",
+      "to": "page:rg-saron-fest"
+     },
+     {
+      "kicker": "«Meine Hypothek läuft erst später aus»",
+      "title": "Forward-Hypothek prüfen",
+      "text": "Mit einem Forward sicherst du dir heute den Zins für später, gegen einen Aufschlag. Wir vergleichen, ob sich das für dich lohnt.",
+      "to": "page:lp-forward"
+     },
+     {
+      "kicker": "«Meine Bank hat schon offeriert»",
+      "title": "Zweitmeinung einholen",
+      "text": "Ein einzelnes Angebot zeigt nicht, wo der Markt steht. Wir holen Vergleichsofferten ein, kostenlos.",
+      "to": "page:lp-zweitmeinung"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Hypothekenrechner",
+    "title": "Was kostet dich\n*welche Laufzeit?*",
+    "lead": "Wähle SARON oder eine Laufzeit und sieh sofort, wie sich die Zinskosten verändern."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "So läuft es",
+    "title": "In vier Schritten\nzur passenden Strategie.",
+    "items": [
+     {
+      "title": "Anfrage in 3 Minuten",
+      "text": "Lade deine Unterlagen hoch oder beschreib dein Projekt dem Chat-Assistenten HYPO."
+     },
+     {
+      "title": "Persönliche Beratung",
+      "text": "Deine Beraterin meldet sich zeitnah und bespricht Szenarien mit dir."
+     },
+     {
+      "title": "Offerten vergleichen",
+      "text": "Mit vollständigen Unterlagen erhältst du meist innert 48–72 h Angebote für SARON, Fest oder Forward."
+     },
+     {
+      "title": "Entscheiden und abschliessen",
+      "text": "Du wählst die Kombination, die zu Budget und Plänen passt. Wir begleiten dich bis zur Unterschrift."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Jetzt starten",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Weiterlesen",
+    "title": "Mehr zu\n*Zinsen und Laufzeiten.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Richtzinsen",
+      "title": "Aktuelle Zinsen",
+      "text": "SARON, 5 und 10 Jahre im Überblick.",
+      "to": "page:zinsen"
+     },
+     {
+      "kicker": "Absichern",
+      "title": "Forward-Hypothek",
+      "text": "Zins heute fixieren, später starten.",
+      "to": "page:lp-forward"
+     },
+     {
+      "kicker": "Ausstieg",
+      "title": "Vorfälligkeit",
+      "text": "Was ein vorzeitiger Wechsel kostet.",
+      "to": "page:lp-vorfaelligkeit"
+     },
+     {
+      "kicker": "Für Partner",
+      "title": "Partner werden",
+      "text": "Du betreust Kund:innen mit Hypotheken? Arbeite mit uns zusammen.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Zinsprognose\nkurz erklärt.",
+    "items": [
+     {
+      "q": "Wie entwickelt sich der SNB-Leitzins 2027?",
+      "a": "Das weiss niemand sicher. Die SNB entscheidet je nach Teuerung und Wirtschaftslage. Statt auf eine Prognose zu setzen, wählst du am besten eine Strategie, die mehrere Szenarien aushält."
+     },
+     {
+      "q": "Soll ich jetzt eine Festhypothek abschliessen oder bei SARON bleiben?",
+      "a": "Das hängt von deinem Budget, deinen Plänen und deiner Risikobereitschaft ab. Eine Festhypothek bringt planbare Kosten, SARON mehr Flexibilität. Oft ist eine Kombination beider Modelle sinnvoll."
+     },
+     {
+      "q": "Wie zuverlässig sind Zinsprognosen?",
+      "a": "Prognosen zeigen eine Erwartung, keine Gewissheit. Sie werden laufend angepasst und gehen oft auseinander. Nutze sie als Orientierung, nicht als Entscheidungsgrundlage."
+     },
+     {
+      "q": "Wann lohnt sich eine Forward-Hypothek?",
+      "a": "Wenn deine Hypothek erst in einigen Monaten ausläuft und du dich gegen steigende Zinsen absichern willst. Dafür zahlst du einen Aufschlag. Wir vergleichen Forward-Angebote mit dem Abwarten."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Frage stellen",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Keine Prognose nötig.\n*Nur die richtige Strategie.*",
+    "text": "Vergleiche kostenlos über 40 Angebote und entscheide mit Zahlen statt Schlagzeilen.",
+    "ctas": [
+     {
+      "label": "Zinsofferten anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Prévision 2027: où vont les taux hypothécaires? | HYPOTEQ",
+  "description": "Où vont les taux hypothécaires en 2027? Ce que signifient BNS, SARON et taux swap, et comment choisir une stratégie robuste. Conseil gratuit.",
+  "h1": "Prévision des taux hypothécaires suisses en 2027",
+  "nav": [
+   "Prévision des taux 2027",
+   "Ce qui fait bouger les taux"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Prévision taux hypothécaires 2027",
+    "h1": "Prévision des taux\nhypothécaires suisses\n*en 2027*",
+    "lead": "Votre hypothèque arrive à échéance et tout le monde parle de la **prévision des taux hypothécaires 2027**? Personne ne connaît les taux de demain, mais vous pouvez choisir aujourd'hui une stratégie qui tient dans les deux sens. Nous comparons gratuitement plus de 40 offres.",
+    "ctas": [
+     {
+      "label": "Demander des offres",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Gratuit & sans engagement",
+     "Offres en 48–72 h",
+     "SARON, fixe & forward"
+    ],
+    "image": "zurich-neighbourhood",
+    "alt": "Quartier résidentiel de Zurich vu des toits",
+    "float": {
+     "title": "SARON dès 0.85 %",
+     "text": "Taux indicatif · valeur d'exemple"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banques, assurances et caisses de pension"
+     },
+     {
+      "value": "0 CHF",
+      "label": "pour la comparaison et le courtage"
+     },
+     {
+      "value": "3 min",
+      "label": "pour une demande complète"
+     },
+     {
+      "value": "48–72 h",
+      "label": "jusqu'aux offres concrètes"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Évolution des taux en Suisse",
+    "title": "Quatre facteurs\n*qui font bouger votre taux.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "BNS",
+      "title": "Taux directeur",
+      "text": "La Banque nationale suisse pilote les taux à court terme. Toute **prévision du taux directeur BNS** part de là."
+     },
+     {
+      "kicker": "SARON",
+      "title": "Marché monétaire",
+      "text": "Le SARON suit de près le taux directeur. Les hypothèques SARON s'adaptent en continu.",
+      "to": "page:saron"
+     },
+     {
+      "kicker": "Swaps",
+      "title": "Taux à long terme",
+      "text": "Les hypothèques fixes s'orientent sur les taux swap, qui reflètent les attentes du marché.",
+      "to": "page:fest"
+     },
+     {
+      "kicker": "Renchérissement",
+      "title": "Inflation",
+      "text": "Si l'inflation monte, la BNS tend à relever les taux. Si elle baisse, une marge à la baisse apparaît."
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Prévisions des banques",
+    "title": "Les prévisions aident.\n*Elles ne décident pas pour vous.*",
+    "image": "consultation",
+    "alt": "Conseillère discutant d'une stratégie de taux avec un couple",
+    "paragraphs": [
+     "Banques et économistes publient régulièrement des prévisions. Elles divergent souvent et sont ajustées en permanence, car inflation, conjoncture et politique monétaire évoluent plus vite que prévu.",
+     "Nous renonçons donc à notre propre prévision. La vraie question est: que devient votre budget si les taux montent ou baissent? C'est ce que nous calculons avec vous."
+    ],
+    "bullets": [
+     "Une durée alignée sur vos projets, pas sur les gros titres",
+     "Plusieurs scénarios plutôt qu'un pari",
+     "Les offres de 40+ prêteurs comme vision réelle du marché"
+    ],
+    "ctas": [
+     {
+      "label": "Faire vérifier ma stratégie",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Taux indicatifs",
+    "title": "Où en sont\n*les taux aujourd'hui.*",
+    "lead": "Le point de départ de votre décision. Votre taux personnel, nous l'obtenons auprès de plus de 40 partenaires."
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Robuste sans prévision",
+    "title": "Doutes fréquents\n*et nos solutions.*",
+    "cols": 2,
+    "items": [
+     {
+      "kicker": "«Je préfère attendre»",
+      "title": "Attendre, c'est aussi parier",
+      "text": "Miser sur une baisse, c'est assumer le risque d'une hausse. Nous chiffrons les deux scénarios en francs."
+     },
+     {
+      "kicker": "«Je ne veux pas me tromper»",
+      "title": "Fractionner en tranches",
+      "text": "Répartissez l'hypothèque en tranches de durées différentes, par exemple SARON plus fixe. Le risque de taux est ainsi réparti.",
+      "to": "page:rg-saron-fest"
+     },
+     {
+      "kicker": "«Mon échéance est plus tard»",
+      "title": "Étudier une hypothèque forward",
+      "text": "Le forward fixe aujourd'hui le taux pour plus tard, moyennant une prime. Nous vérifions si cela vaut la peine.",
+      "to": "page:lp-forward"
+     },
+     {
+      "kicker": "«Ma banque a déjà fait une offre»",
+      "title": "Demander un deuxième avis",
+      "text": "Une seule offre ne montre pas le marché. Nous obtenons des offres comparatives, gratuitement.",
+      "to": "page:lp-zweitmeinung"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Calculateur hypothécaire",
+    "title": "Combien coûte\n*chaque durée?*",
+    "lead": "Choisissez le SARON ou une durée fixe et voyez immédiatement l'effet sur vos intérêts."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Déroulement",
+    "title": "Quatre étapes\nvers la bonne stratégie.",
+    "items": [
+     {
+      "title": "Demande en 3 minutes",
+      "text": "Téléversez vos documents ou décrivez votre projet à l'assistant HYPO."
+     },
+     {
+      "title": "Conseil personnel",
+      "text": "Votre conseillère vous contacte rapidement et analyse les scénarios avec vous."
+     },
+     {
+      "title": "Comparer les offres",
+      "text": "Avec un dossier complet, vous recevez en général sous 48–72 h des offres SARON, fixes ou forward."
+     },
+     {
+      "title": "Décider et signer",
+      "text": "Vous choisissez la combinaison adaptée à votre budget. Nous vous accompagnons jusqu'à la signature."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Commencer",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "À lire aussi",
+    "title": "Taux et durées\n*en détail.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Taux indicatifs",
+      "title": "Taux actuels",
+      "text": "SARON, 5 et 10 ans en un coup d'œil.",
+      "to": "page:zinsen"
+     },
+     {
+      "kicker": "Se couvrir",
+      "title": "Hypothèque forward",
+      "text": "Fixer le taux aujourd'hui, démarrer plus tard.",
+      "to": "page:lp-forward"
+     },
+     {
+      "kicker": "Sortie anticipée",
+      "title": "Indemnité de remboursement",
+      "text": "Ce que coûte un changement avant l'échéance.",
+      "to": "page:lp-vorfaelligkeit"
+     },
+     {
+      "kicker": "Partenaires",
+      "title": "Devenir partenaire",
+      "text": "Vous conseillez des clients avec hypothèque? Travaillons ensemble.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "La prévision des taux\nen bref.",
+    "items": [
+     {
+      "q": "Comment évoluera le taux directeur de la BNS en 2027?",
+      "a": "Personne ne le sait avec certitude. La BNS décide selon l'inflation et la conjoncture. Plutôt que de miser sur une prévision, choisissez une stratégie qui résiste à plusieurs scénarios."
+     },
+     {
+      "q": "Faut-il conclure une hypothèque fixe maintenant?",
+      "a": "Cela dépend de votre budget, de vos projets et de votre tolérance au risque. Le fixe offre des coûts planifiables, le SARON plus de flexibilité. Une combinaison des deux est souvent judicieuse."
+     },
+     {
+      "q": "Les prévisions de taux sont-elles fiables?",
+      "a": "Une prévision exprime une attente, pas une certitude. Elles sont révisées en continu et divergent souvent. Utilisez-les comme repère, pas comme base de décision."
+     },
+     {
+      "q": "Quand une hypothèque forward est-elle intéressante?",
+      "a": "Lorsque votre hypothèque arrive à échéance dans quelques mois et que vous voulez vous protéger d'une hausse. Vous payez pour cela une prime. Nous comparons le forward avec l'attente."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Poser une question",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Pas besoin de prévision.\n*Juste la bonne stratégie.*",
+    "text": "Comparez gratuitement plus de 40 offres et décidez avec des chiffres plutôt que des gros titres.",
+    "ctas": [
+     {
+      "label": "Demander des offres",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Previsioni 2027: dove vanno i tassi ipotecari? | HYPOTEQ",
+  "description": "Dove vanno i tassi ipotecari nel 2027? Cosa significano BNS, SARON e tassi swap e come scegliere una strategia solida. Consulenza gratuita.",
+  "h1": "Previsioni dei tassi ipotecari svizzeri 2027",
+  "nav": [
+   "Previsioni tassi 2027",
+   "Cosa muove i tassi ipotecari"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Previsioni tassi ipotecari 2027",
+    "h1": "Previsioni dei tassi\nipotecari svizzeri\n*2027*",
+    "lead": "La tua ipoteca scade e tutti parlano di **previsioni dei tassi ipotecari 2027**? Nessuno conosce i tassi di domani, ma oggi puoi scegliere una strategia che regge in entrambe le direzioni. Per farlo confrontiamo gratis oltre 40 offerte.",
+    "ctas": [
+     {
+      "label": "Richiedi offerte",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Gratuito e senza impegno",
+     "Offerte in 48–72 h",
+     "SARON, fissa e forward"
+    ],
+    "image": "lugano",
+    "alt": "Lugano con il lago e le colline del Ticino",
+    "float": {
+     "title": "SARON da 0.85 %",
+     "text": "Tasso indicativo · valore d'esempio"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banche, assicurazioni e casse pensioni"
+     },
+     {
+      "value": "0 CHF",
+      "label": "per confronto e mediazione"
+     },
+     {
+      "value": "3 min",
+      "label": "per una richiesta completa"
+     },
+     {
+      "value": "48–72 h",
+      "label": "fino alle offerte concrete"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Andamento tassi Svizzera",
+    "title": "Quattro fattori\n*che muovono il tuo tasso.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "BNS",
+      "title": "Tasso guida",
+      "text": "La Banca nazionale svizzera guida i tassi a breve termine. Ogni previsione sul **tasso guida BNS** parte da qui."
+     },
+     {
+      "kicker": "SARON",
+      "title": "Mercato monetario",
+      "text": "Il SARON segue da vicino il tasso guida. Le ipoteche SARON si adeguano di continuo.",
+      "to": "page:saron"
+     },
+     {
+      "kicker": "Swap",
+      "title": "Tassi a lungo termine",
+      "text": "Le ipoteche fisse si orientano ai tassi swap, che riflettono le attese del mercato.",
+      "to": "page:fest"
+     },
+     {
+      "kicker": "Rincaro",
+      "title": "Inflazione",
+      "text": "Se l'inflazione sale, la BNS tende ad alzare i tassi. Se scende, si apre margine verso il basso."
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Previsioni delle banche",
+    "title": "Le previsioni aiutano.\n*Ma non decidono per te.*",
+    "image": "consultation",
+    "alt": "Consulente discute la strategia dei tassi con una coppia",
+    "paragraphs": [
+     "Banche ed economisti pubblicano regolarmente previsioni sui tassi. Spesso divergono e vengono riviste di continuo, perché inflazione, congiuntura e politica monetaria cambiano più in fretta del previsto.",
+     "Per questo non facciamo una nostra previsione. La domanda giusta è: cosa succede al tuo budget se i tassi salgono o scendono? È proprio ciò che calcoliamo con te."
+    ],
+    "bullets": [
+     "Durata adatta ai tuoi progetti, non ai titoli dei giornali",
+     "Più scenari invece di una scommessa",
+     "Offerte di oltre 40 istituti come visione reale del mercato"
+    ],
+    "ctas": [
+     {
+      "label": "Fai verificare la strategia",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Tassi indicativi",
+    "title": "Dove sono\n*i tassi oggi.*",
+    "lead": "Il punto di partenza della tua decisione. Il tuo tasso personale lo otteniamo con una sola richiesta a oltre 40 partner."
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Solidi senza previsione",
+    "title": "Dubbi frequenti\n*e come li risolviamo.*",
+    "cols": 2,
+    "items": [
+     {
+      "kicker": "«Preferisco aspettare»",
+      "title": "Anche aspettare è una scommessa",
+      "text": "Chi punta su tassi in calo si assume il rischio di un aumento. Ti mostriamo entrambi gli scenari in franchi."
+     },
+     {
+      "kicker": "«Non voglio sbagliare»",
+      "title": "Suddividere in tranche",
+      "text": "Dividi l'ipoteca in tranche con durate diverse, per esempio SARON più fissa. Così distribuisci il rischio di tasso.",
+      "to": "page:rg-saron-fest"
+     },
+     {
+      "kicker": "«La mia ipoteca scade più tardi»",
+      "title": "Valutare un'ipoteca forward",
+      "text": "Con il forward fissi oggi il tasso per il futuro, pagando un supplemento. Verifichiamo se ti conviene.",
+      "to": "page:lp-forward"
+     },
+     {
+      "kicker": "«La mia banca ha già offerto»",
+      "title": "Chiedere un secondo parere",
+      "text": "Una sola offerta non mostra il mercato. Raccogliamo offerte di confronto, gratis.",
+      "to": "page:lp-zweitmeinung"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Calcolatore ipotecario",
+    "title": "Quanto costa\n*ogni durata?*",
+    "lead": "Scegli SARON o una durata fissa e vedi subito come cambiano gli interessi."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Come funziona",
+    "title": "Quattro passi\nverso la strategia giusta.",
+    "items": [
+     {
+      "title": "Richiesta in 3 minuti",
+      "text": "Carica i documenti o descrivi il progetto all'assistente HYPO."
+     },
+     {
+      "title": "Consulenza personale",
+      "text": "La tua consulente ti contatta in tempi brevi e analizza gli scenari con te."
+     },
+     {
+      "title": "Confrontare le offerte",
+      "text": "Con la documentazione completa ricevi di solito entro 48–72 h offerte SARON, fisse o forward."
+     },
+     {
+      "title": "Decidere e firmare",
+      "text": "Scegli la combinazione adatta a budget e progetti. Ti accompagniamo fino alla firma."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Inizia ora",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Approfondisci",
+    "title": "Tassi e durate\n*in dettaglio.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Tassi indicativi",
+      "title": "Tassi attuali",
+      "text": "SARON, 5 e 10 anni in sintesi.",
+      "to": "page:zinsen"
+     },
+     {
+      "kicker": "Proteggersi",
+      "title": "Ipoteca forward",
+      "text": "Fissare il tasso oggi, partire più tardi.",
+      "to": "page:lp-forward"
+     },
+     {
+      "kicker": "Uscita anticipata",
+      "title": "Penale di estinzione",
+      "text": "Quanto costa cambiare prima della scadenza.",
+      "to": "page:lp-vorfaelligkeit"
+     },
+     {
+      "kicker": "Per partner",
+      "title": "Diventa partner",
+      "text": "Segui clienti con ipoteca? Collabora con noi.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "Previsioni sui tassi\nin breve.",
+    "items": [
+     {
+      "q": "Come evolverà il tasso guida BNS nel 2027?",
+      "a": "Nessuno lo sa con certezza. La BNS decide in base a inflazione e congiuntura. Invece di puntare su una previsione, scegli una strategia che regga più scenari."
+     },
+     {
+      "q": "Conviene ora un'ipoteca fissa o restare sul SARON?",
+      "a": "Dipende da budget, progetti e propensione al rischio. La fissa offre costi pianificabili, il SARON più flessibilità. Spesso conviene combinare i due modelli."
+     },
+     {
+      "q": "Quanto sono affidabili le previsioni?",
+      "a": "Una previsione esprime un'attesa, non una certezza. Viene rivista di continuo e spesso le stime divergono. Usala come orientamento, non come base decisionale."
+     },
+     {
+      "q": "Quando conviene un'ipoteca forward?",
+      "a": "Quando la tua ipoteca scade tra qualche mese e vuoi proteggerti da un aumento dei tassi. In cambio paghi un supplemento. Confrontiamo il forward con l'attesa."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Fai una domanda",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Nessuna previsione.\n*Solo la strategia giusta.*",
+    "text": "Confronta gratis oltre 40 offerte e decidi con i numeri, non con i titoli.",
+    "ctas": [
+     {
+      "label": "Richiedi offerte",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "Swiss mortgage rate forecast 2027 | HYPOTEQ",
+  "description": "Where are Swiss mortgage rates heading in 2027? What the SNB, SARON and swap rates mean and how to choose a robust strategy. Get free advice.",
+  "h1": "Swiss mortgage rate forecast for 2027",
+  "nav": [
+   "Rate forecast 2027",
+   "What drives Swiss mortgage rates"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Swiss mortgage rate forecast 2027",
+    "h1": "Swiss mortgage\nrate forecast\n*for 2027*",
+    "lead": "Your mortgage is expiring and everyone is talking about the **Swiss mortgage rate forecast 2027**? Nobody knows tomorrow's rates, but you can choose a strategy today that works either way. We compare 40+ offers for you, free of charge.",
+    "ctas": [
+     {
+      "label": "Request rate offers",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Free & non-binding",
+     "Offers in 48–72 h",
+     "SARON, fixed & forward"
+    ],
+    "image": "zurich-neighbourhood",
+    "alt": "Residential neighbourhood in Zurich seen across the rooftops",
+    "float": {
+     "title": "SARON from 0.85 %",
+     "text": "Indicative rate · sample value"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banks, insurers and pension funds"
+     },
+     {
+      "value": "CHF 0",
+      "label": "for comparison and brokerage"
+     },
+     {
+      "value": "3 min.",
+      "label": "to a complete request"
+     },
+     {
+      "value": "48–72 h",
+      "label": "to concrete offers"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Swiss interest rates outlook",
+    "title": "Four factors\n*that move your mortgage rate.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "SNB",
+      "title": "Policy rate",
+      "text": "The Swiss National Bank steers short-term rates. Every **SNB interest rate forecast** starts here."
+     },
+     {
+      "kicker": "SARON",
+      "title": "Money market",
+      "text": "SARON, the Swiss reference rate, closely tracks the policy rate. SARON mortgages adjust continuously.",
+      "to": "page:saron"
+     },
+     {
+      "kicker": "Swaps",
+      "title": "Long-term rates",
+      "text": "Fixed-rate mortgages are priced off swap rates, which reflect market expectations for the coming years.",
+      "to": "page:fest"
+     },
+     {
+      "kicker": "Prices",
+      "title": "Inflation",
+      "text": "Rising inflation makes higher SNB rates more likely. Falling inflation creates room for cuts."
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Bank forecasts",
+    "title": "Forecasts help.\n*They don't decide for you.*",
+    "image": "consultation",
+    "alt": "Advisor discussing a rate strategy with a couple",
+    "paragraphs": [
+     "Banks and economists publish rate forecasts regularly. They often disagree and are revised constantly, because inflation, the economy and monetary policy shift faster than expected.",
+     "That's why we deliberately don't publish our own forecast. The better question is: what happens to your budget if rates go up or down? That's exactly what we work through with you."
+    ],
+    "bullets": [
+     "A term that fits your plans, not the headlines",
+     "Several scenarios instead of one bet",
+     "Offers from 40+ lenders as a real market view"
+    ],
+    "ctas": [
+     {
+      "label": "Review my strategy",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Indicative rates",
+    "title": "Where rates\n*stand today.*",
+    "lead": "The starting point for your decision. We obtain your personal rate with one request to 40+ partners."
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Robust without a forecast",
+    "title": "Common doubts\n*and how we solve them.*",
+    "cols": 2,
+    "items": [
+     {
+      "kicker": "“I'd rather wait”",
+      "title": "Waiting is a bet too",
+      "text": "Betting on falling rates means carrying the risk of rising ones. We show you both scenarios in francs."
+     },
+     {
+      "kicker": "“I don't want to lock in wrongly”",
+      "title": "Split into tranches",
+      "text": "Divide your mortgage into tranches with different terms, e.g. SARON plus fixed. That spreads your interest rate risk.",
+      "to": "page:rg-saron-fest"
+     },
+     {
+      "kicker": "“My mortgage expires later”",
+      "title": "Consider a forward mortgage",
+      "text": "A forward locks in today's rate for a later start, for a surcharge. We check whether it pays off for you.",
+      "to": "page:lp-forward"
+     },
+     {
+      "kicker": "“My bank already made an offer”",
+      "title": "Get a second opinion",
+      "text": "One offer doesn't show the market. We obtain competing offers, free of charge.",
+      "to": "page:lp-zweitmeinung"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Mortgage calculator",
+    "title": "What does\n*each term cost you?*",
+    "lead": "Pick SARON or a fixed term and instantly see how your interest costs change."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "How it works",
+    "title": "Four steps\nto the right strategy.",
+    "items": [
+     {
+      "title": "Request in 3 minutes",
+      "text": "Upload your documents or describe your project to our chat assistant HYPO."
+     },
+     {
+      "title": "Personal advice",
+      "text": "Your advisor usually gets back to you the same business day and walks through scenarios with you."
+     },
+     {
+      "title": "Compare offers",
+      "text": "With complete documents, you usually receive SARON, fixed or forward offers within 48–72 h."
+     },
+     {
+      "title": "Decide and sign",
+      "text": "You choose the mix that fits your budget and plans. We support you until signing."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Get started",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Read more",
+    "title": "More on\n*rates and terms.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Indicative rates",
+      "title": "Current rates",
+      "text": "SARON, 5 and 10 years at a glance.",
+      "to": "page:zinsen"
+     },
+     {
+      "kicker": "Hedge",
+      "title": "Forward mortgage",
+      "text": "Fix your rate today, start later.",
+      "to": "page:lp-forward"
+     },
+     {
+      "kicker": "Early exit",
+      "title": "Prepayment penalty",
+      "text": "What switching before expiry costs.",
+      "to": "page:lp-vorfaelligkeit"
+     },
+     {
+      "kicker": "For partners",
+      "title": "Become a partner",
+      "text": "You advise clients with mortgages? Work with us.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Rate forecasts\nin brief.",
+    "items": [
+     {
+      "q": "Where is the SNB policy rate heading in 2027?",
+      "a": "Nobody knows for sure. The SNB decides based on inflation and the economy. Rather than relying on a forecast, choose a strategy that holds up in several scenarios."
+     },
+     {
+      "q": "Should I fix now or stay on SARON?",
+      "a": "It depends on your budget, plans and risk appetite. A fixed rate gives predictable costs, SARON more flexibility. Combining both models often makes sense."
+     },
+     {
+      "q": "How reliable are interest rate forecasts?",
+      "a": "A forecast is an expectation, not a certainty. Forecasts are revised constantly and often differ. Use them for orientation, not as the basis for your decision."
+     },
+     {
+      "q": "When does a forward mortgage make sense?",
+      "a": "When your mortgage expires in a few months and you want protection against rising rates. You pay a surcharge for it. We compare forward offers with waiting."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Ask a question",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "No forecast needed.\n*Just the right strategy.*",
+    "text": "Compare 40+ offers for free and decide with numbers, not headlines.",
+    "ctas": [
+     {
+      "label": "Request rate offers",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ }
+}

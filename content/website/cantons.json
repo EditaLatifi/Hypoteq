@@ -1,0 +1,2721 @@
+{
+ "_meta": {
+  "stand": "2026-11-16",
+  "hinweis": "Volumen/Potenzial = Schätzung (S). Steuersätze vor Publikation beim kantonalen Grundbuchamt/Steueramt verifizieren; null = nicht eindeutig belegt."
+ },
+ "cantons": [
+  {
+   "code": "ZH",
+   "names": {
+    "de": "Zürich",
+    "fr": "Zurich",
+    "it": "Zurigo",
+    "en": "Zurich"
+   },
+   "capital": {
+    "de": "Zürich",
+    "fr": "Zurich",
+    "it": "Zurigo",
+    "en": "Zurich"
+   },
+   "languages": [
+    "de"
+   ],
+   "main_language": "de",
+   "priority_language": "de",
+   "potential": {
+    "de": "hoch (S)",
+    "fr": "niedrig (S)",
+    "it": "sehr niedrig (S)",
+    "en": "hoch (S)"
+   },
+   "transfer_tax": {
+    "exists": false,
+    "rate": null,
+    "note_de": "Keine Handänderungssteuer (2005 abgeschafft); es fallen Notariats- und Grundbuchgebühren an.",
+    "source": "https://tabellio.ch/wissen/handaenderungssteuer-kantone",
+    "source_check": "https://neho.ch/de/blog/handanderungssteuer"
+   },
+   "notary": "Amtsnotariat",
+   "notary_source": "https://law.ch/lawinfo/notariatsrecht/notariats-organisation/uebersicht-notariatswesen-schweiz/",
+   "regions": {
+    "de": "Zürichsee, Winterthur",
+    "fr": "lac de Zurich, Winterthour",
+    "it": "lago di Zurigo, Winterthur",
+    "en": "Lake Zurich, Winterthur"
+   },
+   "market_de": null,
+   "market_fr": null,
+   "market_it": null,
+   "market_en": null,
+   "market_source": null,
+   "slugs": {
+    "de": "hypothek-zuerich",
+    "fr": "hypotheque-zurich",
+    "it": "ipoteca-zurigo",
+    "en": "mortgage-zurich"
+   },
+   "seo": {
+    "de": {
+     "title": "Hypothek Zürich: 40+ Anbieter vergleichen | HYPOTEQ",
+     "description": "Hypothek im Kanton Zürich: Vergleiche kostenlos über 40 Banken, Versicherungen und Pensionskassen. Anfrage in 3 Minuten, Rasche, persönliche Rückmeldung.",
+     "h1": "Deine Hypothek im Kanton Zürich",
+     "primary": "Hypothek Zürich",
+     "secondary": [
+      "Hypothek Kanton Zürich",
+      "Hypothekenvermittler Zürich",
+      "Hypothekarzinsen Zürich"
+     ],
+     "volume": "hoch (S)"
+    },
+    "fr": {
+     "title": "Hypothèque Zurich: comparez 40+ prêteurs | HYPOTEQ",
+     "description": "Hypothèque dans le canton de Zurich: comparez gratuitement plus de 40 banques, assurances et caisses de pension. Demande en 3 minutes. Commencez ici.",
+     "h1": "Votre hypothèque dans le canton de Zurich",
+     "primary": "hypothèque Zurich",
+     "secondary": [
+      "courtier hypothécaire Zurich",
+      "taux hypothécaire Zurich",
+      "hypothèque canton Zurich"
+     ],
+     "volume": "niedrig (S)"
+    },
+    "it": {
+     "title": "Ipoteca Zurigo: confronta gratis oltre 40 istituti | HYPOTEQ",
+     "description": "Ipoteca nel Cantone Zurigo: confronta gratis oltre 40 banche, assicurazioni e casse pensione. Richiesta in 3 minuti, risposta in giornata. Inizia ora.",
+     "h1": "La tua ipoteca nel Cantone Zurigo",
+     "primary": "ipoteca Zurigo",
+     "secondary": [
+      "broker ipotecario Zurigo",
+      "tassi ipotecari Zurigo",
+      "ipoteca Cantone Zurigo"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "en": {
+     "title": "Mortgage Zurich: compare 40+ lenders for free | HYPOTEQ",
+     "description": "Mortgage in the canton of Zurich: compare 40+ banks, insurers and pension funds for free. Apply in 3 minutes, reply the same business day.",
+     "h1": "Your mortgage in the canton of Zurich",
+     "primary": "mortgage Zurich",
+     "secondary": [
+      "mortgage broker Zurich",
+      "Zurich mortgage rates",
+      "buy property Zurich"
+     ],
+     "volume": "hoch (S)"
+    }
+   }
+  },
+  {
+   "code": "BE",
+   "names": {
+    "de": "Bern",
+    "fr": "Berne",
+    "it": "Berna",
+    "en": "Bern"
+   },
+   "capital": {
+    "de": "Bern",
+    "fr": "Berne",
+    "it": "Berna",
+    "en": "Bern"
+   },
+   "languages": [
+    "de",
+    "fr"
+   ],
+   "main_language": "de",
+   "priority_language": "de",
+   "potential": {
+    "de": "hoch (S)",
+    "fr": "mittel (S)",
+    "it": "sehr niedrig (S)",
+    "en": "niedrig (S)"
+   },
+   "transfer_tax": {
+    "exists": true,
+    "rate": 1.8,
+    "note_de": "1,8 % für die Käuferschaft; bei Selbstnutzung Freibetrag auf den ersten CHF 800'000 (HStG BE Art. 11a–11c).",
+    "source": "https://tabellio.ch/wissen/handaenderungssteuer-kantone",
+    "source_check": "https://neho.ch/de/blog/handanderungssteuer"
+   },
+   "notary": "freies Notariat",
+   "notary_source": "https://law.ch/lawinfo/notariatsrecht/notariats-organisation/uebersicht-notariatswesen-schweiz/",
+   "regions": {
+    "de": "Stadt Bern, Thun, Biel/Bienne",
+    "fr": "ville de Berne, Thoune, Bienne",
+    "it": "città di Berna, Thun, Bienne",
+    "en": "Bern city, Thun, Biel/Bienne"
+   },
+   "market_de": null,
+   "market_fr": null,
+   "market_it": null,
+   "market_en": null,
+   "market_source": null,
+   "slugs": {
+    "de": "hypothek-bern",
+    "fr": "hypotheque-berne",
+    "it": "ipoteca-berna",
+    "en": "mortgage-bern"
+   },
+   "seo": {
+    "de": {
+     "title": "Hypothek Bern: 40+ Anbieter kostenlos vergleichen | HYPOTEQ",
+     "description": "Hypothek im Kanton Bern: Vergleiche kostenlos über 40 Banken, Versicherungen und Pensionskassen. Anfrage in 3 Minuten, Rasche, persönliche Rückmeldung.",
+     "h1": "Deine Hypothek im Kanton Bern",
+     "primary": "Hypothek Bern",
+     "secondary": [
+      "Hypothek Kanton Bern",
+      "Hypothekenvermittler Bern",
+      "Hypothekarzinsen Bern"
+     ],
+     "volume": "hoch (S)"
+    },
+    "fr": {
+     "title": "Hypothèque Berne: comparez 40+ prêteurs | HYPOTEQ",
+     "description": "Hypothèque dans le canton de Berne: comparez gratuitement plus de 40 banques, assurances et caisses de pension. Demande en 3 minutes. Commencez ici.",
+     "h1": "Votre hypothèque dans le canton de Berne",
+     "primary": "hypothèque Berne",
+     "secondary": [
+      "courtier hypothécaire Berne",
+      "taux hypothécaire Berne",
+      "hypothèque canton Berne"
+     ],
+     "volume": "mittel (S)"
+    },
+    "it": {
+     "title": "Ipoteca Berna: confronta gratis oltre 40 istituti | HYPOTEQ",
+     "description": "Ipoteca nel Cantone Berna: confronta gratis oltre 40 banche, assicurazioni e casse pensione. Richiesta in 3 minuti, risposta in giornata. Inizia ora.",
+     "h1": "La tua ipoteca nel Cantone Berna",
+     "primary": "ipoteca Berna",
+     "secondary": [
+      "broker ipotecario Berna",
+      "tassi ipotecari Berna",
+      "ipoteca Cantone Berna"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "en": {
+     "title": "Mortgage Bern: compare 40+ lenders for free | HYPOTEQ",
+     "description": "Mortgage in the canton of Bern: compare 40+ banks, insurers and pension funds for free. Apply in 3 minutes, reply the same business day.",
+     "h1": "Your mortgage in the canton of Bern",
+     "primary": "mortgage Bern",
+     "secondary": [
+      "mortgage broker Bern",
+      "Bern mortgage rates",
+      "buy property Bern"
+     ],
+     "volume": "niedrig (S)"
+    }
+   }
+  },
+  {
+   "code": "LU",
+   "names": {
+    "de": "Luzern",
+    "fr": "Lucerne",
+    "it": "Lucerna",
+    "en": "Lucerne"
+   },
+   "capital": {
+    "de": "Luzern",
+    "fr": "Lucerne",
+    "it": "Lucerna",
+    "en": "Lucerne"
+   },
+   "languages": [
+    "de"
+   ],
+   "main_language": "de",
+   "priority_language": "de",
+   "potential": {
+    "de": "mittel (S)",
+    "fr": "sehr niedrig (S)",
+    "it": "sehr niedrig (S)",
+    "en": "niedrig (S)"
+   },
+   "transfer_tax": {
+    "exists": true,
+    "rate": 1.5,
+    "note_de": "1,5 % des Kaufpreises, geschuldet von der Käuferschaft.",
+    "source": "https://neho.ch/de/blog/handanderungssteuer",
+    "source_check": "https://tabellio.ch/wissen/handaenderungssteuer-kantone"
+   },
+   "notary": "gemischt (Amts- und freies Notariat)",
+   "notary_source": "https://law.ch/lawinfo/notariatsrecht/notariats-organisation/uebersicht-notariatswesen-schweiz/",
+   "regions": {
+    "de": "Stadt Luzern, Sursee, Vierwaldstättersee",
+    "fr": "ville de Lucerne, Sursee, lac des Quatre-Cantons",
+    "it": "città di Lucerna, Sursee, lago dei Quattro Cantoni",
+    "en": "Lucerne city, Sursee, Lake Lucerne"
+   },
+   "market_de": null,
+   "market_fr": null,
+   "market_it": null,
+   "market_en": null,
+   "market_source": null,
+   "slugs": {
+    "de": "hypothek-luzern",
+    "fr": "hypotheque-lucerne",
+    "it": "ipoteca-lucerna",
+    "en": "mortgage-lucerne"
+   },
+   "seo": {
+    "de": {
+     "title": "Hypothek Luzern: 40+ Anbieter vergleichen | HYPOTEQ",
+     "description": "Hypothek im Kanton Luzern: Vergleiche kostenlos über 40 Banken, Versicherungen und Pensionskassen. Anfrage in 3 Minuten, Rasche, persönliche Rückmeldung.",
+     "h1": "Deine Hypothek im Kanton Luzern",
+     "primary": "Hypothek Luzern",
+     "secondary": [
+      "Hypothek Kanton Luzern",
+      "Hypothekenvermittler Luzern",
+      "Hypothekarzinsen Luzern"
+     ],
+     "volume": "mittel (S)"
+    },
+    "fr": {
+     "title": "Hypothèque Lucerne: comparez 40+ prêteurs | HYPOTEQ",
+     "description": "Hypothèque dans le canton de Lucerne: comparez gratuitement plus de 40 banques, assurances et caisses de pension. Demande en 3 minutes. Commencez ici.",
+     "h1": "Votre hypothèque dans le canton de Lucerne",
+     "primary": "hypothèque Lucerne",
+     "secondary": [
+      "courtier hypothécaire Lucerne",
+      "taux hypothécaire Lucerne",
+      "hypothèque canton Lucerne"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "it": {
+     "title": "Ipoteca Lucerna: confronta 40+ istituti | HYPOTEQ",
+     "description": "Ipoteca nel Cantone Lucerna: confronta gratis oltre 40 banche, assicurazioni e casse pensione. Richiesta in 3 minuti, risposta in giornata. Inizia ora.",
+     "h1": "La tua ipoteca nel Cantone Lucerna",
+     "primary": "ipoteca Lucerna",
+     "secondary": [
+      "broker ipotecario Lucerna",
+      "tassi ipotecari Lucerna",
+      "ipoteca Cantone Lucerna"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "en": {
+     "title": "Mortgage Lucerne: compare 40+ lenders for free | HYPOTEQ",
+     "description": "Mortgage in the canton of Lucerne: compare 40+ banks, insurers and pension funds for free. Apply in 3 minutes, reply the same business day.",
+     "h1": "Your mortgage in the canton of Lucerne",
+     "primary": "mortgage Lucerne",
+     "secondary": [
+      "mortgage broker Lucerne",
+      "Lucerne mortgage rates",
+      "buy property Lucerne"
+     ],
+     "volume": "niedrig (S)"
+    }
+   }
+  },
+  {
+   "code": "UR",
+   "names": {
+    "de": "Uri",
+    "fr": "Uri",
+    "it": "Uri",
+    "en": "Uri"
+   },
+   "capital": {
+    "de": "Altdorf",
+    "fr": "Altdorf",
+    "it": "Altdorf",
+    "en": "Altdorf"
+   },
+   "languages": [
+    "de"
+   ],
+   "main_language": "de",
+   "priority_language": "de",
+   "potential": {
+    "de": "niedrig (S)",
+    "fr": "sehr niedrig (S)",
+    "it": "sehr niedrig (S)",
+    "en": "sehr niedrig (S)"
+   },
+   "transfer_tax": {
+    "exists": false,
+    "rate": null,
+    "note_de": "Keine Handänderungssteuer im eigentlichen Sinn; es fällt eine Grundbuchgebühr an.",
+    "source": "https://neho.ch/de/blog/handanderungssteuer",
+    "source_check": "https://tabellio.ch/wissen/handaenderungssteuer-kantone"
+   },
+   "notary": "freies Notariat",
+   "notary_source": "https://law.ch/lawinfo/notariatsrecht/notariats-organisation/uebersicht-notariatswesen-schweiz/",
+   "regions": {
+    "de": "Altdorf, Urner Reusstal, Andermatt",
+    "fr": "Altdorf, vallée de la Reuss, Andermatt",
+    "it": "Altdorf, valle della Reuss, Andermatt",
+    "en": "Altdorf, Reuss valley, Andermatt"
+   },
+   "market_de": null,
+   "market_fr": null,
+   "market_it": null,
+   "market_en": null,
+   "market_source": null,
+   "slugs": {
+    "de": "hypothek-uri",
+    "fr": "hypotheque-uri",
+    "it": "ipoteca-uri",
+    "en": "mortgage-uri"
+   },
+   "seo": {
+    "de": {
+     "title": "Hypothek Uri: 40+ Anbieter kostenlos vergleichen | HYPOTEQ",
+     "description": "Hypothek im Kanton Uri: Vergleiche kostenlos über 40 Banken, Versicherungen und Pensionskassen. Anfrage in 3 Minuten, Rasche, persönliche Rückmeldung.",
+     "h1": "Deine Hypothek im Kanton Uri",
+     "primary": "Hypothek Uri",
+     "secondary": [
+      "Hypothek Kanton Uri",
+      "Hypothekenvermittler Uri",
+      "Hypothekarzinsen Uri",
+      "Hypothek Altdorf"
+     ],
+     "volume": "niedrig (S)"
+    },
+    "fr": {
+     "title": "Hypothèque Uri: comparez 40+ prêteurs gratuitement | HYPOTEQ",
+     "description": "Hypothèque dans le canton d'Uri: comparez gratuitement plus de 40 banques, assurances et caisses de pension. Demande en 3 minutes. Commencez ici.",
+     "h1": "Votre hypothèque dans le canton d'Uri",
+     "primary": "hypothèque Uri",
+     "secondary": [
+      "courtier hypothécaire Uri",
+      "taux hypothécaire Uri",
+      "hypothèque canton Uri",
+      "hypothèque Altdorf"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "it": {
+     "title": "Ipoteca Uri: confronta gratis oltre 40 istituti | HYPOTEQ",
+     "description": "Ipoteca nel Cantone Uri: confronta gratis oltre 40 banche, assicurazioni e casse pensione. Richiesta in 3 minuti, risposta in giornata. Inizia ora.",
+     "h1": "La tua ipoteca nel Cantone Uri",
+     "primary": "ipoteca Uri",
+     "secondary": [
+      "broker ipotecario Uri",
+      "tassi ipotecari Uri",
+      "ipoteca Cantone Uri",
+      "ipoteca Altdorf"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "en": {
+     "title": "Mortgage Uri: compare 40+ lenders for free | HYPOTEQ",
+     "description": "Mortgage in the canton of Uri: compare 40+ banks, insurers and pension funds for free. Apply in 3 minutes, reply the same business day.",
+     "h1": "Your mortgage in the canton of Uri",
+     "primary": "mortgage Uri",
+     "secondary": [
+      "mortgage broker Uri",
+      "Uri mortgage rates",
+      "buy property Uri",
+      "mortgage Altdorf"
+     ],
+     "volume": "sehr niedrig (S)"
+    }
+   }
+  },
+  {
+   "code": "SZ",
+   "names": {
+    "de": "Schwyz",
+    "fr": "Schwytz",
+    "it": "Svitto",
+    "en": "Schwyz"
+   },
+   "capital": {
+    "de": "Schwyz",
+    "fr": "Schwytz",
+    "it": "Svitto",
+    "en": "Schwyz"
+   },
+   "languages": [
+    "de"
+   ],
+   "main_language": "de",
+   "priority_language": "de",
+   "potential": {
+    "de": "mittel (S)",
+    "fr": "sehr niedrig (S)",
+    "it": "sehr niedrig (S)",
+    "en": "niedrig (S)"
+   },
+   "transfer_tax": {
+    "exists": false,
+    "rate": null,
+    "note_de": "Keine Handänderungssteuer; Grundbuchgebühren fallen an.",
+    "source": "https://neho.ch/de/blog/handanderungssteuer",
+    "source_check": "https://tabellio.ch/wissen/handaenderungssteuer-kantone"
+   },
+   "notary": "gemischt (Amts- und freies Notariat)",
+   "notary_source": "https://law.ch/lawinfo/notariatsrecht/notariats-organisation/uebersicht-notariatswesen-schweiz/",
+   "regions": {
+    "de": "Höfe (Freienbach, Wollerau), Küssnacht",
+    "fr": "Höfe (Freienbach, Wollerau), Küssnacht",
+    "it": "Höfe (Freienbach, Wollerau), Küssnacht",
+    "en": "Höfe (Freienbach, Wollerau), Küssnacht"
+   },
+   "market_de": null,
+   "market_fr": null,
+   "market_it": null,
+   "market_en": null,
+   "market_source": null,
+   "slugs": {
+    "de": "hypothek-schwyz",
+    "fr": "hypotheque-schwytz",
+    "it": "ipoteca-svitto",
+    "en": "mortgage-schwyz"
+   },
+   "seo": {
+    "de": {
+     "title": "Hypothek Schwyz: 40+ Anbieter vergleichen | HYPOTEQ",
+     "description": "Hypothek im Kanton Schwyz: Vergleiche kostenlos über 40 Banken, Versicherungen und Pensionskassen. Anfrage in 3 Minuten, Rasche, persönliche Rückmeldung.",
+     "h1": "Deine Hypothek im Kanton Schwyz",
+     "primary": "Hypothek Schwyz",
+     "secondary": [
+      "Hypothek Kanton Schwyz",
+      "Hypothekenvermittler Schwyz",
+      "Hypothekarzinsen Schwyz"
+     ],
+     "volume": "mittel (S)"
+    },
+    "fr": {
+     "title": "Hypothèque Schwytz: comparez 40+ prêteurs | HYPOTEQ",
+     "description": "Hypothèque dans le canton de Schwytz: comparez gratuitement plus de 40 banques, assurances et caisses de pension. Demande en 3 minutes. Commencez ici.",
+     "h1": "Votre hypothèque dans le canton de Schwytz",
+     "primary": "hypothèque Schwytz",
+     "secondary": [
+      "courtier hypothécaire Schwytz",
+      "taux hypothécaire Schwytz",
+      "hypothèque canton Schwytz"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "it": {
+     "title": "Ipoteca Svitto: confronta gratis oltre 40 istituti | HYPOTEQ",
+     "description": "Ipoteca nel Cantone Svitto: confronta gratis oltre 40 banche, assicurazioni e casse pensione. Richiesta in 3 minuti, risposta in giornata. Inizia ora.",
+     "h1": "La tua ipoteca nel Cantone Svitto",
+     "primary": "ipoteca Svitto",
+     "secondary": [
+      "broker ipotecario Svitto",
+      "tassi ipotecari Svitto",
+      "ipoteca Cantone Svitto"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "en": {
+     "title": "Mortgage Schwyz: compare 40+ lenders for free | HYPOTEQ",
+     "description": "Mortgage in the canton of Schwyz: compare 40+ banks, insurers and pension funds for free. Apply in 3 minutes, reply the same business day.",
+     "h1": "Your mortgage in the canton of Schwyz",
+     "primary": "mortgage Schwyz",
+     "secondary": [
+      "mortgage broker Schwyz",
+      "Schwyz mortgage rates",
+      "buy property Schwyz"
+     ],
+     "volume": "niedrig (S)"
+    }
+   }
+  },
+  {
+   "code": "OW",
+   "names": {
+    "de": "Obwalden",
+    "fr": "Obwald",
+    "it": "Obvaldo",
+    "en": "Obwalden"
+   },
+   "capital": {
+    "de": "Sarnen",
+    "fr": "Sarnen",
+    "it": "Sarnen",
+    "en": "Sarnen"
+   },
+   "languages": [
+    "de"
+   ],
+   "main_language": "de",
+   "priority_language": "de",
+   "potential": {
+    "de": "niedrig (S)",
+    "fr": "sehr niedrig (S)",
+    "it": "sehr niedrig (S)",
+    "en": "sehr niedrig (S)"
+   },
+   "transfer_tax": {
+    "exists": true,
+    "rate": 1.5,
+    "note_de": "1,5 %; Aufteilung hälftig oder nach Vereinbarung, Solidarhaftung.",
+    "source": "https://neho.ch/de/blog/handanderungssteuer",
+    "source_check": "https://tabellio.ch/wissen/handaenderungssteuer-kantone"
+   },
+   "notary": "gemischt (Amts- und freies Notariat)",
+   "notary_source": "https://law.ch/lawinfo/notariatsrecht/notariats-organisation/uebersicht-notariatswesen-schweiz/",
+   "regions": {
+    "de": "Sarnen, Engelberg",
+    "fr": "Sarnen, Engelberg",
+    "it": "Sarnen, Engelberg",
+    "en": "Sarnen, Engelberg"
+   },
+   "market_de": null,
+   "market_fr": null,
+   "market_it": null,
+   "market_en": null,
+   "market_source": null,
+   "slugs": {
+    "de": "hypothek-obwalden",
+    "fr": "hypotheque-obwald",
+    "it": "ipoteca-obvaldo",
+    "en": "mortgage-obwalden"
+   },
+   "seo": {
+    "de": {
+     "title": "Hypothek Obwalden: 40+ Anbieter vergleichen | HYPOTEQ",
+     "description": "Hypothek im Kanton Obwalden: Vergleiche kostenlos über 40 Banken, Versicherungen und Pensionskassen. Anfrage in 3 Minuten, Rasche, persönliche Rückmeldung.",
+     "h1": "Deine Hypothek im Kanton Obwalden",
+     "primary": "Hypothek Obwalden",
+     "secondary": [
+      "Hypothek Kanton Obwalden",
+      "Hypothekenvermittler Obwalden",
+      "Hypothekarzinsen Obwalden",
+      "Hypothek Sarnen"
+     ],
+     "volume": "niedrig (S)"
+    },
+    "fr": {
+     "title": "Hypothèque Obwald: comparez 40+ prêteurs | HYPOTEQ",
+     "description": "Hypothèque dans le canton d'Obwald: comparez gratuitement plus de 40 banques, assurances et caisses de pension. Demande en 3 minutes. Commencez ici.",
+     "h1": "Votre hypothèque dans le canton d'Obwald",
+     "primary": "hypothèque Obwald",
+     "secondary": [
+      "courtier hypothécaire Obwald",
+      "taux hypothécaire Obwald",
+      "hypothèque canton Obwald",
+      "hypothèque Sarnen"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "it": {
+     "title": "Ipoteca Obvaldo: confronta 40+ istituti | HYPOTEQ",
+     "description": "Ipoteca nel Cantone Obvaldo: confronta gratis oltre 40 banche, assicurazioni e casse pensione. Richiesta in 3 minuti, risposta in giornata. Inizia ora.",
+     "h1": "La tua ipoteca nel Cantone Obvaldo",
+     "primary": "ipoteca Obvaldo",
+     "secondary": [
+      "broker ipotecario Obvaldo",
+      "tassi ipotecari Obvaldo",
+      "ipoteca Cantone Obvaldo",
+      "ipoteca Sarnen"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "en": {
+     "title": "Mortgage Obwalden: compare 40+ lenders for free | HYPOTEQ",
+     "description": "Mortgage in the canton of Obwalden: compare 40+ banks, insurers and pension funds for free. Apply in 3 minutes, reply the same business day.",
+     "h1": "Your mortgage in the canton of Obwalden",
+     "primary": "mortgage Obwalden",
+     "secondary": [
+      "mortgage broker Obwalden",
+      "Obwalden mortgage rates",
+      "buy property Obwalden",
+      "mortgage Sarnen"
+     ],
+     "volume": "sehr niedrig (S)"
+    }
+   }
+  },
+  {
+   "code": "NW",
+   "names": {
+    "de": "Nidwalden",
+    "fr": "Nidwald",
+    "it": "Nidvaldo",
+    "en": "Nidwalden"
+   },
+   "capital": {
+    "de": "Stans",
+    "fr": "Stans",
+    "it": "Stans",
+    "en": "Stans"
+   },
+   "languages": [
+    "de"
+   ],
+   "main_language": "de",
+   "priority_language": "de",
+   "potential": {
+    "de": "niedrig (S)",
+    "fr": "sehr niedrig (S)",
+    "it": "sehr niedrig (S)",
+    "en": "sehr niedrig (S)"
+   },
+   "transfer_tax": {
+    "exists": true,
+    "rate": 1.0,
+    "note_de": "1 %, geschuldet von der Käuferschaft; Verkäuferschaft haftet solidarisch.",
+    "source": "https://neho.ch/de/blog/handanderungssteuer",
+    "source_check": "https://tabellio.ch/wissen/handaenderungssteuer-kantone"
+   },
+   "notary": "gemischt (Amts- und freies Notariat)",
+   "notary_source": "https://law.ch/lawinfo/notariatsrecht/notariats-organisation/uebersicht-notariatswesen-schweiz/",
+   "regions": {
+    "de": "Stans, Hergiswil",
+    "fr": "Stans, Hergiswil",
+    "it": "Stans, Hergiswil",
+    "en": "Stans, Hergiswil"
+   },
+   "market_de": null,
+   "market_fr": null,
+   "market_it": null,
+   "market_en": null,
+   "market_source": null,
+   "slugs": {
+    "de": "hypothek-nidwalden",
+    "fr": "hypotheque-nidwald",
+    "it": "ipoteca-nidvaldo",
+    "en": "mortgage-nidwalden"
+   },
+   "seo": {
+    "de": {
+     "title": "Hypothek Nidwalden: 40+ Anbieter vergleichen | HYPOTEQ",
+     "description": "Hypothek im Kanton Nidwalden: Vergleiche kostenlos über 40 Banken, Versicherungen und Pensionskassen. Anfrage in 3 Minuten, Rasche, persönliche Rückmeldung.",
+     "h1": "Deine Hypothek im Kanton Nidwalden",
+     "primary": "Hypothek Nidwalden",
+     "secondary": [
+      "Hypothek Kanton Nidwalden",
+      "Hypothekenvermittler Nidwalden",
+      "Hypothekarzinsen Nidwalden",
+      "Hypothek Stans"
+     ],
+     "volume": "niedrig (S)"
+    },
+    "fr": {
+     "title": "Hypothèque Nidwald: comparez 40+ prêteurs | HYPOTEQ",
+     "description": "Hypothèque dans le canton de Nidwald: comparez gratuitement plus de 40 banques, assurances et caisses de pension. Demande en 3 minutes. Commencez ici.",
+     "h1": "Votre hypothèque dans le canton de Nidwald",
+     "primary": "hypothèque Nidwald",
+     "secondary": [
+      "courtier hypothécaire Nidwald",
+      "taux hypothécaire Nidwald",
+      "hypothèque canton Nidwald",
+      "hypothèque Stans"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "it": {
+     "title": "Ipoteca Nidvaldo: confronta 40+ istituti | HYPOTEQ",
+     "description": "Ipoteca nel Cantone Nidvaldo: confronta gratis oltre 40 banche, assicurazioni e casse pensione. Richiesta in 3 minuti, risposta in giornata. Inizia ora.",
+     "h1": "La tua ipoteca nel Cantone Nidvaldo",
+     "primary": "ipoteca Nidvaldo",
+     "secondary": [
+      "broker ipotecario Nidvaldo",
+      "tassi ipotecari Nidvaldo",
+      "ipoteca Cantone Nidvaldo",
+      "ipoteca Stans"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "en": {
+     "title": "Mortgage Nidwalden: compare 40+ lenders for free | HYPOTEQ",
+     "description": "Mortgage in the canton of Nidwalden: compare 40+ banks, insurers and pension funds for free. Apply in 3 minutes, reply the same business day.",
+     "h1": "Your mortgage in the canton of Nidwalden",
+     "primary": "mortgage Nidwalden",
+     "secondary": [
+      "mortgage broker Nidwalden",
+      "Nidwalden mortgage rates",
+      "buy property Nidwalden",
+      "mortgage Stans"
+     ],
+     "volume": "sehr niedrig (S)"
+    }
+   }
+  },
+  {
+   "code": "GL",
+   "names": {
+    "de": "Glarus",
+    "fr": "Glaris",
+    "it": "Glarona",
+    "en": "Glarus"
+   },
+   "capital": {
+    "de": "Glarus",
+    "fr": "Glaris",
+    "it": "Glarona",
+    "en": "Glarus"
+   },
+   "languages": [
+    "de"
+   ],
+   "main_language": "de",
+   "priority_language": "de",
+   "potential": {
+    "de": "niedrig (S)",
+    "fr": "sehr niedrig (S)",
+    "it": "sehr niedrig (S)",
+    "en": "sehr niedrig (S)"
+   },
+   "transfer_tax": {
+    "exists": false,
+    "rate": null,
+    "note_de": "Keine Handänderungssteuer; es fällt eine Grundbuchgebühr an.",
+    "source": "https://neho.ch/de/blog/handanderungssteuer",
+    "source_check": "https://tabellio.ch/wissen/handaenderungssteuer-kantone"
+   },
+   "notary": "gemischt (Amts- und freies Notariat)",
+   "notary_source": "https://law.ch/lawinfo/notariatsrecht/notariats-organisation/uebersicht-notariatswesen-schweiz/",
+   "regions": {
+    "de": "Glarus, Näfels",
+    "fr": "Glaris, Näfels",
+    "it": "Glarona, Näfels",
+    "en": "Glarus, Näfels"
+   },
+   "market_de": null,
+   "market_fr": null,
+   "market_it": null,
+   "market_en": null,
+   "market_source": null,
+   "slugs": {
+    "de": "hypothek-glarus",
+    "fr": "hypotheque-glaris",
+    "it": "ipoteca-glarona",
+    "en": "mortgage-glarus"
+   },
+   "seo": {
+    "de": {
+     "title": "Hypothek Glarus: 40+ Anbieter vergleichen | HYPOTEQ",
+     "description": "Hypothek im Kanton Glarus: Vergleiche kostenlos über 40 Banken, Versicherungen und Pensionskassen. Anfrage in 3 Minuten, Rasche, persönliche Rückmeldung.",
+     "h1": "Deine Hypothek im Kanton Glarus",
+     "primary": "Hypothek Glarus",
+     "secondary": [
+      "Hypothek Kanton Glarus",
+      "Hypothekenvermittler Glarus",
+      "Hypothekarzinsen Glarus"
+     ],
+     "volume": "niedrig (S)"
+    },
+    "fr": {
+     "title": "Hypothèque Glaris: comparez 40+ prêteurs | HYPOTEQ",
+     "description": "Hypothèque dans le canton de Glaris: comparez gratuitement plus de 40 banques, assurances et caisses de pension. Demande en 3 minutes. Commencez ici.",
+     "h1": "Votre hypothèque dans le canton de Glaris",
+     "primary": "hypothèque Glaris",
+     "secondary": [
+      "courtier hypothécaire Glaris",
+      "taux hypothécaire Glaris",
+      "hypothèque canton Glaris"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "it": {
+     "title": "Ipoteca Glarona: confronta 40+ istituti | HYPOTEQ",
+     "description": "Ipoteca nel Cantone Glarona: confronta gratis oltre 40 banche, assicurazioni e casse pensione. Richiesta in 3 minuti, risposta in giornata. Inizia ora.",
+     "h1": "La tua ipoteca nel Cantone Glarona",
+     "primary": "ipoteca Glarona",
+     "secondary": [
+      "broker ipotecario Glarona",
+      "tassi ipotecari Glarona",
+      "ipoteca Cantone Glarona"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "en": {
+     "title": "Mortgage Glarus: compare 40+ lenders for free | HYPOTEQ",
+     "description": "Mortgage in the canton of Glarus: compare 40+ banks, insurers and pension funds for free. Apply in 3 minutes, reply the same business day.",
+     "h1": "Your mortgage in the canton of Glarus",
+     "primary": "mortgage Glarus",
+     "secondary": [
+      "mortgage broker Glarus",
+      "Glarus mortgage rates",
+      "buy property Glarus"
+     ],
+     "volume": "sehr niedrig (S)"
+    }
+   }
+  },
+  {
+   "code": "ZG",
+   "names": {
+    "de": "Zug",
+    "fr": "Zoug",
+    "it": "Zugo",
+    "en": "Zug"
+   },
+   "capital": {
+    "de": "Zug",
+    "fr": "Zoug",
+    "it": "Zugo",
+    "en": "Zug"
+   },
+   "languages": [
+    "de"
+   ],
+   "main_language": "de",
+   "priority_language": "de",
+   "potential": {
+    "de": "mittel (S)",
+    "fr": "sehr niedrig (S)",
+    "it": "sehr niedrig (S)",
+    "en": "hoch (S)"
+   },
+   "transfer_tax": {
+    "exists": false,
+    "rate": null,
+    "note_de": "Keine Handänderungssteuer; Grundbuchgebühren nach Aufwand.",
+    "source": "https://neho.ch/de/blog/handanderungssteuer",
+    "source_check": "https://tabellio.ch/wissen/handaenderungssteuer-kantone"
+   },
+   "notary": "gemischt (Amts- und freies Notariat)",
+   "notary_source": "https://law.ch/lawinfo/notariatsrecht/notariats-organisation/uebersicht-notariatswesen-schweiz/",
+   "regions": {
+    "de": "Stadt Zug, Baar, Cham",
+    "fr": "ville de Zoug, Baar, Cham",
+    "it": "città di Zugo, Baar, Cham",
+    "en": "Zug town, Baar, Cham"
+   },
+   "market_de": null,
+   "market_fr": null,
+   "market_it": null,
+   "market_en": null,
+   "market_source": null,
+   "slugs": {
+    "de": "hypothek-zug",
+    "fr": "hypotheque-zoug",
+    "it": "ipoteca-zugo",
+    "en": "mortgage-zug"
+   },
+   "seo": {
+    "de": {
+     "title": "Hypothek Zug: 40+ Anbieter kostenlos vergleichen | HYPOTEQ",
+     "description": "Hypothek im Kanton Zug: Vergleiche kostenlos über 40 Banken, Versicherungen und Pensionskassen. Anfrage in 3 Minuten, Rasche, persönliche Rückmeldung.",
+     "h1": "Deine Hypothek im Kanton Zug",
+     "primary": "Hypothek Zug",
+     "secondary": [
+      "Hypothek Kanton Zug",
+      "Hypothekenvermittler Zug",
+      "Hypothekarzinsen Zug"
+     ],
+     "volume": "mittel (S)"
+    },
+    "fr": {
+     "title": "Hypothèque Zoug: comparez 40+ prêteurs | HYPOTEQ",
+     "description": "Hypothèque dans le canton de Zoug: comparez gratuitement plus de 40 banques, assurances et caisses de pension. Demande en 3 minutes. Commencez ici.",
+     "h1": "Votre hypothèque dans le canton de Zoug",
+     "primary": "hypothèque Zoug",
+     "secondary": [
+      "courtier hypothécaire Zoug",
+      "taux hypothécaire Zoug",
+      "hypothèque canton Zoug"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "it": {
+     "title": "Ipoteca Zugo: confronta gratis oltre 40 istituti | HYPOTEQ",
+     "description": "Ipoteca nel Cantone Zugo: confronta gratis oltre 40 banche, assicurazioni e casse pensione. Richiesta in 3 minuti, risposta in giornata. Inizia ora.",
+     "h1": "La tua ipoteca nel Cantone Zugo",
+     "primary": "ipoteca Zugo",
+     "secondary": [
+      "broker ipotecario Zugo",
+      "tassi ipotecari Zugo",
+      "ipoteca Cantone Zugo"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "en": {
+     "title": "Mortgage Zug: compare 40+ lenders for free | HYPOTEQ",
+     "description": "Mortgage in the canton of Zug: compare 40+ banks, insurers and pension funds for free. Apply in 3 minutes, reply the same business day.",
+     "h1": "Your mortgage in the canton of Zug",
+     "primary": "mortgage Zug",
+     "secondary": [
+      "mortgage broker Zug",
+      "Zug mortgage rates",
+      "buy property Zug"
+     ],
+     "volume": "hoch (S)"
+    }
+   }
+  },
+  {
+   "code": "FR",
+   "names": {
+    "de": "Freiburg",
+    "fr": "Fribourg",
+    "it": "Friburgo",
+    "en": "Fribourg"
+   },
+   "capital": {
+    "de": "Freiburg",
+    "fr": "Fribourg",
+    "it": "Friburgo",
+    "en": "Fribourg"
+   },
+   "languages": [
+    "fr",
+    "de"
+   ],
+   "main_language": "fr",
+   "priority_language": "fr",
+   "potential": {
+    "de": "niedrig (S)",
+    "fr": "mittel (S)",
+    "it": "sehr niedrig (S)",
+    "en": "sehr niedrig (S)"
+   },
+   "transfer_tax": {
+    "exists": true,
+    "rate": 1.5,
+    "note_de": "1,5 % kantonal, Gemeinden können einen Zuschlag erheben; geschuldet von der Käuferschaft.",
+    "source": "https://neho.ch/de/blog/handanderungssteuer",
+    "source_check": "https://tabellio.ch/wissen/handaenderungssteuer-kantone"
+   },
+   "notary": "freies Notariat",
+   "notary_source": "https://law.ch/lawinfo/notariatsrecht/notariats-organisation/uebersicht-notariatswesen-schweiz/",
+   "regions": {
+    "de": "Freiburg, Bulle, Murten",
+    "fr": "Fribourg, Bulle, Morat",
+    "it": "Friburgo, Bulle, Morat",
+    "en": "Fribourg, Bulle, Murten"
+   },
+   "market_de": null,
+   "market_fr": null,
+   "market_it": null,
+   "market_en": null,
+   "market_source": null,
+   "slugs": {
+    "de": "hypothek-freiburg",
+    "fr": "hypotheque-fribourg",
+    "it": "ipoteca-friburgo",
+    "en": "mortgage-fribourg"
+   },
+   "seo": {
+    "de": {
+     "title": "Hypothek Freiburg: 40+ Anbieter vergleichen | HYPOTEQ",
+     "description": "Hypothek im Kanton Freiburg: Vergleiche kostenlos über 40 Banken, Versicherungen und Pensionskassen. Anfrage in 3 Minuten, Rasche, persönliche Rückmeldung.",
+     "h1": "Deine Hypothek im Kanton Freiburg",
+     "primary": "Hypothek Freiburg",
+     "secondary": [
+      "Hypothek Kanton Freiburg",
+      "Hypothekenvermittler Freiburg",
+      "Hypothekarzinsen Freiburg"
+     ],
+     "volume": "niedrig (S)"
+    },
+    "fr": {
+     "title": "Hypothèque Fribourg: comparez 40+ prêteurs | HYPOTEQ",
+     "description": "Hypothèque dans le canton de Fribourg: comparez gratuitement plus de 40 banques, assurances et caisses de pension. Demande en 3 minutes. Commencez ici.",
+     "h1": "Votre hypothèque dans le canton de Fribourg",
+     "primary": "hypothèque Fribourg",
+     "secondary": [
+      "courtier hypothécaire Fribourg",
+      "taux hypothécaire Fribourg",
+      "hypothèque canton Fribourg"
+     ],
+     "volume": "mittel (S)"
+    },
+    "it": {
+     "title": "Ipoteca Friburgo: confronta 40+ istituti | HYPOTEQ",
+     "description": "Ipoteca nel Cantone Friburgo: confronta gratis oltre 40 banche, assicurazioni e casse pensione. Richiesta in 3 minuti, risposta in giornata. Inizia ora.",
+     "h1": "La tua ipoteca nel Cantone Friburgo",
+     "primary": "ipoteca Friburgo",
+     "secondary": [
+      "broker ipotecario Friburgo",
+      "tassi ipotecari Friburgo",
+      "ipoteca Cantone Friburgo"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "en": {
+     "title": "Mortgage Fribourg: compare 40+ lenders for free | HYPOTEQ",
+     "description": "Mortgage in the canton of Fribourg: compare 40+ banks, insurers and pension funds for free. Apply in 3 minutes, reply the same business day.",
+     "h1": "Your mortgage in the canton of Fribourg",
+     "primary": "mortgage Fribourg",
+     "secondary": [
+      "mortgage broker Fribourg",
+      "Fribourg mortgage rates",
+      "buy property Fribourg"
+     ],
+     "volume": "sehr niedrig (S)"
+    }
+   }
+  },
+  {
+   "code": "SO",
+   "names": {
+    "de": "Solothurn",
+    "fr": "Soleure",
+    "it": "Soletta",
+    "en": "Solothurn"
+   },
+   "capital": {
+    "de": "Solothurn",
+    "fr": "Soleure",
+    "it": "Soletta",
+    "en": "Solothurn"
+   },
+   "languages": [
+    "de"
+   ],
+   "main_language": "de",
+   "priority_language": "de",
+   "potential": {
+    "de": "mittel (S)",
+    "fr": "sehr niedrig (S)",
+    "it": "sehr niedrig (S)",
+    "en": "sehr niedrig (S)"
+   },
+   "transfer_tax": {
+    "exists": true,
+    "rate": 2.2,
+    "note_de": "2,2 % des Verkehrswerts (Erwerber); Befreiung bei dauernd selbstgenutztem Wohneigentum gemäss Praxis Steueramt.",
+    "source": "https://so.ch/fileadmin/internet/fd/fd-ksta/pdf/Nebensteuern/Praxis_HaeSt_2025.pdf",
+    "source_check": "https://neho.ch/de/blog/handanderungssteuer"
+   },
+   "notary": "gemischt (Amts- und freies Notariat)",
+   "notary_source": "https://law.ch/lawinfo/notariatsrecht/notariats-organisation/uebersicht-notariatswesen-schweiz/",
+   "regions": {
+    "de": "Solothurn, Olten, Grenchen",
+    "fr": "Soleure, Olten, Granges",
+    "it": "Soletta, Olten, Grenchen",
+    "en": "Solothurn, Olten, Grenchen"
+   },
+   "market_de": null,
+   "market_fr": null,
+   "market_it": null,
+   "market_en": null,
+   "market_source": null,
+   "slugs": {
+    "de": "hypothek-solothurn",
+    "fr": "hypotheque-soleure",
+    "it": "ipoteca-soletta",
+    "en": "mortgage-solothurn"
+   },
+   "seo": {
+    "de": {
+     "title": "Hypothek Solothurn: 40+ Anbieter vergleichen | HYPOTEQ",
+     "description": "Hypothek im Kanton Solothurn: Vergleiche kostenlos über 40 Banken, Versicherungen und Pensionskassen. Anfrage in 3 Minuten, Rasche, persönliche Rückmeldung.",
+     "h1": "Deine Hypothek im Kanton Solothurn",
+     "primary": "Hypothek Solothurn",
+     "secondary": [
+      "Hypothek Kanton Solothurn",
+      "Hypothekenvermittler Solothurn",
+      "Hypothekarzinsen Solothurn"
+     ],
+     "volume": "mittel (S)"
+    },
+    "fr": {
+     "title": "Hypothèque Soleure: comparez 40+ prêteurs | HYPOTEQ",
+     "description": "Hypothèque dans le canton de Soleure: comparez gratuitement plus de 40 banques, assurances et caisses de pension. Demande en 3 minutes. Commencez ici.",
+     "h1": "Votre hypothèque dans le canton de Soleure",
+     "primary": "hypothèque Soleure",
+     "secondary": [
+      "courtier hypothécaire Soleure",
+      "taux hypothécaire Soleure",
+      "hypothèque canton Soleure"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "it": {
+     "title": "Ipoteca Soletta: confronta 40+ istituti | HYPOTEQ",
+     "description": "Ipoteca nel Cantone Soletta: confronta gratis oltre 40 banche, assicurazioni e casse pensione. Richiesta in 3 minuti, risposta in giornata. Inizia ora.",
+     "h1": "La tua ipoteca nel Cantone Soletta",
+     "primary": "ipoteca Soletta",
+     "secondary": [
+      "broker ipotecario Soletta",
+      "tassi ipotecari Soletta",
+      "ipoteca Cantone Soletta"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "en": {
+     "title": "Mortgage Solothurn: compare 40+ lenders for free | HYPOTEQ",
+     "description": "Mortgage in the canton of Solothurn: compare 40+ banks, insurers and pension funds for free. Apply in 3 minutes, reply the same business day.",
+     "h1": "Your mortgage in the canton of Solothurn",
+     "primary": "mortgage Solothurn",
+     "secondary": [
+      "mortgage broker Solothurn",
+      "Solothurn mortgage rates",
+      "buy property Solothurn"
+     ],
+     "volume": "sehr niedrig (S)"
+    }
+   }
+  },
+  {
+   "code": "BS",
+   "names": {
+    "de": "Basel-Stadt",
+    "fr": "Bâle-Ville",
+    "it": "Basilea Città",
+    "en": "Basel-Stadt"
+   },
+   "capital": {
+    "de": "Basel",
+    "fr": "Bâle",
+    "it": "Basilea",
+    "en": "Basel"
+   },
+   "languages": [
+    "de"
+   ],
+   "main_language": "de",
+   "priority_language": "de",
+   "potential": {
+    "de": "mittel (S)",
+    "fr": "sehr niedrig (S)",
+    "it": "sehr niedrig (S)",
+    "en": "mittel (S)"
+   },
+   "transfer_tax": {
+    "exists": true,
+    "rate": 3.0,
+    "note_de": "3 % (Käuferschaft); reduziert 1,5 % bei Selbstnutzung.",
+    "source": "https://neho.ch/de/blog/handanderungssteuer",
+    "source_check": "https://tabellio.ch/wissen/handaenderungssteuer-kantone"
+   },
+   "notary": "freies Notariat",
+   "notary_source": "https://law.ch/lawinfo/notariatsrecht/notariats-organisation/uebersicht-notariatswesen-schweiz/",
+   "regions": {
+    "de": "Basel, Riehen",
+    "fr": "Bâle, Riehen",
+    "it": "Basilea, Riehen",
+    "en": "Basel, Riehen"
+   },
+   "market_de": null,
+   "market_fr": null,
+   "market_it": null,
+   "market_en": null,
+   "market_source": null,
+   "slugs": {
+    "de": "hypothek-basel-stadt",
+    "fr": "hypotheque-bale-ville",
+    "it": "ipoteca-basilea-citta",
+    "en": "mortgage-basel-stadt"
+   },
+   "seo": {
+    "de": {
+     "title": "Hypothek Basel-Stadt: 40+ Anbieter vergleichen | HYPOTEQ",
+     "description": "Hypothek im Kanton Basel-Stadt: Vergleiche kostenlos über 40 Banken, Versicherungen und Pensionskassen. Anfrage in 3 Minuten, Rasche, persönliche Rückmeldung.",
+     "h1": "Deine Hypothek im Kanton Basel-Stadt",
+     "primary": "Hypothek Basel-Stadt",
+     "secondary": [
+      "Hypothek Kanton Basel-Stadt",
+      "Hypothekenvermittler Basel-Stadt",
+      "Hypothekarzinsen Basel-Stadt",
+      "Hypothek Basel"
+     ],
+     "volume": "mittel (S)"
+    },
+    "fr": {
+     "title": "Hypothèque Bâle-Ville: comparez 40+ prêteurs | HYPOTEQ",
+     "description": "Hypothèque dans le canton de Bâle-Ville: comparez gratuitement plus de 40 banques, assurances et caisses de pension. Demande en 3 minutes. Commencez ici.",
+     "h1": "Votre hypothèque dans le canton de Bâle-Ville",
+     "primary": "hypothèque Bâle-Ville",
+     "secondary": [
+      "courtier hypothécaire Bâle-Ville",
+      "taux hypothécaire Bâle-Ville",
+      "hypothèque canton Bâle-Ville",
+      "hypothèque Bâle"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "it": {
+     "title": "Ipoteca Basilea Città: confronta 40+ istituti | HYPOTEQ",
+     "description": "Ipoteca nel Cantone Basilea Città: confronta gratis oltre 40 istituti. Richiesta in 3 minuti, risposta in giornata. Inizia ora.",
+     "h1": "La tua ipoteca nel Cantone Basilea Città",
+     "primary": "ipoteca Basilea Città",
+     "secondary": [
+      "broker ipotecario Basilea Città",
+      "tassi ipotecari Basilea Città",
+      "ipoteca Cantone Basilea Città",
+      "ipoteca Basilea"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "en": {
+     "title": "Mortgage Basel-Stadt: compare 40+ lenders for free | HYPOTEQ",
+     "description": "Mortgage in the canton of Basel-Stadt: compare 40+ banks, insurers and pension funds for free. Apply in 3 minutes, reply the same business day.",
+     "h1": "Your mortgage in the canton of Basel-Stadt",
+     "primary": "mortgage Basel-Stadt",
+     "secondary": [
+      "mortgage broker Basel-Stadt",
+      "Basel-Stadt mortgage rates",
+      "buy property Basel-Stadt",
+      "mortgage Basel"
+     ],
+     "volume": "mittel (S)"
+    }
+   }
+  },
+  {
+   "code": "BL",
+   "names": {
+    "de": "Basel-Landschaft",
+    "fr": "Bâle-Campagne",
+    "it": "Basilea Campagna",
+    "en": "Basel-Landschaft"
+   },
+   "capital": {
+    "de": "Liestal",
+    "fr": "Liestal",
+    "it": "Liestal",
+    "en": "Liestal"
+   },
+   "languages": [
+    "de"
+   ],
+   "main_language": "de",
+   "priority_language": "de",
+   "potential": {
+    "de": "mittel (S)",
+    "fr": "sehr niedrig (S)",
+    "it": "sehr niedrig (S)",
+    "en": "niedrig (S)"
+   },
+   "transfer_tax": {
+    "exists": true,
+    "rate": 2.5,
+    "note_de": "2,5 %, je zur Hälfte Käufer- und Verkäuferschaft; entfällt beim Erwerb von dauernd selbstgenutztem Wohneigentum (§ 82 StG BL).",
+    "source": "https://www.blkb.ch/dam/pdf/steuern/24.09.25--AL--FS135_Verkauf_Wohneigentum.pdf",
+    "source_check": "https://neho.ch/de/blog/handanderungssteuer"
+   },
+   "notary": "freies Notariat",
+   "notary_source": "https://law.ch/lawinfo/notariatsrecht/notariats-organisation/uebersicht-notariatswesen-schweiz/",
+   "regions": {
+    "de": "Liestal, Allschwil, Binningen",
+    "fr": "Liestal, Allschwil, Binningen",
+    "it": "Liestal, Allschwil, Binningen",
+    "en": "Liestal, Allschwil, Binningen"
+   },
+   "market_de": null,
+   "market_fr": null,
+   "market_it": null,
+   "market_en": null,
+   "market_source": null,
+   "slugs": {
+    "de": "hypothek-basel-landschaft",
+    "fr": "hypotheque-bale-campagne",
+    "it": "ipoteca-basilea-campagna",
+    "en": "mortgage-basel-landschaft"
+   },
+   "seo": {
+    "de": {
+     "title": "Hypothek Basel-Landschaft kostenlos vergleichen | HYPOTEQ",
+     "description": "Hypothek im Kanton Basel-Landschaft: Vergleiche kostenlos 40+ Banken, Versicherungen und Pensionskassen. Anfrage in 3 Minuten, jetzt starten.",
+     "h1": "Deine Hypothek im Kanton Basel-Landschaft",
+     "primary": "Hypothek Basel-Landschaft",
+     "secondary": [
+      "Hypothek Kanton Basel-Landschaft",
+      "Hypothekenvermittler Basel-Landschaft",
+      "Hypothekarzinsen Basel-Landschaft",
+      "Hypothek Liestal"
+     ],
+     "volume": "mittel (S)"
+    },
+    "fr": {
+     "title": "Hypothèque Bâle-Campagne: comparez 40+ prêteurs | HYPOTEQ",
+     "description": "Hypothèque dans le canton de Bâle-Campagne: comparez gratuitement 40+ prêteurs. Demande en 3 minutes, réponse rapide. Commencez ici.",
+     "h1": "Votre hypothèque dans le canton de Bâle-Campagne",
+     "primary": "hypothèque Bâle-Campagne",
+     "secondary": [
+      "courtier hypothécaire Bâle-Campagne",
+      "taux hypothécaire Bâle-Campagne",
+      "hypothèque canton Bâle-Campagne",
+      "hypothèque Liestal"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "it": {
+     "title": "Ipoteca Basilea Campagna: confronta 40+ istituti | HYPOTEQ",
+     "description": "Ipoteca nel Cantone Basilea Campagna: confronta gratis oltre 40 istituti. Richiesta in 3 minuti, risposta in giornata. Inizia ora.",
+     "h1": "La tua ipoteca nel Cantone Basilea Campagna",
+     "primary": "ipoteca Basilea Campagna",
+     "secondary": [
+      "broker ipotecario Basilea Campagna",
+      "tassi ipotecari Basilea Campagna",
+      "ipoteca Cantone Basilea Campagna",
+      "ipoteca Liestal"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "en": {
+     "title": "Mortgage Basel-Landschaft: compare 40+ lenders | HYPOTEQ",
+     "description": "Mortgage in the canton of Basel-Landschaft: compare 40+ banks, insurers and pension funds for free. Apply in 3 minutes, reply the same business day.",
+     "h1": "Your mortgage in the canton of Basel-Landschaft",
+     "primary": "mortgage Basel-Landschaft",
+     "secondary": [
+      "mortgage broker Basel-Landschaft",
+      "Basel-Landschaft mortgage rates",
+      "buy property Basel-Landschaft",
+      "mortgage Liestal"
+     ],
+     "volume": "niedrig (S)"
+    }
+   }
+  },
+  {
+   "code": "SH",
+   "names": {
+    "de": "Schaffhausen",
+    "fr": "Schaffhouse",
+    "it": "Sciaffusa",
+    "en": "Schaffhausen"
+   },
+   "capital": {
+    "de": "Schaffhausen",
+    "fr": "Schaffhouse",
+    "it": "Sciaffusa",
+    "en": "Schaffhausen"
+   },
+   "languages": [
+    "de"
+   ],
+   "main_language": "de",
+   "priority_language": "de",
+   "potential": {
+    "de": "niedrig (S)",
+    "fr": "sehr niedrig (S)",
+    "it": "sehr niedrig (S)",
+    "en": "sehr niedrig (S)"
+   },
+   "transfer_tax": {
+    "exists": false,
+    "rate": null,
+    "note_de": "Keine Handänderungssteuer; Grundbuchgebühren bei Eigentumsübertragung.",
+    "source": "https://neho.ch/de/blog/handanderungssteuer",
+    "source_check": "https://tabellio.ch/wissen/handaenderungssteuer-kantone"
+   },
+   "notary": "Amtsnotariat",
+   "notary_source": "https://law.ch/lawinfo/notariatsrecht/notariats-organisation/uebersicht-notariatswesen-schweiz/",
+   "regions": {
+    "de": "Schaffhausen, Neuhausen am Rheinfall",
+    "fr": "Schaffhouse, Neuhausen am Rheinfall",
+    "it": "Sciaffusa, Neuhausen am Rheinfall",
+    "en": "Schaffhausen, Neuhausen am Rheinfall"
+   },
+   "market_de": null,
+   "market_fr": null,
+   "market_it": null,
+   "market_en": null,
+   "market_source": null,
+   "slugs": {
+    "de": "hypothek-schaffhausen",
+    "fr": "hypotheque-schaffhouse",
+    "it": "ipoteca-sciaffusa",
+    "en": "mortgage-schaffhausen"
+   },
+   "seo": {
+    "de": {
+     "title": "Hypothek Schaffhausen: 40+ Anbieter vergleichen | HYPOTEQ",
+     "description": "Hypothek im Kanton Schaffhausen: Vergleiche kostenlos über 40 Banken, Versicherungen und Pensionskassen. Anfrage in 3 Minuten, Rasche, persönliche Rückmeldung.",
+     "h1": "Deine Hypothek im Kanton Schaffhausen",
+     "primary": "Hypothek Schaffhausen",
+     "secondary": [
+      "Hypothek Kanton Schaffhausen",
+      "Hypothekenvermittler Schaffhausen",
+      "Hypothekarzinsen Schaffhausen"
+     ],
+     "volume": "niedrig (S)"
+    },
+    "fr": {
+     "title": "Hypothèque Schaffhouse: comparez 40+ prêteurs | HYPOTEQ",
+     "description": "Hypothèque dans le canton de Schaffhouse: comparez gratuitement plus de 40 banques, assurances et caisses de pension. Demande en 3 minutes. Commencez ici.",
+     "h1": "Votre hypothèque dans le canton de Schaffhouse",
+     "primary": "hypothèque Schaffhouse",
+     "secondary": [
+      "courtier hypothécaire Schaffhouse",
+      "taux hypothécaire Schaffhouse",
+      "hypothèque canton Schaffhouse"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "it": {
+     "title": "Ipoteca Sciaffusa: confronta 40+ istituti | HYPOTEQ",
+     "description": "Ipoteca nel Cantone Sciaffusa: confronta gratis oltre 40 banche, assicurazioni e casse pensione. Richiesta in 3 minuti, risposta in giornata. Inizia ora.",
+     "h1": "La tua ipoteca nel Cantone Sciaffusa",
+     "primary": "ipoteca Sciaffusa",
+     "secondary": [
+      "broker ipotecario Sciaffusa",
+      "tassi ipotecari Sciaffusa",
+      "ipoteca Cantone Sciaffusa"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "en": {
+     "title": "Mortgage Schaffhausen: compare 40+ lenders | HYPOTEQ",
+     "description": "Mortgage in the canton of Schaffhausen: compare 40+ banks, insurers and pension funds for free. Apply in 3 minutes, reply the same business day.",
+     "h1": "Your mortgage in the canton of Schaffhausen",
+     "primary": "mortgage Schaffhausen",
+     "secondary": [
+      "mortgage broker Schaffhausen",
+      "Schaffhausen mortgage rates",
+      "buy property Schaffhausen"
+     ],
+     "volume": "sehr niedrig (S)"
+    }
+   }
+  },
+  {
+   "code": "AR",
+   "names": {
+    "de": "Appenzell Ausserrhoden",
+    "fr": "Appenzell Rhodes-Extérieures",
+    "it": "Appenzello Esterno",
+    "en": "Appenzell Ausserrhoden"
+   },
+   "capital": {
+    "de": "Herisau",
+    "fr": "Herisau",
+    "it": "Herisau",
+    "en": "Herisau"
+   },
+   "languages": [
+    "de"
+   ],
+   "main_language": "de",
+   "priority_language": "de",
+   "potential": {
+    "de": "niedrig (S)",
+    "fr": "sehr niedrig (S)",
+    "it": "sehr niedrig (S)",
+    "en": "sehr niedrig (S)"
+   },
+   "transfer_tax": {
+    "exists": true,
+    "rate": null,
+    "note_de": "Gemeindesteuer bis 2 %, Gemeinden können tiefere Sätze festlegen; Quellen nennen den Satz uneinheitlich.",
+    "source": "https://neho.ch/de/blog/handanderungssteuer",
+    "source_check": "https://tabellio.ch/wissen/handaenderungssteuer-kantone"
+   },
+   "notary": "gemischt (Amts- und freies Notariat)",
+   "notary_source": "https://law.ch/lawinfo/notariatsrecht/notariats-organisation/uebersicht-notariatswesen-schweiz/",
+   "regions": {
+    "de": "Herisau, Teufen",
+    "fr": "Herisau, Teufen",
+    "it": "Herisau, Teufen",
+    "en": "Herisau, Teufen"
+   },
+   "market_de": null,
+   "market_fr": null,
+   "market_it": null,
+   "market_en": null,
+   "market_source": null,
+   "slugs": {
+    "de": "hypothek-appenzell-ausserrhoden",
+    "fr": "hypotheque-appenzell-rhodes-exterieures",
+    "it": "ipoteca-appenzello-esterno",
+    "en": "mortgage-appenzell-ausserrhoden"
+   },
+   "seo": {
+    "de": {
+     "title": "Hypothek Appenzell Ausserrhoden vergleichen | HYPOTEQ",
+     "description": "Hypothek im Kanton Appenzell Ausserrhoden: Vergleiche kostenlos 40+ Banken, Versicherungen und Pensionskassen. Anfrage in 3 Minuten, jetzt starten.",
+     "h1": "Deine Hypothek im Kanton Appenzell Ausserrhoden",
+     "primary": "Hypothek Appenzell Ausserrhoden",
+     "secondary": [
+      "Hypothek Kanton Appenzell Ausserrhoden",
+      "Hypothekenvermittler Appenzell Ausserrhoden",
+      "Hypothekarzinsen Appenzell Ausserrhoden",
+      "Hypothek Herisau"
+     ],
+     "volume": "niedrig (S)"
+    },
+    "fr": {
+     "title": "Hypothèque Appenzell Rhodes-Extérieures | HYPOTEQ",
+     "description": "Hypothèque dans le canton d'Appenzell Rhodes-Extérieures: comparez gratuitement 40+ prêteurs. Demande en 3 minutes, réponse rapide. Commencez ici.",
+     "h1": "Votre hypothèque dans le canton d'Appenzell Rhodes-Extérieures",
+     "primary": "hypothèque Appenzell Rhodes-Extérieures",
+     "secondary": [
+      "courtier hypothécaire Appenzell Rhodes-Extérieures",
+      "taux hypothécaire Appenzell Rhodes-Extérieures",
+      "hypothèque canton Appenzell Rhodes-Extérieures",
+      "hypothèque Herisau"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "it": {
+     "title": "Ipoteca Appenzello Esterno: confronta 40+ istituti | HYPOTEQ",
+     "description": "Ipoteca nel Cantone Appenzello Esterno: confronta gratis oltre 40 istituti. Richiesta in 3 minuti, risposta in giornata. Inizia ora.",
+     "h1": "La tua ipoteca nel Cantone Appenzello Esterno",
+     "primary": "ipoteca Appenzello Esterno",
+     "secondary": [
+      "broker ipotecario Appenzello Esterno",
+      "tassi ipotecari Appenzello Esterno",
+      "ipoteca Cantone Appenzello Esterno",
+      "ipoteca Herisau"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "en": {
+     "title": "Appenzell Ausserrhoden mortgage: free comparison | HYPOTEQ",
+     "description": "Mortgage in the canton of Appenzell Ausserrhoden: compare 40+ banks, insurers and pension funds for free. Apply in 3 minutes, reply the same business day.",
+     "h1": "Your mortgage in the canton of Appenzell Ausserrhoden",
+     "primary": "mortgage Appenzell Ausserrhoden",
+     "secondary": [
+      "mortgage broker Appenzell Ausserrhoden",
+      "Appenzell Ausserrhoden mortgage rates",
+      "buy property Appenzell Ausserrhoden",
+      "mortgage Herisau"
+     ],
+     "volume": "sehr niedrig (S)"
+    }
+   }
+  },
+  {
+   "code": "AI",
+   "names": {
+    "de": "Appenzell Innerrhoden",
+    "fr": "Appenzell Rhodes-Intérieures",
+    "it": "Appenzello Interno",
+    "en": "Appenzell Innerrhoden"
+   },
+   "capital": {
+    "de": "Appenzell",
+    "fr": "Appenzell",
+    "it": "Appenzello",
+    "en": "Appenzell"
+   },
+   "languages": [
+    "de"
+   ],
+   "main_language": "de",
+   "priority_language": "de",
+   "potential": {
+    "de": "sehr niedrig (S)",
+    "fr": "sehr niedrig (S)",
+    "it": "sehr niedrig (S)",
+    "en": "sehr niedrig (S)"
+   },
+   "transfer_tax": {
+    "exists": true,
+    "rate": 1.0,
+    "note_de": "1 % (Käuferschaft, Verkäuferschaft haftet solidarisch).",
+    "source": "https://neho.ch/de/blog/handanderungssteuer",
+    "source_check": "https://tabellio.ch/wissen/handaenderungssteuer-kantone"
+   },
+   "notary": "gemischt (Amts- und freies Notariat)",
+   "notary_source": "https://law.ch/lawinfo/notariatsrecht/notariats-organisation/uebersicht-notariatswesen-schweiz/",
+   "regions": {
+    "de": "Appenzell, Oberegg",
+    "fr": "Appenzell, Oberegg",
+    "it": "Appenzello, Oberegg",
+    "en": "Appenzell, Oberegg"
+   },
+   "market_de": null,
+   "market_fr": null,
+   "market_it": null,
+   "market_en": null,
+   "market_source": null,
+   "slugs": {
+    "de": "hypothek-appenzell-innerrhoden",
+    "fr": "hypotheque-appenzell-rhodes-interieures",
+    "it": "ipoteca-appenzello-interno",
+    "en": "mortgage-appenzell-innerrhoden"
+   },
+   "seo": {
+    "de": {
+     "title": "Hypothek Appenzell Innerrhoden vergleichen | HYPOTEQ",
+     "description": "Hypothek im Kanton Appenzell Innerrhoden: Vergleiche kostenlos 40+ Banken, Versicherungen und Pensionskassen. Anfrage in 3 Minuten, jetzt starten.",
+     "h1": "Deine Hypothek im Kanton Appenzell Innerrhoden",
+     "primary": "Hypothek Appenzell Innerrhoden",
+     "secondary": [
+      "Hypothek Kanton Appenzell Innerrhoden",
+      "Hypothekenvermittler Appenzell Innerrhoden",
+      "Hypothekarzinsen Appenzell Innerrhoden",
+      "Hypothek Appenzell"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "fr": {
+     "title": "Hypothèque Appenzell Rhodes-Intérieures | HYPOTEQ",
+     "description": "Hypothèque dans le canton d'Appenzell Rhodes-Intérieures: comparez gratuitement 40+ prêteurs. Demande en 3 minutes, réponse rapide. Commencez ici.",
+     "h1": "Votre hypothèque dans le canton d'Appenzell Rhodes-Intérieures",
+     "primary": "hypothèque Appenzell Rhodes-Intérieures",
+     "secondary": [
+      "courtier hypothécaire Appenzell Rhodes-Intérieures",
+      "taux hypothécaire Appenzell Rhodes-Intérieures",
+      "hypothèque canton Appenzell Rhodes-Intérieures",
+      "hypothèque Appenzell"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "it": {
+     "title": "Ipoteca Appenzello Interno: confronta 40+ istituti | HYPOTEQ",
+     "description": "Ipoteca nel Cantone Appenzello Interno: confronta gratis oltre 40 istituti. Richiesta in 3 minuti, risposta in giornata. Inizia ora.",
+     "h1": "La tua ipoteca nel Cantone Appenzello Interno",
+     "primary": "ipoteca Appenzello Interno",
+     "secondary": [
+      "broker ipotecario Appenzello Interno",
+      "tassi ipotecari Appenzello Interno",
+      "ipoteca Cantone Appenzello Interno",
+      "ipoteca Appenzello"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "en": {
+     "title": "Appenzell Innerrhoden mortgage: free comparison | HYPOTEQ",
+     "description": "Mortgage in the canton of Appenzell Innerrhoden: compare 40+ banks, insurers and pension funds for free. Apply in 3 minutes, reply the same business day.",
+     "h1": "Your mortgage in the canton of Appenzell Innerrhoden",
+     "primary": "mortgage Appenzell Innerrhoden",
+     "secondary": [
+      "mortgage broker Appenzell Innerrhoden",
+      "Appenzell Innerrhoden mortgage rates",
+      "buy property Appenzell Innerrhoden",
+      "mortgage Appenzell"
+     ],
+     "volume": "sehr niedrig (S)"
+    }
+   }
+  },
+  {
+   "code": "SG",
+   "names": {
+    "de": "St. Gallen",
+    "fr": "Saint-Gall",
+    "it": "San Gallo",
+    "en": "St. Gallen"
+   },
+   "capital": {
+    "de": "St. Gallen",
+    "fr": "Saint-Gall",
+    "it": "San Gallo",
+    "en": "St. Gallen"
+   },
+   "languages": [
+    "de"
+   ],
+   "main_language": "de",
+   "priority_language": "de",
+   "potential": {
+    "de": "mittel (S)",
+    "fr": "sehr niedrig (S)",
+    "it": "sehr niedrig (S)",
+    "en": "niedrig (S)"
+   },
+   "transfer_tax": {
+    "exists": true,
+    "rate": 1.0,
+    "note_de": "1 % (Käuferschaft); reduziert 0,5 % zwischen Eltern und Kindern.",
+    "source": "https://neho.ch/de/blog/handanderungssteuer",
+    "source_check": "https://tabellio.ch/wissen/handaenderungssteuer-kantone"
+   },
+   "notary": "gemischt (Amts- und freies Notariat)",
+   "notary_source": "https://law.ch/lawinfo/notariatsrecht/notariats-organisation/uebersicht-notariatswesen-schweiz/",
+   "regions": {
+    "de": "St. Gallen, Rapperswil-Jona, Rheintal",
+    "fr": "Saint-Gall, Rapperswil-Jona, vallée du Rhin",
+    "it": "San Gallo, Rapperswil-Jona, Valle del Reno",
+    "en": "St. Gallen, Rapperswil-Jona, Rhine Valley"
+   },
+   "market_de": null,
+   "market_fr": null,
+   "market_it": null,
+   "market_en": null,
+   "market_source": null,
+   "slugs": {
+    "de": "hypothek-st-gallen",
+    "fr": "hypotheque-saint-gall",
+    "it": "ipoteca-san-gallo",
+    "en": "mortgage-st-gallen"
+   },
+   "seo": {
+    "de": {
+     "title": "Hypothek St. Gallen: 40+ Anbieter vergleichen | HYPOTEQ",
+     "description": "Hypothek im Kanton St. Gallen: Vergleiche kostenlos über 40 Banken, Versicherungen und Pensionskassen. Anfrage in 3 Minuten, Rasche, persönliche Rückmeldung.",
+     "h1": "Deine Hypothek im Kanton St. Gallen",
+     "primary": "Hypothek St. Gallen",
+     "secondary": [
+      "Hypothek Kanton St. Gallen",
+      "Hypothekenvermittler St. Gallen",
+      "Hypothekarzinsen St. Gallen"
+     ],
+     "volume": "mittel (S)"
+    },
+    "fr": {
+     "title": "Hypothèque Saint-Gall: comparez 40+ prêteurs | HYPOTEQ",
+     "description": "Hypothèque dans le canton de Saint-Gall: comparez gratuitement plus de 40 banques, assurances et caisses de pension. Demande en 3 minutes. Commencez ici.",
+     "h1": "Votre hypothèque dans le canton de Saint-Gall",
+     "primary": "hypothèque Saint-Gall",
+     "secondary": [
+      "courtier hypothécaire Saint-Gall",
+      "taux hypothécaire Saint-Gall",
+      "hypothèque canton Saint-Gall"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "it": {
+     "title": "Ipoteca San Gallo: confronta 40+ istituti | HYPOTEQ",
+     "description": "Ipoteca nel Cantone San Gallo: confronta gratis oltre 40 banche, assicurazioni e casse pensione. Richiesta in 3 minuti, risposta in giornata. Inizia ora.",
+     "h1": "La tua ipoteca nel Cantone San Gallo",
+     "primary": "ipoteca San Gallo",
+     "secondary": [
+      "broker ipotecario San Gallo",
+      "tassi ipotecari San Gallo",
+      "ipoteca Cantone San Gallo"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "en": {
+     "title": "Mortgage St. Gallen: compare 40+ lenders for free | HYPOTEQ",
+     "description": "Mortgage in the canton of St. Gallen: compare 40+ banks, insurers and pension funds for free. Apply in 3 minutes, reply the same business day.",
+     "h1": "Your mortgage in the canton of St. Gallen",
+     "primary": "mortgage St. Gallen",
+     "secondary": [
+      "mortgage broker St. Gallen",
+      "St. Gallen mortgage rates",
+      "buy property St. Gallen"
+     ],
+     "volume": "niedrig (S)"
+    }
+   }
+  },
+  {
+   "code": "GR",
+   "names": {
+    "de": "Graubünden",
+    "fr": "Grisons",
+    "it": "Grigioni",
+    "en": "Grisons"
+   },
+   "capital": {
+    "de": "Chur",
+    "fr": "Coire",
+    "it": "Coira",
+    "en": "Chur"
+   },
+   "languages": [
+    "de",
+    "rm",
+    "it"
+   ],
+   "main_language": "de",
+   "priority_language": "de",
+   "potential": {
+    "de": "mittel (S)",
+    "fr": "niedrig (S)",
+    "it": "niedrig (S)",
+    "en": "niedrig (S)"
+   },
+   "transfer_tax": {
+    "exists": true,
+    "rate": null,
+    "note_de": "Gemeindesteuer, Satz je nach Gemeinde (Quellen: bis 2 %); vor dem Kauf bei der Gemeinde prüfen.",
+    "source": "https://neho.ch/de/blog/handanderungssteuer",
+    "source_check": "https://tabellio.ch/wissen/handaenderungssteuer-kantone"
+   },
+   "notary": "gemischt (Amts- und freies Notariat)",
+   "notary_source": "https://law.ch/lawinfo/notariatsrecht/notariats-organisation/uebersicht-notariatswesen-schweiz/",
+   "regions": {
+    "de": "Chur, Davos, Oberengadin",
+    "fr": "Coire, Davos, Haute-Engadine",
+    "it": "Coira, Davos, Alta Engadina",
+    "en": "Chur, Davos, Upper Engadine"
+   },
+   "market_de": "Ferien- und Tourismusregion; in vielen Gemeinden gilt die Zweitwohnungsbeschränkung (Zweitwohnungsgesetz, Anteil über 20 %).",
+   "market_fr": "Région touristique; de nombreuses communes sont soumises à la limitation des résidences secondaires (LRS, part supérieure à 20 %).",
+   "market_it": "Regione turistica; in molti comuni vale la limitazione delle abitazioni secondarie (LASec, quota superiore al 20 %).",
+   "market_en": "Holiday region; many municipalities fall under the Second Homes Act (share above 20%).",
+   "market_source": "https://www.fedlex.admin.ch/eli/cc/2015/663/de",
+   "slugs": {
+    "de": "hypothek-graubuenden",
+    "fr": "hypotheque-grisons",
+    "it": "ipoteca-grigioni",
+    "en": "mortgage-grisons"
+   },
+   "seo": {
+    "de": {
+     "title": "Hypothek Graubünden: 40+ Anbieter vergleichen | HYPOTEQ",
+     "description": "Hypothek im Kanton Graubünden: Vergleiche kostenlos über 40 Banken, Versicherungen und Pensionskassen. Anfrage in 3 Minuten, Rasche, persönliche Rückmeldung.",
+     "h1": "Deine Hypothek im Kanton Graubünden",
+     "primary": "Hypothek Graubünden",
+     "secondary": [
+      "Hypothek Kanton Graubünden",
+      "Hypothekenvermittler Graubünden",
+      "Hypothekarzinsen Graubünden",
+      "Hypothek Chur"
+     ],
+     "volume": "mittel (S)"
+    },
+    "fr": {
+     "title": "Hypothèque Grisons: comparez 40+ prêteurs | HYPOTEQ",
+     "description": "Hypothèque dans le canton des Grisons: comparez gratuitement plus de 40 banques, assurances et caisses de pension. Demande en 3 minutes. Commencez ici.",
+     "h1": "Votre hypothèque dans le canton des Grisons",
+     "primary": "hypothèque Grisons",
+     "secondary": [
+      "courtier hypothécaire Grisons",
+      "taux hypothécaire Grisons",
+      "hypothèque canton Grisons",
+      "hypothèque Coire"
+     ],
+     "volume": "niedrig (S)"
+    },
+    "it": {
+     "title": "Ipoteca Grigioni: confronta 40+ istituti | HYPOTEQ",
+     "description": "Ipoteca nel Cantone dei Grigioni: confronta gratis oltre 40 istituti. Richiesta in 3 minuti, risposta in giornata. Inizia ora.",
+     "h1": "La tua ipoteca nel Cantone dei Grigioni",
+     "primary": "ipoteca Grigioni",
+     "secondary": [
+      "broker ipotecario Grigioni",
+      "tassi ipotecari Grigioni",
+      "ipoteca Cantone dei Grigioni",
+      "ipoteca Coira"
+     ],
+     "volume": "niedrig (S)"
+    },
+    "en": {
+     "title": "Mortgage Grisons: compare 40+ lenders for free | HYPOTEQ",
+     "description": "Mortgage in the canton of Grisons: compare 40+ banks, insurers and pension funds for free. Apply in 3 minutes, reply the same business day.",
+     "h1": "Your mortgage in the canton of Grisons",
+     "primary": "mortgage Grisons",
+     "secondary": [
+      "mortgage broker Grisons",
+      "Grisons mortgage rates",
+      "buy property Grisons",
+      "mortgage Chur"
+     ],
+     "volume": "niedrig (S)"
+    }
+   }
+  },
+  {
+   "code": "AG",
+   "names": {
+    "de": "Aargau",
+    "fr": "Argovie",
+    "it": "Argovia",
+    "en": "Aargau"
+   },
+   "capital": {
+    "de": "Aarau",
+    "fr": "Aarau",
+    "it": "Aarau",
+    "en": "Aarau"
+   },
+   "languages": [
+    "de"
+   ],
+   "main_language": "de",
+   "priority_language": "de",
+   "potential": {
+    "de": "mittel (S)",
+    "fr": "sehr niedrig (S)",
+    "it": "sehr niedrig (S)",
+    "en": "niedrig (S)"
+   },
+   "transfer_tax": {
+    "exists": false,
+    "rate": null,
+    "note_de": "Keine Handänderungssteuer im eigentlichen Sinn; es wird eine Grundbuchabgabe erhoben.",
+    "source": "https://neho.ch/de/blog/handanderungssteuer",
+    "source_check": "https://tabellio.ch/wissen/handaenderungssteuer-kantone"
+   },
+   "notary": "freies Notariat",
+   "notary_source": "https://law.ch/lawinfo/notariatsrecht/notariats-organisation/uebersicht-notariatswesen-schweiz/",
+   "regions": {
+    "de": "Aarau, Baden, Fricktal",
+    "fr": "Aarau, Baden, Fricktal",
+    "it": "Aarau, Baden, Fricktal",
+    "en": "Aarau, Baden, Fricktal"
+   },
+   "market_de": null,
+   "market_fr": null,
+   "market_it": null,
+   "market_en": null,
+   "market_source": null,
+   "slugs": {
+    "de": "hypothek-aargau",
+    "fr": "hypotheque-argovie",
+    "it": "ipoteca-argovia",
+    "en": "mortgage-aargau"
+   },
+   "seo": {
+    "de": {
+     "title": "Hypothek Aargau: 40+ Anbieter vergleichen | HYPOTEQ",
+     "description": "Hypothek im Kanton Aargau: Vergleiche kostenlos über 40 Banken, Versicherungen und Pensionskassen. Anfrage in 3 Minuten, Rasche, persönliche Rückmeldung.",
+     "h1": "Deine Hypothek im Kanton Aargau",
+     "primary": "Hypothek Aargau",
+     "secondary": [
+      "Hypothek Kanton Aargau",
+      "Hypothekenvermittler Aargau",
+      "Hypothekarzinsen Aargau",
+      "Hypothek Aarau"
+     ],
+     "volume": "mittel (S)"
+    },
+    "fr": {
+     "title": "Hypothèque Argovie: comparez 40+ prêteurs | HYPOTEQ",
+     "description": "Hypothèque dans le canton d'Argovie: comparez gratuitement plus de 40 banques, assurances et caisses de pension. Demande en 3 minutes. Commencez ici.",
+     "h1": "Votre hypothèque dans le canton d'Argovie",
+     "primary": "hypothèque Argovie",
+     "secondary": [
+      "courtier hypothécaire Argovie",
+      "taux hypothécaire Argovie",
+      "hypothèque canton Argovie",
+      "hypothèque Aarau"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "it": {
+     "title": "Ipoteca Argovia: confronta 40+ istituti | HYPOTEQ",
+     "description": "Ipoteca nel Cantone Argovia: confronta gratis oltre 40 banche, assicurazioni e casse pensione. Richiesta in 3 minuti, risposta in giornata. Inizia ora.",
+     "h1": "La tua ipoteca nel Cantone Argovia",
+     "primary": "ipoteca Argovia",
+     "secondary": [
+      "broker ipotecario Argovia",
+      "tassi ipotecari Argovia",
+      "ipoteca Cantone Argovia",
+      "ipoteca Aarau"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "en": {
+     "title": "Mortgage Aargau: compare 40+ lenders for free | HYPOTEQ",
+     "description": "Mortgage in the canton of Aargau: compare 40+ banks, insurers and pension funds for free. Apply in 3 minutes, reply the same business day.",
+     "h1": "Your mortgage in the canton of Aargau",
+     "primary": "mortgage Aargau",
+     "secondary": [
+      "mortgage broker Aargau",
+      "Aargau mortgage rates",
+      "buy property Aargau",
+      "mortgage Aarau"
+     ],
+     "volume": "niedrig (S)"
+    }
+   }
+  },
+  {
+   "code": "TG",
+   "names": {
+    "de": "Thurgau",
+    "fr": "Thurgovie",
+    "it": "Turgovia",
+    "en": "Thurgau"
+   },
+   "capital": {
+    "de": "Frauenfeld",
+    "fr": "Frauenfeld",
+    "it": "Frauenfeld",
+    "en": "Frauenfeld"
+   },
+   "languages": [
+    "de"
+   ],
+   "main_language": "de",
+   "priority_language": "de",
+   "potential": {
+    "de": "mittel (S)",
+    "fr": "sehr niedrig (S)",
+    "it": "sehr niedrig (S)",
+    "en": "sehr niedrig (S)"
+   },
+   "transfer_tax": {
+    "exists": true,
+    "rate": 1.0,
+    "note_de": "1 % (Käuferschaft, Verkäuferschaft haftet solidarisch).",
+    "source": "https://neho.ch/de/blog/handanderungssteuer",
+    "source_check": "https://tabellio.ch/wissen/handaenderungssteuer-kantone"
+   },
+   "notary": "gemischt (Amts- und freies Notariat)",
+   "notary_source": "https://law.ch/lawinfo/notariatsrecht/notariats-organisation/uebersicht-notariatswesen-schweiz/",
+   "regions": {
+    "de": "Frauenfeld, Kreuzlingen, Bodensee",
+    "fr": "Frauenfeld, Kreuzlingen, lac de Constance",
+    "it": "Frauenfeld, Kreuzlingen, lago di Costanza",
+    "en": "Frauenfeld, Kreuzlingen, Lake Constance"
+   },
+   "market_de": null,
+   "market_fr": null,
+   "market_it": null,
+   "market_en": null,
+   "market_source": null,
+   "slugs": {
+    "de": "hypothek-thurgau",
+    "fr": "hypotheque-thurgovie",
+    "it": "ipoteca-turgovia",
+    "en": "mortgage-thurgau"
+   },
+   "seo": {
+    "de": {
+     "title": "Hypothek Thurgau: 40+ Anbieter vergleichen | HYPOTEQ",
+     "description": "Hypothek im Kanton Thurgau: Vergleiche kostenlos über 40 Banken, Versicherungen und Pensionskassen. Anfrage in 3 Minuten, Rasche, persönliche Rückmeldung.",
+     "h1": "Deine Hypothek im Kanton Thurgau",
+     "primary": "Hypothek Thurgau",
+     "secondary": [
+      "Hypothek Kanton Thurgau",
+      "Hypothekenvermittler Thurgau",
+      "Hypothekarzinsen Thurgau",
+      "Hypothek Frauenfeld"
+     ],
+     "volume": "mittel (S)"
+    },
+    "fr": {
+     "title": "Hypothèque Thurgovie: comparez 40+ prêteurs | HYPOTEQ",
+     "description": "Hypothèque dans le canton de Thurgovie: comparez gratuitement plus de 40 banques, assurances et caisses de pension. Demande en 3 minutes. Commencez ici.",
+     "h1": "Votre hypothèque dans le canton de Thurgovie",
+     "primary": "hypothèque Thurgovie",
+     "secondary": [
+      "courtier hypothécaire Thurgovie",
+      "taux hypothécaire Thurgovie",
+      "hypothèque canton Thurgovie",
+      "hypothèque Frauenfeld"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "it": {
+     "title": "Ipoteca Turgovia: confronta 40+ istituti | HYPOTEQ",
+     "description": "Ipoteca nel Cantone Turgovia: confronta gratis oltre 40 banche, assicurazioni e casse pensione. Richiesta in 3 minuti, risposta in giornata. Inizia ora.",
+     "h1": "La tua ipoteca nel Cantone Turgovia",
+     "primary": "ipoteca Turgovia",
+     "secondary": [
+      "broker ipotecario Turgovia",
+      "tassi ipotecari Turgovia",
+      "ipoteca Cantone Turgovia",
+      "ipoteca Frauenfeld"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "en": {
+     "title": "Mortgage Thurgau: compare 40+ lenders for free | HYPOTEQ",
+     "description": "Mortgage in the canton of Thurgau: compare 40+ banks, insurers and pension funds for free. Apply in 3 minutes, reply the same business day.",
+     "h1": "Your mortgage in the canton of Thurgau",
+     "primary": "mortgage Thurgau",
+     "secondary": [
+      "mortgage broker Thurgau",
+      "Thurgau mortgage rates",
+      "buy property Thurgau",
+      "mortgage Frauenfeld"
+     ],
+     "volume": "sehr niedrig (S)"
+    }
+   }
+  },
+  {
+   "code": "TI",
+   "names": {
+    "de": "Tessin",
+    "fr": "Tessin",
+    "it": "Ticino",
+    "en": "Ticino"
+   },
+   "capital": {
+    "de": "Bellinzona",
+    "fr": "Bellinzone",
+    "it": "Bellinzona",
+    "en": "Bellinzona"
+   },
+   "languages": [
+    "it"
+   ],
+   "main_language": "it",
+   "priority_language": "it",
+   "potential": {
+    "de": "niedrig (S)",
+    "fr": "sehr niedrig (S)",
+    "it": "hoch (S)",
+    "en": "niedrig (S)"
+   },
+   "transfer_tax": {
+    "exists": null,
+    "rate": null,
+    "note_de": "Nicht eindeutig belegt: Quellen widersprechen sich (Gemengensteuer mit Registerabgabe vs. keine Handänderungssteuer). Vor Publikation beim Registro fondiario prüfen.",
+    "source": "https://neho.ch/de/blog/handanderungssteuer",
+    "source_check": "https://tabellio.ch/wissen/handaenderungssteuer-kantone"
+   },
+   "notary": "freies Notariat",
+   "notary_source": "https://law.ch/lawinfo/notariatsrecht/notariats-organisation/uebersicht-notariatswesen-schweiz/",
+   "regions": {
+    "de": "Lugano, Locarno, Bellinzona",
+    "fr": "Lugano, Locarno, Bellinzone",
+    "it": "Lugano, Locarno, Bellinzona",
+    "en": "Lugano, Locarno, Bellinzona"
+   },
+   "market_de": null,
+   "market_fr": null,
+   "market_it": null,
+   "market_en": null,
+   "market_source": null,
+   "slugs": {
+    "de": "hypothek-tessin",
+    "fr": "hypotheque-tessin",
+    "it": "ipoteca-ticino",
+    "en": "mortgage-ticino"
+   },
+   "seo": {
+    "de": {
+     "title": "Hypothek Tessin: 40+ Anbieter vergleichen | HYPOTEQ",
+     "description": "Hypothek im Kanton Tessin: Vergleiche kostenlos über 40 Banken, Versicherungen und Pensionskassen. Anfrage in 3 Minuten, Rasche, persönliche Rückmeldung.",
+     "h1": "Deine Hypothek im Kanton Tessin",
+     "primary": "Hypothek Tessin",
+     "secondary": [
+      "Hypothek Kanton Tessin",
+      "Hypothekenvermittler Tessin",
+      "Hypothekarzinsen Tessin",
+      "Hypothek Bellinzona"
+     ],
+     "volume": "niedrig (S)"
+    },
+    "fr": {
+     "title": "Hypothèque Tessin: comparez 40+ prêteurs | HYPOTEQ",
+     "description": "Hypothèque dans le canton du Tessin: comparez gratuitement plus de 40 banques, assurances et caisses de pension. Demande en 3 minutes. Commencez ici.",
+     "h1": "Votre hypothèque dans le canton du Tessin",
+     "primary": "hypothèque Tessin",
+     "secondary": [
+      "courtier hypothécaire Tessin",
+      "taux hypothécaire Tessin",
+      "hypothèque canton Tessin",
+      "hypothèque Bellinzone"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "it": {
+     "title": "Ipoteca Ticino: confronta gratis oltre 40 istituti | HYPOTEQ",
+     "description": "Ipoteca nel Canton Ticino: confronta gratis oltre 40 banche, assicurazioni e casse pensione. Richiesta in 3 minuti, risposta in giornata. Inizia ora.",
+     "h1": "La tua ipoteca nel Canton Ticino",
+     "primary": "ipoteca Ticino",
+     "secondary": [
+      "broker ipotecario Ticino",
+      "tassi ipotecari Ticino",
+      "ipoteca Canton Ticino",
+      "ipoteca Bellinzona"
+     ],
+     "volume": "hoch (S)"
+    },
+    "en": {
+     "title": "Mortgage Ticino: compare 40+ lenders for free | HYPOTEQ",
+     "description": "Mortgage in the canton of Ticino: compare 40+ banks, insurers and pension funds for free. Apply in 3 minutes, reply the same business day.",
+     "h1": "Your mortgage in the canton of Ticino",
+     "primary": "mortgage Ticino",
+     "secondary": [
+      "mortgage broker Ticino",
+      "Ticino mortgage rates",
+      "buy property Ticino",
+      "mortgage Bellinzona"
+     ],
+     "volume": "niedrig (S)"
+    }
+   }
+  },
+  {
+   "code": "VD",
+   "names": {
+    "de": "Waadt",
+    "fr": "Vaud",
+    "it": "Vaud",
+    "en": "Vaud"
+   },
+   "capital": {
+    "de": "Lausanne",
+    "fr": "Lausanne",
+    "it": "Losanna",
+    "en": "Lausanne"
+   },
+   "languages": [
+    "fr"
+   ],
+   "main_language": "fr",
+   "priority_language": "fr",
+   "potential": {
+    "de": "niedrig (S)",
+    "fr": "hoch (S)",
+    "it": "sehr niedrig (S)",
+    "en": "mittel (S)"
+   },
+   "transfer_tax": {
+    "exists": true,
+    "rate": 2.2,
+    "note_de": "2,2 % kantonal; Gemeinden können bis 50 % der Kantonssteuer zusätzlich erheben.",
+    "source": "https://neho.ch/de/blog/handanderungssteuer",
+    "source_check": "https://tabellio.ch/wissen/handaenderungssteuer-kantone"
+   },
+   "notary": "freies Notariat",
+   "notary_source": "https://law.ch/lawinfo/notariatsrecht/notariats-organisation/uebersicht-notariatswesen-schweiz/",
+   "regions": {
+    "de": "Lausanne, Riviera (Vevey, Montreux), La Côte (Nyon)",
+    "fr": "Lausanne, Riviera (Vevey, Montreux), La Côte (Nyon)",
+    "it": "Losanna, Riviera (Vevey, Montreux), La Côte (Nyon)",
+    "en": "Lausanne, Riviera (Vevey, Montreux), La Côte (Nyon)"
+   },
+   "market_de": null,
+   "market_fr": null,
+   "market_it": null,
+   "market_en": null,
+   "market_source": null,
+   "slugs": {
+    "de": "hypothek-waadt",
+    "fr": "hypotheque-vaud",
+    "it": "ipoteca-vaud",
+    "en": "mortgage-vaud"
+   },
+   "seo": {
+    "de": {
+     "title": "Hypothek Waadt: 40+ Anbieter kostenlos vergleichen | HYPOTEQ",
+     "description": "Hypothek im Kanton Waadt: Vergleiche kostenlos über 40 Banken, Versicherungen und Pensionskassen. Anfrage in 3 Minuten, Rasche, persönliche Rückmeldung.",
+     "h1": "Deine Hypothek im Kanton Waadt",
+     "primary": "Hypothek Waadt",
+     "secondary": [
+      "Hypothek Kanton Waadt",
+      "Hypothekenvermittler Waadt",
+      "Hypothekarzinsen Waadt",
+      "Hypothek Lausanne"
+     ],
+     "volume": "niedrig (S)"
+    },
+    "fr": {
+     "title": "Hypothèque Vaud: comparez 40+ prêteurs | HYPOTEQ",
+     "description": "Hypothèque dans le canton de Vaud: comparez gratuitement plus de 40 banques, assurances et caisses de pension. Demande en 3 minutes. Commencez ici.",
+     "h1": "Votre hypothèque dans le canton de Vaud",
+     "primary": "hypothèque Vaud",
+     "secondary": [
+      "courtier hypothécaire Vaud",
+      "taux hypothécaire Vaud",
+      "hypothèque canton Vaud",
+      "hypothèque Lausanne"
+     ],
+     "volume": "hoch (S)"
+    },
+    "it": {
+     "title": "Ipoteca Vaud: confronta gratis oltre 40 istituti | HYPOTEQ",
+     "description": "Ipoteca nel Cantone Vaud: confronta gratis oltre 40 banche, assicurazioni e casse pensione. Richiesta in 3 minuti, risposta in giornata. Inizia ora.",
+     "h1": "La tua ipoteca nel Cantone Vaud",
+     "primary": "ipoteca Vaud",
+     "secondary": [
+      "broker ipotecario Vaud",
+      "tassi ipotecari Vaud",
+      "ipoteca Cantone Vaud",
+      "ipoteca Losanna"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "en": {
+     "title": "Mortgage Vaud: compare 40+ lenders for free | HYPOTEQ",
+     "description": "Mortgage in the canton of Vaud: compare 40+ banks, insurers and pension funds for free. Apply in 3 minutes, reply the same business day.",
+     "h1": "Your mortgage in the canton of Vaud",
+     "primary": "mortgage Vaud",
+     "secondary": [
+      "mortgage broker Vaud",
+      "Vaud mortgage rates",
+      "buy property Vaud",
+      "mortgage Lausanne"
+     ],
+     "volume": "mittel (S)"
+    }
+   }
+  },
+  {
+   "code": "VS",
+   "names": {
+    "de": "Wallis",
+    "fr": "Valais",
+    "it": "Vallese",
+    "en": "Valais"
+   },
+   "capital": {
+    "de": "Sitten",
+    "fr": "Sion",
+    "it": "Sion",
+    "en": "Sion"
+   },
+   "languages": [
+    "fr",
+    "de"
+   ],
+   "main_language": "fr",
+   "priority_language": "fr",
+   "potential": {
+    "de": "mittel (S)",
+    "fr": "mittel (S)",
+    "it": "sehr niedrig (S)",
+    "en": "niedrig (S)"
+   },
+   "transfer_tax": {
+    "exists": true,
+    "rate": null,
+    "note_de": "Droits de mutation gemäss LDM (SGS 643.1), Gemeindezuschlag möglich; Quellen nennen 1–1,5 % bzw. 1,2 %, Satz daher nicht fixiert.",
+    "source": "https://lex.vs.ch/frontend/versions/1928/download_pdf_file?locale=fr",
+    "source_check": "https://neho.ch/de/blog/handanderungssteuer"
+   },
+   "notary": "freies Notariat",
+   "notary_source": "https://law.ch/lawinfo/notariatsrecht/notariats-organisation/uebersicht-notariatswesen-schweiz/",
+   "regions": {
+    "de": "Sitten/Sion, Oberwallis (Brig, Visp), Ferienorte wie Zermatt, Verbier",
+    "fr": "Sion, Haut-Valais (Brigue, Viège), stations comme Zermatt, Verbier",
+    "it": "Sion, Alto Vallese (Briga, Visp), località come Zermatt, Verbier",
+    "en": "Sion, Upper Valais (Brig, Visp), resorts like Zermatt, Verbier"
+   },
+   "market_de": "Ferien- und Tourismusregion; in vielen Gemeinden gilt die Zweitwohnungsbeschränkung (Zweitwohnungsgesetz, Anteil über 20 %).",
+   "market_fr": "Région touristique; de nombreuses communes sont soumises à la limitation des résidences secondaires (LRS, part supérieure à 20 %).",
+   "market_it": "Regione turistica; in molti comuni vale la limitazione delle abitazioni secondarie (LASec, quota superiore al 20 %).",
+   "market_en": "Holiday region; many municipalities fall under the Second Homes Act (share above 20%).",
+   "market_source": "https://www.fedlex.admin.ch/eli/cc/2015/663/de",
+   "slugs": {
+    "de": "hypothek-wallis",
+    "fr": "hypotheque-valais",
+    "it": "ipoteca-vallese",
+    "en": "mortgage-valais"
+   },
+   "seo": {
+    "de": {
+     "title": "Hypothek Wallis: 40+ Anbieter vergleichen | HYPOTEQ",
+     "description": "Hypothek im Kanton Wallis: Vergleiche kostenlos über 40 Banken, Versicherungen und Pensionskassen. Anfrage in 3 Minuten, Rasche, persönliche Rückmeldung.",
+     "h1": "Deine Hypothek im Kanton Wallis",
+     "primary": "Hypothek Wallis",
+     "secondary": [
+      "Hypothek Kanton Wallis",
+      "Hypothekenvermittler Wallis",
+      "Hypothekarzinsen Wallis",
+      "Hypothek Sitten"
+     ],
+     "volume": "mittel (S)"
+    },
+    "fr": {
+     "title": "Hypothèque Valais: comparez 40+ prêteurs | HYPOTEQ",
+     "description": "Hypothèque dans le canton du Valais: comparez gratuitement plus de 40 banques, assurances et caisses de pension. Demande en 3 minutes. Commencez ici.",
+     "h1": "Votre hypothèque dans le canton du Valais",
+     "primary": "hypothèque Valais",
+     "secondary": [
+      "courtier hypothécaire Valais",
+      "taux hypothécaire Valais",
+      "hypothèque canton Valais",
+      "hypothèque Sion"
+     ],
+     "volume": "mittel (S)"
+    },
+    "it": {
+     "title": "Ipoteca Vallese: confronta 40+ istituti | HYPOTEQ",
+     "description": "Ipoteca nel Cantone Vallese: confronta gratis oltre 40 banche, assicurazioni e casse pensione. Richiesta in 3 minuti, risposta in giornata. Inizia ora.",
+     "h1": "La tua ipoteca nel Cantone Vallese",
+     "primary": "ipoteca Vallese",
+     "secondary": [
+      "broker ipotecario Vallese",
+      "tassi ipotecari Vallese",
+      "ipoteca Cantone Vallese",
+      "ipoteca Sion"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "en": {
+     "title": "Mortgage Valais: compare 40+ lenders for free | HYPOTEQ",
+     "description": "Mortgage in the canton of Valais: compare 40+ banks, insurers and pension funds for free. Apply in 3 minutes, reply the same business day.",
+     "h1": "Your mortgage in the canton of Valais",
+     "primary": "mortgage Valais",
+     "secondary": [
+      "mortgage broker Valais",
+      "Valais mortgage rates",
+      "buy property Valais",
+      "mortgage Sion"
+     ],
+     "volume": "niedrig (S)"
+    }
+   }
+  },
+  {
+   "code": "NE",
+   "names": {
+    "de": "Neuenburg",
+    "fr": "Neuchâtel",
+    "it": "Neuchâtel",
+    "en": "Neuchâtel"
+   },
+   "capital": {
+    "de": "Neuenburg",
+    "fr": "Neuchâtel",
+    "it": "Neuchâtel",
+    "en": "Neuchâtel"
+   },
+   "languages": [
+    "fr"
+   ],
+   "main_language": "fr",
+   "priority_language": "fr",
+   "potential": {
+    "de": "sehr niedrig (S)",
+    "fr": "mittel (S)",
+    "it": "sehr niedrig (S)",
+    "en": "sehr niedrig (S)"
+   },
+   "transfer_tax": {
+    "exists": true,
+    "rate": 3.3,
+    "note_de": "3,3 % (Käuferschaft); reduziert 2,2 % beim Kauf des Hauptwohnsitzes.",
+    "source": "https://neho.ch/de/blog/handanderungssteuer",
+    "source_check": "https://tabellio.ch/wissen/handaenderungssteuer-kantone"
+   },
+   "notary": "freies Notariat",
+   "notary_source": "https://law.ch/lawinfo/notariatsrecht/notariats-organisation/uebersicht-notariatswesen-schweiz/",
+   "regions": {
+    "de": "Neuenburg, La Chaux-de-Fonds",
+    "fr": "Neuchâtel, La Chaux-de-Fonds",
+    "it": "Neuchâtel, La Chaux-de-Fonds",
+    "en": "Neuchâtel, La Chaux-de-Fonds"
+   },
+   "market_de": null,
+   "market_fr": null,
+   "market_it": null,
+   "market_en": null,
+   "market_source": null,
+   "slugs": {
+    "de": "hypothek-neuenburg",
+    "fr": "hypotheque-neuchatel",
+    "it": "ipoteca-neuchatel",
+    "en": "mortgage-neuchatel"
+   },
+   "seo": {
+    "de": {
+     "title": "Hypothek Neuenburg: 40+ Anbieter vergleichen | HYPOTEQ",
+     "description": "Hypothek im Kanton Neuenburg: Vergleiche kostenlos über 40 Banken, Versicherungen und Pensionskassen. Anfrage in 3 Minuten, Rasche, persönliche Rückmeldung.",
+     "h1": "Deine Hypothek im Kanton Neuenburg",
+     "primary": "Hypothek Neuenburg",
+     "secondary": [
+      "Hypothek Kanton Neuenburg",
+      "Hypothekenvermittler Neuenburg",
+      "Hypothekarzinsen Neuenburg"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "fr": {
+     "title": "Hypothèque Neuchâtel: comparez 40+ prêteurs | HYPOTEQ",
+     "description": "Hypothèque dans le canton de Neuchâtel: comparez gratuitement plus de 40 banques, assurances et caisses de pension. Demande en 3 minutes. Commencez ici.",
+     "h1": "Votre hypothèque dans le canton de Neuchâtel",
+     "primary": "hypothèque Neuchâtel",
+     "secondary": [
+      "courtier hypothécaire Neuchâtel",
+      "taux hypothécaire Neuchâtel",
+      "hypothèque canton Neuchâtel"
+     ],
+     "volume": "mittel (S)"
+    },
+    "it": {
+     "title": "Ipoteca Neuchâtel: confronta 40+ istituti | HYPOTEQ",
+     "description": "Ipoteca nel Cantone Neuchâtel: confronta gratis oltre 40 banche, assicurazioni e casse pensione. Richiesta in 3 minuti, risposta in giornata. Inizia ora.",
+     "h1": "La tua ipoteca nel Cantone Neuchâtel",
+     "primary": "ipoteca Neuchâtel",
+     "secondary": [
+      "broker ipotecario Neuchâtel",
+      "tassi ipotecari Neuchâtel",
+      "ipoteca Cantone Neuchâtel"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "en": {
+     "title": "Mortgage Neuchâtel: compare 40+ lenders for free | HYPOTEQ",
+     "description": "Mortgage in the canton of Neuchâtel: compare 40+ banks, insurers and pension funds for free. Apply in 3 minutes, reply the same business day.",
+     "h1": "Your mortgage in the canton of Neuchâtel",
+     "primary": "mortgage Neuchâtel",
+     "secondary": [
+      "mortgage broker Neuchâtel",
+      "Neuchâtel mortgage rates",
+      "buy property Neuchâtel"
+     ],
+     "volume": "sehr niedrig (S)"
+    }
+   }
+  },
+  {
+   "code": "GE",
+   "names": {
+    "de": "Genf",
+    "fr": "Genève",
+    "it": "Ginevra",
+    "en": "Geneva"
+   },
+   "capital": {
+    "de": "Genf",
+    "fr": "Genève",
+    "it": "Ginevra",
+    "en": "Geneva"
+   },
+   "languages": [
+    "fr"
+   ],
+   "main_language": "fr",
+   "priority_language": "fr",
+   "potential": {
+    "de": "niedrig (S)",
+    "fr": "hoch (S)",
+    "it": "sehr niedrig (S)",
+    "en": "hoch (S)"
+   },
+   "transfer_tax": {
+    "exists": true,
+    "rate": 3.0,
+    "note_de": "3 % (wird über den Notar erhoben, Überwälzung auf die Käuferschaft); Ermässigungen für den Hauptwohnsitz möglich.",
+    "source": "https://neho.ch/de/blog/handanderungssteuer",
+    "source_check": "https://tabellio.ch/wissen/handaenderungssteuer-kantone"
+   },
+   "notary": "freies Notariat",
+   "notary_source": "https://law.ch/lawinfo/notariatsrecht/notariats-organisation/uebersicht-notariatswesen-schweiz/",
+   "regions": {
+    "de": "Stadt Genf, Carouge, Lancy",
+    "fr": "Ville de Genève, Carouge, Lancy",
+    "it": "città di Ginevra, Carouge, Lancy",
+    "en": "Geneva city, Carouge, Lancy"
+   },
+   "market_de": null,
+   "market_fr": null,
+   "market_it": null,
+   "market_en": null,
+   "market_source": null,
+   "slugs": {
+    "de": "hypothek-genf",
+    "fr": "hypotheque-geneve",
+    "it": "ipoteca-ginevra",
+    "en": "mortgage-geneva"
+   },
+   "seo": {
+    "de": {
+     "title": "Hypothek Genf: 40+ Anbieter kostenlos vergleichen | HYPOTEQ",
+     "description": "Hypothek im Kanton Genf: Vergleiche kostenlos über 40 Banken, Versicherungen und Pensionskassen. Anfrage in 3 Minuten, Rasche, persönliche Rückmeldung.",
+     "h1": "Deine Hypothek im Kanton Genf",
+     "primary": "Hypothek Genf",
+     "secondary": [
+      "Hypothek Kanton Genf",
+      "Hypothekenvermittler Genf",
+      "Hypothekarzinsen Genf"
+     ],
+     "volume": "niedrig (S)"
+    },
+    "fr": {
+     "title": "Hypothèque Genève: comparez 40+ prêteurs | HYPOTEQ",
+     "description": "Hypothèque dans le canton de Genève: comparez gratuitement plus de 40 banques, assurances et caisses de pension. Demande en 3 minutes. Commencez ici.",
+     "h1": "Votre hypothèque dans le canton de Genève",
+     "primary": "hypothèque Genève",
+     "secondary": [
+      "courtier hypothécaire Genève",
+      "taux hypothécaire Genève",
+      "hypothèque canton Genève"
+     ],
+     "volume": "hoch (S)"
+    },
+    "it": {
+     "title": "Ipoteca Ginevra: confronta 40+ istituti | HYPOTEQ",
+     "description": "Ipoteca nel Cantone Ginevra: confronta gratis oltre 40 banche, assicurazioni e casse pensione. Richiesta in 3 minuti, risposta in giornata. Inizia ora.",
+     "h1": "La tua ipoteca nel Cantone Ginevra",
+     "primary": "ipoteca Ginevra",
+     "secondary": [
+      "broker ipotecario Ginevra",
+      "tassi ipotecari Ginevra",
+      "ipoteca Cantone Ginevra"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "en": {
+     "title": "Mortgage Geneva: compare 40+ lenders for free | HYPOTEQ",
+     "description": "Mortgage in the canton of Geneva: compare 40+ banks, insurers and pension funds for free. Apply in 3 minutes, reply the same business day.",
+     "h1": "Your mortgage in the canton of Geneva",
+     "primary": "mortgage Geneva",
+     "secondary": [
+      "mortgage broker Geneva",
+      "Geneva mortgage rates",
+      "buy property Geneva"
+     ],
+     "volume": "hoch (S)"
+    }
+   }
+  },
+  {
+   "code": "JU",
+   "names": {
+    "de": "Jura",
+    "fr": "Jura",
+    "it": "Giura",
+    "en": "Jura"
+   },
+   "capital": {
+    "de": "Delsberg",
+    "fr": "Delémont",
+    "it": "Delémont",
+    "en": "Delémont"
+   },
+   "languages": [
+    "fr"
+   ],
+   "main_language": "fr",
+   "priority_language": "fr",
+   "potential": {
+    "de": "sehr niedrig (S)",
+    "fr": "niedrig (S)",
+    "it": "sehr niedrig (S)",
+    "en": "sehr niedrig (S)"
+   },
+   "transfer_tax": {
+    "exists": true,
+    "rate": 2.1,
+    "note_de": "2,1 % (Käuferschaft); reduziert 1,7 % beim Ersterwerb einer selbstbewohnten Liegenschaft.",
+    "source": "https://neho.ch/de/blog/handanderungssteuer",
+    "source_check": "https://tabellio.ch/wissen/handaenderungssteuer-kantone"
+   },
+   "notary": "freies Notariat",
+   "notary_source": "https://law.ch/lawinfo/notariatsrecht/notariats-organisation/uebersicht-notariatswesen-schweiz/",
+   "regions": {
+    "de": "Delsberg, Pruntrut",
+    "fr": "Delémont, Porrentruy",
+    "it": "Delémont, Porrentruy",
+    "en": "Delémont, Porrentruy"
+   },
+   "market_de": null,
+   "market_fr": null,
+   "market_it": null,
+   "market_en": null,
+   "market_source": null,
+   "slugs": {
+    "de": "hypothek-jura",
+    "fr": "hypotheque-jura",
+    "it": "ipoteca-giura",
+    "en": "mortgage-jura"
+   },
+   "seo": {
+    "de": {
+     "title": "Hypothek Jura: 40+ Anbieter kostenlos vergleichen | HYPOTEQ",
+     "description": "Hypothek im Kanton Jura: Vergleiche kostenlos über 40 Banken, Versicherungen und Pensionskassen. Anfrage in 3 Minuten, Rasche, persönliche Rückmeldung.",
+     "h1": "Deine Hypothek im Kanton Jura",
+     "primary": "Hypothek Jura",
+     "secondary": [
+      "Hypothek Kanton Jura",
+      "Hypothekenvermittler Jura",
+      "Hypothekarzinsen Jura",
+      "Hypothek Delsberg"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "fr": {
+     "title": "Hypothèque Jura: comparez 40+ prêteurs | HYPOTEQ",
+     "description": "Hypothèque dans le canton du Jura: comparez gratuitement plus de 40 banques, assurances et caisses de pension. Demande en 3 minutes. Commencez ici.",
+     "h1": "Votre hypothèque dans le canton du Jura",
+     "primary": "hypothèque Jura",
+     "secondary": [
+      "courtier hypothécaire Jura",
+      "taux hypothécaire Jura",
+      "hypothèque canton Jura",
+      "hypothèque Delémont"
+     ],
+     "volume": "niedrig (S)"
+    },
+    "it": {
+     "title": "Ipoteca Giura: confronta gratis oltre 40 istituti | HYPOTEQ",
+     "description": "Ipoteca nel Cantone Giura: confronta gratis oltre 40 banche, assicurazioni e casse pensione. Richiesta in 3 minuti, risposta in giornata. Inizia ora.",
+     "h1": "La tua ipoteca nel Cantone Giura",
+     "primary": "ipoteca Giura",
+     "secondary": [
+      "broker ipotecario Giura",
+      "tassi ipotecari Giura",
+      "ipoteca Cantone Giura",
+      "ipoteca Delémont"
+     ],
+     "volume": "sehr niedrig (S)"
+    },
+    "en": {
+     "title": "Mortgage Jura: compare 40+ lenders for free | HYPOTEQ",
+     "description": "Mortgage in the canton of Jura: compare 40+ banks, insurers and pension funds for free. Apply in 3 minutes, reply the same business day.",
+     "h1": "Your mortgage in the canton of Jura",
+     "primary": "mortgage Jura",
+     "secondary": [
+      "mortgage broker Jura",
+      "Jura mortgage rates",
+      "buy property Jura",
+      "mortgage Delémont"
+     ],
+     "volume": "sehr niedrig (S)"
+    }
+   }
+  }
+ ]
+}

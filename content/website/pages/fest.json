@@ -1,0 +1,994 @@
+{
+ "de": {
+  "title": "Festhypothek vergleichen: 2 bis 15 Jahre | HYPOTEQ",
+  "description": "Festhypothek 5 Jahre ab 1.30 %, 10 Jahre ab 1.60 % (Richtzinsen). Vergleiche Laufzeiten bei 40+ Anbietern und sichere dir deinen Zins. Jetzt starten.",
+  "h1": "Festhypothek mit planbaren Zinsen",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypotheken · Festhypothek",
+    "h1": "Festhypothek\nmit planbaren Zinsen",
+    "lead": "Mit einer **Festhypothek** sicherst du deinen Zins für 2 bis 15 Jahre und weisst jeden Monat genau, was du bezahlst. Wir vergleichen Laufzeiten und Konditionen von über 40 Banken, Versicherungen und Pensionskassen **kostenlos** für dich.",
+    "ctas": [
+     {
+      "label": "Festhypothek anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "Aktuelle Zinsen",
+      "to": "page:zinsen"
+     }
+    ],
+    "badges": [
+     "10 Jahre ab 1.60 % (Richtzins)",
+     "Laufzeiten 2–15 Jahre",
+     "0 CHF Vermittlung"
+    ],
+    "image": "appenzell",
+    "alt": "Bemalte Häuser in Appenzell",
+    "float": {
+     "title": "5 Jahre fest ab 1.30 %",
+     "text": "Richtzins · Beispielwert"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "Anbieter im Vergleich"
+     },
+     {
+      "value": "2–15 J.",
+      "label": "Laufzeiten nach deinem Plan"
+     },
+     {
+      "value": "0 CHF",
+      "label": "für Vergleich und Vermittlung"
+     },
+     {
+      "value": "48–72 h",
+      "label": "bis zu den Offerten (Unterlagen komplett)"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Festhypothek Zinsen aktuell",
+    "title": "Richtzinsen für\n*5 und 10 Jahre fest.*",
+    "lead": "So steht die Festhypothek 5 Jahre und die Festhypothek 10 Jahre im Vergleich zu SARON. Dein persönlicher Zins hängt von Objekt, Belehnung, Tragbarkeit und Laufzeit ab."
+   },
+   {
+    "type": "split",
+    "eyebrow": "So funktioniert die Festhypothek",
+    "title": "Ein Zins.\n*Für die ganze Laufzeit.*",
+    "image": "family",
+    "alt": "Familie im neuen, noch leeren Zuhause",
+    "paragraphs": [
+     "Bei der Festhypothek vereinbarst du Betrag, Zins und Laufzeit beim Abschluss. Der Zins bleibt bis zum Ende gleich, egal wie sich der Markt entwickelt. Das macht dein Budget **planbar**, gerade für Familien und Erstkäufer.",
+     "Die Kehrseite: Vor Ablauf kommst du nur gegen eine Vorfälligkeitsentschädigung aus dem Vertrag. Darum lohnt es sich, die Laufzeit bewusst zu wählen und die **Festhypothek zu vergleichen**, bevor du unterschreibst."
+    ],
+    "bullets": [
+     "Fixer Zins für 2 bis 15 Jahre",
+     "Schutz vor steigenden Zinsen",
+     "Belehnung bis 80 %, Tragbarkeit mit 5 % kalkulatorischem Zins",
+     "Ausstieg vor Ablauf meist mit Entschädigung"
+    ],
+    "ctas": [
+     {
+      "label": "Laufzeiten vergleichen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "compare",
+    "eyebrow": "Vor- und Nachteile",
+    "title": "Passt eine Festhypothek\nzu dir?",
+    "head": [
+     "",
+     "Vorteile",
+     "Nachteile"
+    ],
+    "rows": [
+     [
+      "Planbarkeit",
+      "gleiche Zinskosten über die ganze Laufzeit",
+      "du profitierst nicht von sinkenden Zinsen"
+     ],
+     [
+      "Zinsrisiko",
+      "Schutz vor steigenden Zinsen",
+      "Zins oft höher als SARON beim Abschluss"
+     ],
+     [
+      "Flexibilität",
+      "klare Verhältnisse bis zum Ablauf",
+      "Ausstieg vor Ablauf kostet meist eine Entschädigung"
+     ],
+     [
+      "Eignung",
+      "knappes Budget, Sicherheit wichtig",
+      "Verkauf oder Umzug in naher Zukunft geplant"
+     ]
+    ],
+    "note": "Allgemeine Einschätzung, Stand 2026, ohne Gewähr. Die passende Strategie besprechen wir persönlich mit dir."
+   },
+   {
+    "type": "calc",
+    "mode": "zins",
+    "eyebrow": "Zinsrechner",
+    "title": "Was kostet\n*deine Festhypothek?*",
+    "lead": "Vergleiche die monatlichen Kosten für verschiedene Laufzeiten und Zinsannahmen. So siehst du, was dir Planbarkeit wert ist."
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Tranchierung & Kombination",
+    "title": "Laufzeiten staffeln.\n*Risiko verteilen.*",
+    "lead": "Statt alles auf eine Laufzeit zu setzen, teilen viele Eigentümer ihre Hypothek in Tranchen auf.",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Staffelung",
+      "title": "Mehrere Laufzeiten",
+      "text": "Zum Beispiel ein Teil 5 Jahre, ein Teil 10 Jahre fest. So wird nie alles gleichzeitig fällig.",
+      "to": "page:rg-saron-fest",
+      "cta": "Ratgeber SARON oder Fest"
+     },
+     {
+      "kicker": "Kombination",
+      "title": "Fest + SARON",
+      "text": "Ein fixer Sockel für Sicherheit, ein SARON-Teil für Flexibilität.",
+      "to": "page:saron",
+      "cta": "Zur SARON-Hypothek"
+     },
+     {
+      "kicker": "Fälligkeit",
+      "title": "Ablösen oder verlängern",
+      "text": "Läuft deine Festhypothek bald aus? Vergleiche frühzeitig und wechsle, wenn es sich lohnt.",
+      "to": "page:abloesung",
+      "cta": "Zur Ablösung"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "So geht’s",
+    "title": "In vier Schritten\nzum gesicherten Zins.",
+    "items": [
+     {
+      "title": "Anfrage in 3 Minuten",
+      "text": "Unterlagen hochladen, die KI liest die meisten Angaben aus. Oder Schritt für Schritt erfassen."
+     },
+     {
+      "title": "Beraterin meldet sich",
+      "text": "Noch zeitnah besprechen wir Laufzeit, Staffelung und deinen Zeitplan."
+     },
+     {
+      "title": "Offerten vergleichen",
+      "text": "Wir holen Angebote von über 40 Anbietern ein und verhandeln für dich."
+     },
+     {
+      "title": "Zins sichern",
+      "text": "Du entscheidest, wir koordinieren alles bis zur Auszahlung."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Festhypothek anfragen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Für Makler & Treuhänder",
+    "title": "Deine Kunden.\n*Fixe Konditionen.*",
+    "screen": "portal",
+    "tone": "dark",
+    "reverse": true,
+    "paragraphs": [
+     "Du begleitest Käuferinnen oder Eigentümer? Im **Partnerprogramm** reichst du Fälle ein, die Kundenbeziehung bleibt bei dir und du erhältst eine faire Provision pro Abschluss."
+    ],
+    "ctas": [
+     {
+      "label": "Partner werden",
+      "to": "page:partner"
+     },
+     {
+      "label": "Alle Hypotheken",
+      "to": "page:hypotheken"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Festhypothek\nkurz erklärt.",
+    "items": [
+     {
+      "q": "Welche Laufzeit ist für mich sinnvoll?",
+      "a": "Das hängt von deinem Budget, deinen Plänen und deiner Zinserwartung ab. Wer lange im Eigenheim bleiben will und Sicherheit sucht, wählt eher längere Laufzeiten. Planst du einen Verkauf, passt eine kürzere Laufzeit oft besser."
+     },
+     {
+      "q": "Was kostet ein vorzeitiger Ausstieg?",
+      "a": "Meist verlangt der Anbieter eine **Vorfälligkeitsentschädigung**. Sie hängt von Restlaufzeit, Betrag und Zinsumfeld ab und kann erheblich sein. Wir prüfen die Vertragsbedingungen vor dem Abschluss."
+     },
+     {
+      "q": "Kann ich den Zins im Voraus reservieren?",
+      "a": "Viele Anbieter bieten eine **Forward-Hypothek** an, mit der du den Zins für einen späteren Start sicherst. Dafür fällt in der Regel ein Zuschlag an. Wir vergleichen, ob sich das für dich lohnt."
+     },
+     {
+      "q": "Lohnt sich eine Staffelung der Laufzeiten?",
+      "a": "Oft ja. Mit mehreren Tranchen verteilst du das Zinsrisiko und musst nicht alles im gleichen Zinsumfeld erneuern. Beachte, dass manche Anbieter Mindestbeträge pro Tranche verlangen."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Alle Fragen",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Bereit für deinen\n*planbaren Zins?*",
+    "text": "Kostenlos vergleichen, unverbindlich und in 3 Minuten gestartet.",
+    "ctas": [
+     {
+      "label": "Festhypothek anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Hypothèque à taux fixe: comparez 2 à 15 ans | HYPOTEQ",
+  "description": "Taux fixe 5 ans dès 1.30 %, 10 ans dès 1.60 % (taux indicatifs). Comparez les durées auprès de 40+ prêteurs et bloquez votre taux. Demande gratuite.",
+  "h1": "Hypothèque à taux fixe, budget maîtrisé",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypothèques · Taux fixe",
+    "h1": "Hypothèque à taux fixe,\nbudget maîtrisé",
+    "lead": "Avec une **hypothèque à taux fixe**, vous bloquez votre taux pour 2 à 15 ans et connaissez vos charges chaque mois. Nous comparons **gratuitement** les durées et conditions de plus de 40 banques, assurances et caisses de pension.",
+    "ctas": [
+     {
+      "label": "Demander un taux fixe",
+      "to": "funnel"
+     },
+     {
+      "label": "Taux actuels",
+      "to": "page:zinsen"
+     }
+    ],
+    "badges": [
+     "10 ans dès 1.60 % (indicatif)",
+     "Durées de 2 à 15 ans",
+     "0 CHF de courtage"
+    ],
+    "image": "appenzell",
+    "alt": "Maisons peintes à Appenzell",
+    "float": {
+     "title": "Fixe 5 ans dès 1.30 %",
+     "text": "Taux indicatif · exemple"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "prêteurs comparés"
+     },
+     {
+      "value": "2–15 ans",
+      "label": "durées selon votre plan"
+     },
+     {
+      "value": "0 CHF",
+      "label": "pour la comparaison et le courtage"
+     },
+     {
+      "value": "48–72 h",
+      "label": "jusqu'aux offres (dossier complet)"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Taux hypothécaire fixe actuel",
+    "title": "Taux indicatifs\n*à 5 et 10 ans.*",
+    "lead": "Voici où se situent le taux fixe 5 ans et le taux fixe 10 ans par rapport au SARON. Votre taux personnel dépend du bien, du taux d'avance, de la capacité financière et de la durée."
+   },
+   {
+    "type": "split",
+    "eyebrow": "Le principe du taux fixe",
+    "title": "Un taux.\n*Pour toute la durée.*",
+    "image": "family",
+    "alt": "Famille dans son nouveau logement encore vide",
+    "paragraphs": [
+     "Avec une hypothèque à taux fixe, le montant, le taux et la durée sont fixés à la signature. Le taux reste identique jusqu'à l'échéance, quelle que soit l'évolution du marché. Votre budget devient **prévisible**, un atout pour les familles et les primo-accédants.",
+     "Revers de la médaille: une sortie avant l'échéance entraîne en général une indemnité. Mieux vaut donc choisir la durée avec soin et **comparer l'hypothèque fixe** avant de signer."
+    ],
+    "bullets": [
+     "Taux fixe de 2 à 15 ans",
+     "Protection contre la hausse des taux",
+     "Taux d'avance jusqu'à 80 %, capacité financière calculée à 5 %",
+     "Sortie anticipée généralement payante"
+    ],
+    "ctas": [
+     {
+      "label": "Comparer les durées",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "compare",
+    "eyebrow": "Avantages et inconvénients",
+    "title": "Le taux fixe\nvous convient-il?",
+    "head": [
+     "",
+     "Avantages",
+     "Inconvénients"
+    ],
+    "rows": [
+     [
+      "Prévisibilité",
+      "mêmes charges d'intérêts sur toute la durée",
+      "pas de profit en cas de baisse des taux"
+     ],
+     [
+      "Risque de taux",
+      "protection contre une hausse",
+      "taux souvent supérieur au SARON à la signature"
+     ],
+     [
+      "Flexibilité",
+      "situation claire jusqu'à l'échéance",
+      "sortie anticipée en général indemnisée"
+     ],
+     [
+      "Profil",
+      "budget serré, besoin de sécurité",
+      "vente ou déménagement prévu prochainement"
+     ]
+    ],
+    "note": "Appréciation générale, état 2026, sans garantie. Nous définissons avec vous la stratégie adaptée."
+   },
+   {
+    "type": "calc",
+    "mode": "zins",
+    "eyebrow": "Calculateur de taux",
+    "title": "Combien coûte\n*votre taux fixe?*",
+    "lead": "Comparez les charges mensuelles selon différentes durées et hypothèses de taux, et voyez ce que vaut la sécurité pour vous."
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Tranches & combinaison",
+    "title": "Échelonner les durées.\n*Répartir le risque.*",
+    "lead": "Plutôt que de tout miser sur une durée, de nombreux propriétaires répartissent leur hypothèque en tranches.",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Échelonnement",
+      "title": "Plusieurs durées",
+      "text": "Par exemple une tranche à 5 ans et une à 10 ans. Tout n'arrive jamais à échéance en même temps.",
+      "to": "page:rg-saron-fest",
+      "cta": "Guide SARON ou fixe"
+     },
+     {
+      "kicker": "Combinaison",
+      "title": "Fixe + SARON",
+      "text": "Une base fixe pour la sécurité, une part SARON pour la flexibilité.",
+      "to": "page:saron",
+      "cta": "Voir l'hypothèque SARON"
+     },
+     {
+      "kicker": "Échéance",
+      "title": "Renouveler ou changer",
+      "text": "Votre taux fixe arrive bientôt à échéance? Comparez tôt et changez de prêteur si cela vaut la peine.",
+      "to": "page:abloesung",
+      "cta": "Vers le renouvellement"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Comment ça marche",
+    "title": "Quatre étapes\npour bloquer votre taux.",
+    "items": [
+     {
+      "title": "Demande en 3 minutes",
+      "text": "Téléchargez vos documents, l'IA extrait la plupart des données. Ou remplissez la demande pas à pas."
+     },
+     {
+      "title": "Votre conseillère vous rappelle",
+      "text": "Le jour ouvrable même, nous parlons durée, échelonnement et calendrier."
+     },
+     {
+      "title": "Comparer les offres",
+      "text": "Nous obtenons des offres de plus de 40 prêteurs et négocions pour vous."
+     },
+     {
+      "title": "Bloquer le taux",
+      "text": "Vous décidez, nous coordonnons tout jusqu'au versement."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Demander un taux fixe",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Pour courtiers & fiduciaires",
+    "title": "Vos clients.\n*Des conditions fixes.*",
+    "screen": "portal",
+    "tone": "dark",
+    "reverse": true,
+    "paragraphs": [
+     "Vous accompagnez des acheteurs ou des propriétaires? Avec le **programme partenaires**, vous transmettez vos dossiers, la relation client reste la vôtre et vous touchez une commission équitable par conclusion."
+    ],
+    "ctas": [
+     {
+      "label": "Devenir partenaire",
+      "to": "page:partner"
+     },
+     {
+      "label": "Toutes les hypothèques",
+      "to": "page:hypotheken"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "Le taux fixe\nen bref.",
+    "items": [
+     {
+      "q": "Quelle durée choisir?",
+      "a": "Cela dépend de votre budget, de vos projets et de vos attentes sur les taux. Si vous restez longtemps et cherchez la sécurité, une durée longue convient souvent. Si vous prévoyez de vendre, une durée plus courte est souvent préférable."
+     },
+     {
+      "q": "Combien coûte une sortie anticipée?",
+      "a": "Le prêteur exige en général une **indemnité de remboursement anticipé**. Elle dépend de la durée restante, du montant et du niveau des taux, et peut être importante. Nous vérifions les conditions avant la signature."
+     },
+     {
+      "q": "Puis-je réserver un taux à l'avance?",
+      "a": "De nombreux prêteurs proposent une **hypothèque forward** qui fixe le taux pour un départ ultérieur, en général contre un supplément. Nous comparons si cela vaut la peine pour vous."
+     },
+     {
+      "q": "Faut-il échelonner les tranches?",
+      "a": "Souvent, oui. Avec plusieurs tranches, vous répartissez le risque de taux et ne renouvelez pas tout dans le même contexte. Certains prêteurs exigent un montant minimal par tranche."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Toutes les questions",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Prêt à bloquer\n*votre taux?*",
+    "text": "Comparaison gratuite, sans engagement, lancée en 3 minutes.",
+    "ctas": [
+     {
+      "label": "Demander un taux fixe",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Ipoteca a tasso fisso: confronto 2-15 anni | HYPOTEQ",
+  "description": "Tasso fisso 5 anni da 1.30 %, 10 anni da 1.60 % (tassi indicativi). Confronta le durate di oltre 40 istituti e blocca il tuo tasso. Richiesta gratuita.",
+  "h1": "Ipoteca a tasso fisso, costi pianificabili",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Ipoteche · Tasso fisso",
+    "h1": "Ipoteca a tasso fisso,\ncosti pianificabili",
+    "lead": "Con un'**ipoteca a tasso fisso** blocchi il tasso per 2–15 anni e sai ogni mese quanto paghi. Confrontiamo **gratuitamente** durate e condizioni di oltre 40 banche, assicurazioni e casse pensione.",
+    "ctas": [
+     {
+      "label": "Richiedi tasso fisso",
+      "to": "funnel"
+     },
+     {
+      "label": "Tassi attuali",
+      "to": "page:zinsen"
+     }
+    ],
+    "badges": [
+     "10 anni da 1.60 % (indicativo)",
+     "Durate da 2 a 15 anni",
+     "0 CHF mediazione"
+    ],
+    "image": "appenzell",
+    "alt": "Case dipinte ad Appenzello",
+    "float": {
+     "title": "Fisso 5 anni da 1.30 %",
+     "text": "Tasso indicativo · esempio"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "istituti a confronto"
+     },
+     {
+      "value": "2–15 anni",
+      "label": "durate secondo i tuoi piani"
+     },
+     {
+      "value": "0 CHF",
+      "label": "per confronto e mediazione"
+     },
+     {
+      "value": "48–72 h",
+      "label": "fino alle offerte (documenti completi)"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Tasso ipotecario fisso attuale",
+    "title": "Tassi indicativi\n*a 5 e 10 anni.*",
+    "lead": "Ecco il tasso fisso 5 anni e il tasso fisso 10 anni a confronto con il SARON. Il tuo tasso personale dipende da immobile, anticipo, sostenibilità e durata."
+   },
+   {
+    "type": "split",
+    "eyebrow": "Come funziona il tasso fisso",
+    "title": "Un tasso.\n*Per tutta la durata.*",
+    "image": "family",
+    "alt": "Famiglia nella nuova casa ancora vuota",
+    "paragraphs": [
+     "Con l'ipoteca a tasso fisso stabilisci importo, tasso e durata alla firma. Il tasso resta invariato fino alla scadenza, qualunque cosa accada sul mercato. Il tuo budget diventa **pianificabile**, un vantaggio per famiglie e chi compra la prima casa.",
+     "Il rovescio della medaglia: uscire prima della scadenza costa di regola un'indennità. Conviene quindi scegliere bene la durata e confrontare le offerte prima di firmare."
+    ],
+    "bullets": [
+     "Tasso fisso da 2 a 15 anni",
+     "Protezione dai tassi in aumento",
+     "Anticipo fino all'80 %, sostenibilità calcolata al 5 %",
+     "Uscita anticipata di regola a pagamento"
+    ],
+    "ctas": [
+     {
+      "label": "Confronta le durate",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "compare",
+    "eyebrow": "Vantaggi e svantaggi",
+    "title": "Il tasso fisso\nfa per te?",
+    "head": [
+     "",
+     "Vantaggi",
+     "Svantaggi"
+    ],
+    "rows": [
+     [
+      "Pianificazione",
+      "stessi interessi per tutta la durata",
+      "non approfitti dei tassi in calo"
+     ],
+     [
+      "Rischio di tasso",
+      "protezione dagli aumenti",
+      "tasso spesso più alto del SARON alla firma"
+     ],
+     [
+      "Flessibilità",
+      "situazione chiara fino alla scadenza",
+      "uscita anticipata di regola con indennità"
+     ],
+     [
+      "Profilo",
+      "budget limitato, serve sicurezza",
+      "vendita o trasloco previsti a breve"
+     ]
+    ],
+    "note": "Valutazione generale, stato 2026, senza garanzia. La strategia giusta la definiamo insieme a te."
+   },
+   {
+    "type": "calc",
+    "mode": "zins",
+    "eyebrow": "Calcolatore tassi",
+    "title": "Quanto costa\n*il tuo tasso fisso?*",
+    "lead": "Confronta i costi mensili per diverse durate e ipotesi di tasso e scopri quanto vale per te la sicurezza."
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Tranche e combinazione",
+    "title": "Scaglionare le durate.\n*Distribuire il rischio.*",
+    "lead": "Invece di puntare tutto su una sola durata, molti proprietari suddividono l'ipoteca in tranche.",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Scaglionamento",
+      "title": "Più durate",
+      "text": "Per esempio una tranche a 5 anni e una a 10 anni. Così non scade mai tutto insieme.",
+      "to": "page:rg-saron-fest",
+      "cta": "Guida SARON o fisso"
+     },
+     {
+      "kicker": "Combinazione",
+      "title": "Fisso + SARON",
+      "text": "Una base fissa per la sicurezza, una parte SARON per la flessibilità.",
+      "to": "page:saron",
+      "cta": "All'ipoteca SARON"
+     },
+     {
+      "kicker": "Scadenza",
+      "title": "Rinnovare o cambiare",
+      "text": "Il tuo tasso fisso scade presto? Confronta per tempo e cambia istituto se conviene.",
+      "to": "page:abloesung",
+      "cta": "Al rinnovo"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Come funziona",
+    "title": "Quattro passi\nper bloccare il tasso.",
+    "items": [
+     {
+      "title": "Richiesta in 3 minuti",
+      "text": "Carica i documenti, l'IA legge la maggior parte dei dati. Oppure compila passo dopo passo."
+     },
+     {
+      "title": "La consulente ti contatta",
+      "text": "Nelin tempi brevi parliamo di durata, scaglionamento e tempistiche."
+     },
+     {
+      "title": "Confrontare le offerte",
+      "text": "Raccogliamo offerte da oltre 40 istituti e negoziamo per te."
+     },
+     {
+      "title": "Bloccare il tasso",
+      "text": "Decidi tu, noi coordiniamo tutto fino al versamento."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Richiedi tasso fisso",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Per agenti immobiliari e fiduciari",
+    "title": "I tuoi clienti.\n*Condizioni fisse.*",
+    "screen": "portal",
+    "tone": "dark",
+    "reverse": true,
+    "paragraphs": [
+     "Accompagni acquirenti o proprietari? Con il **programma partner** inoltri i casi, la relazione con il cliente resta tua e ricevi una provvigione equa per ogni conclusione."
+    ],
+    "ctas": [
+     {
+      "label": "Diventa partner",
+      "to": "page:partner"
+     },
+     {
+      "label": "Tutte le ipoteche",
+      "to": "page:hypotheken"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "Il tasso fisso\nin breve.",
+    "items": [
+     {
+      "q": "Quale durata scegliere?",
+      "a": "Dipende dal budget, dai tuoi progetti e dalle aspettative sui tassi. Se resti a lungo nella casa e cerchi sicurezza, una durata lunga è spesso adatta. Se pensi di vendere, una durata più breve è spesso migliore."
+     },
+     {
+      "q": "Quanto costa uscire in anticipo?",
+      "a": "Di regola l'istituto chiede un'**indennità di rimborso anticipato**. Dipende da durata residua, importo e livello dei tassi e può essere elevata. Verifichiamo le condizioni prima della firma."
+     },
+     {
+      "q": "Posso bloccare il tasso in anticipo?",
+      "a": "Molti istituti offrono un'**ipoteca forward** che fissa il tasso per un inizio successivo, di regola con un supplemento. Confrontiamo se ti conviene."
+     },
+     {
+      "q": "Conviene scaglionare le scadenze?",
+      "a": "Spesso sì. Con più tranche distribuisci il rischio di tasso e non rinnovi tutto nello stesso momento. Alcuni istituti chiedono un importo minimo per tranche."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Tutte le domande",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Pronto a bloccare\n*il tuo tasso?*",
+    "text": "Confronto gratuito, senza impegno, avviato in 3 minuti.",
+    "ctas": [
+     {
+      "label": "Richiedi tasso fisso",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "Fixed-Rate Mortgages in Switzerland | HYPOTEQ",
+  "description": "5-year fixed from 1.30 %, 10-year from 1.60 % (indicative). Compare terms from 40+ Swiss lenders and lock in your rate. Apply in 3 minutes, in English.",
+  "h1": "Fixed-rate mortgages with predictable costs",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Mortgages · Fixed rate",
+    "h1": "Fixed-rate mortgages\nwith predictable costs",
+    "lead": "A **fixed rate mortgage in Switzerland** locks in your rate for 2 to 15 years, so you know exactly what you pay each month. We compare terms from over 40 Swiss banks, insurers and pension funds **for free**, with advice in English.",
+    "ctas": [
+     {
+      "label": "Apply for a fixed rate",
+      "to": "funnel"
+     },
+     {
+      "label": "Current rates",
+      "to": "page:zinsen"
+     }
+    ],
+    "badges": [
+     "10 years from 1.60 % (indicative)",
+     "Terms from 2 to 15 years",
+     "CHF 0 brokerage"
+    ],
+    "image": "appenzell",
+    "alt": "Painted houses in Appenzell",
+    "float": {
+     "title": "5-year fixed from 1.30 %",
+     "text": "Indicative rate · example"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "Swiss lenders compared"
+     },
+     {
+      "value": "2–15 yrs",
+      "label": "terms to fit your plans"
+     },
+     {
+      "value": "CHF 0",
+      "label": "for comparison and brokerage"
+     },
+     {
+      "value": "48–72 h",
+      "label": "to offers (complete documents)"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Swiss fixed mortgage rates",
+    "title": "Indicative rates for\n*5 and 10 years.*",
+    "lead": "See where the 5 year fixed rate and the 10 year fixed mortgage in Switzerland stand compared with SARON. Your personal rate depends on the property, loan-to-value, affordability and term."
+   },
+   {
+    "type": "split",
+    "eyebrow": "How a fixed-rate mortgage works",
+    "title": "One rate.\n*For the whole term.*",
+    "image": "family",
+    "alt": "Family in their new, still empty home",
+    "paragraphs": [
+     "With a fixed-rate mortgage you agree the amount, rate and term when you sign. The rate stays the same until maturity, whatever the market does. That makes your budget **predictable**, which is especially useful for families and first-time buyers.",
+     "The downside: leaving before maturity usually means paying an early repayment penalty. So choose your term carefully and compare offers before you sign."
+    ],
+    "bullets": [
+     "Fixed rate for 2 to 15 years",
+     "Protection against rising rates",
+     "Up to 80 % loan-to-value, affordability tested at 5 %",
+     "Early exit usually costs a penalty"
+    ],
+    "ctas": [
+     {
+      "label": "Compare terms",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "compare",
+    "eyebrow": "Pros and cons",
+    "title": "Is a fixed rate\nright for you?",
+    "head": [
+     "",
+     "Pros",
+     "Cons"
+    ],
+    "rows": [
+     [
+      "Predictability",
+      "same interest costs for the whole term",
+      "you don’t benefit if rates fall"
+     ],
+     [
+      "Rate risk",
+      "protection against rising rates",
+      "often higher than SARON when you sign"
+     ],
+     [
+      "Flexibility",
+      "clear terms until maturity",
+      "early exit usually means a penalty"
+     ],
+     [
+      "Best for",
+      "tight budgets that need certainty",
+      "a sale or move planned soon"
+     ]
+    ],
+    "note": "General assessment, as of 2026, without guarantee. We work out the right strategy with you personally."
+   },
+   {
+    "type": "calc",
+    "mode": "zins",
+    "eyebrow": "Rate calculator",
+    "title": "What does\n*your fixed rate cost?*",
+    "lead": "Compare monthly costs for different terms and rate assumptions, and see what certainty is worth to you."
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Tranches & combinations",
+    "title": "Stagger your terms.\n*Spread the risk.*",
+    "lead": "Instead of betting on one term, many Swiss homeowners split their mortgage into tranches.",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Staggering",
+      "title": "Several terms",
+      "text": "For example one tranche for 5 years and one for 10. Not everything matures at once.",
+      "to": "page:rg-saron-fest",
+      "cta": "Guide: SARON or fixed"
+     },
+     {
+      "kicker": "Combination",
+      "title": "Fixed + SARON",
+      "text": "A fixed base for security, a SARON part for flexibility.",
+      "to": "page:saron",
+      "cta": "See SARON mortgages"
+     },
+     {
+      "kicker": "Maturity",
+      "title": "Renew or switch",
+      "text": "Is your fixed rate expiring soon? Compare early and switch lender if it pays off.",
+      "to": "page:abloesung",
+      "cta": "Renewal options"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "How it works",
+    "title": "Four steps\nto lock in your rate.",
+    "items": [
+     {
+      "title": "Apply in 3 minutes",
+      "text": "Upload your documents and our AI reads most details. Or fill in the form step by step."
+     },
+     {
+      "title": "Your advisor gets in touch",
+      "text": "On promptly we discuss term, staggering and timing, in English if you like."
+     },
+     {
+      "title": "Compare offers",
+      "text": "We collect offers from over 40 lenders and negotiate for you."
+     },
+     {
+      "title": "Lock in your rate",
+      "text": "You decide, and we coordinate everything until payout."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Apply for a fixed rate",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "For agents & brokers",
+    "title": "Your clients.\n*Fixed terms.*",
+    "screen": "portal",
+    "tone": "dark",
+    "reverse": true,
+    "paragraphs": [
+     "Do you work with buyers or homeowners? With our **partner programme** you submit cases, keep the client relationship and earn a fair commission on every closed deal."
+    ],
+    "ctas": [
+     {
+      "label": "Become a partner",
+      "to": "page:partner"
+     },
+     {
+      "label": "All mortgages",
+      "to": "page:hypotheken"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Fixed-rate mortgages\nexplained.",
+    "items": [
+     {
+      "q": "Which fixed term is right for me?",
+      "a": "It depends on your budget, your plans and your view on rates. If you plan to stay long and want certainty, a longer term often fits. If you might sell, a shorter term is often the better choice."
+     },
+     {
+      "q": "What does early repayment cost?",
+      "a": "Lenders usually charge an **early repayment penalty**. It depends on the remaining term, the amount and the rate environment, and can be substantial. We check the terms before you sign."
+     },
+     {
+      "q": "Can I reserve a rate in advance?",
+      "a": "Many lenders offer a **forward mortgage** that fixes the rate for a later start, usually for a surcharge. We compare whether it is worth it for you."
+     },
+     {
+      "q": "Should I split my mortgage into tranches?",
+      "a": "Often, yes. Several tranches spread your rate risk, so you don’t renew everything in the same market. Some lenders require a minimum amount per tranche."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "All questions",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Ready to lock in\n*your rate?*",
+    "text": "Free, non-binding and started in 3 minutes, with advice in English.",
+    "ctas": [
+     {
+      "label": "Apply for a fixed rate",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ }
+}

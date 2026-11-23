@@ -1,0 +1,949 @@
+{
+ "de": {
+  "title": "Hypothekenvermittler im Vergleich: lohnt es sich? | HYPOTEQ",
+  "description": "Wie verdienen Hypothekenvermittler, was kosten sie und worauf achten? Vergleich der Modelle: Bank, Plattform, Vermittler und Beratung.",
+  "h1": "Hypothekenvermittler im Vergleich",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Ratgeber",
+    "h1": "Hypothekenvermittler\nim Vergleich",
+    "lead": "Im **Hypothekenvermittler Vergleich** zeigen wir dir, was ein Vermittler macht, wie er verdient und wann er sich lohnt. Dazu eine Checkliste, mit der du gute Vermittler erkennst.",
+    "ctas": [
+     {
+      "label": "Hypothek anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "Über HYPOTEQ",
+      "to": "page:ueber-uns"
+     }
+    ],
+    "badges": [
+     "0 CHF für Vergleich & Vermittlung",
+     "40+ Finanzierungspartner",
+     "Mit Checkliste"
+    ],
+    "image": "consultation",
+    "alt": "Beratungsgespräch zur Hypothek am Tisch"
+   },
+   {
+    "type": "article",
+    "blocks": [
+     {
+      "h2": "Was macht ein Hypothekenvermittler?"
+     },
+     {
+      "p": "Ein Hypothekenvermittler steht zwischen dir und den Kreditgebern. Statt selbst bei mehreren Banken anzufragen, beauftragst du eine Stelle, die den Markt kennt und für dich Offerten einholt. Ein guter Hypothekarvermittler in der Schweiz macht dabei weit mehr als Zinsen vergleichen. Er begleitet dich vom ersten Gespräch bis zur Auszahlung."
+     },
+     {
+      "ul": [
+       "**Unterlagen sammeln:** Lohnausweis, Steuererklärung, Kaufvertrag, Grundbuchauszug und Pläne",
+       "**Tragbarkeit prüfen:** vorab rechnen, ob Eigenmittel und Einkommen für die gewünschte Hypothek reichen",
+       "**Bankfähiges Dossier erstellen:** die Unterlagen so aufbereiten, dass Kreditgeber rasch entscheiden können",
+       "**Offerten einholen:** bei mehreren Banken, Versicherungen und Pensionskassen gleichzeitig",
+       "**Verhandeln:** Zins, Marge, Laufzeit und Bedingungen",
+       "**Begleiten:** Koordination mit Bank, Notariat und Makler bis zur Auszahlung"
+      ]
+     },
+     {
+      "p": "Für dich bedeutet das weniger Aufwand und einen breiteren Marktüberblick. Gerade beim ersten Eigenheim ist das wertvoll, weil du die Spielregeln der Banken noch nicht im Detail kennst. Aber auch bei einer Ablösung lohnt sich der Blick über die eigene Hausbank hinaus."
+     },
+     {
+      "h2": "Wie verdient ein Vermittler?"
+     },
+     {
+      "p": "Die wichtigste Frage zuerst: Wer bezahlt den Vermittler? In der Schweiz ist das übliche Modell eine **Courtage vom Kreditgeber**. Kommt die Hypothek zustande, entschädigt die Bank, Versicherung oder Pensionskasse den Vermittler. Für dich als Kundin oder Kunde ist die Vermittlung dadurch in der Regel kostenlos."
+     },
+     {
+      "p": "Kreditgeber tun das, weil Vermittler ihnen vollständige, geprüfte Dossiers liefern und so Akquisitions- und Bearbeitungsaufwand sparen. Die Entschädigung ist also Teil ihres Vertriebs, ähnlich wie bei einer eigenen Filiale. Bei HYPOTEQ gilt: **Vergleich und Vermittlung sind für dich kostenlos.** HYPOTEQ wird im Erfolgsfall vom Finanzierungspartner entschädigt. Kostenpflichtig sind nur Zusatzleistungen, die du ausdrücklich beauftragst: Advisory-Mandate für komplexe Fälle und die Immobilienbewertung."
+     },
+     {
+      "p": "Es gibt auch Anbieter, die eine Gebühr direkt vom Kunden verlangen, zum Beispiel für eine umfassende Finanzberatung. Das ist legitim, solange es transparent ist. Wichtig ist, dass du vor dem Start weisst, wofür du bezahlst und wofür nicht."
+     },
+     {
+      "h2": "Hausbank oder Vermittler: der Vergleich"
+     },
+     {
+      "p": "Viele gehen für die Hypothek zuerst zu ihrer Hausbank. Das ist bequem, weil sie dich bereits kennt. Der Nachteil: Du erhältst genau ein Angebot, und die Hausbank kann nur ihre eigenen Produkte anbieten. Ein Vermittler holt mehrere Angebote ein und macht sie vergleichbar."
+     },
+     {
+      "table": {
+       "head": [
+        "",
+        "Hausbank",
+        "Vermittler (z. B. HYPOTEQ)"
+       ],
+       "rows": [
+        [
+         "Anzahl Angebote",
+         "1",
+         "mehrere, bei HYPOTEQ von 40+ Partnern"
+        ],
+        [
+         "Kosten für dich",
+         "keine Vermittlungskosten",
+         "0 CHF für Vergleich und Vermittlung"
+        ],
+        [
+         "Verhandlung",
+         "machst du selbst",
+         "übernimmt der Vermittler"
+        ],
+        [
+         "Produktauswahl",
+         "eigene Produkte",
+         "Banken, Versicherungen, Pensionskassen"
+        ],
+        [
+         "Bestehende Beziehung",
+         "ja, kennt dich bereits",
+         "neu, Unterlagen werden einmal aufbereitet"
+        ],
+        [
+         "Aufwand für Dossier",
+         "je Bank neu",
+         "einmal, für alle Anfragen"
+        ]
+       ]
+      }
+     },
+     {
+      "p": "Neben Hausbank und Vermittler gibt es weitere Modelle. **Vergleichsplattformen** zeigen dir Richtzinsen und leiten deine Anfrage weiter, oft ohne persönliche Begleitung. **Vermittler** kombinieren Marktvergleich mit Beratung und Begleitung. **Honorarberatung** oder Advisory lohnt sich, wenn deine Situation komplex ist, etwa bei mehreren Eigentümern, Renditeliegenschaften oder nach Bankabsagen. HYPOTEQ verbindet digitale Anfrage, persönliche Beraterin und bei Bedarf ein Advisory-Mandat."
+     },
+     {
+      "cta": {
+       "title": "Was kostet deine Hypothek?",
+       "text": "Rechne vorab Zinskosten und Tragbarkeit durch, bevor du Offerten einholst.",
+       "label": "Zum Hypothekenrechner",
+       "to": "page:rechner"
+      }
+     },
+     {
+      "h2": "Lohnt sich ein Hypothekenvermittler?"
+     },
+     {
+      "p": "Nehmen wir Familie Meier: Sie kauft ein Einfamilienhaus in Baden für CHF 980’000 und braucht eine Hypothek von **CHF 730’000**. Schon kleine Unterschiede im Zins machen hier viel aus. Jeder Zehntelprozentpunkt entspricht bei dieser Summe CHF 730 pro Jahr. Über eine Laufzeit von zehn Jahren sind das CHF 7’300, nur für 0.10 Prozentpunkte."
+     },
+     {
+      "p": "Hinzu kommen Punkte, die nicht im Zins stehen: Die Bank bewertet das Haus mit CHF 950’000, also tiefer als der Kaufpreis. Ein erfahrener Vermittler erkennt solche Abweichungen früh, erklärt die Folgen für die Eigenmittel und sucht Kreditgeber, die zur Situation passen. Bei Familie Meier liegt die kalkulatorische Belastung bei 28.4 % des Einkommens, also gut unter der Grenze von einem Drittel. Bei knapperen Fällen entscheidet die Wahl des richtigen Kreditgebers oft darüber, ob die Finanzierung überhaupt zustande kommt."
+     },
+     {
+      "p": "Ein Vermittler lohnt sich also vor allem dann, wenn du Zeit sparen, den Markt breit vergleichen und Fehler im Dossier vermeiden willst. Wer bereits ein sehr gutes Angebot hat und die Konditionen sicher beurteilen kann, braucht ihn weniger. Ein kostenloser Vergleich schadet aber auch in diesem Fall nicht."
+     },
+     {
+      "p": "Ein weiterer Vorteil zeigt sich bei der Verlängerung. Läuft deine Hypothek aus, prüft ein Vermittler den Markt neu und vergleicht das Angebot deiner bisherigen Bank mit jenem anderer Kreditgeber. Viele verlängern aus Gewohnheit einfach beim gleichen Institut und verschenken so Verhandlungsspielraum. Auch bei besonderen Situationen hilft der breite Marktzugang: Selbständige, Personen kurz vor der Pensionierung oder Käuferinnen mit B-Bewilligung erfüllen nicht bei jedem Kreditgeber dieselben Kriterien. Ein Vermittler weiss, welche Partner für solche Profile offen sind, und spart dir so Absagen und Zeit."
+     },
+     {
+      "h2": "Worauf du bei einem Vermittler achten solltest"
+     },
+     {
+      "p": "Hypothekenbroker-Erfahrungen gehen auseinander, weil die Anbieter sehr unterschiedlich arbeiten. Mit dieser Checkliste erkennst du, ob ein Vermittler zu dir passt:"
+     },
+     {
+      "ul": [
+       "**Transparente Entschädigung:** Der Vermittler sagt dir offen, wie er verdient",
+       "**Keine Vorabgebühr für die reine Vermittlung:** Kosten nur für klar beauftragte Zusatzleistungen",
+       "**Breiter Marktzugang:** Frag nach der Anzahl Partner und ob auch Versicherungen und Pensionskassen dabei sind",
+       "**Keine eigenen Produkte im Hintergrund:** HYPOTEQ vertreibt zum Beispiel keine Versicherungen und Anlagen",
+       "**Persönliche Ansprechperson:** ein Mensch, der deinen Fall kennt, keine anonyme Hotline",
+       "**Klarer Zeitplan:** Offerten in der Regel 48 bis 72 Stunden nach vollständigen Unterlagen",
+       "**Datenschutz:** Wo werden deine Daten verarbeitet? Bei HYPOTEQ in der Schweiz",
+       "**Erfahrung:** Wie lange ist das Team schon im Hypothekargeschäft?"
+      ]
+     },
+     {
+      "tip": "Lass dir die Offerten immer schriftlich und nebeneinander zeigen, mit Zins, Laufzeit, Amortisationsregeln und Ausstiegsbedingungen. Ein guter Vermittler erklärt dir auch, warum er ein Angebot empfiehlt, nicht nur welches.",
+      "title": "Tipp"
+     },
+     {
+      "h2": "So arbeitet HYPOTEQ"
+     },
+     {
+      "p": "HYPOTEQ ist ein unabhängiger Hypothekenvermittler mit Sitz in Zürich. Wir arbeiten mit **über 40 Banken, Versicherungen und Pensionskassen** zusammen und arbeiten mit über 180 Beraterinnen und Beratern in der ganzen Schweiz. Das Team bringt über 35 Jahre Erfahrung aus der Hypothekar- und FinTech-Welt mit."
+     },
+     {
+      "p": "Deine Anfrage startest du online: per Schnellanmeldung mit Dokumenten-Upload in rund 3 Minuten, Schritt für Schritt oder im Chat mit unserem Assistenten HYPO. Die KI liest Unterlagen aus, sie berät aber nicht. Die Beratung übernimmt immer ein Mensch. Deine Beraterin meldet sich zeitnah. Die Anfrage ist unverbindlich: Gebunden bist du erst, wenn du den Vertrag mit dem Kreditgeber unterschreibst."
+     },
+     {
+      "cta": {
+       "title": "Kostenlos vergleichen",
+       "text": "Anfrage in 3 Minuten, Offerten von über 40 Finanzierungspartnern.",
+       "label": "Hypothek anfragen",
+       "to": "funnel"
+      }
+     },
+     {
+      "h2": "Tiefer einsteigen mit der HYPOTEQ Academy"
+     },
+     {
+      "p": "Du willst verstehen, wie Banken ein Dossier prüfen? Im **Foundation Course** der HYPOTEQ Academy (CHF 290, ohne Vorwissen) zeigen die Learning Journeys «Das bankfähige Hypothekardossier» und «Von der Finanzierungszusage bis zur Auszahlung» Schritt für Schritt, worauf es ankommt, inklusive Praxisfall Familie Meier. Und wenn du selbst Kundinnen und Kunden mit Finanzierungsbedarf betreust, etwa als Makler oder Treuhänder: Im Partnerprogramm bleibt die Kundenbeziehung bei dir, und du erhältst eine faire Provision pro Abschluss."
+     },
+     {
+      "p": "*Allgemeine Informationen, Stand 2026, ohne Gewähr.*"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Hypothekenvermittler:\n*kurz beantwortet.*",
+    "items": [
+     {
+      "q": "Wie verdient ein Hypothekenvermittler?",
+      "a": "In der Regel über eine **Courtage vom Kreditgeber**, die nur fällig wird, wenn die Hypothek zustande kommt. Bei HYPOTEQ ist das so: Wir werden im Erfolgsfall vom Finanzierungspartner entschädigt. Du bezahlst nichts für Vergleich und Vermittlung."
+     },
+     {
+      "q": "Ist der Vergleich wirklich kostenlos?",
+      "a": "Ja. Vergleich und Vermittlung sind bei HYPOTEQ für Privatkundinnen und -kunden kostenlos. Kosten entstehen nur für Zusatzleistungen, die du ausdrücklich beauftragst, also Advisory-Mandate oder die Immobilienbewertung (Einführungspreis CHF 300 statt CHF 450)."
+     },
+     {
+      "q": "Bin ich nach der Anfrage gebunden?",
+      "a": "Nein. Anfrage und Offerten sind unverbindlich. Du kannst Angebote in Ruhe vergleichen und auch ablehnen. Verbindlich wird es erst, wenn du den Hypothekarvertrag mit dem Kreditgeber unterzeichnest."
+     },
+     {
+      "q": "Wie unabhängig sind Vermittler?",
+      "a": "Das hängt vom Anbieter ab. Frag nach der Anzahl Partner, nach dem Entschädigungsmodell und ob eigene Produkte verkauft werden. HYPOTEQ arbeitet mit über 40 Banken, Versicherungen und Pensionskassen und vertreibt keine Versicherungen oder Anlagen."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Academy entdecken",
+      "to": "page:academy"
+     },
+     {
+      "label": "Aktuelle Richtzinsen",
+      "to": "page:zinsen"
+     },
+     {
+      "label": "Ratgeber-Übersicht",
+      "to": "page:ratgeber"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Ein Vergleich.\n*Über 40 Angebote.*",
+    "text": "Kostenlos und unverbindlich: Deine Beraterin meldet sich zeitnah.",
+    "ctas": [
+     {
+      "label": "Hypothek anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "Partner werden",
+      "to": "page:partner"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Courtier hypothécaire: comparatif | HYPOTEQ",
+  "description": "Comment se rémunère un courtier hypothécaire, combien coûte-t-il et comment choisir? Comparatif banque, plateforme, courtier et conseil.",
+  "h1": "Choisir son courtier hypothécaire",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Guide",
+    "h1": "Choisir son\ncourtier hypothécaire",
+    "lead": "Que fait un **courtier hypothécaire**, comment est-il rémunéré et quand vaut-il la peine? Notre guide compare les modèles et vous donne une check-list pour bien choisir.",
+    "ctas": [
+     {
+      "label": "Demander une hypothèque",
+      "to": "funnel"
+     },
+     {
+      "label": "À propos de HYPOTEQ",
+      "to": "page:ueber-uns"
+     }
+    ],
+    "badges": [
+     "0 CHF de courtage",
+     "40+ partenaires de financement",
+     "Avec check-list"
+    ],
+    "image": "consultation",
+    "alt": "Entretien de conseil hypothécaire autour d'une table"
+   },
+   {
+    "type": "article",
+    "blocks": [
+     {
+      "h2": "Que fait un courtier hypothécaire?"
+     },
+     {
+      "p": "Un courtier hypothécaire fait le lien entre vous et les prêteurs. Au lieu de solliciter vous-même plusieurs banques, vous confiez votre demande à un spécialiste qui connaît le marché et obtient des offres pour vous. Un bon courtier fait bien plus que comparer des taux: il vous accompagne du premier entretien jusqu'au versement des fonds."
+     },
+     {
+      "ul": [
+       "**Réunir les documents:** certificat de salaire, déclaration d'impôt, contrat de vente, extrait du registre foncier",
+       "**Vérifier la capacité financière:** calculer en amont si vos fonds propres et votre revenu suffisent",
+       "**Préparer un dossier bancable:** présenter les pièces de façon à ce que les prêteurs décident vite",
+       "**Obtenir des offres:** auprès de banques, assurances et caisses de pension en parallèle",
+       "**Négocier:** taux, marge, durée et conditions",
+       "**Accompagner:** coordination avec la banque, le notaire et le courtier immobilier jusqu'au versement"
+      ]
+     },
+     {
+      "p": "Pour vous, cela signifie moins de démarches et une vision plus large du marché. C'est précieux pour un premier achat, mais aussi lors d'un renouvellement, quand il vaut la peine de regarder au-delà de sa banque habituelle."
+     },
+     {
+      "h2": "Comment un courtier est-il rémunéré?"
+     },
+     {
+      "p": "Première question à poser: qui paie le courtier? En Suisse, le modèle courant est une **commission versée par le prêteur**. Si l'hypothèque est conclue, la banque, l'assurance ou la caisse de pension rémunère le courtier. Pour vous, le courtage est donc en général gratuit."
+     },
+     {
+      "p": "Les prêteurs y trouvent leur compte, car ils reçoivent des dossiers complets et vérifiés, ce qui réduit leurs coûts d'acquisition. Chez HYPOTEQ, **la comparaison et le courtage sont gratuits pour vous**: nous sommes rémunérés par le partenaire de financement en cas de succès. Seules les prestations que vous commandez expressément sont payantes: les mandats Advisory pour les cas complexes et l'estimation immobilière."
+     },
+     {
+      "p": "Certains acteurs facturent des honoraires directement au client, par exemple pour un conseil financier global. C'est légitime si c'est transparent. L'essentiel est de savoir, avant de commencer, ce que vous payez et pour quoi."
+     },
+     {
+      "h2": "Banque habituelle ou courtier: le comparatif"
+     },
+     {
+      "p": "Beaucoup s'adressent d'abord à leur banque. C'est pratique, car elle vous connaît déjà. L'inconvénient: vous recevez une seule offre, limitée à ses propres produits. Un courtier recueille plusieurs offres et les rend comparables."
+     },
+     {
+      "table": {
+       "head": [
+        "",
+        "Banque habituelle",
+        "Courtier (p. ex. HYPOTEQ)"
+       ],
+       "rows": [
+        [
+         "Nombre d'offres",
+         "1",
+         "plusieurs, chez HYPOTEQ de 40+ partenaires"
+        ],
+        [
+         "Coût pour vous",
+         "aucuns frais de courtage",
+         "0 CHF pour comparaison et courtage"
+        ],
+        [
+         "Négociation",
+         "par vous-même",
+         "assurée par le courtier"
+        ],
+        [
+         "Choix de produits",
+         "produits maison",
+         "banques, assurances, caisses de pension"
+        ],
+        [
+         "Relation existante",
+         "oui",
+         "nouvelle, dossier préparé une fois"
+        ],
+        [
+         "Effort pour le dossier",
+         "à refaire pour chaque banque",
+         "une seule fois pour toutes les demandes"
+        ]
+       ]
+      }
+     },
+     {
+      "p": "D'autres modèles existent. Les **plateformes de comparaison** affichent des taux indicatifs et transmettent votre demande, souvent sans accompagnement personnel. Les **courtiers** combinent comparaison et conseil. Le **conseil sur honoraires** (Advisory) convient aux situations complexes: copropriété, immeubles de rendement, refus bancaires. HYPOTEQ réunit demande en ligne, conseillère personnelle et, si nécessaire, un mandat Advisory."
+     },
+     {
+      "cta": {
+       "title": "Combien coûte votre hypothèque?",
+       "text": "Calculez intérêts et capacité financière avant de demander des offres.",
+       "label": "Calculateur hypothécaire",
+       "to": "page:rechner"
+      }
+     },
+     {
+      "h2": "Un courtier vaut-il la peine?"
+     },
+     {
+      "p": "Prenons la famille Meier: elle achète une maison à Baden pour CHF 980’000 et a besoin d'une hypothèque de **CHF 730’000**. À ce montant, chaque dixième de point de taux représente CHF 730 par an, soit CHF 7’300 sur dix ans."
+     },
+     {
+      "p": "S'y ajoutent des éléments hors taux: la banque estime la maison à CHF 950’000, moins que le prix d'achat. Un courtier expérimenté repère ce type d'écart tôt, explique l'effet sur les fonds propres et cible les prêteurs adaptés. Chez les Meier, la charge théorique atteint 28.4 % du revenu, bien en dessous du tiers. Dans les cas plus serrés, le choix du bon prêteur décide souvent si le financement est possible."
+     },
+     {
+      "p": "Un courtier vaut donc la peine si vous voulez gagner du temps, comparer largement et éviter les erreurs de dossier. Si vous disposez déjà d'une excellente offre et savez l'évaluer, il est moins indispensable, mais une comparaison gratuite ne coûte rien."
+     },
+     {
+      "h2": "Bien choisir son courtier"
+     },
+     {
+      "p": "Les avis sur les courtiers hypothécaires divergent, car leurs méthodes diffèrent. Cette check-list vous aide à juger:"
+     },
+     {
+      "ul": [
+       "**Rémunération transparente:** le courtier explique ouvertement comment il est payé",
+       "**Pas de frais préalables pour le courtage seul:** coûts uniquement pour des prestations commandées",
+       "**Large accès au marché:** demandez le nombre de partenaires, assurances et caisses de pension comprises",
+       "**Pas de produits propres en arrière-plan:** HYPOTEQ ne vend ni assurances ni placements",
+       "**Interlocuteur personnel:** une personne qui connaît votre dossier, pas une hotline",
+       "**Calendrier clair:** offres en général 48 à 72 heures après un dossier complet",
+       "**Protection des données:** chez HYPOTEQ, traitement en Suisse",
+       "**Expérience:** depuis combien de temps l'équipe est-elle active?"
+      ]
+     },
+     {
+      "tip": "Demandez toujours les offres par écrit et côte à côte: taux, durée, règles d'amortissement et conditions de sortie. Un bon courtier explique pourquoi il recommande une offre, pas seulement laquelle.",
+      "title": "Conseil"
+     },
+     {
+      "h2": "La méthode HYPOTEQ"
+     },
+     {
+      "p": "HYPOTEQ est un courtier hypothécaire indépendant basé à Zurich, actif dans toute la Suisse, y compris en Romandie. Nous travaillons avec **plus de 40 banques, assurances et caisses de pension** et travaillons avec plus de 180 conseillers dans toute la Suisse. L'équipe réunit plus de 35 ans d'expérience hypothécaire et FinTech."
+     },
+     {
+      "p": "Vous lancez votre demande en ligne: inscription rapide avec téléversement de documents en environ 3 minutes, saisie guidée ou chat avec notre assistant HYPO. L'IA lit vos documents mais ne conseille pas: le conseil est toujours assuré par une personne, qui vous contacte rapidement. La demande est sans engagement: vous n'êtes lié qu'en signant le contrat avec le prêteur."
+     },
+     {
+      "cta": {
+       "title": "Comparer gratuitement",
+       "text": "Demande en 3 minutes, offres de plus de 40 partenaires.",
+       "label": "Demander une hypothèque",
+       "to": "funnel"
+      }
+     },
+     {
+      "h2": "Approfondir avec la HYPOTEQ Academy"
+     },
+     {
+      "p": "Vous voulez comprendre comment les banques analysent un dossier? Le **Foundation Course** de la HYPOTEQ Academy (CHF 290, sans prérequis) explique pas à pas le dossier hypothécaire bancable et le chemin de l'accord de financement au versement, avec le cas pratique de la famille Meier. Et si vous accompagnez vous-même des clients, comme courtier immobilier ou fiduciaire: dans notre programme partenaires, la relation client reste chez vous et vous recevez une commission équitable par conclusion."
+     },
+     {
+      "p": "*Informations générales, état 2026, sans garantie.*"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "Courtier hypothécaire:\n*en bref.*",
+    "items": [
+     {
+      "q": "Comment un courtier hypothécaire est-il rémunéré?",
+      "a": "En général par une **commission du prêteur**, due uniquement si l'hypothèque est conclue. Chez HYPOTEQ, nous sommes rémunérés par le partenaire de financement en cas de succès. Vous ne payez rien pour la comparaison et le courtage."
+     },
+     {
+      "q": "Le comparatif est-il vraiment gratuit?",
+      "a": "Oui. Comparaison et courtage sont gratuits pour les particuliers. Seules les prestations commandées sont payantes: mandats Advisory ou estimation immobilière (prix de lancement CHF 300 au lieu de CHF 450)."
+     },
+     {
+      "q": "Suis-je engagé après la demande?",
+      "a": "Non. Demande et offres sont sans engagement. Vous comparez tranquillement et pouvez refuser. L'engagement naît seulement à la signature du contrat hypothécaire avec le prêteur."
+     },
+     {
+      "q": "Un courtier est-il indépendant?",
+      "a": "Cela dépend. Demandez le nombre de partenaires, le mode de rémunération et si des produits propres sont vendus. HYPOTEQ travaille avec plus de 40 banques, assurances et caisses de pension et ne vend ni assurances ni placements."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Découvrir l'Academy",
+      "to": "page:academy"
+     },
+     {
+      "label": "Taux indicatifs",
+      "to": "page:zinsen"
+     },
+     {
+      "label": "Tous les guides",
+      "to": "page:ratgeber"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Une demande.\n*Plus de 40 offres possibles.*",
+    "text": "Gratuit et sans engagement: votre conseillère vous contacte rapidement.",
+    "ctas": [
+     {
+      "label": "Demander une hypothèque",
+      "to": "funnel"
+     },
+     {
+      "label": "Devenir partenaire",
+      "to": "page:partner"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Broker ipotecario: confronto | HYPOTEQ",
+  "description": "Come guadagna un broker ipotecario, quanto costa e come sceglierlo? Confronto tra banca, piattaforma, broker e consulenza in Ticino.",
+  "h1": "Scegliere un broker ipotecario",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Guida",
+    "h1": "Scegliere un\nbroker ipotecario",
+    "lead": "Cosa fa un **broker ipotecario**, come viene pagato e quando conviene? La guida confronta i modelli e ti dà una checklist per scegliere bene, anche in Ticino.",
+    "ctas": [
+     {
+      "label": "Richiedere un'ipoteca",
+      "to": "funnel"
+     },
+     {
+      "label": "Chi siamo",
+      "to": "page:ueber-uns"
+     }
+    ],
+    "badges": [
+     "0 CHF di intermediazione",
+     "40+ partner di finanziamento",
+     "Con checklist"
+    ],
+    "image": "consultation",
+    "alt": "Colloquio di consulenza ipotecaria al tavolo"
+   },
+   {
+    "type": "article",
+    "blocks": [
+     {
+      "h2": "Cosa fa un broker ipotecario?"
+     },
+     {
+      "p": "Un broker ipotecario fa da ponte tra te e i finanziatori. Invece di contattare tu stesso più banche, affidi la richiesta a un intermediario ipotecario che conosce il mercato e raccoglie offerte per te. Un buon broker non si limita a confrontare tassi: ti accompagna dal primo colloquio fino al versamento."
+     },
+     {
+      "ul": [
+       "**Raccogliere i documenti:** certificato di salario, dichiarazione d'imposta, contratto di compravendita, estratto del registro fondiario",
+       "**Verificare la sostenibilità:** calcolare prima se fondi propri e reddito bastano",
+       "**Preparare un dossier bancabile:** presentare i documenti in modo che i finanziatori decidano in fretta",
+       "**Raccogliere offerte:** da banche, assicurazioni e casse pensioni in parallelo",
+       "**Negoziare:** tasso, margine, durata e condizioni",
+       "**Accompagnare:** coordinamento con banca, notaio e agente immobiliare fino al versamento"
+      ]
+     },
+     {
+      "p": "Per te significa meno lavoro e una visione più ampia del mercato. È prezioso al primo acquisto, ma anche al rinnovo, quando vale la pena guardare oltre la propria banca."
+     },
+     {
+      "h2": "Come guadagna un broker?"
+     },
+     {
+      "p": "Prima domanda da fare: chi paga il broker? In Svizzera il modello usuale è una **provvigione versata dal finanziatore**. Se l'ipoteca viene conclusa, la banca, l'assicurazione o la cassa pensioni remunera il broker. Per te l'intermediazione è quindi di norma gratuita."
+     },
+     {
+      "p": "I finanziatori lo fanno perché ricevono dossier completi e verificati, risparmiando costi di acquisizione. Da HYPOTEQ **confronto e intermediazione sono gratuiti per te**: veniamo remunerati dal partner di finanziamento in caso di successo. A pagamento sono solo le prestazioni che ordini espressamente: i mandati Advisory per i casi complessi e la valutazione immobiliare."
+     },
+     {
+      "p": "Alcuni operatori chiedono un onorario direttamente al cliente, per esempio per una consulenza finanziaria globale. È legittimo se è trasparente. L'importante è sapere prima cosa paghi e per cosa."
+     },
+     {
+      "h2": "Banca di fiducia o broker: il confronto"
+     },
+     {
+      "p": "Molti vanno prima dalla propria banca. È comodo, perché ti conosce già. Lo svantaggio: ricevi una sola offerta, limitata ai suoi prodotti. Un broker raccoglie più offerte e le rende confrontabili."
+     },
+     {
+      "table": {
+       "head": [
+        "",
+        "Banca di fiducia",
+        "Broker (es. HYPOTEQ)"
+       ],
+       "rows": [
+        [
+         "Numero di offerte",
+         "1",
+         "diverse, da HYPOTEQ da 40+ partner"
+        ],
+        [
+         "Costi per te",
+         "nessun costo di intermediazione",
+         "0 CHF per confronto e intermediazione"
+        ],
+        [
+         "Negoziazione",
+         "da solo",
+         "se ne occupa il broker"
+        ],
+        [
+         "Scelta di prodotti",
+         "prodotti propri",
+         "banche, assicurazioni, casse pensioni"
+        ],
+        [
+         "Relazione esistente",
+         "sì",
+         "nuova, dossier preparato una volta"
+        ],
+        [
+         "Impegno per il dossier",
+         "da rifare per ogni banca",
+         "una volta per tutte le richieste"
+        ]
+       ]
+      }
+     },
+     {
+      "p": "Esistono altri modelli. Le **piattaforme di confronto** mostrano tassi indicativi e inoltrano la richiesta, spesso senza accompagnamento personale. I **broker** uniscono confronto e consulenza. La **consulenza a onorario** (Advisory) conviene nei casi complessi: più proprietari, immobili da reddito, rifiuti bancari o legami con l'estero, frequenti per esempio tra frontalieri. HYPOTEQ unisce richiesta online, consulente personale e, se serve, un mandato Advisory."
+     },
+     {
+      "cta": {
+       "title": "Quanto costa la tua ipoteca?",
+       "text": "Calcola interessi e sostenibilità prima di chiedere offerte.",
+       "label": "Calcolatore ipotecario",
+       "to": "page:rechner"
+      }
+     },
+     {
+      "h2": "Conviene un broker ipotecario?"
+     },
+     {
+      "p": "Prendiamo la famiglia Meier: compra una casa a Baden per CHF 980’000 e le serve un'ipoteca di **CHF 730’000**. Con questo importo ogni decimo di punto di tasso vale CHF 730 all'anno, cioè CHF 7’300 in dieci anni."
+     },
+     {
+      "p": "Ci sono poi aspetti che non stanno nel tasso: la banca valuta la casa CHF 950’000, meno del prezzo d'acquisto. Un broker esperto nota subito queste differenze, spiega l'effetto sui fondi propri e cerca i finanziatori adatti. Per i Meier il carico teorico è del 28.4 % del reddito, ben sotto un terzo. Nei casi più tirati, la scelta del finanziatore giusto decide spesso se il finanziamento si fa."
+     },
+     {
+      "p": "Un broker conviene quindi se vuoi risparmiare tempo, confrontare ampiamente ed evitare errori nel dossier. Se hai già un'ottima offerta e sai valutarla, serve meno, ma un confronto gratuito non costa nulla."
+     },
+     {
+      "h2": "Come scegliere il broker giusto"
+     },
+     {
+      "p": "Le esperienze con i broker ipotecari variano, perché lavorano in modo molto diverso. Questa checklist ti aiuta:"
+     },
+     {
+      "ul": [
+       "**Remunerazione trasparente:** il broker spiega apertamente come guadagna",
+       "**Nessuna tassa anticipata per la sola intermediazione:** costi solo per prestazioni ordinate",
+       "**Ampio accesso al mercato:** chiedi quanti partner, comprese assicurazioni e casse pensioni",
+       "**Nessun prodotto proprio dietro le quinte:** HYPOTEQ non vende assicurazioni né investimenti",
+       "**Persona di riferimento:** qualcuno che conosce il tuo caso, non una hotline",
+       "**Tempi chiari:** offerte di regola 48–72 ore dopo un dossier completo",
+       "**Protezione dei dati:** da HYPOTEQ trattamento in Svizzera",
+       "**Esperienza:** da quanto tempo il team lavora nel settore?"
+      ]
+     },
+     {
+      "tip": "Fatti sempre mostrare le offerte per iscritto e una accanto all'altra: tasso, durata, regole di ammortamento e condizioni di uscita. Un buon broker ti spiega perché consiglia un'offerta, non solo quale.",
+      "title": "Consiglio"
+     },
+     {
+      "h2": "Come lavora HYPOTEQ"
+     },
+     {
+      "p": "HYPOTEQ è un broker ipotecario indipendente con sede a Zurigo, attivo in tutta la Svizzera, Ticino compreso. Collaboriamo con **oltre 40 banche, assicurazioni e casse pensioni** e lavoriamo con oltre 180 consulenti in tutta la Svizzera. Il team porta oltre 35 anni di esperienza nel mondo ipotecario e FinTech."
+     },
+     {
+      "p": "La richiesta parte online: registrazione rapida con caricamento dei documenti in circa 3 minuti, percorso guidato o chat con il nostro assistente HYPO. L'IA legge i documenti ma non consiglia: la consulenza la fa sempre una persona, che di norma ti contatta in tempi brevi. La richiesta è senza impegno: sei vincolato solo quando firmi il contratto con il finanziatore."
+     },
+     {
+      "cta": {
+       "title": "Confronta gratis",
+       "text": "Richiesta in 3 minuti, offerte da oltre 40 partner.",
+       "label": "Richiedere un'ipoteca",
+       "to": "funnel"
+      }
+     },
+     {
+      "h2": "Approfondire con la HYPOTEQ Academy"
+     },
+     {
+      "p": "Vuoi capire come le banche valutano un dossier? Il **Foundation Course** della HYPOTEQ Academy (CHF 290, senza conoscenze preliminari) spiega passo per passo il dossier ipotecario bancabile e il percorso dalla conferma di finanziamento al versamento, con il caso pratico della famiglia Meier. E se segui tu stesso clienti, per esempio come agente immobiliare o fiduciario: nel nostro programma partner la relazione con il cliente resta tua e ricevi una provvigione equa per ogni conclusione."
+     },
+     {
+      "p": "*Informazioni generali, stato 2026, senza garanzia.*"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "Broker ipotecario:\n*in breve.*",
+    "items": [
+     {
+      "q": "Come viene pagato un broker ipotecario?",
+      "a": "Di norma con una **provvigione del finanziatore**, dovuta solo se l'ipoteca viene conclusa. Da HYPOTEQ veniamo remunerati dal partner di finanziamento in caso di successo. Tu non paghi nulla per confronto e intermediazione."
+     },
+     {
+      "q": "Il confronto è davvero gratuito?",
+      "a": "Sì. Confronto e intermediazione sono gratuiti per i privati. A pagamento sono solo le prestazioni ordinate: mandati Advisory o valutazione immobiliare (prezzo di lancio CHF 300 invece di CHF 450)."
+     },
+     {
+      "q": "Sono vincolato dopo la richiesta?",
+      "a": "No. Richiesta e offerte sono senza impegno. Confronti con calma e puoi anche rifiutare. Ti vincoli solo firmando il contratto ipotecario con il finanziatore."
+     },
+     {
+      "q": "Quanto è indipendente un broker?",
+      "a": "Dipende. Chiedi il numero di partner, il modello di remunerazione e se vende prodotti propri. HYPOTEQ lavora con oltre 40 banche, assicurazioni e casse pensioni e non vende assicurazioni né investimenti."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Scopri l'Academy",
+      "to": "page:academy"
+     },
+     {
+      "label": "Tassi indicativi",
+      "to": "page:zinsen"
+     },
+     {
+      "label": "Tutte le guide",
+      "to": "page:ratgeber"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Una richiesta.\n*Oltre 40 partner.*",
+    "text": "Gratuito e senza impegno: la tua consulente ti contatta in tempi brevi.",
+    "ctas": [
+     {
+      "label": "Richiedere un'ipoteca",
+      "to": "funnel"
+     },
+     {
+      "label": "Diventa partner",
+      "to": "page:partner"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "Swiss Mortgage Brokers Compared | HYPOTEQ",
+  "description": "How Swiss mortgage brokers earn money, what they cost and how to choose one. Bank vs platform vs broker vs advisory, explained for expats.",
+  "h1": "Choosing a mortgage broker in Switzerland",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Guide",
+    "h1": "Choosing a mortgage broker\nin Switzerland",
+    "lead": "What does a **mortgage broker in Switzerland** do, how are they paid and is it worth it? This guide compares the models and gives you a checklist to choose well.",
+    "ctas": [
+     {
+      "label": "Request a mortgage",
+      "to": "funnel"
+     },
+     {
+      "label": "About HYPOTEQ",
+      "to": "page:ueber-uns"
+     }
+    ],
+    "badges": [
+     "CHF 0 brokerage",
+     "40+ lenders",
+     "Checklist included"
+    ],
+    "image": "consultation",
+    "alt": "Mortgage advisory meeting at a table"
+   },
+   {
+    "type": "article",
+    "blocks": [
+     {
+      "h2": "What does a mortgage broker do?"
+     },
+     {
+      "p": "A mortgage broker sits between you and the lenders. Instead of approaching several banks yourself, you hand your request to someone who knows the Swiss market and gathers offers for you. A good broker does far more than compare rates: they guide you from the first conversation until the funds are paid out. For expats who are new to Swiss rules, that guidance is often the biggest benefit."
+     },
+     {
+      "ul": [
+       "**Collect documents:** salary statement, tax return, purchase contract, land register extract, residence permit",
+       "**Check affordability:** calculate upfront whether your equity and income are enough",
+       "**Prepare a bankable file:** present your documents so lenders can decide quickly",
+       "**Request offers:** from banks, insurers and pension funds at the same time",
+       "**Negotiate:** rate, margin, term and conditions",
+       "**Accompany you:** coordinate with lender, notary and estate agent until payout"
+      ]
+     },
+     {
+      "p": "For you, that means less effort and a broader view of the market. It helps most with a first purchase, but also when renewing, when it pays to look beyond your current bank."
+     },
+     {
+      "h2": "How are brokers paid?"
+     },
+     {
+      "p": "First question to ask: who pays the broker? In Switzerland the usual model is a **commission paid by the lender**. If the mortgage is signed, the bank, insurer or pension fund pays the broker. For you, the brokerage is therefore usually free."
+     },
+     {
+      "p": "Lenders do this because brokers deliver complete, checked files and save them acquisition costs. At HYPOTEQ, **comparison and brokerage are free for you**: we are paid by the lender on success. Only services you explicitly order are charged: Advisory mandates for complex cases and property valuation."
+     },
+     {
+      "p": "Some providers charge the client a fee directly, for example for broader financial advice. That is fine as long as it is transparent. What matters is that you know upfront what you pay for and what you don't."
+     },
+     {
+      "h2": "Your bank or a broker: the comparison"
+     },
+     {
+      "p": "Many people start with their own bank. That is convenient because it already knows you. The downside: you get exactly one offer, limited to its own products. A broker gathers several offers and makes them comparable."
+     },
+     {
+      "table": {
+       "head": [
+        "",
+        "Your bank",
+        "Broker (e.g. HYPOTEQ)"
+       ],
+       "rows": [
+        [
+         "Number of offers",
+         "1",
+         "several, at HYPOTEQ from 40+ lenders"
+        ],
+        [
+         "Cost to you",
+         "no brokerage fees",
+         "CHF 0 for comparison and brokerage"
+        ],
+        [
+         "Negotiation",
+         "you do it yourself",
+         "handled by the broker"
+        ],
+        [
+         "Product range",
+         "in-house products",
+         "banks, insurers, pension funds"
+        ],
+        [
+         "Existing relationship",
+         "yes",
+         "new, file prepared once"
+        ],
+        [
+         "Effort for your file",
+         "repeated for each bank",
+         "once, for all requests"
+        ]
+       ]
+      }
+     },
+     {
+      "p": "There are other models too. **Comparison platforms** show indicative rates and forward your request, often without personal support. **Brokers** combine market comparison with advice and support. **Fee-based advisory** makes sense for complex situations, such as several owners, buy-to-let properties, foreign income or previous bank rejections. HYPOTEQ combines an online request, a personal advisor and, if needed, an Advisory mandate."
+     },
+     {
+      "cta": {
+       "title": "What will your mortgage cost?",
+       "text": "Calculate interest and affordability before you request offers.",
+       "label": "Mortgage calculator",
+       "to": "page:rechner"
+      }
+     },
+     {
+      "h2": "Is a mortgage broker worth it?"
+     },
+     {
+      "p": "Take the Meier family: they buy a house in Baden for CHF 980,000 and need a mortgage of **CHF 730,000**. At that amount, every tenth of a percentage point costs CHF 730 a year, or CHF 7,300 over ten years."
+     },
+     {
+      "p": "Then there are issues beyond the rate: the bank values the house at CHF 950,000, below the purchase price. An experienced broker spots such gaps early, explains the effect on your equity and targets suitable lenders. For the Meiers, the imputed cost is 28.4 % of income, well below the one-third limit. In tighter cases, choosing the right lender often decides whether the financing works at all."
+     },
+     {
+      "p": "So a broker is worth it if you want to save time, compare widely and avoid mistakes in your file. If you already have an excellent offer and can judge it confidently, you need one less, but a free comparison costs nothing."
+     },
+     {
+      "h2": "How to choose the right broker"
+     },
+     {
+      "p": "Experiences with brokers vary because they work very differently. Use this checklist to find the best mortgage broker in Switzerland for you:"
+     },
+     {
+      "ul": [
+       "**Transparent pay:** the broker tells you openly how they earn",
+       "**No upfront fee for pure brokerage:** costs only for services you order",
+       "**Broad market access:** ask how many lenders, including insurers and pension funds",
+       "**No own products in the background:** HYPOTEQ sells no insurance or investments",
+       "**A personal contact:** someone who knows your case, not a hotline",
+       "**Clear timeline:** offers usually 48–72 hours after a complete file",
+       "**Data protection:** at HYPOTEQ, data is processed in Switzerland",
+       "**Language and experience:** can they advise you in English, and how long has the team been in the business?"
+      ]
+     },
+     {
+      "tip": "Always ask for offers in writing and side by side: rate, term, amortisation rules and exit conditions. A good broker explains why they recommend an offer, not just which one.",
+      "title": "Tip"
+     },
+     {
+      "h2": "How HYPOTEQ works"
+     },
+     {
+      "p": "HYPOTEQ is an independent mortgage broker based in Zurich. We work with **more than 40 banks, insurers and pension funds** and have supported over 2,500 clients. The team brings more than 35 years of experience from the mortgage and FinTech world, and we advise English-speaking clients in Zurich and across Switzerland."
+     },
+     {
+      "p": "You start online: a quick sign-up with document upload in about 3 minutes, a guided step-by-step form or a chat with our assistant HYPO. The AI reads your documents but does not advise you: a person always does that, usually getting back to you promptly. Your request is non-binding: you are only committed once you sign the contract with the lender."
+     },
+     {
+      "cta": {
+       "title": "Compare for free",
+       "text": "Request in 3 minutes, offers from more than 40 lenders.",
+       "label": "Request a mortgage",
+       "to": "funnel"
+      }
+     },
+     {
+      "h2": "Go deeper with HYPOTEQ Academy"
+     },
+     {
+      "p": "Want to understand how banks assess a mortgage file? The **Foundation Course** of HYPOTEQ Academy (CHF 290, no prior knowledge needed) explains the bankable mortgage file and the path from financing approval to payout step by step, including the Meier family case. And if you look after clients yourself, as an estate agent or trustee: in our partner programme the client relationship stays with you and you earn a fair commission per closed deal."
+     },
+     {
+      "p": "*General information, as of 2026, without guarantee.*"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Mortgage brokers:\n*quick answers.*",
+    "items": [
+     {
+      "q": "How are Swiss mortgage brokers paid?",
+      "a": "Usually through a **commission from the lender**, due only if the mortgage is signed. At HYPOTEQ, we are paid by the lender on success. You pay nothing for comparison and brokerage."
+     },
+     {
+      "q": "Is the comparison really free?",
+      "a": "Yes. Comparison and brokerage are free for private clients. Only services you order are charged: Advisory mandates or property valuation (introductory price CHF 300 instead of CHF 450)."
+     },
+     {
+      "q": "Am I committed after applying?",
+      "a": "No. Your request and the offers are non-binding. You can compare calmly and decline. You are only committed once you sign the mortgage contract with the lender."
+     },
+     {
+      "q": "Are brokers independent?",
+      "a": "It depends on the provider. Ask how many lenders they work with, how they are paid and whether they sell their own products. HYPOTEQ works with more than 40 banks, insurers and pension funds and sells no insurance or investments."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Explore the Academy",
+      "to": "page:academy"
+     },
+     {
+      "label": "Indicative rates",
+      "to": "page:zinsen"
+     },
+     {
+      "label": "All guides",
+      "to": "page:ratgeber"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "One request.\n*40+ lenders.*",
+    "text": "Free and non-binding: your advisor gets back to you promptly.",
+    "ctas": [
+     {
+      "label": "Request a mortgage",
+      "to": "funnel"
+     },
+     {
+      "label": "Become a partner",
+      "to": "page:partner"
+     }
+    ]
+   }
+  ]
+ }
+}

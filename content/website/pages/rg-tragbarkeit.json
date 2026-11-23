@@ -1,0 +1,886 @@
+{
+ "de": {
+  "title": "Tragbarkeit berechnen: Regeln und Beispiele | HYPOTEQ",
+  "description": "So rechnen Banken die Tragbarkeit: 5 % kalkulatorischer Zins, Amortisation, Nebenkosten, 33 %-Regel. Mit Beispielen und Tipps bei knapper Tragbarkeit.",
+  "h1": "Tragbarkeit berechnen: so rechnen Banken",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Ratgeber",
+    "h1": "Tragbarkeit berechnen:\n*so rechnen Banken*",
+    "lead": "Wer die **Tragbarkeit berechnen** kann, weiss vor dem Hauskauf, welcher Preis realistisch ist. Hier erfährst du, wie Banken mit 5 % kalkulatorischem Zins, Unterhalt und Amortisation rechnen, mit Beispiel und Tipps bei knapper Tragbarkeit.",
+    "ctas": [
+     {
+      "label": "Hypothek anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "Tragbarkeitsrechner",
+      "to": "page:tragbarkeit"
+     }
+    ],
+    "badges": [
+     "Mit Rechenbeispiel",
+     "Stand 2026",
+     "Kostenloser Rechner"
+    ],
+    "image": "family",
+    "alt": "Familie im neuen, noch leeren Zuhause"
+   },
+   {
+    "type": "article",
+    "blocks": [
+     {
+      "p": "Bevor eine Bank, Versicherung oder Pensionskasse eine Hypothek zusagt, prüft sie zwei Dinge: die Belehnung und die Tragbarkeit. Die Belehnung zeigt, wie viel Prozent des Immobilienwerts fremdfinanziert sind. Die Tragbarkeit zeigt, ob du die Wohnkosten auch dann noch stemmen kannst, wenn die Zinsen deutlich steigen. Wer die Tragbarkeit früh berechnet, weiss schon vor der Besichtigung, welcher Kaufpreis realistisch ist, und verhandelt mit mehr Sicherheit."
+     },
+     {
+      "h2": "Was Tragbarkeit bedeutet"
+     },
+     {
+      "p": "Die **Tragbarkeit einer Hypothek** ist das Verhältnis zwischen den kalkulatorischen Wohnkosten und deinem Bruttoeinkommen. In der Schweiz gilt als Faustregel: Die jährlichen Kosten dürfen höchstens rund ein Drittel des Bruttoeinkommens betragen. Man spricht deshalb oft von der **Tragbarkeit 33 Prozent**. Liegt der Wert darüber, gilt die Tragbarkeit als nicht gegeben. Die meisten Kreditgeber lehnen die Finanzierung dann in dieser Form ab oder verlangen Anpassungen."
+     },
+     {
+      "p": "Wichtig: Die Rechnung hat wenig mit deinen tatsächlichen Monatskosten zu tun. Sie ist ein Stresstest. Der Kreditgeber will wissen, ob dein Budget auch in einem Umfeld mit hohen Zinsen hält, und rechnet deshalb bewusst konservativ. Deine effektiven Zinskosten liegen heute in aller Regel deutlich tiefer. Trotzdem lohnt es sich, das Ergebnis ernst zu nehmen: Wer knapp unter einem Drittel liegt, hat wenig Puffer für Familienzuwachs, Teilzeit, Renovationen oder einen späteren Zinsanstieg."
+     },
+     {
+      "h2": "So rechnen Banken: die drei Kostenblöcke"
+     },
+     {
+      "p": "Für die Tragbarkeit zählen drei Positionen. Zusammen ergeben sie die kalkulatorische Belastung pro Jahr, die dann ins Verhältnis zum Bruttoeinkommen gesetzt wird."
+     },
+     {
+      "ul": [
+       "**Kalkulatorischer Zins:** 5 % auf die gesamte Hypothek, unabhängig davon, ob du eine SARON- oder eine Festhypothek wählst.",
+       "**Unterhalt und Nebenkosten:** pauschal 1 % des Belehnungswerts pro Jahr, für Reparaturen, Erneuerungen und laufende Kosten.",
+       "**Amortisation:** Die 2. Hypothek, also der Teil über zwei Drittel des Belehnungswerts, muss innert 15 Jahren bzw. bis zur Pensionierung abbezahlt werden. Der jährliche Betrag fliesst in die Rechnung ein."
+      ]
+     },
+     {
+      "p": "Als Einkommen zählt in der Regel das regelmässige Bruttoeinkommen des Haushalts. Wie Boni, Nebeneinkünfte, Einkommen aus selbständiger Tätigkeit oder Renten angerechnet werden, unterscheidet sich je nach Kreditgeber. Bestehende Verpflichtungen wie Leasing oder Kleinkredite können die Tragbarkeit zusätzlich belasten. Alle Regeln gelten allgemein, Stand 2026 und ohne Gewähr."
+     },
+     {
+      "h2": "Rechenbeispiel: Familie Meier in Baden"
+     },
+     {
+      "p": "Familie Meier kennst du vielleicht aus der HYPOTEQ Academy. Sie möchte ein Einfamilienhaus in Baden kaufen. Der Kaufpreis beträgt CHF 980’000, die Bank bewertet das Haus aber nur mit CHF 950’000. Nach dem Niederstwertprinzip gilt der tiefere Wert als Belehnungswert. Meiers bringen CHF 250’000 Eigenmittel mit, davon CHF 170’000 vom Sparkonto und CHF 80’000 aus der Pensionskasse. Die Hypothek beträgt damit CHF 730’000, die Belehnung rund 76.8 %. Das Bruttoeinkommen des Haushalts liegt bei CHF 185’000."
+     },
+     {
+      "table": {
+       "head": [
+        "Position",
+        "Berechnung",
+        "Pro Jahr"
+       ],
+       "rows": [
+        [
+         "Kalkulatorischer Zins",
+         "5 % × CHF 730’000",
+         "CHF 36’500"
+        ],
+        [
+         "Unterhalt und Nebenkosten",
+         "1 % × CHF 950’000",
+         "CHF 9’500"
+        ],
+        [
+         "Amortisation 2. Hypothek",
+         "rund CHF 97’000 ÷ 15 Jahre",
+         "CHF 6’500"
+        ],
+        [
+         "**Total kalkulatorisch**",
+         "",
+         "**CHF 52’500**"
+        ],
+        [
+         "**Tragbarkeit**",
+         "CHF 52’500 ÷ CHF 185’000",
+         "**28.4 %**"
+        ]
+       ]
+      }
+     },
+     {
+      "p": "Mit 28.4 % liegt Familie Meier klar unter der Grenze von einem Drittel. Ein Drittel ihres Einkommens wären CHF 61’667 pro Jahr, es bleibt also eine Reserve von gut CHF 9’000. Umgekehrt gerechnet: Bei gleicher Hypothek müsste das Bruttoeinkommen mindestens rund CHF 157’500 betragen, damit die Tragbarkeit knapp aufgeht. Pro Monat rechnet der Kreditgeber für Meiers mit kalkulatorischen Kosten von CHF 4’375, obwohl die effektive Belastung mit heutigen Zinsen wesentlich tiefer ausfällt."
+     },
+     {
+      "p": "Die 2. Hypothek ergibt sich so: Zwei Drittel von CHF 950’000 sind rund CHF 633’000. Das ist die 1. Hypothek, die nicht zwingend amortisiert werden muss. Der Rest von rund CHF 97’000 ist die 2. Hypothek. Verteilt auf 15 Jahre ergibt das rund CHF 6’500 pro Jahr."
+     },
+     {
+      "tip": "Rechne nicht nur mit dem Kaufpreis, sondern mit dem Belehnungswert. Bewertet die Bank tiefer als der Kaufpreis, steigen Eigenmittelbedarf und Belehnung. Eine unabhängige Immobilienbewertung vor dem Kaufentscheid schafft Klarheit.",
+      "title": "Tipp"
+     },
+     {
+      "cta": {
+       "title": "Rechne deine eigene Tragbarkeit",
+       "text": "Gib Kaufpreis, Eigenmittel und Einkommen ein und sieh in Sekunden, wie Kreditgeber dein Projekt einschätzen.",
+       "label": "Zum Tragbarkeitsrechner",
+       "to": "page:tragbarkeit"
+      }
+     },
+     {
+      "h2": "Warum 5 % kalkulatorischer Zins?"
+     },
+     {
+      "p": "Der **kalkulatorische Zinssatz von 5 Prozent** liegt weit über den aktuellen Marktzinsen. Unsere Richtzinsen starten bei SARON ab 0.85 % und für 10 Jahre fest ab 1.60 % (Beispielwerte). Trotzdem halten die meisten Kreditgeber an 5 % fest. Der Grund: Eine Hypothek läuft oft Jahrzehnte. In dieser Zeit können die Zinsen stark schwanken, und der Schweizer Markt hat schon Phasen mit deutlich höheren Hypothekarzinsen erlebt."
+     },
+     {
+      "p": "Der hohe Wert schützt beide Seiten. Der Kreditgeber reduziert sein Ausfallrisiko, und du vermeidest, dass dich eine Zinswende in finanzielle Schwierigkeiten bringt. Für dich heisst das: Selbst wenn eine Festhypothek heute günstig ist, entscheidet nicht der Vertragszins über die Zusage, sondern der Stresstest mit 5 %."
+     },
+     {
+      "h2": "Tragbarkeit nicht gegeben: diese Hebel hast du"
+     },
+     {
+      "p": "Liegt deine Rechnung über einem Drittel, ist das noch kein Endpunkt. Oft lässt sich das Projekt mit einigen Anpassungen doch finanzieren. Diese Hebel lohnt es sich zu prüfen:"
+     },
+     {
+      "ul": [
+       "**Mehr Eigenmittel einsetzen:** Eine kleinere Hypothek senkt den kalkulatorischen Zins und oft auch die Amortisation. Was als Eigenkapital zählt, erklären wir im Ratgeber zu den Eigenmitteln.",
+       "**Vorsorgegelder prüfen:** Ein Vorbezug aus der Pensionskasse erhöht die Eigenmittel, eine Verpfändung kann die Amortisation beeinflussen. Beides hat Vor- und Nachteile.",
+       "**Zweites Einkommen anrechnen:** Kauft ihr zu zweit, zählen in der Regel beide Einkommen, sofern beide Schuldner der Hypothek werden.",
+       "**Kaufpreis oder Objekt anpassen:** Manchmal ist eine etwas günstigere Liegenschaft die solidere Lösung.",
+       "**Andere Kreditgeber vergleichen:** Die Regeln unterscheiden sich im Detail. Was bei der Hausbank knapp scheitert, kann bei einer Versicherung oder Pensionskasse aufgehen."
+      ]
+     },
+     {
+      "p": "Bei komplexen Situationen, etwa kurz vor der Pensionierung, mit schwankendem Einkommen oder nach einer Bankabsage, hilft unser Advisory-Team mit einer vertieften Analyse. Das Erstgespräch ist kostenlos."
+     },
+     {
+      "h2": "Unterschiede zwischen Kreditgebern"
+     },
+     {
+      "p": "Die Grundregeln sind in der ganzen Schweiz ähnlich, die Details nicht. Banken, Versicherungen und Pensionskassen setzen den kalkulatorischen Zins, die Unterhaltspauschale und die Anrechnung von Einkommen teils unterschiedlich an. Auch bei Boni, Renten oder Einkommen aus Selbständigkeit gibt es Spielraum. Genau deshalb lohnt sich ein Vergleich: HYPOTEQ arbeitet mit über 40 Finanzierungspartnern und weiss, wo dein Profil am besten passt."
+     },
+     {
+      "p": "Für dich bleibt der Vergleich kostenlos. Du lädst deine Unterlagen hoch, unsere KI liest die meisten Angaben aus, und deine Beraterin meldet sich zeitnah. Die Beratung macht immer ein Mensch."
+     },
+     {
+      "cta": {
+       "title": "Tragbarkeit von Profis prüfen lassen",
+       "text": "Anfrage in 3 Minuten, kostenlos und unverbindlich. Offerten in der Regel 48–72 Stunden nach vollständigen Unterlagen.",
+       "label": "Hypothek anfragen",
+       "to": "funnel"
+      }
+     },
+     {
+      "h2": "Tiefer einsteigen mit der HYPOTEQ Academy"
+     },
+     {
+      "p": "Du willst genau verstehen, wie Belehnung und Tragbarkeit zusammenspielen? Im **Foundation Course** der HYPOTEQ Academy (CHF 290) rechnest du in der Learning Journey «Belehnung & Tragbarkeit» den Praxisfall Familie Meier Schritt für Schritt durch, mit Knowledge Checks und KI-Trainer. Vorwissen brauchst du keines. Du bist Immobilienmaklerin, Treuhänder oder Broker? Im HYPOTEQ Partnerprogramm vermittelst du Finanzierungen für deine Kundschaft, und dein Team erhält Zugang zur Academy."
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Tragbarkeit:\n*kurz beantwortet.*",
+    "items": [
+     {
+      "q": "Was bedeutet Tragbarkeit?",
+      "a": "Tragbarkeit zeigt, ob du dir die Hypothek langfristig leisten kannst. Die kalkulatorischen Kosten aus 5 % Zins, 1 % Unterhalt und Amortisation dürfen höchstens rund ein Drittel deines Bruttoeinkommens betragen. Bei Familie Meier sind es CHF 52’500, also 28.4 % von CHF 185’000."
+     },
+     {
+      "q": "Warum 5 % kalkulatorischer Zins?",
+      "a": "Der Wert ist ein Stresstest. Hypotheken laufen oft Jahrzehnte, und die Zinsen können in dieser Zeit deutlich steigen. Mit 5 % prüft der Kreditgeber, ob dein Budget auch dann noch hält. Deine effektiven Zinskosten liegen in der Regel deutlich tiefer."
+     },
+     {
+      "q": "Was tun, wenn die Tragbarkeit nicht gegeben ist?",
+      "a": "Prüfe mehr Eigenmittel, Vorsorgegelder, ein zweites Einkommen, ein günstigeres Objekt oder andere Kreditgeber. Oft hilft eine Kombination. Wir rechnen die Varianten mit dir durch und fragen gezielt die Partner an, deren Regeln zu deinem Profil passen."
+     },
+     {
+      "q": "Gibt es Banken mit anderen Tragbarkeitsregeln?",
+      "a": "Ja. Banken, Versicherungen und Pensionskassen unterscheiden sich im Detail, etwa beim kalkulatorischen Zins, bei der Unterhaltspauschale oder bei der Anrechnung von Bonus und Rente. Darum lohnt sich der Vergleich über **40+ Finanzierungspartner**, für dich kostenlos."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Academy entdecken",
+      "to": "page:academy"
+     },
+     {
+      "label": "Ratgeber-Übersicht",
+      "to": "page:ratgeber"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Tragbarkeit geprüft?\n*Jetzt Offerten holen.*",
+    "text": "Kostenlos vergleichen, persönlich beraten werden und in der Regel innert 48–72 h Offerten erhalten.",
+    "ctas": [
+     {
+      "label": "Hypothek anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "Hypothekenrechner",
+      "to": "page:rechner"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Capacité financière: règles et exemples | HYPOTEQ",
+  "description": "Comment les banques calculent la capacité financière: taux théorique de 5 %, amortissement, frais, règle du tiers. Exemples et solutions.",
+  "h1": "Capacité financière: la méthode des banques",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Guide",
+    "h1": "Capacité financière:\n*la méthode des banques*",
+    "lead": "Connaître sa **capacité financière hypothèque** avant d'acheter, c'est savoir quel prix est réaliste. Découvrez comment les banques calculent avec un taux théorique de 5 %, l'entretien et l'amortissement, avec un exemple chiffré et des solutions si le calcul est serré.",
+    "ctas": [
+     {
+      "label": "Demander une hypothèque",
+      "to": "funnel"
+     },
+     {
+      "label": "Calculateur de capacité",
+      "to": "page:tragbarkeit"
+     }
+    ],
+    "badges": [
+     "Exemple chiffré",
+     "État 2026",
+     "Calculateur gratuit"
+    ],
+    "image": "family",
+    "alt": "Famille dans son nouveau logement encore vide"
+   },
+   {
+    "type": "article",
+    "blocks": [
+     {
+      "p": "Avant d'accorder une hypothèque, une banque, une assurance ou une caisse de pension vérifie deux choses: le taux d'avance (nantissement) et la capacité financière. Le taux d'avance indique quelle part de la valeur du bien est financée par un prêt. La capacité financière montre si vous pourrez assumer les coûts du logement même si les taux augmentent fortement. En la calculant tôt, vous savez avant la visite quel prix est réaliste et vous négociez plus sereinement."
+     },
+     {
+      "h2": "Qu'est-ce que la capacité financière?"
+     },
+     {
+      "p": "La capacité financière est le rapport entre les coûts théoriques du logement et votre revenu brut. En Suisse, la **règle du tiers** s'applique: les charges annuelles ne doivent pas dépasser environ un tiers du revenu brut du ménage. Au-delà, on parle de **capacité financière insuffisante**. La plupart des prêteurs refusent alors le financement sous cette forme ou demandent des ajustements."
+     },
+     {
+      "p": "Ce calcul n'a que peu à voir avec vos coûts mensuels réels. Il s'agit d'un test de résistance: le prêteur veut savoir si votre budget tiendrait dans un contexte de taux élevés. Il calcule donc de manière volontairement prudente. Vos intérêts effectifs sont aujourd'hui en général nettement plus bas."
+     },
+     {
+      "h2": "Les trois postes du calcul"
+     },
+     {
+      "p": "Trois postes déterminent la capacité financière. Ensemble, ils forment la charge théorique annuelle, comparée ensuite au revenu brut."
+     },
+     {
+      "ul": [
+       "**Taux théorique:** 5 % sur l'ensemble de l'hypothèque, que vous choisissiez une hypothèque SARON ou à taux fixe.",
+       "**Entretien et frais accessoires:** forfait de 1 % de la valeur de nantissement par an, pour les réparations, rénovations et frais courants.",
+       "**Amortissement:** l'hypothèque de 2e rang, soit la part au-delà de deux tiers de la valeur de nantissement, doit être remboursée en 15 ans ou jusqu'à la retraite. Le montant annuel entre dans le calcul."
+      ]
+     },
+     {
+      "p": "Le revenu pris en compte est en général le revenu brut régulier du ménage. Le traitement des bonus, revenus accessoires, revenus d'indépendant ou rentes varie selon le prêteur. Les engagements existants, comme un leasing ou un petit crédit, peuvent peser en plus. Ces règles sont générales, état 2026, sans garantie."
+     },
+     {
+      "h2": "Exemple chiffré: la famille Meier à Baden"
+     },
+     {
+      "p": "Vous connaissez peut-être la famille Meier grâce à la HYPOTEQ Academy. Elle souhaite acheter une maison individuelle à Baden pour CHF 980’000, mais la banque l'estime à CHF 950’000. Selon le principe de la valeur la plus basse, c'est ce montant qui sert de valeur de nantissement. Les Meier disposent de CHF 250’000 de fonds propres: CHF 170’000 d'épargne et CHF 80’000 du 2e pilier. L'hypothèque s'élève donc à CHF 730’000, le taux d'avance à environ 76.8 %. Le revenu brut du ménage est de CHF 185’000."
+     },
+     {
+      "table": {
+       "head": [
+        "Poste",
+        "Calcul",
+        "Par an"
+       ],
+       "rows": [
+        [
+         "Taux théorique",
+         "5 % × CHF 730’000",
+         "CHF 36’500"
+        ],
+        [
+         "Entretien et frais",
+         "1 % × CHF 950’000",
+         "CHF 9’500"
+        ],
+        [
+         "Amortissement 2e rang",
+         "env. CHF 97’000 ÷ 15 ans",
+         "CHF 6’500"
+        ],
+        [
+         "**Total théorique**",
+         "",
+         "**CHF 52’500**"
+        ],
+        [
+         "**Capacité financière**",
+         "CHF 52’500 ÷ CHF 185’000",
+         "**28.4 %**"
+        ]
+       ]
+      }
+     },
+     {
+      "p": "Avec 28.4 %, la famille Meier reste nettement sous la limite du tiers. Un tiers de son revenu représenterait CHF 61’667 par an, soit une marge d'un peu plus de CHF 9’000. À l'inverse, pour la même hypothèque, il faudrait un revenu brut d'au moins CHF 157’500 environ. Par mois, le prêteur compte avec des coûts théoriques de CHF 4’375, alors que la charge effective est bien inférieure avec les taux actuels."
+     },
+     {
+      "p": "Le 2e rang se calcule ainsi: deux tiers de CHF 950’000 donnent environ CHF 633’000, c'est l'hypothèque de 1er rang. Le solde d'environ CHF 97’000 constitue le 2e rang, soit environ CHF 6’500 d'amortissement par an sur 15 ans."
+     },
+     {
+      "tip": "Calculez avec la valeur de nantissement, pas seulement avec le prix. Si la banque estime le bien en dessous du prix, le besoin en fonds propres et le taux d'avance augmentent. Une estimation indépendante avant l'achat apporte de la clarté.",
+      "title": "Conseil"
+     },
+     {
+      "cta": {
+       "title": "Calculez votre capacité financière",
+       "text": "Saisissez prix, fonds propres et revenu: vous voyez en quelques secondes comment les prêteurs évaluent votre projet.",
+       "label": "Vers le calculateur",
+       "to": "page:tragbarkeit"
+      }
+     },
+     {
+      "h2": "Pourquoi un taux théorique de 5 %?"
+     },
+     {
+      "p": "Le **taux théorique de 5 %** est bien supérieur aux taux actuels. Nos taux indicatifs démarrent dès 0.85 % pour le SARON et dès 1.60 % pour un taux fixe à 10 ans (valeurs d'exemple). La plupart des prêteurs gardent pourtant 5 %. La raison: une hypothèque court souvent sur des décennies, les taux peuvent fortement varier, et le marché suisse a déjà connu des périodes de taux nettement plus élevés."
+     },
+     {
+      "p": "Ce taux élevé protège les deux parties. Le prêteur limite son risque, et vous évitez qu'une hausse des taux vous mette en difficulté. Même si un taux fixe est avantageux aujourd'hui, ce n'est pas le taux contractuel qui décide de l'octroi, mais le test à 5 %."
+     },
+     {
+      "h2": "Capacité insuffisante: vos leviers"
+     },
+     {
+      "p": "Un résultat au-dessus d'un tiers n'est pas une fin en soi. Avec quelques ajustements, le projet reste souvent finançable:"
+     },
+     {
+      "ul": [
+       "**Plus de fonds propres:** une hypothèque plus petite réduit les intérêts théoriques et souvent l'amortissement. Notre guide sur les fonds propres explique ce qui compte.",
+       "**Prévoyance:** un retrait du 2e pilier augmente les fonds propres, un nantissement peut influencer l'amortissement. Les deux ont avantages et inconvénients.",
+       "**Second revenu:** si vous achetez à deux, les deux revenus comptent en général, pour autant que les deux soient débiteurs.",
+       "**Adapter le prix ou le bien:** un objet un peu moins cher est parfois la solution la plus solide.",
+       "**Comparer les prêteurs:** les règles diffèrent dans le détail. Ce qui échoue de peu auprès de votre banque peut passer chez une assurance ou une caisse de pension."
+      ]
+     },
+     {
+      "p": "Pour les situations complexes, peu avant la retraite, avec un revenu variable ou après un refus bancaire, notre équipe Advisory propose une analyse approfondie. Le premier entretien est gratuit."
+     },
+     {
+      "h2": "Toutes les banques appliquent-elles les mêmes règles?"
+     },
+     {
+      "p": "Les principes sont similaires dans toute la Suisse, pas les détails. Banques, assurances et caisses de pension appliquent le taux théorique, le forfait d'entretien et la prise en compte des revenus de manière parfois différente, notamment pour les bonus, rentes ou revenus d'indépendant. C'est pourquoi la comparaison vaut la peine: HYPOTEQ travaille avec plus de 40 partenaires de financement et sait où votre profil convient le mieux."
+     },
+     {
+      "p": "La comparaison est gratuite pour vous. Vous téléchargez vos documents, notre IA reconnaît la plupart des données et votre conseillère vous contacte rapidement. Le conseil est toujours assuré par une personne."
+     },
+     {
+      "cta": {
+       "title": "Faites vérifier votre capacité",
+       "text": "Demande en 3 minutes, gratuite et sans engagement. Offres en général 48–72 heures après réception du dossier complet.",
+       "label": "Demander une hypothèque",
+       "to": "funnel"
+      }
+     },
+     {
+      "h2": "Aller plus loin avec la HYPOTEQ Academy"
+     },
+     {
+      "p": "Vous voulez comprendre en détail le lien entre taux d'avance et capacité financière? Dans le **Foundation Course** de la HYPOTEQ Academy (CHF 290), la Learning Journey «Belehnung & Tragbarkeit» vous fait calculer pas à pas le cas pratique de la famille Meier, avec Knowledge Checks et entraîneur IA, sans connaissances préalables. Vous êtes courtier immobilier, fiduciaire ou broker? Avec le programme partenaires HYPOTEQ, vous proposez des financements à vos clients et votre équipe accède à l'Academy."
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "Capacité financière:\n*l'essentiel.*",
+    "items": [
+     {
+      "q": "Qu'est-ce que la capacité financière?",
+      "a": "Elle indique si vous pouvez assumer l'hypothèque à long terme. Les coûts théoriques (5 % d'intérêts, 1 % d'entretien et amortissement) ne doivent pas dépasser environ un tiers du revenu brut. Pour la famille Meier: CHF 52’500, soit 28.4 % de CHF 185’000."
+     },
+     {
+      "q": "Pourquoi un taux théorique de 5 %?",
+      "a": "C'est un test de résistance. Une hypothèque dure souvent des décennies et les taux peuvent fortement monter. Avec 5 %, le prêteur vérifie que votre budget tient malgré tout. Vos intérêts effectifs sont en général bien inférieurs."
+     },
+     {
+      "q": "Que faire si elle est insuffisante?",
+      "a": "Examinez plus de fonds propres, la prévoyance, un second revenu, un bien moins cher ou d'autres prêteurs. Une combinaison suffit souvent. Nous calculons les variantes avec vous et sollicitons les partenaires dont les règles correspondent à votre profil."
+     },
+     {
+      "q": "Toutes les banques appliquent-elles les mêmes règles?",
+      "a": "Non, pas dans le détail. Banques, assurances et caisses de pension diffèrent sur le taux théorique, le forfait d'entretien ou la prise en compte des bonus et rentes. D'où l'intérêt de comparer **40+ partenaires de financement**, gratuitement pour vous."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Découvrir l'Academy",
+      "to": "page:academy"
+     },
+     {
+      "label": "Tous les guides",
+      "to": "page:ratgeber"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Capacité vérifiée?\n*Obtenez vos offres.*",
+    "text": "Comparez gratuitement, profitez d'un conseil personnel et recevez en général vos offres en 48–72 h.",
+    "ctas": [
+     {
+      "label": "Demander une hypothèque",
+      "to": "funnel"
+     },
+     {
+      "label": "Calculateur hypothécaire",
+      "to": "page:rechner"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Sostenibilità dell'ipoteca: regole | HYPOTEQ",
+  "description": "Come calcolano le banche la sostenibilità: tasso teorico del 5 %, ammortamento, costi accessori, regola del terzo. Esempi e soluzioni.",
+  "h1": "Sostenibilità: come calcolano le banche",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Guida",
+    "h1": "Sostenibilità:\n*come calcolano le banche*",
+    "lead": "Conoscere la **sostenibilità ipoteca** prima di comprare ti dice quale prezzo è realistico. Scopri come le banche calcolano con il tasso teorico del 5 %, la manutenzione e l'ammortamento, con un esempio pratico e soluzioni se il calcolo è al limite.",
+    "ctas": [
+     {
+      "label": "Richiedere un'ipoteca",
+      "to": "funnel"
+     },
+     {
+      "label": "Calcolatore sostenibilità",
+      "to": "page:tragbarkeit"
+     }
+    ],
+    "badges": [
+     "Esempio pratico",
+     "Stato 2026",
+     "Calcolatore gratuito"
+    ],
+    "image": "family",
+    "alt": "Famiglia nella nuova casa ancora vuota"
+   },
+   {
+    "type": "article",
+    "blocks": [
+     {
+      "p": "Prima di concedere un'ipoteca, una banca, un'assicurazione o una cassa pensione verifica due cose: l'anticipo e la sostenibilità. L'anticipo indica quale parte del valore dell'immobile è finanziata con un prestito. La sostenibilità mostra se potrai sostenere i costi dell'abitazione anche se i tassi salgono molto. Se la calcoli presto, sai già prima della visita quale prezzo è realistico e tratti con più sicurezza."
+     },
+     {
+      "h2": "Cosa significa sostenibilità"
+     },
+     {
+      "p": "La sostenibilità è il rapporto tra i costi teorici dell'abitazione e il tuo reddito lordo. In Svizzera vale la **regola del terzo**: i costi annui non devono superare circa un terzo del reddito lordo dell'economia domestica. Oltre questa soglia la sostenibilità non è data, e la maggior parte dei finanziatori rifiuta il finanziamento in quella forma o chiede modifiche."
+     },
+     {
+      "p": "Questo calcolo ha poco a che fare con i tuoi costi mensili reali. È uno stress test: il finanziatore vuole sapere se il tuo budget regge anche con tassi alti, quindi calcola in modo volutamente prudente. Gli interessi effettivi oggi sono di norma molto più bassi."
+     },
+     {
+      "h2": "Le tre voci del calcolo"
+     },
+     {
+      "p": "Per la sostenibilità contano tre voci. Insieme formano il costo teorico annuo, che viene poi confrontato con il reddito lordo."
+     },
+     {
+      "ul": [
+       "**Tasso teorico:** 5 % sull'intera ipoteca, indipendentemente dal fatto che tu scelga un'ipoteca SARON o a tasso fisso.",
+       "**Manutenzione e costi accessori:** forfait dell'1 % del valore di anticipo all'anno, per riparazioni, rinnovi e spese correnti.",
+       "**Ammortamento:** la seconda ipoteca, cioè la parte oltre i due terzi del valore di anticipo, va rimborsata entro 15 anni o entro il pensionamento. L'importo annuo entra nel calcolo."
+      ]
+     },
+     {
+      "p": "Come reddito conta di regola il reddito lordo regolare dell'economia domestica. Il modo in cui vengono considerati bonus, redditi accessori, attività indipendente o rendite varia da finanziatore a finanziatore. Impegni esistenti come leasing o piccoli crediti possono pesare ulteriormente. Le regole sono generali, stato 2026, senza garanzia."
+     },
+     {
+      "h2": "Esempio pratico: la famiglia Meier a Baden"
+     },
+     {
+      "p": "Forse conosci la famiglia Meier dalla HYPOTEQ Academy. Vuole comprare una casa unifamiliare a Baden per CHF 980’000, ma la banca la valuta CHF 950’000. Secondo il principio del valore più basso, questo è il valore di anticipo. I Meier dispongono di CHF 250’000 di fondi propri: CHF 170’000 di risparmi e CHF 80’000 dalla cassa pensione. L'ipoteca è quindi di CHF 730’000, l'anticipo di circa il 76.8 %. Il reddito lordo è di CHF 185’000."
+     },
+     {
+      "table": {
+       "head": [
+        "Voce",
+        "Calcolo",
+        "All'anno"
+       ],
+       "rows": [
+        [
+         "Tasso teorico",
+         "5 % × CHF 730’000",
+         "CHF 36’500"
+        ],
+        [
+         "Manutenzione e costi",
+         "1 % × CHF 950’000",
+         "CHF 9’500"
+        ],
+        [
+         "Ammortamento 2a ipoteca",
+         "ca. CHF 97’000 ÷ 15 anni",
+         "CHF 6’500"
+        ],
+        [
+         "**Totale teorico**",
+         "",
+         "**CHF 52’500**"
+        ],
+        [
+         "**Sostenibilità**",
+         "CHF 52’500 ÷ CHF 185’000",
+         "**28.4 %**"
+        ]
+       ]
+      }
+     },
+     {
+      "p": "Con il 28.4 % la famiglia Meier resta ben sotto il limite del terzo. Un terzo del reddito sarebbe CHF 61’667 all'anno, quindi resta un margine di poco più di CHF 9’000. Al contrario, con la stessa ipoteca servirebbe un reddito lordo di almeno circa CHF 157’500. Al mese il finanziatore calcola costi teorici di CHF 4’375, mentre il carico effettivo con i tassi di oggi è molto più basso."
+     },
+     {
+      "p": "La seconda ipoteca si calcola così: due terzi di CHF 950’000 sono circa CHF 633’000, ovvero la prima ipoteca. Il resto di circa CHF 97’000 è la seconda ipoteca, che in 15 anni significa circa CHF 6’500 di ammortamento all'anno."
+     },
+     {
+      "tip": "Calcola con il valore di anticipo, non solo con il prezzo. Se la banca valuta l'immobile meno del prezzo, aumentano fondi propri necessari e anticipo. Una valutazione indipendente prima dell'acquisto ti dà chiarezza.",
+      "title": "Consiglio"
+     },
+     {
+      "cta": {
+       "title": "Calcola la tua sostenibilità",
+       "text": "Inserisci prezzo, fondi propri e reddito e scopri in pochi secondi come i finanziatori valutano il tuo progetto.",
+       "label": "Al calcolatore",
+       "to": "page:tragbarkeit"
+      }
+     },
+     {
+      "h2": "Perché un tasso teorico del 5 %?"
+     },
+     {
+      "p": "Il **tasso teorico del 5 %** è molto superiore ai tassi attuali. I nostri tassi indicativi partono da 0.85 % per il SARON e da 1.60 % per il fisso a 10 anni (valori d'esempio). La maggior parte dei finanziatori mantiene comunque il 5 %. Il motivo: un'ipoteca dura spesso decenni, i tassi possono variare molto e il mercato svizzero ha già conosciuto periodi con tassi ipotecari nettamente più alti."
+     },
+     {
+      "p": "Questo valore protegge entrambe le parti. Il finanziatore riduce il proprio rischio e tu eviti che un rialzo dei tassi ti metta in difficoltà. Anche se oggi un tasso fisso è conveniente, a decidere sulla concessione non è il tasso contrattuale, ma lo stress test al 5 %."
+     },
+     {
+      "h2": "Sostenibilità insufficiente: le tue leve"
+     },
+     {
+      "p": "Un risultato oltre un terzo non è la fine. Con qualche modifica il progetto spesso resta finanziabile:"
+     },
+     {
+      "ul": [
+       "**Più fondi propri:** un'ipoteca più piccola riduce gli interessi teorici e spesso anche l'ammortamento. Nella nostra guida sui fondi propri trovi cosa conta.",
+       "**Previdenza:** un prelievo dalla cassa pensione aumenta i fondi propri, una costituzione in pegno può influire sull'ammortamento. Entrambe le soluzioni hanno pro e contro.",
+       "**Secondo reddito:** se comprate in due, di regola contano entrambi i redditi, purché entrambi siano debitori.",
+       "**Adattare prezzo o immobile:** a volte un oggetto un po' più economico è la soluzione più solida.",
+       "**Confrontare i finanziatori:** le regole differiscono nei dettagli. Ciò che non passa per poco in banca può funzionare con un'assicurazione o una cassa pensione."
+      ]
+     },
+     {
+      "p": "Per situazioni complesse, poco prima del pensionamento, con reddito variabile o dopo un rifiuto bancario, il nostro team Advisory offre un'analisi approfondita. Il primo colloquio è gratuito."
+     },
+     {
+      "h2": "Tutte le banche usano le stesse regole?"
+     },
+     {
+      "p": "I principi sono simili in tutta la Svizzera, i dettagli no. Banche, assicurazioni e casse pensioni applicano tasso teorico, forfait di manutenzione e computo del reddito in modo talvolta diverso, per esempio per bonus, rendite o attività indipendente. Per questo il confronto conviene: HYPOTEQ collabora con oltre 40 partner di finanziamento e sa dove il tuo profilo si adatta meglio."
+     },
+     {
+      "p": "Per te il confronto è gratuito. Carichi i documenti, la nostra IA riconosce la maggior parte dei dati e la tua consulente ti contatta in tempi brevi. La consulenza la fa sempre una persona."
+     },
+     {
+      "cta": {
+       "title": "Fai verificare la tua sostenibilità",
+       "text": "Richiesta in 3 minuti, gratuita e senza impegno. Offerte di regola 48–72 ore dopo la documentazione completa.",
+       "label": "Richiedere un'ipoteca",
+       "to": "funnel"
+      }
+     },
+     {
+      "h2": "Approfondisci con la HYPOTEQ Academy"
+     },
+     {
+      "p": "Vuoi capire a fondo come anticipo e sostenibilità si influenzano? Nel **Foundation Course** della HYPOTEQ Academy (CHF 290) la Learning Journey «Belehnung & Tragbarkeit» ti guida passo per passo nel caso pratico della famiglia Meier, con Knowledge Checks e trainer IA, senza conoscenze preliminari. Sei agente immobiliare, fiduciario o broker? Con il programma partner HYPOTEQ offri finanziamenti ai tuoi clienti e il tuo team accede all'Academy."
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "Sostenibilità:\n*in breve.*",
+    "items": [
+     {
+      "q": "Cosa significa sostenibilità?",
+      "a": "Indica se puoi permetterti l'ipoteca a lungo termine. I costi teorici (5 % di interessi, 1 % di manutenzione e ammortamento) non devono superare circa un terzo del reddito lordo. Per la famiglia Meier: CHF 52’500, cioè il 28.4 % di CHF 185’000."
+     },
+     {
+      "q": "Perché un tasso teorico del 5 %?",
+      "a": "È uno stress test. Un'ipoteca dura spesso decenni e i tassi possono salire molto. Con il 5 % il finanziatore verifica che il tuo budget regga comunque. Gli interessi effettivi sono di regola molto più bassi."
+     },
+     {
+      "q": "Cosa fare se non è sufficiente?",
+      "a": "Valuta più fondi propri, la previdenza, un secondo reddito, un immobile più economico o altri finanziatori. Spesso basta una combinazione. Calcoliamo le varianti con te e contattiamo i partner le cui regole si adattano al tuo profilo."
+     },
+     {
+      "q": "Tutte le banche usano le stesse regole?",
+      "a": "No, non nei dettagli. Banche, assicurazioni e casse pensioni differiscono su tasso teorico, forfait di manutenzione o computo di bonus e rendite. Per questo conviene confrontare **40+ partner di finanziamento**, gratuitamente per te."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Scopri l'Academy",
+      "to": "page:academy"
+     },
+     {
+      "label": "Tutte le guide",
+      "to": "page:ratgeber"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Sostenibilità verificata?\n*Ora le offerte.*",
+    "text": "Confronta gratuitamente, ricevi una consulenza personale e di regola le offerte in 48–72 h.",
+    "ctas": [
+     {
+      "label": "Richiedere un'ipoteca",
+      "to": "funnel"
+     },
+     {
+      "label": "Calcolatore ipotecario",
+      "to": "page:rechner"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "Swiss Mortgage Affordability Rules | HYPOTEQ",
+  "description": "How Swiss banks calculate affordability: 5 % imputed rate, amortisation, maintenance, one-third rule. Examples and options if you fall short.",
+  "h1": "Swiss affordability rules explained",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Guide",
+    "h1": "Swiss affordability\n*rules explained*",
+    "lead": "Understanding **mortgage affordability in Switzerland** tells you which purchase price is realistic before you start viewing. Learn how lenders calculate with a 5 % imputed rate, maintenance and amortisation, with a worked example and options if you fall short.",
+    "ctas": [
+     {
+      "label": "Request a mortgage",
+      "to": "funnel"
+     },
+     {
+      "label": "Affordability calculator",
+      "to": "page:tragbarkeit"
+     }
+    ],
+    "badges": [
+     "Worked example",
+     "As of 2026",
+     "Free calculator"
+    ],
+    "image": "family",
+    "alt": "Family in their new, still empty home"
+   },
+   {
+    "type": "article",
+    "blocks": [
+     {
+      "p": "Before a Swiss bank, insurer or pension fund approves a mortgage, it checks two things: the loan-to-value ratio and affordability. Loan-to-value shows how much of the property value is financed with debt. Affordability shows whether you could still carry your housing costs if interest rates rose sharply. If you run the numbers early, you know before the first viewing which price works, and you negotiate with more confidence."
+     },
+     {
+      "h2": "What affordability means in Switzerland"
+     },
+     {
+      "p": "Affordability (Tragbarkeit) is the ratio between imputed housing costs and your gross income. The Swiss **one third rule** says that annual costs should not exceed roughly a third of your gross household income. Above that, affordability is considered not met, and most lenders will decline the financing in that form or ask for changes."
+     },
+     {
+      "p": "This calculation has little to do with what you will actually pay each month. It is a stress test: the lender wants to know whether your budget would hold in a high-rate environment, so it deliberately calculates conservatively. Your actual interest costs today are usually much lower."
+     },
+     {
+      "h2": "The three cost items lenders use"
+     },
+     {
+      "p": "Three items make up the Swiss affordability calculation. Together they form the imputed annual cost, which is then compared with your gross income."
+     },
+     {
+      "ul": [
+       "**Imputed interest:** 5 % on the full mortgage, whether you choose a SARON or a fixed-rate mortgage.",
+       "**Maintenance and running costs:** a flat 1 % of the lending value per year, covering repairs, renovation and ongoing costs.",
+       "**Amortisation:** the second mortgage, meaning the part above two thirds of the lending value, must be repaid within 15 years or by retirement. The annual amount is part of the calculation."
+      ]
+     },
+     {
+      "p": "Income usually means the regular gross income of your household. How bonuses, side income, self-employed earnings or pensions are counted differs from lender to lender. Existing commitments such as car leasing or consumer loans can reduce affordability further. These are general rules, as of 2026, without guarantee."
+     },
+     {
+      "h2": "Worked example: the Meier family in Baden"
+     },
+     {
+      "p": "You may know the Meier family from the HYPOTEQ Academy. They want to buy a detached house in Baden for CHF 980’000, but the bank values it at only CHF 950’000. Under the lowest-value principle, the lower figure becomes the lending value. The Meiers bring CHF 250’000 of equity: CHF 170’000 in savings and CHF 80’000 from their pension fund (pillar 2). That leaves a mortgage of CHF 730’000 and a loan-to-value of about 76.8 %. Their gross household income is CHF 185’000."
+     },
+     {
+      "table": {
+       "head": [
+        "Item",
+        "Calculation",
+        "Per year"
+       ],
+       "rows": [
+        [
+         "Imputed interest",
+         "5 % × CHF 730’000",
+         "CHF 36’500"
+        ],
+        [
+         "Maintenance and running costs",
+         "1 % × CHF 950’000",
+         "CHF 9’500"
+        ],
+        [
+         "Amortisation of 2nd mortgage",
+         "approx. CHF 97’000 ÷ 15 years",
+         "CHF 6’500"
+        ],
+        [
+         "**Total imputed costs**",
+         "",
+         "**CHF 52’500**"
+        ],
+        [
+         "**Affordability**",
+         "CHF 52’500 ÷ CHF 185’000",
+         "**28.4 %**"
+        ]
+       ]
+      }
+     },
+     {
+      "p": "At 28.4 %, the Meiers are clearly below the one-third limit. A third of their income would be CHF 61’667 a year, leaving a buffer of just over CHF 9’000. Put the other way round: with the same mortgage, gross income would need to be at least about CHF 157’500. Per month, the lender assumes imputed costs of CHF 4’375, even though the real burden at today's rates is much lower."
+     },
+     {
+      "p": "The second mortgage works like this: two thirds of CHF 950’000 is about CHF 633’000, the first mortgage, which does not have to be repaid. The remaining CHF 97’000 or so is the second mortgage, which means about CHF 6’500 of amortisation per year over 15 years."
+     },
+     {
+      "tip": "Calculate with the lending value, not just the purchase price. If the bank values the property below the price, your equity requirement and loan-to-value go up. An independent valuation before you commit gives you clarity.",
+      "title": "Tip"
+     },
+     {
+      "cta": {
+       "title": "Calculate your own affordability",
+       "text": "Enter price, equity and income and see in seconds how lenders will assess your project.",
+       "label": "Affordability calculator",
+       "to": "page:tragbarkeit"
+      }
+     },
+     {
+      "h2": "Why a 5 % imputed interest rate?"
+     },
+     {
+      "p": "The **imputed interest rate of 5 %** is far above current market rates. Our indicative rates start from 0.85 % for SARON and from 1.60 % for a 10-year fixed rate (sample values). Most lenders still stick with 5 %. The reason: a mortgage often runs for decades, rates can move a lot in that time, and the Swiss market has seen periods of much higher mortgage rates before."
+     },
+     {
+      "p": "The high rate protects both sides. The lender limits its risk, and you avoid getting into trouble if rates turn. So even if a fixed rate is cheap today, it is not your contract rate that decides approval, but the 5 % stress test."
+     },
+     {
+      "h2": "If you don't meet the rule: your options"
+     },
+     {
+      "p": "A result above one third is not the end of the road. With a few adjustments, the project can often still be financed:"
+     },
+     {
+      "ul": [
+       "**More equity:** a smaller mortgage reduces imputed interest and often amortisation. Our down payment guide explains what counts.",
+       "**Pension assets:** a withdrawal from your pension fund increases equity, while a pledge can change the amortisation. Both have pros and cons.",
+       "**Second income:** if you buy as a couple, both incomes usually count, provided both of you become borrowers.",
+       "**Adjust the price or property:** sometimes a slightly cheaper home is the more solid choice.",
+       "**Compare lenders:** the rules differ in the details. What narrowly fails at your bank can work with an insurer or pension fund."
+      ]
+     },
+     {
+      "p": "For complex cases, such as shortly before retirement, with variable income or after a bank has declined, our Advisory team offers an in-depth analysis. The first meeting is free."
+     },
+     {
+      "h2": "Do all lenders apply the same rules?"
+     },
+     {
+      "p": "The principles are similar across Switzerland, the details are not. Banks, insurers and pension funds handle the imputed rate, the maintenance flat rate and income in slightly different ways, especially bonuses, pensions or self-employed income. That is why comparing pays off: HYPOTEQ works with more than 40 financing partners and knows where your profile fits best. This matters for expats too, whether you hold a B or C permit."
+     },
+     {
+      "p": "The comparison is free for you. Upload your documents, our AI reads most of the details, and your advisor usually gets in touch promptly. Advice always comes from a person, in English if you prefer."
+     },
+     {
+      "cta": {
+       "title": "Have experts check your affordability",
+       "text": "Request in 3 minutes, free and non-binding. Offers usually 48–72 hours after your documents are complete.",
+       "label": "Request a mortgage",
+       "to": "funnel"
+      }
+     },
+     {
+      "h2": "Go deeper with the HYPOTEQ Academy"
+     },
+     {
+      "p": "Want to understand exactly how loan-to-value and affordability interact? In the **Foundation Course** of the HYPOTEQ Academy (CHF 290), the learning journey on lending and affordability walks you through the Meier family case step by step, with knowledge checks and an AI trainer. No prior knowledge needed. Are you a real estate agent, trustee or broker? With the HYPOTEQ partner programme you arrange financing for your clients, and your team gets access to the Academy."
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Affordability:\n*quick answers.*",
+    "items": [
+     {
+      "q": "What does affordability mean in Switzerland?",
+      "a": "It shows whether you can carry the mortgage long term. Imputed costs of 5 % interest, 1 % maintenance and amortisation should not exceed about a third of your gross income. For the Meier family that is CHF 52’500, or 28.4 % of CHF 185’000."
+     },
+     {
+      "q": "Why a 5 % imputed rate?",
+      "a": "It is a stress test. Mortgages often run for decades, and rates can rise significantly. With 5 %, the lender checks that your budget would still hold. Your actual interest costs are usually much lower."
+     },
+     {
+      "q": "What if I don't meet the rule?",
+      "a": "Look at more equity, pension assets, a second income, a cheaper property or other lenders. A combination often works. We run the scenarios with you and approach the partners whose rules suit your profile."
+     },
+     {
+      "q": "Do all banks apply the same rules?",
+      "a": "Not in the details. Banks, insurers and pension funds differ on the imputed rate, the maintenance flat rate and how they count bonuses or pensions. That is why comparing **40+ financing partners** pays off, free of charge for you."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Explore the Academy",
+      "to": "page:academy"
+     },
+     {
+      "label": "All guides",
+      "to": "page:ratgeber"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Affordability checked?\n*Get your offers.*",
+    "text": "Compare for free, get personal advice and usually receive offers within 48–72 h.",
+    "ctas": [
+     {
+      "label": "Request a mortgage",
+      "to": "funnel"
+     },
+     {
+      "label": "Mortgage calculator",
+      "to": "page:rechner"
+     }
+    ]
+   }
+  ]
+ }
+}

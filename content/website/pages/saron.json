@@ -1,0 +1,994 @@
+{
+ "de": {
+  "title": "SARON-Hypothek: Zins, Marge und Vergleich | HYPOTEQ",
+  "description": "SARON-Hypothek ab 0.85 % (Richtzins): Vergleiche Margen von 40+ Anbietern und finde flexible Modelle mit Wechseloption. Jetzt vergleichen.",
+  "h1": "SARON-Hypothek mit tiefer Marge",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypotheken · SARON",
+    "h1": "SARON-Hypothek\nmit tiefer Marge",
+    "lead": "Bei der **SARON-Hypothek** zahlst du den Schweizer Geldmarktzins plus eine Marge, und genau diese Marge entscheidet über deine Kosten. Wir vergleichen die Margen von über 40 Banken, Versicherungen und Pensionskassen **kostenlos** für dich.",
+    "ctas": [
+     {
+      "label": "SARON-Hypothek anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "Aktuelle Zinsen",
+      "to": "page:zinsen"
+     }
+    ],
+    "badges": [
+     "SARON ab 0.85 % (Richtzins)",
+     "Margen von 40+ Anbietern",
+     "0 CHF Vermittlung"
+    ],
+    "image": "bern",
+    "alt": "Berner Altstadt mit Münster",
+    "float": {
+     "title": "SARON ab 0.85 %",
+     "text": "Richtzins · Beispielwert"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "Anbieter vergleichen ihre SARON-Margen"
+     },
+     {
+      "value": "0 CHF",
+      "label": "für Vergleich und Vermittlung"
+     },
+     {
+      "value": "3 Min.",
+      "label": "bis zur vollständigen Anfrage"
+     },
+     {
+      "value": "48–72 h",
+      "label": "bis zu den Offerten (Unterlagen komplett)"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "SARON Zins aktuell",
+    "title": "Wo der Markt\n*heute steht.*",
+    "lead": "Die Richtzinsen zeigen dir, wie sich SARON gegenüber 5 und 10 Jahren fest verhält. Dein persönlicher Zins hängt von Objekt, Belehnung, Tragbarkeit und der verhandelten Marge ab."
+   },
+   {
+    "type": "split",
+    "eyebrow": "So funktioniert die Geldmarkthypothek",
+    "title": "SARON plus Marge.\n*Mehr nicht.*",
+    "image": "keys",
+    "alt": "Hausschlüssel auf einem Holztisch",
+    "paragraphs": [
+     "SARON (Swiss Average Rate Overnight) ist der Referenzzinssatz des Schweizer Geldmarkts. Dein Zins setzt sich aus dem SARON und einer festen **Marge** der Bank zusammen. Steigt oder sinkt der SARON, ändert sich dein Zins, meist quartalsweise abgerechnet.",
+     "Die Marge bleibt während der Rahmenlaufzeit, oft 2 bis 5 Jahre, gleich. Sie variiert zwischen den Anbietern deutlich. Darum lohnt sich der Vergleich bei der **SARON Hypothek Marge** besonders."
+    ],
+    "bullets": [
+     "Zins = SARON + Marge",
+     "Rahmenvertrag meist 2–5 Jahre",
+     "Wechsel in eine Festhypothek oft möglich",
+     "Belehnung bis 80 %, Tragbarkeit mit 5 % kalkulatorischem Zins"
+    ],
+    "ctas": [
+     {
+      "label": "Margen vergleichen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "compare",
+    "eyebrow": "SARON Hypothek Vor- und Nachteile",
+    "title": "Passt SARON\nzu dir?",
+    "head": [
+     "",
+     "Vorteile",
+     "Nachteile"
+    ],
+    "rows": [
+     [
+      "Zinskosten",
+      "historisch oft günstiger als Festhypotheken",
+      "Zins kann jederzeit steigen"
+     ],
+     [
+      "Flexibilität",
+      "Wechsel oder Ausstieg je nach Vertrag einfacher",
+      "Budget schwerer planbar"
+     ],
+     [
+      "Zinswende",
+      "du profitierst direkt von sinkenden Zinsen",
+      "steigende Zinsen spürst du sofort"
+     ],
+     [
+      "Eignung",
+      "Reserven vorhanden, Risiko tragbar",
+      "knappes Budget, Planungssicherheit wichtig"
+     ]
+    ],
+    "note": "Allgemeine Einschätzung, Stand 2026, ohne Gewähr. Die passende Strategie klären wir persönlich mit dir."
+   },
+   {
+    "type": "calc",
+    "mode": "zins",
+    "eyebrow": "Zinsrechner",
+    "title": "Was kostet\n*deine SARON-Hypothek?*",
+    "lead": "Rechne mit verschiedenen Zinsannahmen und sieh, wie sich deine monatlichen Kosten verändern, wenn der SARON steigt oder sinkt."
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Tranchierung & Kombination",
+    "title": "Nicht alles auf\n*eine Karte.*",
+    "lead": "Viele Eigentümer teilen ihre Hypothek in Tranchen auf und kombinieren SARON mit Festhypotheken.",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Strategie",
+      "title": "SARON + Fest kombinieren",
+      "text": "Ein Teil profitiert vom Geldmarkt, ein Teil ist fix abgesichert. So begrenzt du das Zinsrisiko.",
+      "to": "page:rg-saron-fest",
+      "cta": "Ratgeber SARON oder Fest"
+     },
+     {
+      "kicker": "Alternative",
+      "title": "Festhypothek",
+      "text": "Planbare Zinsen über 2 bis 15 Jahre. Ideal, wenn dein Budget fix bleiben muss.",
+      "to": "page:fest",
+      "cta": "Zur Festhypothek"
+     },
+     {
+      "kicker": "Prüfen",
+      "title": "Tragbarkeit rechnen",
+      "text": "Banken rechnen mit 5 % kalkulatorisch, unabhängig vom tiefen SARON.",
+      "to": "page:tragbarkeit",
+      "cta": "Zum Rechner"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "So geht’s",
+    "title": "In vier Schritten\nzur tiefen Marge.",
+    "items": [
+     {
+      "title": "Anfrage in 3 Minuten",
+      "text": "Unterlagen hochladen, die KI liest die meisten Angaben aus. Oder Schritt für Schritt erfassen."
+     },
+     {
+      "title": "Beraterin meldet sich",
+      "text": "Noch zeitnah klären wir, ob SARON, Fest oder ein Mix für dich passt."
+     },
+     {
+      "title": "Margen vergleichen",
+      "text": "Wir holen Offerten von über 40 Anbietern ein und verhandeln die Marge."
+     },
+     {
+      "title": "Abschliessen",
+      "text": "Du entscheidest, wir begleiten dich bis zur Auszahlung."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "SARON-Hypothek anfragen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Für Makler & Treuhänder",
+    "title": "Deine Kunden.\n*Unsere Margen.*",
+    "screen": "portal",
+    "tone": "dark",
+    "reverse": true,
+    "paragraphs": [
+     "Du begleitest Käuferinnen oder Eigentümer? Im **Partnerprogramm** reichst du Fälle ein, die Kundenbeziehung bleibt bei dir und du erhältst eine faire Provision pro Abschluss."
+    ],
+    "ctas": [
+     {
+      "label": "Partner werden",
+      "to": "page:partner"
+     },
+     {
+      "label": "Alle Hypotheken",
+      "to": "page:hypotheken"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "SARON-Hypothek\nkurz erklärt.",
+    "items": [
+     {
+      "q": "Wie setzt sich der SARON-Zins zusammen?",
+      "a": "Dein Zins besteht aus dem **SARON**, dem Durchschnittssatz des Schweizer Geldmarkts, und einer festen **Marge** der Bank."
+     },
+     {
+      "q": "Wie hoch ist eine faire Marge?",
+      "a": "Das hängt von Belehnung, Tragbarkeit und Objekt ab. Eine pauschale Zahl wäre unseriös. Wir vergleichen die Margen von über 40 Anbietern und zeigen dir transparent, was in deinem Fall möglich ist."
+     },
+     {
+      "q": "Kann ich von SARON in eine Festhypothek wechseln?",
+      "a": "Bei vielen Anbietern ja, oft jederzeit innerhalb des Rahmenvertrags. Ob der Wechsel beim gleichen Anbieter erfolgen muss, steht im Vertrag. Wir prüfen das vor dem Abschluss."
+     },
+     {
+      "q": "Für wen eignet sich eine SARON-Hypothek?",
+      "a": "Für alle, die Zinsschwankungen tragen können, finanzielle Reserven haben und Flexibilität schätzen. Wer ein fixes Budget braucht, kombiniert SARON mit einer Festhypothek."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Alle Fragen",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Bereit für deine\n*tiefe SARON-Marge?*",
+    "text": "Kostenlos vergleichen, unverbindlich und in 3 Minuten gestartet.",
+    "ctas": [
+     {
+      "label": "SARON-Hypothek anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Hypothèque SARON: taux, marge et comparatif | HYPOTEQ",
+  "description": "Hypothèque SARON dès 0.85 % (taux indicatif): comparez les marges de 40+ prêteurs et choisissez un modèle flexible. Comparez maintenant, c'est gratuit.",
+  "h1": "Hypothèque SARON à marge réduite",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypothèques · SARON",
+    "h1": "Hypothèque SARON\nà marge réduite",
+    "lead": "Avec une **hypothèque SARON**, vous payez le taux du marché monétaire suisse plus une marge, et c'est cette marge qui fait la différence. Nous comparons **gratuitement** les marges de plus de 40 banques, assurances et caisses de pension.",
+    "ctas": [
+     {
+      "label": "Demander une hypothèque SARON",
+      "to": "funnel"
+     },
+     {
+      "label": "Taux actuels",
+      "to": "page:zinsen"
+     }
+    ],
+    "badges": [
+     "SARON dès 0.85 % (indicatif)",
+     "Marges de 40+ prêteurs",
+     "0 CHF de courtage"
+    ],
+    "image": "bern",
+    "alt": "Vieille ville de Berne et sa cathédrale",
+    "float": {
+     "title": "SARON dès 0.85 %",
+     "text": "Taux indicatif · exemple"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "prêteurs comparent leur marge SARON"
+     },
+     {
+      "value": "0 CHF",
+      "label": "pour la comparaison et le courtage"
+     },
+     {
+      "value": "3 min",
+      "label": "pour une demande complète"
+     },
+     {
+      "value": "48–72 h",
+      "label": "jusqu'aux offres (dossier complet)"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Taux SARON actuel",
+    "title": "Où en est\n*le marché aujourd'hui.*",
+    "lead": "Nos taux indicatifs montrent la position du SARON face aux taux fixes à 5 et 10 ans. Votre taux personnel dépend du bien, du taux d'avance, de la capacité financière et de la marge négociée."
+   },
+   {
+    "type": "split",
+    "eyebrow": "L'hypothèque marché monétaire",
+    "title": "SARON plus marge.\n*Rien de plus.*",
+    "image": "keys",
+    "alt": "Clés de maison sur une table en bois",
+    "paragraphs": [
+     "Le SARON (Swiss Average Rate Overnight) est le taux de référence du marché monétaire suisse. Votre taux hypothécaire se compose du SARON et d'une **marge** fixe du prêteur. Lorsque le SARON évolue, votre taux suit, généralement avec un décompte trimestriel.",
+     "La marge reste identique pendant la durée du contrat-cadre, souvent de 2 à 5 ans. Elle varie fortement d'un prêteur à l'autre: comparer la **marge SARON** est donc essentiel."
+    ],
+    "bullets": [
+     "Taux = SARON + marge",
+     "Contrat-cadre de 2 à 5 ans en général",
+     "Passage au taux fixe souvent possible",
+     "Taux d'avance jusqu'à 80 %, capacité financière calculée à 5 %"
+    ],
+    "ctas": [
+     {
+      "label": "Comparer les marges",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "compare",
+    "eyebrow": "SARON avantages inconvénients",
+    "title": "Le SARON\nvous convient-il?",
+    "head": [
+     "",
+     "Avantages",
+     "Inconvénients"
+    ],
+    "rows": [
+     [
+      "Coût",
+      "souvent plus avantageux qu'un taux fixe par le passé",
+      "le taux peut monter à tout moment"
+     ],
+     [
+      "Flexibilité",
+      "changement ou sortie souvent plus simples selon le contrat",
+      "budget moins prévisible"
+     ],
+     [
+      "Évolution des taux",
+      "vous profitez directement d'une baisse",
+      "une hausse se ressent immédiatement"
+     ],
+     [
+      "Profil",
+      "réserves disponibles, risque supportable",
+      "budget serré, besoin de sécurité"
+     ]
+    ],
+    "note": "Appréciation générale, état 2026, sans garantie. Nous définissons avec vous la stratégie adaptée."
+   },
+   {
+    "type": "calc",
+    "mode": "zins",
+    "eyebrow": "Calculateur de taux",
+    "title": "Combien coûte\n*votre hypothèque SARON?*",
+    "lead": "Testez différentes hypothèses de taux et voyez comment vos charges mensuelles évoluent si le SARON monte ou baisse."
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Tranches & combinaison",
+    "title": "Ne misez pas tout\n*sur un seul modèle.*",
+    "lead": "De nombreux propriétaires divisent leur hypothèque en tranches et combinent SARON et taux fixe.",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Stratégie",
+      "title": "Combiner SARON et fixe",
+      "text": "Une part profite du marché monétaire, une autre est protégée. Le risque de taux reste limité.",
+      "to": "page:rg-saron-fest",
+      "cta": "Guide SARON ou fixe"
+     },
+     {
+      "kicker": "Alternative",
+      "title": "Hypothèque à taux fixe",
+      "text": "Des taux planifiables sur 2 à 15 ans, idéal si votre budget doit rester stable.",
+      "to": "page:fest",
+      "cta": "Voir le taux fixe"
+     },
+     {
+      "kicker": "Vérifier",
+      "title": "Capacité financière",
+      "text": "Les prêteurs calculent avec un taux théorique de 5 %, quel que soit le SARON.",
+      "to": "page:tragbarkeit",
+      "cta": "Vers le calculateur"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Comment ça marche",
+    "title": "Quatre étapes\nvers une marge réduite.",
+    "items": [
+     {
+      "title": "Demande en 3 minutes",
+      "text": "Téléchargez vos documents, l'IA extrait la plupart des données. Ou remplissez la demande pas à pas."
+     },
+     {
+      "title": "Votre conseillère vous rappelle",
+      "text": "Le jour ouvrable même, nous voyons si SARON, fixe ou un mix vous convient."
+     },
+     {
+      "title": "Comparer les marges",
+      "text": "Nous obtenons des offres de plus de 40 prêteurs et négocions la marge."
+     },
+     {
+      "title": "Conclure",
+      "text": "Vous décidez, nous vous accompagnons jusqu'au versement."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Demander une hypothèque SARON",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Pour courtiers & fiduciaires",
+    "title": "Vos clients.\n*Nos marges.*",
+    "screen": "portal",
+    "tone": "dark",
+    "reverse": true,
+    "paragraphs": [
+     "Vous accompagnez des acheteurs ou des propriétaires? Avec le **programme partenaires**, vous transmettez vos dossiers, la relation client reste la vôtre et vous touchez une commission équitable par conclusion."
+    ],
+    "ctas": [
+     {
+      "label": "Devenir partenaire",
+      "to": "page:partner"
+     },
+     {
+      "label": "Toutes les hypothèques",
+      "to": "page:hypotheken"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "L'hypothèque SARON\nen bref.",
+    "items": [
+     {
+      "q": "Comment est calculé le taux SARON?",
+      "a": "Votre taux se compose du **SARON**, taux moyen du marché monétaire suisse, et d'une **marge** fixe du prêteur."
+     },
+     {
+      "q": "Quelle marge est raisonnable?",
+      "a": "Cela dépend du taux d'avance, de la capacité financière et du bien. Un chiffre général ne serait pas sérieux. Nous comparons les marges de plus de 40 prêteurs et vous montrons ce qui est possible dans votre cas."
+     },
+     {
+      "q": "Peut-on passer du SARON au taux fixe?",
+      "a": "Chez de nombreux prêteurs, oui, souvent à tout moment pendant le contrat-cadre. Le contrat précise si le changement doit se faire chez le même prêteur. Nous le vérifions avant la signature."
+     },
+     {
+      "q": "À qui convient l'hypothèque SARON?",
+      "a": "Aux personnes qui peuvent supporter des variations de taux, disposent de réserves et apprécient la flexibilité. Si votre budget doit rester fixe, combinez SARON et taux fixe."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Toutes les questions",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Prêt pour une\n*marge SARON réduite?*",
+    "text": "Comparaison gratuite, sans engagement, lancée en 3 minutes.",
+    "ctas": [
+     {
+      "label": "Demander une hypothèque SARON",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Ipoteca SARON: tasso, margine, confronto | HYPOTEQ",
+  "description": "Ipoteca SARON da 0.85 % (tasso indicativo): confronta i margini di oltre 40 istituti e scegli un modello flessibile. Confronta ora gratuitamente.",
+  "h1": "Ipoteca SARON con margine ridotto",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Ipoteche · SARON",
+    "h1": "Ipoteca SARON\ncon margine ridotto",
+    "lead": "Con un'**ipoteca SARON** paghi il tasso del mercato monetario svizzero più un margine, ed è proprio il margine a determinare i tuoi costi. Confrontiamo **gratuitamente** i margini di oltre 40 banche, assicurazioni e casse pensione.",
+    "ctas": [
+     {
+      "label": "Richiedi ipoteca SARON",
+      "to": "funnel"
+     },
+     {
+      "label": "Tassi attuali",
+      "to": "page:zinsen"
+     }
+    ],
+    "badges": [
+     "SARON da 0.85 % (indicativo)",
+     "Margini di 40+ istituti",
+     "0 CHF mediazione"
+    ],
+    "image": "bern",
+    "alt": "Città vecchia di Berna con la cattedrale",
+    "float": {
+     "title": "SARON da 0.85 %",
+     "text": "Tasso indicativo · esempio"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "istituti confrontano il margine SARON"
+     },
+     {
+      "value": "0 CHF",
+      "label": "per confronto e mediazione"
+     },
+     {
+      "value": "3 min",
+      "label": "per una richiesta completa"
+     },
+     {
+      "value": "48–72 h",
+      "label": "fino alle offerte (documenti completi)"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Tasso SARON attuale",
+    "title": "Dove si trova\n*il mercato oggi.*",
+    "lead": "I tassi indicativi mostrano il SARON rispetto al tasso fisso a 5 e 10 anni. Il tuo tasso personale dipende da immobile, anticipo, sostenibilità e margine negoziato."
+   },
+   {
+    "type": "split",
+    "eyebrow": "L'ipoteca mercato monetario",
+    "title": "SARON più margine.\n*Niente di più.*",
+    "image": "keys",
+    "alt": "Chiavi di casa su un tavolo di legno",
+    "paragraphs": [
+     "Il SARON (Swiss Average Rate Overnight) è il tasso di riferimento del mercato monetario svizzero. Il tuo tasso ipotecario è composto dal SARON e da un **margine** fisso dell'istituto. Se il SARON cambia, cambia anche il tuo tasso, di solito con conteggio trimestrale.",
+     "Il margine resta invariato per tutta la durata del contratto quadro, spesso da 2 a 5 anni, ma varia molto da un istituto all'altro. Per questo conviene confrontare il **margine SARON**."
+    ],
+    "bullets": [
+     "Tasso = SARON + margine",
+     "Contratto quadro di regola 2–5 anni",
+     "Passaggio al tasso fisso spesso possibile",
+     "Anticipo fino all'80 %, sostenibilità calcolata al 5 %"
+    ],
+    "ctas": [
+     {
+      "label": "Confronta i margini",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "compare",
+    "eyebrow": "Vantaggi e svantaggi",
+    "title": "Il SARON\nfa per te?",
+    "head": [
+     "",
+     "Vantaggi",
+     "Svantaggi"
+    ],
+    "rows": [
+     [
+      "Costi",
+      "in passato spesso più conveniente del tasso fisso",
+      "il tasso può salire in qualsiasi momento"
+     ],
+     [
+      "Flessibilità",
+      "cambio o uscita spesso più semplici, secondo contratto",
+      "budget meno pianificabile"
+     ],
+     [
+      "Andamento dei tassi",
+      "approfitti subito dei tassi in calo",
+      "un aumento si sente subito"
+     ],
+     [
+      "Profilo",
+      "riserve disponibili, rischio sostenibile",
+      "budget limitato, serve sicurezza"
+     ]
+    ],
+    "note": "Valutazione generale, stato 2026, senza garanzia. La strategia giusta la definiamo insieme a te."
+   },
+   {
+    "type": "calc",
+    "mode": "zins",
+    "eyebrow": "Calcolatore tassi",
+    "title": "Quanto costa\n*la tua ipoteca SARON?*",
+    "lead": "Prova diverse ipotesi di tasso e scopri come cambiano i costi mensili se il SARON sale o scende."
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Tranche e combinazione",
+    "title": "Non puntare tutto\n*su un solo modello.*",
+    "lead": "Molti proprietari suddividono l'ipoteca in tranche e combinano SARON e tasso fisso.",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Strategia",
+      "title": "Combinare SARON e fisso",
+      "text": "Una parte approfitta del mercato monetario, l'altra è protetta. Così limiti il rischio di tasso.",
+      "to": "page:rg-saron-fest",
+      "cta": "Guida SARON o fisso"
+     },
+     {
+      "kicker": "Alternativa",
+      "title": "Ipoteca a tasso fisso",
+      "text": "Tassi pianificabili da 2 a 15 anni, ideale se il budget deve restare stabile.",
+      "to": "page:fest",
+      "cta": "Al tasso fisso"
+     },
+     {
+      "kicker": "Verificare",
+      "title": "Calcolare la sostenibilità",
+      "text": "Gli istituti calcolano con un tasso teorico del 5 %, indipendentemente dal SARON.",
+      "to": "page:tragbarkeit",
+      "cta": "Al calcolatore"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Come funziona",
+    "title": "Quattro passi\nverso un margine ridotto.",
+    "items": [
+     {
+      "title": "Richiesta in 3 minuti",
+      "text": "Carica i documenti, l'IA legge la maggior parte dei dati. Oppure compila passo dopo passo."
+     },
+     {
+      "title": "La consulente ti contatta",
+      "text": "Nelin tempi brevi valutiamo se fa per te SARON, fisso o un mix."
+     },
+     {
+      "title": "Confrontare i margini",
+      "text": "Raccogliamo offerte da oltre 40 istituti e negoziamo il margine."
+     },
+     {
+      "title": "Concludere",
+      "text": "Decidi tu, noi ti accompagniamo fino al versamento."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Richiedi ipoteca SARON",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Per agenti immobiliari e fiduciari",
+    "title": "I tuoi clienti.\n*I nostri margini.*",
+    "screen": "portal",
+    "tone": "dark",
+    "reverse": true,
+    "paragraphs": [
+     "Accompagni acquirenti o proprietari? Con il **programma partner** inoltri i casi, la relazione con il cliente resta tua e ricevi una provvigione equa per ogni conclusione."
+    ],
+    "ctas": [
+     {
+      "label": "Diventa partner",
+      "to": "page:partner"
+     },
+     {
+      "label": "Tutte le ipoteche",
+      "to": "page:hypotheken"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "L'ipoteca SARON\nin breve.",
+    "items": [
+     {
+      "q": "Come si calcola il tasso SARON?",
+      "a": "Il tuo tasso è composto dal **SARON**, il tasso medio del mercato monetario svizzero, e da un **margine** fisso dell'istituto."
+     },
+     {
+      "q": "Qual è un margine corretto?",
+      "a": "Dipende da anticipo, sostenibilità e immobile. Una cifra generica non sarebbe seria. Confrontiamo i margini di oltre 40 istituti e ti mostriamo cosa è possibile nel tuo caso."
+     },
+     {
+      "q": "Posso passare dal SARON al tasso fisso?",
+      "a": "Presso molti istituti sì, spesso in qualsiasi momento durante il contratto quadro. Il contratto indica se il cambio deve avvenire presso lo stesso istituto. Lo verifichiamo prima della firma."
+     },
+     {
+      "q": "Per chi è adatta un'ipoteca SARON?",
+      "a": "Per chi può sopportare oscillazioni dei tassi, ha riserve finanziarie e apprezza la flessibilità. Se il budget deve restare fisso, combina SARON e tasso fisso."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Tutte le domande",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Pronto per un\n*margine SARON ridotto?*",
+    "text": "Confronto gratuito, senza impegno, avviato in 3 minuti.",
+    "ctas": [
+     {
+      "label": "Richiedi ipoteca SARON",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "SARON Mortgage: Rates, Margins, Comparison | HYPOTEQ",
+  "description": "SARON mortgages from 0.85 % (indicative): compare margins from 40+ Swiss lenders and choose a flexible model. Compare now for free, in English.",
+  "h1": "SARON mortgages with low margins",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Mortgages · SARON",
+    "h1": "SARON mortgages\nwith low margins",
+    "lead": "With a **SARON mortgage** you pay the Swiss money market rate plus a margin, and that margin decides what you really pay. We compare margins from over 40 Swiss banks, insurers and pension funds **for free**, with advice in English.",
+    "ctas": [
+     {
+      "label": "Apply for a SARON mortgage",
+      "to": "funnel"
+     },
+     {
+      "label": "Current rates",
+      "to": "page:zinsen"
+     }
+    ],
+    "badges": [
+     "SARON from 0.85 % (indicative)",
+     "Margins from 40+ lenders",
+     "CHF 0 brokerage"
+    ],
+    "image": "bern",
+    "alt": "Bern old town with the Minster",
+    "float": {
+     "title": "SARON from 0.85 %",
+     "text": "Indicative rate · example"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "lenders compete on their SARON margin"
+     },
+     {
+      "value": "CHF 0",
+      "label": "for comparison and brokerage"
+     },
+     {
+      "value": "3 min",
+      "label": "to a complete application"
+     },
+     {
+      "value": "48–72 h",
+      "label": "to offers (complete documents)"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "SARON rate today",
+    "title": "Where the market\n*stands today.*",
+    "lead": "Our indicative rates show SARON next to 5- and 10-year fixed rates. Your personal rate depends on the property, loan-to-value, affordability and the margin we negotiate."
+   },
+   {
+    "type": "split",
+    "eyebrow": "How a variable mortgage works in Switzerland",
+    "title": "SARON plus margin.\n*That’s it.*",
+    "image": "keys",
+    "alt": "House keys on a wooden table",
+    "paragraphs": [
+     "SARON (Swiss Average Rate Overnight) is the reference rate of the Swiss money market. Your mortgage rate is SARON plus a fixed **margin** set by the lender. When SARON moves, your rate moves too, usually settled quarterly.",
+     "The margin stays the same for the framework term, often 2 to 5 years, but it differs a lot between lenders. That is why comparing the **SARON mortgage margin** pays off."
+    ],
+    "bullets": [
+     "Rate = SARON + margin",
+     "Framework agreement usually 2–5 years",
+     "Switching to fixed is often possible",
+     "Up to 80 % loan-to-value, affordability tested at 5 %"
+    ],
+    "ctas": [
+     {
+      "label": "Compare margins",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "compare",
+    "eyebrow": "Pros and cons",
+    "title": "Is SARON\nright for you?",
+    "head": [
+     "",
+     "Pros",
+     "Cons"
+    ],
+    "rows": [
+     [
+      "Cost",
+      "historically often cheaper than fixed rates",
+      "the rate can rise at any time"
+     ],
+     [
+      "Flexibility",
+      "switching or exiting often easier, depending on contract",
+      "budget is harder to plan"
+     ],
+     [
+      "Rate changes",
+      "you benefit directly when rates fall",
+      "you feel rising rates straight away"
+     ],
+     [
+      "Best for",
+      "buyers with reserves who can carry risk",
+      "tight budgets that need certainty"
+     ]
+    ],
+    "note": "General assessment, as of 2026, without guarantee. We work out the right strategy with you personally."
+   },
+   {
+    "type": "calc",
+    "mode": "zins",
+    "eyebrow": "Rate calculator",
+    "title": "What does\n*your SARON mortgage cost?*",
+    "lead": "Try different rate assumptions and see how your monthly costs change if SARON goes up or down."
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Tranches & combinations",
+    "title": "Don’t put everything\n*on one model.*",
+    "lead": "Many Swiss homeowners split their mortgage into tranches and combine SARON with fixed terms.",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Strategy",
+      "title": "Combine SARON and fixed",
+      "text": "One part benefits from the money market, another is locked in. This keeps your interest rate risk in check.",
+      "to": "page:rg-saron-fest",
+      "cta": "Guide: SARON or fixed"
+     },
+     {
+      "kicker": "Alternative",
+      "title": "Fixed-rate mortgage",
+      "text": "Predictable rates for 2 to 15 years, ideal when your budget has to stay stable.",
+      "to": "page:fest",
+      "cta": "See fixed rates"
+     },
+     {
+      "kicker": "Check",
+      "title": "Affordability",
+      "text": "Swiss lenders test affordability at an imputed 5 %, regardless of today’s low SARON.",
+      "to": "page:tragbarkeit",
+      "cta": "Open calculator"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "How it works",
+    "title": "Four steps\nto a low margin.",
+    "items": [
+     {
+      "title": "Apply in 3 minutes",
+      "text": "Upload your documents and our AI reads most details. Or fill in the form step by step."
+     },
+     {
+      "title": "Your advisor gets in touch",
+      "text": "On promptly we discuss whether SARON, fixed or a mix fits you, in English if you like."
+     },
+     {
+      "title": "Compare margins",
+      "text": "We collect offers from over 40 lenders and negotiate the margin."
+     },
+     {
+      "title": "Sign",
+      "text": "You decide, and we support you until the funds are paid out."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Apply for a SARON mortgage",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "For agents & brokers",
+    "title": "Your clients.\n*Our margins.*",
+    "screen": "portal",
+    "tone": "dark",
+    "reverse": true,
+    "paragraphs": [
+     "Do you work with buyers or homeowners? With our **partner programme** you submit cases, keep the client relationship and earn a fair commission on every closed deal."
+    ],
+    "ctas": [
+     {
+      "label": "Become a partner",
+      "to": "page:partner"
+     },
+     {
+      "label": "All mortgages",
+      "to": "page:hypotheken"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "SARON mortgages\nexplained.",
+    "items": [
+     {
+      "q": "How is the SARON mortgage rate calculated?",
+      "a": "Your rate is **SARON**, the average rate of the Swiss money market, plus a fixed **margin** set by the lender."
+     },
+     {
+      "q": "What is a fair SARON margin?",
+      "a": "It depends on loan-to-value, affordability and the property, so a general figure would be misleading. We compare margins from over 40 lenders and show you transparently what is possible in your case."
+     },
+     {
+      "q": "Can I switch from SARON to fixed?",
+      "a": "With many lenders, yes, often at any time during the framework agreement. The contract states whether you have to switch with the same lender. We check this before you sign."
+     },
+     {
+      "q": "Who is a SARON mortgage suitable for?",
+      "a": "For borrowers who can cope with rate changes, have financial reserves and value flexibility. If you need a fixed budget, combine SARON with a fixed-rate tranche."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "All questions",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Ready for a\n*low SARON margin?*",
+    "text": "Free, non-binding and started in 3 minutes, with advice in English.",
+    "ctas": [
+     {
+      "label": "Apply for a SARON mortgage",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ }
+}

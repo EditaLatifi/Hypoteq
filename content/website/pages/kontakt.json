@@ -1,0 +1,634 @@
+{
+ "de": {
+  "title": "Kontakt: Hypothekenberatung in Zürich | HYPOTEQ",
+  "description": "Ruf uns an, schreib uns oder buche einen Termin. Deine Beraterin meldet sich zeitnah. HYPOTEQ AG, Zürich.",
+  "h1": "Kontakt aufnehmen",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "HYPOTEQ Kontakt",
+    "h1": "Kontakt aufnehmen",
+    "lead": "Ruf uns an, schreib uns oder vereinbare einen Termin für deine **Hypothekenberatung in Zürich**. Deine Beraterin meldet sich zeitnah.",
+    "ctas": [
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     },
+     {
+      "label": "Hypothek anfragen",
+      "to": "funnel"
+     }
+    ],
+    "badges": [
+     "Rasche, persönliche Rückmeldung",
+     "Vor Ort, telefonisch oder online",
+     "DE · FR · IT · EN"
+    ],
+    "image": "consultation",
+    "alt": "Beraterin im Gespräch mit Kunden"
+   },
+   {
+    "type": "cards",
+    "eyebrow": "So erreichst du uns",
+    "title": "Direkt\n*zu deiner Beraterin.*",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Adresse",
+      "title": "HYPOTEQ AG",
+      "text": "Löwenstrasse 29\n8001 Zürich\nTermine vor Ort nach Vereinbarung."
+     },
+     {
+      "kicker": "Telefon",
+      "title": "044 502 92 52",
+      "text": "Ruf uns an, wir beraten dich persönlich.",
+      "to": "tel",
+      "cta": "Anrufen"
+     },
+     {
+      "kicker": "E-Mail",
+      "title": "info@hypoteq.ch",
+      "text": "Schreib uns dein Anliegen, wir melden uns rasch.",
+      "to": "mail",
+      "cta": "E-Mail schreiben"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Der schnellste Weg",
+    "title": "Noch schneller:\n*die Online-Anfrage.*",
+    "screen": "funnel",
+    "paragraphs": [
+     "Wenn du bereits ein Objekt im Auge hast, ist die Online-Anfrage der schnellste Weg zur Offerte. In der **Schnellanmeldung** lädst du deine Unterlagen hoch und die KI füllt die meisten Angaben aus.",
+     "Deine Beraterin hat so alle Informationen zur Hand und kann dich gezielt beraten."
+    ],
+    "bullets": [
+     "Anfrage in ca. 3 Minuten",
+     "Offerten in der Regel innert 48–72 h",
+     "Die KI berät nicht: Das macht ein Mensch"
+    ],
+    "ctas": [
+     {
+      "label": "Online-Anfrage starten",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "form",
+    "kind": "contact",
+    "eyebrow": "Kontaktformular",
+    "title": "Schreib uns.",
+    "lead": "Hinterlasse deine Nachricht, wir melden uns zeitnah.",
+    "paragraphs": [
+     "Bitte sende keine sensiblen Dokumente über dieses Formular. Unterlagen lädst du sicher in der Online-Anfrage hoch."
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Für Partner",
+    "title": "Makler, Treuhänder\n*oder Broker?*",
+    "screen": "portal",
+    "tone": "dark",
+    "reverse": true,
+    "paragraphs": [
+     "Für Partnerschaften hast du eine persönliche Ansprechperson, keine Hotline und keinen Bot. Erzähl uns von deinem Unternehmen, wir melden uns für ein Kennenlernen."
+    ],
+    "bullets": [
+     "Die Kundenbeziehung bleibt bei dir",
+     "Faire Provision pro Abschluss",
+     "Immobilienbewertung inklusive"
+    ],
+    "ctas": [
+     {
+      "label": "Partneranfrage senden",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Partnerlogin",
+      "to": "portal"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Fragen zum\nKontakt.",
+    "items": [
+     {
+      "q": "Wie schnell meldet sich eine Beraterin?",
+      "a": "In der Regel **zeitnah**. Am schnellsten geht es mit der Online-Anfrage, weil deine Beraterin dann bereits alle Angaben hat."
+     },
+     {
+      "q": "Kann ich einen Termin vor Ort vereinbaren?",
+      "a": "Ja, gerne bei uns an der Löwenstrasse 29 in Zürich. Ruf uns an oder schreib uns für einen Termin."
+     },
+     {
+      "q": "Beratet ihr auch per Video?",
+      "a": "Ja. Neben Terminen vor Ort beraten wir dich telefonisch oder online per Video, ganz wie es dir passt."
+     },
+     {
+      "q": "In welchen Sprachen beratet ihr?",
+      "a": "Auf Deutsch, Französisch, Italienisch und Englisch."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Alle Fragen",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Lieber gleich\n*loslegen?*",
+    "text": "Kostenlos, unverbindlich und in 3 Minuten gestartet.",
+    "ctas": [
+     {
+      "label": "Hypothek anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Contact: conseil hypothécaire | HYPOTEQ",
+  "description": "Appelez-nous, écrivez-nous ou réservez un rendez-vous. Votre conseillère vous répond rapidement. Conseil en français, en ligne ou sur place.",
+  "h1": "Nous contacter",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "HYPOTEQ contact",
+    "h1": "Nous contacter",
+    "lead": "Appelez-nous, écrivez-nous ou prenez un **rendez-vous de conseil hypothécaire**, en ligne ou sur place à Zurich. Votre conseillère vous répond rapidement.",
+    "ctas": [
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     },
+     {
+      "label": "Demander une hypothèque",
+      "to": "funnel"
+     }
+    ],
+    "badges": [
+     "Réponse rapide et personnelle",
+     "Sur place, par téléphone ou en ligne",
+     "FR · DE · IT · EN"
+    ],
+    "image": "consultation",
+    "alt": "Conseillère en entretien avec des clients"
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Nous joindre",
+    "title": "Directement\n*à votre conseillère.*",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Adresse",
+      "title": "HYPOTEQ AG",
+      "text": "Löwenstrasse 29\n8001 Zurich\nRendez-vous sur place sur demande."
+     },
+     {
+      "kicker": "Téléphone",
+      "title": "044 502 92 52",
+      "text": "Appelez-nous, nous vous conseillons personnellement.",
+      "to": "tel",
+      "cta": "Appeler"
+     },
+     {
+      "kicker": "E-mail",
+      "title": "info@hypoteq.ch",
+      "text": "Décrivez-nous votre demande, nous vous répondons rapidement.",
+      "to": "mail",
+      "cta": "Écrire un e-mail"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Le plus rapide",
+    "title": "Encore plus rapide:\n*la demande en ligne.*",
+    "screen": "funnel",
+    "paragraphs": [
+     "Si vous avez déjà un bien en vue, la demande en ligne est le chemin le plus rapide vers une offre. Dans l'**inscription rapide**, vous envoyez vos documents et l'IA remplit la plupart des données.",
+     "Votre conseillère dispose ainsi de toutes les informations et peut vous conseiller de façon ciblée."
+    ],
+    "bullets": [
+     "Demande en env. 3 minutes",
+     "Offres en règle générale sous 48–72 h",
+     "L'IA ne conseille pas: c'est le rôle d'une personne"
+    ],
+    "ctas": [
+     {
+      "label": "Lancer la demande en ligne",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "form",
+    "kind": "contact",
+    "eyebrow": "Formulaire de contact",
+    "title": "Écrivez-nous.",
+    "lead": "Laissez-nous votre message, nous vous répondons rapidement.",
+    "paragraphs": [
+     "Merci de ne pas envoyer de documents sensibles via ce formulaire. Vos documents se transmettent en toute sécurité dans la demande en ligne."
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Pour les partenaires",
+    "title": "Courtier, fiduciaire\n*ou broker?*",
+    "screen": "portal",
+    "tone": "dark",
+    "reverse": true,
+    "paragraphs": [
+     "Pour les partenariats, vous avez un interlocuteur personnel: ni hotline, ni robot. Présentez-nous votre entreprise, nous vous recontactons pour faire connaissance."
+    ],
+    "bullets": [
+     "La relation client reste chez vous",
+     "Commission équitable par conclusion",
+     "Estimation immobilière incluse"
+    ],
+    "ctas": [
+     {
+      "label": "Demande de partenariat",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Login partenaires",
+      "to": "portal"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "Questions sur\nle contact.",
+    "items": [
+     {
+      "q": "Quand une conseillère me rappelle-t-elle?",
+      "a": "En règle générale **rapidement**. Le plus rapide est la demande en ligne, car votre conseillère dispose alors déjà de toutes les données."
+     },
+     {
+      "q": "Puis-je prendre rendez-vous sur place?",
+      "a": "Oui, volontiers dans nos bureaux à la Löwenstrasse 29 à Zurich. Appelez-nous ou écrivez-nous pour fixer un rendez-vous."
+     },
+     {
+      "q": "Conseillez-vous par vidéo?",
+      "a": "Oui. En plus des rendez-vous sur place, nous vous conseillons par téléphone ou en visioconférence, selon votre préférence."
+     },
+     {
+      "q": "En quelles langues conseillez-vous?",
+      "a": "En français, en allemand, en italien et en anglais."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Toutes les questions",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Envie de\n*commencer tout de suite?*",
+    "text": "Gratuit, sans engagement et lancé en 3 minutes.",
+    "ctas": [
+     {
+      "label": "Demander une hypothèque",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Contatto: consulenza ipotecaria | HYPOTEQ",
+  "description": "Chiamaci, scrivici o prenota un appuntamento. La tua consulente ti risponde in tempi brevi. Consulenza in italiano, online o di persona.",
+  "h1": "Contattaci",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "HYPOTEQ contatto",
+    "h1": "Contattaci",
+    "lead": "Chiamaci, scrivici o fissa un **appuntamento di consulenza ipotecaria**, online o di persona a Zurigo. La tua consulente ti risponde in tempi brevi.",
+    "ctas": [
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     },
+     {
+      "label": "Richiedere un'ipoteca",
+      "to": "funnel"
+     }
+    ],
+    "badges": [
+     "Risposta rapida e personale",
+     "Di persona, al telefono o online",
+     "IT · DE · FR · EN"
+    ],
+    "image": "consultation",
+    "alt": "Consulente in colloquio con clienti"
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Come raggiungerci",
+    "title": "Direttamente\n*alla tua consulente.*",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Indirizzo",
+      "title": "HYPOTEQ AG",
+      "text": "Löwenstrasse 29\n8001 Zurigo\nAppuntamenti in sede su richiesta."
+     },
+     {
+      "kicker": "Telefono",
+      "title": "044 502 92 52",
+      "text": "Chiamaci, ti offriamo una consulenza personale.",
+      "to": "tel",
+      "cta": "Chiama"
+     },
+     {
+      "kicker": "E-mail",
+      "title": "info@hypoteq.ch",
+      "text": "Scrivici la tua richiesta, ti rispondiamo rapidamente.",
+      "to": "mail",
+      "cta": "Scrivi un'e-mail"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "La via più rapida",
+    "title": "Ancora più rapido:\n*la richiesta online.*",
+    "screen": "funnel",
+    "paragraphs": [
+     "Se hai già un immobile in vista, la richiesta online è la via più rapida verso un'offerta. Nella **registrazione rapida** carichi i documenti e l'IA compila la maggior parte dei dati.",
+     "Così la tua consulente ha tutte le informazioni e può consigliarti in modo mirato."
+    ],
+    "bullets": [
+     "Richiesta in ca. 3 minuti",
+     "Offerte di regola entro 48–72 h",
+     "L'IA non fornisce consulenza: lo fa una persona"
+    ],
+    "ctas": [
+     {
+      "label": "Avvia la richiesta online",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "form",
+    "kind": "contact",
+    "eyebrow": "Modulo di contatto",
+    "title": "Scrivici.",
+    "lead": "Lasciaci un messaggio, ti rispondiamo in tempi brevi.",
+    "paragraphs": [
+     "Ti preghiamo di non inviare documenti sensibili tramite questo modulo. I documenti li carichi in modo sicuro nella richiesta online."
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Per i partner",
+    "title": "Agente, fiduciario\n*o broker?*",
+    "screen": "portal",
+    "tone": "dark",
+    "reverse": true,
+    "paragraphs": [
+     "Per le partnership hai una persona di riferimento: niente hotline, niente bot. Raccontaci della tua azienda, ti ricontattiamo per conoscerci."
+    ],
+    "bullets": [
+     "Il rapporto con il cliente resta tuo",
+     "Provvigione equa per ogni conclusione",
+     "Stima immobiliare inclusa"
+    ],
+    "ctas": [
+     {
+      "label": "Richiesta partner",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Login partner",
+      "to": "portal"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "Domande sul\ncontatto.",
+    "items": [
+     {
+      "q": "Quando mi ricontatta una consulente?",
+      "a": "Di regola **in tempi brevi**. Il modo più rapido è la richiesta online, perché la consulente ha già tutti i dati."
+     },
+     {
+      "q": "Posso fissare un appuntamento di persona?",
+      "a": "Sì, volentieri nella nostra sede in Löwenstrasse 29 a Zurigo. Chiamaci o scrivici per fissare un appuntamento."
+     },
+     {
+      "q": "Offrite consulenza video?",
+      "a": "Sì. Oltre agli appuntamenti in sede ti offriamo consulenza al telefono o in videochiamata, come preferisci."
+     },
+     {
+      "q": "In quali lingue offrite consulenza?",
+      "a": "In italiano, tedesco, francese e inglese."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Tutte le domande",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Vuoi partire\n*subito?*",
+    "text": "Gratis, senza impegno e avviato in 3 minuti.",
+    "ctas": [
+     {
+      "label": "Richiedere un'ipoteca",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "Contact: Mortgage Advice in English | HYPOTEQ",
+  "description": "Call us, write to us or book an appointment. Your advisor gets back to you the same business day. Mortgage advice in English, online or in Zurich.",
+  "h1": "Get in touch",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "HYPOTEQ contact",
+    "h1": "Get in touch",
+    "lead": "Call us, write to us or book an appointment with a **mortgage advisor in Zurich who speaks English**, online or in person. Your advisor usually gets back to you the same business day.",
+    "ctas": [
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     },
+     {
+      "label": "Request a mortgage",
+      "to": "funnel"
+     }
+    ],
+    "badges": [
+     "Reply the same business day",
+     "In person, by phone or online",
+     "EN · DE · FR · IT"
+    ],
+    "image": "consultation",
+    "alt": "Advisor in a meeting with clients"
+   },
+   {
+    "type": "cards",
+    "eyebrow": "How to reach us",
+    "title": "Straight to\n*your advisor.*",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Address",
+      "title": "HYPOTEQ AG",
+      "text": "Löwenstrasse 29\n8001 Zurich\nIn-person meetings by appointment."
+     },
+     {
+      "kicker": "Phone",
+      "title": "044 502 92 52",
+      "text": "Call us for personal advice. From abroad: +41 44 502 92 52.",
+      "to": "tel",
+      "cta": "Call"
+     },
+     {
+      "kicker": "Email",
+      "title": "info@hypoteq.ch",
+      "text": "Tell us what you need, we'll reply quickly.",
+      "to": "mail",
+      "cta": "Write an email"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "The fastest way",
+    "title": "Even faster:\n*the online request.*",
+    "screen": "funnel",
+    "paragraphs": [
+     "If you already have a property in mind, the online request is the fastest way to an offer. In the **quick application** you upload your documents and the AI fills in most of the details.",
+     "Your advisor then has all the information at hand and can advise you in a focused way."
+    ],
+    "bullets": [
+     "Request in about 3 minutes",
+     "Offers usually within 48–72 h",
+     "The AI doesn't advise: a person does"
+    ],
+    "ctas": [
+     {
+      "label": "Start online request",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "form",
+    "kind": "contact",
+    "eyebrow": "Contact form",
+    "title": "Write to us.",
+    "lead": "Leave us a message, we usually reply the same business day.",
+    "paragraphs": [
+     "Please don't send sensitive documents through this form. You can upload documents securely in the online request."
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "For partners",
+    "title": "Agent, trustee\n*or broker?*",
+    "screen": "portal",
+    "tone": "dark",
+    "reverse": true,
+    "paragraphs": [
+     "For partnerships you get a personal contact person: no hotline, no bot. Tell us about your company and we'll get back to you for an introductory call."
+    ],
+    "bullets": [
+     "The client relationship stays with you",
+     "Fair commission per closed deal",
+     "Property valuation included"
+    ],
+    "ctas": [
+     {
+      "label": "Send partner request",
+      "to": "page:partner#formular"
+     },
+     {
+      "label": "Partner login",
+      "to": "portal"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Questions about\ncontacting us.",
+    "items": [
+     {
+      "q": "How quickly will an advisor contact me?",
+      "a": "Usually the **same business day**. The fastest route is the online request, because your advisor then already has all the details."
+     },
+     {
+      "q": "Can I meet in person in Zurich?",
+      "a": "Yes, at our office at Löwenstrasse 29 in Zurich. Call or write to us to arrange an appointment."
+     },
+     {
+      "q": "Do you offer video calls?",
+      "a": "Yes. Besides in-person meetings, we advise you by phone or video call, whichever suits you."
+     },
+     {
+      "q": "Which languages do you speak?",
+      "a": "English, German, French and Italian."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "All questions",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Ready to\n*get started?*",
+    "text": "Free, non-binding and started in 3 minutes.",
+    "ctas": [
+     {
+      "label": "Request a mortgage",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ }
+}

@@ -1,0 +1,990 @@
+{
+ "de": {
+  "title": "Hypothek abgelehnt? Hol dir eine Zweitmeinung | HYPOTEQ",
+  "description": "Deine Bank hat abgelehnt? Wir prüfen den Fall neu und fragen 40+ Banken, Versicherungen und Pensionskassen an. Kostenlos, Rasche, persönliche Rückmeldung.",
+  "h1": "Hypothek abgelehnt: So geht es weiter",
+  "nav": [
+   "Hypothek abgelehnt",
+   "Zweitmeinung nach der Bankabsage"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypothek abgelehnt",
+    "h1": "Hypothek abgelehnt:\nSo geht es weiter",
+    "lead": "Deine Bank hat die **Hypothek abgelehnt** und das Kaufobjekt wartet? Wir prüfen deinen Fall kostenlos neu und fragen gezielt Banken, Versicherungen und Pensionskassen an, die oft mit anderen Kriterien rechnen.",
+    "ctas": [
+     {
+      "label": "Zweitmeinung anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Kostenlos & unverbindlich",
+     "Rasche, persönliche Rückmeldung",
+     "40+ Anbieter"
+    ],
+    "image": "consultation",
+    "alt": "Beraterin prüft ein Hypothekendossier",
+    "float": {
+     "title": "Eine Absage",
+     "text": "ist nicht das letzte Wort"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "Banken, Versicherungen und Pensionskassen"
+     },
+     {
+      "value": "0 CHF",
+      "label": "für Vergleich und Vermittlung"
+     },
+     {
+      "value": "3 Min.",
+      "label": "Unterlagen hochladen"
+     },
+     {
+      "value": "48–72 h",
+      "label": "bis zu konkreten Offerten"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Hypothek Zweitmeinung",
+    "title": "Eine Bank hat Nein gesagt.\n*Nicht der ganze Markt.*",
+    "image": "keys",
+    "alt": "Schlüsselübergabe nach erfolgreicher Finanzierung",
+    "paragraphs": [
+     "Jeder Kreditgeber hat eigene Richtlinien: wie er Bonus oder selbständiges Einkommen anrechnet, welche Objekte er finanziert und wie streng er die Tragbarkeit rechnet. Wenn die **Bank die Hypothek ablehnt**, heisst das nicht, dass deine Finanzierung unmöglich ist.",
+     "Wir analysieren den Grund, stärken das Dossier und fragen nur Anbieter an, deren Kriterien zu deinem Fall passen. Weil Objekt und Unterlagen meist bereitliegen, geht es oft schnell."
+    ],
+    "bullets": [
+     "Analyse der Absagegründe",
+     "Gezielte Anfrage statt Streuversand",
+     "Versicherungen und Pensionskassen mit anderen Kriterien"
+    ],
+    "ctas": [
+     {
+      "label": "Fall neu prüfen lassen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "So läuft die Zweitmeinung",
+    "title": "Vom Nein\nzur neuen Offerte.",
+    "items": [
+     {
+      "title": "Unterlagen hochladen",
+      "text": "Absage, Lohnausweis und Objektunterlagen in der Schnellanmeldung. Die KI liest die meisten Angaben aus."
+     },
+     {
+      "title": "Ursache finden",
+      "text": "Deine Beraterin prüft Tragbarkeit, Eigenmittel, Einkommen und Objekt."
+     },
+     {
+      "title": "Dossier stärken",
+      "text": "Fehlende Nachweise ergänzen, mehr Eigenmittel oder eine neue Bewertung prüfen."
+     },
+     {
+      "title": "Gezielt anfragen",
+      "text": "Mit vollständigen Unterlagen liegen in der Regel nach 48–72 h Offerten vor."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Jetzt starten",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Häufige Absagegründe",
+    "title": "Warum Banken ablehnen.\n*Und unsere Lösungen.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Tragbarkeit",
+      "title": "Tragbarkeit nicht erfüllt",
+      "text": "Wir suchen Anbieter mit passenden Kriterien und rechnen Varianten mit mehr Eigenmitteln.",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "kicker": "Eigenmittel",
+      "title": "Unter 20 % oder zu wenig hart",
+      "text": "Erbvorbezug, Säule 3a oder Zusatzsicherheiten können die Lücke schliessen.",
+      "to": "page:lp-wenig-eigenmittel"
+     },
+     {
+      "kicker": "Einkommen",
+      "title": "Bonus oder selbständig",
+      "text": "Nicht jeder Anbieter rechnet variables Einkommen gleich an. Wir kennen die Unterschiede.",
+      "to": "page:lp-bonus"
+     },
+     {
+      "kicker": "Objekt",
+      "title": "Wert unter Kaufpreis",
+      "text": "Eine Bewertung nach dem Modell von Wüest Partner zeigt, ob der Preis realistisch ist.",
+      "to": "bewertung"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Wo liegt der Engpass?",
+    "title": "Prüfe deine\n*Tragbarkeit neu.*",
+    "lead": "Gib Kaufpreis, Eigenmittel und Einkommen ein. So siehst du, ob Belehnung oder Tragbarkeit das Problem ist."
+   },
+   {
+    "type": "split",
+    "eyebrow": "Mehrere Absagen?",
+    "title": "Wenn es komplex wird:\n*Advisory.*",
+    "image": "portrait",
+    "alt": "Beraterin von HYPOTEQ",
+    "reverse": true,
+    "tone": "soft",
+    "paragraphs": [
+     "Nach mehreren Bankabsagen, bei Renditeliegenschaften oder komplexen Eigentümerstrukturen reicht ein Vergleich manchmal nicht. Im kostenpflichtigen **Advisory-Mandat** erarbeiten wir eine bankfähige Lösung. Das Erstgespräch ist kostenlos."
+    ],
+    "ctas": [
+     {
+      "label": "Mehr zu Advisory",
+      "to": "page:advisory"
+     },
+     {
+      "label": "Erstgespräch vereinbaren",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Passend dazu",
+    "title": "Weitere Hilfe\n*für deine Finanzierung.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Selbständig",
+      "title": "Hypothek mit Abschlüssen",
+      "text": "Was Anbieter bei Selbständigen prüfen.",
+      "to": "page:selbstaendige"
+     },
+     {
+      "kicker": "Baurecht",
+      "title": "Liegenschaft im Baurecht",
+      "text": "Wenn das Objekt der Knackpunkt ist.",
+      "to": "page:lp-baurecht"
+     },
+     {
+      "kicker": "Ratgeber",
+      "title": "So rechnen Banken",
+      "text": "Tragbarkeit verständlich erklärt.",
+      "to": "page:rg-tragbarkeit"
+     },
+     {
+      "kicker": "Für Makler",
+      "title": "Partner werden",
+      "text": "Deals retten, wenn Käufer eine Absage erhalten.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Absage erhalten?\n*Die Antworten.*",
+    "items": [
+     {
+      "q": "Warum lehnen Banken eine Hypothek ab?",
+      "a": "Meist wegen der Tragbarkeit (über ca. ⅓ des Bruttoeinkommens), zu wenig oder zu wenig harten Eigenmitteln, der Art des Einkommens oder weil die Bank das Objekt tiefer bewertet als den Kaufpreis. Auch Betreibungen oder fehlende Unterlagen spielen eine Rolle."
+     },
+     {
+      "q": "Rechnen andere Anbieter die Tragbarkeit anders?",
+      "a": "Die Grundregeln sind ähnlich, die Details nicht: etwa wie Bonus, Nebeneinkommen oder Vermögen angerechnet werden. Versicherungen und Pensionskassen haben oft andere Kriterien als Banken."
+     },
+     {
+      "q": "Schadet eine Absage meinen Chancen bei anderen Banken?",
+      "a": "Eine Absage ist kein Urteil für alle Anbieter. Wichtig ist, den Grund zu kennen und das Dossier gezielt zu verbessern, statt es wahllos einzureichen. Wir fragen nur passende Anbieter an."
+     },
+     {
+      "q": "Welche Unterlagen brauche ich für eine Zweitmeinung?",
+      "a": "Ideal sind die Absage oder ihre Begründung, Lohnausweis, Steuererklärung, Pensionskassenausweis, Betreibungsauszug, ID sowie Verkaufsdokumentation und Grundbuchauszug. Unsere Checkliste hilft dir."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Checkliste herunterladen",
+      "to": "page:dokumente"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Nicht aufgeben.\n*Neu vergleichen.*",
+    "text": "Kostenlos, mit Rückmeldung deiner Beraterin zeitnah.",
+    "ctas": [
+     {
+      "label": "Zweitmeinung anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Hypothèque refusée? Obtenez un deuxième avis | HYPOTEQ",
+  "description": "Votre banque a refusé? Nous réexaminons votre dossier auprès de 40+ banques, assurances et caisses de pension. Gratuit, réponse rapide.",
+  "h1": "Hypothèque refusée: les prochaines étapes",
+  "nav": [
+   "Hypothèque refusée",
+   "Deuxième avis après un refus"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypothèque refusée",
+    "h1": "Hypothèque refusée:\nles prochaines étapes",
+    "lead": "Votre banque a **refusé l'hypothèque** et le bien vous attend? Nous réexaminons gratuitement votre dossier et sollicitons de façon ciblée banques, assurances et caisses de pension, qui appliquent souvent d'autres critères.",
+    "ctas": [
+     {
+      "label": "Demander un deuxième avis",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Gratuit & sans engagement",
+     "Réponse rapide et personnelle",
+     "40+ prêteurs"
+    ],
+    "image": "consultation",
+    "alt": "Conseillère examinant un dossier hypothécaire",
+    "float": {
+     "title": "Un refus",
+     "text": "n'est pas le dernier mot"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banques, assurances et caisses de pension"
+     },
+     {
+      "value": "0 CHF",
+      "label": "pour la comparaison et le courtage"
+     },
+     {
+      "value": "3 min",
+      "label": "pour envoyer vos documents"
+     },
+     {
+      "value": "48–72 h",
+      "label": "jusqu'aux offres"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Deuxième avis hypothèque",
+    "title": "Une banque a dit non.\n*Pas tout le marché.*",
+    "image": "keys",
+    "alt": "Remise des clés après un financement réussi",
+    "paragraphs": [
+     "Chaque prêteur a ses propres règles: prise en compte du bonus ou du revenu indépendant, types de biens financés, sévérité du calcul de capacité. Un **refus de prêt hypothécaire** ne signifie donc pas que votre projet est impossible.",
+     "Nous analysons le motif, renforçons le dossier et ne sollicitons que les prêteurs adaptés. Le bien et les documents étant souvent prêts, cela va vite."
+    ],
+    "bullets": [
+     "Analyse des motifs de refus",
+     "Demandes ciblées, pas d'envoi en masse",
+     "Assurances et caisses de pension aux critères différents"
+    ],
+    "ctas": [
+     {
+      "label": "Faire réexaminer mon dossier",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Déroulement",
+    "title": "Du refus\nà une nouvelle offre.",
+    "items": [
+     {
+      "title": "Envoyer les documents",
+      "text": "Refus, certificat de salaire et documents du bien via l'inscription rapide. L'IA lit la plupart des données."
+     },
+     {
+      "title": "Trouver la cause",
+      "text": "Votre conseillère vérifie capacité, fonds propres, revenu et bien."
+     },
+     {
+      "title": "Renforcer le dossier",
+      "text": "Compléter les justificatifs, tester plus de fonds propres ou une nouvelle estimation."
+     },
+     {
+      "title": "Demandes ciblées",
+      "text": "Dossier complet, offres en général sous 48–72 h."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Commencer",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Motifs de refus fréquents",
+    "title": "Pourquoi les banques refusent.\n*Et nos solutions.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Capacité",
+      "title": "Capacité non respectée",
+      "text": "Nous trouvons des prêteurs aux critères adaptés et testons plus de fonds propres.",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "kicker": "Fonds propres",
+      "title": "Moins de 20 % ou pas assez durs",
+      "text": "Avancement d'hoirie, 3e pilier ou sûretés supplémentaires peuvent combler l'écart.",
+      "to": "page:lp-wenig-eigenmittel"
+     },
+     {
+      "kicker": "Revenu",
+      "title": "Bonus ou indépendant",
+      "text": "Tous les prêteurs ne comptent pas le revenu variable pareil. Nous connaissons les différences.",
+      "to": "page:lp-bonus"
+     },
+     {
+      "kicker": "Bien",
+      "title": "Valeur sous le prix",
+      "text": "Une estimation selon Wüest Partner montre si le prix est réaliste.",
+      "to": "bewertung"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Où est le blocage?",
+    "title": "Recalculez\n*votre capacité.*",
+    "lead": "Saisissez prix, fonds propres et revenu: voyez si le nantissement ou la capacité pose problème."
+   },
+   {
+    "type": "split",
+    "eyebrow": "Plusieurs refus?",
+    "title": "Cas complexe:\n*Advisory.*",
+    "image": "portrait",
+    "alt": "Conseillère HYPOTEQ",
+    "reverse": true,
+    "tone": "soft",
+    "paragraphs": [
+     "Après plusieurs refus, pour un immeuble de rendement ou une structure de propriété complexe, une comparaison ne suffit pas toujours. Le **mandat Advisory**, payant, élabore une solution bancable. Le premier entretien est gratuit."
+    ],
+    "ctas": [
+     {
+      "label": "Découvrir Advisory",
+      "to": "page:advisory"
+     },
+     {
+      "label": "Prendre rendez-vous",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Pour aller plus loin",
+    "title": "D'autres aides\n*pour votre financement.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Indépendants",
+      "title": "Hypothèque avec bilans",
+      "text": "Ce que vérifient les prêteurs.",
+      "to": "page:selbstaendige"
+     },
+     {
+      "kicker": "Droit de superficie",
+      "title": "Bien en droit de superficie",
+      "text": "Quand le bien bloque.",
+      "to": "page:lp-baurecht"
+     },
+     {
+      "kicker": "Guide",
+      "title": "Le calcul des banques",
+      "text": "La capacité financière expliquée.",
+      "to": "page:rg-tragbarkeit"
+     },
+     {
+      "kicker": "Courtiers",
+      "title": "Devenir partenaire",
+      "text": "Sauver la vente après un refus.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "Après un refus:\n*les réponses.*",
+    "items": [
+     {
+      "q": "Pourquoi une banque refuse-t-elle une hypothèque?",
+      "a": "Surtout pour la capacité (plus d'environ un tiers du revenu brut), des fonds propres insuffisants ou pas assez durs, le type de revenu ou une valeur du bien inférieure au prix. Poursuites ou documents manquants jouent aussi."
+     },
+     {
+      "q": "Les autres prêteurs calculent-ils la capacité différemment?",
+      "a": "Les règles de base sont proches, les détails non: prise en compte du bonus, des revenus accessoires ou de la fortune. Assurances et caisses de pension ont souvent d'autres critères."
+     },
+     {
+      "q": "Un refus nuit-il à mes chances ailleurs?",
+      "a": "Un refus n'engage pas tous les prêteurs. L'important est de connaître le motif et d'améliorer le dossier plutôt que de l'envoyer partout. Nous ne sollicitons que des prêteurs adaptés."
+     },
+     {
+      "q": "Quels documents faut-il pour un deuxième avis?",
+      "a": "Idéalement le refus ou son motif, certificat de salaire, déclaration d'impôt, certificat de caisse de pension, extrait des poursuites, pièce d'identité, dossier de vente et extrait du registre foncier."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Télécharger la checklist",
+      "to": "page:dokumente"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Ne pas abandonner.\n*Comparer à nouveau.*",
+    "text": "Gratuit, avec un retour de votre conseillère rapidement.",
+    "ctas": [
+     {
+      "label": "Demander un deuxième avis",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Ipoteca rifiutata? Chiedi un secondo parere | HYPOTEQ",
+  "description": "La tua banca ha detto no? Riesaminiamo il tuo caso con oltre 40 banche, assicurazioni e casse pensione. Gratis, risposta in giornata.",
+  "h1": "Ipoteca rifiutata: come andare avanti",
+  "nav": [
+   "Ipoteca rifiutata",
+   "Secondo parere dopo il rifiuto"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Ipoteca rifiutata",
+    "h1": "Ipoteca rifiutata:\ncome andare avanti",
+    "lead": "La tua banca ha **rifiutato l'ipoteca** e l'immobile ti aspetta? Riesaminiamo gratis il tuo caso e contattiamo in modo mirato banche, assicurazioni e casse pensione, che spesso usano altri criteri.",
+    "ctas": [
+     {
+      "label": "Chiedi un secondo parere",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Gratuito e senza impegno",
+     "Risposta in giornata",
+     "40+ istituti"
+    ],
+    "image": "consultation",
+    "alt": "Consulente esamina un dossier ipotecario",
+    "float": {
+     "title": "Un rifiuto",
+     "text": "non è l'ultima parola"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banche, assicurazioni e casse pensione"
+     },
+     {
+      "value": "0 CHF",
+      "label": "per confronto e intermediazione"
+     },
+     {
+      "value": "3 min",
+      "label": "per caricare i documenti"
+     },
+     {
+      "value": "48–72 h",
+      "label": "fino alle offerte"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Secondo parere ipoteca",
+    "title": "Una banca ha detto no.\n*Non tutto il mercato.*",
+    "image": "keys",
+    "alt": "Consegna delle chiavi dopo il finanziamento",
+    "paragraphs": [
+     "Ogni istituto ha regole proprie: come conta bonus o reddito indipendente, quali immobili finanzia, quanto è severo sulla sostenibilità. Se la **banca rifiuta l'ipoteca**, non significa che il tuo progetto sia impossibile.",
+     "Analizziamo il motivo, rafforziamo il dossier e contattiamo solo istituti adatti. Immobile e documenti sono spesso già pronti, quindi si procede in fretta."
+    ],
+    "bullets": [
+     "Analisi dei motivi del rifiuto",
+     "Richieste mirate, niente invii a pioggia",
+     "Assicurazioni e casse pensione con altri criteri"
+    ],
+    "ctas": [
+     {
+      "label": "Fai riesaminare il caso",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Come funziona",
+    "title": "Dal no\na una nuova offerta.",
+    "items": [
+     {
+      "title": "Carica i documenti",
+      "text": "Rifiuto, certificato di salario e documenti dell'immobile con l'iscrizione rapida. L'IA legge la maggior parte dei dati."
+     },
+     {
+      "title": "Trovare la causa",
+      "text": "La tua consulente verifica sostenibilità, fondi propri, reddito e immobile."
+     },
+     {
+      "title": "Rafforzare il dossier",
+      "text": "Completare i giustificativi, valutare più fondi propri o una nuova stima."
+     },
+     {
+      "title": "Richieste mirate",
+      "text": "Con documenti completi, offerte di regola entro 48–72 h."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Inizia ora",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Motivi frequenti",
+    "title": "Perché le banche rifiutano.\n*E le nostre soluzioni.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Sostenibilità",
+      "title": "Sostenibilità non rispettata",
+      "text": "Troviamo istituti con criteri adatti e calcoliamo varianti con più fondi propri.",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "kicker": "Fondi propri",
+      "title": "Meno del 20 % o pochi duri",
+      "text": "Anticipo ereditario, 3° pilastro o garanzie aggiuntive possono colmare la lacuna.",
+      "to": "page:lp-wenig-eigenmittel"
+     },
+     {
+      "kicker": "Reddito",
+      "title": "Bonus o indipendente",
+      "text": "Non tutti contano il reddito variabile allo stesso modo. Conosciamo le differenze.",
+      "to": "page:lp-bonus"
+     },
+     {
+      "kicker": "Immobile",
+      "title": "Valore sotto il prezzo",
+      "text": "Una stima secondo Wüest Partner mostra se il prezzo è realistico.",
+      "to": "bewertung"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Dov'è il blocco?",
+    "title": "Ricalcola\n*la sostenibilità.*",
+    "lead": "Inserisci prezzo, fondi propri e reddito: vedi se il problema è l'anticipo o la sostenibilità."
+   },
+   {
+    "type": "split",
+    "eyebrow": "Più rifiuti?",
+    "title": "Caso complesso:\n*Advisory.*",
+    "image": "portrait",
+    "alt": "Consulente HYPOTEQ",
+    "reverse": true,
+    "tone": "soft",
+    "paragraphs": [
+     "Dopo più rifiuti, per immobili a reddito o strutture di proprietà complesse, un confronto non sempre basta. Nel **mandato Advisory**, a pagamento, elaboriamo una soluzione bancabile. Il primo colloquio è gratuito."
+    ],
+    "ctas": [
+     {
+      "label": "Scopri Advisory",
+      "to": "page:advisory"
+     },
+     {
+      "label": "Fissa un colloquio",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Approfondisci",
+    "title": "Altro aiuto\n*per il finanziamento.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Indipendenti",
+      "title": "Ipoteca con chiusure annuali",
+      "text": "Cosa verificano gli istituti.",
+      "to": "page:selbstaendige"
+     },
+     {
+      "kicker": "Diritto di superficie",
+      "title": "Immobile in diritto di superficie",
+      "text": "Quando è l'immobile a bloccare.",
+      "to": "page:lp-baurecht"
+     },
+     {
+      "kicker": "Guida",
+      "title": "Il calcolo delle banche",
+      "text": "La sostenibilità spiegata.",
+      "to": "page:rg-tragbarkeit"
+     },
+     {
+      "kicker": "Agenti",
+      "title": "Diventa partner",
+      "text": "Salva la vendita dopo un rifiuto.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "Dopo un rifiuto:\n*le risposte.*",
+    "items": [
+     {
+      "q": "Perché una banca rifiuta un'ipoteca?",
+      "a": "Soprattutto per la sostenibilità (oltre circa un terzo del reddito lordo), fondi propri insufficienti o poco duri, il tipo di reddito o un valore dell'immobile inferiore al prezzo. Contano anche esecuzioni o documenti mancanti."
+     },
+     {
+      "q": "Altri istituti calcolano la sostenibilità diversamente?",
+      "a": "Le regole di base sono simili, i dettagli no: come contano bonus, redditi accessori o patrimonio. Assicurazioni e casse pensione hanno spesso altri criteri."
+     },
+     {
+      "q": "Un rifiuto riduce le mie possibilità altrove?",
+      "a": "Un rifiuto non vale per tutti gli istituti. Conta capire il motivo e migliorare il dossier invece di inviarlo ovunque. Contattiamo solo istituti adatti."
+     },
+     {
+      "q": "Quali documenti servono per un secondo parere?",
+      "a": "Idealmente il rifiuto o la motivazione, certificato di salario, dichiarazione d'imposta, certificato della cassa pensione, estratto esecuzioni, documento d'identità, documentazione di vendita ed estratto del registro fondiario."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Scarica la checklist",
+      "to": "page:dokumente"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Non mollare.\n*Confronta di nuovo.*",
+    "text": "Gratis, con risposta della tua consulente in giornata.",
+    "ctas": [
+     {
+      "label": "Chiedi un secondo parere",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "Mortgage rejected? Get a second opinion | HYPOTEQ",
+  "description": "Your bank said no? We review your case and approach 40+ banks, insurers and pension funds. Free of charge, reply the same business day.",
+  "h1": "Mortgage rejected: what to do next",
+  "nav": [
+   "Mortgage rejected",
+   "Second opinion after a bank's no"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Mortgage rejected Switzerland",
+    "h1": "Mortgage rejected:\nwhat to do next",
+    "lead": "Your bank has **rejected your mortgage** and the property is waiting? We review your case for free and approach selected banks, insurers and pension funds, which often apply different criteria.",
+    "ctas": [
+     {
+      "label": "Get a second opinion",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Free & non-binding",
+     "Reply the same business day",
+     "40+ lenders"
+    ],
+    "image": "consultation",
+    "alt": "Advisor reviewing a mortgage file",
+    "float": {
+     "title": "A rejection",
+     "text": "is not the final word"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banks, insurers and pension funds"
+     },
+     {
+      "value": "0 CHF",
+      "label": "for comparison and brokerage"
+     },
+     {
+      "value": "3 min",
+      "label": "to upload your documents"
+     },
+     {
+      "value": "48–72 h",
+      "label": "to concrete offers"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Second opinion mortgage",
+    "title": "One bank said no.\n*Not the whole market.*",
+    "image": "keys",
+    "alt": "Key handover after successful financing",
+    "paragraphs": [
+     "Every lender has its own rules: how it counts bonuses or self-employed income, which properties it finances and how strictly it calculates affordability. A **mortgage application declined** by your bank does not mean your financing is impossible.",
+     "We analyse the reason, strengthen your file and only approach lenders whose criteria fit. As the property and documents are usually ready, things often move fast."
+    ],
+    "bullets": [
+     "Analysis of the rejection reasons",
+     "Targeted requests, no mass mailing",
+     "Insurers and pension funds with different criteria"
+    ],
+    "ctas": [
+     {
+      "label": "Have my case reviewed",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "How it works",
+    "title": "From no\nto a new offer.",
+    "items": [
+     {
+      "title": "Upload documents",
+      "text": "Rejection letter, salary statement and property documents via quick sign-up. Our AI reads most details."
+     },
+     {
+      "title": "Find the cause",
+      "text": "Your advisor checks affordability, equity, income and the property."
+     },
+     {
+      "title": "Strengthen the file",
+      "text": "Add missing proof, test more equity or a new valuation."
+     },
+     {
+      "title": "Targeted requests",
+      "text": "With complete documents, offers usually arrive within 48–72 h."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Get started",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Common reasons",
+    "title": "Why banks say no.\n*And our solutions.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Affordability",
+      "title": "Affordability not met",
+      "text": "We find lenders with suitable criteria and test options with more equity.",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "kicker": "Equity",
+      "title": "Under 20 % or not enough hard",
+      "text": "An inheritance advance, pillar 3a or extra collateral can close the gap.",
+      "to": "page:lp-wenig-eigenmittel"
+     },
+     {
+      "kicker": "Income",
+      "title": "Bonus or self-employed",
+      "text": "Not every lender counts variable income the same way. We know the differences.",
+      "to": "page:lp-bonus"
+     },
+     {
+      "kicker": "Property",
+      "title": "Value below price",
+      "text": "A valuation based on Wüest Partner shows whether the price is realistic.",
+      "to": "bewertung"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Where is the bottleneck?",
+    "title": "Recheck\n*your affordability.*",
+    "lead": "Enter price, equity and income to see whether loan-to-value or affordability is the issue."
+   },
+   {
+    "type": "split",
+    "eyebrow": "Several rejections?",
+    "title": "When it gets complex:\n*Advisory.*",
+    "image": "portrait",
+    "alt": "HYPOTEQ advisor",
+    "reverse": true,
+    "tone": "soft",
+    "paragraphs": [
+     "After several rejections, for buy-to-let properties or complex ownership structures, a comparison is sometimes not enough. In a paid **Advisory mandate** we develop a bankable solution. The first consultation is free."
+    ],
+    "ctas": [
+     {
+      "label": "About Advisory",
+      "to": "page:advisory"
+     },
+     {
+      "label": "Book a consultation",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Related",
+    "title": "More help\n*for your financing.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Self-employed",
+      "title": "Mortgage with accounts",
+      "text": "What lenders check.",
+      "to": "page:selbstaendige"
+     },
+     {
+      "kicker": "Building right",
+      "title": "Leasehold property",
+      "text": "When the property is the issue.",
+      "to": "page:lp-baurecht"
+     },
+     {
+      "kicker": "Guide",
+      "title": "How banks calculate",
+      "text": "Affordability explained.",
+      "to": "page:rg-tragbarkeit"
+     },
+     {
+      "kicker": "For agents",
+      "title": "Become a partner",
+      "text": "Save deals after a buyer's rejection.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Rejected?\n*Your answers.*",
+    "items": [
+     {
+      "q": "Why do banks reject mortgage applications?",
+      "a": "Mostly because of affordability (above about one third of gross income), too little or not enough hard equity, the type of income, or because the bank values the property below the price. Debt enforcement records or missing documents also matter."
+     },
+     {
+      "q": "Do other lenders calculate affordability differently?",
+      "a": "The basic rules are similar, the details are not: how bonuses, side income or assets are counted, for example. Insurers and pension funds often apply different criteria from banks."
+     },
+     {
+      "q": "Does a rejection hurt my chances elsewhere?",
+      "a": "One rejection is not a verdict for all lenders. What matters is knowing the reason and improving the file instead of sending it everywhere. We only approach suitable lenders."
+     },
+     {
+      "q": "Which documents do I need for a second opinion?",
+      "a": "Ideally the rejection or its reasons, salary statement, tax return, pension fund certificate, debt enforcement extract, ID, sales documentation and land register extract."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Download the checklist",
+      "to": "page:dokumente"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Don't give up.\n*Compare again.*",
+    "text": "Free of charge, with a reply from your advisor the same business day.",
+    "ctas": [
+     {
+      "label": "Get a second opinion",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ }
+}

@@ -1,0 +1,845 @@
+{
+ "de": {
+  "title": "Nebenkosten beim Hauskauf in der Schweiz | HYPOTEQ",
+  "description": "Handänderungssteuer, Notar, Grundbuch und Schuldbrief: Mit diesen Kaufnebenkosten musst du rechnen, je nach Kanton. Übersicht und Tipps.",
+  "h1": "Nebenkosten beim Hauskauf",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Ratgeber",
+    "h1": "Nebenkosten\n*beim Hauskauf*",
+    "lead": "Die **Nebenkosten beim Hauskauf** betragen je nach Kanton rund 2 bis 5 % des Kaufpreises und kommen zu deinen Eigenmitteln dazu. Hier siehst du, welche Posten anfallen, wer sie bezahlt und wie du sie richtig einplanst.",
+    "ctas": [
+     {
+      "label": "Hypothek anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "Immobilie bewerten",
+      "to": "bewertung"
+     }
+    ],
+    "badges": [
+     "Mit Rechenbeispiel",
+     "Stand 2026",
+     "Alle Kantone im Blick"
+    ],
+    "image": "keys",
+    "alt": "Hausschlüssel bei der Übergabe"
+   },
+   {
+    "type": "article",
+    "blocks": [
+     {
+      "p": "Wer ein Haus oder eine Wohnung kauft, zahlt mehr als den Kaufpreis. Handänderungssteuer, Notar, Grundbuch und Schuldbrief kommen dazu. Diese Kaufnebenkosten betragen je nach Kanton rund 2 bis 5 % des Kaufpreises und werden oft unterschätzt. Weil sie in der Regel nicht über die Hypothek finanziert werden, gehören sie von Anfang an in dein Budget, zusätzlich zu den Eigenmitteln."
+     },
+     {
+      "h2": "Welche Kaufnebenkosten gibt es in der Schweiz?"
+     },
+     {
+      "p": "Die **Kaufnebenkosten in der Schweiz** setzen sich aus mehreren Positionen zusammen. Wie hoch sie ausfallen, regelt jeder Kanton selbst, teils mit Unterschieden zwischen Gemeinden. Diese Posten solltest du kennen:"
+     },
+     {
+      "ul": [
+       "**Handänderungssteuer:** eine kantonale oder kommunale Steuer auf den Eigentumswechsel. Einige Kantone, zum Beispiel Zürich, erheben keine, andere verlangen einen Prozentsatz des Kaufpreises.",
+       "**Notarkosten:** für die öffentliche Beurkundung des Kaufvertrags. Je nach Kanton arbeiten Amtsnotariate oder freiberufliche Notarinnen und Notare nach kantonalem Tarif.",
+       "**Grundbuchgebühren:** für den Eintrag der neuen Eigentümer ins Grundbuch.",
+       "**Schuldbrief:** Der Kreditgeber verlangt als Sicherheit einen Schuldbrief. Muss er neu errichtet oder erhöht werden, fallen Gebühren für Notariat und Grundbuch an.",
+       "**Weitere Kosten:** Bewertung, Umzug, Einrichtung und eine Reserve für erste Reparaturen."
+      ]
+     },
+     {
+      "h2": "Handänderungssteuer: grosse Unterschiede je nach Kanton"
+     },
+     {
+      "p": "Die **Handänderungssteuer** ist oft der grösste Einzelposten. Ob und in welcher Höhe sie anfällt, hängt vom Kanton ab. Genf und Waadt gehören zu den Kantonen mit eher hohen Kaufnebenkosten, während Zürich gar keine Handänderungssteuer kennt. Manche Kantone sehen für selbst bewohntes Wohneigentum Ermässigungen vor. Weil sich Regeln ändern können, lohnt sich vor dem Kauf ein Blick in die aktuelle kantonale Regelung oder eine Rückfrage beim Notariat (Stand 2026, ohne Gewähr)."
+     },
+     {
+      "p": "Wer die Steuer bezahlt, regeln kantonales Recht und Kaufvertrag. Häufig trägt sie die Käuferschaft, in manchen Kantonen wird sie zwischen Käufer und Verkäufer geteilt. Prüfe den Entwurf des Kaufvertrags deshalb genau, bevor du ihn unterschreibst. Was dort steht, ist nach der Beurkundung kaum mehr verhandelbar."
+     },
+     {
+      "h2": "Notarkosten, Grundbuchgebühren und Schuldbrief"
+     },
+     {
+      "p": "Die **Notarkosten beim Hauskauf** und die **Grundbuchgebühren** werden meist nach Tarif und abhängig vom Kaufpreis berechnet. Auch hier gilt: Wer was bezahlt, steht im Kaufvertrag. Oft teilen sich Käufer und Verkäufer die Kosten, teils übernimmt die Käuferschaft sie ganz. Bitte das Notariat früh um eine schriftliche Kostenschätzung. So kennst du die Beträge schon vor der Beurkundung, kannst sie mit deiner Finanzierung abgleichen und erlebst bei der Schlussabrechnung keine Überraschung. Bei Neubauten können zusätzliche Gebühren anfallen, etwa für Anschlüsse oder Baubewilligungen."
+     },
+     {
+      "p": "Bei den **Schuldbrief Kosten** kannst du manchmal sparen. Besteht auf der Liegenschaft bereits ein Schuldbrief, kann er unter Umständen übernommen und an deinen neuen Kreditgeber übertragen werden. Dann entfallen die Kosten für eine Neuerrichtung ganz oder teilweise. Ein Register-Schuldbrief lässt sich zudem einfacher übertragen als ein Papier-Schuldbrief. Deine Beraterin klärt mit Verkäufer, Bank und Notariat, ob das in deinem Fall möglich ist."
+     },
+     {
+      "h2": "Rechenbeispiel: Familie Meier in Baden"
+     },
+     {
+      "p": "Familie Meier aus der HYPOTEQ Academy kauft ein Einfamilienhaus in Baden für CHF 980’000. Sie bringt CHF 250’000 Eigenmittel mit, CHF 170’000 vom Sparkonto und CHF 80’000 aus der Pensionskasse. Die Hypothek beträgt CHF 730’000. Wie hoch die Nebenkosten genau ausfallen, hängt von Kanton, Gemeinde und Vertrag ab. Für die Planung rechnen wir deshalb mit drei Annahmen:"
+     },
+     {
+      "table": {
+       "head": [
+        "Annahme",
+        "Berechnung",
+        "Nebenkosten"
+       ],
+       "rows": [
+        [
+         "2 % des Kaufpreises",
+         "2 % × CHF 980’000",
+         "CHF 19’600"
+        ],
+        [
+         "3 % des Kaufpreises",
+         "3 % × CHF 980’000",
+         "CHF 29’400"
+        ],
+        [
+         "5 % des Kaufpreises",
+         "5 % × CHF 980’000",
+         "CHF 49’000"
+        ]
+       ]
+      }
+     },
+     {
+      "p": "Diese Beträge kommen zu den CHF 250’000 Eigenmitteln dazu. Familie Meier braucht also, je nach Annahme, zusätzlich rund CHF 20’000 bis 49’000 an freien Mitteln. Wer das vergisst, gerät kurz vor der Beurkundung unter Druck oder muss Vorsorgegelder anzapfen, die eigentlich für anderes gedacht waren. Sinnvoll ist deshalb, die Nebenkosten schon beim ersten Finanzierungsgespräch offen anzusprechen. Deine Beraterin rechnet sie in den Finanzierungsplan ein, damit Eigenmittel, Reserve und Hypothek von Anfang an zusammenpassen und am Tag der Beurkundung keine Lücke entsteht."
+     },
+     {
+      "h2": "Kann ich Nebenkosten mitfinanzieren?"
+     },
+     {
+      "p": "In der Regel nein. Kreditgeber finanzieren einen Anteil am Belehnungswert der Immobilie, nicht die Kaufnebenkosten. Diese bezahlst du aus eigenen Mitteln, zusätzlich zu den mindestens 20 % Eigenmitteln. Wie viel Eigenkapital du insgesamt brauchst und was als hart gilt, erklären wir im Ratgeber zu den Eigenmitteln."
+     },
+     {
+      "p": "Ein zweiter Kostenpunkt wird oft übersehen: der Unterschied zwischen Kaufpreis und Bankbewertung. Bei Meiers bewertet die Bank das Haus mit CHF 950’000, also CHF 30’000 unter dem Kaufpreis. Nach dem Niederstwertprinzip finanziert der Kreditgeber höchstens 80 % des tieferen Werts, also CHF 760’000. Die Differenz von CHF 30’000 müssen Meiers ebenfalls mit Eigenmitteln decken. Mindestens nötig sind deshalb CHF 220’000 statt CHF 196’000 Eigenmittel, und die Nebenkosten kommen noch obendrauf."
+     },
+     {
+      "tip": "Lass die Immobilie vor dem Kaufentscheid bewerten. So erkennst du früh, ob die Bank tiefer bewertet als der Kaufpreis, und kannst gezielt verhandeln oder deine Eigenmittel und Reserven planen.",
+      "title": "Tipp"
+     },
+     {
+      "cta": {
+       "title": "Wie viel ist die Immobilie wert?",
+       "text": "Hedonische Bewertung mit dem Modell von Wüest Partner, online in wenigen Minuten. Einführungspreis CHF 300 statt CHF 450.",
+       "label": "Bewertung starten",
+       "to": "bewertung"
+      }
+     },
+     {
+      "h2": "Nach dem Kauf: laufende Kosten nicht vergessen"
+     },
+     {
+      "p": "Mit der Schlüsselübergabe sind die Kosten nicht vorbei. Neben Zins und Amortisation fallen Unterhalt, Versicherungen, Gebühren für Wasser, Abwasser und Kehricht sowie Energiekosten an. Bei Stockwerkeigentum kommen Beiträge an den Erneuerungsfonds dazu. Kreditgeber rechnen in der Tragbarkeit deshalb pauschal mit 1 % des Belehnungswerts pro Jahr für Unterhalt und Nebenkosten. Bei Familie Meier sind das CHF 9’500 pro Jahr."
+     },
+     {
+      "p": "Ältere Liegenschaften brauchen oft früher grössere Investitionen, etwa für Heizung, Dach oder Fenster. Plane deshalb nicht nur die einmaligen Kaufnebenkosten ein, sondern auch eine Reserve für die ersten Jahre. Wie die Tragbarkeit genau berechnet wird, erklären wir im Ratgeber zur Tragbarkeit. So siehst du früh, ob dein Budget auch nach dem Einzug noch Luft lässt."
+     },
+     {
+      "h2": "So planst du die Nebenkosten richtig"
+     },
+     {
+      "ul": [
+       "Kläre früh mit dem Notariat oder der Gemeinde, welche Steuern und Gebühren in deinem Kanton anfallen.",
+       "Lies im Entwurf des Kaufvertrags nach, wer welche Kosten trägt.",
+       "Frag nach, ob ein bestehender Schuldbrief übernommen werden kann.",
+       "Halte neben den Eigenmitteln eine Reserve von 2 bis 5 % des Kaufpreises bereit.",
+       "Denk auch an Umzug, Einrichtung und erste Unterhaltsarbeiten."
+      ]
+     },
+     {
+      "p": "Wir prüfen deine Finanzierung ganzheitlich, inklusive Nebenkosten und Reserven, und holen Offerten bei über 40 Banken, Versicherungen und Pensionskassen ein. Für dich ist das kostenlos. Unsere KI liest deine Unterlagen aus, die Beratung macht ein Mensch."
+     },
+     {
+      "cta": {
+       "title": "Finanzierung inklusive Nebenkosten planen",
+       "text": "Anfrage in 3 Minuten, kostenlos und unverbindlich. Deine Beraterin meldet sich zeitnah.",
+       "label": "Hypothek anfragen",
+       "to": "funnel"
+      }
+     },
+     {
+      "h2": "Tiefer einsteigen mit der HYPOTEQ Academy"
+     },
+     {
+      "p": "In der Learning Journey «Was kostet das Eigenheim wirklich?» des **Foundation Course** (CHF 290) gehst du alle Kostenblöcke am Praxisfall Familie Meier durch, von den Kaufnebenkosten bis zum laufenden Unterhalt. Vorwissen brauchst du keines. Du bist Immobilienmakler oder Treuhänderin? Im HYPOTEQ Partnerprogramm vermittelst du Finanzierungen für deine Kundschaft, die Kundenbeziehung bleibt bei dir."
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Nebenkosten:\n*kurz beantwortet.*",
+    "items": [
+     {
+      "q": "Wie hoch sind die Kaufnebenkosten?",
+      "a": "Rechne je nach Kanton mit rund 2 bis 5 % des Kaufpreises. Bei CHF 980’000 sind das etwa CHF 19’600 bis 49’000. Die genauen Beträge hängen von Handänderungssteuer, Notar, Grundbuch und Schuldbrief ab."
+     },
+     {
+      "q": "Welche Kantone erheben eine Handänderungssteuer?",
+      "a": "Die meisten Kantone kennen eine Handänderungssteuer oder eine vergleichbare Abgabe, einige wie Zürich nicht. Höhe, Ermässigungen und Aufteilung zwischen Käufer und Verkäufer sind kantonal geregelt. Prüfe die aktuelle Regelung in deinem Kanton (Stand 2026, ohne Gewähr)."
+     },
+     {
+      "q": "Wer zahlt die Notarkosten?",
+      "a": "Das hängt vom Kanton und vom Kaufvertrag ab. Oft trägt die Käuferschaft die Kosten, teils werden sie hälftig geteilt. Die Regelung steht im Vertrag, den du vor der Beurkundung genau prüfen solltest."
+     },
+     {
+      "q": "Kann ich Nebenkosten mitfinanzieren?",
+      "a": "In der Regel nicht. Kaufnebenkosten bezahlst du aus eigenen Mitteln, zusätzlich zu den mindestens 20 % Eigenmitteln. Plane sie deshalb von Anfang an als Reserve ein."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Academy entdecken",
+      "to": "page:academy"
+     },
+     {
+      "label": "Ratgeber-Übersicht",
+      "to": "page:ratgeber"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Alle Kosten im Blick?\n*Jetzt Hypothek anfragen.*",
+    "text": "Kostenlos vergleichen, Nebenkosten sauber einplanen und in der Regel innert 48–72 h Offerten erhalten.",
+    "ctas": [
+     {
+      "label": "Hypothek anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "Immobilie kaufen",
+      "to": "page:kauf"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Frais d'achat immobilier en Suisse | HYPOTEQ",
+  "description": "Droits de mutation, notaire, registre foncier et cédule hypothécaire: les frais d'achat à prévoir selon le canton, notamment à Genève et Vaud.",
+  "h1": "Frais d'achat d'un bien immobilier",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Guide",
+    "h1": "Frais d'achat\n*d'un bien immobilier*",
+    "lead": "Les **frais d'achat immobilier en Suisse** représentent environ 2 à 5 % du prix selon le canton et s'ajoutent à vos fonds propres. Découvrez quels postes sont à prévoir, qui les paie et comment les intégrer dans votre budget.",
+    "ctas": [
+     {
+      "label": "Demander une hypothèque",
+      "to": "funnel"
+     },
+     {
+      "label": "Estimer mon bien",
+      "to": "bewertung"
+     }
+    ],
+    "badges": [
+     "Exemple chiffré",
+     "État 2026",
+     "Genève, Vaud et autres cantons"
+    ],
+    "image": "keys",
+    "alt": "Remise des clés de la maison"
+   },
+   {
+    "type": "article",
+    "blocks": [
+     {
+      "p": "Acheter une maison ou un appartement coûte plus que le prix de vente. Droits de mutation, notaire, registre foncier et cédule hypothécaire s'y ajoutent. Ces frais représentent selon le canton environ 2 à 5 % du prix et sont souvent sous-estimés. Comme ils ne sont en général pas financés par l'hypothèque, ils doivent figurer dès le départ dans votre budget, en plus des fonds propres."
+     },
+     {
+      "h2": "Quels frais d'achat en Suisse?"
+     },
+     {
+      "p": "Les frais d'achat se composent de plusieurs postes. Chaque canton fixe ses propres règles, parfois avec des différences entre communes. Voici les postes à connaître:"
+     },
+     {
+      "ul": [
+       "**Droits de mutation:** impôt cantonal ou communal sur le transfert de propriété. Certains cantons, comme Zurich, n'en prélèvent pas, d'autres demandent un pourcentage du prix.",
+       "**Frais de notaire:** pour l'acte authentique de vente. Selon le canton, il s'agit de notaires officiels ou indépendants appliquant un tarif cantonal.",
+       "**Registre foncier:** émoluments pour l'inscription des nouveaux propriétaires.",
+       "**Cédule hypothécaire:** le prêteur exige une cédule en garantie. Si elle doit être créée ou augmentée, des frais de notaire et de registre foncier s'appliquent.",
+       "**Autres frais:** estimation, déménagement, aménagement et réserve pour les premières réparations."
+      ]
+     },
+     {
+      "h2": "Droits de mutation à Genève, Vaud et ailleurs"
+     },
+     {
+      "p": "Les **droits de mutation** constituent souvent le poste le plus important. Leur existence et leur montant dépendent du canton. Genève et Vaud font partie des cantons où les frais d'achat sont plutôt élevés, alors que Zurich ne connaît pas de droits de mutation. Certains cantons prévoient des allègements pour la résidence principale. Comme les règles peuvent évoluer, vérifiez la réglementation cantonale actuelle ou demandez au notaire avant l'achat (état 2026, sans garantie)."
+     },
+     {
+      "p": "Qui paie ces droits dépend du droit cantonal et du contrat de vente. Souvent, c'est l'acheteur, mais dans certains cantons ils sont partagés entre acheteur et vendeur. Lisez donc attentivement le projet d'acte avant de signer: après la signature, il n'y a plus guère de marge de négociation."
+     },
+     {
+      "h2": "Notaire, registre foncier et cédule hypothécaire"
+     },
+     {
+      "p": "Les **frais de notaire en Suisse** et les émoluments du registre foncier sont en général calculés selon un tarif, en fonction du prix. Là aussi, le contrat précise qui paie quoi. Souvent, acheteur et vendeur se partagent les frais, parfois l'acheteur les assume entièrement."
+     },
+     {
+      "p": "Les **frais de cédule hypothécaire** peuvent parfois être réduits. Si une cédule existe déjà sur le bien, elle peut dans certains cas être reprise et transférée à votre nouveau prêteur. Les frais de création tombent alors entièrement ou en partie. Une cédule de registre se transfère en outre plus facilement qu'une cédule papier. Votre conseillère clarifie avec le vendeur, la banque et le notaire si c'est possible dans votre cas."
+     },
+     {
+      "h2": "Exemple chiffré: la famille Meier à Baden"
+     },
+     {
+      "p": "La famille Meier de la HYPOTEQ Academy achète une maison individuelle à Baden pour CHF 980’000. Elle dispose de CHF 250’000 de fonds propres, dont CHF 170’000 d'épargne et CHF 80’000 du 2e pilier. L'hypothèque s'élève à CHF 730’000. Le montant exact des frais dépend du canton, de la commune et du contrat. Pour la planification, nous calculons donc avec trois hypothèses:"
+     },
+     {
+      "table": {
+       "head": [
+        "Hypothèse",
+        "Calcul",
+        "Frais d'achat"
+       ],
+       "rows": [
+        [
+         "2 % du prix",
+         "2 % × CHF 980’000",
+         "CHF 19’600"
+        ],
+        [
+         "3 % du prix",
+         "3 % × CHF 980’000",
+         "CHF 29’400"
+        ],
+        [
+         "5 % du prix",
+         "5 % × CHF 980’000",
+         "CHF 49’000"
+        ]
+       ]
+      }
+     },
+     {
+      "p": "Ces montants s'ajoutent aux CHF 250’000 de fonds propres. Selon l'hypothèse, la famille Meier a donc besoin d'environ CHF 20’000 à 49’000 de liquidités supplémentaires. Les oublier crée une pression inutile juste avant la signature chez le notaire."
+     },
+     {
+      "h2": "Les frais peuvent-ils être financés?"
+     },
+     {
+      "p": "En règle générale, non. Les prêteurs financent une part de la valeur de nantissement du bien, pas les frais d'achat. Vous les payez avec vos propres moyens, en plus des 20 % de fonds propres minimum. Notre guide sur les fonds propres explique combien il vous faut au total et ce qui compte comme fonds propres durs."
+     },
+     {
+      "p": "Un autre point est souvent négligé: l'écart entre prix et estimation bancaire. Pour les Meier, la banque estime la maison à CHF 950’000, soit CHF 30’000 de moins que le prix. Selon le principe de la valeur la plus basse, le prêteur finance au maximum 80 % de la valeur inférieure, soit CHF 760’000. Les CHF 30’000 d'écart doivent aussi être couverts par des fonds propres. Il faut donc au minimum CHF 220’000 au lieu de CHF 196’000, frais d'achat en sus."
+     },
+     {
+      "tip": "Faites estimer le bien avant de décider. Vous voyez ainsi tôt si la banque l'évalue en dessous du prix, et vous pouvez négocier ou planifier fonds propres et réserves en conséquence.",
+      "title": "Conseil"
+     },
+     {
+      "cta": {
+       "title": "Que vaut ce bien?",
+       "text": "Estimation hédoniste selon le modèle de Wüest Partner, en ligne en quelques minutes. Prix de lancement CHF 300 au lieu de CHF 450.",
+       "label": "Lancer l'estimation",
+       "to": "bewertung"
+      }
+     },
+     {
+      "h2": "Après l'achat: les frais courants"
+     },
+     {
+      "p": "Les coûts ne s'arrêtent pas à la remise des clés. En plus des intérêts et de l'amortissement viennent l'entretien, les assurances, les taxes d'eau, d'épuration et de déchets ainsi que l'énergie. En PPE s'ajoutent les contributions au fonds de rénovation. Pour la capacité financière, les prêteurs comptent donc forfaitairement 1 % de la valeur de nantissement par an, soit CHF 9’500 pour la famille Meier. Notre guide sur la capacité financière explique le calcul en détail."
+     },
+     {
+      "h2": "Bien planifier les frais d'achat"
+     },
+     {
+      "ul": [
+       "Renseignez-vous tôt auprès du notaire ou de la commune sur les impôts et émoluments de votre canton.",
+       "Vérifiez dans le projet d'acte qui supporte quels frais.",
+       "Demandez si une cédule hypothécaire existante peut être reprise.",
+       "Prévoyez, en plus des fonds propres, une réserve de 2 à 5 % du prix.",
+       "Pensez aussi au déménagement, à l'aménagement et aux premiers travaux d'entretien."
+      ]
+     },
+     {
+      "p": "Nous examinons votre financement dans son ensemble, frais et réserves compris, et obtenons des offres auprès de plus de 40 banques, assurances et caisses de pension. Pour vous, c'est gratuit. Notre IA lit vos documents, le conseil est assuré par une personne."
+     },
+     {
+      "cta": {
+       "title": "Planifier le financement, frais compris",
+       "text": "Demande en 3 minutes, gratuite et sans engagement. Votre conseillère vous contacte rapidement.",
+       "label": "Demander une hypothèque",
+       "to": "funnel"
+      }
+     },
+     {
+      "h2": "Aller plus loin avec la HYPOTEQ Academy"
+     },
+     {
+      "p": "Dans la Learning Journey «Was kostet das Eigenheim wirklich?» (ce que coûte vraiment un logement) du **Foundation Course** (CHF 290), vous parcourez tous les postes de coûts avec le cas pratique de la famille Meier, des frais d'achat à l'entretien courant, sans connaissances préalables. Vous êtes courtier immobilier ou fiduciaire? Avec le programme partenaires HYPOTEQ, vous proposez des financements à vos clients et la relation client reste chez vous."
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "Frais d'achat:\n*l'essentiel.*",
+    "items": [
+     {
+      "q": "À combien s'élèvent les frais d'achat?",
+      "a": "Comptez selon le canton environ 2 à 5 % du prix. Pour CHF 980’000, cela représente environ CHF 19’600 à 49’000. Les montants exacts dépendent des droits de mutation, du notaire, du registre foncier et de la cédule hypothécaire."
+     },
+     {
+      "q": "Quels sont les droits de mutation à Genève et Vaud?",
+      "a": "Genève et Vaud prélèvent des droits de mutation et font partie des cantons où les frais d'achat sont plutôt élevés. Le taux exact, les éventuels allègements pour la résidence principale et la répartition entre acheteur et vendeur sont fixés par le canton. Demandez le décompte au notaire (état 2026, sans garantie)."
+     },
+     {
+      "q": "Qui paie les frais de notaire?",
+      "a": "Cela dépend du canton et du contrat de vente. Souvent l'acheteur, parfois à parts égales avec le vendeur. La règle figure dans le projet d'acte, à vérifier avant la signature."
+     },
+     {
+      "q": "Les frais peuvent-ils être financés?",
+      "a": "En général non. Les frais d'achat se paient avec vos propres moyens, en plus des 20 % de fonds propres minimum. Prévoyez-les dès le départ comme réserve."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Découvrir l'Academy",
+      "to": "page:academy"
+     },
+     {
+      "label": "Tous les guides",
+      "to": "page:ratgeber"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Tous les frais en vue?\n*Demandez votre hypothèque.*",
+    "text": "Comparez gratuitement, planifiez correctement les frais et recevez en général vos offres en 48–72 h.",
+    "ctas": [
+     {
+      "label": "Demander une hypothèque",
+      "to": "funnel"
+     },
+     {
+      "label": "Acheter un bien",
+      "to": "page:kauf"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Costi accessori per l'acquisto della casa | HYPOTEQ",
+  "description": "Imposta di trapasso, notaio, registro fondiario e cartella ipotecaria: i costi d'acquisto da prevedere in Ticino e negli altri cantoni.",
+  "h1": "Costi accessori dell'acquisto casa",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Guida",
+    "h1": "Costi accessori\n*dell'acquisto casa*",
+    "lead": "I **costi d'acquisto della casa in Ticino** e negli altri cantoni ammontano a circa il 2–5 % del prezzo e si aggiungono ai fondi propri. Scopri quali voci sono da prevedere, chi le paga e come inserirle nel budget.",
+    "ctas": [
+     {
+      "label": "Richiedere un'ipoteca",
+      "to": "funnel"
+     },
+     {
+      "label": "Valuta l'immobile",
+      "to": "bewertung"
+     }
+    ],
+    "badges": [
+     "Esempio pratico",
+     "Stato 2026",
+     "Ticino e altri cantoni"
+    ],
+    "image": "keys",
+    "alt": "Consegna delle chiavi di casa"
+   },
+   {
+    "type": "article",
+    "blocks": [
+     {
+      "p": "Chi compra una casa o un appartamento paga più del prezzo d'acquisto. Si aggiungono imposta sul trapasso, notaio, registro fondiario e cartella ipotecaria. Questi costi accessori ammontano, a seconda del cantone, a circa il 2–5 % del prezzo e vengono spesso sottovalutati. Poiché di regola non sono finanziati con l'ipoteca, vanno inseriti nel budget fin dall'inizio, in aggiunta ai fondi propri."
+     },
+     {
+      "h2": "Quali costi d'acquisto ci sono in Svizzera?"
+     },
+     {
+      "p": "I costi d'acquisto si compongono di diverse voci. Ogni cantone fissa le proprie regole, a volte con differenze tra comuni. Ecco le voci da conoscere:"
+     },
+     {
+      "ul": [
+       "**Imposta sul trapasso:** imposta cantonale o comunale sul cambio di proprietà. Alcuni cantoni, come Zurigo, non la prelevano, altri chiedono una percentuale del prezzo.",
+       "**Spese notarili:** per l'atto pubblico di compravendita. A seconda del cantone operano notai pubblici o liberi professionisti secondo una tariffa cantonale.",
+       "**Registro fondiario:** tasse per l'iscrizione dei nuovi proprietari.",
+       "**Cartella ipotecaria:** il finanziatore chiede una cartella ipotecaria come garanzia. Se va costituita o aumentata, si pagano spese di notaio e registro fondiario.",
+       "**Altri costi:** valutazione, trasloco, arredamento e una riserva per le prime riparazioni."
+      ]
+     },
+     {
+      "h2": "Imposta sul trapasso: grandi differenze tra cantoni"
+     },
+     {
+      "p": "L'**imposta sul trapasso** è spesso la voce più importante. Se e in che misura venga prelevata dipende dal cantone. Ginevra e Vaud sono tra i cantoni con costi d'acquisto piuttosto alti, mentre Zurigo non conosce questa imposta. In Ticino gli importi variano a seconda dell'oggetto e del prezzo: chiedi al notaio un preventivo scritto prima di firmare. Alcuni cantoni prevedono agevolazioni per la residenza principale. Poiché le regole possono cambiare, verifica sempre la normativa cantonale attuale (stato 2026, senza garanzia)."
+     },
+     {
+      "p": "Chi paga l'imposta dipende dal diritto cantonale e dal contratto. Spesso è l'acquirente, in alcuni cantoni viene suddivisa tra acquirente e venditore. Leggi quindi con attenzione la bozza del contratto prima di firmare: dopo il rogito c'è poco margine di trattativa."
+     },
+     {
+      "h2": "Notaio, registro fondiario e cartella ipotecaria"
+     },
+     {
+      "p": "Le **spese notarili in Ticino** come altrove e le tasse del registro fondiario sono di regola calcolate secondo tariffa, in funzione del prezzo. Anche qui è il contratto a stabilire chi paga cosa. Spesso acquirente e venditore si dividono i costi, a volte li sostiene interamente l'acquirente."
+     },
+     {
+      "p": "Sui **costi della cartella ipotecaria** a volte si può risparmiare. Se sull'immobile esiste già una cartella ipotecaria, in certi casi può essere ripresa e trasferita al tuo nuovo finanziatore. In questo modo i costi di costituzione cadono in tutto o in parte. Una cartella ipotecaria registrale si trasferisce inoltre più facilmente di una cartacea. La tua consulente chiarisce con venditore, banca e notaio se nel tuo caso è possibile."
+     },
+     {
+      "h2": "Esempio pratico: la famiglia Meier a Baden"
+     },
+     {
+      "p": "La famiglia Meier della HYPOTEQ Academy compra una casa unifamiliare a Baden per CHF 980’000. Dispone di CHF 250’000 di fondi propri, di cui CHF 170’000 di risparmi e CHF 80’000 dalla cassa pensione. L'ipoteca ammonta a CHF 730’000. L'importo esatto dei costi dipende da cantone, comune e contratto. Per pianificare calcoliamo quindi con tre ipotesi:"
+     },
+     {
+      "table": {
+       "head": [
+        "Ipotesi",
+        "Calcolo",
+        "Costi accessori"
+       ],
+       "rows": [
+        [
+         "2 % del prezzo",
+         "2 % × CHF 980’000",
+         "CHF 19’600"
+        ],
+        [
+         "3 % del prezzo",
+         "3 % × CHF 980’000",
+         "CHF 29’400"
+        ],
+        [
+         "5 % del prezzo",
+         "5 % × CHF 980’000",
+         "CHF 49’000"
+        ]
+       ]
+      }
+     },
+     {
+      "p": "Questi importi si aggiungono ai CHF 250’000 di fondi propri. A seconda dell'ipotesi, la famiglia Meier ha bisogno di circa CHF 20’000–49’000 di liquidità in più. Chi lo dimentica si trova sotto pressione poco prima del rogito."
+     },
+     {
+      "h2": "Si possono finanziare i costi accessori?"
+     },
+     {
+      "p": "Di regola no. I finanziatori coprono una parte del valore di anticipo dell'immobile, non i costi d'acquisto. Li paghi con mezzi tuoi, in aggiunta al minimo del 20 % di fondi propri. Nella nostra guida sui fondi propri spieghiamo quanto serve in totale e cosa conta come fondi propri effettivi."
+     },
+     {
+      "p": "Un altro punto viene spesso trascurato: la differenza tra prezzo e valutazione della banca. Per i Meier la banca valuta la casa CHF 950’000, cioè CHF 30’000 meno del prezzo. Secondo il principio del valore più basso, il finanziatore copre al massimo l'80 % del valore inferiore, cioè CHF 760’000. Anche i CHF 30’000 di differenza vanno coperti con fondi propri. Servono quindi almeno CHF 220’000 invece di CHF 196’000, più i costi accessori."
+     },
+     {
+      "tip": "Fai valutare l'immobile prima di decidere. Così vedi subito se la banca lo valuta meno del prezzo e puoi trattare o pianificare fondi propri e riserve.",
+      "title": "Consiglio"
+     },
+     {
+      "cta": {
+       "title": "Quanto vale l'immobile?",
+       "text": "Valutazione edonica con il modello di Wüest Partner, online in pochi minuti. Prezzo di lancio CHF 300 invece di CHF 450.",
+       "label": "Avvia la valutazione",
+       "to": "bewertung"
+      }
+     },
+     {
+      "h2": "Dopo l'acquisto: i costi correnti"
+     },
+     {
+      "p": "I costi non finiscono con la consegna delle chiavi. Oltre a interessi e ammortamento ci sono manutenzione, assicurazioni, tasse per acqua, depurazione e rifiuti ed energia. Nella proprietà per piani si aggiungono i contributi al fondo di rinnovamento. Per la sostenibilità i finanziatori calcolano quindi in modo forfettario l'1 % del valore di anticipo all'anno, cioè CHF 9’500 per la famiglia Meier. Nella nostra guida sulla sostenibilità trovi il calcolo nel dettaglio."
+     },
+     {
+      "h2": "Come pianificare bene i costi"
+     },
+     {
+      "ul": [
+       "Informati presto dal notaio o dal comune su imposte e tasse del tuo cantone.",
+       "Controlla nella bozza del contratto chi sostiene quali costi.",
+       "Chiedi se una cartella ipotecaria esistente può essere ripresa.",
+       "Tieni pronta, oltre ai fondi propri, una riserva del 2–5 % del prezzo.",
+       "Pensa anche a trasloco, arredamento e primi lavori di manutenzione."
+      ]
+     },
+     {
+      "p": "Esaminiamo il tuo finanziamento nel complesso, costi e riserve compresi, e raccogliamo offerte da oltre 40 banche, assicurazioni e casse pensioni. Per te è gratuito. La nostra IA legge i documenti, la consulenza la fa una persona."
+     },
+     {
+      "cta": {
+       "title": "Pianifica il finanziamento, costi inclusi",
+       "text": "Richiesta in 3 minuti, gratuita e senza impegno. La tua consulente ti contatta in tempi brevi.",
+       "label": "Richiedere un'ipoteca",
+       "to": "funnel"
+      }
+     },
+     {
+      "h2": "Approfondisci con la HYPOTEQ Academy"
+     },
+     {
+      "p": "Nella Learning Journey «Was kostet das Eigenheim wirklich?» (quanto costa davvero la casa) del **Foundation Course** (CHF 290) esamini tutte le voci di costo con il caso pratico della famiglia Meier, dai costi d'acquisto alla manutenzione corrente, senza conoscenze preliminari. Sei agente immobiliare o fiduciario? Con il programma partner HYPOTEQ offri finanziamenti ai tuoi clienti e la relazione con il cliente resta a te."
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "Costi accessori:\n*in breve.*",
+    "items": [
+     {
+      "q": "Quanto costano le spese d'acquisto?",
+      "a": "A seconda del cantone, conta circa il 2–5 % del prezzo. Per CHF 980’000 sono circa CHF 19’600–49’000. Gli importi esatti dipendono da imposta sul trapasso, notaio, registro fondiario e cartella ipotecaria."
+     },
+     {
+      "q": "Quanto costa il notaio in Ticino?",
+      "a": "Le spese notarili in Ticino si basano su una tariffa e dipendono soprattutto dal prezzo e dalla complessità dell'atto. Chiedi al notaio un preventivo scritto prima di firmare e verifica chi le paga secondo il contratto (stato 2026, senza garanzia)."
+     },
+     {
+      "q": "Chi paga le spese?",
+      "a": "Dipende dal cantone e dal contratto. Spesso l'acquirente, a volte metà ciascuno con il venditore. La regola è scritta nella bozza del contratto, da controllare prima del rogito."
+     },
+     {
+      "q": "Si possono finanziare i costi accessori?",
+      "a": "Di regola no. I costi d'acquisto si pagano con mezzi propri, in aggiunta al minimo del 20 % di fondi propri. Prevedili fin dall'inizio come riserva."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Scopri l'Academy",
+      "to": "page:academy"
+     },
+     {
+      "label": "Tutte le guide",
+      "to": "page:ratgeber"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Tutti i costi sotto controllo?\n*Richiedi la tua ipoteca.*",
+    "text": "Confronta gratuitamente, pianifica bene i costi e ricevi di regola le offerte in 48–72 h.",
+    "ctas": [
+     {
+      "label": "Richiedere un'ipoteca",
+      "to": "funnel"
+     },
+     {
+      "label": "Acquistare un immobile",
+      "to": "page:kauf"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "Property Purchase Costs in Switzerland | HYPOTEQ",
+  "description": "Transfer tax, notary, land registry and mortgage certificate: the extra costs of buying property in Switzerland by canton. Overview and tips.",
+  "h1": "Extra costs when buying in Switzerland",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Guide",
+    "h1": "Extra costs when\n*buying in Switzerland*",
+    "lead": "**Property purchase costs in Switzerland** add up to roughly 2 to 5 % of the price depending on the canton, on top of your down payment. Find out which items to expect, who pays them and how to budget for them.",
+    "ctas": [
+     {
+      "label": "Request a mortgage",
+      "to": "funnel"
+     },
+     {
+      "label": "Value a property",
+      "to": "bewertung"
+     }
+    ],
+    "badges": [
+     "Worked example",
+     "As of 2026",
+     "All cantons covered"
+    ],
+    "image": "keys",
+    "alt": "House keys being handed over"
+   },
+   {
+    "type": "article",
+    "blocks": [
+     {
+      "p": "Buying a house or apartment in Switzerland costs more than the purchase price. Property transfer tax, notary, land registry and the mortgage certificate come on top. Depending on the canton, these closing costs add up to roughly 2 to 5 % of the price and are often underestimated. Because they are usually not financed by the mortgage, they belong in your budget from day one, in addition to your equity."
+     },
+     {
+      "h2": "Which closing costs apply in Switzerland?"
+     },
+     {
+      "p": "Closing costs in Switzerland are made up of several items. Each canton sets its own rules, sometimes with differences between municipalities. These are the items to know:"
+     },
+     {
+      "ul": [
+       "**Property transfer tax (Handänderungssteuer):** a cantonal or municipal tax on the change of ownership. Some cantons, such as Zurich, do not levy it, others charge a percentage of the price.",
+       "**Notary fees:** for the public certification of the purchase contract, which is mandatory in Switzerland. Depending on the canton, official or self-employed notaries charge according to a cantonal tariff.",
+       "**Land registry fees:** for entering the new owners in the land register.",
+       "**Mortgage certificate (Schuldbrief):** the lender requires one as security. If it has to be created or increased, notary and land registry fees apply.",
+       "**Other costs:** valuation, moving, furnishing and a reserve for first repairs."
+      ]
+     },
+     {
+      "h2": "Property transfer tax: big differences by canton"
+     },
+     {
+      "p": "The **property transfer tax in Switzerland** is often the largest single item. Whether and how much you pay depends on the canton. Geneva and Vaud are among the cantons with relatively high purchase costs, while Zurich has no transfer tax at all. Some cantons offer reductions for owner-occupied homes. Since rules can change, check the current cantonal rules or ask the notary before you buy (as of 2026, without guarantee)."
+     },
+     {
+      "p": "Who pays the tax depends on cantonal law and the contract. Often it is the buyer, in some cantons it is split between buyer and seller. Read the draft contract carefully before signing: once it has been certified, there is little room left to negotiate."
+     },
+     {
+      "h2": "Notary, land registry and mortgage certificate"
+     },
+     {
+      "p": "**Notary fees in Switzerland** and land registry fees are usually calculated by tariff, based on the purchase price. Again, the contract states who pays what. Buyer and seller often share these costs, sometimes the buyer covers them in full."
+     },
+     {
+      "p": "You can sometimes save on the mortgage certificate. If the property already carries one, it may be possible to take it over and transfer it to your new lender. This removes all or part of the cost of creating a new one. A registered mortgage certificate is also easier to transfer than a paper one. Your advisor checks with the seller, the bank and the notary whether this works in your case."
+     },
+     {
+      "h2": "Worked example: the Meier family in Baden"
+     },
+     {
+      "p": "The Meier family from the HYPOTEQ Academy is buying a detached house in Baden for CHF 980’000. They bring CHF 250’000 of equity, CHF 170’000 from savings and CHF 80’000 from their pension fund (pillar 2). The mortgage is CHF 730’000. The exact closing costs depend on canton, municipality and contract, so for planning we use three assumptions:"
+     },
+     {
+      "table": {
+       "head": [
+        "Assumption",
+        "Calculation",
+        "Closing costs"
+       ],
+       "rows": [
+        [
+         "2 % of the price",
+         "2 % × CHF 980’000",
+         "CHF 19’600"
+        ],
+        [
+         "3 % of the price",
+         "3 % × CHF 980’000",
+         "CHF 29’400"
+        ],
+        [
+         "5 % of the price",
+         "5 % × CHF 980’000",
+         "CHF 49’000"
+        ]
+       ]
+      }
+     },
+     {
+      "p": "These amounts come on top of the CHF 250’000 equity. Depending on the assumption, the Meiers need roughly CHF 20’000 to 49’000 in additional cash. Forgetting this creates pressure just before the signing at the notary."
+     },
+     {
+      "h2": "Can purchase costs be financed?"
+     },
+     {
+      "p": "As a rule, no. Lenders finance a share of the property's lending value, not the closing costs. You pay them from your own funds, on top of the minimum 20 % equity. Our down payment guide explains how much equity you need overall and what counts as hard equity."
+     },
+     {
+      "p": "A second cost is often overlooked: the gap between purchase price and bank valuation. The bank values the Meiers' house at CHF 950’000, CHF 30’000 below the price. Under the lowest-value principle, the lender finances at most 80 % of the lower value, which is CHF 760’000. The CHF 30’000 gap must also be covered by equity. So the Meiers need at least CHF 220’000 instead of CHF 196’000, plus closing costs."
+     },
+     {
+      "tip": "Have the property valued before you commit. You will see early whether the bank values it below the price, and you can negotiate or plan your equity and reserves accordingly.",
+      "title": "Tip"
+     },
+     {
+      "cta": {
+       "title": "What is the property worth?",
+       "text": "Hedonic valuation based on the Wüest Partner model, online in minutes. Introductory price CHF 300 instead of CHF 450.",
+       "label": "Start valuation",
+       "to": "bewertung"
+      }
+     },
+     {
+      "h2": "After the purchase: running costs"
+     },
+     {
+      "p": "Costs do not end when you get the keys. On top of interest and amortisation come maintenance, insurance, fees for water, wastewater and waste, and energy. In a condominium (Stockwerkeigentum) you also pay into the renovation fund. That is why lenders include a flat 1 % of the lending value per year for maintenance in the affordability calculation, or CHF 9’500 for the Meier family. Our affordability guide explains the calculation in detail."
+     },
+     {
+      "h2": "How to plan your closing costs"
+     },
+     {
+      "ul": [
+       "Ask the notary or municipality early which taxes and fees apply in your canton.",
+       "Check in the draft contract who bears which costs.",
+       "Ask whether an existing mortgage certificate can be taken over.",
+       "Keep a reserve of 2 to 5 % of the price in addition to your equity.",
+       "Remember moving, furnishing and first maintenance work."
+      ]
+     },
+     {
+      "p": "We look at your financing as a whole, including closing costs and reserves, and obtain offers from more than 40 banks, insurers and pension funds. It is free for you. Our AI reads your documents, while advice always comes from a person, in English if you prefer."
+     },
+     {
+      "cta": {
+       "title": "Plan your financing, costs included",
+       "text": "Request in 3 minutes, free and non-binding. Your advisor usually gets in touch promptly.",
+       "label": "Request a mortgage",
+       "to": "funnel"
+      }
+     },
+     {
+      "h2": "Go deeper with the HYPOTEQ Academy"
+     },
+     {
+      "p": "In the **Foundation Course** of the HYPOTEQ Academy (CHF 290), the learning journey on what a home really costs takes you through every cost block using the Meier family case, from closing costs to ongoing maintenance. No prior knowledge needed. Are you a real estate agent or trustee? With the HYPOTEQ partner programme you arrange financing for your clients, and the client relationship stays with you."
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Purchase costs:\n*quick answers.*",
+    "items": [
+     {
+      "q": "How high are purchase costs in Switzerland?",
+      "a": "Depending on the canton, plan for roughly 2 to 5 % of the purchase price. For CHF 980’000 that is about CHF 19’600 to 49’000. The exact amount depends on transfer tax, notary, land registry and mortgage certificate."
+     },
+     {
+      "q": "Which cantons charge transfer tax?",
+      "a": "Most cantons levy a property transfer tax or a similar charge, while some, such as Zurich, do not. Rates, reductions and the split between buyer and seller are set by each canton. Check the current rules in your canton (as of 2026, without guarantee)."
+     },
+     {
+      "q": "Who pays the notary?",
+      "a": "It depends on the canton and the contract. Often the buyer, sometimes buyer and seller split it equally. The rule is set out in the draft contract, which you should check before signing."
+     },
+     {
+      "q": "Can purchase costs be financed?",
+      "a": "Usually not. Closing costs are paid from your own funds, on top of the minimum 20 % equity. Plan them as a reserve from the start."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Explore the Academy",
+      "to": "page:academy"
+     },
+     {
+      "label": "All guides",
+      "to": "page:ratgeber"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "All costs covered?\n*Request your mortgage.*",
+    "text": "Compare for free, plan closing costs properly and usually receive offers within 48–72 h.",
+    "ctas": [
+     {
+      "label": "Request a mortgage",
+      "to": "funnel"
+     },
+     {
+      "label": "Buy a property",
+      "to": "page:kauf"
+     }
+    ]
+   }
+  ]
+ }
+}

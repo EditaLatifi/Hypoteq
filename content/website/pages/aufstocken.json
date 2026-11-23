@@ -1,0 +1,1070 @@
+{
+ "de": {
+  "title": "Hypothek aufstocken für Renovation und Umbau | HYPOTEQ",
+  "description": "Renovation, Heizungsersatz oder Umbau: Prüfe, wie viel du deine Hypothek aufstocken kannst. Vergleich bei 40+ Anbietern, Anfrage in 3 Minuten.",
+  "h1": "Hypothek aufstocken und Renovation finanzieren",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypothek aufstocken",
+    "h1": "Hypothek aufstocken\nund Renovation finanzieren",
+    "lead": "Neue Küche, Heizungsersatz oder energetische Sanierung: Wir prüfen, um wie viel du deine **Hypothek aufstocken** kannst, und vergleichen die Konditionen bei über 40 Banken, Versicherungen und Pensionskassen. Kostenlos und in 3 Minuten angefragt.",
+    "ctas": [
+     {
+      "label": "Aufstockung anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "Immobilie bewerten",
+      "to": "page:bewertung"
+     }
+    ],
+    "badges": [
+     "0 CHF Vermittlung",
+     "Renovation & Umbau",
+     "Offerten in 48–72 h"
+    ],
+    "image": "interior",
+    "alt": "Frisch renovierter Wohnraum mit Holzboden",
+    "float": {
+     "title": "SARON ab 0.85 %",
+     "text": "Richtzins · Beispielwert"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "80 %",
+      "label": "max. Belehnung als Richtwert"
+     },
+     {
+      "value": "40+",
+      "label": "Finanzierungspartner im Vergleich"
+     },
+     {
+      "value": "3 Min.",
+      "label": "bis zur vollständigen Anfrage"
+     },
+     {
+      "value": "0 CHF",
+      "label": "für Vergleich und Vermittlung"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Hypothek erhöhen",
+    "title": "Wie viel liegt drin?\n*Belehnung und Tragbarkeit.*",
+    "image": "house",
+    "alt": "Schweizer Chalet vor verschneiten Bergen",
+    "paragraphs": [
+     "Ob du deine **Hypothek erhöhen** kannst, hängt von zwei Grössen ab: Die neue Hypothek darf in der Regel höchstens **80 %** des Immobilienwerts betragen, und die Tragbarkeit muss weiterhin stimmen, also max. ca. ein Drittel deines Bruttoeinkommens.",
+     "Wertvermehrende Investitionen wie ein Anbau oder eine energetische Sanierung können den Immobilienwert steigern und so mehr Spielraum schaffen. Eine aktuelle Bewertung schafft Klarheit."
+    ],
+    "bullets": [
+     "Belehnung max. 80 %, Tragbarkeit max. ca. ⅓",
+     "Amortisation der 2. Hypothek beachten",
+     "Stand 2026, ohne Gewähr"
+    ],
+    "ctas": [
+     {
+      "label": "Tragbarkeit prüfen",
+      "to": "page:tragbarkeit"
+     }
+    ]
+   },
+   {
+    "type": "features",
+    "title": "Was du mit der Aufstockung\n*finanzieren kannst.*",
+    "items": [
+     {
+      "icon": "✦",
+      "title": "Energetische Sanierung",
+      "text": "Dämmung, Fenster oder Photovoltaik: Einige Anbieter belohnen nachhaltige Investitionen mit Vergünstigungen."
+     },
+     {
+      "icon": "◎",
+      "title": "Heizungsersatz",
+      "text": "Wärmepumpe statt Öl oder Gas: Heizungsersatz finanzieren über die Hypothek."
+     },
+     {
+      "icon": "⌂",
+      "title": "Umbau & Anbau",
+      "text": "Mehr Wohnraum, neue Küche oder neues Bad: Umbau finanzieren mit der Hypothek."
+     },
+     {
+      "icon": "✓",
+      "title": "Werterhalt",
+      "text": "Dach, Fassade oder Leitungen: Die Bank prüft, wie die Investition den Wert beeinflusst."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Aufstockung anfragen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Renovation finanzieren",
+    "title": "In vier Schritten\nzu mehr Kapital.",
+    "items": [
+     {
+      "title": "Projekt & Kosten",
+      "text": "Lade Offerten der Handwerker, aktuelle Hypothekarverträge und deine Unterlagen hoch."
+     },
+     {
+      "title": "Wert & Spielraum",
+      "text": "Wir prüfen Belehnung und Tragbarkeit, bei Bedarf mit einer Bewertung nach Wüest Partner."
+     },
+     {
+      "title": "Offerten vergleichen",
+      "text": "Bestehende Bank oder neuer Anbieter: Wir holen Angebote bei über 40 Partnern ein."
+     },
+     {
+      "title": "Auszahlung",
+      "text": "Wir koordinieren die Erhöhung des Schuldbriefs und die Auszahlung."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Jetzt starten",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Muss ich die Bank wechseln?",
+    "title": "Bei der Hausbank\n*oder neu ausschreiben?*",
+    "screen": "funnel",
+    "reverse": true,
+    "tone": "soft",
+    "paragraphs": [
+     "Läuft deine Festhypothek noch, wird die Aufstockung meist als neue Tranche bei der bestehenden Bank gemacht. Wir prüfen, ob deren Angebot marktgerecht ist.",
+     "Steht die Ablösung ohnehin an, ist das der ideale Moment: Dann schreiben wir die gesamte Hypothek inklusive Aufstockung bei über 40 Anbietern aus."
+    ],
+    "bullets": [
+     "Neue Tranche bei der bestehenden Bank",
+     "Oder Ablösung und Aufstockung kombinieren",
+     "Beraterin meldet sich zeitnah"
+    ],
+    "ctas": [
+     {
+      "label": "Optionen prüfen",
+      "to": "funnel"
+     },
+     {
+      "label": "Mehr zur Ablösung",
+      "to": "page:abloesung"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "mode": "zins",
+    "eyebrow": "Zinsrechner",
+    "title": "Was kostet\ndie Aufstockung?",
+    "lead": "Rechne mit den Richtzinsen aus, wie sich die höhere Hypothek auf deine Zinskosten auswirkt."
+   },
+   {
+    "type": "testimonials",
+    "eyebrow": "Kundenstimmen",
+    "title": "Schnell, persönlich,\n*kompetent.*",
+    "items": [
+     {
+      "text": "Erstklassiger Service, alles wurde schnell bearbeitet.",
+      "author": "Andreas K."
+     },
+     {
+      "text": "Höchst professionell, menschlich und kompetent: ein perfektes Ergebnis mit top Konditionen.",
+      "author": "Gregor R."
+     },
+     {
+      "text": "Mein Berater hat mich optimal begleitet und war sehr präsent.",
+      "author": "Romain C."
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Passend dazu",
+    "title": "Gut geplant\n*renovieren.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Bewertung",
+      "title": "Was ist dein Haus wert?",
+      "text": "Hedonische Bewertung nach Wüest Partner, CHF 300 statt 450.",
+      "to": "page:bewertung"
+     },
+     {
+      "kicker": "Ablösung",
+      "title": "Hypothek läuft aus?",
+      "text": "Aufstockung und Verlängerung in einem Schritt.",
+      "to": "page:abloesung"
+     },
+     {
+      "kicker": "Zinsen",
+      "title": "Aktuelle Richtzinsen",
+      "text": "SARON, 5 und 10 Jahre fest.",
+      "to": "page:zinsen"
+     },
+     {
+      "kicker": "Für Partner",
+      "title": "Partner werden",
+      "text": "Du betreust Eigentümer als Treuhänder oder Broker? Reiche Fälle ein und erhalte eine Provision.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Aufstocken\nohne Umwege.",
+    "items": [
+     {
+      "q": "Wann kann ich meine Hypothek aufstocken?",
+      "a": "Grundsätzlich jederzeit, solange Belehnung und Tragbarkeit stimmen. Besonders einfach ist es bei Ablauf einer Festhypothek, weil du dann die ganze Finanzierung neu ausschreiben kannst."
+     },
+     {
+      "q": "Wie viel kann ich für eine Renovation aufnehmen?",
+      "a": "Die gesamte Hypothek darf in der Regel max. 80 % des Immobilienwerts betragen, und die Tragbarkeit muss bei max. ca. einem Drittel des Bruttoeinkommens bleiben. Wertvermehrende Investitionen können den Spielraum erhöhen. Stand 2026, ohne Gewähr."
+     },
+     {
+      "q": "Gibt es günstigere Öko-Hypotheken für Sanierungen?",
+      "a": "Einige Anbieter bieten für energetische Sanierungen Vergünstigungen oder spezielle Öko-Hypotheken an. Bedingungen und Höhe sind unterschiedlich. Wir vergleichen diese Angebote für dich."
+     },
+     {
+      "q": "Muss ich dafür die Bank wechseln?",
+      "a": "Nein. Läuft deine Festhypothek noch, stockst du meist bei der bestehenden Bank mit einer neuen Tranche auf. Steht die Ablösung an, kannst du alles zusammen bei einem neuen Anbieter abschliessen."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Alle Fragen",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Bereit für dein\n*Renovationsprojekt?*",
+    "text": "Kostenlos prüfen, wie viel du aufstocken kannst, in 3 Minuten angefragt.",
+    "ctas": [
+     {
+      "label": "Aufstockung anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Augmenter son hypothèque pour rénover | HYPOTEQ",
+  "description": "Rénovation, remplacement du chauffage ou transformation: découvrez de combien augmenter votre hypothèque. Comparatif 40+ prêteurs, demande en 3 min.",
+  "h1": "Augmenter l'hypothèque pour vos travaux",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Augmenter son hypothèque",
+    "h1": "Augmenter l'hypothèque\npour vos travaux",
+    "lead": "Nouvelle cuisine, remplacement du chauffage ou rénovation énergétique: nous vérifions de combien vous pouvez **augmenter votre hypothèque** et comparons les conditions de plus de 40 banques, assurances et caisses de pension. Gratuit, demande en 3 minutes.",
+    "ctas": [
+     {
+      "label": "Demander une augmentation",
+      "to": "funnel"
+     },
+     {
+      "label": "Estimer mon bien",
+      "to": "page:bewertung"
+     }
+    ],
+    "badges": [
+     "0 CHF de courtage",
+     "Rénovation & transformation",
+     "Offres en 48–72 h"
+    ],
+    "image": "interior",
+    "alt": "Pièce de vie fraîchement rénovée avec parquet",
+    "float": {
+     "title": "SARON dès 0.85 %",
+     "text": "Taux indicatif · valeur d'exemple"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "80 %",
+      "label": "nantissement max. comme repère"
+     },
+     {
+      "value": "40+",
+      "label": "partenaires de financement comparés"
+     },
+     {
+      "value": "3 min",
+      "label": "pour une demande complète"
+     },
+     {
+      "value": "0 CHF",
+      "label": "pour la comparaison et le courtage"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Augmenter l'hypothèque",
+    "title": "Quel montant?\n*Nantissement et capacité.*",
+    "image": "house",
+    "alt": "Chalet suisse devant des montagnes enneigées",
+    "paragraphs": [
+     "Deux critères décident: la nouvelle hypothèque ne doit en général pas dépasser **80 %** de la valeur du bien (taux d'avance), et la capacité financière doit rester respectée, soit au maximum environ un tiers de votre revenu brut.",
+     "Les investissements à plus-value, comme une extension ou une rénovation énergétique, peuvent augmenter la valeur du bien et donc la marge. Une estimation actuelle apporte de la clarté."
+    ],
+    "bullets": [
+     "Nantissement max. 80 %, capacité max. env. ⅓",
+     "Tenir compte de l'amortissement du 2e rang",
+     "État 2026, sans garantie"
+    ],
+    "ctas": [
+     {
+      "label": "Calculer ma capacité",
+      "to": "page:tragbarkeit"
+     }
+    ]
+   },
+   {
+    "type": "features",
+    "title": "Ce que l'augmentation\n*permet de financer.*",
+    "items": [
+     {
+      "icon": "✦",
+      "title": "Rénovation énergétique",
+      "text": "Isolation, fenêtres ou photovoltaïque: certains prêteurs récompensent ces travaux par des conditions préférentielles."
+     },
+     {
+      "icon": "◎",
+      "title": "Nouveau chauffage",
+      "text": "Pompe à chaleur au lieu du mazout ou du gaz: financé via l'hypothèque."
+     },
+     {
+      "icon": "⌂",
+      "title": "Transformation & extension",
+      "text": "Plus d'espace, nouvelle cuisine ou salle de bains: financer les travaux avec l'hypothèque."
+     },
+     {
+      "icon": "✓",
+      "title": "Entretien",
+      "text": "Toiture, façade ou conduites: la banque examine l'effet sur la valeur."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Demander une augmentation",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Financer une rénovation",
+    "title": "Quatre étapes\nvers plus de capital.",
+    "items": [
+     {
+      "title": "Projet & coûts",
+      "text": "Téléchargez les devis des artisans, vos contrats hypothécaires actuels et vos documents."
+     },
+     {
+      "title": "Valeur & marge",
+      "text": "Nous vérifions nantissement et capacité, au besoin avec une estimation selon Wüest Partner."
+     },
+     {
+      "title": "Comparer les offres",
+      "text": "Banque actuelle ou nouveau prêteur: nous sollicitons plus de 40 partenaires."
+     },
+     {
+      "title": "Versement",
+      "text": "Nous coordonnons l'augmentation de la cédule et le versement."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Commencer",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Dois-je changer de banque?",
+    "title": "Chez votre banque\n*ou nouvel appel d'offres?*",
+    "screen": "funnel",
+    "reverse": true,
+    "tone": "soft",
+    "paragraphs": [
+     "Si votre hypothèque fixe court encore, l'augmentation se fait en général sous forme de nouvelle tranche auprès de la banque actuelle. Nous vérifions que son offre est conforme au marché.",
+     "Si le renouvellement approche, c'est le moment idéal: nous soumettons alors l'ensemble de l'hypothèque, augmentation comprise, à plus de 40 prêteurs."
+    ],
+    "bullets": [
+     "Nouvelle tranche auprès de la banque actuelle",
+     "Ou combiner renouvellement et augmentation",
+     "Votre conseillère vous contacte rapidement"
+    ],
+    "ctas": [
+     {
+      "label": "Vérifier mes options",
+      "to": "funnel"
+     },
+     {
+      "label": "En savoir plus sur le renouvellement",
+      "to": "page:abloesung"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "mode": "zins",
+    "eyebrow": "Calculateur d'intérêts",
+    "title": "Combien coûte\nl'augmentation?",
+    "lead": "Calculez avec les taux indicatifs l'effet d'une hypothèque plus élevée sur vos intérêts."
+   },
+   {
+    "type": "testimonials",
+    "eyebrow": "Avis clients",
+    "title": "Rapide, personnel,\n*compétent.*",
+    "items": [
+     {
+      "text": "Un service de premier ordre, tout a été traité rapidement.",
+      "author": "Andreas K."
+     },
+     {
+      "text": "Très professionnels, humains et compétents: un résultat parfait avec des conditions excellentes.",
+      "author": "Gregor R."
+     },
+     {
+      "text": "Mon conseiller m'a accompagné de façon optimale et a été très présent.",
+      "author": "Romain C."
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "À lire aussi",
+    "title": "Rénover\n*en toute sérénité.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Estimation",
+      "title": "Que vaut votre maison?",
+      "text": "Estimation hédoniste selon Wüest Partner, CHF 300 au lieu de 450.",
+      "to": "page:bewertung"
+     },
+     {
+      "kicker": "Renouvellement",
+      "title": "Échéance en vue?",
+      "text": "Augmentation et renouvellement en une seule étape.",
+      "to": "page:abloesung"
+     },
+     {
+      "kicker": "Taux",
+      "title": "Taux indicatifs actuels",
+      "text": "SARON, 5 et 10 ans fixes.",
+      "to": "page:zinsen"
+     },
+     {
+      "kicker": "Partenaires",
+      "title": "Devenir partenaire",
+      "text": "Vous suivez des propriétaires comme fiduciaire ou broker? Soumettez des dossiers et touchez une commission.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "Augmenter\nsans détour.",
+    "items": [
+     {
+      "q": "Quand puis-je augmenter mon hypothèque?",
+      "a": "En principe à tout moment, tant que nantissement et capacité financière sont respectés. C'est particulièrement simple à l'échéance d'une hypothèque fixe, car tout le financement peut alors être remis en concurrence."
+     },
+     {
+      "q": "Quel montant pour une rénovation?",
+      "a": "L'hypothèque totale ne doit en général pas dépasser 80 % de la valeur du bien, et la capacité financière doit rester à environ un tiers du revenu brut au maximum. Les investissements à plus-value peuvent élargir la marge. État 2026, sans garantie."
+     },
+     {
+      "q": "Existe-t-il des hypothèques vertes plus avantageuses?",
+      "a": "Certains prêteurs proposent des conditions préférentielles ou des hypothèques vertes pour les rénovations énergétiques. Conditions et montants varient. Nous comparons ces offres pour vous."
+     },
+     {
+      "q": "Dois-je changer de banque?",
+      "a": "Non. Si votre hypothèque fixe court encore, l'augmentation se fait généralement par une nouvelle tranche chez votre banque. À l'échéance, vous pouvez tout regrouper chez un nouveau prêteur."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Toutes les questions",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Prêt pour\n*vos travaux?*",
+    "text": "Vérifiez gratuitement de combien augmenter votre hypothèque, demande en 3 minutes.",
+    "ctas": [
+     {
+      "label": "Demander une augmentation",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Aumentare l'ipoteca per ristrutturare | HYPOTEQ",
+  "description": "Ristrutturazione, sostituzione del riscaldamento o ampliamento: scopri di quanto puoi aumentare l'ipoteca. Confronto 40+ istituti, richiesta in 3 min.",
+  "h1": "Aumentare l'ipoteca per ristrutturare",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Aumentare ipoteca",
+    "h1": "Aumentare l'ipoteca\nper ristrutturare",
+    "lead": "Nuova cucina, sostituzione del riscaldamento o risanamento energetico: verifichiamo di quanto puoi **aumentare l'ipoteca** e confrontiamo le condizioni di oltre 40 banche, assicurazioni e casse pensione. Gratis e richiesto in 3 minuti.",
+    "ctas": [
+     {
+      "label": "Richiedi l'aumento",
+      "to": "funnel"
+     },
+     {
+      "label": "Valuta l'immobile",
+      "to": "page:bewertung"
+     }
+    ],
+    "badges": [
+     "0 CHF di mediazione",
+     "Ristrutturazione & ampliamento",
+     "Offerte in 48–72 h"
+    ],
+    "image": "interior",
+    "alt": "Soggiorno appena ristrutturato con parquet",
+    "float": {
+     "title": "SARON da 0.85 %",
+     "text": "Tasso indicativo · valore d'esempio"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "80 %",
+      "label": "anticipo max. come riferimento"
+     },
+     {
+      "value": "40+",
+      "label": "partner di finanziamento a confronto"
+     },
+     {
+      "value": "3 min",
+      "label": "per una richiesta completa"
+     },
+     {
+      "value": "0 CHF",
+      "label": "per confronto e mediazione"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Aumentare l'ipoteca",
+    "title": "Quanto si può ottenere?\n*Anticipo e sostenibilità.*",
+    "image": "house",
+    "alt": "Chalet svizzero davanti a montagne innevate",
+    "paragraphs": [
+     "Decidono due fattori: la nuova ipoteca di regola non può superare l'**80 %** del valore dell'immobile e la sostenibilità deve restare garantita, cioè al massimo circa un terzo del reddito lordo.",
+     "Gli investimenti che aumentano il valore, come un ampliamento o un risanamento energetico, possono creare più margine. Una valutazione aggiornata fa chiarezza."
+    ],
+    "bullets": [
+     "Anticipo max. 80 %, sostenibilità max. ca. ⅓",
+     "Considerare l'ammortamento della 2a ipoteca",
+     "Stato 2026, senza garanzia"
+    ],
+    "ctas": [
+     {
+      "label": "Verifica la sostenibilità",
+      "to": "page:tragbarkeit"
+     }
+    ]
+   },
+   {
+    "type": "features",
+    "title": "Cosa puoi finanziare\n*con l'aumento.*",
+    "items": [
+     {
+      "icon": "✦",
+      "title": "Risanamento energetico",
+      "text": "Isolamento, finestre o fotovoltaico: alcuni istituti premiano questi investimenti con condizioni agevolate."
+     },
+     {
+      "icon": "◎",
+      "title": "Nuovo riscaldamento",
+      "text": "Pompa di calore invece di olio o gas: finanziata tramite l'ipoteca."
+     },
+     {
+      "icon": "⌂",
+      "title": "Ristrutturazione & ampliamento",
+      "text": "Più spazio, nuova cucina o nuovo bagno: finanziare la ristrutturazione con l'ipoteca."
+     },
+     {
+      "icon": "✓",
+      "title": "Manutenzione",
+      "text": "Tetto, facciata o impianti: la banca valuta l'effetto sul valore."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Richiedi l'aumento",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Finanziare la ristrutturazione",
+    "title": "Quattro passi\nverso più capitale.",
+    "items": [
+     {
+      "title": "Progetto & costi",
+      "text": "Carica i preventivi degli artigiani, i contratti ipotecari attuali e i tuoi documenti."
+     },
+     {
+      "title": "Valore & margine",
+      "text": "Verifichiamo anticipo e sostenibilità, se serve con una valutazione secondo Wüest Partner."
+     },
+     {
+      "title": "Confrontare le offerte",
+      "text": "Banca attuale o nuovo istituto: raccogliamo offerte da oltre 40 partner."
+     },
+     {
+      "title": "Versamento",
+      "text": "Coordiniamo l'aumento della cartella ipotecaria e il versamento."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Inizia ora",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Devo cambiare banca?",
+    "title": "Dalla tua banca\n*o nuova gara d'offerta?*",
+    "screen": "funnel",
+    "reverse": true,
+    "tone": "soft",
+    "paragraphs": [
+     "Se la tua ipoteca fissa è ancora in corso, l'aumento si fa di solito come nuova tranche presso la banca attuale. Verifichiamo che la sua offerta sia in linea con il mercato.",
+     "Se il rinnovo è vicino, è il momento ideale: mettiamo a confronto l'intera ipoteca, aumento incluso, presso oltre 40 istituti."
+    ],
+    "bullets": [
+     "Nuova tranche presso la banca attuale",
+     "Oppure combinare rinnovo e aumento",
+     "La consulente ti contatta in tempi brevi"
+    ],
+    "ctas": [
+     {
+      "label": "Verifica le opzioni",
+      "to": "funnel"
+     },
+     {
+      "label": "Scopri il rinnovo",
+      "to": "page:abloesung"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "mode": "zins",
+    "eyebrow": "Calcolatore degli interessi",
+    "title": "Quanto costa\nl'aumento?",
+    "lead": "Calcola con i tassi indicativi come un'ipoteca più alta incide sui tuoi interessi."
+   },
+   {
+    "type": "testimonials",
+    "eyebrow": "Opinioni dei clienti",
+    "title": "Rapidi, personali,\n*competenti.*",
+    "items": [
+     {
+      "text": "Servizio di prima classe, tutto è stato gestito rapidamente.",
+      "author": "Andreas K."
+     },
+     {
+      "text": "Estremamente professionali, umani e competenti: un risultato perfetto con condizioni top.",
+      "author": "Gregor R."
+     },
+     {
+      "text": "Il mio consulente mi ha accompagnato in modo ottimale ed è stato molto presente.",
+      "author": "Romain C."
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Da leggere",
+    "title": "Ristrutturare\n*con un piano.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Valutazione",
+      "title": "Quanto vale la tua casa?",
+      "text": "Valutazione edonica secondo Wüest Partner, CHF 300 invece di 450.",
+      "to": "page:bewertung"
+     },
+     {
+      "kicker": "Rinnovo",
+      "title": "Ipoteca in scadenza?",
+      "text": "Aumento e rinnovo in un solo passo.",
+      "to": "page:abloesung"
+     },
+     {
+      "kicker": "Tassi",
+      "title": "Tassi indicativi attuali",
+      "text": "SARON, fisso 5 e 10 anni.",
+      "to": "page:zinsen"
+     },
+     {
+      "kicker": "Per i partner",
+      "title": "Diventa partner",
+      "text": "Segui proprietari come fiduciario o broker? Inoltra i casi e ricevi una provvigione.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "Aumentare\nsenza giri di parole.",
+    "items": [
+     {
+      "q": "Quando posso aumentare l'ipoteca?",
+      "a": "In linea di principio in qualsiasi momento, purché anticipo e sostenibilità siano rispettati. È particolarmente semplice alla scadenza di un'ipoteca fissa, perché puoi rimettere in gara l'intero finanziamento."
+     },
+     {
+      "q": "Quanto posso ottenere per una ristrutturazione?",
+      "a": "L'ipoteca totale di regola non può superare l'80 % del valore dell'immobile e la sostenibilità deve restare al massimo a circa un terzo del reddito lordo. Gli investimenti che aumentano il valore possono ampliare il margine. Stato 2026, senza garanzia."
+     },
+     {
+      "q": "Esistono ipoteche verdi più convenienti?",
+      "a": "Alcuni istituti offrono condizioni agevolate o ipoteche verdi per i risanamenti energetici. Condizioni e importi variano. Confrontiamo queste offerte per te."
+     },
+     {
+      "q": "Devo cambiare banca?",
+      "a": "No. Se la tua ipoteca fissa è ancora in corso, di solito aumenti con una nuova tranche presso la tua banca. Alla scadenza puoi riunire tutto presso un nuovo istituto."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Tutte le domande",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Pronto per\n*la tua ristrutturazione?*",
+    "text": "Verifica gratis di quanto puoi aumentare l'ipoteca, richiesta in 3 minuti.",
+    "ctas": [
+     {
+      "label": "Richiedi l'aumento",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "Increase Your Mortgage to Renovate | HYPOTEQ",
+  "description": "Renovating, replacing your heating or extending? Find out how much you can add to your Swiss mortgage. Compare 40+ lenders and apply in 3 minutes.",
+  "h1": "Increase your mortgage for renovations",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Increase mortgage Switzerland",
+    "h1": "Increase your mortgage\nfor renovations",
+    "lead": "A new kitchen, a heat pump or an energy upgrade: we check how far you can **increase your mortgage in Switzerland** and compare terms from 40+ banks, insurers and pension funds. Free, and you can apply in 3 minutes.",
+    "ctas": [
+     {
+      "label": "Request an increase",
+      "to": "funnel"
+     },
+     {
+      "label": "Value my property",
+      "to": "page:bewertung"
+     }
+    ],
+    "badges": [
+     "CHF 0 brokerage fee",
+     "Renovation & extension",
+     "Offers in 48–72 h"
+    ],
+    "image": "interior",
+    "alt": "Freshly renovated living space with wooden floor",
+    "float": {
+     "title": "SARON from 0.85 %",
+     "text": "Indicative rate · sample value"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "80 %",
+      "label": "max. loan-to-value as a guide"
+     },
+     {
+      "value": "40+",
+      "label": "financing partners compared"
+     },
+     {
+      "value": "3 min",
+      "label": "to a complete application"
+     },
+     {
+      "value": "CHF 0",
+      "label": "for comparison and brokerage"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Renovation financing Switzerland",
+    "title": "How much is possible?\n*Loan-to-value and affordability.*",
+    "image": "house",
+    "alt": "Swiss chalet in front of snowy mountains",
+    "paragraphs": [
+     "Two things decide: the new mortgage generally may not exceed **80 %** of the property value (loan-to-value), and affordability must still work, meaning max. about one third of your gross income.",
+     "Value-adding work such as an extension or energy upgrade can raise the property value and create more room. An up-to-date valuation gives you clarity."
+    ],
+    "bullets": [
+     "Loan-to-value max. 80 %, affordability max. about ⅓",
+     "Mind the amortisation of the second mortgage",
+     "As of 2026, without guarantee"
+    ],
+    "ctas": [
+     {
+      "label": "Check affordability",
+      "to": "page:tragbarkeit"
+     }
+    ]
+   },
+   {
+    "type": "features",
+    "title": "What an increase\n*can pay for.*",
+    "items": [
+     {
+      "icon": "✦",
+      "title": "Energy upgrades",
+      "text": "Insulation, windows or solar panels: some lenders reward sustainable work with better terms."
+     },
+     {
+      "icon": "◎",
+      "title": "New heating",
+      "text": "Heat pump instead of oil or gas, financed through your mortgage."
+     },
+     {
+      "icon": "⌂",
+      "title": "Remodel & extension",
+      "text": "More space, a new kitchen or bathroom: a home improvement loan via your mortgage."
+     },
+     {
+      "icon": "✓",
+      "title": "Maintenance",
+      "text": "Roof, facade or pipes: the bank checks how the work affects the value."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Request an increase",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Financing your renovation",
+    "title": "Four steps\nto more capital.",
+    "items": [
+     {
+      "title": "Project & costs",
+      "text": "Upload contractor quotes, your current mortgage contracts and personal documents."
+     },
+     {
+      "title": "Value & headroom",
+      "text": "We check loan-to-value and affordability, with a Wüest Partner valuation if needed."
+     },
+     {
+      "title": "Compare offers",
+      "text": "Your current bank or a new lender: we collect offers from 40+ partners."
+     },
+     {
+      "title": "Payout",
+      "text": "We coordinate the increase of the mortgage note and the payout."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Get started",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Do I need to switch banks?",
+    "title": "Stay with your bank\n*or go to market?*",
+    "screen": "funnel",
+    "reverse": true,
+    "tone": "soft",
+    "paragraphs": [
+     "If your fixed-rate mortgage is still running, the increase is usually added as a new tranche with your current bank. We check whether its offer is in line with the market.",
+     "If renewal is coming up anyway, that's the perfect moment: we put your whole mortgage, including the increase, out to 40+ lenders."
+    ],
+    "bullets": [
+     "New tranche with your current bank",
+     "Or combine renewal and increase",
+     "Your advisor gets back to you promptly"
+    ],
+    "ctas": [
+     {
+      "label": "Check my options",
+      "to": "funnel"
+     },
+     {
+      "label": "More on renewal",
+      "to": "page:abloesung"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "mode": "zins",
+    "eyebrow": "Interest calculator",
+    "title": "What will\nthe increase cost?",
+    "lead": "Use the indicative rates to see how a higher mortgage affects your interest costs."
+   },
+   {
+    "type": "testimonials",
+    "eyebrow": "Client reviews",
+    "title": "Fast, personal,\n*competent.*",
+    "items": [
+     {
+      "text": "First-class service, everything was processed quickly.",
+      "author": "Andreas K."
+     },
+     {
+      "text": "Highly professional, personable and competent: a perfect result with top terms.",
+      "author": "Gregor R."
+     },
+     {
+      "text": "My advisor guided me perfectly and was always there for me.",
+      "author": "Romain C."
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Related",
+    "title": "Renovate\n*with a plan.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Valuation",
+      "title": "What is your home worth?",
+      "text": "Hedonic valuation based on Wüest Partner, CHF 300 instead of 450.",
+      "to": "page:bewertung"
+     },
+     {
+      "kicker": "Renewal",
+      "title": "Mortgage expiring?",
+      "text": "Increase and renew in one step.",
+      "to": "page:abloesung"
+     },
+     {
+      "kicker": "Rates",
+      "title": "Current indicative rates",
+      "text": "SARON, 5 and 10-year fixed.",
+      "to": "page:zinsen"
+     },
+     {
+      "kicker": "For partners",
+      "title": "Become a partner",
+      "text": "You look after homeowners as a trustee or broker? Submit cases and earn a commission.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Increasing\nmade simple.",
+    "items": [
+     {
+      "q": "When can I increase my Swiss mortgage?",
+      "a": "In principle at any time, as long as loan-to-value and affordability work. It's especially easy when a fixed-rate mortgage expires, because you can then put the whole financing out to tender."
+     },
+     {
+      "q": "How much can I borrow for a renovation?",
+      "a": "Your total mortgage generally may not exceed 80 % of the property value, and affordability must stay at max. about one third of gross income. Value-adding work can increase your headroom. As of 2026, without guarantee."
+     },
+     {
+      "q": "Are green mortgages cheaper?",
+      "a": "Some lenders offer better terms or dedicated green mortgages for energy upgrades. Conditions and amounts differ. We compare these offers for you."
+     },
+     {
+      "q": "Do I need to switch banks?",
+      "a": "No. If your fixed-rate mortgage is still running, you usually add a new tranche with your current bank. At renewal you can move everything to a new lender."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "All questions",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Ready for your\n*renovation project?*",
+    "text": "Check for free how much you can add, and apply in 3 minutes.",
+    "ctas": [
+     {
+      "label": "Request an increase",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ }
+}

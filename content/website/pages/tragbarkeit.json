@@ -1,0 +1,898 @@
+{
+ "de": {
+  "title": "Tragbarkeitsrechner: Wie viel Haus liegt drin? | HYPOTEQ",
+  "description": "Prüfe mit dem Tragbarkeitsrechner, welcher Kaufpreis zu deinem Einkommen passt, mit kalkulatorischem Zins und Nebenkosten. Kostenlos rechnen.",
+  "h1": "Tragbarkeitsrechner: Was kannst du dir leisten?",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Tragbarkeit berechnen",
+    "h1": "Tragbarkeitsrechner: Was kannst du dir leisten?",
+    "lead": "Mit dem **Tragbarkeitsrechner** prüfst du in Sekunden, ob Kaufpreis, Eigenmittel und Einkommen zusammenpassen, so wie Schweizer Banken rechnen. Danach vergleichen wir kostenlos über 40 Finanzierungspartner für dich.",
+    "ctas": [
+     {
+      "label": "Tragbarkeit prüfen",
+      "to": "page:tragbarkeit#rechner"
+     },
+     {
+      "label": "Hypothek anfragen",
+      "to": "funnel"
+     }
+    ],
+    "badges": [
+     "Kalkulatorischer Zins 5 %",
+     "Haupt- und Zweitwohnsitz",
+     "Kostenlos"
+    ],
+    "image": "family",
+    "alt": "Familie im neuen, noch leeren Zuhause"
+   },
+   {
+    "type": "calc",
+    "mode": "tragbarkeit",
+    "eyebrow": "Tragbarkeitsrechner",
+    "title": "Wie viel Haus\n*liegt drin?*",
+    "lead": "Gib Kaufpreis, Eigenmittel und Brutto-Haushaltseinkommen ein. Der Rechner zeigt Belehnung, kalkulatorische Kosten und deine Tragbarkeit."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "So rechnen Banken",
+    "title": "Vier Bausteine\nder Tragbarkeit.",
+    "items": [
+     {
+      "title": "Kalkulatorischer Zins 5 %",
+      "text": "Banken rechnen nicht mit dem heutigen Hypothekarzins, sondern mit rund **5 %** auf der ganzen Hypothek. So bleibt die Finanzierung auch bei steigenden Zinsen tragbar."
+     },
+     {
+      "title": "Unterhalt und Nebenkosten 1 %",
+      "text": "Für Unterhalt, Reparaturen und Nebenkosten werden jährlich ca. **1 % des Immobilienwerts** eingerechnet."
+     },
+     {
+      "title": "Amortisation",
+      "text": "Die 2. Hypothek (der Teil über 66⅔ % Belehnung) zahlst du innert 15 Jahren bzw. bis zur Pensionierung ab, direkt oder indirekt über die Säule 3a."
+     },
+     {
+      "title": "Die ⅓-Regel",
+      "text": "Zins, Unterhalt und Amortisation zusammen sollten höchstens ca. **ein Drittel** deines Brutto-Haushaltseinkommens betragen."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Tragbarkeit persönlich prüfen lassen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "compare",
+    "eyebrow": "Rechenbeispiel",
+    "title": "Ein Beispiel\n*in Zahlen.*",
+    "head": [
+     "Annahme: Kaufpreis CHF 1’000’000, Eigenmittel CHF 200’000",
+     "pro Jahr"
+    ],
+    "rows": [
+     [
+      "Kalkulatorischer Zins 5 % auf CHF 800’000",
+      "CHF 40’000"
+     ],
+     [
+      "Unterhalt 1 % des Immobilienwerts",
+      "CHF 10’000"
+     ],
+     [
+      "Amortisation 2. Hypothek (CHF 133’333 über 15 Jahre)",
+      "CHF 8’889"
+     ],
+     [
+      "Total kalkulatorische Kosten",
+      "CHF 58’889"
+     ],
+     [
+      "Nötiges Bruttoeinkommen bei ⅓-Regel",
+      "ca. CHF 176’700"
+     ]
+    ],
+    "note": "Vereinfachtes Beispiel mit Annahmen, Stand 2026, ohne Gewähr. Banken rechnen teilweise anders, etwa bei Zweitwohnsitz, Renditeobjekten oder im Ruhestand."
+   },
+   {
+    "type": "trust",
+    "items": [
+     "Kostenlos & unverbindlich",
+     "40+ Finanzierungspartner",
+     "Beraterin meldet sich zeitnah",
+     "KI liest deine Unterlagen",
+     "Daten in der Schweiz",
+     "Offerten in 48–72 h"
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Wenn es knapp wird",
+    "title": "Tragbarkeit über 33 %?\n*Es gibt Wege.*",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Eigenmittel",
+      "title": "Mehr Eigenmittel einsetzen",
+      "text": "Pensionskasse und Säule 3a können Eigenmittel stärken, per Vorbezug oder Verpfändung.",
+      "to": "page:rg-eigenmittel",
+      "cta": "Ratgeber Eigenmittel"
+     },
+     {
+      "kicker": "Vergleich",
+      "title": "Andere Finanzierungspartner",
+      "text": "Nicht jede Bank rechnet gleich. Wir prüfen über 40 Banken, Versicherungen und Pensionskassen.",
+      "to": "funnel",
+      "cta": "Anfrage starten"
+     },
+     {
+      "kicker": "Ratgeber",
+      "title": "Tragbarkeit im Detail",
+      "text": "Alle Regeln, Ausnahmen und Tipps rund um die Tragbarkeitsrechnung.",
+      "to": "page:rg-tragbarkeit",
+      "cta": "Ratgeber lesen"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Online-Anfrage",
+    "title": "Rechnung gemacht.\n*Jetzt Offerten holen.*",
+    "screen": "funnel",
+    "paragraphs": [
+     "Lade Lohnausweis, ID und Objektunterlagen in der **Schnellanmeldung** hoch. Die KI liest die meisten Angaben aus, deine Beraterin prüft die Tragbarkeit mit dir persönlich."
+    ],
+    "bullets": [
+     "Anfrage in ca. 3 Minuten",
+     "Die KI berät nicht: Das macht ein Mensch",
+     "Offerten in der Regel innert 48–72 h"
+    ],
+    "ctas": [
+     {
+      "label": "Hypothek anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "Zum Hypothekenrechner",
+      "to": "page:rechner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Fragen zur\nTragbarkeit.",
+    "items": [
+     {
+      "q": "Wie berechnen Banken die Tragbarkeit?",
+      "a": "Sie addieren kalkulatorischen Zins (ca. 5 % der Hypothek), Unterhalt (ca. 1 % des Immobilienwerts) und Amortisation der 2. Hypothek. Diese Kosten sollten höchstens ca. **⅓ des Bruttoeinkommens** ausmachen."
+     },
+     {
+      "q": "Warum rechnen Banken mit 5 % Zins?",
+      "a": "Der kalkulatorische Zins ist ein Sicherheitspuffer. Er stellt sicher, dass du die Hypothek auch bei deutlich höheren Zinsen noch tragen kannst. Dein effektiver Zins liegt meist tiefer."
+     },
+     {
+      "q": "Was tun, wenn die Tragbarkeit knapp ist?",
+      "a": "Mehr Eigenmittel einsetzen, etwa aus Pensionskasse oder Säule 3a, den Kaufpreis anpassen oder Finanzierungspartner mit anderer Berechnung prüfen. Wir zeigen dir die Optionen kostenlos."
+     },
+     {
+      "q": "Zählt das Einkommen meines Partners mit?",
+      "a": "Ja, wenn ihr die Hypothek gemeinsam aufnehmt, zählt in der Regel das Brutto-Haushaltseinkommen beider Kreditnehmer. Die Bank prüft dabei auch Stabilität und Art des Einkommens."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Alle Fragen",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Für Makler & Treuhänder",
+    "title": "Tragbarkeit klären,\n*bevor der Deal platzt.*",
+    "image": "consultation",
+    "alt": "Beratungsgespräch am Tisch",
+    "tone": "soft",
+    "reverse": true,
+    "paragraphs": [
+     "Als HYPOTEQ-Partner reichst du Fälle im Partnerportal ein und erhältst eine persönliche Ansprechperson. Die Kundenbeziehung bleibt bei dir, die Provision pro Abschluss ist fair."
+    ],
+    "ctas": [
+     {
+      "label": "Partner werden",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Tragbar?\n*Dann los.*",
+    "text": "Kostenlos vergleichen, persönlich beraten lassen.",
+    "ctas": [
+     {
+      "label": "Hypothek anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Calcul de la capacité financière | HYPOTEQ",
+  "description": "Vérifiez quel prix d'achat correspond à votre revenu, avec taux théorique de 5 % et frais d'entretien. Calcul gratuit, puis offre de 40+ prêteurs.",
+  "h1": "Calculez votre capacité financière",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Calculateur capacité financière",
+    "h1": "Calculez votre\ncapacité financière",
+    "lead": "Notre **calcul de capacité financière** vous montre en quelques secondes si prix, fonds propres et revenu concordent, comme le calculent les banques suisses. Ensuite, nous comparons gratuitement plus de 40 prêteurs pour vous.",
+    "ctas": [
+     {
+      "label": "Vérifier ma capacité",
+      "to": "page:tragbarkeit#rechner"
+     },
+     {
+      "label": "Demander une hypothèque",
+      "to": "funnel"
+     }
+    ],
+    "badges": [
+     "Taux théorique 5 %",
+     "Résidence principale et secondaire",
+     "Gratuit"
+    ],
+    "image": "family",
+    "alt": "Famille dans son nouveau logement encore vide"
+   },
+   {
+    "type": "calc",
+    "mode": "tragbarkeit",
+    "eyebrow": "Combien puis-je emprunter?",
+    "title": "Quel bien\n*est à votre portée?*",
+    "lead": "Saisissez prix d'achat, fonds propres et revenu brut du ménage. Le calculateur affiche le nantissement, les coûts théoriques et votre capacité financière."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Le calcul des banques",
+    "title": "Quatre éléments\nde la capacité financière.",
+    "items": [
+     {
+      "title": "Taux théorique de 5 %",
+      "text": "Les banques ne calculent pas avec le taux actuel, mais avec environ **5 %** sur l'ensemble de l'hypothèque. Le financement reste ainsi supportable si les taux montent."
+     },
+     {
+      "title": "Entretien et charges 1 %",
+      "text": "Pour l'entretien, les réparations et les charges, on compte chaque année env. **1 % de la valeur du bien**."
+     },
+     {
+      "title": "Amortissement",
+      "text": "Le 2e rang (au-delà de 66⅔ % de nantissement) s'amortit en 15 ans ou jusqu'à la retraite, directement ou indirectement via le 3e pilier."
+     },
+     {
+      "title": "La règle du tiers",
+      "text": "Intérêts, entretien et amortissement ne devraient pas dépasser environ **un tiers** du revenu brut du ménage."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Faire vérifier ma capacité",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "compare",
+    "eyebrow": "Exemple chiffré",
+    "title": "Un exemple\n*concret.*",
+    "head": [
+     "Hypothèse: prix CHF 1’000’000, fonds propres CHF 200’000",
+     "par an"
+    ],
+    "rows": [
+     [
+      "Taux théorique 5 % sur CHF 800’000",
+      "CHF 40’000"
+     ],
+     [
+      "Entretien 1 % de la valeur du bien",
+      "CHF 10’000"
+     ],
+     [
+      "Amortissement du 2e rang (CHF 133’333 sur 15 ans)",
+      "CHF 8’889"
+     ],
+     [
+      "Total des coûts théoriques",
+      "CHF 58’889"
+     ],
+     [
+      "Revenu brut nécessaire (règle du tiers)",
+      "env. CHF 176’700"
+     ]
+    ],
+    "note": "Exemple simplifié avec hypothèses, état 2026, sans garantie. Les banques peuvent calculer autrement, p. ex. pour une résidence secondaire, un immeuble de rendement ou à la retraite."
+   },
+   {
+    "type": "trust",
+    "items": [
+     "Gratuit & sans engagement",
+     "40+ prêteurs partenaires",
+     "Réponse rapide et personnelle",
+     "L'IA lit vos documents",
+     "Données en Suisse",
+     "Offres en 48–72 h"
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Si c'est serré",
+    "title": "Capacité au-delà de 33 %?\n*Il existe des solutions.*",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Fonds propres",
+      "title": "Renforcer les fonds propres",
+      "text": "Le 2e et le 3e pilier peuvent compléter vos fonds propres, par retrait anticipé ou nantissement.",
+      "to": "page:rg-eigenmittel",
+      "cta": "Guide fonds propres"
+     },
+     {
+      "kicker": "Comparaison",
+      "title": "D'autres prêteurs",
+      "text": "Chaque banque calcule à sa manière. Nous consultons plus de 40 banques, assurances et caisses de pension.",
+      "to": "funnel",
+      "cta": "Lancer la demande"
+     },
+     {
+      "kicker": "Guide",
+      "title": "La capacité en détail",
+      "text": "Toutes les règles, exceptions et astuces autour du calcul de capacité financière.",
+      "to": "page:rg-tragbarkeit",
+      "cta": "Lire le guide"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Demande en ligne",
+    "title": "Calcul fait.\n*Place aux offres.*",
+    "screen": "funnel",
+    "paragraphs": [
+     "Envoyez votre certificat de salaire, votre pièce d'identité et les documents du bien via l'**inscription rapide**. L'IA lit la plupart des données, votre conseillère vérifie la capacité avec vous."
+    ],
+    "bullets": [
+     "Demande en env. 3 minutes",
+     "L'IA ne conseille pas: c'est le rôle d'une personne",
+     "Offres en règle générale sous 48–72 h"
+    ],
+    "ctas": [
+     {
+      "label": "Demander une hypothèque",
+      "to": "funnel"
+     },
+     {
+      "label": "Calculateur hypothécaire",
+      "to": "page:rechner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "Questions sur la\ncapacité financière.",
+    "items": [
+     {
+      "q": "Comment les banques calculent-elles la capacité financière?",
+      "a": "Elles additionnent le taux théorique (env. 5 % de l'hypothèque), l'entretien (env. 1 % de la valeur du bien) et l'amortissement du 2e rang. Ces coûts ne devraient pas dépasser environ **un tiers du revenu brut**."
+     },
+     {
+      "q": "Pourquoi un taux théorique de 5 %?",
+      "a": "C'est une marge de sécurité: vous devez pouvoir assumer l'hypothèque même si les taux augmentent fortement. Votre taux effectif est en général nettement plus bas."
+     },
+     {
+      "q": "Que faire si ma capacité est insuffisante?",
+      "a": "Augmenter les fonds propres, par exemple avec le 2e ou le 3e pilier, adapter le prix ou consulter des prêteurs qui calculent différemment. Nous vous montrons gratuitement les options."
+     },
+     {
+      "q": "Le revenu du conjoint compte-t-il?",
+      "a": "Oui, si vous empruntez ensemble, c'est en règle générale le revenu brut des deux emprunteurs qui compte. La banque examine aussi la stabilité et le type de revenu."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Toutes les questions",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Pour courtiers & fiduciaires",
+    "title": "Clarifier la capacité\n*avant la signature.*",
+    "image": "consultation",
+    "alt": "Entretien de conseil autour d'une table",
+    "tone": "soft",
+    "reverse": true,
+    "paragraphs": [
+     "En tant que partenaire HYPOTEQ, vous déposez vos dossiers dans le portail partenaires et disposez d'un interlocuteur personnel. La relation client reste chez vous, la commission par conclusion est équitable."
+    ],
+    "ctas": [
+     {
+      "label": "Devenir partenaire",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "C'est finançable?\n*Alors allons-y.*",
+    "text": "Comparer gratuitement, être conseillé personnellement.",
+    "ctas": [
+     {
+      "label": "Demander une hypothèque",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Calcolo della sostenibilità ipotecaria | HYPOTEQ",
+  "description": "Verifica quale prezzo d'acquisto è sostenibile con il tuo reddito, con tasso teorico del 5 % e costi accessori. Calcolo gratuito e offerte di 40+ istituti.",
+  "h1": "Calcola la sostenibilità della tua ipoteca",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Calcolatore sostenibilità",
+    "h1": "Calcola la sostenibilità\ndella tua ipoteca",
+    "lead": "Con il **calcolo della sostenibilità** verifichi in pochi secondi se prezzo, fondi propri e reddito sono compatibili, come calcolano le banche svizzere. Poi confrontiamo gratis per te oltre 40 istituti.",
+    "ctas": [
+     {
+      "label": "Verifica la sostenibilità",
+      "to": "page:tragbarkeit#rechner"
+     },
+     {
+      "label": "Richiedere un'ipoteca",
+      "to": "funnel"
+     }
+    ],
+    "badges": [
+     "Tasso teorico 5 %",
+     "Residenza principale e secondaria",
+     "Gratis"
+    ],
+    "image": "family",
+    "alt": "Famiglia nella nuova casa ancora vuota"
+   },
+   {
+    "type": "calc",
+    "mode": "tragbarkeit",
+    "eyebrow": "Quanto posso spendere per una casa?",
+    "title": "Quale casa\n*è sostenibile?*",
+    "lead": "Inserisci prezzo, fondi propri e reddito lordo dell'economia domestica. Il calcolatore mostra anticipo, costi teorici e sostenibilità."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Come calcolano le banche",
+    "title": "Quattro elementi\ndella sostenibilità.",
+    "items": [
+     {
+      "title": "Tasso teorico del 5 %",
+      "text": "Le banche non usano il tasso attuale, ma circa il **5 %** sull'intera ipoteca. Così il finanziamento resta sostenibile anche se i tassi salgono."
+     },
+     {
+      "title": "Manutenzione e spese 1 %",
+      "text": "Per manutenzione, riparazioni e spese accessorie si calcola ogni anno circa l'**1 % del valore dell'immobile**."
+     },
+     {
+      "title": "Ammortamento",
+      "text": "La 2a ipoteca (oltre il 66⅔ % di anticipo) si ammortizza entro 15 anni o fino al pensionamento, in modo diretto o indiretto tramite il 3° pilastro."
+     },
+     {
+      "title": "La regola del terzo",
+      "text": "Interessi, manutenzione e ammortamento non dovrebbero superare circa **un terzo** del reddito lordo dell'economia domestica."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Fai verificare la sostenibilità",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "compare",
+    "eyebrow": "Esempio di calcolo",
+    "title": "Un esempio\n*in cifre.*",
+    "head": [
+     "Ipotesi: prezzo CHF 1’000’000, fondi propri CHF 200’000",
+     "all'anno"
+    ],
+    "rows": [
+     [
+      "Tasso teorico 5 % su CHF 800’000",
+      "CHF 40’000"
+     ],
+     [
+      "Manutenzione 1 % del valore dell'immobile",
+      "CHF 10’000"
+     ],
+     [
+      "Ammortamento 2a ipoteca (CHF 133’333 in 15 anni)",
+      "CHF 8’889"
+     ],
+     [
+      "Totale costi teorici",
+      "CHF 58’889"
+     ],
+     [
+      "Reddito lordo necessario (regola del terzo)",
+      "ca. CHF 176’700"
+     ]
+    ],
+    "note": "Esempio semplificato con ipotesi, stato 2026, senza garanzia. Le banche possono calcolare diversamente, ad esempio per residenze secondarie, immobili da reddito o al pensionamento."
+   },
+   {
+    "type": "trust",
+    "items": [
+     "Gratis e senza impegno",
+     "40+ istituti partner",
+     "Risposta rapida e personale",
+     "L'IA legge i tuoi documenti",
+     "Dati in Svizzera",
+     "Offerte in 48–72 h"
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Se è al limite",
+    "title": "Sostenibilità oltre il 33 %?\n*Ci sono soluzioni.*",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Fondi propri",
+      "title": "Più fondi propri",
+      "text": "Cassa pensione e 3° pilastro possono rafforzare i fondi propri, con prelievo anticipato o costituzione in pegno.",
+      "to": "page:rg-eigenmittel",
+      "cta": "Guida fondi propri"
+     },
+     {
+      "kicker": "Confronto",
+      "title": "Altri istituti",
+      "text": "Non tutte le banche calcolano allo stesso modo. Verifichiamo oltre 40 banche, assicurazioni e casse pensioni.",
+      "to": "funnel",
+      "cta": "Avvia la richiesta"
+     },
+     {
+      "kicker": "Guida",
+      "title": "La sostenibilità nel dettaglio",
+      "text": "Tutte le regole, le eccezioni e i consigli sul calcolo della sostenibilità.",
+      "to": "page:rg-tragbarkeit",
+      "cta": "Leggi la guida"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Richiesta online",
+    "title": "Calcolo fatto.\n*Ora le offerte.*",
+    "screen": "funnel",
+    "paragraphs": [
+     "Carica certificato di salario, documento d'identità e documenti dell'immobile nella **registrazione rapida**. L'IA legge la maggior parte dei dati, la tua consulente verifica con te la sostenibilità."
+    ],
+    "bullets": [
+     "Richiesta in ca. 3 minuti",
+     "L'IA non fornisce consulenza: lo fa una persona",
+     "Offerte di regola entro 48–72 h"
+    ],
+    "ctas": [
+     {
+      "label": "Richiedere un'ipoteca",
+      "to": "funnel"
+     },
+     {
+      "label": "Calcolatore ipotecario",
+      "to": "page:rechner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "Domande sulla\nsostenibilità.",
+    "items": [
+     {
+      "q": "Come calcolano le banche la sostenibilità?",
+      "a": "Sommano tasso teorico (ca. 5 % dell'ipoteca), manutenzione (ca. 1 % del valore) e ammortamento della 2a ipoteca. Questi costi non dovrebbero superare circa **un terzo del reddito lordo**."
+     },
+     {
+      "q": "Perché un tasso teorico del 5 %?",
+      "a": "È un margine di sicurezza: devi poter sostenere l'ipoteca anche con tassi molto più alti. Il tuo tasso effettivo di solito è più basso."
+     },
+     {
+      "q": "Cosa fare se la sostenibilità non basta?",
+      "a": "Aumentare i fondi propri, ad esempio con cassa pensione o 3° pilastro, rivedere il prezzo o valutare istituti che calcolano diversamente. Ti mostriamo le opzioni gratis."
+     },
+     {
+      "q": "Conta anche il reddito del partner?",
+      "a": "Sì, se richiedete l'ipoteca insieme conta di regola il reddito lordo di entrambi i mutuatari. La banca valuta anche stabilità e tipo di reddito."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Tutte le domande",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Per agenti & fiduciari",
+    "title": "Chiarire la sostenibilità\n*prima del rogito.*",
+    "image": "consultation",
+    "alt": "Colloquio di consulenza al tavolo",
+    "tone": "soft",
+    "reverse": true,
+    "paragraphs": [
+     "Come partner HYPOTEQ inoltri i casi nel portale partner e hai una persona di riferimento. Il rapporto con il cliente resta tuo, la provvigione per ogni conclusione è equa."
+    ],
+    "ctas": [
+     {
+      "label": "Diventa partner",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Sostenibile?\n*Allora si parte.*",
+    "text": "Confronta gratis, ricevi una consulenza personale.",
+    "ctas": [
+     {
+      "label": "Richiedere un'ipoteca",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "Swiss Mortgage Affordability Calculator | HYPOTEQ",
+  "description": "Check which purchase price fits your income under Swiss rules: 5 % imputed rate, amortisation and maintenance. Free, then compare 40+ lenders.",
+  "h1": "How much home can you afford in Switzerland?",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Mortgage affordability calculator Switzerland",
+    "h1": "How much home\ncan you afford\nin Switzerland?",
+    "lead": "Our **mortgage affordability calculator for Switzerland** shows in seconds whether price, equity and income fit together, the way Swiss banks calculate. Then we compare more than 40 lenders for you, free of charge.",
+    "ctas": [
+     {
+      "label": "Check affordability",
+      "to": "page:tragbarkeit#rechner"
+     },
+     {
+      "label": "Request a mortgage",
+      "to": "funnel"
+     }
+    ],
+    "badges": [
+     "5 % imputed rate",
+     "Primary and second home",
+     "Free"
+    ],
+    "image": "family",
+    "alt": "Family in their new, still empty home"
+   },
+   {
+    "type": "calc",
+    "mode": "tragbarkeit",
+    "eyebrow": "Affordability calculator",
+    "title": "How much house\n*can you afford?*",
+    "lead": "Enter purchase price, equity and gross household income. The calculator shows loan-to-value, imputed costs and your affordability ratio."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "The Swiss affordability rule",
+    "title": "Four building blocks\nof affordability.",
+    "items": [
+     {
+      "title": "5 % imputed rate",
+      "text": "Swiss banks don't use today's mortgage rate. They apply around **5 %** to the whole mortgage, so the financing stays affordable if rates rise."
+     },
+     {
+      "title": "Maintenance and running costs 1 %",
+      "text": "For maintenance, repairs and running costs, banks add around **1 % of the property value** per year."
+     },
+     {
+      "title": "Amortisation",
+      "text": "The 2nd mortgage (the part above 66⅔ % loan-to-value) must be repaid within 15 years or by retirement, directly or indirectly via pillar 3a."
+     },
+     {
+      "title": "The one-third rule",
+      "text": "Interest, maintenance and amortisation together should not exceed roughly **one third** of your gross household income."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Get affordability checked",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "compare",
+    "eyebrow": "Worked example",
+    "title": "An example\n*in numbers.*",
+    "head": [
+     "Assumption: price CHF 1,000,000, equity CHF 200,000",
+     "per year"
+    ],
+    "rows": [
+     [
+      "Imputed rate 5 % on CHF 800,000",
+      "CHF 40,000"
+     ],
+     [
+      "Maintenance 1 % of property value",
+      "CHF 10,000"
+     ],
+     [
+      "Amortisation of 2nd mortgage (CHF 133,333 over 15 years)",
+      "CHF 8,889"
+     ],
+     [
+      "Total imputed costs",
+      "CHF 58,889"
+     ],
+     [
+      "Gross income needed (one-third rule)",
+      "approx. CHF 176,700"
+     ]
+    ],
+    "note": "Simplified example based on assumptions, as of 2026, no guarantee. Banks may calculate differently, e.g. for second homes, buy-to-let or in retirement."
+   },
+   {
+    "type": "trust",
+    "items": [
+     "Free & non-binding",
+     "40+ lending partners",
+     "Reply the same business day",
+     "AI reads your documents",
+     "Data stays in Switzerland",
+     "Offers in 48–72 h"
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "If it's tight",
+    "title": "Above 33 %?\n*There are options.*",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Equity",
+      "title": "Use more equity",
+      "text": "Pillar 2 and pillar 3a can strengthen your equity, through withdrawal or pledging.",
+      "to": "page:rg-eigenmittel",
+      "cta": "Equity guide"
+     },
+     {
+      "kicker": "Comparison",
+      "title": "Other lenders",
+      "text": "Not every bank calculates the same way. We check more than 40 banks, insurers and pension funds.",
+      "to": "funnel",
+      "cta": "Start request"
+     },
+     {
+      "kicker": "Guide",
+      "title": "Affordability in detail",
+      "text": "All rules, exceptions and tips around the Swiss affordability calculation.",
+      "to": "page:rg-tragbarkeit",
+      "cta": "Read the guide"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Online request",
+    "title": "Numbers checked.\n*Now get offers.*",
+    "screen": "funnel",
+    "paragraphs": [
+     "Upload your salary statement, ID and property documents in the **quick application**. The AI reads most of the details, your advisor reviews affordability with you in person."
+    ],
+    "bullets": [
+     "Request in about 3 minutes",
+     "The AI doesn't advise: a person does",
+     "Offers usually within 48–72 h"
+    ],
+    "ctas": [
+     {
+      "label": "Request a mortgage",
+      "to": "funnel"
+     },
+     {
+      "label": "Mortgage calculator",
+      "to": "page:rechner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Questions about\naffordability.",
+    "items": [
+     {
+      "q": "How do Swiss banks calculate affordability?",
+      "a": "They add up the imputed interest (approx. 5 % of the mortgage), maintenance (approx. 1 % of the property value) and amortisation of the 2nd mortgage. These costs should not exceed roughly **one third of gross income**."
+     },
+     {
+      "q": "Why do banks use a 5 % imputed rate?",
+      "a": "It's a safety buffer: you should still be able to carry the mortgage if rates rise significantly. Your actual rate is usually much lower."
+     },
+     {
+      "q": "What if affordability is tight?",
+      "a": "Add equity, for example from pillar 2 or pillar 3a, adjust the price or look at lenders that calculate differently. We show you the options free of charge."
+     },
+     {
+      "q": "Does my partner's income count?",
+      "a": "Yes. If you take out the mortgage together, the gross income of both borrowers usually counts. The bank also looks at the stability and type of income."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "All questions",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "For agents & trustees",
+    "title": "Clear affordability\n*before the deal falls through.*",
+    "image": "consultation",
+    "alt": "Advisory meeting at a table",
+    "tone": "soft",
+    "reverse": true,
+    "paragraphs": [
+     "As a HYPOTEQ partner you submit cases in the partner portal and get a personal contact. The client relationship stays with you, with fair commission per closed deal."
+    ],
+    "ctas": [
+     {
+      "label": "Become a partner",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Affordable?\n*Let's go.*",
+    "text": "Compare for free, get personal advice.",
+    "ctas": [
+     {
+      "label": "Request a mortgage",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ }
+}

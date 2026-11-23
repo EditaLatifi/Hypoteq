@@ -1,0 +1,1050 @@
+{
+ "de": {
+  "title": "Advisory: Beratung für komplexe Finanzierungen | HYPOTEQ",
+  "description": "Bankabsage, Pensionierung, Renditeliegenschaften oder komplexe Eigentümerstrukturen: Unser kostenpflichtiges Advisory findet Lösungen. Termin anfragen.",
+  "h1": "Advisory für anspruchsvolle Finanzierungen",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "HYPOTEQ Advisory",
+    "h1": "Advisory für\nanspruchsvolle Finanzierungen",
+    "lead": "Unsere **unabhängige Hypothekarberatung** für Fälle, die nicht ins Standardraster passen: nach einer Bankabsage, im Ruhestand, bei Renditeliegenschaften oder komplexen Eigentümerstrukturen. Das Erstgespräch ist **kostenlos**, das Mandat kostenpflichtig.",
+    "ctas": [
+     {
+      "label": "Erstgespräch vereinbaren",
+      "to": "page:kontakt"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Erstgespräch kostenlos",
+     "Unabhängig",
+     "40+ Finanzierungspartner"
+    ],
+    "image": "consultation",
+    "alt": "Berater und Kundin besprechen Unterlagen am Tisch",
+    "float": {
+     "title": "Honorar vorab transparent",
+     "text": "Offerte vor Mandatsbeginn"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "0 CHF",
+      "label": "für das Erstgespräch"
+     },
+     {
+      "value": "40+",
+      "label": "Banken, Versicherungen & Pensionskassen"
+     },
+     {
+      "value": "35+ J.",
+      "label": "Erfahrung im Team"
+     },
+     {
+      "value": "180+",
+      "label": "Beraterinnen und Berater in der ganzen Schweiz"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Wann Advisory hilft",
+    "title": "Vier Situationen,\n*eine klare Strategie.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "01",
+      "title": "Finanzierung im Ruhestand",
+      "text": "Wenn die Tragbarkeit mit Renten knapp wird und die Verlängerung der Hypothek unsicher ist.",
+      "to": "page:ruhestand",
+      "cta": "Mehr dazu"
+     },
+     {
+      "kicker": "02",
+      "title": "Komplexe Liegenschaften",
+      "text": "Mehrfamilienhaus, gemischt genutzte Objekte oder Renditeliegenschaften mit eigenen Regeln.",
+      "to": "page:rendite",
+      "cta": "Mehr dazu"
+     },
+     {
+      "kicker": "03",
+      "title": "Nach einer Bankabsage",
+      "text": "Wir analysieren, warum die Bank abgelehnt hat, und suchen den passenden Kreditgeber."
+     },
+     {
+      "kicker": "04",
+      "title": "Komplexe Eigentümerstrukturen",
+      "text": "Mehrere Eigentümer, juristische Personen oder Auslandsbezug."
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Hypothek abgelehnt?",
+    "title": "Eine Absage ist\n*kein Endpunkt.*",
+    "image": "portrait",
+    "paragraphs": [
+     "Banken lehnen aus unterschiedlichen Gründen ab: Tragbarkeit, Einkommensnachweis, Objektart oder interne Richtlinien. Was bei einer Bank nicht passt, kann bei einem anderen Finanzierungspartner funktionieren.",
+     "Im Advisory prüfen wir dein Dossier, finden die Schwachstellen und zeigen, wie du sie behebst: mit einer anderen Struktur, zusätzlichen Sicherheiten oder einem anderen Anbieter."
+    ],
+    "bullets": [
+     "Ehrliche Analyse der Ablehnungsgründe",
+     "Dossier bankfähig aufbereitet",
+     "Zugang zu über 40 Finanzierungspartnern"
+    ],
+    "ctas": [
+     {
+      "label": "Fall schildern",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "compare",
+    "eyebrow": "Leistungen",
+    "title": "Vermittlung oder\n*Advisory?*",
+    "head": [
+     "",
+     "Vermittlung",
+     "Advisory-Mandat"
+    ],
+    "rows": [
+     [
+      "Kosten für dich",
+      "0 CHF",
+      "Honorar nach Offerte"
+     ],
+     [
+      "Geeignet für",
+      "Kauf, Ablösung, Neubau im Standard",
+      "komplexe und abgelehnte Fälle"
+     ],
+     [
+      "Analyse",
+      "Tragbarkeit & Offerten",
+      "Strategie, Struktur, Alternativen"
+     ],
+     [
+      "Erstgespräch",
+      "kostenlos",
+      "kostenlos"
+     ]
+    ],
+    "note": "Ob du Advisory brauchst, klären wir im Erstgespräch. Reicht die kostenlose Vermittlung, sagen wir dir das offen."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Ablauf",
+    "title": "So läuft ein\nMandat ab.",
+    "items": [
+     {
+      "title": "Kostenloses Erstgespräch",
+      "text": "Du schilderst deine Situation. Wir sagen dir, ob Advisory sinnvoll ist."
+     },
+     {
+      "title": "Offerte & Mandat",
+      "text": "Du erhältst vorab eine transparente Honorarofferte. Erst mit deiner Zusage beginnt das Mandat."
+     },
+     {
+      "title": "Analyse & Strategie",
+      "text": "Wir prüfen Unterlagen, Tragbarkeit, Objekt und Struktur und erarbeiten Lösungswege."
+     },
+     {
+      "title": "Umsetzung",
+      "text": "Wir verhandeln mit Finanzierungspartnern und begleiten dich bis zum Abschluss."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Erstgespräch vereinbaren",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Für Developer & Family Offices",
+    "title": "Projekte mit\n*mehreren Ebenen.*",
+    "image": "zurich-neighbourhood",
+    "reverse": true,
+    "tone": "soft",
+    "paragraphs": [
+     "Bei grösseren Projekten kombinieren wir Bankhypotheken mit **Mezzanine-Kapital**, wenn Eigenmittel fehlen oder gebunden sind. Für Bestandshalter prüfen wir Refinanzierung und Laufzeitenstrategie über das ganze Portfolio."
+    ],
+    "bullets": [
+     "Senior-Finanzierung und Nachrangkapital koordiniert",
+     "Juristische Personen und mehrere Eigentümer",
+     "Auslandsbezug strukturiert gelöst"
+    ],
+    "ctas": [
+     {
+      "label": "Mezzanine ansehen",
+      "to": "page:mezzanine"
+     },
+     {
+      "label": "Alle Hypotheken",
+      "to": "page:hypotheken"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Für Partner",
+    "title": "Komplexer Fall\n*in deinem Kundenstamm?*",
+    "cols": 2,
+    "items": [
+     {
+      "kicker": "Partnerprogramm",
+      "title": "Fälle einreichen, Kunde behalten",
+      "text": "Makler, Treuhänder und Vermögensverwalter reichen anspruchsvolle Fälle über das Partnerportal ein. Die Kundenbeziehung bleibt beim Partner.",
+      "to": "page:partner",
+      "cta": "Partner werden"
+     },
+     {
+      "kicker": "Ratgeber",
+      "title": "Vermittler oder Hausbank?",
+      "text": "Was ein unabhängiger Hypothekenvermittler leistet und wann er sich lohnt.",
+      "to": "page:rg-vermittler",
+      "cta": "Ratgeber lesen"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Advisory, kurz erklärt.",
+    "items": [
+     {
+      "q": "Wann lohnt sich ein kostenpflichtiges Advisory?",
+      "a": "Wenn deine Situation nicht ins Standardraster passt: Finanzierung im Ruhestand, Renditeliegenschaften, gemischt genutzte Objekte, mehrere Eigentümer, juristische Personen, Auslandsbezug oder nach einer Bankabsage."
+     },
+     {
+      "q": "Was tun nach einer Bankabsage?",
+      "a": "Nicht sofort bei der nächsten Bank anfragen. Zuerst die Gründe verstehen und das Dossier gezielt verbessern. Wir analysieren den Fall und suchen unter über 40 Partnern den passenden."
+     },
+     {
+      "q": "Was kostet das Advisory?",
+      "a": "Das **Erstgespräch ist kostenlos**. Für das Mandat erhältst du vorab eine transparente Honorarofferte, abhängig von Umfang und Komplexität. Ohne deine Zusage entstehen keine Kosten."
+     },
+     {
+      "q": "Wie läuft ein Mandat ab?",
+      "a": "Erstgespräch, Offerte, Analyse und Strategie, danach Verhandlung mit den Finanzierungspartnern bis zum Abschluss. Du hast eine persönliche Ansprechperson."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Alle Fragen",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Lass uns deinen Fall\n*gemeinsam ansehen.*",
+    "text": "Das Erstgespräch ist kostenlos und unverbindlich, persönlich oder per Telefon.",
+    "ctas": [
+     {
+      "label": "Erstgespräch vereinbaren",
+      "to": "page:kontakt"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Conseil hypothécaire pour cas complexes | HYPOTEQ",
+  "description": "Refus bancaire, retraite, immeubles de rendement ou structures de propriété complexes: notre conseil payant trouve des solutions. Prenez rendez-vous.",
+  "h1": "Conseil pour financements complexes",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "HYPOTEQ Advisory",
+    "h1": "Conseil pour\nfinancements complexes",
+    "lead": "Notre **conseil hypothécaire** indépendant pour les dossiers qui sortent du cadre standard: après un refus bancaire, à la retraite, pour un immeuble de rendement ou une structure de propriété complexe. Le premier entretien est **gratuit**, le mandat est payant.",
+    "ctas": [
+     {
+      "label": "Prendre rendez-vous",
+      "to": "page:kontakt"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Premier entretien gratuit",
+     "Indépendant",
+     "40+ partenaires"
+    ],
+    "image": "consultation",
+    "alt": "Conseiller et cliente examinant des documents",
+    "float": {
+     "title": "Honoraires transparents",
+     "text": "Offre avant le mandat"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "0 CHF",
+      "label": "pour le premier entretien"
+     },
+     {
+      "value": "40+",
+      "label": "banques, assurances et caisses de pension"
+     },
+     {
+      "value": "35+ ans",
+      "label": "d'expérience dans l'équipe"
+     },
+     {
+      "value": "180+",
+      "label": "conseillères et conseillers dans toute la Suisse"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Quand le conseil aide",
+    "title": "Quatre situations,\n*une stratégie claire.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "01",
+      "title": "Financement à la retraite",
+      "text": "Quand la capacité financière devient juste avec les rentes et que le renouvellement est incertain.",
+      "to": "page:ruhestand",
+      "cta": "En savoir plus"
+     },
+     {
+      "kicker": "02",
+      "title": "Biens complexes",
+      "text": "Immeuble locatif, objet à usage mixte ou immeuble de rendement avec ses propres règles.",
+      "to": "page:rendite",
+      "cta": "En savoir plus"
+     },
+     {
+      "kicker": "03",
+      "title": "Après un refus bancaire",
+      "text": "Nous analysons les raisons du refus et cherchons le prêteur adapté."
+     },
+     {
+      "kicker": "04",
+      "title": "Structures de propriété",
+      "text": "Plusieurs propriétaires, personnes morales ou lien avec l'étranger."
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Refus hypothèque banque",
+    "title": "Un refus n'est pas\n*une fin.*",
+    "image": "portrait",
+    "paragraphs": [
+     "Les banques refusent pour des raisons diverses: capacité financière, justificatifs de revenu, type d'objet ou directives internes. Ce qui ne convient pas à une banque peut fonctionner chez un autre partenaire.",
+     "Dans le cadre du conseil, nous examinons votre dossier, identifions les points faibles et vous montrons comment y remédier: autre structure, garanties supplémentaires ou autre prêteur."
+    ],
+    "bullets": [
+     "Analyse franche des motifs de refus",
+     "Dossier présenté de façon bancable",
+     "Accès à plus de 40 partenaires de financement"
+    ],
+    "ctas": [
+     {
+      "label": "Décrire votre cas",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "compare",
+    "eyebrow": "Prestations",
+    "title": "Courtage ou\n*conseil?*",
+    "head": [
+     "",
+     "Courtage",
+     "Mandat de conseil"
+    ],
+    "rows": [
+     [
+      "Coût pour vous",
+      "0 CHF",
+      "honoraires sur offre"
+     ],
+     [
+      "Pour",
+      "achat, renouvellement, construction standard",
+      "cas complexes ou refusés"
+     ],
+     [
+      "Analyse",
+      "capacité financière et offres",
+      "stratégie, structure, alternatives"
+     ],
+     [
+      "Premier entretien",
+      "gratuit",
+      "gratuit"
+     ]
+    ],
+    "note": "Nous déterminons lors du premier entretien si un conseil est nécessaire. Si le courtage gratuit suffit, nous vous le disons franchement."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Déroulement",
+    "title": "Comment se déroule\nun mandat.",
+    "items": [
+     {
+      "title": "Premier entretien gratuit",
+      "text": "Vous décrivez votre situation. Nous vous disons si un conseil est utile."
+     },
+     {
+      "title": "Offre et mandat",
+      "text": "Vous recevez une offre d'honoraires transparente. Le mandat ne commence qu'avec votre accord."
+     },
+     {
+      "title": "Analyse et stratégie",
+      "text": "Nous examinons documents, capacité financière, objet et structure, puis élaborons des solutions."
+     },
+     {
+      "title": "Mise en œuvre",
+      "text": "Nous négocions avec les partenaires de financement et vous accompagnons jusqu'à la signature."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Prendre rendez-vous",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Développeurs et family offices",
+    "title": "Des projets\n*à plusieurs niveaux.*",
+    "image": "zurich-neighbourhood",
+    "reverse": true,
+    "tone": "soft",
+    "paragraphs": [
+     "Pour les grands projets, nous combinons hypothèques bancaires et **capital mezzanine** lorsque les fonds propres manquent ou sont engagés. Pour les détenteurs de portefeuilles, nous examinons refinancement et stratégie de durées sur l'ensemble du parc."
+    ],
+    "bullets": [
+     "Financement de premier rang et capital subordonné coordonnés",
+     "Personnes morales et copropriétaires",
+     "Lien avec l'étranger structuré"
+    ],
+    "ctas": [
+     {
+      "label": "Voir le mezzanine",
+      "to": "page:mezzanine"
+     },
+     {
+      "label": "Toutes les hypothèques",
+      "to": "page:hypotheken"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Pour les partenaires",
+    "title": "Un cas complexe\n*parmi vos clients?*",
+    "cols": 2,
+    "items": [
+     {
+      "kicker": "Programme partenaires",
+      "title": "Soumettre un cas, garder le client",
+      "text": "Courtiers, fiduciaires et gérants de fortune soumettent les dossiers exigeants via le portail partenaires. La relation client reste chez eux.",
+      "to": "page:partner",
+      "cta": "Devenir partenaire"
+     },
+     {
+      "kicker": "Guide",
+      "title": "Courtier ou banque maison?",
+      "text": "Ce qu'apporte un courtier hypothécaire indépendant et quand il vaut la peine.",
+      "to": "page:rg-vermittler",
+      "cta": "Lire le guide"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "Le conseil en bref.",
+    "items": [
+     {
+      "q": "Quand un conseil payant est-il utile?",
+      "a": "Quand votre situation sort du cadre standard: financement à la retraite, immeubles de rendement, objets à usage mixte, plusieurs propriétaires, personnes morales, lien avec l'étranger ou après un refus bancaire."
+     },
+     {
+      "q": "Que faire après un refus de la banque?",
+      "a": "Ne pas solliciter aussitôt la banque suivante. Comprenez d'abord les raisons et améliorez le dossier de manière ciblée. Nous analysons le cas et cherchons le bon partenaire parmi plus de 40."
+     },
+     {
+      "q": "Combien coûte le mandat?",
+      "a": "Le **premier entretien est gratuit**. Pour le mandat, vous recevez au préalable une offre d'honoraires transparente selon l'ampleur et la complexité. Sans votre accord, aucun coût."
+     },
+     {
+      "q": "Comment se déroule le conseil?",
+      "a": "Premier entretien, offre, analyse et stratégie, puis négociation avec les partenaires de financement jusqu'à la conclusion. Vous avez un interlocuteur personnel."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Toutes les questions",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Examinons votre dossier\n*ensemble.*",
+    "text": "Le premier entretien est gratuit et sans engagement, en personne ou par téléphone.",
+    "ctas": [
+     {
+      "label": "Prendre rendez-vous",
+      "to": "page:kontakt"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Consulenza ipotecaria per casi complessi | HYPOTEQ",
+  "description": "Rifiuto della banca, pensionamento, immobili da reddito o strutture di proprietà complesse: la nostra consulenza a pagamento trova soluzioni.",
+  "h1": "Consulenza per finanziamenti complessi",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "HYPOTEQ Advisory",
+    "h1": "Consulenza per\nfinanziamenti complessi",
+    "lead": "La nostra **consulenza ipotecaria** indipendente per i casi che escono dagli schemi: dopo un rifiuto della banca, in pensione, per immobili da reddito o strutture di proprietà complesse. Il primo colloquio è **gratuito**, il mandato è a pagamento.",
+    "ctas": [
+     {
+      "label": "Fissa un primo colloquio",
+      "to": "page:kontakt"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Primo colloquio gratuito",
+     "Indipendente",
+     "40+ partner"
+    ],
+    "image": "consultation",
+    "alt": "Consulente e cliente esaminano documenti",
+    "float": {
+     "title": "Onorario trasparente",
+     "text": "Offerta prima del mandato"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "0 CHF",
+      "label": "per il primo colloquio"
+     },
+     {
+      "value": "40+",
+      "label": "banche, assicurazioni e casse pensione"
+     },
+     {
+      "value": "35+ anni",
+      "label": "di esperienza nel team"
+     },
+     {
+      "value": "180+",
+      "label": "consulenti in tutta la Svizzera"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Quando aiuta",
+    "title": "Quattro situazioni,\n*una strategia chiara.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "01",
+      "title": "Finanziamento in pensione",
+      "text": "Quando la sostenibilità con le rendite diventa stretta e il rinnovo è incerto.",
+      "to": "page:ruhestand",
+      "cta": "Scopri di più"
+     },
+     {
+      "kicker": "02",
+      "title": "Immobili complessi",
+      "text": "Stabili locativi, immobili a uso misto o da reddito con regole proprie.",
+      "to": "page:rendite",
+      "cta": "Scopri di più"
+     },
+     {
+      "kicker": "03",
+      "title": "Dopo un rifiuto",
+      "text": "Analizziamo perché la banca ha detto no e cerchiamo l'istituto adatto."
+     },
+     {
+      "kicker": "04",
+      "title": "Strutture di proprietà",
+      "text": "Più proprietari, persone giuridiche o legami con l'estero."
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Ipoteca rifiutata?",
+    "title": "Un rifiuto non è\n*la fine.*",
+    "image": "portrait",
+    "paragraphs": [
+     "Le banche rifiutano per motivi diversi: sostenibilità, prova del reddito, tipo di immobile o direttive interne. Ciò che non va bene per una banca può funzionare con un altro partner.",
+     "Nella consulenza esaminiamo il tuo dossier, individuiamo i punti deboli e ti mostriamo come risolverli: con un'altra struttura, garanzie aggiuntive o un altro istituto."
+    ],
+    "bullets": [
+     "Analisi onesta dei motivi del rifiuto",
+     "Dossier preparato per la banca",
+     "Accesso a oltre 40 partner di finanziamento"
+    ],
+    "ctas": [
+     {
+      "label": "Descrivi il tuo caso",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "compare",
+    "eyebrow": "Prestazioni",
+    "title": "Intermediazione o\n*consulenza?*",
+    "head": [
+     "",
+     "Intermediazione",
+     "Mandato di consulenza"
+    ],
+    "rows": [
+     [
+      "Costo per te",
+      "0 CHF",
+      "onorario su offerta"
+     ],
+     [
+      "Adatta per",
+      "acquisto, rinnovo, costruzione standard",
+      "casi complessi o rifiutati"
+     ],
+     [
+      "Analisi",
+      "sostenibilità e offerte",
+      "strategia, struttura, alternative"
+     ],
+     [
+      "Primo colloquio",
+      "gratuito",
+      "gratuito"
+     ]
+    ],
+    "note": "Se serve una consulenza lo chiariamo nel primo colloquio. Se basta l'intermediazione gratuita, te lo diciamo con franchezza."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Procedura",
+    "title": "Come si svolge\nun mandato.",
+    "items": [
+     {
+      "title": "Primo colloquio gratuito",
+      "text": "Descrivi la tua situazione. Ti diciamo se la consulenza ha senso."
+     },
+     {
+      "title": "Offerta e mandato",
+      "text": "Ricevi prima un'offerta d'onorario trasparente. Il mandato parte solo con il tuo consenso."
+     },
+     {
+      "title": "Analisi e strategia",
+      "text": "Esaminiamo documenti, sostenibilità, immobile e struttura ed elaboriamo soluzioni."
+     },
+     {
+      "title": "Attuazione",
+      "text": "Negoziamo con i partner di finanziamento e ti accompagniamo fino alla firma."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Fissa un primo colloquio",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Developer e family office",
+    "title": "Progetti\n*su più livelli.*",
+    "image": "zurich-neighbourhood",
+    "reverse": true,
+    "tone": "soft",
+    "paragraphs": [
+     "Per i progetti più grandi combiniamo ipoteche bancarie e **capitale mezzanine** quando i fondi propri mancano o sono vincolati. Per i detentori di portafogli valutiamo rifinanziamento e strategia delle scadenze sull'intero parco."
+    ],
+    "bullets": [
+     "Finanziamento di primo rango e capitale subordinato coordinati",
+     "Persone giuridiche e più proprietari",
+     "Legami con l'estero strutturati"
+    ],
+    "ctas": [
+     {
+      "label": "Vedi il mezzanine",
+      "to": "page:mezzanine"
+     },
+     {
+      "label": "Tutte le ipoteche",
+      "to": "page:hypotheken"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Per i partner",
+    "title": "Un caso complesso\n*tra i tuoi clienti?*",
+    "cols": 2,
+    "items": [
+     {
+      "kicker": "Programma partner",
+      "title": "Invia il caso, tieni il cliente",
+      "text": "Agenti immobiliari, fiduciari e gestori patrimoniali inviano i casi più impegnativi tramite il portale partner. La relazione con il cliente resta a loro.",
+      "to": "page:partner",
+      "cta": "Diventa partner"
+     },
+     {
+      "kicker": "Guida",
+      "title": "Intermediario o banca di fiducia?",
+      "text": "Cosa offre un intermediario ipotecario indipendente e quando conviene.",
+      "to": "page:rg-vermittler",
+      "cta": "Leggi la guida"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "La consulenza in breve.",
+    "items": [
+     {
+      "q": "Quando conviene una consulenza a pagamento?",
+      "a": "Quando la tua situazione esce dagli schemi: finanziamento in pensione, immobili da reddito, uso misto, più proprietari, persone giuridiche, legami con l'estero o dopo un rifiuto della banca."
+     },
+     {
+      "q": "Cosa fare dopo un rifiuto della banca?",
+      "a": "Non chiedere subito alla banca successiva. Prima capisci i motivi e migliora il dossier in modo mirato. Analizziamo il caso e cerchiamo il partner giusto tra oltre 40."
+     },
+     {
+      "q": "Quanto costa il mandato?",
+      "a": "Il **primo colloquio è gratuito**. Per il mandato ricevi prima un'offerta d'onorario trasparente, secondo portata e complessità. Senza il tuo consenso non ci sono costi."
+     },
+     {
+      "q": "Come si svolge la consulenza?",
+      "a": "Primo colloquio, offerta, analisi e strategia, poi trattativa con i partner di finanziamento fino alla conclusione. Hai un interlocutore personale."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Tutte le domande",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Guardiamo insieme\n*il tuo caso.*",
+    "text": "Il primo colloquio è gratuito e senza impegno, di persona o per telefono.",
+    "ctas": [
+     {
+      "label": "Fissa un primo colloquio",
+      "to": "page:kontakt"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "Mortgage Advisory for Complex Cases | HYPOTEQ",
+  "description": "Bank rejection, retirement, investment properties or complex ownership: our paid advisory finds solutions, in English. Book a consultation.",
+  "h1": "Advisory for complex mortgage cases",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "HYPOTEQ Advisory",
+    "h1": "Advisory for\ncomplex mortgage cases",
+    "lead": "Your **independent mortgage advisor in Switzerland** for cases that do not fit the standard mould: after a bank rejection, in retirement, for investment properties or complex ownership. The first meeting is **free**, the mandate is paid.",
+    "ctas": [
+     {
+      "label": "Book a first meeting",
+      "to": "page:kontakt"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Free first meeting",
+     "Independent",
+     "Advice in English"
+    ],
+    "image": "consultation",
+    "alt": "Advisor and client reviewing documents at a table",
+    "float": {
+     "title": "Transparent fees",
+     "text": "Quote before the mandate starts"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "0 CHF",
+      "label": "for the first meeting"
+     },
+     {
+      "value": "40+",
+      "label": "banks, insurers & pension funds"
+     },
+     {
+      "value": "35+ yrs",
+      "label": "of experience in the team"
+     },
+     {
+      "value": "180+",
+      "label": "advisors across Switzerland"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "When advisory helps",
+    "title": "Four situations,\n*one clear strategy.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "01",
+      "title": "Financing in retirement",
+      "text": "When affordability on pension income gets tight and renewal is uncertain.",
+      "to": "page:ruhestand",
+      "cta": "Learn more"
+     },
+     {
+      "kicker": "02",
+      "title": "Complex properties",
+      "text": "Apartment buildings, mixed-use or investment properties with their own rules.",
+      "to": "page:rendite",
+      "cta": "Learn more"
+     },
+     {
+      "kicker": "03",
+      "title": "After a rejection",
+      "text": "We analyse why the bank said no and look for the right lender."
+     },
+     {
+      "kicker": "04",
+      "title": "Complex ownership",
+      "text": "Several owners, legal entities or links abroad."
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Mortgage rejected in Switzerland?",
+    "title": "A rejection is\n*not the end.*",
+    "image": "portrait",
+    "paragraphs": [
+     "Banks reject applications for many reasons: affordability, proof of income, property type or internal policy. What does not work for one lender may well work for another.",
+     "In an advisory mandate we review your file, pinpoint the weak spots and show how to fix them: with a different structure, additional collateral or a different lender."
+    ],
+    "bullets": [
+     "Honest analysis of the rejection reasons",
+     "A file prepared the way banks expect it",
+     "Access to 40+ financing partners"
+    ],
+    "ctas": [
+     {
+      "label": "Describe your case",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "compare",
+    "eyebrow": "Services",
+    "title": "Brokerage or\n*advisory?*",
+    "head": [
+     "",
+     "Brokerage",
+     "Advisory mandate"
+    ],
+    "rows": [
+     [
+      "Cost to you",
+      "0 CHF",
+      "fee as quoted"
+     ],
+     [
+      "Suited to",
+      "standard purchase, renewal, new build",
+      "complex or rejected cases"
+     ],
+     [
+      "Analysis",
+      "affordability & offers",
+      "strategy, structure, alternatives"
+     ],
+     [
+      "First meeting",
+      "free",
+      "free"
+     ]
+    ],
+    "note": "We clarify in the first meeting whether you need advisory. If free brokerage is enough, we will tell you so."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Process",
+    "title": "How an advisory\nmandate works.",
+    "items": [
+     {
+      "title": "Free first meeting",
+      "text": "You describe your situation. We tell you whether advisory makes sense."
+     },
+     {
+      "title": "Quote & mandate",
+      "text": "You receive a transparent fee quote in advance. The mandate only starts once you agree."
+     },
+     {
+      "title": "Analysis & strategy",
+      "text": "We review documents, affordability, property and structure and work out options."
+     },
+     {
+      "title": "Execution",
+      "text": "We negotiate with financing partners and support you through to signing."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Book a first meeting",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Developers & family offices",
+    "title": "Projects with\n*several layers.*",
+    "image": "zurich-neighbourhood",
+    "reverse": true,
+    "tone": "soft",
+    "paragraphs": [
+     "For larger projects we combine bank mortgages with **mezzanine capital** when equity is missing or tied up. For portfolio holders we review refinancing and term strategy across the whole portfolio."
+    ],
+    "bullets": [
+     "Senior financing and subordinated capital coordinated",
+     "Legal entities and multiple owners",
+     "Cross-border links structured properly"
+    ],
+    "ctas": [
+     {
+      "label": "See mezzanine",
+      "to": "page:mezzanine"
+     },
+     {
+      "label": "All mortgages",
+      "to": "page:hypotheken"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "For partners",
+    "title": "A complex case\n*among your clients?*",
+    "cols": 2,
+    "items": [
+     {
+      "kicker": "Partner programme",
+      "title": "Submit the case, keep the client",
+      "text": "Brokers, fiduciaries and wealth managers submit demanding cases via the partner portal. The client relationship stays with them.",
+      "to": "page:partner",
+      "cta": "Become a partner"
+     },
+     {
+      "kicker": "Guide",
+      "title": "Broker or your own bank?",
+      "text": "What an independent mortgage broker does and when it pays off.",
+      "to": "page:rg-vermittler",
+      "cta": "Read the guide"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Advisory in brief.",
+    "items": [
+     {
+      "q": "When is paid advisory worth it?",
+      "a": "When your situation does not fit the standard mould: financing in retirement, investment or mixed-use properties, several owners, legal entities, links abroad or after a bank rejection."
+     },
+     {
+      "q": "What can I do after a bank rejection?",
+      "a": "Do not go straight to the next bank. First understand the reasons and improve your file in a targeted way. We analyse the case and look for the right partner among more than 40."
+     },
+     {
+      "q": "How much does advisory cost?",
+      "a": "The **first meeting is free**. For the mandate you receive a transparent fee quote in advance, based on scope and complexity. Nothing is charged without your agreement."
+     },
+     {
+      "q": "How does an advisory mandate work?",
+      "a": "First meeting, quote, analysis and strategy, then negotiation with financing partners through to closing. You have one personal contact, and advice is available in English."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "All questions",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Let's look at your case\n*together.*",
+    "text": "The first meeting is free and non-binding, in person or by phone, in English if you prefer.",
+    "ctas": [
+     {
+      "label": "Book a first meeting",
+      "to": "page:kontakt"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ }
+}

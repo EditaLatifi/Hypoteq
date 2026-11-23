@@ -1,0 +1,946 @@
+{
+ "de": {
+  "title": "Vorfälligkeitsentschädigung: Kosten prüfen | HYPOTEQ",
+  "description": "Du willst deine Festhypothek vorzeitig auflösen? Wir prüfen die Vorfälligkeitsentschädigung deiner Bank und zeigen günstigere Wege. Kostenlos anfragen.",
+  "h1": "Festhypothek vorzeitig auflösen: Was kostet es?",
+  "nav": [
+   "Vorfälligkeit",
+   "Festhypothek vorzeitig auflösen"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Vorfälligkeitsentschädigung",
+    "h1": "Festhypothek vorzeitig auflösen:\n*Was kostet es?*",
+    "lead": "Verkauf, Trennung, Umzug oder tiefere Zinsen: Wer eine Festhypothek früher beendet, zahlt meist eine **Vorfälligkeitsentschädigung**. Wir prüfen die Berechnung deiner Bank und suchen bei über 40 Anbietern günstigere Wege.",
+    "ctas": [
+     {
+      "label": "Entschädigung prüfen lassen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Kostenlos & unverbindlich",
+     "Berechnung geprüft",
+     "Alternativen verglichen"
+    ],
+    "image": "bern",
+    "alt": "Altstadt von Bern mit Aare",
+    "float": {
+     "title": "Zweite Meinung",
+     "text": "Bevor du die Abrechnung unterschreibst"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "Anbieter für Alternativen"
+     },
+     {
+      "value": "3 Min.",
+      "label": "bis zur vollständigen Anfrage"
+     },
+     {
+      "value": "48–72 h",
+      "label": "bis zu konkreten Offerten"
+     },
+     {
+      "value": "0 CHF",
+      "label": "für Vergleich und Vermittlung"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Vorfälligkeitsentschädigung berechnen",
+    "title": "Das Prinzip ist einfach.\n*Die Details nicht.*",
+    "image": "keys",
+    "alt": "Schlüsselübergabe beim Verkauf einer Wohnung",
+    "paragraphs": [
+     "Die Bank verlangt den Zins, der ihr durch den Ausstieg entgeht: die Differenz zwischen deinem Vertragszins und dem Zins, zu dem sie das Geld für die **Restlaufzeit** neu anlegen kann. Dazu kommen je nach Bank Bearbeitungsgebühren.",
+     "Rechenbeispiel, reine Annahme: CHF 600’000 Festhypothek zu 2.0 %, Wiederanlagezins 1.0 %, Restlaufzeit 3 Jahre. Die Differenz von 1 % ergibt CHF 6’000 pro Jahr, vereinfacht also rund CHF 18’000. Banken rechnen im Detail unterschiedlich."
+    ],
+    "bullets": [
+     "Berechnung und Wiederanlagezins der Bank prüfen",
+     "Gebühren und Rundungen hinterfragen",
+     "Wege ohne oder mit tieferer Entschädigung suchen"
+    ],
+    "ctas": [
+     {
+      "label": "Abrechnung prüfen lassen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Alternativen",
+    "title": "Nicht jeder Ausstieg\n*muss teuer sein.*",
+    "tone": "soft",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Umzug",
+      "title": "Auf neues Objekt übertragen",
+      "text": "Viele Banken erlauben, die Hypothek auf ein Ersatzobjekt mitzunehmen. Wir prüfen die Bedingungen."
+     },
+     {
+      "kicker": "Wechsel",
+      "title": "Neuer Anbieter",
+      "text": "Wir rechnen, ob sich eine Ablösung trotz Entschädigung über die Restlaufzeit lohnt.",
+      "to": "page:abloesung",
+      "cta": "Ablösung"
+     },
+     {
+      "kicker": "Timing",
+      "title": "Abwarten & fixieren",
+      "text": "Oft ist es günstiger, bis zum Ablauf zu warten und den Zins vorher zu sichern.",
+      "to": "page:lp-forward",
+      "cta": "Forward-Hypothek"
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Anfrage starten",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Richtzinsen",
+    "title": "Lohnt sich der Wechsel\n*bei tieferen Zinsen?*",
+    "lead": "Vergleiche die Richtzinsen mit deinem Vertragszins. Ob es sich nach Entschädigung lohnt, rechnen wir mit dir durch."
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Hypothek vorzeitig ablösen",
+    "title": "Was kostet\n*deine neue Hypothek?*",
+    "lead": "Wähle Ablösung und sieh deine künftigen Zinskosten im Vergleich zur heutigen Belastung."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "So läuft es",
+    "title": "In vier Schritten\n*zur klaren Entscheidung.*",
+    "items": [
+     {
+      "title": "Anfrage in 3 Minuten",
+      "text": "Lade Hypothekarvertrag und, falls vorhanden, die Abrechnung der Bank hoch."
+     },
+     {
+      "title": "Berechnung prüfen",
+      "text": "Deine Beraterin prüft Restlaufzeit, Zinsen und Gebühren."
+     },
+     {
+      "title": "Alternativen vergleichen",
+      "text": "Übertragung, Ablösung oder Abwarten, mit Offerten meist innert 48–72 h."
+     },
+     {
+      "title": "Entscheiden & umsetzen",
+      "text": "Wir koordinieren mit alter und neuer Bank."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Jetzt starten",
+      "to": "funnel"
+     },
+     {
+      "label": "Kontakt aufnehmen",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Passend dazu",
+    "title": "Wenn sich\n*das Leben ändert.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Trennung",
+      "title": "Scheidung & Hypothek",
+      "text": "Übernahme, Verkauf und Tragbarkeit allein.",
+      "to": "page:lp-scheidung"
+     },
+     {
+      "kicker": "Prüfung",
+      "title": "Zweitmeinung",
+      "text": "Angebot oder Abrechnung deiner Bank unabhängig prüfen.",
+      "to": "page:lp-zweitmeinung"
+     },
+     {
+      "kicker": "Modell",
+      "title": "Festhypothek",
+      "text": "Laufzeiten klug wählen und staffeln.",
+      "to": "page:fest"
+     },
+     {
+      "kicker": "Für Partner",
+      "title": "Partner werden",
+      "text": "Deine Kunden verkaufen oder ziehen um? Reiche den Fall ein.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Vorfälligkeit\n*ohne Fragezeichen.*",
+    "items": [
+     {
+      "q": "Wie berechnet die Bank die Vorfälligkeitsentschädigung?",
+      "a": "Grundsätzlich aus der Differenz zwischen Vertragszins und Wiederanlagezins, multipliziert mit Betrag und Restlaufzeit. Je nach Bank kommen Abzinsung und Gebühren dazu. Lass die Abrechnung prüfen, bevor du unterschreibst."
+     },
+     {
+      "q": "Kann ich die Festhypothek auf ein neues Objekt übertragen?",
+      "a": "Bei vielen Banken ja, wenn das neue Objekt dort finanziert wird und Belehnung und Tragbarkeit passen. Dann fällt oft keine Entschädigung an. Die Bedingungen sind je nach Vertrag verschieden."
+     },
+     {
+      "q": "Lohnt sich eine vorzeitige Auflösung bei tieferen Zinsen?",
+      "a": "Selten allein wegen der Zinsen, denn die Entschädigung gleicht den Zinsvorteil meist aus. Wir rechnen Entschädigung und neue Zinskosten für dich gegeneinander."
+     },
+     {
+      "q": "Ist die Vorfälligkeitsentschädigung steuerlich abziehbar?",
+      "a": "Das hängt vom Kanton und vom konkreten Fall ab, etwa ob du verkaufst oder weiter finanzierst. Kläre es mit deiner Steuerberatung oder Treuhand. Stand 2026, ohne Gewähr."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Hypothek ablösen",
+      "to": "page:abloesung"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Bevor du zahlst:\n*Lass es prüfen.*",
+    "text": "Kostenlos prüfen lassen und Alternativen in 3 Minuten anfragen. Deine Beraterin meldet sich zeitnah.",
+    "ctas": [
+     {
+      "label": "Prüfung anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Remboursement anticipé: vérifiez la pénalité | HYPOTEQ",
+  "description": "Vous voulez résilier votre hypothèque fixe avant terme? Nous vérifions la pénalité de votre banque et cherchons une solution moins chère. Demande gratuite.",
+  "h1": "Résilier une hypothèque fixe avant l'échéance",
+  "nav": [
+   "Remboursement anticipé",
+   "Sortir d'une hypothèque fixe"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Pénalité de remboursement anticipé",
+    "h1": "Résilier une hypothèque fixe\n*avant l'échéance*",
+    "lead": "Vente, séparation, déménagement ou taux plus bas: sortir d'une hypothèque fixe avant terme entraîne en général une **pénalité de remboursement anticipé**. Nous vérifions le calcul de votre banque et cherchons des solutions moins chères auprès de plus de 40 prêteurs.",
+    "ctas": [
+     {
+      "label": "Faire vérifier la pénalité",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Gratuit & sans engagement",
+     "Calcul vérifié",
+     "Alternatives comparées"
+    ],
+    "image": "bern",
+    "alt": "Vieille ville de Berne au bord de l'Aar",
+    "float": {
+     "title": "Deuxième avis",
+     "text": "Avant de signer le décompte"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "prêteurs pour des alternatives"
+     },
+     {
+      "value": "3 min",
+      "label": "pour une demande complète"
+     },
+     {
+      "value": "48–72 h",
+      "label": "jusqu'aux offres concrètes"
+     },
+     {
+      "value": "0 CHF",
+      "label": "pour la comparaison et le courtage"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Indemnité de remboursement anticipé",
+    "title": "Le principe est simple.\n*Les détails, non.*",
+    "image": "keys",
+    "alt": "Remise des clés lors de la vente d'un appartement",
+    "paragraphs": [
+     "La banque réclame les intérêts qu'elle perd: la différence entre votre taux contractuel et le taux auquel elle peut replacer l'argent pour la **durée restante**. Selon la banque, des frais de traitement s'y ajoutent.",
+     "Exemple, pure hypothèse: hypothèque fixe de CHF 600’000 à 2.0 %, taux de réemploi 1.0 %, durée restante 3 ans. L'écart de 1 % donne CHF 6’000 par an, soit environ CHF 18’000 en simplifiant. Les banques calculent différemment dans le détail."
+    ],
+    "bullets": [
+     "Vérifier calcul et taux de réemploi",
+     "Questionner frais et arrondis",
+     "Chercher des voies sans pénalité ou avec une pénalité réduite"
+    ],
+    "ctas": [
+     {
+      "label": "Faire vérifier le décompte",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Alternatives",
+    "title": "Toute sortie\n*n'est pas forcément chère.*",
+    "tone": "soft",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Déménagement",
+      "title": "Transfert sur un nouveau bien",
+      "text": "Beaucoup de banques permettent de reporter l'hypothèque sur un bien de remplacement. Nous vérifions les conditions."
+     },
+     {
+      "kicker": "Changement",
+      "title": "Nouveau prêteur",
+      "text": "Nous calculons si un changement vaut la peine malgré la pénalité sur la durée restante.",
+      "to": "page:abloesung",
+      "cta": "Renouvellement"
+     },
+     {
+      "kicker": "Timing",
+      "title": "Attendre & fixer",
+      "text": "Il est souvent moins cher d'attendre l'échéance et de fixer le taux à l'avance.",
+      "to": "page:lp-forward",
+      "cta": "Hypothèque forward"
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Lancer la demande",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Taux indicatifs",
+    "title": "Changer vaut-il la peine\n*avec des taux plus bas?*",
+    "lead": "Comparez les taux indicatifs avec votre taux contractuel. Nous calculons avec vous si cela vaut la peine après la pénalité."
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Sortie anticipée hypothèque coût",
+    "title": "Combien coûte\n*votre nouvelle hypothèque?*",
+    "lead": "Choisissez le renouvellement et comparez vos futurs intérêts à votre charge actuelle."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Déroulement",
+    "title": "Quatre étapes\n*vers une décision claire.*",
+    "items": [
+     {
+      "title": "Demande en 3 minutes",
+      "text": "Téléchargez le contrat et, si disponible, le décompte de la banque."
+     },
+     {
+      "title": "Vérifier le calcul",
+      "text": "Votre conseillère vérifie durée restante, taux et frais."
+     },
+     {
+      "title": "Comparer les alternatives",
+      "text": "Transfert, changement ou attente, avec offres en général sous 48–72 h."
+     },
+     {
+      "title": "Décider & agir",
+      "text": "Nous coordonnons ancienne et nouvelle banque."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Commencer",
+      "to": "funnel"
+     },
+     {
+      "label": "Nous contacter",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "À lire aussi",
+    "title": "Quand la vie\n*change de cap.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Séparation",
+      "title": "Divorce & hypothèque",
+      "text": "Reprise, vente et capacité financière seul.",
+      "to": "page:lp-scheidung"
+     },
+     {
+      "kicker": "Contrôle",
+      "title": "Deuxième avis",
+      "text": "Faire vérifier l'offre ou le décompte de votre banque.",
+      "to": "page:lp-zweitmeinung"
+     },
+     {
+      "kicker": "Modèle",
+      "title": "Hypothèque fixe",
+      "text": "Choisir et échelonner les durées.",
+      "to": "page:fest"
+     },
+     {
+      "kicker": "Partenaires",
+      "title": "Devenir partenaire",
+      "text": "Vos clients vendent ou déménagent? Soumettez le dossier.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "Pénalité\n*sans points d'interrogation.*",
+    "items": [
+     {
+      "q": "Comment la banque calcule-t-elle la pénalité?",
+      "a": "En principe à partir de l'écart entre taux contractuel et taux de réemploi, multiplié par le montant et la durée restante. Selon la banque s'ajoutent actualisation et frais. Faites vérifier le décompte avant de signer."
+     },
+     {
+      "q": "Puis-je transférer l'hypothèque sur un nouveau bien?",
+      "a": "Chez beaucoup de banques oui, si le nouveau bien y est financé et que taux d'avance et capacité financière conviennent. Il n'y a alors souvent pas de pénalité. Les conditions varient selon le contrat."
+     },
+     {
+      "q": "Une sortie anticipée vaut-elle la peine si les taux baissent?",
+      "a": "Rarement pour les seuls taux, car la pénalité compense le plus souvent l'avantage. Nous comparons pour vous pénalité et nouveaux intérêts."
+     },
+     {
+      "q": "La pénalité est-elle déductible des impôts?",
+      "a": "Cela dépend du canton et du cas concret, par exemple vente ou refinancement. Clarifiez-le avec votre conseiller fiscal ou fiduciaire. État 2026, sans garantie."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Renouveler l'hypothèque",
+      "to": "page:abloesung"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Avant de payer:\n*faites vérifier.*",
+    "text": "Faites vérifier gratuitement et demandez des alternatives en 3 minutes. Votre conseillère vous rappelle rapidement.",
+    "ctas": [
+     {
+      "label": "Demander une vérification",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Penale per estinzione anticipata: verifica i costi | HYPOTEQ",
+  "description": "Vuoi chiudere in anticipo la tua ipoteca fissa? Verifichiamo la penale della tua banca e cerchiamo alternative più convenienti. Richiesta gratuita.",
+  "h1": "Chiudere in anticipo un'ipoteca fissa",
+  "nav": [
+   "Estinzione anticipata",
+   "Uscire da un'ipoteca fissa"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Penale estinzione anticipata ipoteca",
+    "h1": "Chiudere in anticipo\n*un'ipoteca fissa*",
+    "lead": "Vendita, separazione, trasloco o tassi più bassi: chi chiude prima un'ipoteca fissa paga di solito una **penale per estinzione anticipata dell'ipoteca**. Verifichiamo il calcolo della tua banca e cerchiamo vie più convenienti presso oltre 40 istituti.",
+    "ctas": [
+     {
+      "label": "Fai verificare la penale",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Gratuito e senza impegno",
+     "Calcolo verificato",
+     "Alternative a confronto"
+    ],
+    "image": "lugano",
+    "alt": "Lungolago di Lugano con le montagne",
+    "float": {
+     "title": "Seconda opinione",
+     "text": "Prima di firmare il conteggio"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "istituti per alternative"
+     },
+     {
+      "value": "3 min",
+      "label": "per una richiesta completa"
+     },
+     {
+      "value": "48–72 h",
+      "label": "fino alle offerte concrete"
+     },
+     {
+      "value": "0 CHF",
+      "label": "per confronto e mediazione"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Indennità di rimborso anticipato",
+    "title": "Il principio è semplice.\n*I dettagli no.*",
+    "image": "keys",
+    "alt": "Consegna delle chiavi alla vendita di un appartamento",
+    "paragraphs": [
+     "La banca chiede gli interessi che perde: la differenza tra il tuo tasso contrattuale e il tasso a cui può reinvestire il denaro per la **durata residua**. Secondo la banca si aggiungono spese di gestione.",
+     "Esempio, pura ipotesi: ipoteca fissa di CHF 600’000 al 2.0 %, tasso di reinvestimento 1.0 %, durata residua 3 anni. La differenza dell'1 % dà CHF 6’000 all'anno, semplificando circa CHF 18’000. Nel dettaglio le banche calcolano in modo diverso."
+    ],
+    "bullets": [
+     "Verificare calcolo e tasso di reinvestimento",
+     "Mettere in discussione spese e arrotondamenti",
+     "Cercare vie senza penale o con penale ridotta"
+    ],
+    "ctas": [
+     {
+      "label": "Fai verificare il conteggio",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Alternative",
+    "title": "Non ogni uscita\n*deve costare cara.*",
+    "tone": "soft",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Trasloco",
+      "title": "Trasferire su un nuovo immobile",
+      "text": "Molte banche permettono di portare l'ipoteca su un immobile sostitutivo. Verifichiamo le condizioni."
+     },
+     {
+      "kicker": "Cambio",
+      "title": "Nuovo istituto",
+      "text": "Calcoliamo se un cambio conviene nonostante la penale sulla durata residua.",
+      "to": "page:abloesung",
+      "cta": "Rinnovo"
+     },
+     {
+      "kicker": "Tempistica",
+      "title": "Aspettare e bloccare",
+      "text": "Spesso conviene attendere la scadenza e bloccare il tasso prima.",
+      "to": "page:lp-forward",
+      "cta": "Ipoteca forward"
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Avvia la richiesta",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Tassi indicativi",
+    "title": "Conviene cambiare\n*con tassi più bassi?*",
+    "lead": "Confronta i tassi indicativi con il tuo tasso contrattuale. Se conviene dopo la penale, lo calcoliamo con te."
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Uscita anticipata ipoteca costi",
+    "title": "Quanto costa\n*la tua nuova ipoteca?*",
+    "lead": "Scegli il rinnovo e confronta gli interessi futuri con il carico attuale."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Come funziona",
+    "title": "Quattro passi\n*verso una decisione chiara.*",
+    "items": [
+     {
+      "title": "Richiesta in 3 minuti",
+      "text": "Carica il contratto e, se disponibile, il conteggio della banca."
+     },
+     {
+      "title": "Verificare il calcolo",
+      "text": "La consulente verifica durata residua, tassi e spese."
+     },
+     {
+      "title": "Confrontare le alternative",
+      "text": "Trasferimento, cambio o attesa, con offerte di regola entro 48–72 h."
+     },
+     {
+      "title": "Decidere e agire",
+      "text": "Coordiniamo vecchia e nuova banca."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Inizia ora",
+      "to": "funnel"
+     },
+     {
+      "label": "Contattaci",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Approfondisci",
+    "title": "Quando la vita\n*cambia rotta.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Separazione",
+      "title": "Divorzio e ipoteca",
+      "text": "Ripresa, vendita e sostenibilità da soli.",
+      "to": "page:lp-scheidung"
+     },
+     {
+      "kicker": "Verifica",
+      "title": "Seconda opinione",
+      "text": "Far verificare offerta o conteggio della banca.",
+      "to": "page:lp-zweitmeinung"
+     },
+     {
+      "kicker": "Modello",
+      "title": "Ipoteca fissa",
+      "text": "Scegliere e scaglionare le durate.",
+      "to": "page:fest"
+     },
+     {
+      "kicker": "Partner",
+      "title": "Diventa partner",
+      "text": "I tuoi clienti vendono o traslocano? Invia il caso.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "Penale\n*senza punti di domanda.*",
+    "items": [
+     {
+      "q": "Come calcola la banca la penale?",
+      "a": "In linea di principio dalla differenza tra tasso contrattuale e tasso di reinvestimento, moltiplicata per importo e durata residua. Secondo la banca si aggiungono attualizzazione e spese. Fai verificare il conteggio prima di firmare."
+     },
+     {
+      "q": "Posso trasferire l'ipoteca su un nuovo immobile?",
+      "a": "Presso molte banche sì, se il nuovo immobile viene finanziato lì e anticipo e sostenibilità sono in ordine. Spesso non c'è allora alcuna penale. Le condizioni variano secondo il contratto."
+     },
+     {
+      "q": "Conviene uscire prima se i tassi scendono?",
+      "a": "Raramente solo per i tassi, perché la penale di solito compensa il vantaggio. Confrontiamo per te penale e nuovi interessi."
+     },
+     {
+      "q": "La penale è deducibile dalle imposte?",
+      "a": "Dipende dal cantone e dal caso concreto, per esempio vendita o rifinanziamento. Chiariscilo con il tuo consulente fiscale o fiduciario. Stato 2026, senza garanzia."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Rinnovare l'ipoteca",
+      "to": "page:abloesung"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Prima di pagare:\n*fai verificare.*",
+    "text": "Fai verificare gratis e richiedi alternative in 3 minuti. La tua consulente ti contatta in tempi brevi.",
+    "ctas": [
+     {
+      "label": "Richiedi la verifica",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "Mortgage early repayment penalty: check the cost | HYPOTEQ",
+  "description": "Want to exit your fixed-rate mortgage early? We check your bank's prepayment penalty and look for cheaper options. Free of charge, apply in 3 minutes.",
+  "h1": "Ending a fixed-rate mortgage early",
+  "nav": [
+   "Early repayment penalty",
+   "Exiting a fixed-rate mortgage"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Early repayment penalty mortgage Switzerland",
+    "h1": "Ending a fixed-rate mortgage\n*early*",
+    "lead": "Selling, separating, relocating or chasing lower rates: ending a fixed-rate mortgage early usually triggers an **early repayment penalty**. We check your bank's calculation and look for cheaper options across 40+ lenders in Switzerland.",
+    "ctas": [
+     {
+      "label": "Get the penalty checked",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Free & non-binding",
+     "Calculation checked",
+     "Alternatives compared"
+    ],
+    "image": "bern",
+    "alt": "Old town of Bern on the Aare river",
+    "float": {
+     "title": "Second opinion",
+     "text": "Before you sign the statement"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "lenders for alternatives"
+     },
+     {
+      "value": "3 min",
+      "label": "to a complete request"
+     },
+     {
+      "value": "48–72 h",
+      "label": "to concrete offers"
+     },
+     {
+      "value": "CHF 0",
+      "label": "for comparison and brokerage"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Prepayment penalty Switzerland",
+    "title": "The principle is simple.\n*The details aren't.*",
+    "image": "keys",
+    "alt": "Handing over keys when selling an apartment",
+    "paragraphs": [
+     "The bank charges the interest it loses: the difference between your contract rate and the rate at which it can reinvest the money for the **remaining term**. Some banks add processing fees.",
+     "Example, purely an assumption: CHF 600,000 fixed at 2.0 %, reinvestment rate 1.0 %, 3 years remaining. The 1 % gap equals CHF 6,000 a year, so roughly CHF 18,000 in simplified terms. Banks differ in the details."
+    ],
+    "bullets": [
+     "Check calculation and reinvestment rate",
+     "Question fees and rounding",
+     "Find ways with no or a lower penalty"
+    ],
+    "ctas": [
+     {
+      "label": "Get my statement checked",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Alternatives",
+    "title": "Not every exit\n*has to be expensive.*",
+    "tone": "soft",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Moving",
+      "title": "Transfer to a new property",
+      "text": "Many banks let you take the mortgage to a replacement property. We check the conditions."
+     },
+     {
+      "kicker": "Switching",
+      "title": "New lender",
+      "text": "We calculate whether switching pays off despite the penalty for the remaining term.",
+      "to": "page:abloesung",
+      "cta": "Refinancing"
+     },
+     {
+      "kicker": "Timing",
+      "title": "Wait & lock in",
+      "text": "It's often cheaper to wait until expiry and fix the rate in advance.",
+      "to": "page:lp-forward",
+      "cta": "Forward mortgage"
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Start your request",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Indicative rates",
+    "title": "Does switching pay off\n*when rates are lower?*",
+    "lead": "Compare the indicative rates with your contract rate. We work out with you whether it's worth it after the penalty."
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Exit fixed mortgage cost",
+    "title": "What would a new\n*mortgage cost?*",
+    "lead": "Choose refinancing and compare your future interest with your current burden."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "How it works",
+    "title": "Four steps\n*to a clear decision.*",
+    "items": [
+     {
+      "title": "Request in 3 minutes",
+      "text": "Upload your contract and, if available, the bank's statement."
+     },
+     {
+      "title": "Check the calculation",
+      "text": "Your advisor reviews remaining term, rates and fees."
+     },
+     {
+      "title": "Compare alternatives",
+      "text": "Transfer, switch or wait, with offers usually within 48–72 h."
+     },
+     {
+      "title": "Decide & act",
+      "text": "We coordinate old and new bank."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Get started",
+      "to": "funnel"
+     },
+     {
+      "label": "Contact us",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Related",
+    "title": "When life\n*changes course.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Separation",
+      "title": "Divorce & mortgage",
+      "text": "Takeover, sale and affordability on your own.",
+      "to": "page:lp-scheidung"
+     },
+     {
+      "kicker": "Review",
+      "title": "Second opinion",
+      "text": "Have your bank's offer or statement checked.",
+      "to": "page:lp-zweitmeinung"
+     },
+     {
+      "kicker": "Model",
+      "title": "Fixed-rate mortgage",
+      "text": "Choose and stagger your terms.",
+      "to": "page:fest"
+     },
+     {
+      "kicker": "For partners",
+      "title": "Become a partner",
+      "text": "Your clients are selling or moving? Submit the case.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Early repayment\n*without question marks.*",
+    "items": [
+     {
+      "q": "How does the bank calculate the penalty?",
+      "a": "Basically from the gap between contract rate and reinvestment rate, multiplied by amount and remaining term. Depending on the bank, discounting and fees are added. Have the statement checked before you sign."
+     },
+     {
+      "q": "Can I transfer the mortgage to a new property?",
+      "a": "With many banks yes, if the new property is financed there and loan-to-value and affordability fit. Often no penalty applies then. Conditions vary by contract."
+     },
+     {
+      "q": "Is an early exit worth it when rates fall?",
+      "a": "Rarely for rates alone, as the penalty usually offsets the advantage. We weigh penalty and new interest costs for you."
+     },
+     {
+      "q": "Is the penalty tax deductible?",
+      "a": "It depends on the canton and your case, for example whether you sell or refinance. Check with your tax advisor or trustee. As of 2026, without guarantee."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Mortgage renewal",
+      "to": "page:abloesung"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Before you pay:\n*get it checked.*",
+    "text": "Get a free check and request alternatives in 3 minutes. Your advisor gets back to you promptly.",
+    "ctas": [
+     {
+      "label": "Request a check",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ }
+}

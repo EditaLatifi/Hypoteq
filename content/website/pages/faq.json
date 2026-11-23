@@ -1,0 +1,826 @@
+{
+ "de": {
+  "title": "FAQ: Häufige Fragen zur Hypothek | HYPOTEQ",
+  "description": "Antworten auf häufige Fragen zu Hypothekenvergleich, Dokumenten-Upload, Datenschutz, Kosten und Ablauf bei HYPOTEQ. Frage nicht dabei? Kontakt.",
+  "h1": "Häufige Fragen",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypothek FAQ",
+    "h1": "Häufige Fragen",
+    "lead": "Hier findest du Antworten auf die häufigsten **Fragen zur Hypothek**: zu Kosten, Ablauf, KI, Immobilienbewertung und Partnerprogramm. Deine Frage ist nicht dabei? Wir helfen dir gerne persönlich.",
+    "ctas": [
+     {
+      "label": "Hypothek anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "Kontakt",
+      "to": "page:kontakt"
+     }
+    ],
+    "badges": [
+     "Kosten",
+     "Ablauf & KI",
+     "Hypothekenwissen"
+    ],
+    "image": "couple",
+    "alt": "Paar entspannt im eigenen Wohnzimmer"
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Kosten",
+    "title": "Was kostet\n*HYPOTEQ?*",
+    "items": [
+     {
+      "q": "Ist der Vergleich kostenlos?",
+      "a": "Ja. Vergleich und Vermittlung sind für Privatkund:innen **kostenlos** und unverbindlich."
+     },
+     {
+      "q": "Wie verdient HYPOTEQ Geld?",
+      "a": "Im Erfolgsfall entschädigt uns der Finanzierungspartner. Für dich entstehen dadurch keine Kosten."
+     },
+     {
+      "q": "Was kostet die Immobilienbewertung?",
+      "a": "Zum Einführungspreis **CHF 300 statt CHF 450**. Für HYPOTEQ-Partner ist sie inklusive."
+     },
+     {
+      "q": "Was kostet Advisory?",
+      "a": "Advisory ist ein kostenpflichtiges Mandat für komplexe Situationen, etwa im Ruhestand oder nach Bankabsagen. Das Erstgespräch ist kostenlos."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Hypothek anfragen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Ablauf, Online-Anfrage & KI",
+    "title": "So läuft\n*deine Anfrage.*",
+    "items": [
+     {
+      "q": "Wie lange dauert der Prozess?",
+      "a": "Die Anfrage dauert ca. **3 Minuten**. Deine Beraterin meldet sich zeitnah. Mit vollständigen Unterlagen erhältst du meist innert 48–72 Stunden Offerten."
+     },
+     {
+      "q": "Welche Einstiege gibt es?",
+      "a": "Drei: die **Schnellanmeldung** mit Dokumenten-Upload, die begleitete Anmeldung Schritt für Schritt oder den Chat-Assistenten **HYPO**, dem du dein Projekt in eigenen Worten beschreibst."
+     },
+     {
+      "q": "Berät mich die KI?",
+      "a": "Nein. Die KI liest deine Unterlagen aus und hilft beim Erfassen. Die Beratung übernimmt immer ein Mensch."
+     },
+     {
+      "q": "Wie sicher sind meine Daten?",
+      "a": "Deine Daten werden in der Schweiz (Region Zürich) verarbeitet und nur für deine Finanzierungsanfrage verwendet. Details findest du in der Datenschutzerklärung."
+     },
+     {
+      "q": "Welche Unterlagen brauche ich?",
+      "a": "Typischerweise ID, Lohnausweis, Steuererklärung, Pensionskassenausweis, Eigenmittelnachweis und Objektunterlagen. Die vollständige Liste findest du auf der Seite Dokumente."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Dokumente ansehen",
+      "to": "page:dokumente"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Hypothekenwissen",
+    "title": "Die wichtigsten\n*Regeln.*",
+    "items": [
+     {
+      "q": "Wie viel Eigenmittel brauche ich?",
+      "a": "Mindestens **20 %** des Kaufpreises, davon mind. 10 % «hart», also nicht aus der Pensionskasse. Bei Renditeobjekten meist mind. 25 %."
+     },
+     {
+      "q": "Wie rechnen Banken die Tragbarkeit?",
+      "a": "Mit kalkulatorischem Zins von 5 %, Unterhalt von 1 % und Amortisation. Die Kosten sollten max. ca. ⅓ des Bruttoeinkommens betragen."
+     },
+     {
+      "q": "Muss ich amortisieren?",
+      "a": "Ja, die 2. Hypothek (über 66⅔ % Belehnung) innert 15 Jahren bzw. bis zur Pensionierung, direkt oder indirekt über die Säule 3a."
+     },
+     {
+      "q": "Kann ich Pensionskassengeld einsetzen?",
+      "a": "Ja, per Vorbezug ab CHF 20’000, alle 5 Jahre und bis 3 Jahre vor der Pensionierung (Reglement prüfen), oder per Verpfändung. Auch die Säule 3a kann bezogen oder verpfändet werden."
+     },
+     {
+      "q": "Erhalten Ausländer eine Hypothek?",
+      "a": "Ja. Mit B-Bewilligung und Wohnsitz in der Schweiz kannst du selbstbewohntes Eigentum erwerben. Für Personen ohne Wohnsitz bzw. ohne C-Bewilligung gilt die Lex Koller. Banken verlangen oft mehr Eigenmittel. Stand 2026, ohne Gewähr."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Zum Ratgeber",
+      "to": "page:ratgeber"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Immobilienbewertung",
+    "title": "Fragen zur\n*Bewertung.*",
+    "items": [
+     {
+      "q": "Wie funktioniert die hedonische Bewertung?",
+      "a": "Das Modell von **Wüest Partner** vergleicht Merkmale wie Lage, Fläche, Baujahr und Zustand mit vergleichbaren Objekten und berechnet einen Marktwert mit Bandbreite."
+     },
+     {
+      "q": "Welche Objekte kann ich bewerten?",
+      "a": "Einfamilienhäuser und Eigentumswohnungen, als Erst- oder Zweitwohnsitz."
+     },
+     {
+      "q": "Wie schnell erhalte ich das Ergebnis?",
+      "a": "Die Bewertung läuft online und dauert nur wenige Minuten."
+     },
+     {
+      "q": "Wofür brauche ich eine Bewertung?",
+      "a": "Vor einem Kauf oder Verkauf, bei einer Erbteilung oder bei einer Refinanzierung."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Bewertung starten",
+      "to": "bewertung"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Partner & Academy",
+    "title": "Für Partner\n*und Lernende.*",
+    "items": [
+     {
+      "q": "Wer kann Partner werden?",
+      "a": "Immobilienmakler, Treuhänder, Vermögensverwalter, Versicherungsagenturen und Broker mit registriertem Unternehmen, gültiger Bewilligung bzw. Aufsicht, eingehaltenem KYC/AML und Erfahrung."
+     },
+     {
+      "q": "Bleibt die Kundenbeziehung bei mir?",
+      "a": "Ja. Die Kundenbeziehung bleibt beim Partner. HYPOTEQ vertreibt keine Versicherungen und Anlagen, es gibt also keine Produktkonkurrenz."
+     },
+     {
+      "q": "Was bietet das Partnerportal?",
+      "a": "Fälle einreichen, Status, Dokumente und Rückmeldungen der Kreditgeber an einem Ort. Jeder Partner sieht nur seine eigenen Fälle, der Zugang erfolgt per Einladung."
+     },
+     {
+      "q": "Was ist die HYPOTEQ Academy?",
+      "a": "Eine Lernplattform mit 8 Learning Journeys, Praxisfällen und einem KI-Learning-Playground, um Kundengespräche zu trainieren. Der **Foundation Course** kostet CHF 290 und braucht kein Vorwissen."
+     },
+     {
+      "q": "Ersetzt die Academy eine Fachprüfung?",
+      "a": "Nein. Die KI-Übungen ersetzen keine fachliche Prüfung und keinen Finanzierungsentscheid."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Partner werden",
+      "to": "page:partner"
+     },
+     {
+      "label": "Academy entdecken",
+      "to": "page:academy"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Frage nicht dabei?\n*Wir sind für dich da.*",
+    "text": "Ruf uns an oder starte direkt deine kostenlose Anfrage.",
+    "ctas": [
+     {
+      "label": "Hypothek anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "FAQ: questions fréquentes hypothèque | HYPOTEQ",
+  "description": "Réponses aux questions fréquentes sur le comparatif, l'envoi de documents, la protection des données, les coûts et le déroulement chez HYPOTEQ.",
+  "h1": "Questions fréquentes",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "FAQ hypothèque",
+    "h1": "Questions fréquentes",
+    "lead": "Vous trouvez ici les réponses aux **questions sur l'hypothèque** les plus fréquentes: coûts, déroulement, IA, estimation immobilière et programme partenaires. Votre question n'y figure pas? Nous vous répondons volontiers.",
+    "ctas": [
+     {
+      "label": "Demander une hypothèque",
+      "to": "funnel"
+     },
+     {
+      "label": "Contact",
+      "to": "page:kontakt"
+     }
+    ],
+    "badges": [
+     "Coûts",
+     "Déroulement & IA",
+     "Savoir hypothécaire"
+    ],
+    "image": "couple",
+    "alt": "Couple détendu dans son salon"
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Coûts",
+    "title": "Combien coûte\n*HYPOTEQ?*",
+    "items": [
+     {
+      "q": "Le comparatif est-il gratuit?",
+      "a": "Oui. La comparaison et le courtage sont **gratuits** et sans engagement pour les particuliers."
+     },
+     {
+      "q": "Comment HYPOTEQ est-il rémunéré?",
+      "a": "En cas de succès, par le prêteur. Cela n'entraîne aucun coût pour vous."
+     },
+     {
+      "q": "Combien coûte l'estimation immobilière?",
+      "a": "Au prix de lancement de **CHF 300 au lieu de CHF 450**. Elle est incluse pour les partenaires HYPOTEQ."
+     },
+     {
+      "q": "Combien coûte l'Advisory?",
+      "a": "L'Advisory est un mandat payant pour les situations complexes, par exemple à la retraite ou après un refus bancaire. Le premier entretien est gratuit."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Demander une hypothèque",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Déroulement, demande en ligne & IA",
+    "title": "Comment se déroule\n*votre demande.*",
+    "items": [
+     {
+      "q": "Combien de temps dure le processus?",
+      "a": "La demande prend env. **3 minutes**. Votre conseillère vous contacte rapidement. Avec un dossier complet, vous recevez généralement des offres sous 48 à 72 heures."
+     },
+     {
+      "q": "Quelles sont les options de demande?",
+      "a": "Trois: l'**inscription rapide** avec envoi de documents, l'inscription guidée pas à pas ou l'assistant de chat **HYPO**, à qui vous décrivez votre projet avec vos mots."
+     },
+     {
+      "q": "L'IA me conseille-t-elle?",
+      "a": "Non. L'IA lit vos documents et aide à la saisie. Le conseil est toujours assuré par une personne."
+     },
+     {
+      "q": "Mes données sont-elles sécurisées?",
+      "a": "Vos données sont traitées en Suisse (région de Zurich) et utilisées uniquement pour votre demande de financement. Les détails figurent dans la déclaration de protection des données."
+     },
+     {
+      "q": "Quels documents fournir?",
+      "a": "En général: pièce d'identité, certificat de salaire, déclaration d'impôt, certificat de caisse de pension, justificatif des fonds propres et documents du bien. La liste complète se trouve sur la page Documents."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Voir les documents",
+      "to": "page:dokumente"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Savoir hypothécaire",
+    "title": "Les règles\n*essentielles.*",
+    "items": [
+     {
+      "q": "Combien de fonds propres faut-il?",
+      "a": "Au moins **20 %** du prix d'achat, dont au moins 10 % de fonds propres «durs», c'est-à-dire hors 2e pilier. Pour un immeuble de rendement, en général au moins 25 %."
+     },
+     {
+      "q": "Comment les banques calculent-elles la capacité financière?",
+      "a": "Avec un taux théorique de 5 %, 1 % d'entretien et l'amortissement. Ces coûts ne devraient pas dépasser environ un tiers du revenu brut."
+     },
+     {
+      "q": "Dois-je amortir?",
+      "a": "Oui, le 2e rang (au-delà de 66⅔ % de nantissement) en 15 ans ou jusqu'à la retraite, directement ou indirectement via le 3e pilier."
+     },
+     {
+      "q": "Puis-je utiliser mon 2e pilier?",
+      "a": "Oui, par retrait anticipé dès CHF 20’000, tous les 5 ans et jusqu'à 3 ans avant la retraite (vérifier le règlement), ou par nantissement. Le 3e pilier peut aussi être retiré ou nanti."
+     },
+     {
+      "q": "Les étrangers peuvent-ils obtenir une hypothèque?",
+      "a": "Oui. Avec un permis B et un domicile en Suisse, vous pouvez acheter votre résidence principale. Sans domicile ou sans permis C, la Lex Koller s'applique. Les banques exigent souvent davantage de fonds propres. État 2026, sans garantie."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Vers le guide",
+      "to": "page:ratgeber"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Estimation immobilière",
+    "title": "Questions sur\n*l'estimation.*",
+    "items": [
+     {
+      "q": "Comment fonctionne la méthode hédoniste?",
+      "a": "Le modèle de **Wüest Partner** compare des caractéristiques comme la situation, la surface, l'année de construction et l'état avec des biens comparables et calcule une valeur de marché avec fourchette."
+     },
+     {
+      "q": "Quels biens puis-je faire estimer?",
+      "a": "Maisons individuelles et appartements en PPE, en résidence principale ou secondaire."
+     },
+     {
+      "q": "En combien de temps ai-je le résultat?",
+      "a": "L'estimation se fait en ligne et ne prend que quelques minutes."
+     },
+     {
+      "q": "Dans quels cas une estimation est-elle utile?",
+      "a": "Avant un achat ou une vente, lors d'un partage successoral ou d'un refinancement."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Lancer l'estimation",
+      "to": "bewertung"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Partenaires & Academy",
+    "title": "Pour partenaires\n*et apprenants.*",
+    "items": [
+     {
+      "q": "Qui peut devenir partenaire?",
+      "a": "Courtiers immobiliers, fiduciaires, gérants de fortune, agences d'assurance et brokers disposant d'une entreprise enregistrée, d'une autorisation ou surveillance valable, respectant KYC/AML et ayant de l'expérience."
+     },
+     {
+      "q": "La relation client reste-t-elle chez moi?",
+      "a": "Oui. HYPOTEQ ne vend ni assurances ni placements: il n'y a donc aucune concurrence de produits."
+     },
+     {
+      "q": "Que propose le portail partenaires?",
+      "a": "Déposer des dossiers, suivre le statut, les documents et les retours des prêteurs en un seul endroit. Chaque partenaire ne voit que ses propres dossiers, l'accès se fait sur invitation."
+     },
+     {
+      "q": "Qu'est-ce que la HYPOTEQ Academy?",
+      "a": "Une plateforme d'apprentissage avec 8 Learning Journeys, des cas pratiques et un Learning Playground IA pour s'entraîner aux entretiens clients. Le **Foundation Course** coûte CHF 290, sans prérequis."
+     },
+     {
+      "q": "L'Academy remplace-t-elle un examen professionnel?",
+      "a": "Non. Les exercices IA ne remplacent ni un examen professionnel ni une décision de financement."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Devenir partenaire",
+      "to": "page:partner"
+     },
+     {
+      "label": "Découvrir l'Academy",
+      "to": "page:academy"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Votre question n'y est pas?\n*Nous sommes là.*",
+    "text": "Appelez-nous ou lancez directement votre demande gratuite.",
+    "ctas": [
+     {
+      "label": "Demander une hypothèque",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Domande frequenti sull'ipoteca | HYPOTEQ",
+  "description": "Risposte alle domande frequenti su confronto, caricamento dei documenti, protezione dei dati, costi e procedura con HYPOTEQ.",
+  "h1": "Domande frequenti",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "FAQ ipoteca",
+    "h1": "Domande frequenti",
+    "lead": "Qui trovi le risposte alle **domande sull'ipoteca** più frequenti: costi, procedura, IA, stima immobiliare e programma partner. La tua domanda non c'è? Ti aiutiamo volentieri di persona.",
+    "ctas": [
+     {
+      "label": "Richiedere un'ipoteca",
+      "to": "funnel"
+     },
+     {
+      "label": "Contatto",
+      "to": "page:kontakt"
+     }
+    ],
+    "badges": [
+     "Costi",
+     "Procedura & IA",
+     "Sapere ipotecario"
+    ],
+    "image": "couple",
+    "alt": "Coppia rilassata nel proprio soggiorno"
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Costi",
+    "title": "Quanto costa\n*HYPOTEQ?*",
+    "items": [
+     {
+      "q": "Il confronto è gratuito?",
+      "a": "Sì. Confronto e mediazione sono **gratuiti** e senza impegno per i privati."
+     },
+     {
+      "q": "Come guadagna HYPOTEQ?",
+      "a": "In caso di successo veniamo remunerati dall'istituto finanziatore. Per te non ci sono costi."
+     },
+     {
+      "q": "Quanto costa la stima immobiliare?",
+      "a": "Al prezzo di lancio di **CHF 300 invece di CHF 450**. Per i partner HYPOTEQ è inclusa."
+     },
+     {
+      "q": "Quanto costa l'Advisory?",
+      "a": "L'Advisory è un mandato a pagamento per situazioni complesse, ad esempio al pensionamento o dopo un rifiuto bancario. Il primo colloquio è gratuito."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Richiedere un'ipoteca",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Procedura, richiesta online & IA",
+    "title": "Come funziona\n*la tua richiesta.*",
+    "items": [
+     {
+      "q": "Quanto dura la procedura?",
+      "a": "La richiesta dura ca. **3 minuti**. La tua consulente ti contatta in tempi brevi. Con i documenti completi ricevi di solito offerte entro 48–72 ore."
+     },
+     {
+      "q": "Quali accessi ci sono?",
+      "a": "Tre: la **registrazione rapida** con caricamento dei documenti, la registrazione guidata passo dopo passo oppure l'assistente chat **HYPO**, a cui descrivi il progetto con parole tue."
+     },
+     {
+      "q": "L'IA mi fornisce consulenza?",
+      "a": "No. L'IA legge i tuoi documenti e aiuta nella raccolta dei dati. La consulenza la fa sempre una persona."
+     },
+     {
+      "q": "I miei dati sono al sicuro?",
+      "a": "I tuoi dati vengono trattati in Svizzera (regione di Zurigo) e usati solo per la tua richiesta di finanziamento. I dettagli sono nella dichiarazione sulla protezione dei dati."
+     },
+     {
+      "q": "Quali documenti servono?",
+      "a": "Di solito documento d'identità, certificato di salario, dichiarazione fiscale, certificato della cassa pensione, prova dei fondi propri e documenti dell'immobile. La lista completa è sulla pagina Documenti."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Vedi i documenti",
+      "to": "page:dokumente"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Sapere ipotecario",
+    "title": "Le regole\n*principali.*",
+    "items": [
+     {
+      "q": "Quanti fondi propri servono?",
+      "a": "Almeno il **20 %** del prezzo d'acquisto, di cui almeno il 10 % «duro», cioè non dalla cassa pensione. Per immobili da reddito di solito almeno il 25 %."
+     },
+     {
+      "q": "Come calcolano le banche la sostenibilità?",
+      "a": "Con un tasso teorico del 5 %, manutenzione dell'1 % e ammortamento. I costi non dovrebbero superare circa un terzo del reddito lordo."
+     },
+     {
+      "q": "Devo ammortizzare?",
+      "a": "Sì, la 2a ipoteca (oltre il 66⅔ % di anticipo) entro 15 anni o fino al pensionamento, in modo diretto o indiretto tramite il 3° pilastro."
+     },
+     {
+      "q": "Posso usare la cassa pensione?",
+      "a": "Sì, con prelievo anticipato da CHF 20’000, ogni 5 anni e fino a 3 anni prima del pensionamento (verifica il regolamento), oppure con costituzione in pegno. Anche il 3° pilastro può essere prelevato o dato in pegno."
+     },
+     {
+      "q": "Gli stranieri possono ottenere un'ipoteca?",
+      "a": "Sì. Con permesso B e domicilio in Svizzera puoi acquistare un'abitazione ad uso proprio. Per chi non ha domicilio o permesso C vale la Lex Koller, rilevante anche per i frontalieri. Le banche chiedono spesso più fondi propri. Stato 2026, senza garanzia."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Alla guida",
+      "to": "page:ratgeber"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Stima immobiliare",
+    "title": "Domande sulla\n*stima.*",
+    "items": [
+     {
+      "q": "Come funziona il metodo edonico?",
+      "a": "Il modello di **Wüest Partner** confronta caratteristiche come posizione, superficie, anno di costruzione e stato con immobili comparabili e calcola un valore di mercato con forchetta."
+     },
+     {
+      "q": "Quali immobili posso far stimare?",
+      "a": "Case unifamiliari e appartamenti in PPP, come residenza principale o secondaria."
+     },
+     {
+      "q": "Quanto tempo serve per il risultato?",
+      "a": "La stima avviene online e richiede solo pochi minuti."
+     },
+     {
+      "q": "Quando serve una stima immobiliare?",
+      "a": "Prima di un acquisto o di una vendita, in caso di divisione ereditaria o di rifinanziamento."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Avvia la stima",
+      "to": "bewertung"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Partner & Academy",
+    "title": "Per partner\n*e chi impara.*",
+    "items": [
+     {
+      "q": "Chi può diventare partner?",
+      "a": "Agenti immobiliari, fiduciari, gestori patrimoniali, agenzie assicurative e broker con azienda registrata, autorizzazione o vigilanza valida, rispetto di KYC/AML ed esperienza."
+     },
+     {
+      "q": "Il rapporto con il cliente resta mio?",
+      "a": "Sì. HYPOTEQ non vende assicurazioni né investimenti: non c'è quindi concorrenza di prodotti."
+     },
+     {
+      "q": "Cosa offre il portale partner?",
+      "a": "Inoltrare casi, seguire stato, documenti e riscontri degli istituti in un unico luogo. Ogni partner vede solo i propri casi, l'accesso avviene su invito."
+     },
+     {
+      "q": "Cos'è la HYPOTEQ Academy?",
+      "a": "Una piattaforma di apprendimento con 8 Learning Journeys, casi pratici e un Learning Playground con IA per allenare i colloqui con i clienti. Il **Foundation Course** costa CHF 290 e non richiede conoscenze preliminari."
+     },
+     {
+      "q": "L'Academy sostituisce un esame professionale?",
+      "a": "No. Gli esercizi con IA non sostituiscono un esame professionale né una decisione di finanziamento."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Diventa partner",
+      "to": "page:partner"
+     },
+     {
+      "label": "Scopri l'Academy",
+      "to": "page:academy"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "La tua domanda non c'è?\n*Siamo qui per te.*",
+    "text": "Chiamaci o avvia subito la tua richiesta gratuita.",
+    "ctas": [
+     {
+      "label": "Richiedere un'ipoteca",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "FAQ: Swiss Mortgage Questions | HYPOTEQ",
+  "description": "Answers to common questions about our mortgage comparison, document upload, data protection, costs and process at HYPOTEQ.",
+  "h1": "Frequently asked questions",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Swiss mortgage FAQ",
+    "h1": "Frequently asked\nquestions",
+    "lead": "Our **Swiss mortgage FAQ** answers the most common questions on costs, process, AI, property valuation and the partner programme. Can't find your question? We're happy to help in person.",
+    "ctas": [
+     {
+      "label": "Request a mortgage",
+      "to": "funnel"
+     },
+     {
+      "label": "Contact",
+      "to": "page:kontakt"
+     }
+    ],
+    "badges": [
+     "Costs",
+     "Process & AI",
+     "Mortgage basics"
+    ],
+    "image": "couple",
+    "alt": "Couple relaxing in their own living room"
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Costs",
+    "title": "What does\n*HYPOTEQ cost?*",
+    "items": [
+     {
+      "q": "Is the comparison free?",
+      "a": "Yes. Comparison and brokerage are **free** and non-binding for private clients."
+     },
+     {
+      "q": "How does HYPOTEQ earn money?",
+      "a": "When a deal closes, the lender pays us. There is no cost to you."
+     },
+     {
+      "q": "How much is the property valuation?",
+      "a": "At the launch price of **CHF 300 instead of CHF 450**. It's included for HYPOTEQ partners."
+     },
+     {
+      "q": "How much does Advisory cost?",
+      "a": "Advisory is a paid mandate for complex situations, for example in retirement or after a bank has declined. The first meeting is free."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Request a mortgage",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Process, online request & AI",
+    "title": "How your\n*request works.*",
+    "items": [
+     {
+      "q": "How long does the process take?",
+      "a": "The request takes about **3 minutes**. Your advisor usually contacts you the same business day. Once your documents are complete, you typically get offers within 48–72 hours."
+     },
+     {
+      "q": "Which ways can I apply?",
+      "a": "Three: the **quick application** with document upload, the guided application step by step, or the chat assistant **HYPO**, where you describe your project in your own words."
+     },
+     {
+      "q": "Does the AI give advice?",
+      "a": "No. The AI reads your documents and helps with data entry. Advice always comes from a person."
+     },
+     {
+      "q": "How secure is my data?",
+      "a": "Your data is processed in Switzerland (Zurich region) and used only for your financing request. Details are in our privacy policy."
+     },
+     {
+      "q": "Which documents do I need?",
+      "a": "Usually ID or residence permit, salary statement, tax return, pension fund statement, proof of equity and property documents. The full list is on our Documents page."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "See documents",
+      "to": "page:dokumente"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Mortgage basics",
+    "title": "The key\n*Swiss rules.*",
+    "items": [
+     {
+      "q": "How much equity do I need?",
+      "a": "At least **20 %** of the purchase price, of which at least 10 % must be «hard» equity, i.e. not from your pension fund (pillar 2). For buy-to-let, usually at least 25 %."
+     },
+     {
+      "q": "How do banks calculate affordability?",
+      "a": "With a 5 % imputed rate, 1 % maintenance and amortisation. These costs should not exceed roughly one third of gross income."
+     },
+     {
+      "q": "Do I have to amortise?",
+      "a": "Yes, the 2nd mortgage (above 66⅔ % loan-to-value) within 15 years or by retirement, directly or indirectly via pillar 3a."
+     },
+     {
+      "q": "Can I use my pension fund?",
+      "a": "Yes, by withdrawal from CHF 20,000, every 5 years and up to 3 years before retirement (check your fund's rules), or by pledging. Pillar 3a can also be withdrawn or pledged."
+     },
+     {
+      "q": "Can foreigners get a Swiss mortgage?",
+      "a": "Yes. With a B permit and residence in Switzerland you can buy a home you live in. Without Swiss residence or a C permit, Lex Koller applies. Banks often ask for more equity. As of 2026, no guarantee."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Go to guides",
+      "to": "page:ratgeber"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Property valuation",
+    "title": "Questions about\n*valuation.*",
+    "items": [
+     {
+      "q": "How does hedonic valuation work?",
+      "a": "The model by **Wüest Partner** compares features such as location, floor area, year built and condition with comparable properties and calculates a market value with a range."
+     },
+     {
+      "q": "Which properties can I value?",
+      "a": "Detached houses and condominiums, as primary or second homes."
+     },
+     {
+      "q": "How fast do I get the result?",
+      "a": "The valuation runs online and takes only a few minutes."
+     },
+     {
+      "q": "When do I need a valuation?",
+      "a": "Before buying or selling, when dividing an inheritance or when refinancing."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Start valuation",
+      "to": "bewertung"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Partners & Academy",
+    "title": "For partners\n*and learners.*",
+    "items": [
+     {
+      "q": "Who can become a partner?",
+      "a": "Real estate agents, trustees, wealth managers, insurance agencies and brokers with a registered company, a valid licence or supervision, KYC/AML compliance and experience."
+     },
+     {
+      "q": "Does the client relationship stay with me?",
+      "a": "Yes. HYPOTEQ doesn't sell insurance or investments, so there is no product competition."
+     },
+     {
+      "q": "What does the partner portal offer?",
+      "a": "Submit cases and track status, documents and lender feedback in one place. Each partner only sees their own cases, and access is by invitation."
+     },
+     {
+      "q": "What is the HYPOTEQ Academy?",
+      "a": "A learning platform with 8 Learning Journeys, practical cases and an AI Learning Playground to practise client conversations. The **Foundation Course** costs CHF 290 and needs no prior knowledge."
+     },
+     {
+      "q": "Does the Academy replace a professional exam?",
+      "a": "No. The AI exercises don't replace a professional exam or a financing decision."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Become a partner",
+      "to": "page:partner"
+     },
+     {
+      "label": "Explore the Academy",
+      "to": "page:academy"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Question not listed?\n*We're here for you.*",
+    "text": "Call us or start your free request right away.",
+    "ctas": [
+     {
+      "label": "Request a mortgage",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ }
+}

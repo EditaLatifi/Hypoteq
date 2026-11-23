@@ -1,0 +1,362 @@
+{
+ "de": {
+  "title": "Impressum | HYPOTEQ",
+  "description": "Impressum der HYPOTEQ AG, Zürich: Kontaktangaben, Handelsregistereintrag und verantwortliche Personen.",
+  "h1": "Impressum",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Entwurf – juristisch prüfen",
+    "h1": "Impressum",
+    "lead": "Angaben zur **HYPOTEQ AG**, Zürich: Kontakt, Handelsregistereintrag und verantwortliche Personen. Dieser Text ist ein Entwurf und wird vor der Veröffentlichung juristisch geprüft.",
+    "ctas": [
+     {
+      "label": "Kontakt",
+      "to": "page:kontakt"
+     },
+     {
+      "label": "Datenschutz",
+      "to": "page:datenschutz"
+     }
+    ],
+    "badges": [
+     "Entwurf",
+     "Stand: November 2026"
+    ],
+    "image": "neighbourhood",
+    "alt": "Wohnquartier in der Schweiz"
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Entwurf – juristisch prüfen",
+    "title": "Angaben zur\n*Anbieterin.*",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Anbieterin",
+      "title": "HYPOTEQ AG",
+      "text": "Löwenstrasse 29\n8001 Zürich\nSchweiz"
+     },
+     {
+      "kicker": "Kontakt",
+      "title": "044 502 92 52",
+      "text": "info@hypoteq.ch",
+      "to": "mail",
+      "cta": "E-Mail schreiben"
+     },
+     {
+      "kicker": "Handelsregister",
+      "title": "UID CHE-249.716.201",
+      "text": "Eingetragen im Handelsregister des Kantons Zürich. [Eintrag prüfen]"
+     },
+     {
+      "kicker": "Management",
+      "title": "Verantwortliche Personen",
+      "text": "Marco Circelli, Davide Iuorno, Fisnik Salihu (CTO)\n[Zeichnungsberechtigung gemäss Handelsregister ergänzen]"
+     },
+     {
+      "kicker": "Bewilligung & Aufsicht",
+      "title": "Vermittlungstätigkeit",
+      "text": "[Angaben zu Bewilligung, Registrierung oder Aufsicht ergänzen]"
+     },
+     {
+      "kicker": "Haftung",
+      "title": "Haftungsausschluss",
+      "text": "Alle Inhalte dienen der Information. Richtzinsen und Rechenbeispiele sind Beispielwerte ohne Gewähr und keine Finanzierungszusage. Für Inhalte externer Links sind deren Betreiber verantwortlich."
+     },
+     {
+      "kicker": "Urheberrecht",
+      "title": "Rechte",
+      "text": "Texte, Bilder und Grafiken dieser Website gehören der HYPOTEQ AG oder den jeweiligen Rechteinhabern. Eine Verwendung braucht unsere schriftliche Zustimmung."
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Fragen zu\n*deiner Hypothek?*",
+    "text": "Kostenlos vergleichen und persönlich beraten lassen.",
+    "tone": "soft",
+    "ctas": [
+     {
+      "label": "Hypothek anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Mentions légales | HYPOTEQ",
+  "description": "Mentions légales de HYPOTEQ AG, Zurich: coordonnées, inscription au registre du commerce et personnes responsables.",
+  "h1": "Mentions légales",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Projet – à vérifier juridiquement",
+    "h1": "Mentions légales",
+    "lead": "Informations sur **HYPOTEQ AG**, Zurich: coordonnées, inscription au registre du commerce et personnes responsables. Ce texte est un projet et sera vérifié juridiquement avant publication.",
+    "ctas": [
+     {
+      "label": "Contact",
+      "to": "page:kontakt"
+     },
+     {
+      "label": "Protection des données",
+      "to": "page:datenschutz"
+     }
+    ],
+    "badges": [
+     "Projet",
+     "État: novembre 2026"
+    ],
+    "image": "neighbourhood",
+    "alt": "Quartier résidentiel en Suisse"
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Projet – à vérifier juridiquement",
+    "title": "Informations sur\n*l'entreprise.*",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Société",
+      "title": "HYPOTEQ AG",
+      "text": "Löwenstrasse 29\n8001 Zurich\nSuisse"
+     },
+     {
+      "kicker": "Contact",
+      "title": "044 502 92 52",
+      "text": "info@hypoteq.ch",
+      "to": "mail",
+      "cta": "Écrire un e-mail"
+     },
+     {
+      "kicker": "Registre du commerce",
+      "title": "IDE CHE-249.716.201",
+      "text": "Inscrite au registre du commerce du canton de Zurich. [Inscription à vérifier]"
+     },
+     {
+      "kicker": "Direction",
+      "title": "Personnes responsables",
+      "text": "Marco Circelli, Davide Iuorno, Fisnik Salihu (CTO)\n[Pouvoir de signature selon le registre du commerce à compléter]"
+     },
+     {
+      "kicker": "Autorisation & surveillance",
+      "title": "Activité de courtage",
+      "text": "[Indications sur l'autorisation, l'enregistrement ou la surveillance à compléter]"
+     },
+     {
+      "kicker": "Responsabilité",
+      "title": "Exclusion de responsabilité",
+      "text": "Tous les contenus sont fournis à titre d'information. Les taux indicatifs et exemples de calcul sont des valeurs d'exemple sans garantie et ne constituent pas un engagement de financement. Les exploitants des liens externes sont responsables de leurs contenus."
+     },
+     {
+      "kicker": "Droits d'auteur",
+      "title": "Droits",
+      "text": "Les textes, images et graphiques de ce site appartiennent à HYPOTEQ AG ou aux ayants droit. Toute utilisation requiert notre accord écrit."
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Des questions sur\n*votre hypothèque?*",
+    "text": "Comparer gratuitement et être conseillé personnellement.",
+    "tone": "soft",
+    "ctas": [
+     {
+      "label": "Demander une hypothèque",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Note legali | HYPOTEQ",
+  "description": "Note legali di HYPOTEQ AG, Zurigo: recapiti, iscrizione al registro di commercio e persone responsabili.",
+  "h1": "Note legali",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Bozza – da verificare legalmente",
+    "h1": "Note legali",
+    "lead": "Informazioni su **HYPOTEQ AG**, Zurigo: recapiti, iscrizione al registro di commercio e persone responsabili. Questo testo è una bozza e sarà verificato legalmente prima della pubblicazione.",
+    "ctas": [
+     {
+      "label": "Contatto",
+      "to": "page:kontakt"
+     },
+     {
+      "label": "Protezione dei dati",
+      "to": "page:datenschutz"
+     }
+    ],
+    "badges": [
+     "Bozza",
+     "Stato: novembre 2026"
+    ],
+    "image": "neighbourhood",
+    "alt": "Quartiere residenziale in Svizzera"
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Bozza – da verificare legalmente",
+    "title": "Informazioni\n*sulla società.*",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Società",
+      "title": "HYPOTEQ AG",
+      "text": "Löwenstrasse 29\n8001 Zurigo\nSvizzera"
+     },
+     {
+      "kicker": "Contatto",
+      "title": "044 502 92 52",
+      "text": "info@hypoteq.ch",
+      "to": "mail",
+      "cta": "Scrivi un'e-mail"
+     },
+     {
+      "kicker": "Registro di commercio",
+      "title": "IDI CHE-249.716.201",
+      "text": "Iscritta al registro di commercio del Cantone di Zurigo. [Iscrizione da verificare]"
+     },
+     {
+      "kicker": "Direzione",
+      "title": "Persone responsabili",
+      "text": "Marco Circelli, Davide Iuorno, Fisnik Salihu (CTO)\n[Diritto di firma secondo il registro di commercio da completare]"
+     },
+     {
+      "kicker": "Autorizzazione & vigilanza",
+      "title": "Attività di mediazione",
+      "text": "[Indicazioni su autorizzazione, registrazione o vigilanza da completare]"
+     },
+     {
+      "kicker": "Responsabilità",
+      "title": "Esclusione di responsabilità",
+      "text": "Tutti i contenuti hanno scopo informativo. Tassi indicativi ed esempi di calcolo sono valori d'esempio senza garanzia e non costituiscono una promessa di finanziamento. I gestori dei link esterni sono responsabili dei loro contenuti."
+     },
+     {
+      "kicker": "Diritto d'autore",
+      "title": "Diritti",
+      "text": "Testi, immagini e grafiche di questo sito appartengono a HYPOTEQ AG o ai rispettivi titolari. Ogni utilizzo richiede il nostro consenso scritto."
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Domande sulla\n*tua ipoteca?*",
+    "text": "Confronta gratis e ricevi una consulenza personale.",
+    "tone": "soft",
+    "ctas": [
+     {
+      "label": "Richiedere un'ipoteca",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "Legal Notice | HYPOTEQ",
+  "description": "Legal notice of HYPOTEQ AG, Zurich: contact details, commercial register entry and responsible persons.",
+  "h1": "Legal notice",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Draft – pending legal review",
+    "h1": "Legal notice",
+    "lead": "Information about **HYPOTEQ AG**, Zurich: contact details, commercial register entry and responsible persons. This text is a draft and will be legally reviewed before publication.",
+    "ctas": [
+     {
+      "label": "Contact",
+      "to": "page:kontakt"
+     },
+     {
+      "label": "Privacy policy",
+      "to": "page:datenschutz"
+     }
+    ],
+    "badges": [
+     "Draft",
+     "As of November 2026"
+    ],
+    "image": "neighbourhood",
+    "alt": "Residential neighbourhood in Switzerland"
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Draft – pending legal review",
+    "title": "Company\n*information.*",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Provider",
+      "title": "HYPOTEQ AG",
+      "text": "Löwenstrasse 29\n8001 Zurich\nSwitzerland"
+     },
+     {
+      "kicker": "Contact",
+      "title": "+41 44 502 92 52",
+      "text": "info@hypoteq.ch",
+      "to": "mail",
+      "cta": "Write an email"
+     },
+     {
+      "kicker": "Commercial register",
+      "title": "UID CHE-249.716.201",
+      "text": "Registered in the commercial register of the Canton of Zurich. [Verify entry]"
+     },
+     {
+      "kicker": "Management",
+      "title": "Responsible persons",
+      "text": "Marco Circelli, Davide Iuorno, Fisnik Salihu (CTO)\n[Add signing authority as per commercial register]"
+     },
+     {
+      "kicker": "Licence & supervision",
+      "title": "Brokerage activity",
+      "text": "[Add details on licence, registration or supervision]"
+     },
+     {
+      "kicker": "Liability",
+      "title": "Disclaimer",
+      "text": "All content is for information only. Indicative rates and calculation examples are sample values without guarantee and not a financing commitment. Operators of external links are responsible for their content."
+     },
+     {
+      "kicker": "Copyright",
+      "title": "Rights",
+      "text": "Texts, images and graphics on this website belong to HYPOTEQ AG or the respective rights holders. Any use requires our written consent."
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Questions about\n*your mortgage?*",
+    "text": "Compare for free and get personal advice.",
+    "tone": "soft",
+    "ctas": [
+     {
+      "label": "Request a mortgage",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ }
+}

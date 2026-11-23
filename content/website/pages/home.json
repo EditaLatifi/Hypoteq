@@ -1,0 +1,1534 @@
+{
+  "de": {
+    "title": "Hypothek vergleichen & finanzieren | HYPOTEQ Schweiz",
+    "description": "Die unabhängige Finanzierungsplattform der Schweiz: 40+ Finanzierungspartner, Anfrage in 3 Minuten, persönliche Beratung. Kostenlos vergleichen.",
+    "h1": "Dein Zuhause.\nDeine Hypothek.\nEine Plattform.",
+    "sections": [
+      {
+        "type": "hero",
+        "eyebrow": "HYPOTEQ · Finanzierungsplattform Schweiz",
+        "h1": "Dein Zuhause.\nDeine Hypothek.\nEine Plattform.",
+        "lead": "HYPOTEQ ist die **unabhängige Finanzierungsplattform** der Schweiz. Von der Standardhypothek bis zur Spezialfinanzierung vergleichen wir **über 40 Finanzierungspartner** für dich. Dazu bieten wir Immobilienbewertung und Weiterbildung, und für Partner die Plattform, mit der Finanzierungen einfach werden.",
+        "ctas": [
+          {
+            "label": "Hypothek anfragen",
+            "to": "funnel"
+          },
+          {
+            "label": "Zinsen ansehen",
+            "to": "page:zinsen"
+          }
+        ],
+        "badges": [
+          "100 % unabhängig",
+          "Anfrage in 3 Minuten",
+          "Daten bleiben in der Schweiz"
+        ],
+        "image": "swiss-landscape",
+        "alt": ""
+      },
+      {
+        "type": "usp",
+        "items": [
+          {
+            "value": "40+",
+            "label": "Finanzierungspartner: Banken, Versicherungen, Pensionskassen, Stiftungen und Regionalinstitute"
+          },
+          {
+            "value": "180+",
+            "label": "Beraterinnen und Berater in der ganzen Schweiz"
+          },
+          {
+            "value": "3 Min.",
+            "label": "bis zur vollständigen Anfrage"
+          },
+          {
+            "value": "100 %",
+            "label": "unabhängig, ohne eigene Bank oder Versicherung"
+          }
+        ]
+      },
+      {
+        "type": "claim",
+        "a": "Hypotheken sind dank HYPOTEQ vergleichbar geworden.",
+        "b": "Ihr Berater ist hingegen einzigartig."
+      },
+      {
+        "type": "photo_cards",
+        "items": [
+          {
+            "kicker": "01 · Finanzierung",
+            "title": "Dein Eigenheim.\nDein Plan.",
+            "text": "Kauf, Neubau, Ablösung oder Spezialfinanzierung: Wir holen die passenden Offerten für dich ein.",
+            "image": "lake-house",
+            "alt": "Kapellbrücke und Altstadt von Luzern",
+            "cta": {
+              "label": "Hypothek anfragen",
+              "to": "funnel"
+            }
+          },
+          {
+            "kicker": "02 · Immobilienbewertung",
+            "title": "Kenne den Wert\ndeiner Immobilie.",
+            "text": "Hedonische Bewertung nach dem Modell von Wüest Partner. Jetzt CHF 300 statt 450.",
+            "image": "lake-living",
+            "alt": "Lavaux-Weinberge über dem Genfersee",
+            "cta": {
+              "label": "Bewertung starten",
+              "to": "page:bewertung"
+            }
+          },
+          {
+            "kicker": "03 · Academy",
+            "title": "Wissen, das\nweiterbringt.",
+            "text": "Vom Foundation Course bis zum Zertifikat «Fachexperte Immobilienfinanzierung».",
+            "image": "academy",
+            "alt": "Frau mit Tablet beim Lernen",
+            "cta": {
+              "label": "Academy entdecken",
+              "to": "page:academy"
+            }
+          },
+          {
+            "kicker": "04 · Für Partner",
+            "title": "Deine Kunden.\nUnsere Plattform.",
+            "text": "Makler, Treuhänder und Broker finanzieren mit der Technologie von HYPOTEQ.",
+            "image": "consultation",
+            "alt": "Beratungsgespräch am Tisch",
+            "cta": {
+              "label": "Partner werden",
+              "to": "page:partner"
+            }
+          }
+        ]
+      },
+      {
+        "type": "trust",
+        "items": [
+          "40+ Finanzierungspartner",
+          "Banken · Versicherungen · Pensionskassen",
+          "Stiftungen & Regionalinstitute",
+          "100 % unabhängig",
+          "KI-Dossier in 3 Minuten",
+          "Swiss Made Software",
+          "Wüest Partner Bewertung",
+          "Hosting in der Schweiz"
+        ]
+      },
+      {
+        "type": "features",
+        "title": "Viel zu vergleichen.\n*Noch mehr zu gewinnen.*",
+        "items": [
+          {
+            "icon": "↗",
+            "title": "Hypotheken",
+            "text": "Von der Standardhypothek bis zur Mezzanine- und Renditefinanzierung.",
+            "to": "page:hypotheken"
+          },
+          {
+            "icon": "%",
+            "title": "Aktuelle Zinsen",
+            "text": "Richtzinsen und die besten Zinsen unserer Partner. Ohne Schaufensterzinsen.",
+            "to": "page:zinsen"
+          },
+          {
+            "icon": "⌂",
+            "title": "Immobilienbewertung",
+            "text": "Der Marktwert deiner Immobilie mit dem Modell von Wüest Partner.",
+            "to": "page:bewertung"
+          },
+          {
+            "icon": "＋",
+            "title": "Academy",
+            "text": "Foundation Course und Zertifikatslehrgang für Fachleute der Immobilienfinanzierung.",
+            "to": "page:academy"
+          }
+        ]
+      },
+      {
+        "type": "split",
+        "eyebrow": "Neu · Online-Anfrage",
+        "title": "Unterlagen hochladen.\n*Bankfähig.*",
+        "screen": "dossier",
+        "paragraphs": [
+          "Lade einfach deine Unterlagen hoch: Lohnausweis, ID, Kaufvertrag, Pensionskassenausweis. Unsere Software liest die Dokumente, überträgt die Angaben in die richtigen Felder und erkennt, um welche Art Finanzierung es geht.",
+          "Daraus entsteht ein **vollständiges, bankfähiges Dossier**. Lieber Schritt für Schritt? Dann wähle die begleitete Anmeldung oder erzähl unserem Assistenten **HYPO** von deinem Projekt."
+        ],
+        "bullets": [
+          "Dokumente werden gelesen und in Felder übertragen",
+          "Finanzierungsart wird automatisch erkannt",
+          "Swiss Made Software, gehostet in der Schweiz"
+        ],
+        "ctas": [
+          {
+            "label": "Jetzt in 3 Minuten anfragen",
+            "to": "funnel"
+          }
+        ]
+      },
+      {
+        "type": "steps",
+        "eyebrow": "So funktioniert’s",
+        "title": "Ein klarer Weg.\nVon Anfang an.",
+        "items": [
+          {
+            "title": "Anfrage in 3 Minuten",
+            "text": "Unterlagen hochladen oder Fragen beantworten. Du siehst sofort, welche Dokumente noch fehlen."
+          },
+          {
+            "title": "Finanzierer-Matching",
+            "text": "Unser System gleicht dein Vorhaben mit den Kriterien unserer Partner ab und findet die passenden Finanzierer."
+          },
+          {
+            "title": "Persönliche Prüfung",
+            "text": "Fachleute analysieren jeden Fall einzeln, bewerten deine Situation und klären offene Punkte persönlich mit dir."
+          },
+          {
+            "title": "40+ Finanzierer im Wettbewerb",
+            "text": "Banken, Versicherungen, Pensionskassen und Stiftungen bieten um deine Finanzierung. Du siehst die Unterschiede klar auf einen Blick."
+          },
+          {
+            "title": "Wir koordinieren bis zur Auszahlung.",
+            "text": "Du entscheidest, wir kümmern uns um den Rest."
+          }
+        ],
+        "ctas": [
+          {
+            "label": "Hypothek anfragen",
+            "to": "funnel"
+          }
+        ]
+      },
+      {
+        "type": "rates",
+        "eyebrow": "Richtzinsen",
+        "title": "Ehrliche Zinsen.\n*Keine Schaufensterzinsen.*",
+        "lead": "Richtzinsen zeigen dir, wo der Markt steht. Dazu siehst du den tiefsten Zins, den unsere Partner aktuell offerieren. Dein persönlicher Zins hängt von Objekt, Belehnung und Tragbarkeit ab."
+      },
+      {
+        "type": "calc",
+        "mode": "tragbarkeit",
+        "eyebrow": "Tragbarkeitsrechner",
+        "title": "Kann ich mir\ndas leisten?",
+        "lead": "Prüfe in Sekunden Eigenmittel, Belehnung und Tragbarkeit, so wie Banken rechnen."
+      },
+      {
+        "type": "compare",
+        "eyebrow": "Warum mit HYPOTEQ?",
+        "title": "Hausbank oder HYPOTEQ?",
+        "head": [
+          "",
+          "Hausbank",
+          "HYPOTEQ"
+        ],
+        "rows": [
+          [
+            "Anzahl Angebote",
+            "1",
+            "40+ Finanzierungspartner"
+          ],
+          [
+            "Kosten für dich",
+            "keine",
+            "keine"
+          ],
+          [
+            "Verhandlung",
+            "selbst",
+            "wir verhandeln für dich"
+          ],
+          [
+            "Dauer bis zum bankfähigen Dossier",
+            "oft mehrere Tage",
+            "3 Minuten online"
+          ],
+          [
+            "Lösungen",
+            "eigene Produkte",
+            "Standard- bis Spezialfinanzierung"
+          ]
+        ]
+      },
+      {
+        "type": "split",
+        "eyebrow": "Für Makler, Treuhänder & Broker",
+        "title": "Deine Kunden.\n*Deine Plattform.*",
+        "screen": "network",
+        "net": [
+          "Partner",
+          "HYPOTEQ",
+          "40+ Finanzierer",
+          "Makler",
+          "Treuhand",
+          "Broker",
+          "Banken",
+          "Versicherungen",
+          "Pensionskassen"
+        ],
+        "tone": "dark",
+        "reverse": true,
+        "paragraphs": [
+          "HYPOTEQ macht dein Team zum Finanzierungsprofi. Mit unserer Plattform erfasst du Fälle in Minuten, verfolgst jedes Dossier datenbasiert und gibst deinen Kunden Zugang zu über 40 Finanzierungspartnern."
+        ],
+        "bullets": [
+          "Best-in-Class-Technologie für Finanzierungen",
+          "Datengetriebene Fallsteuerung im Partnerportal",
+          "Die Kundenbeziehung bleibt bei dir",
+          "Academy und Zertifikat für dein Team",
+          "Auf Wunsch als White-Label-Lösung"
+        ],
+        "ctas": [
+          {
+            "label": "Partner werden",
+            "to": "page:partner"
+          },
+          {
+            "label": "Partnerlogin",
+            "to": "portal"
+          }
+        ]
+      },
+      {
+        "type": "testimonials",
+        "eyebrow": "Stimmen",
+        "title": "Kundinnen, Kunden\n*und Partner vertrauen uns.*",
+        "google": "Google-Bewertungen",
+        "items": [
+          {
+            "text": "Die neutrale Beratung brachte uns mehrere attraktive Finanzierungsangebote. Alles lief reibungslos.",
+            "author": "Chris E., Kunde"
+          },
+          {
+            "text": "Höchst professionell, menschlich und kompetent: ein perfektes Ergebnis mit top Konditionen.",
+            "author": "Gregor R., Kunde"
+          },
+          {
+            "text": "Als Vermittler ist HYPOTEQ für mich der Türöffner zur Finanzierungswelt.",
+            "author": "Noli T., Vertriebspartner"
+          }
+        ]
+      },
+      {
+        "type": "split",
+        "eyebrow": "HYPOTEQ Academy",
+        "title": "Hypotheken\nverstehen.\n*Beratung trainieren.*",
+        "screen": "academy",
+        "paragraphs": [
+          "Zwei Wege, ein Ziel: Kompetenz in der Schweizer Immobilienfinanzierung. Lerne online, im eigenen Tempo, mit Praxisfällen und direktem Feedback."
+        ],
+        "bullets": [
+          "**Foundation Course:** 8 Learning Journeys zu den Grundlagen, mit KI-Trainingsgesprächen im Learning Playground",
+          "**Neu: Lehrgang Zertifikat «Schweizerische Fachexperte Immobilienfinanzierung»:** 20 Expert Journeys in drei Phasen, vom Fundament bis zu Rendite-, Bau- und Spezialfinanzierungen",
+          "Abschlussprüfung mit 50 Fragen und Praxisfall, Bestehensgrenze 80 %"
+        ],
+        "ctas": [
+          {
+            "label": "Academy entdecken",
+            "to": "page:academy"
+          }
+        ]
+      },
+      {
+        "type": "faq",
+        "eyebrow": "Häufige Fragen",
+        "title": "Gut zu wissen.",
+        "items": [
+          {
+            "q": "Ist die Dienstleistung kostenlos?",
+            "a": "Ja. Vergleich und Vermittlung sind für dich **kostenlos**. Kostenpflichtig sind nur Zusatzleistungen wie Advisory und die Immobilienbewertung."
+          },
+          {
+            "q": "Mit welchen Finanzierungspartnern arbeitet HYPOTEQ?",
+            "a": "Mit **über 40 Finanzierungspartnern** in der ganzen Schweiz: Banken, Versicherungen, Pensionskassen, Stiftungen und Regionalinstitute."
+          },
+          {
+            "q": "Was unterscheidet HYPOTEQ von anderen Hypothekenvermittlern?",
+            "a": "HYPOTEQ ist **unabhängig von Banken und Versicherungen**. Wir haben keine eigene Bank, keine eigene Versicherung und keine eigenen Produkte. Darum vergleichen wir neutral und empfehlen die Lösung, die zu dir passt."
+          },
+          {
+            "q": "Wie schnell erhalte ich ein Angebot?",
+            "a": "Den ersten Teil steuern wir selbst: Mit deinen Unterlagen erstellen wir rasch ein vollständiges, bankfähiges Dossier. Die Prüfung beim Finanzierungspartner hängt danach von dessen Abläufen ab. Wir garantieren dir eine **transparente und schnelle Kommunikation** in jeder Phase."
+          },
+          {
+            "q": "Welche Rolle spielt die Software?",
+            "a": "Unsere Plattform digitalisiert den ganzen Ablauf: Sie liest Dokumente, erkennt die Finanzierungsart, gleicht dein Vorhaben mit den Kriterien der Partner ab und hält dich über jeden Schritt auf dem Laufenden. Die Beratung und die Beurteilung deines Falls machen Menschen."
+          },
+          {
+            "q": "Wie profitiere ich als Partner von HYPOTEQ?",
+            "a": "Du erhältst **Best-in-Class-Technologie** für Finanzierungen: datengetriebene Fallsteuerung, Zugang zu über 40 Finanzierungspartnern und persönliche Unterstützung bei jedem Fall. Auf Wunsch stellen wir die Lösung auch als **White-Label** unter deinem Namen bereit."
+          }
+        ],
+        "ctas": [
+          {
+            "label": "Alle Fragen",
+            "to": "page:faq"
+          }
+        ]
+      },
+      {
+        "type": "cta",
+        "title": "Bereit für deine\n*beste Hypothek?*",
+        "text": "Kostenlos, unverbindlich und in 3 Minuten gestartet.",
+        "ctas": [
+          {
+            "label": "Hypothek anfragen",
+            "to": "funnel"
+          },
+          {
+            "label": "044 502 92 52",
+            "to": "tel"
+          }
+        ]
+      }
+    ]
+  },
+  "fr": {
+    "title": "Comparer et financer votre hypothèque | HYPOTEQ Suisse",
+    "description": "La plateforme de financement indépendante de Suisse: 40+ partenaires de financement, demande en 3 minutes, conseil personnel. Comparaison gratuite.",
+    "h1": "Votre logement.\nVotre hypothèque.\nUne plateforme.",
+    "sections": [
+      {
+        "type": "hero",
+        "eyebrow": "HYPOTEQ · Plateforme de financement suisse",
+        "h1": "Votre logement.\nVotre hypothèque.\nUne plateforme.",
+        "lead": "HYPOTEQ est la **plateforme de financement indépendante** de Suisse. De l'hypothèque standard au financement spécial, nous comparons pour vous **plus de 40 partenaires de financement**. S'y ajoutent l'estimation immobilière et la formation, et pour nos partenaires la plateforme qui simplifie le financement.",
+        "ctas": [
+          {
+            "label": "Demander une hypothèque",
+            "to": "funnel"
+          },
+          {
+            "label": "Voir les taux",
+            "to": "page:zinsen"
+          }
+        ],
+        "badges": [
+          "100 % indépendant",
+          "Demande en 3 minutes",
+          "Données en Suisse"
+        ],
+        "image": "swiss-landscape",
+        "alt": ""
+      },
+      {
+        "type": "usp",
+        "items": [
+          {
+            "value": "40+",
+            "label": "partenaires: banques, assurances, caisses de pension, fondations et instituts régionaux"
+          },
+          {
+            "value": "180+",
+            "label": "conseillères et conseillers dans toute la Suisse"
+          },
+          {
+            "value": "3 min",
+            "label": "pour une demande complète"
+          },
+          {
+            "value": "100 %",
+            "label": "indépendant, sans banque ni assurance propre"
+          }
+        ]
+      },
+      {
+        "type": "claim",
+        "a": "Grâce à HYPOTEQ, les hypothèques sont devenues comparables.",
+        "b": "Votre conseiller, lui, est unique."
+      },
+      {
+        "type": "photo_cards",
+        "items": [
+          {
+            "kicker": "01 · Financement",
+            "title": "Votre logement.\nVotre plan.",
+            "text": "Achat, construction, transfert ou financement spécial: nous obtenons les offres adaptées pour vous.",
+            "image": "lake-house",
+            "alt": "Pont de la Chapelle et vieille ville de Lucerne",
+            "cta": {
+              "label": "Demander une hypothèque",
+              "to": "funnel"
+            }
+          },
+          {
+            "kicker": "02 · Estimation immobilière",
+            "title": "Connaissez la valeur\nde votre bien.",
+            "text": "Estimation hédoniste selon le modèle de Wüest Partner. Maintenant CHF 300 au lieu de 450.",
+            "image": "lake-living",
+            "alt": "Vignobles de Lavaux au-dessus du Léman",
+            "cta": {
+              "label": "Lancer l'estimation",
+              "to": "page:bewertung"
+            }
+          },
+          {
+            "kicker": "03 · Academy",
+            "title": "Un savoir\nqui fait avancer.",
+            "text": "Du Foundation Course au certificat «Expert en financement immobilier».",
+            "image": "academy",
+            "alt": "Femme avec tablette en formation",
+            "cta": {
+              "label": "Découvrir l'Academy",
+              "to": "page:academy"
+            }
+          },
+          {
+            "kicker": "04 · Partenaires",
+            "title": "Vos clients.\nNotre plateforme.",
+            "text": "Courtiers, fiduciaires et brokers financent avec la technologie HYPOTEQ.",
+            "image": "consultation",
+            "alt": "Entretien de conseil autour d'une table",
+            "cta": {
+              "label": "Devenir partenaire",
+              "to": "page:partner"
+            }
+          }
+        ]
+      },
+      {
+        "type": "trust",
+        "items": [
+          "40+ partenaires de financement",
+          "Banques · assurances · caisses de pension",
+          "Fondations & instituts régionaux",
+          "100 % indépendant",
+          "Dossier IA en 3 minutes",
+          "Swiss Made Software",
+          "Estimation Wüest Partner",
+          "Hébergement en Suisse"
+        ]
+      },
+      {
+        "type": "features",
+        "title": "Beaucoup à comparer.\n*Encore plus à gagner.*",
+        "items": [
+          {
+            "icon": "↗",
+            "title": "Hypothèques",
+            "text": "De l'hypothèque standard au financement mezzanine et de rendement.",
+            "to": "page:hypotheken"
+          },
+          {
+            "icon": "%",
+            "title": "Taux actuels",
+            "text": "Taux indicatifs et meilleurs taux de nos partenaires. Sans taux d'appel.",
+            "to": "page:zinsen"
+          },
+          {
+            "icon": "⌂",
+            "title": "Estimation immobilière",
+            "text": "La valeur de marché de votre bien avec le modèle de Wüest Partner.",
+            "to": "page:bewertung"
+          },
+          {
+            "icon": "＋",
+            "title": "Academy",
+            "text": "Foundation Course et cursus certifiant pour les spécialistes du financement immobilier.",
+            "to": "page:academy"
+          }
+        ]
+      },
+      {
+        "type": "split",
+        "eyebrow": "Nouveau · Demande en ligne",
+        "title": "Envoyer vos documents.\n*Prêt pour la banque.*",
+        "screen": "dossier",
+        "paragraphs": [
+          "Téléchargez simplement vos documents: certificat de salaire, pièce d'identité, contrat de vente, certificat de caisse de pension. Notre logiciel lit les documents, reporte les données dans les bons champs et reconnaît le type de financement.",
+          "Il en résulte un **dossier complet, prêt pour la banque**. Vous préférez étape par étape? Choisissez la demande accompagnée ou parlez de votre projet à notre assistant **HYPO**."
+        ],
+        "bullets": [
+          "Les documents sont lus et reportés dans les champs",
+          "Le type de financement est reconnu automatiquement",
+          "Swiss Made Software, hébergé en Suisse"
+        ],
+        "ctas": [
+          {
+            "label": "Demander en 3 minutes",
+            "to": "funnel"
+          }
+        ]
+      },
+      {
+        "type": "steps",
+        "eyebrow": "Comment ça marche",
+        "title": "Un chemin clair.\nDès le départ.",
+        "items": [
+          {
+            "title": "Demande en 3 minutes",
+            "text": "Envoyez vos documents ou répondez aux questions. Vous voyez immédiatement ce qui manque."
+          },
+          {
+            "title": "Matching des financeurs",
+            "text": "Notre système compare votre projet aux critères de nos partenaires et trouve les financeurs adaptés."
+          },
+          {
+            "title": "Examen personnel",
+            "text": "Des spécialistes analysent chaque dossier individuellement, évaluent votre situation et clarifient les points ouverts avec vous."
+          },
+          {
+            "title": "40+ financeurs en concurrence",
+            "text": "Banques, assurances, caisses de pension et fondations font une offre pour votre financement. Vous voyez clairement les différences."
+          },
+          {
+            "title": "Nous coordonnons jusqu'au versement.",
+            "text": "Vous décidez, nous nous occupons du reste."
+          }
+        ],
+        "ctas": [
+          {
+            "label": "Demander une hypothèque",
+            "to": "funnel"
+          }
+        ]
+      },
+      {
+        "type": "rates",
+        "eyebrow": "Taux indicatifs",
+        "title": "Des taux honnêtes.\n*Pas de taux d'appel.*",
+        "lead": "Les taux indicatifs montrent où en est le marché. Vous voyez aussi le taux le plus bas que nos partenaires offrent actuellement. Votre taux dépend du bien, du nantissement et de la capacité financière."
+      },
+      {
+        "type": "calc",
+        "mode": "tragbarkeit",
+        "eyebrow": "Calcul de capacité",
+        "title": "Puis-je me\nle permettre?",
+        "lead": "Vérifiez en quelques secondes fonds propres, nantissement et capacité financière, comme les banques."
+      },
+      {
+        "type": "compare",
+        "eyebrow": "Pourquoi HYPOTEQ?",
+        "title": "Votre banque ou HYPOTEQ?",
+        "head": [
+          "",
+          "Votre banque",
+          "HYPOTEQ"
+        ],
+        "rows": [
+          [
+            "Nombre d'offres",
+            "1",
+            "40+ partenaires de financement"
+          ],
+          [
+            "Coûts pour vous",
+            "aucun",
+            "aucun"
+          ],
+          [
+            "Négociation",
+            "vous-même",
+            "nous négocions pour vous"
+          ],
+          [
+            "Délai jusqu'au dossier bancable",
+            "souvent plusieurs jours",
+            "3 minutes en ligne"
+          ],
+          [
+            "Solutions",
+            "produits maison",
+            "du standard au financement spécial"
+          ]
+        ]
+      },
+      {
+        "type": "split",
+        "eyebrow": "Pour courtiers, fiduciaires & brokers",
+        "title": "Vos clients.\n*Votre plateforme.*",
+        "screen": "network",
+        "net": [
+          "Partenaires",
+          "HYPOTEQ",
+          "40+ financeurs",
+          "Courtiers",
+          "Fiduciaires",
+          "Brokers",
+          "Banques",
+          "Assurances",
+          "Caisses de pension"
+        ],
+        "tone": "dark",
+        "reverse": true,
+        "paragraphs": [
+          "HYPOTEQ fait de votre équipe un pro du financement. Avec notre plateforme, vous saisissez un dossier en quelques minutes, suivez chaque cas sur la base de données et offrez à vos clients l'accès à plus de 40 partenaires de financement."
+        ],
+        "bullets": [
+          "Technologie best-in-class pour le financement",
+          "Pilotage des dossiers basé sur les données",
+          "La relation client reste chez vous",
+          "Academy et certificat pour votre équipe",
+          "Sur demande en marque blanche"
+        ],
+        "ctas": [
+          {
+            "label": "Devenir partenaire",
+            "to": "page:partner"
+          },
+          {
+            "label": "Login partenaires",
+            "to": "portal"
+          }
+        ]
+      },
+      {
+        "type": "testimonials",
+        "eyebrow": "Témoignages",
+        "title": "Clients et partenaires\n*nous font confiance.*",
+        "google": "Avis Google",
+        "items": [
+          {
+            "text": "Le conseil neutre nous a apporté plusieurs offres de financement attractives. Tout s'est déroulé sans accroc.",
+            "author": "Chris E., client"
+          },
+          {
+            "text": "Très professionnel, humain et compétent: un résultat parfait avec d'excellentes conditions.",
+            "author": "Gregor R., client"
+          },
+          {
+            "text": "En tant qu'intermédiaire, HYPOTEQ m'ouvre les portes du monde du financement.",
+            "author": "Noli T., partenaire de distribution"
+          }
+        ]
+      },
+      {
+        "type": "split",
+        "eyebrow": "HYPOTEQ Academy",
+        "title": "Comprendre\nles hypothèques.\n*S'entraîner au conseil.*",
+        "screen": "academy",
+        "paragraphs": [
+          "Deux voies, un objectif: la compétence en financement immobilier suisse. Apprenez en ligne, à votre rythme, avec des cas pratiques et un feedback direct."
+        ],
+        "bullets": [
+          "**Foundation Course:** 8 Learning Journeys sur les bases, avec entraînement au conseil par IA",
+          "**Nouveau: cursus certifiant «Expert suisse en financement immobilier»:** 20 Expert Journeys en trois phases, des fondamentaux aux financements de rendement, de construction et spéciaux",
+          "Examen final de 50 questions avec cas pratique, seuil de réussite 80 %"
+        ],
+        "ctas": [
+          {
+            "label": "Découvrir l'Academy",
+            "to": "page:academy"
+          }
+        ]
+      },
+      {
+        "type": "faq",
+        "eyebrow": "Questions fréquentes",
+        "title": "Bon à savoir.",
+        "items": [
+          {
+            "q": "Le service est-il gratuit?",
+            "a": "Oui. La comparaison et la mise en relation sont **gratuites** pour vous. Seuls les services complémentaires comme l'Advisory et l'estimation immobilière sont payants."
+          },
+          {
+            "q": "Avec quels partenaires HYPOTEQ travaille-t-il?",
+            "a": "Avec **plus de 40 partenaires de financement** dans toute la Suisse: banques, assurances, caisses de pension, fondations et instituts régionaux."
+          },
+          {
+            "q": "Qu'est-ce qui distingue HYPOTEQ des autres courtiers?",
+            "a": "HYPOTEQ est **indépendant des banques et des assurances**. Nous n'avons ni banque, ni assurance, ni produits propres. Nous comparons donc de manière neutre et recommandons la solution qui vous convient."
+          },
+          {
+            "q": "En combien de temps reçois-je une offre?",
+            "a": "Nous maîtrisons la première étape: avec vos documents, nous établissons rapidement un dossier complet et prêt pour la banque. L'examen chez le partenaire dépend ensuite de ses processus. Nous vous garantissons une **communication transparente et rapide** à chaque étape."
+          },
+          {
+            "q": "Quel est le rôle du logiciel?",
+            "a": "Notre plateforme numérise tout le processus: elle lit les documents, reconnaît le type de financement, compare votre projet aux critères des partenaires et vous informe à chaque étape. Le conseil et l'évaluation de votre dossier sont assurés par des personnes."
+          },
+          {
+            "q": "Quels avantages pour les partenaires?",
+            "a": "Vous bénéficiez d'une **technologie best-in-class**: pilotage des dossiers basé sur les données, accès à plus de 40 partenaires de financement et soutien personnel. Sur demande, la solution est aussi disponible en **marque blanche**."
+          }
+        ],
+        "ctas": [
+          {
+            "label": "Toutes les questions",
+            "to": "page:faq"
+          }
+        ]
+      },
+      {
+        "type": "cta",
+        "title": "Prêt pour votre\n*meilleure hypothèque?*",
+        "text": "Gratuit, sans engagement et lancé en 3 minutes.",
+        "ctas": [
+          {
+            "label": "Demander une hypothèque",
+            "to": "funnel"
+          },
+          {
+            "label": "044 502 92 52",
+            "to": "tel"
+          }
+        ]
+      }
+    ]
+  },
+  "it": {
+    "title": "Confrontare e finanziare l'ipoteca | HYPOTEQ Svizzera",
+    "description": "La piattaforma di finanziamento indipendente della Svizzera: oltre 40 partner, richiesta in 3 minuti, consulenza personale. Confronto gratuito.",
+    "h1": "La tua casa.\nLa tua ipoteca.\nUna piattaforma.",
+    "sections": [
+      {
+        "type": "hero",
+        "eyebrow": "HYPOTEQ · Piattaforma di finanziamento svizzera",
+        "h1": "La tua casa.\nLa tua ipoteca.\nUna piattaforma.",
+        "lead": "HYPOTEQ è la **piattaforma di finanziamento indipendente** della Svizzera. Dall'ipoteca standard al finanziamento speciale confrontiamo per te **oltre 40 partner di finanziamento**. In più offriamo valutazione immobiliare e formazione, e ai partner la piattaforma che rende semplice il finanziamento.",
+        "ctas": [
+          {
+            "label": "Richiedere un'ipoteca",
+            "to": "funnel"
+          },
+          {
+            "label": "Vedi i tassi",
+            "to": "page:zinsen"
+          }
+        ],
+        "badges": [
+          "100 % indipendente",
+          "Richiesta in 3 minuti",
+          "Dati in Svizzera"
+        ],
+        "image": "swiss-landscape",
+        "alt": ""
+      },
+      {
+        "type": "usp",
+        "items": [
+          {
+            "value": "40+",
+            "label": "partner: banche, assicurazioni, casse pensioni, fondazioni e istituti regionali"
+          },
+          {
+            "value": "180+",
+            "label": "consulenti in tutta la Svizzera"
+          },
+          {
+            "value": "3 min",
+            "label": "per una richiesta completa"
+          },
+          {
+            "value": "100 %",
+            "label": "indipendente, senza banca o assicurazione propria"
+          }
+        ]
+      },
+      {
+        "type": "claim",
+        "a": "Grazie a HYPOTEQ le ipoteche sono diventate confrontabili.",
+        "b": "Il vostro consulente, invece, è unico."
+      },
+      {
+        "type": "photo_cards",
+        "items": [
+          {
+            "kicker": "01 · Finanziamento",
+            "title": "La tua casa.\nIl tuo piano.",
+            "text": "Acquisto, costruzione, trasferimento o finanziamento speciale: otteniamo per te le offerte giuste.",
+            "image": "lake-house",
+            "alt": "Ponte della Cappella e città vecchia di Lucerna",
+            "cta": {
+              "label": "Richiedere un'ipoteca",
+              "to": "funnel"
+            }
+          },
+          {
+            "kicker": "02 · Valutazione immobiliare",
+            "title": "Conosci il valore\ndel tuo immobile.",
+            "text": "Valutazione edonica secondo il modello di Wüest Partner. Ora CHF 300 invece di 450.",
+            "image": "lake-living",
+            "alt": "Vigneti del Lavaux sopra il Lemano",
+            "cta": {
+              "label": "Avvia la valutazione",
+              "to": "page:bewertung"
+            }
+          },
+          {
+            "kicker": "03 · Academy",
+            "title": "Sapere che\nfa crescere.",
+            "text": "Dal Foundation Course al certificato «Esperto in finanziamento immobiliare».",
+            "image": "academy",
+            "alt": "Donna con tablet durante la formazione",
+            "cta": {
+              "label": "Scopri l'Academy",
+              "to": "page:academy"
+            }
+          },
+          {
+            "kicker": "04 · Per i partner",
+            "title": "I tuoi clienti.\nLa nostra piattaforma.",
+            "text": "Agenti, fiduciari e broker finanziano con la tecnologia di HYPOTEQ.",
+            "image": "consultation",
+            "alt": "Colloquio di consulenza al tavolo",
+            "cta": {
+              "label": "Diventare partner",
+              "to": "page:partner"
+            }
+          }
+        ]
+      },
+      {
+        "type": "trust",
+        "items": [
+          "40+ partner di finanziamento",
+          "Banche · assicurazioni · casse pensioni",
+          "Fondazioni e istituti regionali",
+          "100 % indipendente",
+          "Dossier IA in 3 minuti",
+          "Swiss Made Software",
+          "Valutazione Wüest Partner",
+          "Hosting in Svizzera"
+        ]
+      },
+      {
+        "type": "features",
+        "title": "Molto da confrontare.\n*Ancora di più da guadagnare.*",
+        "items": [
+          {
+            "icon": "↗",
+            "title": "Ipoteche",
+            "text": "Dall'ipoteca standard al finanziamento mezzanine e a reddito.",
+            "to": "page:hypotheken"
+          },
+          {
+            "icon": "%",
+            "title": "Tassi attuali",
+            "text": "Tassi indicativi e i migliori tassi dei nostri partner. Senza tassi civetta.",
+            "to": "page:zinsen"
+          },
+          {
+            "icon": "⌂",
+            "title": "Valutazione immobiliare",
+            "text": "Il valore di mercato del tuo immobile con il modello di Wüest Partner.",
+            "to": "page:bewertung"
+          },
+          {
+            "icon": "＋",
+            "title": "Academy",
+            "text": "Foundation Course e corso con certificato per specialisti del finanziamento immobiliare.",
+            "to": "page:academy"
+          }
+        ]
+      },
+      {
+        "type": "split",
+        "eyebrow": "Novità · Richiesta online",
+        "title": "Carica i documenti.\n*Pronto per la banca.*",
+        "screen": "dossier",
+        "paragraphs": [
+          "Carica semplicemente i tuoi documenti: certificato di salario, documento d'identità, contratto d'acquisto, certificato della cassa pensione. Il nostro software legge i documenti, riporta i dati nei campi giusti e riconosce il tipo di finanziamento.",
+          "Ne nasce un **dossier completo e pronto per la banca**. Preferisci procedere passo per passo? Scegli la richiesta guidata o racconta il tuo progetto al nostro assistente **HYPO**."
+        ],
+        "bullets": [
+          "I documenti vengono letti e riportati nei campi",
+          "Il tipo di finanziamento viene riconosciuto automaticamente",
+          "Swiss Made Software, ospitato in Svizzera"
+        ],
+        "ctas": [
+          {
+            "label": "Richiedi in 3 minuti",
+            "to": "funnel"
+          }
+        ]
+      },
+      {
+        "type": "steps",
+        "eyebrow": "Come funziona",
+        "title": "Un percorso chiaro.\nFin dall'inizio.",
+        "items": [
+          {
+            "title": "Richiesta in 3 minuti",
+            "text": "Carica i documenti o rispondi alle domande. Vedi subito cosa manca."
+          },
+          {
+            "title": "Matching dei finanziatori",
+            "text": "Il nostro sistema confronta il tuo progetto con i criteri dei partner e trova i finanziatori adatti."
+          },
+          {
+            "title": "Verifica personale",
+            "text": "Specialisti analizzano ogni caso singolarmente, valutano la tua situazione e chiariscono i punti aperti con te."
+          },
+          {
+            "title": "40+ finanziatori in concorrenza",
+            "text": "Banche, assicurazioni, casse pensioni e fondazioni fanno un'offerta per il tuo finanziamento. Vedi chiaramente le differenze."
+          },
+          {
+            "title": "Coordiniamo fino al versamento.",
+            "text": "Tu decidi, noi pensiamo al resto."
+          }
+        ],
+        "ctas": [
+          {
+            "label": "Richiedere un'ipoteca",
+            "to": "funnel"
+          }
+        ]
+      },
+      {
+        "type": "rates",
+        "eyebrow": "Tassi indicativi",
+        "title": "Tassi onesti.\n*Nessun tasso civetta.*",
+        "lead": "I tassi indicativi mostrano dove si trova il mercato. Vedi anche il tasso più basso offerto attualmente dai nostri partner. Il tuo tasso dipende da immobile, anticipo e sostenibilità."
+      },
+      {
+        "type": "calc",
+        "mode": "tragbarkeit",
+        "eyebrow": "Calcolo sostenibilità",
+        "title": "Posso\npermettermelo?",
+        "lead": "Verifica in pochi secondi fondi propri, anticipo e sostenibilità, come fanno le banche."
+      },
+      {
+        "type": "compare",
+        "eyebrow": "Perché HYPOTEQ?",
+        "title": "La tua banca o HYPOTEQ?",
+        "head": [
+          "",
+          "La tua banca",
+          "HYPOTEQ"
+        ],
+        "rows": [
+          [
+            "Numero di offerte",
+            "1",
+            "40+ partner di finanziamento"
+          ],
+          [
+            "Costi per te",
+            "nessuno",
+            "nessuno"
+          ],
+          [
+            "Trattativa",
+            "da solo",
+            "trattiamo per te"
+          ],
+          [
+            "Tempo fino al dossier bancabile",
+            "spesso diversi giorni",
+            "3 minuti online"
+          ],
+          [
+            "Soluzioni",
+            "prodotti propri",
+            "da standard a finanziamento speciale"
+          ]
+        ]
+      },
+      {
+        "type": "split",
+        "eyebrow": "Per agenti, fiduciari & broker",
+        "title": "I tuoi clienti.\n*La tua piattaforma.*",
+        "screen": "network",
+        "net": [
+          "Partner",
+          "HYPOTEQ",
+          "40+ finanziatori",
+          "Agenti",
+          "Fiduciari",
+          "Broker",
+          "Banche",
+          "Assicurazioni",
+          "Casse pensioni"
+        ],
+        "tone": "dark",
+        "reverse": true,
+        "paragraphs": [
+          "HYPOTEQ rende il tuo team esperto di finanziamenti. Con la nostra piattaforma registri un caso in pochi minuti, segui ogni dossier in base ai dati e offri ai clienti l'accesso a oltre 40 partner di finanziamento."
+        ],
+        "bullets": [
+          "Tecnologia best-in-class per i finanziamenti",
+          "Gestione dei casi basata sui dati",
+          "Il rapporto con il cliente resta tuo",
+          "Academy e certificato per il tuo team",
+          "Su richiesta in white label"
+        ],
+        "ctas": [
+          {
+            "label": "Diventare partner",
+            "to": "page:partner"
+          },
+          {
+            "label": "Login partner",
+            "to": "portal"
+          }
+        ]
+      },
+      {
+        "type": "testimonials",
+        "eyebrow": "Testimonianze",
+        "title": "Clienti e partner\n*si fidano di noi.*",
+        "google": "Recensioni Google",
+        "items": [
+          {
+            "text": "La consulenza neutrale ci ha portato diverse offerte di finanziamento interessanti. Tutto è filato liscio.",
+            "author": "Chris E., cliente"
+          },
+          {
+            "text": "Molto professionale, umano e competente: un risultato perfetto con ottime condizioni.",
+            "author": "Gregor R., cliente"
+          },
+          {
+            "text": "Come intermediario, HYPOTEQ è per me la porta d'accesso al mondo dei finanziamenti.",
+            "author": "Noli T., partner di distribuzione"
+          }
+        ]
+      },
+      {
+        "type": "split",
+        "eyebrow": "HYPOTEQ Academy",
+        "title": "Capire\nle ipoteche.\n*Allenare la consulenza.*",
+        "screen": "academy",
+        "paragraphs": [
+          "Due percorsi, un obiettivo: competenza nel finanziamento immobiliare svizzero. Impara online, al tuo ritmo, con casi pratici e feedback diretto."
+        ],
+        "bullets": [
+          "**Foundation Course:** 8 Learning Journeys sulle basi, con allenamento ai colloqui tramite IA",
+          "**Novità: corso con certificato «Esperto svizzero in finanziamento immobiliare»:** 20 Expert Journeys in tre fasi, dalle basi ai finanziamenti a reddito, di costruzione e speciali",
+          "Esame finale con 50 domande e caso pratico, soglia di superamento 80 %"
+        ],
+        "ctas": [
+          {
+            "label": "Scopri l'Academy",
+            "to": "page:academy"
+          }
+        ]
+      },
+      {
+        "type": "faq",
+        "eyebrow": "Domande frequenti",
+        "title": "Buono a sapersi.",
+        "items": [
+          {
+            "q": "Il servizio è gratuito?",
+            "a": "Sì. Confronto e intermediazione sono **gratuiti** per te. Sono a pagamento solo servizi aggiuntivi come l'Advisory e la valutazione immobiliare."
+          },
+          {
+            "q": "Con quali partner lavora HYPOTEQ?",
+            "a": "Con **oltre 40 partner di finanziamento** in tutta la Svizzera: banche, assicurazioni, casse pensioni, fondazioni e istituti regionali."
+          },
+          {
+            "q": "Cosa distingue HYPOTEQ dagli altri intermediari?",
+            "a": "HYPOTEQ è **indipendente da banche e assicurazioni**. Non abbiamo una banca, un'assicurazione o prodotti propri. Per questo confrontiamo in modo neutrale e raccomandiamo la soluzione adatta a te."
+          },
+          {
+            "q": "In quanto tempo ricevo un'offerta?",
+            "a": "La prima parte la gestiamo noi: con i tuoi documenti prepariamo rapidamente un dossier completo e pronto per la banca. La verifica presso il partner dipende poi dai suoi processi. Ti garantiamo una **comunicazione trasparente e rapida** in ogni fase."
+          },
+          {
+            "q": "Che ruolo ha il software?",
+            "a": "La nostra piattaforma digitalizza l'intero processo: legge i documenti, riconosce il tipo di finanziamento, confronta il progetto con i criteri dei partner e ti tiene informato su ogni passo. La consulenza e la valutazione del tuo caso le fanno persone."
+          },
+          {
+            "q": "Quali vantaggi ho come partner?",
+            "a": "Ricevi una **tecnologia best-in-class**: gestione dei casi basata sui dati, accesso a oltre 40 partner di finanziamento e supporto personale. Su richiesta la soluzione è disponibile anche in **white label**."
+          }
+        ],
+        "ctas": [
+          {
+            "label": "Tutte le domande",
+            "to": "page:faq"
+          }
+        ]
+      },
+      {
+        "type": "cta",
+        "title": "Pronto per la tua\n*migliore ipoteca?*",
+        "text": "Gratuito, senza impegno e avviato in 3 minuti.",
+        "ctas": [
+          {
+            "label": "Richiedere un'ipoteca",
+            "to": "funnel"
+          },
+          {
+            "label": "044 502 92 52",
+            "to": "tel"
+          }
+        ]
+      }
+    ]
+  },
+  "en": {
+    "title": "Compare & Finance Swiss Mortgages | HYPOTEQ",
+    "description": "Switzerland's independent financing platform: 40+ financing partners, apply in 3 minutes, personal advice in English. Compare for free.",
+    "h1": "Your home.\nYour mortgage.\nOne platform.",
+    "sections": [
+      {
+        "type": "hero",
+        "eyebrow": "HYPOTEQ · Swiss financing platform",
+        "h1": "Your home.\nYour mortgage.\nOne platform.",
+        "lead": "HYPOTEQ is Switzerland's **independent financing platform**. From standard mortgages to special financing, we compare **more than 40 financing partners** for you. We add property valuation and training, and give partners the platform that makes financing simple.",
+        "ctas": [
+          {
+            "label": "Request a mortgage",
+            "to": "funnel"
+          },
+          {
+            "label": "See rates",
+            "to": "page:zinsen"
+          }
+        ],
+        "badges": [
+          "100 % independent",
+          "Apply in 3 minutes",
+          "Data stays in Switzerland"
+        ],
+        "image": "swiss-landscape",
+        "alt": ""
+      },
+      {
+        "type": "usp",
+        "items": [
+          {
+            "value": "40+",
+            "label": "partners: banks, insurers, pension funds, foundations and regional institutions"
+          },
+          {
+            "value": "180+",
+            "label": "advisors across Switzerland"
+          },
+          {
+            "value": "3 min",
+            "label": "to a complete application"
+          },
+          {
+            "value": "100 %",
+            "label": "independent, no own bank or insurer"
+          }
+        ]
+      },
+      {
+        "type": "claim",
+        "a": "HYPOTEQ made mortgages comparable.",
+        "b": "Your advisor, however, is one of a kind."
+      },
+      {
+        "type": "photo_cards",
+        "items": [
+          {
+            "kicker": "01 · Financing",
+            "title": "Your home.\nYour plan.",
+            "text": "Purchase, new build, refinancing or special financing: we get the right offers for you.",
+            "image": "lake-house",
+            "alt": "Chapel Bridge and old town of Lucerne",
+            "cta": {
+              "label": "Request a mortgage",
+              "to": "funnel"
+            }
+          },
+          {
+            "kicker": "02 · Property valuation",
+            "title": "Know what your\nproperty is worth.",
+            "text": "Hedonic valuation based on the Wüest Partner model. Now CHF 300 instead of 450.",
+            "image": "lake-living",
+            "alt": "Lavaux vineyards above Lake Geneva",
+            "cta": {
+              "label": "Start valuation",
+              "to": "page:bewertung"
+            }
+          },
+          {
+            "kicker": "03 · Academy",
+            "title": "Knowledge that\nmoves you forward.",
+            "text": "From the Foundation Course to the certificate «Real Estate Financing Expert».",
+            "image": "academy",
+            "alt": "Woman with a tablet while learning",
+            "cta": {
+              "label": "Explore the Academy",
+              "to": "page:academy"
+            }
+          },
+          {
+            "kicker": "04 · For partners",
+            "title": "Your clients.\nOur platform.",
+            "text": "Agents, trustees and brokers finance with HYPOTEQ technology.",
+            "image": "consultation",
+            "alt": "Advisory meeting at a table",
+            "cta": {
+              "label": "Become a partner",
+              "to": "page:partner"
+            }
+          }
+        ]
+      },
+      {
+        "type": "trust",
+        "items": [
+          "40+ financing partners",
+          "Banks · insurers · pension funds",
+          "Foundations & regional institutions",
+          "100 % independent",
+          "AI dossier in 3 minutes",
+          "Swiss Made Software",
+          "Wüest Partner valuation",
+          "Hosted in Switzerland"
+        ]
+      },
+      {
+        "type": "features",
+        "title": "Plenty to compare.\n*Even more to gain.*",
+        "items": [
+          {
+            "icon": "↗",
+            "title": "Mortgages",
+            "text": "From standard mortgages to mezzanine and buy-to-let financing.",
+            "to": "page:hypotheken"
+          },
+          {
+            "icon": "%",
+            "title": "Current rates",
+            "text": "Indicative rates and the best rates of our partners. No teaser rates.",
+            "to": "page:zinsen"
+          },
+          {
+            "icon": "⌂",
+            "title": "Property valuation",
+            "text": "Your property's market value with the Wüest Partner model.",
+            "to": "page:bewertung"
+          },
+          {
+            "icon": "＋",
+            "title": "Academy",
+            "text": "Foundation Course and certificate programme for real estate financing professionals.",
+            "to": "page:academy"
+          }
+        ]
+      },
+      {
+        "type": "split",
+        "eyebrow": "New · Online application",
+        "title": "Upload your documents.\n*Bank-ready.*",
+        "screen": "dossier",
+        "paragraphs": [
+          "Simply upload your documents: salary statement, ID, purchase contract, pension fund certificate. Our software reads the documents, transfers the data into the right fields and recognises the type of financing.",
+          "The result is a **complete, bank-ready dossier**. Prefer step by step? Choose the guided application or tell our assistant **HYPO** about your project."
+        ],
+        "bullets": [
+          "Documents are read and transferred into fields",
+          "Type of financing is recognised automatically",
+          "Swiss Made Software, hosted in Switzerland"
+        ],
+        "ctas": [
+          {
+            "label": "Apply in 3 minutes",
+            "to": "funnel"
+          }
+        ]
+      },
+      {
+        "type": "steps",
+        "eyebrow": "How it works",
+        "title": "A clear path.\nFrom the start.",
+        "items": [
+          {
+            "title": "Apply in 3 minutes",
+            "text": "Upload documents or answer questions. You see right away what's missing."
+          },
+          {
+            "title": "Lender matching",
+            "text": "Our system matches your project against our partners' criteria and finds the right lenders."
+          },
+          {
+            "title": "Personal review",
+            "text": "Specialists analyse every case individually, assess your situation and clarify open points with you in person."
+          },
+          {
+            "title": "40+ lenders competing",
+            "text": "Banks, insurers, pension funds and foundations bid for your financing. You see the differences at a glance."
+          },
+          {
+            "title": "We coordinate until payout.",
+            "text": "You decide, we take care of the rest."
+          }
+        ],
+        "ctas": [
+          {
+            "label": "Request a mortgage",
+            "to": "funnel"
+          }
+        ]
+      },
+      {
+        "type": "rates",
+        "eyebrow": "Indicative rates",
+        "title": "Honest rates.\n*No teaser rates.*",
+        "lead": "Indicative rates show where the market stands. You also see the lowest rate our partners currently offer. Your rate depends on property, loan-to-value and affordability."
+      },
+      {
+        "type": "calc",
+        "mode": "tragbarkeit",
+        "eyebrow": "Affordability calculator",
+        "title": "Can I\nafford it?",
+        "lead": "Check equity, loan-to-value and affordability in seconds, the way banks calculate."
+      },
+      {
+        "type": "compare",
+        "eyebrow": "Why HYPOTEQ?",
+        "title": "Your bank or HYPOTEQ?",
+        "head": [
+          "",
+          "Your bank",
+          "HYPOTEQ"
+        ],
+        "rows": [
+          [
+            "Number of offers",
+            "1",
+            "40+ financing partners"
+          ],
+          [
+            "Cost to you",
+            "none",
+            "none"
+          ],
+          [
+            "Negotiation",
+            "yourself",
+            "we negotiate for you"
+          ],
+          [
+            "Time to a bank-ready dossier",
+            "often several days",
+            "3 minutes online"
+          ],
+          [
+            "Solutions",
+            "own products",
+            "standard to special financing"
+          ]
+        ]
+      },
+      {
+        "type": "split",
+        "eyebrow": "For agents, trustees & brokers",
+        "title": "Your clients.\n*Your platform.*",
+        "screen": "network",
+        "net": [
+          "Partners",
+          "HYPOTEQ",
+          "40+ lenders",
+          "Agents",
+          "Trustees",
+          "Brokers",
+          "Banks",
+          "Insurers",
+          "Pension funds"
+        ],
+        "tone": "dark",
+        "reverse": true,
+        "paragraphs": [
+          "HYPOTEQ turns your team into financing pros. With our platform you record cases in minutes, track every dossier based on data and give your clients access to more than 40 financing partners."
+        ],
+        "bullets": [
+          "Best-in-class financing technology",
+          "Data-driven case management in the partner portal",
+          "The client relationship stays with you",
+          "Academy and certificate for your team",
+          "Available as a white-label solution"
+        ],
+        "ctas": [
+          {
+            "label": "Become a partner",
+            "to": "page:partner"
+          },
+          {
+            "label": "Partner login",
+            "to": "portal"
+          }
+        ]
+      },
+      {
+        "type": "testimonials",
+        "eyebrow": "Testimonials",
+        "title": "Clients and partners\n*trust us.*",
+        "google": "Google reviews",
+        "items": [
+          {
+            "text": "The neutral advice brought us several attractive financing offers. Everything went smoothly.",
+            "author": "Chris E., client"
+          },
+          {
+            "text": "Highly professional, human and competent: a perfect result with top terms.",
+            "author": "Gregor R., client"
+          },
+          {
+            "text": "As an intermediary, HYPOTEQ is my door opener to the world of financing.",
+            "author": "Noli T., sales partner"
+          }
+        ]
+      },
+      {
+        "type": "split",
+        "eyebrow": "HYPOTEQ Academy",
+        "title": "Understand\nmortgages.\n*Train your advice.*",
+        "screen": "academy",
+        "paragraphs": [
+          "Two paths, one goal: expertise in Swiss real estate financing. Learn online at your own pace, with practical cases and direct feedback."
+        ],
+        "bullets": [
+          "**Foundation Course:** 8 Learning Journeys on the basics, with AI training conversations",
+          "**New: certificate programme «Swiss Real Estate Financing Expert»:** 20 Expert Journeys in three phases, from the fundamentals to buy-to-let, construction and special financing",
+          "Final exam with 50 questions and a practical case, pass mark 80 %"
+        ],
+        "ctas": [
+          {
+            "label": "Explore the Academy",
+            "to": "page:academy"
+          }
+        ]
+      },
+      {
+        "type": "faq",
+        "eyebrow": "FAQ",
+        "title": "Good to know.",
+        "items": [
+          {
+            "q": "Is the service free?",
+            "a": "Yes. Comparison and brokerage are **free** for you. Only additional services such as Advisory and property valuation are charged."
+          },
+          {
+            "q": "Which financing partners does HYPOTEQ work with?",
+            "a": "With **more than 40 financing partners** across Switzerland: banks, insurers, pension funds, foundations and regional institutions."
+          },
+          {
+            "q": "What sets HYPOTEQ apart from other brokers?",
+            "a": "HYPOTEQ is **independent of banks and insurers**. We have no bank, no insurer and no products of our own. So we compare neutrally and recommend the solution that fits you."
+          },
+          {
+            "q": "How quickly will I get an offer?",
+            "a": "We control the first part: with your documents we quickly build a complete, bank-ready dossier. The lender's review then depends on its own processes. We guarantee **transparent and fast communication** at every stage."
+          },
+          {
+            "q": "What does the software do?",
+            "a": "Our platform digitises the whole process: it reads documents, recognises the type of financing, matches your project against lender criteria and keeps you updated at every step. Advice and the assessment of your case are done by people."
+          },
+          {
+            "q": "How do partners benefit from HYPOTEQ?",
+            "a": "You get **best-in-class technology** for financing: data-driven case management, access to more than 40 financing partners and personal support on every case. On request we provide the solution as **white label** under your brand."
+          }
+        ],
+        "ctas": [
+          {
+            "label": "All questions",
+            "to": "page:faq"
+          }
+        ]
+      },
+      {
+        "type": "cta",
+        "title": "Ready for your\n*best mortgage?*",
+        "text": "Free, non-binding and started in 3 minutes.",
+        "ctas": [
+          {
+            "label": "Request a mortgage",
+            "to": "funnel"
+          },
+          {
+            "label": "044 502 92 52",
+            "to": "tel"
+          }
+        ]
+      }
+    ]
+  }
+}

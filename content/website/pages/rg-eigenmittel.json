@@ -1,0 +1,960 @@
+{
+ "de": {
+  "title": "Eigenkapital für den Hauskauf: so viel braucht es | HYPOTEQ",
+  "description": "20 % Eigenkapital, davon 10 % hart: Was zählt, was nicht, und wie Erbvorbezug oder Schenkung helfen. Ratgeber mit Beispielen. Jetzt nachlesen.",
+  "h1": "Eigenkapital für den Hauskauf",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Ratgeber",
+    "h1": "Eigenkapital\nfür den Hauskauf",
+    "lead": "Wie viel **Eigenkapital** du für den Hauskauf brauchst, bestimmen zwei Regeln: mindestens 20 % des Belehnungswerts, davon mindestens 10 % harte Eigenmittel. Hier erfährst du, was zählt, was nicht und wie Familie Meier ihr Haus in Baden finanziert.",
+    "ctas": [
+     {
+      "label": "Hypothek anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "Tragbarkeit berechnen",
+      "to": "page:tragbarkeit"
+     }
+    ],
+    "badges": [
+     "Mit Rechenbeispiel",
+     "Stand 2026"
+    ],
+    "image": "keys",
+    "alt": "Hausschlüssel in der Hand nach dem Hauskauf"
+   },
+   {
+    "type": "article",
+    "blocks": [
+     {
+      "h2": "Wie viel Eigenkapital brauchst du für den Hauskauf?"
+     },
+     {
+      "p": "In der Schweiz finanzieren Banken, Versicherungen und Pensionskassen ein selbst bewohntes Eigenheim in der Regel bis maximal **80 % des Belehnungswerts**. Die restlichen mindestens 20 % bringst du als Eigenkapital mit. Bei einem Haus für CHF 1 Mio. sind das mindestens CHF 200’000. Diese Grundregel gilt bei fast allen Kreditgebern (Stand 2026, ohne Gewähr). Im Einzelfall kann ein Institut aber strenger rechnen."
+     },
+     {
+      "p": "Entscheidend ist das Wort **Belehnungswert**. Kreditgeber richten sich nicht einfach nach dem Kaufpreis, sondern nach dem tieferen Wert aus Kaufpreis und eigener Bewertung. Man spricht vom Niederstwertprinzip. Zahlst du mehr, als die Bank für das Objekt ansetzt, deckst du die Differenz zusätzlich aus eigenen Mitteln. In gefragten Regionen kommt das häufig vor."
+     },
+     {
+      "p": "Bei Renditeobjekten und Zweitwohnungen liegt die Hürde meist höher: Viele Kreditgeber verlangen dort mindestens 25 % Eigenmittel und eine schnellere Amortisation. Für den Erstwohnsitz bleibt die 20 %-Regel der Massstab."
+     },
+     {
+      "h2": "Harte und weiche Eigenmittel: was zählt?"
+     },
+     {
+      "p": "Nicht jeder Franken Eigenkapital zählt gleich. Von den 20 % müssen **mindestens 10 % harte Eigenmittel** sein, also Geld, das nicht aus der Pensionskasse stammt. Den Rest darfst du aus der 2. Säule einbringen. So bist du mit eigenem Geld am Risiko beteiligt, und deine Altersvorsorge steckt nicht vollständig im Haus."
+     },
+     {
+      "p": "Als harte Eigenmittel gelten typischerweise:"
+     },
+     {
+      "ul": [
+       "Ersparnisse auf Spar- und Privatkonten",
+       "Wertschriften wie Aktien, Obligationen oder Fonds",
+       "Guthaben der Säule 3a, die du für das Eigenheim beziehst",
+       "Erbvorbezug und Schenkungen, die du nicht zurückzahlen musst"
+      ]
+     },
+     {
+      "p": "Als weiche Eigenmittel zählt vor allem das Guthaben der **Pensionskasse**, das du per Vorbezug einbringst. Ein Vorbezug ist ab CHF 20’000 möglich, alle fünf Jahre und bis drei Jahre vor der Pensionierung, je nach Reglement deiner Kasse. Wie du Vorbezug und Verpfändung sinnvoll einsetzt, erklären wir im Ratgeber zu Pensionskasse und Säule 3a."
+     },
+     {
+      "p": "Nicht als Eigenkapital zählen in der Regel Konsumkredite, Leasing oder kurzfristige Darlehen. Wer sich das Eigenkapital leiht, erhöht seine Schulden und verschlechtert die Tragbarkeit. Kreditgeber prüfen deshalb genau, woher das Geld stammt, und verlangen Kontoauszüge oder Depotbelege."
+     },
+     {
+      "h2": "Rechenbeispiel: Familie Meier kauft in Baden"
+     },
+     {
+      "p": "Familie Meier aus der HYPOTEQ Academy möchte ein Einfamilienhaus in Baden kaufen. Der Kaufpreis beträgt CHF 980’000, die Bank bewertet das Haus aber mit CHF 950’000. Nach dem Niederstwertprinzip gilt dieser tiefere Wert als Belehnungswert. Meiers bringen CHF 250’000 Eigenmittel mit: CHF 170’000 vom Sparkonto und CHF 80’000 aus der Pensionskasse."
+     },
+     {
+      "table": {
+       "head": [
+        "Position",
+        "Betrag",
+        "Hinweis"
+       ],
+       "rows": [
+        [
+         "Kaufpreis",
+         "CHF 980’000",
+         "mit Verkäufer vereinbart"
+        ],
+        [
+         "Belehnungswert",
+         "CHF 950’000",
+         "Niederstwertprinzip"
+        ],
+        [
+         "Max. Hypothek (80 % von 950’000)",
+         "CHF 760’000",
+         "Obergrenze"
+        ],
+        [
+         "Mindest-Eigenmittel",
+         "CHF 220’000",
+         "980’000 – 760’000"
+        ],
+        [
+         "Davon mind. hart (10 %)",
+         "ca. CHF 95’000–98’000",
+         "je nach Bank auf Wert oder Preis"
+        ],
+        [
+         "Eigenmittel Meier",
+         "CHF 250’000",
+         "25.5 % des Kaufpreises"
+        ],
+        [
+         "Davon hart (Sparkonto)",
+         "CHF 170’000",
+         "17.3 % des Kaufpreises"
+        ],
+        [
+         "Hypothek Meier",
+         "CHF 730’000",
+         "Belehnung 76.8 %"
+        ]
+       ]
+      }
+     },
+     {
+      "p": "Das Ergebnis: Familie Meier erfüllt beide Regeln deutlich. Wegen des Niederstwertprinzips braucht sie nicht nur 20 % von CHF 950’000, also CHF 190’000, sondern zusätzlich die Differenz von CHF 30’000 zwischen Kaufpreis und Belehnungswert. Das ergibt mindestens CHF 220’000. Mit CHF 250’000 liegt die Familie CHF 30’000 darüber und senkt die Belehnung auf 76.8 %."
+     },
+     {
+      "p": "Die harten Eigenmittel von CHF 170’000 übertreffen das Minimum klar, und der Vorbezug von CHF 80’000 liegt über dem Mindestbetrag von CHF 20’000. Die Hypothek von CHF 730’000 teilt sich auf in eine 1. Hypothek von rund CHF 633’000 (zwei Drittel des Belehnungswerts) und eine 2. Hypothek von rund CHF 97’000. Diese amortisieren Meiers innert 15 Jahren, also mit rund CHF 6’500 pro Jahr."
+     },
+     {
+      "cta": {
+       "title": "Wie viel Eigenkapital brauchst du?",
+       "text": "Lade deine Unterlagen hoch und erhalte eine persönliche Einschätzung. Kostenlos und unverbindlich.",
+       "label": "Hypothek anfragen",
+       "to": "funnel"
+      }
+     },
+     {
+      "h2": "Erbvorbezug und Schenkung als Eigenkapital"
+     },
+     {
+      "p": "Viele Paare schaffen den Sprung ins Eigenheim mit Unterstützung der Familie. Ein **Erbvorbezug** oder eine **Schenkung** gilt in der Regel als hartes Eigenkapital, sofern das Geld nicht zurückbezahlt werden muss. Halte die Zuwendung schriftlich fest, zum Beispiel in einem Schenkungsvertrag oder einer Erklärung zum Erbvorbezug. So sieht die Bank, dass keine Rückzahlungspflicht besteht."
+     },
+     {
+      "p": "Anders beim **Darlehen**, auch wenn es von den Eltern kommt. Muss das Geld zurückbezahlt oder verzinst werden, anerkennen Kreditgeber es meist nicht oder nur eingeschränkt als Eigenmittel. Zins und Rückzahlung fliessen zudem in die Tragbarkeit ein. Kläre deshalb früh, welche Form die Unterstützung haben soll, und denke an Geschwister und die spätere Erbteilung."
+     },
+     {
+      "p": "Schenkungs- und Erbschaftssteuern sind kantonal und je nach Verwandtschaftsgrad unterschiedlich geregelt. Lass dich im Zweifel von einer Fachperson für Steuern oder Erbrecht beraten, bevor das Geld fliesst."
+     },
+     {
+      "h2": "Was tun, wenn Eigenkapital fehlt?"
+     },
+     {
+      "p": "Fehlt dir ein Teil des Eigenkapitals, gibt es mehrere Wege. Nicht jeder passt zu jeder Situation, oft schliesst eine Kombination die Lücke:"
+     },
+     {
+      "ul": [
+       "**Pensionskasse nutzen:** Vorbezug als weiches Eigenkapital oder Verpfändung als zusätzliche Sicherheit",
+       "**Säule 3a beziehen:** zählt als hartes Eigenkapital und hilft bei der 10 %-Hürde",
+       "**Familie einbeziehen:** Erbvorbezug oder Schenkung schriftlich regeln",
+       "**Budget anpassen:** Ein tieferer Kaufpreis senkt das nötige Eigenkapital direkt",
+       "**Zeitpunkt verschieben:** gezielt sparen und den Kauf etwas später planen",
+       "**Kreditgeber vergleichen:** Banken, Versicherungen und Pensionskassen bewerten Objekte unterschiedlich"
+      ]
+     },
+     {
+      "p": "Der letzte Punkt wird oft unterschätzt. Weil jeder Kreditgeber eigene Bewertungsmodelle nutzt, fällt der Belehnungswert für dasselbe Haus unterschiedlich aus. Ein höherer Belehnungswert verkleinert die Lücke zum Kaufpreis und damit das nötige Eigenkapital. HYPOTEQ vergleicht für dich über 40 Banken, Versicherungen und Pensionskassen und zeigt dir, wo dein Projekt am besten passt."
+     },
+     {
+      "tip": "Lass die Immobilie vor der Unterschrift bewerten. Mit der hedonischen Bewertung nach dem Modell von **Wüest Partner** siehst du in wenigen Minuten, ob der Kaufpreis zum Marktwert passt und ob eine Lücke wie bei Familie Meier droht. Einführungspreis CHF 300 statt CHF 450.",
+      "title": "Tipp: Wert vor dem Kauf kennen"
+     },
+     {
+      "h2": "Eigenmittel und Tragbarkeit zusammen denken"
+     },
+     {
+      "p": "Genügend Eigenkapital allein reicht nicht. Der Kreditgeber prüft zusätzlich die **Tragbarkeit**: Ein kalkulatorischer Zins von 5 %, Unterhalt und Nebenkosten von 1 % sowie die Amortisation dürfen höchstens etwa ein Drittel deines Bruttoeinkommens beanspruchen. Bei Familie Meier sind das CHF 36’500 Zins, CHF 9’500 Unterhalt und CHF 6’500 Amortisation, total CHF 52’500 pro Jahr. Bei CHF 185’000 Bruttoeinkommen entspricht das 28.4 %."
+     },
+     {
+      "p": "Mehr Eigenkapital verbessert beides: Die Hypothek wird kleiner, die kalkulatorischen Kosten sinken. Ein hoher PK-Vorbezug rettet aber keine knappe Tragbarkeit, wenn das Einkommen nicht reicht. Plane ausserdem die Kaufnebenkosten von je nach Kanton rund 2–5 % separat ein. Sie werden in der Regel nicht mitfinanziert und verringern deine verfügbaren Eigenmittel."
+     },
+     {
+      "p": "Für die Anfrage brauchst du Nachweise zu deinen Eigenmitteln: aktuelle Konto- und Depotauszüge, den Vorsorgeausweis der Pensionskasse, Belege zur Säule 3a und allenfalls den Schenkungsvertrag oder die Erklärung zum Erbvorbezug. Bei HYPOTEQ lädst du diese Dokumente in der Schnellanmeldung hoch. Die KI liest die meisten Angaben aus, und nach rund 3 Minuten ist deine Anfrage erfasst. Die Beratung übernimmt danach immer ein Mensch."
+     },
+     {
+      "cta": {
+       "title": "Passt die Rechnung für dich?",
+       "text": "Prüfe Eigenmittel, Belehnung und Tragbarkeit in Sekunden, so wie Banken rechnen.",
+       "label": "Tragbarkeit berechnen",
+       "to": "page:tragbarkeit"
+      }
+     },
+     {
+      "h2": "Tiefer einsteigen mit der HYPOTEQ Academy"
+     },
+     {
+      "p": "Du willst genauer verstehen, wie Kreditgeber Eigenmittel prüfen? Im **Foundation Course** der HYPOTEQ Academy (CHF 290, ohne Vorwissen) behandelt die Learning Journey «Eigenmittel richtig einsetzen» genau dieses Thema, mit dem Praxisfall Familie Meier, Knowledge Checks und einem KI-Trainer für deine Fragen."
+     },
+     {
+      "p": "Du bist Immobilienmaklerin, Treuhänder oder Broker? Über das **HYPOTEQ Partnerprogramm** reichst du Finanzierungen deiner Kundschaft ein, und die Kundenbeziehung bleibt bei dir."
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Eigenkapital\n*kurz erklärt.*",
+    "items": [
+     {
+      "q": "Wie viel Eigenkapital brauche ich?",
+      "a": "Für ein selbst bewohntes Eigenheim mindestens **20 % des Belehnungswerts**. Liegt der Kaufpreis über dem Wert, den die Bank ansetzt, kommt die Differenz dazu. Bei Familie Meier (Kaufpreis CHF 980’000, Belehnungswert CHF 950’000) sind das mindestens CHF 220’000. Bei Renditeobjekten meist mindestens 25 %."
+     },
+     {
+      "q": "Was sind harte Eigenmittel?",
+      "a": "Eigenkapital, das nicht aus der Pensionskasse stammt: Ersparnisse, Wertschriften, Säule-3a-Guthaben, Erbvorbezug oder Schenkung. Mindestens **10 %** des Belehnungswerts müssen hart sein, den Rest darfst du per PK-Vorbezug einbringen."
+     },
+     {
+      "q": "Zählt ein Erbvorbezug als Eigenkapital?",
+      "a": "Ja, in der Regel sogar als hartes Eigenkapital, wenn das Geld nicht zurückbezahlt werden muss. Halte den Erbvorbezug schriftlich fest. Ein Darlehen der Eltern mit Rückzahlungs- oder Zinspflicht anerkennen Kreditgeber dagegen meist nicht oder nur eingeschränkt."
+     },
+     {
+      "q": "Was tun, wenn Eigenkapital fehlt?",
+      "a": "Prüfe Pensionskasse (Vorbezug oder Verpfändung), Säule 3a, Unterstützung der Familie oder einen tieferen Kaufpreis. Lohnend ist auch der Vergleich: Kreditgeber bewerten Objekte unterschiedlich. HYPOTEQ vergleicht **kostenlos** über 40 Banken, Versicherungen und Pensionskassen."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Academy entdecken",
+      "to": "page:academy"
+     },
+     {
+      "label": "Ratgeber Pensionskasse",
+      "to": "page:rg-pk"
+     },
+     {
+      "label": "Ratgeber-Übersicht",
+      "to": "page:ratgeber"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Genug Eigenkapital?\n*Jetzt Offerten holen.*",
+    "text": "Kostenlos vergleichen über 40 Banken, Versicherungen und Pensionskassen. Deine Beraterin meldet sich zeitnah.",
+    "ctas": [
+     {
+      "label": "Hypothek anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "Hypothek für den Kauf",
+      "to": "page:kauf"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Fonds propres pour acheter: combien? | HYPOTEQ",
+  "description": "20 % de fonds propres dont 10 % durs: ce qui compte, ce qui ne compte pas, avance d'hoirie et donation. Guide avec exemples chiffrés.",
+  "h1": "Fonds propres pour l'achat immobilier",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Guide",
+    "h1": "Fonds propres pour\nl'achat immobilier",
+    "lead": "Les **fonds propres pour un achat immobilier** obéissent à deux règles: au moins 20 % de la valeur de nantissement, dont au moins 10 % de fonds propres durs. Découvrez ce qui compte, ce qui ne compte pas et comment la famille Meier finance sa maison à Baden.",
+    "ctas": [
+     {
+      "label": "Demander une hypothèque",
+      "to": "funnel"
+     },
+     {
+      "label": "Calculer la capacité financière",
+      "to": "page:tragbarkeit"
+     }
+    ],
+    "badges": [
+     "Avec exemple chiffré",
+     "État 2026"
+    ],
+    "image": "keys",
+    "alt": "Clés de maison remises après l'achat"
+   },
+   {
+    "type": "article",
+    "blocks": [
+     {
+      "h2": "Combien de fonds propres pour acheter?"
+     },
+     {
+      "p": "En Suisse, banques, assurances et caisses de pension financent en règle générale une résidence principale jusqu'à **80 % de la valeur de nantissement**. Vous apportez les 20 % restants en fonds propres. Pour une maison à CHF 1 million, cela représente au moins CHF 200’000. Cette règle vaut chez presque tous les prêteurs (état 2026, sans garantie), certains pouvant être plus stricts."
+     },
+     {
+      "p": "Le terme clé est la **valeur de nantissement**. Le prêteur ne retient pas simplement le prix d'achat, mais la plus basse des deux valeurs entre le prix et sa propre estimation: c'est le principe de la valeur la plus basse. Si vous payez davantage que la valeur retenue, la différence doit être couverte par vos propres moyens."
+     },
+     {
+      "p": "Pour un bien de rendement ou une résidence secondaire, l'exigence est souvent plus élevée: au moins 25 % de fonds propres et un amortissement plus rapide."
+     },
+     {
+      "h2": "Fonds propres durs et fonds de prévoyance"
+     },
+     {
+      "p": "Sur les 20 %, **au moins 10 % doivent être des fonds propres durs**, c'est-à-dire ne provenant pas de la caisse de pension. Le solde peut venir du 2e pilier. Ainsi, vous assumez une partie du risque avec votre propre argent et votre prévoyance ne repose pas entièrement sur le logement."
+     },
+     {
+      "p": "Comptent généralement comme fonds propres durs:"
+     },
+     {
+      "ul": [
+       "l'épargne sur comptes bancaires",
+       "les titres: actions, obligations, fonds",
+       "les avoirs du 3e pilier (3a) retirés pour le logement",
+       "une avance d'hoirie ou une donation sans obligation de remboursement"
+      ]
+     },
+     {
+      "p": "L'avoir du **2e pilier** retiré de façon anticipée (EPL) compte comme fonds propres, mais pas comme fonds durs. Le retrait est possible dès CHF 20’000, tous les cinq ans et jusqu'à trois ans avant la retraite, selon le règlement de votre caisse. Les crédits à la consommation, le leasing ou les prêts à court terme ne comptent pas: ils augmentent vos dettes et pèsent sur la capacité financière."
+     },
+     {
+      "h2": "Exemple chiffré: la famille Meier à Baden"
+     },
+     {
+      "p": "La famille Meier, cas pratique de la HYPOTEQ Academy, souhaite acheter une maison individuelle à Baden. Le prix est de CHF 980’000, mais la banque estime le bien à CHF 950’000, qui devient la valeur de nantissement. Les Meier disposent de CHF 250’000 de fonds propres: CHF 170’000 d'épargne et CHF 80’000 de leur caisse de pension."
+     },
+     {
+      "table": {
+       "head": [
+        "Poste",
+        "Montant",
+        "Remarque"
+       ],
+       "rows": [
+        [
+         "Prix d'achat",
+         "CHF 980’000",
+         "convenu avec le vendeur"
+        ],
+        [
+         "Valeur de nantissement",
+         "CHF 950’000",
+         "valeur la plus basse"
+        ],
+        [
+         "Hypothèque max. (80 % de 950’000)",
+         "CHF 760’000",
+         "plafond"
+        ],
+        [
+         "Fonds propres minimaux",
+         "CHF 220’000",
+         "980’000 – 760’000"
+        ],
+        [
+         "Dont durs (10 %)",
+         "env. CHF 95’000–98’000",
+         "selon la banque, sur valeur ou prix"
+        ],
+        [
+         "Fonds propres Meier",
+         "CHF 250’000",
+         "25.5 % du prix"
+        ],
+        [
+         "Dont durs (épargne)",
+         "CHF 170’000",
+         "17.3 % du prix"
+        ],
+        [
+         "Hypothèque Meier",
+         "CHF 730’000",
+         "nantissement 76.8 %"
+        ]
+       ]
+      }
+     },
+     {
+      "p": "Résultat: les Meier remplissent largement les deux règles. Ils ont besoin non seulement de 20 % de CHF 950’000, soit CHF 190’000, mais aussi des CHF 30’000 d'écart entre prix et valeur, soit au moins CHF 220’000. Avec CHF 250’000, ils disposent d'une marge de CHF 30’000 et ramènent le taux d'avance à 76.8 %. L'hypothèque se compose d'un 1er rang d'environ CHF 633’000 et d'un 2e rang d'environ CHF 97’000, amorti en 15 ans, soit environ CHF 6’500 par an."
+     },
+     {
+      "cta": {
+       "title": "Combien de fonds propres vous faut-il?",
+       "text": "Téléchargez vos documents et recevez une évaluation personnelle. Gratuit et sans engagement.",
+       "label": "Demander une hypothèque",
+       "to": "funnel"
+      }
+     },
+     {
+      "h2": "Avance d'hoirie et donation"
+     },
+     {
+      "p": "Beaucoup de couples accèdent à la propriété avec l'aide de leur famille. Une **avance d'hoirie** ou une **donation** est généralement reconnue comme fonds propres durs, à condition qu'il n'y ait pas d'obligation de remboursement. Mettez-la par écrit, par exemple dans un contrat de donation. Un **prêt** familial à rembourser ou portant intérêt est en revanche rarement accepté comme fonds propres et pèse sur la capacité financière. Les impôts sur les donations varient selon le canton et le lien de parenté: faites-vous conseiller avant le versement."
+     },
+     {
+      "h2": "Que faire s'il manque des fonds propres?"
+     },
+     {
+      "ul": [
+       "**2e pilier:** retrait anticipé ou nantissement comme garantie supplémentaire",
+       "**3e pilier:** retrait comptant comme fonds propres durs",
+       "**Famille:** avance d'hoirie ou donation réglée par écrit",
+       "**Budget:** un prix plus bas réduit directement le besoin",
+       "**Calendrier:** épargner et reporter l'achat",
+       "**Comparer les prêteurs:** chaque établissement estime les biens différemment"
+      ]
+     },
+     {
+      "p": "Ce dernier point est souvent sous-estimé. Une valeur de nantissement plus élevée réduit l'écart avec le prix et donc les fonds propres nécessaires. HYPOTEQ compare pour vous plus de 40 banques, assurances et caisses de pension."
+     },
+     {
+      "tip": "Faites estimer le bien avant de signer. L'estimation hédoniste selon le modèle de **Wüest Partner** vous montre en quelques minutes si le prix correspond au marché. Prix de lancement CHF 300 au lieu de CHF 450.",
+      "title": "Conseil: connaître la valeur avant d'acheter"
+     },
+     {
+      "h2": "Fonds propres et capacité financière"
+     },
+     {
+      "p": "Des fonds propres suffisants ne suffisent pas. Le prêteur vérifie aussi la **capacité financière**: taux théorique de 5 %, frais d'entretien de 1 % et amortissement ne doivent pas dépasser environ un tiers du revenu brut. Pour les Meier: CHF 36’500 d'intérêts, CHF 9’500 d'entretien et CHF 6’500 d'amortissement, soit CHF 52’500 par an ou 28.4 % de CHF 185’000. Prévoyez en plus les frais d'achat de 2 à 5 % selon le canton, qui ne sont en général pas financés."
+     },
+     {
+      "p": "Pour votre demande, préparez les justificatifs de vos fonds propres: relevés de comptes et de dépôt, certificat de prévoyance de la caisse de pension, attestations du 3e pilier et, le cas échéant, le contrat de donation. Chez HYPOTEQ, vous les téléchargez dans la demande rapide: l'IA lit la plupart des données en environ 3 minutes, puis un conseiller humain prend le relais."
+     },
+     {
+      "cta": {
+       "title": "Votre budget tient-il la route?",
+       "text": "Vérifiez fonds propres, nantissement et capacité financière en quelques secondes.",
+       "label": "Calculer la capacité",
+       "to": "page:tragbarkeit"
+      }
+     },
+     {
+      "h2": "Aller plus loin avec la HYPOTEQ Academy"
+     },
+     {
+      "p": "Le **Foundation Course** de la HYPOTEQ Academy (CHF 290, sans prérequis) consacre la Learning Journey «Eigenmittel richtig einsetzen» (bien utiliser ses fonds propres) à ce thème, avec le cas pratique Meier, des Knowledge Checks et un entraîneur IA. Vous êtes courtier immobilier ou fiduciaire? Avec le **programme partenaires HYPOTEQ**, vous soumettez les financements de vos clients et gardez la relation client."
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "Fonds propres\n*en bref.*",
+    "items": [
+     {
+      "q": "Combien de fonds propres faut-il?",
+      "a": "Au moins **20 % de la valeur de nantissement** pour une résidence principale, plus l'écart éventuel entre prix et valeur. Pour les Meier (prix CHF 980’000, valeur CHF 950’000), au moins CHF 220’000. Pour un bien de rendement, souvent 25 %."
+     },
+     {
+      "q": "Que sont les fonds propres durs?",
+      "a": "Des fonds qui ne proviennent pas de la caisse de pension: épargne, titres, 3e pilier, avance d'hoirie ou donation. Au moins **10 %** doivent être durs, le reste peut venir du 2e pilier."
+     },
+     {
+      "q": "Une avance d'hoirie compte-t-elle?",
+      "a": "Oui, en général comme fonds propres durs, si elle n'est pas remboursable. Fixez-la par écrit. Un prêt familial avec intérêts ou remboursement est rarement reconnu."
+     },
+     {
+      "q": "Que faire s'il manque des fonds propres?",
+      "a": "Envisagez le 2e pilier (retrait ou nantissement), le 3e pilier, l'aide familiale ou un prix plus bas. Comparez aussi les prêteurs: HYPOTEQ compare **gratuitement** plus de 40 établissements."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Découvrir l'Academy",
+      "to": "page:academy"
+     },
+     {
+      "label": "Guide 2e pilier",
+      "to": "page:rg-pk"
+     },
+     {
+      "label": "Tous les guides",
+      "to": "page:ratgeber"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Assez de fonds propres?\n*Obtenez vos offres.*",
+    "text": "Comparaison gratuite auprès de plus de 40 banques, assurances et caisses de pension. Votre conseillère vous rappelle rapidement.",
+    "ctas": [
+     {
+      "label": "Demander une hypothèque",
+      "to": "funnel"
+     },
+     {
+      "label": "Hypothèque pour l'achat",
+      "to": "page:kauf"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Fondi propri per comprare casa | HYPOTEQ",
+  "description": "20 % di fondi propri, di cui 10 % liquidi: cosa conta, cosa no, anticipo d'eredità e donazione. Guida con esempi pratici.",
+  "h1": "Fondi propri per l'acquisto della casa",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Guida",
+    "h1": "Fondi propri per\nl'acquisto della casa",
+    "lead": "I **fondi propri per l'acquisto della casa** seguono due regole: almeno il 20 % del valore di anticipo, di cui almeno il 10 % effettivi. Scopri cosa conta, cosa no e come la famiglia Meier finanzia la sua casa a Baden.",
+    "ctas": [
+     {
+      "label": "Richiedere un'ipoteca",
+      "to": "funnel"
+     },
+     {
+      "label": "Calcolare la sostenibilità",
+      "to": "page:tragbarkeit"
+     }
+    ],
+    "badges": [
+     "Con esempio di calcolo",
+     "Stato 2026"
+    ],
+    "image": "keys",
+    "alt": "Chiavi di casa consegnate dopo l'acquisto"
+   },
+   {
+    "type": "article",
+    "blocks": [
+     {
+      "h2": "Quanti fondi propri servono per comprare casa?"
+     },
+     {
+      "p": "In Svizzera banche, assicurazioni e casse pensioni finanziano di regola un'abitazione ad uso proprio fino all'**80 % del valore di anticipo**. Il restante 20 % almeno lo porti tu come fondi propri. Per una casa da CHF 1 milione servono quindi almeno CHF 200’000. La regola vale per quasi tutti i finanziatori (stato 2026, senza garanzia), alcuni possono essere più severi."
+     },
+     {
+      "p": "La parola chiave è **valore di anticipo**. Il finanziatore non considera semplicemente il prezzo, ma il valore più basso tra prezzo d'acquisto e propria stima: è il principio del valore minimo. Se paghi più del valore stimato, copri la differenza con mezzi tuoi. Per immobili di reddito e residenze secondarie spesso servono almeno il 25 % di fondi propri e un ammortamento più rapido."
+     },
+     {
+      "h2": "Fondi propri effettivi e previdenza"
+     },
+     {
+      "p": "Del 20 %, **almeno il 10 % deve essere costituito da fondi propri effettivi**, cioè non provenienti dalla cassa pensione. Il resto può arrivare dal 2° pilastro. Così partecipi al rischio con denaro tuo e la tua previdenza non è tutta investita nella casa."
+     },
+     {
+      "p": "Contano di solito come fondi propri effettivi:"
+     },
+     {
+      "ul": [
+       "risparmi su conti bancari",
+       "titoli come azioni, obbligazioni e fondi",
+       "averi del 3° pilastro (3a) prelevati per la casa",
+       "anticipo d'eredità o donazione senza obbligo di restituzione"
+      ]
+     },
+     {
+      "p": "L'avere della **cassa pensione** prelevato in anticipo conta come fondo proprio, ma non come fondo effettivo. Il prelievo è possibile da CHF 20’000, ogni cinque anni e fino a tre anni prima del pensionamento, secondo il regolamento della tua cassa. Crediti al consumo, leasing o prestiti a breve termine non contano: aumentano i debiti e peggiorano la sostenibilità."
+     },
+     {
+      "h2": "Esempio: la famiglia Meier a Baden"
+     },
+     {
+      "p": "La famiglia Meier, caso pratico della HYPOTEQ Academy, vuole comprare una casa unifamiliare a Baden. Il prezzo è di CHF 980’000, ma la banca stima l'immobile CHF 950’000: questo è il valore di anticipo. I Meier hanno CHF 250’000 di fondi propri: CHF 170’000 dal conto risparmio e CHF 80’000 dalla cassa pensione."
+     },
+     {
+      "table": {
+       "head": [
+        "Voce",
+        "Importo",
+        "Nota"
+       ],
+       "rows": [
+        [
+         "Prezzo d'acquisto",
+         "CHF 980’000",
+         "concordato con il venditore"
+        ],
+        [
+         "Valore di anticipo",
+         "CHF 950’000",
+         "principio del valore minimo"
+        ],
+        [
+         "Ipoteca max. (80 % di 950’000)",
+         "CHF 760’000",
+         "limite"
+        ],
+        [
+         "Fondi propri minimi",
+         "CHF 220’000",
+         "980’000 – 760’000"
+        ],
+        [
+         "Di cui effettivi (10 %)",
+         "ca. CHF 95’000–98’000",
+         "secondo la banca, su valore o prezzo"
+        ],
+        [
+         "Fondi propri Meier",
+         "CHF 250’000",
+         "25.5 % del prezzo"
+        ],
+        [
+         "Di cui effettivi (risparmi)",
+         "CHF 170’000",
+         "17.3 % del prezzo"
+        ],
+        [
+         "Ipoteca Meier",
+         "CHF 730’000",
+         "anticipo 76.8 %"
+        ]
+       ]
+      }
+     },
+     {
+      "p": "Risultato: i Meier rispettano entrambe le regole con margine. Non bastano il 20 % di CHF 950’000, cioè CHF 190’000: serve anche la differenza di CHF 30’000 tra prezzo e valore, quindi almeno CHF 220’000. Con CHF 250’000 hanno CHF 30’000 di margine e un anticipo del 76.8 %. L'ipoteca comprende una 1a ipoteca di circa CHF 633’000 e una 2a ipoteca di circa CHF 97’000, da ammortizzare in 15 anni, cioè circa CHF 6’500 all'anno."
+     },
+     {
+      "cta": {
+       "title": "Quanti fondi propri ti servono?",
+       "text": "Carica i tuoi documenti e ricevi una valutazione personale. Gratis e senza impegno.",
+       "label": "Richiedere un'ipoteca",
+       "to": "funnel"
+      }
+     },
+     {
+      "h2": "Anticipo d'eredità e donazione"
+     },
+     {
+      "p": "Molte coppie comprano casa con l'aiuto della famiglia. Un **anticipo d'eredità** o una **donazione** vale di regola come fondo proprio effettivo, se non va restituito. Mettilo per iscritto, ad esempio con un contratto di donazione. Un **prestito** dei genitori con interessi o rimborso viene invece raramente riconosciuto e pesa sulla sostenibilità. Le imposte sulle donazioni variano secondo il cantone e il grado di parentela: fatti consigliare prima del versamento."
+     },
+     {
+      "h2": "Cosa fare se mancano fondi propri?"
+     },
+     {
+      "ul": [
+       "**2° pilastro:** prelievo anticipato o costituzione in pegno come garanzia aggiuntiva",
+       "**3° pilastro:** prelievo che conta come fondo effettivo",
+       "**Famiglia:** anticipo d'eredità o donazione per iscritto",
+       "**Budget:** un prezzo più basso riduce subito il fabbisogno",
+       "**Tempi:** risparmiare e rinviare l'acquisto",
+       "**Confrontare i finanziatori:** ognuno stima gli immobili in modo diverso"
+      ]
+     },
+     {
+      "p": "L'ultimo punto è spesso sottovalutato: un valore di anticipo più alto riduce la differenza con il prezzo e quindi i fondi propri necessari. HYPOTEQ confronta per te oltre 40 banche, assicurazioni e casse pensioni."
+     },
+     {
+      "tip": "Fai valutare l'immobile prima di firmare. La valutazione edonica secondo il modello di **Wüest Partner** ti mostra in pochi minuti se il prezzo è in linea con il mercato. Prezzo di lancio CHF 300 invece di CHF 450.",
+      "title": "Consiglio: conosci il valore prima di comprare"
+     },
+     {
+      "h2": "Fondi propri e sostenibilità"
+     },
+     {
+      "p": "Avere abbastanza fondi propri non basta. Il finanziatore verifica anche la **sostenibilità**: tasso teorico del 5 %, manutenzione dell'1 % e ammortamento non devono superare circa un terzo del reddito lordo. Per i Meier: CHF 36’500 di interessi, CHF 9’500 di manutenzione e CHF 6’500 di ammortamento, in totale CHF 52’500 all'anno, cioè il 28.4 % di CHF 185’000. Prevedi inoltre i costi d'acquisto del 2–5 % secondo il cantone, che di regola non vengono finanziati."
+     },
+     {
+      "p": "Per la richiesta prepara i giustificativi dei tuoi fondi propri: estratti conto e di deposito, certificato di previdenza della cassa pensione, attestazioni del 3° pilastro ed eventualmente il contratto di donazione. Con HYPOTEQ li carichi nella richiesta rapida: l'IA legge la maggior parte dei dati e in circa 3 minuti la richiesta è completa. La consulenza resta sempre nelle mani di una persona, che verifica con te ogni dettaglio."
+     },
+     {
+      "p": "Un consiglio pratico: raccogli i fondi propri effettivi su un conto dedicato alcuni mesi prima dell'acquisto. Così la banca vede subito la provenienza del denaro e tu tieni separata la riserva per i costi d'acquisto e per gli imprevisti dei primi anni."
+     },
+     {
+      "cta": {
+       "title": "Il tuo budget regge?",
+       "text": "Verifica fondi propri, anticipo e sostenibilità in pochi secondi.",
+       "label": "Calcolare la sostenibilità",
+       "to": "page:tragbarkeit"
+      }
+     },
+     {
+      "h2": "Approfondire con la HYPOTEQ Academy"
+     },
+     {
+      "p": "Nel **Foundation Course** della HYPOTEQ Academy (CHF 290, senza conoscenze preliminari) la Learning Journey «Eigenmittel richtig einsetzen» (usare bene i fondi propri) tratta proprio questo tema, con il caso pratico Meier, Knowledge Check e un trainer IA. Sei agente immobiliare o fiduciario? Con il **programma partner HYPOTEQ** inoltri i finanziamenti dei tuoi clienti e la relazione resta a te."
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "Fondi propri\n*in breve.*",
+    "items": [
+     {
+      "q": "Quanti fondi propri servono?",
+      "a": "Almeno il **20 % del valore di anticipo** per un'abitazione ad uso proprio, più l'eventuale differenza tra prezzo e valore. Per i Meier (prezzo CHF 980’000, valore CHF 950’000) almeno CHF 220’000. Per immobili di reddito spesso il 25 %."
+     },
+     {
+      "q": "Cosa sono i fondi propri effettivi?",
+      "a": "Mezzi che non provengono dalla cassa pensione: risparmi, titoli, 3° pilastro, anticipo d'eredità o donazione. Almeno il **10 %** deve essere effettivo, il resto può venire dal 2° pilastro."
+     },
+     {
+      "q": "L'anticipo d'eredità conta?",
+      "a": "Sì, di regola come fondo proprio effettivo, se non va restituito. Mettilo per iscritto. Un prestito con interessi o obbligo di rimborso viene raramente riconosciuto."
+     },
+     {
+      "q": "Cosa fare se mancano fondi propri?",
+      "a": "Valuta 2° pilastro (prelievo o pegno), 3° pilastro, aiuto familiare o un prezzo più basso. Confronta anche i finanziatori: HYPOTEQ confronta **gratuitamente** oltre 40 istituti."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Scopri l'Academy",
+      "to": "page:academy"
+     },
+     {
+      "label": "Guida 2° pilastro",
+      "to": "page:rg-pk"
+     },
+     {
+      "label": "Tutte le guide",
+      "to": "page:ratgeber"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Fondi propri a posto?\n*Richiedi le offerte.*",
+    "text": "Confronto gratuito tra oltre 40 banche, assicurazioni e casse pensioni. La tua consulente ti richiama in tempi brevi.",
+    "ctas": [
+     {
+      "label": "Richiedere un'ipoteca",
+      "to": "funnel"
+     },
+     {
+      "label": "Ipoteca per l'acquisto",
+      "to": "page:kauf"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "Down Payment in Switzerland: How Much? | HYPOTEQ",
+  "description": "20 % equity, at least 10 % in cash: what counts, what doesn't, and how gifts or inheritance advances help. Swiss guide with examples.",
+  "h1": "Down payment rules in Switzerland",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Guide",
+    "h1": "Down payment rules\nin Switzerland",
+    "lead": "The **down payment in Switzerland** follows two rules: at least 20 % of the lending value, with at least 10 % as hard equity. Learn what counts, what doesn't and how the Meier family finances its house in Baden.",
+    "ctas": [
+     {
+      "label": "Request a mortgage",
+      "to": "funnel"
+     },
+     {
+      "label": "Check affordability",
+      "to": "page:tragbarkeit"
+     }
+    ],
+    "badges": [
+     "Worked example",
+     "Rules as of 2026"
+    ],
+    "image": "keys",
+    "alt": "House keys handed over after a purchase"
+   },
+   {
+    "type": "article",
+    "blocks": [
+     {
+      "h2": "How much down payment do you need?"
+     },
+     {
+      "p": "In Switzerland, banks, insurers and pension funds usually finance an owner-occupied home up to **80 % of the lending value**. You bring at least the remaining 20 % as equity. For a CHF 1 million house, that means at least CHF 200’000. Almost every lender applies this rule (as of 2026, no guarantee), and some are stricter."
+     },
+     {
+      "p": "The key term is **lending value**. Lenders don't simply use the purchase price. They use the lower of the price and their own valuation, known as the lowest-value principle. If you pay more than the lender's value, you cover the difference from your own funds. For buy-to-let properties and second homes, lenders typically ask for at least 25 % equity and faster amortisation."
+     },
+     {
+      "h2": "Hard equity vs pension money"
+     },
+     {
+      "p": "Of the 20 %, **at least 10 % must be hard equity**, meaning money that does not come from your occupational pension fund (pillar 2). The rest may come from pillar 2. This way you carry part of the risk with your own cash, and your retirement savings are not entirely tied up in the house."
+     },
+     {
+      "p": "Hard equity typically includes:"
+     },
+     {
+      "ul": [
+       "savings in bank accounts",
+       "securities such as shares, bonds and funds",
+       "pillar 3a savings (private tax-advantaged pension) withdrawn for the home",
+       "an advance on inheritance or a gift that never has to be repaid"
+      ]
+     },
+     {
+      "p": "Money withdrawn early from your **pension fund** counts as equity, but not as hard equity. A withdrawal is possible from CHF 20’000, every five years and up to three years before retirement, depending on your fund's rules. Consumer loans, leasing or short-term loans do not count: they increase your debt and weaken affordability."
+     },
+     {
+      "h2": "Worked example: the Meier family in Baden"
+     },
+     {
+      "p": "The Meier family, a case study from the HYPOTEQ Academy, wants to buy a detached house in Baden. The price is CHF 980’000, but the bank values the house at CHF 950’000, which becomes the lending value. The Meiers have CHF 250’000 in equity: CHF 170’000 in savings and CHF 80’000 from their pension fund."
+     },
+     {
+      "table": {
+       "head": [
+        "Item",
+        "Amount",
+        "Note"
+       ],
+       "rows": [
+        [
+         "Purchase price",
+         "CHF 980’000",
+         "agreed with the seller"
+        ],
+        [
+         "Lending value",
+         "CHF 950’000",
+         "lowest-value principle"
+        ],
+        [
+         "Max. mortgage (80 % of 950’000)",
+         "CHF 760’000",
+         "upper limit"
+        ],
+        [
+         "Minimum equity",
+         "CHF 220’000",
+         "980’000 – 760’000"
+        ],
+        [
+         "Of which hard (10 %)",
+         "approx. CHF 95’000–98’000",
+         "on value or price, depending on lender"
+        ],
+        [
+         "Meier equity",
+         "CHF 250’000",
+         "25.5 % of price"
+        ],
+        [
+         "Of which hard (savings)",
+         "CHF 170’000",
+         "17.3 % of price"
+        ],
+        [
+         "Meier mortgage",
+         "CHF 730’000",
+         "loan-to-value 76.8 %"
+        ]
+       ]
+      }
+     },
+     {
+      "p": "The result: the Meiers clearly meet both rules. They need not just 20 % of CHF 950’000, i.e. CHF 190’000, but also the CHF 30’000 gap between price and value, so at least CHF 220’000. With CHF 250’000 they have a CHF 30’000 buffer and a loan-to-value of 76.8 %. The mortgage splits into a first mortgage of about CHF 633’000 and a second mortgage of about CHF 97’000, repaid within 15 years at roughly CHF 6’500 a year."
+     },
+     {
+      "cta": {
+       "title": "How much equity do you need?",
+       "text": "Upload your documents and get a personal assessment. Free and non-binding.",
+       "label": "Request a mortgage",
+       "to": "funnel"
+      }
+     },
+     {
+      "h2": "Family gifts and inheritance advances"
+     },
+     {
+      "p": "Many couples buy their first home with family support. An **advance on inheritance** or a **gift** generally counts as hard equity, as long as it never has to be repaid. Put it in writing, for example in a gift agreement. A **family loan** with interest or repayment terms, by contrast, is rarely accepted as equity and is included in the affordability check. Gift taxes vary by canton and degree of kinship, so get advice before the money moves."
+     },
+     {
+      "h2": "What if you lack equity?"
+     },
+     {
+      "ul": [
+       "**Pillar 2:** early withdrawal, or a pledge as extra collateral",
+       "**Pillar 3a:** withdrawal that counts as hard equity",
+       "**Family:** a written gift or inheritance advance",
+       "**Budget:** a lower price directly reduces the requirement",
+       "**Timing:** save more and buy a little later",
+       "**Compare lenders:** each lender values properties differently"
+      ]
+     },
+     {
+      "p": "The last point is often underestimated. A higher lending value narrows the gap to the price and therefore the equity you need. HYPOTEQ compares more than 40 banks, insurers and pension funds for you, free of charge."
+     },
+     {
+      "tip": "Have the property valued before you sign. The hedonic valuation based on the **Wüest Partner** model shows you in minutes whether the price matches the market. Introductory price CHF 300 instead of CHF 450.",
+      "title": "Tip: know the value before you buy"
+     },
+     {
+      "h2": "Equity and affordability go together"
+     },
+     {
+      "p": "Enough equity is not enough on its own. Lenders also check **affordability**: an imputed interest rate of 5 %, maintenance of 1 % and amortisation must not exceed roughly one third of your gross income. For the Meiers: CHF 36’500 interest, CHF 9’500 maintenance and CHF 6’500 amortisation, CHF 52’500 a year or 28.4 % of CHF 185’000. Also budget separately for purchase costs of about 2–5 % depending on the canton, which are usually not financed."
+     },
+     {
+      "p": "For your application, prepare proof of your equity: recent bank and custody account statements, your pension fund certificate, pillar 3a statements and, if relevant, the gift agreement. With HYPOTEQ you simply upload these documents in the quick application. The AI reads most of the details, so your request is complete in about 3 minutes, and a human advisor takes it from there."
+     },
+     {
+      "cta": {
+       "title": "Does your budget work?",
+       "text": "Check equity, loan-to-value and affordability in seconds, the way Swiss banks do.",
+       "label": "Check affordability",
+       "to": "page:tragbarkeit"
+      }
+     },
+     {
+      "h2": "Go deeper with the HYPOTEQ Academy"
+     },
+     {
+      "p": "In the **Foundation Course** of the HYPOTEQ Academy (CHF 290, no prior knowledge needed), the learning journey on using equity wisely covers exactly this topic, with the Meier case study, knowledge checks and an AI trainer for your questions. Are you a real estate agent or trustee? Through the **HYPOTEQ partner programme** you submit your clients' financing and keep the client relationship."
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Down payment\n*in short.*",
+    "items": [
+     {
+      "q": "How much down payment do I need?",
+      "a": "At least **20 % of the lending value** for an owner-occupied home, plus any gap between price and value. For the Meiers (price CHF 980’000, value CHF 950’000) that is at least CHF 220’000. For buy-to-let, usually 25 %."
+     },
+     {
+      "q": "What is hard equity?",
+      "a": "Equity that does not come from your pension fund: savings, securities, pillar 3a, a gift or inheritance advance. At least **10 %** must be hard; the rest can come from pillar 2."
+     },
+     {
+      "q": "Can a family gift count as equity?",
+      "a": "Yes, usually as hard equity, as long as it doesn't have to be repaid. Document it in writing. A family loan with interest or repayment terms is rarely accepted."
+     },
+     {
+      "q": "What if I lack equity?",
+      "a": "Look at pillar 2 (withdrawal or pledge), pillar 3a, family support or a lower price. Comparing lenders also helps: HYPOTEQ compares more than 40 lenders **free of charge**."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Explore the Academy",
+      "to": "page:academy"
+     },
+     {
+      "label": "Pension fund guide",
+      "to": "page:rg-pk"
+     },
+     {
+      "label": "All guides",
+      "to": "page:ratgeber"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Enough equity?\n*Get your offers.*",
+    "text": "Free comparison across 40+ banks, insurers and pension funds. Your advisor gets back to you promptly.",
+    "ctas": [
+     {
+      "label": "Request a mortgage",
+      "to": "funnel"
+     },
+     {
+      "label": "Mortgage for buying",
+      "to": "page:kauf"
+     }
+    ]
+   }
+  ]
+ }
+}

@@ -1,0 +1,906 @@
+{
+ "de": {
+  "title": "Hypothek für junge Familien und Erstkäufer | HYPOTEQ",
+  "description": "Erstes Eigenheim mit Familie? Wir prüfen Eigenmittel, PK-Vorbezug und Tragbarkeit und vergleichen 40+ Anbieter kostenlos. Anfrage in 3 Minuten.",
+  "h1": "Dein erstes Eigenheim als junge Familie",
+  "nav": [
+   "Junge Familie & Erstkauf",
+   "Das erste Eigenheim finanzieren"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypothek junge Familie",
+    "h1": "Dein erstes Eigenheim\nals junge Familie",
+    "lead": "Mehr Platz für die Kinder, aber viele offene Fragen zu Eigenmitteln, Pensionskasse und Tragbarkeit? Mit einer **Hypothek für junge Familien** von HYPOTEQ erhältst du Klarheit, rasch eine Finanzierungsbestätigung und den kostenlosen Vergleich von über 40 Anbietern.",
+    "ctas": [
+     {
+      "label": "Finanzierung anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Kostenlos & unverbindlich",
+     "Anfrage in 3 Minuten",
+     "Offerten in 48–72 h"
+    ],
+    "image": "family",
+    "alt": "Junge Familie im leeren neuen Zuhause",
+    "float": {
+     "title": "Deine Beraterin meldet sich",
+     "text": "zeitnah"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "Banken, Versicherungen und Pensionskassen"
+     },
+     {
+      "value": "0 CHF",
+      "label": "für Vergleich und Vermittlung"
+     },
+     {
+      "value": "3 Min.",
+      "label": "bis zur vollständigen Anfrage"
+     },
+     {
+      "value": "48–72 h",
+      "label": "bis zu konkreten Offerten"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Hypothek Erstkäufer",
+    "title": "Das Traumhaus ist da.\n*Die Finanzierung noch nicht.*",
+    "image": "family-home",
+    "alt": "Familie am Tisch plant den Hauskauf",
+    "paragraphs": [
+     "Beim **ersten Eigenheim als junge Familie** kommt vieles zusammen: Besichtigungen, Bieterverfahren, Kita-Kosten und vielleicht ein reduziertes Pensum. Wer als **Erstkäufer** keine Finanzierungsbestätigung hat, verliert oft gegen schnellere Interessenten.",
+     "Wir klären mit dir zuerst, was realistisch ist: wie viel Eigenkapital ihr habt, ob Pensionskasse und Säule 3a sinnvoll sind und welcher Kaufpreis tragbar ist. Danach holen wir Offerten von Banken, Versicherungen und Pensionskassen ein."
+    ],
+    "bullets": [
+     "Finanzierungsbestätigung für dein Kaufangebot",
+     "Allfällige Familienangebote im direkten Vergleich",
+     "Eine persönliche Beraterin statt Hotline"
+    ],
+    "ctas": [
+     {
+      "label": "Finanzierungsbestätigung anfragen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "So helfen wir euch",
+    "title": "In vier Schritten\nzum ersten Zuhause.",
+    "items": [
+     {
+      "title": "Anfrage in 3 Minuten",
+      "text": "Lade Lohnausweise, Pensionskassenausweise und Objektunterlagen hoch. Die KI liest die meisten Angaben aus."
+     },
+     {
+      "title": "Budget klären",
+      "text": "Deine Beraterin prüft harte Eigenmittel, PK-Vorbezug oder Verpfändung und die Tragbarkeit, auch bei Teilzeit."
+     },
+     {
+      "title": "Offerten & Bestätigung",
+      "text": "Mit vollständigen Unterlagen liegen in der Regel nach 48–72 h Offerten vor. Damit bietest du mit."
+     },
+     {
+      "title": "Bis zur Schlüsselübergabe",
+      "text": "Wir koordinieren mit Bank, Notariat und Makler, bis ihr einzieht."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Jetzt starten",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Typische Hürden",
+    "title": "Was Erstkäufer bremst.\n*Und wie wir es lösen.*",
+    "lead": "Allgemeine Schweizer Grundregeln, Stand 2026, ohne Gewähr.",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Eigenkapital",
+      "title": "Zu wenig gespart?",
+      "text": "Nötig sind mind. 20 % Eigenmittel, davon 10 % hart. Wir zeigen, wie Säule 3a, Erbvorbezug oder Schenkung helfen.",
+      "to": "page:lp-wenig-eigenmittel"
+     },
+     {
+      "kicker": "Teilzeit",
+      "title": "Tragbarkeit wird knapp",
+      "text": "Banken rechnen mit 5 % kalkulatorischem Zins, 1 % Unterhalt und Amortisation. Wir suchen Anbieter, deren Kriterien zu eurem Pensum passen.",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "kicker": "Vorsorge",
+      "title": "PK-Geld einsetzen?",
+      "text": "Vorbezug ab CHF 20’000 oder Verpfändung. Wir rechnen beide Varianten mit euch durch.",
+      "to": "page:rg-pk"
+     },
+     {
+      "kicker": "Tempo",
+      "title": "Andere bieten schneller",
+      "text": "Mit einer Finanzierungsbestätigung zeigst du Verkäufer und Makler, dass dein Angebot steht.",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Wie viel Haus können wir uns leisten?",
+    "title": "Euer Budget\n*in Sekunden.*",
+    "lead": "Gib Kaufpreis, Eigenmittel und Haushaltseinkommen ein und sieh, wie Banken Belehnung und Tragbarkeit rechnen."
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Passend dazu",
+    "title": "Gut vorbereitet\n*zum Familienzuhause.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Wohnung",
+      "title": "Eigentumswohnung kaufen",
+      "text": "Was bei Stockwerkeigentum für Familien zählt.",
+      "to": "page:lp-eigentumswohnung"
+     },
+     {
+      "kicker": "Ratgeber",
+      "title": "Wie viel Eigenkapital?",
+      "text": "Harte Eigenmittel, Vorsorge und Nebenkosten erklärt.",
+      "to": "page:rg-eigenmittel"
+     },
+     {
+      "kicker": "Bewertung",
+      "title": "Ist der Preis fair?",
+      "text": "Marktwert nach dem Modell von Wüest Partner, CHF 300 statt 450.",
+      "to": "page:bewertung"
+     },
+     {
+      "kicker": "Für Makler",
+      "title": "Partner werden",
+      "text": "Deine Käufer finanzieren mit uns, du erhältst eine faire Provision.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Erstes Eigenheim\n*ohne Fragezeichen.*",
+    "items": [
+     {
+      "q": "Wie viel Eigenkapital braucht ihr als junge Familie?",
+      "a": "Mindestens **20 %** des Kaufpreises, davon mind. 10 % harte Eigenmittel, also nicht aus der Pensionskasse. Dazu kommen Kaufnebenkosten von ca. 2–5 % je nach Kanton, die ihr meist aus eigenen Mitteln zahlt. Stand 2026, ohne Gewähr."
+     },
+     {
+      "q": "Gibt es spezielle Familienhypotheken mit Zinsrabatt?",
+      "a": "Einzelne Anbieter haben Angebote für Familien. Ob sie sich lohnen, zeigt erst der Vergleich aller Konditionen. Wir prüfen sie mit, ohne Kosten für euch."
+     },
+     {
+      "q": "Wie wirken sich Teilzeit und Kinderkosten auf die Tragbarkeit aus?",
+      "a": "Gerechnet wird mit dem Bruttoeinkommen: Zins (kalkulatorisch 5 %), Unterhalt 1 % und Amortisation sollten max. ca. ⅓ davon ausmachen. Bei Teilzeit zählt das tatsächliche Pensum. Plant ihr eine Reduktion, sagt es uns früh, damit die Finanzierung auch danach passt."
+     },
+     {
+      "q": "Können wir Pensionskasse und Säule 3a für das Eigenkapital nutzen?",
+      "a": "Ja: PK-Vorbezug ab CHF 20’000 oder Verpfändung, Säule 3a per Bezug oder Verpfändung. Mindestens 10 % des Kaufpreises müssen aber hart sein. Prüft das Reglement eurer Pensionskasse, wir rechnen die Varianten mit euch durch."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Tragbarkeitsrechner",
+      "to": "page:tragbarkeit"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Bereit für\n*euer erstes Zuhause?*",
+    "text": "In 3 Minuten anfragen, kostenlos vergleichen und mit Finanzierungsbestätigung mitbieten.",
+    "ctas": [
+     {
+      "label": "Finanzierung anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Hypothèque pour jeunes familles et primo-accédants | HYPOTEQ",
+  "description": "Premier logement en famille? Nous vérifions vos fonds propres, le 2e pilier et votre capacité financière, et comparons 40+ prêteurs. Demande en 3 minutes.",
+  "h1": "Votre premier logement en famille",
+  "nav": [
+   "Jeune famille & 1er achat",
+   "Financer votre premier logement"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypothèque jeune famille",
+    "h1": "Votre premier logement\nen famille",
+    "lead": "Plus d'espace pour les enfants, mais des questions sur les fonds propres, le 2e pilier et la capacité financière? Avec une **hypothèque jeune famille** HYPOTEQ, vous obtenez vite une attestation de financement et comparez gratuitement plus de 40 prêteurs.",
+    "ctas": [
+     {
+      "label": "Demander un financement",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Gratuit & sans engagement",
+     "Demande en 3 minutes",
+     "Offres en 48–72 h"
+    ],
+    "image": "family",
+    "alt": "Jeune famille dans son nouveau logement encore vide",
+    "float": {
+     "title": "Votre conseillère vous contacte",
+     "text": "rapidement"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banques, assurances et caisses de pension"
+     },
+     {
+      "value": "0 CHF",
+      "label": "pour la comparaison et le courtage"
+     },
+     {
+      "value": "3 min",
+      "label": "pour une demande complète"
+     },
+     {
+      "value": "48–72 h",
+      "label": "jusqu'aux offres"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Premier achat immobilier",
+    "title": "Le logement idéal est là.\n*Le financement pas encore.*",
+    "image": "family-home",
+    "alt": "Famille à table qui planifie son achat",
+    "paragraphs": [
+     "Pour un **premier achat immobilier** en famille, tout arrive en même temps: visites, offres concurrentes, frais de crèche, temps partiel. Sans attestation de financement, un **primo-accédant en Suisse** se fait souvent devancer.",
+     "Nous clarifions d'abord vos fonds propres, l'utilité du 2e et du 3e pilier et le prix supportable. Puis nous obtenons des offres de banques, d'assurances et de caisses de pension."
+    ],
+    "bullets": [
+     "Attestation pour votre offre d'achat",
+     "Offres famille comparées",
+     "Une conseillère personnelle, pas de hotline"
+    ],
+    "ctas": [
+     {
+      "label": "Demander une attestation",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Notre accompagnement",
+    "title": "Quatre étapes\nvers votre premier logement.",
+    "items": [
+     {
+      "title": "Demande en 3 minutes",
+      "text": "Téléchargez certificats de salaire, de caisse de pension et documents du bien. L'IA lit la plupart des données."
+     },
+     {
+      "title": "Clarifier le budget",
+      "text": "Votre conseillère vérifie fonds propres, 2e pilier et capacité financière, même à temps partiel."
+     },
+     {
+      "title": "Offres & attestation",
+      "text": "Dossier complet, offres en général sous 48–72 h. Vous pouvez faire votre offre."
+     },
+     {
+      "title": "Jusqu'à la remise des clés",
+      "text": "Nous coordonnons banque, notaire et courtier jusqu'aux clés."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Commencer",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Obstacles fréquents",
+    "title": "Les obstacles du premier achat.\n*Et nos solutions.*",
+    "lead": "Règles générales en Suisse, état 2026, sans garantie.",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Fonds propres",
+      "title": "Pas assez d'épargne?",
+      "text": "Il faut 20 % de fonds propres, dont 10 % durs. 3e pilier, avancement d'hoirie ou donation peuvent aider.",
+      "to": "page:lp-wenig-eigenmittel"
+     },
+     {
+      "kicker": "Temps partiel",
+      "title": "Capacité juste",
+      "text": "Taux théorique 5 %, entretien 1 % et amortissement: nous cherchons les prêteurs adaptés à votre taux d'activité.",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "kicker": "Prévoyance",
+      "title": "Utiliser le 2e pilier?",
+      "text": "Retrait dès CHF 20’000 ou nantissement. Nous calculons les deux variantes avec vous.",
+      "to": "page:rg-pk"
+     },
+     {
+      "kicker": "Rapidité",
+      "title": "D'autres sont plus rapides",
+      "text": "L'attestation de financement prouve au vendeur que votre offre est solide.",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Quel logement pouvons-nous nous offrir?",
+    "title": "Votre budget\n*en quelques secondes.*",
+    "lead": "Saisissez prix, fonds propres et revenu: voyez comment calculent les banques."
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Pour aller plus loin",
+    "title": "Bien préparé\n*pour votre logement familial.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Appartement",
+      "title": "Acheter en PPE",
+      "text": "Ce qui compte pour une famille en PPE.",
+      "to": "page:lp-eigentumswohnung"
+     },
+     {
+      "kicker": "Guide",
+      "title": "Combien de fonds propres?",
+      "text": "Fonds propres durs, prévoyance et frais d'achat.",
+      "to": "page:rg-eigenmittel"
+     },
+     {
+      "kicker": "Estimation",
+      "title": "Le prix est-il juste?",
+      "text": "Valeur de marché selon le modèle de Wüest Partner, CHF 300 au lieu de 450.",
+      "to": "page:bewertung"
+     },
+     {
+      "kicker": "Courtiers",
+      "title": "Devenir partenaire",
+      "text": "Vos acheteurs se financent avec nous, vous touchez une commission.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "Premier achat\n*en toute clarté.*",
+    "items": [
+     {
+      "q": "De combien de fonds propres une jeune famille a-t-elle besoin?",
+      "a": "Au moins **20 %** du prix, dont 10 % de fonds propres durs (hors 2e pilier). S'ajoutent les frais d'achat d'environ 2 à 5 % selon le canton. État 2026, sans garantie."
+     },
+     {
+      "q": "Existe-t-il des hypothèques famille avec rabais?",
+      "a": "Certains prêteurs ont des offres pour familles. Seule une comparaison complète montre si elles sont avantageuses. Nous les intégrons, sans frais pour vous."
+     },
+     {
+      "q": "Le temps partiel influence-t-il la capacité financière?",
+      "a": "Oui. Intérêts (taux théorique 5 %), entretien 1 % et amortissement ne devraient pas dépasser environ un tiers du revenu brut. Le taux d'activité effectif compte: annoncez tôt une réduction prévue."
+     },
+     {
+      "q": "Peut-on utiliser le 2e pilier et le 3a comme fonds propres?",
+      "a": "Oui: 2e pilier par retrait dès CHF 20’000 ou nantissement, 3e pilier par retrait ou nantissement. Au moins 10 % du prix doivent rester des fonds propres durs. Vérifiez le règlement de votre caisse."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Calculateur de capacité",
+      "to": "page:tragbarkeit"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Prêts pour\n*votre premier logement?*",
+    "text": "Demande en 3 minutes, comparaison gratuite, attestation pour votre offre.",
+    "ctas": [
+     {
+      "label": "Demander un financement",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Ipoteca per giovani famiglie e prima casa | HYPOTEQ",
+  "description": "Prima casa con la tua famiglia? Verifichiamo fondi propri, 2° pilastro e sostenibilità e confrontiamo gratis oltre 40 istituti. Richiesta in 3 minuti.",
+  "h1": "La tua prima casa come giovane famiglia",
+  "nav": [
+   "Giovani famiglie & 1a casa",
+   "Finanziare la prima casa"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Ipoteca giovani famiglie",
+    "h1": "La tua prima casa\ncome giovane famiglia",
+    "lead": "Più spazio per i bambini, ma domande su fondi propri, cassa pensione e sostenibilità? Con un'**ipoteca per giovani famiglie** di HYPOTEQ ottieni rapidamente una conferma di finanziamento e confronti gratis oltre 40 istituti.",
+    "ctas": [
+     {
+      "label": "Richiedi il finanziamento",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Gratuito e senza impegno",
+     "Richiesta in 3 minuti",
+     "Offerte in 48–72 h"
+    ],
+    "image": "family",
+    "alt": "Giovane famiglia nella nuova casa ancora vuota",
+    "float": {
+     "title": "La tua consulente ti contatta",
+     "text": "in tempi brevi"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banche, assicurazioni e casse pensione"
+     },
+     {
+      "value": "0 CHF",
+      "label": "per confronto e intermediazione"
+     },
+     {
+      "value": "3 min",
+      "label": "per una richiesta completa"
+     },
+     {
+      "value": "48–72 h",
+      "label": "fino alle offerte concrete"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Primo acquisto casa",
+    "title": "La casa giusta c'è.\n*Il finanziamento non ancora.*",
+    "image": "family-home",
+    "alt": "Famiglia a tavola che pianifica l'acquisto",
+    "paragraphs": [
+     "Per la **prima casa in Svizzera** con figli arriva tutto insieme: visite, offerte concorrenti, costi dell'asilo nido e magari un tempo parziale. Senza conferma di finanziamento, al **primo acquisto casa** si rischia di arrivare secondi.",
+     "Chiariamo prima fondi propri, uso di cassa pensione e 3° pilastro e prezzo sostenibile. Poi raccogliamo offerte da banche, assicurazioni e casse pensione."
+    ],
+    "bullets": [
+     "Conferma per la tua offerta d'acquisto",
+     "Offerte famiglia a confronto",
+     "Una consulente personale, niente hotline"
+    ],
+    "ctas": [
+     {
+      "label": "Richiedi la conferma",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Come ti aiutiamo",
+    "title": "Quattro passi\nverso la prima casa.",
+    "items": [
+     {
+      "title": "Richiesta in 3 minuti",
+      "text": "Carica certificati di salario, della cassa pensione e documenti dell'immobile. L'IA legge la maggior parte dei dati."
+     },
+     {
+      "title": "Chiarire il budget",
+      "text": "La tua consulente verifica fondi propri, 2° pilastro e sostenibilità, anche a tempo parziale."
+     },
+     {
+      "title": "Offerte & conferma",
+      "text": "Con documenti completi, offerte di regola entro 48–72 h. Poi fai la tua offerta."
+     },
+     {
+      "title": "Fino alla consegna delle chiavi",
+      "text": "Coordiniamo banca, notaio e agente immobiliare fino al trasloco."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Inizia ora",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Ostacoli tipici",
+    "title": "Gli ostacoli della prima casa.\n*E come li risolviamo.*",
+    "lead": "Regole generali svizzere, stato 2026, senza garanzia.",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Fondi propri",
+      "title": "Risparmi insufficienti?",
+      "text": "Servono il 20 % di fondi propri, di cui 10 % duri. 3° pilastro, anticipo ereditario o donazione possono aiutare.",
+      "to": "page:lp-wenig-eigenmittel"
+     },
+     {
+      "kicker": "Tempo parziale",
+      "title": "Sostenibilità al limite",
+      "text": "Tasso teorico 5 %, manutenzione 1 % e ammortamento: cerchiamo istituti adatti al vostro grado di occupazione.",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "kicker": "Previdenza",
+      "title": "Usare la cassa pensione?",
+      "text": "Prelievo da CHF 20’000 o costituzione in pegno. Calcoliamo con te entrambe le varianti.",
+      "to": "page:rg-pk"
+     },
+     {
+      "kicker": "Rapidità",
+      "title": "Altri offrono prima",
+      "text": "La conferma di finanziamento mostra al venditore che la tua offerta è solida.",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Quanta casa possiamo permetterci?",
+    "title": "Il vostro budget\n*in pochi secondi.*",
+    "lead": "Inserisci prezzo, fondi propri e reddito familiare e scopri come le banche calcolano anticipo e sostenibilità."
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Approfondisci",
+    "title": "Ben preparati\n*per la casa di famiglia.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Appartamento",
+      "title": "Comprare in PPP",
+      "text": "Cosa conta per una famiglia in PPP.",
+      "to": "page:lp-eigentumswohnung"
+     },
+     {
+      "kicker": "Guida",
+      "title": "Quanti fondi propri?",
+      "text": "Fondi propri duri, previdenza e costi d'acquisto.",
+      "to": "page:rg-eigenmittel"
+     },
+     {
+      "kicker": "Valutazione",
+      "title": "Il prezzo è giusto?",
+      "text": "Valore di mercato secondo il modello di Wüest Partner, CHF 300 invece di 450.",
+      "to": "page:bewertung"
+     },
+     {
+      "kicker": "Agenti immobiliari",
+      "title": "Diventa partner",
+      "text": "I tuoi acquirenti si finanziano con noi, tu ricevi una provvigione.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "Prima casa\n*senza dubbi.*",
+    "items": [
+     {
+      "q": "Quanti fondi propri servono a una giovane famiglia?",
+      "a": "Almeno il **20 %** del prezzo, di cui il 10 % di fondi propri duri (non dalla cassa pensione). Si aggiungono costi d'acquisto del 2–5 % circa secondo il cantone. Stato 2026, senza garanzia."
+     },
+     {
+      "q": "Esistono ipoteche famiglia con sconto sul tasso?",
+      "a": "Alcuni istituti hanno offerte per famiglie. Solo un confronto completo mostra se convengono. Le includiamo, senza costi per te."
+     },
+     {
+      "q": "Il lavoro a tempo parziale incide sulla sostenibilità?",
+      "a": "Sì. Interessi (tasso teorico 5 %), manutenzione 1 % e ammortamento non dovrebbero superare circa un terzo del reddito lordo. Conta il grado di occupazione effettivo: segnala subito una riduzione prevista."
+     },
+     {
+      "q": "Posso usare il 2° pilastro e il 3a come fondi propri?",
+      "a": "Sì: cassa pensione con prelievo da CHF 20’000 o pegno, 3° pilastro con prelievo o pegno. Almeno il 10 % del prezzo deve restare in fondi propri duri. Verifica il regolamento della tua cassa."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Calcolo sostenibilità",
+      "to": "page:tragbarkeit"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Pronti per\n*la vostra prima casa?*",
+    "text": "Richiesta in 3 minuti, confronto gratuito e conferma di finanziamento per fare la tua offerta.",
+    "ctas": [
+     {
+      "label": "Richiedi il finanziamento",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "Mortgage for young families and first-time buyers | HYPOTEQ",
+  "description": "Buying your first family home? We check your equity, pension withdrawal and affordability and compare 40+ lenders for free. Apply in 3 minutes.",
+  "h1": "Your first home as a young family",
+  "nav": [
+   "Young families & first home",
+   "Financing your first home"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "First time buyer mortgage Switzerland",
+    "h1": "Your first home\nas a young family",
+    "lead": "More room for the kids, but lots of questions about equity, pension money and affordability? With a **first time buyer mortgage in Switzerland** from HYPOTEQ you get clarity, a fast financing confirmation and a free comparison of more than 40 lenders.",
+    "ctas": [
+     {
+      "label": "Request financing",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Free & non-binding",
+     "Apply in 3 minutes",
+     "Offers in 48–72 h"
+    ],
+    "image": "family",
+    "alt": "Young family in their new, still empty home",
+    "float": {
+     "title": "Your advisor gets in touch",
+     "text": "on the same business day"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banks, insurers and pension funds"
+     },
+     {
+      "value": "0 CHF",
+      "label": "for comparison and brokerage"
+     },
+     {
+      "value": "3 min",
+      "label": "to a complete request"
+     },
+     {
+      "value": "48–72 h",
+      "label": "to concrete offers"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "First home Switzerland",
+    "title": "You found the house.\n*Now you need the financing.*",
+    "image": "family-home",
+    "alt": "Family at the table planning their purchase",
+    "paragraphs": [
+     "**Buying a house with kids in Switzerland** means a lot at once: viewings, competing bids, childcare costs and perhaps a reduced workload. Without a financing confirmation, first-time buyers often lose out to faster bidders.",
+     "First we clarify your equity, the role of pillar 2 and 3a and an affordable price. Then we collect offers from banks, insurers and pension funds."
+    ],
+    "bullets": [
+     "Financing confirmation for your purchase offer",
+     "Any family offers compared side by side",
+     "A personal advisor instead of a hotline"
+    ],
+    "ctas": [
+     {
+      "label": "Request a confirmation",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "How we help",
+    "title": "Four steps\nto your first home.",
+    "items": [
+     {
+      "title": "Request in 3 minutes",
+      "text": "Upload salary statements, pension fund certificates and property documents. Our AI reads most of the details."
+     },
+     {
+      "title": "Clarify your budget",
+      "text": "Your advisor checks hard equity, pension withdrawal or pledge and affordability, including part-time work."
+     },
+     {
+      "title": "Offers & confirmation",
+      "text": "With complete documents, offers usually arrive within 48–72 h, so you can place your bid."
+     },
+     {
+      "title": "Through to the keys",
+      "text": "We coordinate with bank, notary and agent until you move in."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Get started",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Common hurdles",
+    "title": "What holds first-time buyers back.\n*And how we solve it.*",
+    "lead": "General Swiss rules, as of 2026, without guarantee.",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Equity",
+      "title": "Not enough savings?",
+      "text": "You need 20 % equity, 10 % of it hard. Pillar 3a, an advance on inheritance or a gift can help.",
+      "to": "page:lp-wenig-eigenmittel"
+     },
+     {
+      "kicker": "Part-time",
+      "title": "Affordability is tight",
+      "text": "Imputed 5 % rate, 1 % maintenance and amortisation: we find lenders whose criteria fit your workload.",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "kicker": "Pension",
+      "title": "Use pension money?",
+      "text": "Withdrawal from CHF 20,000 or a pledge. We calculate both options with you.",
+      "to": "page:rg-pk"
+     },
+     {
+      "kicker": "Speed",
+      "title": "Others bid faster",
+      "text": "A financing confirmation shows seller and agent that your offer is solid.",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "How much house can we afford?",
+    "title": "Your budget\n*in seconds.*",
+    "lead": "Enter price, equity and household income and see how banks calculate loan-to-value and affordability."
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Related",
+    "title": "Well prepared\n*for your family home.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Apartment",
+      "title": "Buying a condo",
+      "text": "What matters for families in condominium ownership.",
+      "to": "page:lp-eigentumswohnung"
+     },
+     {
+      "kicker": "Guide",
+      "title": "How much equity?",
+      "text": "Hard equity, pension money and purchase costs explained.",
+      "to": "page:rg-eigenmittel"
+     },
+     {
+      "kicker": "Valuation",
+      "title": "Is the price fair?",
+      "text": "Market value based on the Wüest Partner model, CHF 300 instead of 450.",
+      "to": "page:bewertung"
+     },
+     {
+      "kicker": "For agents",
+      "title": "Become a partner",
+      "text": "Your buyers finance with us and you earn a fair commission.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Your first home,\n*clearly explained.*",
+    "items": [
+     {
+      "q": "How much equity does a young family need?",
+      "a": "At least **20 %** of the price, 10 % of it hard equity (not from the pension fund). Add purchase costs of roughly 2–5 % depending on the canton. As of 2026, without guarantee."
+     },
+     {
+      "q": "Are there family mortgages with rate discounts?",
+      "a": "Some lenders have offers for families. Only a full comparison shows whether they pay off. We include them at no cost to you."
+     },
+     {
+      "q": "How does part-time work affect affordability?",
+      "a": "Interest (imputed at 5 %), 1 % maintenance and amortisation should not exceed about one third of gross income. Your actual workload counts, so tell us early about any planned reduction."
+     },
+     {
+      "q": "Can we use pension fund and pillar 3a money as equity?",
+      "a": "Yes: pension fund withdrawal from CHF 20,000 or a pledge, pillar 3a via withdrawal or pledge. At least 10 % of the price must still be hard equity. Check your pension fund's regulations."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Affordability calculator",
+      "to": "page:tragbarkeit"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Ready for\n*your first home?*",
+    "text": "Apply in 3 minutes, compare for free and bid with a financing confirmation.",
+    "ctas": [
+     {
+      "label": "Request financing",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ }
+}

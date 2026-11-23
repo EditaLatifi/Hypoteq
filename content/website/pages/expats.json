@@ -1,0 +1,938 @@
+{
+ "de": {
+  "title": "Hypothek für Ausländer & Expats in der Schweiz | HYPOTEQ",
+  "description": "Mit B- oder C-Bewilligung ein Eigenheim kaufen? Wir erklären Lex Koller und finden Banken, die Expats finanzieren. Beratung auch auf Englisch.",
+  "h1": "Hypothek für Expats und Ausländer",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypotheken · Expats",
+    "h1": "Hypothek für Expats\nund Ausländer",
+    "lead": "Du lebst mit B- oder C-Bewilligung in der Schweiz und willst ein Eigenheim kaufen? Wir erklären die Lex Koller und finden unter 40+ Anbietern die passende **Hypothek für Ausländer in der Schweiz**, Beratung auch auf Englisch.",
+    "ctas": [
+     {
+      "label": "Hypothek anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "Komplexer Fall? Advisory",
+      "to": "page:advisory"
+     }
+    ],
+    "badges": [
+     "Beratung auf Englisch",
+     "0 CHF Vermittlung",
+     "B- & C-Bewilligung"
+    ],
+    "image": "zurich-neighbourhood",
+    "alt": "Wohnquartier in Zürich",
+    "float": {
+     "title": "Deutsch, Français, Italiano, English",
+     "text": "Beratung in vier Sprachen"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "Banken, Versicherungen & Pensionskassen"
+     },
+     {
+      "value": "0 CHF",
+      "label": "für Vergleich und Vermittlung"
+     },
+     {
+      "value": "3 Min.",
+      "label": "bis zur vollständigen Anfrage"
+     },
+     {
+      "value": "4",
+      "label": "Beratungssprachen inkl. Englisch"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Deine Bewilligung",
+    "title": "Was ist mit\n*meiner Bewilligung möglich?*",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "C-Bewilligung",
+      "title": "Wie Schweizer:innen",
+      "text": "Mit Niederlassungsbewilligung C gilt die Lex Koller nicht. Du kaufst und finanzierst grundsätzlich zu den gleichen Regeln wie Schweizer Staatsangehörige."
+     },
+     {
+      "kicker": "B-Bewilligung",
+      "title": "Selbst bewohnt: ja",
+      "text": "Mit B-Bewilligung und Wohnsitz in der Schweiz darfst du **selbst bewohntes Wohneigentum** erwerben. Banken prüfen Aufenthaltsdauer, Arbeitsvertrag und verlangen oft mehr Eigenmittel."
+     },
+     {
+      "kicker": "Grenzgänger & Ausland",
+      "title": "Lex Koller beachten",
+      "text": "Wer keinen Wohnsitz in der Schweiz hat, etwa Grenzgänger, untersteht der Lex Koller. Der Erwerb ist nur eingeschränkt möglich. Wir klären deinen Fall im Advisory."
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Eigenmittel & Tragbarkeit",
+    "title": "Gleiche Regeln.\n*Oft strengere Banken.*",
+    "image": "keys",
+    "alt": "Schlüssel zum neuen Eigenheim",
+    "paragraphs": [
+     "Für alle gilt: mindestens **20 % Eigenmittel**, davon mindestens 10 % «hart», also nicht aus der Pensionskasse. Die Belehnung beträgt höchstens 80 %, die Tragbarkeit wird mit 5 % kalkulatorischem Zins, 1 % Unterhalt und Amortisation gerechnet und soll rund ein Drittel des Bruttoeinkommens nicht übersteigen.",
+     "Bei Ausländerinnen und Ausländern verlangt die Bank in der Regel **mehr Eigenmittel**, besonders mit B-Bewilligung oder kurzem Aufenthalt. Weil die Anbieter sehr unterschiedlich rechnen, lohnt sich der Vergleich hier besonders."
+    ],
+    "bullets": [
+     "Eigenmittel aus dem Ausland sauber belegen",
+     "Säule 3a und Pensionskasse einsetzbar (Regeln prüfen)",
+     "Kaufnebenkosten je nach Kanton ca. 2–5 %",
+     "Stand 2026, ohne Gewähr"
+    ],
+    "ctas": [
+     {
+      "label": "Tragbarkeit berechnen",
+      "to": "page:tragbarkeit"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "So funktioniert’s",
+    "title": "Vom Wohntraum\n*zur Zusage.*",
+    "items": [
+     {
+      "title": "Online anfragen",
+      "text": "Ausweis, Bewilligung, Lohnausweis und Kaufunterlagen hochladen. Die KI liest die meisten Angaben aus, in ca. 3 Minuten."
+     },
+     {
+      "title": "Beratung in deiner Sprache",
+      "text": "Deine Beraterin meldet sich zeitnah, auf Wunsch auf Englisch."
+     },
+     {
+      "title": "Offerten vergleichen",
+      "text": "Wir fragen Anbieter an, die Expats finanzieren, und erhalten in der Regel innert 48–72 h Offerten."
+     },
+     {
+      "title": "Abschliessen",
+      "text": "Wir begleiten dich bis zur Auszahlung und koordinieren mit Bank und Notariat."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Hypothek anfragen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Komplexe Fälle",
+    "title": "Auslandsbezug?\n*Advisory hilft.*",
+    "image": "consultation",
+    "alt": "Beratungsgespräch am Tisch",
+    "tone": "soft",
+    "reverse": true,
+    "paragraphs": [
+     "Einkommen aus dem Ausland, Eigentum mit Partner:in im Ausland, Lex-Koller-Fragen oder eine Absage der Hausbank: Hier übernimmt unser **Advisory**. Das Mandat ist kostenpflichtig, das Erstgespräch kostenlos."
+    ],
+    "bullets": [
+     "Strukturen mit Auslandsbezug",
+     "Nach Bankabsagen",
+     "Erstgespräch kostenlos"
+    ],
+    "ctas": [
+     {
+      "label": "Erstgespräch vereinbaren",
+      "to": "page:advisory"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Weiterlesen",
+    "title": "Mehr zum\n*Eigenheimkauf.*",
+    "cols": 4,
+    "tone": "soft",
+    "items": [
+     {
+      "title": "Alle Hypotheken",
+      "text": "Kauf, Neubau, SARON und Fest im Überblick.",
+      "to": "page:hypotheken",
+      "cta": "Zur Übersicht"
+     },
+     {
+      "title": "Eigenmittel",
+      "text": "Wie viel Eigenkapital du brauchst und woher.",
+      "to": "page:rg-eigenmittel",
+      "cta": "Ratgeber lesen"
+     },
+     {
+      "title": "Nebenkosten",
+      "text": "Handänderungssteuer, Notar, Grundbuch.",
+      "to": "page:rg-nebenkosten",
+      "cta": "Ratgeber lesen"
+     },
+     {
+      "title": "Für Partner",
+      "text": "Relocation-Fachleute, Makler und Broker vermitteln im Partnerprogramm.",
+      "to": "page:partner",
+      "cta": "Partner werden"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Expats & Hypothek.",
+    "items": [
+     {
+      "q": "Bekomme ich mit B-Bewilligung eine Hypothek?",
+      "a": "Ja, für selbst bewohntes Wohneigentum mit Wohnsitz in der Schweiz. Banken achten auf Aufenthaltsdauer und Anstellung und verlangen oft mehr Eigenmittel als die üblichen 20 %."
+     },
+     {
+      "q": "Was regelt die Lex Koller?",
+      "a": "Die Lex Koller beschränkt den Grundstückserwerb durch Personen im Ausland. Sie betrifft Personen ohne Wohnsitz in der Schweiz bzw. ohne C-Bewilligung. Wer mit B-Bewilligung hier wohnt, darf selbst bewohntes Eigentum kaufen."
+     },
+     {
+      "q": "Brauche ich mehr Eigenkapital als Ausländer?",
+      "a": "Oft ja. Gesetzlich gelten mindestens 20 %, davon 10 % hart. Viele Banken verlangen bei Ausländerinnen und Ausländern mehr. Wir zeigen dir, wer fair rechnet."
+     },
+     {
+      "q": "Finanzieren Banken auch Grenzgänger?",
+      "a": "Grenzgänger wohnen im Ausland und unterstehen deshalb der Lex Koller. Ein Erwerb ist nur eingeschränkt möglich. Wir prüfen deinen Einzelfall im Advisory."
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Bereit für dein\n*Zuhause in der Schweiz?*",
+    "text": "Kostenlos vergleichen, Beratung auf Deutsch oder Englisch.",
+    "ctas": [
+     {
+      "label": "Hypothek anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Hypothèque pour étrangers et expatriés | HYPOTEQ",
+  "description": "Permis B ou C, frontalier? Nous expliquons la Lex Koller et trouvons les banques qui financent les étrangers en Suisse. Demande en 3 minutes.",
+  "h1": "Hypothèque pour étrangers en Suisse",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypothèques · Expatriés",
+    "h1": "Hypothèque pour\nétrangers en Suisse",
+    "lead": "Vous vivez en Suisse avec un permis B ou C et souhaitez acheter? Nous vous expliquons la Lex Koller et trouvons parmi 40+ prêteurs la bonne **hypothèque pour étranger en Suisse**, conseil aussi en anglais.",
+    "ctas": [
+     {
+      "label": "Demander une hypothèque",
+      "to": "funnel"
+     },
+     {
+      "label": "Cas complexe? Advisory",
+      "to": "page:advisory"
+     }
+    ],
+    "badges": [
+     "Conseil en anglais",
+     "Courtage 0 CHF",
+     "Permis B et C"
+    ],
+    "image": "zurich-neighbourhood",
+    "alt": "Quartier résidentiel à Zurich",
+    "float": {
+     "title": "Français, Deutsch, Italiano, English",
+     "text": "Conseil en quatre langues"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banques, assurances et caisses de pension"
+     },
+     {
+      "value": "0 CHF",
+      "label": "pour la comparaison et le courtage"
+     },
+     {
+      "value": "3 min",
+      "label": "pour une demande complète"
+     },
+     {
+      "value": "4",
+      "label": "langues de conseil, anglais inclus"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Votre permis",
+    "title": "Que permet\n*votre permis?*",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Permis C",
+      "title": "Comme un Suisse",
+      "text": "Avec un permis d'établissement C, la Lex Koller ne s'applique pas. Vous achetez et financez en principe aux mêmes règles que les ressortissants suisses."
+     },
+     {
+      "kicker": "Permis B",
+      "title": "Résidence principale: oui",
+      "text": "Avec un permis B et domicile en Suisse, vous pouvez acquérir un **logement que vous occupez vous-même**. Les banques examinent la durée de séjour, le contrat de travail et exigent souvent plus de fonds propres."
+     },
+     {
+      "kicker": "Frontaliers & étranger",
+      "title": "Lex Koller",
+      "text": "Sans domicile en Suisse, par exemple en tant que frontalier, la Lex Koller s'applique. L'acquisition n'est possible que de façon restreinte. Nous examinons votre cas dans l'Advisory."
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Fonds propres & capacité financière",
+    "title": "Mêmes règles.\n*Banques souvent plus strictes.*",
+    "image": "keys",
+    "alt": "Clés du nouveau logement",
+    "paragraphs": [
+     "Pour tous: au moins **20 % de fonds propres**, dont au moins 10 % «durs», hors 2e pilier. Le taux d'avance est de 80 % au maximum, la capacité financière est calculée avec un taux théorique de 5 %, 1 % de frais d'entretien et l'amortissement, au maximum environ un tiers du revenu brut.",
+     "Pour les étrangers, la banque exige en général **davantage de fonds propres**, surtout avec un permis B ou un séjour récent. Les prêteurs calculent très différemment: comparer est d'autant plus utile."
+    ],
+    "bullets": [
+     "Fonds propres de l'étranger bien documentés",
+     "3e pilier et 2e pilier utilisables (règles à vérifier)",
+     "Frais d'achat selon le canton env. 2–5 %",
+     "État 2026, sans garantie"
+    ],
+    "ctas": [
+     {
+      "label": "Calculer ma capacité",
+      "to": "page:tragbarkeit"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Comment ça marche",
+    "title": "Du projet\n*à l'accord de financement.*",
+    "items": [
+     {
+      "title": "Demande en ligne",
+      "text": "Pièce d'identité, permis, certificat de salaire et documents d'achat. L'IA lit la plupart des données, en 3 minutes environ."
+     },
+     {
+      "title": "Conseil dans votre langue",
+      "text": "Votre conseillère vous contacte rapidement, en anglais si vous le souhaitez."
+     },
+     {
+      "title": "Comparer les offres",
+      "text": "Nous sollicitons les prêteurs qui financent les expatriés, offres en général sous 48–72 h."
+     },
+     {
+      "title": "Conclure",
+      "text": "Nous vous accompagnons jusqu'au versement et coordonnons avec la banque et le notaire."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Demander une hypothèque",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Cas complexes",
+    "title": "Lien avec l'étranger?\n*L'Advisory vous aide.*",
+    "image": "consultation",
+    "alt": "Entretien de conseil",
+    "tone": "soft",
+    "reverse": true,
+    "paragraphs": [
+     "Revenus à l'étranger, copropriétaire domicilié hors de Suisse, questions de Lex Koller ou refus de votre banque: notre **Advisory** prend le relais. Le mandat est payant, le premier entretien gratuit."
+    ],
+    "bullets": [
+     "Structures avec lien international",
+     "Après un refus bancaire",
+     "Premier entretien gratuit"
+    ],
+    "ctas": [
+     {
+      "label": "Prendre rendez-vous",
+      "to": "page:advisory"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "À lire aussi",
+    "title": "Tout sur\n*l'achat immobilier.*",
+    "cols": 4,
+    "tone": "soft",
+    "items": [
+     {
+      "title": "Toutes les hypothèques",
+      "text": "Achat, construction, SARON et taux fixe.",
+      "to": "page:hypotheken",
+      "cta": "Vue d'ensemble"
+     },
+     {
+      "title": "Fonds propres",
+      "text": "Combien il en faut et d'où ils peuvent venir.",
+      "to": "page:rg-eigenmittel",
+      "cta": "Lire le guide"
+     },
+     {
+      "title": "Frais d'achat",
+      "text": "Droits de mutation, notaire, registre foncier.",
+      "to": "page:rg-nebenkosten",
+      "cta": "Lire le guide"
+     },
+     {
+      "title": "Pour les partenaires",
+      "text": "Courtiers et agents immobiliers recommandent leurs clients via le programme partenaires.",
+      "to": "page:partner",
+      "cta": "Devenir partenaire"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "Expatriés & hypothèque.",
+    "items": [
+     {
+      "q": "Puis-je obtenir une hypothèque avec un permis B?",
+      "a": "Oui, pour un logement occupé par vous-même avec domicile en Suisse. Les banques tiennent compte de la durée de séjour et de l'emploi et exigent souvent plus que les 20 % usuels de fonds propres."
+     },
+     {
+      "q": "Que prévoit la Lex Koller?",
+      "a": "La Lex Koller limite l'acquisition d'immeubles par des personnes à l'étranger. Elle concerne les personnes sans domicile en Suisse ou sans permis C. Avec un permis B et domicile ici, l'achat de votre résidence principale est possible."
+     },
+     {
+      "q": "Faut-il plus de fonds propres?",
+      "a": "Souvent oui. Le minimum est de 20 %, dont 10 % durs. Beaucoup de banques demandent davantage aux étrangers. Nous vous montrons qui calcule équitablement."
+     },
+     {
+      "q": "Les frontaliers peuvent-ils acheter?",
+      "a": "Les frontaliers sont domiciliés à l'étranger et soumis à la Lex Koller. L'acquisition n'est possible que de façon restreinte. Nous examinons votre cas dans l'Advisory."
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Prêt pour votre\n*chez-vous en Suisse?*",
+    "text": "Comparaison gratuite, conseil en français ou en anglais.",
+    "ctas": [
+     {
+      "label": "Demander une hypothèque",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Ipoteca per stranieri e frontalieri | HYPOTEQ",
+  "description": "Permesso B, C o G? Spieghiamo la Lex Koller e troviamo le banche che finanziano stranieri e frontalieri in Ticino. Richiesta in 3 minuti.",
+  "h1": "Ipoteca per stranieri e frontalieri",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Ipoteche · Stranieri",
+    "h1": "Ipoteca per stranieri\ne frontalieri",
+    "lead": "Vivi in Svizzera con permesso B o C, oppure sei frontaliere? Ti spieghiamo la Lex Koller e troviamo tra oltre 40 istituti l'**ipoteca per stranieri in Svizzera** giusta per te, consulenza anche in inglese.",
+    "ctas": [
+     {
+      "label": "Richiedi un'ipoteca",
+      "to": "funnel"
+     },
+     {
+      "label": "Caso complesso? Advisory",
+      "to": "page:advisory"
+     }
+    ],
+    "badges": [
+     "Consulenza anche in inglese",
+     "Mediazione 0 CHF",
+     "Permesso B, C e G"
+    ],
+    "image": "zurich-neighbourhood",
+    "alt": "Quartiere residenziale",
+    "float": {
+     "title": "Italiano, Deutsch, Français, English",
+     "text": "Consulenza in quattro lingue"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banche, assicurazioni e casse pensione"
+     },
+     {
+      "value": "0 CHF",
+      "label": "per confronto e mediazione"
+     },
+     {
+      "value": "3 min",
+      "label": "per una richiesta completa"
+     },
+     {
+      "value": "4",
+      "label": "lingue di consulenza, inglese incluso"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Il tuo permesso",
+    "title": "Cosa puoi fare\n*con il tuo permesso?*",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Permesso C",
+      "title": "Come uno svizzero",
+      "text": "Con il permesso di domicilio C la Lex Koller non si applica. Acquisti e finanzi in linea di principio alle stesse regole dei cittadini svizzeri."
+     },
+     {
+      "kicker": "Permesso B",
+      "title": "Abitazione propria: sì",
+      "text": "Con permesso B e domicilio in Svizzera puoi acquistare un'**abitazione ad uso proprio**. Le banche valutano durata del soggiorno e contratto di lavoro e chiedono spesso più fondi propri."
+     },
+     {
+      "kicker": "Frontalieri (permesso G)",
+      "title": "Lex Koller",
+      "text": "I frontalieri vivono all'estero e sono quindi soggetti alla Lex Koller. L'acquisto in Ticino è possibile solo in modo limitato. Valutiamo il tuo caso nell'Advisory."
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Fondi propri e sostenibilità",
+    "title": "Stesse regole.\n*Banche spesso più severe.*",
+    "image": "keys",
+    "alt": "Chiavi della nuova casa",
+    "paragraphs": [
+     "Per tutti vale: almeno il **20 % di fondi propri**, di cui almeno il 10 % «duri», cioè non dalla cassa pensione. L'anticipo è al massimo dell'80 %, la sostenibilità si calcola con un tasso teorico del 5 %, l'1 % di manutenzione e l'ammortamento, al massimo circa un terzo del reddito lordo.",
+     "Per gli stranieri la banca chiede di regola **più fondi propri**, soprattutto con permesso B o soggiorno breve. Gli istituti calcolano in modo molto diverso: confrontare conviene ancora di più."
+    ],
+    "bullets": [
+     "Fondi propri dall'estero ben documentati",
+     "3° pilastro e cassa pensione utilizzabili (verifica le regole)",
+     "Spese d'acquisto a seconda del cantone ca. 2–5 %",
+     "Stato 2026, senza garanzia"
+    ],
+    "ctas": [
+     {
+      "label": "Calcola la sostenibilità",
+      "to": "page:tragbarkeit"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Come funziona",
+    "title": "Dal progetto\n*alla conferma.*",
+    "items": [
+     {
+      "title": "Richiesta online",
+      "text": "Carica documento d'identità, permesso, certificato di salario e documenti d'acquisto. L'IA legge la maggior parte dei dati, in circa 3 minuti."
+     },
+     {
+      "title": "Consulenza nella tua lingua",
+      "text": "La tua consulente ti contatta in tempi brevi, anche in inglese."
+     },
+     {
+      "title": "Confronta le offerte",
+      "text": "Interpelliamo gli istituti che finanziano stranieri, offerte di regola entro 48–72 h."
+     },
+     {
+      "title": "Concludi",
+      "text": "Ti accompagniamo fino al versamento e coordiniamo con banca e notaio."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Richiedi un'ipoteca",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Casi complessi",
+    "title": "Legami con l'estero?\n*Ti aiuta l'Advisory.*",
+    "image": "consultation",
+    "alt": "Colloquio di consulenza",
+    "tone": "soft",
+    "reverse": true,
+    "paragraphs": [
+     "Reddito dall'estero, comproprietario domiciliato fuori dalla Svizzera, domande sulla Lex Koller o un rifiuto della banca: se ne occupa il nostro **Advisory**. Il mandato è a pagamento, il primo colloquio è gratuito."
+    ],
+    "bullets": [
+     "Strutture con legami internazionali",
+     "Dopo un rifiuto della banca",
+     "Primo colloquio gratuito"
+    ],
+    "ctas": [
+     {
+      "label": "Fissa un colloquio",
+      "to": "page:advisory"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Approfondisci",
+    "title": "Tutto\n*sull'acquisto.*",
+    "cols": 4,
+    "tone": "soft",
+    "items": [
+     {
+      "title": "Tutte le ipoteche",
+      "text": "Acquisto, nuova costruzione, SARON e tasso fisso.",
+      "to": "page:hypotheken",
+      "cta": "Panoramica"
+     },
+     {
+      "title": "Fondi propri",
+      "text": "Quanti ne servono e da dove possono arrivare.",
+      "to": "page:rg-eigenmittel",
+      "cta": "Leggi la guida"
+     },
+     {
+      "title": "Spese d'acquisto",
+      "text": "Tassa di trapasso, notaio, registro fondiario.",
+      "to": "page:rg-nebenkosten",
+      "cta": "Leggi la guida"
+     },
+     {
+      "title": "Per i partner",
+      "text": "Agenti immobiliari e broker segnalano i loro clienti con il programma partner.",
+      "to": "page:partner",
+      "cta": "Diventa partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "Stranieri e ipoteca.",
+    "items": [
+     {
+      "q": "Posso ottenere un'ipoteca con il permesso B?",
+      "a": "Sì, per un'abitazione ad uso proprio con domicilio in Svizzera. Le banche considerano durata del soggiorno e impiego e chiedono spesso più del consueto 20 % di fondi propri."
+     },
+     {
+      "q": "Cosa prevede la Lex Koller?",
+      "a": "La Lex Koller limita l'acquisto di fondi da parte di persone all'estero. Riguarda chi non ha domicilio in Svizzera o non ha il permesso C. Con permesso B e domicilio qui puoi acquistare l'abitazione in cui vivi."
+     },
+     {
+      "q": "I frontalieri possono comprare casa in Ticino?",
+      "a": "I frontalieri vivono all'estero e sono soggetti alla Lex Koller, quindi l'acquisto è possibile solo in modo limitato. Valutiamo il tuo caso concreto nell'Advisory."
+     },
+     {
+      "q": "Servono più fondi propri?",
+      "a": "Spesso sì. Il minimo è il 20 %, di cui il 10 % duri. Molte banche chiedono di più agli stranieri. Ti mostriamo chi calcola in modo corretto."
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Pronto per la tua\n*casa in Svizzera?*",
+    "text": "Confronto gratuito, consulenza in italiano o in inglese.",
+    "ctas": [
+     {
+      "label": "Richiedi un'ipoteca",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "Swiss Mortgages for Expats & Foreigners | HYPOTEQ",
+  "description": "B or C permit? Learn how Lex Koller works and get a Swiss mortgage with advice in English. We compare 40+ lenders for expats. Apply in 3 minutes.",
+  "h1": "Swiss mortgages for expats, in English",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Mortgages · Expats",
+    "h1": "Swiss mortgages\nfor expats, in English",
+    "lead": "Living in Switzerland on a B or C permit and ready to buy? We explain Lex Koller in plain English and compare 40+ lenders to find your **mortgage in Switzerland as an expat**, with advice in English from start to finish.",
+    "ctas": [
+     {
+      "label": "Apply in 3 minutes",
+      "to": "funnel"
+     },
+     {
+      "label": "Complex case? Advisory",
+      "to": "page:advisory"
+     }
+    ],
+    "badges": [
+     "Advice in English",
+     "CHF 0 brokerage",
+     "B & C permits"
+    ],
+    "image": "zurich-neighbourhood",
+    "alt": "Residential neighbourhood in Zurich",
+    "float": {
+     "title": "English, Deutsch, Français, Italiano",
+     "text": "Advice in four languages"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "Swiss banks, insurers & pension funds"
+     },
+     {
+      "value": "CHF 0",
+      "label": "for comparison and brokerage"
+     },
+     {
+      "value": "3 min",
+      "label": "to a complete application"
+     },
+     {
+      "value": "48–72 h",
+      "label": "to offers once documents are complete"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Your permit",
+    "title": "What can you buy\n*with your permit?*",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "C permit",
+      "title": "Same as Swiss citizens",
+      "text": "With a C permit (settlement permit), Lex Koller does not apply. You buy and finance under essentially the same rules as Swiss nationals."
+     },
+     {
+      "kicker": "B permit",
+      "title": "Your own home: yes",
+      "text": "With a B permit (residence permit) and your residence in Switzerland, you can buy a **home you live in yourself**. Lenders look at how long you have lived here and at your employment, and often ask for more equity."
+     },
+     {
+      "kicker": "Cross-border & non-residents",
+      "title": "Lex Koller applies",
+      "text": "If you do not live in Switzerland, for example as a cross-border commuter (G permit) or from abroad, Lex Koller applies and purchases are only possible to a limited extent. Our Advisory team reviews your case."
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Lex Koller explained",
+    "title": "Swiss property law,\n*in plain English.*",
+    "image": "swiss-landscape",
+    "alt": "Swiss mountain lake with green slopes",
+    "lead": "Lex Koller is the Swiss federal law that restricts the purchase of real estate by «persons abroad».",
+    "paragraphs": [
+     "Who counts as a person abroad is not about your passport but about your **residence and permit**. People without residence in Switzerland, or without a C permit, fall under Lex Koller.",
+     "In practice that means: with a C permit you are treated like a Swiss buyer. With a B permit and residence here, you can buy the home you live in. Investment properties, holiday homes or purchases from abroad are where it gets restrictive, and where we recommend a personal review before you sign anything."
+    ],
+    "bullets": [
+     "C permit: no Lex Koller restrictions",
+     "B permit: owner-occupied home allowed",
+     "No Swiss residence: restricted, check case by case",
+     "As of 2026, no guarantee"
+    ],
+    "ctas": [
+     {
+      "label": "Check my situation",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Equity & affordability",
+    "title": "Same rules.\n*Often stricter lenders.*",
+    "image": "keys",
+    "alt": "Keys to a new home",
+    "reverse": true,
+    "paragraphs": [
+     "Every buyer needs at least **20 % equity**, of which at least 10 % must be «hard» equity, meaning not from your pension fund. Lenders finance up to 80 % of the property value (loan-to-value).",
+     "**Affordability** is the Swiss stress test: lenders assume a 5 % imputed interest rate, 1 % for maintenance and running costs, plus amortisation. The total should not exceed roughly one third of your gross income. For foreigners, lenders usually ask for **more equity**, especially on a B permit or after a short stay."
+    ],
+    "bullets": [
+     "**Pillar 2** (occupational pension): early withdrawal from CHF 20’000 or pledge",
+     "**Pillar 3a** (private pension): withdrawal or pledge",
+     "Funds from abroad: document their origin clearly",
+     "Purchase costs: approx. 2–5 % depending on the canton"
+    ],
+    "ctas": [
+     {
+      "label": "Calculate affordability",
+      "to": "page:tragbarkeit"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "How it works",
+    "title": "From viewing\n*to approval.*",
+    "items": [
+     {
+      "title": "Apply online",
+      "text": "Upload your ID, permit, salary statement and purchase documents. Our AI reads most details, in about 3 minutes. You can also describe your project to our assistant HYPO."
+     },
+     {
+      "title": "Advice in English",
+      "text": "Your advisor usually gets in touch promptly. The AI does not advise you, a person does."
+     },
+     {
+      "title": "Compare offers",
+      "text": "We approach lenders that finance expats and typically receive offers within 48–72 hours."
+     },
+     {
+      "title": "Sign & move in",
+      "text": "We coordinate with the bank and notary until the funds are paid out."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Apply in 3 minutes",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Complex cases",
+    "title": "Ties abroad?\n*Advisory helps.*",
+    "image": "consultation",
+    "alt": "Advisory meeting at a table",
+    "tone": "soft",
+    "paragraphs": [
+     "Income from abroad, a co-owner living outside Switzerland, Lex Koller questions or a rejection from your bank: our **Advisory** team takes over. The mandate is paid, the first consultation is free."
+    ],
+    "bullets": [
+     "Cross-border ownership structures",
+     "After a bank rejection",
+     "First consultation free"
+    ],
+    "ctas": [
+     {
+      "label": "Book a consultation",
+      "to": "page:advisory"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Read more",
+    "title": "Everything about\n*buying in Switzerland.*",
+    "cols": 4,
+    "tone": "soft",
+    "items": [
+     {
+      "title": "All mortgages",
+      "text": "Purchase, new build, SARON and fixed rate.",
+      "to": "page:hypotheken",
+      "cta": "Overview"
+     },
+     {
+      "title": "Equity guide",
+      "text": "How much you need and where it can come from.",
+      "to": "page:rg-eigenmittel",
+      "cta": "Read guide"
+     },
+     {
+      "title": "SARON or fixed?",
+      "text": "Choosing the right mortgage model.",
+      "to": "page:rg-saron-fest",
+      "cta": "Read guide"
+     },
+     {
+      "title": "For partners",
+      "text": "Relocation experts, agents and brokers refer clients through our partner programme.",
+      "to": "page:partner",
+      "cta": "Become a partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Expats & Swiss mortgages.",
+    "items": [
+     {
+      "q": "Can I get a Swiss mortgage with a B permit?",
+      "a": "Yes, for a home you live in yourself while resident in Switzerland. Lenders consider how long you have been here and your employment, and often require more than the standard 20 % equity."
+     },
+     {
+      "q": "What is Lex Koller?",
+      "a": "A federal law restricting property purchases by persons abroad. It applies to people without residence in Switzerland or without a C permit. B permit holders living here may buy their own home."
+     },
+     {
+      "q": "How much equity do foreigners need?",
+      "a": "The minimum is 20 %, of which 10 % must be hard equity. Many lenders ask foreigners for more. We show you which lenders assess your case fairly."
+     },
+     {
+      "q": "Can non-residents buy property in Switzerland?",
+      "a": "Only to a limited extent, because Lex Koller applies. This also affects cross-border commuters. We review each case individually in Advisory."
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Ready for your\n*Swiss home?*",
+    "text": "Free comparison, advice in English, started in 3 minutes.",
+    "ctas": [
+     {
+      "label": "Apply in 3 minutes",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ }
+}

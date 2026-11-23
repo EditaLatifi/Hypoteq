@@ -1,0 +1,902 @@
+{
+ "de": {
+  "title": "Renditeobjekt & Zweitwohnung finanzieren | HYPOTEQ",
+  "description": "Mehrfamilienhaus, Renditewohnung oder Ferienwohnung: Wir finden die Finanzierung, auch mit höherem Eigenkapitalbedarf. 40+ Anbieter, Anfrage in 3 Min.",
+  "h1": "Renditeobjekte und Zweitwohnungen finanzieren",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypotheken · Renditeobjekte & Zweitwohnungen",
+    "h1": "Renditeobjekte und\nZweitwohnungen finanzieren",
+    "lead": "Du willst ein **Renditeobjekt finanzieren**, eine Wohnung vermieten oder eine Ferienwohnung kaufen? Wir vergleichen über 40 Banken, Versicherungen und Pensionskassen und finden Anbieter, die deine Mieteinnahmen und dein Vermögen fair bewerten.",
+    "ctas": [
+     {
+      "label": "Finanzierung anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "Zur Hypothekenübersicht",
+      "to": "page:hypotheken"
+     }
+    ],
+    "badges": [
+     "0 CHF Vermittlung",
+     "Mehrfamilienhaus bis Ferienwohnung",
+     "Anfrage in 3 Minuten"
+    ],
+    "image": "lugano",
+    "alt": "Luganersee mit Monte San Salvatore",
+    "float": {
+     "title": "Meist mind. 25 % Eigenmittel",
+     "text": "für Renditeobjekte · Stand 2026"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "Banken, Versicherungen & Pensionskassen"
+     },
+     {
+      "value": "25 %",
+      "label": "Eigenmittel als übliche Basis bei Renditeobjekten"
+     },
+     {
+      "value": "48–72 h",
+      "label": "bis zu den Offerten nach vollständigen Unterlagen"
+     },
+     {
+      "value": "0 CHF",
+      "label": "für Vergleich und Vermittlung"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Anforderungen",
+    "title": "Was Banken bei\n*Renditeobjekten* verlangen.",
+    "image": "house",
+    "alt": "Schweizer Chalet vor verschneiten Bergen",
+    "paragraphs": [
+     "Eine **Hypothek für eine Renditeliegenschaft** wird anders geprüft als ein selbst bewohntes Eigenheim. Die Bank schaut nicht nur auf dein Einkommen, sondern auch auf die nachhaltigen **Mieteinnahmen**, den Zustand des Objekts und die Lage.",
+     "Für Renditeobjekte verlangen die meisten Anbieter **mindestens 25 % Eigenmittel** und eine **schnellere Amortisation** als beim Eigenheim. Kaufnebenkosten von je nach Kanton ca. 2–5 % kommen dazu und müssen ebenfalls aus eigenen Mitteln bezahlt werden."
+    ],
+    "bullets": [
+     "Mind. 25 % Eigenmittel, in der Regel ohne Pensionskassengeld",
+     "Mietzinsliste, Mietverträge und Liegenschaftsabrechnung",
+     "Tragbarkeit mit kalkulatorischem Zins von 5 %",
+     "Schnellere Amortisation als beim Eigenheim"
+    ],
+    "ctas": [
+     {
+      "label": "Checkliste Renditeobjekt",
+      "to": "page:dokumente"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Objektarten",
+    "title": "Vom Mehrfamilienhaus\nbis zur Ferienwohnung.",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Mehrfamilienhaus",
+      "title": "Mehrfamilienhaus Finanzierung",
+      "text": "Bei MFH zählen Mietertrag, Leerstandsrisiko und Unterhalt. Wir bereiten das Dossier so auf, dass Banken den Ertrag nachvollziehen können.",
+      "to": "funnel",
+      "cta": "Anfrage starten"
+     },
+     {
+      "kicker": "Buy-to-let",
+      "title": "Renditewohnung kaufen und vermieten",
+      "text": "Buy-to-let in der Schweiz ist möglich, wenn Eigenmittel und Tragbarkeit stimmen. Dein übriges Einkommen spielt dabei eine wichtige Rolle.",
+      "to": "page:rg-tragbarkeit",
+      "cta": "Tragbarkeit verstehen"
+     },
+     {
+      "kicker": "Zweitwohnsitz",
+      "title": "Zweitwohnung finanzieren",
+      "text": "Für eine Ferienwohnung prüfen Banken vor allem deine Gesamtsituation, da selten Mieteinnahmen angerechnet werden. Die Wohnung lässt sich mit Wüest Partner bewerten.",
+      "to": "page:bewertung",
+      "cta": "Bewertung ansehen"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "So läuft’s",
+    "title": "In vier Schritten\nzur Finanzierung.",
+    "items": [
+     {
+      "title": "Unterlagen hochladen",
+      "text": "Kaufvertrag, Mietzinsliste und Steuerunterlagen hochladen. Die KI liest die meisten Angaben in rund 3 Minuten aus."
+     },
+     {
+      "title": "Persönliche Prüfung",
+      "text": "Deine Beraterin meldet sich zeitnah und prüft Eigenmittel, Ertrag und Tragbarkeit."
+     },
+     {
+      "title": "Offerten vergleichen",
+      "text": "Wir holen Angebote bei passenden Anbietern ein. Nicht jede Bank finanziert jedes Renditeobjekt gleich gern."
+     },
+     {
+      "title": "Abschliessen",
+      "text": "Wir koordinieren mit Bank, Notariat und Verkäufer bis zur Auszahlung."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Jetzt anfragen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Richtzinsen",
+    "title": "Wo der Markt\n*heute steht.*",
+    "lead": "Die Richtzinsen sind Beispielwerte. Bei Renditeobjekten hängt dein Zins zusätzlich von Belehnung, Mietertrag und Objektqualität ab. Mehr zur Wahl des Modells: SARON oder Festhypothek."
+   },
+   {
+    "type": "split",
+    "eyebrow": "Komplexe Fälle",
+    "title": "Mehrere Objekte?\n*Advisory hilft.*",
+    "tone": "soft",
+    "reverse": true,
+    "image": "consultation",
+    "alt": "Beraterin bespricht ein Finanzierungskonzept",
+    "paragraphs": [
+     "Bei gemischt genutzten Liegenschaften, grösseren Portfolios, Kauf über eine juristische Person oder nach einer Bankabsage reicht ein einfacher Vergleich oft nicht. Unser **Advisory** entwickelt mit dir ein Finanzierungskonzept.",
+     "Das Advisory ist ein kostenpflichtiges Mandat, das **Erstgespräch ist kostenlos**. Fehlen Eigenmittel für ein grösseres Projekt, kann auch **Mezzanine-Kapital** eine Option sein."
+    ],
+    "ctas": [
+     {
+      "label": "Advisory ansehen",
+      "to": "page:advisory"
+     },
+     {
+      "label": "Mezzanine",
+      "to": "page:mezzanine"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Für Makler & Treuhänder",
+    "title": "Du vermittelst Renditeobjekte?\n*Werde Partner.*",
+    "screen": "portal",
+    "tone": "dark",
+    "paragraphs": [
+     "Im **Partnerprogramm** reichst du Finanzierungen deiner Kundschaft ein, verfolgst den Status im Partnerportal und erhältst eine faire Provision pro Abschluss. Die Kundenbeziehung bleibt bei dir."
+    ],
+    "ctas": [
+     {
+      "label": "Partner werden",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Renditeobjekte:\ngut zu wissen.",
+    "items": [
+     {
+      "q": "Wie viel Eigenkapital braucht ein Renditeobjekt?",
+      "a": "In der Regel **mindestens 25 %** des Kaufpreises bzw. Belehnungswerts, plus Kaufnebenkosten von je nach Kanton ca. 2–5 %. Je nach Objekt und Anbieter kann mehr verlangt werden (Stand 2026, ohne Gewähr)."
+     },
+     {
+      "q": "Wie berechnen Banken die Tragbarkeit bei Mietliegenschaften?",
+      "a": "Gerechnet wird mit einem kalkulatorischen Zins von 5 %, Unterhalt und Amortisation. Die Bank stellt diesen Kosten deine Mieteinnahmen und dein übriges Einkommen gegenüber. Wie stark der Mietertrag angerechnet wird, ist je nach Anbieter unterschiedlich. Genau hier hilft der Vergleich."
+     },
+     {
+      "q": "Darf ich Pensionskassengeld für eine Zweitwohnung nutzen?",
+      "a": "Nein, in der Regel nicht. Vorbezug und Verpfändung aus der Pensionskasse und der Säule 3a sind für **selbst bewohntes Wohneigentum** gedacht. Für Zweitwohnungen und Renditeobjekte brauchst du freie Eigenmittel."
+     },
+     {
+      "q": "Wie schnell muss ich amortisieren?",
+      "a": "Bei Renditeobjekten verlangen Banken meist eine **schnellere Amortisation** als beim Eigenheim. Die genauen Vorgaben unterscheiden sich je nach Anbieter und Belehnung. Wir zeigen dir die Unterschiede in den Offerten."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Alle Fragen",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Bereit für dein\n*nächstes Objekt?*",
+    "text": "Kostenlos vergleichen, persönlich begleitet. Starte die Anfrage in 3 Minuten.",
+    "ctas": [
+     {
+      "label": "Finanzierung anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Financer immeuble de rendement ou résidence | HYPOTEQ",
+  "description": "Immeuble locatif, appartement de rendement ou résidence secondaire: nous trouvons le financement adapté parmi 40+ prêteurs. Demande en 3 minutes.",
+  "h1": "Financer un bien de rendement ou secondaire",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypothèques · Rendement & résidence secondaire",
+    "h1": "Financer un bien de\nrendement ou secondaire",
+    "lead": "Vous souhaitez **financer un immeuble de rendement**, louer un appartement ou acheter une résidence secondaire? Nous comparons plus de 40 banques, assurances et caisses de pension pour trouver les prêteurs qui évaluent équitablement vos loyers et votre fortune.",
+    "ctas": [
+     {
+      "label": "Demander un financement",
+      "to": "funnel"
+     },
+     {
+      "label": "Vue d’ensemble hypothèques",
+      "to": "page:hypotheken"
+     }
+    ],
+    "badges": [
+     "0 CHF de courtage",
+     "De l’immeuble locatif au chalet",
+     "Demande en 3 minutes"
+    ],
+    "image": "lugano",
+    "alt": "Lac de Lugano et Monte San Salvatore",
+    "float": {
+     "title": "En général 25 % de fonds propres",
+     "text": "pour un bien de rendement · état 2026"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banques, assurances et caisses de pension"
+     },
+     {
+      "value": "25 %",
+      "label": "de fonds propres comme base usuelle"
+     },
+     {
+      "value": "48–72 h",
+      "label": "jusqu’aux offres, dossier complet"
+     },
+     {
+      "value": "0 CHF",
+      "label": "pour la comparaison et le courtage"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Exigences",
+    "title": "Ce que les banques exigent\npour un *bien de rendement*.",
+    "image": "house",
+    "alt": "Chalet suisse devant des montagnes enneigées",
+    "paragraphs": [
+     "Une **hypothèque pour un bien locatif** est examinée autrement qu’une résidence principale. La banque ne regarde pas seulement votre revenu, mais aussi les **loyers durables**, l’état du bien et sa situation.",
+     "Pour un immeuble de rendement, la plupart des prêteurs exigent **au moins 25 % de fonds propres** et un **amortissement plus rapide**. S’y ajoutent les frais d’acquisition d’environ 2 à 5 % selon le canton, également à financer avec vos propres moyens."
+    ],
+    "bullets": [
+     "Au moins 25 % de fonds propres, en règle générale sans 2e pilier",
+     "État locatif, baux et décompte de l’immeuble",
+     "Capacité financière calculée à un taux théorique de 5 %",
+     "Amortissement plus rapide que pour un logement occupé"
+    ],
+    "ctas": [
+     {
+      "label": "Check-list bien de rendement",
+      "to": "page:dokumente"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Types de biens",
+    "title": "De l’immeuble locatif\nà l’appartement de vacances.",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Immeuble locatif",
+      "title": "Financer un immeuble",
+      "text": "Pour un immeuble, comptent l’état locatif, le risque de vacance et l’entretien. Nous préparons un dossier que la banque comprend.",
+      "to": "funnel",
+      "cta": "Lancer la demande"
+     },
+     {
+      "kicker": "Investissement locatif",
+      "title": "Acheter un appartement à louer",
+      "text": "L’investissement locatif en Suisse est possible si les fonds propres et la capacité financière suivent. Votre autre revenu joue un rôle important.",
+      "to": "page:rg-tragbarkeit",
+      "cta": "Comprendre la capacité"
+     },
+     {
+      "kicker": "Résidence secondaire",
+      "title": "Financer une résidence secondaire",
+      "text": "Pour un appartement de vacances, la banque examine surtout votre situation globale. Le bien peut être évalué avec Wüest Partner.",
+      "to": "page:bewertung",
+      "cta": "Voir l’estimation"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Déroulement",
+    "title": "Quatre étapes\njusqu’au financement.",
+    "items": [
+     {
+      "title": "Envoyer vos documents",
+      "text": "Contrat d’achat, état locatif et documents fiscaux: l’IA lit la plupart des données en environ 3 minutes."
+     },
+     {
+      "title": "Examen personnel",
+      "text": "Votre conseillère vous contacte rapidement et vérifie fonds propres, rendement et capacité financière."
+     },
+     {
+      "title": "Comparer les offres",
+      "text": "Nous sollicitons les prêteurs adaptés. Tous ne financent pas chaque bien de rendement de la même manière."
+     },
+     {
+      "title": "Conclure",
+      "text": "Nous coordonnons avec la banque, le notaire et le vendeur jusqu’au versement."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Faire une demande",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Taux indicatifs",
+    "title": "Où en est\n*le marché.*",
+    "lead": "Les taux indicatifs sont des valeurs d’exemple. Pour un bien de rendement, votre taux dépend aussi du taux d’avance, des loyers et de la qualité du bien."
+   },
+   {
+    "type": "split",
+    "eyebrow": "Cas complexes",
+    "title": "Plusieurs biens?\n*Notre conseil vous aide.*",
+    "tone": "soft",
+    "reverse": true,
+    "image": "consultation",
+    "alt": "Conseillère présentant un concept de financement",
+    "paragraphs": [
+     "Usage mixte, portefeuille plus important, achat par une personne morale ou refus bancaire: une simple comparaison ne suffit souvent pas. Notre **Advisory** élabore avec vous un concept de financement.",
+     "L’Advisory est un mandat payant, le **premier entretien est gratuit**. S’il manque des fonds propres pour un projet, le **capital mezzanine** peut être une option."
+    ],
+    "ctas": [
+     {
+      "label": "Découvrir l’Advisory",
+      "to": "page:advisory"
+     },
+     {
+      "label": "Mezzanine",
+      "to": "page:mezzanine"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Pour courtiers et fiduciaires",
+    "title": "Vous vendez des biens de rendement?\n*Devenez partenaire.*",
+    "screen": "portal",
+    "tone": "dark",
+    "paragraphs": [
+     "Avec le **programme partenaires**, vous soumettez les financements de vos clients, suivez le statut dans le portail et recevez une commission équitable par conclusion. La relation client reste chez vous."
+    ],
+    "ctas": [
+     {
+      "label": "Devenir partenaire",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "Biens de rendement:\nbon à savoir.",
+    "items": [
+     {
+      "q": "Combien de fonds propres pour un immeuble de rendement?",
+      "a": "En général **au moins 25 %** du prix d’achat ou de la valeur de nantissement, plus les frais d’acquisition d’environ 2 à 5 % selon le canton. Certains prêteurs exigent davantage (état 2026, sans garantie)."
+     },
+     {
+      "q": "Comment est calculée la capacité financière?",
+      "a": "La banque calcule avec un taux théorique de 5 %, l’entretien et l’amortissement, et met ces coûts en regard de vos loyers et de vos autres revenus. La part des loyers prise en compte varie selon le prêteur, d’où l’intérêt de comparer."
+     },
+     {
+      "q": "Le 2e pilier est-il utilisable pour une résidence secondaire?",
+      "a": "Non, en règle générale. Le retrait anticipé et le nantissement du 2e et du 3e pilier sont réservés au **logement que vous occupez vous-même**. Pour une résidence secondaire ou un bien de rendement, il faut des fonds propres libres."
+     },
+     {
+      "q": "Quel amortissement est exigé?",
+      "a": "Pour un bien de rendement, les banques demandent en général un **amortissement plus rapide** que pour une résidence principale. Les modalités varient selon le prêteur et le taux d’avance; nous vous montrons les différences."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Toutes les questions",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Prêt pour votre\n*prochain bien?*",
+    "text": "Comparaison gratuite, accompagnement personnel. Lancez votre demande en 3 minutes.",
+    "ctas": [
+     {
+      "label": "Demander un financement",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Immobile da reddito o casa di vacanza | HYPOTEQ",
+  "description": "Stabile locativo, appartamento da reddito o casa di vacanza in Ticino: troviamo il finanziamento tra oltre 40 istituti. Richiesta in 3 minuti.",
+  "h1": "Finanziare immobili da reddito e case di vacanza",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Ipoteche · Reddito & residenza secondaria",
+    "h1": "Finanziare immobili da reddito\ne case di vacanza",
+    "lead": "Vuoi **finanziare un immobile da reddito**, affittare un appartamento o comprare una casa di vacanza in Ticino? Confrontiamo oltre 40 banche, assicurazioni e casse pensione e troviamo chi valuta in modo corretto affitti e patrimonio.",
+    "ctas": [
+     {
+      "label": "Richiedi il finanziamento",
+      "to": "funnel"
+     },
+     {
+      "label": "Panoramica ipoteche",
+      "to": "page:hypotheken"
+     }
+    ],
+    "badges": [
+     "0 CHF di mediazione",
+     "Dallo stabile alla casa di vacanza",
+     "Richiesta in 3 minuti"
+    ],
+    "image": "lugano",
+    "alt": "Lago di Lugano con il Monte San Salvatore",
+    "float": {
+     "title": "Di regola almeno 25 % di fondi propri",
+     "text": "per immobili da reddito · stato 2026"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banche, assicurazioni e casse pensione"
+     },
+     {
+      "value": "25 %",
+      "label": "di fondi propri come base abituale"
+     },
+     {
+      "value": "48–72 h",
+      "label": "fino alle offerte, documenti completi"
+     },
+     {
+      "value": "0 CHF",
+      "label": "per confronto e mediazione"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Requisiti",
+    "title": "Cosa chiedono le banche\nper un *immobile da reddito*.",
+    "image": "house",
+    "alt": "Chalet svizzero davanti a montagne innevate",
+    "paragraphs": [
+     "Un’**ipoteca per uno stabile locativo** viene valutata diversamente da una casa abitata in proprio. La banca guarda al tuo reddito, ma anche agli **affitti sostenibili**, allo stato dell’immobile e alla posizione.",
+     "Per gli immobili da reddito la maggior parte degli istituti chiede **almeno il 25 % di fondi propri** e un **ammortamento più rapido**. A questo si aggiungono le spese d’acquisto di circa il 2–5 % a seconda del cantone, da pagare con mezzi propri."
+    ],
+    "bullets": [
+     "Almeno 25 % di fondi propri, di regola senza cassa pensione",
+     "Stato locativo, contratti d’affitto e conteggio dello stabile",
+     "Sostenibilità calcolata con un tasso teorico del 5 %",
+     "Ammortamento più rapido rispetto alla casa propria"
+    ],
+    "ctas": [
+     {
+      "label": "Checklist immobile da reddito",
+      "to": "page:dokumente"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Tipi di immobile",
+    "title": "Dallo stabile locativo\nalla casa di vacanza.",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Stabile locativo",
+      "title": "Ipoteca stabile locativo",
+      "text": "Contano reddito locativo, rischio di sfitto e manutenzione. Prepariamo un dossier che la banca capisce subito.",
+      "to": "funnel",
+      "cta": "Avvia la richiesta"
+     },
+     {
+      "kicker": "Investimento",
+      "title": "Investimento immobiliare in Ticino",
+      "text": "Comprare per affittare è possibile se fondi propri e sostenibilità sono in ordine. Il tuo altro reddito ha un ruolo importante.",
+      "to": "page:rg-tragbarkeit",
+      "cta": "Capire la sostenibilità"
+     },
+     {
+      "kicker": "Residenza secondaria",
+      "title": "Ipoteca casa di vacanza",
+      "text": "Per una residenza secondaria in Ticino la banca guarda soprattutto alla tua situazione complessiva. L’immobile si può valutare con Wüest Partner.",
+      "to": "page:bewertung",
+      "cta": "Vedi la valutazione"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Come funziona",
+    "title": "Quattro passi\nfino al finanziamento.",
+    "items": [
+     {
+      "title": "Carica i documenti",
+      "text": "Contratto d’acquisto, stato locativo e documenti fiscali: l’IA legge la maggior parte dei dati in circa 3 minuti."
+     },
+     {
+      "title": "Verifica personale",
+      "text": "La tua consulente ti contatta in tempi brevi e verifica fondi propri, reddito e sostenibilità."
+     },
+     {
+      "title": "Confronta le offerte",
+      "text": "Chiediamo offerte agli istituti adatti. Non tutti finanziano ogni immobile da reddito allo stesso modo."
+     },
+     {
+      "title": "Concludi",
+      "text": "Coordiniamo con banca, notaio e venditore fino al versamento."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Richiedi ora",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Tassi indicativi",
+    "title": "A che punto\n*è il mercato.*",
+    "lead": "I tassi indicativi sono valori d’esempio. Per un immobile da reddito il tuo tasso dipende anche da anticipo, affitti e qualità dell’immobile."
+   },
+   {
+    "type": "split",
+    "eyebrow": "Casi complessi",
+    "title": "Più immobili?\n*L’Advisory ti aiuta.*",
+    "tone": "soft",
+    "reverse": true,
+    "image": "consultation",
+    "alt": "Consulente presenta un piano di finanziamento",
+    "paragraphs": [
+     "Uso misto, portafoglio più grande, acquisto tramite persona giuridica o rifiuto della banca: spesso un semplice confronto non basta. Il nostro **Advisory** sviluppa con te un piano di finanziamento.",
+     "L’Advisory è un mandato a pagamento, il **primo colloquio è gratuito**. Se mancano fondi propri per un progetto, anche il **capitale mezzanine** può essere un’opzione."
+    ],
+    "ctas": [
+     {
+      "label": "Scopri l’Advisory",
+      "to": "page:advisory"
+     },
+     {
+      "label": "Mezzanine",
+      "to": "page:mezzanine"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Per agenti e fiduciari",
+    "title": "Vendi immobili da reddito?\n*Diventa partner.*",
+    "screen": "portal",
+    "tone": "dark",
+    "paragraphs": [
+     "Con il **programma partner** inoltri i finanziamenti dei tuoi clienti, segui lo stato nel portale e ricevi una provvigione equa per ogni conclusione. Il rapporto con il cliente resta tuo."
+    ],
+    "ctas": [
+     {
+      "label": "Diventa partner",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "Immobili da reddito:\nbuono a sapersi.",
+    "items": [
+     {
+      "q": "Quanti fondi propri servono per un immobile da reddito?",
+      "a": "Di regola **almeno il 25 %** del prezzo o del valore di anticipo, più le spese d’acquisto di circa il 2–5 % a seconda del cantone. Alcuni istituti chiedono di più (stato 2026, senza garanzia)."
+     },
+     {
+      "q": "Come si calcola la sostenibilità?",
+      "a": "La banca calcola con un tasso teorico del 5 %, manutenzione e ammortamento, e confronta questi costi con affitti e altri redditi. Quanto dell’affitto viene considerato varia da istituto a istituto: per questo conviene confrontare."
+     },
+     {
+      "q": "Posso usare il 2° pilastro per una seconda casa?",
+      "a": "Di regola no. Prelievo anticipato e costituzione in pegno della cassa pensione e del 3° pilastro sono previsti per l’**abitazione ad uso proprio**. Per una seconda casa o un immobile da reddito servono fondi propri liberi."
+     },
+     {
+      "q": "Quanto devo ammortizzare?",
+      "a": "Per gli immobili da reddito le banche chiedono di solito un **ammortamento più rapido** rispetto alla casa propria. Le condizioni variano per istituto e anticipo; ti mostriamo le differenze nelle offerte."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Tutte le domande",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Pronto per il tuo\n*prossimo immobile?*",
+    "text": "Confronto gratuito, accompagnamento personale. Avvia la richiesta in 3 minuti.",
+    "ctas": [
+     {
+      "label": "Richiedi il finanziamento",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "Buy-to-Let & Second Home Mortgages | HYPOTEQ",
+  "description": "Apartment building, buy-to-let flat or holiday home in Switzerland: we find the right financing from 40+ lenders. Apply in 3 minutes, advice in English.",
+  "h1": "Financing investment and second homes",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Mortgages · Buy-to-let & second homes",
+    "h1": "Financing investment\nand second homes",
+    "lead": "Looking for a **buy to let mortgage in Switzerland**, an apartment building or a holiday home in the Alps? We compare 40+ Swiss banks, insurers and pension funds to find lenders that assess your rental income and assets fairly, with advice in English.",
+    "ctas": [
+     {
+      "label": "Apply for financing",
+      "to": "funnel"
+     },
+     {
+      "label": "All mortgage options",
+      "to": "page:hypotheken"
+     }
+    ],
+    "badges": [
+     "CHF 0 brokerage",
+     "Apartment building to holiday home",
+     "Apply in 3 minutes"
+    ],
+    "image": "lugano",
+    "alt": "Lake Lugano with Monte San Salvatore",
+    "float": {
+     "title": "Usually at least 25 % equity",
+     "text": "for investment property · as of 2026"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banks, insurers & pension funds"
+     },
+     {
+      "value": "25 %",
+      "label": "equity as the usual baseline"
+     },
+     {
+      "value": "48–72 h",
+      "label": "to offers once documents are complete"
+     },
+     {
+      "value": "CHF 0",
+      "label": "for comparison and brokerage"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Requirements",
+    "title": "What lenders expect for\n*investment property*.",
+    "image": "house",
+    "alt": "Swiss chalet in front of snowy mountains",
+    "paragraphs": [
+     "A mortgage on **investment property in Switzerland** is assessed differently from a home you live in. The lender looks at your income, but also at sustainable **rental income**, the condition of the building and its location.",
+     "For buy-to-let, most lenders ask for **at least 25 % equity** and **faster amortisation** (repayment) than for an owner-occupied home. Purchase costs of roughly 2–5 %, depending on the canton, come on top and also have to be paid from your own funds."
+    ],
+    "bullets": [
+     "At least 25 % equity, usually without pension money",
+     "Rent roll, tenancy agreements and property accounts",
+     "Affordability tested at an imputed 5 % interest rate",
+     "Faster amortisation than for an owner-occupied home"
+    ],
+    "ctas": [
+     {
+      "label": "Investment property checklist",
+      "to": "page:dokumente"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Property types",
+    "title": "From apartment buildings\nto holiday homes.",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Apartment building",
+      "title": "Multi-family building",
+      "text": "Rental income, vacancy risk and maintenance matter most. We prepare a file that lenders can follow easily.",
+      "to": "funnel",
+      "cta": "Start your application"
+     },
+     {
+      "kicker": "Buy-to-let",
+      "title": "Buy a flat to rent out",
+      "text": "Buy-to-let in Switzerland works when equity and affordability are in place. Your other income plays an important role.",
+      "to": "page:rg-tragbarkeit",
+      "cta": "Understand affordability"
+     },
+     {
+      "kicker": "Second home",
+      "title": "Holiday home mortgage Switzerland",
+      "text": "For a second home, the lender mainly looks at your overall situation. The property can be valued with Wüest Partner.",
+      "to": "page:bewertung",
+      "cta": "See the valuation"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "How it works",
+    "title": "Four steps\nto your financing.",
+    "items": [
+     {
+      "title": "Upload documents",
+      "text": "Purchase contract, rent roll and tax documents: our AI reads most details in about 3 minutes."
+     },
+     {
+      "title": "Personal review",
+      "text": "Your advisor usually gets back to you the same business day and checks equity, income and affordability."
+     },
+     {
+      "title": "Compare offers",
+      "text": "We request offers from suitable lenders. Not every bank finances every investment property the same way."
+     },
+     {
+      "title": "Close the deal",
+      "text": "We coordinate with the lender, notary and seller until the funds are paid out."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Apply now",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Indicative rates",
+    "title": "Where the market\n*stands today.*",
+    "lead": "Indicative rates are example values. For investment property, your rate also depends on the loan-to-value ratio, rental income and the quality of the building."
+   },
+   {
+    "type": "split",
+    "eyebrow": "Complex cases",
+    "title": "Several properties?\n*Advisory helps.*",
+    "tone": "soft",
+    "reverse": true,
+    "image": "consultation",
+    "alt": "Advisor presenting a financing plan",
+    "paragraphs": [
+     "Mixed-use buildings, a larger portfolio, buying through a company or after a bank rejection: a simple comparison often isn’t enough. Our **Advisory** team builds a financing plan with you.",
+     "Advisory is a paid mandate, the **first consultation is free**. If equity is missing for a larger project, **mezzanine capital** may be an option."
+    ],
+    "ctas": [
+     {
+      "label": "Explore Advisory",
+      "to": "page:advisory"
+     },
+     {
+      "label": "Mezzanine",
+      "to": "page:mezzanine"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "For agents & fiduciaries",
+    "title": "You sell investment property?\n*Become a partner.*",
+    "screen": "portal",
+    "tone": "dark",
+    "paragraphs": [
+     "With our **partner programme** you submit your clients’ financing cases, track their status in the partner portal and earn a fair commission per closed deal. The client relationship stays with you."
+    ],
+    "ctas": [
+     {
+      "label": "Become a partner",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Buy-to-let:\ngood to know.",
+    "items": [
+     {
+      "q": "How much equity is needed for a buy-to-let?",
+      "a": "Usually **at least 25 %** of the purchase price or lending value, plus purchase costs of roughly 2–5 % depending on the canton. Some lenders ask for more (as of 2026, no guarantee)."
+     },
+     {
+      "q": "How do banks assess rental income?",
+      "a": "Lenders apply an imputed interest rate of 5 %, maintenance and amortisation, and compare these costs with your rental income and other earnings. How much of the rent is counted differs between lenders, which is why comparing pays off."
+     },
+     {
+      "q": "Can I use pension funds for a second home?",
+      "a": "Generally no. Withdrawals and pledges from your pension fund (pillar 2) and pillar 3a are intended for **owner-occupied property**. A second home or buy-to-let needs freely available equity."
+     },
+     {
+      "q": "What amortisation is required?",
+      "a": "For investment property, lenders usually require **faster amortisation** than for an owner-occupied home. Terms vary by lender and loan-to-value; we show you the differences between the offers."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "All questions",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Ready for your\n*next property?*",
+    "text": "Free comparison, personal support in English. Start your application in 3 minutes.",
+    "ctas": [
+     {
+      "label": "Apply for financing",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ }
+}

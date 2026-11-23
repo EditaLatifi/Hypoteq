@@ -1,0 +1,1050 @@
+{
+ "de": {
+  "title": "Immobilienbewertung mit Wüest Partner | HYPOTEQ",
+  "description": "Hedonische Immobilienbewertung mit dem Modell von Wüest Partner: Einführungspreis CHF 300 statt 450. Marktwert deines Hauses oder deiner Wohnung.",
+  "h1": "Immobilienbewertung: Marktwert nach Wüest Partner",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Immobilienbewertung · Wüest Partner",
+    "h1": "Immobilienbewertung:\nMarktwert nach\nWüest Partner",
+    "lead": "Deine **Immobilienbewertung** mit dem hedonischen Modell von Wüest Partner, das Banken und Institutionen kennen. Online in wenigen Minuten, jetzt zum Einführungspreis von **CHF 300 statt 450**.",
+    "ctas": [
+     {
+      "label": "Bewertung starten",
+      "to": "bewertung"
+     },
+     {
+      "label": "CHF 300 statt 450 sichern",
+      "to": "bewertung"
+     }
+    ],
+    "badges": [
+     "CHF 300 statt 450",
+     "Online in wenigen Minuten",
+     "Modell von Wüest Partner"
+    ],
+    "image": "lake-living",
+    "alt": "Lavaux-Weinberge über dem Genfersee",
+    "float": {
+     "title": "CHF 300 statt 450",
+     "text": "Einführungspreis"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "CHF 300",
+      "label": "Einführungspreis statt CHF 450"
+     },
+     {
+      "value": "Online",
+      "label": "in wenigen Minuten zum Marktwert"
+     },
+     {
+      "value": "EFH & STWE",
+      "label": "Erst- oder Zweitwohnsitz"
+     },
+     {
+      "value": "35+",
+      "label": "Jahre Erfahrung im Team"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Hedonische Bewertung",
+    "title": "Der Wert, den\n*auch Banken kennen.*",
+    "screen": "valuation",
+    "paragraphs": [
+     "Die **hedonische Bewertung** vergleicht die Merkmale deiner Immobilie wie Lage, Grösse, Baujahr und Zustand mit vergleichbaren Objekten. Das Ergebnis ist ein nachvollziehbarer Marktwert mit Bandbreite.",
+     "Wir arbeiten mit dem Modell von **Wüest Partner**, einem Standard, den Banken und Institutionen in der Schweiz kennen. So weisst du, wo du stehst, bevor du verhandelst."
+    ],
+    "bullets": [
+     "Für Einfamilienhaus und Eigentumswohnung",
+     "Erst- oder Zweitwohnsitz",
+     "Online, ohne Besichtigungstermin"
+    ],
+    "ctas": [
+     {
+      "label": "Immobilie jetzt bewerten",
+      "to": "bewertung"
+     }
+    ]
+   },
+   {
+    "type": "pricing",
+    "eyebrow": "Preis",
+    "title": "Ein Preis.\n*Klarer Marktwert.*",
+    "lead": "Keine Abos, keine versteckten Kosten. Nur für kurze Zeit zum Einführungspreis.",
+    "items": [
+     {
+      "name": "Immobilienbewertung",
+      "price": "CHF 300",
+      "old": "CHF 450",
+      "badge": "Einführungspreis",
+      "featured": true,
+      "text": "Marktwert deines Hauses oder deiner Wohnung nach dem hedonischen Modell von Wüest Partner.",
+      "features": [
+       "Einfamilienhaus oder Eigentumswohnung",
+       "Erst- oder Zweitwohnsitz",
+       "Online in wenigen Minuten",
+       "Marktwert mit Bandbreite"
+      ],
+      "cta": {
+       "label": "Bewertung bestellen",
+       "to": "bewertung"
+      }
+     },
+     {
+      "name": "Für HYPOTEQ-Partner",
+      "price": "inklusive",
+      "text": "Makler, Treuhänder und Broker im Partnerprogramm erhalten die Immobilienbewertung für ihre Fälle inklusive.",
+      "features": [
+       "Für Kundenfälle im Partnerportal",
+       "Persönliche Ansprechperson",
+       "Academy für dein Team"
+      ],
+      "cta": {
+       "label": "Partner werden",
+       "to": "page:partner"
+      }
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Ablauf",
+    "title": "In vier Schritten\nzum Marktwert.",
+    "items": [
+     {
+      "title": "Adresse eingeben",
+      "text": "Die Lage ist der wichtigste Werttreiber. Mit der Adresse wird dein Objekt genau verortet."
+     },
+     {
+      "title": "Objekttyp wählen",
+      "text": "Einfamilienhaus oder Eigentumswohnung, Erst- oder Zweitwohnsitz."
+     },
+     {
+      "title": "Angaben ergänzen",
+      "text": "Wohnfläche, Zimmer, Baujahr, Zustand und Ausstattung. Je genauer, desto präziser die Bewertung."
+     },
+     {
+      "title": "Bericht erhalten",
+      "text": "Du erhältst den hedonischen **Marktwert mit Bandbreite**, online in wenigen Minuten."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Bewertung starten",
+      "to": "bewertung"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Für wen?",
+    "title": "Wer den Wert kennt,\n*entscheidet besser.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Käufer",
+      "title": "Vor dem Kauf",
+      "text": "Prüfe, ob der Preis marktgerecht ist, und verhandle mit Fakten.",
+      "to": "bewertung",
+      "cta": "Wert prüfen"
+     },
+     {
+      "kicker": "Eigentümer",
+      "title": "Wert im Blick",
+      "text": "Wisse, was dein Haus oder deine Wohnung heute wert ist, etwa vor einem Verkauf.",
+      "to": "bewertung",
+      "cta": "Bewerten"
+     },
+     {
+      "kicker": "Erben",
+      "title": "Erbteilung",
+      "text": "Eine neutrale Grundlage, wenn mehrere Erben eine Immobilie teilen oder übernehmen.",
+      "to": "bewertung",
+      "cta": "Bewerten"
+     },
+     {
+      "kicker": "Refinanzierung",
+      "title": "Ablösen & aufstocken",
+      "text": "Der aktuelle Wert zeigt, wie viel Belehnung bei der Ablösung möglich ist.",
+      "to": "bewertung",
+      "cta": "Bewerten"
+     }
+    ]
+   },
+   {
+    "type": "trust",
+    "items": [
+     "Modell von Wüest Partner",
+     "Hedonische Bewertung",
+     "CHF 300 statt 450",
+     "Online in wenigen Minuten",
+     "Einfamilienhaus & Eigentumswohnung",
+     "Für Partner inklusive"
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Für Makler, Treuhänder & Broker",
+    "title": "Bewertung inklusive.\n*Für deine Kunden.*",
+    "screen": "portal",
+    "tone": "dark",
+    "reverse": true,
+    "paragraphs": [
+     "Als HYPOTEQ-Partner ist die Immobilienbewertung für deine Fälle **inklusive**. Du reichst Fälle im Partnerportal ein, wir organisieren die Finanzierung, die Kundenbeziehung bleibt bei dir."
+    ],
+    "bullets": [
+     "Faire Provision pro Abschluss",
+     "Persönliche Ansprechperson, kein Bot",
+     "Academy-Zugang für dein Team"
+    ],
+    "ctas": [
+     {
+      "label": "Bewertung starten",
+      "to": "bewertung"
+     },
+     {
+      "label": "Partner werden",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Fragen zur\nImmobilienbewertung.",
+    "items": [
+     {
+      "q": "Wie funktioniert die hedonische Bewertung?",
+      "a": "Das Modell vergleicht die Merkmale deiner Immobilie wie Lage, Fläche, Baujahr und Zustand mit vergleichbaren Objekten und leitet daraus einen Marktwert mit Bandbreite ab. Wir nutzen das Modell von **Wüest Partner**."
+     },
+     {
+      "q": "Was kostet die Bewertung?",
+      "a": "Zum Einführungspreis **CHF 300 statt CHF 450**. Für HYPOTEQ-Partner ist die Bewertung inklusive. Der Hypothekenvergleich selbst bleibt für Privatkund:innen kostenlos."
+     },
+     {
+      "q": "Wofür brauche ich eine Bewertung?",
+      "a": "Vor einem Kauf, um den Preis zu prüfen, vor einem Verkauf, bei einer Erbteilung oder bei einer Refinanzierung, wenn du wissen willst, wie viel Belehnung möglich ist."
+     },
+     {
+      "q": "Wie unterscheidet sich die Bewertung von Gratis-Tools?",
+      "a": "Gratis-Schätzungen sind oft grobe Richtwerte. Unsere Bewertung basiert auf dem hedonischen Modell von Wüest Partner, das Banken und Institutionen kennen, und berücksichtigt deine konkreten Objektangaben."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Bewertung starten",
+      "to": "bewertung"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Was ist deine\n*Immobilie wert?*",
+    "text": "Online in wenigen Minuten. Jetzt CHF 300 statt 450.",
+    "ctas": [
+     {
+      "label": "Bewertung starten",
+      "to": "bewertung"
+     },
+     {
+      "label": "Bewertung bestellen",
+      "to": "bewertung"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Estimation immobilière avec Wüest Partner | HYPOTEQ",
+  "description": "Estimation hédoniste basée sur le modèle Wüest Partner: prix de lancement CHF 300 au lieu de 450. Commandez la valeur de marché de votre bien.",
+  "h1": "Estimation immobilière selon Wüest Partner",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Estimation immobilière · Wüest Partner",
+    "h1": "Estimation immobilière\nselon Wüest Partner",
+    "lead": "Votre **estimation immobilière** avec le modèle hédoniste de Wüest Partner, connu des banques et des institutions. En ligne en quelques minutes, au prix de lancement de **CHF 300 au lieu de 450**.",
+    "ctas": [
+     {
+      "label": "Lancer l'estimation",
+      "to": "bewertung"
+     },
+     {
+      "label": "Profiter de CHF 300 au lieu de 450",
+      "to": "bewertung"
+     }
+    ],
+    "badges": [
+     "CHF 300 au lieu de 450",
+     "En ligne en quelques minutes",
+     "Modèle Wüest Partner"
+    ],
+    "image": "lake-living",
+    "alt": "Vignobles de Lavaux au-dessus du Léman",
+    "float": {
+     "title": "CHF 300 au lieu de 450",
+     "text": "Prix de lancement"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "CHF 300",
+      "label": "prix de lancement au lieu de CHF 450"
+     },
+     {
+      "value": "Online",
+      "label": "valeur de marché en quelques minutes"
+     },
+     {
+      "value": "Villa & PPE",
+      "label": "résidence principale ou secondaire"
+     },
+     {
+      "value": "35+",
+      "label": "ans d'expérience dans l'équipe"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Méthode hédoniste",
+    "title": "La valeur que\n*les banques connaissent.*",
+    "screen": "valuation",
+    "paragraphs": [
+     "La **méthode hédoniste** compare les caractéristiques de votre bien, comme la situation, la surface, l'année de construction et l'état, avec des biens comparables. Le résultat: une valeur de marché claire avec une fourchette.",
+     "Nous travaillons avec le modèle de **Wüest Partner**, une référence connue des banques et des institutions en Suisse. Vous savez ainsi où vous en êtes avant de négocier."
+    ],
+    "bullets": [
+     "Pour maison individuelle et appartement en PPE",
+     "Résidence principale ou secondaire",
+     "En ligne, sans visite"
+    ],
+    "ctas": [
+     {
+      "label": "Estimer mon bien",
+      "to": "bewertung"
+     }
+    ]
+   },
+   {
+    "type": "pricing",
+    "eyebrow": "Prix",
+    "title": "Un prix.\n*Une valeur claire.*",
+    "lead": "Sans abonnement, sans frais cachés. Prix de lancement pour une durée limitée.",
+    "items": [
+     {
+      "name": "Estimation immobilière",
+      "price": "CHF 300",
+      "old": "CHF 450",
+      "badge": "Prix de lancement",
+      "featured": true,
+      "text": "Valeur de marché de votre maison ou de votre appartement selon le modèle hédoniste de Wüest Partner.",
+      "features": [
+       "Maison individuelle ou PPE",
+       "Résidence principale ou secondaire",
+       "En ligne en quelques minutes",
+       "Valeur de marché avec fourchette"
+      ],
+      "cta": {
+       "label": "Commander l'estimation",
+       "to": "bewertung"
+      }
+     },
+     {
+      "name": "Pour les partenaires HYPOTEQ",
+      "price": "inclus",
+      "text": "Les courtiers, fiduciaires et brokers du programme partenaires bénéficient de l'estimation incluse pour leurs dossiers.",
+      "features": [
+       "Pour les dossiers du portail partenaires",
+       "Interlocuteur personnel",
+       "Academy pour votre équipe"
+      ],
+      "cta": {
+       "label": "Devenir partenaire",
+       "to": "page:partner"
+      }
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Déroulement",
+    "title": "Quatre étapes\njusqu'à la valeur.",
+    "items": [
+     {
+      "title": "Saisir l'adresse",
+      "text": "La situation est le premier facteur de valeur. L'adresse permet de localiser précisément votre bien."
+     },
+     {
+      "title": "Choisir le type",
+      "text": "Maison individuelle ou appartement en PPE, résidence principale ou secondaire."
+     },
+     {
+      "title": "Compléter les données",
+      "text": "Surface, pièces, année de construction, état et équipement. Plus c'est précis, plus l'estimation l'est aussi."
+     },
+     {
+      "title": "Recevoir le rapport",
+      "text": "Vous obtenez la **valeur de marché hédoniste avec fourchette**, en ligne en quelques minutes."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Lancer l'estimation",
+      "to": "bewertung"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Pour qui?",
+    "title": "Connaître la valeur,\n*c'est mieux décider.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Acheteurs",
+      "title": "Avant l'achat",
+      "text": "Vérifiez si le prix est conforme au marché et négociez avec des faits.",
+      "to": "bewertung",
+      "cta": "Vérifier"
+     },
+     {
+      "kicker": "Propriétaires",
+      "title": "Suivre la valeur",
+      "text": "Sachez ce que vaut votre maison ou votre appartement aujourd'hui, par exemple avant une vente.",
+      "to": "bewertung",
+      "cta": "Estimer"
+     },
+     {
+      "kicker": "Héritiers",
+      "title": "Partage successoral",
+      "text": "Une base neutre quand plusieurs héritiers se partagent ou reprennent un bien.",
+      "to": "bewertung",
+      "cta": "Estimer"
+     },
+     {
+      "kicker": "Refinancement",
+      "title": "Renouveler & augmenter",
+      "text": "La valeur actuelle montre quel nantissement est possible lors d'un transfert.",
+      "to": "bewertung",
+      "cta": "Estimer"
+     }
+    ]
+   },
+   {
+    "type": "trust",
+    "items": [
+     "Modèle Wüest Partner",
+     "Méthode hédoniste",
+     "CHF 300 au lieu de 450",
+     "En ligne en quelques minutes",
+     "Villa & PPE",
+     "Inclus pour les partenaires"
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Pour courtiers, fiduciaires & brokers",
+    "title": "Estimation incluse.\n*Pour vos clients.*",
+    "screen": "portal",
+    "tone": "dark",
+    "reverse": true,
+    "paragraphs": [
+     "En tant que partenaire HYPOTEQ, l'estimation immobilière est **incluse** pour vos dossiers. Vous déposez vos cas dans le portail partenaires, nous organisons le financement et la relation client reste chez vous."
+    ],
+    "bullets": [
+     "Commission équitable par conclusion",
+     "Interlocuteur personnel, pas de robot",
+     "Accès Academy pour votre équipe"
+    ],
+    "ctas": [
+     {
+      "label": "Lancer l'estimation",
+      "to": "bewertung"
+     },
+     {
+      "label": "Devenir partenaire",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "Questions sur\nl'estimation.",
+    "items": [
+     {
+      "q": "Comment fonctionne la méthode hédoniste?",
+      "a": "Le modèle compare les caractéristiques de votre bien, comme la situation, la surface, l'année de construction et l'état, avec des biens comparables et en déduit une valeur de marché avec fourchette. Nous utilisons le modèle de **Wüest Partner**."
+     },
+     {
+      "q": "Combien coûte l'estimation?",
+      "a": "Au prix de lancement de **CHF 300 au lieu de CHF 450**. Pour les partenaires HYPOTEQ, l'estimation est incluse. La comparaison hypothécaire reste gratuite pour les particuliers."
+     },
+     {
+      "q": "Dans quels cas une estimation est-elle utile?",
+      "a": "Avant un achat pour vérifier le prix, avant une vente, lors d'un partage successoral ou d'un refinancement, pour savoir quel nantissement est possible."
+     },
+     {
+      "q": "Quelle différence avec les outils gratuits?",
+      "a": "Les estimations gratuites restent souvent des ordres de grandeur. Notre estimation repose sur le modèle hédoniste de Wüest Partner, connu des banques et des institutions, et tient compte des données concrètes de votre bien."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Lancer l'estimation",
+      "to": "bewertung"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Combien vaut\n*votre bien?*",
+    "text": "En ligne en quelques minutes. Maintenant CHF 300 au lieu de 450.",
+    "ctas": [
+     {
+      "label": "Lancer l'estimation",
+      "to": "bewertung"
+     },
+     {
+      "label": "Commander l'estimation",
+      "to": "bewertung"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Stima immobiliare con Wüest Partner | HYPOTEQ",
+  "description": "Stima edonica basata sul modello Wüest Partner: prezzo di lancio CHF 300 invece di 450. Ordina il valore di mercato della tua casa o appartamento.",
+  "h1": "Stima immobiliare secondo Wüest Partner",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Stima immobiliare · Wüest Partner",
+    "h1": "Stima immobiliare\nsecondo Wüest Partner",
+    "lead": "La tua **stima immobiliare** con il modello edonico di Wüest Partner, noto a banche e istituzioni. Online in pochi minuti, al prezzo di lancio di **CHF 300 invece di 450**.",
+    "ctas": [
+     {
+      "label": "Avvia la stima",
+      "to": "bewertung"
+     },
+     {
+      "label": "Approfitta di CHF 300 invece di 450",
+      "to": "bewertung"
+     }
+    ],
+    "badges": [
+     "CHF 300 invece di 450",
+     "Online in pochi minuti",
+     "Modello Wüest Partner"
+    ],
+    "image": "lake-living",
+    "alt": "Vigneti del Lavaux sopra il Lemano",
+    "float": {
+     "title": "CHF 300 invece di 450",
+     "text": "Prezzo di lancio"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "CHF 300",
+      "label": "prezzo di lancio invece di CHF 450"
+     },
+     {
+      "value": "Online",
+      "label": "valore di mercato in pochi minuti"
+     },
+     {
+      "value": "Casa & PPP",
+      "label": "residenza principale o secondaria"
+     },
+     {
+      "value": "35+",
+      "label": "anni di esperienza nel team"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Metodo edonico",
+    "title": "Il valore che\n*conoscono anche le banche.*",
+    "screen": "valuation",
+    "paragraphs": [
+     "Il **metodo edonico** confronta le caratteristiche del tuo immobile, come posizione, superficie, anno di costruzione e stato, con immobili comparabili. Il risultato è un valore di mercato chiaro con una forchetta.",
+     "Lavoriamo con il modello di **Wüest Partner**, uno standard noto a banche e istituzioni in Svizzera. Così sai dove ti trovi prima di trattare, anche per una valutazione immobile in Ticino."
+    ],
+    "bullets": [
+     "Per casa unifamiliare e appartamento in PPP",
+     "Residenza principale o secondaria",
+     "Online, senza sopralluogo"
+    ],
+    "ctas": [
+     {
+      "label": "Valuta il tuo immobile",
+      "to": "bewertung"
+     }
+    ]
+   },
+   {
+    "type": "pricing",
+    "eyebrow": "Prezzo",
+    "title": "Un prezzo.\n*Un valore chiaro.*",
+    "lead": "Niente abbonamenti, niente costi nascosti. Prezzo di lancio per un periodo limitato.",
+    "items": [
+     {
+      "name": "Stima immobiliare",
+      "price": "CHF 300",
+      "old": "CHF 450",
+      "badge": "Prezzo di lancio",
+      "featured": true,
+      "text": "Valore di mercato della tua casa o del tuo appartamento secondo il modello edonico di Wüest Partner.",
+      "features": [
+       "Casa unifamiliare o PPP",
+       "Residenza principale o secondaria",
+       "Online in pochi minuti",
+       "Valore di mercato con forchetta"
+      ],
+      "cta": {
+       "label": "Ordina la stima",
+       "to": "bewertung"
+      }
+     },
+     {
+      "name": "Per i partner HYPOTEQ",
+      "price": "inclusa",
+      "text": "Agenti immobiliari, fiduciari e broker del programma partner ricevono la stima inclusa per i loro casi.",
+      "features": [
+       "Per i casi nel portale partner",
+       "Persona di riferimento",
+       "Academy per il tuo team"
+      ],
+      "cta": {
+       "label": "Diventa partner",
+       "to": "page:partner"
+      }
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Procedura",
+    "title": "Quattro passi\nfino al valore.",
+    "items": [
+     {
+      "title": "Inserisci l'indirizzo",
+      "text": "La posizione è il fattore di valore più importante. Con l'indirizzo l'immobile viene localizzato con precisione."
+     },
+     {
+      "title": "Scegli il tipo",
+      "text": "Casa unifamiliare o appartamento in PPP, residenza principale o secondaria."
+     },
+     {
+      "title": "Completa i dati",
+      "text": "Superficie, locali, anno di costruzione, stato e finiture. Più sono precisi, più lo è la stima."
+     },
+     {
+      "title": "Ricevi il rapporto",
+      "text": "Ottieni il **valore di mercato edonico con forchetta**, online in pochi minuti."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Avvia la stima",
+      "to": "bewertung"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Per chi?",
+    "title": "Chi conosce il valore\n*decide meglio.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Acquirenti",
+      "title": "Prima dell'acquisto",
+      "text": "Verifica se il prezzo è in linea con il mercato e tratta con i fatti.",
+      "to": "bewertung",
+      "cta": "Verifica"
+     },
+     {
+      "kicker": "Proprietari",
+      "title": "Il valore sotto controllo",
+      "text": "Scopri quanto vale oggi la tua casa, ad esempio prima di una vendita.",
+      "to": "bewertung",
+      "cta": "Valuta"
+     },
+     {
+      "kicker": "Eredi",
+      "title": "Divisione ereditaria",
+      "text": "Una base neutrale quando più eredi si dividono o rilevano un immobile.",
+      "to": "bewertung",
+      "cta": "Valuta"
+     },
+     {
+      "kicker": "Rifinanziamento",
+      "title": "Rinnovare & aumentare",
+      "text": "Il valore attuale mostra quale anticipo è possibile in caso di trasferimento.",
+      "to": "bewertung",
+      "cta": "Valuta"
+     }
+    ]
+   },
+   {
+    "type": "trust",
+    "items": [
+     "Modello Wüest Partner",
+     "Metodo edonico",
+     "CHF 300 invece di 450",
+     "Online in pochi minuti",
+     "Casa & PPP",
+     "Inclusa per i partner"
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Per agenti, fiduciari & broker",
+    "title": "Stima inclusa.\n*Per i tuoi clienti.*",
+    "screen": "portal",
+    "tone": "dark",
+    "reverse": true,
+    "paragraphs": [
+     "Come partner HYPOTEQ la stima immobiliare è **inclusa** per i tuoi casi. Inoltri i casi nel portale partner, noi organizziamo il finanziamento e il rapporto con il cliente resta tuo."
+    ],
+    "bullets": [
+     "Provvigione equa per ogni conclusione",
+     "Persona di riferimento, nessun bot",
+     "Accesso Academy per il tuo team"
+    ],
+    "ctas": [
+     {
+      "label": "Avvia la stima",
+      "to": "bewertung"
+     },
+     {
+      "label": "Diventa partner",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "Domande sulla\nstima immobiliare.",
+    "items": [
+     {
+      "q": "Come funziona il metodo edonico?",
+      "a": "Il modello confronta le caratteristiche del tuo immobile, come posizione, superficie, anno di costruzione e stato, con immobili comparabili e ne ricava un valore di mercato con forchetta. Usiamo il modello di **Wüest Partner**."
+     },
+     {
+      "q": "Quanto costa la stima?",
+      "a": "Al prezzo di lancio di **CHF 300 invece di CHF 450**. Per i partner HYPOTEQ la stima è inclusa. Il confronto ipotecario resta gratuito per i privati."
+     },
+     {
+      "q": "Quando serve una stima immobiliare?",
+      "a": "Prima di un acquisto per verificare il prezzo, prima di una vendita, in caso di divisione ereditaria o di rifinanziamento, per sapere quale anticipo è possibile."
+     },
+     {
+      "q": "Che differenza c'è con gli strumenti gratuiti?",
+      "a": "Le stime gratuite sono spesso solo indicative. La nostra stima si basa sul modello edonico di Wüest Partner, noto a banche e istituzioni, e tiene conto dei dati concreti del tuo immobile."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Avvia la stima",
+      "to": "bewertung"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Quanto vale\n*la tua casa?*",
+    "text": "Online in pochi minuti. Ora CHF 300 invece di 450.",
+    "ctas": [
+     {
+      "label": "Avvia la stima",
+      "to": "bewertung"
+     },
+     {
+      "label": "Ordina la stima",
+      "to": "bewertung"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "Property Valuation by Wüest Partner | HYPOTEQ",
+  "description": "Hedonic property valuation based on the Wüest Partner model: launch price CHF 300 instead of 450. Order the market value of your Swiss home now.",
+  "h1": "Swiss property valuation by Wüest Partner",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Property valuation Switzerland · Wüest Partner",
+    "h1": "Swiss property valuation\nby Wüest Partner",
+    "lead": "Your **property valuation in Switzerland** with the hedonic model by Wüest Partner, a model banks and institutions know. Online in a few minutes, at the launch price of **CHF 300 instead of 450**.",
+    "ctas": [
+     {
+      "label": "Start valuation",
+      "to": "bewertung"
+     },
+     {
+      "label": "Get it for CHF 300 instead of 450",
+      "to": "bewertung"
+     }
+    ],
+    "badges": [
+     "CHF 300 instead of 450",
+     "Online in minutes",
+     "Wüest Partner model"
+    ],
+    "image": "lake-living",
+    "alt": "Lavaux vineyards above Lake Geneva",
+    "float": {
+     "title": "CHF 300 instead of 450",
+     "text": "Launch price"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "CHF 300",
+      "label": "launch price instead of CHF 450"
+     },
+     {
+      "value": "Online",
+      "label": "market value in a few minutes"
+     },
+     {
+      "value": "House & condo",
+      "label": "primary or second home"
+     },
+     {
+      "value": "35+",
+      "label": "years of experience in the team"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Hedonic valuation",
+    "title": "The value\n*banks recognise.*",
+    "screen": "valuation",
+    "paragraphs": [
+     "A **hedonic valuation** compares your property's features, such as location, size, year of construction and condition, with comparable properties. The result is a transparent market value with a range.",
+     "We work with the model by **Wüest Partner**, a standard known to banks and institutions in Switzerland. So you know what your home is worth before you negotiate."
+    ],
+    "bullets": [
+     "For detached houses and condominiums",
+     "Primary or second home",
+     "Online, no site visit needed"
+    ],
+    "ctas": [
+     {
+      "label": "Value my property",
+      "to": "bewertung"
+     }
+    ]
+   },
+   {
+    "type": "pricing",
+    "eyebrow": "Price",
+    "title": "One price.\n*A clear market value.*",
+    "lead": "No subscription, no hidden fees. Launch price for a limited time.",
+    "items": [
+     {
+      "name": "Property valuation",
+      "price": "CHF 300",
+      "old": "CHF 450",
+      "badge": "Launch price",
+      "featured": true,
+      "text": "Market value of your house or apartment based on the hedonic model by Wüest Partner.",
+      "features": [
+       "Detached house or condominium",
+       "Primary or second home",
+       "Online in a few minutes",
+       "Market value with range"
+      ],
+      "cta": {
+       "label": "Order valuation",
+       "to": "bewertung"
+      }
+     },
+     {
+      "name": "For HYPOTEQ partners",
+      "price": "included",
+      "text": "Real estate agents, trustees and brokers in our partner programme get the property valuation included for their cases.",
+      "features": [
+       "For client cases in the partner portal",
+       "Personal contact person",
+       "Academy for your team"
+      ],
+      "cta": {
+       "label": "Become a partner",
+       "to": "page:partner"
+      }
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "How it works",
+    "title": "Four steps\nto your market value.",
+    "items": [
+     {
+      "title": "Enter the address",
+      "text": "Location is the biggest value driver. The address pins down your property precisely."
+     },
+     {
+      "title": "Choose the type",
+      "text": "Detached house or condominium, primary or second home."
+     },
+     {
+      "title": "Add details",
+      "text": "Living space, rooms, year built, condition and fittings. The more precise, the better the valuation."
+     },
+     {
+      "title": "Get your report",
+      "text": "You receive the hedonic **market value with a range**, online within minutes."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Start valuation",
+      "to": "bewertung"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Who is it for?",
+    "title": "Know the value,\n*decide better.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Buyers",
+      "title": "Before you buy",
+      "text": "Check whether the asking price is in line with the market and negotiate with facts.",
+      "to": "bewertung",
+      "cta": "Check value"
+     },
+     {
+      "kicker": "Owners",
+      "title": "Know your value",
+      "text": "Find out what your home is worth today, for example before selling.",
+      "to": "bewertung",
+      "cta": "Value now"
+     },
+     {
+      "kicker": "Heirs",
+      "title": "Inheritance",
+      "text": "A neutral basis when several heirs share or take over a property.",
+      "to": "bewertung",
+      "cta": "Value now"
+     },
+     {
+      "kicker": "Refinancing",
+      "title": "Renew & increase",
+      "text": "The current value shows how much loan-to-value is possible when you refinance.",
+      "to": "bewertung",
+      "cta": "Value now"
+     }
+    ]
+   },
+   {
+    "type": "trust",
+    "items": [
+     "Wüest Partner model",
+     "Hedonic valuation",
+     "CHF 300 instead of 450",
+     "Online in minutes",
+     "Houses & condos",
+     "Included for partners"
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "For agents, trustees & brokers",
+    "title": "Valuation included.\n*For your clients.*",
+    "screen": "portal",
+    "tone": "dark",
+    "reverse": true,
+    "paragraphs": [
+     "As a HYPOTEQ partner, the property valuation is **included** for your cases. You submit cases in the partner portal, we arrange the financing and the client relationship stays with you."
+    ],
+    "bullets": [
+     "Fair commission per closed deal",
+     "Personal contact, no bot",
+     "Academy access for your team"
+    ],
+    "ctas": [
+     {
+      "label": "Start valuation",
+      "to": "bewertung"
+     },
+     {
+      "label": "Become a partner",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Questions about\nthe valuation.",
+    "items": [
+     {
+      "q": "How does hedonic valuation work?",
+      "a": "The model compares your property's features, such as location, floor area, year built and condition, with comparable properties and derives a market value with a range. We use the model by **Wüest Partner**."
+     },
+     {
+      "q": "How much does the valuation cost?",
+      "a": "At the launch price of **CHF 300 instead of CHF 450**. For HYPOTEQ partners the valuation is included. The mortgage comparison itself stays free for private clients."
+     },
+     {
+      "q": "When do I need a valuation?",
+      "a": "Before buying, to check the price; before selling; when an inheritance is divided; or when refinancing, to see how much loan-to-value is possible."
+     },
+     {
+      "q": "How is it different from free tools?",
+      "a": "Free estimates are often rough guide values. Our valuation is based on the hedonic model by Wüest Partner, which banks and institutions know, and takes your specific property details into account."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Start valuation",
+      "to": "bewertung"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "What is your\n*home worth?*",
+    "text": "Online in a few minutes. Now CHF 300 instead of 450.",
+    "ctas": [
+     {
+      "label": "Start valuation",
+      "to": "bewertung"
+     },
+     {
+      "label": "Order valuation",
+      "to": "bewertung"
+     }
+    ]
+   }
+  ]
+ }
+}

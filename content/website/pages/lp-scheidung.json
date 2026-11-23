@@ -1,0 +1,946 @@
+{
+ "de": {
+  "title": "Hypothek bei Scheidung: Haus übernehmen | HYPOTEQ",
+  "description": "Scheidung oder Trennung? Wir prüfen, ob du das Haus allein tragen und deinen Partner auszahlen kannst, mit 40+ Anbietern. Diskret anfragen.",
+  "h1": "Haus behalten nach der Trennung",
+  "nav": [
+   "Scheidung & Trennung",
+   "Haus übernehmen, Partner auszahlen"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypothek Scheidung",
+    "h1": "Haus behalten\nnach der Trennung",
+    "lead": "Du willst nach der Trennung im Haus bleiben, musst aber deinen Partner auszahlen und die **Hypothek bei der Scheidung** allein tragen? Wir prüfen diskret, ob das mit einem Einkommen klappt, und vergleichen über 40 Banken, Versicherungen und Pensionskassen.",
+    "ctas": [
+     {
+      "label": "Diskret anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Diskret & kostenlos",
+     "Bewertung mit Wüest Partner",
+     "Rasche, persönliche Rückmeldung"
+    ],
+    "image": "consultation",
+    "alt": "Beraterin im vertraulichen Gespräch",
+    "float": {
+     "title": "Marktwert mit Wüest Partner",
+     "text": "CHF 300 statt 450"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "Anbieter mit unterschiedlichen Kriterien"
+     },
+     {
+      "value": "0 CHF",
+      "label": "für Vergleich und Vermittlung"
+     },
+     {
+      "value": "CHF 300",
+      "label": "Immobilienbewertung statt CHF 450"
+     },
+     {
+      "value": "48–72 h",
+      "label": "bis zu konkreten Offerten"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Haus übernehmen nach Scheidung",
+    "title": "Ein Einkommen.\n*Die ganze Hypothek.*",
+    "image": "house",
+    "alt": "Chalet vor Bergen",
+    "paragraphs": [
+     "Bei einer **Trennung** ist das Eigenheim oft der grösste gemeinsame Wert. Wer bleibt, zahlt den anderen aus und übernimmt die Hypothek. Der Knackpunkt ist fast immer die **Tragbarkeit mit einem Einkommen**.",
+     "Dazu kommt die **Solidarhaftung**: Solange beide im Kreditvertrag stehen, haften beide. Die Bank entlässt den Ex-Partner oft nur, wenn die Übernahme tragbar ist. Wir suchen Anbieter, bei denen es aufgeht."
+    ],
+    "bullets": [
+     "Tragbarkeit mit einem Einkommen neu rechnen",
+     "Auszahlung über Eigenmittel, Vorsorge oder Aufstockung",
+     "Neue Finanzierung ohne Ex-Partner im Vertrag"
+    ],
+    "ctas": [
+     {
+      "label": "Situation prüfen lassen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "So begleiten wir dich",
+    "title": "Von der Trennung\nzur eigenen Hypothek.",
+    "items": [
+     {
+      "title": "Vertrauliche Anfrage",
+      "text": "Schildere deine Situation online, im Chat mit HYPO oder am Telefon. Das Erstgespräch ist kostenlos."
+     },
+     {
+      "title": "Wert festlegen",
+      "text": "Die Bewertung mit Wüest Partner gibt euch eine neutrale Basis für die Auszahlung."
+     },
+     {
+      "title": "Tragbarkeit & Auszahlung",
+      "text": "Wir rechnen, wie viel Hypothek du allein trägst und wie du die Auszahlung finanzierst."
+     },
+     {
+      "title": "Offerten & Ablösung",
+      "text": "Wir holen Angebote ein und koordinieren mit Bank und Notariat."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Jetzt anfragen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Typische Hürden",
+    "title": "Wo es oft hakt.\n*Und was wir tun.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Tragbarkeit",
+      "title": "Ein Einkommen reicht knapp",
+      "text": "Wir vergleichen Anbieter mit anderen Kriterien und prüfen mehr Eigenmittel.",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "kicker": "Auszahlung",
+      "title": "Woher kommt das Geld?",
+      "text": "Ersparnisse, Vorsorgegelder (Reglement prüfen) oder eine höhere Hypothek bis max. 80 % Belehnung.",
+      "to": "page:aufstocken"
+     },
+     {
+      "kicker": "Solidarhaftung",
+      "title": "Bank lässt Ex-Partner nicht frei",
+      "text": "Ein Wechsel zu einem neuen Anbieter kann helfen. Bei laufender Festhypothek prüfen wir die Kosten.",
+      "to": "page:lp-vorfaelligkeit"
+     },
+     {
+      "kicker": "Komplex",
+      "title": "Güterrecht & Unterhalt",
+      "text": "Rechtliches klären Anwältin, Mediation oder Notariat. Für komplexe Fälle gibt es unser Advisory.",
+      "to": "page:advisory"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Kann ich das Haus allein tragen?",
+    "title": "Deine Tragbarkeit\n*mit einem Einkommen.*",
+    "lead": "Gib Hauswert, deine Eigenmittel und dein eigenes Bruttoeinkommen ein. So siehst du, ob die Übernahme realistisch ist."
+   },
+   {
+    "type": "split",
+    "eyebrow": "Wie viel ist das Haus wert?",
+    "title": "Ein Wert,\n*auf den sich beide stützen.*",
+    "screen": "valuation",
+    "reverse": true,
+    "tone": "soft",
+    "paragraphs": [
+     "Streit um den Preis kostet Nerven. Die Bewertung nach dem hedonischen Modell von **Wüest Partner** kennen Banken. Du erhältst online in wenigen Minuten einen Marktwert, für **CHF 300 statt 450**."
+    ],
+    "ctas": [
+     {
+      "label": "Immobilie bewerten",
+      "to": "bewertung"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Passend dazu",
+    "title": "Weitere Wege\n*für deinen Neustart.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Unverheiratet",
+      "title": "Trennung im Konkubinat",
+      "text": "Was ohne Trauschein beim Eigentum gilt.",
+      "to": "page:lp-konkubinat"
+     },
+     {
+      "kicker": "Bankabsage",
+      "title": "Hypothek abgelehnt?",
+      "text": "So holst du dir eine Zweitmeinung.",
+      "to": "page:lp-zweitmeinung"
+     },
+     {
+      "kicker": "Neustart",
+      "title": "Neues Zuhause kaufen",
+      "text": "Wenn du lieber neu anfängst.",
+      "to": "page:kauf"
+     },
+     {
+      "kicker": "Für Treuhänder",
+      "title": "Partner werden",
+      "text": "Mandanten in Trennung sicher begleiten.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Scheidung und Hypothek\n*klar erklärt.*",
+    "items": [
+     {
+      "q": "Kann ich die Hypothek nach der Scheidung allein übernehmen?",
+      "a": "Ja, wenn die Tragbarkeit mit deinem Einkommen aufgeht: Zins (kalkulatorisch 5 %), Unterhalt 1 % und Amortisation sollten max. ca. ⅓ des Bruttoeinkommens ausmachen. Die Bank prüft das neu. Stand 2026, ohne Gewähr."
+     },
+     {
+      "q": "Wie zahle ich meinen Ex-Partner aus?",
+      "a": "Mit Ersparnissen, Vorsorgegeldern oder einer höheren Hypothek, solange die Belehnung max. 80 % beträgt. Den Anteil regelt die Scheidungsvereinbarung, lass sie von einer Fachperson prüfen."
+     },
+     {
+      "q": "Wird der ausziehende Partner aus der Solidarhaftung entlassen?",
+      "a": "Nur wenn der Kreditgeber zustimmt, meist dann, wenn die Hypothek für dich allein tragbar ist. Sagt die bisherige Bank Nein, kann eine neue Finanzierung bei einem anderen Anbieter die Lösung sein."
+     },
+     {
+      "q": "Wie wird der Wert des Hauses bei der Scheidung festgelegt?",
+      "a": "Oft über eine neutrale Schätzung. Das Modell von Wüest Partner liefert online einen Marktwert, den Banken kennen. Bei Uneinigkeit entscheiden Fachpersonen oder das Gericht."
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Im Haus bleiben?\n*Lass es uns prüfen.*",
+    "text": "Diskret, kostenlos und mit Rückmeldung deiner Beraterin zeitnah.",
+    "ctas": [
+     {
+      "label": "Diskret anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Hypothèque et divorce: reprendre le logement | HYPOTEQ",
+  "description": "Divorce ou séparation? Nous vérifions si vous pouvez reprendre le logement seul et racheter la part de votre conjoint, avec 40+ prêteurs. Demande discrète.",
+  "h1": "Garder votre logement après une séparation",
+  "nav": [
+   "Divorce & séparation",
+   "Garder le logement, racheter la part"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypothèque divorce",
+    "h1": "Garder votre logement\naprès une séparation",
+    "lead": "Vous souhaitez rester dans votre logement, mais devez racheter la part de votre conjoint et porter seul l'**hypothèque après le divorce**? Nous vérifions discrètement si c'est possible avec un seul revenu et comparons plus de 40 prêteurs.",
+    "ctas": [
+     {
+      "label": "Demande discrète",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Discret & gratuit",
+     "Estimation Wüest Partner",
+     "Réponse rapide et personnelle"
+    ],
+    "image": "consultation",
+    "alt": "Conseillère lors d'un entretien confidentiel",
+    "float": {
+     "title": "Valeur avec Wüest Partner",
+     "text": "CHF 300 au lieu de 450"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "prêteurs aux critères différents"
+     },
+     {
+      "value": "0 CHF",
+      "label": "pour la comparaison et le courtage"
+     },
+     {
+      "value": "CHF 300",
+      "label": "estimation au lieu de CHF 450"
+     },
+     {
+      "value": "48–72 h",
+      "label": "jusqu'aux offres"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Garder la maison après divorce",
+    "title": "Un revenu.\n*Toute l'hypothèque.*",
+    "image": "house",
+    "alt": "Chalet devant les montagnes",
+    "paragraphs": [
+     "Lors d'une **séparation**, le logement est souvent le plus grand bien commun. Celui qui reste doit **racheter la part du conjoint** et reprendre l'hypothèque. Le point critique: la **capacité financière avec un seul revenu**.",
+     "S'y ajoute la **responsabilité solidaire**: tant que les deux signent, les deux répondent. La banque ne libère souvent l'autre que si la reprise est supportable."
+    ],
+    "bullets": [
+     "Capacité recalculée avec un revenu",
+     "Rachat via fonds propres, prévoyance ou augmentation",
+     "Nouveau financement sans l'ex-conjoint"
+    ],
+    "ctas": [
+     {
+      "label": "Faire vérifier ma situation",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Notre accompagnement",
+    "title": "De la séparation\nà votre propre hypothèque.",
+    "items": [
+     {
+      "title": "Demande confidentielle",
+      "text": "En ligne, avec l'assistant HYPO ou par téléphone. Le premier entretien est gratuit."
+     },
+     {
+      "title": "Fixer la valeur",
+      "text": "L'estimation Wüest Partner offre une base neutre pour le rachat."
+     },
+     {
+      "title": "Capacité & rachat",
+      "text": "Nous calculons l'hypothèque supportable seul et le financement de la soulte."
+     },
+     {
+      "title": "Offres & reprise",
+      "text": "Nous obtenons les offres et coordonnons banque et notaire."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Faire une demande",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Obstacles fréquents",
+    "title": "Où cela bloque.\n*Et nos solutions.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Capacité",
+      "title": "Un revenu, c'est juste",
+      "text": "Nous comparons des prêteurs aux critères différents et testons plus de fonds propres.",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "kicker": "Rachat",
+      "title": "D'où vient l'argent?",
+      "text": "Épargne, prévoyance ou hypothèque plus élevée, jusqu'à 80 % de nantissement.",
+      "to": "page:aufstocken"
+     },
+     {
+      "kicker": "Solidarité",
+      "title": "La banque ne libère pas",
+      "text": "Un nouveau prêteur peut débloquer la situation. Hypothèque fixe en cours: nous chiffrons les coûts.",
+      "to": "page:lp-vorfaelligkeit"
+     },
+     {
+      "kicker": "Complexe",
+      "title": "Régime matrimonial",
+      "text": "Avocate, médiation ou notaire règlent le juridique. Pour les cas complexes: notre Advisory.",
+      "to": "page:advisory"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Puis-je garder le logement seul?",
+    "title": "Votre capacité\n*avec un revenu.*",
+    "lead": "Saisissez la valeur du bien, vos fonds propres et votre propre revenu brut."
+   },
+   {
+    "type": "split",
+    "eyebrow": "Quelle valeur pour le bien?",
+    "title": "Une valeur\n*acceptée par les deux.*",
+    "screen": "valuation",
+    "reverse": true,
+    "tone": "soft",
+    "paragraphs": [
+     "Se disputer sur le prix coûte cher. Le modèle hédoniste de **Wüest Partner** est connu des banques: valeur de marché en ligne en quelques minutes, pour **CHF 300 au lieu de 450**."
+    ],
+    "ctas": [
+     {
+      "label": "Estimer mon bien",
+      "to": "bewertung"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Pour aller plus loin",
+    "title": "D'autres pistes\n*pour repartir.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Concubinage",
+      "title": "Séparation sans mariage",
+      "text": "Ce qui vaut pour la propriété.",
+      "to": "page:lp-konkubinat"
+     },
+     {
+      "kicker": "Refus",
+      "title": "Hypothèque refusée?",
+      "text": "Obtenez un deuxième avis.",
+      "to": "page:lp-zweitmeinung"
+     },
+     {
+      "kicker": "Nouveau départ",
+      "title": "Acheter ailleurs",
+      "text": "Si vous préférez recommencer.",
+      "to": "page:kauf"
+     },
+     {
+      "kicker": "Fiduciaires",
+      "title": "Devenir partenaire",
+      "text": "Accompagner vos mandants.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "Divorce et hypothèque\n*expliqués.*",
+    "items": [
+     {
+      "q": "Puis-je reprendre seul l'hypothèque après un divorce?",
+      "a": "Oui, si la capacité financière est respectée avec votre revenu: intérêts (taux théorique 5 %), entretien 1 % et amortissement au maximum environ un tiers du revenu brut. État 2026, sans garantie."
+     },
+     {
+      "q": "Comment racheter la part de mon ex-conjoint?",
+      "a": "Avec épargne, prévoyance ou une hypothèque plus élevée, nantissement de 80 % au plus. Le montant figure dans la convention de divorce, à faire vérifier."
+     },
+     {
+      "q": "Le conjoint qui part est-il libéré de la responsabilité solidaire?",
+      "a": "Seulement avec l'accord du prêteur, en général si l'hypothèque est supportable pour vous seul. Si votre banque refuse, un nouveau financement ailleurs peut être la solution."
+     },
+     {
+      "q": "Comment la valeur du bien est-elle fixée?",
+      "a": "Souvent par une estimation neutre. Le modèle de Wüest Partner fournit en ligne une valeur connue des banques. En cas de désaccord, des spécialistes ou le tribunal tranchent."
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Rester chez vous?\n*Vérifions-le.*",
+    "text": "Discret, gratuit, avec un retour de votre conseillère rapidement.",
+    "ctas": [
+     {
+      "label": "Demande discrète",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Ipoteca e divorzio: tenere la casa | HYPOTEQ",
+  "description": "Divorzio o separazione? Verifichiamo se puoi sostenere da solo la casa e liquidare il partner, con oltre 40 istituti. Richiesta riservata in 3 minuti.",
+  "h1": "Tenere la casa dopo la separazione",
+  "nav": [
+   "Divorzio & separazione",
+   "Tenere la casa, liquidare il partner"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Ipoteca divorzio",
+    "h1": "Tenere la casa\ndopo la separazione",
+    "lead": "Vuoi restare in casa, ma devi liquidare il partner e sostenere da solo l'**ipoteca dopo il divorzio**? Verifichiamo con discrezione se è possibile con un solo reddito e confrontiamo oltre 40 banche, assicurazioni e casse pensione.",
+    "ctas": [
+     {
+      "label": "Richiesta riservata",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Riservato e gratuito",
+     "Stima con Wüest Partner",
+     "Risposta in giornata"
+    ],
+    "image": "consultation",
+    "alt": "Consulente durante un colloquio riservato",
+    "float": {
+     "title": "Valore con Wüest Partner",
+     "text": "CHF 300 invece di 450"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "istituti con criteri diversi"
+     },
+     {
+      "value": "0 CHF",
+      "label": "per confronto e intermediazione"
+     },
+     {
+      "value": "CHF 300",
+      "label": "valutazione invece di CHF 450"
+     },
+     {
+      "value": "48–72 h",
+      "label": "fino alle offerte"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Tenere la casa dopo il divorzio",
+    "title": "Un reddito.\n*Tutta l'ipoteca.*",
+    "image": "house",
+    "alt": "Chalet davanti alle montagne",
+    "paragraphs": [
+     "In una **separazione**, la casa di proprietà è spesso il bene comune più grande. Chi resta deve **liquidare il coniuge** e riprendere l'ipoteca. Il punto critico è la **sostenibilità con un solo reddito**.",
+     "C'è poi la **responsabilità solidale**: finché entrambi firmano il contratto, rispondono entrambi. La banca libera l'altro spesso solo se la ripresa è sostenibile. Cerchiamo istituti adatti alla tua nuova situazione."
+    ],
+    "bullets": [
+     "Sostenibilità ricalcolata con un reddito",
+     "Liquidazione con fondi propri, previdenza o aumento",
+     "Nuovo finanziamento senza l'ex partner"
+    ],
+    "ctas": [
+     {
+      "label": "Fai verificare la situazione",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Come ti accompagniamo",
+    "title": "Dalla separazione\nalla tua ipoteca.",
+    "items": [
+     {
+      "title": "Richiesta riservata",
+      "text": "Descrivi la situazione online, con l'assistente HYPO o al telefono. Il primo colloquio è gratuito."
+     },
+     {
+      "title": "Fissare il valore",
+      "text": "La stima con Wüest Partner offre una base neutra per la liquidazione."
+     },
+     {
+      "title": "Sostenibilità & liquidazione",
+      "text": "Calcoliamo quanta ipoteca puoi sostenere da solo e come finanziare il conguaglio."
+     },
+     {
+      "title": "Offerte & ripresa",
+      "text": "Raccogliamo offerte e coordiniamo banca e notaio."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Richiedi ora",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Ostacoli tipici",
+    "title": "Dove si blocca.\n*E cosa facciamo.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Sostenibilità",
+      "title": "Un reddito non basta",
+      "text": "Confrontiamo istituti con criteri diversi e verifichiamo l'effetto di più fondi propri.",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "kicker": "Liquidazione",
+      "title": "Da dove arrivano i soldi?",
+      "text": "Risparmi, previdenza (verifica il regolamento) o un'ipoteca più alta, fino all'80 % di anticipo.",
+      "to": "page:aufstocken"
+     },
+     {
+      "kicker": "Solidarietà",
+      "title": "La banca non libera l'ex",
+      "text": "Un nuovo istituto può sbloccare la situazione. Con un'ipoteca fissa in corso calcoliamo i costi.",
+      "to": "page:lp-vorfaelligkeit"
+     },
+     {
+      "kicker": "Complesso",
+      "title": "Regime dei beni",
+      "text": "Gli aspetti legali li chiariscono avvocato, mediazione o notaio. Per i casi complessi c'è Advisory.",
+      "to": "page:advisory"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Posso tenere la casa da solo?",
+    "title": "La tua sostenibilità\n*con un reddito.*",
+    "lead": "Inserisci valore della casa, fondi propri e il tuo reddito lordo."
+   },
+   {
+    "type": "split",
+    "eyebrow": "Quanto vale la casa?",
+    "title": "Un valore\n*condiviso da entrambi.*",
+    "screen": "valuation",
+    "reverse": true,
+    "tone": "soft",
+    "paragraphs": [
+     "Litigare sul prezzo costa caro. Il modello edonico di **Wüest Partner** è noto alle banche: valore di mercato online in pochi minuti, per **CHF 300 invece di 450**."
+    ],
+    "ctas": [
+     {
+      "label": "Valuta l'immobile",
+      "to": "bewertung"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Approfondisci",
+    "title": "Altre strade\n*per ripartire.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Concubinato",
+      "title": "Separazione senza matrimonio",
+      "text": "Cosa vale per la proprietà.",
+      "to": "page:lp-konkubinat"
+     },
+     {
+      "kicker": "Rifiuto",
+      "title": "Ipoteca rifiutata?",
+      "text": "Chiedi un secondo parere.",
+      "to": "page:lp-zweitmeinung"
+     },
+     {
+      "kicker": "Nuovo inizio",
+      "title": "Comprare un'altra casa",
+      "text": "Se preferisci ricominciare.",
+      "to": "page:kauf"
+     },
+     {
+      "kicker": "Fiduciari",
+      "title": "Diventa partner",
+      "text": "Accompagna i tuoi mandanti.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "Divorzio e ipoteca\n*in chiaro.*",
+    "items": [
+     {
+      "q": "Posso riprendere da solo l'ipoteca dopo il divorzio?",
+      "a": "Sì, se la sostenibilità regge con il tuo reddito: interessi (tasso teorico 5 %), manutenzione 1 % e ammortamento al massimo circa un terzo del reddito lordo. Stato 2026, senza garanzia."
+     },
+     {
+      "q": "Come liquido l'ex partner?",
+      "a": "Con risparmi, previdenza o un'ipoteca più alta, purché l'anticipo resti al massimo all'80 %. L'importo si fissa nella convenzione di divorzio, da far verificare da un professionista."
+     },
+     {
+      "q": "Il partner che lascia la casa resta responsabile solidalmente?",
+      "a": "Viene liberato solo con il consenso dell'istituto, di regola se l'ipoteca è sostenibile per te da solo. Se la tua banca dice no, un nuovo finanziamento altrove può essere la soluzione."
+     },
+     {
+      "q": "Come si stabilisce il valore della casa?",
+      "a": "Spesso con una stima neutra accettata da entrambi. Il modello di Wüest Partner fornisce online un valore noto alle banche. In caso di disaccordo decidono professionisti o il tribunale."
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Restare in casa?\n*Verifichiamolo.*",
+    "text": "Riservato, gratuito e con risposta della tua consulente in giornata.",
+    "ctas": [
+     {
+      "label": "Richiesta riservata",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "Mortgage after divorce: keep your home | HYPOTEQ",
+  "description": "Divorce or separation? We check whether you can carry the mortgage alone and buy out your partner, with 40+ lenders. Confidential request in 3 minutes.",
+  "h1": "Keeping your home after a separation",
+  "nav": [
+   "Divorce & separation",
+   "Keep the home, buy out your partner"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Mortgage divorce Switzerland",
+    "h1": "Keeping your home\nafter a separation",
+    "lead": "Want to stay in your home but need to buy out your partner and carry the **mortgage after a divorce in Switzerland** alone? We confidentially check whether it works on one income and compare 40+ banks, insurers and pension funds.",
+    "ctas": [
+     {
+      "label": "Confidential request",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Confidential & free",
+     "Valuation with Wüest Partner",
+     "Reply the same business day"
+    ],
+    "image": "consultation",
+    "alt": "Advisor in a confidential consultation",
+    "float": {
+     "title": "Value with Wüest Partner",
+     "text": "CHF 300 instead of 450"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "lenders with different criteria"
+     },
+     {
+      "value": "0 CHF",
+      "label": "for comparison and brokerage"
+     },
+     {
+      "value": "CHF 300",
+      "label": "property valuation instead of CHF 450"
+     },
+     {
+      "value": "48–72 h",
+      "label": "to concrete offers"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Keep the house after divorce",
+    "title": "One income.\n*The whole mortgage.*",
+    "image": "house",
+    "alt": "Chalet in front of mountains",
+    "paragraphs": [
+     "In a **separation**, the home is often the largest shared asset. Whoever stays must **buy out the spouse** and take over the mortgage. The sticking point: **affordability on one income**.",
+     "Then there is **joint liability**: as long as both of you are on the loan, both are liable. Banks often release the departing partner only if the takeover is affordable."
+    ],
+    "bullets": [
+     "Affordability on one income",
+     "Buyout via savings, pension or top-up",
+     "New loan without your ex"
+    ],
+    "ctas": [
+     {
+      "label": "Have my situation checked",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "steps",
+    "eyebrow": "How we support you",
+    "title": "From separation\nto your own mortgage.",
+    "items": [
+     {
+      "title": "Confidential request",
+      "text": "Describe your situation online, via chat assistant HYPO or by phone. The first consultation is free."
+     },
+     {
+      "title": "Agree on the value",
+      "text": "The Wüest Partner valuation gives you both a neutral basis for the buyout."
+     },
+     {
+      "title": "Affordability & buyout",
+      "text": "We calculate how much mortgage you can carry alone and how to fund the payout."
+     },
+     {
+      "title": "Offers & takeover",
+      "text": "We collect offers and coordinate with bank and notary."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Send a request",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Common hurdles",
+    "title": "Where it gets stuck.\n*And what we do.*",
+    "tone": "soft",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Affordability",
+      "title": "One income is tight",
+      "text": "We compare lenders with different criteria and test more equity.",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "kicker": "Buyout",
+      "title": "Where does the money come from?",
+      "text": "Savings, pension money or a higher mortgage up to 80 % loan-to-value.",
+      "to": "page:aufstocken"
+     },
+     {
+      "kicker": "Joint liability",
+      "title": "Bank won't release your ex",
+      "text": "A new lender can help. With a running fixed rate, we work out the costs.",
+      "to": "page:lp-vorfaelligkeit"
+     },
+     {
+      "kicker": "Complex",
+      "title": "Marital property",
+      "text": "Lawyers, mediators or notaries handle the legal side. Complex cases: our Advisory.",
+      "to": "page:advisory"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Can I keep the house alone?",
+    "title": "Your affordability\n*on one income.*",
+    "lead": "Enter the property value, your equity and your own gross income."
+   },
+   {
+    "type": "split",
+    "eyebrow": "What is the house worth?",
+    "title": "One value\n*you can both rely on.*",
+    "screen": "valuation",
+    "reverse": true,
+    "tone": "soft",
+    "paragraphs": [
+     "Arguing about the price is draining. Banks know the hedonic model of **Wüest Partner**: get a market value online in minutes for **CHF 300 instead of 450**."
+    ],
+    "ctas": [
+     {
+      "label": "Value my property",
+      "to": "bewertung"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Related",
+    "title": "More options\n*for a fresh start.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Unmarried",
+      "title": "Separating as a couple",
+      "text": "What applies to property without marriage.",
+      "to": "page:lp-konkubinat"
+     },
+     {
+      "kicker": "Rejection",
+      "title": "Mortgage rejected?",
+      "text": "Get a second opinion.",
+      "to": "page:lp-zweitmeinung"
+     },
+     {
+      "kicker": "Fresh start",
+      "title": "Buy a new home",
+      "text": "If you'd rather start over.",
+      "to": "page:kauf"
+     },
+     {
+      "kicker": "For trustees",
+      "title": "Become a partner",
+      "text": "Support clients going through a separation.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Divorce and mortgage\n*explained.*",
+    "items": [
+     {
+      "q": "Can I take over the mortgage alone after a divorce?",
+      "a": "Yes, if affordability works on your income: imputed 5 % interest, 1 % maintenance and amortisation should stay below about one third of gross income. As of 2026, without guarantee."
+     },
+     {
+      "q": "How do I buy out my ex-partner?",
+      "a": "Usually with savings, pension money or a higher mortgage, keeping loan-to-value at 80 % or less. The amount is set in the divorce agreement; have it reviewed by a specialist."
+     },
+     {
+      "q": "Is the departing partner released from joint liability?",
+      "a": "Only if the lender agrees, usually when the mortgage is affordable for you alone. If your bank says no, another lender can be the solution."
+     },
+     {
+      "q": "How is the value of the property determined?",
+      "a": "Often through a neutral valuation. The Wüest Partner model provides a market value online that banks know. If you disagree, specialists or the court decide."
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Want to stay?\n*Let us check.*",
+    "text": "Confidential, free, with a reply from your advisor the same business day.",
+    "ctas": [
+     {
+      "label": "Confidential request",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ }
+}

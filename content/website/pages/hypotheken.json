@@ -1,0 +1,1166 @@
+{
+ "de": {
+  "title": "Hypotheken Schweiz: alle Modelle im Überblick | HYPOTEQ",
+  "description": "SARON, Festhypothek oder Mix: alle Hypothekarmodelle für Kauf, Ablösung, Neubau und Renovation. Vergleiche 40+ Anbieter kostenlos mit HYPOTEQ.",
+  "h1": "Hypotheken für jede Lebenslage",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypotheken Schweiz",
+    "h1": "Hypotheken\nfür jede Lebenslage",
+    "lead": "Kauf, Ablösung, Neubau oder Renovation: Wir vergleichen **Hypotheken** für dein Eigenheim und finden deine **Hypothek in der Schweiz** bei über 40 Banken, Versicherungen und Pensionskassen. Kostenlos für dich und mit einer Beraterin, die deine Situation wirklich kennt.",
+    "ctas": [
+     {
+      "label": "Hypothek anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "Zinsen ansehen",
+      "to": "page:zinsen"
+     }
+    ],
+    "badges": [
+     "0 CHF Vermittlung",
+     "40+ Finanzierungspartner",
+     "Anfrage in 3 Minuten"
+    ],
+    "image": "house",
+    "alt": "Schweizer Chalet vor verschneiten Bergen",
+    "float": {
+     "title": "SARON ab 0.85 %",
+     "text": "Richtzins · Beispielwert"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "Banken, Versicherungen & Pensionskassen"
+     },
+     {
+      "value": "180+",
+      "label": "Beraterinnen und Berater in der ganzen Schweiz"
+     },
+     {
+      "value": "35+ J.",
+      "label": "Erfahrung im Team"
+     },
+     {
+      "value": "0 CHF",
+      "label": "für Vergleich und Vermittlung"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Nach Vorhaben",
+    "title": "Was hast du vor?",
+    "lead": "Wähle dein Projekt. Jede Seite zeigt dir, worauf Banken achten und wie du die Hypothek beantragst.",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Kaufen",
+      "title": "Immobilie kaufen",
+      "text": "Finanzierungsbestätigung, Eigenmittel und Tragbarkeit für dein erstes Eigenheim.",
+      "to": "page:kauf"
+     },
+     {
+      "kicker": "Verlängern",
+      "title": "Ablösen & verlängern",
+      "text": "Hypothek läuft aus? 12 bis 24 Monate vorher vergleichen und Bank wechseln.",
+      "to": "page:abloesung"
+     },
+     {
+      "kicker": "Bauen",
+      "title": "Neubau finanzieren",
+      "text": "Vom Baukredit bis zur Konsolidierung in die definitive Hypothek.",
+      "to": "page:neubau"
+     },
+     {
+      "kicker": "Renovieren",
+      "title": "Aufstocken & renovieren",
+      "text": "Mehr Kapital für Umbau, Heizungsersatz oder energetische Sanierung.",
+      "to": "page:aufstocken"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Hypothekarmodelle",
+    "title": "SARON, Fest\n*oder beides?*",
+    "lead": "Die zwei wichtigsten Hypothekarmodelle in der Schweiz lassen sich in Tranchen kombinieren.",
+    "tone": "soft",
+    "items": [
+     {
+      "kicker": "Flexibel",
+      "title": "SARON-Hypothek",
+      "text": "Zins folgt dem Geldmarkt. Flexibel, aber die Kosten können schwanken.",
+      "to": "page:saron"
+     },
+     {
+      "kicker": "Planbar",
+      "title": "Festhypothek",
+      "text": "Fester Zins über die ganze Laufzeit. Planbar, dafür weniger flexibel.",
+      "to": "page:fest"
+     },
+     {
+      "kicker": "Kombiniert",
+      "title": "SARON oder Fest?",
+      "text": "Wann welches Modell passt und wie du sinnvoll staffelst.",
+      "to": "page:rg-saron-fest",
+      "cta": "Zum Ratgeber"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Nach Lebenssituation",
+    "title": "Deine Situation.\n*Deine Lösung.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Anlegen",
+      "title": "Renditeobjekt & Zweitwohnung",
+      "text": "Finanzierung für vermietete Objekte und Ferienwohnungen.",
+      "to": "page:rendite"
+     },
+     {
+      "kicker": "Unternehmerisch",
+      "title": "Hypothek für Selbstständige",
+      "text": "So überzeugst du die Bank mit Abschlüssen statt Lohnausweis.",
+      "to": "page:selbstaendige"
+     },
+     {
+      "kicker": "Pension",
+      "title": "Hypothek im Ruhestand",
+      "text": "Tragbarkeit nach der Pensionierung sichern.",
+      "to": "page:ruhestand"
+     },
+     {
+      "kicker": "International",
+      "title": "Hypothek für Expats",
+      "text": "Mit B- oder C-Bewilligung zum Eigenheim, Beratung auf Englisch.",
+      "to": "page:expats"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Spezialfinanzierung & Beratung",
+    "title": "Wenn es\n*komplexer wird.*",
+    "tone": "dark",
+    "cols": 2,
+    "items": [
+     {
+      "kicker": "Für Developer & Investoren",
+      "title": "Mezzanine-Finanzierung",
+      "text": "Nachrangiges Kapital zwischen Eigenkapital und Bankfinanzierung, ohne Anteile abzugeben. Laufzeit 2–5 Jahre.",
+      "to": "page:mezzanine"
+     },
+     {
+      "kicker": "Kostenpflichtiges Mandat",
+      "title": "Advisory",
+      "text": "Für komplexe Liegenschaften, Eigentümerstrukturen oder nach einer Bankabsage. Das Erstgespräch ist gratis.",
+      "to": "page:advisory"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Grundlagen",
+    "title": "1. und 2. Hypothek\n*einfach erklärt.*",
+    "image": "keys",
+    "alt": "Hausschlüssel auf einem Tisch",
+    "paragraphs": [
+     "Banken finanzieren in der Regel bis zu **80 %** des Immobilienwerts. Die **1. Hypothek** reicht bis rund zwei Drittel des Werts und muss nicht amortisiert werden. Der Teil darüber ist die **2. Hypothek**: Diese zahlst du innert 15 Jahren bzw. bis zur Pensionierung zurück, direkt oder indirekt über die Säule 3a.",
+     "Du kannst die Hypothek in mehrere Tranchen aufteilen, zum Beispiel einen Teil SARON und einen Teil fest. So verteilst du das Zinsrisiko und die Fälligkeiten."
+    ],
+    "bullets": [
+     "Eigenmittel mind. 20 %, davon mind. 10 % «hart»",
+     "Tragbarkeit mit kalkulatorischem Zins 5 %, max. ca. ⅓ des Einkommens",
+     "Stand 2026, ohne Gewähr"
+    ],
+    "ctas": [
+     {
+      "label": "Tragbarkeit prüfen",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "label": "Eigenmittel-Ratgeber",
+      "to": "page:rg-eigenmittel"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Richtzinsen",
+    "title": "Wo steht\n*der Markt?*",
+    "lead": "Richtzinsen geben dir eine Orientierung. Dein persönlicher Zins hängt von Objekt, Belehnung und Tragbarkeit ab."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Hypothek beantragen",
+    "title": "In vier Schritten\nzur Hypothek.",
+    "items": [
+     {
+      "title": "Anfrage in 3 Minuten",
+      "text": "Unterlagen hochladen, unsere KI liest die meisten Angaben aus."
+     },
+     {
+      "title": "Persönliche Beratung",
+      "text": "Deine Beraterin meldet sich zeitnah."
+     },
+     {
+      "title": "Offerten in 48–72 h",
+      "text": "Nach vollständigen Unterlagen vergleichen wir über 40 Anbieter für dich."
+     },
+     {
+      "title": "Hypothek abschliessen",
+      "text": "Wir begleiten dich bis zur Auszahlung."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Hypothek anfragen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Für Makler, Treuhänder & Broker",
+    "title": "Deine Kunden brauchen\n*eine Hypothek?*",
+    "screen": "portal",
+    "tone": "dark",
+    "reverse": true,
+    "paragraphs": [
+     "Im **Partnerprogramm** reichst du Fälle ein und verfolgst den Status im Partnerportal. Die Kundenbeziehung bleibt bei dir, du erhältst eine faire Provision pro Abschluss."
+    ],
+    "ctas": [
+     {
+      "label": "Partner werden",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Hypotheken\nverständlich.",
+    "items": [
+     {
+      "q": "Welche Hypothekarmodelle gibt es in der Schweiz?",
+      "a": "Die wichtigsten sind die **SARON-Hypothek** mit variablem Zins und die **Festhypothek** mit fixem Zins über die Laufzeit. Viele Kreditnehmer kombinieren beide in Tranchen."
+     },
+     {
+      "q": "Wie viel Eigenkapital brauche ich für eine Hypothek?",
+      "a": "Mindestens 20 % des Kaufpreises, davon mindestens 10 % «harte» Eigenmittel, also nicht aus der Pensionskasse. Bei Renditeobjekten verlangen Banken meist mind. 25 %. Stand 2026, ohne Gewähr."
+     },
+     {
+      "q": "Was ist der Unterschied zwischen 1. und 2. Hypothek?",
+      "a": "Die 1. Hypothek deckt rund zwei Drittel des Immobilienwerts. Die 2. Hypothek liegt darüber bis max. 80 % und muss innert 15 Jahren bzw. bis zur Pensionierung amortisiert werden."
+     },
+     {
+      "q": "Kann ich verschiedene Hypothekarmodelle kombinieren?",
+      "a": "Ja. Du kannst die Hypothek in Tranchen mit unterschiedlichen Modellen und Laufzeiten aufteilen. So verteilst du Zinsrisiko und Fälligkeiten. Wir zeigen dir, welche Staffelung zu dir passt."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Alle Fragen",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Finde deine\n*passende Hypothek.*",
+    "text": "Kostenlos vergleichen, persönlich beraten werden, in 3 Minuten gestartet.",
+    "ctas": [
+     {
+      "label": "Hypothek anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Hypothèques en Suisse: tous les modèles | HYPOTEQ",
+  "description": "SARON, taux fixe ou combinaison: toutes les hypothèques pour achat, renouvellement, construction ou rénovation. Comparez 40+ prêteurs gratuitement.",
+  "h1": "Des hypothèques pour chaque projet",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypothèque Suisse",
+    "h1": "Des hypothèques\npour chaque projet",
+    "lead": "Achat, renouvellement, construction ou rénovation: nous comparons votre **hypothèque en Suisse** auprès de plus de 40 banques, assurances et caisses de pension. Gratuit pour vous, avec une conseillère qui connaît vraiment votre situation.",
+    "ctas": [
+     {
+      "label": "Demander une hypothèque",
+      "to": "funnel"
+     },
+     {
+      "label": "Voir les taux",
+      "to": "page:zinsen"
+     }
+    ],
+    "badges": [
+     "0 CHF de courtage",
+     "40+ partenaires de financement",
+     "Demande en 3 minutes"
+    ],
+    "image": "house",
+    "alt": "Chalet suisse devant des montagnes enneigées",
+    "float": {
+     "title": "SARON dès 0.85 %",
+     "text": "Taux indicatif · valeur d'exemple"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banques, assurances & caisses de pension"
+     },
+     {
+      "value": "180+",
+      "label": "conseillères et conseillers dans toute la Suisse"
+     },
+     {
+      "value": "35+ ans",
+      "label": "d'expérience dans l'équipe"
+     },
+     {
+      "value": "0 CHF",
+      "label": "pour la comparaison et le courtage"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Selon votre projet",
+    "title": "Quel est votre projet?",
+    "lead": "Choisissez votre situation. Chaque page explique ce que regardent les banques et comment demander une hypothèque.",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Acheter",
+      "title": "Acheter un bien",
+      "text": "Attestation de financement, fonds propres et capacité financière pour votre premier achat.",
+      "to": "page:kauf"
+     },
+     {
+      "kicker": "Renouveler",
+      "title": "Renouveler & transférer",
+      "text": "Échéance en vue? Comparez 12 à 24 mois avant et changez de banque.",
+      "to": "page:abloesung"
+     },
+     {
+      "kicker": "Construire",
+      "title": "Financer une construction",
+      "text": "Du crédit de construction à la consolidation en hypothèque définitive.",
+      "to": "page:neubau"
+     },
+     {
+      "kicker": "Rénover",
+      "title": "Augmenter & rénover",
+      "text": "Plus de capital pour une transformation, un nouveau chauffage ou une rénovation énergétique.",
+      "to": "page:aufstocken"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Types d'hypothèques",
+    "title": "SARON, taux fixe\n*ou les deux?*",
+    "lead": "Les deux principaux modèles suisses se combinent en plusieurs tranches.",
+    "tone": "soft",
+    "items": [
+     {
+      "kicker": "Flexible",
+      "title": "Hypothèque SARON",
+      "text": "Le taux suit le marché monétaire. Flexible, mais les coûts peuvent varier.",
+      "to": "page:saron"
+     },
+     {
+      "kicker": "Planifiable",
+      "title": "Hypothèque à taux fixe",
+      "text": "Un taux fixe pour toute la durée. Planifiable, mais moins flexible.",
+      "to": "page:fest"
+     },
+     {
+      "kicker": "Combiné",
+      "title": "SARON ou taux fixe?",
+      "text": "Quel modèle choisir et comment échelonner intelligemment.",
+      "to": "page:rg-saron-fest",
+      "cta": "Vers le guide"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Selon votre situation",
+    "title": "Votre situation.\n*Votre solution.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Investir",
+      "title": "Bien de rendement & résidence secondaire",
+      "text": "Financement pour biens loués et logements de vacances.",
+      "to": "page:rendite"
+     },
+     {
+      "kicker": "Entrepreneur",
+      "title": "Hypothèque pour indépendants",
+      "text": "Convaincre la banque avec vos comptes plutôt qu'un certificat de salaire.",
+      "to": "page:selbstaendige"
+     },
+     {
+      "kicker": "Retraite",
+      "title": "Hypothèque à la retraite",
+      "text": "Garantir la capacité financière après le départ à la retraite.",
+      "to": "page:ruhestand"
+     },
+     {
+      "kicker": "International",
+      "title": "Hypothèque pour expatriés",
+      "text": "Devenir propriétaire avec un permis B ou C, conseil en anglais.",
+      "to": "page:expats"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Financements spéciaux & conseil",
+    "title": "Quand c'est\n*plus complexe.*",
+    "tone": "dark",
+    "cols": 2,
+    "items": [
+     {
+      "kicker": "Promoteurs & investisseurs",
+      "title": "Financement mezzanine",
+      "text": "Capital subordonné entre fonds propres et financement bancaire, sans céder de parts. Durée 2 à 5 ans.",
+      "to": "page:mezzanine"
+     },
+     {
+      "kicker": "Mandat payant",
+      "title": "Advisory",
+      "text": "Pour immeubles complexes, structures de propriété particulières ou après un refus bancaire. Premier entretien gratuit.",
+      "to": "page:advisory"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Les bases",
+    "title": "Premier et second rang\n*simplement expliqués.*",
+    "image": "keys",
+    "alt": "Clés de maison sur une table",
+    "paragraphs": [
+     "Les banques financent en général jusqu'à **80 %** de la valeur du bien (taux d'avance). L'**hypothèque de premier rang** couvre environ deux tiers de la valeur et n'a pas besoin d'être amortie. Au-delà, l'**hypothèque de second rang** doit être amortie en 15 ans ou jusqu'à la retraite, directement ou indirectement via le 3e pilier.",
+     "Vous pouvez répartir votre prêt hypothécaire en plusieurs tranches, par exemple une part SARON et une part à taux fixe. Vous répartissez ainsi le risque de taux et les échéances."
+    ],
+    "bullets": [
+     "Fonds propres min. 20 %, dont min. 10 % hors 2e pilier",
+     "Capacité financière avec taux théorique de 5 %, max. env. ⅓ du revenu",
+     "État 2026, sans garantie"
+    ],
+    "ctas": [
+     {
+      "label": "Calculer ma capacité",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "label": "Guide fonds propres",
+      "to": "page:rg-eigenmittel"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Taux indicatifs",
+    "title": "Où en est\n*le marché?*",
+    "lead": "Les taux indicatifs donnent une orientation. Votre taux personnel dépend du bien, du nantissement et de la capacité financière."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Demander une hypothèque",
+    "title": "Quatre étapes\nvers votre hypothèque.",
+    "items": [
+     {
+      "title": "Demande en 3 minutes",
+      "text": "Téléchargez vos documents, notre IA lit la plupart des informations."
+     },
+     {
+      "title": "Conseil personnel",
+      "text": "Votre conseillère vous contacte rapidement."
+     },
+     {
+      "title": "Offres en 48–72 h",
+      "text": "Dossier complet, nous comparons plus de 40 prêteurs pour vous."
+     },
+     {
+      "title": "Conclure",
+      "text": "Nous vous accompagnons jusqu'au versement."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Demander une hypothèque",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Pour courtiers, fiduciaires & brokers",
+    "title": "Vos clients ont besoin\n*d'une hypothèque?*",
+    "screen": "portal",
+    "tone": "dark",
+    "reverse": true,
+    "paragraphs": [
+     "Avec le **programme partenaires**, vous soumettez des dossiers et suivez leur statut dans le portail partenaires. La relation client reste la vôtre et vous recevez une commission équitable par conclusion."
+    ],
+    "ctas": [
+     {
+      "label": "Devenir partenaire",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "Les hypothèques\nen clair.",
+    "items": [
+     {
+      "q": "Quels types d'hypothèques existent en Suisse?",
+      "a": "Les principaux sont l'**hypothèque SARON** à taux variable et l'**hypothèque à taux fixe** pour une durée définie. Beaucoup d'emprunteurs combinent les deux en tranches."
+     },
+     {
+      "q": "Combien de fonds propres faut-il?",
+      "a": "Au moins 20 % du prix d'achat, dont au moins 10 % de fonds propres «durs», c'est-à-dire hors 2e pilier. Pour un bien de rendement, les banques exigent souvent 25 %. État 2026, sans garantie."
+     },
+     {
+      "q": "Quelle différence entre hypothèque de premier et second rang?",
+      "a": "Le premier rang couvre environ deux tiers de la valeur du bien. Le second rang va au-delà jusqu'à 80 % au maximum et doit être amorti en 15 ans ou jusqu'à la retraite."
+     },
+     {
+      "q": "Peut-on combiner plusieurs tranches?",
+      "a": "Oui. Vous pouvez répartir l'hypothèque en tranches avec des modèles et des durées différents pour étaler le risque de taux et les échéances. Nous vous montrons l'échelonnement adapté."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Toutes les questions",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Trouvez\n*votre hypothèque.*",
+    "text": "Comparaison gratuite, conseil personnel, lancé en 3 minutes.",
+    "ctas": [
+     {
+      "label": "Demander une hypothèque",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Ipoteche in Svizzera: tutti i modelli | HYPOTEQ",
+  "description": "SARON, tasso fisso o combinazione: ipoteche per acquisto, rinnovo, costruzione e ristrutturazione. Confronta oltre 40 istituti gratuitamente.",
+  "h1": "Ipoteche per ogni progetto",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Ipoteca Svizzera",
+    "h1": "Ipoteche\nper ogni progetto",
+    "lead": "Acquisto, rinnovo, costruzione o ristrutturazione: confrontiamo la tua **ipoteca** presso oltre 40 banche, assicurazioni e casse pensione in tutta la Svizzera. Gratis per te, con una consulente che conosce davvero la tua situazione.",
+    "ctas": [
+     {
+      "label": "Richiedere un'ipoteca",
+      "to": "funnel"
+     },
+     {
+      "label": "Vedi i tassi",
+      "to": "page:zinsen"
+     }
+    ],
+    "badges": [
+     "0 CHF di mediazione",
+     "40+ partner di finanziamento",
+     "Richiesta in 3 minuti"
+    ],
+    "image": "house",
+    "alt": "Chalet svizzero davanti a montagne innevate",
+    "float": {
+     "title": "SARON da 0.85 %",
+     "text": "Tasso indicativo · valore d'esempio"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banche, assicurazioni e casse pensione"
+     },
+     {
+      "value": "180+",
+      "label": "consulenti in tutta la Svizzera"
+     },
+     {
+      "value": "35+ anni",
+      "label": "di esperienza nel team"
+     },
+     {
+      "value": "0 CHF",
+      "label": "per confronto e mediazione"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Per progetto",
+    "title": "Cosa hai in mente?",
+    "lead": "Scegli il tuo progetto. Ogni pagina ti mostra cosa guardano le banche e come richiedere l'ipoteca.",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Comprare",
+      "title": "Acquistare un immobile",
+      "text": "Conferma di finanziamento, fondi propri e sostenibilità per la tua prima casa.",
+      "to": "page:kauf"
+     },
+     {
+      "kicker": "Rinnovare",
+      "title": "Rinnovare & trasferire",
+      "text": "Ipoteca in scadenza? Confronta 12–24 mesi prima e cambia banca.",
+      "to": "page:abloesung"
+     },
+     {
+      "kicker": "Costruire",
+      "title": "Finanziare una costruzione",
+      "text": "Dal credito di costruzione al consolidamento nell'ipoteca definitiva.",
+      "to": "page:neubau"
+     },
+     {
+      "kicker": "Ristrutturare",
+      "title": "Aumentare & ristrutturare",
+      "text": "Più capitale per ristrutturazione, nuovo riscaldamento o risanamento energetico.",
+      "to": "page:aufstocken"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Tipi di ipoteca",
+    "title": "SARON, fisso\n*o entrambi?*",
+    "lead": "I due modelli principali in Svizzera si possono combinare in tranche.",
+    "tone": "soft",
+    "items": [
+     {
+      "kicker": "Flessibile",
+      "title": "Ipoteca SARON",
+      "text": "Il tasso segue il mercato monetario. Flessibile, ma i costi possono variare.",
+      "to": "page:saron"
+     },
+     {
+      "kicker": "Pianificabile",
+      "title": "Ipoteca a tasso fisso",
+      "text": "Tasso fisso per tutta la durata. Pianificabile, ma meno flessibile.",
+      "to": "page:fest"
+     },
+     {
+      "kicker": "Combinato",
+      "title": "SARON o fisso?",
+      "text": "Quando conviene quale modello e come scaglionare.",
+      "to": "page:rg-saron-fest",
+      "cta": "Alla guida"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Per situazione di vita",
+    "title": "La tua situazione.\n*La tua soluzione.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Investire",
+      "title": "Immobile da reddito & seconda casa",
+      "text": "Finanziamento per immobili affittati e case di vacanza.",
+      "to": "page:rendite"
+     },
+     {
+      "kicker": "Indipendenti",
+      "title": "Ipoteca per indipendenti",
+      "text": "Convinci la banca con i bilanci invece del certificato di salario.",
+      "to": "page:selbstaendige"
+     },
+     {
+      "kicker": "Pensione",
+      "title": "Ipoteca in pensione",
+      "text": "Garantire la sostenibilità dopo il pensionamento.",
+      "to": "page:ruhestand"
+     },
+     {
+      "kicker": "Internazionale",
+      "title": "Ipoteca per expat",
+      "text": "Casa propria con permesso B o C, consulenza anche in inglese.",
+      "to": "page:expats"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Finanziamenti speciali & consulenza",
+    "title": "Quando diventa\n*più complesso.*",
+    "tone": "dark",
+    "cols": 2,
+    "items": [
+     {
+      "kicker": "Developer & investitori",
+      "title": "Finanziamento mezzanine",
+      "text": "Capitale subordinato tra fondi propri e finanziamento bancario, senza cedere quote. Durata 2–5 anni.",
+      "to": "page:mezzanine"
+     },
+     {
+      "kicker": "Mandato a pagamento",
+      "title": "Advisory",
+      "text": "Per immobili complessi, strutture di proprietà articolate o dopo un rifiuto della banca. Primo colloquio gratuito.",
+      "to": "page:advisory"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Le basi",
+    "title": "Ipoteca di primo e secondo grado\n*spiegata in breve.*",
+    "image": "keys",
+    "alt": "Chiavi di casa su un tavolo",
+    "paragraphs": [
+     "Le banche finanziano di regola fino all'**80 %** del valore dell'immobile. L'**ipoteca di primo grado** copre circa due terzi del valore e non va ammortizzata. La parte oltre è l'**ipoteca di secondo grado**: la ammortizzi entro 15 anni o fino al pensionamento, direttamente o indirettamente tramite il 3° pilastro.",
+     "Puoi suddividere il prestito ipotecario in più tranche, ad esempio una parte SARON e una parte fissa. Così distribuisci rischio di tasso e scadenze."
+    ],
+    "bullets": [
+     "Fondi propri min. 20 %, di cui min. 10 % non dalla cassa pensione",
+     "Sostenibilità con tasso teorico del 5 %, max. ca. ⅓ del reddito",
+     "Stato 2026, senza garanzia"
+    ],
+    "ctas": [
+     {
+      "label": "Verifica la sostenibilità",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "label": "Guida fondi propri",
+      "to": "page:rg-eigenmittel"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Tassi indicativi",
+    "title": "Dove si trova\n*il mercato?*",
+    "lead": "I tassi indicativi servono da orientamento. Il tuo tasso personale dipende da immobile, anticipo e sostenibilità."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Richiedere un'ipoteca",
+    "title": "Quattro passi\nverso la tua ipoteca.",
+    "items": [
+     {
+      "title": "Richiesta in 3 minuti",
+      "text": "Carica i documenti, la nostra IA legge gran parte dei dati."
+     },
+     {
+      "title": "Consulenza personale",
+      "text": "La tua consulente ti contatta in tempi brevi."
+     },
+     {
+      "title": "Offerte in 48–72 h",
+      "text": "Con la documentazione completa confrontiamo per te oltre 40 istituti."
+     },
+     {
+      "title": "Concludere",
+      "text": "Ti accompagniamo fino al versamento."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Richiedere un'ipoteca",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Per agenti immobiliari, fiduciari & broker",
+    "title": "I tuoi clienti cercano\n*un'ipoteca?*",
+    "screen": "portal",
+    "tone": "dark",
+    "reverse": true,
+    "paragraphs": [
+     "Con il **programma partner** inoltri i casi e ne segui lo stato nel portale partner. Il rapporto con il cliente resta tuo e ricevi una provvigione equa per ogni conclusione."
+    ],
+    "ctas": [
+     {
+      "label": "Diventa partner",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "Ipoteche\nin chiaro.",
+    "items": [
+     {
+      "q": "Quali tipi di ipoteca esistono in Svizzera?",
+      "a": "I principali sono l'**ipoteca SARON** a tasso variabile e l'**ipoteca a tasso fisso** per una durata definita. Molti li combinano in tranche."
+     },
+     {
+      "q": "Quanti fondi propri servono?",
+      "a": "Almeno il 20 % del prezzo d'acquisto, di cui almeno il 10 % di fondi propri «duri», cioè non dalla cassa pensione. Per gli immobili da reddito le banche chiedono spesso il 25 %. Stato 2026, senza garanzia."
+     },
+     {
+      "q": "Che differenza c'è tra ipoteca di primo e secondo grado?",
+      "a": "Il primo grado copre circa due terzi del valore dell'immobile. Il secondo grado va oltre fino all'80 % al massimo e va ammortizzato entro 15 anni o fino al pensionamento."
+     },
+     {
+      "q": "Posso suddividere l'ipoteca in più tranche?",
+      "a": "Sì. Puoi dividere l'ipoteca in tranche con modelli e durate diversi, distribuendo rischio di tasso e scadenze. Ti mostriamo lo scaglionamento giusto per te."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Tutte le domande",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Trova\n*l'ipoteca giusta.*",
+    "text": "Confronto gratuito, consulenza personale, avviato in 3 minuti.",
+    "ctas": [
+     {
+      "label": "Richiedere un'ipoteca",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "Swiss Mortgages: All Types Explained | HYPOTEQ",
+  "description": "SARON, fixed-rate or a mix: mortgages for buying, refinancing, building and renovating in Switzerland. Compare 40+ lenders for free with HYPOTEQ.",
+  "h1": "Swiss mortgages for every situation",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Swiss mortgage types",
+    "h1": "Swiss mortgages\nfor every situation",
+    "lead": "Buying, refinancing, building or renovating: we explain the **Swiss mortgage types** and compare your mortgage across 40+ banks, insurers and pension funds. Free for you, with an advisor who really knows your situation, in English.",
+    "ctas": [
+     {
+      "label": "Request a mortgage",
+      "to": "funnel"
+     },
+     {
+      "label": "See rates",
+      "to": "page:zinsen"
+     }
+    ],
+    "badges": [
+     "CHF 0 brokerage fee",
+     "40+ financing partners",
+     "Apply in 3 minutes"
+    ],
+    "image": "house",
+    "alt": "Swiss chalet in front of snowy mountains",
+    "float": {
+     "title": "SARON from 0.85 %",
+     "text": "Indicative rate · sample value"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banks, insurers & pension funds"
+     },
+     {
+      "value": "180+",
+      "label": "advisors across Switzerland"
+     },
+     {
+      "value": "35+ yrs",
+      "label": "of experience in the team"
+     },
+     {
+      "value": "CHF 0",
+      "label": "for comparison and brokerage"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "By project",
+    "title": "What are you planning?",
+    "lead": "Pick your project. Each page explains what Swiss banks look at and how to apply for a mortgage in Switzerland.",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Buy",
+      "title": "Buy a property",
+      "text": "Financing confirmation, equity and affordability for your first Swiss home.",
+      "to": "page:kauf"
+     },
+     {
+      "kicker": "Renew",
+      "title": "Renew & refinance",
+      "text": "Mortgage expiring? Compare 12–24 months ahead and switch banks.",
+      "to": "page:abloesung"
+     },
+     {
+      "kicker": "Build",
+      "title": "New build financing",
+      "text": "From construction loan to your final mortgage.",
+      "to": "page:neubau"
+     },
+     {
+      "kicker": "Renovate",
+      "title": "Increase & renovate",
+      "text": "More capital for renovations, a new heating system or energy upgrades.",
+      "to": "page:aufstocken"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "SARON vs fixed",
+    "title": "SARON, fixed\n*or both?*",
+    "lead": "The two main Swiss mortgage models can be combined in tranches.",
+    "tone": "soft",
+    "items": [
+     {
+      "kicker": "Flexible",
+      "title": "SARON mortgage",
+      "text": "The rate follows the money market. Flexible, but costs can vary.",
+      "to": "page:saron"
+     },
+     {
+      "kicker": "Predictable",
+      "title": "Fixed-rate mortgage",
+      "text": "One rate for the whole term. Easy to plan, less flexible.",
+      "to": "page:fest"
+     },
+     {
+      "kicker": "Combined",
+      "title": "SARON or fixed?",
+      "text": "When each model fits and how to stagger your tranches.",
+      "to": "page:rg-saron-fest",
+      "cta": "Read the guide"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "By life situation",
+    "title": "Your situation.\n*Your solution.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Invest",
+      "title": "Buy-to-let & second home",
+      "text": "Financing for rented properties and holiday homes.",
+      "to": "page:rendite"
+     },
+     {
+      "kicker": "Self-employed",
+      "title": "Mortgage for the self-employed",
+      "text": "Convince the bank with your accounts instead of a salary statement.",
+      "to": "page:selbstaendige"
+     },
+     {
+      "kicker": "Retirement",
+      "title": "Mortgage in retirement",
+      "text": "Keep your mortgage affordable after you retire.",
+      "to": "page:ruhestand"
+     },
+     {
+      "kicker": "International",
+      "title": "Mortgage for expats",
+      "text": "Buy your home with a B or C permit, advice in English.",
+      "to": "page:expats"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Special financing & advice",
+    "title": "When it gets\n*more complex.*",
+    "tone": "dark",
+    "cols": 2,
+    "items": [
+     {
+      "kicker": "For developers & investors",
+      "title": "Mezzanine financing",
+      "text": "Subordinated capital between equity and bank financing, without giving up shares. Term of 2–5 years.",
+      "to": "page:mezzanine"
+     },
+     {
+      "kicker": "Paid mandate",
+      "title": "Advisory",
+      "text": "For complex properties, ownership structures or after a bank has said no. The first meeting is free.",
+      "to": "page:advisory"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "The basics",
+    "title": "First and second mortgage\n*in Switzerland explained.*",
+    "image": "keys",
+    "alt": "House keys on a table",
+    "paragraphs": [
+     "Swiss banks usually lend up to **80 %** of the property value (loan-to-value). The **first mortgage** covers about two thirds of the value and does not need to be repaid. The part above is the **second mortgage**: you pay it back within 15 years or by retirement, either directly or indirectly via pillar 3a, the tax-advantaged private pension.",
+     "You can split your mortgage into several tranches, for example part SARON and part fixed. This spreads interest-rate risk and maturity dates."
+    ],
+    "bullets": [
+     "Equity at least 20 %, of which at least 10 % not from your pension fund (pillar 2)",
+     "Affordability tested at an imputed 5 % rate, max. about ⅓ of gross income",
+     "As of 2026, without guarantee"
+    ],
+    "ctas": [
+     {
+      "label": "Check affordability",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "label": "Equity guide",
+      "to": "page:rg-eigenmittel"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Indicative rates",
+    "title": "Where is\n*the market?*",
+    "lead": "Indicative rates give you orientation. Your personal rate depends on the property, loan-to-value and affordability."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Apply for a mortgage in Switzerland",
+    "title": "Four steps\nto your mortgage.",
+    "items": [
+     {
+      "title": "Apply in 3 minutes",
+      "text": "Upload your documents, our AI reads most of the details."
+     },
+     {
+      "title": "Personal advice",
+      "text": "Your advisor usually gets in touch promptly."
+     },
+     {
+      "title": "Offers in 48–72 h",
+      "text": "Once your documents are complete, we compare 40+ lenders for you."
+     },
+     {
+      "title": "Sign your mortgage",
+      "text": "We support you until the funds are paid out."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Request a mortgage",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "For agents, trustees & brokers",
+    "title": "Your clients need\n*a mortgage?*",
+    "screen": "portal",
+    "tone": "dark",
+    "reverse": true,
+    "paragraphs": [
+     "With the **partner programme** you submit cases and track their status in the partner portal. The client relationship stays with you, and you earn a fair commission per closed deal."
+    ],
+    "ctas": [
+     {
+      "label": "Become a partner",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Swiss mortgages\nmade clear.",
+    "items": [
+     {
+      "q": "What types of mortgages exist in Switzerland?",
+      "a": "The main ones are the **SARON mortgage** with a variable rate and the **fixed-rate mortgage** with one rate for a set term. Many borrowers combine both in tranches."
+     },
+     {
+      "q": "How much down payment do I need?",
+      "a": "At least 20 % of the purchase price, of which at least 10 % must be «hard» equity, i.e. not from your pension fund. For buy-to-let properties banks usually ask for 25 %. As of 2026, without guarantee."
+     },
+     {
+      "q": "What is a first and second mortgage?",
+      "a": "The first mortgage covers about two thirds of the property value. The second mortgage sits above it, up to a maximum of 80 %, and must be repaid within 15 years or by retirement."
+     },
+     {
+      "q": "Can I split my mortgage into tranches?",
+      "a": "Yes. You can divide your mortgage into tranches with different models and terms to spread interest-rate risk and maturities. We show you which structure fits."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "All questions",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Find your\n*Swiss mortgage.*",
+    "text": "Free comparison, personal advice in English, started in 3 minutes.",
+    "ctas": [
+     {
+      "label": "Request a mortgage",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ }
+}

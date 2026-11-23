@@ -1,0 +1,926 @@
+{
+ "de": {
+  "title": "Über uns: Hypothekenexperten aus Zürich | HYPOTEQ",
+  "description": "HYPOTEQ AG aus Zürich: unabhängiger Hypothekenvergleich, 180+ Berater:innen, 40+ Finanzierungspartner. Lerne unser Team kennen.",
+  "h1": "Über HYPOTEQ",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "HYPOTEQ AG · Zürich",
+    "h1": "Über HYPOTEQ",
+    "lead": "**HYPOTEQ** ist ein unabhängiger Hypothekarvermittler aus Zürich. Wir verbinden Technologie mit persönlicher Beratung und vergleichen für dich kostenlos über 40 Banken, Versicherungen und Pensionskassen.",
+    "ctas": [
+     {
+      "label": "Hypothek anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "Kontakt",
+      "to": "page:kontakt"
+     }
+    ],
+    "badges": [
+     "Unabhängig",
+     "Sitz in Zürich",
+     "Mensch & Technologie"
+    ],
+    "image": "zurich-neighbourhood",
+    "alt": "Wohnquartier in Zürich"
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "Banken, Versicherungen & Pensionskassen"
+     },
+     {
+      "value": "180+",
+      "label": "Beraterinnen und Berater in der ganzen Schweiz"
+     },
+     {
+      "value": "35+",
+      "label": "Jahre Erfahrung im Team"
+     },
+     {
+      "value": "0 CHF",
+      "label": "für Vergleich und Vermittlung"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Unsere Mission",
+    "title": "Hypotheken vergleichbar machen.\n*Und verständlich.*",
+    "image": "consultation",
+    "alt": "Beraterin im Gespräch mit einem Paar",
+    "paragraphs": [
+     "Eine Hypothek ist oft der grösste Vertrag im Leben. Trotzdem holen viele nur ein Angebot bei der Hausbank ein. Das wollen wir ändern.",
+     "Unser Team bringt **über 35 Jahre Erfahrung** aus der Hypotheken- und FinTech-Welt mit. Wir haben eine Plattform gebaut, die Unterlagen per KI ausliest und Offerten vergleichbar macht. Die Beratung bleibt persönlich."
+    ],
+    "bullets": [
+     "Unabhängig von einzelnen Banken",
+     "Kostenlos für Privatkund:innen",
+     "Beraterin meldet sich in der Regel zeitnah"
+    ],
+    "ctas": [
+     {
+      "label": "Hypothek anfragen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Unsere Werte",
+    "title": "Wofür wir\n*stehen.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "01",
+      "title": "Unabhängig",
+      "text": "Wir vertreiben keine Versicherungen oder Anlagen. Wir suchen die Finanzierung, die zu dir passt."
+     },
+     {
+      "kicker": "02",
+      "title": "Transparent",
+      "text": "Klare Richtzinsen ohne Schaufensterzinsen. Du weisst, wie wir entschädigt werden."
+     },
+     {
+      "kicker": "03",
+      "title": "Persönlich",
+      "text": "Die KI hilft beim Erfassen. Beraten wirst du immer von einem Menschen."
+     },
+     {
+      "kicker": "04",
+      "title": "Schnell",
+      "text": "Anfrage in ca. 3 Minuten, Offerten in der Regel innert 48–72 Stunden."
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Management",
+    "title": "Die Köpfe\n*hinter HYPOTEQ.*",
+    "cols": 3,
+    "tone": "soft",
+    "items": [
+     {
+      "kicker": "Management",
+      "title": "Marco Circelli",
+      "text": "Mitglied des Managements der HYPOTEQ AG."
+     },
+     {
+      "kicker": "Management",
+      "title": "Davide Iuorno",
+      "text": "Mitglied des Managements der HYPOTEQ AG."
+     },
+     {
+      "kicker": "Management · CTO",
+      "title": "Fisnik Salihu",
+      "text": "Verantwortet als CTO die Technologie hinter Plattform, Online-Anfrage und Partnerportal."
+     }
+    ]
+   },
+   {
+    "type": "testimonials",
+    "eyebrow": "HYPOTEQ Erfahrungen",
+    "title": "Was Kund:innen\nund Partner sagen.",
+    "items": [
+     {
+      "text": "Erstklassiger Service, alles wurde schnell bearbeitet.",
+      "author": "Andreas K."
+     },
+     {
+      "text": "Mein Berater hat mich optimal begleitet und war sehr präsent.",
+      "author": "Romain C."
+     },
+     {
+      "text": "Auch als Partner ist man bei HYPOTEQ sehr gut aufgehoben, erreichbar sogar nach Bürozeiten.",
+      "author": "Luigi M., Vertriebspartner"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Partnerprogramm",
+    "title": "Gemeinsam\n*mehr erreichen.*",
+    "screen": "portal",
+    "tone": "dark",
+    "reverse": true,
+    "paragraphs": [
+     "Immobilienmakler, Treuhänder, Vermögensverwalter und Broker vermitteln ihre Kund:innen an HYPOTEQ. Wir arbeiten bereits mit **RE/MAX** und **Betterhomes** zusammen."
+    ],
+    "bullets": [
+     "Die Kundenbeziehung bleibt beim Partner",
+     "Faire Provision pro Abschluss",
+     "Keine Produktkonkurrenz"
+    ],
+    "ctas": [
+     {
+      "label": "Partner werden",
+      "to": "page:partner"
+     },
+     {
+      "label": "Partnerlogin",
+      "to": "portal"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "eyebrow": "Karriere",
+    "title": "Lust auf\n*HYPOTEQ?*",
+    "text": "Wir wachsen. Wenn du Hypotheken und Technologie zusammenbringen willst, schick uns deine Initiativbewerbung an info@hypoteq.ch.",
+    "tone": "soft",
+    "ctas": [
+     {
+      "label": "Initiativ bewerben",
+      "to": "mail"
+     },
+     {
+      "label": "Kontakt",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Fragen zu\nHYPOTEQ.",
+    "items": [
+     {
+      "q": "Wer steht hinter HYPOTEQ?",
+      "a": "Die **HYPOTEQ AG** mit Sitz an der Löwenstrasse 29 in Zürich. Das Management bilden Marco Circelli, Davide Iuorno und Fisnik Salihu (CTO)."
+     },
+     {
+      "q": "Wie unabhängig ist HYPOTEQ?",
+      "a": "Wir arbeiten mit über 40 Banken, Versicherungen und Pensionskassen und sind an keinen einzelnen Anbieter gebunden. Wir vertreiben auch keine Versicherungen oder Anlagen."
+     },
+     {
+      "q": "Wie verdient HYPOTEQ Geld?",
+      "a": "Im Erfolgsfall entschädigt uns der Finanzierungspartner. Für dich sind Vergleich und Vermittlung **kostenlos**. Kostenpflichtig sind nur Advisory-Mandate und die Immobilienbewertung."
+     },
+     {
+      "q": "Wo ist HYPOTEQ tätig?",
+      "a": "In der ganzen Schweiz. Unser Sitz ist in Zürich, die Beratung findet vor Ort, telefonisch oder online statt."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Alle Fragen",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Lerne uns\n*persönlich kennen.*",
+    "text": "Kostenlos vergleichen und persönlich beraten lassen.",
+    "ctas": [
+     {
+      "label": "Hypothek anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "À propos: experts hypothécaires | HYPOTEQ",
+  "description": "HYPOTEQ AG à Zurich: comparatif hypothécaire indépendant, 2'500+ clients, 40+ prêteurs partenaires, conseil en français. Découvrez l'équipe.",
+  "h1": "À propos de HYPOTEQ",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "HYPOTEQ AG · Zurich",
+    "h1": "À propos de HYPOTEQ",
+    "lead": "**HYPOTEQ** est un courtier hypothécaire indépendant basé à Zurich. Nous allions technologie et conseil personnel et comparons gratuitement pour vous plus de 40 banques, assurances et caisses de pension.",
+    "ctas": [
+     {
+      "label": "Demander une hypothèque",
+      "to": "funnel"
+     },
+     {
+      "label": "Contact",
+      "to": "page:kontakt"
+     }
+    ],
+    "badges": [
+     "Indépendant",
+     "Siège à Zurich",
+     "Humain & technologie"
+    ],
+    "image": "zurich-neighbourhood",
+    "alt": "Quartier résidentiel à Zurich"
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banques, assurances & caisses de pension"
+     },
+     {
+      "value": "180+",
+      "label": "conseillères et conseillers dans toute la Suisse"
+     },
+     {
+      "value": "35+",
+      "label": "ans d'expérience dans l'équipe"
+     },
+     {
+      "value": "0 CHF",
+      "label": "pour la comparaison et le courtage"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Notre mission",
+    "title": "Rendre les hypothèques comparables.\n*Et compréhensibles.*",
+    "image": "consultation",
+    "alt": "Conseillère en entretien avec un couple",
+    "paragraphs": [
+     "Une hypothèque est souvent le plus gros contrat d'une vie. Pourtant, beaucoup ne demandent qu'une offre à leur banque. Nous voulons changer cela.",
+     "Notre équipe réunit **plus de 35 ans d'expérience** dans l'hypothécaire et la FinTech. Notre plateforme lit les documents grâce à l'IA et rend les offres comparables. Le conseil, lui, reste personnel, aussi en français."
+    ],
+    "bullets": [
+     "Indépendant des banques",
+     "Gratuit pour les particuliers",
+     "Votre conseillère vous répond rapidement"
+    ],
+    "ctas": [
+     {
+      "label": "Demander une hypothèque",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Nos valeurs",
+    "title": "Ce qui\n*nous guide.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "01",
+      "title": "Indépendance",
+      "text": "Nous ne vendons ni assurances ni placements. Nous cherchons le financement qui vous convient."
+     },
+     {
+      "kicker": "02",
+      "title": "Transparence",
+      "text": "Des taux indicatifs clairs, sans taux d'appel. Vous savez comment nous sommes rémunérés."
+     },
+     {
+      "kicker": "03",
+      "title": "Proximité",
+      "text": "L'IA aide à la saisie. Le conseil vient toujours d'une personne."
+     },
+     {
+      "kicker": "04",
+      "title": "Rapidité",
+      "text": "Demande en env. 3 minutes, offres en règle générale sous 48 à 72 heures."
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Direction",
+    "title": "L'équipe\n*derrière HYPOTEQ.*",
+    "cols": 3,
+    "tone": "soft",
+    "items": [
+     {
+      "kicker": "Direction",
+      "title": "Marco Circelli",
+      "text": "Membre de la direction de HYPOTEQ AG."
+     },
+     {
+      "kicker": "Direction",
+      "title": "Davide Iuorno",
+      "text": "Membre de la direction de HYPOTEQ AG."
+     },
+     {
+      "kicker": "Direction · CTO",
+      "title": "Fisnik Salihu",
+      "text": "En tant que CTO, responsable de la technologie de la plateforme, de la demande en ligne et du portail partenaires."
+     }
+    ]
+   },
+   {
+    "type": "testimonials",
+    "eyebrow": "HYPOTEQ avis",
+    "title": "Ce que disent\nclients et partenaires.",
+    "items": [
+     {
+      "text": "Un service de premier ordre, tout a été traité rapidement.",
+      "author": "Andreas K."
+     },
+     {
+      "text": "Mon conseiller m'a accompagné de façon optimale et a été très présent.",
+      "author": "Romain C."
+     },
+     {
+      "text": "En tant que partenaire aussi, on est très bien entouré chez HYPOTEQ, même en dehors des heures de bureau.",
+      "author": "Luigi M., partenaire"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Programme partenaires",
+    "title": "Ensemble,\n*plus loin.*",
+    "screen": "portal",
+    "tone": "dark",
+    "reverse": true,
+    "paragraphs": [
+     "Courtiers immobiliers, fiduciaires, gérants de fortune et brokers nous confient leurs clients. Nous collaborons déjà avec **RE/MAX** et **Betterhomes**."
+    ],
+    "bullets": [
+     "La relation client reste chez le partenaire",
+     "Commission équitable par conclusion",
+     "Aucune concurrence de produits"
+    ],
+    "ctas": [
+     {
+      "label": "Devenir partenaire",
+      "to": "page:partner"
+     },
+     {
+      "label": "Login partenaires",
+      "to": "portal"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "eyebrow": "Carrière",
+    "title": "Envie de\n*rejoindre HYPOTEQ?*",
+    "text": "Nous grandissons. Si vous souhaitez réunir hypothèques et technologie, envoyez votre candidature spontanée à info@hypoteq.ch.",
+    "tone": "soft",
+    "ctas": [
+     {
+      "label": "Candidature spontanée",
+      "to": "mail"
+     },
+     {
+      "label": "Contact",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "Questions sur\nHYPOTEQ.",
+    "items": [
+     {
+      "q": "Qui est HYPOTEQ?",
+      "a": "**HYPOTEQ AG**, Löwenstrasse 29 à Zurich. La direction est composée de Marco Circelli, Davide Iuorno et Fisnik Salihu (CTO)."
+     },
+     {
+      "q": "HYPOTEQ est-il indépendant?",
+      "a": "Oui. Nous travaillons avec plus de 40 banques, assurances et caisses de pension, sans lien avec un prêteur en particulier. Nous ne vendons ni assurances ni placements."
+     },
+     {
+      "q": "Comment HYPOTEQ est-il rémunéré?",
+      "a": "En cas de succès, par le prêteur. Pour vous, la comparaison et le courtage sont **gratuits**. Seuls les mandats Advisory et l'estimation immobilière sont payants."
+     },
+     {
+      "q": "Conseillez-vous en Suisse romande?",
+      "a": "Oui. Nous conseillons dans toute la Suisse et en français, par téléphone, en ligne ou sur place à Zurich."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Toutes les questions",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Faisons\n*connaissance.*",
+    "text": "Comparer gratuitement et être conseillé personnellement.",
+    "ctas": [
+     {
+      "label": "Demander une hypothèque",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Chi siamo: esperti di ipoteche | HYPOTEQ",
+  "description": "HYPOTEQ AG di Zurigo: confronto ipotecario indipendente, oltre 2'500 clienti, 40+ istituti partner, consulenza in italiano. Scopri il team.",
+  "h1": "Chi è HYPOTEQ",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "HYPOTEQ AG · Zurigo",
+    "h1": "Chi è HYPOTEQ",
+    "lead": "**HYPOTEQ** è un broker ipotecario indipendente con sede a Zurigo. Uniamo tecnologia e consulenza personale e confrontiamo gratis per te oltre 40 banche, assicurazioni e casse pensioni.",
+    "ctas": [
+     {
+      "label": "Richiedere un'ipoteca",
+      "to": "funnel"
+     },
+     {
+      "label": "Contatto",
+      "to": "page:kontakt"
+     }
+    ],
+    "badges": [
+     "Indipendente",
+     "Sede a Zurigo",
+     "Persone & tecnologia"
+    ],
+    "image": "zurich-neighbourhood",
+    "alt": "Quartiere residenziale a Zurigo"
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banche, assicurazioni e casse pensioni"
+     },
+     {
+      "value": "180+",
+      "label": "consulenti in tutta la Svizzera"
+     },
+     {
+      "value": "35+",
+      "label": "anni di esperienza nel team"
+     },
+     {
+      "value": "0 CHF",
+      "label": "per confronto e mediazione"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "La nostra missione",
+    "title": "Rendere le ipoteche confrontabili.\n*E comprensibili.*",
+    "image": "consultation",
+    "alt": "Consulente in colloquio con una coppia",
+    "paragraphs": [
+     "Un'ipoteca è spesso il contratto più importante della vita. Eppure molti chiedono un'offerta solo alla propria banca. Vogliamo cambiare questo.",
+     "Il nostro team porta **oltre 35 anni di esperienza** nel mondo ipotecario e FinTech. La nostra piattaforma legge i documenti con l'IA e rende le offerte confrontabili. La consulenza resta personale, anche in italiano."
+    ],
+    "bullets": [
+     "Indipendenti dalle singole banche",
+     "Gratis per i privati",
+     "La consulente ti risponde in tempi brevi"
+    ],
+    "ctas": [
+     {
+      "label": "Richiedere un'ipoteca",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "I nostri valori",
+    "title": "In cosa\n*crediamo.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "01",
+      "title": "Indipendenza",
+      "text": "Non vendiamo assicurazioni né investimenti. Cerchiamo il finanziamento giusto per te."
+     },
+     {
+      "kicker": "02",
+      "title": "Trasparenza",
+      "text": "Tassi indicativi chiari, senza tassi civetta. Sai come veniamo remunerati."
+     },
+     {
+      "kicker": "03",
+      "title": "Vicinanza",
+      "text": "L'IA aiuta a raccogliere i dati. La consulenza la fa sempre una persona."
+     },
+     {
+      "kicker": "04",
+      "title": "Rapidità",
+      "text": "Richiesta in ca. 3 minuti, offerte di regola entro 48–72 ore."
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Direzione",
+    "title": "Le persone\n*dietro HYPOTEQ.*",
+    "cols": 3,
+    "tone": "soft",
+    "items": [
+     {
+      "kicker": "Direzione",
+      "title": "Marco Circelli",
+      "text": "Membro della direzione di HYPOTEQ AG."
+     },
+     {
+      "kicker": "Direzione",
+      "title": "Davide Iuorno",
+      "text": "Membro della direzione di HYPOTEQ AG."
+     },
+     {
+      "kicker": "Direzione · CTO",
+      "title": "Fisnik Salihu",
+      "text": "Come CTO è responsabile della tecnologia di piattaforma, richiesta online e portale partner."
+     }
+    ]
+   },
+   {
+    "type": "testimonials",
+    "eyebrow": "HYPOTEQ opinioni",
+    "title": "Cosa dicono\nclienti e partner.",
+    "items": [
+     {
+      "text": "Servizio di prim'ordine, tutto è stato gestito rapidamente.",
+      "author": "Andreas K."
+     },
+     {
+      "text": "Il mio consulente mi ha accompagnato in modo ottimale ed è stato molto presente.",
+      "author": "Romain C."
+     },
+     {
+      "text": "Anche come partner con HYPOTEQ si è in ottime mani, raggiungibili persino fuori orario.",
+      "author": "Luigi M., partner"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Programma partner",
+    "title": "Insieme\n*si va più lontano.*",
+    "screen": "portal",
+    "tone": "dark",
+    "reverse": true,
+    "paragraphs": [
+     "Agenti immobiliari, fiduciari, gestori patrimoniali e broker ci affidano i loro clienti. Collaboriamo già con **RE/MAX** e **Betterhomes**."
+    ],
+    "bullets": [
+     "Il rapporto con il cliente resta al partner",
+     "Provvigione equa per ogni conclusione",
+     "Nessuna concorrenza di prodotti"
+    ],
+    "ctas": [
+     {
+      "label": "Diventa partner",
+      "to": "page:partner"
+     },
+     {
+      "label": "Login partner",
+      "to": "portal"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "eyebrow": "Carriera",
+    "title": "Vuoi lavorare\n*con HYPOTEQ?*",
+    "text": "Stiamo crescendo. Se vuoi unire ipoteche e tecnologia, invia la tua candidatura spontanea a info@hypoteq.ch.",
+    "tone": "soft",
+    "ctas": [
+     {
+      "label": "Candidatura spontanea",
+      "to": "mail"
+     },
+     {
+      "label": "Contatto",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "Domande su\nHYPOTEQ.",
+    "items": [
+     {
+      "q": "Chi c'è dietro HYPOTEQ?",
+      "a": "**HYPOTEQ AG**, Löwenstrasse 29 a Zurigo. La direzione è composta da Marco Circelli, Davide Iuorno e Fisnik Salihu (CTO)."
+     },
+     {
+      "q": "HYPOTEQ è indipendente?",
+      "a": "Sì. Lavoriamo con oltre 40 banche, assicurazioni e casse pensioni senza essere legati a un singolo istituto. Non vendiamo assicurazioni né investimenti."
+     },
+     {
+      "q": "Come guadagna HYPOTEQ?",
+      "a": "In caso di successo veniamo remunerati dall'istituto finanziatore. Per te confronto e mediazione sono **gratuiti**. A pagamento sono solo i mandati Advisory e la stima immobiliare."
+     },
+     {
+      "q": "Offrite consulenza in Ticino?",
+      "a": "Sì. Offriamo consulenza in tutta la Svizzera e in italiano, per telefono, online o di persona a Zurigo."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Tutte le domande",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Conosciamoci\n*di persona.*",
+    "text": "Confronta gratis e ricevi una consulenza personale.",
+    "ctas": [
+     {
+      "label": "Richiedere un'ipoteca",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "About Us: Swiss Mortgage Experts | HYPOTEQ",
+  "description": "HYPOTEQ AG, Zurich: independent mortgage comparison, 2,500+ clients, 40+ lending partners, advice in English. Meet our team.",
+  "h1": "About HYPOTEQ",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "HYPOTEQ AG · Zurich",
+    "h1": "About HYPOTEQ",
+    "lead": "**HYPOTEQ** is an independent mortgage broker based in Zurich. We combine technology with personal advice and compare more than 40 banks, insurers and pension funds for you, free of charge.",
+    "ctas": [
+     {
+      "label": "Request a mortgage",
+      "to": "funnel"
+     },
+     {
+      "label": "Contact",
+      "to": "page:kontakt"
+     }
+    ],
+    "badges": [
+     "Independent",
+     "Based in Zurich",
+     "People & technology"
+    ],
+    "image": "zurich-neighbourhood",
+    "alt": "Residential neighbourhood in Zurich"
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banks, insurers & pension funds"
+     },
+     {
+      "value": "2,500+",
+      "label": "clients"
+     },
+     {
+      "value": "35+",
+      "label": "years of experience in the team"
+     },
+     {
+      "value": "0 CHF",
+      "label": "for comparison and brokerage"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Our mission",
+    "title": "Make mortgages comparable.\n*And understandable.*",
+    "image": "consultation",
+    "alt": "Advisor talking with a couple",
+    "paragraphs": [
+     "A mortgage is often the biggest contract of your life. Yet many people only ask their own bank for an offer. We want to change that.",
+     "Our team brings **more than 35 years of experience** from the mortgage and FinTech world. Our platform reads your documents with AI and makes offers comparable. The advice stays personal, in English too."
+    ],
+    "bullets": [
+     "Independent of any single bank",
+     "Free for private clients",
+     "Your advisor usually replies the same business day"
+    ],
+    "ctas": [
+     {
+      "label": "Request a mortgage",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Our values",
+    "title": "What we\n*stand for.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "01",
+      "title": "Independent",
+      "text": "We don't sell insurance or investments. We look for the financing that fits you."
+     },
+     {
+      "kicker": "02",
+      "title": "Transparent",
+      "text": "Clear indicative rates, no teaser rates. You know how we are paid."
+     },
+     {
+      "kicker": "03",
+      "title": "Personal",
+      "text": "AI helps with data entry. Advice always comes from a person."
+     },
+     {
+      "kicker": "04",
+      "title": "Fast",
+      "text": "Request in about 3 minutes, offers usually within 48–72 hours."
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Management",
+    "title": "The people\n*behind HYPOTEQ.*",
+    "cols": 3,
+    "tone": "soft",
+    "items": [
+     {
+      "kicker": "Management",
+      "title": "Marco Circelli",
+      "text": "Member of the management of HYPOTEQ AG."
+     },
+     {
+      "kicker": "Management",
+      "title": "Davide Iuorno",
+      "text": "Member of the management of HYPOTEQ AG."
+     },
+     {
+      "kicker": "Management · CTO",
+      "title": "Fisnik Salihu",
+      "text": "As CTO, responsible for the technology behind the platform, online request and partner portal."
+     }
+    ]
+   },
+   {
+    "type": "testimonials",
+    "eyebrow": "HYPOTEQ reviews",
+    "title": "What clients\nand partners say.",
+    "items": [
+     {
+      "text": "First-class service, everything was handled quickly.",
+      "author": "Andreas K."
+     },
+     {
+      "text": "My advisor guided me perfectly and was always there.",
+      "author": "Romain C."
+     },
+     {
+      "text": "As a partner you're in very good hands with HYPOTEQ, reachable even after office hours.",
+      "author": "Luigi M., partner"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Partner programme",
+    "title": "Achieve more\n*together.*",
+    "screen": "portal",
+    "tone": "dark",
+    "reverse": true,
+    "paragraphs": [
+     "Real estate agents, trustees, wealth managers and brokers refer their clients to HYPOTEQ. We already work with **RE/MAX** and **Betterhomes**."
+    ],
+    "bullets": [
+     "The client relationship stays with the partner",
+     "Fair commission per closed deal",
+     "No product competition"
+    ],
+    "ctas": [
+     {
+      "label": "Become a partner",
+      "to": "page:partner"
+     },
+     {
+      "label": "Partner login",
+      "to": "portal"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "eyebrow": "Careers",
+    "title": "Want to\n*join HYPOTEQ?*",
+    "text": "We're growing. If you want to bring mortgages and technology together, send your speculative application to info@hypoteq.ch.",
+    "tone": "soft",
+    "ctas": [
+     {
+      "label": "Apply now",
+      "to": "mail"
+     },
+     {
+      "label": "Contact",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Questions about\nHYPOTEQ.",
+    "items": [
+     {
+      "q": "Who is behind HYPOTEQ?",
+      "a": "**HYPOTEQ AG**, Löwenstrasse 29 in Zurich. The management team is Marco Circelli, Davide Iuorno and Fisnik Salihu (CTO)."
+     },
+     {
+      "q": "Is HYPOTEQ independent?",
+      "a": "Yes. We work with more than 40 banks, insurers and pension funds and are not tied to any single lender. We don't sell insurance or investments either."
+     },
+     {
+      "q": "How does HYPOTEQ earn money?",
+      "a": "When a deal closes, the lender pays us. For you, comparison and brokerage are **free**. Only Advisory mandates and the property valuation are charged."
+     },
+     {
+      "q": "Do you advise in English?",
+      "a": "Yes. We advise across Switzerland in English, German, French and Italian, by phone, online or in person in Zurich."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "All questions",
+      "to": "page:faq"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Get to know us\n*in person.*",
+    "text": "Compare for free and get personal advice.",
+    "ctas": [
+     {
+      "label": "Request a mortgage",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ }
+}

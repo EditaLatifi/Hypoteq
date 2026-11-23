@@ -1,0 +1,1430 @@
+{
+  "de": {
+    "title": "HYPOTEQ Academy: Hypotheken Weiterbildung | HYPOTEQ",
+    "description": "Foundation Course (CHF 290) und neu der Lehrgang «Fachexperte Immobilienfinanzierung» mit 20 Expert Journeys und Zertifikat. Online, im eigenen Tempo.",
+    "h1": "HYPOTEQ Academy: Hypotheken verstehen und beraten",
+    "sections": [
+      {
+        "type": "hero",
+        "eyebrow": "HYPOTEQ Academy · Foundation Course & Zertifikatslehrgang",
+        "h1": "HYPOTEQ Academy:\nHypotheken verstehen\nund beraten",
+        "lead": "**Hypotheken verstehen. Beratung trainieren. Expertin oder Experte werden.** Starte mit dem Foundation Course in 8 Learning Journeys oder vertiefe dich im neuen Lehrgang mit 20 Expert Journeys bis zum Zertifikat «Fachexperte Immobilienfinanzierung».",
+        "ctas": [
+          {
+            "label": "Foundation Course buchen",
+            "to": "academy"
+          },
+          {
+            "label": "Für Vertriebspartner",
+            "to": "page:partner"
+          }
+        ],
+        "badges": [
+          "Ohne Vorwissen starten",
+          "20 Expert Journeys",
+          "Mit Zertifikat"
+        ],
+        "image": "interior",
+        "alt": "Heller Arbeitsplatz zum Lernen in einer Wohnung",
+        "float": {
+          "title": "CHF 290",
+          "text": "Foundation Course · 8 Learning Journeys"
+        }
+      },
+      {
+        "type": "usp",
+        "items": [
+          {
+            "value": "8",
+            "label": "Learning Journeys von Wohntraum bis Dossier"
+          },
+          {
+            "value": "4 Modi",
+            "label": "im KI-Learning-Playground"
+          },
+          {
+            "value": "inkl.",
+            "label": "Abschlusstest und Zertifikat"
+          },
+          {
+            "value": "CHF 290",
+            "label": "Foundation Course, ohne Vorwissen"
+          }
+        ]
+      },
+      {
+        "type": "split",
+        "eyebrow": "Kurs Hypotheken",
+        "title": "Lernen in Nuggets.\n*Üben mit KI.*",
+        "screen": "academy",
+        "paragraphs": [
+          "Der **Foundation Course** verbindet kurze Learning Nuggets mit Praxisfällen rund um Familie Meier. Knowledge Checks zeigen dir, was sitzt, und am Ende jeder Journey wartet eine Praxis-Challenge.",
+          "Fragen stellst du jederzeit dem **KI-Trainer**. So wird aus Theorie Beratungskompetenz für echte Kundengespräche."
+        ],
+        "bullets": [
+          "Kurze Lerneinheiten, flexibel online",
+          "Praxisfälle statt grauer Theorie",
+          "Abschlusstest und Zertifikat"
+        ],
+        "ctas": [
+          {
+            "label": "Jetzt buchen",
+            "to": "academy"
+          }
+        ]
+      },
+      {
+        "type": "features",
+        "title": "Der Learning Playground.\n*Vier Arten zu trainieren.*",
+        "items": [
+          {
+            "icon": "◎",
+            "title": "Rollenübung",
+            "text": "Führe ein Kundengespräch per Text oder Audio und erhalte eine Analyse deiner Beratung."
+          },
+          {
+            "icon": "⇪",
+            "title": "Simulationsmodus",
+            "text": "Spiele Finanzierungsfälle realistisch durch und sieh, wie sich Entscheidungen auswirken."
+          },
+          {
+            "icon": "✓",
+            "title": "Übungsmodus",
+            "text": "Trainiere gezielt einzelne Themen wie Tragbarkeit oder Eigenmittel."
+          },
+          {
+            "icon": "✦",
+            "title": "Alles lernen",
+            "text": "Gehe alle Inhalte der Journeys strukturiert durch, Schritt für Schritt."
+          }
+        ],
+        "ctas": [
+          {
+            "label": "Foundation Course buchen",
+            "to": "academy"
+          }
+        ]
+      },
+      {
+        "type": "steps",
+        "eyebrow": "So lernst du",
+        "title": "Vom ersten Nugget\n*zum Zertifikat.*",
+        "items": [
+          {
+            "title": "Learning Nuggets",
+            "text": "Kurze Einheiten erklären jedes Thema verständlich."
+          },
+          {
+            "title": "Praxisfall Familie Meier",
+            "text": "Du wendest das Gelernte an einem durchgehenden Fall an."
+          },
+          {
+            "title": "Knowledge Checks & Challenges",
+            "text": "Du prüfst dein Wissen und löst am Ende jeder Journey eine Praxis-Challenge."
+          },
+          {
+            "title": "Abschlusstest & Zertifikat",
+            "text": "Mit bestandenem Test erhältst du dein Zertifikat."
+          }
+        ],
+        "ctas": [
+          {
+            "label": "Jetzt starten",
+            "to": "academy"
+          }
+        ]
+      },
+      {
+        "type": "cards",
+        "eyebrow": "Inhalt",
+        "title": "8 Learning Journeys.\n*Ein roter Faden.*",
+        "cols": 4,
+        "items": [
+          {
+            "kicker": "01",
+            "title": "Vom Wohntraum zur Finanzierung",
+            "text": "Wie aus einem Wunsch ein finanzierbares Projekt wird."
+          },
+          {
+            "kicker": "02",
+            "title": "Welche Finanzierung liegt vor?",
+            "text": "Kauf, Ablösung, Neubau oder Aufstockung richtig einordnen."
+          },
+          {
+            "kicker": "03",
+            "title": "Eigenmittel richtig einsetzen",
+            "text": "Harte Eigenmittel, Pensionskasse und Säule 3a."
+          },
+          {
+            "kicker": "04",
+            "title": "Belehnung & Tragbarkeit",
+            "text": "So rechnen Banken, mit kalkulatorischem Zins."
+          },
+          {
+            "kicker": "05",
+            "title": "Die passende Hypothekenstrategie",
+            "text": "SARON, Festhypothek oder Kombination."
+          },
+          {
+            "kicker": "06",
+            "title": "Was kostet das Eigenheim wirklich?",
+            "text": "Zinsen, Amortisation, Unterhalt und Nebenkosten."
+          },
+          {
+            "kicker": "07",
+            "title": "Von der Finanzierungszusage bis zur Auszahlung",
+            "text": "Notariat, Grundbuch und Schuldbrief verstehen."
+          },
+          {
+            "kicker": "08",
+            "title": "Das bankfähige Hypothekardossier",
+            "text": "Welche Unterlagen Kreditgeber erwarten."
+          }
+        ]
+      },
+      {
+        "type": "cards",
+        "eyebrow": "Für wen?",
+        "title": "Weiterbildung für\n*Berater und Private.*",
+        "tone": "soft",
+        "cols": 3,
+        "items": [
+          {
+            "kicker": "Vertriebspartner",
+            "title": "Mehr und besser vermitteln",
+            "text": "Finanzierungsbedarf erkennen, Kunden sicher beraten und bankfähige Dossiers einreichen. Ideal für HYPOTEQ-Partner.",
+            "to": "page:partner",
+            "cta": "Partner werden"
+          },
+          {
+            "kicker": "Einsteiger",
+            "title": "Sicher ins Thema",
+            "text": "Ohne Vorwissen die Grundlagen der Immobilienfinanzierung lernen."
+          },
+          {
+            "kicker": "Erfahrene Berater",
+            "title": "Wissen auffrischen",
+            "text": "Hypothekarberater Ausbildung vertiefen und Gespräche mit KI trainieren."
+          },
+          {
+            "kicker": "Unternehmen",
+            "title": "Teams schulen",
+            "text": "Weiterbildung für Finanzierungsberater, Agenturen und Vertriebsteams."
+          },
+          {
+            "kicker": "Privatpersonen",
+            "title": "Besser entscheiden",
+            "text": "Verstehen, was die Bank prüft, bevor du dein Eigenheim finanzierst."
+          }
+        ],
+        "ctas": [
+          {
+            "label": "Zum Partnerprogramm",
+            "to": "page:partner"
+          }
+        ]
+      },
+      {
+        "type": "cards",
+        "_lehrgang": true,
+        "eyebrow": "Neu · Zertifikatslehrgang",
+        "title": "20 Expert Journeys.\n*Ein Zertifikat.*",
+        "lead": "**Lehrgang Zertifikat «Schweizerische Fachexperte Immobilienfinanzierung».** Immobilienfinanzierungen verstehen, Lösungen beurteilen, Kunden kompetent beraten: in drei Phasen zur Expertenkompetenz.",
+        "tone": "dark",
+        "cols": 3,
+        "items": [
+          {
+            "kicker": "Teil I · Expert Journeys 01–08",
+            "title": "Das fachliche Fundament",
+            "text": "Eigenmittel, Belehnung, Tragbarkeit, Hypothekenmodelle, Amortisation, Vorsorge, Bewertung und Kreditprozess, mit Praxisbeispielen und Berechnungen."
+          },
+          {
+            "kicker": "Teil II · Expert Journeys 09–20",
+            "title": "Professionelle Finanzierungskompetenz",
+            "text": "Unternehmer-Einkommen, Renditeliegenschaften, Immobiliengesellschaften, Bau- und Promotionsfinanzierungen, Kapitalstrukturen und Spezialobjekte."
+          },
+          {
+            "kicker": "Teil III · Abschlussprüfung",
+            "title": "Expertenprüfung mit Praxisfall",
+            "text": "50 Fragen: 35 zur Theorie, 15 zu einem realitätsnahen Finanzierungsfall. Bestehensgrenze 80 %, eine Repetitionsprüfung möglich."
+          }
+        ],
+        "ctas": [
+          {
+            "label": "Interesse melden",
+            "to": "mail"
+          }
+        ]
+      },
+      {
+        "type": "pricing",
+        "eyebrow": "Preise",
+        "title": "Zwei Wege.\n*Ein Ziel.*",
+        "items": [
+          {
+            "name": "Foundation Course",
+            "price": "CHF 290",
+            "badge": "Jetzt verfügbar",
+            "featured": true,
+            "text": "Der Einstieg in die Schweizer Immobilienfinanzierung, ohne Vorwissen.",
+            "features": [
+              "8 Learning Journeys",
+              "KI-Trainer und Learning Playground",
+              "Praxisfälle und Knowledge Checks",
+              "Abschlusstest und Zertifikat"
+            ],
+            "cta": {
+              "label": "Jetzt buchen",
+              "to": "academy"
+            }
+          },
+          {
+            "name": "Lehrgang Zertifikat «Schweizerische Fachexperte Immobilienfinanzierung»",
+            "price": "Auf Anfrage",
+            "badge": "Neu",
+            "text": "Der Weg zur Expertenkompetenz in der Schweizer Immobilienfinanzierung.",
+            "features": [
+              "20 Expert Journeys in drei Phasen",
+              "Online und im eigenen Tempo",
+              "Wissenschecks mit direktem Feedback",
+              "Abschlussprüfung und Zertifikat"
+            ],
+            "cta": {
+              "label": "Interesse melden",
+              "to": "mail"
+            }
+          }
+        ]
+      },
+      {
+        "type": "cards",
+        "eyebrow": "Hinweis zur KI",
+        "title": "KI trainiert.\n*Menschen entscheiden.*",
+        "cols": 2,
+        "items": [
+          {
+            "title": "Was die KI kann",
+            "text": "Der KI-Trainer beantwortet Fragen, simuliert Kundengespräche und gibt dir Feedback zu deiner Beratung."
+          },
+          {
+            "title": "Was sie nicht ersetzt",
+            "text": "KI-Übungen ersetzen keine fachliche Prüfung und keinen Finanzierungsentscheid."
+          }
+        ]
+      },
+      {
+        "type": "faq",
+        "eyebrow": "Häufige Fragen",
+        "title": "Gut zu wissen\n*zur Academy.*",
+        "items": [
+          {
+            "q": "Für wen ist der Foundation Course gedacht?",
+            "a": "Für Vertriebspartner, Einsteiger, erfahrene Berater, Unternehmen und Privatpersonen. Vorwissen brauchst du nicht."
+          },
+          {
+            "q": "Was lerne ich in den 8 Learning Journeys?",
+            "a": "Den ganzen Weg vom Wohntraum über Eigenmittel, Belehnung und Tragbarkeit, Hypothekenstrategie und Kosten bis zur Auszahlung und zum bankfähigen Dossier."
+          },
+          {
+            "q": "Wie funktioniert der KI-Trainer?",
+            "a": "Du stellst dem KI-Trainer Fragen und übst im Learning Playground in vier Modi: Rollenübung per Text oder Audio mit Analyse, Simulation, Übung und «Alles lernen»."
+          },
+          {
+            "q": "Erhalte ich ein Zertifikat?",
+            "a": "Ja. Nach bestandenem Abschlusstest erhältst du ein Zertifikat der HYPOTEQ Academy."
+          },
+          {
+            "q": "Was kostet der Kurs?",
+            "a": "Der Foundation Course kostet **CHF 290**. Der Advisor Course ist in Vorbereitung."
+          }
+        ]
+      },
+      {
+        "type": "cta",
+        "title": "Hypotheken verstehen.\n*Sicherer entscheiden.*",
+        "text": "Starte jetzt mit dem Foundation Course für CHF 290. Als Partner vermittelst du danach mehr und besser.",
+        "ctas": [
+          {
+            "label": "Foundation Course buchen",
+            "to": "academy"
+          },
+          {
+            "label": "Partner werden",
+            "to": "page:partner"
+          }
+        ]
+      }
+    ]
+  },
+  "fr": {
+    "title": "HYPOTEQ Academy: formation hypothécaire | HYPOTEQ",
+    "description": "Foundation Course (CHF 290) et, nouveau, le cursus «Expert en financement immobilier» avec 20 Expert Journeys et certificat. En ligne, à votre rythme.",
+    "h1": "HYPOTEQ Academy: comprendre et conseiller",
+    "sections": [
+      {
+        "type": "hero",
+        "eyebrow": "HYPOTEQ Academy · Foundation Course & cursus certifiant",
+        "h1": "HYPOTEQ Academy:\ncomprendre et conseiller",
+        "lead": "**Comprendre les hypothèques. S'entraîner au conseil. Devenir expert.** Commencez par le Foundation Course en 8 Learning Journeys ou approfondissez avec le nouveau cursus de 20 Expert Journeys jusqu'au certificat «Expert en financement immobilier».",
+        "ctas": [
+          {
+            "label": "Réserver le Foundation Course",
+            "to": "academy"
+          },
+          {
+            "label": "Pour les partenaires",
+            "to": "page:partner"
+          }
+        ],
+        "badges": [
+          "Sans prérequis",
+          "20 Expert Journeys",
+          "Avec certificat"
+        ],
+        "image": "interior",
+        "alt": "Espace de travail lumineux pour apprendre à la maison",
+        "float": {
+          "title": "CHF 290",
+          "text": "Foundation Course · 8 Learning Journeys"
+        }
+      },
+      {
+        "type": "usp",
+        "items": [
+          {
+            "value": "8",
+            "label": "Learning Journeys, du rêve au dossier"
+          },
+          {
+            "value": "4 modes",
+            "label": "dans le Learning Playground IA"
+          },
+          {
+            "value": "incl.",
+            "label": "test final et certificat"
+          },
+          {
+            "value": "CHF 290",
+            "label": "Foundation Course, sans prérequis"
+          }
+        ]
+      },
+      {
+        "type": "split",
+        "eyebrow": "Formation hypothèque",
+        "title": "Apprendre en nuggets.\n*S'entraîner avec l'IA.*",
+        "screen": "academy",
+        "paragraphs": [
+          "Le **Foundation Course** combine de courts Learning Nuggets et des cas pratiques autour de la famille Meier. Les Knowledge Checks montrent ce qui est acquis, et chaque Journey se termine par un défi pratique.",
+          "Vous posez vos questions à tout moment à l'**entraîneur IA**. La théorie devient compétence de conseil pour de vrais entretiens."
+        ],
+        "bullets": [
+          "Unités courtes, en ligne et flexibles",
+          "Des cas pratiques plutôt que de la théorie",
+          "Test final et certificat"
+        ],
+        "ctas": [
+          {
+            "label": "Réserver maintenant",
+            "to": "academy"
+          }
+        ]
+      },
+      {
+        "type": "features",
+        "title": "Le Learning Playground.\n*Quatre façons de s'entraîner.*",
+        "items": [
+          {
+            "icon": "◎",
+            "title": "Jeu de rôle",
+            "text": "Menez un entretien client par texte ou audio et recevez une analyse de votre conseil."
+          },
+          {
+            "icon": "⇪",
+            "title": "Mode simulation",
+            "text": "Jouez des cas de financement réalistes et voyez l'effet de vos décisions."
+          },
+          {
+            "icon": "✓",
+            "title": "Mode exercice",
+            "text": "Entraînez des thèmes précis comme la capacité financière ou les fonds propres."
+          },
+          {
+            "icon": "✦",
+            "title": "Tout apprendre",
+            "text": "Parcourez tous les contenus des Journeys de façon structurée."
+          }
+        ],
+        "ctas": [
+          {
+            "label": "Réserver le Foundation Course",
+            "to": "academy"
+          }
+        ]
+      },
+      {
+        "type": "steps",
+        "eyebrow": "Votre parcours",
+        "title": "Du premier nugget\n*au certificat.*",
+        "items": [
+          {
+            "title": "Learning Nuggets",
+            "text": "De courtes unités expliquent chaque thème clairement."
+          },
+          {
+            "title": "Cas pratique famille Meier",
+            "text": "Vous appliquez vos acquis à un cas suivi."
+          },
+          {
+            "title": "Knowledge Checks et défis",
+            "text": "Vous testez vos connaissances et relevez un défi pratique à la fin de chaque Journey."
+          },
+          {
+            "title": "Test final et certificat",
+            "text": "Une fois le test réussi, vous recevez votre certificat."
+          }
+        ],
+        "ctas": [
+          {
+            "label": "Commencer",
+            "to": "academy"
+          }
+        ]
+      },
+      {
+        "type": "cards",
+        "eyebrow": "Contenu",
+        "title": "8 Learning Journeys.\n*Un fil rouge.*",
+        "cols": 4,
+        "items": [
+          {
+            "kicker": "01",
+            "title": "Du rêve au financement",
+            "text": "Comment un souhait devient un projet finançable."
+          },
+          {
+            "kicker": "02",
+            "title": "Quel financement est en jeu?",
+            "text": "Achat, renouvellement, construction ou augmentation."
+          },
+          {
+            "kicker": "03",
+            "title": "Bien utiliser les fonds propres",
+            "text": "Fonds propres durs, 2e pilier et 3e pilier."
+          },
+          {
+            "kicker": "04",
+            "title": "Taux d'avance et capacité financière",
+            "text": "Le calcul des banques, avec taux théorique."
+          },
+          {
+            "kicker": "05",
+            "title": "La bonne stratégie hypothécaire",
+            "text": "SARON, taux fixe ou combinaison."
+          },
+          {
+            "kicker": "06",
+            "title": "Combien coûte vraiment le logement?",
+            "text": "Intérêts, amortissement, entretien et frais d'achat."
+          },
+          {
+            "kicker": "07",
+            "title": "De l'accord au versement",
+            "text": "Notaire, registre foncier et cédule hypothécaire."
+          },
+          {
+            "kicker": "08",
+            "title": "Le dossier hypothécaire bancable",
+            "text": "Les documents qu'attendent les prêteurs."
+          }
+        ]
+      },
+      {
+        "type": "cards",
+        "eyebrow": "Pour qui?",
+        "title": "Une formation pour\n*conseillers et particuliers.*",
+        "tone": "soft",
+        "cols": 3,
+        "items": [
+          {
+            "kicker": "Partenaires",
+            "title": "Placer plus et mieux",
+            "text": "Repérer les besoins, conseiller avec assurance et déposer des dossiers bancables. Idéal pour les partenaires HYPOTEQ.",
+            "to": "page:partner",
+            "cta": "Devenir partenaire"
+          },
+          {
+            "kicker": "Débutants",
+            "title": "Entrer dans le sujet",
+            "text": "Apprendre les bases du financement immobilier sans prérequis."
+          },
+          {
+            "kicker": "Conseillers expérimentés",
+            "title": "Rafraîchir ses acquis",
+            "text": "Approfondir la formation de courtier hypothécaire en Suisse et s'entraîner avec l'IA."
+          },
+          {
+            "kicker": "Entreprises",
+            "title": "Former les équipes",
+            "text": "Un cours de financement immobilier pour agences et équipes de vente."
+          },
+          {
+            "kicker": "Particuliers",
+            "title": "Mieux décider",
+            "text": "Comprendre ce que la banque vérifie avant de financer votre logement."
+          }
+        ],
+        "ctas": [
+          {
+            "label": "Vers le programme partenaire",
+            "to": "page:partner"
+          }
+        ]
+      },
+      {
+        "type": "cards",
+        "_lehrgang": true,
+        "eyebrow": "Nouveau · Cursus certifiant",
+        "title": "20 Expert Journeys.\n*Un certificat.*",
+        "lead": "**Cursus certifiant «Expert suisse en financement immobilier».** Comprendre les financements immobiliers, évaluer des solutions, conseiller avec compétence: en trois phases vers l'expertise.",
+        "tone": "dark",
+        "cols": 3,
+        "items": [
+          {
+            "kicker": "Partie I · Expert Journeys 01–08",
+            "title": "Les fondamentaux",
+            "text": "Fonds propres, nantissement, capacité financière, modèles hypothécaires, amortissement, prévoyance, estimation et processus de crédit, avec exemples pratiques."
+          },
+          {
+            "kicker": "Partie II · Expert Journeys 09–20",
+            "title": "Compétence professionnelle",
+            "text": "Revenus d'entrepreneurs, immeubles de rendement, sociétés immobilières, financements de construction et de promotion, structures de capital et objets spéciaux."
+          },
+          {
+            "kicker": "Partie III · Examen final",
+            "title": "Examen d'expert avec cas pratique",
+            "text": "50 questions: 35 de théorie, 15 sur un cas de financement réaliste. Seuil de réussite 80 %, un examen de rattrapage possible."
+          }
+        ],
+        "ctas": [
+          {
+            "label": "Manifester son intérêt",
+            "to": "mail"
+          }
+        ]
+      },
+      {
+        "type": "pricing",
+        "eyebrow": "Tarifs",
+        "title": "Deux voies.\n*Un objectif.*",
+        "items": [
+          {
+            "name": "Foundation Course",
+            "price": "CHF 290",
+            "badge": "Disponible",
+            "featured": true,
+            "text": "L'entrée dans le financement immobilier suisse, sans prérequis.",
+            "features": [
+              "8 Learning Journeys",
+              "Entraîneur IA et Learning Playground",
+              "Cas pratiques et Knowledge Checks",
+              "Test final et certificat"
+            ],
+            "cta": {
+              "label": "Réserver maintenant",
+              "to": "academy"
+            }
+          },
+          {
+            "name": "Cursus certifiant «Expert suisse en financement immobilier»",
+            "price": "Sur demande",
+            "badge": "Nouveau",
+            "text": "La voie vers l'expertise en financement immobilier suisse.",
+            "features": [
+              "20 Expert Journeys en trois phases",
+              "En ligne, à votre rythme",
+              "Contrôles des connaissances avec feedback",
+              "Examen final et certificat"
+            ],
+            "cta": {
+              "label": "Manifester son intérêt",
+              "to": "mail"
+            }
+          }
+        ]
+      },
+      {
+        "type": "cards",
+        "eyebrow": "Note sur l'IA",
+        "title": "L'IA entraîne.\n*L'humain décide.*",
+        "cols": 2,
+        "items": [
+          {
+            "title": "Ce que fait l'IA",
+            "text": "L'entraîneur IA répond aux questions, simule des entretiens clients et vous donne un retour sur votre conseil."
+          },
+          {
+            "title": "Ce qu'elle ne remplace pas",
+            "text": "Les exercices IA ne remplacent ni un examen professionnel ni une décision de financement."
+          }
+        ]
+      },
+      {
+        "type": "faq",
+        "eyebrow": "Questions fréquentes",
+        "title": "Bon à savoir\n*sur l'Academy.*",
+        "items": [
+          {
+            "q": "À qui s'adresse le Foundation Course?",
+            "a": "Aux partenaires de distribution, débutants, conseillers expérimentés, entreprises et particuliers. Aucun prérequis n'est nécessaire."
+          },
+          {
+            "q": "Que contiennent les 8 Learning Journeys?",
+            "a": "Tout le parcours: du rêve de logement aux fonds propres, au taux d'avance et à la capacité financière, à la stratégie et aux coûts, jusqu'au versement et au dossier bancable."
+          },
+          {
+            "q": "Comment fonctionne l'entraîneur IA?",
+            "a": "Vous posez vos questions à l'entraîneur IA et vous vous exercez dans le Learning Playground en quatre modes: jeu de rôle par texte ou audio avec analyse, simulation, exercice et «Tout apprendre»."
+          },
+          {
+            "q": "Le cours est-il certifiant?",
+            "a": "Oui. Après la réussite du test final, vous recevez un certificat de la HYPOTEQ Academy."
+          },
+          {
+            "q": "Combien coûte le cours?",
+            "a": "Le Foundation Course coûte **CHF 290**. L'Advisor Course est en préparation."
+          }
+        ]
+      },
+      {
+        "type": "cta",
+        "title": "Comprendre l'hypothèque.\n*Décider plus sûrement.*",
+        "text": "Commencez le Foundation Course pour CHF 290. Partenaire, vous placerez ensuite plus et mieux.",
+        "ctas": [
+          {
+            "label": "Réserver le Foundation Course",
+            "to": "academy"
+          },
+          {
+            "label": "Devenir partenaire",
+            "to": "page:partner"
+          }
+        ]
+      }
+    ]
+  },
+  "it": {
+    "title": "HYPOTEQ Academy: formazione ipotecaria | HYPOTEQ",
+    "description": "Foundation Course (CHF 290) e, novità, il corso «Esperto in finanziamento immobiliare» con 20 Expert Journeys e certificato. Online, al tuo ritmo.",
+    "h1": "HYPOTEQ Academy: capire e consigliare",
+    "sections": [
+      {
+        "type": "hero",
+        "eyebrow": "HYPOTEQ Academy · Foundation Course & corso con certificato",
+        "h1": "HYPOTEQ Academy:\ncapire e consigliare",
+        "lead": "**Capire le ipoteche. Allenare la consulenza. Diventare esperti.** Inizia con il Foundation Course in 8 Learning Journeys o approfondisci con il nuovo corso di 20 Expert Journeys fino al certificato «Esperto in finanziamento immobiliare».",
+        "ctas": [
+          {
+            "label": "Prenota il Foundation Course",
+            "to": "academy"
+          },
+          {
+            "label": "Per i partner",
+            "to": "page:partner"
+          }
+        ],
+        "badges": [
+          "Senza conoscenze preliminari",
+          "20 Expert Journeys",
+          "Con certificato"
+        ],
+        "image": "interior",
+        "alt": "Postazione luminosa per studiare a casa",
+        "float": {
+          "title": "CHF 290",
+          "text": "Foundation Course · 8 Learning Journeys"
+        }
+      },
+      {
+        "type": "usp",
+        "items": [
+          {
+            "value": "8",
+            "label": "Learning Journeys, dal sogno al dossier"
+          },
+          {
+            "value": "4 modi",
+            "label": "nel Learning Playground IA"
+          },
+          {
+            "value": "incl.",
+            "label": "test finale e certificato"
+          },
+          {
+            "value": "CHF 290",
+            "label": "Foundation Course, senza prerequisiti"
+          }
+        ]
+      },
+      {
+        "type": "split",
+        "eyebrow": "Corso ipoteche",
+        "title": "Imparare a piccole dosi.\n*Allenarsi con l'IA.*",
+        "screen": "academy",
+        "paragraphs": [
+          "Il **Foundation Course** unisce brevi Learning Nuggets e casi pratici con la famiglia Meier. I Knowledge Check mostrano cosa hai già assimilato, e ogni Journey si chiude con una sfida pratica.",
+          "Puoi fare domande in ogni momento al **trainer IA**. Così la teoria diventa competenza di consulenza per colloqui reali."
+        ],
+        "bullets": [
+          "Unità brevi, online e flessibili",
+          "Casi pratici invece di teoria astratta",
+          "Test finale e certificato"
+        ],
+        "ctas": [
+          {
+            "label": "Prenota ora",
+            "to": "academy"
+          }
+        ]
+      },
+      {
+        "type": "features",
+        "title": "Il Learning Playground.\n*Quattro modi per allenarsi.*",
+        "items": [
+          {
+            "icon": "◎",
+            "title": "Gioco di ruolo",
+            "text": "Conduci un colloquio con un cliente per testo o audio e ricevi un'analisi della tua consulenza."
+          },
+          {
+            "icon": "⇪",
+            "title": "Modalità simulazione",
+            "text": "Gioca casi di finanziamento realistici e scopri l'effetto delle tue decisioni."
+          },
+          {
+            "icon": "✓",
+            "title": "Modalità esercizio",
+            "text": "Allena temi specifici come sostenibilità o fondi propri."
+          },
+          {
+            "icon": "✦",
+            "title": "Imparare tutto",
+            "text": "Percorri tutti i contenuti delle Journeys in modo strutturato."
+          }
+        ],
+        "ctas": [
+          {
+            "label": "Prenota il Foundation Course",
+            "to": "academy"
+          }
+        ]
+      },
+      {
+        "type": "steps",
+        "eyebrow": "Come impari",
+        "title": "Dal primo nugget\n*al certificato.*",
+        "items": [
+          {
+            "title": "Learning Nuggets",
+            "text": "Brevi unità spiegano ogni tema in modo chiaro."
+          },
+          {
+            "title": "Caso pratico famiglia Meier",
+            "text": "Applichi quanto imparato a un caso continuo."
+          },
+          {
+            "title": "Knowledge Check e sfide",
+            "text": "Verifichi le tue conoscenze e risolvi una sfida pratica alla fine di ogni Journey."
+          },
+          {
+            "title": "Test finale e certificato",
+            "text": "Superato il test, ricevi il tuo certificato."
+          }
+        ],
+        "ctas": [
+          {
+            "label": "Inizia ora",
+            "to": "academy"
+          }
+        ]
+      },
+      {
+        "type": "cards",
+        "eyebrow": "Contenuti",
+        "title": "8 Learning Journeys.\n*Un filo conduttore.*",
+        "cols": 4,
+        "items": [
+          {
+            "kicker": "01",
+            "title": "Dal sogno al finanziamento",
+            "text": "Come un desiderio diventa un progetto finanziabile."
+          },
+          {
+            "kicker": "02",
+            "title": "Quale finanziamento serve?",
+            "text": "Acquisto, rinnovo, costruzione o aumento."
+          },
+          {
+            "kicker": "03",
+            "title": "Usare bene i fondi propri",
+            "text": "Fondi propri duri, cassa pensione e 3° pilastro."
+          },
+          {
+            "kicker": "04",
+            "title": "Anticipo e sostenibilità",
+            "text": "Come calcolano le banche, con tasso teorico."
+          },
+          {
+            "kicker": "05",
+            "title": "La strategia ipotecaria giusta",
+            "text": "SARON, ipoteca fissa o combinazione."
+          },
+          {
+            "kicker": "06",
+            "title": "Quanto costa davvero la casa?",
+            "text": "Interessi, ammortamento, manutenzione e costi d'acquisto."
+          },
+          {
+            "kicker": "07",
+            "title": "Dalla conferma al versamento",
+            "text": "Notaio, registro fondiario e cartella ipotecaria."
+          },
+          {
+            "kicker": "08",
+            "title": "Il dossier ipotecario bancabile",
+            "text": "I documenti che gli istituti si aspettano."
+          }
+        ]
+      },
+      {
+        "type": "cards",
+        "eyebrow": "Per chi?",
+        "title": "Formazione per\n*consulenti e privati.*",
+        "tone": "soft",
+        "cols": 3,
+        "items": [
+          {
+            "kicker": "Partner di vendita",
+            "title": "Segnalare di più e meglio",
+            "text": "Riconoscere il bisogno, consigliare con sicurezza e inoltrare dossier bancabili. Ideale per i partner HYPOTEQ.",
+            "to": "page:partner",
+            "cta": "Diventa partner"
+          },
+          {
+            "kicker": "Principianti",
+            "title": "Entrare nel tema",
+            "text": "Imparare le basi del finanziamento immobiliare senza prerequisiti."
+          },
+          {
+            "kicker": "Consulenti esperti",
+            "title": "Rinfrescare le conoscenze",
+            "text": "Approfondire il corso da broker ipotecario e allenarsi con l'IA."
+          },
+          {
+            "kicker": "Aziende",
+            "title": "Formare i team",
+            "text": "Formazione sul finanziamento immobiliare per agenzie e team di vendita."
+          },
+          {
+            "kicker": "Privati",
+            "title": "Decidere meglio",
+            "text": "Capire cosa verifica la banca prima di finanziare la tua casa."
+          }
+        ],
+        "ctas": [
+          {
+            "label": "Al programma partner",
+            "to": "page:partner"
+          }
+        ]
+      },
+      {
+        "type": "cards",
+        "_lehrgang": true,
+        "eyebrow": "Novità · Corso con certificato",
+        "title": "20 Expert Journeys.\n*Un certificato.*",
+        "lead": "**Corso con certificato «Esperto svizzero in finanziamento immobiliare».** Capire i finanziamenti immobiliari, valutare soluzioni, consigliare con competenza: in tre fasi verso l'esperienza.",
+        "tone": "dark",
+        "cols": 3,
+        "items": [
+          {
+            "kicker": "Parte I · Expert Journeys 01–08",
+            "title": "Le basi",
+            "text": "Fondi propri, anticipo, sostenibilità, modelli ipotecari, ammortamento, previdenza, valutazione e processo di credito, con esempi pratici."
+          },
+          {
+            "kicker": "Parte II · Expert Journeys 09–20",
+            "title": "Competenza professionale",
+            "text": "Redditi di imprenditori, immobili a reddito, società immobiliari, finanziamenti di costruzione e promozione, strutture di capitale e oggetti speciali."
+          },
+          {
+            "kicker": "Parte III · Esame finale",
+            "title": "Esame con caso pratico",
+            "text": "50 domande: 35 di teoria, 15 su un caso di finanziamento realistico. Soglia di superamento 80 %, un esame di recupero possibile."
+          }
+        ],
+        "ctas": [
+          {
+            "label": "Segnala interesse",
+            "to": "mail"
+          }
+        ]
+      },
+      {
+        "type": "pricing",
+        "eyebrow": "Prezzi",
+        "title": "Due percorsi.\n*Un obiettivo.*",
+        "items": [
+          {
+            "name": "Foundation Course",
+            "price": "CHF 290",
+            "badge": "Disponibile",
+            "featured": true,
+            "text": "L'ingresso nel finanziamento immobiliare svizzero, senza prerequisiti.",
+            "features": [
+              "8 Learning Journeys",
+              "Trainer IA e Learning Playground",
+              "Casi pratici e Knowledge Check",
+              "Test finale e certificato"
+            ],
+            "cta": {
+              "label": "Prenota ora",
+              "to": "academy"
+            }
+          },
+          {
+            "name": "Corso con certificato «Esperto svizzero in finanziamento immobiliare»",
+            "price": "Su richiesta",
+            "badge": "Novità",
+            "text": "Il percorso verso l'esperienza nel finanziamento immobiliare svizzero.",
+            "features": [
+              "20 Expert Journeys in tre fasi",
+              "Online, al tuo ritmo",
+              "Verifiche con feedback diretto",
+              "Esame finale e certificato"
+            ],
+            "cta": {
+              "label": "Segnala interesse",
+              "to": "mail"
+            }
+          }
+        ]
+      },
+      {
+        "type": "cards",
+        "eyebrow": "Nota sull'IA",
+        "title": "L'IA allena.\n*Le persone decidono.*",
+        "cols": 2,
+        "items": [
+          {
+            "title": "Cosa fa l'IA",
+            "text": "Il trainer IA risponde alle domande, simula colloqui con i clienti e ti dà un riscontro sulla tua consulenza."
+          },
+          {
+            "title": "Cosa non sostituisce",
+            "text": "Gli esercizi con l'IA non sostituiscono un esame professionale né una decisione di finanziamento."
+          }
+        ]
+      },
+      {
+        "type": "faq",
+        "eyebrow": "Domande frequenti",
+        "title": "Buono a sapersi\n*sull'Academy.*",
+        "items": [
+          {
+            "q": "A chi è rivolto il Foundation Course?",
+            "a": "A partner di vendita, principianti, consulenti esperti, aziende e privati. Non servono conoscenze preliminari."
+          },
+          {
+            "q": "Cosa imparo nelle 8 Learning Journeys?",
+            "a": "Tutto il percorso: dal sogno della casa ai fondi propri, all'anticipo e alla sostenibilità, alla strategia e ai costi, fino al versamento e al dossier bancabile."
+          },
+          {
+            "q": "Come funziona il trainer IA?",
+            "a": "Fai domande al trainer IA e ti alleni nel Learning Playground in quattro modi: gioco di ruolo per testo o audio con analisi, simulazione, esercizio e «Imparare tutto»."
+          },
+          {
+            "q": "Ricevo un certificato?",
+            "a": "Sì. Dopo aver superato il test finale ricevi un certificato della HYPOTEQ Academy."
+          },
+          {
+            "q": "Quanto costa il corso?",
+            "a": "Il Foundation Course costa **CHF 290**. L'Advisor Course è in preparazione."
+          }
+        ]
+      },
+      {
+        "type": "cta",
+        "title": "Capire le ipoteche.\n*Decidere con sicurezza.*",
+        "text": "Inizia il Foundation Course per CHF 290. Come partner segnalerai poi di più e meglio.",
+        "ctas": [
+          {
+            "label": "Prenota il Foundation Course",
+            "to": "academy"
+          },
+          {
+            "label": "Diventa partner",
+            "to": "page:partner"
+          }
+        ]
+      }
+    ]
+  },
+  "en": {
+    "title": "HYPOTEQ Academy: Swiss Mortgage Training | HYPOTEQ",
+    "description": "Foundation Course (CHF 290) and, new, the «Real Estate Financing Expert» programme with 20 Expert Journeys and a certificate. Online, at your own pace.",
+    "h1": "HYPOTEQ Academy: master Swiss mortgages",
+    "sections": [
+      {
+        "type": "hero",
+        "eyebrow": "HYPOTEQ Academy · Foundation Course & certificate programme",
+        "h1": "HYPOTEQ Academy:\nmaster Swiss mortgages",
+        "lead": "**Understand mortgages. Train your advice. Become an expert.** Start with the Foundation Course in 8 Learning Journeys or go deeper with the new programme of 20 Expert Journeys leading to the «Real Estate Financing Expert» certificate.",
+        "ctas": [
+          {
+            "label": "Book the Foundation Course",
+            "to": "academy"
+          },
+          {
+            "label": "For sales partners",
+            "to": "page:partner"
+          }
+        ],
+        "badges": [
+          "No prior knowledge",
+          "20 Expert Journeys",
+          "With certificate"
+        ],
+        "image": "interior",
+        "alt": "Bright workspace for studying at home",
+        "float": {
+          "title": "CHF 290",
+          "text": "Foundation Course · 8 learning journeys"
+        }
+      },
+      {
+        "type": "usp",
+        "items": [
+          {
+            "value": "8",
+            "label": "learning journeys, from dream home to file"
+          },
+          {
+            "value": "4 modes",
+            "label": "in the AI Learning Playground"
+          },
+          {
+            "value": "incl.",
+            "label": "final test and certificate"
+          },
+          {
+            "value": "CHF 290",
+            "label": "Foundation Course, no prior knowledge"
+          }
+        ]
+      },
+      {
+        "type": "split",
+        "eyebrow": "Swiss mortgage course",
+        "title": "Learn in nuggets.\n*Practise with AI.*",
+        "screen": "academy",
+        "paragraphs": [
+          "The **Foundation Course** combines short learning nuggets with case studies built around the Meier family. Knowledge checks show what you have mastered, and each journey ends with a practical challenge.",
+          "Ask the **AI trainer** anything, any time. That turns theory into advisory skills for real client conversations."
+        ],
+        "bullets": [
+          "Short units, flexible and online",
+          "Real cases instead of dry theory",
+          "Final test and certificate"
+        ],
+        "ctas": [
+          {
+            "label": "Book now",
+            "to": "academy"
+          }
+        ]
+      },
+      {
+        "type": "features",
+        "title": "The Learning Playground.\n*Four ways to practise.*",
+        "items": [
+          {
+            "icon": "◎",
+            "title": "Role play",
+            "text": "Hold a client conversation by text or audio and get an analysis of your advice."
+          },
+          {
+            "icon": "⇪",
+            "title": "Simulation mode",
+            "text": "Play through realistic financing cases and see how decisions play out."
+          },
+          {
+            "icon": "✓",
+            "title": "Practice mode",
+            "text": "Train specific topics such as affordability or equity."
+          },
+          {
+            "icon": "✦",
+            "title": "Learn everything",
+            "text": "Work through all journey content in a structured way."
+          }
+        ],
+        "ctas": [
+          {
+            "label": "Book the Foundation Course",
+            "to": "academy"
+          }
+        ]
+      },
+      {
+        "type": "steps",
+        "eyebrow": "How you learn",
+        "title": "From first nugget\n*to certificate.*",
+        "items": [
+          {
+            "title": "Learning nuggets",
+            "text": "Short units explain each topic clearly."
+          },
+          {
+            "title": "The Meier family case",
+            "text": "You apply what you learn to one continuous case."
+          },
+          {
+            "title": "Knowledge checks & challenges",
+            "text": "Test your knowledge and solve a practical challenge at the end of every journey."
+          },
+          {
+            "title": "Final test & certificate",
+            "text": "Pass the test and receive your certificate."
+          }
+        ],
+        "ctas": [
+          {
+            "label": "Start now",
+            "to": "academy"
+          }
+        ]
+      },
+      {
+        "type": "cards",
+        "eyebrow": "Curriculum",
+        "title": "8 learning journeys.\n*One clear thread.*",
+        "cols": 4,
+        "items": [
+          {
+            "kicker": "01",
+            "title": "From dream home to financing",
+            "text": "How a wish becomes a project that can be financed."
+          },
+          {
+            "kicker": "02",
+            "title": "What kind of financing is it?",
+            "text": "Purchase, refinancing, new build or increase."
+          },
+          {
+            "kicker": "03",
+            "title": "Using equity wisely",
+            "text": "Hard equity, pension fund (pillar 2) and pillar 3a."
+          },
+          {
+            "kicker": "04",
+            "title": "Loan-to-value & affordability",
+            "text": "How Swiss banks calculate, with an imputed rate."
+          },
+          {
+            "kicker": "05",
+            "title": "The right mortgage strategy",
+            "text": "SARON, fixed-rate or a combination."
+          },
+          {
+            "kicker": "06",
+            "title": "What does a home really cost?",
+            "text": "Interest, amortisation, maintenance and purchase costs."
+          },
+          {
+            "kicker": "07",
+            "title": "From approval to payout",
+            "text": "Notary, land registry and mortgage certificate."
+          },
+          {
+            "kicker": "08",
+            "title": "The bank-ready mortgage file",
+            "text": "The documents lenders expect."
+          }
+        ]
+      },
+      {
+        "type": "cards",
+        "eyebrow": "Who is it for?",
+        "title": "Training for\n*advisors and individuals.*",
+        "tone": "soft",
+        "cols": 3,
+        "items": [
+          {
+            "kicker": "Sales partners",
+            "title": "Refer more, refer better",
+            "text": "Spot financing needs, advise with confidence and submit bank-ready files. Ideal for HYPOTEQ partners.",
+            "to": "page:partner",
+            "cta": "Become a partner"
+          },
+          {
+            "kicker": "Beginners",
+            "title": "A confident start",
+            "text": "Learn the basics of real estate finance with no prior knowledge."
+          },
+          {
+            "kicker": "Experienced advisors",
+            "title": "Refresh your know-how",
+            "text": "Deepen your skills as in a mortgage advisor course and practise with AI."
+          },
+          {
+            "kicker": "Companies",
+            "title": "Train your teams",
+            "text": "Real estate finance training for agencies and sales teams."
+          },
+          {
+            "kicker": "Private individuals",
+            "title": "Decide better",
+            "text": "Understand what the bank checks before you finance your home."
+          }
+        ],
+        "ctas": [
+          {
+            "label": "See the partner programme",
+            "to": "page:partner"
+          }
+        ]
+      },
+      {
+        "type": "cards",
+        "_lehrgang": true,
+        "eyebrow": "New · Certificate programme",
+        "title": "20 Expert Journeys.\n*One certificate.*",
+        "lead": "**Certificate programme «Swiss Real Estate Financing Expert».** Understand real estate financing, assess solutions, advise clients competently: three phases to expert level.",
+        "tone": "dark",
+        "cols": 3,
+        "items": [
+          {
+            "kicker": "Part I · Expert Journeys 01–08",
+            "title": "The fundamentals",
+            "text": "Equity, loan-to-value, affordability, mortgage models, amortisation, pensions, valuation and the credit process, with practical examples."
+          },
+          {
+            "kicker": "Part II · Expert Journeys 09–20",
+            "title": "Professional financing expertise",
+            "text": "Entrepreneur income, buy-to-let properties, property companies, construction and development finance, capital structures and special properties."
+          },
+          {
+            "kicker": "Part III · Final exam",
+            "title": "Expert exam with a practical case",
+            "text": "50 questions: 35 on theory, 15 on a realistic financing case. Pass mark 80 %, one resit possible."
+          }
+        ],
+        "ctas": [
+          {
+            "label": "Register interest",
+            "to": "mail"
+          }
+        ]
+      },
+      {
+        "type": "pricing",
+        "eyebrow": "Pricing",
+        "title": "Two paths.\n*One goal.*",
+        "items": [
+          {
+            "name": "Foundation Course",
+            "price": "CHF 290",
+            "badge": "Available now",
+            "featured": true,
+            "text": "Your entry into Swiss real estate financing, no prior knowledge needed.",
+            "features": [
+              "8 learning journeys",
+              "AI trainer and Learning Playground",
+              "Case studies and knowledge checks",
+              "Final test and certificate"
+            ],
+            "cta": {
+              "label": "Book now",
+              "to": "academy"
+            }
+          },
+          {
+            "name": "Certificate programme «Swiss Real Estate Financing Expert»",
+            "price": "On request",
+            "badge": "New",
+            "text": "The path to expertise in Swiss real estate financing.",
+            "features": [
+              "20 Expert Journeys in three phases",
+              "Online, at your own pace",
+              "Knowledge checks with direct feedback",
+              "Final exam and certificate"
+            ],
+            "cta": {
+              "label": "Register interest",
+              "to": "mail"
+            }
+          }
+        ]
+      },
+      {
+        "type": "cards",
+        "eyebrow": "A note on AI",
+        "title": "AI trains.\n*People decide.*",
+        "cols": 2,
+        "items": [
+          {
+            "title": "What the AI does",
+            "text": "The AI trainer answers questions, simulates client conversations and gives you feedback on your advice."
+          },
+          {
+            "title": "What it does not replace",
+            "text": "AI exercises do not replace a professional exam or a financing decision."
+          }
+        ]
+      },
+      {
+        "type": "faq",
+        "eyebrow": "FAQ",
+        "title": "Good to know\n*about the Academy.*",
+        "items": [
+          {
+            "q": "Who is the Foundation Course for?",
+            "a": "For sales partners, beginners, experienced advisors, companies and private individuals. No prior knowledge is needed."
+          },
+          {
+            "q": "What do the 8 learning journeys cover?",
+            "a": "The whole path: from dream home to equity, loan-to-value and affordability, strategy and costs, through to payout and a bank-ready file."
+          },
+          {
+            "q": "How does the AI trainer work?",
+            "a": "You ask the AI trainer questions and practise in the Learning Playground in four modes: role play by text or audio with analysis, simulation, practice and «Learn everything»."
+          },
+          {
+            "q": "Do I receive a certificate?",
+            "a": "Yes. Once you pass the final test, you receive a HYPOTEQ Academy certificate."
+          },
+          {
+            "q": "How much does the course cost?",
+            "a": "The Foundation Course costs **CHF 290**. The Advisor Course is in preparation."
+          }
+        ]
+      },
+      {
+        "type": "cta",
+        "title": "Understand mortgages.\n*Decide with confidence.*",
+        "text": "Start the Foundation Course for CHF 290. As a partner, you will then refer more and better.",
+        "ctas": [
+          {
+            "label": "Book the Foundation Course",
+            "to": "academy"
+          },
+          {
+            "label": "Become a partner",
+            "to": "page:partner"
+          }
+        ]
+      }
+    ]
+  }
+}

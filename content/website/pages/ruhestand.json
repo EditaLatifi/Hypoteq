@@ -1,0 +1,970 @@
+{
+ "de": {
+  "title": "Hypothek nach der Pensionierung sichern | HYPOTEQ",
+  "description": "Tragbarkeit im Alter gefährdet? Wir prüfen deine Situation und finden Anbieter, die Renten und Vermögen fair anrechnen. Jetzt Analyse anfragen.",
+  "h1": "Hypothek im Ruhestand: Eigenheim behalten",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypotheken · Pensionierung",
+    "h1": "Hypothek im Ruhestand:\nEigenheim behalten",
+    "lead": "Mit der Pensionierung sinkt das Einkommen, die Tragbarkeit im Alter wird neu gerechnet. Wir prüfen deine **Hypothek nach der Pensionierung** und finden unter 40+ Anbietern jene, die Renten und Vermögen fair anrechnen.",
+    "ctas": [
+     {
+      "label": "Analyse anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "Erstgespräch Advisory",
+      "to": "page:advisory"
+     }
+    ],
+    "badges": [
+     "0 CHF Vergleich",
+     "Renten & Vermögen fair gerechnet",
+     "Persönliche Beratung"
+    ],
+    "image": "couple",
+    "alt": "Paar entspannt im eigenen Wohnzimmer",
+    "float": {
+     "title": "Früh planen lohnt sich",
+     "text": "Idealerweise 5–10 Jahre vor der Pension"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "Banken, Versicherungen & Pensionskassen"
+     },
+     {
+      "value": "0 CHF",
+      "label": "für Vergleich und Vermittlung"
+     },
+     {
+      "value": "35+ J.",
+      "label": "Erfahrung im Team"
+     },
+     {
+      "value": "48–72 h",
+      "label": "bis zu Offerten nach vollständigen Unterlagen"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Tragbarkeit im Alter",
+    "title": "Weniger Einkommen.\n*Gleiche Hypothek?*",
+    "image": "lake-living",
+    "alt": "Lavaux-Weinberge über dem Genfersee",
+    "paragraphs": [
+     "Banken rechnen die Tragbarkeit mit einem **kalkulatorischen Zins von 5 %**, 1 % Unterhalt und Nebenkosten sowie allfälliger Amortisation. Die Kosten sollen höchstens rund **ein Drittel des Bruttoeinkommens** ausmachen. Nach der Pensionierung zählen statt Lohn AHV, Pensionskassenrente und Erträge aus Vermögen.",
+     "Viele Rentnerinnen und Rentner wohnen seit Jahren günstig, rechnerisch aber passt die Hypothek plötzlich nicht mehr. Hier lohnt sich der Vergleich: Anbieter rechnen freies Vermögen und Renten unterschiedlich an."
+    ],
+    "bullets": [
+     "AHV- und Pensionskassenrente als Basis",
+     "Freies Vermögen kann die Tragbarkeit stützen",
+     "Belehnung zählt: max. 80 %, oft tiefer gewünscht",
+     "Stand 2026, ohne Gewähr"
+    ],
+    "ctas": [
+     {
+      "label": "Situation prüfen lassen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Typische Situationen",
+    "title": "Drei Fragen,\n*die wir oft hören.*",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Vor der Pension",
+      "title": "Muss ich jetzt amortisieren?",
+      "text": "Die 2. Hypothek (über 66⅔ % Belehnung) ist innert 15 Jahren bzw. **bis zur Pensionierung** zu amortisieren, direkt oder indirekt über die Säule 3a. Wir prüfen, wie viel Amortisation wirklich sinnvoll ist.",
+      "to": "page:rg-tragbarkeit",
+      "cta": "Tragbarkeit verstehen"
+     },
+     {
+      "kicker": "Bei Fälligkeit",
+      "title": "Die Bank verlängert nicht",
+      "text": "Läuft die Festhypothek aus und die Hausbank will nicht verlängern, ist das kein Endpunkt. Wir holen Offerten von anderen Finanzierungspartnern ein.",
+      "to": "page:abloesung",
+      "cta": "Hypothek ablösen"
+     },
+     {
+      "kicker": "Kapital oder Rente",
+      "title": "PK-Kapital einsetzen?",
+      "text": "Ob Kapitalbezug, Rente oder eine Mischung: Der Entscheid beeinflusst die Tragbarkeit. Vorbezug ist bis 3 Jahre vor der Pensionierung möglich (Reglement prüfen).",
+      "to": "page:rg-pk",
+      "cta": "Pensionskasse & Hypothek"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "mode": "tragbarkeit",
+    "eyebrow": "Tragbarkeitsrechner",
+    "title": "Trägt deine Rente\ndie Hypothek?",
+    "lead": "Gib deine erwarteten Renten als Einkommen ein und sieh, wie Banken deine Tragbarkeit nach der Pensionierung einschätzen."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "So gehen wir vor",
+    "title": "Klarheit vor\n*der Pensionierung.*",
+    "items": [
+     {
+      "title": "Unterlagen hochladen",
+      "text": "Rentenausweise, PK-Ausweis, Steuererklärung und Hypothekarvertrag hochladen. Die KI liest die meisten Angaben aus."
+     },
+     {
+      "title": "Persönliche Analyse",
+      "text": "Deine Beraterin meldet sich zeitnah und rechnet Tragbarkeit und Amortisation mit dir durch."
+     },
+     {
+      "title": "Offerten vergleichen",
+      "text": "Wir holen Angebote von Banken, Versicherungen und Pensionskassen ein, die Renten und Vermögen fair berücksichtigen."
+     },
+     {
+      "title": "Verlängern oder ablösen",
+      "text": "Wir begleiten dich bis zur Unterschrift und koordinieren die Ablösung mit der bisherigen Bank."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Analyse anfragen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Umkehrhypothek & Sonderfälle",
+    "title": "Wenn es knapp wird:\n*Advisory.*",
+    "image": "consultation",
+    "alt": "Beratungsgespräch am Tisch",
+    "tone": "soft",
+    "reverse": true,
+    "paragraphs": [
+     "Eine **Umkehrhypothek** (Kapital aus dem Eigenheim beziehen, statt die Hypothek zu senken) wird in der Schweiz nur selten angeboten und ist teurer als eine klassische Hypothek. Ob sie für dich überhaupt eine Option ist, klären wir ehrlich im Gespräch.",
+     "Bei Bankabsagen, mehreren Eigentümern, Erbvorbezug oder Wohnsitz im Ausland übernimmt unser **Advisory**. Das Mandat ist kostenpflichtig, das Erstgespräch kostenlos."
+    ],
+    "bullets": [
+     "Varianten neutral verglichen",
+     "Auch nach einer Absage der Hausbank",
+     "Erstgespräch kostenlos"
+    ],
+    "ctas": [
+     {
+      "label": "Erstgespräch vereinbaren",
+      "to": "page:advisory"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Weiterlesen",
+    "title": "Alles rund um\n*deine Hypothek.*",
+    "cols": 4,
+    "tone": "soft",
+    "items": [
+     {
+      "title": "Alle Hypotheken",
+      "text": "Kauf, Ablösung, SARON und Fest im Überblick.",
+      "to": "page:hypotheken",
+      "cta": "Zur Übersicht"
+     },
+     {
+      "title": "Festhypothek",
+      "text": "Planbare Kosten für die Jahre nach der Pension.",
+      "to": "page:fest",
+      "cta": "Mehr erfahren"
+     },
+     {
+      "title": "Aktuelle Zinsen",
+      "text": "Richtzinsen für SARON, 5 und 10 Jahre fest.",
+      "to": "page:zinsen",
+      "cta": "Zinsen ansehen"
+     },
+     {
+      "title": "Für Partner",
+      "text": "Treuhänder und Vermögensverwalter vermitteln ihre Kundschaft im Partnerprogramm.",
+      "to": "page:partner",
+      "cta": "Partner werden"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Hypothek und Pension.",
+    "items": [
+     {
+      "q": "Wie wird die Tragbarkeit nach der Pensionierung berechnet?",
+      "a": "Wie vorher: kalkulatorischer Zins von 5 %, 1 % Unterhalt und Nebenkosten sowie Amortisation, maximal rund ein Drittel des Einkommens. Als Einkommen zählen nun AHV, PK-Rente und je nach Anbieter ein Teil des freien Vermögens."
+     },
+     {
+      "q": "Muss ich vor der Pension amortisieren?",
+      "a": "Die 2. Hypothek über 66⅔ % Belehnung muss innert 15 Jahren bzw. bis zur Pensionierung amortisiert sein. Viele Banken wünschen im Alter zusätzlich eine tiefere Belehnung. Wir prüfen, was in deinem Fall nötig ist."
+     },
+     {
+      "q": "Was tun, wenn meine Bank die Hypothek nicht verlängert?",
+      "a": "Frühzeitig Alternativen einholen, idealerweise 12 bis 18 Monate vor Fälligkeit. Wir vergleichen über 40 Finanzierungspartner und klären komplexe Fälle im Advisory."
+     },
+     {
+      "q": "Ist eine Umkehrhypothek eine Option?",
+      "a": "In Einzelfällen. Das Angebot ist in der Schweiz klein und die Kosten sind höher. Wir besprechen offen, ob eine Umkehrhypothek, eine Teilamortisation oder ein Anbieterwechsel besser passt."
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Dein Eigenheim.\n*Auch im Ruhestand.*",
+    "text": "Kostenloser Vergleich, persönliche Analyse und Begleitung bis zur Verlängerung.",
+    "ctas": [
+     {
+      "label": "Analyse anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Hypothèque à la retraite: garder son logement | HYPOTEQ",
+  "description": "Votre capacité financière à la retraite pose problème? Nous trouvons des prêteurs qui tiennent compte de vos rentes et de votre fortune. Analyse gratuite.",
+  "h1": "Garder son hypothèque à la retraite",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypothèques · Retraite",
+    "h1": "Garder son hypothèque\nà la retraite",
+    "lead": "À la retraite, le revenu baisse et la banque recalcule votre capacité financière. Nous analysons votre **hypothèque retraite** et trouvons, parmi 40+ prêteurs, ceux qui tiennent compte de vos rentes et de votre fortune.",
+    "ctas": [
+     {
+      "label": "Demander une analyse",
+      "to": "funnel"
+     },
+     {
+      "label": "Entretien Advisory",
+      "to": "page:advisory"
+     }
+    ],
+    "badges": [
+     "Comparaison 0 CHF",
+     "Rentes et fortune prises en compte",
+     "Conseil personnel"
+    ],
+    "image": "couple",
+    "alt": "Couple détendu dans son salon",
+    "float": {
+     "title": "Anticiper, c'est gagner",
+     "text": "Idéalement 5 à 10 ans avant la retraite"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banques, assurances et caisses de pension"
+     },
+     {
+      "value": "0 CHF",
+      "label": "pour la comparaison et le courtage"
+     },
+     {
+      "value": "35+ ans",
+      "label": "d'expérience dans l'équipe"
+     },
+     {
+      "value": "48–72 h",
+      "label": "jusqu'aux offres, dossier complet"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Capacité financière à la retraite",
+    "title": "Moins de revenu.\n*Même hypothèque?*",
+    "image": "lake-living",
+    "alt": "Vignobles de Lavaux au-dessus du Léman",
+    "paragraphs": [
+     "Les banques calculent la capacité financière avec un **taux théorique de 5 %**, 1 % de frais d'entretien et l'amortissement éventuel. Ces charges ne doivent pas dépasser environ **un tiers du revenu brut**. À la retraite, l'AVS, la rente du 2e pilier et les revenus de la fortune remplacent le salaire.",
+     "Beaucoup de retraités paient peu d'intérêts depuis des années, mais sur le papier, l'hypothèque ne passe plus. Comparer vaut la peine: les prêteurs ne prennent pas tous en compte la fortune de la même façon."
+    ],
+    "bullets": [
+     "Rentes AVS et 2e pilier comme base",
+     "La fortune libre peut renforcer la capacité",
+     "Taux d'avance max. 80 %, souvent moins souhaité",
+     "État 2026, sans garantie"
+    ],
+    "ctas": [
+     {
+      "label": "Faire analyser ma situation",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Situations fréquentes",
+    "title": "Trois questions\n*que l'on nous pose souvent.*",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Avant la retraite",
+      "title": "Dois-je amortir maintenant?",
+      "text": "Le 2e rang (au-delà de 66⅔ % de nantissement) doit être amorti en 15 ans ou **jusqu'à la retraite**, directement ou via le 3e pilier. Nous vérifions le montant réellement utile.",
+      "to": "page:rg-tragbarkeit",
+      "cta": "Comprendre la capacité"
+     },
+     {
+      "kicker": "À l'échéance",
+      "title": "La banque ne renouvelle pas",
+      "text": "Votre hypothèque fixe arrive à échéance et la banque refuse de prolonger? Nous sollicitons d'autres partenaires de financement.",
+      "to": "page:abloesung",
+      "cta": "Renouveler ailleurs"
+     },
+     {
+      "kicker": "Capital ou rente",
+      "title": "Utiliser le 2e pilier?",
+      "text": "Capital, rente ou mélange: ce choix influence la capacité financière. Un retrait anticipé est possible jusqu'à 3 ans avant la retraite (règlement à vérifier).",
+      "to": "page:rg-pk",
+      "cta": "2e pilier et hypothèque"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "mode": "tragbarkeit",
+    "eyebrow": "Calculateur de capacité",
+    "title": "Votre rente\nsuffit-elle?",
+    "lead": "Saisissez vos rentes attendues comme revenu et voyez comment les banques évaluent votre capacité financière à la retraite."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Notre démarche",
+    "title": "Y voir clair\n*avant la retraite.*",
+    "items": [
+     {
+      "title": "Envoyer vos documents",
+      "text": "Certificats de rente, certificat de prévoyance, déclaration d'impôt et contrat hypothécaire. L'IA lit la plupart des données."
+     },
+     {
+      "title": "Analyse personnelle",
+      "text": "Votre conseillère vous contacte rapidement et calcule avec vous capacité et amortissement."
+     },
+     {
+      "title": "Comparer les offres",
+      "text": "Nous sollicitons banques, assurances et caisses de pension qui tiennent compte des rentes et de la fortune."
+     },
+     {
+      "title": "Renouveler ou changer",
+      "text": "Nous vous accompagnons jusqu'à la signature et coordonnons le changement avec votre banque."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Demander une analyse",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Hypothèque inversée & cas particuliers",
+    "title": "Quand c'est serré:\n*Advisory.*",
+    "image": "consultation",
+    "alt": "Entretien de conseil autour d'une table",
+    "tone": "soft",
+    "reverse": true,
+    "paragraphs": [
+     "L'**hypothèque inversée** (libérer du capital de son logement au lieu de réduire la dette) reste rare en Suisse et coûte plus cher qu'une hypothèque classique. Nous vous disons franchement si c'est une option pour vous.",
+     "Refus bancaire, plusieurs propriétaires, avancement d'hoirie ou domicile à l'étranger: notre **Advisory** prend le relais. Le mandat est payant, le premier entretien gratuit."
+    ],
+    "bullets": [
+     "Variantes comparées en toute neutralité",
+     "Même après un refus de votre banque",
+     "Premier entretien gratuit"
+    ],
+    "ctas": [
+     {
+      "label": "Prendre rendez-vous",
+      "to": "page:advisory"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "À lire aussi",
+    "title": "Tout sur\n*votre hypothèque.*",
+    "cols": 4,
+    "tone": "soft",
+    "items": [
+     {
+      "title": "Toutes les hypothèques",
+      "text": "Achat, renouvellement, SARON et taux fixe.",
+      "to": "page:hypotheken",
+      "cta": "Vue d'ensemble"
+     },
+     {
+      "title": "Taux fixe",
+      "text": "Des charges prévisibles pour la retraite.",
+      "to": "page:fest",
+      "cta": "En savoir plus"
+     },
+     {
+      "title": "Taux actuels",
+      "text": "Taux indicatifs SARON, 5 et 10 ans.",
+      "to": "page:zinsen",
+      "cta": "Voir les taux"
+     },
+     {
+      "title": "Pour les partenaires",
+      "text": "Fiduciaires et gérants de fortune recommandent leurs clients via notre programme partenaires.",
+      "to": "page:partner",
+      "cta": "Devenir partenaire"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "Hypothèque et retraite.",
+    "items": [
+     {
+      "q": "Comment est calculée la capacité financière à la retraite?",
+      "a": "Comme avant: taux théorique de 5 %, 1 % de frais d'entretien et amortissement, au maximum environ un tiers du revenu. Le revenu comprend l'AVS, la rente du 2e pilier et, selon le prêteur, une partie de la fortune libre."
+     },
+     {
+      "q": "Faut-il amortir avant la retraite?",
+      "a": "Le 2e rang au-delà de 66⅔ % doit être amorti en 15 ans ou jusqu'à la retraite. Beaucoup de banques souhaitent en plus un nantissement plus bas à l'âge de la retraite. Nous vérifions ce qui est nécessaire dans votre cas."
+     },
+     {
+      "q": "Que faire si la banque refuse le renouvellement?",
+      "a": "Chercher des alternatives tôt, idéalement 12 à 18 mois avant l'échéance. Nous comparons plus de 40 partenaires et traitons les cas complexes dans l'Advisory."
+     },
+     {
+      "q": "L'hypothèque inversée est-elle une option?",
+      "a": "Dans certains cas. L'offre est limitée en Suisse et les coûts sont plus élevés. Nous comparons ouvertement hypothèque inversée, amortissement partiel ou changement de prêteur."
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Votre logement.\n*Aussi à la retraite.*",
+    "text": "Comparaison gratuite, analyse personnelle et accompagnement jusqu'au renouvellement.",
+    "ctas": [
+     {
+      "label": "Demander une analyse",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Ipoteca dopo il pensionamento | HYPOTEQ",
+  "description": "La sostenibilità dell'ipoteca in pensione è a rischio? Troviamo istituti che considerano rendite e patrimonio. Richiedi un'analisi gratuita.",
+  "h1": "Mantenere l'ipoteca in pensione",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Ipoteche · Pensionamento",
+    "h1": "Mantenere l'ipoteca\nin pensione",
+    "lead": "Con il pensionamento il reddito cala e la banca ricalcola la sostenibilità. Analizziamo la tua **ipoteca da pensionato** e troviamo tra oltre 40 istituti quelli che considerano correttamente rendite e patrimonio.",
+    "ctas": [
+     {
+      "label": "Richiedi un'analisi",
+      "to": "funnel"
+     },
+     {
+      "label": "Colloquio Advisory",
+      "to": "page:advisory"
+     }
+    ],
+    "badges": [
+     "Confronto 0 CHF",
+     "Rendite e patrimonio considerati",
+     "Consulenza personale"
+    ],
+    "image": "couple",
+    "alt": "Coppia rilassata nel proprio soggiorno",
+    "float": {
+     "title": "Pianificare per tempo",
+     "text": "Idealmente 5–10 anni prima della pensione"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banche, assicurazioni e casse pensione"
+     },
+     {
+      "value": "0 CHF",
+      "label": "per confronto e mediazione"
+     },
+     {
+      "value": "35+ anni",
+      "label": "di esperienza nel team"
+     },
+     {
+      "value": "48–72 h",
+      "label": "fino alle offerte, documenti completi"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Sostenibilità in pensione",
+    "title": "Meno reddito.\n*Stessa ipoteca?*",
+    "image": "lake-living",
+    "alt": "Vigneti del Lavaux sopra il Lemano",
+    "paragraphs": [
+     "Le banche calcolano la sostenibilità con un **tasso teorico del 5 %**, l'1 % di spese di manutenzione e l'eventuale ammortamento. I costi non dovrebbero superare circa **un terzo del reddito lordo**. In pensione al posto dello stipendio contano AVS, rendita della cassa pensione e redditi del patrimonio.",
+     "Molti pensionati pagano interessi bassi da anni, ma sulla carta l'ipoteca non è più sostenibile. Confrontare conviene: gli istituti considerano il patrimonio in modo diverso."
+    ],
+    "bullets": [
+     "Rendite AVS e cassa pensione come base",
+     "Il patrimonio libero può sostenere il calcolo",
+     "Anticipo max. 80 %, spesso si chiede meno",
+     "Stato 2026, senza garanzia"
+    ],
+    "ctas": [
+     {
+      "label": "Fai analizzare la tua situazione",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Situazioni tipiche",
+    "title": "Tre domande\n*che sentiamo spesso.*",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Prima della pensione",
+      "title": "Devo ammortizzare ora?",
+      "text": "L'ipoteca di 2° rango (oltre il 66⅔ %) va ammortizzata entro 15 anni o **entro il pensionamento**, direttamente o tramite il 3° pilastro. Verifichiamo quanto ammortamento ha davvero senso.",
+      "to": "page:rg-tragbarkeit",
+      "cta": "Capire la sostenibilità"
+     },
+     {
+      "kicker": "Alla scadenza",
+      "title": "La banca non rinnova",
+      "text": "L'ipoteca fissa scade e la banca non vuole rinnovare? Non è la fine: chiediamo offerte ad altri partner di finanziamento.",
+      "to": "page:abloesung",
+      "cta": "Rinnovare altrove"
+     },
+     {
+      "kicker": "Capitale o rendita",
+      "title": "Usare la cassa pensione?",
+      "text": "Capitale, rendita o una combinazione: la scelta influisce sulla sostenibilità. Il prelievo anticipato è possibile fino a 3 anni prima della pensione (verifica il regolamento).",
+      "to": "page:rg-pk",
+      "cta": "Cassa pensione e ipoteca"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "mode": "tragbarkeit",
+    "eyebrow": "Calcolatore di sostenibilità",
+    "title": "La tua rendita\nbasta?",
+    "lead": "Inserisci le rendite previste come reddito e scopri come le banche valutano la sostenibilità dopo il pensionamento."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Come procediamo",
+    "title": "Chiarezza\n*prima della pensione.*",
+    "items": [
+     {
+      "title": "Carica i documenti",
+      "text": "Certificati di rendita, certificato della cassa pensione, dichiarazione fiscale e contratto ipotecario. L'IA legge la maggior parte dei dati."
+     },
+     {
+      "title": "Analisi personale",
+      "text": "La tua consulente ti contatta in tempi brevi e calcola con te sostenibilità e ammortamento."
+     },
+     {
+      "title": "Confronta le offerte",
+      "text": "Chiediamo offerte a banche, assicurazioni e casse pensione che considerano rendite e patrimonio."
+     },
+     {
+      "title": "Rinnovare o cambiare",
+      "text": "Ti accompagniamo fino alla firma e coordiniamo il cambio con la banca attuale."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Richiedi un'analisi",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Ipoteca inversa e casi speciali",
+    "title": "Quando è stretto:\n*Advisory.*",
+    "image": "consultation",
+    "alt": "Colloquio di consulenza al tavolo",
+    "tone": "soft",
+    "reverse": true,
+    "paragraphs": [
+     "L'**ipoteca inversa** (ottenere capitale dalla casa invece di ridurre il debito) in Svizzera è offerta raramente ed è più cara di un'ipoteca classica. Ti diciamo con franchezza se è un'opzione per te.",
+     "Rifiuto della banca, più proprietari, anticipo ereditario o domicilio all'estero: se ne occupa il nostro **Advisory**. Il mandato è a pagamento, il primo colloquio è gratuito."
+    ],
+    "bullets": [
+     "Varianti confrontate in modo neutrale",
+     "Anche dopo un rifiuto della banca",
+     "Primo colloquio gratuito"
+    ],
+    "ctas": [
+     {
+      "label": "Fissa un colloquio",
+      "to": "page:advisory"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Approfondisci",
+    "title": "Tutto sulla\n*tua ipoteca.*",
+    "cols": 4,
+    "tone": "soft",
+    "items": [
+     {
+      "title": "Tutte le ipoteche",
+      "text": "Acquisto, rinnovo, SARON e tasso fisso.",
+      "to": "page:hypotheken",
+      "cta": "Panoramica"
+     },
+     {
+      "title": "Tasso fisso",
+      "text": "Costi pianificabili per gli anni della pensione.",
+      "to": "page:fest",
+      "cta": "Scopri di più"
+     },
+     {
+      "title": "Tassi attuali",
+      "text": "Tassi indicativi SARON, 5 e 10 anni.",
+      "to": "page:zinsen",
+      "cta": "Vedi i tassi"
+     },
+     {
+      "title": "Per i partner",
+      "text": "Fiduciari e gestori patrimoniali segnalano i loro clienti con il programma partner.",
+      "to": "page:partner",
+      "cta": "Diventa partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "Ipoteca e pensione.",
+    "items": [
+     {
+      "q": "Come si calcola la sostenibilità in pensione?",
+      "a": "Come prima: tasso teorico del 5 %, 1 % di spese di manutenzione e ammortamento, al massimo circa un terzo del reddito. Come reddito contano AVS, rendita della cassa pensione e, a seconda dell'istituto, una parte del patrimonio libero."
+     },
+     {
+      "q": "Devo ammortizzare prima della pensione?",
+      "a": "L'ipoteca di 2° rango oltre il 66⅔ % va ammortizzata entro 15 anni o entro il pensionamento. Molte banche chiedono inoltre un anticipo più basso in età di pensione. Verifichiamo cosa serve nel tuo caso."
+     },
+     {
+      "q": "Cosa fare se la banca non rinnova?",
+      "a": "Cercare alternative per tempo, idealmente 12–18 mesi prima della scadenza. Confrontiamo oltre 40 partner e seguiamo i casi complessi nell'Advisory."
+     },
+     {
+      "q": "L'ipoteca inversa è un'opzione?",
+      "a": "In singoli casi. L'offerta in Svizzera è ridotta e i costi sono più alti. Valutiamo apertamente ipoteca inversa, ammortamento parziale o cambio di istituto."
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "La tua casa.\n*Anche in pensione.*",
+    "text": "Confronto gratuito, analisi personale e accompagnamento fino al rinnovo.",
+    "ctas": [
+     {
+      "label": "Richiedi un'analisi",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "Keep Your Mortgage in Retirement | HYPOTEQ",
+  "description": "Is affordability in retirement a problem? We find Swiss lenders that fairly consider pensions and assets. Request a free analysis today.",
+  "h1": "Your Swiss mortgage in retirement",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Mortgages · Retirement",
+    "h1": "Your Swiss mortgage\nin retirement",
+    "lead": "When you retire, your income drops and lenders recalculate your affordability. We review your **mortgage after retirement in Switzerland** and find, among 40+ lenders, those that fairly consider pensions and assets.",
+    "ctas": [
+     {
+      "label": "Request an analysis",
+      "to": "funnel"
+     },
+     {
+      "label": "Advisory consultation",
+      "to": "page:advisory"
+     }
+    ],
+    "badges": [
+     "CHF 0 comparison",
+     "Pensions & assets counted",
+     "Advice in English"
+    ],
+    "image": "couple",
+    "alt": "Couple relaxing in their own living room",
+    "float": {
+     "title": "Plan early",
+     "text": "Ideally 5–10 years before retiring"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banks, insurers & pension funds"
+     },
+     {
+      "value": "CHF 0",
+      "label": "for comparison and brokerage"
+     },
+     {
+      "value": "35+ yrs",
+      "label": "of experience in the team"
+     },
+     {
+      "value": "48–72 h",
+      "label": "to offers once documents are complete"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Affordability in retirement",
+    "title": "Lower income.\n*Same mortgage?*",
+    "image": "lake-living",
+    "alt": "Lavaux vineyards above Lake Geneva",
+    "paragraphs": [
+     "Swiss lenders test affordability with an **imputed interest rate of 5 %**, 1 % for maintenance and running costs, plus any amortisation. These costs should not exceed roughly **one third of gross income**. After retirement, your AHV state pension, your pillar 2 pension and income from assets replace your salary.",
+     "Many retirees have paid little interest for years, yet on paper the mortgage suddenly no longer fits. Comparing pays off: lenders count free assets and pensions differently."
+    ],
+    "bullets": [
+     "AHV and pillar 2 pensions as the basis",
+     "Free assets can support affordability",
+     "Loan-to-value max. 80 %, often lower preferred",
+     "As of 2026, no guarantee"
+    ],
+    "ctas": [
+     {
+      "label": "Have my situation reviewed",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Common situations",
+    "title": "Three questions\n*we hear a lot.*",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Before retiring",
+      "title": "Do I need to amortise now?",
+      "text": "The second mortgage (above 66⅔ % loan-to-value) must be repaid within 15 years or **by retirement**, directly or indirectly via pillar 3a. We check how much amortisation actually makes sense.",
+      "to": "page:rg-tragbarkeit",
+      "cta": "Understand affordability"
+     },
+     {
+      "kicker": "At maturity",
+      "title": "My bank won't renew",
+      "text": "Your fixed-rate mortgage expires and your bank won't extend it? That is not the end. We request offers from other lenders.",
+      "to": "page:abloesung",
+      "cta": "Refinance elsewhere"
+     },
+     {
+      "kicker": "Lump sum or pension",
+      "title": "Use pillar 2 capital?",
+      "text": "Lump sum, pension or a mix: the choice affects affordability. Early withdrawal is possible up to 3 years before retirement (check your fund's rules).",
+      "to": "page:rg-pk",
+      "cta": "Pension funds & mortgages"
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "mode": "tragbarkeit",
+    "eyebrow": "Affordability calculator",
+    "title": "Will your pension\ncarry the mortgage?",
+    "lead": "Enter your expected pensions as income and see how Swiss lenders assess your affordability after retirement."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "How we work",
+    "title": "Clarity\n*before you retire.*",
+    "items": [
+     {
+      "title": "Upload documents",
+      "text": "Pension statements, pillar 2 certificate, tax return and mortgage contract. Our AI reads most of the details."
+     },
+     {
+      "title": "Personal analysis",
+      "text": "Your advisor usually gets in touch promptly and works through affordability and amortisation with you."
+     },
+     {
+      "title": "Compare offers",
+      "text": "We collect offers from banks, insurers and pension funds that fairly consider pensions and assets."
+     },
+     {
+      "title": "Renew or switch",
+      "text": "We support you up to signing and coordinate the switch with your current bank."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Request an analysis",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Reverse mortgage & special cases",
+    "title": "When it gets tight:\n*Advisory.*",
+    "image": "consultation",
+    "alt": "Advisory meeting at a table",
+    "tone": "soft",
+    "reverse": true,
+    "paragraphs": [
+     "A **reverse mortgage** (drawing capital from your home instead of reducing the loan) is rarely offered in Switzerland and costs more than a standard mortgage. We tell you honestly whether it is an option for you.",
+     "Bank rejection, several owners, advance inheritance or residence abroad: our **Advisory** team takes over. The mandate is paid, the first consultation is free."
+    ],
+    "bullets": [
+     "Options compared neutrally",
+     "Even after your bank said no",
+     "First consultation free"
+    ],
+    "ctas": [
+     {
+      "label": "Book a consultation",
+      "to": "page:advisory"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Read more",
+    "title": "Everything about\n*your mortgage.*",
+    "cols": 4,
+    "tone": "soft",
+    "items": [
+     {
+      "title": "All mortgages",
+      "text": "Purchase, refinancing, SARON and fixed rate.",
+      "to": "page:hypotheken",
+      "cta": "Overview"
+     },
+     {
+      "title": "Fixed-rate mortgage",
+      "text": "Predictable costs for your retirement years.",
+      "to": "page:fest",
+      "cta": "Learn more"
+     },
+     {
+      "title": "Current rates",
+      "text": "Indicative SARON, 5- and 10-year rates.",
+      "to": "page:zinsen",
+      "cta": "See rates"
+     },
+     {
+      "title": "For partners",
+      "text": "Fiduciaries and wealth managers refer clients through our partner programme.",
+      "to": "page:partner",
+      "cta": "Become a partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Mortgages and retirement.",
+    "items": [
+     {
+      "q": "How is affordability calculated after retirement?",
+      "a": "The same way as before: 5 % imputed interest, 1 % maintenance and amortisation, at most around one third of income. Income now means AHV, pillar 2 pension and, depending on the lender, part of your free assets."
+     },
+     {
+      "q": "Do I have to amortise before retiring?",
+      "a": "The second mortgage above 66⅔ % must be repaid within 15 years or by retirement. Many lenders also prefer a lower loan-to-value in retirement. We check what applies in your case."
+     },
+     {
+      "q": "What if my bank won't renew?",
+      "a": "Look for alternatives early, ideally 12 to 18 months before maturity. We compare 40+ lenders and handle complex cases in Advisory."
+     },
+     {
+      "q": "Is a reverse mortgage an option?",
+      "a": "In some cases. Supply in Switzerland is small and costs are higher. We openly compare a reverse mortgage, partial amortisation or a change of lender."
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Your home.\n*In retirement too.*",
+    "text": "Free comparison, personal analysis and support through to renewal.",
+    "ctas": [
+     {
+      "label": "Request an analysis",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ }
+}

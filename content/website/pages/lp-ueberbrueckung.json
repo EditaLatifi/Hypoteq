@@ -1,0 +1,938 @@
+{
+ "de": {
+  "title": "Überbrückungskredit: Neu kaufen vor dem Verkauf | HYPOTEQ",
+  "description": "Du kaufst neu, bevor dein altes Eigenheim verkauft ist? Wir organisieren die Überbrückung und vergleichen 40+ Anbieter. Anfrage in 3 Minuten.",
+  "h1": "Eigenheim wechseln ohne Finanzierungslücke",
+  "nav": [
+   "Überbrückungskredit",
+   "Neu kaufen vor dem Verkauf"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Überbrückungskredit Hauskauf",
+    "h1": "Eigenheim wechseln\nohne\n*Finanzierungslücke*",
+    "lead": "Du hast dein neues Zuhause gefunden, aber das alte ist noch nicht verkauft? Mit einem **Überbrückungskredit für den Hauskauf** sicherst du dir das neue Objekt, ohne auf den Verkauf zu warten. Wir organisieren die Lösung und vergleichen über 40 Anbieter kostenlos.",
+    "ctas": [
+     {
+      "label": "Überbrückung anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Kostenlos & unverbindlich",
+     "Kauf und Verkauf koordiniert",
+     "Offerten in 48–72 h"
+    ],
+    "image": "lake-house",
+    "alt": "Kapellbrücke in Luzern mit Altstadthäusern am Wasser",
+    "float": {
+     "title": "SARON ab 0.85 %",
+     "text": "Richtzins · Beispielwert"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "Banken, Versicherungen und Pensionskassen"
+     },
+     {
+      "value": "0 CHF",
+      "label": "für Vergleich und Vermittlung"
+     },
+     {
+      "value": "3 Min.",
+      "label": "bis zur vollständigen Anfrage"
+     },
+     {
+      "value": "48–72 h",
+      "label": "bis zu konkreten Offerten"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Überbrückungsfinanzierung Eigenheim",
+    "title": "Zwei Objekte.\n*Eine durchdachte Finanzierung.*",
+    "image": "keys",
+    "alt": "Schlüsselübergabe für das neue Eigenheim",
+    "paragraphs": [
+     "Beim **Eigenheimwechsel** fehlt oft das Geld aus dem Verkauf genau dann, wenn du das neue Objekt bezahlen musst. Eine **Überbrückungsfinanzierung** schliesst diese Lücke: Die Bank finanziert den Kauf vorübergehend, meist abgesichert auch über das bisherige Eigenheim. Nach dem Verkauf wird der Kredit mit dem Erlös zurückgeführt.",
+     "Die Konditionen und die Dauer legt jeder Anbieter individuell fest. Darum vergleichen wir nicht nur den Zins, sondern auch Flexibilität, Laufzeit und die Lösung für deine bestehende Hypothek."
+    ],
+    "bullets": [
+     "Neues Objekt sichern, ohne unter Verkaufsdruck zu geraten",
+     "Bestehende Hypothek, Übertragung oder Ablösung geprüft",
+     "Eine Ansprechperson für Kauf und Verkauf"
+    ],
+    "ctas": [
+     {
+      "label": "Meinen Wechsel planen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Neues Haus kaufen, altes noch nicht verkauft",
+    "title": "Typische Hürden\n*und wie wir sie lösen.*",
+    "tone": "soft",
+    "cols": 2,
+    "items": [
+     {
+      "kicker": "Doppelte Belastung",
+      "title": "Tragbarkeit für die Übergangszeit",
+      "text": "Eine Zeit lang besitzt du zwei Objekte. Wir zeigen der Bank realistisch, wie und wann der Verkauf die Belastung auflöst.",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "kicker": "Laufende Festhypothek",
+      "title": "Übertragen oder ablösen",
+      "text": "Manche Anbieter erlauben, eine Festhypothek auf das neue Objekt zu übertragen. Sonst prüfen wir die Kosten eines vorzeitigen Ausstiegs.",
+      "to": "page:lp-vorfaelligkeit"
+     },
+     {
+      "kicker": "Unsicherer Verkaufstermin",
+      "title": "Puffer einplanen",
+      "text": "Wir planen mit realistischen Fristen und wählen eine Lösung, die nicht vom perfekten Verkaufsdatum abhängt."
+     },
+     {
+      "kicker": "Steuern",
+      "title": "Ersatzbeschaffung prüfen",
+      "text": "Bei einem selbst bewohnten Ersatzobjekt lässt sich die Grundstückgewinnsteuer oft aufschieben. Details regelt der Kanton."
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Hypothekenrechner",
+    "title": "Was kostet\n*dein neues Zuhause?*",
+    "lead": "Gib Kaufpreis, Eigenmittel und Einkommen ein und sieh die Tragbarkeit für das neue Objekt."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "So läuft es",
+    "title": "In vier Schritten\nzum neuen Eigenheim.",
+    "items": [
+     {
+      "title": "Anfrage in 3 Minuten",
+      "text": "Lade Unterlagen zu beiden Objekten und deiner bestehenden Hypothek hoch. Die KI liest die meisten Angaben aus."
+     },
+     {
+      "title": "Gesamtplan erstellen",
+      "text": "Deine Beraterin meldet sich zeitnah und plant Kauf, Verkauf und Übergang mit dir."
+     },
+     {
+      "title": "Offerten vergleichen",
+      "text": "Mit vollständigen Unterlagen erhältst du meist innert 48–72 h Angebote für Überbrückung und neue Hypothek."
+     },
+     {
+      "title": "Umzug ohne Lücke",
+      "text": "Wir koordinieren mit Bank und Notariat, bis der Verkaufserlös die Überbrückung ablöst."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Jetzt starten",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "trust",
+    "items": [
+     "Unabhängiger Vermittler",
+     "40+ Finanzierungspartner",
+     "Kostenlos für Privatkund:innen",
+     "Persönliche Beraterin statt Hotline",
+     "Daten in der Schweiz verarbeitet",
+     "180+ Berater:innen"
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Weiterlesen",
+    "title": "Gut vorbereitet\n*für den Wechsel.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Ausstieg",
+      "title": "Vorfälligkeit",
+      "text": "Was ein vorzeitiger Hypothekenwechsel kostet.",
+      "to": "page:lp-vorfaelligkeit"
+     },
+     {
+      "kicker": "Haus",
+      "title": "Einfamilienhaus",
+      "text": "Finanzierung für dein nächstes Haus.",
+      "to": "page:lp-einfamilienhaus"
+     },
+     {
+      "kicker": "Wohnung",
+      "title": "Eigentumswohnung",
+      "text": "Wenn es kleiner werden darf.",
+      "to": "page:lp-eigentumswohnung"
+     },
+     {
+      "kicker": "Für Makler",
+      "title": "Partner werden",
+      "text": "Deine Kund:innen kaufen und verkaufen gleichzeitig? Arbeite mit uns.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Überbrückung\nkurz erklärt.",
+    "items": [
+     {
+      "q": "Wie funktioniert eine Überbrückungsfinanzierung?",
+      "a": "Die Bank finanziert den Kauf des neuen Objekts vorübergehend, bevor der Erlös aus dem bisherigen Eigenheim da ist. Als Sicherheit dient meist auch das bestehende Objekt. Nach dem Verkauf wird die Überbrückung zurückbezahlt."
+     },
+     {
+      "q": "Kann ich meine Festhypothek auf das neue Objekt übertragen?",
+      "a": "Das hängt vom Vertrag und vom Anbieter ab. Manche ermöglichen eine Übertragung, wenn sie auch das neue Objekt finanzieren. Sonst prüfen wir, was ein vorzeitiger Ausstieg kostet."
+     },
+     {
+      "q": "Wie lange darf die Überbrückung dauern?",
+      "a": "Überbrückungen sind befristet. Die Dauer vereinbart die Bank individuell, abgestimmt auf den erwarteten Verkauf. Wir planen einen realistischen Puffer ein."
+     },
+     {
+      "q": "Was ist bei der Ersatzbeschaffung steuerlich zu beachten?",
+      "a": "Wer ein selbst bewohntes Eigenheim verkauft und ein neues selbst bewohntes kauft, kann die Grundstückgewinnsteuer oft aufschieben. Fristen und Bedingungen regelt der Kanton. Lass das von einer Steuerfachperson prüfen."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Kontakt aufnehmen",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Neues Zuhause zuerst.\n*Verkauf ohne Druck.*",
+    "text": "Vergleiche kostenlos über 40 Anbieter und starte deine Anfrage in 3 Minuten.",
+    "ctas": [
+     {
+      "label": "Überbrückung anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Crédit relais: acheter avant de vendre | HYPOTEQ",
+  "description": "Vous achetez avant d'avoir vendu votre logement actuel? Nous organisons le crédit relais et comparons 40+ prêteurs. Demande en 3 minutes.",
+  "h1": "Changer de logement sans trou de financement",
+  "nav": [
+   "Crédit relais",
+   "Acheter avant de vendre"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Crédit relais immobilier",
+    "h1": "Changer de logement\nsans trou\n*de financement*",
+    "lead": "Vous avez trouvé votre nouveau logement, mais l'actuel n'est pas encore vendu? Un **crédit relais immobilier** vous permet de sécuriser le nouveau bien sans attendre la vente. Nous organisons la solution et comparons gratuitement plus de 40 prêteurs.",
+    "ctas": [
+     {
+      "label": "Demander un crédit relais",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Gratuit & sans engagement",
+     "Achat et vente coordonnés",
+     "Offres en 48–72 h"
+    ],
+    "image": "lake-living",
+    "alt": "Vignobles de Lavaux au-dessus du Léman",
+    "float": {
+     "title": "SARON dès 0.85 %",
+     "text": "Taux indicatif · valeur d'exemple"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banques, assurances et caisses de pension"
+     },
+     {
+      "value": "0 CHF",
+      "label": "pour la comparaison et le courtage"
+     },
+     {
+      "value": "3 min",
+      "label": "pour une demande complète"
+     },
+     {
+      "value": "48–72 h",
+      "label": "jusqu'aux offres concrètes"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Financement transitoire logement",
+    "title": "Deux biens.\n*Un financement réfléchi.*",
+    "image": "keys",
+    "alt": "Remise des clés du nouveau logement",
+    "paragraphs": [
+     "Lors d'un changement de logement, le produit de la vente manque souvent au moment où il faut payer le nouveau bien. Un **financement transitoire** comble cet écart: la banque finance l'achat temporairement, souvent avec une garantie aussi sur le logement actuel. Après la vente, le crédit est remboursé avec le produit.",
+     "Chaque prêteur fixe conditions et durée individuellement. Nous comparons donc le taux, mais aussi la flexibilité, la durée et la solution pour votre hypothèque existante."
+    ],
+    "bullets": [
+     "Sécuriser le nouveau bien sans pression de vente",
+     "Hypothèque existante: transfert ou remboursement examinés",
+     "Un seul interlocuteur pour l'achat et la vente"
+    ],
+    "ctas": [
+     {
+      "label": "Planifier mon changement",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Acheter avant de vendre",
+    "title": "Obstacles fréquents\n*et nos solutions.*",
+    "tone": "soft",
+    "cols": 2,
+    "items": [
+     {
+      "kicker": "Double charge",
+      "title": "Capacité pendant la transition",
+      "text": "Pendant un temps, vous possédez deux biens. Nous montrons à la banque, de façon réaliste, quand la vente allégera la charge.",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "kicker": "Hypothèque fixe en cours",
+      "title": "Transférer ou rembourser",
+      "text": "Certains prêteurs permettent de transférer l'hypothèque fixe sur le nouveau bien. Sinon, nous chiffrons une sortie anticipée.",
+      "to": "page:lp-vorfaelligkeit"
+     },
+     {
+      "kicker": "Date de vente incertaine",
+      "title": "Prévoir une marge",
+      "text": "Nous planifions avec des délais réalistes et une solution qui ne dépend pas d'une date de vente parfaite."
+     },
+     {
+      "kicker": "Fiscalité",
+      "title": "Vérifier le remploi",
+      "text": "En cas de remploi dans une résidence principale, l'impôt sur les gains immobiliers peut souvent être différé. Le canton fixe les détails."
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Calculateur hypothécaire",
+    "title": "Combien coûte\n*votre nouveau logement?*",
+    "lead": "Saisissez prix, fonds propres et revenu pour voir la capacité financière pour le nouveau bien."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Déroulement",
+    "title": "Quatre étapes\nvers votre nouveau logement.",
+    "items": [
+     {
+      "title": "Demande en 3 minutes",
+      "text": "Téléversez les documents des deux biens et de votre hypothèque actuelle. L'IA lit la plupart des données."
+     },
+     {
+      "title": "Plan d'ensemble",
+      "text": "Votre conseillère vous contacte rapidement et planifie achat, vente et transition avec vous."
+     },
+     {
+      "title": "Comparer les offres",
+      "text": "Avec un dossier complet, vous recevez en général sous 48–72 h des offres pour le relais et la nouvelle hypothèque."
+     },
+     {
+      "title": "Déménager sans trou",
+      "text": "Nous coordonnons avec la banque et le notaire jusqu'à ce que le produit de la vente rembourse le relais."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Commencer",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "trust",
+    "items": [
+     "Courtier indépendant",
+     "40+ partenaires de financement",
+     "Gratuit pour les particuliers",
+     "Une conseillère, pas une hotline",
+     "Données traitées en Suisse",
+     "180+ conseillers"
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "À lire aussi",
+    "title": "Bien préparé\n*pour le changement.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Sortie",
+      "title": "Remboursement anticipé",
+      "text": "Ce que coûte un changement avant l'échéance.",
+      "to": "page:lp-vorfaelligkeit"
+     },
+     {
+      "kicker": "Maison",
+      "title": "Maison individuelle",
+      "text": "Financer votre prochaine maison.",
+      "to": "page:lp-einfamilienhaus"
+     },
+     {
+      "kicker": "Appartement",
+      "title": "Appartement en PPE",
+      "text": "Quand vous voulez plus petit.",
+      "to": "page:lp-eigentumswohnung"
+     },
+     {
+      "kicker": "Courtiers",
+      "title": "Devenir partenaire",
+      "text": "Vos clients achètent et vendent en même temps? Travaillons ensemble.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "Le crédit relais\nen bref.",
+    "items": [
+     {
+      "q": "Comment fonctionne un crédit relais?",
+      "a": "La banque finance temporairement l'achat du nouveau bien avant que le produit de la vente soit disponible. Le logement actuel sert souvent de garantie. Après la vente, le relais est remboursé."
+     },
+     {
+      "q": "Puis-je transférer mon hypothèque fixe sur le nouveau bien?",
+      "a": "Cela dépend du contrat et du prêteur. Certains l'acceptent s'ils financent aussi le nouveau bien. Sinon, nous calculons le coût d'une sortie anticipée."
+     },
+     {
+      "q": "Combien de temps peut durer le relais?",
+      "a": "Le crédit relais est limité dans le temps. La banque fixe la durée individuellement selon la vente attendue. Nous prévoyons une marge réaliste."
+     },
+     {
+      "q": "Quels sont les aspects fiscaux du remploi?",
+      "a": "En vendant une résidence principale pour en acheter une autre, l'impôt sur les gains immobiliers peut souvent être différé. Le canton fixe délais et conditions. Faites vérifier par un fiscaliste."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Nous contacter",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "D'abord le nouveau logement.\n*Vendre sans pression.*",
+    "text": "Comparez gratuitement plus de 40 prêteurs et lancez votre demande en 3 minutes.",
+    "ctas": [
+     {
+      "label": "Demander un crédit relais",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Credito ponte: comprare prima di vendere | HYPOTEQ",
+  "description": "Compri casa prima di aver venduto la tua? Organizziamo il credito ponte e confrontiamo oltre 40 istituti. Richiesta in 3 minuti.",
+  "h1": "Cambiare casa senza vuoti di finanziamento",
+  "nav": [
+   "Credito ponte",
+   "Comprare prima di vendere"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Credito ponte casa",
+    "h1": "Cambiare casa\nsenza vuoti\n*di finanziamento*",
+    "lead": "Hai trovato la nuova casa, ma quella attuale non è ancora venduta? Con un **credito ponte per la casa** ti assicuri il nuovo immobile senza aspettare la vendita. Organizziamo la soluzione e confrontiamo gratis oltre 40 istituti.",
+    "ctas": [
+     {
+      "label": "Richiedi il credito ponte",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Gratuito e senza impegno",
+     "Acquisto e vendita coordinati",
+     "Offerte in 48–72 h"
+    ],
+    "image": "lugano",
+    "alt": "Lugano con il lago e le colline del Ticino",
+    "float": {
+     "title": "SARON da 0.85 %",
+     "text": "Tasso indicativo · valore d'esempio"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banche, assicurazioni e casse pensioni"
+     },
+     {
+      "value": "0 CHF",
+      "label": "per confronto e mediazione"
+     },
+     {
+      "value": "3 min",
+      "label": "per una richiesta completa"
+     },
+     {
+      "value": "48–72 h",
+      "label": "fino alle offerte concrete"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Finanziamento transitorio casa",
+    "title": "Due immobili.\n*Un finanziamento ben pensato.*",
+    "image": "keys",
+    "alt": "Consegna delle chiavi della nuova casa",
+    "paragraphs": [
+     "Quando cambi casa, il ricavato della vendita spesso manca proprio quando devi pagare il nuovo immobile. Un **finanziamento transitorio** colma questo vuoto: la banca finanzia l'acquisto temporaneamente, spesso garantita anche dalla casa attuale. Dopo la vendita il credito viene rimborsato con il ricavato.",
+     "Condizioni e durata le fissa ogni istituto individualmente. Per questo confrontiamo non solo il tasso, ma anche flessibilità, durata e la soluzione per l'ipoteca esistente."
+    ],
+    "bullets": [
+     "Assicurarsi il nuovo immobile senza pressione di vendita",
+     "Ipoteca esistente: trasferimento o estinzione verificati",
+     "Un solo interlocutore per acquisto e vendita"
+    ],
+    "ctas": [
+     {
+      "label": "Pianifica il cambio",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Comprare prima di vendere",
+    "title": "Ostacoli tipici\n*e come li risolviamo.*",
+    "tone": "soft",
+    "cols": 2,
+    "items": [
+     {
+      "kicker": "Doppio onere",
+      "title": "Sostenibilità nella transizione",
+      "text": "Per un periodo possiedi due immobili. Mostriamo alla banca, in modo realistico, quando la vendita scioglierà l'onere.",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "kicker": "Ipoteca fissa in corso",
+      "title": "Trasferire o estinguere",
+      "text": "Alcuni istituti permettono di trasferire l'ipoteca fissa sul nuovo immobile. Altrimenti calcoliamo i costi di un'uscita anticipata.",
+      "to": "page:lp-vorfaelligkeit"
+     },
+     {
+      "kicker": "Data di vendita incerta",
+      "title": "Prevedere un margine",
+      "text": "Pianifichiamo con tempi realistici e una soluzione che non dipende dalla data di vendita perfetta."
+     },
+     {
+      "kicker": "Imposte",
+      "title": "Verificare il reinvestimento",
+      "text": "Con un nuovo immobile ad uso proprio, l'imposta sugli utili immobiliari può spesso essere differita. I dettagli li regola il Cantone."
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Calcolatore ipotecario",
+    "title": "Quanto costa\n*la tua nuova casa?*",
+    "lead": "Inserisci prezzo, fondi propri e reddito e vedi la sostenibilità per il nuovo immobile."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Come funziona",
+    "title": "Quattro passi\nverso la nuova casa.",
+    "items": [
+     {
+      "title": "Richiesta in 3 minuti",
+      "text": "Carica i documenti dei due immobili e dell'ipoteca attuale. L'IA legge la maggior parte dei dati."
+     },
+     {
+      "title": "Piano complessivo",
+      "text": "La tua consulente ti contatta in tempi brevi e pianifica con te acquisto, vendita e transizione."
+     },
+     {
+      "title": "Confrontare le offerte",
+      "text": "Con la documentazione completa ricevi di solito entro 48–72 h offerte per il ponte e la nuova ipoteca."
+     },
+     {
+      "title": "Trasloco senza vuoti",
+      "text": "Coordiniamo banca e notaio finché il ricavato della vendita estingue il ponte."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Inizia ora",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "trust",
+    "items": [
+     "Intermediario indipendente",
+     "40+ partner di finanziamento",
+     "Gratuito per privati",
+     "Una consulente, non una hotline",
+     "Dati trattati in Svizzera",
+     "180+ consulenti"
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Approfondisci",
+    "title": "Ben preparati\n*per il cambio.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Uscita",
+      "title": "Estinzione anticipata",
+      "text": "Quanto costa cambiare prima della scadenza.",
+      "to": "page:lp-vorfaelligkeit"
+     },
+     {
+      "kicker": "Casa",
+      "title": "Casa unifamiliare",
+      "text": "Il finanziamento per la prossima casa.",
+      "to": "page:lp-einfamilienhaus"
+     },
+     {
+      "kicker": "Appartamento",
+      "title": "Appartamento in PPP",
+      "text": "Quando basta qualcosa di più piccolo.",
+      "to": "page:lp-eigentumswohnung"
+     },
+     {
+      "kicker": "Per agenti",
+      "title": "Diventa partner",
+      "text": "I tuoi clienti comprano e vendono insieme? Collabora con noi.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "Credito ponte\nin breve.",
+    "items": [
+     {
+      "q": "Come funziona un credito ponte?",
+      "a": "La banca finanzia temporaneamente l'acquisto del nuovo immobile prima che arrivi il ricavato della vendita. Come garanzia serve spesso anche la casa attuale. Dopo la vendita il ponte viene rimborsato."
+     },
+     {
+      "q": "Posso trasferire l'ipoteca fissa sul nuovo immobile?",
+      "a": "Dipende dal contratto e dall'istituto. Alcuni lo permettono se finanziano anche il nuovo immobile. Altrimenti calcoliamo il costo di un'uscita anticipata."
+     },
+     {
+      "q": "Quanto può durare il ponte?",
+      "a": "Il credito ponte è limitato nel tempo. La banca fissa la durata individualmente in base alla vendita prevista. Prevediamo un margine realistico."
+     },
+     {
+      "q": "Quali aspetti fiscali vanno considerati nel reinvestimento?",
+      "a": "Chi vende un'abitazione ad uso proprio e ne compra un'altra può spesso differire l'imposta sugli utili immobiliari. Termini e condizioni li regola il Cantone. Fai verificare da un esperto fiscale."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Contattaci",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Prima la nuova casa.\n*Vendere senza pressione.*",
+    "text": "Confronta gratis oltre 40 istituti e avvia la richiesta in 3 minuti.",
+    "ctas": [
+     {
+      "label": "Richiedi il credito ponte",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "Bridging loan: buy before you sell | HYPOTEQ",
+  "description": "Buying your next home before selling the current one? We arrange bridge financing and compare 40+ lenders. Apply in 3 minutes.",
+  "h1": "Moving home without a financing gap",
+  "nav": [
+   "Bridging loan",
+   "Buy before you sell"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Bridging loan Switzerland",
+    "h1": "Moving home\nwithout a\n*financing gap*",
+    "lead": "You've found your next home, but the current one isn't sold yet? A **bridging loan in Switzerland** lets you secure the new property without waiting for the sale. We arrange the solution and compare 40+ lenders free of charge.",
+    "ctas": [
+     {
+      "label": "Request a bridging loan",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Free & non-binding",
+     "Purchase and sale coordinated",
+     "Offers in 48–72 h"
+    ],
+    "image": "lake-house",
+    "alt": "Chapel Bridge in Lucerne with old town houses on the water",
+    "float": {
+     "title": "SARON from 0.85 %",
+     "text": "Indicative rate · sample value"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "banks, insurers and pension funds"
+     },
+     {
+      "value": "CHF 0",
+      "label": "for comparison and brokerage"
+     },
+     {
+      "value": "3 min.",
+      "label": "to a complete request"
+     },
+     {
+      "value": "48–72 h",
+      "label": "to concrete offers"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Bridge financing for your home",
+    "title": "Two properties.\n*One well-planned financing.*",
+    "image": "keys",
+    "alt": "Handing over the keys to a new home",
+    "paragraphs": [
+     "When you move home, the sale proceeds are often missing just when you need to pay for the new property. **Bridge financing** closes that gap: the lender finances the purchase temporarily, often also secured on your current home. Once you've sold, the loan is repaid from the proceeds.",
+     "Each lender sets terms and duration individually. So we compare not just the rate, but also flexibility, duration and the solution for your existing mortgage."
+    ],
+    "bullets": [
+     "Secure the new home without pressure to sell",
+     "Existing mortgage: transfer or repayment reviewed",
+     "One contact for both purchase and sale"
+    ],
+    "ctas": [
+     {
+      "label": "Plan my move",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Buy before selling your house",
+    "title": "Typical hurdles\n*and how we solve them.*",
+    "tone": "soft",
+    "cols": 2,
+    "items": [
+     {
+      "kicker": "Double burden",
+      "title": "Affordability during the transition",
+      "text": "For a while you own two properties. We show the lender realistically when the sale will ease the burden.",
+      "to": "page:tragbarkeit"
+     },
+     {
+      "kicker": "Running fixed-rate mortgage",
+      "title": "Transfer or repay",
+      "text": "Some lenders let you transfer a fixed-rate mortgage to the new property. Otherwise we calculate the cost of an early exit.",
+      "to": "page:lp-vorfaelligkeit"
+     },
+     {
+      "kicker": "Uncertain sale date",
+      "title": "Build in a buffer",
+      "text": "We plan with realistic timelines and a solution that doesn't depend on the perfect sale date."
+     },
+     {
+      "kicker": "Tax",
+      "title": "Check replacement rules",
+      "text": "If you buy another owner-occupied home, property gains tax can often be deferred. Your canton sets the details."
+     }
+    ]
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Mortgage calculator",
+    "title": "What will\n*your new home cost?*",
+    "lead": "Enter price, equity and income to see affordability for the new property."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "How it works",
+    "title": "Four steps\nto your new home.",
+    "items": [
+     {
+      "title": "Request in 3 minutes",
+      "text": "Upload documents for both properties and your current mortgage. Our AI reads most details."
+     },
+     {
+      "title": "Overall plan",
+      "text": "Your advisor usually gets back to you the same business day and plans purchase, sale and transition with you."
+     },
+     {
+      "title": "Compare offers",
+      "text": "With complete documents, you usually receive offers for the bridge and the new mortgage within 48–72 h."
+     },
+     {
+      "title": "Move without a gap",
+      "text": "We coordinate with lender and notary until the sale proceeds repay the bridge."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Get started",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "trust",
+    "items": [
+     "Independent broker",
+     "40+ financing partners",
+     "Free for private clients",
+     "A personal advisor, not a hotline",
+     "Data processed in Switzerland",
+     "2,500+ clients"
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Read more",
+    "title": "Well prepared\n*for your move.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Early exit",
+      "title": "Prepayment penalty",
+      "text": "What switching before expiry costs.",
+      "to": "page:lp-vorfaelligkeit"
+     },
+     {
+      "kicker": "House",
+      "title": "Single-family home",
+      "text": "Financing your next house.",
+      "to": "page:lp-einfamilienhaus"
+     },
+     {
+      "kicker": "Apartment",
+      "title": "Condominium",
+      "text": "When smaller is better.",
+      "to": "page:lp-eigentumswohnung"
+     },
+     {
+      "kicker": "For agents",
+      "title": "Become a partner",
+      "text": "Your clients buy and sell at the same time? Work with us.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Bridging loans\nin brief.",
+    "items": [
+     {
+      "q": "How does a bridging loan work in Switzerland?",
+      "a": "The lender temporarily finances the new property before the proceeds from your current home arrive. Your existing property often serves as collateral too. After the sale, the bridge is repaid."
+     },
+     {
+      "q": "Can I transfer my fixed-rate mortgage to the new property?",
+      "a": "That depends on your contract and lender. Some allow it if they also finance the new property. Otherwise we calculate what an early exit costs."
+     },
+     {
+      "q": "How long can a bridging loan last?",
+      "a": "Bridging loans are temporary. The lender sets the duration individually, based on the expected sale. We build in a realistic buffer."
+     },
+     {
+      "q": "What are the tax rules for replacement property?",
+      "a": "If you sell an owner-occupied home and buy another one, property gains tax can often be deferred. Your canton sets deadlines and conditions. Have a tax advisor check your case."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Contact us",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "New home first.\n*Sell without pressure.*",
+    "text": "Compare 40+ lenders for free and start your request in 3 minutes.",
+    "ctas": [
+     {
+      "label": "Request a bridging loan",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ }
+}

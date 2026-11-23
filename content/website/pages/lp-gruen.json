@@ -1,0 +1,946 @@
+{
+ "de": {
+  "title": "Grüne Hypothek: Zinsrabatt für Energie & Solar | HYPOTEQ",
+  "description": "Solaranlage, Wärmepumpe oder Minergie? Vergleiche Öko-Hypotheken mit Zinsrabatt bei 40+ Anbietern und finanziere die Sanierung. Jetzt anfragen.",
+  "h1": "Grüne Hypothek: Rabatt für nachhaltiges Wohnen",
+  "nav": [
+   "Grüne Hypothek",
+   "Zinsrabatt für Energie & Solar"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Grüne Hypothek",
+    "h1": "Grüne Hypothek:\n*Rabatt für nachhaltiges Wohnen*",
+    "lead": "Viele Banken belohnen energieeffiziente Häuser und Sanierungen mit einem Zinsrabatt, doch jede hat andere Regeln. Wir vergleichen die **grüne Hypothek** bei über 40 Anbietern und finanzieren Solaranlage, Wärmepumpe oder Minergie-Sanierung gleich mit.",
+    "ctas": [
+     {
+      "label": "Öko-Hypothek anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Kostenlos & unverbindlich",
+     "Rabattbedingungen verglichen",
+     "Sanierung mitfinanziert"
+    ],
+    "image": "swiss-villa",
+    "alt": "Chalet mit Solardach an einem Schweizer See",
+    "float": {
+     "title": "5 Jahre fest ab 1.30 %",
+     "text": "Richtzins · Beispielwert, ohne Öko-Rabatt"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "Anbieter mit unterschiedlichen Öko-Regeln"
+     },
+     {
+      "value": "3 Min.",
+      "label": "bis zur vollständigen Anfrage"
+     },
+     {
+      "value": "48–72 h",
+      "label": "bis zu konkreten Offerten"
+     },
+     {
+      "value": "0 CHF",
+      "label": "für Vergleich und Vermittlung"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Ökohypothek & Energiehypothek",
+    "title": "Der Rabatt ist nicht das Problem.\n*Die Bedingungen schon.*",
+    "image": "appenzell",
+    "alt": "Grüne Hügel und Bauernhäuser im Appenzellerland",
+    "paragraphs": [
+     "Die eine Bank verlangt ein Minergie-Label, die andere eine GEAK-Klasse, die dritte belohnt Solaranlage oder Heizungsersatz. Höhe, Dauer und Betrag des Rabatts unterscheiden sich stark.",
+     "Wir übersetzen dein Gebäude oder Sanierungsprojekt in die Kriterien der Anbieter und zeigen, welche **Energiehypothek** unter dem Strich am günstigsten ist, Rabatt und Grundzins zusammen."
+    ],
+    "bullets": [
+     "Minergie, GEAK, Solar und Wärmepumpe im Vergleich",
+     "Grundzins und Rabatt gemeinsam bewertet",
+     "Sanierungskosten direkt mitfinanziert"
+    ],
+    "ctas": [
+     {
+      "label": "Rabatt prüfen lassen",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Typische Hürden",
+    "title": "Was grüne Pläne bremst.\n*Und wie wir es lösen.*",
+    "tone": "soft",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Hürde",
+      "title": "Rabatt schwer vergleichbar",
+      "text": "Ein hoher Rabatt auf einen hohen Grundzins bringt wenig. Wir vergleichen den effektiven Zins."
+     },
+     {
+      "kicker": "Hürde",
+      "title": "Sanierung zu teuer",
+      "text": "Wir prüfen, ob du die Hypothek für Heizungsersatz oder Solaranlage erhöhen kannst.",
+      "to": "page:aufstocken",
+      "cta": "Hypothek aufstocken"
+     },
+     {
+      "kicker": "Hürde",
+      "title": "Hypothek läuft noch",
+      "text": "Wechsel während der Laufzeit kostet. Wir rechnen, ob sich der Zeitpunkt lohnt.",
+      "to": "page:lp-vorfaelligkeit",
+      "cta": "Vorfälligkeit prüfen"
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Anfrage starten",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Richtzinsen",
+    "title": "Der Grundzins zählt\n*genauso wie der Rabatt.*",
+    "lead": "Die Richtzinsen zeigen dir den Markt. Öko-Rabatte kommen je nach Anbieter und Massnahme dazu."
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Hypothek Solaranlage & Wärmepumpe",
+    "title": "Was kostet\n*deine Hypothek pro Monat?*",
+    "lead": "Gib Wert, Eigenmittel und Einkommen ein und sieh Belehnung, Zinskosten und Tragbarkeit."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "So läuft es",
+    "title": "In vier Schritten\n*zur grünen Hypothek.*",
+    "items": [
+     {
+      "title": "Anfrage in 3 Minuten",
+      "text": "Lade Objektunterlagen, Energieausweis oder Offerten hoch."
+     },
+     {
+      "title": "Kriterien abgleichen",
+      "text": "Deine Beraterin prüft, welche Öko-Bedingungen dein Objekt erfüllt."
+     },
+     {
+      "title": "Offerten vergleichen",
+      "text": "Angebote meist innert 48–72 h nach vollständigen Unterlagen."
+     },
+     {
+      "title": "Abschluss & Auszahlung",
+      "text": "Wir koordinieren mit Bank und Handwerkern bis zur Auszahlung."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Jetzt starten",
+      "to": "funnel"
+     },
+     {
+      "label": "Kontakt aufnehmen",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Passend dazu",
+    "title": "Nachhaltig wohnen.\n*Klug finanzieren.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Objekt",
+      "title": "Einfamilienhaus",
+      "text": "Kauf und energetische Sanierung finanzieren.",
+      "to": "page:lp-einfamilienhaus"
+     },
+     {
+      "kicker": "Neubau",
+      "title": "Bauland finanzieren",
+      "text": "Effizient bauen von Anfang an.",
+      "to": "page:lp-bauland"
+     },
+     {
+      "kicker": "Modell",
+      "title": "Festhypothek",
+      "text": "Planbare Zinsen für die Laufzeit.",
+      "to": "page:fest"
+     },
+     {
+      "kicker": "Für Partner",
+      "title": "Partner werden",
+      "text": "Du berätst Eigentümer? Reiche Fälle ein und erhalte eine Provision.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Häufige Fragen",
+    "title": "Grüne Hypothek\n*ohne Fragezeichen.*",
+    "items": [
+     {
+      "q": "Was ist eine grüne Hypothek?",
+      "a": "Eine Hypothek mit Zinsvorteil für energieeffiziente Gebäude oder Sanierungen. Viele Banken bieten solche Öko- oder Energiehypotheken an, die Regeln sind je nach Anbieter unterschiedlich."
+     },
+     {
+      "q": "Welche Massnahmen werden mit Zinsrabatt belohnt?",
+      "a": "Häufig Minergie-Standard, eine gute GEAK-Klasse, Solaranlagen, Wärmepumpen oder Heizungsersatz und Dämmung. Welche Massnahme bei welchem Anbieter zählt, vergleichen wir für dich."
+     },
+     {
+      "q": "Lassen sich Öko-Rabatte mit Förderbeiträgen kombinieren?",
+      "a": "Oft ja. Förderprogramme von Bund, Kanton oder Gemeinde laufen unabhängig von der Bank. Ob und wie sie bei der Finanzierung angerechnet werden, klären wir im Einzelfall."
+     },
+     {
+      "q": "Was passiert mit dem Rabatt bei vorzeitiger Auflösung?",
+      "a": "Je nach Bank ist der Rabatt befristet oder an die Laufzeit gebunden. Löst du eine Festhypothek vorzeitig auf, fällt in der Regel eine Vorfälligkeitsentschädigung an, und der Rabatt entfällt meist."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Vorfälligkeit verstehen",
+      "to": "page:lp-vorfaelligkeit"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Solar, Wärmepumpe, Minergie?\n*Hol dir den passenden Rabatt.*",
+    "text": "Kostenlos vergleichen und in 3 Minuten anfragen. Deine Beraterin meldet sich zeitnah.",
+    "ctas": [
+     {
+      "label": "Grüne Hypothek anfragen",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Hypothèque verte: rabais énergie et solaire | HYPOTEQ",
+  "description": "Solaire, pompe à chaleur ou Minergie? Comparez les hypothèques vertes avec rabais auprès de 40+ prêteurs et financez la rénovation. Demande en 3 minutes.",
+  "h1": "Hypothèque verte: un rabais pour un logement durable",
+  "nav": [
+   "Hypothèque verte",
+   "Rabais énergie et solaire"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Hypothèque verte",
+    "h1": "Hypothèque verte:\n*un rabais pour un logement durable*",
+    "lead": "Beaucoup de banques récompensent les bâtiments efficients et les rénovations énergétiques par un rabais de taux, mais chacune a ses règles. Nous comparons l'**hypothèque verte** auprès de plus de 40 prêteurs et finançons solaire, pompe à chaleur ou rénovation Minergie.",
+    "ctas": [
+     {
+      "label": "Demander une hypothèque verte",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Gratuit & sans engagement",
+     "Conditions comparées",
+     "Rénovation financée"
+    ],
+    "image": "swiss-villa",
+    "alt": "Chalet avec toit solaire au bord d'un lac suisse",
+    "float": {
+     "title": "Fixe 5 ans dès 1.30 %",
+     "text": "Taux indicatif · valeur d'exemple, sans rabais"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "prêteurs aux règles écologiques différentes"
+     },
+     {
+      "value": "3 min",
+      "label": "pour une demande complète"
+     },
+     {
+      "value": "48–72 h",
+      "label": "jusqu'aux offres concrètes"
+     },
+     {
+      "value": "0 CHF",
+      "label": "pour la comparaison et le courtage"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Hypothèque écologique & énergie",
+    "title": "Le rabais n'est pas le problème.\n*Les conditions, oui.*",
+    "image": "appenzell",
+    "alt": "Collines vertes et fermes en Appenzell",
+    "paragraphs": [
+     "Une banque exige le label Minergie, une autre une classe CECB, une troisième récompense le solaire ou le remplacement du chauffage. Montant, durée et part concernée varient fortement.",
+     "Nous traduisons votre bâtiment ou projet dans les critères des prêteurs et montrons quelle **hypothèque énergie** est la moins chère au final, rabais et taux de base réunis."
+    ],
+    "bullets": [
+     "Minergie, CECB, solaire et pompe à chaleur comparés",
+     "Taux de base et rabais évalués ensemble",
+     "Rénovation financée directement"
+    ],
+    "ctas": [
+     {
+      "label": "Faire vérifier le rabais",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Obstacles fréquents",
+    "title": "Ce qui freine les projets verts.\n*Et comment nous le résolvons.*",
+    "tone": "soft",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Obstacle",
+      "title": "Rabais difficile à comparer",
+      "text": "Un gros rabais sur un taux de base élevé rapporte peu. Nous comparons le taux effectif."
+     },
+     {
+      "kicker": "Obstacle",
+      "title": "Rénovation trop chère",
+      "text": "Nous vérifions si l'hypothèque peut être augmentée pour le chauffage ou le solaire.",
+      "to": "page:aufstocken",
+      "cta": "Augmenter l'hypothèque"
+     },
+     {
+      "kicker": "Obstacle",
+      "title": "Hypothèque en cours",
+      "text": "Changer avant l'échéance coûte. Nous calculons si le moment est le bon.",
+      "to": "page:lp-vorfaelligkeit",
+      "cta": "Vérifier la pénalité"
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Lancer la demande",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Taux indicatifs",
+    "title": "Le taux de base compte\n*autant que le rabais.*",
+    "lead": "Les taux indicatifs montrent le marché. Les rabais écologiques s'y ajoutent selon le prêteur et la mesure."
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Hypothèque panneaux solaires",
+    "title": "Combien coûte\n*votre hypothèque par mois?*",
+    "lead": "Saisissez valeur, fonds propres et revenu et voyez taux d'avance, intérêts et capacité financière."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Déroulement",
+    "title": "Quatre étapes\n*vers l'hypothèque verte.*",
+    "items": [
+     {
+      "title": "Demande en 3 minutes",
+      "text": "Téléchargez documents du bien, certificat énergétique ou devis."
+     },
+     {
+      "title": "Critères vérifiés",
+      "text": "Votre conseillère vérifie quelles conditions votre bien remplit."
+     },
+     {
+      "title": "Comparer les offres",
+      "text": "Offres en général 48–72 h après dossier complet."
+     },
+     {
+      "title": "Signature & versement",
+      "text": "Nous coordonnons banque et artisans jusqu'au versement."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Commencer",
+      "to": "funnel"
+     },
+     {
+      "label": "Nous contacter",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "À lire aussi",
+    "title": "Durable\n*et bien calculé.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Bien",
+      "title": "Maison individuelle",
+      "text": "Financer achat et rénovation énergétique.",
+      "to": "page:lp-einfamilienhaus"
+     },
+     {
+      "kicker": "Construction",
+      "title": "Terrain à bâtir",
+      "text": "Construire efficient dès le départ.",
+      "to": "page:lp-bauland"
+     },
+     {
+      "kicker": "Modèle",
+      "title": "Hypothèque fixe",
+      "text": "Des taux planifiables sur toute la durée.",
+      "to": "page:fest"
+     },
+     {
+      "kicker": "Partenaires",
+      "title": "Devenir partenaire",
+      "text": "Vous conseillez des propriétaires? Soumettez des dossiers et touchez une commission.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Questions fréquentes",
+    "title": "Hypothèque verte\n*sans points d'interrogation.*",
+    "items": [
+     {
+      "q": "Qu'est-ce qu'une hypothèque verte?",
+      "a": "Une hypothèque avec avantage de taux pour les bâtiments efficients ou les rénovations énergétiques. Beaucoup de banques en proposent, avec des règles différentes selon le prêteur."
+     },
+     {
+      "q": "Quelles mesures donnent droit à un rabais?",
+      "a": "Souvent le standard Minergie, une bonne classe CECB, le solaire, la pompe à chaleur, le remplacement du chauffage ou l'isolation. Nous comparons quelle mesure compte chez quel prêteur."
+     },
+     {
+      "q": "Peut-on cumuler rabais et subventions?",
+      "a": "Souvent oui. Les programmes de la Confédération, du canton ou de la commune sont indépendants de la banque. Leur prise en compte dans le financement se clarifie au cas par cas."
+     },
+     {
+      "q": "Que devient le rabais en cas de résiliation anticipée?",
+      "a": "Selon la banque, le rabais est limité dans le temps ou lié à la durée. En cas de sortie anticipée d'une hypothèque fixe, une pénalité est en général due et le rabais tombe le plus souvent."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Comprendre la pénalité",
+      "to": "page:lp-vorfaelligkeit"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Solaire, pompe à chaleur, Minergie?\n*Obtenez le bon rabais.*",
+    "text": "Comparez gratuitement et déposez votre demande en 3 minutes. Votre conseillère vous rappelle rapidement.",
+    "ctas": [
+     {
+      "label": "Demander une hypothèque verte",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Ipoteca verde: sconto per energia e solare | HYPOTEQ",
+  "description": "Fotovoltaico, pompa di calore o Minergie? Confronta le ipoteche verdi con sconto di oltre 40 istituti e finanzia il risanamento. Richiesta in 3 minuti.",
+  "h1": "Ipoteca verde: uno sconto per abitare sostenibile",
+  "nav": [
+   "Ipoteca verde",
+   "Sconto per energia e solare"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Ipoteca verde",
+    "h1": "Ipoteca verde:\n*uno sconto per abitare sostenibile*",
+    "lead": "Molte banche premiano edifici efficienti e risanamenti energetici con uno sconto sul tasso, ma ognuna ha le sue regole. Confrontiamo l'**ipoteca verde** di oltre 40 istituti e finanziamo fotovoltaico, pompa di calore o risanamento Minergie.",
+    "ctas": [
+     {
+      "label": "Richiedi l'ipoteca verde",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Gratuito e senza impegno",
+     "Condizioni a confronto",
+     "Risanamento finanziato"
+    ],
+    "image": "swiss-villa",
+    "alt": "Chalet con tetto solare su un lago svizzero",
+    "float": {
+     "title": "Fisso 5 anni da 1.30 %",
+     "text": "Tasso indicativo · valore d'esempio, senza sconto"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "istituti con regole ecologiche diverse"
+     },
+     {
+      "value": "3 min",
+      "label": "per una richiesta completa"
+     },
+     {
+      "value": "48–72 h",
+      "label": "fino alle offerte concrete"
+     },
+     {
+      "value": "0 CHF",
+      "label": "per confronto e mediazione"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Ipoteca ecologica & energia",
+    "title": "Lo sconto non è il problema.\n*Le condizioni sì.*",
+    "image": "appenzell",
+    "alt": "Colline verdi e fattorie nell'Appenzello",
+    "paragraphs": [
+     "Una banca chiede il marchio Minergie, un'altra una classe CECE, una terza premia fotovoltaico o sostituzione del riscaldamento. Entità, durata e importo dello sconto variano molto.",
+     "Traduciamo il tuo edificio o progetto nei criteri degli istituti e ti mostriamo quale **ipoteca energia** conviene davvero, sconto e tasso di base insieme."
+    ],
+    "bullets": [
+     "Minergie, CECE, solare e pompa di calore a confronto",
+     "Tasso di base e sconto valutati insieme",
+     "Risanamento finanziato direttamente"
+    ],
+    "ctas": [
+     {
+      "label": "Fai verificare lo sconto",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Ostacoli tipici",
+    "title": "Cosa frena i progetti verdi.\n*E come lo risolviamo.*",
+    "tone": "soft",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Ostacolo",
+      "title": "Sconto difficile da confrontare",
+      "text": "Un grande sconto su un tasso di base alto rende poco. Confrontiamo il tasso effettivo."
+     },
+     {
+      "kicker": "Ostacolo",
+      "title": "Risanamento troppo caro",
+      "text": "Verifichiamo se puoi aumentare l'ipoteca per riscaldamento o fotovoltaico.",
+      "to": "page:aufstocken",
+      "cta": "Aumentare l'ipoteca"
+     },
+     {
+      "kicker": "Ostacolo",
+      "title": "Ipoteca in corso",
+      "text": "Cambiare prima della scadenza costa. Calcoliamo se il momento conviene.",
+      "to": "page:lp-vorfaelligkeit",
+      "cta": "Verifica la penale"
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Avvia la richiesta",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Tassi indicativi",
+    "title": "Il tasso di base conta\n*quanto lo sconto.*",
+    "lead": "I tassi indicativi mostrano il mercato. Gli sconti ecologici si aggiungono secondo istituto e intervento."
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Ipoteca pannelli solari",
+    "title": "Quanto costa\n*la tua ipoteca al mese?*",
+    "lead": "Inserisci valore, fondi propri e reddito e vedi anticipo, interessi e sostenibilità."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "Come funziona",
+    "title": "Quattro passi\n*verso l'ipoteca verde.*",
+    "items": [
+     {
+      "title": "Richiesta in 3 minuti",
+      "text": "Carica documenti dell'immobile, certificato energetico o preventivi."
+     },
+     {
+      "title": "Criteri verificati",
+      "text": "La consulente verifica quali condizioni soddisfa il tuo immobile."
+     },
+     {
+      "title": "Confronto delle offerte",
+      "text": "Offerte di regola entro 48–72 h dai documenti completi."
+     },
+     {
+      "title": "Firma e versamento",
+      "text": "Coordiniamo banca e artigiani fino al versamento."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Inizia ora",
+      "to": "funnel"
+     },
+     {
+      "label": "Contattaci",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Approfondisci",
+    "title": "Sostenibile\n*e ben calcolato.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Immobile",
+      "title": "Casa unifamiliare",
+      "text": "Finanziare acquisto e risanamento energetico.",
+      "to": "page:lp-einfamilienhaus"
+     },
+     {
+      "kicker": "Costruzione",
+      "title": "Terreno edificabile",
+      "text": "Costruire in modo efficiente da subito.",
+      "to": "page:lp-bauland"
+     },
+     {
+      "kicker": "Modello",
+      "title": "Ipoteca fissa",
+      "text": "Tassi pianificabili per tutta la durata.",
+      "to": "page:fest"
+     },
+     {
+      "kicker": "Partner",
+      "title": "Diventa partner",
+      "text": "Consigli proprietari? Invia i casi e ricevi una provvigione.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "Domande frequenti",
+    "title": "Ipoteca verde\n*senza punti di domanda.*",
+    "items": [
+     {
+      "q": "Cos'è un'ipoteca verde?",
+      "a": "Un'ipoteca con vantaggio sul tasso per edifici efficienti o risanamenti energetici. Molte banche la offrono, con regole diverse da istituto a istituto."
+     },
+     {
+      "q": "Quali interventi danno diritto a uno sconto?",
+      "a": "Spesso lo standard Minergie, una buona classe CECE, fotovoltaico, pompa di calore, sostituzione del riscaldamento o isolamento. Confrontiamo quale intervento conta presso quale istituto."
+     },
+     {
+      "q": "Si possono combinare sconto e incentivi?",
+      "a": "Spesso sì. I programmi di Confederazione, Cantone o Comune sono indipendenti dalla banca. Come vengono considerati nel finanziamento lo chiariamo caso per caso."
+     },
+     {
+      "q": "Cosa succede allo sconto in caso di disdetta anticipata?",
+      "a": "Secondo la banca lo sconto è limitato nel tempo o legato alla durata. Se chiudi in anticipo un'ipoteca fissa, di regola è dovuta una penale e lo sconto per lo più decade."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Capire la penale",
+      "to": "page:lp-vorfaelligkeit"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Fotovoltaico, pompa di calore, Minergie?\n*Ottieni lo sconto giusto.*",
+    "text": "Confronta gratis e invia la richiesta in 3 minuti. La tua consulente ti contatta in tempi brevi.",
+    "ctas": [
+     {
+      "label": "Richiedi l'ipoteca verde",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "Green mortgage in Switzerland: energy discounts | HYPOTEQ",
+  "description": "Solar panels, heat pump or Minergie? Compare green mortgages with rate discounts from 40+ lenders and finance your retrofit. Apply in 3 minutes.",
+  "h1": "Green mortgage: a discount for sustainable living",
+  "nav": [
+   "Green mortgage",
+   "Discounts for energy & solar"
+  ],
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Green mortgage Switzerland",
+    "h1": "Green mortgage:\n*a discount for sustainable living*",
+    "lead": "Many banks reward energy-efficient homes and retrofits with a rate discount, but each has its own rules. We compare the **green mortgage in Switzerland** across 40+ lenders and finance solar panels, heat pumps or a Minergie retrofit as well.",
+    "ctas": [
+     {
+      "label": "Request a green mortgage",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ],
+    "badges": [
+     "Free & non-binding",
+     "Discount rules compared",
+     "Retrofit financed"
+    ],
+    "image": "swiss-villa",
+    "alt": "Chalet with solar roof on a Swiss lake",
+    "float": {
+     "title": "5-year fixed from 1.30 %",
+     "text": "Indicative rate · sample value, no eco discount"
+    }
+   },
+   {
+    "type": "usp",
+    "items": [
+     {
+      "value": "40+",
+      "label": "lenders with different eco rules"
+     },
+     {
+      "value": "3 min",
+      "label": "to a complete request"
+     },
+     {
+      "value": "48–72 h",
+      "label": "to concrete offers"
+     },
+     {
+      "value": "CHF 0",
+      "label": "for comparison and brokerage"
+     }
+    ]
+   },
+   {
+    "type": "split",
+    "eyebrow": "Eco mortgage & energy efficient mortgage",
+    "title": "The discount isn't the problem.\n*The conditions are.*",
+    "image": "appenzell",
+    "alt": "Green hills and farmhouses in Appenzell",
+    "paragraphs": [
+     "One bank requires a Minergie label, another a GEAK energy class (the Swiss building energy certificate), a third rewards solar or a new heating system. Size, duration and scope of the discount vary widely.",
+     "We translate your building or project into each lender's criteria and show which **energy efficient mortgage** is cheapest overall, discount and base rate combined."
+    ],
+    "bullets": [
+     "Minergie, GEAK, solar and heat pumps compared",
+     "Base rate and discount assessed together",
+     "Retrofit costs financed directly"
+    ],
+    "ctas": [
+     {
+      "label": "Get my discount checked",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Common hurdles",
+    "title": "What slows green plans down.\n*And how we solve it.*",
+    "tone": "soft",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "Hurdle",
+      "title": "Discounts hard to compare",
+      "text": "A big discount on a high base rate is worth little. We compare the effective rate."
+     },
+     {
+      "kicker": "Hurdle",
+      "title": "Retrofit too expensive",
+      "text": "We check whether you can increase your mortgage for heating or solar.",
+      "to": "page:aufstocken",
+      "cta": "Increase mortgage"
+     },
+     {
+      "kicker": "Hurdle",
+      "title": "Mortgage still running",
+      "text": "Switching before maturity costs money. We calculate whether the timing pays off.",
+      "to": "page:lp-vorfaelligkeit",
+      "cta": "Check the penalty"
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Start your request",
+      "to": "funnel"
+     }
+    ]
+   },
+   {
+    "type": "rates",
+    "eyebrow": "Indicative rates",
+    "title": "The base rate matters\n*as much as the discount.*",
+    "lead": "Indicative rates show the market. Eco discounts are added depending on lender and measure."
+   },
+   {
+    "type": "calc",
+    "eyebrow": "Solar panels mortgage Switzerland",
+    "title": "What does your mortgage\n*cost per month?*",
+    "lead": "Enter value, equity and income and see loan-to-value, interest and affordability."
+   },
+   {
+    "type": "steps",
+    "eyebrow": "How it works",
+    "title": "Four steps\n*to your green mortgage.*",
+    "items": [
+     {
+      "title": "Request in 3 minutes",
+      "text": "Upload property documents, energy certificate or quotes."
+     },
+     {
+      "title": "Criteria matched",
+      "text": "Your advisor checks which eco conditions your property meets."
+     },
+     {
+      "title": "Compare offers",
+      "text": "Offers usually within 48–72 h of complete documents."
+     },
+     {
+      "title": "Signing & payout",
+      "text": "We coordinate bank and contractors until payout."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Get started",
+      "to": "funnel"
+     },
+     {
+      "label": "Contact us",
+      "to": "page:kontakt"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Related",
+    "title": "Sustainable\n*and well calculated.*",
+    "cols": 4,
+    "items": [
+     {
+      "kicker": "Property",
+      "title": "Detached house",
+      "text": "Financing purchase and energy retrofit.",
+      "to": "page:lp-einfamilienhaus"
+     },
+     {
+      "kicker": "New build",
+      "title": "Building land",
+      "text": "Build efficiently from day one.",
+      "to": "page:lp-bauland"
+     },
+     {
+      "kicker": "Model",
+      "title": "Fixed-rate mortgage",
+      "text": "Predictable rates for the whole term.",
+      "to": "page:fest"
+     },
+     {
+      "kicker": "For partners",
+      "title": "Become a partner",
+      "text": "You advise homeowners? Submit cases and earn a commission.",
+      "to": "page:partner"
+     }
+    ]
+   },
+   {
+    "type": "faq",
+    "eyebrow": "FAQ",
+    "title": "Green mortgage\n*without question marks.*",
+    "items": [
+     {
+      "q": "What is a green mortgage?",
+      "a": "A mortgage with a rate advantage for energy-efficient buildings or retrofits. Many Swiss banks offer such eco or energy mortgages, with rules that differ by lender."
+     },
+     {
+      "q": "Which measures qualify for a rate discount?",
+      "a": "Often the Minergie standard, a good GEAK class, solar panels, heat pumps, heating replacement or insulation. We compare which measure counts with which lender."
+     },
+     {
+      "q": "Can discounts be combined with subsidies?",
+      "a": "Often yes. Federal, cantonal or municipal programmes run independently of the bank. How they are counted in the financing is clarified case by case."
+     },
+     {
+      "q": "What happens to the discount if I exit early?",
+      "a": "Depending on the bank, the discount is time-limited or tied to the term. If you exit a fixed-rate mortgage early, a prepayment penalty usually applies and the discount mostly ends."
+     }
+    ],
+    "ctas": [
+     {
+      "label": "Understand the penalty",
+      "to": "page:lp-vorfaelligkeit"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Solar, heat pump, Minergie?\n*Get the right discount.*",
+    "text": "Compare for free and apply in 3 minutes. Your advisor gets back to you promptly.",
+    "ctas": [
+     {
+      "label": "Request a green mortgage",
+      "to": "funnel"
+     },
+     {
+      "label": "044 502 92 52",
+      "to": "tel"
+     }
+    ]
+   }
+  ]
+ }
+}

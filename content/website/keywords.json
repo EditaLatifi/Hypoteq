@@ -1,0 +1,3020 @@
+{
+ "pages": {
+  "home": {
+   "de": {
+    "slug": "",
+    "primary": "Hypothek Vergleich",
+    "secondary": [
+     "Hypothekenvergleich Schweiz",
+     "Hypothekarvermittler",
+     "Hypothek online beantragen",
+     "beste Hypothek finden",
+     "unabhängige Hypothekenberatung"
+    ],
+    "title": "Hypothek vergleichen: 40+ Banken kostenlos | HYPOTEQ",
+    "description": "Vergleichen Sie Hypotheken von über 40 Banken, Versicherungen und Pensionskassen. Dokumente hochladen, Anfrage in 3 Minuten. Jetzt kostenlos starten.",
+    "h1": "Die passende Hypothek aus über 40 Angeboten",
+    "faq": [
+     "Was kostet der Hypothekenvergleich bei HYPOTEQ?",
+     "Wie schnell erhalte ich ein Angebot?",
+     "Welche Banken und Versicherungen vergleicht HYPOTEQ?",
+     "Was passiert mit meinen hochgeladenen Dokumenten?"
+    ],
+    "intent": "transaktional",
+    "volume": "hoch (S)",
+    "difficulty": "hoch (S)"
+   },
+   "fr": {
+    "slug": "",
+    "primary": "comparatif hypothèque",
+    "secondary": [
+     "comparer hypothèque Suisse",
+     "courtier hypothécaire",
+     "meilleur taux hypothécaire",
+     "demande hypothèque en ligne",
+     "hypothèque Genève Lausanne"
+    ],
+    "title": "Comparer les hypothèques: 40+ prêteurs, gratuit | HYPOTEQ",
+    "description": "Comparez gratuitement les offres de plus de 40 banques, assurances et caisses de pension. Envoyez vos documents, demande en 3 minutes. Commencez ici.",
+    "h1": "La bonne hypothèque parmi plus de 40 offres",
+    "faq": [
+     "Le comparatif hypothécaire de HYPOTEQ est-il vraiment gratuit?",
+     "En combien de temps reçois-je une offre?",
+     "Quels prêteurs HYPOTEQ compare-t-il?",
+     "Mes documents sont-ils traités de manière confidentielle?"
+    ],
+    "intent": "transaktional",
+    "volume": "mittel (S)",
+    "difficulty": "hoch (S)"
+   },
+   "it": {
+    "slug": "",
+    "primary": "confronto ipoteche",
+    "secondary": [
+     "ipoteca Svizzera",
+     "broker ipotecario Ticino",
+     "miglior tasso ipotecario",
+     "richiesta ipoteca online",
+     "ipoteca Lugano"
+    ],
+    "title": "Confronto ipoteche: oltre 40 istituti, gratis | HYPOTEQ",
+    "description": "Confronta gratuitamente le ipoteche di oltre 40 banche, assicurazioni e casse pensione. Carica i documenti e invia la richiesta in 3 minuti. Inizia ora.",
+    "h1": "L'ipoteca giusta tra oltre 40 offerte",
+    "faq": [
+     "Il confronto ipotecario di HYPOTEQ è gratuito?",
+     "Quanto tempo serve per ricevere un'offerta?",
+     "HYPOTEQ offre consulenza in italiano per il Ticino?",
+     "Come vengono protetti i miei documenti?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "mittel (S)"
+   },
+   "en": {
+    "slug": "",
+    "primary": "mortgage Switzerland",
+    "secondary": [
+     "Swiss mortgage broker",
+     "compare Swiss mortgages",
+     "best mortgage rates Switzerland",
+     "mortgage advice English Switzerland",
+     "Swiss mortgage online"
+    ],
+    "title": "Swiss Mortgages Compared: 40+ Lenders, Free | HYPOTEQ",
+    "description": "Compare mortgages from 40+ Swiss banks, insurers and pension funds, with advice in English. Upload your documents and apply in 3 minutes. Start for free.",
+    "h1": "Your Swiss mortgage from 40+ lenders, in English",
+    "faq": [
+     "Is the HYPOTEQ mortgage comparison free?",
+     "Can I get a Swiss mortgage as an expat?",
+     "How fast will I receive an offer?",
+     "Which lenders does HYPOTEQ work with?"
+    ],
+    "intent": "transaktional",
+    "volume": "mittel (S)",
+    "difficulty": "mittel (S)"
+   }
+  },
+  "hypotheken": {
+   "de": {
+    "slug": "hypotheken",
+    "primary": "Hypotheken",
+    "secondary": [
+     "Hypothek Schweiz",
+     "Hypothekenarten",
+     "Hypothek beantragen",
+     "Hypothekarmodelle",
+     "Hypothek abschliessen"
+    ],
+    "title": "Hypotheken Schweiz: alle Modelle im Überblick | HYPOTEQ",
+    "description": "SARON, Festhypothek oder Mix: alle Hypothekarmodelle für Kauf, Ablösung, Neubau und Renovation. Vergleiche 40+ Anbieter kostenlos mit HYPOTEQ.",
+    "h1": "Hypotheken für jede Lebenslage",
+    "faq": [
+     "Welche Hypothekarmodelle gibt es in der Schweiz?",
+     "Wie viel Eigenkapital brauche ich für eine Hypothek?",
+     "Was ist der Unterschied zwischen 1. und 2. Hypothek?",
+     "Kann ich verschiedene Hypothekarmodelle kombinieren?"
+    ],
+    "intent": "transaktional",
+    "volume": "hoch (S)",
+    "difficulty": "hoch (S)"
+   },
+   "fr": {
+    "slug": "hypotheques",
+    "primary": "hypothèque Suisse",
+    "secondary": [
+     "types d'hypothèques",
+     "prêt hypothécaire",
+     "demander une hypothèque",
+     "hypothèque premier rang second rang"
+    ],
+    "title": "Hypothèques en Suisse: tous les modèles | HYPOTEQ",
+    "description": "SARON, taux fixe ou combinaison: toutes les hypothèques pour achat, renouvellement, construction ou rénovation. Comparez 40+ prêteurs gratuitement.",
+    "h1": "Des hypothèques pour chaque projet",
+    "faq": [
+     "Quels types d'hypothèques existent en Suisse?",
+     "Combien de fonds propres faut-il?",
+     "Quelle différence entre hypothèque de premier et second rang?",
+     "Peut-on combiner plusieurs tranches?"
+    ],
+    "intent": "transaktional",
+    "volume": "mittel (S)",
+    "difficulty": "hoch (S)"
+   },
+   "it": {
+    "slug": "ipoteche",
+    "primary": "ipoteca",
+    "secondary": [
+     "tipi di ipoteca",
+     "prestito ipotecario Svizzera",
+     "richiedere ipoteca",
+     "ipoteca di primo e secondo grado"
+    ],
+    "title": "Ipoteche in Svizzera: tutti i modelli | HYPOTEQ",
+    "description": "SARON, tasso fisso o combinazione: ipoteche per acquisto, rinnovo, costruzione e ristrutturazione. Confronta oltre 40 istituti gratuitamente.",
+    "h1": "Ipoteche per ogni progetto",
+    "faq": [
+     "Quali tipi di ipoteca esistono in Svizzera?",
+     "Quanti fondi propri servono?",
+     "Che differenza c'è tra ipoteca di primo e secondo grado?",
+     "Posso suddividere l'ipoteca in più tranche?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "mittel (S)"
+   },
+   "en": {
+    "slug": "mortgages",
+    "primary": "Swiss mortgage types",
+    "secondary": [
+     "mortgage Switzerland explained",
+     "first and second mortgage Switzerland",
+     "apply for mortgage Switzerland",
+     "SARON vs fixed"
+    ],
+    "title": "Swiss Mortgages: All Types Explained | HYPOTEQ",
+    "description": "SARON, fixed-rate or a mix: mortgages for buying, refinancing, building and renovating in Switzerland. Compare 40+ lenders for free with HYPOTEQ.",
+    "h1": "Swiss mortgages for every situation",
+    "faq": [
+     "What types of mortgages exist in Switzerland?",
+     "How much down payment do I need?",
+     "What is a first and second mortgage?",
+     "Can I split my mortgage into tranches?"
+    ],
+    "intent": "transaktional",
+    "volume": "mittel (S)",
+    "difficulty": "mittel (S)"
+   }
+  },
+  "kauf": {
+   "de": {
+    "slug": "hypothek-immobilienkauf",
+    "primary": "Hypothek Hauskauf",
+    "secondary": [
+     "Eigenheim finanzieren",
+     "Wohnung kaufen Hypothek",
+     "Finanzierungsbestätigung",
+     "Hauskauf Finanzierung"
+    ],
+    "title": "Hypothek für den Hauskauf: Eigenheim finanzieren | HYPOTEQ",
+    "description": "Haus oder Wohnung kaufen? Erhalte rasch eine Finanzierungsbestätigung und die besten Konditionen aus 40+ Angeboten. Anfrage in 3 Minuten.",
+    "h1": "Dein Eigenheim richtig finanzieren",
+    "faq": [
+     "Wie viel Eigenkapital brauche ich für den Hauskauf?",
+     "Wie schnell erhalte ich eine Finanzierungsbestätigung?",
+     "Welche Dokumente braucht die Bank?",
+     "Wie viel Haus kann ich mir leisten?"
+    ],
+    "intent": "transaktional",
+    "volume": "hoch (S)",
+    "difficulty": "hoch (S)"
+   },
+   "fr": {
+    "slug": "hypotheque-achat-immobilier",
+    "primary": "hypothèque achat maison",
+    "secondary": [
+     "financer achat appartement",
+     "attestation de financement",
+     "acheter un bien immobilier en Suisse",
+     "premier achat immobilier"
+    ],
+    "title": "Hypothèque pour l'achat d'un logement | HYPOTEQ",
+    "description": "Vous achetez une maison ou un appartement? Obtenez vite une attestation de financement et les meilleures conditions parmi 40+ offres. Demande en 3 min.",
+    "h1": "Financer l'achat de votre logement",
+    "faq": [
+     "Combien de fonds propres pour acheter un bien?",
+     "Comment obtenir une attestation de financement?",
+     "Quels documents la banque demande-t-elle?",
+     "Quel prix d'achat puis-je me permettre?"
+    ],
+    "intent": "transaktional",
+    "volume": "mittel (S)",
+    "difficulty": "hoch (S)"
+   },
+   "it": {
+    "slug": "ipoteca-acquisto-casa",
+    "primary": "ipoteca acquisto casa",
+    "secondary": [
+     "comprare casa in Ticino",
+     "finanziamento appartamento",
+     "conferma di finanziamento",
+     "prima casa Svizzera"
+    ],
+    "title": "Ipoteca per l'acquisto della casa | HYPOTEQ",
+    "description": "Compri casa o appartamento in Ticino? Ottieni rapidamente una conferma di finanziamento e le condizioni migliori tra 40+ offerte. Richiesta in 3 minuti.",
+    "h1": "Finanziare l'acquisto della tua casa",
+    "faq": [
+     "Quanti fondi propri servono per comprare casa?",
+     "Come ottengo una conferma di finanziamento?",
+     "Quali documenti richiede la banca?",
+     "Quanto posso spendere per una casa?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "mittel (S)"
+   },
+   "en": {
+    "slug": "mortgage-buying-property",
+    "primary": "buy house Switzerland mortgage",
+    "secondary": [
+     "buying property in Switzerland",
+     "mortgage pre-approval Switzerland",
+     "first home Switzerland",
+     "buy apartment Zurich"
+    ],
+    "title": "Mortgage to Buy a Home in Switzerland | HYPOTEQ",
+    "description": "Buying a house or flat in Switzerland? Get a financing confirmation fast and the best terms from 40+ lenders. Apply in 3 minutes, advice in English.",
+    "h1": "Finance your Swiss home purchase",
+    "faq": [
+     "How much equity do I need to buy in Switzerland?",
+     "How do I get a mortgage pre-approval?",
+     "Which documents do Swiss banks need?",
+     "How much property can I afford?"
+    ],
+    "intent": "transaktional",
+    "volume": "mittel (S)",
+    "difficulty": "mittel (S)"
+   }
+  },
+  "abloesung": {
+   "de": {
+    "slug": "hypothek-abloesen-verlaengern",
+    "primary": "Hypothek verlängern",
+    "secondary": [
+     "Hypothek ablösen",
+     "Hypothek Bank wechseln",
+     "Anschlussfinanzierung",
+     "Hypothek läuft aus",
+     "Refinanzierung Hypothek"
+    ],
+    "title": "Hypothek verlängern oder ablösen: Bank wechseln | HYPOTEQ",
+    "description": "Läuft deine Hypothek aus? Vergleiche die Verlängerung mit 40+ Anbietern und wechsle einfach die Bank. Bis 12 Monate im Voraus fixieren.",
+    "h1": "Hypothek verlängern oder ablösen und sparen",
+    "faq": [
+     "Wann sollte ich mich um die Verlängerung kümmern?",
+     "Kann ich bei der Ablösung die Bank wechseln?",
+     "Was kostet ein Bankwechsel?",
+     "Kann ich den Zins im Voraus fixieren (Forward)?"
+    ],
+    "intent": "transaktional",
+    "volume": "hoch (S)",
+    "difficulty": "hoch (S)"
+   },
+   "fr": {
+    "slug": "hypotheque-rachat-renouvellement",
+    "primary": "renouvellement hypothèque",
+    "secondary": [
+     "changer de banque hypothèque",
+     "rachat hypothèque",
+     "échéance hypothèque",
+     "hypothèque forward",
+     "refinancement hypothécaire"
+    ],
+    "title": "Renouveler ou transférer votre hypothèque | HYPOTEQ",
+    "description": "Votre hypothèque arrive à échéance? Comparez le renouvellement avec 40+ prêteurs et changez de banque sans stress. Bloquez un taux jusqu'à 12 mois avant.",
+    "h1": "Renouveler son hypothèque au meilleur taux",
+    "faq": [
+     "Quand préparer le renouvellement de mon hypothèque?",
+     "Puis-je changer de banque à l'échéance?",
+     "Quels frais en cas de changement de prêteur?",
+     "Qu'est-ce qu'une hypothèque forward?"
+    ],
+    "intent": "transaktional",
+    "volume": "mittel (S)",
+    "difficulty": "mittel (S)"
+   },
+   "it": {
+    "slug": "ipoteca-rinnovo-trasferimento",
+    "primary": "rinnovo ipoteca",
+    "secondary": [
+     "cambiare banca ipoteca",
+     "ipoteca in scadenza",
+     "trasferimento ipoteca",
+     "ipoteca forward"
+    ],
+    "title": "Rinnovo o trasferimento dell'ipoteca | HYPOTEQ",
+    "description": "L'ipoteca è in scadenza? Confronta il rinnovo con oltre 40 istituti e cambia banca senza complicazioni. Blocca il tasso fino a 12 mesi prima.",
+    "h1": "Rinnovare l'ipoteca alle condizioni migliori",
+    "faq": [
+     "Quando devo occuparmi del rinnovo?",
+     "Posso cambiare banca alla scadenza?",
+     "Quanto costa trasferire l'ipoteca?",
+     "Cos'è un'ipoteca forward?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "en": {
+    "slug": "mortgage-refinancing",
+    "primary": "mortgage renewal Switzerland",
+    "secondary": [
+     "refinance mortgage Switzerland",
+     "switch mortgage bank",
+     "forward mortgage",
+     "mortgage expiring"
+    ],
+    "title": "Renew or Refinance Your Swiss Mortgage | HYPOTEQ",
+    "description": "Is your Swiss mortgage expiring? Compare renewal offers from 40+ lenders and switch banks with ease. Lock in a rate up to 12 months ahead. Start now.",
+    "h1": "Renew or refinance your mortgage and save",
+    "faq": [
+     "When should I start my mortgage renewal?",
+     "Can I switch banks when my mortgage expires?",
+     "What does switching lender cost?",
+     "What is a forward mortgage?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   }
+  },
+  "neubau": {
+   "de": {
+    "slug": "baufinanzierung-neubau",
+    "primary": "Baukredit",
+    "secondary": [
+     "Baufinanzierung Schweiz",
+     "Neubau Hypothek",
+     "Haus bauen Finanzierung",
+     "Baukredit Zinsen",
+     "Bauland finanzieren"
+    ],
+    "title": "Baukredit & Baufinanzierung für deinen Neubau | HYPOTEQ",
+    "description": "Du baust? Vom Baukredit bis zur Konsolidierung in die Hypothek: Wir vergleichen die Baufinanzierung bei 40+ Anbietern. Jetzt Anfrage starten.",
+    "h1": "Baufinanzierung für deinen Neubau",
+    "faq": [
+     "Wie funktioniert ein Baukredit in der Schweiz?",
+     "Wann wird der Baukredit in eine Hypothek umgewandelt?",
+     "Wie viel Eigenkapital brauche ich für einen Neubau?",
+     "Kann ich Bauland mitfinanzieren?"
+    ],
+    "intent": "transaktional",
+    "volume": "mittel (S)",
+    "difficulty": "mittel (S)"
+   },
+   "fr": {
+    "slug": "credit-construction-financement",
+    "primary": "crédit de construction",
+    "secondary": [
+     "financement construction maison",
+     "construire maison Suisse hypothèque",
+     "financer terrain",
+     "consolidation crédit de construction"
+    ],
+    "title": "Crédit de construction pour votre projet | HYPOTEQ",
+    "description": "Vous construisez? Du crédit de construction à la consolidation en hypothèque, nous comparons le financement auprès de 40+ prêteurs. Demande en 3 min.",
+    "h1": "Financer votre construction neuve",
+    "faq": [
+     "Comment fonctionne un crédit de construction?",
+     "Quand le crédit est-il consolidé en hypothèque?",
+     "Combien de fonds propres pour construire?",
+     "Peut-on financer l'achat du terrain?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "mittel (S)"
+   },
+   "it": {
+    "slug": "credito-di-costruzione",
+    "primary": "credito di costruzione",
+    "secondary": [
+     "costruire casa Ticino",
+     "finanziamento nuova costruzione",
+     "finanziare terreno edificabile",
+     "consolidamento credito"
+    ],
+    "title": "Credito di costruzione per la tua casa | HYPOTEQ",
+    "description": "Costruisci casa? Dal credito di costruzione al consolidamento in ipoteca: confrontiamo il finanziamento di oltre 40 istituti. Richiesta in 3 minuti.",
+    "h1": "Finanziare la tua nuova costruzione",
+    "faq": [
+     "Come funziona un credito di costruzione?",
+     "Quando viene consolidato in ipoteca?",
+     "Quanti fondi propri servono per costruire?",
+     "Si può finanziare anche il terreno?"
+    ],
+    "intent": "transaktional",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "en": {
+    "slug": "construction-loan-new-build",
+    "primary": "construction loan Switzerland",
+    "secondary": [
+     "build a house Switzerland",
+     "new build mortgage",
+     "building land financing"
+    ],
+    "title": "Construction Loans for New Builds in Switzerland | HYPOTEQ",
+    "description": "Building a home in Switzerland? From construction loan to final mortgage, we compare financing from 40+ lenders. Apply in 3 minutes, advice in English.",
+    "h1": "Financing your new build in Switzerland",
+    "faq": [
+     "How does a Swiss construction loan work?",
+     "When is it converted into a mortgage?",
+     "How much equity do I need to build?",
+     "Can the building plot be financed too?"
+    ],
+    "intent": "transaktional",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   }
+  },
+  "aufstocken": {
+   "de": {
+    "slug": "hypothek-aufstocken-renovation",
+    "primary": "Hypothek aufstocken",
+    "secondary": [
+     "Hypothek erhöhen",
+     "Renovation finanzieren",
+     "Umbau finanzieren Hypothek",
+     "energetische Sanierung Hypothek",
+     "Heizungsersatz finanzieren"
+    ],
+    "title": "Hypothek aufstocken für Renovation und Umbau | HYPOTEQ",
+    "description": "Renovation, Heizungsersatz oder Umbau: Prüfe, wie viel du deine Hypothek aufstocken kannst. Vergleich bei 40+ Anbietern, Anfrage in 3 Minuten.",
+    "h1": "Hypothek aufstocken und Renovation finanzieren",
+    "faq": [
+     "Wann kann ich meine Hypothek aufstocken?",
+     "Wie viel kann ich für eine Renovation aufnehmen?",
+     "Gibt es günstigere Öko-Hypotheken für Sanierungen?",
+     "Muss ich dafür die Bank wechseln?"
+    ],
+    "intent": "transaktional",
+    "volume": "mittel (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "fr": {
+    "slug": "augmenter-hypotheque-renovation",
+    "primary": "augmenter son hypothèque",
+    "secondary": [
+     "financer rénovation maison",
+     "hypothèque rénovation énergétique",
+     "hypothèque verte",
+     "financer travaux"
+    ],
+    "title": "Augmenter son hypothèque pour rénover | HYPOTEQ",
+    "description": "Rénovation, remplacement du chauffage ou transformation: découvrez de combien augmenter votre hypothèque. Comparatif 40+ prêteurs, demande en 3 min.",
+    "h1": "Augmenter l'hypothèque pour vos travaux",
+    "faq": [
+     "Quand puis-je augmenter mon hypothèque?",
+     "Quel montant pour une rénovation?",
+     "Existe-t-il des hypothèques vertes plus avantageuses?",
+     "Dois-je changer de banque?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "it": {
+    "slug": "aumento-ipoteca-ristrutturazione",
+    "primary": "aumentare ipoteca",
+    "secondary": [
+     "finanziare ristrutturazione",
+     "ipoteca verde",
+     "risanamento energetico finanziamento",
+     "ristrutturare casa Ticino"
+    ],
+    "title": "Aumentare l'ipoteca per ristrutturare | HYPOTEQ",
+    "description": "Ristrutturazione, sostituzione del riscaldamento o ampliamento: scopri di quanto puoi aumentare l'ipoteca. Confronto 40+ istituti, richiesta in 3 min.",
+    "h1": "Aumentare l'ipoteca per ristrutturare",
+    "faq": [
+     "Quando posso aumentare l'ipoteca?",
+     "Quanto posso ottenere per una ristrutturazione?",
+     "Esistono ipoteche verdi più convenienti?",
+     "Devo cambiare banca?"
+    ],
+    "intent": "transaktional",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "en": {
+    "slug": "mortgage-increase-renovation",
+    "primary": "increase mortgage Switzerland",
+    "secondary": [
+     "renovation financing Switzerland",
+     "green mortgage",
+     "home improvement loan Switzerland"
+    ],
+    "title": "Increase Your Mortgage to Renovate | HYPOTEQ",
+    "description": "Renovating, replacing your heating or extending? Find out how much you can add to your Swiss mortgage. Compare 40+ lenders and apply in 3 minutes.",
+    "h1": "Increase your mortgage for renovations",
+    "faq": [
+     "When can I increase my Swiss mortgage?",
+     "How much can I borrow for a renovation?",
+     "Are green mortgages cheaper?",
+     "Do I need to switch banks?"
+    ],
+    "intent": "transaktional",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   }
+  },
+  "saron": {
+   "de": {
+    "slug": "saron-hypothek",
+    "primary": "SARON Hypothek",
+    "secondary": [
+     "SARON Zins aktuell",
+     "SARON Hypothek Marge",
+     "Geldmarkthypothek",
+     "SARON Hypothek Vor- und Nachteile"
+    ],
+    "title": "SARON-Hypothek: Zins, Marge und Vergleich | HYPOTEQ",
+    "description": "SARON-Hypothek ab 0.85 % (Richtzins): Vergleiche Margen von 40+ Anbietern und finde flexible Modelle mit Wechseloption. Jetzt vergleichen.",
+    "h1": "SARON-Hypothek mit tiefer Marge",
+    "faq": [
+     "Wie setzt sich der SARON-Zins zusammen?",
+     "Wie hoch ist eine faire Marge?",
+     "Kann ich von SARON in eine Festhypothek wechseln?",
+     "Für wen eignet sich eine SARON-Hypothek?"
+    ],
+    "intent": "transaktional",
+    "volume": "hoch (S)",
+    "difficulty": "hoch (S)"
+   },
+   "fr": {
+    "slug": "hypotheque-saron",
+    "primary": "hypothèque SARON",
+    "secondary": [
+     "taux SARON actuel",
+     "marge SARON",
+     "hypothèque marché monétaire",
+     "SARON avantages inconvénients"
+    ],
+    "title": "Hypothèque SARON: taux, marge et comparatif | HYPOTEQ",
+    "description": "Hypothèque SARON dès 0.85 % (taux indicatif): comparez les marges de 40+ prêteurs et choisissez un modèle flexible. Comparez maintenant, c'est gratuit.",
+    "h1": "Hypothèque SARON à marge réduite",
+    "faq": [
+     "Comment est calculé le taux SARON?",
+     "Quelle marge est raisonnable?",
+     "Peut-on passer du SARON au taux fixe?",
+     "À qui convient l'hypothèque SARON?"
+    ],
+    "intent": "transaktional",
+    "volume": "mittel (S)",
+    "difficulty": "mittel (S)"
+   },
+   "it": {
+    "slug": "ipoteca-saron",
+    "primary": "ipoteca SARON",
+    "secondary": [
+     "tasso SARON attuale",
+     "margine SARON",
+     "ipoteca mercato monetario"
+    ],
+    "title": "Ipoteca SARON: tasso, margine, confronto | HYPOTEQ",
+    "description": "Ipoteca SARON da 0.85 % (tasso indicativo): confronta i margini di oltre 40 istituti e scegli un modello flessibile. Confronta ora gratuitamente.",
+    "h1": "Ipoteca SARON con margine ridotto",
+    "faq": [
+     "Come si calcola il tasso SARON?",
+     "Qual è un margine corretto?",
+     "Posso passare dal SARON al tasso fisso?",
+     "Per chi è adatta un'ipoteca SARON?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "en": {
+    "slug": "saron-mortgage",
+    "primary": "SARON mortgage",
+    "secondary": [
+     "SARON rate today",
+     "SARON mortgage margin",
+     "variable mortgage Switzerland"
+    ],
+    "title": "SARON Mortgage: Rates, Margins, Comparison | HYPOTEQ",
+    "description": "SARON mortgages from 0.85 % (indicative): compare margins from 40+ Swiss lenders and choose a flexible model. Compare now for free, in English.",
+    "h1": "SARON mortgages with low margins",
+    "faq": [
+     "How is the SARON mortgage rate calculated?",
+     "What is a fair SARON margin?",
+     "Can I switch from SARON to fixed?",
+     "Who is a SARON mortgage suitable for?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "mittel (S)"
+   }
+  },
+  "fest": {
+   "de": {
+    "slug": "festhypothek",
+    "primary": "Festhypothek",
+    "secondary": [
+     "Festhypothek 10 Jahre",
+     "Festhypothek 5 Jahre",
+     "Festhypothek Zinsen aktuell",
+     "Festhypothek vergleichen"
+    ],
+    "title": "Festhypothek vergleichen: 2 bis 15 Jahre | HYPOTEQ",
+    "description": "Festhypothek 5 Jahre ab 1.30 %, 10 Jahre ab 1.60 % (Richtzinsen). Vergleiche Laufzeiten bei 40+ Anbietern und sichere dir deinen Zins. Jetzt starten.",
+    "h1": "Festhypothek mit planbaren Zinsen",
+    "faq": [
+     "Welche Laufzeit ist für mich sinnvoll?",
+     "Was kostet ein vorzeitiger Ausstieg?",
+     "Kann ich den Zins im Voraus reservieren?",
+     "Lohnt sich eine Staffelung der Laufzeiten?"
+    ],
+    "intent": "transaktional",
+    "volume": "hoch (S)",
+    "difficulty": "hoch (S)"
+   },
+   "fr": {
+    "slug": "hypotheque-taux-fixe",
+    "primary": "hypothèque taux fixe",
+    "secondary": [
+     "taux fixe 10 ans",
+     "taux fixe 5 ans",
+     "taux hypothécaire fixe actuel",
+     "comparer hypothèque fixe"
+    ],
+    "title": "Hypothèque à taux fixe: comparez 2 à 15 ans | HYPOTEQ",
+    "description": "Taux fixe 5 ans dès 1.30 %, 10 ans dès 1.60 % (taux indicatifs). Comparez les durées auprès de 40+ prêteurs et bloquez votre taux. Demande gratuite.",
+    "h1": "Hypothèque à taux fixe, budget maîtrisé",
+    "faq": [
+     "Quelle durée choisir?",
+     "Combien coûte une sortie anticipée?",
+     "Puis-je réserver un taux à l'avance?",
+     "Faut-il échelonner les tranches?"
+    ],
+    "intent": "transaktional",
+    "volume": "mittel (S)",
+    "difficulty": "hoch (S)"
+   },
+   "it": {
+    "slug": "ipoteca-tasso-fisso",
+    "primary": "ipoteca tasso fisso",
+    "secondary": [
+     "tasso fisso 10 anni",
+     "tasso fisso 5 anni",
+     "tasso ipotecario fisso attuale"
+    ],
+    "title": "Ipoteca a tasso fisso: confronto 2-15 anni | HYPOTEQ",
+    "description": "Tasso fisso 5 anni da 1.30 %, 10 anni da 1.60 % (tassi indicativi). Confronta le durate di oltre 40 istituti e blocca il tuo tasso. Richiesta gratuita.",
+    "h1": "Ipoteca a tasso fisso, costi pianificabili",
+    "faq": [
+     "Quale durata scegliere?",
+     "Quanto costa uscire in anticipo?",
+     "Posso bloccare il tasso in anticipo?",
+     "Conviene scaglionare le scadenze?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "en": {
+    "slug": "fixed-rate-mortgage",
+    "primary": "fixed rate mortgage Switzerland",
+    "secondary": [
+     "10 year fixed mortgage Switzerland",
+     "5 year fixed rate",
+     "Swiss fixed mortgage rates"
+    ],
+    "title": "Fixed-Rate Mortgages in Switzerland | HYPOTEQ",
+    "description": "5-year fixed from 1.30 %, 10-year from 1.60 % (indicative). Compare terms from 40+ Swiss lenders and lock in your rate. Apply in 3 minutes, in English.",
+    "h1": "Fixed-rate mortgages with predictable costs",
+    "faq": [
+     "Which fixed term is right for me?",
+     "What does early repayment cost?",
+     "Can I reserve a rate in advance?",
+     "Should I split my mortgage into tranches?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "mittel (S)"
+   }
+  },
+  "rendite": {
+   "de": {
+    "slug": "renditeobjekt-zweitwohnung",
+    "primary": "Renditeobjekt finanzieren",
+    "secondary": [
+     "Hypothek Renditeliegenschaft",
+     "Mehrfamilienhaus Finanzierung",
+     "Zweitwohnung finanzieren",
+     "Ferienwohnung Hypothek",
+     "Buy-to-let Schweiz"
+    ],
+    "title": "Renditeobjekt & Zweitwohnung finanzieren | HYPOTEQ",
+    "description": "Mehrfamilienhaus, Renditewohnung oder Ferienwohnung: Wir finden die Finanzierung, auch mit höherem Eigenkapitalbedarf. 40+ Anbieter, Anfrage in 3 Min.",
+    "h1": "Renditeobjekte und Zweitwohnungen finanzieren",
+    "faq": [
+     "Wie viel Eigenkapital braucht ein Renditeobjekt?",
+     "Wie berechnen Banken die Tragbarkeit bei Mietliegenschaften?",
+     "Darf ich Pensionskassengeld für eine Zweitwohnung nutzen?",
+     "Wie schnell muss ich amortisieren?"
+    ],
+    "intent": "transaktional",
+    "volume": "mittel (S)",
+    "difficulty": "mittel (S)"
+   },
+   "fr": {
+    "slug": "immeuble-de-rendement-residence-secondaire",
+    "primary": "financer immeuble de rendement",
+    "secondary": [
+     "hypothèque bien locatif",
+     "financer résidence secondaire",
+     "hypothèque appartement de vacances",
+     "investissement locatif Suisse"
+    ],
+    "title": "Financer immeuble de rendement ou résidence | HYPOTEQ",
+    "description": "Immeuble locatif, appartement de rendement ou résidence secondaire: nous trouvons le financement adapté parmi 40+ prêteurs. Demande en 3 minutes.",
+    "h1": "Financer un bien de rendement ou secondaire",
+    "faq": [
+     "Combien de fonds propres pour un immeuble de rendement?",
+     "Comment est calculée la capacité financière?",
+     "Le 2e pilier est-il utilisable pour une résidence secondaire?",
+     "Quel amortissement est exigé?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "mittel (S)"
+   },
+   "it": {
+    "slug": "immobile-reddito-residenza-secondaria",
+    "primary": "finanziare immobile da reddito",
+    "secondary": [
+     "ipoteca casa di vacanza",
+     "residenza secondaria Ticino",
+     "ipoteca stabile locativo",
+     "investimento immobiliare Ticino"
+    ],
+    "title": "Immobile da reddito o casa di vacanza | HYPOTEQ",
+    "description": "Stabile locativo, appartamento da reddito o casa di vacanza in Ticino: troviamo il finanziamento tra oltre 40 istituti. Richiesta in 3 minuti.",
+    "h1": "Finanziare immobili da reddito e case di vacanza",
+    "faq": [
+     "Quanti fondi propri servono per un immobile da reddito?",
+     "Come si calcola la sostenibilità?",
+     "Posso usare il 2° pilastro per una seconda casa?",
+     "Quanto devo ammortizzare?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "en": {
+    "slug": "buy-to-let-second-home-mortgage",
+    "primary": "buy to let mortgage Switzerland",
+    "secondary": [
+     "investment property Switzerland",
+     "holiday home mortgage Switzerland",
+     "second home Switzerland"
+    ],
+    "title": "Buy-to-Let & Second Home Mortgages | HYPOTEQ",
+    "description": "Apartment building, buy-to-let flat or holiday home in Switzerland: we find the right financing from 40+ lenders. Apply in 3 minutes, advice in English.",
+    "h1": "Financing investment and second homes",
+    "faq": [
+     "How much equity is needed for a buy-to-let?",
+     "How do banks assess rental income?",
+     "Can I use pension funds for a second home?",
+     "What amortisation is required?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   }
+  },
+  "selbstaendige": {
+   "de": {
+    "slug": "hypothek-selbstaendige",
+    "primary": "Hypothek Selbständige",
+    "secondary": [
+     "Hypothek selbständig erwerbend",
+     "Hypothek Unternehmer",
+     "Tragbarkeit Selbständige",
+     "Hypothek GmbH Inhaber",
+     "Hypothek ohne Lohnausweis"
+    ],
+    "title": "Hypothek für Selbständige und Unternehmer | HYPOTEQ",
+    "description": "Selbständig erwerbend? Wir wissen, welche Banken dein Einkommen fair anrechnen. Jahresabschlüsse hochladen, Anfrage in 3 Minuten. Jetzt starten.",
+    "h1": "Hypothek für Selbständige: fair gerechnet",
+    "faq": [
+     "Welche Unterlagen brauchen Selbständige für eine Hypothek?",
+     "Wie rechnen Banken mein Einkommen an?",
+     "Brauche ich drei Jahresabschlüsse?",
+     "Was tun nach einer Absage meiner Bank?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "fr": {
+    "slug": "hypotheque-independants",
+    "primary": "hypothèque indépendant",
+    "secondary": [
+     "prêt hypothécaire indépendant",
+     "hypothèque entrepreneur",
+     "capacité financière indépendant"
+    ],
+    "title": "Hypothèque pour indépendants | HYPOTEQ",
+    "description": "Vous êtes indépendant? Nous savons quelles banques prennent votre revenu en compte équitablement. Envoyez vos bilans, demande en 3 minutes.",
+    "h1": "Hypothèque pour indépendants et entrepreneurs",
+    "faq": [
+     "Quels documents pour un indépendant?",
+     "Comment la banque calcule-t-elle mon revenu?",
+     "Faut-il trois bilans?",
+     "Que faire après un refus de ma banque?"
+    ],
+    "intent": "transaktional",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "it": {
+    "slug": "ipoteca-indipendenti",
+    "primary": "ipoteca lavoratori indipendenti",
+    "secondary": [
+     "ipoteca imprenditore",
+     "mutuo indipendente Svizzera",
+     "sostenibilità indipendenti"
+    ],
+    "title": "Ipoteca per lavoratori indipendenti | HYPOTEQ",
+    "description": "Sei indipendente? Sappiamo quali banche valutano correttamente il tuo reddito. Carica i bilanci e invia la richiesta in 3 minuti. Inizia ora.",
+    "h1": "Ipoteca per indipendenti e imprenditori",
+    "faq": [
+     "Quali documenti servono a un indipendente?",
+     "Come valuta la banca il mio reddito?",
+     "Servono tre bilanci?",
+     "Cosa fare dopo un rifiuto della banca?"
+    ],
+    "intent": "transaktional",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "en": {
+    "slug": "mortgage-self-employed",
+    "primary": "self employed mortgage Switzerland",
+    "secondary": [
+     "mortgage for business owners Switzerland",
+     "freelancer mortgage Switzerland"
+    ],
+    "title": "Mortgages for Self-Employed in Switzerland | HYPOTEQ",
+    "description": "Self-employed or running a company? We know which Swiss lenders assess your income fairly. Upload your accounts and apply in 3 minutes.",
+    "h1": "Swiss mortgages for the self-employed",
+    "faq": [
+     "Which documents do self-employed applicants need?",
+     "How do banks calculate my income?",
+     "Do I need three years of accounts?",
+     "What if my bank said no?"
+    ],
+    "intent": "transaktional",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   }
+  },
+  "ruhestand": {
+   "de": {
+    "slug": "hypothek-pensionierung",
+    "primary": "Hypothek nach Pensionierung",
+    "secondary": [
+     "Tragbarkeit im Alter",
+     "Hypothek Rentner",
+     "Hypothek mit 60",
+     "Hypothek ab 65",
+     "Amortisation vor Pensionierung"
+    ],
+    "title": "Hypothek nach der Pensionierung sichern | HYPOTEQ",
+    "description": "Tragbarkeit im Alter gefährdet? Wir prüfen deine Situation und finden Anbieter, die Renten und Vermögen fair anrechnen. Jetzt Analyse anfragen.",
+    "h1": "Hypothek im Ruhestand: Eigenheim behalten",
+    "faq": [
+     "Wie wird die Tragbarkeit nach der Pensionierung berechnet?",
+     "Muss ich vor der Pension amortisieren?",
+     "Was tun, wenn meine Bank die Hypothek nicht verlängert?",
+     "Ist eine Umkehrhypothek eine Option?"
+    ],
+    "intent": "transaktional",
+    "volume": "mittel (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "fr": {
+    "slug": "hypotheque-retraite",
+    "primary": "hypothèque retraite",
+    "secondary": [
+     "capacité financière retraite",
+     "hypothèque retraité",
+     "garder sa maison à la retraite",
+     "hypothèque inversée"
+    ],
+    "title": "Hypothèque à la retraite: garder son logement | HYPOTEQ",
+    "description": "Votre capacité financière à la retraite pose problème? Nous trouvons des prêteurs qui tiennent compte de vos rentes et de votre fortune. Analyse gratuite.",
+    "h1": "Garder son hypothèque à la retraite",
+    "faq": [
+     "Comment est calculée la capacité financière à la retraite?",
+     "Faut-il amortir avant la retraite?",
+     "Que faire si la banque refuse le renouvellement?",
+     "L'hypothèque inversée est-elle une option?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "it": {
+    "slug": "ipoteca-pensionamento",
+    "primary": "ipoteca pensionati",
+    "secondary": [
+     "sostenibilità ipoteca in pensione",
+     "ipoteca dopo i 65 anni",
+     "ipoteca inversa"
+    ],
+    "title": "Ipoteca dopo il pensionamento | HYPOTEQ",
+    "description": "La sostenibilità dell'ipoteca in pensione è a rischio? Troviamo istituti che considerano rendite e patrimonio. Richiedi un'analisi gratuita.",
+    "h1": "Mantenere l'ipoteca in pensione",
+    "faq": [
+     "Come si calcola la sostenibilità in pensione?",
+     "Devo ammortizzare prima della pensione?",
+     "Cosa fare se la banca non rinnova?",
+     "L'ipoteca inversa è un'opzione?"
+    ],
+    "intent": "transaktional",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "en": {
+    "slug": "mortgage-retirement",
+    "primary": "mortgage after retirement Switzerland",
+    "secondary": [
+     "mortgage for retirees Switzerland",
+     "affordability in retirement",
+     "reverse mortgage Switzerland"
+    ],
+    "title": "Keep Your Mortgage in Retirement | HYPOTEQ",
+    "description": "Is affordability in retirement a problem? We find Swiss lenders that fairly consider pensions and assets. Request a free analysis today.",
+    "h1": "Your Swiss mortgage in retirement",
+    "faq": [
+     "How is affordability calculated after retirement?",
+     "Do I have to amortise before retiring?",
+     "What if my bank won't renew?",
+     "Is a reverse mortgage an option?"
+    ],
+    "intent": "transaktional",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   }
+  },
+  "expats": {
+   "de": {
+    "slug": "hypothek-expats",
+    "primary": "Hypothek Ausländer Schweiz",
+    "secondary": [
+     "Hypothek B-Bewilligung",
+     "Hypothek C-Bewilligung",
+     "Lex Koller",
+     "Hypothek Grenzgänger",
+     "Eigenheim kaufen Ausländer"
+    ],
+    "title": "Hypothek für Ausländer & Expats in der Schweiz | HYPOTEQ",
+    "description": "Mit B- oder C-Bewilligung ein Eigenheim kaufen? Wir erklären Lex Koller und finden Banken, die Expats finanzieren. Beratung auch auf Englisch.",
+    "h1": "Hypothek für Expats und Ausländer",
+    "faq": [
+     "Bekomme ich mit B-Bewilligung eine Hypothek?",
+     "Was regelt die Lex Koller?",
+     "Brauche ich mehr Eigenkapital als Ausländer?",
+     "Finanzieren Banken auch Grenzgänger?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "fr": {
+    "slug": "hypotheque-expatries-etrangers",
+    "primary": "hypothèque étranger Suisse",
+    "secondary": [
+     "hypothèque permis B",
+     "Lex Koller",
+     "acheter en Suisse étranger",
+     "hypothèque frontalier"
+    ],
+    "title": "Hypothèque pour étrangers et expatriés | HYPOTEQ",
+    "description": "Permis B ou C, frontalier? Nous expliquons la Lex Koller et trouvons les banques qui financent les étrangers en Suisse. Demande en 3 minutes.",
+    "h1": "Hypothèque pour étrangers en Suisse",
+    "faq": [
+     "Puis-je obtenir une hypothèque avec un permis B?",
+     "Que prévoit la Lex Koller?",
+     "Faut-il plus de fonds propres?",
+     "Les frontaliers peuvent-ils acheter?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "it": {
+    "slug": "ipoteca-stranieri-frontalieri",
+    "primary": "ipoteca stranieri Svizzera",
+    "secondary": [
+     "Lex Koller Ticino",
+     "ipoteca permesso B",
+     "frontalieri acquisto casa",
+     "comprare casa in Svizzera da straniero"
+    ],
+    "title": "Ipoteca per stranieri e frontalieri | HYPOTEQ",
+    "description": "Permesso B, C o G? Spieghiamo la Lex Koller e troviamo le banche che finanziano stranieri e frontalieri in Ticino. Richiesta in 3 minuti.",
+    "h1": "Ipoteca per stranieri e frontalieri",
+    "faq": [
+     "Posso ottenere un'ipoteca con il permesso B?",
+     "Cosa prevede la Lex Koller?",
+     "I frontalieri possono comprare casa in Ticino?",
+     "Servono più fondi propri?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "en": {
+    "slug": "mortgage-switzerland-expats",
+    "primary": "mortgage Switzerland expat",
+    "secondary": [
+     "buy property Switzerland as foreigner",
+     "Swiss mortgage B permit",
+     "Lex Koller",
+     "mortgage C permit",
+     "non-resident mortgage Switzerland"
+    ],
+    "title": "Swiss Mortgages for Expats & Foreigners | HYPOTEQ",
+    "description": "B or C permit? Learn how Lex Koller works and get a Swiss mortgage with advice in English. We compare 40+ lenders for expats. Apply in 3 minutes.",
+    "h1": "Swiss mortgages for expats, in English",
+    "faq": [
+     "Can I get a Swiss mortgage with a B permit?",
+     "What is Lex Koller?",
+     "How much equity do foreigners need?",
+     "Can non-residents buy property in Switzerland?"
+    ],
+    "intent": "transaktional",
+    "volume": "mittel (S)",
+    "difficulty": "mittel (S)"
+   }
+  },
+  "zinsen": {
+   "de": {
+    "slug": "hypothekarzinsen",
+    "primary": "Hypothekarzinsen aktuell",
+    "secondary": [
+     "Hypothekarzins Schweiz",
+     "Hypozinsen Prognose",
+     "Zinsen Festhypothek 10 Jahre",
+     "SARON aktuell",
+     "Hypozins Entwicklung"
+    ],
+    "title": "Hypothekarzinsen aktuell: SARON und Fest | HYPOTEQ",
+    "description": "Aktuelle Richtzinsen für SARON- und Festhypotheken, Zinsentwicklung und Prognose. Persönliches Angebot von 40+ Anbietern in 3 Minuten anfragen.",
+    "h1": "Aktuelle Hypothekarzinsen in der Schweiz",
+    "faq": [
+     "Wie entwickeln sich die Hypothekarzinsen?",
+     "Warum weicht mein Zins vom Richtzins ab?",
+     "Wann lohnt sich eine Festhypothek?",
+     "Wie oft werden die Zinsen aktualisiert?"
+    ],
+    "intent": "informativ",
+    "volume": "hoch (S)",
+    "difficulty": "hoch (S)"
+   },
+   "fr": {
+    "slug": "taux-hypothecaires",
+    "primary": "taux hypothécaire",
+    "secondary": [
+     "taux hypothécaire actuel",
+     "taux hypothécaire Suisse",
+     "prévision taux hypothécaires",
+     "taux fixe 10 ans Suisse"
+    ],
+    "title": "Taux hypothécaires actuels en Suisse | HYPOTEQ",
+    "description": "Taux indicatifs SARON et fixes, évolution et prévisions des taux hypothécaires en Suisse. Obtenez une offre personnalisée de 40+ prêteurs en 3 minutes.",
+    "h1": "Taux hypothécaires actuels en Suisse",
+    "faq": [
+     "Comment évoluent les taux hypothécaires?",
+     "Pourquoi mon taux diffère-t-il du taux indicatif?",
+     "Quand opter pour un taux fixe?",
+     "À quelle fréquence les taux sont-ils mis à jour?"
+    ],
+    "intent": "informativ",
+    "volume": "hoch (S)",
+    "difficulty": "hoch (S)"
+   },
+   "it": {
+    "slug": "tassi-ipotecari",
+    "primary": "tassi ipotecari",
+    "secondary": [
+     "tassi ipotecari attuali",
+     "tasso ipotecario Svizzera",
+     "previsioni tassi ipotecari",
+     "tasso fisso 10 anni"
+    ],
+    "title": "Tassi ipotecari attuali in Svizzera | HYPOTEQ",
+    "description": "Tassi indicativi SARON e fissi, andamento e previsioni dei tassi ipotecari in Svizzera. Ricevi un'offerta personale di 40+ istituti in 3 minuti.",
+    "h1": "Tassi ipotecari attuali in Svizzera",
+    "faq": [
+     "Come stanno evolvendo i tassi ipotecari?",
+     "Perché il mio tasso è diverso da quello indicativo?",
+     "Quando conviene il tasso fisso?",
+     "Ogni quanto vengono aggiornati i tassi?"
+    ],
+    "intent": "informativ",
+    "volume": "mittel (S)",
+    "difficulty": "mittel (S)"
+   },
+   "en": {
+    "slug": "swiss-mortgage-rates",
+    "primary": "Swiss mortgage rates",
+    "secondary": [
+     "mortgage rates Switzerland today",
+     "Swiss mortgage rate forecast",
+     "SARON rate",
+     "10 year fixed rate Switzerland"
+    ],
+    "title": "Swiss Mortgage Rates Today: SARON & Fixed | HYPOTEQ",
+    "description": "Current indicative Swiss mortgage rates for SARON and fixed terms, trends and forecast. Get a personal offer from 40+ lenders in 3 minutes, in English.",
+    "h1": "Current Swiss mortgage rates",
+    "faq": [
+     "How are Swiss mortgage rates developing?",
+     "Why is my rate different from the indicative rate?",
+     "When is a fixed rate worth it?",
+     "How often are rates updated?"
+    ],
+    "intent": "informativ",
+    "volume": "mittel (S)",
+    "difficulty": "mittel (S)"
+   }
+  },
+  "rechner": {
+   "de": {
+    "slug": "hypothekenrechner",
+    "primary": "Hypothekenrechner",
+    "secondary": [
+     "Hypothek berechnen",
+     "Hypothekarzins berechnen",
+     "Belehnung berechnen",
+     "Hypothekenrechner Schweiz"
+    ],
+    "title": "Hypothekenrechner: Kosten & Belehnung | HYPOTEQ",
+    "description": "Berechne in Sekunden deine monatlichen Hypothekarkosten, Belehnung und Amortisation. Danach Angebote von 40+ Anbietern anfragen. Kostenlos.",
+    "h1": "Hypothekenrechner: deine Kosten auf einen Blick",
+    "faq": [
+     "Wie genau ist der Hypothekenrechner?",
+     "Welcher Zinssatz wird verwendet?",
+     "Sind Nebenkosten und Amortisation enthalten?",
+     "Wie geht es nach der Berechnung weiter?"
+    ],
+    "intent": "transaktional",
+    "volume": "hoch (S)",
+    "difficulty": "hoch (S)"
+   },
+   "fr": {
+    "slug": "calculateur-hypothecaire",
+    "primary": "calculateur hypothécaire",
+    "secondary": [
+     "calcul hypothèque",
+     "simulateur hypothèque Suisse",
+     "calculer taux hypothécaire"
+    ],
+    "title": "Calculateur hypothécaire: coûts et avance | HYPOTEQ",
+    "description": "Calculez en quelques secondes vos coûts mensuels, le taux d'avance et l'amortissement. Puis demandez une offre à 40+ prêteurs. Gratuit.",
+    "h1": "Calculateur hypothécaire gratuit",
+    "faq": [
+     "Quelle est la précision du calculateur?",
+     "Quel taux d'intérêt est utilisé?",
+     "Les frais d'entretien sont-ils inclus?",
+     "Que faire après le calcul?"
+    ],
+    "intent": "transaktional",
+    "volume": "mittel (S)",
+    "difficulty": "hoch (S)"
+   },
+   "it": {
+    "slug": "calcolatore-ipotecario",
+    "primary": "calcolatore ipotecario",
+    "secondary": [
+     "calcolo ipoteca",
+     "simulatore ipoteca Svizzera",
+     "calcolare rata ipoteca"
+    ],
+    "title": "Calcolatore ipotecario: costi e anticipo | HYPOTEQ",
+    "description": "Calcola in pochi secondi i costi mensili dell'ipoteca, il grado di anticipo e l'ammortamento. Poi richiedi un'offerta a oltre 40 istituti. Gratis.",
+    "h1": "Calcolatore ipotecario gratuito",
+    "faq": [
+     "Quanto è preciso il calcolatore?",
+     "Quale tasso viene utilizzato?",
+     "Sono inclusi costi accessori e ammortamento?",
+     "Cosa succede dopo il calcolo?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "mittel (S)"
+   },
+   "en": {
+    "slug": "mortgage-calculator",
+    "primary": "mortgage calculator Switzerland",
+    "secondary": [
+     "Swiss mortgage calculator",
+     "calculate mortgage Switzerland",
+     "loan to value Switzerland"
+    ],
+    "title": "Swiss Mortgage Calculator: Costs & LTV | HYPOTEQ",
+    "description": "Calculate your monthly Swiss mortgage costs, loan-to-value and amortisation in seconds. Then request offers from 40+ lenders. Free, in English.",
+    "h1": "Swiss mortgage calculator",
+    "faq": [
+     "How accurate is the calculator?",
+     "Which interest rate is used?",
+     "Are maintenance costs included?",
+     "What happens after the calculation?"
+    ],
+    "intent": "transaktional",
+    "volume": "mittel (S)",
+    "difficulty": "mittel (S)"
+   }
+  },
+  "tragbarkeit": {
+   "de": {
+    "slug": "tragbarkeitsrechner",
+    "primary": "Tragbarkeitsrechner",
+    "secondary": [
+     "Tragbarkeit berechnen",
+     "wie viel Haus kann ich mir leisten",
+     "Hypothek Einkommen Rechner",
+     "kalkulatorischer Zins"
+    ],
+    "title": "Tragbarkeitsrechner: Wie viel Haus liegt drin? | HYPOTEQ",
+    "description": "Prüfe mit dem Tragbarkeitsrechner, welcher Kaufpreis zu deinem Einkommen passt, mit kalkulatorischem Zins und Nebenkosten. Kostenlos rechnen.",
+    "h1": "Tragbarkeitsrechner: Was kannst du dir leisten?",
+    "faq": [
+     "Wie berechnen Banken die Tragbarkeit?",
+     "Warum rechnen Banken mit 5 % Zins?",
+     "Was tun, wenn die Tragbarkeit knapp ist?",
+     "Zählt das Einkommen meines Partners mit?"
+    ],
+    "intent": "transaktional",
+    "volume": "hoch (S)",
+    "difficulty": "hoch (S)"
+   },
+   "fr": {
+    "slug": "calcul-capacite-financiere",
+    "primary": "calcul capacité financière",
+    "secondary": [
+     "capacité financière hypothèque",
+     "combien puis-je emprunter",
+     "calculateur capacité financière"
+    ],
+    "title": "Calcul de la capacité financière | HYPOTEQ",
+    "description": "Vérifiez quel prix d'achat correspond à votre revenu, avec taux théorique de 5 % et frais d'entretien. Calcul gratuit, puis offre de 40+ prêteurs.",
+    "h1": "Calculez votre capacité financière",
+    "faq": [
+     "Comment les banques calculent-elles la capacité financière?",
+     "Pourquoi un taux théorique de 5 %?",
+     "Que faire si ma capacité est insuffisante?",
+     "Le revenu du conjoint compte-t-il?"
+    ],
+    "intent": "transaktional",
+    "volume": "mittel (S)",
+    "difficulty": "mittel (S)"
+   },
+   "it": {
+    "slug": "calcolo-sostenibilita",
+    "primary": "calcolo sostenibilità ipoteca",
+    "secondary": [
+     "sostenibilità finanziaria",
+     "quanto posso spendere per una casa",
+     "calcolatore sostenibilità"
+    ],
+    "title": "Calcolo della sostenibilità ipotecaria | HYPOTEQ",
+    "description": "Verifica quale prezzo d'acquisto è sostenibile con il tuo reddito, con tasso teorico del 5 % e costi accessori. Calcolo gratuito e offerte di 40+ istituti.",
+    "h1": "Calcola la sostenibilità della tua ipoteca",
+    "faq": [
+     "Come calcolano le banche la sostenibilità?",
+     "Perché un tasso teorico del 5 %?",
+     "Cosa fare se la sostenibilità non basta?",
+     "Conta anche il reddito del partner?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "en": {
+    "slug": "affordability-calculator",
+    "primary": "mortgage affordability calculator Switzerland",
+    "secondary": [
+     "how much house can I afford Switzerland",
+     "Swiss affordability rule",
+     "one third rule mortgage"
+    ],
+    "title": "Swiss Mortgage Affordability Calculator | HYPOTEQ",
+    "description": "Check which purchase price fits your income under Swiss rules: 5 % imputed rate, amortisation and maintenance. Free, then compare 40+ lenders.",
+    "h1": "How much home can you afford in Switzerland?",
+    "faq": [
+     "How do Swiss banks calculate affordability?",
+     "Why do banks use a 5 % imputed rate?",
+     "What if affordability is tight?",
+     "Does my partner's income count?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   }
+  },
+  "bewertung": {
+   "de": {
+    "slug": "immobilienbewertung",
+    "primary": "Immobilienbewertung",
+    "secondary": [
+     "Immobilie bewerten",
+     "Hausbewertung Schweiz",
+     "hedonische Bewertung",
+     "Wüest Partner Bewertung",
+     "Wert Wohnung schätzen"
+    ],
+    "title": "Immobilienbewertung mit Wüest Partner | HYPOTEQ",
+    "description": "Hedonische Immobilienbewertung mit dem Modell von Wüest Partner: Einführungspreis CHF 300 statt 450. Marktwert deines Hauses oder deiner Wohnung.",
+    "h1": "Immobilienbewertung: Marktwert nach Wüest Partner",
+    "faq": [
+     "Wie funktioniert die hedonische Bewertung?",
+     "Was kostet die Bewertung?",
+     "Wofür brauche ich eine Bewertung?",
+     "Wie unterscheidet sich die Bewertung von Gratis-Tools?"
+    ],
+    "intent": "transaktional",
+    "volume": "hoch (S)",
+    "difficulty": "hoch (S)"
+   },
+   "fr": {
+    "slug": "estimation-immobiliere",
+    "primary": "estimation immobilière",
+    "secondary": [
+     "estimer sa maison",
+     "évaluation immobilière Suisse",
+     "méthode hédoniste",
+     "estimation appartement"
+    ],
+    "title": "Estimation immobilière avec Wüest Partner | HYPOTEQ",
+    "description": "Estimation hédoniste basée sur le modèle Wüest Partner: prix de lancement CHF 300 au lieu de 450. Commandez la valeur de marché de votre bien.",
+    "h1": "Estimation immobilière selon Wüest Partner",
+    "faq": [
+     "Comment fonctionne la méthode hédoniste?",
+     "Combien coûte l'estimation?",
+     "Dans quels cas une estimation est-elle utile?",
+     "Quelle différence avec les outils gratuits?"
+    ],
+    "intent": "transaktional",
+    "volume": "hoch (S)",
+    "difficulty": "hoch (S)"
+   },
+   "it": {
+    "slug": "stima-immobiliare",
+    "primary": "stima immobiliare",
+    "secondary": [
+     "valutazione immobile Ticino",
+     "quanto vale la mia casa",
+     "metodo edonico"
+    ],
+    "title": "Stima immobiliare con Wüest Partner | HYPOTEQ",
+    "description": "Stima edonica basata sul modello Wüest Partner: prezzo di lancio CHF 300 invece di 450. Ordina il valore di mercato della tua casa o appartamento.",
+    "h1": "Stima immobiliare secondo Wüest Partner",
+    "faq": [
+     "Come funziona il metodo edonico?",
+     "Quanto costa la stima?",
+     "Quando serve una stima immobiliare?",
+     "Che differenza c'è con gli strumenti gratuiti?"
+    ],
+    "intent": "transaktional",
+    "volume": "mittel (S)",
+    "difficulty": "mittel (S)"
+   },
+   "en": {
+    "slug": "property-valuation",
+    "primary": "property valuation Switzerland",
+    "secondary": [
+     "house valuation Switzerland",
+     "hedonic valuation",
+     "what is my home worth Switzerland"
+    ],
+    "title": "Property Valuation by Wüest Partner | HYPOTEQ",
+    "description": "Hedonic property valuation based on the Wüest Partner model: launch price CHF 300 instead of 450. Order the market value of your Swiss home now.",
+    "h1": "Swiss property valuation by Wüest Partner",
+    "faq": [
+     "How does hedonic valuation work?",
+     "How much does the valuation cost?",
+     "When do I need a valuation?",
+     "How is it different from free tools?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "mittel (S)"
+   }
+  },
+  "mezzanine": {
+   "de": {
+    "slug": "mezzanine-finanzierung",
+    "primary": "Mezzanine-Finanzierung Immobilien",
+    "secondary": [
+     "Restfinanzierung Eigenheim",
+     "Eigenkapital fehlt Hauskauf",
+     "Nachrangdarlehen Immobilie",
+     "Mezzanine Kapital Immobilien",
+     "zu wenig Eigenkapital"
+    ],
+    "title": "Mezzanine-Finanzierung: Eigenkapital ergänzen | HYPOTEQ",
+    "description": "Fehlt Eigenkapital für Kauf oder Projekt? Mit Mezzanine-Kapital schliesst du die Lücke zwischen Hypothek und Eigenmitteln. Unverbindlich anfragen.",
+    "h1": "Mezzanine-Finanzierung für Immobilien",
+    "faq": [
+     "Was ist eine Mezzanine-Finanzierung?",
+     "Für wen eignet sich Mezzanine-Kapital?",
+     "Was kostet Mezzanine im Vergleich zur Hypothek?",
+     "Kann ich damit fehlendes Eigenkapital ersetzen?"
+    ],
+    "intent": "transaktional",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "fr": {
+    "slug": "financement-mezzanine",
+    "primary": "financement mezzanine immobilier",
+    "secondary": [
+     "prêt subordonné immobilier",
+     "manque de fonds propres",
+     "complément de financement"
+    ],
+    "title": "Financement mezzanine immobilier | HYPOTEQ",
+    "description": "Il vous manque des fonds propres? Le capital mezzanine comble l'écart entre hypothèque et fonds propres pour un achat ou un projet. Demande gratuite.",
+    "h1": "Financement mezzanine pour l'immobilier",
+    "faq": [
+     "Qu'est-ce que le financement mezzanine?",
+     "À qui s'adresse-t-il?",
+     "Combien coûte le mezzanine par rapport à l'hypothèque?",
+     "Peut-il remplacer des fonds propres?"
+    ],
+    "intent": "transaktional",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "it": {
+    "slug": "finanziamento-mezzanine",
+    "primary": "finanziamento mezzanine immobiliare",
+    "secondary": [
+     "prestito subordinato immobile",
+     "mancano fondi propri",
+     "finanziamento complementare"
+    ],
+    "title": "Finanziamento mezzanine immobiliare | HYPOTEQ",
+    "description": "Mancano fondi propri? Il capitale mezzanine colma il divario tra ipoteca e mezzi propri per acquisti o progetti. Richiesta senza impegno.",
+    "h1": "Finanziamento mezzanine per immobili",
+    "faq": [
+     "Cos'è un finanziamento mezzanine?",
+     "A chi è rivolto?",
+     "Quanto costa rispetto all'ipoteca?",
+     "Può sostituire i fondi propri?"
+    ],
+    "intent": "transaktional",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "en": {
+    "slug": "mezzanine-financing",
+    "primary": "mezzanine financing real estate Switzerland",
+    "secondary": [
+     "gap financing property",
+     "subordinated loan real estate",
+     "not enough down payment Switzerland"
+    ],
+    "title": "Mezzanine Financing for Swiss Real Estate | HYPOTEQ",
+    "description": "Short on equity? Mezzanine capital bridges the gap between your mortgage and own funds for purchases or projects in Switzerland. Enquire today.",
+    "h1": "Mezzanine financing for real estate",
+    "faq": [
+     "What is mezzanine financing?",
+     "Who is it suitable for?",
+     "How much does it cost compared to a mortgage?",
+     "Can it replace missing equity?"
+    ],
+    "intent": "transaktional",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   }
+  },
+  "advisory": {
+   "de": {
+    "slug": "advisory",
+    "primary": "Hypothekarberatung",
+    "secondary": [
+     "unabhängige Hypothekarberatung",
+     "Hypothek abgelehnt",
+     "Finanzierung komplexe Fälle",
+     "Hypothek Bankabsage",
+     "Immobilienfinanzierung Beratung"
+    ],
+    "title": "Advisory: Beratung für komplexe Finanzierungen | HYPOTEQ",
+    "description": "Bankabsage, Pensionierung, Renditeliegenschaften oder komplexe Eigentümerstrukturen: Unser kostenpflichtiges Advisory findet Lösungen. Termin anfragen.",
+    "h1": "Advisory für anspruchsvolle Finanzierungen",
+    "faq": [
+     "Wann lohnt sich ein kostenpflichtiges Advisory?",
+     "Was tun nach einer Bankabsage?",
+     "Was kostet das Advisory?",
+     "Wie läuft ein Mandat ab?"
+    ],
+    "intent": "transaktional",
+    "volume": "mittel (S)",
+    "difficulty": "mittel (S)"
+   },
+   "fr": {
+    "slug": "conseil-hypothecaire",
+    "primary": "conseil hypothécaire",
+    "secondary": [
+     "conseiller hypothécaire indépendant",
+     "refus hypothèque banque",
+     "financement complexe"
+    ],
+    "title": "Conseil hypothécaire pour cas complexes | HYPOTEQ",
+    "description": "Refus bancaire, retraite, immeubles de rendement ou structures de propriété complexes: notre conseil payant trouve des solutions. Prenez rendez-vous.",
+    "h1": "Conseil pour financements complexes",
+    "faq": [
+     "Quand un conseil payant est-il utile?",
+     "Que faire après un refus de la banque?",
+     "Combien coûte le mandat?",
+     "Comment se déroule le conseil?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "it": {
+    "slug": "consulenza-ipotecaria",
+    "primary": "consulenza ipotecaria",
+    "secondary": [
+     "consulente ipotecario indipendente",
+     "ipoteca rifiutata",
+     "finanziamento complesso"
+    ],
+    "title": "Consulenza ipotecaria per casi complessi | HYPOTEQ",
+    "description": "Rifiuto della banca, pensionamento, immobili da reddito o strutture di proprietà complesse: la nostra consulenza a pagamento trova soluzioni.",
+    "h1": "Consulenza per finanziamenti complessi",
+    "faq": [
+     "Quando conviene una consulenza a pagamento?",
+     "Cosa fare dopo un rifiuto della banca?",
+     "Quanto costa il mandato?",
+     "Come si svolge la consulenza?"
+    ],
+    "intent": "transaktional",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "en": {
+    "slug": "mortgage-advisory",
+    "primary": "mortgage advisor Switzerland",
+    "secondary": [
+     "independent mortgage advice Switzerland",
+     "mortgage rejected Switzerland",
+     "complex financing"
+    ],
+    "title": "Mortgage Advisory for Complex Cases | HYPOTEQ",
+    "description": "Bank rejection, retirement, investment properties or complex ownership: our paid advisory finds solutions, in English. Book a consultation.",
+    "h1": "Advisory for complex mortgage cases",
+    "faq": [
+     "When is paid advisory worth it?",
+     "What can I do after a bank rejection?",
+     "How much does advisory cost?",
+     "How does an advisory mandate work?"
+    ],
+    "intent": "transaktional",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   }
+  },
+  "partner": {
+   "de": {
+    "slug": "partner-werden",
+    "primary": "Hypothekarvermittler werden",
+    "secondary": [
+     "Tippgeber Hypothek Provision",
+     "Hypotheken Partnerprogramm",
+     "Provision Hypothekenvermittlung",
+     "Vertriebspartner Hypotheken"
+    ],
+    "title": "Partner werden: Hypotheken vermitteln | HYPOTEQ",
+    "description": "Vermittle Hypotheken an HYPOTEQ und erhalte eine Provision. Partnerportal, 40+ Finanzierungspartner und Fallbegleitung. Jetzt Partner werden.",
+    "h1": "Partner werden und Hypotheken vermitteln",
+    "faq": [
+     "Wer kann HYPOTEQ-Partner werden?",
+     "Wie hoch ist die Provision?",
+     "Wie funktioniert das Partnerportal?",
+     "Bleibt die Kundenbeziehung bei mir?"
+    ],
+    "intent": "b2b",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "fr": {
+    "slug": "devenir-partenaire",
+    "primary": "devenir courtier hypothécaire",
+    "secondary": [
+     "apporteur d'affaires hypothèque",
+     "commission courtage hypothécaire",
+     "programme partenaire hypothèque"
+    ],
+    "title": "Devenir partenaire: hypothèques et commissions | HYPOTEQ",
+    "description": "Apportez des dossiers hypothécaires à HYPOTEQ et touchez une commission. Portail partenaire, 40+ prêteurs et suivi des dossiers. Devenez partenaire.",
+    "h1": "Devenir partenaire hypothécaire",
+    "faq": [
+     "Qui peut devenir partenaire HYPOTEQ?",
+     "Quel est le montant de la commission?",
+     "Comment fonctionne le portail partenaire?",
+     "Le client reste-t-il le mien?"
+    ],
+    "intent": "b2b",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "it": {
+    "slug": "diventare-partner",
+    "primary": "diventare broker ipotecario",
+    "secondary": [
+     "segnalatore ipoteche provvigione",
+     "programma partner ipoteche",
+     "provvigione intermediazione ipotecaria"
+    ],
+    "title": "Diventa partner: ipoteche con provvigione | HYPOTEQ",
+    "description": "Segnala ipoteche a HYPOTEQ e ricevi una provvigione. Portale partner, oltre 40 istituti e accompagnamento dei dossier. Diventa partner ora.",
+    "h1": "Diventa partner ipotecario",
+    "faq": [
+     "Chi può diventare partner HYPOTEQ?",
+     "Quanto è la provvigione?",
+     "Come funziona il portale partner?",
+     "Il cliente resta mio?"
+    ],
+    "intent": "b2b",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "en": {
+    "slug": "become-a-partner",
+    "primary": "become a mortgage broker Switzerland",
+    "secondary": [
+     "mortgage referral commission",
+     "mortgage partner program Switzerland",
+     "introducer mortgage Switzerland"
+    ],
+    "title": "Become a Partner: Refer Mortgages, Earn | HYPOTEQ",
+    "description": "Refer mortgage clients to HYPOTEQ and earn a commission. Partner portal, 40+ Swiss lenders and full case support. Become a partner today.",
+    "h1": "Become a HYPOTEQ mortgage partner",
+    "faq": [
+     "Who can become a HYPOTEQ partner?",
+     "How much commission do I earn?",
+     "How does the partner portal work?",
+     "Do I keep the client relationship?"
+    ],
+    "intent": "b2b",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   }
+  },
+  "partner-makler": {
+   "de": {
+    "slug": "partner-immobilienmakler",
+    "primary": "Hypothek Partner Immobilienmakler",
+    "secondary": [
+     "Finanzierung für Maklerkunden",
+     "Makler Finanzierungsbestätigung",
+     "Immobilienmakler Provision Hypothek"
+    ],
+    "title": "Für Immobilienmakler: schnellere Abschlüsse | HYPOTEQ",
+    "description": "Finanzierungsbestätigungen für deine Kaufinteressenten innert kurzer Zeit, plus Provision. HYPOTEQ-Partnerprogramm für Immobilienmakler. Jetzt anfragen.",
+    "h1": "Partnerprogramm für Immobilienmakler",
+    "faq": [
+     "Wie schnell erhalten meine Käufer eine Finanzierungsbestätigung?",
+     "Wie werde ich als Makler vergütet?",
+     "Kann ich den Status im Partnerportal verfolgen?",
+     "Gibt es Co-Branding-Material?"
+    ],
+    "intent": "b2b",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "fr": {
+    "slug": "partenaire-courtiers-immobiliers",
+    "primary": "partenariat courtier immobilier hypothèque",
+    "secondary": [
+     "financement acheteurs courtier",
+     "attestation de financement acheteur"
+    ],
+    "title": "Courtiers immobiliers: vendez plus vite | HYPOTEQ",
+    "description": "Attestations de financement rapides pour vos acheteurs et commission à la clé. Programme partenaire HYPOTEQ pour courtiers immobiliers. Contactez-nous.",
+    "h1": "Programme partenaire pour courtiers immobiliers",
+    "faq": [
+     "En combien de temps mes acheteurs obtiennent-ils une attestation?",
+     "Comment suis-je rémunéré?",
+     "Puis-je suivre les dossiers en ligne?",
+     "Proposez-vous du matériel co-brandé?"
+    ],
+    "intent": "b2b",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "it": {
+    "slug": "partner-agenti-immobiliari",
+    "primary": "partner agenti immobiliari ipoteca",
+    "secondary": [
+     "finanziamento clienti agenzia immobiliare",
+     "conferma finanziamento acquirenti"
+    ],
+    "title": "Agenti immobiliari: vendite più rapide | HYPOTEQ",
+    "description": "Conferme di finanziamento rapide per i tuoi acquirenti e una provvigione. Programma partner HYPOTEQ per agenti immobiliari in Ticino. Contattaci.",
+    "h1": "Programma partner per agenti immobiliari",
+    "faq": [
+     "In quanto tempo i miei acquirenti ricevono una conferma?",
+     "Come vengo remunerato?",
+     "Posso seguire i dossier online?",
+     "Offrite materiale co-brandizzato?"
+    ],
+    "intent": "b2b",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "en": {
+    "slug": "partner-real-estate-agents",
+    "primary": "mortgage partner for real estate agents",
+    "secondary": [
+     "buyer financing confirmation",
+     "real estate agent referral fee"
+    ],
+    "title": "For Real Estate Agents: Close Deals Faster | HYPOTEQ",
+    "description": "Fast financing confirmations for your buyers, plus a referral commission. HYPOTEQ partner programme for real estate agents in Switzerland.",
+    "h1": "Partner programme for real estate agents",
+    "faq": [
+     "How fast do my buyers get a financing confirmation?",
+     "How am I compensated?",
+     "Can I track cases in the partner portal?",
+     "Is co-branded material available?"
+    ],
+    "intent": "b2b",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   }
+  },
+  "partner-treuhand": {
+   "de": {
+    "slug": "partner-treuhaender-vermoegensverwalter",
+    "primary": "Hypothek Partner Treuhänder",
+    "secondary": [
+     "Vermögensverwalter Hypothekenvermittlung",
+     "Treuhänder Provision Hypothek",
+     "Hypothek für Mandanten"
+    ],
+    "title": "Für Treuhänder & Vermögensverwalter | HYPOTEQ",
+    "description": "Biete deinen Mandanten unabhängige Hypothekenlösungen, ohne eigenen Aufwand. Provision, Partnerportal und Fachsupport. Jetzt Partner werden.",
+    "h1": "Partnerprogramm für Treuhänder und Vermögensverwalter",
+    "faq": [
+     "Wie integriere ich Hypotheken in meine Mandatsbetreuung?",
+     "Wie hoch ist die Vergütung?",
+     "Wie wird die Vertraulichkeit sichergestellt?",
+     "Kann ich komplexe Fälle ins Advisory geben?"
+    ],
+    "intent": "b2b",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "fr": {
+    "slug": "partenaire-fiduciaires-gerants-fortune",
+    "primary": "partenariat fiduciaire hypothèque",
+    "secondary": [
+     "gérant de fortune hypothèque",
+     "commission fiduciaire hypothèque"
+    ],
+    "title": "Fiduciaires et gérants de fortune | HYPOTEQ",
+    "description": "Offrez à vos clients des solutions hypothécaires indépendantes sans effort supplémentaire. Commission, portail partenaire et support. Devenez partenaire.",
+    "h1": "Partenariat pour fiduciaires et gérants de fortune",
+    "faq": [
+     "Comment intégrer l'hypothèque à mes mandats?",
+     "Quelle rémunération?",
+     "Comment la confidentialité est-elle garantie?",
+     "Puis-je confier des cas complexes au conseil?"
+    ],
+    "intent": "b2b",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "it": {
+    "slug": "partner-fiduciari-gestori-patrimoniali",
+    "primary": "partner fiduciari ipoteche",
+    "secondary": [
+     "gestore patrimoniale ipoteca",
+     "provvigione fiduciaria ipoteca"
+    ],
+    "title": "Per fiduciari e gestori patrimoniali | HYPOTEQ",
+    "description": "Offri ai tuoi clienti soluzioni ipotecarie indipendenti senza lavoro aggiuntivo. Provvigione, portale partner e supporto. Diventa partner ora.",
+    "h1": "Partner per fiduciari e gestori patrimoniali",
+    "faq": [
+     "Come integro le ipoteche nei miei mandati?",
+     "Qual è la remunerazione?",
+     "Come viene garantita la riservatezza?",
+     "Posso affidare casi complessi alla consulenza?"
+    ],
+    "intent": "b2b",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "en": {
+    "slug": "partner-fiduciaries-wealth-managers",
+    "primary": "mortgage partner wealth managers Switzerland",
+    "secondary": [
+     "fiduciary mortgage referral",
+     "wealth manager mortgage solutions"
+    ],
+    "title": "For Fiduciaries & Wealth Managers | HYPOTEQ",
+    "description": "Offer your clients independent Swiss mortgage solutions without extra workload. Commission, partner portal and expert support. Become a partner.",
+    "h1": "Partner programme for fiduciaries and wealth managers",
+    "faq": [
+     "How do I add mortgages to my client mandates?",
+     "What is the compensation?",
+     "How is confidentiality ensured?",
+     "Can complex cases go to advisory?"
+    ],
+    "intent": "b2b",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   }
+  },
+  "partner-versicherung": {
+   "de": {
+    "slug": "partner-versicherungen-broker",
+    "primary": "Hypothek Partner Versicherungsbroker",
+    "secondary": [
+     "Versicherungsagentur Hypotheken",
+     "Broker Hypothekenvermittlung",
+     "Cross-Selling Hypothek Versicherung"
+    ],
+    "title": "Für Versicherungen, Agenturen & Broker | HYPOTEQ",
+    "description": "Ergänze dein Angebot um Hypotheken von 40+ Anbietern. Provision, Partnerportal und Schulung via HYPOTEQ Academy. Jetzt Partnerschaft anfragen.",
+    "h1": "Partnerprogramm für Versicherungen und Broker",
+    "faq": [
+     "Wie ergänzen Hypotheken mein Versicherungsgeschäft?",
+     "Wie hoch ist die Provision?",
+     "Werden meine Mitarbeitenden geschult?",
+     "Gibt es eine API oder Portal-Anbindung?"
+    ],
+    "intent": "b2b",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "fr": {
+    "slug": "partenaire-assurances-courtiers",
+    "primary": "partenariat courtier assurance hypothèque",
+    "secondary": [
+     "agence d'assurance hypothèque",
+     "courtier en assurances commission hypothèque"
+    ],
+    "title": "Assurances, agences et courtiers | HYPOTEQ",
+    "description": "Complétez votre offre avec les hypothèques de 40+ prêteurs. Commission, portail partenaire et formation via la HYPOTEQ Academy. Contactez-nous.",
+    "h1": "Partenariat pour assurances et courtiers",
+    "faq": [
+     "Comment l'hypothèque complète-t-elle mon activité?",
+     "Quelle commission?",
+     "Mes collaborateurs sont-ils formés?",
+     "Existe-t-il un portail ou une API?"
+    ],
+    "intent": "b2b",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "it": {
+    "slug": "partner-assicurazioni-broker",
+    "primary": "partner broker assicurativi ipoteche",
+    "secondary": [
+     "agenzia assicurativa ipoteche",
+     "broker assicurativo provvigione ipoteca"
+    ],
+    "title": "Per assicurazioni, agenzie e broker | HYPOTEQ",
+    "description": "Completa la tua offerta con le ipoteche di oltre 40 istituti. Provvigione, portale partner e formazione con la HYPOTEQ Academy. Contattaci.",
+    "h1": "Partner per assicurazioni e broker",
+    "faq": [
+     "Come completano le ipoteche la mia attività?",
+     "Qual è la provvigione?",
+     "I miei collaboratori vengono formati?",
+     "C'è un portale o un'API?"
+    ],
+    "intent": "b2b",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "en": {
+    "slug": "partner-insurance-brokers",
+    "primary": "mortgage partner insurance brokers Switzerland",
+    "secondary": [
+     "insurance agency mortgage referral",
+     "broker cross-selling mortgages"
+    ],
+    "title": "For Insurers, Agencies & Brokers | HYPOTEQ",
+    "description": "Add mortgages from 40+ Swiss lenders to your offering. Commission, partner portal and training via HYPOTEQ Academy. Request a partnership.",
+    "h1": "Partner programme for insurers and brokers",
+    "faq": [
+     "How do mortgages complement my insurance business?",
+     "What commission do I earn?",
+     "Is training provided for my team?",
+     "Is there a portal or API?"
+    ],
+    "intent": "b2b",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   }
+  },
+  "academy": {
+   "de": {
+    "slug": "academy",
+    "primary": "Hypotheken Weiterbildung",
+    "secondary": [
+     "Hypothekarberater Ausbildung",
+     "Kurs Hypotheken",
+     "Immobilienfinanzierung Kurs",
+     "Weiterbildung Finanzierungsberater",
+     "Hypothek verstehen Kurs"
+    ],
+    "title": "HYPOTEQ Academy: Hypotheken Weiterbildung | HYPOTEQ",
+    "description": "Foundation Course für CHF 290: 8 Learning Journeys mit KI-Trainer, für Vertriebspartner und Private. Lerne Hypotheken in der Praxis. Jetzt buchen.",
+    "h1": "HYPOTEQ Academy: Hypotheken verstehen und beraten",
+    "faq": [
+     "Für wen ist der Foundation Course gedacht?",
+     "Was lerne ich in den 8 Learning Journeys?",
+     "Wie funktioniert der KI-Trainer?",
+     "Erhalte ich ein Zertifikat?"
+    ],
+    "intent": "b2b",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "fr": {
+    "slug": "academy-formation-hypothecaire",
+    "primary": "formation conseiller hypothécaire",
+    "secondary": [
+     "formation hypothèque",
+     "cours financement immobilier",
+     "formation courtier hypothécaire Suisse"
+    ],
+    "title": "HYPOTEQ Academy: formation hypothécaire | HYPOTEQ",
+    "description": "Foundation Course à CHF 290: 8 Learning Journeys avec entraîneur IA, pour partenaires et particuliers. Maîtrisez l'hypothèque en pratique. Inscrivez-vous.",
+    "h1": "HYPOTEQ Academy: comprendre et conseiller",
+    "faq": [
+     "À qui s'adresse le Foundation Course?",
+     "Que contiennent les 8 Learning Journeys?",
+     "Comment fonctionne l'entraîneur IA?",
+     "Le cours est-il certifiant?"
+    ],
+    "intent": "b2b",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "it": {
+    "slug": "academy-formazione-ipotecaria",
+    "primary": "formazione consulente ipotecario",
+    "secondary": [
+     "corso ipoteche",
+     "formazione finanziamento immobiliare",
+     "corso broker ipotecario"
+    ],
+    "title": "HYPOTEQ Academy: formazione ipotecaria | HYPOTEQ",
+    "description": "Foundation Course a CHF 290: 8 Learning Journeys con trainer IA, per partner e privati. Impara le ipoteche nella pratica. Iscriviti ora.",
+    "h1": "HYPOTEQ Academy: capire e consigliare",
+    "faq": [
+     "A chi è rivolto il Foundation Course?",
+     "Cosa imparo nelle 8 Learning Journeys?",
+     "Come funziona il trainer IA?",
+     "Ricevo un certificato?"
+    ],
+    "intent": "b2b",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "en": {
+    "slug": "academy-mortgage-training",
+    "primary": "mortgage training Switzerland",
+    "secondary": [
+     "mortgage advisor course",
+     "Swiss mortgage course",
+     "real estate finance training"
+    ],
+    "title": "HYPOTEQ Academy: Swiss Mortgage Training | HYPOTEQ",
+    "description": "Foundation Course for CHF 290: 8 learning journeys with an AI trainer, for partners and private individuals. Learn Swiss mortgages in practice.",
+    "h1": "HYPOTEQ Academy: master Swiss mortgages",
+    "faq": [
+     "Who is the Foundation Course for?",
+     "What do the 8 learning journeys cover?",
+     "How does the AI trainer work?",
+     "Do I receive a certificate?"
+    ],
+    "intent": "b2b",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   }
+  },
+  "ratgeber": {
+   "de": {
+    "slug": "ratgeber",
+    "primary": "Hypotheken Ratgeber",
+    "secondary": [
+     "Eigenheim Ratgeber",
+     "Hauskauf Tipps Schweiz",
+     "Hypothek einfach erklärt"
+    ],
+    "title": "Hypotheken-Ratgeber: Wissen zum Eigenheim | HYPOTEQ",
+    "description": "Eigenmittel, Tragbarkeit, SARON oder Fest, Pensionskasse und Nebenkosten: verständlich erklärt von unseren Expertinnen und Experten. Jetzt lesen.",
+    "h1": "Ratgeber: Hypotheken einfach erklärt",
+    "faq": [
+     "Wo fange ich beim Hauskauf an?",
+     "Welche Kosten kommen beim Kauf auf mich zu?",
+     "Wie viel Eigenkapital brauche ich?",
+     "SARON oder Festhypothek?"
+    ],
+    "intent": "informativ",
+    "volume": "mittel (S)",
+    "difficulty": "mittel (S)"
+   },
+   "fr": {
+    "slug": "guide",
+    "primary": "guide hypothèque",
+    "secondary": [
+     "conseils achat immobilier Suisse",
+     "hypothèque expliquée",
+     "guide propriétaire"
+    ],
+    "title": "Guide hypothécaire: tout sur la propriété | HYPOTEQ",
+    "description": "Fonds propres, capacité financière, SARON ou taux fixe, 2e pilier et frais d'achat: expliqués simplement par nos experts. Lisez notre guide.",
+    "h1": "Guide: l'hypothèque expliquée simplement",
+    "faq": [
+     "Par où commencer pour acheter?",
+     "Quels frais à l'achat?",
+     "Combien de fonds propres?",
+     "SARON ou taux fixe?"
+    ],
+    "intent": "informativ",
+    "volume": "niedrig (S)",
+    "difficulty": "mittel (S)"
+   },
+   "it": {
+    "slug": "guida",
+    "primary": "guida ipoteca",
+    "secondary": [
+     "consigli acquisto casa Svizzera",
+     "ipoteca spiegata",
+     "guida proprietari"
+    ],
+    "title": "Guida ipotecaria: tutto sulla casa | HYPOTEQ",
+    "description": "Fondi propri, sostenibilità, SARON o tasso fisso, 2° pilastro e costi d'acquisto: spiegati in modo semplice dai nostri esperti. Leggi la guida.",
+    "h1": "Guida: l'ipoteca spiegata in modo semplice",
+    "faq": [
+     "Da dove comincio per comprare casa?",
+     "Quali costi devo considerare?",
+     "Quanti fondi propri servono?",
+     "SARON o tasso fisso?"
+    ],
+    "intent": "informativ",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "en": {
+    "slug": "guide",
+    "primary": "Swiss mortgage guide",
+    "secondary": [
+     "buying a house in Switzerland guide",
+     "Swiss mortgage explained",
+     "homeowner guide Switzerland"
+    ],
+    "title": "Swiss Mortgage Guide for Homebuyers | HYPOTEQ",
+    "description": "Down payment, affordability, SARON vs fixed, pension funds and purchase costs: Swiss mortgages explained simply by our experts. Read the guide.",
+    "h1": "Swiss mortgages explained simply",
+    "faq": [
+     "Where do I start when buying in Switzerland?",
+     "What costs come with a purchase?",
+     "How much down payment is needed?",
+     "SARON or fixed?"
+    ],
+    "intent": "informativ",
+    "volume": "mittel (S)",
+    "difficulty": "mittel (S)"
+   }
+  },
+  "rg-eigenmittel": {
+   "de": {
+    "slug": "eigenmittel-hauskauf",
+    "primary": "Eigenkapital Hauskauf",
+    "secondary": [
+     "Eigenmittel Hypothek",
+     "harte Eigenmittel",
+     "20 Prozent Eigenkapital",
+     "Erbvorbezug Eigenheim",
+     "Schenkung Eigenkapital"
+    ],
+    "title": "Eigenkapital für den Hauskauf: so viel braucht es | HYPOTEQ",
+    "description": "20 % Eigenkapital, davon 10 % hart: Was zählt, was nicht, und wie Erbvorbezug oder Schenkung helfen. Ratgeber mit Beispielen. Jetzt nachlesen.",
+    "h1": "Eigenkapital für den Hauskauf",
+    "faq": [
+     "Wie viel Eigenkapital brauche ich?",
+     "Was sind harte Eigenmittel?",
+     "Zählt ein Erbvorbezug als Eigenkapital?",
+     "Was tun, wenn Eigenkapital fehlt?"
+    ],
+    "intent": "informativ",
+    "volume": "hoch (S)",
+    "difficulty": "hoch (S)"
+   },
+   "fr": {
+    "slug": "fonds-propres-achat-immobilier",
+    "primary": "fonds propres achat immobilier",
+    "secondary": [
+     "apport personnel Suisse",
+     "fonds propres durs",
+     "20% fonds propres",
+     "avance d'hoirie"
+    ],
+    "title": "Fonds propres pour acheter: combien? | HYPOTEQ",
+    "description": "20 % de fonds propres dont 10 % durs: ce qui compte, ce qui ne compte pas, avance d'hoirie et donation. Guide avec exemples chiffrés.",
+    "h1": "Fonds propres pour l'achat immobilier",
+    "faq": [
+     "Combien de fonds propres faut-il?",
+     "Que sont les fonds propres durs?",
+     "Une avance d'hoirie compte-t-elle?",
+     "Que faire s'il manque des fonds propres?"
+    ],
+    "intent": "informativ",
+    "volume": "mittel (S)",
+    "difficulty": "mittel (S)"
+   },
+   "it": {
+    "slug": "fondi-propri-acquisto-casa",
+    "primary": "fondi propri acquisto casa",
+    "secondary": [
+     "capitale proprio ipoteca",
+     "20% fondi propri",
+     "anticipo eredità casa"
+    ],
+    "title": "Fondi propri per comprare casa | HYPOTEQ",
+    "description": "20 % di fondi propri, di cui 10 % liquidi: cosa conta, cosa no, anticipo d'eredità e donazione. Guida con esempi pratici.",
+    "h1": "Fondi propri per l'acquisto della casa",
+    "faq": [
+     "Quanti fondi propri servono?",
+     "Cosa sono i fondi propri effettivi?",
+     "L'anticipo d'eredità conta?",
+     "Cosa fare se mancano fondi propri?"
+    ],
+    "intent": "informativ",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "en": {
+    "slug": "down-payment-switzerland",
+    "primary": "down payment Switzerland",
+    "secondary": [
+     "equity requirement Swiss mortgage",
+     "20 percent down payment Switzerland",
+     "hard equity"
+    ],
+    "title": "Down Payment in Switzerland: How Much? | HYPOTEQ",
+    "description": "20 % equity, at least 10 % in cash: what counts, what doesn't, and how gifts or inheritance advances help. Swiss guide with examples.",
+    "h1": "Down payment rules in Switzerland",
+    "faq": [
+     "How much down payment do I need?",
+     "What is hard equity?",
+     "Can a family gift count as equity?",
+     "What if I lack equity?"
+    ],
+    "intent": "informativ",
+    "volume": "mittel (S)",
+    "difficulty": "niedrig (S)"
+   }
+  },
+  "rg-tragbarkeit": {
+   "de": {
+    "slug": "tragbarkeit-berechnen",
+    "primary": "Tragbarkeit berechnen",
+    "secondary": [
+     "Tragbarkeit Hypothek",
+     "Tragbarkeit nicht gegeben",
+     "Tragbarkeit 33 Prozent",
+     "kalkulatorischer Zinssatz 5 Prozent"
+    ],
+    "title": "Tragbarkeit berechnen: Regeln und Beispiele | HYPOTEQ",
+    "description": "So rechnen Banken die Tragbarkeit: 5 % kalkulatorischer Zins, Amortisation, Nebenkosten, 33 %-Regel. Mit Beispielen und Tipps bei knapper Tragbarkeit.",
+    "h1": "Tragbarkeit berechnen: so rechnen Banken",
+    "faq": [
+     "Was bedeutet Tragbarkeit?",
+     "Warum 5 % kalkulatorischer Zins?",
+     "Was tun, wenn die Tragbarkeit nicht gegeben ist?",
+     "Gibt es Banken mit anderen Tragbarkeitsregeln?"
+    ],
+    "intent": "informativ",
+    "volume": "hoch (S)",
+    "difficulty": "hoch (S)"
+   },
+   "fr": {
+    "slug": "capacite-financiere-hypotheque",
+    "primary": "capacité financière hypothèque",
+    "secondary": [
+     "règle du tiers",
+     "taux théorique 5%",
+     "capacité financière insuffisante"
+    ],
+    "title": "Capacité financière: règles et exemples | HYPOTEQ",
+    "description": "Comment les banques calculent la capacité financière: taux théorique de 5 %, amortissement, frais, règle du tiers. Exemples et solutions.",
+    "h1": "Capacité financière: la méthode des banques",
+    "faq": [
+     "Qu'est-ce que la capacité financière?",
+     "Pourquoi un taux théorique de 5 %?",
+     "Que faire si elle est insuffisante?",
+     "Toutes les banques appliquent-elles les mêmes règles?"
+    ],
+    "intent": "informativ",
+    "volume": "mittel (S)",
+    "difficulty": "mittel (S)"
+   },
+   "it": {
+    "slug": "sostenibilita-ipoteca",
+    "primary": "sostenibilità ipoteca",
+    "secondary": [
+     "regola del terzo",
+     "tasso teorico 5%",
+     "sostenibilità finanziaria casa"
+    ],
+    "title": "Sostenibilità dell'ipoteca: regole | HYPOTEQ",
+    "description": "Come calcolano le banche la sostenibilità: tasso teorico del 5 %, ammortamento, costi accessori, regola del terzo. Esempi e soluzioni.",
+    "h1": "Sostenibilità: come calcolano le banche",
+    "faq": [
+     "Cosa significa sostenibilità?",
+     "Perché un tasso teorico del 5 %?",
+     "Cosa fare se non è sufficiente?",
+     "Tutte le banche usano le stesse regole?"
+    ],
+    "intent": "informativ",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "en": {
+    "slug": "mortgage-affordability-switzerland",
+    "primary": "mortgage affordability Switzerland",
+    "secondary": [
+     "one third rule Switzerland",
+     "imputed interest rate 5%",
+     "Swiss affordability calculation"
+    ],
+    "title": "Swiss Mortgage Affordability Rules | HYPOTEQ",
+    "description": "How Swiss banks calculate affordability: 5 % imputed rate, amortisation, maintenance, one-third rule. Examples and options if you fall short.",
+    "h1": "Swiss affordability rules explained",
+    "faq": [
+     "What does affordability mean in Switzerland?",
+     "Why a 5 % imputed rate?",
+     "What if I don't meet the rule?",
+     "Do all banks apply the same rules?"
+    ],
+    "intent": "informativ",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   }
+  },
+  "rg-saron-fest": {
+   "de": {
+    "slug": "saron-oder-festhypothek",
+    "primary": "SARON oder Festhypothek",
+    "secondary": [
+     "SARON vs Festhypothek",
+     "welche Hypothek wählen",
+     "Hypothek Mix",
+     "Festhypothek oder SARON 2026"
+    ],
+    "title": "SARON oder Festhypothek: was lohnt sich? | HYPOTEQ",
+    "description": "SARON oder Festhypothek? Vor- und Nachteile, Zinsrisiko, Ausstiegskosten und Mischformen im Vergleich. Mit Entscheidungshilfe für deine Situation.",
+    "h1": "SARON oder Festhypothek?",
+    "faq": [
+     "Ist SARON langfristig günstiger?",
+     "Wann lohnt sich eine Festhypothek?",
+     "Kann ich beide Modelle kombinieren?",
+     "Wie gross ist mein Zinsrisiko?"
+    ],
+    "intent": "informativ",
+    "volume": "mittel (S)",
+    "difficulty": "mittel (S)"
+   },
+   "fr": {
+    "slug": "saron-ou-taux-fixe",
+    "primary": "SARON ou taux fixe",
+    "secondary": [
+     "hypothèque SARON ou fixe",
+     "choisir son hypothèque",
+     "mix SARON fixe"
+    ],
+    "title": "SARON ou taux fixe: que choisir? | HYPOTEQ",
+    "description": "SARON ou taux fixe? Avantages, risques de taux, frais de sortie et combinaisons comparés. Avec une aide à la décision selon votre situation.",
+    "h1": "SARON ou taux fixe?",
+    "faq": [
+     "Le SARON est-il moins cher à long terme?",
+     "Quand choisir un taux fixe?",
+     "Peut-on combiner les deux?",
+     "Quel est mon risque de taux?"
+    ],
+    "intent": "informativ",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "it": {
+    "slug": "saron-o-tasso-fisso",
+    "primary": "SARON o tasso fisso",
+    "secondary": [
+     "ipoteca SARON o fissa",
+     "scegliere ipoteca",
+     "combinare SARON e fisso"
+    ],
+    "title": "SARON o tasso fisso: cosa conviene? | HYPOTEQ",
+    "description": "SARON o tasso fisso? Vantaggi, rischio tassi, costi di uscita e combinazioni a confronto. Con un aiuto alla decisione per la tua situazione.",
+    "h1": "SARON o tasso fisso?",
+    "faq": [
+     "Il SARON conviene a lungo termine?",
+     "Quando scegliere il tasso fisso?",
+     "Si possono combinare?",
+     "Qual è il mio rischio di tasso?"
+    ],
+    "intent": "informativ",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "en": {
+    "slug": "saron-vs-fixed-rate-mortgage",
+    "primary": "SARON vs fixed mortgage",
+    "secondary": [
+     "which Swiss mortgage to choose",
+     "variable or fixed Switzerland"
+    ],
+    "title": "SARON vs Fixed Mortgage: Which Is Better? | HYPOTEQ",
+    "description": "SARON or fixed-rate? Pros and cons, interest rate risk, exit costs and mixed models compared, with a decision guide for your situation.",
+    "h1": "SARON or fixed-rate mortgage?",
+    "faq": [
+     "Is SARON cheaper in the long run?",
+     "When is a fixed rate better?",
+     "Can I combine both?",
+     "How big is my interest rate risk?"
+    ],
+    "intent": "informativ",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   }
+  },
+  "rg-pk": {
+   "de": {
+    "slug": "pensionskasse-3a-eigenheim",
+    "primary": "Pensionskasse Vorbezug Eigenheim",
+    "secondary": [
+     "Säule 3a Eigenheim",
+     "PK Verpfändung",
+     "Vorbezug Pensionskasse Steuern",
+     "WEF Vorbezug",
+     "3a indirekte Amortisation"
+    ],
+    "title": "Pensionskasse & 3a fürs Eigenheim nutzen | HYPOTEQ",
+    "description": "Vorbezug oder Verpfändung? So nutzt du Pensionskasse und Säule 3a für Eigenkapital und Amortisation, inkl. Steuern und Mindestbeträgen.",
+    "h1": "Pensionskasse und Säule 3a fürs Eigenheim",
+    "faq": [
+     "Vorbezug oder Verpfändung: was ist besser?",
+     "Wie viel kann ich aus der Pensionskasse beziehen?",
+     "Welche Steuern fallen beim Vorbezug an?",
+     "Wie funktioniert die indirekte Amortisation mit 3a?"
+    ],
+    "intent": "informativ",
+    "volume": "hoch (S)",
+    "difficulty": "mittel (S)"
+   },
+   "fr": {
+    "slug": "2e-pilier-3a-propriete",
+    "primary": "retrait 2e pilier achat immobilier",
+    "secondary": [
+     "EPL caisse de pension",
+     "nantissement 2e pilier",
+     "3e pilier achat maison",
+     "impôt retrait LPP"
+    ],
+    "title": "2e pilier et 3a pour acheter un logement | HYPOTEQ",
+    "description": "Retrait anticipé ou nantissement? Utilisez le 2e pilier et le 3a comme fonds propres ou pour amortir, avec impôts et montants minimaux expliqués.",
+    "h1": "2e pilier et 3a pour la propriété",
+    "faq": [
+     "Retrait ou nantissement: que choisir?",
+     "Combien puis-je retirer de ma caisse de pension?",
+     "Quel impôt sur le retrait?",
+     "Comment fonctionne l'amortissement indirect?"
+    ],
+    "intent": "informativ",
+    "volume": "mittel (S)",
+    "difficulty": "mittel (S)"
+   },
+   "it": {
+    "slug": "secondo-pilastro-3a-abitazione",
+    "primary": "prelievo secondo pilastro casa",
+    "secondary": [
+     "prelievo anticipato cassa pensione",
+     "costituzione in pegno 2° pilastro",
+     "3a acquisto casa"
+    ],
+    "title": "2° pilastro e 3a per la casa | HYPOTEQ",
+    "description": "Prelievo anticipato o costituzione in pegno? Usa cassa pensione e pilastro 3a come fondi propri o per ammortizzare, con imposte e importi minimi.",
+    "h1": "2° pilastro e 3a per l'abitazione",
+    "faq": [
+     "Prelievo o pegno: cosa conviene?",
+     "Quanto posso prelevare dalla cassa pensione?",
+     "Quali imposte si pagano?",
+     "Come funziona l'ammortamento indiretto?"
+    ],
+    "intent": "informativ",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "en": {
+    "slug": "pension-fund-3a-home-purchase",
+    "primary": "use pension fund to buy house Switzerland",
+    "secondary": [
+     "2nd pillar withdrawal home",
+     "pillar 3a home purchase",
+     "pledge pension fund mortgage"
+    ],
+    "title": "Pension Fund & Pillar 3a for Your Home | HYPOTEQ",
+    "description": "Withdrawal or pledge? How to use your Swiss pension fund and pillar 3a as down payment or for amortisation, including taxes and minimum amounts.",
+    "h1": "Using pension and 3a to buy a home",
+    "faq": [
+     "Withdrawal or pledge: which is better?",
+     "How much can I withdraw from my pension fund?",
+     "What taxes apply?",
+     "How does indirect amortisation work?"
+    ],
+    "intent": "informativ",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   }
+  },
+  "rg-nebenkosten": {
+   "de": {
+    "slug": "nebenkosten-hauskauf",
+    "primary": "Nebenkosten Hauskauf",
+    "secondary": [
+     "Kaufnebenkosten Schweiz",
+     "Handänderungssteuer",
+     "Notarkosten Hauskauf",
+     "Grundbuchgebühren",
+     "Schuldbrief Kosten"
+    ],
+    "title": "Nebenkosten beim Hauskauf in der Schweiz | HYPOTEQ",
+    "description": "Handänderungssteuer, Notar, Grundbuch und Schuldbrief: Mit diesen Kaufnebenkosten musst du rechnen, je nach Kanton. Übersicht und Tipps.",
+    "h1": "Nebenkosten beim Hauskauf",
+    "faq": [
+     "Wie hoch sind die Kaufnebenkosten?",
+     "Welche Kantone erheben eine Handänderungssteuer?",
+     "Wer zahlt die Notarkosten?",
+     "Kann ich Nebenkosten mitfinanzieren?"
+    ],
+    "intent": "informativ",
+    "volume": "mittel (S)",
+    "difficulty": "mittel (S)"
+   },
+   "fr": {
+    "slug": "frais-achat-immobilier",
+    "primary": "frais d'achat immobilier Suisse",
+    "secondary": [
+     "droits de mutation",
+     "frais de notaire Suisse",
+     "frais cédule hypothécaire",
+     "frais Genève Vaud achat"
+    ],
+    "title": "Frais d'achat immobilier en Suisse | HYPOTEQ",
+    "description": "Droits de mutation, notaire, registre foncier et cédule hypothécaire: les frais d'achat à prévoir selon le canton, notamment à Genève et Vaud.",
+    "h1": "Frais d'achat d'un bien immobilier",
+    "faq": [
+     "À combien s'élèvent les frais d'achat?",
+     "Quels sont les droits de mutation à Genève et Vaud?",
+     "Qui paie les frais de notaire?",
+     "Les frais peuvent-ils être financés?"
+    ],
+    "intent": "informativ",
+    "volume": "mittel (S)",
+    "difficulty": "mittel (S)"
+   },
+   "it": {
+    "slug": "costi-accessori-acquisto-casa",
+    "primary": "costi acquisto casa Ticino",
+    "secondary": [
+     "imposta sul trapasso",
+     "spese notarili Ticino",
+     "costi cartella ipotecaria"
+    ],
+    "title": "Costi accessori per l'acquisto della casa | HYPOTEQ",
+    "description": "Imposta di trapasso, notaio, registro fondiario e cartella ipotecaria: i costi d'acquisto da prevedere in Ticino e negli altri cantoni.",
+    "h1": "Costi accessori dell'acquisto casa",
+    "faq": [
+     "Quanto costano le spese d'acquisto?",
+     "Quanto costa il notaio in Ticino?",
+     "Chi paga le spese?",
+     "Si possono finanziare i costi accessori?"
+    ],
+    "intent": "informativ",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "en": {
+    "slug": "property-purchase-costs-switzerland",
+    "primary": "property purchase costs Switzerland",
+    "secondary": [
+     "notary fees Switzerland",
+     "property transfer tax Switzerland",
+     "closing costs Switzerland"
+    ],
+    "title": "Property Purchase Costs in Switzerland | HYPOTEQ",
+    "description": "Transfer tax, notary, land registry and mortgage certificate: the extra costs of buying property in Switzerland by canton. Overview and tips.",
+    "h1": "Extra costs when buying in Switzerland",
+    "faq": [
+     "How high are purchase costs in Switzerland?",
+     "Which cantons charge transfer tax?",
+     "Who pays the notary?",
+     "Can purchase costs be financed?"
+    ],
+    "intent": "informativ",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   }
+  },
+  "rg-vermittler": {
+   "de": {
+    "slug": "hypothekenvermittler-vergleich",
+    "primary": "Hypothekenvermittler Vergleich",
+    "secondary": [
+     "Hypothekarvermittler Schweiz",
+     "Hypothekenbroker Erfahrungen",
+     "lohnt sich ein Hypothekenvermittler",
+     "Hypothekenvermittler Kosten"
+    ],
+    "title": "Hypothekenvermittler im Vergleich: lohnt es sich? | HYPOTEQ",
+    "description": "Wie verdienen Hypothekenvermittler, was kosten sie und worauf achten? Vergleich der Modelle: Bank, Plattform, Vermittler und Beratung.",
+    "h1": "Hypothekenvermittler im Vergleich",
+    "faq": [
+     "Wie verdient ein Hypothekenvermittler?",
+     "Ist der Vergleich wirklich kostenlos?",
+     "Bin ich nach der Anfrage gebunden?",
+     "Wie unabhängig sind Vermittler?"
+    ],
+    "intent": "informativ",
+    "volume": "mittel (S)",
+    "difficulty": "hoch (S)"
+   },
+   "fr": {
+    "slug": "courtier-hypothecaire-comparatif",
+    "primary": "courtier hypothécaire",
+    "secondary": [
+     "comparatif courtiers hypothécaires",
+     "courtier hypothécaire avis",
+     "courtier hypothécaire Genève"
+    ],
+    "title": "Courtier hypothécaire: comparatif | HYPOTEQ",
+    "description": "Comment se rémunère un courtier hypothécaire, combien coûte-t-il et comment choisir? Comparatif banque, plateforme, courtier et conseil.",
+    "h1": "Choisir son courtier hypothécaire",
+    "faq": [
+     "Comment un courtier hypothécaire est-il rémunéré?",
+     "Le comparatif est-il vraiment gratuit?",
+     "Suis-je engagé après la demande?",
+     "Un courtier est-il indépendant?"
+    ],
+    "intent": "informativ",
+    "volume": "mittel (S)",
+    "difficulty": "mittel (S)"
+   },
+   "it": {
+    "slug": "broker-ipotecario-confronto",
+    "primary": "broker ipotecario",
+    "secondary": [
+     "intermediario ipotecario Ticino",
+     "broker ipotecario Lugano",
+     "conviene un broker ipotecario"
+    ],
+    "title": "Broker ipotecario: confronto | HYPOTEQ",
+    "description": "Come guadagna un broker ipotecario, quanto costa e come sceglierlo? Confronto tra banca, piattaforma, broker e consulenza in Ticino.",
+    "h1": "Scegliere un broker ipotecario",
+    "faq": [
+     "Come viene pagato un broker ipotecario?",
+     "Il confronto è davvero gratuito?",
+     "Sono vincolato dopo la richiesta?",
+     "Quanto è indipendente un broker?"
+    ],
+    "intent": "informativ",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "en": {
+    "slug": "mortgage-broker-switzerland",
+    "primary": "mortgage broker Switzerland",
+    "secondary": [
+     "best mortgage broker Switzerland",
+     "English speaking mortgage broker Zurich",
+     "is a mortgage broker worth it"
+    ],
+    "title": "Swiss Mortgage Brokers Compared | HYPOTEQ",
+    "description": "How Swiss mortgage brokers earn money, what they cost and how to choose one. Bank vs platform vs broker vs advisory, explained for expats.",
+    "h1": "Choosing a mortgage broker in Switzerland",
+    "faq": [
+     "How are Swiss mortgage brokers paid?",
+     "Is the comparison really free?",
+     "Am I committed after applying?",
+     "Are brokers independent?"
+    ],
+    "intent": "informativ",
+    "volume": "mittel (S)",
+    "difficulty": "mittel (S)"
+   }
+  },
+  "ueber-uns": {
+   "de": {
+    "slug": "ueber-uns",
+    "primary": "HYPOTEQ",
+    "secondary": [
+     "HYPOTEQ AG Zürich",
+     "HYPOTEQ Erfahrungen",
+     "Hypothekarvermittler Zürich"
+    ],
+    "title": "Über uns: Hypothekenexperten aus Zürich | HYPOTEQ",
+    "description": "HYPOTEQ AG aus Zürich: unabhängiger Hypothekenvergleich, 180+ Berater:innen, 40+ Finanzierungspartner. Lerne unser Team kennen.",
+    "h1": "Über HYPOTEQ",
+    "faq": [
+     "Wer steht hinter HYPOTEQ?",
+     "Wie unabhängig ist HYPOTEQ?",
+     "Wie verdient HYPOTEQ Geld?",
+     "Wo ist HYPOTEQ tätig?"
+    ],
+    "intent": "navigational",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "fr": {
+    "slug": "a-propos",
+    "primary": "HYPOTEQ",
+    "secondary": [
+     "HYPOTEQ avis",
+     "courtier hypothécaire Zurich"
+    ],
+    "title": "À propos: experts hypothécaires | HYPOTEQ",
+    "description": "HYPOTEQ AG à Zurich: comparatif hypothécaire indépendant, 2'500+ clients, 40+ prêteurs partenaires, conseil en français. Découvrez l'équipe.",
+    "h1": "À propos de HYPOTEQ",
+    "faq": [
+     "Qui est HYPOTEQ?",
+     "HYPOTEQ est-il indépendant?",
+     "Comment HYPOTEQ est-il rémunéré?",
+     "Conseillez-vous en Suisse romande?"
+    ],
+    "intent": "navigational",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "it": {
+    "slug": "chi-siamo",
+    "primary": "HYPOTEQ",
+    "secondary": [
+     "HYPOTEQ opinioni",
+     "broker ipotecario Svizzera"
+    ],
+    "title": "Chi siamo: esperti di ipoteche | HYPOTEQ",
+    "description": "HYPOTEQ AG di Zurigo: confronto ipotecario indipendente, oltre 2'500 clienti, 40+ istituti partner, consulenza in italiano. Scopri il team.",
+    "h1": "Chi è HYPOTEQ",
+    "faq": [
+     "Chi c'è dietro HYPOTEQ?",
+     "HYPOTEQ è indipendente?",
+     "Come guadagna HYPOTEQ?",
+     "Offrite consulenza in Ticino?"
+    ],
+    "intent": "navigational",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "en": {
+    "slug": "about-us",
+    "primary": "HYPOTEQ",
+    "secondary": [
+     "HYPOTEQ reviews",
+     "mortgage broker Zurich"
+    ],
+    "title": "About Us: Swiss Mortgage Experts | HYPOTEQ",
+    "description": "HYPOTEQ AG, Zurich: independent mortgage comparison, 2,500+ clients, 40+ lending partners, advice in English. Meet our team.",
+    "h1": "About HYPOTEQ",
+    "faq": [
+     "Who is behind HYPOTEQ?",
+     "Is HYPOTEQ independent?",
+     "How does HYPOTEQ earn money?",
+     "Do you advise in English?"
+    ],
+    "intent": "navigational",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   }
+  },
+  "faq": {
+   "de": {
+    "slug": "faq",
+    "primary": "Hypothek Fragen",
+    "secondary": [
+     "Hypothek FAQ",
+     "häufige Fragen Hypothek"
+    ],
+    "title": "FAQ: Häufige Fragen zur Hypothek | HYPOTEQ",
+    "description": "Antworten auf häufige Fragen zu Hypothekenvergleich, Dokumenten-Upload, Datenschutz, Kosten und Ablauf bei HYPOTEQ. Frage nicht dabei? Kontakt.",
+    "h1": "Häufige Fragen",
+    "faq": [
+     "Ist der Vergleich kostenlos?",
+     "Berät mich die KI?",
+     "Wie sicher sind meine Daten?",
+     "Wie lange dauert der Prozess?"
+    ],
+    "intent": "informativ",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "fr": {
+    "slug": "faq",
+    "primary": "questions hypothèque",
+    "secondary": [
+     "FAQ hypothèque"
+    ],
+    "title": "FAQ: questions fréquentes hypothèque | HYPOTEQ",
+    "description": "Réponses aux questions fréquentes sur le comparatif, l'envoi de documents, la protection des données, les coûts et le déroulement chez HYPOTEQ.",
+    "h1": "Questions fréquentes",
+    "faq": [
+     "Le comparatif est-il gratuit?",
+     "L'IA me conseille-t-elle?",
+     "Mes données sont-elles sécurisées?",
+     "Combien de temps dure le processus?"
+    ],
+    "intent": "informativ",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "it": {
+    "slug": "domande-frequenti",
+    "primary": "domande ipoteca",
+    "secondary": [
+     "FAQ ipoteca"
+    ],
+    "title": "Domande frequenti sull'ipoteca | HYPOTEQ",
+    "description": "Risposte alle domande frequenti su confronto, caricamento dei documenti, protezione dei dati, costi e procedura con HYPOTEQ.",
+    "h1": "Domande frequenti",
+    "faq": [
+     "Il confronto è gratuito?",
+     "L'IA mi fornisce consulenza?",
+     "I miei dati sono al sicuro?",
+     "Quanto dura la procedura?"
+    ],
+    "intent": "informativ",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "en": {
+    "slug": "faq",
+    "primary": "Swiss mortgage FAQ",
+    "secondary": [
+     "mortgage questions Switzerland"
+    ],
+    "title": "FAQ: Swiss Mortgage Questions | HYPOTEQ",
+    "description": "Answers to common questions about our mortgage comparison, document upload, data protection, costs and process at HYPOTEQ.",
+    "h1": "Frequently asked questions",
+    "faq": [
+     "Is the comparison free?",
+     "Does the AI give advice?",
+     "How secure is my data?",
+     "How long does the process take?"
+    ],
+    "intent": "informativ",
+    "volume": "niedrig (S)",
+    "difficulty": "niedrig (S)"
+   }
+  },
+  "kontakt": {
+   "de": {
+    "slug": "kontakt",
+    "primary": "HYPOTEQ Kontakt",
+    "secondary": [
+     "Hypothekenberatung Zürich",
+     "Hypothek Beratung Termin"
+    ],
+    "title": "Kontakt: Hypothekenberatung in Zürich | HYPOTEQ",
+    "description": "Ruf uns an, schreib uns oder buche einen Termin. Deine Beraterin meldet sich zeitnah. HYPOTEQ AG, Zürich.",
+    "h1": "Kontakt aufnehmen",
+    "faq": [
+     "Wie schnell meldet sich eine Beraterin?",
+     "Kann ich einen Termin vor Ort vereinbaren?",
+     "Beraten Sie auch per Video?",
+     "In welchen Sprachen beraten Sie?"
+    ],
+    "intent": "navigational",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "fr": {
+    "slug": "contact",
+    "primary": "HYPOTEQ contact",
+    "secondary": [
+     "conseil hypothécaire rendez-vous"
+    ],
+    "title": "Contact: conseil hypothécaire | HYPOTEQ",
+    "description": "Appelez-nous, écrivez-nous ou réservez un rendez-vous. Votre conseillère vous répond rapidement. Conseil en français, en ligne ou sur place.",
+    "h1": "Nous contacter",
+    "faq": [
+     "Quand une conseillère me rappelle-t-elle?",
+     "Puis-je prendre rendez-vous sur place?",
+     "Conseillez-vous par vidéo?",
+     "En quelles langues conseillez-vous?"
+    ],
+    "intent": "navigational",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "it": {
+    "slug": "contatto",
+    "primary": "HYPOTEQ contatto",
+    "secondary": [
+     "consulenza ipotecaria appuntamento"
+    ],
+    "title": "Contatto: consulenza ipotecaria | HYPOTEQ",
+    "description": "Chiamaci, scrivici o prenota un appuntamento. La tua consulente ti risponde in tempi brevi. Consulenza in italiano, online o di persona.",
+    "h1": "Contattaci",
+    "faq": [
+     "Quando mi ricontatta una consulente?",
+     "Posso fissare un appuntamento di persona?",
+     "Offrite consulenza video?",
+     "In quali lingue offrite consulenza?"
+    ],
+    "intent": "navigational",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "en": {
+    "slug": "contact",
+    "primary": "HYPOTEQ contact",
+    "secondary": [
+     "mortgage advisor Zurich English"
+    ],
+    "title": "Contact: Mortgage Advice in English | HYPOTEQ",
+    "description": "Call us, write to us or book an appointment. Your advisor gets back to you the same business day. Mortgage advice in English, online or in Zurich.",
+    "h1": "Get in touch",
+    "faq": [
+     "How quickly will an advisor contact me?",
+     "Can I meet in person in Zurich?",
+     "Do you offer video calls?",
+     "Which languages do you speak?"
+    ],
+    "intent": "navigational",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   }
+  },
+  "dokumente": {
+   "de": {
+    "slug": "dokumente",
+    "primary": "Hypothek Dokumente hochladen",
+    "secondary": [
+     "Unterlagen Hypothekenantrag",
+     "Dokumente für Hypothek",
+     "Checkliste Hypothek Unterlagen"
+    ],
+    "title": "Dokumente hochladen: Anfrage in 3 Minuten | HYPOTEQ",
+    "description": "Lohnausweis, Steuererklärung, Verkaufsdokumentation: Lade deine Unterlagen hoch, unsere KI liest sie aus, die Beraterin meldet sich zeitnah.",
+    "h1": "Unterlagen hochladen, Angebot erhalten",
+    "faq": [
+     "Welche Dokumente brauche ich?",
+     "Was macht die KI mit meinen Dokumenten?",
+     "Wo werden meine Daten gespeichert?",
+     "Kann ich Dokumente später nachreichen?"
+    ],
+    "intent": "transaktional",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "fr": {
+    "slug": "documents",
+    "primary": "documents demande hypothèque",
+    "secondary": [
+     "pièces justificatives hypothèque",
+     "liste documents hypothèque"
+    ],
+    "title": "Envoyer vos documents: demande en 3 min | HYPOTEQ",
+    "description": "Certificat de salaire, déclaration d'impôt, dossier de vente: envoyez vos documents, notre IA les lit, la conseillère vous contacte rapidement.",
+    "h1": "Envoyez vos documents, recevez une offre",
+    "faq": [
+     "Quels documents fournir?",
+     "Que fait l'IA avec mes documents?",
+     "Où sont stockées mes données?",
+     "Puis-je compléter plus tard?"
+    ],
+    "intent": "transaktional",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "it": {
+    "slug": "documenti",
+    "primary": "documenti richiesta ipoteca",
+    "secondary": [
+     "documenti per ipoteca",
+     "lista documenti ipoteca"
+    ],
+    "title": "Carica i documenti: richiesta in 3 minuti | HYPOTEQ",
+    "description": "Certificato di salario, dichiarazione fiscale, documentazione di vendita: carica i documenti, l'IA li legge, la consulente ti contatta lo stesso giorno.",
+    "h1": "Carica i documenti e ricevi un'offerta",
+    "faq": [
+     "Quali documenti servono?",
+     "Cosa fa l'IA con i miei documenti?",
+     "Dove vengono salvati i miei dati?",
+     "Posso aggiungere documenti più tardi?"
+    ],
+    "intent": "transaktional",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   },
+   "en": {
+    "slug": "documents",
+    "primary": "Swiss mortgage documents",
+    "secondary": [
+     "documents needed for mortgage Switzerland",
+     "mortgage application checklist"
+    ],
+    "title": "Upload Documents: Apply in 3 Minutes | HYPOTEQ",
+    "description": "Salary statement, tax return, sales brochure: upload your documents, our AI extracts the data and your advisor contacts you the same day.",
+    "h1": "Upload your documents, get an offer",
+    "faq": [
+     "Which documents do I need?",
+     "What does the AI do with my documents?",
+     "Where is my data stored?",
+     "Can I add documents later?"
+    ],
+    "intent": "transaktional",
+    "volume": "sehr niedrig (S)",
+    "difficulty": "niedrig (S)"
+   }
+  },
+  "impressum": {
+   "de": {
+    "slug": "impressum",
+    "title": "Impressum | HYPOTEQ",
+    "description": "Impressum der HYPOTEQ AG, Zürich: Kontaktangaben, Handelsregistereintrag und verantwortliche Personen."
+   },
+   "fr": {
+    "slug": "mentions-legales",
+    "title": "Mentions légales | HYPOTEQ",
+    "description": "Mentions légales de HYPOTEQ AG, Zurich: coordonnées, inscription au registre du commerce et personnes responsables."
+   },
+   "it": {
+    "slug": "note-legali",
+    "title": "Note legali | HYPOTEQ",
+    "description": "Note legali di HYPOTEQ AG, Zurigo: recapiti, iscrizione al registro di commercio e persone responsabili."
+   },
+   "en": {
+    "slug": "legal-notice",
+    "title": "Legal Notice | HYPOTEQ",
+    "description": "Legal notice of HYPOTEQ AG, Zurich: contact details, commercial register entry and responsible persons."
+   }
+  },
+  "datenschutz": {
+   "de": {
+    "slug": "datenschutz",
+    "title": "Datenschutzerklärung | HYPOTEQ",
+    "description": "Wie HYPOTEQ deine Daten und hochgeladenen Dokumente gemäss revDSG bearbeitet, speichert und schützt."
+   },
+   "fr": {
+    "slug": "protection-des-donnees",
+    "title": "Protection des données | HYPOTEQ",
+    "description": "Comment HYPOTEQ traite, conserve et protège vos données et documents conformément à la nLPD."
+   },
+   "it": {
+    "slug": "protezione-dei-dati",
+    "title": "Protezione dei dati | HYPOTEQ",
+    "description": "Come HYPOTEQ tratta, conserva e protegge i tuoi dati e documenti secondo la nLPD."
+   },
+   "en": {
+    "slug": "privacy-policy",
+    "title": "Privacy Policy | HYPOTEQ",
+    "description": "How HYPOTEQ processes, stores and protects your data and uploaded documents under the Swiss FADP."
+   }
+  }
+ }
+}

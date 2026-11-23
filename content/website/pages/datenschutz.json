@@ -1,0 +1,534 @@
+{
+ "de": {
+  "title": "Datenschutzerklärung | HYPOTEQ",
+  "description": "Wie HYPOTEQ deine Daten und hochgeladenen Dokumente gemäss revDSG bearbeitet, speichert und schützt.",
+  "h1": "Datenschutzerklärung",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Entwurf – juristisch prüfen",
+    "h1": "Datenschutzerklärung",
+    "lead": "Hier erfährst du, wie die **HYPOTEQ AG** deine Personendaten und hochgeladenen Dokumente nach dem Schweizer Datenschutzgesetz (revDSG) bearbeitet. Dieser Text ist ein Entwurf und wird vor der Veröffentlichung juristisch geprüft.",
+    "ctas": [
+     {
+      "label": "Kontakt",
+      "to": "page:kontakt"
+     },
+     {
+      "label": "Impressum",
+      "to": "page:impressum"
+     }
+    ],
+    "badges": [
+     "Entwurf",
+     "revDSG",
+     "Stand: November 2026"
+    ],
+    "image": "interior",
+    "alt": "Helles Wohnzimmer"
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Entwurf – juristisch prüfen",
+    "title": "Wer, was\n*und wofür.*",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "1 · Verantwortliche",
+      "title": "HYPOTEQ AG",
+      "text": "Löwenstrasse 29, 8001 Zürich\ninfo@hypoteq.ch\n[Datenschutzberatung bzw. Kontaktstelle ergänzen]"
+     },
+     {
+      "kicker": "2 · Daten",
+      "title": "Welche Daten wir bearbeiten",
+      "text": "Kontaktdaten, Angaben zu Person, Einkommen, Eigenmitteln, Vorsorge und Objekt sowie die Dokumente, die du hochlädst."
+     },
+     {
+      "kicker": "3 · Zweck",
+      "title": "Wofür wir sie nutzen",
+      "text": "Für Prüfung, Vergleich und Vermittlung deiner Finanzierung, für die Beratung und zur Erfüllung gesetzlicher Pflichten."
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Systeme & Dienstleister",
+    "title": "Wo deine Daten\n*bearbeitet werden.*",
+    "tone": "soft",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "4 · Online-Anfrage",
+      "title": "Funnel & KI-Dokumentenerkennung",
+      "text": "Hochgeladene Dokumente werden per KI erkannt und ausgelesen, um deine Anfrage vorzubefüllen. Die Verarbeitung erfolgt in der Schweiz (Region Zürich). Die KI trifft keine Entscheide und berät nicht."
+     },
+     {
+      "kicker": "5 · CRM",
+      "title": "Salesforce",
+      "text": "Für die Betreuung deiner Anfrage nutzen wir Salesforce als Kundenverwaltung. [Speicherort, Auftragsbearbeitungsvertrag und allfällige Bekanntgabe ins Ausland ergänzen]"
+     },
+     {
+      "kicker": "6 · Dokumentablage",
+      "title": "Microsoft SharePoint",
+      "text": "Dossiers und Dokumente werden in SharePoint abgelegt. [Speicherort und Zugriffskonzept ergänzen]"
+     },
+     {
+      "kicker": "7 · Finanzierungspartner",
+      "title": "Weitergabe für Offerten",
+      "text": "Für Offerten geben wir die nötigen Daten an ausgewählte Banken, Versicherungen und Pensionskassen weiter. [Einwilligung bzw. Rechtsgrundlage präzisieren]"
+     },
+     {
+      "kicker": "8 · Immobilienbewertung",
+      "title": "Wüest Partner",
+      "text": "Die Immobilienbewertung läuft über ein externes Tool von Wüest Partner. Dort gelten zusätzlich die Datenschutzbestimmungen des Anbieters."
+     },
+     {
+      "kicker": "9 · Academy",
+      "title": "TalentLMS",
+      "text": "Für die HYPOTEQ Academy nutzen wir die Lernplattform TalentLMS. Bearbeitet werden Login-, Kurs- und Lernfortschrittsdaten. [Speicherort ergänzen]"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Weitere Punkte",
+    "title": "Cookies, Rechte\n*und Aufbewahrung.*",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "10 · Cookies & Analytics",
+      "title": "Platzhalter",
+      "text": "[Eingesetzte Cookies, Analyse- und Marketing-Tools sowie Opt-out-Möglichkeiten ergänzen]"
+     },
+     {
+      "kicker": "11 · Deine Rechte",
+      "title": "Auskunft & Löschung",
+      "text": "Du kannst Auskunft, Berichtigung, Löschung und Herausgabe deiner Daten verlangen sowie einer Bearbeitung widersprechen. Schreib uns an info@hypoteq.ch.",
+      "to": "mail",
+      "cta": "Anfrage senden"
+     },
+     {
+      "kicker": "12 · Aufbewahrung & Sicherheit",
+      "title": "Speicherdauer",
+      "text": "Wir bewahren Daten nur so lange auf, wie es der Zweck und gesetzliche Pflichten verlangen, und schützen sie mit technischen und organisatorischen Massnahmen. [Fristen ergänzen]"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Fragen zum\n*Datenschutz?*",
+    "text": "Wir geben dir gerne Auskunft.",
+    "tone": "soft",
+    "ctas": [
+     {
+      "label": "E-Mail schreiben",
+      "to": "mail"
+     },
+     {
+      "label": "Hypothek anfragen",
+      "to": "funnel"
+     }
+    ]
+   }
+  ]
+ },
+ "fr": {
+  "title": "Protection des données | HYPOTEQ",
+  "description": "Comment HYPOTEQ traite, conserve et protège vos données et documents conformément à la nLPD.",
+  "h1": "Protection des données",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Projet – à vérifier juridiquement",
+    "h1": "Protection des données",
+    "lead": "Découvrez comment **HYPOTEQ AG** traite vos données personnelles et vos documents selon la loi suisse sur la protection des données (nLPD). Ce texte est un projet et sera vérifié juridiquement avant publication.",
+    "ctas": [
+     {
+      "label": "Contact",
+      "to": "page:kontakt"
+     },
+     {
+      "label": "Mentions légales",
+      "to": "page:impressum"
+     }
+    ],
+    "badges": [
+     "Projet",
+     "nLPD",
+     "État: novembre 2026"
+    ],
+    "image": "interior",
+    "alt": "Salon lumineux"
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Projet – à vérifier juridiquement",
+    "title": "Qui, quoi\n*et pourquoi.*",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "1 · Responsable",
+      "title": "HYPOTEQ AG",
+      "text": "Löwenstrasse 29, 8001 Zurich\ninfo@hypoteq.ch\n[Conseiller à la protection des données ou point de contact à compléter]"
+     },
+     {
+      "kicker": "2 · Données",
+      "title": "Données traitées",
+      "text": "Coordonnées, informations sur la personne, le revenu, les fonds propres, la prévoyance et le bien, ainsi que les documents que vous envoyez."
+     },
+     {
+      "kicker": "3 · Finalité",
+      "title": "Utilisation",
+      "text": "Pour examiner, comparer et négocier votre financement, pour le conseil et pour remplir nos obligations légales."
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Systèmes & prestataires",
+    "title": "Où vos données\n*sont traitées.*",
+    "tone": "soft",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "4 · Demande en ligne",
+      "title": "Funnel & reconnaissance IA",
+      "text": "Les documents envoyés sont reconnus et lus par IA pour pré-remplir votre demande. Le traitement a lieu en Suisse (région de Zurich). L'IA ne prend aucune décision et ne conseille pas."
+     },
+     {
+      "kicker": "5 · CRM",
+      "title": "Salesforce",
+      "text": "Nous utilisons Salesforce pour la gestion de votre demande. [Lieu de stockage, contrat de sous-traitance et éventuelle communication à l'étranger à compléter]"
+     },
+     {
+      "kicker": "6 · Archivage",
+      "title": "Microsoft SharePoint",
+      "text": "Les dossiers et documents sont archivés dans SharePoint. [Lieu de stockage et concept d'accès à compléter]"
+     },
+     {
+      "kicker": "7 · Prêteurs",
+      "title": "Transmission pour les offres",
+      "text": "Pour obtenir des offres, nous transmettons les données nécessaires à des banques, assurances et caisses de pension choisies. [Consentement ou base légale à préciser]"
+     },
+     {
+      "kicker": "8 · Estimation",
+      "title": "Wüest Partner",
+      "text": "L'estimation immobilière se fait via un outil externe de Wüest Partner. Les dispositions de protection des données du prestataire s'y appliquent en plus."
+     },
+     {
+      "kicker": "9 · Academy",
+      "title": "TalentLMS",
+      "text": "Pour la HYPOTEQ Academy, nous utilisons la plateforme TalentLMS. Sont traitées les données de connexion, de cours et de progression. [Lieu de stockage à compléter]"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Autres points",
+    "title": "Cookies, droits\n*et conservation.*",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "10 · Cookies & analytics",
+      "title": "Espace réservé",
+      "text": "[Cookies, outils d'analyse et de marketing utilisés et possibilités d'opt-out à compléter]"
+     },
+     {
+      "kicker": "11 · Vos droits",
+      "title": "Accès & effacement",
+      "text": "Vous pouvez demander l'accès, la rectification, l'effacement et la remise de vos données et vous opposer à un traitement. Écrivez-nous à info@hypoteq.ch.",
+      "to": "mail",
+      "cta": "Envoyer une demande"
+     },
+     {
+      "kicker": "12 · Conservation & sécurité",
+      "title": "Durée de conservation",
+      "text": "Nous conservons les données aussi longtemps que la finalité et les obligations légales l'exigent et les protégeons par des mesures techniques et organisationnelles. [Délais à compléter]"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Questions sur\n*vos données?*",
+    "text": "Nous vous renseignons volontiers.",
+    "tone": "soft",
+    "ctas": [
+     {
+      "label": "Écrire un e-mail",
+      "to": "mail"
+     },
+     {
+      "label": "Demander une hypothèque",
+      "to": "funnel"
+     }
+    ]
+   }
+  ]
+ },
+ "it": {
+  "title": "Protezione dei dati | HYPOTEQ",
+  "description": "Come HYPOTEQ tratta, conserva e protegge i tuoi dati e documenti secondo la nLPD.",
+  "h1": "Protezione dei dati",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Bozza – da verificare legalmente",
+    "h1": "Protezione dei dati",
+    "lead": "Scopri come **HYPOTEQ AG** tratta i tuoi dati personali e i documenti caricati secondo la legge svizzera sulla protezione dei dati (nLPD). Questo testo è una bozza e sarà verificato legalmente prima della pubblicazione.",
+    "ctas": [
+     {
+      "label": "Contatto",
+      "to": "page:kontakt"
+     },
+     {
+      "label": "Note legali",
+      "to": "page:impressum"
+     }
+    ],
+    "badges": [
+     "Bozza",
+     "nLPD",
+     "Stato: novembre 2026"
+    ],
+    "image": "interior",
+    "alt": "Soggiorno luminoso"
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Bozza – da verificare legalmente",
+    "title": "Chi, cosa\n*e perché.*",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "1 · Titolare",
+      "title": "HYPOTEQ AG",
+      "text": "Löwenstrasse 29, 8001 Zurigo\ninfo@hypoteq.ch\n[Consulente per la protezione dei dati o punto di contatto da completare]"
+     },
+     {
+      "kicker": "2 · Dati",
+      "title": "Dati trattati",
+      "text": "Recapiti, dati su persona, reddito, fondi propri, previdenza e immobile, nonché i documenti che carichi."
+     },
+     {
+      "kicker": "3 · Scopo",
+      "title": "Utilizzo",
+      "text": "Per verificare, confrontare e mediare il tuo finanziamento, per la consulenza e per adempiere agli obblighi di legge."
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Sistemi & fornitori",
+    "title": "Dove vengono\n*trattati i tuoi dati.*",
+    "tone": "soft",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "4 · Richiesta online",
+      "title": "Funnel & riconoscimento IA",
+      "text": "I documenti caricati vengono riconosciuti e letti dall'IA per precompilare la richiesta. Il trattamento avviene in Svizzera (regione di Zurigo). L'IA non prende decisioni e non fornisce consulenza."
+     },
+     {
+      "kicker": "5 · CRM",
+      "title": "Salesforce",
+      "text": "Per gestire la tua richiesta usiamo Salesforce. [Luogo di archiviazione, contratto di trattamento e eventuale comunicazione all'estero da completare]"
+     },
+     {
+      "kicker": "6 · Archiviazione",
+      "title": "Microsoft SharePoint",
+      "text": "Dossier e documenti vengono archiviati in SharePoint. [Luogo di archiviazione e concetto di accesso da completare]"
+     },
+     {
+      "kicker": "7 · Istituti finanziatori",
+      "title": "Trasmissione per le offerte",
+      "text": "Per ottenere offerte trasmettiamo i dati necessari a banche, assicurazioni e casse pensioni selezionate. [Consenso o base giuridica da precisare]"
+     },
+     {
+      "kicker": "8 · Stima immobiliare",
+      "title": "Wüest Partner",
+      "text": "La stima immobiliare avviene tramite uno strumento esterno di Wüest Partner. Si applicano inoltre le disposizioni sulla protezione dei dati del fornitore."
+     },
+     {
+      "kicker": "9 · Academy",
+      "title": "TalentLMS",
+      "text": "Per la HYPOTEQ Academy usiamo la piattaforma TalentLMS. Vengono trattati dati di login, corsi e progressi. [Luogo di archiviazione da completare]"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Altri punti",
+    "title": "Cookie, diritti\n*e conservazione.*",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "10 · Cookie & analytics",
+      "title": "Segnaposto",
+      "text": "[Cookie, strumenti di analisi e marketing utilizzati e possibilità di opt-out da completare]"
+     },
+     {
+      "kicker": "11 · I tuoi diritti",
+      "title": "Accesso & cancellazione",
+      "text": "Puoi chiedere accesso, rettifica, cancellazione e consegna dei tuoi dati e opporti a un trattamento. Scrivici a info@hypoteq.ch.",
+      "to": "mail",
+      "cta": "Invia richiesta"
+     },
+     {
+      "kicker": "12 · Conservazione & sicurezza",
+      "title": "Durata di conservazione",
+      "text": "Conserviamo i dati solo per il tempo richiesto dallo scopo e dagli obblighi di legge e li proteggiamo con misure tecniche e organizzative. [Termini da completare]"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Domande sulla\n*protezione dei dati?*",
+    "text": "Ti informiamo volentieri.",
+    "tone": "soft",
+    "ctas": [
+     {
+      "label": "Scrivi un'e-mail",
+      "to": "mail"
+     },
+     {
+      "label": "Richiedere un'ipoteca",
+      "to": "funnel"
+     }
+    ]
+   }
+  ]
+ },
+ "en": {
+  "title": "Privacy Policy | HYPOTEQ",
+  "description": "How HYPOTEQ processes, stores and protects your data and uploaded documents under the Swiss FADP.",
+  "h1": "Privacy policy",
+  "sections": [
+   {
+    "type": "hero",
+    "eyebrow": "Draft – pending legal review",
+    "h1": "Privacy policy",
+    "lead": "Find out how **HYPOTEQ AG** processes your personal data and uploaded documents under the Swiss Federal Act on Data Protection (FADP). This text is a draft and will be legally reviewed before publication.",
+    "ctas": [
+     {
+      "label": "Contact",
+      "to": "page:kontakt"
+     },
+     {
+      "label": "Legal notice",
+      "to": "page:impressum"
+     }
+    ],
+    "badges": [
+     "Draft",
+     "Swiss FADP",
+     "As of November 2026"
+    ],
+    "image": "interior",
+    "alt": "Bright living room"
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Draft – pending legal review",
+    "title": "Who, what\n*and why.*",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "1 · Controller",
+      "title": "HYPOTEQ AG",
+      "text": "Löwenstrasse 29, 8001 Zurich\ninfo@hypoteq.ch\n[Add data protection advisor or contact point]"
+     },
+     {
+      "kicker": "2 · Data",
+      "title": "What we process",
+      "text": "Contact details, information on you, your income, equity, pension assets and property, and the documents you upload."
+     },
+     {
+      "kicker": "3 · Purpose",
+      "title": "What we use it for",
+      "text": "To review, compare and arrange your financing, to advise you and to meet legal obligations."
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Systems & providers",
+    "title": "Where your data\n*is processed.*",
+    "tone": "soft",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "4 · Online request",
+      "title": "Funnel & AI document recognition",
+      "text": "Uploaded documents are recognised and read by AI to pre-fill your request. Processing takes place in Switzerland (Zurich region). The AI makes no decisions and gives no advice."
+     },
+     {
+      "kicker": "5 · CRM",
+      "title": "Salesforce",
+      "text": "We use Salesforce to manage your request. [Add storage location, data processing agreement and any disclosure abroad]"
+     },
+     {
+      "kicker": "6 · Document storage",
+      "title": "Microsoft SharePoint",
+      "text": "Case files and documents are stored in SharePoint. [Add storage location and access concept]"
+     },
+     {
+      "kicker": "7 · Lenders",
+      "title": "Sharing for offers",
+      "text": "To obtain offers, we share the necessary data with selected banks, insurers and pension funds. [Specify consent or legal basis]"
+     },
+     {
+      "kicker": "8 · Property valuation",
+      "title": "Wüest Partner",
+      "text": "The property valuation runs on an external tool by Wüest Partner. The provider's privacy terms apply in addition."
+     },
+     {
+      "kicker": "9 · Academy",
+      "title": "TalentLMS",
+      "text": "For the HYPOTEQ Academy we use the TalentLMS learning platform. Login, course and progress data are processed. [Add storage location]"
+     }
+    ]
+   },
+   {
+    "type": "cards",
+    "eyebrow": "Further points",
+    "title": "Cookies, rights\n*and retention.*",
+    "cols": 3,
+    "items": [
+     {
+      "kicker": "10 · Cookies & analytics",
+      "title": "Placeholder",
+      "text": "[Add cookies, analytics and marketing tools used and opt-out options]"
+     },
+     {
+      "kicker": "11 · Your rights",
+      "title": "Access & deletion",
+      "text": "You can request access, correction, deletion and release of your data and object to processing. Write to info@hypoteq.ch.",
+      "to": "mail",
+      "cta": "Send request"
+     },
+     {
+      "kicker": "12 · Retention & security",
+      "title": "Retention period",
+      "text": "We keep data only as long as the purpose and legal obligations require and protect it with technical and organisational measures. [Add retention periods]"
+     }
+    ]
+   },
+   {
+    "type": "cta",
+    "title": "Questions about\n*your data?*",
+    "text": "We're happy to help.",
+    "tone": "soft",
+    "ctas": [
+     {
+      "label": "Write an email",
+      "to": "mail"
+     },
+     {
+      "label": "Request a mortgage",
+      "to": "funnel"
+     }
+    ]
+   }
+  ]
+ }
+}
