@@ -30,16 +30,33 @@ const FORBIDDEN_ROUTES = [
   'advisory',
 ];
 
+/**
+ * Since the website of 20.11.2026 (app/(site), lib/website) the German-style routes are no longer
+ * folders under app/[locale]: each is either a page of the website (same slug) or redirects to
+ * the matching one (lib/website/redirects.mjs, wired in next.config.mjs).
+ */
+const redirectsSource = fs.readFileSync(path.join(PROJECT_ROOT, 'lib', 'website', 'redirects.mjs'), 'utf-8');
+const OLD_PAGES: Record<string, string> = Object.fromEntries(
+  [...(redirectsSource.match(/const OLD_PAGES = \{([\s\S]*?)\};/)?.[1] ?? '').matchAll(/"?([a-z-]+)"?:\s*"([a-z-]+)"/g)].map((m) => [m[1], m[2]]),
+);
+
 describe('URL Structure Verification', () => {
   describe('Folder Structure', () => {
-    it('should have all German-style folders in app/[locale]/', () => {
-      const localePath = path.join(PROJECT_ROOT, 'app', '[locale]');
-      const folders = fs.readdirSync(localePath, { withFileTypes: true })
-        .filter(dirent => dirent.isDirectory())
-        .map(dirent => dirent.name);
-
+    it('should serve or redirect every German-style route in every language', () => {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const { pidOf, slug } = require('@/lib/website/site');
+      const nextConfig = fs.readFileSync(path.join(PROJECT_ROOT, 'next.config.mjs'), 'utf-8');
+      expect(nextConfig).toContain('...websiteRedirects()');
+      expect(OLD_PAGES['uber-uns']).toBe('ueber-uns');
+      expect(OLD_PAGES['kontaktieren-sie-uns']).toBe('kontakt');
       Object.keys(GERMAN_ROUTES).forEach(route => {
-        expect(folders).toContain(route);
+        LOCALES.forEach(locale => {
+          const served = pidOf(locale, route);
+          const target = OLD_PAGES[route];
+          // a page of the website under the old slug, or a redirect to an existing page
+          expect(served || target).toBeTruthy();
+          if (!served) expect(pidOf(locale, slug(target, locale))).toBe(target);
+        });
       });
     });
 
@@ -120,12 +137,18 @@ describe('URL Structure Verification', () => {
   });
 
   describe('Sitemap Verification', () => {
-    it('should contain all German-style routes', () => {
-      const sitemapPath = path.join(PROJECT_ROOT, 'app', 'sitemap.ts');
-      const content = fs.readFileSync(sitemapPath, 'utf-8');
-
+    it('should list the German-style routes that are pages and leave out the redirected ones', () => {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const sitemap = require('@/app/sitemap').default;
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const { pidOf, urlOf } = require('@/lib/website/site');
+      const urls = new Set(sitemap().map((e: { url: string }) => e.url));
       Object.keys(GERMAN_ROUTES).forEach(route => {
-        expect(content).toContain(`/${route}`);
+        LOCALES.forEach(locale => {
+          const pid = pidOf(locale, route);
+          if (pid) expect(urls.has(urlOf(pid, locale))).toBe(true);
+          else expect([...urls].some((u) => String(u).endsWith(`/${locale}/${route}`))).toBe(false);
+        });
       });
     });
 
@@ -171,15 +194,6 @@ describe('URL Structure Verification', () => {
       const calculatorShortcut = shortcuts.find((s: any) => s.name === 'Hypothekenrechner');
       expect(calculatorShortcut?.url).toBe('/de/hypothekenrechner');
       expect(calculatorShortcut?.url).not.toContain('/calc');
-    });
-  });
-
-  describe('Page Component Existence', () => {
-    Object.keys(GERMAN_ROUTES).forEach(route => {
-      it(`should have page.tsx in app/[locale]/${route}/`, () => {
-        const pagePath = path.join(PROJECT_ROOT, 'app', '[locale]', route, 'page.tsx');
-        expect(fs.existsSync(pagePath)).toBe(true);
-      });
     });
   });
 
@@ -247,26 +261,6 @@ describe('URL Structure Verification', () => {
       // Should NOT contain old partner URL
       expect(partnerContent).not.toContain('hypoteq.ch/partner"');
       expect(vorteileContent).not.toContain('hypoteq.ch/partner"');
-    });
-  });
-});
-
-describe('Route Accessibility (Structure Check)', () => {
-  const routes = Object.keys(GERMAN_ROUTES);
-  
-  routes.forEach(route => {
-    LOCALES.forEach(locale => {
-      it(`should have valid structure for /${locale}/${route}`, () => {
-        const routePath = path.join(PROJECT_ROOT, 'app', '[locale]', route);
-        const pagePath = path.join(routePath, 'page.tsx');
-        
-        expect(fs.existsSync(routePath)).toBe(true);
-        expect(fs.existsSync(pagePath)).toBe(true);
-        
-        // Verify page.tsx has export default
-        const pageContent = fs.readFileSync(pagePath, 'utf-8');
-        expect(pageContent).toMatch(/export\s+default\s+/);
-      });
     });
   });
 });
