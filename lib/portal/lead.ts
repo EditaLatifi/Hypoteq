@@ -195,13 +195,18 @@ export type LeadMailParty = {
  * invitation made (HYPOTEQ 23.11.2026: «so your team can call the client right away») or that
  * Salesforce refused it. German, like every team mail; «Antworten» goes to the partner.
  */
-export function leadTeamMail(p: LeadMailParty, sf: { caseUrl: string | null; failed: boolean } = { caseUrl: null, failed: false }): { subject: string; lines: string[] } {
+export function leadTeamMail(
+  p: LeadMailParty,
+  sf: { caseUrl: string | null; failed: boolean; partnerMissing?: boolean } = { caseUrl: null, failed: false },
+): { subject: string; lines: string[] } {
   const partner = partnerLabel(p);
   const kunde = customerLabel(p);
   const contact = [[p.anrede, kunde].filter(Boolean).join(" "), p.email, p.phone].filter(Boolean).join(" · ");
   const caseLine = sf.failed
     ? "Der Case konnte in Salesforce nicht angelegt werden – bitte von Hand anlegen und dem Partner zuordnen. Schliesst der Kunde die Anfrage ab, entsteht er automatisch."
-    : `Der Case ist in Salesforce angelegt und dem Partner zugeordnet (Kundenberater und Sales Partner)${sf.caseUrl ? `: ${sf.caseUrl}` : ""}. Er wird mit den Angaben des Kunden aktualisiert, sobald dieser die Anfrage abschliesst.`;
+    : sf.partnerMissing
+      ? `Der Case ist in Salesforce angelegt${sf.caseUrl ? `: ${sf.caseUrl}` : ""}, aber ohne Partner: Salesforce kennt den Kontakt oder die Firma des Partners nicht (mehr) oder gibt sie nicht frei – bitte den Partner von Hand zuordnen. Der Case wird mit den Angaben des Kunden aktualisiert, sobald dieser die Anfrage abschliesst.`
+      : `Der Case ist in Salesforce angelegt und dem Partner zugeordnet (Kundenberater und Sales Partner)${sf.caseUrl ? `: ${sf.caseUrl}` : ""}. Er wird mit den Angaben des Kunden aktualisiert, sobald dieser die Anfrage abschliesst.`;
   return {
     subject: `Partner Fast Lead · ${kunde} · eingeladen von ${partner}`.slice(0, 250),
     lines: [

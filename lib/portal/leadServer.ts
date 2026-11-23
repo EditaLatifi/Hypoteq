@@ -1,4 +1,4 @@
-import { isTestMode, skipped } from "@/components/testMode";
+import { isTestMode, recipientsOf, routeMail } from "@/components/testMode";
 import { prisma } from "@/lib/prisma";
 import { audit } from "@/lib/portal/audit";
 import { teamAddress } from "@/lib/portal/config";
@@ -81,7 +81,7 @@ async function mailInvitation(row: MailRow, origin: string): Promise<boolean> {
   });
 }
 
-type InvitationCase = { caseId: string | null; caseUrl: string | null; failed: boolean };
+type InvitationCase = { caseId: string | null; caseUrl: string | null; failed: boolean; partnerMissing: boolean };
 
 /**
  * The Case of the invitation (HYPOTEQ 23.11.2026, DECISIONS P40: «as soon as the partner sends the
@@ -111,6 +111,9 @@ async function invitationCase(row: LeadRow): Promise<InvitationCase> {
     );
     await prisma.portalLead.update({ where: { id: row.id }, data: { salesforceCaseId: res.caseId } });
     if (res.dropped.length) console.warn(`[portal] lead ${row.id}: Salesforce dropped ${res.dropped.join(", ")}`);
+    // A partner Contact or Account Salesforce refuses (deleted, out of reach) costs that link, not
+    // the Case (salesforceApi writeWithFieldFallback); the team mail asks for it by hand.
+    const partnerMissing = res.dropped.some((d) => d.startsWith("Case.Partner_Consultant__c ") || d.startsWith("Case.Account__c "));
     let caseUrl: string | null = null;
     try {
       const { salesforceCaseUrl } = await import("@/lib/funnel-v3/mail/caseLink");
@@ -118,10 +121,10 @@ async function invitationCase(row: LeadRow): Promise<InvitationCase> {
     } catch {
       /* the team mail goes without the link */
     }
-    return { caseId: res.caseId, caseUrl, failed: false };
+    return { caseId: res.caseId, caseUrl, failed: false, partnerMissing };
   } catch (err) {
     console.error(`[portal] lead ${row.id}: the invitation's Salesforce Case failed (the submit will create one)`, err);
-    return { caseId: null, caseUrl: null, failed: true };
+    return { caseId: null, caseUrl: null, failed: true, partnerMissing: false };
   }
 }
 
@@ -184,12 +187,14 @@ export async function createLead(user: LeadPartner, input: LeadInput, ctx: LeadC
 
   // The Case at once, then HYPOTEQ learns of the lead with its link.
   const sfCase = await invitationCase(row);
-  const team = leadTeamMail(row, { caseUrl: sfCase.caseUrl, failed: sfCase.failed });
-  if (isTestMode()) {
-    skipped("Fast Lead team mail", team.subject);
-  } else {
+  const team = leadTeamMail(row, { caseUrl: sfCase.caseUrl, failed: sfCase.failed, partnerMissing: sfCase.partnerMissing });
+  // Also from the Preview, marked «[TEST]» like its other mails (test with Marco 23.11.2026: nothing
+  // reached info@hypoteq.ch — the mail was withheld in test mode).
+  const routed = routeMail(teamAddress(), team.subject);
+  if (routed) {
+    const [to, ...cc] = recipientsOf(routed.to);
     try {
-      await sendTeamMail({ to: null, replyTo: user.email, subject: team.subject, lines: team.lines, origin: ctx.origin });
+      await sendTeamMail({ to, cc, replyTo: user.email, subject: routed.subject, lines: team.lines, origin: ctx.origin });
     } catch (err) {
       console.error(`[portal] lead ${row.id}: team mail failed`, err);
     }

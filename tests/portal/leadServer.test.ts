@@ -38,7 +38,12 @@ jest.mock("@/components/salesforceApi", () => ({
 const mockAudit = jest.fn<any>();
 jest.mock("@/lib/portal/audit", () => ({ audit: (e: any) => mockAudit(e) }));
 let mockTestMode = false;
-jest.mock("@/components/testMode", () => ({ isTestMode: () => mockTestMode, skipped: () => {} }));
+jest.mock("@/components/testMode", () => ({
+  isTestMode: () => mockTestMode,
+  skipped: () => {},
+  routeMail: (to: string, subject: string) => ({ to, subject: mockTestMode ? `[TEST] ${subject}` : subject }),
+  recipientsOf: (to: string) => to.split(",").map((s) => s.trim()).filter(Boolean),
+}));
 
 import { claimLead, createLead, leadForLink, leadPartnerForEmail, leadPartnerForSubmit, listLeads, resendLead, sendLeadReminders } from "@/lib/portal/leadServer";
 import { teamAddress } from "@/lib/portal/config";
@@ -140,7 +145,7 @@ describe("createLead", () => {
     expect(sf.partner).toMatchObject({ contactId: "003PARTNERAAAAAAAA", accountId: "001PARTNERAAAAAAAA", name: "Anna Muster", company: "Muster AG", email: "anna@muster.ch" });
     expect(mockDb.portalLead.update).toHaveBeenCalledWith({ where: { id: "lead-new" }, data: { salesforceCaseId: "500LEADAAAAAAAAAAA" } });
 
-    expect(mockTeamMail).toHaveBeenCalledWith(expect.objectContaining({ to: null, replyTo: "anna@muster.ch", subject: expect.stringContaining("Partner Fast Lead · Lea Beispiel") }));
+    expect(mockTeamMail).toHaveBeenCalledWith(expect.objectContaining({ to: teamAddress(), cc: [], replyTo: "anna@muster.ch", subject: expect.stringContaining("Partner Fast Lead · Lea Beispiel") }));
     expect(argOf(mockTeamMail).lines.join(" ")).toContain("https://hypoteq-ch.lightning.force.com/lightning/r/Case/500LEADAAAAAAAAAAA/view");
     expect(mockAudit).toHaveBeenCalledWith(expect.objectContaining({ action: "lead_invited", actorId: "user-1", target: "Lea Beispiel · l***" }));
   });
@@ -174,12 +179,24 @@ describe("createLead", () => {
     expect(mockDb.portalLead.update).not.toHaveBeenCalledWith(expect.objectContaining({ data: expect.objectContaining({ mailsSent: 1 }) }));
   });
 
-  it("withholds the team mail in test mode and marks the invitation as the Preview's", async () => {
+  it("test mode: the team mail goes out marked [TEST] (test with Marco 23.11.2026), the invitation is the Preview's", async () => {
     mockTestMode = true;
     expect((await createLead(partner, form, { origin: ORIGIN, ip: null, now: NOW })).ok).toBe(true);
     expect(mockInviteMail).toHaveBeenCalled();
-    expect(mockTeamMail).not.toHaveBeenCalled();
+    expect(argOf(mockTeamMail)).toMatchObject({ to: teamAddress(), subject: expect.stringMatching(/^\[TEST\] Partner Fast Lead · Lea Beispiel/) });
     expect(argOf(mockDb.portalLead.create).data.testDeployment).toBe(true);
+  });
+
+  it("a partner Salesforce no longer gives (deleted Contact / Account): the Case without the partner, the team mail asks to assign it", async () => {
+    mockCreateLeadCase.mockResolvedValueOnce({
+      caseId: "500LEADAAAAAAAAAAA",
+      accountId: "001KUNDEAAAAAAAAAA",
+      dropped: ["Case.Account__c (INSUFFICIENT_ACCESS_ON_CROSS_REFERENCE_ENTITY)", "Case.Partner_Consultant__c (INVALID_CROSS_REFERENCE_KEY)"],
+    });
+    jest.spyOn(console, "warn").mockImplementation(() => {});
+    expect((await createLead(partner, form, { origin: ORIGIN, ip: null, now: NOW })).ok).toBe(true);
+    expect(mockDb.portalLead.update).toHaveBeenCalledWith({ where: { id: "lead-new" }, data: { salesforceCaseId: "500LEADAAAAAAAAAAA" } });
+    expect(argOf(mockTeamMail).lines.join(" ")).toContain("aber ohne Partner");
   });
 
   it("keeps the invitation when Salesforce refuses the Case, and the team mail says so", async () => {

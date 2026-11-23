@@ -103,6 +103,13 @@ describe("applyLead (store)", () => {
     expect(store.getState().txt.tel).toBe("");
   });
 
+  it("opens the Begleitete Anmeldung (the only entry for an invited customer)", () => {
+    const store = createFunnelV3Store();
+    store.getState().setMode("schnell");
+    store.getState().applyLead(lead, customer);
+    expect(store.getState().mode).toBe("begleitet");
+  });
+
   it("a new request (reset) forgets the invitation", () => {
     const store = createFunnelV3Store();
     store.getState().applyLead(lead, customer);

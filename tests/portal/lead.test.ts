@@ -131,6 +131,12 @@ describe("labels and the team mail", () => {
     expect(body).toContain("anna@muster.ch");
   });
 
+  it("asks to assign the partner when Salesforce no longer gives their Contact or Account", () => {
+    const body = leadTeamMail(party, { caseUrl: "https://x/500X", failed: false, partnerMissing: true }).lines.join("\n");
+    expect(body).toContain("Der Case ist in Salesforce angelegt: https://x/500X, aber ohne Partner");
+    expect(body).toContain("bitte den Partner von Hand zuordnen");
+  });
+
   it("says so when Salesforce refused the invitation's Case", () => {
     expect(leadTeamMail(party, { caseUrl: null, failed: true }).lines.join("\n")).toContain("konnte in Salesforce nicht angelegt werden – bitte von Hand anlegen");
   });

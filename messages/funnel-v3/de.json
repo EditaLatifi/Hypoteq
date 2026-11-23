@@ -40,7 +40,7 @@
     "mode.fast.text": "Ich habe die Unterlagen schon. Erst hochladen – danach ist die Anfrage grösstenteils ausgefüllt.",
     "mode.fast.duration": "ca. 3 Minuten · vieles vorausgefüllt",
     "roleLabel": "Wer erfasst die Anfrage?",
-    "leadNote": "{name} hat dich bei HYPOTEQ angemeldet. Deine Kontaktdaten sind schon ausgefüllt – wähle, wie du weitermachen möchtest."
+    "leadNote": "{name} hat dich bei HYPOTEQ angemeldet. Deine Kontaktdaten sind schon ausgefüllt – wir führen dich Schritt für Schritt durch deine Anfrage."
   },
   "side": {
     "request": "Anfrage",

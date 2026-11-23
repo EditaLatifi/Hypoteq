@@ -18,6 +18,9 @@ export function ModeSwitch({ className }: { className: string }) {
   const { t } = useFunnelT();
   const mode = useFunnelV3((s) => s.mode);
   const switchMode = useFunnelV3((s) => s.switchMode);
+  // A partner's invitation: the Begleitete Anmeldung only (HYPOTEQ 23.11.2026); the way back to it stays.
+  const invited = useFunnelV3((s) => Boolean(s.lead) && s.role !== "berater");
+  if (invited && mode === "begleitet") return null;
   return (
     <button type="button" className={className} onClick={switchMode}>
       {t(mode === "schnell" ? "side.toGuided" : "side.toFast")} →

@@ -486,13 +486,15 @@ function funnelV3Creator(set: SetState, get: () => FunnelV3Store): FunnelV3Store
           const role = s.role === "berater" && s.step > 0 ? s.role : "kunde";
           // The Berater block belongs to the Berater entry (as setRole).
           const txt = role === "kunde" && s.role !== "kunde" ? { ...s.txt, bmail: "", pvor: "", pnach: "", ptel: "", pfirma: "" } : s.txt;
-          if (s.lead?.token === lead.token || !customer) return { lead, role, txt };
+          if (s.lead?.token === lead.token || !customer) return { lead, role, txt, ...(role === "kunde" && s.step === 0 ? { mode: "begleitet" as const } : {}) };
           const fill = (cur: string, v: string | null | undefined) => (cur.trim() ? cur : (v || "").trim());
           const vor = fill(txt.vor, customer.firstName);
           const nach = fill(txt.nach, customer.lastName);
           return {
             lead,
             role,
+            // The Begleitete Anmeldung only for an invited customer (HYPOTEQ 23.11.2026).
+            ...(role === "kunde" && s.step === 0 ? { mode: "begleitet" as const } : {}),
             txt: { ...txt, vor, nach, mail: fill(txt.mail, customer.email), tel: fill(txt.tel, customer.phone) },
             // Kreditnehmer 1 is the contact, kept in step as setTxt does: the Personen screen writes
             // borrower 1 back to txt (updateBorrower), and an empty one wiped the name (E2E 23.11.2026).

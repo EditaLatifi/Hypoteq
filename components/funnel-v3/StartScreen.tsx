@@ -39,8 +39,11 @@ export default function StartScreen() {
   // Opened from a partner's invitation (DECISIONS P39): the customer's own request, no role switch.
   const lead = useFunnelV3((s) => s.lead);
   const shown = startRole(role);
-  // A partner's invitation (DECISIONS P40): the Begleitete Anmeldung is the recommended one.
+  // A partner's invitation (DECISIONS P40): the Begleitete Anmeldung only (HYPOTEQ, test with
+  // Marco 23.11.2026: «only Begleitete Anmeldung if invited»), no Schnellanmeldung, no HYPO.
+  const invited = Boolean(lead) && shown === "kunde";
   const recommended = recommendedMode(shown, Boolean(lead));
+  const entries = invited ? ENTRIES.filter((e) => e.mode === "begleitet") : ENTRIES;
   const hypo = useHypo((s) => s.config?.enabled === true);
   useEffect(() => {
     void loadHypoConfig();
@@ -88,13 +91,13 @@ export default function StartScreen() {
             </div>
           )}
           <div className="v3-start-cards">
-            {ENTRIES.map((e) => {
+            {entries.map((e) => {
               const rec = e.mode === recommended;
               return (
                 <button key={e.mode} type="button" className={`v3-start-card${rec ? " v3-start-card--accent" : ""}`} onClick={() => start(e.mode)}>
                   <span className="v3-start-card-top">
                     <span className="v3-start-card-eyebrow">{t(e.eyebrow)}</span>
-                    {rec ? <span className="v3-start-card-rec">{t("start.recommended")}</span> : null}
+                    {rec && entries.length > 1 ? <span className="v3-start-card-rec">{t("start.recommended")}</span> : null}
                   </span>
                   <span className="v3-start-card-title">{t(e.title)}</span>
                   <span className="v3-start-card-sub">{t(e.sub)}</span>
@@ -109,7 +112,7 @@ export default function StartScreen() {
             })}
           </div>
         </div>
-        {hypo ? (
+        {hypo && !invited ? (
           <button type="button" className="v3-start-hypo" onClick={startChat}>
             <span className="v3-start-hypo-top">
               <HypoFace size={30} />
