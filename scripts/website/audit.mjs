@@ -6,10 +6,10 @@
 // placeholders, phone numbers and e-mail addresses.
 import { writeFileSync } from "node:fs";
 const [, , base, outFile] = process.argv;
-const CANON = "https://www.hypoteq.ch";
+const CANON = "https://hypoteq.com";
 const LANG_OF = { de: "de-CH", fr: "fr-CH", it: "it-CH", en: "en-CH" };
 const NOINDEX = /\/(impressum|datenschutz|mentions-legales|protection-des-donnees|note-legali|protezione-dei-dati|legal-notice|privacy|privacy-policy)$/;
-const PLACEHOLDER = /\[(Datum|insérer|inserire|insert)[^\]]*\]|\bLorem\b|\bTODO\b|\bXXX\b|Platzhalter|DESIGNVORSCHAU|APERÇU DESIGN|ANTEPRIMA DESIGN|DESIGN PREVIEW|In der Vorschau|dans l'aperçu|nell'anteprima|preview sends/i;
+const PLACEHOLDER = /\[(Datum|insérer|inserire|insert)[^\]]*\]|\[[^\]]*(ergänzen|prüfen|präzisieren|compléter|préciser|completare|precisare|Add |Specify|einsetzen)[^\]]*\]|\bLorem\b|\bTODO\b|\bXXX\b|Platzhalter|DESIGNVORSCHAU|APERÇU DESIGN|ANTEPRIMA DESIGN|DESIGN PREVIEW|In der Vorschau|dans l'aperçu|nell'anteprima|preview sends/i;
 const local = (u) => u.replace(CANON, base);
 const decode = (s) => s.replace(/&amp;/g, "&").replace(/&#x27;/g, "'").replace(/&quot;/g, '"').replace(/&lt;/g, "<").replace(/&gt;/g, ">");
 const textOf = (html) => decode(html.replace(/<script[\s\S]*?<\/script>/g, " ").replace(/<style[\s\S]*?<\/style>/g, " ").replace(/<[^>]+>/g, " ")).replace(/\s+/g, " ");

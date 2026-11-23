@@ -30,9 +30,13 @@ render the generator's markup 1:1, so the design's stylesheet and script apply u
 
 - Links are paths on this site (`/de/hypotheken`), assets come from `/site/`.
 - Funnel and portal are this site's own: `/{lang}/funnel`, `/portal/login`.
-- Canonical, hreflang, sitemap and JSON-LD use `SITE_CONFIG.url` (`lib/seo.ts`); the package
-  uses `https://hypoteq.com` (domain decision still open). Home URLs are `/de`, not `/de/`
-  (Next.js redirects `/de/` to `/de`).
+- Canonical, hreflang, sitemap and JSON-LD use `SITE_CONFIG.url` (`lib/seo.ts`):
+  `https://hypoteq.com`, the live domain (hypoteq.ch redirects there). Home URLs are `/de`, not
+  `/de/` (Next.js redirects `/de/` to `/de`).
+- `lib/website/overrides.ts` changes three pages on top of the package: Impressum and
+  Datenschutz carry the live site's texts (messages/{lang}.json «impressum»,
+  components/Impressium.tsx) instead of the package's drafts; the Dokumente PDF cards download
+  the PDFs in public/documents. `compare.mjs` skips these pages.
 - The forms send: contact → `/api/contact`, partner → `/api/partner-contact`, footer
   newsletter → `/api/newsletter` (`public/site/forms.js`, texts in `forms.json`, error style in
   `styles/website-extra.css`). The preview bar and the footer's preview note are gone.

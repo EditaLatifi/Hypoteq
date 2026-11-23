@@ -404,7 +404,8 @@ function s_article(s: Section, ctx: Ctx): string {
     }
   }
   const mins = Math.max(2, pyRound(w / 220));
-  ctx.meta_line = `${L.read}: ${mins} ${L.min} · ${L.updated}`;
+  // reading time and «updated» under the hero; not for the legal texts (overrides.ts, meta: false)
+  if (get(s, "meta") !== false) ctx.meta_line = `${L.read}: ${mins} ${L.min} · ${L.updated}`;
   return (
     `<section class="block pad"><div class="article-wrap"><aside class="toc"><b>${E(L.toc)}</b>${toc.join("")}</aside>` +
     `<article class="prose">${body.join("")}</article></div></section>`

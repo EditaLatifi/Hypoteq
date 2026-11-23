@@ -8,7 +8,8 @@ export const SITE_CONFIG = {
     fr: "HYPOTEQ AG - Hypothèque avantageuse avec conseils d'experts. Votre partenaire de confiance pour les hypothèques en Suisse. Meilleures conditions, conseils personnalisés et solutions numériques.",
     it: "HYPOTEQ AG - Mutuo conveniente con consulenza professionale. Il vostro partner di fiducia per i mutui in Svizzera. Migliori condizioni, consulenza personale e soluzioni digitali."
   },
-  url: "https://www.hypoteq.ch",
+  // The live domain: hypoteq.ch and www.hypoteq.ch redirect here (308).
+  url: "https://hypoteq.com",
   ogImage: "/images/og-image.png",
   keywords: {
     de: [

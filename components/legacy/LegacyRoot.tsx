@@ -10,6 +10,7 @@ import { generateOrganizationSchema } from "@/lib/seo";
  * partner landing pages, AGB, thank-you pages). It was app/layout.tsx; since the new website
  * (app/(site)) has its own root layout without Tailwind, each of these sections renders this
  * root itself: app/[locale]/layout.tsx, app/portal/layout.tsx, app/funnel/layout.tsx.
+ * Domain: hypoteq.com (hypoteq.ch redirects there).
  */
 
 export const LEGACY_TITLE_TEMPLATE = "%s | HYPOTEQ AG - günstige Hypothek mit Profi-Beratung";
@@ -34,20 +35,20 @@ export const legacyMetadata: Metadata = {
   authors: [{ name: "HYPOTEQ AG" }],
   creator: "HYPOTEQ AG",
   publisher: "HYPOTEQ AG",
-  metadataBase: new URL("https://www.hypoteq.ch"),
+  metadataBase: new URL("https://hypoteq.com"),
   alternates: {
-    canonical: "https://www.hypoteq.ch/",
+    canonical: "https://hypoteq.com/",
     languages: {
-      'de-CH': 'https://www.hypoteq.ch/de',
-      'en': 'https://www.hypoteq.ch/en',
-      'fr-CH': 'https://www.hypoteq.ch/fr',
-      'it-CH': 'https://www.hypoteq.ch/it',
+      'de-CH': 'https://hypoteq.com/de',
+      'en': 'https://hypoteq.com/en',
+      'fr-CH': 'https://hypoteq.com/fr',
+      'it-CH': 'https://hypoteq.com/it',
     },
   },
   openGraph: {
     type: "website",
     locale: "de_DE",
-    url: "https://www.hypoteq.ch/",
+    url: "https://hypoteq.com/",
     siteName: "HYPOTEQ AG - günstige Hypothek mit Profi-Beratung",
     title: "Home - HYPOTEQ AG - günstige Hypothek mit Profi-Beratung",
     description: "HYPOTEQ AG - günstige Hypothek mit Profi-Beratung. Ihr vertrauenswürdiger Partner für Hypotheken in der Schweiz.",
@@ -122,8 +123,7 @@ export default function LegacyRoot({
         {/* DNS prefetch for faster lookups */}
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
 
-        {/* Canonical */}
-        <link rel="canonical" href="https://www.hypoteq.ch" />
+        {/* Canonical: from each page's metadata (a fixed tag here sent every page to the home page) */}
 
         {/* Favicon */}
         <link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48" href="/favicon.ico" />

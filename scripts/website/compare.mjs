@@ -3,9 +3,14 @@
 import { readFileSync, readdirSync, writeFileSync } from "node:fs";
 const [, , base, siteDir, outFile, onlyLang] = process.argv;
 const LANGS = (onlyLang ? [onlyLang] : ["de", "fr", "it", "en"]);
-const DESIGN_BASE = "https://hypoteq.com", OUR_BASE = "https://www.hypoteq.ch";
+const DESIGN_BASE = "https://hypoteq.com", OUR_BASE = "https://hypoteq.com";
 // The design's home URLs end in a slash (/de/); this site serves /de.
-const ours = (s) => s.replaceAll(DESIGN_BASE, OUR_BASE).replace(/(https:\/\/www\.hypoteq\.ch\/(?:de|fr|it|en))\/(?=["<])/g, "$1");
+const ours = (s) => s.replaceAll(DESIGN_BASE, OUR_BASE).replace(/(https:\/\/hypoteq\.com\/(?:de|fr|it|en))\/(?=["<])/g, "$1");
+// Pages that deviate on purpose (lib/website/overrides.ts): live Impressum and Datenschutz texts,
+// downloadable PDFs on Dokumente. Checked by the audit instead.
+const OVERRIDDEN = new Set(["de/impressum", "fr/mentions-legales", "it/note-legali", "en/legal-notice",
+  "de/datenschutz", "fr/protection-des-donnees", "it/protezione-dei-dati", "en/privacy-policy",
+  "de/dokumente", "fr/documents", "it/documenti", "en/documents"]);
 
 function bodyOf(html) {
   const a = html.indexOf('<a class="skip"');
@@ -46,7 +51,7 @@ function firstDiff(a, b) {
 }
 const results = { ok: 0, failed: [] };
 const jobs = [];
-for (const lang of LANGS) for (const f of readdirSync(`${siteDir}/${lang}`)) jobs.push([lang, f]);
+for (const lang of LANGS) for (const f of readdirSync(`${siteDir}/${lang}`)) if (!OVERRIDDEN.has(`${lang}/${f.replace(/\.html$/, "")}`)) jobs.push([lang, f]);
 async function run([lang, f]) {
   const design = readFileSync(`${siteDir}/${lang}/${f}`, "utf8");
   const path = f === "index.html" ? `/${lang}` : `/${lang}/${f.replace(/\.html$/, "")}`;

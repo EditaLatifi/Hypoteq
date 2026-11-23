@@ -12,6 +12,7 @@ import LEADS_FILE from "@/content/website/keywords-leads.json";
 import CANTONS_FILE from "@/content/website/cantons.json";
 import { PAGE_FILES } from "@/content/website/pages";
 import { SITE_CONFIG } from "@/lib/seo";
+import { applyOverrides } from "./overrides";
 import { get, or, truthy } from "./py";
 
 export const LANGS = ["de", "fr", "it", "en"] as const;
@@ -202,6 +203,8 @@ if (truthy(KW_LEADS)) {
   }
   CONTENT_PAGES.themen = CP;
 }
+// Live Impressum and Datenschutz, downloadable PDFs (lib/website/overrides.ts).
+applyOverrides(CONTENT_PAGES);
 
 /* ------------------------------------------------------------------ Slugs & URLs */
 const DEFAULT_SLUG: Record<string, string> = Object.fromEntries(PAGES.map(([p, , d]) => [p, d]));
