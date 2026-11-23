@@ -59,7 +59,8 @@ async function run([lang, f]) {
   const html = await r.text();
   const problems = [];
   if (r.status !== 200) problems.push(`status ${r.status}`);
-  const db = bodyOf(design), nb0 = bodyOf(html), nb = nb0 && noForms(nb0);
+  // the footer's AGB link is an addition to the package (lib/website/overrides.ts FOOTER_AGB)
+  const db = bodyOf(design), nb0 = bodyOf(html), nb = nb0 && noForms(nb0).replace(/<a href="\/(de|fr|it|en)\/agb">[^<]*<\/a>(?=<\/div>)/, "");
   const dn = db && normDesign(db, lang);
   if (!nb) problems.push("no body in Next page");
   else if (dn !== nb) problems.push({ body: firstDiff(dn, nb) });

@@ -7,6 +7,7 @@
  * and the preview bar and the footer's preview note are gone.
  */
 import FORMS_FILE from "@/content/website/forms.json";
+import { FOOTER_AGB } from "./overrides";
 import { E, get, or, pyJson, rich, truthy } from "./py";
 import {
   ADV, BASE, BEST, CALC_RATES, CAPITALS, CL, GOOGLE_RATING, HREFLANG, IMAGES, KW, LANGS, LINKS, MENU,
@@ -467,7 +468,8 @@ function navHtml(lang: string, pid: string): string {
 function footerHtml(lang: string): string {
   const L = UI[lang];
   const N = NAV[lang];
-  const col = (title: string, ids: string[]) => `<div><b>${E(title)}</b>` + ids.map((i) => `<a href="${pathOf(i, lang)}">${E(N[i][0])}</a>`).join("") + "</div>";
+  const col = (title: string, ids: string[], extra = "") => `<div><b>${E(title)}</b>` + ids.map((i) => `<a href="${pathOf(i, lang)}">${E(N[i][0])}</a>`).join("") + extra + "</div>";
+  const agb = FOOTER_AGB[lang] ? `<a href="${FOOTER_AGB[lang].href}">${E(FOOTER_AGB[lang].label)}</a>` : "";
   return (
     `<footer class="site-footer"><div class="footer-head"><h2>${L.footer_h}</h2>${btn({ label: L.cta, to: "funnel" }, lang, "lime")}</div>` +
     `<div class="footer-cols"><div><span class="logo light"><img src="/site/img/brand/hypoteq-logo-white.png" alt="HYPOTEQ AG" width="150" height="38"></span><address>HYPOTEQ AG<br>Löwenstrasse 29<br>8001 Zürich<br>` +
@@ -477,7 +479,7 @@ function footerHtml(lang: string): string {
     col(L.g_hyp, ["kauf", "abloesung", "neubau", "saron", "fest", "selbstaendige", "mezzanine", "themen", "kantone"].filter((i) => i in PARENT)) +
     col(L.g_tools, ["zinsen", "rechner", "tragbarkeit", "bewertung", "ratgeber"]) +
     col(L.g_b2b, ["partner", "partner-makler", "partner-treuhand", "partner-versicherung", "academy"]) +
-    col(L.g_company, ["ueber-uns", "faq", "kontakt", "dokumente", "impressum", "datenschutz"]) +
+    col(L.g_company, ["ueber-uns", "faq", "kontakt", "dokumente", "impressum", "datenschutz"], agb) +
     `</div><div class="footer-extra"><form class="nl" data-form="newsletter"><b>${E(L.nl_t)}</b><p>${E(L.nl_x)}</p><div><input type="email" name="email" autocomplete="email" required placeholder="${E(L.nl_ph)}" aria-label="${E(L.nl_ph)}"><button class="btn lime" type="submit">${E(L.nl_b)}<span>↗</span></button></div><p class="form-ok" role="status">${E(FORMS[lang].nl_ok)}</p><p class="form-err" role="alert">${E(FORMS[lang].nl_err)}</p></form>` +
     `<a class="g-card dark" href="${E(LINKS.google)}" target="_blank" rel="noopener">${starsHtml()}<b>${GOOGLE_RATING.toFixed(1)}</b><span>${E(L.g_rev)}</span></a></div>` +
     `<div class="footer-trust"><a class="sms-badge" href="https://www.swissmadesoftware.org" target="_blank" rel="noopener" aria-label="Swiss Made Software"><img src="/site/img/sms/SMS-Logo-1h-300dpi_RGB.png" alt="swiss made software" width="190" height="27" loading="lazy"></a><span>${E(SMS[lang][1])}</span>` +

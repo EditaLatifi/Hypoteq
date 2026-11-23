@@ -36,7 +36,8 @@ render the generator's markup 1:1, so the design's stylesheet and script apply u
 - `lib/website/overrides.ts` changes three pages on top of the package: Impressum and
   Datenschutz carry the live site's texts (messages/{lang}.json «impressum»,
   components/Impressium.tsx) instead of the package's drafts; the Dokumente PDF cards download
-  the PDFs in public/documents. `compare.mjs` skips these pages.
+  the PDFs in public/documents. `compare.mjs` skips these pages. The footer's company column
+  links the AGB (`/{lang}/agb`) as the live site's footer does.
 - The forms send: contact → `/api/contact`, partner → `/api/partner-contact`, footer
   newsletter → `/api/newsletter` (`public/site/forms.js`, texts in `forms.json`, error style in
   `styles/website-extra.css`). The preview bar and the footer's preview note are gone.

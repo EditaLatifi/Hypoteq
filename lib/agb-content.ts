@@ -1,7 +1,3 @@
-"use client";
-
-import { usePathname } from "next/navigation";
-
 /**
  * Allgemeine Geschäftsbedingungen (AGB) / General Terms and Conditions for
  * HYPOTEQ AG. Drafted for a Swiss mortgage advisory / brokerage business and
@@ -9,24 +5,27 @@ import { usePathname } from "next/navigation";
  *
  * The German version is the legally authoritative one; the EN/FR/IT versions
  * are translations for convenience. The content is shown per URL locale.
+ *
+ * Shown by the website's AGB page (lib/website/overrides.ts) at /{lang}/agb; until 23.11.2026
+ * this text lived in components/AGB.tsx.
  */
 
-type Locale = "de" | "en" | "fr" | "it";
+export type Locale = "de" | "en" | "fr" | "it";
 
-type Section = {
+export type Section = {
   title: string;
   /** Each entry is rendered as its own paragraph; "\n" is preserved. */
   paragraphs: string[];
 };
 
-type Content = {
+export type Content = {
   pageTitle: string;
   lead: string;
   stand: string;
   sections: Section[];
 };
 
-const content: Record<Locale, Content> = {
+export const AGB_CONTENT: Record<Locale, Content> = {
   de: {
     pageTitle: "Allgemeine Geschäftsbedingungen",
     lead:
@@ -439,63 +438,3 @@ const content: Record<Locale, Content> = {
     ],
   },
 };
-
-export default function AGB() {
-  const pathname = usePathname() || "/de";
-  const pathLocale = (pathname.split("/")[1] || "de") as Locale;
-  const c = content[pathLocale] ?? content.de;
-
-  return (
-    <div className="w-full flex justify-center bg-[#F4F4F4] px-[20px] md:px-[40px] lg:px-6 py-[60px] md:py-[80px] lg:py-20">
-      <div className="max-w-[1272px] w-full flex flex-col gap-[50px] md:gap-[70px] lg:gap-[90px]">
-
-        {/* Main Title */}
-        <div className="flex flex-col gap-[16px] md:gap-[20px]">
-          <h1
-            className="text-[#132219] font-[600] mt-[20px] md:mt-[20px] font-sfpro
-            text-[32px] md:text-[48px] lg:text-[62px]
-            leading-[40px] md:leading-[58px] lg:leading-[75px]"
-          >
-            {c.pageTitle}
-          </h1>
-
-          <p className="text-[#132219] font-sfpro
-          text-[16px] md:text-[18px] lg:text-[20px]
-          leading-[26px] md:leading-[30px] lg:leading-[32px]">
-            {c.lead}
-          </p>
-
-          <p className="text-[#132219] font-sfpro opacity-70
-          text-[14px] md:text-[15px] lg:text-[16px]
-          leading-[22px] md:leading-[24px] lg:leading-[26px]">
-            {c.stand}
-          </p>
-        </div>
-
-        {c.sections.map((section) => (
-          <div key={section.title} className="flex flex-col gap-[20px] md:gap-[24px]">
-            <h2
-              className="text-[#132219] font-[600] font-sfpro
-              text-[24px] md:text-[32px] lg:text-[40px]
-              leading-[32px] md:leading-[40px] lg:leading-[50px]"
-            >
-              {section.title}
-            </h2>
-
-            {section.paragraphs.map((paragraph, i) => (
-              <p
-                key={i}
-                className="text-[#132219] whitespace-pre-line font-sfpro
-                text-[16px] md:text-[18px] lg:text-[20px]
-                leading-[26px] md:leading-[30px] lg:leading-[32px]"
-              >
-                {paragraph}
-              </p>
-            ))}
-          </div>
-        ))}
-
-      </div>
-    </div>
-  );
-}

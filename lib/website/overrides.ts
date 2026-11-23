@@ -8,18 +8,24 @@
  *   site, the three Impressum paragraphs are German in every language.
  * - Dokumente: the three PDF cards download the PDFs in public/documents (as the live site's
  *   documents page) instead of asking for them by e-mail.
+ * - Footer: a link to the AGB (/{lang}/agb), as in the live site's footer (FOOTER_AGB).
+ * - AGB: a page the package does not have, in the design's layout with the live AGB text
+ *   (lib/agb-content.ts), at /{lang}/agb where the funnel, HYPO and the portal link to it
+ *   (ADDED_PAGES; site.ts adds it to the structure, sitemap and navigation labels).
  */
+import { AGB_CONTENT, type Locale as AgbLocale } from "@/lib/agb-content";
 import de from "@/messages/de.json";
 import fr from "@/messages/fr.json";
 import it from "@/messages/it.json";
 import en from "@/messages/en.json";
 
-const LIVE: Record<string, Record<string, string>> = {
-  de: (de as any).impressum,
-  fr: (fr as any).impressum,
-  it: (it as any).impressum,
-  en: (en as any).impressum,
-};
+const MESSAGES: Record<string, any> = { de, fr, it, en };
+const LIVE: Record<string, Record<string, string>> = Object.fromEntries(Object.entries(MESSAGES).map(([l, m]) => [l, m.impressum]));
+
+/** The AGB link of the footer, labelled as in the live site's footer (messages «footer.agb»). */
+export const FOOTER_AGB: Record<string, { href: string; label: string }> = Object.fromEntries(
+  Object.entries(MESSAGES).map(([l, m]) => [l, { href: `/${l}/agb`, label: m.footer.agb }]),
+);
 
 /* components/Impressium.tsx, German on the live site in every language */
 const DISCLAIMER =
@@ -120,6 +126,49 @@ function dokumente(d: any, lang: string) {
 }
 
 const OVERRIDES: Record<string, (d: any, lang: string) => any> = { impressum, datenschutz, dokumente };
+
+/** Pages the package does not have; their content is built after the package's pages. */
+export type AddedPage = {
+  id: string;
+  parent: string;
+  slug: Record<string, string>;
+  /** [label, short description] per language, as NAV in site.ts */
+  nav: Record<string, [string, string]>;
+  content: (lang: string, pages: Record<string, any>, nav: Record<string, Record<string, [string, string]>>) => any;
+};
+
+const AGB_META: Record<string, { title: string; description: string }> = {
+  de: { title: "Allgemeine Geschäftsbedingungen (AGB) | HYPOTEQ", description: "Allgemeine Geschäftsbedingungen der HYPOTEQ AG für die Nutzung der Website sowie die Hypothekarberatung und -vermittlung. Es gilt schweizerisches Recht." },
+  en: { title: "General Terms and Conditions | HYPOTEQ", description: "General terms and conditions of HYPOTEQ AG for the use of the website and for mortgage advice and brokerage. Swiss law applies." },
+  fr: { title: "Conditions générales | HYPOTEQ", description: "Conditions générales de HYPOTEQ AG pour l'utilisation du site web ainsi que le conseil et le courtage hypothécaires. Le droit suisse s'applique." },
+  it: { title: "Condizioni generali | HYPOTEQ", description: "Condizioni generali di HYPOTEQ AG per l'uso del sito web e per la consulenza e l'intermediazione ipotecaria. Si applica il diritto svizzero." },
+};
+
+export const ADDED_PAGES: AddedPage[] = [
+  {
+    id: "agb",
+    parent: "home",
+    slug: { de: "agb", fr: "agb", it: "agb", en: "agb" },
+    nav: Object.fromEntries(Object.keys(MESSAGES).map((l) => [l, [FOOTER_AGB[l].label, ""]])),
+    content: (lang, pages, nav) => {
+      const c = AGB_CONTENT[lang as AgbLocale] ?? AGB_CONTENT.de;
+      const legal = (pages.impressum || {})[lang] || {};
+      const cta = (legal.sections || [])[(legal.sections || []).length - 1];
+      return {
+        ...AGB_META[lang],
+        h1: c.pageTitle,
+        sections: [
+          {
+            type: "hero", eyebrow: "HYPOTEQ AG", h1: c.pageTitle, lead: c.lead, badges: [c.stand], image: "keys", alt: "",
+            ctas: [{ label: nav[lang].kontakt[0], to: "page:kontakt" }, { label: nav[lang].datenschutz[0], to: "page:datenschutz" }],
+          },
+          { type: "article", meta: false, blocks: c.sections.flatMap((s) => [{ h2: s.title }, ...s.paragraphs.map((p) => ({ p }))]) },
+          ...(cta ? [cta] : []),
+        ],
+      };
+    },
+  },
+];
 
 /** Applies the deviations to the page contents (pid → lang → page). */
 export function applyOverrides(pages: Record<string, any>) {

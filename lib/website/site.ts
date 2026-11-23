@@ -12,7 +12,7 @@ import LEADS_FILE from "@/content/website/keywords-leads.json";
 import CANTONS_FILE from "@/content/website/cantons.json";
 import { PAGE_FILES } from "@/content/website/pages";
 import { SITE_CONFIG } from "@/lib/seo";
-import { applyOverrides } from "./overrides";
+import { ADDED_PAGES, applyOverrides } from "./overrides";
 import { get, or, truthy } from "./py";
 
 export const LANGS = ["de", "fr", "it", "en"] as const;
@@ -159,6 +159,8 @@ for (const hub of ["themen", "kantone"]) {
   if (!(hub in KW)) KW[hub] = Object.fromEntries(LANGS.map((l) => [l, { slug: HUB_SLUGS[hub][l] }]));
 }
 PAGES.push(...EXTRA);
+// pages the package does not have (AGB), lib/website/overrides.ts
+for (const a of ADDED_PAGES) PAGES.push([a.id, a.parent, a.slug.de]);
 export const PARENT: Record<string, string | null> = Object.fromEntries(PAGES.map(([p, par]) => [p, par]));
 export const IDS: string[] = PAGES.map(([p]) => p);
 for (const [pid] of EXTRA) CONTENT_PAGES[pid] = PAGE_FILES[pid] ?? null;
@@ -203,8 +205,13 @@ if (truthy(KW_LEADS)) {
   }
   CONTENT_PAGES.themen = CP;
 }
-// Live Impressum and Datenschutz, downloadable PDFs (lib/website/overrides.ts).
+// Live Impressum and Datenschutz, downloadable PDFs, the AGB page (lib/website/overrides.ts).
 applyOverrides(CONTENT_PAGES);
+for (const a of ADDED_PAGES) {
+  KW[a.id] = Object.fromEntries(LANGS.map((l) => [l, { slug: a.slug[l] }]));
+  for (const l of LANGS) NAV[l][a.id] = a.nav[l];
+  CONTENT_PAGES[a.id] = Object.fromEntries(LANGS.map((l) => [l, a.content(l, CONTENT_PAGES, NAV)]));
+}
 
 /* ------------------------------------------------------------------ Slugs & URLs */
 const DEFAULT_SLUG: Record<string, string> = Object.fromEntries(PAGES.map(([p, , d]) => [p, d]));
