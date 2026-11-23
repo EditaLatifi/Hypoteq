@@ -65,8 +65,15 @@ export const esc = (s: string) => String(s ?? "").replace(/&/g, "&amp;").replace
 
 const FONT = "'SF Pro Display',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif";
 
+/*
+ * Outlook-safe markup (the portal mails showed blank in the new Outlook with a div layout,
+ * 23.11.2026; lib/portal/mail.ts): the page, the buttons and the callouts are tables with
+ * bgcolor and hex colours — no max-width-only div, no opacity, no rgba.
+ */
+
+/** A button as a table cell, so the colour holds where a styled <a> alone does not. */
 function button(href: string, label: string): string {
-  return `<p style="margin:16px 0 4px 0;"><a href="${esc(href)}" style="background:${C.forest};color:#ffffff;text-decoration:none;padding:12px 24px;border-radius:999px;font-size:14px;font-weight:600;display:inline-block;">${esc(label)}</a></p>`;
+  return `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:16px 0 4px 0;"><tr><td bgcolor="${C.forest}" style="background-color:${C.forest};border-radius:999px;"><a href="${esc(href)}" style="display:inline-block;padding:12px 24px;font-family:${FONT};font-size:14px;line-height:18px;font-weight:600;color:#ffffff;text-decoration:none;">${esc(label)}</a></td></tr></table>`;
 }
 
 function mark(row: SummaryRow, lang: CaseSummary["lang"]): string {
@@ -94,13 +101,13 @@ function blockHtml(block: SummaryBlock, lang: CaseSummary["lang"]): string {
     const cells = block.groups[0].rows
       .map(
         (r) => `<td style="padding:14px 16px;vertical-align:top;">
-          <div style="font-size:11px;letter-spacing:0.04em;text-transform:uppercase;color:#ffffff;opacity:0.65;">${esc(r.label)}</div>
+          <div style="font-size:11px;letter-spacing:0.04em;text-transform:uppercase;color:#acb2af;">${esc(r.label)}</div>
           <div style="font-size:17px;font-weight:700;color:${C.lime};margin-top:4px;">${esc(r.value)}</div>
         </td>`
       )
       .join("");
     return `${sectionTitle(block.title)}
-    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${C.forest};border-radius:10px;border-collapse:separate;"><tr>${cells}</tr></table>`;
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="${C.forest}" style="background-color:${C.forest};border-radius:10px;border-collapse:separate;"><tr>${cells}</tr></table>`;
   }
   const body = block.groups
     .map(
@@ -141,7 +148,7 @@ function docsHtml(s: CaseSummary): string {
 }
 
 function callout(inner: string, color = C.lime): string {
-  return `<div style="margin:18px 0;padding:14px 16px;border-left:4px solid ${color};background:#f7faf2;border-radius:6px;">${inner}</div>`;
+  return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:18px 0;"><tr><td bgcolor="#f7faf2" style="padding:14px 16px;border-left:4px solid ${color};background-color:#f7faf2;border-radius:6px;font-family:${FONT};color:${C.forest};">${inner}</td></tr></table>`;
 }
 
 /** Block 2: the Auskunftsermächtigung and the missing documents, worded per recipient. */
@@ -278,8 +285,11 @@ export function renderClosingMail(s: CaseSummary, ctx: RenderContext): RenderedM
   const html = `<!DOCTYPE html>
 <html lang="${s.lang}">
 <head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>${esc(subject)}</title></head>
-<body style="margin:0;padding:20px 12px;background:${C.page};font-family:${FONT};color:${C.forest};">
-  <div style="max-width:640px;margin:0 auto;background:#ffffff;border-radius:10px;padding:32px 28px;box-shadow:0 2px 10px rgba(0,0,0,0.08);">
+<body style="margin:0;padding:0;background-color:${C.page};">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="${C.page}" style="background-color:${C.page};">
+<tr><td align="center" style="padding:20px 12px;">
+  <table role="presentation" width="640" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="width:100%;max-width:640px;background-color:#ffffff;border-radius:10px;">
+  <tr><td style="padding:32px 28px;font-family:${FONT};color:${C.forest};">
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-bottom:2px solid ${C.lime};">
       <tr>
         <td style="padding-bottom:14px;vertical-align:bottom;">
@@ -295,8 +305,11 @@ export function renderClosingMail(s: CaseSummary, ctx: RenderContext): RenderedM
     ${s.blocks.map((b) => blockHtml(b, s.lang)).join("")}
     ${docsHtml(s)}
     ${footerHtml(s, ctx, T)}
-  </div>
-  <div style="max-width:640px;margin:14px auto 0 auto;text-align:center;font-size:11px;color:#888888;">© ${new Date().getFullYear()} HYPOTEQ AG – ${esc(T.rights)}</div>
+  </td></tr>
+  </table>
+  <table role="presentation" width="640" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:640px;"><tr><td align="center" style="padding-top:14px;font-family:${FONT};font-size:11px;color:#888888;">© ${new Date().getFullYear()} HYPOTEQ AG – ${esc(T.rights)}</td></tr></table>
+</td></tr>
+</table>
 </body>
 </html>`;
   return { subject, html };
