@@ -3,13 +3,18 @@
  * «Rahmen»): the same markup and classes, so styles/website.css and public/site/app.js apply
  * unchanged. Differences to the design's static files: links are paths on this site
  * (/de/hypotheken instead of hypotheken.html), assets come from /site, the funnel and the portal
- * are this site's own (/de/funnel, /portal/login).
+ * are this site's own (/de/funnel, /portal/login), the forms send (s_form, footer newsletter)
+ * and the preview bar and the footer's preview note are gone.
  */
+import FORMS_FILE from "@/content/website/forms.json";
 import { E, get, or, pyJson, rich, truthy } from "./py";
 import {
   ADV, BASE, BEST, CALC_RATES, CAPITALS, CL, GOOGLE_RATING, HREFLANG, IMAGES, KW, LANGS, LINKS, MENU,
   NAV, PARENT, PHONE_INTL, RATES, SCR, SMS, SMS_TXT, UI, pageData, pathOf, urlOf,
 } from "./site";
+
+/** Confirmation and error texts of the live forms, per language. */
+const FORMS = FORMS_FILE as unknown as Record<string, { form_ok: string; form_err: string; nl_ok: string; nl_err: string }>;
 
 type Ctx = { lang: string; pid: string; meta: { title: string; description: string; h1: string }; _calc?: number; meta_line?: string };
 type Section = Record<string, any>;
@@ -340,15 +345,31 @@ function s_cta(s: Section, ctx: Ctx): string {
   );
 }
 
+/**
+ * The contact and partner forms send for real (public/site/forms.js → /api/contact,
+ * /api/partner-contact); the design's were demos. Same markup plus field names, the fields the
+ * APIs require marked required (contact: phone and message, partner: message), and an error line.
+ */
 function s_form(s: Section, ctx: Ctx): string {
   const L = UI[ctx.lang];
-  const kind = get(s, "kind", "contact");
+  const F = FORMS[ctx.lang];
+  const kind = get(s, "kind", "contact") === "partner" ? "partner" : "contact";
+  const id = (n: string) => `f-${kind}-${n}`;
+  const field = (n: string, label: string, input: string) => `<div><label for="${id(n)}">${E(label)}</label>${input}</div>`;
   const opts = L.form_types.map((o: string) => `<option>${E(o)}</option>`).join("");
-  const extra = kind === "partner" ? `<div><label>${E(L.form_company)}</label><input></div><div><label>${E(L.form_type)}</label><select>${opts}</select></div>` : "";
+  const extra =
+    kind === "partner"
+      ? field("company", L.form_company, `<input id="${id("company")}" name="company" autocomplete="organization">`) +
+        field("type", L.form_type, `<select id="${id("type")}" name="type">${opts}</select>`)
+      : "";
   const form =
-    `<form class="form-grid" data-demo><div><label>${E(L.form_name)}</label><input required></div><div><label>${E(L.form_mail)}</label><input type="email" required></div>` +
-    `<div><label>${E(L.form_phone)}</label><input type="tel"></div>${extra}<div class="full"><label>${E(L.form_msg)}</label><textarea></textarea></div>` +
-    `<div class="full"><button class="btn" type="submit">${E(L.form_send)}<span>↗</span></button><p class="form-ok">${E(L.form_ok)}</p></div></form>`;
+    `<form class="form-grid" data-form="${kind}">` +
+    field("name", L.form_name, `<input id="${id("name")}" name="name" autocomplete="name" required>`) +
+    field("email", L.form_mail, `<input id="${id("email")}" name="email" type="email" autocomplete="email" required>`) +
+    field("phone", L.form_phone, `<input id="${id("phone")}" name="phone" type="tel" autocomplete="tel"${kind === "contact" ? " required" : ""}>`) +
+    extra +
+    `<div class="full"><label for="${id("message")}">${E(L.form_msg)}</label><textarea id="${id("message")}" name="message" required></textarea></div>` +
+    `<div class="full"><button class="btn" type="submit">${E(L.form_send)}<span>↗</span></button><p class="form-ok" role="status">${E(F.form_ok)}</p><p class="form-err" role="alert">${E(F.form_err)}</p></div></form>`;
   const paras = (get(s, "paragraphs", []) || []).map((p: unknown) => `<p>${rich(p)}</p>`).join("");
   return `<section class="block soft pad" id="formular"><div class="split"><div class="rv">${head(s)}${paras}${btns(get(s, "ctas"), ctx.lang)}</div><div class="rv rv-d2">${form}</div></div></section>`;
 }
@@ -456,17 +477,17 @@ function footerHtml(lang: string): string {
     col(L.g_tools, ["zinsen", "rechner", "tragbarkeit", "bewertung", "ratgeber"]) +
     col(L.g_b2b, ["partner", "partner-makler", "partner-treuhand", "partner-versicherung", "academy"]) +
     col(L.g_company, ["ueber-uns", "faq", "kontakt", "dokumente", "impressum", "datenschutz"]) +
-    `</div><div class="footer-extra"><form class="nl" data-demo><b>${E(L.nl_t)}</b><p>${E(L.nl_x)}</p><div><input type="email" required placeholder="${E(L.nl_ph)}" aria-label="${E(L.nl_ph)}"><button class="btn lime" type="submit">${E(L.nl_b)}<span>↗</span></button></div><p class="form-ok">${E(L.nl_ok)}</p></form>` +
+    `</div><div class="footer-extra"><form class="nl" data-form="newsletter"><b>${E(L.nl_t)}</b><p>${E(L.nl_x)}</p><div><input type="email" name="email" autocomplete="email" required placeholder="${E(L.nl_ph)}" aria-label="${E(L.nl_ph)}"><button class="btn lime" type="submit">${E(L.nl_b)}<span>↗</span></button></div><p class="form-ok" role="status">${E(FORMS[lang].nl_ok)}</p><p class="form-err" role="alert">${E(FORMS[lang].nl_err)}</p></form>` +
     `<a class="g-card dark" href="${E(LINKS.google)}" target="_blank" rel="noopener">${starsHtml()}<b>${GOOGLE_RATING.toFixed(1)}</b><span>${E(L.g_rev)}</span></a></div>` +
     `<div class="footer-trust"><a class="sms-badge" href="https://www.swissmadesoftware.org" target="_blank" rel="noopener" aria-label="Swiss Made Software"><img src="/site/img/sms/SMS-Logo-1h-300dpi_RGB.png" alt="swiss made software" width="190" height="27" loading="lazy"></a><span>${E(SMS[lang][1])}</span>` +
     `<button class="to-top" type="button" onclick="window.scrollTo({top:0,behavior:'smooth'})">${E(SMS[lang][2])} <span aria-hidden="true">↑</span></button></div>` +
-    `<div class="footer-note"><span>${E(L.rights)}</span><span>${E(L.preview)}</span></div></footer>`
+    `<div class="footer-note"><span>${E(L.rights)}</span></div></footer>`
   );
 }
 
 function jsonld(pid: string, lang: string, meta: Ctx["meta"], sections: Section[]): string {
   const org = {
-    "@context": "https://schema.org", "@type": "FinancialService", name: "HYPOTEQ AG", url: BASE + "/" + lang + "/",
+    "@context": "https://schema.org", "@type": "FinancialService", name: "HYPOTEQ AG", url: urlOf("home", lang),
     logo: BASE + "/images/HYPOTEQ_layout_logo.png", telephone: "+41 44 502 92 52", email: "info@hypoteq.ch",
     address: { "@type": "PostalAddress", streetAddress: "Löwenstrasse 29", postalCode: "8001", addressLocality: "Zürich", addressCountry: "CH" },
     areaServed: "CH", priceRange: "CHF 0", slogan: "Hypotheken sind dank HYPOTEQ vergleichbar geworden. Ihr Berater ist hingegen einzigartig.", sameAs: ["https://www.linkedin.com/company/hypoteq-ag"],
@@ -566,7 +587,7 @@ export function renderPage(pid: string, lang: string): RenderedPage {
     noindex: pid === "impressum" || pid === "datenschutz",
     jsonld: jsonld(pid, lang, meta, sections),
     body:
-      `<a class="skip" href="#main">${E(L.skip)}</a><div class="progress"></div><div class="preview-bar">${E(L.preview)}</div>\n` +
+      `<a class="skip" href="#main">${E(L.skip)}</a><div class="progress"></div>\n` +
       `${navHtml(lang, pid)}<main id="main">${body.join("")}</main>${footerHtml(lang)}${sticky}`,
   };
   cache.set(key, page);

@@ -219,9 +219,12 @@ export function pathOf(pid: string, lang: string): string {
   return pid === "home" ? `/${lang}` : `/${lang}/${slug(pid, lang)}`;
 }
 
-/** Absolute URL for canonical, hreflang and JSON-LD (the design writes /de/ for the home page). */
+/**
+ * Absolute URL for canonical, hreflang, sitemap and JSON-LD. The home page is /de, not the
+ * design's /de/: Next.js serves /de and redirects /de/ to it.
+ */
 export function urlOf(pid: string, lang: string): string {
-  return `${BASE}/${lang}/` + (pid === "home" ? "" : slug(pid, lang));
+  return BASE + pathOf(pid, lang);
 }
 
 const BY_SLUG: Record<string, Record<string, string>> = Object.fromEntries(

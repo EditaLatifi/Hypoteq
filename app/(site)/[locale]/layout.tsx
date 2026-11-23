@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "@/styles/website.css";
+import "@/styles/website-extra.css";
 import { HREFLANG, LANGS, isLang } from "@/lib/website/site";
 
 /**
@@ -39,6 +40,7 @@ export default function WebsiteRootLayout({ children, params }: { children: Reac
       <body>
         {children}
         <script src="/site/app.js" defer />
+        <script src="/site/forms.js" defer />
       </body>
     </html>
   );

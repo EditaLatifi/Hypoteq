@@ -1,0 +1,6 @@
+/* Additions to the design's stylesheet (styles/website.css stays as delivered): the error line
+   and the busy state of the live forms. */
+.form-err{display:none;background:#FBE4DE;color:#7A2414;padding:18px 20px;border-radius:14px;margin-top:16px;font-weight:600}
+.form-err.show{display:block;animation:fade .4s}
+.nl .form-err{background:none;color:#FFB9A8;padding:0;margin-top:10px;font-size:14px}
+form[aria-busy="true"] [type="submit"]{opacity:.6;cursor:progress}

@@ -1,0 +1,27 @@
+{
+ "_note": "Texts of the website's live forms (the design package's forms were demos that sent nothing). Address as in the design: DE du, FR vous, IT tu, EN you.",
+ "de": {
+  "form_ok": "Danke! Deine Nachricht ist bei uns angekommen. Wir melden uns zeitnah.",
+  "form_err": "Das hat leider nicht geklappt. Bitte versuche es nochmals oder ruf uns an: 044 502 92 52.",
+  "nl_ok": "Danke! Du bist für den Newsletter angemeldet.",
+  "nl_err": "Die Anmeldung hat leider nicht geklappt. Bitte prüfe deine E-Mail-Adresse und versuche es nochmals."
+ },
+ "fr": {
+  "form_ok": "Merci! Votre message nous est bien parvenu. Nous vous recontactons rapidement.",
+  "form_err": "L'envoi n'a malheureusement pas abouti. Veuillez réessayer ou nous appeler au 044 502 92 52.",
+  "nl_ok": "Merci! Votre inscription à la newsletter est enregistrée.",
+  "nl_err": "L'inscription n'a malheureusement pas abouti. Veuillez vérifier votre adresse e-mail et réessayer."
+ },
+ "it": {
+  "form_ok": "Grazie! Il tuo messaggio è arrivato. Ti ricontattiamo a breve.",
+  "form_err": "Purtroppo l'invio non è riuscito. Riprova o chiamaci: 044 502 92 52.",
+  "nl_ok": "Grazie! La tua iscrizione alla newsletter è registrata.",
+  "nl_err": "Purtroppo l'iscrizione non è riuscita. Controlla il tuo indirizzo e-mail e riprova."
+ },
+ "en": {
+  "form_ok": "Thank you! Your message has reached us. We'll get back to you shortly.",
+  "form_err": "Sorry, that didn't work. Please try again or call us on 044 502 92 52.",
+  "nl_ok": "Thank you! You're now subscribed to the newsletter.",
+  "nl_err": "Sorry, the sign-up didn't work. Please check your email address and try again."
+ }
+}

@@ -31,6 +31,11 @@ render the generator's markup 1:1, so the design's stylesheet and script apply u
 - Links are paths on this site (`/de/hypotheken`), assets come from `/site/`.
 - Funnel and portal are this site's own: `/{lang}/funnel`, `/portal/login`.
 - Canonical, hreflang, sitemap and JSON-LD use `SITE_CONFIG.url` (`lib/seo.ts`); the package
-  uses `https://hypoteq.com` (domain decision still open).
-- The forms (contact, partner, newsletter) are still the package's demo forms and send nothing;
-  the preview bar and the footer note say so.
+  uses `https://hypoteq.com` (domain decision still open). Home URLs are `/de`, not `/de/`
+  (Next.js redirects `/de/` to `/de`).
+- The forms send: contact → `/api/contact`, partner → `/api/partner-contact`, footer
+  newsletter → `/api/newsletter` (`public/site/forms.js`, texts in `forms.json`, error style in
+  `styles/website-extra.css`). The preview bar and the footer's preview note are gone.
+- Share images per language in `public/site/og` (the package has none), in the look of its
+  LinkedIn banner.
+- `scripts/website/audit.mjs <server> out.json` checks SEO and content on every page.

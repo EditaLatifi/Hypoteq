@@ -4,6 +4,8 @@ import { readFileSync, readdirSync, writeFileSync } from "node:fs";
 const [, , base, siteDir, outFile, onlyLang] = process.argv;
 const LANGS = (onlyLang ? [onlyLang] : ["de", "fr", "it", "en"]);
 const DESIGN_BASE = "https://hypoteq.com", OUR_BASE = "https://www.hypoteq.ch";
+// The design's home URLs end in a slash (/de/); this site serves /de.
+const ours = (s) => s.replaceAll(DESIGN_BASE, OUR_BASE).replace(/(https:\/\/www\.hypoteq\.ch\/(?:de|fr|it|en))\/(?=["<])/g, "$1");
 
 function bodyOf(html) {
   const a = html.indexOf('<a class="skip"');
@@ -11,8 +13,13 @@ function bodyOf(html) {
   const e = html.indexOf("</div>", s) + 6;
   return a < 0 || s < 0 ? null : html.slice(a, e);
 }
+// Intended differences to the package: no preview bar and preview note, forms that send
+// (their markup is checked by the form tests, so both sides compare without forms).
+const noForms = (s) => s.replace(/<form[\s\S]*?<\/form>/g, "<form/>");
 function normDesign(body, lang) {
-  return body
+  return noForms(body)
+    .replace(/<div class="preview-bar">[^<]*<\/div>/, "")
+    .replace(/(<div class="footer-note"><span>[^<]*<\/span>)<span>[^<]*<\/span>/, "$1")
     .replaceAll("../assets/img/", "/site/img/")
     .replaceAll(`${DESIGN_BASE}/portal/login`, "/portal/login")
     .replace(new RegExp(`${DESIGN_BASE}/(de|fr|it|en)/funnel`, "g"), "/$1/funnel")
@@ -47,14 +54,14 @@ async function run([lang, f]) {
   const html = await r.text();
   const problems = [];
   if (r.status !== 200) problems.push(`status ${r.status}`);
-  const db = bodyOf(design), nb = bodyOf(html);
+  const db = bodyOf(design), nb0 = bodyOf(html), nb = nb0 && noForms(nb0);
   const dn = db && normDesign(db, lang);
   if (!nb) problems.push("no body in Next page");
   else if (dn !== nb) problems.push({ body: firstDiff(dn, nb) });
-  const dl = ld(design, design.indexOf("</head>")).map((x) => x.replaceAll(DESIGN_BASE, OUR_BASE).replace(/<\//g, "<\/"));
+  const dl = ld(design, design.indexOf("</head>")).map((x) => ours(x).replace(/<\//g, "<\\/"));
   const nl = ld(html, html.indexOf('<a class="skip"'));
   if (JSON.stringify(dl) !== JSON.stringify(nl)) problems.push({ jsonld: firstDiff(dl.join("\n"), nl.join("\n")) });
-  const dh = headOf(design.replaceAll(DESIGN_BASE, OUR_BASE).replaceAll("&#x27;", "'")), nh = headOf(html.replaceAll("&#x27;", "'"));
+  const dh = headOf(ours(design).replaceAll("&#x27;", "'")), nh = headOf(html.replaceAll("&#x27;", "'"));
   for (const k of Object.keys(dh)) if (dh[k] !== nh[k]) problems.push({ [k]: { design: dh[k], next: nh[k] } });
   if (problems.length) results.failed.push({ path, problems }); else results.ok++;
 }
