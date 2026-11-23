@@ -3396,6 +3396,70 @@ body:has(.hqv3) {
   }
 }
 
+/* ---------------------------------------------------------------- big screens: > 1440 px
+   HYPOTEQ 23.11.2026: on a big screen the content got lost and «Zurück» / «Weiter» sat far
+   apart. Up to 1440 px nothing changes; above, the start screen keeps its 1440 composition,
+   centred, and the steps keep the content, the top bar and the footer in one centred frame. */
+@media (min-width: 1441px) {
+  /* Start (and the confirmation page, built the same way): the 1440 stage in the middle. The
+     wedge stays where it was relative to the stage (74 % of it), so the HYPO card stays on lime.
+     On a tall screen the stage rises (--lift) instead of leaving an empty top half; the wedge
+     moves left by as much as its slant gains over that height, so nothing shifts against it. */
+  .hqv3 .v3-start {
+    --stage: 1440px;
+    --lift: clamp(0px, calc((100vh - 940px) / 2), 320px);
+  }
+  .hqv3 .v3-start-pad {
+    width: 100%;
+    max-width: var(--stage);
+    margin-inline: auto;
+    padding-bottom: calc(48px + var(--lift));
+  }
+  .hqv3 .v3-start-wedge {
+    /* tan(16°) = 0.2867, the wedge's skew. */
+    left: calc(50% + var(--stage) * 0.24 - var(--lift) * 0.2867);
+  }
+
+  /* Steps: one frame for the content and the rail (840 + 40 + 320), centred in the column. */
+  .hqv3 .v3-col {
+    --frame-pad: max(52px, calc((100% - 1200px) / 2));
+  }
+  .hqv3 .v3-topbar {
+    padding-inline: var(--frame-pad);
+  }
+  .hqv3 .v3-main {
+    padding-inline: var(--frame-pad);
+  }
+  /* «Zurück» under the content's left edge, «Weiter» under its right edge — not out at the
+     screen's edge, and not under the rail. */
+  .hqv3 .v3-footer {
+    padding-left: var(--frame-pad);
+    padding-right: max(var(--frame-pad), calc(100% - var(--frame-pad) - 840px));
+  }
+  .hqv3 .v3-col:has(.v3-rail) .v3-footer {
+    padding-right: calc(var(--frame-pad) + 360px);
+  }
+}
+
+/* Very big screens: the stage a little larger, so it does not shrink to an island. */
+@media (min-width: 1920px) and (min-height: 1000px) {
+  .hqv3 .v3-start {
+    --stage: 1560px;
+  }
+  .hqv3 .v3-start-title {
+    font-size: 64px;
+  }
+  .hqv3 .v3-start-hero {
+    max-width: 720px;
+  }
+  .hqv3 .v3-start-cards {
+    grid-template-columns: repeat(2, minmax(0, 340px));
+  }
+  .hqv3 .v3-start-card {
+    min-height: 200px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hqv3 *,
   .hqv3 *::before,

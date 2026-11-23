@@ -78,6 +78,17 @@
     box-shadow: var(--shadow-lg);
   }
 }
+/* Big screens (funnel-v3.css, > 1440 px): rises with the stage on a tall screen. */
+@media (min-width: 1441px) {
+  .hqv3 .v3-start-hypo {
+    bottom: calc(48px + var(--lift, 0px));
+  }
+}
+@media (min-width: 1920px) and (min-height: 1000px) {
+  .hqv3 .v3-start-hypo {
+    width: 300px;
+  }
+}
 
 /* ---------------------------------------------------------------- wordmark */
 .hqv3 .v3-hypo-word {
