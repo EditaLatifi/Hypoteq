@@ -4,6 +4,7 @@ import { Resend } from "resend";
 import { Client } from "@microsoft/microsoft-graph-client";
 import { ClientSecretCredential } from "@azure/identity";
 import "isomorphic-fetch";
+import { checkFormSpam } from "@/lib/form-spam";
 
 export async function POST(req: Request) {
   try {
@@ -16,6 +17,14 @@ export async function POST(req: Request) {
         { success: false, error: "Alle Pflichtfelder müssen ausgefüllt werden" },
         { status: 400 }
       );
+    }
+
+    // Bots get the usual answer so they don't change tactics, but no mail goes out. The log
+    // line keeps the submission in case a real person was caught.
+    const verdict = checkFormSpam(body, ["firstName", "lastName", "company", "message"]);
+    if (verdict.spam) {
+      console.warn("🚫 Contact form: bot submission dropped:", verdict.reason, JSON.stringify({ firstName, lastName, company, email, phone, inquiryType, message }));
+      return NextResponse.json({ success: true });
     }
 
     // Map inquiry types to German

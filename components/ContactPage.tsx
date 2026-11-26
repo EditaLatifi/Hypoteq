@@ -3,11 +3,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslation } from "@/hooks/useTranslation";
 import { useEffect, useState } from "react";
+import { useFormSpamTrap } from "@/components/FormSpamTrap";
 
 export default function ContactPage() {
   const pathname = usePathname();
   const pathLocale = (pathname.split("/")[1] || "de") as "de" | "en" | "fr" | "it";
   const { t } = useTranslation(pathLocale);
+  const { trapField, trapValues } = useFormSpamTrap();
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -113,7 +115,7 @@ export default function ContactPage() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify({ ...formData, ...trapValues() }),
     })
       .then(res => res.json())
       .then(data => {
@@ -240,6 +242,7 @@ export default function ContactPage() {
           </div>
 
           <form className="flex flex-col gap-[16px]" onSubmit={handleSubmit}>
+            {trapField}
 
             {/* First Name */}
             <div className="flex flex-col gap-1">

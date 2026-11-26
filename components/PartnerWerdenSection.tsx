@@ -2,12 +2,14 @@
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { useTranslation } from "@/hooks/useTranslation";
+import { useFormSpamTrap } from "@/components/FormSpamTrap";
 
 export default function PartnerWerdenSection() {
   const pathname = usePathname();
   const pathLocale = (pathname.split("/")[1] || "de") as "de" | "en" | "fr" | "it";
   const { t } = useTranslation(pathLocale);
-  
+  const { trapField, trapValues } = useFormSpamTrap();
+
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const [formData, setFormData] = useState({
     firstName: "",
@@ -42,7 +44,7 @@ export default function PartnerWerdenSection() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, ...trapValues() }),
       });
 
       const data = await response.json();
@@ -119,6 +121,7 @@ export default function PartnerWerdenSection() {
 
       {/* Form */}
       <form className="w-full flex flex-col gap-[16px] sm:gap-[20px] md:gap-[24px]" onSubmit={handleSubmit}>
+        {trapField}
         {/* Top row */}
         <div className="flex flex-col md:flex-row gap-[12px] sm:gap-[17px] w-full">
           <input
